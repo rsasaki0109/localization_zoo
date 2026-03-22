@@ -20,4 +20,5 @@ target_include_directories(ct_icp PUBLIC
 
 # テスト
 add_executable(test_ct_icp test/test_ct_icp.cpp)
-target_link_libraries(test_ct_icp PRIVATE ct_icp)
+target_link_libraries(test_ct_icp PRIVATE ct_icp GTest::gtest_main)
+add_test(NAME test_ct_icp COMMAND test_ct_icp)

@@ -13,4 +13,5 @@ target_link_libraries(litamin2 PUBLIC
 
 # テスト
 add_executable(test_litamin2 test/test_litamin2.cpp)
-target_link_libraries(test_litamin2 PRIVATE litamin2)
+target_link_libraries(test_litamin2 PRIVATE litamin2 GTest::gtest_main)
+add_test(NAME test_litamin2 COMMAND test_litamin2)

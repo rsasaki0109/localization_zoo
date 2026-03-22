@@ -24,4 +24,5 @@ target_include_directories(aloam PUBLIC
 
 # テスト
 add_executable(test_aloam test/test_aloam.cpp)
-target_link_libraries(test_aloam PRIVATE aloam)
+target_link_libraries(test_aloam PRIVATE aloam GTest::gtest_main)
+add_test(NAME test_aloam COMMAND test_aloam)

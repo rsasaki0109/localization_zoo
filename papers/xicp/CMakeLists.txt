@@ -12,4 +12,5 @@ target_link_libraries(xicp PUBLIC
 )
 
 add_executable(test_xicp test/test_xicp.cpp)
-target_link_libraries(test_xicp PRIVATE xicp)
+target_link_libraries(test_xicp PRIVATE xicp GTest::gtest_main)
+add_test(NAME test_xicp COMMAND test_xicp)

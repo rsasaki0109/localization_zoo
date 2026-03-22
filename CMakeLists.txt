@@ -8,6 +8,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(Eigen3 REQUIRED)
 find_package(PCL REQUIRED COMPONENTS common io filters registration)
 find_package(OpenCV REQUIRED)
+find_package(GTest REQUIRED)
+enable_testing()
 
 add_subdirectory(common)
 add_subdirectory(papers/litamin2)

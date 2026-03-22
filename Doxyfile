@@ -1,0 +1,23 @@
+PROJECT_NAME           = "Localization Zoo"
+PROJECT_BRIEF          = "Unofficial C++ implementations of localization papers"
+PROJECT_NUMBER         = 0.1.0
+
+OUTPUT_DIRECTORY       = docs
+INPUT                  = common/include papers/litamin2/include papers/aloam/include papers/ct_icp/include papers/relead/include papers/xicp/include papers/ct_icp_relead/include
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.hpp
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+
+HAVE_DOT               = NO
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+
+QUIET                  = YES
+WARNINGS               = YES

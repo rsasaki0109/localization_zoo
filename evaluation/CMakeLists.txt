@@ -27,3 +27,9 @@ target_link_libraries(synthetic_benchmark PRIVATE
 target_include_directories(synthetic_benchmark PRIVATE
   ${PCL_INCLUDE_DIRS}
 )
+
+add_executable(pcd_dogfooding src/pcd_dogfooding.cpp)
+target_link_libraries(pcd_dogfooding PRIVATE
+  litamin2 ct_icp xicp ${PCL_LIBRARIES}
+)
+target_include_directories(pcd_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})

@@ -26,7 +26,19 @@
 
 ---
 
-## Benchmark (Synthetic Urban, 30 frames)
+## Benchmark
+
+### Real Data (108 frames, 921m trajectory)
+
+```
+Method         ATE [m]     FPS
+─────────────────────────────────
+LiTAMIN2       0.981       1.3   << 実データで1m精度
+```
+
+> `./pcd_dogfooding <pcd_dir> <gt_csv>` で任意のPCD連番データを評価可能
+
+### Synthetic Urban (30 frames)
 
 ```
 Method         ATE [m]     FPS

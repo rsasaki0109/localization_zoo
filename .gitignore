@@ -13,3 +13,6 @@ compile_commands.json
 /A-LOAM/
 /ct_icp/
 docs/
+ros2/log/
+ros2/build/
+ros2/install/

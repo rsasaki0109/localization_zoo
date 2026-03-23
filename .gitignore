@@ -1,0 +1,14 @@
+build/
+cmake-build-*/
+.cache/
+compile_commands.json
+*.o
+*.a
+*.so
+*.pyc
+.vscode/
+.idea/
+
+# Cloned reference repos (not part of this project)
+/A-LOAM/
+/ct_icp/

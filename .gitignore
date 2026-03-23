@@ -12,7 +12,7 @@ compile_commands.json
 # Cloned reference repos (not part of this project)
 /A-LOAM/
 /ct_icp/
-docs/
+docs/html/
 ros2/log/
 ros2/build/
 ros2/install/

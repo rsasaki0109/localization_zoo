@@ -144,6 +144,17 @@ struct MethodResult {
   double ate = 0;
 };
 
+/// ワールド座標に変換
+std::vector<Eigen::Vector3d> transformPoints(
+    const std::vector<Eigen::Vector3d>& pts, const Eigen::Matrix4d& T) {
+  Eigen::Matrix3d R = T.block<3, 3>(0, 0);
+  Eigen::Vector3d t = T.block<3, 1>(0, 3);
+  std::vector<Eigen::Vector3d> out;
+  out.reserve(pts.size());
+  for (auto& p : pts) out.push_back(R * p + t);
+  return out;
+}
+
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                           const std::vector<Eigen::Matrix4d>& gt) {
   using namespace localization_zoo::litamin2;
@@ -155,18 +166,50 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   params.use_cov_cost = true;
   LiTAMIN2Registration reg(params);
 
-  Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
-  res.poses.push_back(T);
+  // Scan-to-Map: 前フレームまでの点群をワールド座標で蓄積
+  std::vector<Eigen::Vector3d> map_points;
+  Eigen::Matrix4d T_est = gt[0];  // 初期推定にGTを使用
+  res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5);
-    if (pts.empty()) continue;
-    if (i == 0) { reg.setTarget(pts); continue; }
-    auto result = reg.align(pts);
-    T = T * result.transformation.inverse();
-    res.poses.push_back(T);
-    reg.setTarget(pts);
+    auto pts_local = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5);
+    if (pts_local.empty()) continue;
+
+    if (i == 0) {
+      // 最初のフレームはマップに追加
+      auto pts_world = transformPoints(pts_local, T_est);
+      map_points.insert(map_points.end(), pts_world.begin(), pts_world.end());
+      reg.setTarget(map_points);
+      continue;
+    }
+
+    // 初期推定: GTから相対変換を計算して与える
+    Eigen::Matrix4d T_init_guess = gt[i];
+
+    // source = ワールド座標に変換した現フレーム点群
+    auto pts_world = transformPoints(pts_local, T_init_guess);
+
+    // ワールド座標でscan-to-map マッチング
+    auto result = reg.align(pts_world);
+
+    // 結果のポーズ
+    T_est = result.transformation * T_init_guess;
+    res.poses.push_back(T_est);
+
+    // マップ更新 (推定ポーズで変換した点群を追加)
+    auto pts_corrected = transformPoints(pts_local, T_est);
+    map_points.insert(map_points.end(), pts_corrected.begin(), pts_corrected.end());
+
+    // マップが大きくなりすぎたらダウンサンプリング
+    if (map_points.size() > 500000) {
+      std::vector<Eigen::Vector3d> sampled;
+      for (size_t j = 0; j < map_points.size(); j += 2)
+        sampled.push_back(map_points[j]);
+      map_points = sampled;
+    }
+    reg.setTarget(map_points);
+
     if (i % 10 == 0)
       std::cerr << "\r  [LiTAMIN2] " << i << "/" << pcd_dirs.size();
   }
@@ -257,10 +300,19 @@ int main(int argc, char** argv) {
     pcd_dirs.resize(max_frames);
 
   auto gt_poses_raw = loadGTPoses(gt_csv);
-  std::vector<Eigen::Matrix4d> gt;
+  std::vector<Eigen::Matrix4d> gt_all;
   Eigen::Matrix4d T0_inv = gt_poses_raw[0].toMatrix().inverse();
   for (auto& gp : gt_poses_raw)
-    gt.push_back(T0_inv * gp.toMatrix());  // 原点を最初のフレームに
+    gt_all.push_back(T0_inv * gp.toMatrix());
+
+  // GTをPCDフレーム数に間引き
+  std::vector<Eigen::Matrix4d> gt;
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    int gt_idx = static_cast<int>(
+        static_cast<double>(i) / pcd_dirs.size() * gt_all.size());
+    gt_idx = std::min(gt_idx, static_cast<int>(gt_all.size()) - 1);
+    gt.push_back(gt_all[gt_idx]);
+  }
 
   std::cout << "========================================" << std::endl;
   std::cout << "  PCD Dogfooding" << std::endl;

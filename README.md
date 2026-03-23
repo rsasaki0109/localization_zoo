@@ -28,12 +28,16 @@
 
 ## Benchmark
 
-### Real Data (108 frames, 921m trajectory)
+### Real LiDAR Data (108 frames, 915m trajectory)
+
+<p align="center">
+  <img src="docs/images/real_data_benchmark.png" alt="Real Data Benchmark" width="100%">
+</p>
 
 ```
-Method         ATE [m]     FPS
-─────────────────────────────────
-LiTAMIN2       0.981       1.3   << 実データで1m精度
+Method         ATE [m]     Distance    Frames
+──────────────────────────────────────────────
+LiTAMIN2       0.77        915 m       108      Scan-to-Map, Voxel=1.0m
 ```
 
 > `./pcd_dogfooding <pcd_dir> <gt_csv>` で任意のPCD連番データを評価可能

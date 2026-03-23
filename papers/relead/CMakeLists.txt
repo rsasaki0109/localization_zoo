@@ -14,4 +14,5 @@ target_link_libraries(relead PUBLIC
 
 # テスト
 add_executable(test_relead test/test_relead.cpp)
-target_link_libraries(test_relead PRIVATE relead)
+target_link_libraries(test_relead PRIVATE relead GTest::gtest_main)
+add_test(NAME test_relead COMMAND test_relead)

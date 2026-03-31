@@ -20,16 +20,16 @@ Eigen::Matrix3d expSO3(const Eigen::Vector3d& w) {
   double t = w.norm();
   if (t < 1e-10) return Eigen::Matrix3d::Identity() + skew(w);
   Eigen::Matrix3d K = skew(w / t);
-  return Eigen::Matrix3d::Identity() + std::sin(t) * K + (1.0 - std::cos(t)) * K * K;
+  return Eigen::Matrix3d::Identity() + std::sin(t) * K +
+         (1.0 - std::cos(t)) * K * K;
 }
 
 std::vector<Eigen::Vector3d> transformPoints(
     const std::vector<Eigen::Vector3d>& pts, const Eigen::Matrix4d& T) {
   Eigen::Matrix3d R = T.block<3, 3>(0, 0);
   Eigen::Vector3d t = T.block<3, 1>(0, 3);
-  std::vector<Eigen::Vector3d> out;
-  out.reserve(pts.size());
-  for (auto& p : pts) out.push_back(R * p + t);
+  std::vector<Eigen::Vector3d> out(pts.size());
+  for (size_t i = 0; i < pts.size(); i++) out[i] = R * pts[i] + t;
   return out;
 }
 
@@ -51,14 +51,14 @@ void VoxelHashMap::addPoints(const std::vector<Eigen::Vector3d>& points) {
 
 std::vector<Eigen::Vector3d> VoxelHashMap::getCorrespondences(
     const std::vector<Eigen::Vector3d>& points, double max_dist) const {
-  std::vector<Eigen::Vector3d> correspondences(points.size(),
-                                                 Eigen::Vector3d::Zero());
+  std::vector<Eigen::Vector3d> correspondences(points.size());
   double max_dist_sq = max_dist * max_dist;
 
   for (size_t i = 0; i < points.size(); i++) {
-    auto key = toVoxel(points[i]);
+    const auto& query = points[i];
+    auto key = toVoxel(query);
     double best_dist = max_dist_sq;
-    Eigen::Vector3d best_point = Eigen::Vector3d::Zero();
+    Eigen::Vector3d best_point = query;
     bool found = false;
 
     // 27近傍ボクセルを探索
@@ -68,8 +68,11 @@ std::vector<Eigen::Vector3d> VoxelHashMap::getCorrespondences(
           Eigen::Vector3i neighbor = key + Eigen::Vector3i(dx, dy, dz);
           auto it = map_.find(neighbor);
           if (it == map_.end()) continue;
-          for (auto& mp : it->second.points) {
-            double d = (mp - points[i]).squaredNorm();
+          for (const auto& mp : it->second.points) {
+            const double ddx = mp.x() - query.x();
+            const double ddy = mp.y() - query.y();
+            const double ddz = mp.z() - query.z();
+            const double d = ddx * ddx + ddy * ddy + ddz * ddz;
             if (d < best_dist) {
               best_dist = d;
               best_point = mp;
@@ -79,7 +82,7 @@ std::vector<Eigen::Vector3d> VoxelHashMap::getCorrespondences(
         }
       }
     }
-    correspondences[i] = found ? best_point : points[i];
+    correspondences[i] = found ? best_point : query;
   }
   return correspondences;
 }
@@ -97,8 +100,8 @@ std::vector<Eigen::Vector3d> KISSICPPipeline::voxelDownsample(
   std::unordered_map<Eigen::Vector3i, Eigen::Vector3d, VoxelHash> grid;
   for (auto& p : points) {
     Eigen::Vector3i key(static_cast<int>(std::floor(p.x() / voxel_size)),
-                         static_cast<int>(std::floor(p.y() / voxel_size)),
-                         static_cast<int>(std::floor(p.z() / voxel_size)));
+                        static_cast<int>(std::floor(p.y() / voxel_size)),
+                        static_cast<int>(std::floor(p.z() / voxel_size)));
     grid.emplace(key, p);  // 各ボクセルから1点だけ
   }
   std::vector<Eigen::Vector3d> out;
@@ -110,6 +113,7 @@ std::vector<Eigen::Vector3d> KISSICPPipeline::voxelDownsample(
 std::vector<Eigen::Vector3d> KISSICPPipeline::rangeFilter(
     const std::vector<Eigen::Vector3d>& points) const {
   std::vector<Eigen::Vector3d> out;
+  out.reserve(points.size());
   for (auto& p : points) {
     double r = p.norm();
     if (r >= params_.min_range && r <= params_.max_range) out.push_back(p);
@@ -121,6 +125,7 @@ Eigen::Matrix4d KISSICPPipeline::runICP(
     const std::vector<Eigen::Vector3d>& source,
     const std::vector<Eigen::Vector3d>& target,
     const Eigen::Matrix4d& initial_guess, double max_correspondence_dist) {
+  (void)target;
   Eigen::Matrix4d T = initial_guess;
 
   for (int iter = 0; iter < params_.max_icp_iterations; iter++) {
@@ -144,7 +149,7 @@ Eigen::Matrix4d KISSICPPipeline::runICP(
 
       // Welsch kernel weight
       double w = std::exp(-0.5 * (r_norm / kernel_threshold) *
-                           (r_norm / kernel_threshold));
+                          (r_norm / kernel_threshold));
 
       // Jacobian: [skew(p), -I]
       Eigen::Matrix<double, 3, 6> J;
@@ -184,6 +189,8 @@ KISSICPResult KISSICPPipeline::registerFrame(
   // 1. Range filter + Voxel downsample
   auto filtered = rangeFilter(frame);
   auto downsampled = voxelDownsample(filtered, params_.voxel_size * 0.5);
+  auto registration_points = voxelDownsample(downsampled, params_.voxel_size);
+  if (registration_points.empty()) registration_points = downsampled;
 
   if (frame_count_ == 0) {
     // 最初のフレーム
@@ -203,7 +210,7 @@ KISSICPResult KISSICPPipeline::registerFrame(
 
   // 4. ICP
   Eigen::Matrix4d new_pose =
-      runICP(downsampled, {}, prediction, adaptive_threshold);
+      runICP(registration_points, {}, prediction, adaptive_threshold);
 
   // 5. モデルエラーの更新
   last_delta_ = pose_.inverse() * new_pose;

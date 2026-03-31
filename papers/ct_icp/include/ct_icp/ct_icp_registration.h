@@ -2,8 +2,9 @@
 
 #include "ct_icp/types.h"
 
-#include <vector>
+#include <deque>
 #include <memory>
+#include <vector>
 
 namespace localization_zoo {
 namespace ct_icp {
@@ -27,6 +28,9 @@ struct CTICPParams {
 
   // ボクセルサブサンプリング
   double keypoint_voxel_size = 0.5;  // キーポイントのボクセルサイズ [m]
+
+  // スライディングウィンドウ
+  int max_frames_in_map = 30;  // マップに保持する最新フレーム数
 };
 
 struct CTICPResult {
@@ -54,7 +58,7 @@ public:
       const TrajectoryFrame* previous_frame = nullptr);
 
   /// マップをクリア
-  void clearMap() { voxel_map_.clear(); }
+  void clearMap();
 
   const VoxelHashMap& map() const { return voxel_map_; }
   size_t mapSize() const { return voxel_map_.size(); }
@@ -63,6 +67,13 @@ private:
   /// ボクセルキーポイントにダウンサンプリング
   std::vector<TimedPoint> subsampleKeypoints(
       const std::vector<TimedPoint>& points) const;
+
+  /// 1フレーム分の点群をボクセル化
+  VoxelHashMap buildFrameMap(
+      const std::vector<Eigen::Vector3d>& world_points) const;
+
+  /// スライディングウィンドウから集約マップを再構築
+  void rebuildMapFromWindow();
 
   /// 近傍探索して法線を計算
   struct Correspondence {
@@ -78,6 +89,7 @@ private:
 
   CTICPParams params_;
   VoxelHashMap voxel_map_;
+  std::deque<VoxelHashMap> frame_maps_;
 };
 
 }  // namespace ct_icp

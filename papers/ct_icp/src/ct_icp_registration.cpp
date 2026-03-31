@@ -19,14 +19,53 @@ Voxel pointToVoxel(const Eigen::Vector3d& point, double resolution) {
                static_cast<int>(std::floor(point.z() / resolution))};
 }
 
+void mergeFrameMap(const VoxelHashMap& frame_map, VoxelHashMap* voxel_map) {
+  for (const auto& [voxel, block] : frame_map) {
+    auto& dst = (*voxel_map)[voxel];
+    for (int i = 0; i < block.num_points; i++) {
+      dst.addPoint(block.points[i]);
+    }
+  }
+}
+
 }  // namespace
+
+VoxelHashMap CTICPRegistration::buildFrameMap(
+    const std::vector<Eigen::Vector3d>& world_points) const {
+  VoxelHashMap frame_map;
+  for (const auto& p : world_points) {
+    Voxel voxel = pointToVoxel(p, params_.voxel_resolution);
+    frame_map[voxel].addPoint(p);
+  }
+  return frame_map;
+}
+
+void CTICPRegistration::rebuildMapFromWindow() {
+  voxel_map_.clear();
+  for (auto it = frame_maps_.rbegin(); it != frame_maps_.rend(); ++it) {
+    mergeFrameMap(*it, &voxel_map_);
+  }
+}
 
 void CTICPRegistration::addPointsToMap(
     const std::vector<Eigen::Vector3d>& world_points) {
-  for (const auto& p : world_points) {
-    Voxel voxel = pointToVoxel(p, params_.voxel_resolution);
-    voxel_map_[voxel].addPoint(p);
+  if (world_points.empty()) return;
+
+  if (params_.max_frames_in_map <= 0) {
+    mergeFrameMap(buildFrameMap(world_points), &voxel_map_);
+    return;
   }
+
+  frame_maps_.push_back(buildFrameMap(world_points));
+  while (static_cast<int>(frame_maps_.size()) > params_.max_frames_in_map) {
+    frame_maps_.pop_front();
+  }
+  rebuildMapFromWindow();
+}
+
+void CTICPRegistration::clearMap() {
+  voxel_map_.clear();
+  frame_maps_.clear();
 }
 
 std::vector<TimedPoint> CTICPRegistration::subsampleKeypoints(

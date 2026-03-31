@@ -61,6 +61,13 @@ target_include_directories(ct_icp PUBLIC
 )
 target_link_libraries(ct_icp PUBLIC localization_common ${CERES_LIBRARIES})
 
+# GICP
+add_library(gicp STATIC
+  ${ZOO_ROOT}/papers/gicp/src/gicp_registration.cpp
+)
+target_include_directories(gicp PUBLIC ${ZOO_ROOT}/papers/gicp/include)
+target_link_libraries(gicp PUBLIC localization_common)
+
 # IMU Preintegration
 add_library(imu_preintegration STATIC
   ${ZOO_ROOT}/papers/imu_preintegration/src/imu_preintegration.cpp
@@ -81,6 +88,23 @@ target_include_directories(ct_lio PUBLIC
   ${CERES_INCLUDE_DIRS}
 )
 target_link_libraries(ct_lio PUBLIC
+  ct_icp
+  imu_preintegration
+  localization_common
+  ${CERES_LIBRARIES}
+)
+
+# FAST-LIO2
+add_library(fast_lio2 STATIC
+  ${ZOO_ROOT}/papers/fast_lio2/src/fast_lio2.cpp
+)
+target_include_directories(fast_lio2 PUBLIC
+  ${ZOO_ROOT}/papers/fast_lio2/include
+  ${ZOO_ROOT}/papers/ct_icp/include
+  ${ZOO_ROOT}/papers/imu_preintegration/include
+  ${CERES_INCLUDE_DIRS}
+)
+target_link_libraries(fast_lio2 PUBLIC
   ct_icp
   imu_preintegration
   localization_common
@@ -121,10 +145,20 @@ add_executable(ct_icp_node src/ct_icp_node.cpp)
 target_link_libraries(ct_icp_node ct_icp)
 ament_target_dependencies(ct_icp_node ${ROS_DEPS})
 
+# GICP Node
+add_executable(gicp_node src/gicp_node.cpp)
+target_link_libraries(gicp_node gicp)
+ament_target_dependencies(gicp_node ${ROS_DEPS})
+
 # CT-LIO Node
 add_executable(ct_lio_node src/ct_lio_node.cpp)
 target_link_libraries(ct_lio_node ct_lio)
 ament_target_dependencies(ct_lio_node ${ROS_DEPS})
+
+# FAST-LIO2 Node
+add_executable(fast_lio2_node src/fast_lio2_node.cpp)
+target_link_libraries(fast_lio2_node fast_lio2)
+ament_target_dependencies(fast_lio2_node ${ROS_DEPS})
 
 # RELEAD Node
 add_executable(relead_node src/relead_node.cpp)
@@ -137,7 +171,8 @@ target_link_libraries(xicp_node xicp)
 ament_target_dependencies(xicp_node ${ROS_DEPS})
 
 install(TARGETS
-  litamin2_node aloam_node ct_icp_node ct_lio_node relead_node xicp_node
+  litamin2_node aloam_node ct_icp_node gicp_node ct_lio_node fast_lio2_node
+  relead_node xicp_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

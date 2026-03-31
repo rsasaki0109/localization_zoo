@@ -15,6 +15,7 @@ public:
     params.voxel_resolution = declare_parameter("voxel_resolution", 1.0);
     params.max_iterations = declare_parameter("max_iterations", 30);
     params.keypoint_voxel_size = declare_parameter("keypoint_voxel_size", 0.5);
+    params.max_frames_in_map = declare_parameter("max_frames_in_map", 30);
     reg_ = std::make_unique<ct_icp::CTICPRegistration>(params);
 
     sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(

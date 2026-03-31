@@ -76,3 +76,29 @@ TEST(CTICP, VoxelMap) {
   EXPECT_GT(reg.mapSize(), 0u);
   EXPECT_LT(reg.mapSize(), 1000u);
 }
+
+TEST(CTICP, SlidingWindowMap) {
+  CTICPParams params;
+  params.voxel_resolution = 1.0;
+  params.max_frames_in_map = 2;
+  CTICPRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> frame0;
+  std::vector<Eigen::Vector3d> frame1;
+  std::vector<Eigen::Vector3d> frame2;
+  for (int i = 0; i < 10; i++) {
+    frame0.emplace_back(0.01 * i, 0.0, 0.0);
+    frame1.emplace_back(10.0 + 0.01 * i, 0.0, 0.0);
+    frame2.emplace_back(20.0 + 0.01 * i, 0.0, 0.0);
+  }
+
+  reg.addPointsToMap(frame0);
+  reg.addPointsToMap(frame1);
+  EXPECT_EQ(reg.mapSize(), 2u);
+
+  reg.addPointsToMap(frame2);
+  EXPECT_EQ(reg.mapSize(), 2u);
+  EXPECT_EQ(reg.map().find(Voxel{0, 0, 0}), reg.map().end());
+  EXPECT_NE(reg.map().find(Voxel{10, 0, 0}), reg.map().end());
+  EXPECT_NE(reg.map().find(Voxel{20, 0, 0}), reg.map().end());
+}

@@ -34,3 +34,39 @@ jobs:
 
       - name: Test
         run: cd build && ctest --output-on-failure
+
+  ros2-colcon-build:
+    runs-on: ubuntu-22.04
+    container:
+      image: ros:humble
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ROS2 build dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            build-essential \
+            cmake \
+            libeigen3-dev \
+            libpcl-dev \
+            libopencv-dev \
+            libceres-dev \
+            python3-colcon-common-extensions \
+            ros-humble-ament-cmake \
+            ros-humble-rclcpp \
+            ros-humble-sensor-msgs \
+            ros-humble-geometry-msgs \
+            ros-humble-nav-msgs \
+            ros-humble-std-msgs \
+            ros-humble-tf2-ros \
+            ros-humble-tf2-eigen \
+            ros-humble-pcl-conversions \
+            ros-humble-pcl-ros
+
+      - name: Build ROS2 package
+        run: |
+          source /opt/ros/humble/setup.bash
+          cd ros2
+          colcon build --packages-select localization_zoo_ros

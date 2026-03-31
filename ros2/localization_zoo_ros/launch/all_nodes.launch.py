@@ -21,11 +21,25 @@ ALGORITHMS = {
         'params': {'voxel_resolution': 1.0, 'max_iterations': 30},
         'needs_imu': False,
     },
+    'gicp': {
+        'executable': 'gicp_node',
+        'params': {'max_correspondence_distance': 3.0, 'max_iterations': 30},
+        'needs_imu': False,
+    },
     'ct_lio': {
         'executable': 'ct_lio_node',
         'params': {
             'voxel_resolution': 1.0,
             'max_iterations': 20,
+            'scan_period': 0.1,
+        },
+        'needs_imu': True,
+    },
+    'fast_lio2': {
+        'executable': 'fast_lio2_node',
+        'params': {
+            'voxel_resolution': 1.0,
+            'max_iterations': 8,
             'scan_period': 0.1,
         },
         'needs_imu': True,
@@ -83,7 +97,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'algorithm',
             default_value='all',
-            description='Algorithm to use: all, litamin2, aloam, ct_icp, ct_lio, relead, xicp',
+            description='Algorithm to use: all, litamin2, aloam, ct_icp, gicp, ct_lio, fast_lio2, relead, xicp',
         ),
         DeclareLaunchArgument('points_topic', default_value='points_raw'),
         DeclareLaunchArgument('imu_topic', default_value='imu_raw'),

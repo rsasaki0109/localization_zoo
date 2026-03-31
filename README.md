@@ -20,7 +20,7 @@
 このリポジトリは、そうした論文を**統一されたC++ API**で再現実装し、**ROS2ノード付き**で即座に使えるようにする。
 
 - **純粋C++**: ROS非依存のコアライブラリ。組み込み・研究・教育に
-- **ROS2 Humble**: 6つのノードが`ros2 run`で即実行
+- **ROS2 Humble**: 8つのノードが`ros2 run`で即実行
 - **ベンチマーク内蔵**: ビルド後すぐ`./synthetic_benchmark`で全手法を比較
 - **退化対策**: トンネル・地下でもドリフトしないRELEAD/X-ICPを収録
 
@@ -158,7 +158,9 @@ source install/setup.bash
 ros2 run localization_zoo_ros litamin2_node
 ros2 run localization_zoo_ros aloam_node
 ros2 run localization_zoo_ros ct_icp_node
+ros2 run localization_zoo_ros gicp_node
 ros2 run localization_zoo_ros ct_lio_node
+ros2 run localization_zoo_ros fast_lio2_node
 ros2 run localization_zoo_ros relead_node   # + IMU対応, 退化検知publish
 ros2 run localization_zoo_ros xicp_node     # 退化検知publish
 

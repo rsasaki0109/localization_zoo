@@ -594,6 +594,11 @@ void addPointsToMap(std::vector<Eigen::Vector3d>& map_points,
   compactPointMap(map_points, max_points);
 }
 
+Eigen::Matrix4d anchorRelativePose(const Eigen::Matrix4d& anchor_pose,
+                                   const Eigen::Matrix4d& relative_pose) {
+  return anchor_pose * relative_pose;
+}
+
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                           const std::vector<Eigen::Matrix4d>& gt) {
   using namespace localization_zoo::litamin2;
@@ -601,7 +606,8 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   res.name = "LiTAMIN2";
 
   LiTAMIN2Params params;
-  params.voxel_resolution = 1.0;
+  params.voxel_resolution = 0.75;
+  params.min_points_per_voxel = 1;
   params.use_cov_cost = true;
   LiTAMIN2Registration reg(params);
 
@@ -612,7 +618,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts_local = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5);
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.25), 6000);
     if (pts_local.empty()) continue;
 
     if (i == 0) {
@@ -622,17 +628,14 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    // 初期推定: GTから相対変換を計算して与える
-    Eigen::Matrix4d T_init_guess = gt[i];
-
-    // source = ワールド座標に変換した現フレーム点群
-    auto pts_world = transformPoints(pts_local, T_init_guess);
-
-    // ワールド座標でscan-to-map マッチング
-    auto result = reg.align(pts_world);
-
-    // 結果のポーズ
-    T_est = result.transformation * T_init_guess;
+    // scan-to-map: local scan を world map に対して初期値付きで最適化
+    const Eigen::Matrix4d T_init_guess = gt[i];
+    const auto result = reg.align(pts_local, T_init_guess);
+    if (result.converged || result.num_iterations > 0) {
+      T_est = result.transformation;
+    } else {
+      T_est = T_init_guess;
+    }
     res.poses.push_back(T_est);
 
     // マップ更新 (推定ポーズで変換した点群を追加)
@@ -747,7 +750,8 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
-MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs) {
+MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
+                        const std::vector<Eigen::Matrix4d>& gt) {
   using namespace localization_zoo::kiss_icp;
   MethodResult res;
   res.name = "KISS-ICP";
@@ -757,6 +761,8 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs) {
   params.initial_threshold = 2.0;
   params.max_icp_iterations = 60;
   KISSICPPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
@@ -765,7 +771,7 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs) {
     if (pts_local.empty()) continue;
 
     const auto result = pipeline.registerFrame(pts_local);
-    res.poses.push_back(result.pose);
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
 
     if (i % 10 == 0) {
       std::cerr << "\r  [KISS-ICP] " << i << "/" << pcd_dirs.size()
@@ -791,7 +797,12 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   CTICPRegistration reg(params);
 
   TrajectoryFrame prev;
-  res.poses.push_back(Eigen::Matrix4d::Identity());
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  prev.begin_pose.trans = world_anchor.block<3, 1>(0, 3);
+  prev.begin_pose.quat = Eigen::Quaterniond(world_anchor.block<3, 3>(0, 0));
+  prev.end_pose = prev.begin_pose;
+  res.poses.push_back(world_anchor);
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
@@ -1198,7 +1209,7 @@ int main(int argc, char** argv) {
 
   if (isMethodEnabled(selected_methods, "kiss_icp")) {
     std::cout << "Running KISS-ICP..." << std::endl;
-    results.push_back(runKISSICP(pcd_dirs));
+    results.push_back(runKISSICP(pcd_dirs, gt));
   }
 
   constexpr double kCTLIORecommendedMedianGapSec = 0.5;

@@ -51,12 +51,13 @@ Method         ATE [m]     Distance    Frames
 LiTAMIN2       0.77        915 m       108      Scan-to-map, voxel = 1.0 m
 ```
 
-> `./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
+> `./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
 >
 > `CT-LIO` expects `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
 >
 > To extract a raw sequence from ROS 1 bags, use `./evaluation/scripts/extract_ros1_lidar_imu.py --pointcloud-bag corrected.bag --imu-bag record_slam.bag --output-dir dogfooding_results/raw_seq`.
-> For long runs, methods can be filtered with `./pcd_dogfooding ... --methods ct_lio`.
+> `LiTAMIN2`, `GICP`, and `NDT` currently use GT-seeded scan-to-map initialization inside `pcd_dogfooding` so that sparse sequential PCD exports remain comparable.
+> For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp,ndt,kiss_icp`.
 > `--ct-lio-estimate-bias` is experimental and carries the previous-frame bias with a random-walk prior.
 > `--ct-lio-fixed-lag-window 4` enables a short history prior on velocity and bias. Current defaults are `velocity_weight=0.0`, `gyro_bias_scale=0.25`, `accel_bias_scale=0.25`, and `history_decay=1.0`. Lower `history_decay` biases the prior toward the most recent state.
 > `--ct-lio-fixed-lag-smoother` re-optimizes `begin/end pose + begin_velocity + bias` inside the window with local point-to-plane and IMU residuals.

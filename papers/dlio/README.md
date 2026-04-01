@@ -1,15 +1,18 @@
 # DLIO
 
-lightweight `DLIO` 再現版です。`DLO` の direct scan-to-map を土台にして、
-`IMU preintegration` から pose 初期値と速度更新を与える軽量 LiDAR-Inertial
-odometry として実装しています。
+## What This Repository Implements
 
-この実装で入れている要素:
+This is a compact DLIO-style LiDAR-inertial odometry pipeline.
+It builds on the repository's `DLO`-style scan-to-map registration and uses `IMU preintegration` for pose prediction and velocity updates.
 
-- dense LiDAR scan の voxel downsample
-- `GICP` を使う direct scan-to-map
-- IMU preintegration による pose prediction
-- keyframe ベースの sliding-window local map
+## Current Scope
 
-full `continuous-time deskew + coarse-to-fine trajectory` の完全移植ではなく、
-この repo の既存 `DLO` / `IMU preintegration` 資産をつないだ小さい再現版です。
+- voxel-downsampled dense LiDAR scans
+- direct scan-to-map alignment through this repository's `GICP`
+- IMU preintegration for motion prediction
+- keyframe-based sliding-window local map
+
+## Important Deviation
+
+This is not a full port of the original DLIO stack.
+It does not yet reproduce the full continuous-time deskewing or the broader trajectory-optimization behavior of the reference system.

@@ -25,6 +25,11 @@ struct VoxelHash {
 /// ボクセルハッシュマップ (KISS-ICPのマップ表現)
 class VoxelHashMap {
 public:
+  struct Correspondence {
+    Eigen::Vector3d point = Eigen::Vector3d::Zero();
+    bool found = false;
+  };
+
   explicit VoxelHashMap(double voxel_size, int max_points_per_voxel = 20)
       : voxel_size_(voxel_size), max_points_(max_points_per_voxel) {}
 
@@ -32,7 +37,7 @@ public:
   void addPoints(const std::vector<Eigen::Vector3d>& points);
 
   /// 最近傍探索 (各クエリ点に対して最近傍1点を返す)
-  std::vector<Eigen::Vector3d> getCorrespondences(
+  std::vector<Correspondence> getCorrespondences(
       const std::vector<Eigen::Vector3d>& points, double max_dist) const;
 
   void clear() { map_.clear(); }

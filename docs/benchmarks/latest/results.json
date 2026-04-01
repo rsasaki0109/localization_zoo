@@ -1,6 +1,6 @@
 {
   "title": "Localization Zoo Benchmark",
-  "generated_at": "2026-04-01T23:48:51+00:00",
+  "generated_at": "2026-04-02T00:43:06+00:00",
   "dataset": {
     "name": "Autoware Istanbul localization bag /localization/util/downsample/pointcloud (frames 10200-10307)",
     "path": "official/autoware_istanbul/localization_rosbag",
@@ -14,24 +14,44 @@
   },
   "methods": [
     {
+      "name": "LiTAMIN2",
+      "status": "ok",
+      "ate_m": 1.6129693295252436,
+      "frames": 108,
+      "artifact": "LiTAMIN2.txt",
+      "note": "GT-seeded scan-to-map init in pcd_dogfooding. Sparse-scan dogfooding uses finer preprocessing on this topic.",
+      "time_ms": 177972.9,
+      "fps": 0.6
+    },
+    {
       "name": "GICP",
       "status": "ok",
       "ate_m": 9.373502992549412,
       "frames": 108,
       "artifact": "GICP.txt",
       "note": "GT-seeded scan-to-map init in pcd_dogfooding.",
-      "time_ms": 624168.6,
+      "time_ms": 594651.1,
       "fps": 0.2
     },
     {
-      "name": "LiTAMIN2",
+      "name": "CT-ICP",
       "status": "ok",
-      "ate_m": 18.70275112795029,
+      "ate_m": 193.69803285598456,
       "frames": 108,
-      "artifact": "LiTAMIN2.txt",
-      "note": "GT-seeded scan-to-map init in pcd_dogfooding. Empty voxel-map warnings observed on this topic.",
-      "time_ms": 34402.8,
-      "fps": 3.1
+      "artifact": "CT_ICP.txt",
+      "note": "Odometry-only. ATE is measured after anchoring the trajectory to the first GT pose.",
+      "time_ms": 502593.4,
+      "fps": 0.2
+    },
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 275.07947765056065,
+      "frames": 108,
+      "artifact": "KISS_ICP.txt",
+      "note": "Odometry-only. ATE is measured after anchoring the trajectory to the first GT pose.",
+      "time_ms": 152568.6,
+      "fps": 0.7
     },
     {
       "name": "NDT",
@@ -40,28 +60,8 @@
       "frames": 108,
       "artifact": "NDT.txt",
       "note": "GT-seeded scan-to-map init in pcd_dogfooding.",
-      "time_ms": 165264.3,
-      "fps": 0.7
-    },
-    {
-      "name": "CT-ICP",
-      "status": "ok",
-      "ate_m": 4956.767615149093,
-      "frames": 108,
-      "artifact": "CT_ICP.txt",
-      "note": "Odometry-only on a pre-downsampled topic.",
-      "time_ms": 484859.0,
-      "fps": 0.2
-    },
-    {
-      "name": "KISS-ICP",
-      "status": "ok",
-      "ate_m": 5349.806810375573,
-      "frames": 108,
-      "artifact": "KISS_ICP.txt",
-      "note": "Odometry-only on a pre-downsampled topic.",
-      "time_ms": 228151.2,
-      "fps": 0.5
+      "time_ms": 181111.5,
+      "fps": 0.6
     },
     {
       "name": "CT-LIO",

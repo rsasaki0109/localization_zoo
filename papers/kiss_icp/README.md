@@ -1,13 +1,26 @@
-# KISS-ICP: In Defense of Point-to-Point ICP
+# KISS-ICP
 
-## 論文情報
-- **著者**: Ignacio Vizzo, Tiziano Guadagnino, Benedikt Mersch, Louis Wiesmann, Jens Behley, Cyrill Stachniss
-- **会場**: RA-L 2023
-- **GitHub**: https://github.com/PRBonn/kiss-icp (MIT License)
+## Paper
+- Ignacio Vizzo, Tiziano Guadagnino, Benedikt Mersch, Louis Wiesmann, Jens Behley, Cyrill Stachniss
+- RA-L 2023
+- Reference implementation: https://github.com/PRBonn/kiss-icp
 
-## 手法概要
-Point-to-Point ICPをシンプルに正しくやるだけで高精度。核心は4つ:
-1. ボクセルハッシュマップによる高速近傍探索
-2. 適応的対応距離閾値 (前フレームの動きから推定)
-3. ロバストカーネル
-4. ボクセルサブサンプリング
+## What This Repository Implements
+
+This is a compact KISS-ICP-style pipeline that keeps the main idea:
+
+- voxel-hash local map
+- adaptive correspondence threshold
+- robust point-to-point ICP
+- voxel subsampling
+
+## Current Scope
+
+- designed as a small self-contained implementation for this repository
+- focuses on the registration loop and map update path
+- keeps the interface simple for benchmarking and ROS 2 wrapping
+
+## Not Included Yet
+
+- a feature-complete port of the upstream KISS-ICP project
+- the full set of engineering details and failure handling from the reference implementation

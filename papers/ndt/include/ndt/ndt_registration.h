@@ -83,11 +83,20 @@ private:
                              const Eigen::Matrix4d& T,
                              Eigen::Matrix<double, 6, 1>& gradient,
                              Eigen::Matrix<double, 6, 6>& hessian) const;
+  double computeScore(const std::vector<Eigen::Vector3d>& source,
+                      const Eigen::Matrix4d& T) const;
+  double lineSearchStep(const std::vector<Eigen::Vector3d>& source,
+                        const Eigen::Matrix4d& T,
+                        const Eigen::Matrix<double, 6, 1>& delta,
+                        double current_score) const;
+  Eigen::Matrix4d makeInitialGuess(
+      const std::vector<Eigen::Vector3d>& source,
+      const Eigen::Matrix4d& initial_guess) const;
 
   NDTParams params_;
   std::unique_ptr<NDTMap> target_map_;
-  double gauss_d1_ = 0.0;
-  double gauss_d2_ = 0.0;
+  Eigen::Vector3d target_centroid_ = Eigen::Vector3d::Zero();
+  double target_xy_yaw_ = 0.0;
 };
 
 }  // namespace ndt

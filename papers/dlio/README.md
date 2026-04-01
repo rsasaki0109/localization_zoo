@@ -9,7 +9,7 @@ It builds on the repository's `DLO`-style scan-to-map registration and uses `IMU
 
 - voxel-downsampled dense LiDAR scans
 - direct scan-to-map alignment through this repository's `GICP`
-- IMU preintegration for motion prediction
+- IMU preintegration for motion prediction and post-registration fusion
 - keyframe-based sliding-window local map
 
 ## Important Deviation

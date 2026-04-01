@@ -25,6 +25,12 @@ struct DLIOParams {
   double keyframe_translation_threshold = 0.6;
   double keyframe_rotation_threshold_rad = 8.0 * 3.14159265358979323846 / 180.0;
   int max_keyframes_in_map = 30;
+
+  // IMU-lidar fusion after scan matching. Larger values keep more IMU prior.
+  double imu_rotation_fusion_weight = 0.15;
+  double imu_translation_fusion_weight = 0.2;
+  double imu_velocity_fusion_weight = 0.2;
+  double lidar_confidence_correspondence_scale = 100.0;
 };
 
 struct DLIOState {

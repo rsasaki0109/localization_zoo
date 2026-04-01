@@ -33,6 +33,14 @@ public:
         declare_parameter("max_correspondence_distance", 3.0);
     params.gicp.max_iterations = declare_parameter("max_iterations", 30);
     params.gicp.k_neighbors = declare_parameter("k_neighbors", 20);
+    params.imu_rotation_fusion_weight =
+        declare_parameter("imu_rotation_fusion_weight", 0.15);
+    params.imu_translation_fusion_weight =
+        declare_parameter("imu_translation_fusion_weight", 0.2);
+    params.imu_velocity_fusion_weight =
+        declare_parameter("imu_velocity_fusion_weight", 0.2);
+    params.lidar_confidence_correspondence_scale =
+        declare_parameter("lidar_confidence_correspondence_scale", 100.0);
 
     scan_period_ = declare_parameter("scan_period", 0.1);
     imu_buffer_seconds_ = declare_parameter("imu_buffer_seconds", 2.0);

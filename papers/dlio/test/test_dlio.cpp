@@ -51,14 +51,17 @@ PointCloudPtr generateLidarScan(const Eigen::Matrix4d& pose, std::mt19937& rng) 
   return cloud;
 }
 
-std::vector<ImuSample> generateImuSamples(double start_time, double end_time) {
+std::vector<ImuSample> generateImuSamples(
+    double start_time, double end_time,
+    const Eigen::Vector3d& accel = Eigen::Vector3d(0.0, 0.0, 9.81),
+    const Eigen::Vector3d& gyro = Eigen::Vector3d::Zero()) {
   std::vector<ImuSample> samples;
   for (double timestamp = start_time; timestamp <= end_time + 1e-9;
        timestamp += 0.01) {
     ImuSample sample;
     sample.timestamp = timestamp;
-    sample.gyro = Eigen::Vector3d::Zero();
-    sample.accel = Eigen::Vector3d(0.0, 0.0, 9.81);
+    sample.gyro = gyro;
+    sample.accel = accel;
     samples.push_back(sample);
   }
   return samples;
@@ -156,4 +159,47 @@ TEST(DLIO, ClearResetsState) {
   EXPECT_EQ(pipeline.numKeyframes(), 0);
   EXPECT_EQ(pipeline.mapSize(), 0u);
   EXPECT_TRUE(pipeline.state().pose.isApprox(Eigen::Matrix4d::Identity()));
+}
+
+TEST(DLIO, ImuFusionKeepsMotionPriorInStateUpdate) {
+  std::mt19937 rng(123);
+  const auto static_scan = generateLidarScan(Eigen::Matrix4d::Identity(), rng);
+
+  DLIOParams no_fusion_params;
+  no_fusion_params.gicp.max_correspondence_distance = 5.0;
+  no_fusion_params.gicp.max_iterations = 20;
+  no_fusion_params.gicp.k_neighbors = 15;
+  no_fusion_params.registration_voxel_size = 0.7;
+  no_fusion_params.map_voxel_size = 1.0;
+  no_fusion_params.imu_rotation_fusion_weight = 0.0;
+  no_fusion_params.imu_translation_fusion_weight = 0.0;
+  no_fusion_params.imu_velocity_fusion_weight = 0.0;
+
+  DLIOParams fused_params = no_fusion_params;
+  fused_params.imu_rotation_fusion_weight = 1.0;
+  fused_params.imu_translation_fusion_weight = 1.0;
+  fused_params.imu_velocity_fusion_weight = 1.0;
+
+  DLIO no_fusion_pipeline(no_fusion_params);
+  DLIO fused_pipeline(fused_params);
+
+  no_fusion_pipeline.process(static_scan);
+  fused_pipeline.process(static_scan);
+
+  const auto imu_samples = generateImuSamples(
+      0.0, 0.1, Eigen::Vector3d(30.0, 0.0, 9.81));
+
+  const auto no_fusion_result =
+      no_fusion_pipeline.process(static_scan, imu_samples);
+  const auto fused_result =
+      fused_pipeline.process(static_scan, imu_samples);
+
+  ASSERT_TRUE(no_fusion_result.initialized);
+  ASSERT_TRUE(fused_result.initialized);
+  EXPECT_TRUE(no_fusion_result.imu_used);
+  EXPECT_TRUE(fused_result.imu_used);
+  EXPECT_GT(fused_result.state.pose(0, 3),
+            no_fusion_result.state.pose(0, 3) + 0.03);
+  EXPECT_GT(fused_result.state.velocity.x(),
+            no_fusion_result.state.velocity.x() + 0.3);
 }

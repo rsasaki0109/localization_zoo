@@ -16,6 +16,16 @@ ALGORITHMS = {
         'params': {'n_scans': 64, 'line_resolution': 0.4},
         'needs_imu': False,
     },
+    'kiss_icp': {
+        'executable': 'kiss_icp_node',
+        'params': {'voxel_size': 0.5, 'initial_threshold': 2.0},
+        'needs_imu': False,
+    },
+    'ndt': {
+        'executable': 'ndt_node',
+        'params': {'resolution': 1.0, 'max_iterations': 30},
+        'needs_imu': False,
+    },
     'ct_icp': {
         'executable': 'ct_icp_node',
         'params': {'voxel_resolution': 1.0, 'max_iterations': 30},
@@ -24,6 +34,11 @@ ALGORITHMS = {
     'gicp': {
         'executable': 'gicp_node',
         'params': {'max_correspondence_distance': 3.0, 'max_iterations': 30},
+        'needs_imu': False,
+    },
+    'dlo': {
+        'executable': 'dlo_node',
+        'params': {'registration_voxel_size': 0.5, 'max_iterations': 30},
         'needs_imu': False,
     },
     'ct_lio': {
@@ -40,6 +55,15 @@ ALGORITHMS = {
         'params': {
             'voxel_resolution': 1.0,
             'max_iterations': 8,
+            'scan_period': 0.1,
+        },
+        'needs_imu': True,
+    },
+    'dlio': {
+        'executable': 'dlio_node',
+        'params': {
+            'registration_voxel_size': 0.5,
+            'max_iterations': 30,
             'scan_period': 0.1,
         },
         'needs_imu': True,
@@ -97,7 +121,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'algorithm',
             default_value='all',
-            description='Algorithm to use: all, litamin2, aloam, ct_icp, gicp, ct_lio, fast_lio2, relead, xicp',
+            description='Algorithm to use: all, litamin2, aloam, kiss_icp, ndt, ct_icp, gicp, dlo, ct_lio, fast_lio2, dlio, relead, xicp',
         ),
         DeclareLaunchArgument('points_topic', default_value='points_raw'),
         DeclareLaunchArgument('imu_topic', default_value='imu_raw'),

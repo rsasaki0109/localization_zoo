@@ -157,10 +157,14 @@ source install/setup.bash
 # Launch any algorithm node
 ros2 run localization_zoo_ros litamin2_node
 ros2 run localization_zoo_ros aloam_node
+ros2 run localization_zoo_ros kiss_icp_node
+ros2 run localization_zoo_ros ndt_node
 ros2 run localization_zoo_ros ct_icp_node
 ros2 run localization_zoo_ros gicp_node
+ros2 run localization_zoo_ros dlo_node
 ros2 run localization_zoo_ros ct_lio_node
 ros2 run localization_zoo_ros fast_lio2_node
+ros2 run localization_zoo_ros dlio_node
 ros2 run localization_zoo_ros relead_node
 ros2 run localization_zoo_ros xicp_node
 

@@ -570,6 +570,19 @@ MethodResult makeSkippedResult(const std::string& name, const std::string& note)
   return res;
 }
 
+struct LiTAMIN2DogfoodingOptions {
+  double voxel_resolution = 2.0;
+  int min_points_per_voxel = 1;
+  int max_iterations = 8;
+  bool use_cov_cost = true;
+  int num_threads = static_cast<int>(std::max(1u, std::thread::hardware_concurrency()));
+  size_t map_max_points = 45000;
+  size_t refresh_interval = 3;
+  double map_radius = 45.0;
+  double max_seed_translation_delta = 2.0;
+  double max_seed_rotation_delta_rad = 0.25;
+};
+
 /// ワールド座標に変換
 std::vector<Eigen::Vector3d> transformPoints(
     const std::vector<Eigen::Vector3d>& pts, const Eigen::Matrix4d& T) {
@@ -665,22 +678,19 @@ bool isReasonableRefinement(const Eigen::Matrix4d& refined_pose,
 }
 
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
-                          const std::vector<Eigen::Matrix4d>& gt) {
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const LiTAMIN2DogfoodingOptions& options) {
   using namespace localization_zoo::litamin2;
   MethodResult res;
-  res.name = "LiTAMIN2";
+  res.name = options.use_cov_cost ? "LiTAMIN2" : "LiTAMIN2-ICP";
 
   LiTAMIN2Params params;
-  params.voxel_resolution = 2.0;
-  params.min_points_per_voxel = 1;
-  params.max_iterations = 8;
-  params.use_cov_cost = true;
-  params.num_threads =
-      std::max(1u, std::thread::hardware_concurrency());
+  params.voxel_resolution = options.voxel_resolution;
+  params.min_points_per_voxel = options.min_points_per_voxel;
+  params.max_iterations = options.max_iterations;
+  params.use_cov_cost = options.use_cov_cost;
+  params.num_threads = options.num_threads;
   LiTAMIN2Registration reg(params);
-  constexpr size_t kLiTAMIN2MapMaxPoints = 45000;
-  constexpr size_t kLiTAMIN2RefreshInterval = 3;
-  constexpr double kLiTAMIN2MapRadius = 45.0;
 
   // Scan-to-Map: 前フレームまでの点群をワールド座標で蓄積
   std::vector<Eigen::Vector3d> map_points;
@@ -694,8 +704,8 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
 
     if (i == 0) {
       // 最初のフレームはマップに追加
-      addPointsToMap(map_points, pts_local, T_est, kLiTAMIN2MapMaxPoints,
-                     kLiTAMIN2MapRadius);
+      addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                     options.map_radius);
       reg.setTarget(map_points);
       continue;
     }
@@ -704,7 +714,9 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     const Eigen::Matrix4d T_init_guess = gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_iterations >= 3) &&
-        isReasonableRefinement(result.transformation, T_init_guess, 2.0, 0.25)) {
+        isReasonableRefinement(result.transformation, T_init_guess,
+                               options.max_seed_translation_delta,
+                               options.max_seed_rotation_delta_rad)) {
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
@@ -712,9 +724,9 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     res.poses.push_back(T_est);
 
     // マップ更新 (推定ポーズで変換した点群を追加)
-    addPointsToMap(map_points, pts_local, T_est, kLiTAMIN2MapMaxPoints,
-                   kLiTAMIN2MapRadius);
-    if (shouldRefreshTargetMap(i, kLiTAMIN2RefreshInterval)) {
+    addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                   options.map_radius);
+    if (shouldRefreshTargetMap(i, options.refresh_interval)) {
       reg.setTarget(map_points);
     }
 
@@ -726,6 +738,9 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   res.note =
       "Uses GT-seeded scan-to-map initialization with weak-update fallback "
       "in this dogfooding tool.";
+  if (!options.use_cov_cost) {
+    res.note += " Covariance-shape term disabled.";
+  }
   return res;
 }
 
@@ -1090,6 +1105,11 @@ int main(int argc, char** argv) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
               << " [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp]"
+              << " [--litamin2-paper-profile]"
+              << " [--litamin2-icp-only]"
+              << " [--litamin2-voxel-resolution X]"
+              << " [--litamin2-max-iterations N]"
+              << " [--litamin2-num-threads N]"
               << " [--ct-lio-estimate-bias]"
               << " [--ct-lio-fixed-lag-window N]"
               << " [--ct-lio-fixed-lag-velocity-weight W]"
@@ -1113,6 +1133,7 @@ int main(int argc, char** argv) {
   double ct_lio_fixed_lag_history_decay = 1.0;
   int ct_lio_fixed_lag_outer_iterations = 3;
   bool ct_lio_fixed_lag_smoother = false;
+  LiTAMIN2DogfoodingOptions litamin2_options;
   std::vector<std::string> selected_methods = {
       "litamin2", "gicp", "ndt", "kiss_icp", "ct_lio"};
   for (int i = 3; i < argc; i++) {
@@ -1123,6 +1144,61 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-lio-estimate-bias") {
       ct_lio_estimate_bias = true;
+      continue;
+    }
+    if (arg == "--litamin2-paper-profile") {
+      litamin2_options.voxel_resolution = 3.0;
+      litamin2_options.max_iterations = 8;
+      litamin2_options.use_cov_cost = true;
+      litamin2_options.map_max_points = 25000;
+      litamin2_options.refresh_interval = 2;
+      litamin2_options.map_radius = 35.0;
+      continue;
+    }
+    if (arg == "--litamin2-icp-only") {
+      litamin2_options.use_cov_cost = false;
+      continue;
+    }
+    if (arg == "--litamin2-voxel-resolution") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-voxel-resolution requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.voxel_resolution = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--litamin2-voxel-resolution=", 0) == 0) {
+      litamin2_options.voxel_resolution = std::stod(
+          arg.substr(std::string("--litamin2-voxel-resolution=").size()));
+      continue;
+    }
+    if (arg == "--litamin2-max-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-max-iterations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.max_iterations = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-max-iterations=", 0) == 0) {
+      litamin2_options.max_iterations = std::max(
+          1, std::stoi(arg.substr(std::string("--litamin2-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-num-threads") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-num-threads requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.num_threads = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-num-threads=", 0) == 0) {
+      litamin2_options.num_threads = std::max(
+          1, std::stoi(arg.substr(std::string("--litamin2-num-threads=").size())));
       continue;
     }
     if (arg == "--ct-lio-fixed-lag-window") {
@@ -1306,7 +1382,11 @@ int main(int argc, char** argv) {
 
   if (isMethodEnabled(selected_methods, "litamin2")) {
     std::cout << "\nRunning LiTAMIN2..." << std::endl;
-    results.push_back(runLiTAMIN2(pcd_dirs, gt));
+    std::cout << "  voxel_resolution=" << litamin2_options.voxel_resolution
+              << " max_iterations=" << litamin2_options.max_iterations
+              << " use_cov_cost=" << (litamin2_options.use_cov_cost ? "on" : "off")
+              << " num_threads=" << litamin2_options.num_threads << std::endl;
+    results.push_back(runLiTAMIN2(pcd_dirs, gt, litamin2_options));
   }
 
   if (isMethodEnabled(selected_methods, "gicp")) {

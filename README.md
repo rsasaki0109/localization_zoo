@@ -44,6 +44,7 @@ Some paper-named entries still use compact or simplified internals today, especi
 The repository currently ships one real-data benchmark snapshot from the official Autoware Istanbul localization bag.
 GitHub Pages publishes the latest repository-stored report from [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
 The current snapshot uses a speed-oriented dogfooding profile with recent/local-map pruning.
+`LiTAMIN2` additionally uses OpenMP-enabled voxel-map and cost accumulation in this repository.
 For GT-seeded scan-to-map methods, weak updates fall back to the seed pose instead of forcing a poor refinement.
 
 - Topic: `/localization/util/downsample/pointcloud`
@@ -54,11 +55,11 @@ For GT-seeded scan-to-map methods, weak updates fall back to the seed pose inste
 
 | Method | Status | ATE [m] | FPS | Notes |
 |--------|--------|---------|-----|-------|
-| NDT | OK | 0.109 | 1.3 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
-| LiTAMIN2 | OK | 1.159 | 3.6 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
-| GICP | OK | 0.994 | 3.4 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
-| CT-ICP | OK | 75.075 | 1.4 | Odometry-only; ATE is measured after anchoring to the first GT pose |
-| KISS-ICP | OK | 183.178 | 3.8 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| NDT | OK | 0.109 | 1.5 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
+| LiTAMIN2 | OK | 1.153 | 17.3 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
+| GICP | OK | 0.994 | 3.8 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
+| CT-ICP | OK | 75.075 | 1.5 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| KISS-ICP | OK | 183.178 | 4.4 | Odometry-only; ATE is measured after anchoring to the first GT pose |
 | CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)

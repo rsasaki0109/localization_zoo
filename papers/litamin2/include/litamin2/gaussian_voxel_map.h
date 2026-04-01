@@ -3,6 +3,8 @@
 #include <Eigen/Core>
 #include <Eigen/Dense>
 
+#include <algorithm>
+#include <cmath>
 #include <unordered_map>
 #include <vector>
 #include <memory>
@@ -87,7 +89,8 @@ public:
   }
 
   /// 点群から直接ボクセルマップを構築 (各ボクセル内のサンプル共分散を計算)
-  void createFromPoints(const std::vector<Eigen::Vector3d>& points) {
+  void createFromPoints(const std::vector<Eigen::Vector3d>& points,
+                        int num_threads = 1) {
     // まずボクセルごとに点を集める
     std::unordered_map<Eigen::Vector3i, std::vector<int>, Vector3iHash>
         voxel_points;
@@ -98,8 +101,21 @@ public:
     }
 
     voxels_.clear();
-
+    std::vector<std::pair<Eigen::Vector3i, std::vector<int>>> voxel_entries;
+    voxel_entries.reserve(voxel_points.size());
     for (auto& [coord, indices] : voxel_points) {
+      voxel_entries.emplace_back(coord, std::move(indices));
+    }
+
+    std::vector<std::shared_ptr<GaussianVoxel>> built_voxels(voxel_entries.size());
+    const int thread_count = std::max(1, num_threads);
+
+#ifdef _OPENMP
+#pragma omp parallel for num_threads(thread_count) if (thread_count > 1)
+#endif
+    for (int entry_idx = 0; entry_idx < static_cast<int>(voxel_entries.size());
+         entry_idx++) {
+      const auto& indices = voxel_entries[entry_idx].second;
       if (static_cast<int>(indices.size()) < min_points_per_voxel_) {
         continue;
       }
@@ -107,34 +123,34 @@ public:
       auto voxel = std::make_shared<GaussianVoxel>();
       voxel->num_points = indices.size();
 
-      // 平均
       Eigen::Vector3d sum = Eigen::Vector3d::Zero();
       for (int idx : indices) {
         sum += points[idx];
       }
       voxel->mean = sum / indices.size();
 
-      // 共分散
       Eigen::Matrix3d cov = Eigen::Matrix3d::Zero();
       for (int idx : indices) {
-        Eigen::Vector3d diff = points[idx] - voxel->mean;
+        const Eigen::Vector3d diff = points[idx] - voxel->mean;
         cov += diff * diff.transpose();
       }
       cov /= indices.size();
 
-      // 共分散の正則化 (特異な場合に備える)
       Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> solver(cov);
       Eigen::Vector3d eigenvalues = solver.eigenvalues();
-      double min_eigenvalue = 1e-3;
-      for (int i = 0; i < 3; i++) {
-        if (eigenvalues(i) < min_eigenvalue) {
-          eigenvalues(i) = min_eigenvalue;
-        }
+      constexpr double kMinEigenvalue = 1e-3;
+      for (int axis = 0; axis < 3; axis++) {
+        eigenvalues(axis) = std::max(eigenvalues(axis), kMinEigenvalue);
       }
       voxel->cov = solver.eigenvectors() * eigenvalues.asDiagonal() *
                    solver.eigenvectors().transpose();
+      built_voxels[entry_idx] = voxel;
+    }
 
-      voxels_[coord] = voxel;
+    for (size_t entry_idx = 0; entry_idx < voxel_entries.size(); entry_idx++) {
+      if (built_voxels[entry_idx]) {
+        voxels_[voxel_entries[entry_idx].first] = built_voxels[entry_idx];
+      }
     }
   }
 

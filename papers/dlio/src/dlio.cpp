@@ -24,6 +24,28 @@ struct VoxelHash {
   }
 };
 
+Eigen::Matrix4d makePose(const Eigen::Quaterniond& quat,
+                         const Eigen::Vector3d& trans) {
+  Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+  pose.block<3, 3>(0, 0) = quat.normalized().toRotationMatrix();
+  pose.block<3, 1>(0, 3) = trans;
+  return pose;
+}
+
+double lidarConfidence(const gicp::GICPResult& alignment,
+                       double correspondence_scale) {
+  if (alignment.num_correspondences <= 0 || correspondence_scale <= 0.0) {
+    return 0.0;
+  }
+
+  const double correspondence_confidence = std::clamp(
+      static_cast<double>(alignment.num_correspondences) / correspondence_scale,
+      0.0, 1.0);
+  const double fitness_scale =
+      1.0 / (1.0 + std::max(0.0, alignment.fitness));
+  return correspondence_confidence * fitness_scale;
+}
+
 }  // namespace
 
 DLIO::DLIO(const DLIOParams& params)
@@ -178,12 +200,55 @@ DLIOResult DLIO::process(
   const gicp::GICPResult alignment =
       registration_.align(registration_points, prediction);
 
-  state_.pose = alignment.transformation;
+  if (result.imu_used) {
+    const double confidence = lidarConfidence(
+        alignment, params_.lidar_confidence_correspondence_scale);
+    const double translation_denom =
+        confidence + params_.imu_translation_fusion_weight;
+    const double rotation_denom =
+        confidence + params_.imu_rotation_fusion_weight;
+    const double translation_alpha =
+        translation_denom > 1e-9 ? confidence / translation_denom : 1.0;
+    const double rotation_alpha =
+        rotation_denom > 1e-9 ? confidence / rotation_denom : 1.0;
+
+    const Eigen::Quaterniond predicted_quat(
+        prediction.block<3, 3>(0, 0));
+    const Eigen::Quaterniond lidar_quat(
+        alignment.transformation.block<3, 3>(0, 0));
+    const Eigen::Quaterniond fused_quat =
+        predicted_quat.slerp(rotation_alpha, lidar_quat).normalized();
+
+    const Eigen::Vector3d predicted_trans = prediction.block<3, 1>(0, 3);
+    const Eigen::Vector3d lidar_trans =
+        alignment.transformation.block<3, 1>(0, 3);
+    const Eigen::Vector3d fused_trans =
+        (1.0 - translation_alpha) * predicted_trans +
+        translation_alpha * lidar_trans;
+
+    state_.pose = makePose(fused_quat, fused_trans);
+  } else {
+    state_.pose = alignment.transformation;
+  }
+
   last_delta_ = previous_pose.inverse() * state_.pose;
   if (result.preintegration.delta_t > 1e-6) {
-    state_.velocity =
+    const Eigen::Vector3d lidar_velocity =
         (state_.pose.block<3, 1>(0, 3) - previous_pose.block<3, 1>(0, 3)) /
         result.preintegration.delta_t;
+    if (result.imu_used) {
+      const double confidence = lidarConfidence(
+          alignment, params_.lidar_confidence_correspondence_scale);
+      const double velocity_denom =
+          confidence + params_.imu_velocity_fusion_weight;
+      const double velocity_alpha =
+          velocity_denom > 1e-9 ? confidence / velocity_denom : 1.0;
+      state_.velocity =
+          velocity_alpha * lidar_velocity +
+          (1.0 - velocity_alpha) * predicted_velocity;
+    } else {
+      state_.velocity = lidar_velocity;
+    }
   } else {
     state_.velocity = predicted_velocity;
   }

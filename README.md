@@ -43,6 +43,7 @@ Some paper-named entries still use compact or simplified internals today, especi
 
 The repository currently ships one real-data benchmark snapshot from the official Autoware Istanbul localization bag.
 GitHub Pages publishes the latest repository-stored report from [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
+The current snapshot uses a speed-oriented dogfooding profile with lighter map refresh and iteration budgets.
 
 - Topic: `/localization/util/downsample/pointcloud`
 - Window: frames `10200-10307`
@@ -52,11 +53,11 @@ GitHub Pages publishes the latest repository-stored report from [`docs/benchmark
 
 | Method | Status | ATE [m] | FPS | Notes |
 |--------|--------|---------|-----|-------|
-| LiTAMIN2 | OK | 1.613 | 0.6 | GT-seeded scan-to-map init; sparse-scan dogfooding uses finer preprocessing on this topic |
-| GICP | OK | 9.374 | 0.2 | GT-seeded scan-to-map init in `pcd_dogfooding` |
-| CT-ICP | OK | 193.698 | 0.2 | Odometry-only; ATE is measured after anchoring to the first GT pose |
-| KISS-ICP | OK | 275.079 | 0.7 | Odometry-only; ATE is measured after anchoring to the first GT pose |
-| NDT | OK | 1047.494 | 0.6 | GT-seeded scan-to-map init in `pcd_dogfooding` |
+| NDT | OK | 0.056 | 0.7 | GT-seeded scan-to-map init; current snapshot uses a speed-oriented recent-map profile |
+| LiTAMIN2 | OK | 1.199 | 1.4 | GT-seeded scan-to-map init; current snapshot uses a speed-oriented recent-map profile |
+| GICP | OK | 6.296 | 1.1 | GT-seeded scan-to-map init; current snapshot uses a speed-oriented recent-map profile |
+| CT-ICP | OK | 75.075 | 1.4 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| KISS-ICP | OK | 638.615 | 3.8 | Odometry-only; ATE is measured after anchoring to the first GT pose |
 | CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)

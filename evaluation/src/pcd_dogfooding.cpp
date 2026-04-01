@@ -573,9 +573,11 @@ MethodResult makeSkippedResult(const std::string& name, const std::string& note)
 struct LiTAMIN2DogfoodingOptions {
   double voxel_resolution = 2.0;
   int min_points_per_voxel = 1;
-  int max_iterations = 8;
+  int max_iterations = 6;
   bool use_cov_cost = true;
-  int num_threads = static_cast<int>(std::max(1u, std::thread::hardware_concurrency()));
+  int num_threads =
+      static_cast<int>(std::max(1u, std::thread::hardware_concurrency() / 2));
+  size_t max_source_points = 2500;
   size_t map_max_points = 45000;
   size_t refresh_interval = 3;
   double map_radius = 45.0;
@@ -691,19 +693,17 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   params.use_cov_cost = options.use_cov_cost;
   params.num_threads = options.num_threads;
   LiTAMIN2Registration reg(params);
-
-  // Scan-to-Map: 前フレームまでの点群をワールド座標で蓄積
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];  // 初期推定にGTを使用
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5), 2500);
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5),
+                                 options.max_source_points);
     if (pts_local.empty()) continue;
 
     if (i == 0) {
-      // 最初のフレームはマップに追加
       addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
                      options.map_radius);
       reg.setTarget(map_points);
@@ -723,10 +723,9 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     }
     res.poses.push_back(T_est);
 
-    // マップ更新 (推定ポーズで変換した点群を追加)
-    addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
-                   options.map_radius);
     if (shouldRefreshTargetMap(i, options.refresh_interval)) {
+      addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                     options.map_radius);
       reg.setTarget(map_points);
     }
 
@@ -1109,6 +1108,7 @@ int main(int argc, char** argv) {
               << " [--litamin2-icp-only]"
               << " [--litamin2-voxel-resolution X]"
               << " [--litamin2-max-iterations N]"
+              << " [--litamin2-max-source-points N]"
               << " [--litamin2-num-threads N]"
               << " [--ct-lio-estimate-bias]"
               << " [--ct-lio-fixed-lag-window N]"
@@ -1185,6 +1185,22 @@ int main(int argc, char** argv) {
     if (arg.rfind("--litamin2-max-iterations=", 0) == 0) {
       litamin2_options.max_iterations = std::max(
           1, std::stoi(arg.substr(std::string("--litamin2-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-max-source-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-max-source-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.max_source_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--litamin2-max-source-points=", 0) == 0) {
+      litamin2_options.max_source_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--litamin2-max-source-points=").size()))));
       continue;
     }
     if (arg == "--litamin2-num-threads") {
@@ -1384,6 +1400,7 @@ int main(int argc, char** argv) {
     std::cout << "\nRunning LiTAMIN2..." << std::endl;
     std::cout << "  voxel_resolution=" << litamin2_options.voxel_resolution
               << " max_iterations=" << litamin2_options.max_iterations
+              << " max_source_points=" << litamin2_options.max_source_points
               << " use_cov_cost=" << (litamin2_options.use_cov_cost ? "on" : "off")
               << " num_threads=" << litamin2_options.num_threads << std::endl;
     results.push_back(runLiTAMIN2(pcd_dirs, gt, litamin2_options));

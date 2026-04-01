@@ -44,7 +44,7 @@ Some paper-named entries still use compact or simplified internals today, especi
 The repository currently ships one real-data benchmark snapshot from the official Autoware Istanbul localization bag.
 GitHub Pages publishes the latest repository-stored report from [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
 The current snapshot uses a speed-oriented dogfooding profile with recent/local-map pruning.
-`LiTAMIN2` additionally uses OpenMP-enabled voxel-map and cost accumulation in this repository.
+`LiTAMIN2` additionally uses OpenMP-enabled voxel-map and cost accumulation in this repository, with the benchmark profile defaulting to half of the detected hardware threads.
 For GT-seeded scan-to-map methods, weak updates fall back to the seed pose instead of forcing a poor refinement.
 
 - Topic: `/localization/util/downsample/pointcloud`
@@ -55,16 +55,16 @@ For GT-seeded scan-to-map methods, weak updates fall back to the seed pose inste
 
 | Method | Status | ATE [m] | FPS | Notes |
 |--------|--------|---------|-----|-------|
-| NDT | OK | 0.109 | 1.5 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
-| LiTAMIN2 | OK | 1.153 | 17.3 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
-| GICP | OK | 0.994 | 3.8 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
-| CT-ICP | OK | 75.075 | 1.5 | Odometry-only; ATE is measured after anchoring to the first GT pose |
-| KISS-ICP | OK | 183.178 | 4.4 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| NDT | OK | 0.109 | 1.2 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
+| LiTAMIN2 | OK | 1.213 | 21.0 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
+| GICP | OK | 0.994 | 3.1 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
+| CT-ICP | OK | 75.075 | 1.3 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| KISS-ICP | OK | 183.178 | 3.2 | Odometry-only; ATE is measured after anchoring to the first GT pose |
 | CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
 
-`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--litamin2-paper-profile] [--litamin2-icp-only] [--litamin2-voxel-resolution X] [--litamin2-max-iterations N] [--litamin2-num-threads N] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
+`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--litamin2-paper-profile] [--litamin2-icp-only] [--litamin2-voxel-resolution X] [--litamin2-max-iterations N] [--litamin2-max-source-points N] [--litamin2-num-threads N] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
 
 `CT-LIO` expects `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
 
@@ -96,6 +96,7 @@ python3 evaluation/scripts/reference_pose_to_gt_csv.py \
 If a refinement step becomes weak or unstable, the current dogfooding profile falls back to that seeded pose instead of forcing the update.
 `--litamin2-paper-profile` switches LiTAMIN2 to a more paper-like setting centered on `voxel_resolution=3.0`.
 `--litamin2-icp-only` disables the covariance-shape term so the first KL-derived distance term can be benchmarked on its own.
+`--litamin2-max-source-points` caps the per-frame source cloud after voxel filtering, and `--litamin2-num-threads` overrides the OpenMP worker count.
 `KISS-ICP` and `CT-ICP` remain odometry-style methods in this tool, so their absolute ATE is reported after anchoring the estimated trajectory to the first GT pose.
 For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp,ndt,kiss_icp`.
 `--ct-lio-estimate-bias` is experimental and carries the previous-frame bias with a random-walk prior.

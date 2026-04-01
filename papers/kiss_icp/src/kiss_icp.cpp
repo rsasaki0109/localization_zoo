@@ -49,16 +49,16 @@ void VoxelHashMap::addPoints(const std::vector<Eigen::Vector3d>& points) {
   }
 }
 
-std::vector<Eigen::Vector3d> VoxelHashMap::getCorrespondences(
+std::vector<VoxelHashMap::Correspondence> VoxelHashMap::getCorrespondences(
     const std::vector<Eigen::Vector3d>& points, double max_dist) const {
-  std::vector<Eigen::Vector3d> correspondences(points.size());
+  std::vector<Correspondence> correspondences(points.size());
   double max_dist_sq = max_dist * max_dist;
 
   for (size_t i = 0; i < points.size(); i++) {
     const auto& query = points[i];
     auto key = toVoxel(query);
     double best_dist = max_dist_sq;
-    Eigen::Vector3d best_point = query;
+    Eigen::Vector3d best_point = Eigen::Vector3d::Zero();
     bool found = false;
 
     // 27近傍ボクセルを探索
@@ -82,7 +82,8 @@ std::vector<Eigen::Vector3d> VoxelHashMap::getCorrespondences(
         }
       }
     }
-    correspondences[i] = found ? best_point : query;
+    correspondences[i].point = best_point;
+    correspondences[i].found = found;
   }
   return correspondences;
 }
@@ -141,11 +142,15 @@ Eigen::Matrix4d KISSICPPipeline::runICP(
     Eigen::Matrix<double, 6, 1> Jtb = Eigen::Matrix<double, 6, 1>::Zero();
 
     double kernel_threshold = max_correspondence_dist;
+    int valid_correspondences = 0;
 
     for (size_t i = 0; i < source.size(); i++) {
-      Eigen::Vector3d residual = src_transformed[i] - correspondences[i];
+      if (!correspondences[i].found) continue;
+
+      Eigen::Vector3d residual = src_transformed[i] - correspondences[i].point;
       double r_norm = residual.norm();
       if (r_norm > max_correspondence_dist) continue;
+      valid_correspondences++;
 
       // Welsch kernel weight
       double w = std::exp(-0.5 * (r_norm / kernel_threshold) *
@@ -160,7 +165,14 @@ Eigen::Matrix4d KISSICPPipeline::runICP(
       Jtb += w * J.transpose() * residual;
     }
 
+    if (valid_correspondences < 10) {
+      break;
+    }
+
     Eigen::Matrix<double, 6, 1> delta = JtJ.ldlt().solve(-Jtb);
+    if (!delta.allFinite()) {
+      break;
+    }
 
     // 更新
     Eigen::Matrix4d dT = Eigen::Matrix4d::Identity();
@@ -225,8 +237,9 @@ KISSICPResult KISSICPPipeline::registerFrame(
   local_map_.addPoints(world_pts);
 
   result.pose = pose_;
-  result.converged = true;
-  result.iterations = frame_count_;
+  result.converged = (pose_.array().isFinite().all() &&
+                      (new_pose - prediction).cwiseAbs().maxCoeff() < 1e3);
+  result.iterations = params_.max_icp_iterations;
   frame_count_++;
 
   return result;

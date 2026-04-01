@@ -52,11 +52,11 @@ GitHub Pages publishes the latest repository-stored report from [`docs/benchmark
 
 | Method | Status | ATE [m] | FPS | Notes |
 |--------|--------|---------|-----|-------|
+| LiTAMIN2 | OK | 1.613 | 0.6 | GT-seeded scan-to-map init; sparse-scan dogfooding uses finer preprocessing on this topic |
 | GICP | OK | 9.374 | 0.2 | GT-seeded scan-to-map init in `pcd_dogfooding` |
-| LiTAMIN2 | OK | 18.703 | 3.1 | GT-seeded scan-to-map init; empty voxel-map warnings on this topic |
-| NDT | OK | 1047.494 | 0.7 | GT-seeded scan-to-map init in `pcd_dogfooding` |
-| CT-ICP | OK | 4956.768 | 0.2 | Odometry-only on a pre-downsampled topic |
-| KISS-ICP | OK | 5349.807 | 0.5 | Odometry-only on a pre-downsampled topic |
+| CT-ICP | OK | 193.698 | 0.2 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| KISS-ICP | OK | 275.079 | 0.7 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| NDT | OK | 1047.494 | 0.6 | GT-seeded scan-to-map init in `pcd_dogfooding` |
 | CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
@@ -90,6 +90,7 @@ python3 evaluation/scripts/reference_pose_to_gt_csv.py \
 ```
 
 `LiTAMIN2`, `GICP`, and `NDT` currently use GT-seeded scan-to-map initialization inside `pcd_dogfooding` so that sequential PCD exports remain comparable.
+`KISS-ICP` and `CT-ICP` remain odometry-style methods in this tool, so their absolute ATE is reported after anchoring the estimated trajectory to the first GT pose.
 For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp,ndt,kiss_icp`.
 `--ct-lio-estimate-bias` is experimental and carries the previous-frame bias with a random-walk prior.
 `--ct-lio-fixed-lag-window 4` enables a short history prior on velocity and bias. Current defaults are `velocity_weight=0.0`, `gyro_bias_scale=0.25`, `accel_bias_scale=0.25`, and `history_decay=1.0`. Lower `history_decay` biases the prior toward the most recent state.

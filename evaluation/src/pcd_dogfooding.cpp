@@ -6,7 +6,10 @@
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
 
+#include "gicp/gicp_registration.h"
+#include "kiss_icp/kiss_icp.h"
 #include "litamin2/litamin2_registration.h"
+#include "ndt/ndt_registration.h"
 #include "ct_icp/ct_icp_registration.h"
 #include "ct_lio/ct_lio_registration.h"
 #include "xicp/xicp_registration.h"
@@ -127,7 +130,8 @@ std::vector<std::string> splitMethodList(const std::string& csv) {
 }
 
 bool isSupportedMethod(const std::string& method) {
-  return method == "litamin2" || method == "ct_lio" || method == "ct_icp";
+  return method == "litamin2" || method == "gicp" || method == "ndt" ||
+         method == "kiss_icp" || method == "ct_lio" || method == "ct_icp";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -575,6 +579,21 @@ std::vector<Eigen::Vector3d> transformPoints(
   return out;
 }
 
+void compactPointMap(std::vector<Eigen::Vector3d>& map_points,
+                     size_t max_points) {
+  if (map_points.size() <= max_points) return;
+  map_points = limitPoints(map_points, max_points);
+}
+
+void addPointsToMap(std::vector<Eigen::Vector3d>& map_points,
+                    const std::vector<Eigen::Vector3d>& local_points,
+                    const Eigen::Matrix4d& pose,
+                    size_t max_points) {
+  auto points_world = transformPoints(local_points, pose);
+  map_points.insert(map_points.end(), points_world.begin(), points_world.end());
+  compactPointMap(map_points, max_points);
+}
+
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                           const std::vector<Eigen::Matrix4d>& gt) {
   using namespace localization_zoo::litamin2;
@@ -598,8 +617,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
 
     if (i == 0) {
       // 最初のフレームはマップに追加
-      auto pts_world = transformPoints(pts_local, T_est);
-      map_points.insert(map_points.end(), pts_world.begin(), pts_world.end());
+      addPointsToMap(map_points, pts_local, T_est, 500000);
       reg.setTarget(map_points);
       continue;
     }
@@ -618,16 +636,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     res.poses.push_back(T_est);
 
     // マップ更新 (推定ポーズで変換した点群を追加)
-    auto pts_corrected = transformPoints(pts_local, T_est);
-    map_points.insert(map_points.end(), pts_corrected.begin(), pts_corrected.end());
-
-    // マップが大きくなりすぎたらダウンサンプリング
-    if (map_points.size() > 500000) {
-      std::vector<Eigen::Vector3d> sampled;
-      for (size_t j = 0; j < map_points.size(); j += 2)
-        sampled.push_back(map_points[j]);
-      map_points = sampled;
-    }
+    addPointsToMap(map_points, pts_local, T_est, 500000);
     reg.setTarget(map_points);
 
     if (i % 10 == 0)
@@ -635,6 +644,137 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  return res;
+}
+
+MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
+                     const std::vector<Eigen::Matrix4d>& gt) {
+  using namespace localization_zoo::gicp;
+  MethodResult res;
+  res.name = "GICP";
+
+  GICPParams params;
+  params.k_neighbors = 20;
+  params.max_correspondence_distance = 3.0;
+  params.max_iterations = 20;
+  GICPRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  Eigen::Matrix4d T_est = gt[0];
+  res.poses.push_back(T_est);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local =
+        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 4000);
+    if (pts_local.empty()) continue;
+
+    if (i == 0) {
+      addPointsToMap(map_points, pts_local, T_est, 250000);
+      reg.setTarget(map_points);
+      continue;
+    }
+
+    const Eigen::Matrix4d T_init_guess = gt[i];
+    const auto result = reg.align(pts_local, T_init_guess);
+    T_est = result.transformation;
+    res.poses.push_back(T_est);
+
+    addPointsToMap(map_points, pts_local, T_est, 250000);
+    reg.setTarget(map_points);
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [GICP] " << i << "/" << pcd_dirs.size()
+                << " corr=" << result.num_correspondences;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Uses GT-seeded scan-to-map initialization in this dogfooding tool.";
+  return res;
+}
+
+MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
+                    const std::vector<Eigen::Matrix4d>& gt) {
+  using namespace localization_zoo::ndt;
+  MethodResult res;
+  res.name = "NDT";
+
+  NDTParams params;
+  params.resolution = 1.0;
+  params.max_iterations = 30;
+  params.step_size = 0.2;
+  params.convergence_threshold = 1e-4;
+  NDTRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  Eigen::Matrix4d T_est = gt[0];
+  res.poses.push_back(T_est);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local =
+        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 4000);
+    if (pts_local.empty()) continue;
+
+    if (i == 0) {
+      addPointsToMap(map_points, pts_local, T_est, 120000);
+      reg.setTarget(map_points);
+      continue;
+    }
+
+    const Eigen::Matrix4d T_init_guess = gt[i];
+    const auto result = reg.align(pts_local, T_init_guess);
+    T_est = result.transformation;
+    res.poses.push_back(T_est);
+
+    addPointsToMap(map_points, pts_local, T_est, 120000);
+    reg.setTarget(map_points);
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [NDT] " << i << "/" << pcd_dirs.size()
+                << " score=" << std::fixed << std::setprecision(3)
+                << result.score;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Uses GT-seeded scan-to-map initialization in this dogfooding tool.";
+  return res;
+}
+
+MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs) {
+  using namespace localization_zoo::kiss_icp;
+  MethodResult res;
+  res.name = "KISS-ICP";
+
+  KISSICPParams params;
+  params.voxel_size = 1.0;
+  params.initial_threshold = 2.0;
+  params.max_icp_iterations = 60;
+  KISSICPPipeline pipeline(params);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local =
+        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5), 12000);
+    if (pts_local.empty()) continue;
+
+    const auto result = pipeline.registerFrame(pts_local);
+    res.poses.push_back(result.pose);
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [KISS-ICP] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   return res;
 }
 
@@ -826,7 +966,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,ct_lio,ct_icp]"
+              << " [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp]"
               << " [--ct-lio-estimate-bias]"
               << " [--ct-lio-fixed-lag-window N]"
               << " [--ct-lio-fixed-lag-velocity-weight W]"
@@ -850,7 +990,8 @@ int main(int argc, char** argv) {
   double ct_lio_fixed_lag_history_decay = 1.0;
   int ct_lio_fixed_lag_outer_iterations = 3;
   bool ct_lio_fixed_lag_smoother = false;
-  std::vector<std::string> selected_methods = {"litamin2", "ct_lio"};
+  std::vector<std::string> selected_methods = {
+      "litamin2", "gicp", "ndt", "kiss_icp", "ct_lio"};
   for (int i = 3; i < argc; i++) {
     std::string arg = argv[i];
     if (arg == "--force-ct-lio") {
@@ -966,14 +1107,17 @@ int main(int argc, char** argv) {
   }
 
   if (selected_methods.empty()) {
-    std::cerr << "No methods selected. Supported methods: litamin2, ct_lio, ct_icp"
-              << std::endl;
+    std::cerr
+        << "No methods selected. Supported methods: litamin2, gicp, ndt, "
+        << "kiss_icp, ct_lio, ct_icp"
+        << std::endl;
     return 1;
   }
   for (const auto& method : selected_methods) {
     if (!isSupportedMethod(method)) {
       std::cerr << "Unsupported method: " << method
-                << " (supported: litamin2, ct_lio, ct_icp)" << std::endl;
+                << " (supported: litamin2, gicp, ndt, kiss_icp, ct_lio, ct_icp)"
+                << std::endl;
       return 1;
     }
   }
@@ -1040,6 +1184,21 @@ int main(int argc, char** argv) {
   if (isMethodEnabled(selected_methods, "litamin2")) {
     std::cout << "\nRunning LiTAMIN2..." << std::endl;
     results.push_back(runLiTAMIN2(pcd_dirs, gt));
+  }
+
+  if (isMethodEnabled(selected_methods, "gicp")) {
+    std::cout << "Running GICP..." << std::endl;
+    results.push_back(runGICP(pcd_dirs, gt));
+  }
+
+  if (isMethodEnabled(selected_methods, "ndt")) {
+    std::cout << "Running NDT..." << std::endl;
+    results.push_back(runNDT(pcd_dirs, gt));
+  }
+
+  if (isMethodEnabled(selected_methods, "kiss_icp")) {
+    std::cout << "Running KISS-ICP..." << std::endl;
+    results.push_back(runKISSICP(pcd_dirs));
   }
 
   constexpr double kCTLIORecommendedMedianGapSec = 0.5;

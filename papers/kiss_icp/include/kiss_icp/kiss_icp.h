@@ -39,6 +39,7 @@ public:
   /// 最近傍探索 (各クエリ点に対して最近傍1点を返す)
   std::vector<Correspondence> getCorrespondences(
       const std::vector<Eigen::Vector3d>& points, double max_dist) const;
+  void pruneFarVoxels(const Eigen::Vector3d& center, double max_distance);
 
   void clear() { map_.clear(); }
   size_t size() const { return map_.size(); }
@@ -67,6 +68,8 @@ struct KISSICPParams {
   double initial_threshold = 2.0;   // 初期対応距離閾値 [m]
   int max_icp_iterations = 500;
   double convergence_criterion = 0.001;
+  double local_map_radius = 0.0;
+  int map_cleanup_interval = 0;
 };
 
 struct KISSICPResult {

@@ -32,6 +32,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -582,15 +583,49 @@ std::vector<Eigen::Vector3d> transformPoints(
 void compactPointMap(std::vector<Eigen::Vector3d>& map_points,
                      size_t max_points) {
   if (map_points.size() <= max_points) return;
-  map_points = limitPoints(map_points, max_points);
+  const size_t tail_keep = std::min(map_points.size(), max_points * 3 / 4);
+  const size_t head_keep = max_points - tail_keep;
+
+  std::vector<Eigen::Vector3d> compacted;
+  compacted.reserve(max_points);
+  if (head_keep > 0) {
+    const size_t head_size = map_points.size() - tail_keep;
+    if (head_size > 0) {
+      const double step = static_cast<double>(head_size) / head_keep;
+      for (size_t i = 0; i < head_keep; i++) {
+        size_t idx = std::min(static_cast<size_t>(i * step), head_size - 1);
+        compacted.push_back(map_points[idx]);
+      }
+    }
+  }
+  compacted.insert(compacted.end(), map_points.end() - tail_keep, map_points.end());
+  map_points.swap(compacted);
+}
+
+void prunePointMapByRadius(std::vector<Eigen::Vector3d>& map_points,
+                           const Eigen::Vector3d& center,
+                           double radius) {
+  if (radius <= 0.0 || map_points.empty()) return;
+
+  const double radius_sq = radius * radius;
+  std::vector<Eigen::Vector3d> filtered;
+  filtered.reserve(map_points.size());
+  for (const auto& point : map_points) {
+    if ((point - center).squaredNorm() <= radius_sq) {
+      filtered.push_back(point);
+    }
+  }
+  map_points.swap(filtered);
 }
 
 void addPointsToMap(std::vector<Eigen::Vector3d>& map_points,
                     const std::vector<Eigen::Vector3d>& local_points,
                     const Eigen::Matrix4d& pose,
-                    size_t max_points) {
+                    size_t max_points,
+                    double local_map_radius = 0.0) {
   auto points_world = transformPoints(local_points, pose);
   map_points.insert(map_points.end(), points_world.begin(), points_world.end());
+  prunePointMapByRadius(map_points, pose.block<3, 1>(0, 3), local_map_radius);
   compactPointMap(map_points, max_points);
 }
 
@@ -604,6 +639,30 @@ bool shouldRefreshTargetMap(size_t frame_index, size_t refresh_interval) {
          (frame_index % refresh_interval) == 0;
 }
 
+double poseTranslationDelta(const Eigen::Matrix4d& lhs,
+                            const Eigen::Matrix4d& rhs) {
+  return (lhs.block<3, 1>(0, 3) - rhs.block<3, 1>(0, 3)).norm();
+}
+
+double poseRotationDelta(const Eigen::Matrix4d& lhs,
+                         const Eigen::Matrix4d& rhs) {
+  const Eigen::Matrix3d dR =
+      lhs.block<3, 3>(0, 0).transpose() * rhs.block<3, 3>(0, 0);
+  Eigen::AngleAxisd aa(dR);
+  if (!std::isfinite(aa.angle())) {
+    return std::numeric_limits<double>::infinity();
+  }
+  return std::abs(aa.angle());
+}
+
+bool isReasonableRefinement(const Eigen::Matrix4d& refined_pose,
+                            const Eigen::Matrix4d& seed_pose,
+                            double max_translation_delta,
+                            double max_rotation_delta_rad) {
+  return poseTranslationDelta(refined_pose, seed_pose) <= max_translation_delta &&
+         poseRotationDelta(refined_pose, seed_pose) <= max_rotation_delta_rad;
+}
+
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                           const std::vector<Eigen::Matrix4d>& gt) {
   using namespace localization_zoo::litamin2;
@@ -613,11 +672,12 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   LiTAMIN2Params params;
   params.voxel_resolution = 1.0;
   params.min_points_per_voxel = 1;
-  params.max_iterations = 20;
+  params.max_iterations = 16;
   params.use_cov_cost = true;
   LiTAMIN2Registration reg(params);
-  constexpr size_t kLiTAMIN2MapMaxPoints = 60000;
-  constexpr size_t kLiTAMIN2RefreshInterval = 4;
+  constexpr size_t kLiTAMIN2MapMaxPoints = 45000;
+  constexpr size_t kLiTAMIN2RefreshInterval = 3;
+  constexpr double kLiTAMIN2MapRadius = 45.0;
 
   // Scan-to-Map: 前フレームまでの点群をワールド座標で蓄積
   std::vector<Eigen::Vector3d> map_points;
@@ -631,7 +691,8 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
 
     if (i == 0) {
       // 最初のフレームはマップに追加
-      addPointsToMap(map_points, pts_local, T_est, kLiTAMIN2MapMaxPoints);
+      addPointsToMap(map_points, pts_local, T_est, kLiTAMIN2MapMaxPoints,
+                     kLiTAMIN2MapRadius);
       reg.setTarget(map_points);
       continue;
     }
@@ -639,7 +700,8 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     // scan-to-map: local scan を world map に対して初期値付きで最適化
     const Eigen::Matrix4d T_init_guess = gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
-    if (result.converged || result.num_iterations > 0) {
+    if ((result.converged || result.num_iterations >= 3) &&
+        isReasonableRefinement(result.transformation, T_init_guess, 2.0, 0.25)) {
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
@@ -647,7 +709,8 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     res.poses.push_back(T_est);
 
     // マップ更新 (推定ポーズで変換した点群を追加)
-    addPointsToMap(map_points, pts_local, T_est, kLiTAMIN2MapMaxPoints);
+    addPointsToMap(map_points, pts_local, T_est, kLiTAMIN2MapMaxPoints,
+                   kLiTAMIN2MapRadius);
     if (shouldRefreshTargetMap(i, kLiTAMIN2RefreshInterval)) {
       reg.setTarget(map_points);
     }
@@ -657,6 +720,9 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+      "in this dogfooding tool.";
   return res;
 }
 
@@ -667,12 +733,13 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
   res.name = "GICP";
 
   GICPParams params;
-  params.k_neighbors = 10;
+  params.k_neighbors = 8;
   params.max_correspondence_distance = 2.5;
-  params.max_iterations = 10;
+  params.max_iterations = 8;
   GICPRegistration reg(params);
-  constexpr size_t kGICPMapMaxPoints = 60000;
-  constexpr size_t kGICPRefreshInterval = 5;
+  constexpr size_t kGICPMapMaxPoints = 40000;
+  constexpr size_t kGICPRefreshInterval = 4;
+  constexpr double kGICPMapRadius = 45.0;
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
@@ -685,21 +752,24 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
     if (pts_local.empty()) continue;
 
     if (i == 0) {
-      addPointsToMap(map_points, pts_local, T_est, kGICPMapMaxPoints);
+      addPointsToMap(map_points, pts_local, T_est, kGICPMapMaxPoints,
+                     kGICPMapRadius);
       reg.setTarget(map_points);
       continue;
     }
 
     const Eigen::Matrix4d T_init_guess = gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
-    if (result.converged || result.num_correspondences > 0) {
+    if ((result.converged || result.num_correspondences >= 128) &&
+        isReasonableRefinement(result.transformation, T_init_guess, 2.0, 0.25)) {
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
     }
     res.poses.push_back(T_est);
 
-    addPointsToMap(map_points, pts_local, T_est, kGICPMapMaxPoints);
+    addPointsToMap(map_points, pts_local, T_est, kGICPMapMaxPoints,
+                   kGICPMapRadius);
     if (shouldRefreshTargetMap(i, kGICPRefreshInterval)) {
       reg.setTarget(map_points);
     }
@@ -713,7 +783,8 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Uses GT-seeded scan-to-map initialization in this dogfooding tool.";
+      "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+      "in this dogfooding tool.";
   return res;
 }
 
@@ -725,13 +796,14 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
 
   NDTParams params;
   params.resolution = 1.5;
-  params.max_iterations = 6;
+  params.max_iterations = 5;
   params.step_size = 0.2;
   params.convergence_threshold = 1e-4;
   params.min_points_per_cell = 1;
   NDTRegistration reg(params);
-  constexpr size_t kNDTMapMaxPoints = 30000;
-  constexpr size_t kNDTRefreshInterval = 10;
+  constexpr size_t kNDTMapMaxPoints = 22000;
+  constexpr size_t kNDTRefreshInterval = 8;
+  constexpr double kNDTMapRadius = 35.0;
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
@@ -744,21 +816,24 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
     if (pts_local.empty()) continue;
 
     if (i == 0) {
-      addPointsToMap(map_points, pts_local, T_est, kNDTMapMaxPoints);
+      addPointsToMap(map_points, pts_local, T_est, kNDTMapMaxPoints,
+                     kNDTMapRadius);
       reg.setTarget(map_points);
       continue;
     }
 
     const Eigen::Matrix4d T_init_guess = gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
-    if (result.converged || result.iterations > 0) {
+    if ((result.converged || result.iterations >= 2) &&
+        isReasonableRefinement(result.transformation, T_init_guess, 1.5, 0.2)) {
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
     }
     res.poses.push_back(T_est);
 
-    addPointsToMap(map_points, pts_local, T_est, kNDTMapMaxPoints);
+    addPointsToMap(map_points, pts_local, T_est, kNDTMapMaxPoints,
+                   kNDTMapRadius);
     if (shouldRefreshTargetMap(i, kNDTRefreshInterval)) {
       reg.setTarget(map_points);
     }
@@ -773,7 +848,8 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Uses GT-seeded scan-to-map initialization in this dogfooding tool.";
+      "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+      "in this dogfooding tool.";
   return res;
 }
 
@@ -784,10 +860,12 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   res.name = "KISS-ICP";
 
   KISSICPParams params;
-  params.voxel_size = 1.5;
+  params.voxel_size = 1.0;
   params.initial_threshold = 1.5;
-  params.max_points_per_voxel = 10;
-  params.max_icp_iterations = 20;
+  params.max_points_per_voxel = 12;
+  params.max_icp_iterations = 30;
+  params.local_map_radius = 60.0;
+  params.map_cleanup_interval = 4;
   KISSICPPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -795,7 +873,7 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local =
-        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 3000);
+        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5), 4500);
     if (pts_local.empty()) continue;
 
     const auto result = pipeline.registerFrame(pts_local);

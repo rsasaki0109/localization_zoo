@@ -23,11 +23,25 @@ ALGORITHMS = {
         'params': {'voxel_resolution': 1.0, 'max_iterations': 30},
         'needs_imu': False,
     },
+    'gicp': {
+        'executable': 'gicp_node',
+        'params': {'max_correspondence_distance': 3.0, 'max_iterations': 30},
+        'needs_imu': False,
+    },
     'ct_lio': {
         'executable': 'ct_lio_node',
         'params': {
             'voxel_resolution': 1.0,
             'max_iterations': 20,
+            'scan_period': 0.1,
+        },
+        'needs_imu': True,
+    },
+    'fast_lio2': {
+        'executable': 'fast_lio2_node',
+        'params': {
+            'voxel_resolution': 1.0,
+            'max_iterations': 8,
             'scan_period': 0.1,
         },
         'needs_imu': True,

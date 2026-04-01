@@ -41,21 +41,60 @@ Some paper-named entries still use compact or simplified internals today, especi
 
 ### Real LiDAR Data
 
-Benchmark reports are checked into this repository only when the dataset is approved for repository use.
-The current GitHub Pages scaffold is ready, but no repository-hosted real-data report is checked in right now.
+The repository currently ships one real-data benchmark snapshot from the official Autoware Istanbul localization bag.
+GitHub Pages publishes the latest repository-stored report from [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
 
-> `./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
->
-> `CT-LIO` expects `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
->
-> To extract a raw sequence from ROS 1 bags, use `./evaluation/scripts/extract_ros1_lidar_imu.py --pointcloud-bag corrected.bag --imu-bag record_slam.bag --output-dir dogfooding_results/raw_seq`.
-> `LiTAMIN2`, `GICP`, and `NDT` currently use GT-seeded scan-to-map initialization inside `pcd_dogfooding` so that sparse sequential PCD exports remain comparable.
-> For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp,ndt,kiss_icp`.
-> GitHub Pages publishes the latest exported benchmark report from `docs/` only for datasets approved for repository use.
-> `--ct-lio-estimate-bias` is experimental and carries the previous-frame bias with a random-walk prior.
-> `--ct-lio-fixed-lag-window 4` enables a short history prior on velocity and bias. Current defaults are `velocity_weight=0.0`, `gyro_bias_scale=0.25`, `accel_bias_scale=0.25`, and `history_decay=1.0`. Lower `history_decay` biases the prior toward the most recent state.
-> `--ct-lio-fixed-lag-smoother` re-optimizes `begin/end pose + begin_velocity + bias` inside the window with local point-to-plane and IMU residuals.
-> `--ct-lio-fixed-lag-outer-iterations` controls correspondence relinearization passes in the smoother. The current default is `3` for accuracy; `1` is lighter but usually hurts long-run ATE.
+- Topic: `/localization/util/downsample/pointcloud`
+- Window: frames `10200-10307`
+- Sequence length: `108` frames, `302.1 m`, `10.70 s`
+- Reference poses: `reference_pose_full.csv`
+- Scan density: `940-1380` points per frame, `1128.7` average
+
+| Method | Status | ATE [m] | FPS | Notes |
+|--------|--------|---------|-----|-------|
+| GICP | OK | 9.374 | 0.2 | GT-seeded scan-to-map init in `pcd_dogfooding` |
+| LiTAMIN2 | OK | 18.703 | 3.1 | GT-seeded scan-to-map init; empty voxel-map warnings on this topic |
+| NDT | OK | 1047.494 | 0.7 | GT-seeded scan-to-map init in `pcd_dogfooding` |
+| CT-ICP | OK | 4956.768 | 0.2 | Odometry-only on a pre-downsampled topic |
+| KISS-ICP | OK | 5349.807 | 0.5 | Odometry-only on a pre-downsampled topic |
+| CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |
+
+![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
+
+`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
+
+`CT-LIO` expects `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
+
+To extract a raw sequence from ROS 1 bags, use `./evaluation/scripts/extract_ros1_lidar_imu.py --pointcloud-bag corrected.bag --imu-bag record_slam.bag --output-dir dogfooding_results/raw_seq`.
+
+To reproduce the repository-stored Istanbul run from a ROS 2 bag:
+
+```bash
+python3 -m pip install rosbags numpy matplotlib
+
+python3 evaluation/scripts/extract_ros2_lidar_imu.py \
+  --bag ../lidarloc_ws/data/official/autoware_istanbul/localization_rosbag \
+  --pointcloud-topic /localization/util/downsample/pointcloud \
+  --output-dir dogfooding_results/autoware_istanbul_open_108 \
+  --start-frame 10200 \
+  --max-frames 108
+
+python3 evaluation/scripts/reference_pose_to_gt_csv.py \
+  --input ../lidarloc_ws/data/official/autoware_istanbul/reference_pose_full.csv \
+  --output dogfooding_results/autoware_istanbul_open_108_gt.csv
+
+./build/evaluation/pcd_dogfooding \
+  dogfooding_results/autoware_istanbul_open_108 \
+  dogfooding_results/autoware_istanbul_open_108_gt.csv \
+  --methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp
+```
+
+`LiTAMIN2`, `GICP`, and `NDT` currently use GT-seeded scan-to-map initialization inside `pcd_dogfooding` so that sequential PCD exports remain comparable.
+For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp,ndt,kiss_icp`.
+`--ct-lio-estimate-bias` is experimental and carries the previous-frame bias with a random-walk prior.
+`--ct-lio-fixed-lag-window 4` enables a short history prior on velocity and bias. Current defaults are `velocity_weight=0.0`, `gyro_bias_scale=0.25`, `accel_bias_scale=0.25`, and `history_decay=1.0`. Lower `history_decay` biases the prior toward the most recent state.
+`--ct-lio-fixed-lag-smoother` re-optimizes `begin/end pose + begin_velocity + bias` inside the window with local point-to-plane and IMU residuals.
+`--ct-lio-fixed-lag-outer-iterations` controls correspondence relinearization passes in the smoother. The current default is `3` for accuracy; `1` is lighter but usually hurts long-run ATE.
 
 ### Synthetic Urban (30 frames)
 

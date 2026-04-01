@@ -1,16 +1,75 @@
 {
   "title": "Localization Zoo Benchmark",
-  "generated_at": "1970-01-01T00:00:00+00:00",
+  "generated_at": "2026-04-01T23:48:51+00:00",
   "dataset": {
-    "name": "No benchmark report stored in this repository yet",
-    "path": "",
-    "frames": 0,
-    "trajectory_length_m": 0.0,
-    "timestamp_source": ""
+    "name": "Autoware Istanbul localization bag /localization/util/downsample/pointcloud (frames 10200-10307)",
+    "path": "official/autoware_istanbul/localization_rosbag",
+    "frames": 108,
+    "trajectory_length_m": 302.1414273216722,
+    "timestamp_source": "dogfooding_results/autoware_istanbul_open_108/frame_timestamps.csv"
   },
-  "command": "",
+  "command": "./build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108 dogfooding_results/autoware_istanbul_open_108_gt.csv --methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp",
   "artifacts": {
-    "trajectory_plot": ""
+    "trajectory_plot": "trajectory.png"
   },
-  "methods": []
+  "methods": [
+    {
+      "name": "GICP",
+      "status": "ok",
+      "ate_m": 9.373502992549412,
+      "frames": 108,
+      "artifact": "GICP.txt",
+      "note": "GT-seeded scan-to-map init in pcd_dogfooding.",
+      "time_ms": 624168.6,
+      "fps": 0.2
+    },
+    {
+      "name": "LiTAMIN2",
+      "status": "ok",
+      "ate_m": 18.70275112795029,
+      "frames": 108,
+      "artifact": "LiTAMIN2.txt",
+      "note": "GT-seeded scan-to-map init in pcd_dogfooding. Empty voxel-map warnings observed on this topic.",
+      "time_ms": 34402.8,
+      "fps": 3.1
+    },
+    {
+      "name": "NDT",
+      "status": "ok",
+      "ate_m": 1047.493850438121,
+      "frames": 108,
+      "artifact": "NDT.txt",
+      "note": "GT-seeded scan-to-map init in pcd_dogfooding.",
+      "time_ms": 165264.3,
+      "fps": 0.7
+    },
+    {
+      "name": "CT-ICP",
+      "status": "ok",
+      "ate_m": 4956.767615149093,
+      "frames": 108,
+      "artifact": "CT_ICP.txt",
+      "note": "Odometry-only on a pre-downsampled topic.",
+      "time_ms": 484859.0,
+      "fps": 0.2
+    },
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 5349.806810375573,
+      "frames": 108,
+      "artifact": "KISS_ICP.txt",
+      "note": "Odometry-only on a pre-downsampled topic.",
+      "time_ms": 228151.2,
+      "fps": 0.5
+    },
+    {
+      "name": "CT-LIO",
+      "status": "skipped",
+      "ate_m": null,
+      "frames": 0,
+      "note": "The source bag window does not include IMU data, so imu.csv was not generated.",
+      "artifact": ""
+    }
+  ]
 }

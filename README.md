@@ -43,7 +43,8 @@ Some paper-named entries still use compact or simplified internals today, especi
 
 The repository currently ships one real-data benchmark snapshot from the official Autoware Istanbul localization bag.
 GitHub Pages publishes the latest repository-stored report from [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
-The current snapshot uses a speed-oriented dogfooding profile with lighter map refresh and iteration budgets.
+The current snapshot uses a speed-oriented dogfooding profile with recent/local-map pruning.
+For GT-seeded scan-to-map methods, weak updates fall back to the seed pose instead of forcing a poor refinement.
 
 - Topic: `/localization/util/downsample/pointcloud`
 - Window: frames `10200-10307`
@@ -53,11 +54,11 @@ The current snapshot uses a speed-oriented dogfooding profile with lighter map r
 
 | Method | Status | ATE [m] | FPS | Notes |
 |--------|--------|---------|-----|-------|
-| NDT | OK | 0.056 | 0.7 | GT-seeded scan-to-map init; current snapshot uses a speed-oriented recent-map profile |
-| LiTAMIN2 | OK | 1.199 | 1.4 | GT-seeded scan-to-map init; current snapshot uses a speed-oriented recent-map profile |
-| GICP | OK | 6.296 | 1.1 | GT-seeded scan-to-map init; current snapshot uses a speed-oriented recent-map profile |
+| NDT | OK | 0.109 | 1.3 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
+| LiTAMIN2 | OK | 1.159 | 3.6 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
+| GICP | OK | 0.994 | 3.4 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
 | CT-ICP | OK | 75.075 | 1.4 | Odometry-only; ATE is measured after anchoring to the first GT pose |
-| KISS-ICP | OK | 638.615 | 3.8 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| KISS-ICP | OK | 183.178 | 3.8 | Odometry-only; ATE is measured after anchoring to the first GT pose |
 | CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
@@ -91,6 +92,7 @@ python3 evaluation/scripts/reference_pose_to_gt_csv.py \
 ```
 
 `LiTAMIN2`, `GICP`, and `NDT` currently use GT-seeded scan-to-map initialization inside `pcd_dogfooding` so that sequential PCD exports remain comparable.
+If a refinement step becomes weak or unstable, the current dogfooding profile falls back to that seeded pose instead of forcing the update.
 `KISS-ICP` and `CT-ICP` remain odometry-style methods in this tool, so their absolute ATE is reported after anchoring the estimated trajectory to the first GT pose.
 For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp,ndt,kiss_icp`.
 `--ct-lio-estimate-bias` is experimental and carries the previous-frame bias with a random-walk prior.

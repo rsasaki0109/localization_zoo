@@ -49,6 +49,20 @@ void VoxelHashMap::addPoints(const std::vector<Eigen::Vector3d>& points) {
   }
 }
 
+void VoxelHashMap::pruneFarVoxels(const Eigen::Vector3d& center,
+                                  double max_distance) {
+  const double max_distance_sq = max_distance * max_distance;
+  for (auto it = map_.begin(); it != map_.end();) {
+    const Eigen::Vector3d voxel_center =
+        (it->first.cast<double>() + Eigen::Vector3d::Constant(0.5)) * voxel_size_;
+    if ((voxel_center - center).squaredNorm() > max_distance_sq) {
+      it = map_.erase(it);
+    } else {
+      ++it;
+    }
+  }
+}
+
 std::vector<VoxelHashMap::Correspondence> VoxelHashMap::getCorrespondences(
     const std::vector<Eigen::Vector3d>& points, double max_dist) const {
   std::vector<Correspondence> correspondences(points.size());
@@ -156,10 +170,10 @@ Eigen::Matrix4d KISSICPPipeline::runICP(
       double w = std::exp(-0.5 * (r_norm / kernel_threshold) *
                           (r_norm / kernel_threshold));
 
-      // Jacobian: [skew(p), -I]
+      // Residual r = T p - q, so J = [-skew(Tp), I]
       Eigen::Matrix<double, 3, 6> J;
-      J.block<3, 3>(0, 0) = skew(src_transformed[i]);
-      J.block<3, 3>(0, 3) = -Eigen::Matrix3d::Identity();
+      J.block<3, 3>(0, 0) = -skew(src_transformed[i]);
+      J.block<3, 3>(0, 3) = Eigen::Matrix3d::Identity();
 
       JtJ += w * J.transpose() * J;
       Jtb += w * J.transpose() * residual;
@@ -235,6 +249,10 @@ KISSICPResult KISSICPPipeline::registerFrame(
   // 6. マップ更新
   auto world_pts = transformPoints(downsampled, pose_);
   local_map_.addPoints(world_pts);
+  if (params_.local_map_radius > 0.0 && params_.map_cleanup_interval > 0 &&
+      (frame_count_ % params_.map_cleanup_interval) == 0) {
+    local_map_.pruneFarVoxels(pose_.block<3, 1>(0, 3), params_.local_map_radius);
+  }
 
   result.pose = pose_;
   result.converged = (pose_.array().isFinite().all() &&

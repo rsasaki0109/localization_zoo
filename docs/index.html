@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Localization Zoo Benchmarks</title>
+    <link rel="stylesheet" href="./assets/site.css">
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Localization Zoo</p>
+        <h1>Benchmark Reports</h1>
+        <p class="lede">
+          Reproducible benchmark snapshots for real LiDAR dogfooding runs.
+          The page is generated from repository artifacts and published through GitHub Pages.
+        </p>
+      </section>
+
+      <section class="panel" id="summary">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Latest Run</p>
+            <h2 id="title">Loading benchmark...</h2>
+          </div>
+          <p class="stamp" id="generated-at"></p>
+        </div>
+        <div class="metrics" id="dataset-metrics"></div>
+        <p class="command" id="command"></p>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Trajectory</p>
+              <h2>Method Overlay</h2>
+            </div>
+          </div>
+          <img id="trajectory-plot" class="plot" alt="Trajectory plot">
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Leaderboard</p>
+              <h2>ATE Ranking</h2>
+            </div>
+          </div>
+          <div id="leaderboard" class="leaderboard"></div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Details</p>
+            <h2>Method Table</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Status</th>
+                <th>ATE [m]</th>
+                <th>Frames</th>
+                <th>Time [ms]</th>
+                <th>FPS</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const dataPath = "./benchmarks/latest/results.json";
+
+      function fmt(value, digits = 2) {
+        if (value === null || value === undefined || Number.isNaN(value)) {
+          return "-";
+        }
+        return Number(value).toFixed(digits);
+      }
+
+      function addMetric(label, value) {
+        const item = document.createElement("div");
+        item.className = "metric";
+        item.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+        return item;
+      }
+
+      function render(data) {
+        document.getElementById("title").textContent = data.dataset.name;
+        document.getElementById("generated-at").textContent =
+          `Generated ${new Date(data.generated_at).toLocaleString()}`;
+        const metrics = document.getElementById("dataset-metrics");
+        metrics.appendChild(addMetric("Frames", data.dataset.frames));
+        metrics.appendChild(addMetric("Trajectory", `${fmt(data.dataset.trajectory_length_m, 1)} m`));
+        metrics.appendChild(addMetric("Timestamp Source", data.dataset.timestamp_source || "-"));
+        document.getElementById("command").textContent = data.command || "";
+        const plot = document.getElementById("trajectory-plot");
+        if (data.artifacts.trajectory_plot) {
+          plot.src = `./benchmarks/latest/${data.artifacts.trajectory_plot}`;
+        } else {
+          plot.alt = "No repository-hosted trajectory plot published yet";
+          plot.style.display = "none";
+        }
+
+        const leaderboard = document.getElementById("leaderboard");
+        const ranked = data.methods
+          .filter((method) => method.status === "ok")
+          .slice(0, 8);
+        if (ranked.length === 0) {
+          const empty = document.createElement("p");
+          empty.textContent = "No benchmark report is stored in this repository yet.";
+          leaderboard.appendChild(empty);
+        } else {
+          ranked.forEach((method, index) => {
+            const row = document.createElement("div");
+            row.className = "leaderboard-row";
+            row.innerHTML =
+              `<span class="rank">${index + 1}</span>` +
+              `<span class="method">${method.name}</span>` +
+              `<span class="ate">${fmt(method.ate_m, 3)} m</span>`;
+            leaderboard.appendChild(row);
+          });
+        }
+
+        const body = document.getElementById("results-body");
+        if (data.methods.length === 0) {
+          const row = document.createElement("tr");
+          row.innerHTML =
+            "<td colspan='7'>No benchmark report is stored in this repository yet.</td>";
+          body.appendChild(row);
+        } else {
+          data.methods.forEach((method) => {
+            const row = document.createElement("tr");
+            row.innerHTML =
+              `<td>${method.name}</td>` +
+              `<td>${method.status.toUpperCase()}</td>` +
+              `<td>${fmt(method.ate_m, 3)}</td>` +
+              `<td>${method.frames || "-"}</td>` +
+              `<td>${fmt(method.time_ms, 1)}</td>` +
+              `<td>${fmt(method.fps, 1)}</td>` +
+              `<td>${method.note || ""}</td>`;
+            body.appendChild(row);
+          });
+        }
+      }
+
+      fetch(dataPath)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Missing ${dataPath}`);
+          }
+          return response.json();
+        })
+        .then(render)
+        .catch((error) => {
+          document.getElementById("title").textContent = "No benchmark report yet";
+          document.getElementById("command").textContent = error.message;
+        });
+    </script>
+  </body>
+</html>

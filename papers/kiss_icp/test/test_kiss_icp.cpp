@@ -46,6 +46,9 @@ TEST(KISSICP, MultiFrame) {
     auto result = pipeline.registerFrame(scan);
     EXPECT_TRUE(result.converged);
   }
-  double err = (pipeline.pose().block<3,1>(0,3) - Eigen::Vector3d(2,0,1)).norm();
-  EXPECT_LT(err, 10.0);  // 合成データなので緩めに
+  // The pipeline reports odometry relative to the first frame, whose
+  // synthetic sensor height is treated as the origin here.
+  double err =
+      (pipeline.pose().block<3,1>(0,3) - Eigen::Vector3d(2,0,0)).norm();
+  EXPECT_LT(err, 2.0);
 }

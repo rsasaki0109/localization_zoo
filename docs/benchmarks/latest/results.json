@@ -1,6 +1,6 @@
 {
   "title": "Localization Zoo Benchmark",
-  "generated_at": "2026-04-02T01:03:56+00:00",
+  "generated_at": "2026-04-02T01:29:19+00:00",
   "dataset": {
     "name": "Autoware Istanbul localization bag /localization/util/downsample/pointcloud (frames 10200-10307)",
     "path": "official/autoware_istanbul/localization_rosbag",
@@ -16,32 +16,32 @@
     {
       "name": "NDT",
       "status": "ok",
-      "ate_m": 0.05573136067300042,
+      "ate_m": 0.10894153495243093,
       "frames": 108,
       "artifact": "NDT.txt",
-      "note": "GT-seeded scan-to-map init in pcd_dogfooding. Current snapshot uses a speed-oriented recent-map profile.",
-      "time_ms": 149303.4,
-      "fps": 0.7
-    },
-    {
-      "name": "LiTAMIN2",
-      "status": "ok",
-      "ate_m": 1.1987946461761707,
-      "frames": 108,
-      "artifact": "LiTAMIN2.txt",
-      "note": "GT-seeded scan-to-map init in pcd_dogfooding. Current snapshot uses a speed-oriented recent-map profile.",
-      "time_ms": 75562.2,
-      "fps": 1.4
+      "note": "GT-seeded scan-to-map init with weak-update fallback in pcd_dogfooding. Current snapshot uses a recent/local-map profile.",
+      "time_ms": 82636.8,
+      "fps": 1.3
     },
     {
       "name": "GICP",
       "status": "ok",
-      "ate_m": 6.295715327974187,
+      "ate_m": 0.9938568367888175,
       "frames": 108,
       "artifact": "GICP.txt",
-      "note": "GT-seeded scan-to-map init in pcd_dogfooding. Current snapshot uses a speed-oriented recent-map profile.",
-      "time_ms": 96848.1,
-      "fps": 1.1
+      "note": "GT-seeded scan-to-map init with weak-update fallback in pcd_dogfooding. Current snapshot uses a recent/local-map profile.",
+      "time_ms": 32122.8,
+      "fps": 3.4
+    },
+    {
+      "name": "LiTAMIN2",
+      "status": "ok",
+      "ate_m": 1.1591594119678412,
+      "frames": 108,
+      "artifact": "LiTAMIN2.txt",
+      "note": "GT-seeded scan-to-map init with weak-update fallback in pcd_dogfooding. Current snapshot uses a recent/local-map profile.",
+      "time_ms": 30112.7,
+      "fps": 3.6
     },
     {
       "name": "CT-ICP",
@@ -50,17 +50,17 @@
       "frames": 108,
       "artifact": "CT_ICP.txt",
       "note": "Odometry-only. ATE is measured after anchoring the trajectory to the first GT pose. Current snapshot uses lighter CT-ICP optimization settings.",
-      "time_ms": 79349.0,
+      "time_ms": 79173.2,
       "fps": 1.4
     },
     {
       "name": "KISS-ICP",
       "status": "ok",
-      "ate_m": 638.6149104380902,
+      "ate_m": 183.17813132166822,
       "frames": 108,
       "artifact": "KISS_ICP.txt",
-      "note": "Odometry-only. ATE is measured after anchoring the trajectory to the first GT pose.",
-      "time_ms": 28483.8,
+      "note": "Odometry-only. ATE is measured after anchoring the trajectory to the first GT pose. Current snapshot uses local-map pruning.",
+      "time_ms": 28587.6,
       "fps": 3.8
     },
     {

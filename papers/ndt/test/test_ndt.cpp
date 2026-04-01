@@ -1,5 +1,8 @@
 #include "ndt/ndt_registration.h"
 #include <gtest/gtest.h>
+
+#include <algorithm>
+#include <cmath>
 #include <random>
 
 using namespace localization_zoo::ndt;
@@ -24,6 +27,18 @@ std::vector<Eigen::Vector3d> transform(const std::vector<Eigen::Vector3d>& pts,
   for (auto& p : pts) out.push_back(R*p+t);
   return out;
 }
+
+std::pair<double, double> poseError(const Eigen::Matrix4d& est,
+                                    const Eigen::Matrix4d& gt) {
+  const Eigen::Matrix3d rotation_error =
+      est.block<3, 3>(0, 0) * gt.block<3, 3>(0, 0).transpose();
+  const double angle =
+      std::acos(std::clamp((rotation_error.trace() - 1.0) / 2.0, -1.0, 1.0)) *
+      180.0 / M_PI;
+  const double translation =
+      (est.block<3, 1>(0, 3) - gt.block<3, 1>(0, 3)).norm();
+  return {angle, translation};
+}
 }
 
 TEST(NDT, MapCreation) {
@@ -43,12 +58,18 @@ TEST(NDT, SmallTranslation) {
 
   NDTParams params;
   params.resolution = 1.0;
+  params.max_iterations = 40;
+  params.step_size = 0.2;
+  params.convergence_threshold = 1e-4;
   NDTRegistration reg(params);
   reg.setTarget(target);
-  auto result = reg.align(source);
+  const auto result = reg.align(source);
+  const auto [angle_err, trans_err] =
+      poseError(result.transformation, T_gt.inverse());
 
-  double err = (result.transformation.block<3,1>(0,3) - T_gt.block<3,1>(0,3)).norm();
-  EXPECT_LT(err, 3.0);  // NDTはボクセルサイズ依存でアライメント精度に幅がある
+  EXPECT_TRUE(result.converged);
+  EXPECT_LT(angle_err, 0.5);
+  EXPECT_LT(trans_err, 1.0);
 }
 
 TEST(NDT, RotationAndTranslation) {
@@ -62,10 +83,16 @@ TEST(NDT, RotationAndTranslation) {
 
   NDTParams params;
   params.resolution = 1.0;
+  params.max_iterations = 40;
+  params.step_size = 0.2;
+  params.convergence_threshold = 1e-4;
   NDTRegistration reg(params);
   reg.setTarget(target);
-  auto result = reg.align(source);
+  const auto result = reg.align(source);
+  const auto [angle_err, trans_err] =
+      poseError(result.transformation, T_gt.inverse());
 
-  double err = (result.transformation.block<3,1>(0,3) - T_gt.block<3,1>(0,3)).norm();
-  EXPECT_LT(err, 3.0);
+  EXPECT_TRUE(result.converged);
+  EXPECT_LT(angle_err, 1.0);
+  EXPECT_LT(trans_err, 1.0);
 }

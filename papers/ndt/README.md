@@ -1,12 +1,25 @@
-# NDT: Normal Distributions Transform
+# NDT
 
-## 論文情報
-- **著者**: Peter Biber, Wolfgang Strasser (2003, 2D) / Martin Magnusson (2009, 3D)
-- **会場**: IROS 2003 / PhD Thesis 2009
-- **概要**: Autowareのlocalizationの基盤。点群を正規分布でモデル化してマッチング
+## Paper
+- Peter Biber and Wolfgang Strasser, IROS 2003
+- Martin Magnusson, PhD thesis 2009 for the 3D formulation
 
-## 手法概要
-1. ターゲット点群をボクセルに分割、各ボクセル内で正規分布(平均+共分散)を計算
-2. ソース点をターゲットの正規分布に対して尤度最大化
-3. コスト: -Σ exp(-0.5 (p-μ)^T Σ^{-1} (p-μ))
-4. Newton法で最適化
+## What This Repository Implements
+
+This is a compact NDT-style registration module:
+
+- the target cloud is converted into voxel Gaussians
+- the source cloud is aligned against those Gaussians
+- the optimizer is intentionally lightweight and does not aim to be a full Magnusson-style production NDT port
+
+## Current Scope
+
+- voxel Gaussian map construction
+- analytic gradient and Gauss-Newton Hessian approximation
+- line search on the update step
+
+## Not Included Yet
+
+- full production-grade NDT optimizer behavior as found in mature libraries
+- neighbor-cell interpolation and other accuracy-focused refinements
+- an exact port of Autoware or PCL NDT internals

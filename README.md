@@ -1,12 +1,12 @@
 <p align="center">
   <h1 align="center">Localization Zoo</h1>
   <p align="center">
-    <b>C++ reimplementations of localization papers with ROS 2 support</b>
+    <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
     <img src="https://img.shields.io/badge/ROS2-Humble-green" alt="ROS2 Humble">
-    <img src="https://img.shields.io/badge/Algorithms-Reimplemented-orange" alt="Algorithms Reimplemented">
+    <img src="https://img.shields.io/badge/Scope-Reimpl%20%2B%20Derived-orange" alt="Reimplementations and Derived Variants">
     <img src="https://img.shields.io/badge/Tests-CTest-brightgreen" alt="CTest">
     <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License">
   </p>
@@ -17,12 +17,23 @@
 ## Why Localization Zoo?
 
 Many localization papers do not ship reusable reference implementations.
-This repository reimplements them behind a unified C++ API, with ROS 2 nodes and evaluation tools that are ready to run.
+This repository collects paper-oriented C++ implementations behind a unified API, with ROS 2 nodes and evaluation tools that are ready to run.
 
 - **Pure C++**: ROS-independent core libraries for research, education, and embedded use
 - **ROS 2 Humble**: Ready-to-run nodes via `ros2 run`
 - **Built-in benchmarking**: Compare methods immediately after build
 - **Degeneracy-aware methods**: Includes RELEAD and X-ICP for constrained environments
+
+## Scope Note
+
+This repository mixes three levels of implementation scope:
+
+- **Paper reimplementation**: intended to track the published method closely
+- **Derived variant**: built from the paper idea, but adapted to this repository's shared components
+- **Compact baseline**: a smaller approximation that keeps the interface and core intuition, but not the full paper pipeline
+
+Methods already labeled `Derived` or `Hybrid` are intentionally adapted versions.
+Some paper-named entries still use compact or simplified internals today, especially `NDT`, `KISS-ICP`, and `DLIO`. Check each method README for current scope and deviations.
 
 ---
 
@@ -77,8 +88,8 @@ LiTAMIN2       31.155      2.6
 | **[Voxel-GICP](papers/voxel_gicp/)** | RA-L 2021 | GICP accelerated with voxel representatives and voxel-level covariance | [Paper](https://arxiv.org/abs/2109.07082) |
 | **[small_gicp](papers/small_gicp/)** | Derived | Compact GICP with voxel downsampling and capped correspondences | [GitHub](https://github.com/koide3/small_gicp) |
 | **[VGICP-SLAM](papers/vgicp_slam/)** | Derived | Voxel-GICP front-end with Scan Context and loop-graph back-end | - |
-| **[NDT](papers/ndt/)** | IROS 2003 | Normal Distributions Transform optimized against voxel Gaussian models | [Paper](https://ieeexplore.ieee.org/document/1249285) |
-| **[KISS-ICP](papers/kiss_icp/)** | RA-L 2023 | Lightweight ICP with voxel hashing, adaptive thresholds, and Welsch loss | [Paper](https://arxiv.org/abs/2209.15397) |
+| **[NDT](papers/ndt/)** | IROS 2003 | NDT-style registration against voxel Gaussian models with a compact optimizer | [Paper](https://ieeexplore.ieee.org/document/1249285) |
+| **[KISS-ICP](papers/kiss_icp/)** | RA-L 2023 | Compact KISS-ICP-style pipeline with voxel hashing, adaptive thresholds, and robust ICP | [Paper](https://arxiv.org/abs/2209.15397) |
 | **[A-LOAM](papers/aloam/)** | RSS 2014 | Curvature-based feature extraction with a three-stage odom-to-map pipeline | [GitHub (ROS1)](https://github.com/HKUST-Aerial-Robotics/A-LOAM) |
 | **[F-LOAM](papers/floam/)** | Derived | Lightweight LOAM pipeline with input thinning and sparse map updates | - |
 | **[ISC-LOAM](papers/isc_loam/)** | Derived | Lightweight LOAM with intensity descriptors and F-LOAM/GICP loop graph | - |
@@ -110,7 +121,7 @@ LiTAMIN2       31.155      2.6
 | Paper | Venue | Key Idea | Reference |
 |-------|-------|----------|-----------|
 | **[CT-LIO](papers/ct_lio/)** | Hybrid | Lightweight LIO that combines CT-ICP interpolation with IMU preintegration constraints | [CLINS](https://arxiv.org/abs/2109.04687) |
-| **[DLIO](papers/dlio/)** | ICRA 2023 | Direct scan-to-map LIO built on DLO-style registration plus IMU preintegration | [GitHub](https://github.com/vectr-ucla/direct_lidar_inertial_odometry) |
+| **[DLIO](papers/dlio/)** | ICRA 2023 | Compact DLIO-style LIO built on DLO-style registration plus IMU preintegration | [GitHub](https://github.com/vectr-ucla/direct_lidar_inertial_odometry) |
 | **[LINS](papers/lins/)** | Derived | Lightweight LiDAR-inertial estimator with iterated filtering and point-to-plane updates | - |
 | **[Point-LIO](papers/point_lio/)** | Derived | Compact direct LIO with raw-point planarity correspondences and iterated filtering | - |
 | **[CLINS](papers/clins/)** | Derived | Sequence pipeline version of CT-LIO-style continuous-time registration | - |

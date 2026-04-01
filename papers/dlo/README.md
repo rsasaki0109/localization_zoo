@@ -1,15 +1,18 @@
 # DLO
 
-lightweight `DLO` 再現版です。dense LiDAR scan を downsample し、local map への
-direct scan-to-map を `GICP` で回します。map は keyframe ベースの sliding window
-として維持します。
+## What This Repository Implements
 
-この実装で入れている要素:
+This is a derived DLO-style pipeline.
+Dense LiDAR scans are downsampled and aligned to a local map with `GICP`, while the map is maintained as a keyframe-based sliding window.
 
-- range filter + voxel downsample
-- `GICP` を使う dense scan-to-map registration
-- constant velocity 初期値
-- keyframe ベースの local map 更新
+## Current Scope
 
-full DLO の optimizer / ROS integration を完全移植したものではなく、
-この repo の既存 `GICP` と local map 管理の上に小さく寄せた版です。
+- range filtering and voxel downsampling
+- dense scan-to-map registration using this repository's `GICP`
+- constant-velocity initialization
+- keyframe-based local map maintenance
+
+## Important Deviation
+
+This is not a full port of the original DLO optimizer or system stack.
+It is a smaller implementation built from this repository's existing `GICP` and local-map components.

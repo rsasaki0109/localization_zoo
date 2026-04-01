@@ -64,7 +64,7 @@ For GT-seeded scan-to-map methods, weak updates fall back to the seed pose inste
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
 
-`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
+`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--litamin2-paper-profile] [--litamin2-icp-only] [--litamin2-voxel-resolution X] [--litamin2-max-iterations N] [--litamin2-num-threads N] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
 
 `CT-LIO` expects `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
 
@@ -94,6 +94,8 @@ python3 evaluation/scripts/reference_pose_to_gt_csv.py \
 
 `LiTAMIN2`, `GICP`, and `NDT` currently use GT-seeded scan-to-map initialization inside `pcd_dogfooding` so that sequential PCD exports remain comparable.
 If a refinement step becomes weak or unstable, the current dogfooding profile falls back to that seeded pose instead of forcing the update.
+`--litamin2-paper-profile` switches LiTAMIN2 to a more paper-like setting centered on `voxel_resolution=3.0`.
+`--litamin2-icp-only` disables the covariance-shape term so the first KL-derived distance term can be benchmarked on its own.
 `KISS-ICP` and `CT-ICP` remain odometry-style methods in this tool, so their absolute ATE is reported after anchoring the estimated trajectory to the first GT pose.
 For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp,ndt,kiss_icp`.
 `--ct-lio-estimate-bias` is experimental and carries the previous-frame bias with a random-walk prior.

@@ -35,6 +35,7 @@
 #include <limits>
 #include <sstream>
 #include <string>
+#include <thread>
 #include <vector>
 
 namespace fs = std::filesystem;
@@ -670,10 +671,12 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   res.name = "LiTAMIN2";
 
   LiTAMIN2Params params;
-  params.voxel_resolution = 1.0;
+  params.voxel_resolution = 2.0;
   params.min_points_per_voxel = 1;
-  params.max_iterations = 16;
+  params.max_iterations = 8;
   params.use_cov_cost = true;
+  params.num_threads =
+      std::max(1u, std::thread::hardware_concurrency());
   LiTAMIN2Registration reg(params);
   constexpr size_t kLiTAMIN2MapMaxPoints = 45000;
   constexpr size_t kLiTAMIN2RefreshInterval = 3;

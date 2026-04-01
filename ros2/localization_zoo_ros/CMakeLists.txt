@@ -9,6 +9,7 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_eigen REQUIRED)
 find_package(pcl_conversions REQUIRED)
@@ -60,6 +61,32 @@ target_include_directories(ct_icp PUBLIC
 )
 target_link_libraries(ct_icp PUBLIC localization_common ${CERES_LIBRARIES})
 
+# IMU Preintegration
+add_library(imu_preintegration STATIC
+  ${ZOO_ROOT}/papers/imu_preintegration/src/imu_preintegration.cpp
+)
+target_include_directories(imu_preintegration PUBLIC
+  ${ZOO_ROOT}/papers/imu_preintegration/include
+)
+target_link_libraries(imu_preintegration PUBLIC Eigen3::Eigen)
+
+# CT-LIO
+add_library(ct_lio STATIC
+  ${ZOO_ROOT}/papers/ct_lio/src/ct_lio_registration.cpp
+)
+target_include_directories(ct_lio PUBLIC
+  ${ZOO_ROOT}/papers/ct_lio/include
+  ${ZOO_ROOT}/papers/ct_icp/include
+  ${ZOO_ROOT}/papers/imu_preintegration/include
+  ${CERES_INCLUDE_DIRS}
+)
+target_link_libraries(ct_lio PUBLIC
+  ct_icp
+  imu_preintegration
+  localization_common
+  ${CERES_LIBRARIES}
+)
+
 # RELEAD
 add_library(relead STATIC
   ${ZOO_ROOT}/papers/relead/src/degeneracy_detection.cpp
@@ -77,7 +104,7 @@ target_link_libraries(xicp PUBLIC localization_common)
 
 # === ROS2 ノード ===
 
-set(ROS_DEPS rclcpp sensor_msgs geometry_msgs nav_msgs tf2_ros tf2_eigen pcl_conversions)
+set(ROS_DEPS rclcpp sensor_msgs geometry_msgs nav_msgs std_msgs tf2_ros tf2_eigen pcl_conversions)
 
 # LiTAMIN2 Node
 add_executable(litamin2_node src/litamin2_node.cpp)
@@ -94,6 +121,11 @@ add_executable(ct_icp_node src/ct_icp_node.cpp)
 target_link_libraries(ct_icp_node ct_icp)
 ament_target_dependencies(ct_icp_node ${ROS_DEPS})
 
+# CT-LIO Node
+add_executable(ct_lio_node src/ct_lio_node.cpp)
+target_link_libraries(ct_lio_node ct_lio)
+ament_target_dependencies(ct_lio_node ${ROS_DEPS})
+
 # RELEAD Node
 add_executable(relead_node src/relead_node.cpp)
 target_link_libraries(relead_node relead)
@@ -105,7 +137,7 @@ target_link_libraries(xicp_node xicp)
 ament_target_dependencies(xicp_node ${ROS_DEPS})
 
 install(TARGETS
-  litamin2_node aloam_node ct_icp_node relead_node xicp_node
+  litamin2_node aloam_node ct_icp_node ct_lio_node relead_node xicp_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

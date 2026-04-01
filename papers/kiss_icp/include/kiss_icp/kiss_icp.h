@@ -3,9 +3,9 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
+#include <functional>
 #include <unordered_map>
 #include <vector>
-#include <functional>
 
 namespace localization_zoo {
 namespace kiss_icp {
@@ -61,7 +61,7 @@ struct KISSICPParams {
   int max_points_per_voxel = 20;
   double initial_threshold = 2.0;   // 初期対応距離閾値 [m]
   int max_icp_iterations = 500;
-  double convergence_criterion = 0.0001;
+  double convergence_criterion = 0.001;
 };
 
 struct KISSICPResult {
@@ -92,9 +92,9 @@ private:
 
   /// Point-to-Point ICP (ロバストカーネル付き)
   Eigen::Matrix4d runICP(const std::vector<Eigen::Vector3d>& source,
-                          const std::vector<Eigen::Vector3d>& target,
-                          const Eigen::Matrix4d& initial_guess,
-                          double max_correspondence_dist);
+                         const std::vector<Eigen::Vector3d>& target,
+                         const Eigen::Matrix4d& initial_guess,
+                         double max_correspondence_dist);
 
   /// 適応的閾値の計算
   double computeAdaptiveThreshold();

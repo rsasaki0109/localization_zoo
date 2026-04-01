@@ -51,6 +51,20 @@ target_include_directories(aloam PUBLIC
 )
 target_link_libraries(aloam PUBLIC localization_common ${CERES_LIBRARIES})
 
+# KISS-ICP
+add_library(kiss_icp STATIC
+  ${ZOO_ROOT}/papers/kiss_icp/src/kiss_icp.cpp
+)
+target_include_directories(kiss_icp PUBLIC ${ZOO_ROOT}/papers/kiss_icp/include)
+target_link_libraries(kiss_icp PUBLIC Eigen3::Eigen)
+
+# NDT
+add_library(ndt STATIC
+  ${ZOO_ROOT}/papers/ndt/src/ndt_registration.cpp
+)
+target_include_directories(ndt PUBLIC ${ZOO_ROOT}/papers/ndt/include)
+target_link_libraries(ndt PUBLIC Eigen3::Eigen)
+
 # CT-ICP
 add_library(ct_icp STATIC
   ${ZOO_ROOT}/papers/ct_icp/src/ct_icp_registration.cpp
@@ -67,6 +81,16 @@ add_library(gicp STATIC
 )
 target_include_directories(gicp PUBLIC ${ZOO_ROOT}/papers/gicp/include)
 target_link_libraries(gicp PUBLIC localization_common)
+
+# DLO
+add_library(dlo STATIC
+  ${ZOO_ROOT}/papers/dlo/src/dlo.cpp
+)
+target_include_directories(dlo PUBLIC
+  ${ZOO_ROOT}/papers/dlo/include
+  ${ZOO_ROOT}/papers/aloam/include
+)
+target_link_libraries(dlo PUBLIC gicp)
 
 # IMU Preintegration
 add_library(imu_preintegration STATIC
@@ -111,6 +135,20 @@ target_link_libraries(fast_lio2 PUBLIC
   ${CERES_LIBRARIES}
 )
 
+# DLIO
+add_library(dlio STATIC
+  ${ZOO_ROOT}/papers/dlio/src/dlio.cpp
+)
+target_include_directories(dlio PUBLIC
+  ${ZOO_ROOT}/papers/dlio/include
+  ${ZOO_ROOT}/papers/aloam/include
+  ${ZOO_ROOT}/papers/imu_preintegration/include
+)
+target_link_libraries(dlio PUBLIC
+  gicp
+  imu_preintegration
+)
+
 # RELEAD
 add_library(relead STATIC
   ${ZOO_ROOT}/papers/relead/src/degeneracy_detection.cpp
@@ -140,6 +178,16 @@ add_executable(aloam_node src/aloam_node.cpp)
 target_link_libraries(aloam_node aloam)
 ament_target_dependencies(aloam_node ${ROS_DEPS})
 
+# KISS-ICP Node
+add_executable(kiss_icp_node src/kiss_icp_node.cpp)
+target_link_libraries(kiss_icp_node kiss_icp)
+ament_target_dependencies(kiss_icp_node ${ROS_DEPS})
+
+# NDT Node
+add_executable(ndt_node src/ndt_node.cpp)
+target_link_libraries(ndt_node ndt)
+ament_target_dependencies(ndt_node ${ROS_DEPS})
+
 # CT-ICP Node
 add_executable(ct_icp_node src/ct_icp_node.cpp)
 target_link_libraries(ct_icp_node ct_icp)
@@ -150,6 +198,11 @@ add_executable(gicp_node src/gicp_node.cpp)
 target_link_libraries(gicp_node gicp)
 ament_target_dependencies(gicp_node ${ROS_DEPS})
 
+# DLO Node
+add_executable(dlo_node src/dlo_node.cpp)
+target_link_libraries(dlo_node dlo)
+ament_target_dependencies(dlo_node ${ROS_DEPS})
+
 # CT-LIO Node
 add_executable(ct_lio_node src/ct_lio_node.cpp)
 target_link_libraries(ct_lio_node ct_lio)
@@ -159,6 +212,11 @@ ament_target_dependencies(ct_lio_node ${ROS_DEPS})
 add_executable(fast_lio2_node src/fast_lio2_node.cpp)
 target_link_libraries(fast_lio2_node fast_lio2)
 ament_target_dependencies(fast_lio2_node ${ROS_DEPS})
+
+# DLIO Node
+add_executable(dlio_node src/dlio_node.cpp)
+target_link_libraries(dlio_node dlio)
+ament_target_dependencies(dlio_node ${ROS_DEPS})
 
 # RELEAD Node
 add_executable(relead_node src/relead_node.cpp)
@@ -171,8 +229,8 @@ target_link_libraries(xicp_node xicp)
 ament_target_dependencies(xicp_node ${ROS_DEPS})
 
 install(TARGETS
-  litamin2_node aloam_node ct_icp_node gicp_node ct_lio_node fast_lio2_node
-  relead_node xicp_node
+  litamin2_node aloam_node kiss_icp_node ndt_node ct_icp_node gicp_node
+  dlo_node ct_lio_node fast_lio2_node dlio_node relead_node xicp_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

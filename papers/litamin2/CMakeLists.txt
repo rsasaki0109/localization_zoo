@@ -2,6 +2,8 @@ add_library(litamin2
   src/litamin2_registration.cpp
 )
 
+find_package(OpenMP)
+
 target_include_directories(litamin2 PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
@@ -10,6 +12,10 @@ target_link_libraries(litamin2 PUBLIC
   localization_common
   Eigen3::Eigen
 )
+
+if(OpenMP_CXX_FOUND)
+  target_link_libraries(litamin2 PUBLIC OpenMP::OpenMP_CXX)
+endif()
 
 # テスト
 add_executable(test_litamin2 test/test_litamin2.cpp)

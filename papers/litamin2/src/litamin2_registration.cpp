@@ -3,6 +3,11 @@
 #include <Eigen/Dense>
 #include <cmath>
 #include <iostream>
+#include <vector>
+
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 namespace localization_zoo {
 namespace litamin2 {
@@ -35,14 +40,14 @@ void LiTAMIN2Registration::setTarget(
     const std::vector<Eigen::Vector3d>& target_points) {
   target_voxel_map_ = std::make_unique<GaussianVoxelMap>(
       params_.voxel_resolution, params_.min_points_per_voxel);
-  target_voxel_map_->createFromPoints(target_points);
+  target_voxel_map_->createFromPoints(target_points, params_.num_threads);
 }
 
 void LiTAMIN2Registration::buildSourceVoxelMap(
     const std::vector<Eigen::Vector3d>& source_points) {
   source_voxel_map_ = std::make_unique<GaussianVoxelMap>(
       params_.voxel_resolution, params_.min_points_per_voxel);
-  source_voxel_map_->createFromPoints(source_points);
+  source_voxel_map_->createFromPoints(source_points, params_.num_threads);
 }
 
 std::vector<std::pair<std::shared_ptr<GaussianVoxel>,
@@ -52,6 +57,7 @@ LiTAMIN2Registration::updateCorrespondences(const Eigen::Matrix3d& R,
   std::vector<
       std::pair<std::shared_ptr<GaussianVoxel>, std::shared_ptr<GaussianVoxel>>>
       corrs;
+  corrs.reserve(source_voxel_map_->size());
 
   for (auto& [coord, src_voxel] : source_voxel_map_->voxels()) {
     // ソースボクセルの重心を変換
@@ -80,68 +86,81 @@ double LiTAMIN2Registration::linearize(
   const double sigma_icp_sq = params_.sigma_icp * params_.sigma_icp;
   const double sigma_cov_sq = params_.sigma_cov * params_.sigma_cov;
   const Eigen::Matrix3d I3 = Eigen::Matrix3d::Identity();
+  const int thread_count = std::max(1, params_.num_threads);
 
-  for (const auto& [src, tgt] : corrs) {
-    const Eigen::Vector3d& p = src->mean;   // source mean
-    const Eigen::Vector3d& q = tgt->mean;   // target mean
-    const Eigen::Matrix3d& Cp = src->cov;   // source covariance
-    const Eigen::Matrix3d& Cq = tgt->cov;   // target covariance
+#ifdef _OPENMP
+  std::vector<Eigen::Matrix<double, 6, 6>> H_locals(
+      thread_count, Eigen::Matrix<double, 6, 6>::Zero());
+  std::vector<Eigen::Matrix<double, 6, 1>> b_locals(
+      thread_count, Eigen::Matrix<double, 6, 1>::Zero());
+  std::vector<double> error_locals(thread_count, 0.0);
 
-    // 変換後のsource mean
-    Eigen::Vector3d Rp_t = R * p + t;
+#pragma omp parallel num_threads(thread_count) if (thread_count > 1)
+  {
+    const int tid = omp_get_thread_num();
+    auto& H_local = H_locals[tid];
+    auto& b_local = b_locals[tid];
+    double& error_local = error_locals[tid];
 
-    // === E_ICP ===
-    // マハラノビス行列: C_qp = (Cq + R Cp R^T + λI)^{-1} / ||...||_F
-    Eigen::Matrix3d RCpRT = R * Cp * R.transpose();
-    Eigen::Matrix3d C_sum = Cq + RCpRT + lambda * I3;
-    Eigen::Matrix3d C_sum_inv = C_sum.inverse();
-    double frob_norm = C_sum_inv.norm();  // Frobenius norm
-    Eigen::Matrix3d C_qp = C_sum_inv / frob_norm;
+#pragma omp for nowait
+    for (int corr_idx = 0; corr_idx < static_cast<int>(corrs.size()); corr_idx++) {
+      const auto& src = corrs[corr_idx].first;
+      const auto& tgt = corrs[corr_idx].second;
+#else
+  for (size_t corr_idx = 0; corr_idx < corrs.size(); corr_idx++) {
+    const auto& src = corrs[corr_idx].first;
+    const auto& tgt = corrs[corr_idx].second;
+    auto& H_local = H;
+    auto& b_local = b;
+    double& error_local = total_error;
+#endif
+      const Eigen::Vector3d& p = src->mean;
+      const Eigen::Vector3d& q = tgt->mean;
+      const Eigen::Matrix3d& Cp = src->cov;
+      const Eigen::Matrix3d& Cq = tgt->cov;
 
-    // 残差
-    Eigen::Vector3d error = q - Rp_t;
+      const Eigen::Vector3d Rp_t = R * p + t;
+      const Eigen::Matrix3d RCpRT = R * Cp * R.transpose();
+      const Eigen::Matrix3d C_sum = Cq + RCpRT + lambda * I3;
+      const Eigen::Matrix3d C_sum_inv = C_sum.inverse();
+      const double frob_norm = C_sum_inv.norm();
+      const Eigen::Matrix3d C_qp = C_sum_inv / frob_norm;
 
-    // ICPコスト
-    double E_icp = error.transpose() * C_qp * error;
+      const Eigen::Vector3d error = q - Rp_t;
+      const double E_icp = error.transpose() * C_qp * error;
+      const double w_icp = 1.0 - E_icp / (E_icp + sigma_icp_sq);
 
-    // ICPロバスト重み
-    double w_icp = 1.0 - E_icp / (E_icp + sigma_icp_sq);
+      double w_cov = 0.0;
+      double E_cov = 0.0;
+      if (params_.use_cov_cost) {
+        const Eigen::Matrix3d Cp_inv = Cp.inverse();
+        const Eigen::Matrix3d Cq_inv = Cq.inverse();
+        const double trace1 = (R * Cp_inv * R.transpose() * Cq).trace();
+        const double trace2 = (Cq_inv * RCpRT).trace();
+        const double cov_residual = trace1 + trace2 - 6.0;
+        E_cov = cov_residual * cov_residual;
+        w_cov = 1.0 - E_cov / (E_cov + sigma_cov_sq);
+      }
 
-    // === E_Cov ===
-    double w_cov = 0.0;
-    double E_cov = 0.0;
-    if (params_.use_cov_cost) {
-      // E_Cov = (Tr(R Cp^{-1} R^T Cq) + Tr(Cq^{-1} R Cp R^T) - 6)^2
-      Eigen::Matrix3d Cp_inv = Cp.inverse();
-      Eigen::Matrix3d Cq_inv = Cq.inverse();
+      error_local += w_icp * E_icp + w_cov * E_cov;
 
-      double trace1 = (R * Cp_inv * R.transpose() * Cq).trace();
-      double trace2 = (Cq_inv * RCpRT).trace();
-      double cov_residual = trace1 + trace2 - 6.0;
-      E_cov = cov_residual * cov_residual;
+      Eigen::Matrix<double, 3, 6> J;
+      J.block<3, 3>(0, 0) = skew(Rp_t);
+      J.block<3, 3>(0, 3) = -I3;
 
-      // 共分散ロバスト重み
-      w_cov = 1.0 - E_cov / (E_cov + sigma_cov_sq);
+      const Eigen::Matrix<double, 3, 1> C_qp_error = C_qp * error;
+      H_local += w_icp * J.transpose() * C_qp * J;
+      b_local += w_icp * J.transpose() * C_qp_error;
     }
-
-    total_error += w_icp * E_icp + w_cov * E_cov;
-
-    // === ヤコビアン (ICPコスト部分) ===
-    // 状態ベクトル δ = [ω (回転 so3), v (並進)]^T
-    // ∂(Rp+t)/∂ω = -[Rp+t]_× (skew), ∂(Rp+t)/∂v = I
-    // error = q - (Rp+t) なので ∂error/∂δ = [skew(Rp+t), -I]
-
-    // J は 3x6 のヤコビアン: ∂error/∂δ
-    Eigen::Matrix<double, 3, 6> J;
-    J.block<3, 3>(0, 0) = skew(Rp_t);   // ∂error/∂ω = [Rp+t]_×
-    J.block<3, 3>(0, 3) = -I3;          // ∂error/∂v = -I
-
-    // ガウスニュートン: H += w * J^T C_qp J, b += w * J^T C_qp error
-    Eigen::Matrix<double, 3, 1> C_qp_error = C_qp * error;
-
-    H += w_icp * J.transpose() * C_qp * J;
-    b += w_icp * J.transpose() * C_qp_error;
+#ifdef _OPENMP
   }
+
+  for (int tid = 0; tid < thread_count; tid++) {
+    H += H_locals[tid];
+    b += b_locals[tid];
+    total_error += error_locals[tid];
+  }
+#endif
 
   return total_error;
 }

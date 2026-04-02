@@ -599,6 +599,11 @@ Eigen::Matrix4d anchorRelativePose(const Eigen::Matrix4d& anchor_pose,
   return anchor_pose * relative_pose;
 }
 
+bool shouldRefreshTargetMap(size_t frame_index, size_t refresh_interval) {
+  return frame_index <= 1 || refresh_interval <= 1 ||
+         (frame_index % refresh_interval) == 0;
+}
+
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                           const std::vector<Eigen::Matrix4d>& gt) {
   using namespace localization_zoo::litamin2;
@@ -606,10 +611,13 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   res.name = "LiTAMIN2";
 
   LiTAMIN2Params params;
-  params.voxel_resolution = 0.75;
+  params.voxel_resolution = 1.0;
   params.min_points_per_voxel = 1;
+  params.max_iterations = 20;
   params.use_cov_cost = true;
   LiTAMIN2Registration reg(params);
+  constexpr size_t kLiTAMIN2MapMaxPoints = 60000;
+  constexpr size_t kLiTAMIN2RefreshInterval = 4;
 
   // Scan-to-Map: 前フレームまでの点群をワールド座標で蓄積
   std::vector<Eigen::Vector3d> map_points;
@@ -618,12 +626,12 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.25), 6000);
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5), 2500);
     if (pts_local.empty()) continue;
 
     if (i == 0) {
       // 最初のフレームはマップに追加
-      addPointsToMap(map_points, pts_local, T_est, 500000);
+      addPointsToMap(map_points, pts_local, T_est, kLiTAMIN2MapMaxPoints);
       reg.setTarget(map_points);
       continue;
     }
@@ -639,8 +647,10 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     res.poses.push_back(T_est);
 
     // マップ更新 (推定ポーズで変換した点群を追加)
-    addPointsToMap(map_points, pts_local, T_est, 500000);
-    reg.setTarget(map_points);
+    addPointsToMap(map_points, pts_local, T_est, kLiTAMIN2MapMaxPoints);
+    if (shouldRefreshTargetMap(i, kLiTAMIN2RefreshInterval)) {
+      reg.setTarget(map_points);
+    }
 
     if (i % 10 == 0)
       std::cerr << "\r  [LiTAMIN2] " << i << "/" << pcd_dirs.size();
@@ -657,10 +667,12 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
   res.name = "GICP";
 
   GICPParams params;
-  params.k_neighbors = 20;
-  params.max_correspondence_distance = 3.0;
-  params.max_iterations = 20;
+  params.k_neighbors = 10;
+  params.max_correspondence_distance = 2.5;
+  params.max_iterations = 10;
   GICPRegistration reg(params);
+  constexpr size_t kGICPMapMaxPoints = 60000;
+  constexpr size_t kGICPRefreshInterval = 5;
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
@@ -669,22 +681,28 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local =
-        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 4000);
+        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 1.0), 2500);
     if (pts_local.empty()) continue;
 
     if (i == 0) {
-      addPointsToMap(map_points, pts_local, T_est, 250000);
+      addPointsToMap(map_points, pts_local, T_est, kGICPMapMaxPoints);
       reg.setTarget(map_points);
       continue;
     }
 
     const Eigen::Matrix4d T_init_guess = gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
-    T_est = result.transformation;
+    if (result.converged || result.num_correspondences > 0) {
+      T_est = result.transformation;
+    } else {
+      T_est = T_init_guess;
+    }
     res.poses.push_back(T_est);
 
-    addPointsToMap(map_points, pts_local, T_est, 250000);
-    reg.setTarget(map_points);
+    addPointsToMap(map_points, pts_local, T_est, kGICPMapMaxPoints);
+    if (shouldRefreshTargetMap(i, kGICPRefreshInterval)) {
+      reg.setTarget(map_points);
+    }
 
     if (i % 10 == 0) {
       std::cerr << "\r  [GICP] " << i << "/" << pcd_dirs.size()
@@ -706,11 +724,14 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   res.name = "NDT";
 
   NDTParams params;
-  params.resolution = 1.0;
-  params.max_iterations = 30;
+  params.resolution = 1.5;
+  params.max_iterations = 6;
   params.step_size = 0.2;
   params.convergence_threshold = 1e-4;
+  params.min_points_per_cell = 1;
   NDTRegistration reg(params);
+  constexpr size_t kNDTMapMaxPoints = 30000;
+  constexpr size_t kNDTRefreshInterval = 10;
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
@@ -719,22 +740,28 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local =
-        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 4000);
+        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 2000);
     if (pts_local.empty()) continue;
 
     if (i == 0) {
-      addPointsToMap(map_points, pts_local, T_est, 120000);
+      addPointsToMap(map_points, pts_local, T_est, kNDTMapMaxPoints);
       reg.setTarget(map_points);
       continue;
     }
 
     const Eigen::Matrix4d T_init_guess = gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
-    T_est = result.transformation;
+    if (result.converged || result.iterations > 0) {
+      T_est = result.transformation;
+    } else {
+      T_est = T_init_guess;
+    }
     res.poses.push_back(T_est);
 
-    addPointsToMap(map_points, pts_local, T_est, 120000);
-    reg.setTarget(map_points);
+    addPointsToMap(map_points, pts_local, T_est, kNDTMapMaxPoints);
+    if (shouldRefreshTargetMap(i, kNDTRefreshInterval)) {
+      reg.setTarget(map_points);
+    }
 
     if (i % 10 == 0) {
       std::cerr << "\r  [NDT] " << i << "/" << pcd_dirs.size()
@@ -757,9 +784,10 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   res.name = "KISS-ICP";
 
   KISSICPParams params;
-  params.voxel_size = 1.0;
-  params.initial_threshold = 2.0;
-  params.max_icp_iterations = 60;
+  params.voxel_size = 1.5;
+  params.initial_threshold = 1.5;
+  params.max_points_per_voxel = 10;
+  params.max_icp_iterations = 20;
   KISSICPPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -767,7 +795,7 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local =
-        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5), 12000);
+        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 3000);
     if (pts_local.empty()) continue;
 
     const auto result = pipeline.registerFrame(pts_local);
@@ -791,9 +819,12 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   res.name = "CT-ICP";
 
   CTICPParams params;
-  params.voxel_resolution = 1.0;
-  params.max_iterations = 15;
-  params.planarity_threshold = 0.1;
+  params.voxel_resolution = 1.5;
+  params.max_iterations = 8;
+  params.ceres_max_iterations = 1;
+  params.planarity_threshold = 0.08;
+  params.keypoint_voxel_size = 1.25;
+  params.max_frames_in_map = 8;
   CTICPRegistration reg(params);
 
   TrajectoryFrame prev;
@@ -806,7 +837,7 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto scan = loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", 0.5);
+    auto scan = limitLoadedScan(loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 500);
     if (scan.points.empty()) continue;
 
     std::vector<TimedPoint> timed;

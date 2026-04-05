@@ -1,0 +1,7 @@
+selector,dataset,contract_type,variant_id,ate_m,fps,aggregate_path
+ct_icp,autoware_istanbul_open_108_b,gt-backed,balanced_window,6.819773,1.582405,experiments/results/ct_icp_istanbul_window_b_matrix.json
+ct_lio,hdl_400_open_ct_lio_120,reference-based,seed_only_fast,0.411644,0.443120,experiments/results/ct_lio_reference_profile_matrix.json
+gicp,autoware_istanbul_open_108_c,gt-backed,fast_recent_map,0.981916,4.265101,experiments/results/gicp_istanbul_window_c_matrix.json
+kiss_icp,autoware_istanbul_open_108_c,gt-backed,fast_recent_map,131.691761,3.744606,experiments/results/kiss_icp_istanbul_window_c_matrix.json
+litamin2,autoware_istanbul_open_108_c,gt-backed,paper_icp_only_half_threads,0.741485,17.249127,experiments/results/litamin2_istanbul_window_c_matrix.json
+ndt,autoware_istanbul_open_108_c,gt-backed,fast_coarse_map,0.005456,1.947388,experiments/results/ndt_istanbul_window_c_matrix.json

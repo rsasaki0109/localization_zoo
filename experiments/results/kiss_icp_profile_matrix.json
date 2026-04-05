@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/kiss_icp_profile_matrix.json",
+  "problem": {
+    "id": "kiss_icp_profile_tradeoff",
+    "title": "KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence",
+    "question": "Which KISS-ICP odometry profile should stay as the current default while keeping faster and denser alternatives comparable?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/autoware_istanbul_open_108",
+      "gt_csv": "dogfooding_results/autoware_istanbul_open_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/autoware_istanbul_open_108",
+    "gt_csv": "dogfooding_results/autoware_istanbul_open_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the odometry baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108 dogfooding_results/autoware_istanbul_open_108_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_profile_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/kiss_icp_profile_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_profile_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 183.178132,
+      "fps": 3.688111,
+      "time_ms": 29283.281566,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 95.48,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce source density and map pressure to improve FPS.",
+      "args": [
+        "--kiss-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108 dogfooding_results/autoware_istanbul_open_108_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_profile_matrix/fast_recent_map/summary.json --kiss-fast-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_profile_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_profile_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 182.959848,
+      "fps": 4.049046,
+      "time_ms": 26672.94967,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "drift-oriented",
+      "intent": "Increase source density and local-map richness to fight odometry drift.",
+      "args": [
+        "--kiss-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108 dogfooding_results/autoware_istanbul_open_108_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_profile_matrix/dense_local_map/summary.json --kiss-dense-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_profile_matrix/dense_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_profile_matrix/dense_local_map/run.log",
+      "status": "OK",
+      "ate_m": 183.226086,
+      "fps": 3.382455,
+      "time_ms": 31929.468067,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 91.7,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

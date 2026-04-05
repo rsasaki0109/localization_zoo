@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/ct_lio_reference_profile_matrix.json",
+  "problem": {
+    "id": "ct_lio_reference_tradeoff",
+    "title": "CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window",
+    "question": "Which CT-LIO profile should stay as the current default when compared against a shared public reference trajectory export?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv",
+      "source_bag": "../lidarloc_ws/data/official/hdl_localization/hdl_400_ros2",
+      "source_pose_trace": "../lidarloc_ws/artifacts/public/hdl_60s_imu_preintegration_default_compare/no_imu_preintegration/pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "imu_preintegration_default",
+      "label": "IMU preintegration default",
+      "design_style": "balanced",
+      "intent": "Baseline CT-LIO profile with IMU bias estimation and a short fixed-lag prior.",
+      "args": [
+        "--ct-lio-estimate-bias",
+        "--ct-lio-fixed-lag-window",
+        "4"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods ct_lio --summary-json experiments/results/runs/ct_lio_reference_profile_matrix/imu_preintegration_default/summary.json --ct-lio-estimate-bias --ct-lio-fixed-lag-window 4",
+      "summary_path": "experiments/results/runs/ct_lio_reference_profile_matrix/imu_preintegration_default/summary.json",
+      "log_path": "experiments/results/runs/ct_lio_reference_profile_matrix/imu_preintegration_default/run.log",
+      "status": "OK",
+      "ate_m": 2.224109,
+      "fps": 0.547432,
+      "time_ms": 219205.423365,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 59.25,
+      "readability_score": 4.05,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.35,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "seed_only_fast",
+      "label": "Seed-only fast",
+      "design_style": "throughput-oriented",
+      "intent": "Keep the IMU seed but avoid the heavier lag smoother path.",
+      "args": [
+        "--ct-lio-fixed-lag-window",
+        "2",
+        "--ct-lio-fixed-lag-outer-iterations",
+        "1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods ct_lio --summary-json experiments/results/runs/ct_lio_reference_profile_matrix/seed_only_fast/summary.json --ct-lio-fixed-lag-window 2 --ct-lio-fixed-lag-outer-iterations 1",
+      "summary_path": "experiments/results/runs/ct_lio_reference_profile_matrix/seed_only_fast/summary.json",
+      "log_path": "experiments/results/runs/ct_lio_reference_profile_matrix/seed_only_fast/run.log",
+      "status": "OK",
+      "ate_m": 0.411644,
+      "fps": 0.44312,
+      "time_ms": 270807.194836,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 90.47,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "history_smoother_dense",
+      "label": "History smoother dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use a slightly longer lag window and one extra relinearization pass for stronger motion regularization without the unbounded smoother cost.",
+      "args": [
+        "--ct-lio-estimate-bias",
+        "--ct-lio-fixed-lag-window",
+        "5",
+        "--ct-lio-fixed-lag-outer-iterations",
+        "2"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods ct_lio --summary-json experiments/results/runs/ct_lio_reference_profile_matrix/history_smoother_dense/summary.json --ct-lio-estimate-bias --ct-lio-fixed-lag-window 5 --ct-lio-fixed-lag-outer-iterations 2",
+      "summary_path": "experiments/results/runs/ct_lio_reference_profile_matrix/history_smoother_dense/summary.json",
+      "log_path": "experiments/results/runs/ct_lio_reference_profile_matrix/history_smoother_dense/run.log",
+      "status": "OK",
+      "ate_m": 1.721553,
+      "fps": 0.54057,
+      "time_ms": 221988.101691,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 61.33,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

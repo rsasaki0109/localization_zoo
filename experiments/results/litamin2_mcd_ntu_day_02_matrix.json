@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-04-06T04:34:16+00:00",
+  "manifest_path": "experiments/litamin2_mcd_ntu_day_02_matrix.json",
+  "problem": {
+    "id": "litamin2_profile_tradeoff_mcd_ntu_day_02",
+    "title": "LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+    "question": "Which LiTAMIN2 profile should stay as the current default on the MCD public dataset (NTU day-02)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "fast_cov_half_threads",
+      "label": "Fast local-map + covariance",
+      "design_style": "throughput-oriented",
+      "intent": "Keep the current repository default with recent/local-map pruning and covariance-aware cost.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/fast_cov_half_threads/summary.json",
+      "summary_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/fast_cov_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/fast_cov_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 0.074987,
+      "fps": 99.476291,
+      "time_ms": 1085.685833,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 77.39,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_icp_only_half_threads",
+      "label": "Fast local-map + ICP-only",
+      "design_style": "single-term simplification",
+      "intent": "Remove the covariance-shape term while keeping the same fast local-map profile.",
+      "args": [
+        "--litamin2-icp-only"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only",
+      "summary_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/fast_icp_only_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/fast_icp_only_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 0.074987,
+      "fps": 100.590496,
+      "time_ms": 1073.660083,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.",
+      "benchmark_score": 77.92,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "paper_cov_half_threads",
+      "label": "Paper-like 3m + covariance",
+      "design_style": "paper-oriented",
+      "intent": "Move closer to the paper's 3 m profile while preserving the same benchmark interface.",
+      "args": [
+        "--litamin2-paper-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile",
+      "summary_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/paper_cov_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/paper_cov_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 0.045457,
+      "fps": 102.795955,
+      "time_ms": 1050.624994,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 98.65,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "paper_icp_only_half_threads",
+      "label": "Paper-like 3m + ICP-only",
+      "design_style": "paper-oriented simplification",
+      "intent": "Use the paper-like 3 m profile, but isolate the first cost term by disabling covariance cost.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only",
+      "summary_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/paper_icp_only_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_matrix/paper_icp_only_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 0.045457,
+      "fps": 105.647299,
+      "time_ms": 1022.269389,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

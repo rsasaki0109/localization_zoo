@@ -6,7 +6,8 @@
     "question": "What still blocks a GT-backed CT-LIO public benchmark contract after the reference-based HDL-400 comparison is available?",
     "state": "blocked",
     "blocker": "A reference-based CT-LIO comparison now exists separately, but this repository still does not ship an independently curated GT CSV aligned to the extracted HDL-400 LiDAR+IMU sequence.",
-    "next_step": "Add a repository-usable GT trajectory for the extracted HDL-400 window or replace the converted reference export with an independently curated equivalent.",
+    "scope_decision": "Scoped out of main empirical study. CT-LIO remains reference-based only on HDL-400. KITTI Odometry lacks IMU data for LIO methods, and HDL-400 has no independently curated GT. This problem stays blocked and is documented as appendix/artifact material only.",
+    "next_step": "No action planned. CT-LIO GT-backed is excluded from the main study scope. If an independent GT source becomes available for HDL-400, this can be revisited.",
     "dataset": {
       "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_60",
       "gt_csv": "MISSING: repository-usable open GT CSV for HDL-400 is not prepared yet",

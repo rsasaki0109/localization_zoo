@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "gicp_profile_tradeoff_kitti_seq_07",
+    "title": "GICP throughput and accuracy trade-off on the KITTI Odometry sequence 07",
+    "question": "Which GICP profile should stay as the current default on the KITTI Odometry public dataset (sequence 07)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_108",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "gicp",
+    "primary_method": "GICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the baseline trade-off.",
+      "args": []
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce scan density and map pressure to increase FPS.",
+      "args": [
+        "--gicp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase scan density, map budget, and correspondence richness.",
+      "args": [
+        "--gicp-dense-profile"
+      ]
+    }
+  ]
+}

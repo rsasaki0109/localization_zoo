@@ -343,8 +343,8 @@ SuMaResult SuMa::process(const aloam::PointCloudConstPtr& cloud) {
 
   for (int iter = 0; iter < params_.max_iterations; ++iter) {
     ceres::Problem problem;
-    problem.AddParameterBlock(parameters, 4,
-                              new ceres::EigenQuaternionParameterization());
+    problem.AddParameterBlock(parameters, 4);
+    problem.SetManifold(parameters, new ceres::EigenQuaternionManifold());
     problem.AddParameterBlock(parameters + 4, 3);
 
     result.num_correspondences = 0;

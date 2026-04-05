@@ -248,9 +248,11 @@ TEST(CTLIO, BiasResidualsRecoverStationaryImuBias) {
 
   ceres::Problem problem;
   problem.AddParameterBlock(
-      begin_q, 4, new ceres::EigenQuaternionParameterization());
+      begin_q, 4);
+    problem.SetManifold(begin_q, new ceres::EigenQuaternionManifold());
   problem.AddParameterBlock(
-      end_q, 4, new ceres::EigenQuaternionParameterization());
+      end_q, 4);
+    problem.SetManifold(end_q, new ceres::EigenQuaternionManifold());
   problem.AddParameterBlock(begin_t, 3);
   problem.AddParameterBlock(end_t, 3);
   problem.AddParameterBlock(begin_v, 3);

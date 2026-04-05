@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-06T03:41:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -57,6 +57,18 @@ _Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast_window`.
+- Reference variants: `balanced_window`, `dense_window`.
+- Aggregate result: `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence
 
 - Current default: `fast_window`.
@@ -74,7 +86,7 @@ _Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `-`.
 - Status: `blocked`.
 - Blocker: A reference-based CT-LIO comparison now exists separately, but this repository still does not ship an independently curated GT CSV aligned to the extracted HDL-400 LiDAR+IMU sequence.
-- Next step: Add a repository-usable GT trajectory for the extracted HDL-400 window or replace the converted reference export with an independently curated equivalent.
+- Next step: No action planned. CT-LIO GT-backed is excluded from the main study scope. If an independent GT source becomes available for HDL-400, this can be revisited.
 - Aggregate result: `experiments/results/ct_lio_public_readiness_matrix.json`
 
 ## CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window
@@ -130,6 +142,18 @@ _Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast_recent_map`.
 - Reference variants: `balanced_local_map`, `dense_recent_map`.
 - Aggregate result: `experiments/results/gicp_istanbul_window_c_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast_recent_map`.
+- Reference variants: `balanced_local_map`, `dense_recent_map`.
+- Aggregate result: `experiments/results/gicp_mcd_tuhh_night_09_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -196,6 +220,18 @@ _Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast_recent_map`.
+- Reference variants: `balanced_local_map`, `dense_local_map`.
+- Aggregate result: `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence
 
@@ -264,6 +300,20 @@ _Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_cov_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_icp_only_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast_cov_half_threads`.
+- Active challengers: `fast_icp_only_half_threads`.
+- Reference variants: `paper_cov_half_threads`, `paper_icp_only_half_threads`.
+- Aggregate result: `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_cov_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_icp_only_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence
 
 - Current default: `fast_icp_only_half_threads`.
@@ -319,6 +369,18 @@ _Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast_coarse_map`.
 - Reference variants: `balanced_local_map`, `dense_local_map`.
 - Aggregate result: `experiments/results/ndt_istanbul_window_c_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_coarse_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast_coarse_map`.
+- Reference variants: `balanced_local_map`, `dense_local_map`.
+- Aggregate result: `experiments/results/ndt_mcd_tuhh_night_09_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|

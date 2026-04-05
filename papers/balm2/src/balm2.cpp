@@ -409,7 +409,8 @@ void BALM2::optimizeWindow(Balm2Result* result) {
     ceres::Problem problem;
     for (int i = 0; i < window_size; ++i) {
       problem.AddParameterBlock(
-          pose_parameters[i].q, 4, new ceres::EigenQuaternionParameterization());
+          pose_parameters[i].q, 4);
+    problem.SetManifold(pose_parameters[i].q, new ceres::EigenQuaternionManifold());
       problem.AddParameterBlock(pose_parameters[i].t, 3);
     }
     problem.SetParameterBlockConstant(pose_parameters.front().q);

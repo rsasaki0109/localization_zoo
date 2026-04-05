@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-06T03:41:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -77,6 +77,7 @@ The runner is responsible for:
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_b_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_c_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ct_icp_mcd_tuhh_night_09_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
 | CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_profile_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_profile_matrix.json` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `experiments/ct_lio_public_readiness_matrix.json` | `ct_lio` | `-` | `experiments/results/ct_lio_public_readiness_matrix.json` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `experiments/ct_lio_reference_profile_matrix.json` | `ct_lio` | `seed_only_fast` | `experiments/results/ct_lio_reference_profile_matrix.json` |
@@ -84,19 +85,23 @@ The runner is responsible for:
 | GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/gicp_hdl_400_reference_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_hdl_400_reference_matrix.json` |
 | GICP throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/gicp_istanbul_window_b_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_istanbul_window_b_matrix.json` |
 | GICP throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/gicp_istanbul_window_c_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_istanbul_window_c_matrix.json` |
+| GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/gicp_mcd_tuhh_night_09_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
 | GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/gicp_profile_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_profile_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `experiments/kiss_icp_hdl_400_reference_b_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_hdl_400_reference_b_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/kiss_icp_hdl_400_reference_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_hdl_400_reference_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_istanbul_window_b_matrix.json` | `kiss_icp` | `dense_local_map` | `experiments/results/kiss_icp_istanbul_window_b_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_istanbul_window_c_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_istanbul_window_c_matrix.json` |
+| KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/kiss_icp_mcd_tuhh_night_09_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_profile_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_profile_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/litamin2_hdl_400_reference_b_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_hdl_400_reference_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/litamin2_hdl_400_reference_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_b_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_c_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/litamin2_mcd_tuhh_night_09_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/litamin2_profile_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_profile_matrix.json` |
 | NDT throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/ndt_hdl_400_reference_b_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_hdl_400_reference_b_matrix.json` |
 | NDT throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/ndt_hdl_400_reference_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_hdl_400_reference_matrix.json` |
 | NDT throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ndt_istanbul_window_b_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_istanbul_window_b_matrix.json` |
 | NDT throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/ndt_istanbul_window_c_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_istanbul_window_c_matrix.json` |
+| NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ndt_mcd_tuhh_night_09_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
 | NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/ndt_profile_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_profile_matrix.json` |

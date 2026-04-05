@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-06T06:33:08+00:00",
+  "manifest_path": "experiments/ct_icp_mcd_kth_day_06_matrix.json",
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_mcd_kth_day_06",
+    "title": "CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+    "question": "Which CT-ICP profile should stay as the current default on the MCD public dataset (KTH day-06)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+    "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the continuous-time baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/balanced_window/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/balanced_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/balanced_window/run.log",
+      "status": "OK",
+      "ate_m": 6.294894,
+      "fps": 34.631171,
+      "time_ms": 3118.577736,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 77.54,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Shrink the working set and point budget to improve FPS.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/fast_window/summary.json --ct-icp-fast-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/fast_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/fast_window/run.log",
+      "status": "OK",
+      "ate_m": 6.52481,
+      "fps": 59.773656,
+      "time_ms": 1806.816036,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 96.86,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "drift-oriented",
+      "intent": "Increase point density and window richness to preserve more structure.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/dense_window/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/dense_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_matrix/dense_window/run.log",
+      "status": "OK",
+      "ate_m": 6.114585,
+      "fps": 15.277074,
+      "time_ms": 7069.41662,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 62.78,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_kitti_raw_0009",
+    "title": "CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "Which CT-ICP profile should stay as the current default on KITTI Raw drive 0009?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the continuous-time baseline.",
+      "args": []
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Shrink the working set and point budget to improve FPS.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "drift-oriented",
+      "intent": "Increase point density and window richness to preserve more structure.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ]
+    }
+  ]
+}

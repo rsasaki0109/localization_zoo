@@ -1,0 +1,135 @@
+{
+  "generated_at": "2026-04-06T08:10:13+00:00",
+  "manifest_path": "experiments/litamin2_kitti_raw_0009_nogt_matrix.json",
+  "problem": {
+    "id": "litamin2_profile_tradeoff_kitti_raw_0009_nogt",
+    "title": "LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "Which LiTAMIN2 profile on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "fast_cov_half_threads",
+      "label": "Fast local-map + covariance",
+      "design_style": "throughput-oriented",
+      "intent": "Keep the current repository default.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_cov_half_threads/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_cov_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_cov_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 122.280395,
+      "fps": 40.362798,
+      "time_ms": 4955.057823,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 81.69,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_icp_only_half_threads",
+      "label": "Fast local-map + ICP-only",
+      "design_style": "single-term simplification",
+      "intent": "Remove covariance-shape term.",
+      "args": [
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_icp_only_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_icp_only_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 122.280395,
+      "fps": 36.912862,
+      "time_ms": 5418.165687,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed). Covariance-shape term disabled.",
+      "benchmark_score": 78.98,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "paper_cov_half_threads",
+      "label": "Paper-like 3m + covariance",
+      "design_style": "paper-oriented",
+      "intent": "Paper 3m profile.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_cov_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_cov_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 122.27546,
+      "fps": 54.926199,
+      "time_ms": 3641.24957,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 93.13,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "paper_icp_only_half_threads",
+      "label": "Paper-like 3m + ICP-only",
+      "design_style": "paper-oriented simplification",
+      "intent": "Paper 3m + ICP-only.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_icp_only_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_icp_only_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 122.27546,
+      "fps": 63.675617,
+      "time_ms": 3140.919717,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed). Covariance-shape term disabled.",
+      "benchmark_score": 100.0,
+      "readability_score": 3.95,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.25,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

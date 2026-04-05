@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_profile_tradeoff_kitti_raw_0009_nogt",
+    "title": "LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "Which LiTAMIN2 profile on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "fast_cov_half_threads",
+      "label": "Fast local-map + covariance",
+      "design_style": "throughput-oriented",
+      "intent": "Keep the current repository default.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast_icp_only_half_threads",
+      "label": "Fast local-map + ICP-only",
+      "design_style": "single-term simplification",
+      "intent": "Remove covariance-shape term.",
+      "args": [
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "paper_cov_half_threads",
+      "label": "Paper-like 3m + covariance",
+      "design_style": "paper-oriented",
+      "intent": "Paper 3m profile.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "paper_icp_only_half_threads",
+      "label": "Paper-like 3m + ICP-only",
+      "design_style": "paper-oriented simplification",
+      "intent": "Paper 3m + ICP-only.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

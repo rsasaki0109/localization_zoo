@@ -759,7 +759,8 @@ bool isReasonableRefinement(const Eigen::Matrix4d& refined_pose,
 
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                          const std::vector<Eigen::Matrix4d>& gt,
-                         const LiTAMIN2DogfoodingOptions& options) {
+                         const LiTAMIN2DogfoodingOptions& options,
+                         bool no_gt_seed = false) {
   using namespace localization_zoo::litamin2;
   MethodResult res;
   res.name = options.use_cov_cost ? "LiTAMIN2" : "LiTAMIN2-ICP";
@@ -789,7 +790,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     }
 
     // scan-to-map: local scan を world map に対して初期値付きで最適化
-    const Eigen::Matrix4d T_init_guess = gt[i];
+    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_iterations >= 3) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -812,9 +813,10 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note =
-      "Uses GT-seeded scan-to-map initialization with weak-update fallback "
-      "in this dogfooding tool.";
+  res.note = no_gt_seed
+      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+        "in this dogfooding tool.";
   if (!options.use_cov_cost) {
     res.note += " Covariance-shape term disabled.";
   }
@@ -823,7 +825,8 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
 
 MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
                      const std::vector<Eigen::Matrix4d>& gt,
-                     const GICPDogfoodingOptions& options) {
+                     const GICPDogfoodingOptions& options,
+                     bool no_gt_seed = false) {
   using namespace localization_zoo::gicp;
   MethodResult res;
   res.name = "GICP";
@@ -852,7 +855,7 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = gt[i];
+    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 128) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -878,15 +881,17 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note =
-      "Uses GT-seeded scan-to-map initialization with weak-update fallback "
-      "in this dogfooding tool.";
+  res.note = no_gt_seed
+      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+        "in this dogfooding tool.";
   return res;
 }
 
 MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
                     const std::vector<Eigen::Matrix4d>& gt,
-                    const NDTDogfoodingOptions& options) {
+                    const NDTDogfoodingOptions& options,
+                    bool no_gt_seed = false) {
   using namespace localization_zoo::ndt;
   MethodResult res;
   res.name = "NDT";
@@ -917,7 +922,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = gt[i];
+    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.iterations >= 2) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -944,9 +949,10 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note =
-      "Uses GT-seeded scan-to-map initialization with weak-update fallback "
-      "in this dogfooding tool.";
+  res.note = no_gt_seed
+      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+        "in this dogfooding tool.";
   return res;
 }
 
@@ -1264,7 +1270,8 @@ int main(int argc, char** argv) {
               << " [--ct-lio-fixed-lag-accel-bias-scale W]"
               << " [--ct-lio-fixed-lag-history-decay W]"
               << " [--ct-lio-fixed-lag-outer-iterations N]"
-              << " [--ct-lio-fixed-lag-smoother]" << std::endl;
+              << " [--ct-lio-fixed-lag-smoother]"
+              << " [--no-gt-seed]" << std::endl;
     return 1;
   }
 
@@ -1272,6 +1279,7 @@ int main(int argc, char** argv) {
   std::string gt_csv = argv[2];
   int max_frames = -1;
   bool force_ct_lio = false;
+  bool no_gt_seed = false;
   bool ct_lio_estimate_bias = false;
   std::string summary_json_path;
   int ct_lio_fixed_lag_window = 1;
@@ -1292,6 +1300,10 @@ int main(int argc, char** argv) {
     std::string arg = argv[i];
     if (arg == "--force-ct-lio") {
       force_ct_lio = true;
+      continue;
+    }
+    if (arg == "--no-gt-seed") {
+      no_gt_seed = true;
       continue;
     }
     if (arg == "--ct-lio-estimate-bias") {
@@ -2108,6 +2120,10 @@ int main(int argc, char** argv) {
 
   std::vector<MethodResult> results;
 
+  if (no_gt_seed) {
+    std::cout << "[no-gt-seed] Scan-to-map methods will use odometry chain instead of GT initialization." << std::endl;
+  }
+
   if (isMethodEnabled(selected_methods, "litamin2")) {
     std::cout << "\nRunning LiTAMIN2..." << std::endl;
     std::cout << "  voxel_resolution=" << litamin2_options.voxel_resolution
@@ -2115,7 +2131,7 @@ int main(int argc, char** argv) {
               << " max_source_points=" << litamin2_options.max_source_points
               << " use_cov_cost=" << (litamin2_options.use_cov_cost ? "on" : "off")
               << " num_threads=" << litamin2_options.num_threads << std::endl;
-    results.push_back(runLiTAMIN2(pcd_dirs, gt, litamin2_options));
+    results.push_back(runLiTAMIN2(pcd_dirs, gt, litamin2_options, no_gt_seed));
   }
 
   if (isMethodEnabled(selected_methods, "gicp")) {
@@ -2125,7 +2141,7 @@ int main(int argc, char** argv) {
               << " k_neighbors=" << gicp_options.k_neighbors
               << " max_iterations=" << gicp_options.max_iterations
               << " map_max_points=" << gicp_options.map_max_points << std::endl;
-    results.push_back(runGICP(pcd_dirs, gt, gicp_options));
+    results.push_back(runGICP(pcd_dirs, gt, gicp_options, no_gt_seed));
   }
 
   if (isMethodEnabled(selected_methods, "ndt")) {
@@ -2135,7 +2151,7 @@ int main(int argc, char** argv) {
               << " resolution=" << ndt_options.resolution
               << " max_iterations=" << ndt_options.max_iterations
               << " map_max_points=" << ndt_options.map_max_points << std::endl;
-    results.push_back(runNDT(pcd_dirs, gt, ndt_options));
+    results.push_back(runNDT(pcd_dirs, gt, ndt_options, no_gt_seed));
   }
 
   if (isMethodEnabled(selected_methods, "kiss_icp")) {

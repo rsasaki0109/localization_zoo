@@ -9,6 +9,7 @@
 #include <cmath>
 #include <limits>
 #include <unordered_map>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace suma {
@@ -344,7 +345,7 @@ SuMaResult SuMa::process(const aloam::PointCloudConstPtr& cloud) {
   for (int iter = 0; iter < params_.max_iterations; ++iter) {
     ceres::Problem problem;
     problem.AddParameterBlock(parameters, 4);
-    problem.SetManifold(parameters, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, parameters);
     problem.AddParameterBlock(parameters + 4, 3);
 
     result.num_correspondences = 0;

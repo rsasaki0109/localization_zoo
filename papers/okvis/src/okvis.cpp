@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace okvis {
@@ -382,7 +383,7 @@ void Okvis::optimizeWindow() {
   ceres::Problem problem;
   for (size_t i = 0; i < window_frames_.size(); ++i) {
     problem.AddParameterBlock(q_params[i].data(), 4);
-    problem.SetManifold(q_params[i].data(), new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, q_params[i].data());
     problem.AddParameterBlock(t_params[i].data(), 3);
   }
   problem.SetParameterBlockConstant(q_params.front().data());

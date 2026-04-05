@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgoogle-glog-dev \
     libgflags-dev \
     libceres-dev \
+    libopenmpi-dev \
     python3 \
     python3-pip \
     wget \
@@ -27,9 +28,9 @@ RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 WORKDIR /workspace
 COPY . /workspace
 
-# Build
+# Build benchmark binary only (skip unrelated paper implementations)
 RUN cmake -B build -DCMAKE_BUILD_TYPE=Release && \
-    cmake --build build -j$(nproc)
+    cmake --build build -j$(nproc) --target pcd_dogfooding
 
 # Verify build
 RUN test -f build/evaluation/pcd_dogfooding && echo "BUILD OK"

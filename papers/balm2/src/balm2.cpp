@@ -13,6 +13,7 @@
 #include <limits>
 #include <utility>
 #include <vector>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace balm2 {
@@ -410,7 +411,7 @@ void BALM2::optimizeWindow(Balm2Result* result) {
     for (int i = 0; i < window_size; ++i) {
       problem.AddParameterBlock(
           pose_parameters[i].q, 4);
-    problem.SetManifold(pose_parameters[i].q, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, pose_parameters[i].q);
       problem.AddParameterBlock(pose_parameters[i].t, 3);
     }
     problem.SetParameterBlockConstant(pose_parameters.front().q);

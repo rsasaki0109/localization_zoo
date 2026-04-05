@@ -8,6 +8,7 @@
 #include <Eigen/Eigenvalues>
 
 #include <algorithm>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace mulls {
@@ -174,7 +175,7 @@ MULLSMappingResult MULLSMapping::process(const aloam::PointCloudPtr& corner_last
   for (int iter = 0; iter < params_.num_optimization_iters; ++iter) {
     ceres::Problem problem;
     problem.AddParameterBlock(parameters, 4);
-    problem.SetManifold(parameters, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, parameters);
     problem.AddParameterBlock(parameters + 4, 3);
 
     ceres::LossFunction* edge_loss =

@@ -6,6 +6,7 @@
 #include <gtest/gtest.h>
 
 #include <random>
+#include <common/ceres_compat.h>
 
 using namespace localization_zoo::ct_lio;
 
@@ -249,10 +250,10 @@ TEST(CTLIO, BiasResidualsRecoverStationaryImuBias) {
   ceres::Problem problem;
   problem.AddParameterBlock(
       begin_q, 4);
-    problem.SetManifold(begin_q, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, begin_q);
   problem.AddParameterBlock(
       end_q, 4);
-    problem.SetManifold(end_q, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, end_q);
   problem.AddParameterBlock(begin_t, 3);
   problem.AddParameterBlock(end_t, 3);
   problem.AddParameterBlock(begin_v, 3);

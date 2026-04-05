@@ -7,6 +7,7 @@
 #include <array>
 #include <cmath>
 #include <unordered_map>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace fast_lio2 {
@@ -419,7 +420,7 @@ FastLio2Result FastLio2::process(
 
     ceres::Problem problem;
     problem.AddParameterBlock(quat_param, 4);
-    problem.SetManifold(quat_param, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, quat_param);
     problem.AddParameterBlock(trans_param, 3);
     problem.AddParameterBlock(velocity_param, 3);
 

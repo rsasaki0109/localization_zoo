@@ -5,6 +5,7 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/kdtree/kdtree_flann.h>
 #include <Eigen/Eigenvalues>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace aloam {
@@ -197,7 +198,7 @@ void LaserMapping::optimizeTransform(const PointCloudPtr& corner_from_map,
     ceres::LossFunction* loss = new ceres::HuberLoss(params_.huber_loss_s);
 
     problem.AddParameterBlock(parameters, 4);
-    problem.SetManifold(parameters, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, parameters);
     problem.AddParameterBlock(parameters + 4, 3);
 
     std::vector<int> point_search_idx;

@@ -10,6 +10,7 @@
 #include <array>
 #include <cmath>
 #include <unordered_map>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace ct_lio {
@@ -226,10 +227,10 @@ void CTLIORegistration::optimizeLaggedHistory() {
     for (int i = 0; i < num_states; ++i) {
       problem.AddParameterBlock(
           begin_q[i].data(), 4);
-    problem.SetManifold(begin_q[i].data(), new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, begin_q[i].data());
       problem.AddParameterBlock(
           end_q[i].data(), 4);
-    problem.SetManifold(end_q[i].data(), new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, end_q[i].data());
       problem.AddParameterBlock(begin_t[i].data(), 3);
       problem.AddParameterBlock(end_t[i].data(), 3);
       problem.AddParameterBlock(begin_v[i].data(), 3);
@@ -596,11 +597,11 @@ CTLIOResult CTLIORegistration::registerFrame(
     ceres::Problem problem;
     problem.AddParameterBlock(
         begin_q, 4);
-    problem.SetManifold(begin_q, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, begin_q);
     problem.AddParameterBlock(begin_t, 3);
     problem.AddParameterBlock(
         end_q, 4);
-    problem.SetManifold(end_q, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, end_q);
     problem.AddParameterBlock(end_t, 3);
     problem.AddParameterBlock(begin_v, 3);
     problem.AddParameterBlock(gyro_bias, 3);

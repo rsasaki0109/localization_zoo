@@ -6,6 +6,7 @@
 #include <array>
 #include <cmath>
 #include <unordered_map>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace vgicp_slam {
@@ -416,7 +417,7 @@ void VgicpSlam::optimizePoseGraph() {
   ceres::Problem problem;
   for (size_t i = 0; i < keyframes_.size(); ++i) {
     problem.AddParameterBlock(q_params[i].data(), 4);
-    problem.SetManifold(q_params[i].data(), new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, q_params[i].data());
     problem.AddParameterBlock(t_params[i].data(), 3);
   }
   problem.SetParameterBlockConstant(q_params.front().data());

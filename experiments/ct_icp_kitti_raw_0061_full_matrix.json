@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_kitti_raw_0061_full",
+    "title": "CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which CT-ICP profile on KITTI Raw drive 0061 full sequence (703 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Default.",
+      "args": []
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Fast.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "drift-oriented",
+      "intent": "Dense.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ]
+    }
+  ]
+}

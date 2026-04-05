@@ -5,7 +5,10 @@ ct_icp,autoware_istanbul_open_108_c,gt-backed,balanced_window,Balanced window,7.
 ct_icp,hdl_400_open_ct_lio_120,reference-based,fast_window,Fast window,1.513295,2.414365,experiments/results/ct_icp_hdl_400_reference_matrix.json
 ct_icp,hdl_400_open_ct_lio_120_b,reference-based,fast_window,Fast window,1.210946,2.358097,experiments/results/ct_icp_hdl_400_reference_b_matrix.json
 ct_icp,kitti_raw_0009_200,reference-based,balanced_window,Balanced window,1.659312,34.382141,experiments/results/ct_icp_kitti_raw_0009_matrix.json
+ct_icp,kitti_raw_0009_200,reference-based,balanced_window,Balanced window,1.659312,34.305213,experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json
+ct_icp,kitti_raw_0009_full,reference-based,fast_window,Fast window,5.852776,45.399253,experiments/results/ct_icp_kitti_raw_0009_full_matrix.json
 ct_icp,kitti_raw_0061_200,reference-based,fast_window,Fast window,1.474966,56.877472,experiments/results/ct_icp_kitti_raw_0061_matrix.json
+ct_icp,kitti_raw_0061_full,reference-based,fast_window,Fast window,6.972412,37.596966,experiments/results/ct_icp_kitti_raw_0061_full_matrix.json
 ct_icp,mcd_kth_day_06_108,reference-based,fast_window,Fast window,6.524810,59.773656,experiments/results/ct_icp_mcd_kth_day_06_matrix.json
 ct_icp,mcd_ntu_day_02_108,reference-based,dense_window,Dense window,0.325263,22.020536,experiments/results/ct_icp_mcd_ntu_day_02_matrix.json
 ct_icp,mcd_tuhh_night_09_108,reference-based,fast_window,Fast window,3.552540,71.574402,experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json
@@ -16,7 +19,10 @@ gicp,autoware_istanbul_open_108_c,gt-backed,fast_recent_map,Fast recent map,0.98
 gicp,hdl_400_open_ct_lio_120,reference-based,fast_recent_map,Fast recent map,0.193410,1.677905,experiments/results/gicp_hdl_400_reference_matrix.json
 gicp,hdl_400_open_ct_lio_120_b,reference-based,fast_recent_map,Fast recent map,0.283982,1.709203,experiments/results/gicp_hdl_400_reference_b_matrix.json
 gicp,kitti_raw_0009_200,reference-based,fast_recent_map,Fast recent map,1.176528,25.838709,experiments/results/gicp_kitti_raw_0009_matrix.json
+gicp,kitti_raw_0009_200,reference-based,dense_recent_map,Dense recent map,1.510500,7.737501,experiments/results/gicp_kitti_raw_0009_nogt_matrix.json
+gicp,kitti_raw_0009_full,reference-based,fast_recent_map,Fast recent map,1.170485,22.005252,experiments/results/gicp_kitti_raw_0009_full_matrix.json
 gicp,kitti_raw_0061_200,reference-based,fast_recent_map,Fast recent map,0.959049,25.741027,experiments/results/gicp_kitti_raw_0061_matrix.json
+gicp,kitti_raw_0061_full,reference-based,fast_recent_map,Fast recent map,1.080850,22.758923,experiments/results/gicp_kitti_raw_0061_full_matrix.json
 gicp,mcd_kth_day_06_108,reference-based,fast_recent_map,Fast recent map,0.629828,24.673568,experiments/results/gicp_mcd_kth_day_06_matrix.json
 gicp,mcd_ntu_day_02_108,reference-based,dense_recent_map,Dense recent map,0.016816,12.991898,experiments/results/gicp_mcd_ntu_day_02_matrix.json
 gicp,mcd_tuhh_night_09_108,reference-based,fast_recent_map,Fast recent map,0.316541,31.240385,experiments/results/gicp_mcd_tuhh_night_09_matrix.json
@@ -26,7 +32,10 @@ kiss_icp,autoware_istanbul_open_108_c,gt-backed,fast_recent_map,Fast recent map,
 kiss_icp,hdl_400_open_ct_lio_120,reference-based,fast_recent_map,Fast recent map,1.645809,0.518965,experiments/results/kiss_icp_hdl_400_reference_matrix.json
 kiss_icp,hdl_400_open_ct_lio_120_b,reference-based,fast_recent_map,Fast recent map,0.218431,0.446613,experiments/results/kiss_icp_hdl_400_reference_b_matrix.json
 kiss_icp,kitti_raw_0009_200,reference-based,fast_recent_map,Fast recent map,2.641834,24.429131,experiments/results/kiss_icp_kitti_raw_0009_matrix.json
+kiss_icp,kitti_raw_0009_200,reference-based,fast_recent_map,Fast recent map,2.641834,25.592221,experiments/results/kiss_icp_kitti_raw_0009_nogt_matrix.json
+kiss_icp,kitti_raw_0009_full,reference-based,fast_recent_map,Fast recent map,5.838639,24.637472,experiments/results/kiss_icp_kitti_raw_0009_full_matrix.json
 kiss_icp,kitti_raw_0061_200,reference-based,fast_recent_map,Fast recent map,0.678894,28.258976,experiments/results/kiss_icp_kitti_raw_0061_matrix.json
+kiss_icp,kitti_raw_0061_full,reference-based,fast_recent_map,Fast recent map,4.622772,11.229322,experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json
 kiss_icp,mcd_kth_day_06_108,reference-based,fast_recent_map,Fast recent map,5.567867,11.289632,experiments/results/kiss_icp_mcd_kth_day_06_matrix.json
 kiss_icp,mcd_ntu_day_02_108,reference-based,fast_recent_map,Fast recent map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json
 kiss_icp,mcd_tuhh_night_09_108,reference-based,fast_recent_map,Fast recent map,1.302876,24.096147,experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json
@@ -36,7 +45,10 @@ litamin2,autoware_istanbul_open_108_c,gt-backed,paper_icp_only_half_threads,Pape
 litamin2,hdl_400_open_ct_lio_120,reference-based,paper_icp_only_half_threads,Paper-like 3m + ICP-only,0.120654,6.434324,experiments/results/litamin2_hdl_400_reference_matrix.json
 litamin2,hdl_400_open_ct_lio_120_b,reference-based,fast_icp_only_half_threads,Fast local-map + ICP-only,0.168429,5.198294,experiments/results/litamin2_hdl_400_reference_b_matrix.json
 litamin2,kitti_raw_0009_200,reference-based,paper_icp_only_half_threads,Paper-like 3m + ICP-only,1.396564,43.686921,experiments/results/litamin2_kitti_raw_0009_matrix.json
+litamin2,kitti_raw_0009_200,reference-based,paper_icp_only_half_threads,Paper-like 3m + ICP-only,122.275460,63.675617,experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json
+litamin2,kitti_raw_0009_full,reference-based,fast_cov_half_threads,Fast local-map + covariance,1.144528,61.352218,experiments/results/litamin2_kitti_raw_0009_full_matrix.json
 litamin2,kitti_raw_0061_200,reference-based,fast_cov_half_threads,Fast local-map + covariance,0.510660,67.739260,experiments/results/litamin2_kitti_raw_0061_matrix.json
+litamin2,kitti_raw_0061_full,reference-based,fast_icp_only_half_threads,Fast local-map + ICP-only,0.943964,58.114664,experiments/results/litamin2_kitti_raw_0061_full_matrix.json
 litamin2,mcd_kth_day_06_108,reference-based,fast_cov_half_threads,Fast local-map + covariance,0.401468,64.216449,experiments/results/litamin2_mcd_kth_day_06_matrix.json
 litamin2,mcd_ntu_day_02_108,reference-based,paper_icp_only_half_threads,Paper-like 3m + ICP-only,0.045457,105.647299,experiments/results/litamin2_mcd_ntu_day_02_matrix.json
 litamin2,mcd_tuhh_night_09_108,reference-based,fast_cov_half_threads,Fast local-map + covariance,0.193749,106.479519,experiments/results/litamin2_mcd_tuhh_night_09_matrix.json
@@ -46,7 +58,10 @@ ndt,autoware_istanbul_open_108_c,gt-backed,fast_coarse_map,Fast coarse map,0.005
 ndt,hdl_400_open_ct_lio_120,reference-based,fast_coarse_map,Fast coarse map,0.051245,0.789043,experiments/results/ndt_hdl_400_reference_matrix.json
 ndt,hdl_400_open_ct_lio_120_b,reference-based,fast_coarse_map,Fast coarse map,0.064833,0.858834,experiments/results/ndt_hdl_400_reference_b_matrix.json
 ndt,kitti_raw_0009_200,reference-based,fast_coarse_map,Fast coarse map,0.374007,36.149507,experiments/results/ndt_kitti_raw_0009_matrix.json
+ndt,kitti_raw_0009_200,reference-based,fast_coarse_map,Fast coarse map,122.546807,11.972517,experiments/results/ndt_kitti_raw_0009_nogt_matrix.json
+ndt,kitti_raw_0009_full,reference-based,balanced_local_map,Balanced local map,0.255018,20.100072,experiments/results/ndt_kitti_raw_0009_full_matrix.json
 ndt,kitti_raw_0061_200,reference-based,fast_coarse_map,Fast coarse map,0.318844,41.223970,experiments/results/ndt_kitti_raw_0061_matrix.json
+ndt,kitti_raw_0061_full,reference-based,fast_coarse_map,Fast coarse map,0.246965,23.797468,experiments/results/ndt_kitti_raw_0061_full_matrix.json
 ndt,mcd_kth_day_06_108,reference-based,fast_coarse_map,Fast coarse map,0.207671,31.211893,experiments/results/ndt_mcd_kth_day_06_matrix.json
 ndt,mcd_ntu_day_02_108,reference-based,balanced_local_map,Balanced local map,0.014334,32.664591,experiments/results/ndt_mcd_ntu_day_02_matrix.json
 ndt,mcd_tuhh_night_09_108,reference-based,fast_coarse_map,Fast coarse map,0.070444,40.826425,experiments/results/ndt_mcd_tuhh_night_09_matrix.json

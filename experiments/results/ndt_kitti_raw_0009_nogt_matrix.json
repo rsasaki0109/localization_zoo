@@ -1,0 +1,108 @@
+{
+  "generated_at": "2026-04-06T08:10:13+00:00",
+  "manifest_path": "experiments/ndt_kitti_raw_0009_nogt_matrix.json",
+  "problem": {
+    "id": "ndt_profile_tradeoff_kitti_raw_0009_nogt",
+    "title": "NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "Which NDT profile on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ndt",
+    "primary_method": "NDT"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Default.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/balanced_local_map/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 122.662469,
+      "fps": 7.22448,
+      "time_ms": 27683.654769,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 79.79,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_coarse_map",
+      "label": "Fast coarse map",
+      "design_style": "throughput-oriented",
+      "intent": "Fast.",
+      "args": [
+        "--ndt-fast-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/fast_coarse_map/summary.json --ndt-fast-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/fast_coarse_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/fast_coarse_map/run.log",
+      "status": "OK",
+      "ate_m": 122.546807,
+      "fps": 11.972517,
+      "time_ms": 16704.925497,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 99.67,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "accuracy-oriented",
+      "intent": "Dense.",
+      "args": [
+        "--ndt-dense-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/dense_local_map/summary.json --ndt-dense-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/dense_local_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/dense_local_map/run.log",
+      "status": "OK",
+      "ate_m": 121.733092,
+      "fps": 4.669002,
+      "time_ms": 42835.710078,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 69.5,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

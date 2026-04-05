@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/ndt_istanbul_window_c_matrix.json",
+  "problem": {
+    "id": "ndt_profile_tradeoff_istanbul_window_c",
+    "title": "NDT throughput and accuracy trade-off on the third repository-stored Istanbul sequence",
+    "question": "Which NDT dogfooding profile should stay as the current default on a third public Istanbul window while keeping faster and denser alternatives comparable?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_c",
+      "gt_csv": "dogfooding_results/autoware_istanbul_open_108_c_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ndt",
+    "primary_method": "NDT"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_c",
+    "gt_csv": "dogfooding_results/autoware_istanbul_open_108_c_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the baseline trade-off.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_c dogfooding_results/autoware_istanbul_open_108_c_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_istanbul_window_c_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/ndt_istanbul_window_c_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_istanbul_window_c_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.034879,
+      "fps": 1.425929,
+      "time_ms": 75740.10998,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 44.43,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_coarse_map",
+      "label": "Fast coarse map",
+      "design_style": "throughput-oriented",
+      "intent": "Use a coarser map and fewer points to increase FPS.",
+      "args": [
+        "--ndt-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_c dogfooding_results/autoware_istanbul_open_108_c_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_istanbul_window_c_matrix/fast_coarse_map/summary.json --ndt-fast-profile",
+      "summary_path": "experiments/results/runs/ndt_istanbul_window_c_matrix/fast_coarse_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_istanbul_window_c_matrix/fast_coarse_map/run.log",
+      "status": "OK",
+      "ate_m": 0.005456,
+      "fps": 1.947388,
+      "time_ms": 55458.90745,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "accuracy-oriented",
+      "intent": "Use denser scans and a larger map budget for a stronger refinement path.",
+      "args": [
+        "--ndt-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_c dogfooding_results/autoware_istanbul_open_108_c_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_istanbul_window_c_matrix/dense_local_map/summary.json --ndt-dense-profile",
+      "summary_path": "experiments/results/runs/ndt_istanbul_window_c_matrix/dense_local_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_istanbul_window_c_matrix/dense_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.105236,
+      "fps": 1.003273,
+      "time_ms": 107647.624226,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 28.35,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

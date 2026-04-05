@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/kiss_icp_hdl_400_reference_b_matrix.json",
+  "problem": {
+    "id": "kiss_icp_profile_tradeoff_hdl_400_reference_b",
+    "title": "KISS-ICP throughput and drift trade-off on the second public HDL-400 reference window",
+    "question": "Which KISS-ICP odometry profile should stay as the current default on a deeper HDL-400 public reference set while keeping faster and denser alternatives comparable?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_b",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference_b.csv",
+      "reference_role": "public reference trajectory sliced from the HDL-400 pose trace export"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_b",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference_b.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the odometry baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.497635,
+      "fps": 0.19425,
+      "time_ms": 617759.281793,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 43.69,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce source density and map pressure to improve FPS.",
+      "args": [
+        "--kiss-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/fast_recent_map/summary.json --kiss-fast-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 0.218431,
+      "fps": 0.446613,
+      "time_ms": 268689.185934,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "drift-oriented",
+      "intent": "Increase source density and local-map richness to fight odometry drift.",
+      "args": [
+        "--kiss-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/dense_local_map/summary.json --kiss-dense-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/dense_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_hdl_400_reference_b_matrix/dense_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.447435,
+      "fps": 0.134373,
+      "time_ms": 893034.881464,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 39.45,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/gicp_istanbul_window_b_matrix.json",
+  "problem": {
+    "id": "gicp_profile_tradeoff_istanbul_window_b",
+    "title": "GICP throughput and accuracy trade-off on the second repository-stored Istanbul sequence",
+    "question": "Which GICP dogfooding profile should stay as the current default on a second public Istanbul window while keeping faster and denser alternatives comparable?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_b",
+      "gt_csv": "dogfooding_results/autoware_istanbul_open_108_b_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "gicp",
+    "primary_method": "GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_b",
+    "gt_csv": "dogfooding_results/autoware_istanbul_open_108_b_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the baseline trade-off.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_b dogfooding_results/autoware_istanbul_open_108_b_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_istanbul_window_b_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/gicp_istanbul_window_b_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/gicp_istanbul_window_b_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 1.232723,
+      "fps": 3.12569,
+      "time_ms": 34552.371994,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 74.82,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce scan density and map pressure to increase FPS.",
+      "args": [
+        "--gicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_b dogfooding_results/autoware_istanbul_open_108_b_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_istanbul_window_b_matrix/fast_recent_map/summary.json --gicp-fast-profile",
+      "summary_path": "experiments/results/runs/gicp_istanbul_window_b_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/gicp_istanbul_window_b_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 1.165895,
+      "fps": 5.677428,
+      "time_ms": 19022.697735,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase scan density, map budget, and correspondence richness.",
+      "args": [
+        "--gicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_b dogfooding_results/autoware_istanbul_open_108_b_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_istanbul_window_b_matrix/dense_recent_map/summary.json --gicp-dense-profile",
+      "summary_path": "experiments/results/runs/gicp_istanbul_window_b_matrix/dense_recent_map/summary.json",
+      "log_path": "experiments/results/runs/gicp_istanbul_window_b_matrix/dense_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 1.228284,
+      "fps": 1.643233,
+      "time_ms": 65724.084335,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 61.93,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/ct_lio_public_readiness_matrix.json",
+  "problem": {
+    "id": "ct_lio_public_gt_readiness",
+    "title": "CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data",
+    "question": "What still blocks a GT-backed CT-LIO public benchmark contract after the reference-based HDL-400 comparison is available?",
+    "state": "blocked",
+    "blocker": "A reference-based CT-LIO comparison now exists separately, but this repository still does not ship an independently curated GT CSV aligned to the extracted HDL-400 LiDAR+IMU sequence.",
+    "next_step": "Add a repository-usable GT trajectory for the extracted HDL-400 window or replace the converted reference export with an independently curated equivalent.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_60",
+      "gt_csv": "MISSING: repository-usable open GT CSV for HDL-400 is not prepared yet",
+      "bag_dir": "../lidarloc_ws/data/official/hdl_localization/hdl_400_ros2",
+      "pointcloud_topic": "/velodyne_points",
+      "imu_topic": "/gpsimu_driver/imu_data"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_60",
+    "gt_csv": "MISSING: repository-usable open GT CSV for HDL-400 is not prepared yet"
+  },
+  "status": "blocked",
+  "blocker": "A reference-based CT-LIO comparison now exists separately, but this repository still does not ship an independently curated GT CSV aligned to the extracted HDL-400 LiDAR+IMU sequence.",
+  "next_step": "Add a repository-usable GT trajectory for the extracted HDL-400 window or replace the converted reference export with an independently curated equivalent.",
+  "planned_variants": [
+    {
+      "id": "imu_preintegration_default",
+      "label": "IMU preintegration default",
+      "design_style": "balanced",
+      "intent": "Baseline CT-LIO profile with IMU bias estimation and a short fixed-lag prior.",
+      "args": [
+        "--ct-lio-estimate-bias",
+        "--ct-lio-fixed-lag-window",
+        "4"
+      ]
+    },
+    {
+      "id": "seed_only_fast",
+      "label": "Seed-only fast",
+      "design_style": "throughput-oriented",
+      "intent": "Keep the IMU seed but avoid the heavier lag smoother path.",
+      "args": [
+        "--ct-lio-fixed-lag-window",
+        "2",
+        "--ct-lio-fixed-lag-outer-iterations",
+        "1"
+      ]
+    },
+    {
+      "id": "history_smoother_dense",
+      "label": "History smoother dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use a slightly longer lag window and one extra relinearization pass once a GT-backed public benchmark contract is ready.",
+      "args": [
+        "--ct-lio-estimate-bias",
+        "--ct-lio-fixed-lag-window",
+        "5",
+        "--ct-lio-fixed-lag-outer-iterations",
+        "2"
+      ]
+    }
+  ],
+  "variants": []
+}

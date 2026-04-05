@@ -472,6 +472,34 @@ std::string frameTimestampSourceName(FrameTimestampSource source) {
   return "unknown";
 }
 
+std::string jsonEscape(const std::string& input) {
+  std::string escaped;
+  escaped.reserve(input.size() + 8);
+  for (char c : input) {
+    switch (c) {
+      case '\\':
+        escaped += "\\\\";
+        break;
+      case '"':
+        escaped += "\\\"";
+        break;
+      case '\n':
+        escaped += "\\n";
+        break;
+      case '\r':
+        escaped += "\\r";
+        break;
+      case '\t':
+        escaped += "\\t";
+        break;
+      default:
+        escaped += c;
+        break;
+    }
+  }
+  return escaped;
+}
+
 double computeATE(const std::vector<Eigen::Matrix4d>& est,
                   const std::vector<Eigen::Matrix4d>& gt) {
   int n = std::min(est.size(), gt.size());
@@ -583,6 +611,56 @@ struct LiTAMIN2DogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+};
+
+struct GICPDogfoodingOptions {
+  double source_voxel_size = 1.0;
+  size_t max_source_points = 2500;
+  int k_neighbors = 8;
+  double max_correspondence_distance = 2.5;
+  int max_iterations = 8;
+  size_t map_max_points = 40000;
+  size_t refresh_interval = 4;
+  double map_radius = 45.0;
+  double max_seed_translation_delta = 2.0;
+  double max_seed_rotation_delta_rad = 0.25;
+};
+
+struct NDTDogfoodingOptions {
+  double source_voxel_size = 0.75;
+  size_t max_source_points = 2000;
+  double resolution = 1.5;
+  int max_iterations = 5;
+  double step_size = 0.2;
+  double convergence_threshold = 1e-4;
+  int min_points_per_cell = 1;
+  size_t map_max_points = 22000;
+  size_t refresh_interval = 8;
+  double map_radius = 35.0;
+  double max_seed_translation_delta = 1.5;
+  double max_seed_rotation_delta_rad = 0.2;
+};
+
+struct KISSICPDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  double initial_threshold = 1.5;
+  int max_points_per_voxel = 12;
+  int max_icp_iterations = 30;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct CTICPDogfoodingOptions {
+  double source_voxel_size = 0.75;
+  size_t max_source_points = 500;
+  double voxel_resolution = 1.5;
+  int max_iterations = 8;
+  int ceres_max_iterations = 1;
+  double planarity_threshold = 0.08;
+  double keypoint_voxel_size = 1.25;
+  int max_frames_in_map = 8;
 };
 
 /// ワールド座標に変換
@@ -744,19 +822,17 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
 }
 
 MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
-                     const std::vector<Eigen::Matrix4d>& gt) {
+                     const std::vector<Eigen::Matrix4d>& gt,
+                     const GICPDogfoodingOptions& options) {
   using namespace localization_zoo::gicp;
   MethodResult res;
   res.name = "GICP";
 
   GICPParams params;
-  params.k_neighbors = 8;
-  params.max_correspondence_distance = 2.5;
-  params.max_iterations = 8;
+  params.k_neighbors = options.k_neighbors;
+  params.max_correspondence_distance = options.max_correspondence_distance;
+  params.max_iterations = options.max_iterations;
   GICPRegistration reg(params);
-  constexpr size_t kGICPMapMaxPoints = 40000;
-  constexpr size_t kGICPRefreshInterval = 4;
-  constexpr double kGICPMapRadius = 45.0;
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
@@ -764,13 +840,14 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts_local =
-        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 1.0), 2500);
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
     if (pts_local.empty()) continue;
 
     if (i == 0) {
-      addPointsToMap(map_points, pts_local, T_est, kGICPMapMaxPoints,
-                     kGICPMapRadius);
+      addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                     options.map_radius);
       reg.setTarget(map_points);
       continue;
     }
@@ -778,16 +855,18 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
     const Eigen::Matrix4d T_init_guess = gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 128) &&
-        isReasonableRefinement(result.transformation, T_init_guess, 2.0, 0.25)) {
+        isReasonableRefinement(result.transformation, T_init_guess,
+                               options.max_seed_translation_delta,
+                               options.max_seed_rotation_delta_rad)) {
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
     }
     res.poses.push_back(T_est);
 
-    addPointsToMap(map_points, pts_local, T_est, kGICPMapMaxPoints,
-                   kGICPMapRadius);
-    if (shouldRefreshTargetMap(i, kGICPRefreshInterval)) {
+    addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                   options.map_radius);
+    if (shouldRefreshTargetMap(i, options.refresh_interval)) {
       reg.setTarget(map_points);
     }
 
@@ -806,21 +885,19 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
 }
 
 MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
-                    const std::vector<Eigen::Matrix4d>& gt) {
+                    const std::vector<Eigen::Matrix4d>& gt,
+                    const NDTDogfoodingOptions& options) {
   using namespace localization_zoo::ndt;
   MethodResult res;
   res.name = "NDT";
 
   NDTParams params;
-  params.resolution = 1.5;
-  params.max_iterations = 5;
-  params.step_size = 0.2;
-  params.convergence_threshold = 1e-4;
-  params.min_points_per_cell = 1;
+  params.resolution = options.resolution;
+  params.max_iterations = options.max_iterations;
+  params.step_size = options.step_size;
+  params.convergence_threshold = options.convergence_threshold;
+  params.min_points_per_cell = options.min_points_per_cell;
   NDTRegistration reg(params);
-  constexpr size_t kNDTMapMaxPoints = 22000;
-  constexpr size_t kNDTRefreshInterval = 8;
-  constexpr double kNDTMapRadius = 35.0;
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
@@ -828,13 +905,14 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts_local =
-        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 2000);
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
     if (pts_local.empty()) continue;
 
     if (i == 0) {
-      addPointsToMap(map_points, pts_local, T_est, kNDTMapMaxPoints,
-                     kNDTMapRadius);
+      addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                     options.map_radius);
       reg.setTarget(map_points);
       continue;
     }
@@ -842,16 +920,18 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
     const Eigen::Matrix4d T_init_guess = gt[i];
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.iterations >= 2) &&
-        isReasonableRefinement(result.transformation, T_init_guess, 1.5, 0.2)) {
+        isReasonableRefinement(result.transformation, T_init_guess,
+                               options.max_seed_translation_delta,
+                               options.max_seed_rotation_delta_rad)) {
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
     }
     res.poses.push_back(T_est);
 
-    addPointsToMap(map_points, pts_local, T_est, kNDTMapMaxPoints,
-                   kNDTMapRadius);
-    if (shouldRefreshTargetMap(i, kNDTRefreshInterval)) {
+    addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                   options.map_radius);
+    if (shouldRefreshTargetMap(i, options.refresh_interval)) {
       reg.setTarget(map_points);
     }
 
@@ -871,26 +951,28 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
 }
 
 MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
-                        const std::vector<Eigen::Matrix4d>& gt) {
+                        const std::vector<Eigen::Matrix4d>& gt,
+                        const KISSICPDogfoodingOptions& options) {
   using namespace localization_zoo::kiss_icp;
   MethodResult res;
   res.name = "KISS-ICP";
 
   KISSICPParams params;
-  params.voxel_size = 1.0;
-  params.initial_threshold = 1.5;
-  params.max_points_per_voxel = 12;
-  params.max_icp_iterations = 30;
-  params.local_map_radius = 60.0;
-  params.map_cleanup_interval = 4;
+  params.voxel_size = options.voxel_size;
+  params.initial_threshold = options.initial_threshold;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
   KISSICPPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts_local =
-        limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5), 4500);
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
     if (pts_local.empty()) continue;
 
     const auto result = pipeline.registerFrame(pts_local);
@@ -908,18 +990,19 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
 }
 
 MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
-                       const std::vector<Eigen::Matrix4d>& gt) {
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const CTICPDogfoodingOptions& options) {
   using namespace localization_zoo::ct_icp;
   MethodResult res;
   res.name = "CT-ICP";
 
   CTICPParams params;
-  params.voxel_resolution = 1.5;
-  params.max_iterations = 8;
-  params.ceres_max_iterations = 1;
-  params.planarity_threshold = 0.08;
-  params.keypoint_voxel_size = 1.25;
-  params.max_frames_in_map = 8;
+  params.voxel_resolution = options.voxel_resolution;
+  params.max_iterations = options.max_iterations;
+  params.ceres_max_iterations = options.ceres_max_iterations;
+  params.planarity_threshold = options.planarity_threshold;
+  params.keypoint_voxel_size = options.keypoint_voxel_size;
+  params.max_frames_in_map = options.max_frames_in_map;
   CTICPRegistration reg(params);
 
   TrajectoryFrame prev;
@@ -932,7 +1015,9 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto scan = limitLoadedScan(loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", 0.75), 500);
+    auto scan = limitLoadedScan(loadTimedPCD(pcd_dirs[i] + "/cloud.pcd",
+                                             options.source_voxel_size),
+                                options.max_source_points);
     if (scan.points.empty()) continue;
 
     std::vector<TimedPoint> timed;
@@ -1099,17 +1184,79 @@ void savePosesKITTI(const std::vector<Eigen::Matrix4d>& poses, const std::string
   }
 }
 
+void writeSummaryJson(const std::string& path,
+                      const std::string& pcd_dir,
+                      const std::string& gt_csv,
+                      size_t num_frames,
+                      double trajectory_length_m,
+                      FrameTimestampSource frame_timestamp_source,
+                      const std::vector<MethodResult>& results) {
+  std::ofstream out(path);
+  out << "{\n";
+  out << "  \"pcd_dir\": \"" << jsonEscape(pcd_dir) << "\",\n";
+  out << "  \"gt_csv\": \"" << jsonEscape(gt_csv) << "\",\n";
+  out << "  \"num_frames\": " << num_frames << ",\n";
+  out << "  \"trajectory_length_m\": " << std::fixed << std::setprecision(6)
+      << trajectory_length_m << ",\n";
+  out << "  \"timestamp_source\": \""
+      << jsonEscape(frameTimestampSourceName(frame_timestamp_source)) << "\",\n";
+  out << "  \"methods\": [\n";
+  for (size_t i = 0; i < results.size(); i++) {
+    const auto& r = results[i];
+    out << "    {\n";
+    out << "      \"name\": \"" << jsonEscape(r.name) << "\",\n";
+    out << "      \"status\": \"" << (r.skipped ? "SKIPPED" : "OK") << "\",\n";
+    if (r.skipped) {
+      out << "      \"ate_m\": null,\n";
+      out << "      \"frames\": 0,\n";
+      out << "      \"time_ms\": null,\n";
+      out << "      \"fps\": null,\n";
+    } else {
+      const double fps =
+          r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
+      out << "      \"ate_m\": " << std::fixed << std::setprecision(6) << r.ate
+          << ",\n";
+      out << "      \"frames\": " << r.poses.size() << ",\n";
+      out << "      \"time_ms\": " << std::fixed << std::setprecision(6)
+          << r.time_ms << ",\n";
+      out << "      \"fps\": " << std::fixed << std::setprecision(6) << fps
+          << ",\n";
+    }
+    out << "      \"note\": \"" << jsonEscape(r.note) << "\"\n";
+    out << "    }" << (i + 1 == results.size() ? "\n" : ",\n");
+  }
+  out << "  ]\n";
+  out << "}\n";
+}
+
 int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
               << " [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp]"
+              << " [--summary-json path]"
               << " [--litamin2-paper-profile]"
               << " [--litamin2-icp-only]"
               << " [--litamin2-voxel-resolution X]"
               << " [--litamin2-max-iterations N]"
               << " [--litamin2-max-source-points N]"
               << " [--litamin2-num-threads N]"
+              << " [--gicp-fast-profile]"
+              << " [--gicp-dense-profile]"
+              << " [--gicp-k-neighbors N]"
+              << " [--gicp-max-iterations N]"
+              << " [--ndt-fast-profile]"
+              << " [--ndt-dense-profile]"
+              << " [--ndt-resolution X]"
+              << " [--ndt-max-iterations N]"
+              << " [--kiss-fast-profile]"
+              << " [--kiss-dense-profile]"
+              << " [--kiss-voxel-size X]"
+              << " [--kiss-max-iterations N]"
+              << " [--ct-icp-fast-profile]"
+              << " [--ct-icp-dense-profile]"
+              << " [--ct-icp-voxel-resolution X]"
+              << " [--ct-icp-max-iterations N]"
               << " [--ct-lio-estimate-bias]"
               << " [--ct-lio-fixed-lag-window N]"
               << " [--ct-lio-fixed-lag-velocity-weight W]"
@@ -1126,6 +1273,7 @@ int main(int argc, char** argv) {
   int max_frames = -1;
   bool force_ct_lio = false;
   bool ct_lio_estimate_bias = false;
+  std::string summary_json_path;
   int ct_lio_fixed_lag_window = 1;
   double ct_lio_fixed_lag_velocity_weight = 0.0;
   double ct_lio_fixed_lag_gyro_bias_scale = 0.25;
@@ -1134,6 +1282,10 @@ int main(int argc, char** argv) {
   int ct_lio_fixed_lag_outer_iterations = 3;
   bool ct_lio_fixed_lag_smoother = false;
   LiTAMIN2DogfoodingOptions litamin2_options;
+  GICPDogfoodingOptions gicp_options;
+  NDTDogfoodingOptions ndt_options;
+  KISSICPDogfoodingOptions kiss_icp_options;
+  CTICPDogfoodingOptions ct_icp_options;
   std::vector<std::string> selected_methods = {
       "litamin2", "gicp", "ndt", "kiss_icp", "ct_lio"};
   for (int i = 3; i < argc; i++) {
@@ -1144,6 +1296,18 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-lio-estimate-bias") {
       ct_lio_estimate_bias = true;
+      continue;
+    }
+    if (arg == "--summary-json") {
+      if (i + 1 >= argc) {
+        std::cerr << "--summary-json requires a path" << std::endl;
+        return 1;
+      }
+      summary_json_path = argv[++i];
+      continue;
+    }
+    if (arg.rfind("--summary-json=", 0) == 0) {
+      summary_json_path = arg.substr(std::string("--summary-json=").size());
       continue;
     }
     if (arg == "--litamin2-paper-profile") {
@@ -1215,6 +1379,550 @@ int main(int argc, char** argv) {
     if (arg.rfind("--litamin2-num-threads=", 0) == 0) {
       litamin2_options.num_threads = std::max(
           1, std::stoi(arg.substr(std::string("--litamin2-num-threads=").size())));
+      continue;
+    }
+    if (arg == "--gicp-fast-profile") {
+      gicp_options.source_voxel_size = 1.25;
+      gicp_options.max_source_points = 1800;
+      gicp_options.k_neighbors = 6;
+      gicp_options.max_correspondence_distance = 2.0;
+      gicp_options.max_iterations = 6;
+      gicp_options.map_max_points = 30000;
+      gicp_options.refresh_interval = 6;
+      gicp_options.map_radius = 35.0;
+      continue;
+    }
+    if (arg == "--gicp-dense-profile") {
+      gicp_options.source_voxel_size = 0.75;
+      gicp_options.max_source_points = 3200;
+      gicp_options.k_neighbors = 12;
+      gicp_options.max_correspondence_distance = 3.0;
+      gicp_options.max_iterations = 10;
+      gicp_options.map_max_points = 55000;
+      gicp_options.refresh_interval = 3;
+      gicp_options.map_radius = 55.0;
+      continue;
+    }
+    if (arg == "--gicp-source-voxel-size") {
+      if (i + 1 >= argc) {
+        std::cerr << "--gicp-source-voxel-size requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      gicp_options.source_voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--gicp-source-voxel-size=", 0) == 0) {
+      gicp_options.source_voxel_size =
+          std::stod(arg.substr(std::string("--gicp-source-voxel-size=").size()));
+      continue;
+    }
+    if (arg == "--gicp-max-source-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--gicp-max-source-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      gicp_options.max_source_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--gicp-max-source-points=", 0) == 0) {
+      gicp_options.max_source_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--gicp-max-source-points=").size()))));
+      continue;
+    }
+    if (arg == "--gicp-k-neighbors") {
+      if (i + 1 >= argc) {
+        std::cerr << "--gicp-k-neighbors requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      gicp_options.k_neighbors = std::max(3, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--gicp-k-neighbors=", 0) == 0) {
+      gicp_options.k_neighbors =
+          std::max(3, std::stoi(arg.substr(std::string("--gicp-k-neighbors=").size())));
+      continue;
+    }
+    if (arg == "--gicp-max-correspondence-distance") {
+      if (i + 1 >= argc) {
+        std::cerr << "--gicp-max-correspondence-distance requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      gicp_options.max_correspondence_distance = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--gicp-max-correspondence-distance=", 0) == 0) {
+      gicp_options.max_correspondence_distance = std::stod(
+          arg.substr(std::string("--gicp-max-correspondence-distance=").size()));
+      continue;
+    }
+    if (arg == "--gicp-max-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--gicp-max-iterations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      gicp_options.max_iterations = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--gicp-max-iterations=", 0) == 0) {
+      gicp_options.max_iterations = std::max(
+          1, std::stoi(arg.substr(std::string("--gicp-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--gicp-map-max-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--gicp-map-max-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      gicp_options.map_max_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--gicp-map-max-points=", 0) == 0) {
+      gicp_options.map_max_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(std::string("--gicp-map-max-points=").size()))));
+      continue;
+    }
+    if (arg == "--gicp-refresh-interval") {
+      if (i + 1 >= argc) {
+        std::cerr << "--gicp-refresh-interval requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      gicp_options.refresh_interval =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--gicp-refresh-interval=", 0) == 0) {
+      gicp_options.refresh_interval = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(std::string("--gicp-refresh-interval=").size()))));
+      continue;
+    }
+    if (arg == "--gicp-map-radius") {
+      if (i + 1 >= argc) {
+        std::cerr << "--gicp-map-radius requires a numeric value" << std::endl;
+        return 1;
+      }
+      gicp_options.map_radius = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--gicp-map-radius=", 0) == 0) {
+      gicp_options.map_radius =
+          std::stod(arg.substr(std::string("--gicp-map-radius=").size()));
+      continue;
+    }
+    if (arg == "--ndt-fast-profile") {
+      ndt_options.source_voxel_size = 1.0;
+      ndt_options.max_source_points = 1600;
+      ndt_options.resolution = 2.0;
+      ndt_options.max_iterations = 4;
+      ndt_options.step_size = 0.25;
+      ndt_options.map_max_points = 18000;
+      ndt_options.refresh_interval = 10;
+      ndt_options.map_radius = 30.0;
+      continue;
+    }
+    if (arg == "--ndt-dense-profile") {
+      ndt_options.source_voxel_size = 0.6;
+      ndt_options.max_source_points = 2600;
+      ndt_options.resolution = 1.2;
+      ndt_options.max_iterations = 7;
+      ndt_options.step_size = 0.15;
+      ndt_options.map_max_points = 30000;
+      ndt_options.refresh_interval = 6;
+      ndt_options.map_radius = 40.0;
+      continue;
+    }
+    if (arg == "--ndt-source-voxel-size") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ndt-source-voxel-size requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      ndt_options.source_voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ndt-source-voxel-size=", 0) == 0) {
+      ndt_options.source_voxel_size =
+          std::stod(arg.substr(std::string("--ndt-source-voxel-size=").size()));
+      continue;
+    }
+    if (arg == "--ndt-max-source-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ndt-max-source-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      ndt_options.max_source_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--ndt-max-source-points=", 0) == 0) {
+      ndt_options.max_source_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--ndt-max-source-points=").size()))));
+      continue;
+    }
+    if (arg == "--ndt-resolution") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ndt-resolution requires a numeric value" << std::endl;
+        return 1;
+      }
+      ndt_options.resolution = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ndt-resolution=", 0) == 0) {
+      ndt_options.resolution =
+          std::stod(arg.substr(std::string("--ndt-resolution=").size()));
+      continue;
+    }
+    if (arg == "--ndt-max-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ndt-max-iterations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      ndt_options.max_iterations = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--ndt-max-iterations=", 0) == 0) {
+      ndt_options.max_iterations = std::max(
+          1, std::stoi(arg.substr(std::string("--ndt-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--ndt-step-size") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ndt-step-size requires a numeric value" << std::endl;
+        return 1;
+      }
+      ndt_options.step_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ndt-step-size=", 0) == 0) {
+      ndt_options.step_size =
+          std::stod(arg.substr(std::string("--ndt-step-size=").size()));
+      continue;
+    }
+    if (arg == "--ndt-map-max-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ndt-map-max-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      ndt_options.map_max_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--ndt-map-max-points=", 0) == 0) {
+      ndt_options.map_max_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(std::string("--ndt-map-max-points=").size()))));
+      continue;
+    }
+    if (arg == "--ndt-refresh-interval") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ndt-refresh-interval requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      ndt_options.refresh_interval =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--ndt-refresh-interval=", 0) == 0) {
+      ndt_options.refresh_interval = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(std::string("--ndt-refresh-interval=").size()))));
+      continue;
+    }
+    if (arg == "--ndt-map-radius") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ndt-map-radius requires a numeric value" << std::endl;
+        return 1;
+      }
+      ndt_options.map_radius = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ndt-map-radius=", 0) == 0) {
+      ndt_options.map_radius =
+          std::stod(arg.substr(std::string("--ndt-map-radius=").size()));
+      continue;
+    }
+    if (arg == "--kiss-fast-profile") {
+      kiss_icp_options.source_voxel_size = 0.75;
+      kiss_icp_options.max_source_points = 2500;
+      kiss_icp_options.voxel_size = 1.25;
+      kiss_icp_options.initial_threshold = 1.75;
+      kiss_icp_options.max_points_per_voxel = 10;
+      kiss_icp_options.max_icp_iterations = 20;
+      kiss_icp_options.local_map_radius = 45.0;
+      kiss_icp_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--kiss-dense-profile") {
+      kiss_icp_options.source_voxel_size = 0.35;
+      kiss_icp_options.max_source_points = 6000;
+      kiss_icp_options.voxel_size = 0.8;
+      kiss_icp_options.initial_threshold = 1.25;
+      kiss_icp_options.max_points_per_voxel = 16;
+      kiss_icp_options.max_icp_iterations = 40;
+      kiss_icp_options.local_map_radius = 80.0;
+      kiss_icp_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--kiss-source-voxel-size") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-source-voxel-size requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.source_voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--kiss-source-voxel-size=", 0) == 0) {
+      kiss_icp_options.source_voxel_size =
+          std::stod(arg.substr(std::string("--kiss-source-voxel-size=").size()));
+      continue;
+    }
+    if (arg == "--kiss-max-source-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-max-source-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.max_source_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--kiss-max-source-points=", 0) == 0) {
+      kiss_icp_options.max_source_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--kiss-max-source-points=").size()))));
+      continue;
+    }
+    if (arg == "--kiss-voxel-size") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-voxel-size requires a numeric value" << std::endl;
+        return 1;
+      }
+      kiss_icp_options.voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--kiss-voxel-size=", 0) == 0) {
+      kiss_icp_options.voxel_size =
+          std::stod(arg.substr(std::string("--kiss-voxel-size=").size()));
+      continue;
+    }
+    if (arg == "--kiss-initial-threshold") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-initial-threshold requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.initial_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--kiss-initial-threshold=", 0) == 0) {
+      kiss_icp_options.initial_threshold = std::stod(
+          arg.substr(std::string("--kiss-initial-threshold=").size()));
+      continue;
+    }
+    if (arg == "--kiss-max-points-per-voxel") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-max-points-per-voxel requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.max_points_per_voxel = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--kiss-max-points-per-voxel=", 0) == 0) {
+      kiss_icp_options.max_points_per_voxel = std::max(
+          1, std::stoi(arg.substr(std::string("--kiss-max-points-per-voxel=").size())));
+      continue;
+    }
+    if (arg == "--kiss-max-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-max-iterations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.max_icp_iterations = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--kiss-max-iterations=", 0) == 0) {
+      kiss_icp_options.max_icp_iterations = std::max(
+          1, std::stoi(arg.substr(std::string("--kiss-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--kiss-local-map-radius") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-local-map-radius requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.local_map_radius = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--kiss-local-map-radius=", 0) == 0) {
+      kiss_icp_options.local_map_radius = std::stod(
+          arg.substr(std::string("--kiss-local-map-radius=").size()));
+      continue;
+    }
+    if (arg == "--kiss-map-cleanup-interval") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-map-cleanup-interval requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.map_cleanup_interval = std::max(0, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--kiss-map-cleanup-interval=", 0) == 0) {
+      kiss_icp_options.map_cleanup_interval = std::max(
+          0, std::stoi(arg.substr(std::string("--kiss-map-cleanup-interval=").size())));
+      continue;
+    }
+    if (arg == "--ct-icp-fast-profile") {
+      ct_icp_options.source_voxel_size = 1.0;
+      ct_icp_options.max_source_points = 350;
+      ct_icp_options.voxel_resolution = 1.8;
+      ct_icp_options.max_iterations = 6;
+      ct_icp_options.ceres_max_iterations = 1;
+      ct_icp_options.planarity_threshold = 0.10;
+      ct_icp_options.keypoint_voxel_size = 1.5;
+      ct_icp_options.max_frames_in_map = 6;
+      continue;
+    }
+    if (arg == "--ct-icp-dense-profile") {
+      ct_icp_options.source_voxel_size = 0.6;
+      ct_icp_options.max_source_points = 700;
+      ct_icp_options.voxel_resolution = 1.2;
+      ct_icp_options.max_iterations = 10;
+      ct_icp_options.ceres_max_iterations = 2;
+      ct_icp_options.planarity_threshold = 0.06;
+      ct_icp_options.keypoint_voxel_size = 1.0;
+      ct_icp_options.max_frames_in_map = 10;
+      continue;
+    }
+    if (arg == "--ct-icp-source-voxel-size") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-source-voxel-size requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.source_voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-source-voxel-size=", 0) == 0) {
+      ct_icp_options.source_voxel_size = std::stod(
+          arg.substr(std::string("--ct-icp-source-voxel-size=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-max-source-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-max-source-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_source_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-source-points=", 0) == 0) {
+      ct_icp_options.max_source_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--ct-icp-max-source-points=").size()))));
+      continue;
+    }
+    if (arg == "--ct-icp-voxel-resolution") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-voxel-resolution requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.voxel_resolution = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-voxel-resolution=", 0) == 0) {
+      ct_icp_options.voxel_resolution = std::stod(
+          arg.substr(std::string("--ct-icp-voxel-resolution=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-max-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-max-iterations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_iterations = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-iterations=", 0) == 0) {
+      ct_icp_options.max_iterations = std::max(
+          1, std::stoi(arg.substr(std::string("--ct-icp-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--ct-icp-ceres-max-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-ceres-max-iterations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.ceres_max_iterations = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ceres-max-iterations=", 0) == 0) {
+      ct_icp_options.ceres_max_iterations = std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--ct-icp-ceres-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--ct-icp-planarity-threshold") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-planarity-threshold requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.planarity_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-planarity-threshold=", 0) == 0) {
+      ct_icp_options.planarity_threshold = std::stod(
+          arg.substr(std::string("--ct-icp-planarity-threshold=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-keypoint-voxel-size") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-keypoint-voxel-size requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.keypoint_voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-keypoint-voxel-size=", 0) == 0) {
+      ct_icp_options.keypoint_voxel_size = std::stod(
+          arg.substr(std::string("--ct-icp-keypoint-voxel-size=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-max-frames-in-map") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-max-frames-in-map requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_frames_in_map = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-frames-in-map=", 0) == 0) {
+      ct_icp_options.max_frames_in_map = std::max(
+          1, std::stoi(arg.substr(std::string("--ct-icp-max-frames-in-map=").size())));
       continue;
     }
     if (arg == "--ct-lio-fixed-lag-window") {
@@ -1318,6 +2026,10 @@ int main(int argc, char** argv) {
       selected_methods = splitMethodList(arg.substr(std::string("--methods=").size()));
       continue;
     }
+    if (!arg.empty() && arg[0] == '-') {
+      std::cerr << "Unknown option: " << arg << std::endl;
+      return 1;
+    }
     max_frames = std::stoi(arg);
   }
 
@@ -1408,17 +2120,33 @@ int main(int argc, char** argv) {
 
   if (isMethodEnabled(selected_methods, "gicp")) {
     std::cout << "Running GICP..." << std::endl;
-    results.push_back(runGICP(pcd_dirs, gt));
+    std::cout << "  source_voxel_size=" << gicp_options.source_voxel_size
+              << " max_source_points=" << gicp_options.max_source_points
+              << " k_neighbors=" << gicp_options.k_neighbors
+              << " max_iterations=" << gicp_options.max_iterations
+              << " map_max_points=" << gicp_options.map_max_points << std::endl;
+    results.push_back(runGICP(pcd_dirs, gt, gicp_options));
   }
 
   if (isMethodEnabled(selected_methods, "ndt")) {
     std::cout << "Running NDT..." << std::endl;
-    results.push_back(runNDT(pcd_dirs, gt));
+    std::cout << "  source_voxel_size=" << ndt_options.source_voxel_size
+              << " max_source_points=" << ndt_options.max_source_points
+              << " resolution=" << ndt_options.resolution
+              << " max_iterations=" << ndt_options.max_iterations
+              << " map_max_points=" << ndt_options.map_max_points << std::endl;
+    results.push_back(runNDT(pcd_dirs, gt, ndt_options));
   }
 
   if (isMethodEnabled(selected_methods, "kiss_icp")) {
     std::cout << "Running KISS-ICP..." << std::endl;
-    results.push_back(runKISSICP(pcd_dirs, gt));
+    std::cout << "  source_voxel_size=" << kiss_icp_options.source_voxel_size
+              << " max_source_points=" << kiss_icp_options.max_source_points
+              << " voxel_size=" << kiss_icp_options.voxel_size
+              << " max_iterations=" << kiss_icp_options.max_icp_iterations
+              << " local_map_radius=" << kiss_icp_options.local_map_radius
+              << std::endl;
+    results.push_back(runKISSICP(pcd_dirs, gt, kiss_icp_options));
   }
 
   constexpr double kCTLIORecommendedMedianGapSec = 0.5;
@@ -1465,7 +2193,13 @@ int main(int argc, char** argv) {
 
   if (isMethodEnabled(selected_methods, "ct_icp")) {
     std::cout << "Running CT-ICP..." << std::endl;
-    results.push_back(runCTICP(pcd_dirs, gt));
+    std::cout << "  source_voxel_size=" << ct_icp_options.source_voxel_size
+              << " max_source_points=" << ct_icp_options.max_source_points
+              << " voxel_resolution=" << ct_icp_options.voxel_resolution
+              << " max_iterations=" << ct_icp_options.max_iterations
+              << " max_frames_in_map=" << ct_icp_options.max_frames_in_map
+              << std::endl;
+    results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options));
   }
 
   // 結果表示
@@ -1521,6 +2255,11 @@ int main(int argc, char** argv) {
       }
       std::cout << "- " << r.name << ": " << r.note << std::endl;
     }
+  }
+
+  if (!summary_json_path.empty()) {
+    writeSummaryJson(summary_json_path, pcd_dir, gt_csv, pcd_dirs.size(), dist,
+                     frame_timestamp_source, results);
   }
 
   std::cout << "\nResults saved to dogfooding_results/" << std::endl;

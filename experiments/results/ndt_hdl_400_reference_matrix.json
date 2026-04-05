@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/ndt_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "ndt_profile_tradeoff_hdl_400_reference",
+    "title": "NDT throughput and accuracy trade-off on the public HDL-400 reference window",
+    "question": "Which NDT dogfooding profile should stay as the current default on a different public dataset family while keeping faster and denser alternatives comparable?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ndt",
+    "primary_method": "NDT"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the baseline trade-off.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods ndt --summary-json experiments/results/runs/ndt_hdl_400_reference_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/ndt_hdl_400_reference_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_hdl_400_reference_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.04463,
+      "fps": 0.410469,
+      "time_ms": 292348.445943,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 65.53,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_coarse_map",
+      "label": "Fast coarse map",
+      "design_style": "throughput-oriented",
+      "intent": "Use a coarser map and fewer points to increase FPS.",
+      "args": [
+        "--ndt-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods ndt --summary-json experiments/results/runs/ndt_hdl_400_reference_matrix/fast_coarse_map/summary.json --ndt-fast-profile",
+      "summary_path": "experiments/results/runs/ndt_hdl_400_reference_matrix/fast_coarse_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_hdl_400_reference_matrix/fast_coarse_map/run.log",
+      "status": "OK",
+      "ate_m": 0.051245,
+      "fps": 0.789043,
+      "time_ms": 152082.91036,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 84.42,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "accuracy-oriented",
+      "intent": "Use denser scans and a larger map budget for a stronger refinement path.",
+      "args": [
+        "--ndt-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods ndt --summary-json experiments/results/runs/ndt_hdl_400_reference_matrix/dense_local_map/summary.json --ndt-dense-profile",
+      "summary_path": "experiments/results/runs/ndt_hdl_400_reference_matrix/dense_local_map/summary.json",
+      "log_path": "experiments/results/runs/ndt_hdl_400_reference_matrix/dense_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.035273,
+      "fps": 0.242404,
+      "time_ms": 495041.074371,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 65.36,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

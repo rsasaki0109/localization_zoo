@@ -1,0 +1,7 @@
+build/
+dogfooding_results/
+.git/
+*.bag
+*.db3
+__pycache__/
+*.pyc

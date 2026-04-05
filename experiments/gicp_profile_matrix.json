@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "gicp_profile_tradeoff",
+    "title": "GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence",
+    "question": "Which GICP dogfooding profile should stay as the current default while keeping faster and denser alternatives comparable?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/autoware_istanbul_open_108",
+      "gt_csv": "dogfooding_results/autoware_istanbul_open_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "gicp",
+    "primary_method": "GICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the baseline trade-off.",
+      "args": []
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce scan density and map pressure to increase FPS.",
+      "args": [
+        "--gicp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase scan density, map budget, and correspondence richness.",
+      "args": [
+        "--gicp-dense-profile"
+      ]
+    }
+  ]
+}

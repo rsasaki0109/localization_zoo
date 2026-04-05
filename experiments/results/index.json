@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-06T03:41:47+00:00",
+  "generated_at": "2026-04-06T04:34:16+00:00",
   "problems": [
     {
       "problem_id": "ct_icp_profile_tradeoff_hdl_400_reference_b",
@@ -36,6 +36,15 @@
       "manifest_path": "experiments/ct_icp_istanbul_window_c_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_istanbul_window_c_matrix.json",
       "current_default": "balanced_window"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_mcd_ntu_day_02",
+      "title": "CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_mcd_ntu_day_02_matrix.json",
+      "current_default": "dense_window"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_mcd_tuhh_night_09",
@@ -110,6 +119,15 @@
       "current_default": "fast_recent_map"
     },
     {
+      "problem_id": "gicp_profile_tradeoff_mcd_ntu_day_02",
+      "title": "GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/gicp_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/gicp_mcd_ntu_day_02_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
       "problem_id": "gicp_profile_tradeoff_mcd_tuhh_night_09",
       "title": "GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
       "status": "ready",
@@ -161,6 +179,15 @@
       "blocker": "",
       "manifest_path": "experiments/kiss_icp_istanbul_window_c_matrix.json",
       "aggregate_path": "experiments/results/kiss_icp_istanbul_window_c_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "kiss_icp_profile_tradeoff_mcd_ntu_day_02",
+      "title": "KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/kiss_icp_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json",
       "current_default": "fast_recent_map"
     },
     {
@@ -218,6 +245,15 @@
       "current_default": "paper_icp_only_half_threads"
     },
     {
+      "problem_id": "litamin2_profile_tradeoff_mcd_ntu_day_02",
+      "title": "LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_mcd_ntu_day_02_matrix.json",
+      "current_default": "paper_icp_only_half_threads"
+    },
+    {
       "problem_id": "litamin2_profile_tradeoff_mcd_tuhh_night_09",
       "title": "LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
       "status": "ready",
@@ -270,6 +306,15 @@
       "manifest_path": "experiments/ndt_istanbul_window_c_matrix.json",
       "aggregate_path": "experiments/results/ndt_istanbul_window_c_matrix.json",
       "current_default": "fast_coarse_map"
+    },
+    {
+      "problem_id": "ndt_profile_tradeoff_mcd_ntu_day_02",
+      "title": "NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ndt_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/ndt_mcd_ntu_day_02_matrix.json",
+      "current_default": "balanced_local_map"
     },
     {
       "problem_id": "ndt_profile_tradeoff_mcd_tuhh_night_09",

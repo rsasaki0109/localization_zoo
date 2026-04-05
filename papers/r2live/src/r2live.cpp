@@ -302,8 +302,8 @@ void R2Live::optimizePoseGraph() {
 
   ceres::Problem problem;
   for (size_t i = 0; i < keyframes_.size(); ++i) {
-    problem.AddParameterBlock(q_params[i].data(), 4,
-                              new ceres::EigenQuaternionParameterization());
+    problem.AddParameterBlock(q_params[i].data(), 4);
+    problem.SetManifold(q_params[i].data(), new ceres::EigenQuaternionManifold());
     problem.AddParameterBlock(t_params[i].data(), 3);
   }
   problem.SetParameterBlockConstant(q_params.front().data());

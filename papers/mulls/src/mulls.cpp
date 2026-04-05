@@ -173,8 +173,8 @@ MULLSMappingResult MULLSMapping::process(const aloam::PointCloudPtr& corner_last
 
   for (int iter = 0; iter < params_.num_optimization_iters; ++iter) {
     ceres::Problem problem;
-    problem.AddParameterBlock(parameters, 4,
-                              new ceres::EigenQuaternionParameterization());
+    problem.AddParameterBlock(parameters, 4);
+    problem.SetManifold(parameters, new ceres::EigenQuaternionManifold());
     problem.AddParameterBlock(parameters + 4, 3);
 
     ceres::LossFunction* edge_loss =

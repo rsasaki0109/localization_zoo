@@ -418,8 +418,8 @@ FastLio2Result FastLio2::process(
     const Eigen::Vector3d previous_trans = current_trans;
 
     ceres::Problem problem;
-    problem.AddParameterBlock(quat_param, 4,
-                              new ceres::EigenQuaternionParameterization());
+    problem.AddParameterBlock(quat_param, 4);
+    problem.SetManifold(quat_param, new ceres::EigenQuaternionManifold());
     problem.AddParameterBlock(trans_param, 3);
     problem.AddParameterBlock(velocity_param, 3);
 

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-06T04:34:16+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-06T06:33:08+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -55,6 +55,18 @@ _Generated at 2026-04-06T04:34:16+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | balanced_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast_window`.
+- Reference variants: `balanced_window`, `dense_window`.
+- Aggregate result: `experiments/results/ct_icp_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence
@@ -161,6 +173,18 @@ _Generated at 2026-04-06T04:34:16+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast_recent_map`.
+- Reference variants: `balanced_local_map`, `dense_recent_map`.
+- Aggregate result: `experiments/results/gicp_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence
 
 - Current default: `dense_recent_map`.
@@ -244,6 +268,18 @@ _Generated at 2026-04-06T04:34:16+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast_recent_map`.
+- Reference variants: `balanced_local_map`, `dense_local_map`.
+- Aggregate result: `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence
 
@@ -337,6 +373,20 @@ _Generated at 2026-04-06T04:34:16+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_cov_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_icp_only_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast_cov_half_threads`.
+- Active challengers: `fast_icp_only_half_threads`.
+- Reference variants: `paper_cov_half_threads`, `paper_icp_only_half_threads`.
+- Aggregate result: `experiments/results/litamin2_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_cov_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_icp_only_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence
 
 - Current default: `paper_icp_only_half_threads`.
@@ -420,6 +470,18 @@ _Generated at 2026-04-06T04:34:16+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast_coarse_map`.
 - Reference variants: `balanced_local_map`, `dense_local_map`.
 - Aggregate result: `experiments/results/ndt_istanbul_window_c_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_coarse_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast_coarse_map`.
+- Reference variants: `balanced_local_map`, `dense_local_map`.
+- Aggregate result: `experiments/results/ndt_mcd_kth_day_06_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|

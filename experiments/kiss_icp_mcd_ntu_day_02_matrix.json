@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "kiss_icp_profile_tradeoff_mcd_ntu_day_02",
+    "title": "KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+    "question": "Which KISS-ICP profile should stay as the current default on the MCD public dataset (NTU day-02)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the odometry baseline.",
+      "args": []
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce source density and map pressure to improve FPS.",
+      "args": [
+        "--kiss-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "drift-oriented",
+      "intent": "Increase source density and local-map richness to fight odometry drift.",
+      "args": [
+        "--kiss-dense-profile"
+      ]
+    }
+  ]
+}

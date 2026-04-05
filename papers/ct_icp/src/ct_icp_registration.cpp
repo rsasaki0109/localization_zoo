@@ -236,11 +236,11 @@ CTICPResult CTICPRegistration::registerFrame(
 
     // Ceres問題を構築
     ceres::Problem problem;
-    problem.AddParameterBlock(begin_q, 4,
-                              new ceres::EigenQuaternionParameterization());
+    problem.AddParameterBlock(begin_q, 4);
+    problem.SetManifold(begin_q, new ceres::EigenQuaternionManifold());
     problem.AddParameterBlock(begin_t, 3);
-    problem.AddParameterBlock(end_q, 4,
-                              new ceres::EigenQuaternionParameterization());
+    problem.AddParameterBlock(end_q, 4);
+    problem.SetManifold(end_q, new ceres::EigenQuaternionManifold());
     problem.AddParameterBlock(end_t, 3);
 
     ceres::LossFunction* loss =

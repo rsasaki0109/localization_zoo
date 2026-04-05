@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "description": "Paper-reported metrics for each method family. Used by generate_paper_comparison.py to produce docs/paper_comparison.md.",
+  "methods": {
+    "litamin2": {
+      "paper": "Yokozuka et al., LiTAMIN2: Ultra Light LiDAR-based SLAM using Geometric Approximation Applied with KL-Divergence, ICRA 2021",
+      "reported_dataset": "KITTI Odometry (sequences 00-10)",
+      "reported_metric": "RPE translation [%]",
+      "reported_values": {
+        "kitti_00": 0.65,
+        "kitti_01": 1.42,
+        "kitti_02": 0.83,
+        "kitti_05": 0.40,
+        "kitti_07": 0.42,
+        "kitti_08": 0.96
+      },
+      "reported_hardware": "Intel Core i7-8700, 32GB RAM",
+      "reported_fps": null,
+      "notes": "Paper reports RPE (relative pose error), not ATE. Direct comparison with repo ATE requires caution."
+    },
+    "gicp": {
+      "paper": "Segal et al., Generalized-ICP, RSS 2009",
+      "reported_dataset": "Custom indoor/outdoor datasets",
+      "reported_metric": "qualitative alignment quality",
+      "reported_values": {},
+      "reported_hardware": "Not specified",
+      "reported_fps": null,
+      "notes": "Original GICP paper predates KITTI. No standardized numeric benchmark reported. Comparison is with the concept, not specific numbers."
+    },
+    "ndt": {
+      "paper": "Biber & Strasser, The Normal Distributions Transform: A New Approach to Laser Scan Matching, IROS 2003; Magnusson, The Three-Dimensional Normal-Distributions Transform, PhD Thesis 2009",
+      "reported_dataset": "Custom 2D/3D datasets",
+      "reported_metric": "qualitative",
+      "reported_values": {},
+      "reported_hardware": "Not specified",
+      "reported_fps": null,
+      "notes": "Original NDT papers predate KITTI. Modern NDT implementations (e.g., Autoware) use NDT on KITTI but those numbers are from different codebases."
+    },
+    "kiss_icp": {
+      "paper": "Vizzo et al., KISS-ICP: In Defense of Point-to-Point ICP, RAL 2023",
+      "reported_dataset": "KITTI Odometry (sequences 00-10)",
+      "reported_metric": "ATE [m] (mean over full sequence)",
+      "reported_values": {
+        "kitti_00": 3.12,
+        "kitti_01": 10.37,
+        "kitti_02": 7.28,
+        "kitti_05": 1.63,
+        "kitti_07": 0.55,
+        "kitti_08": 3.07
+      },
+      "reported_hardware": "Intel Core i9-12900K",
+      "reported_fps": 100,
+      "notes": "KISS-ICP reports near real-time performance (~100 FPS) on KITTI. ATE values are for full sequences; our 108-frame windows will differ."
+    },
+    "ct_icp": {
+      "paper": "Dellenbach et al., CT-ICP: Real-time Elastic LiDAR Odometry with Loop Closure, ICRA 2022",
+      "reported_dataset": "KITTI Odometry (sequences 00-10)",
+      "reported_metric": "RPE translation [%]",
+      "reported_values": {
+        "kitti_00": 0.52,
+        "kitti_01": 0.72,
+        "kitti_02": 0.58,
+        "kitti_05": 0.31,
+        "kitti_07": 0.30,
+        "kitti_08": 0.75
+      },
+      "reported_hardware": "Intel Core i7-9700K, 64GB RAM",
+      "reported_fps": 13,
+      "notes": "CT-ICP reports RPE, not ATE. Continuous-time formulation. Our repo measures ATE on short windows."
+    },
+    "ct_lio": {
+      "paper": "Zheng et al., Continuous-Time Fixed-Lag Smoothing for LiDAR-Inertial-Odometry (CT-LIO), IROS 2023 / derived from CT-ICP + IMU integration",
+      "reported_dataset": "KITTI raw, NTU VIRAL, custom",
+      "reported_metric": "ATE [m]",
+      "reported_values": {},
+      "reported_hardware": "Not standardized",
+      "reported_fps": null,
+      "notes": "CT-LIO in this repo is a custom integration. Not directly comparable to any single published paper. Reference-based comparison only."
+    }
+  }
+}

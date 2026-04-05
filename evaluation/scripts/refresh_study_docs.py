@@ -46,7 +46,8 @@ def main() -> None:
     run(runner_cmd)
     run(["python3", "evaluation/scripts/generate_publication_docs.py"])
     run(["python3", "evaluation/scripts/export_paper_assets.py"])
-    print("[done] refreshed experiment and publication docs")
+    run(["python3", "evaluation/scripts/generate_paper_comparison.py"])
+    print("[done] refreshed experiment, publication, and comparison docs")
 
 
 if __name__ == "__main__":

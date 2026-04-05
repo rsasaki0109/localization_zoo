@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-06T03:41:47+00:00",
+  "manifest_path": "experiments/kiss_icp_mcd_tuhh_night_09_matrix.json",
+  "problem": {
+    "id": "kiss_icp_profile_tradeoff_mcd_tuhh_night_09",
+    "title": "KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+    "question": "Which KISS-ICP profile should stay as the current default on the MCD public dataset (TUHH night-09)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+      "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+    "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the odometry baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 1.104416,
+      "fps": 9.393025,
+      "time_ms": 11497.893304,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 69.49,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce source density and map pressure to improve FPS.",
+      "args": [
+        "--kiss-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/fast_recent_map/summary.json --kiss-fast-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 1.302876,
+      "fps": 24.096147,
+      "time_ms": 4482.044355,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 92.38,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "drift-oriented",
+      "intent": "Increase source density and local-map richness to fight odometry drift.",
+      "args": [
+        "--kiss-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/dense_local_map/summary.json --kiss-dense-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/dense_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_mcd_tuhh_night_09_matrix/dense_local_map/run.log",
+      "status": "OK",
+      "ate_m": 1.139276,
+      "fps": 6.347886,
+      "time_ms": 17013.537091,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 61.64,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

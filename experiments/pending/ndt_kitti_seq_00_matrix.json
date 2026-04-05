@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ndt_profile_tradeoff_kitti_seq_00",
+    "title": "NDT throughput and accuracy trade-off on the KITTI Odometry sequence 00",
+    "question": "Which NDT profile should stay as the current default on the KITTI Odometry public dataset (sequence 00)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_108",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ndt",
+    "primary_method": "NDT"
+  },
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the baseline trade-off.",
+      "args": []
+    },
+    {
+      "id": "fast_coarse_map",
+      "label": "Fast coarse map",
+      "design_style": "throughput-oriented",
+      "intent": "Use a coarser map and fewer points to increase FPS.",
+      "args": [
+        "--ndt-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "accuracy-oriented",
+      "intent": "Use denser scans and a larger map budget for a stronger refinement path.",
+      "args": [
+        "--ndt-dense-profile"
+      ]
+    }
+  ]
+}

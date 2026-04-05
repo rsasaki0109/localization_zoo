@@ -1,16 +1,17 @@
 # Paper Tracks
 
-_Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-06T03:41:47+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `26` ready problems and `1` blocked problems.
+Current coverage: `31` ready problems and `1` blocked problems.
 
 ## Current State
 
 | Problem | Status | Default | Best ATE [m] | Best FPS | Dataset |
 |---------|--------|---------|--------------|----------|---------|
+| CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_window` | 1.652 | 71.6 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.357 | 2.4 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_window` | 75.075 | 2.7 | `dogfooding_results/autoware_istanbul_open_108` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_window` | 0.556 | 2.4 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
@@ -18,21 +19,25 @@ Current coverage: `26` ready problems and `1` blocked problems.
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `balanced_window` | 7.539 | 2.8 | `dogfooding_results/autoware_istanbul_open_108_c` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `dogfooding_results/hdl_400_open_ct_lio_60` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.412 | 0.5 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.317 | 31.2 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.091 | 1.7 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 0.994 | 6.3 | `dogfooding_results/autoware_istanbul_open_108` |
 | GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_recent_map` | 0.135 | 1.7 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | GICP throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 1.166 | 5.7 | `dogfooding_results/autoware_istanbul_open_108_b` |
 | GICP throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 0.982 | 4.3 | `dogfooding_results/autoware_istanbul_open_108_c` |
+| KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 1.104 | 24.1 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | KISS-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 1.646 | 0.5 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `dogfooding_results/autoware_istanbul_open_108` |
 | KISS-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_recent_map` | 0.218 | 0.4 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | KISS-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `dense_local_map` | 143.921 | 3.6 | `dogfooding_results/autoware_istanbul_open_108_b` |
 | KISS-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 131.691 | 3.7 | `dogfooding_results/autoware_istanbul_open_108_c` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_cov_half_threads` | 0.194 | 106.5 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `paper_icp_only_half_threads` | 0.121 | 6.4 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.213 | 23.5 | `dogfooding_results/autoware_istanbul_open_108` |
 | LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_icp_only_half_threads` | 0.168 | 6.1 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.222 | 20.9 | `dogfooding_results/autoware_istanbul_open_108_b` |
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `paper_icp_only_half_threads` | 0.741 | 21.2 | `dogfooding_results/autoware_istanbul_open_108_c` |
+| NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_coarse_map` | 0.063 | 40.8 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | NDT throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_coarse_map` | 0.035 | 0.8 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_coarse_map` | 0.070 | 2.0 | `dogfooding_results/autoware_istanbul_open_108` |
 | NDT throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_coarse_map` | 0.065 | 0.9 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
@@ -53,13 +58,13 @@ Current coverage: `26` ready problems and `1` blocked problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 26 ready problems under one CLI and one summary JSON interface.
+- The stable benchmark contract now covers 31 ready problems under one CLI and one summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
-- Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=paper_icp_only_half_threads` at 6.4 FPS and `CT-LIO=seed_only_fast` at 0.412 m ATE on the public HDL-400 reference window.
+- Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_cov_half_threads` at 106.5 FPS and `CT-LIO=seed_only_fast` at 0.412 m ATE on the public HDL-400 reference window.
 
 ### Gaps
 
-- LiDAR-only methods now cover 5 repository-stored open sequences across 2 public dataset families, but external validity still rests on only 2 families.
+- LiDAR-only methods now cover 6 repository-stored open sequences across 3 public dataset families, but external validity still rests on only 3 families.
 - Reference-based and GT-backed results are now separated conceptually, but the GT-backed CT-LIO public benchmark is still blocked.
 - There is no paper-ready comparison against originally reported results yet.
 - Hardware-normalized reruns and confidence intervals are not exported yet.

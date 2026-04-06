@@ -55,8 +55,8 @@ OdometryResult LaserOdometry::process(const FeatureCloud& features) {
     ceres::Problem problem;
     ceres::LossFunction* loss = new ceres::HuberLoss(params_.huber_loss_s);
 
-    problem.AddParameterBlock(para_q, 4,
-                              new ceres::EigenQuaternionParameterization());
+    problem.AddParameterBlock(para_q, 4);
+    problem.SetManifold(para_q, new ceres::EigenQuaternionManifold());
     problem.AddParameterBlock(para_t, 3);
 
     // エッジ対応

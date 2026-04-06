@@ -762,10 +762,56 @@ def run_problem(
             planned_variants=list(manifest["variants"]),
         )
 
-    if pcd_dir is None or not pcd_dir.exists():
-        raise FileNotFoundError(f"PCD directory not found: {pcd_dir}")
-    if gt_csv is None or not gt_csv.exists():
-        raise FileNotFoundError(f"Reference CSV not found: {gt_csv}")
+    # When reusing existing results, allow missing local data if aggregate exists
+    aggregate_path = output_dir / f"{manifest_stem}.json"
+    data_available = (pcd_dir is not None and pcd_dir.exists()
+                      and gt_csv is not None and gt_csv.exists())
+    if not data_available:
+        if args.reuse_existing and aggregate_path.exists():
+            aggregate = json.loads(aggregate_path.read_text())
+            results: list[VariantResult] = []
+            for v in aggregate.get("variants", []):
+                results.append(VariantResult(
+                    id=v["id"], label=v.get("label", ""),
+                    design_style=v.get("design_style", ""),
+                    intent=v.get("intent", ""),
+                    args=v.get("args", []),
+                    command=v.get("command", ""), summary_path=v.get("summary_path", ""),
+                    log_path=v.get("log_path", ""),
+                    status=v.get("status", "OK"), ate_m=v.get("ate_m"),
+                    fps=v.get("fps"), time_ms=v.get("time_ms"),
+                    frames=v.get("frames"), note=v.get("note", ""),
+                    benchmark_score=v.get("benchmark_score", 0),
+                    readability_score=v.get("readability_score", 0),
+                    readability_note=v.get("readability_note", ""),
+                    extensibility_score=v.get("extensibility_score", 0),
+                    extensibility_note=v.get("extensibility_note", ""),
+                    decision=v.get("decision", ""),
+                    decision_reason=v.get("decision_reason", ""),
+                ))
+            return ProblemRun(
+                manifest_path=relpath(manifest_path),
+                manifest_stem=manifest_stem,
+                problem_id=problem_cfg["id"],
+                title=problem_cfg["title"],
+                question=problem_cfg["question"],
+                problem_state=problem_state,
+                blocker=blocker,
+                next_step=next_step,
+                dataset_pcd_dir=str(dataset_pcd_raw),
+                dataset_gt_csv=str(dataset_gt_raw),
+                binary_path=relpath(binary),
+                method_selector=stable_interface["methods"],
+                primary_method=stable_interface["primary_method"],
+                same_metrics=list(problem_cfg["same_metrics"]),
+                aggregate_relpath=relpath(aggregate_path),
+                results=results,
+                planned_variants=list(manifest["variants"]),
+            )
+        if pcd_dir is None or not pcd_dir.exists():
+            raise FileNotFoundError(f"PCD directory not found: {pcd_dir}")
+        if gt_csv is None or not gt_csv.exists():
+            raise FileNotFoundError(f"Reference CSV not found: {gt_csv}")
 
     results: list[VariantResult] = []
     for variant in manifest["variants"]:

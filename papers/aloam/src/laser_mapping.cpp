@@ -196,8 +196,8 @@ void LaserMapping::optimizeTransform(const PointCloudPtr& corner_from_map,
     ceres::Problem problem;
     ceres::LossFunction* loss = new ceres::HuberLoss(params_.huber_loss_s);
 
-    problem.AddParameterBlock(parameters, 4,
-                              new ceres::EigenQuaternionParameterization());
+    problem.AddParameterBlock(parameters, 4);
+    problem.SetManifold(parameters, new ceres::EigenQuaternionManifold());
     problem.AddParameterBlock(parameters + 4, 3);
 
     std::vector<int> point_search_idx;

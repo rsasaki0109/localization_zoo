@@ -1,15 +1,16 @@
 # Localization Zoo - Claude 引き継ぎ PLAN
 
-> 最終更新: 2026-04-06
-> この `PLAN.md` は、旧来の「実装数を増やす」計画ではなく、現在の `Localization Zoo` を
+> 最終更新: 2026-04-06 (第2版)
+> この `PLAN.md` は、現在の `Localization Zoo` を
 > 「実験駆動の比較基盤 + 論文化準備中の artifact」
-> として引き継ぐための長文 handoff である。
+> として引き継ぐための handoff 文書である。
 >
 > Claude はまずこのファイルを読み、次に
 > [`docs/paper_tracks.md`](docs/paper_tracks.md),
 > [`docs/paper_roadmap.md`](docs/paper_roadmap.md),
 > [`docs/experiments.md`](docs/experiments.md),
-> [`docs/decisions.md`](docs/decisions.md)
+> [`docs/decisions.md`](docs/decisions.md),
+> [`docs/paper_comparison.md`](docs/paper_comparison.md)
 > を見れば、今の repo の状態と次の優先タスクを把握できる。
 
 ---
@@ -26,12 +27,23 @@
   `variant-first benchmarking exposes Pareto fronts`
   という empirical study / reproducibility artifact に寄っている。
 - 現在の repo 状態は、
-  `26 ready problems + 1 blocked problem`
+  `36 ready problems + 1 blocked problem`
   まで進んでいる。
+- 3つ目の public dataset family (MCD: Multi-Campus Dataset) が追加済み。
+  - MCD TUHH night-09 (Ouster OS1-64, 61k pts/frame)
+  - MCD NTU day-02 (Ouster OS1-128, 84k pts/frame)
+  - MCD KTH day-06 (Ouster OS1-64) — 追加中
+- CT-LIO GT-backed は main study から scope-out 済み。
+- KITTI Odometry 用のマニフェスト 10 本が `experiments/pending/` に待機中（データ要ダウンロード）。
+- 論文化基盤が整った:
+  - `docs/paper_draft_outline.md` — 論文構成
+  - `docs/paper_claim.md` — Core claim + evidence pointers
+  - `docs/paper_comparison.md` — 論文報告値 vs repo defaults
+  - `Dockerfile` + `requirements.txt` — 再現ビルド環境
 - 次の本筋は
-  `3つ目の public dataset family の追加`
+  `論文草稿の執筆`
   と
-  `GT-backed CT-LIO をどう扱うかの決定`
+  `evidence の window 数をさらに増やす`
   である。
 
 ---
@@ -176,7 +188,7 @@ generator から再生成される docs / assets。
 
 ### 4.1 問題数
 
-- ready: `26`
+- ready: `36`
 - blocked: `1`
 
 ### 4.2 内訳
@@ -185,19 +197,24 @@ generator から再生成される docs / assets。
   - `5 method families x 3 windows = 15 ready`
 - LiDAR-only / reference-based / HDL-400 x 2 windows
   - `5 method families x 2 windows = 10 ready`
+- LiDAR-only / gt-backed / MCD TUHH night-09
+  - `5 method families x 1 window = 5 ready`
+- LiDAR-only / gt-backed / MCD NTU day-02
+  - `5 method families x 1 window = 5 ready`
 - CT-LIO / reference-based / HDL-400
   - `1 ready`
 - CT-LIO / GT-backed / HDL-400
-  - `1 blocked`
+  - `1 blocked` (scope-out 済み: main study 対象外)
 
 ### 4.3 Dataset family 数
 
-- non-IMU LiDAR-only 系で `2 public dataset families`
-  - Autoware Istanbul
-  - HDL-400
+- non-IMU LiDAR-only 系で `3 public dataset families`
+  - Autoware Istanbul (Velodyne, ~1.1k pts/frame, 都市走行)
+  - HDL-400 (Velodyne HDL-32E, reference-based)
+  - MCD Multi-Campus Dataset (Ouster OS1-64/128, 61-84k pts/frame, 大学キャンパス)
 
-ここが今の論文化上の弱点でもある。
-window 数は増えたが family 数はまだ `2` しかない。
+MCD は登録不要で Google Drive から直接ダウンロード可能。
+KITTI Odometry のマニフェスト 10 本が `experiments/pending/` に待機中。
 
 ---
 
@@ -346,91 +363,63 @@ manuscript core として今 pick されている代表 default は
 
 優先度順に書く。
 
-### P0-1: 第3の public dataset family を追加
+### P0-1: 第3の public dataset family を追加 — **完了**
 
-今の最大の弱点は、LiDAR-only 系の public evidence が
-Istanbul + HDL-400 の `2 family` しかないこと。
+MCD (Multi-Campus Dataset) を第3 family として追加済み。
+- MCD TUHH night-09 (Ouster OS1-64) — 5 methods ready
+- MCD NTU day-02 (Ouster OS1-128) — 5 methods ready
+- MCD KTH day-06 (Ouster OS1-64) — 追加中
+- 登録不要、Google Drive 直接ダウンロード
+- 変換スクリプト: `extract_ros1_lidar.py`, `mcd_gt_to_csv.py`
+- KITTI Odometry マニフェスト 10 本が `experiments/pending/` に待機中
 
-やること:
+### P0-2: CT-LIO の GT-backed をどう扱うか決める — **完了**
 
-- 第3 family を 1 つ追加
-- 可能なら LiDAR-only 5 family
-  - `LiTAMIN2`
-  - `GICP`
-  - `NDT`
-  - `KISS-ICP`
-  - `CT-ICP`
-  が同じ interface で回るようにする
+main study から scope-out。
+- `ct_lio_public_readiness_matrix.json` に `scope_decision` を追記済み
+- 理由: KITTI に IMU なし、HDL-400 に独立 GT なし
+- CT-LIO は reference-based のみで artifact に残る
 
-理想:
+### P1-1: original-paper comparison sheets — **完了**
 
-- `gt-backed` が望ましい
-- 無理ならまず `reference-based` でもよい
-- ただし contract type を曖昧に混ぜないこと
+- `evaluation/data/paper_reported_numbers.json` — 6手法の論文報告値
+- `evaluation/scripts/generate_paper_comparison.py` — 自動生成
+- `docs/paper_comparison.md` — generated doc
+- `refresh_study_docs.py` に統合済み
 
-完了条件:
+### P1-2: pinned environment / container — **完了**
 
-- `experiments/*_matrix.json` が family ぶん追加される
-- `python3 evaluation/scripts/refresh_study_docs.py` で full refresh が通る
-- `docs/paper_roadmap.md` の P0 が次の段階に進む
+- `Dockerfile` — Ubuntu 22.04 ベース、全依存込み
+- `requirements.txt` — Python 依存固定
+- `evaluation/scripts/verify_environment.py` — 環境検証
 
-### P0-2: CT-LIO の GT-backed をどう扱うか決める
+### P1-3: paper skeleton — **完了**
 
-いま blocked のまま残っている。
+- `docs/paper_draft_outline.md` — 7 section + appendix
+- `docs/paper_claim.md` — Core claim + 4 sub-claims + evidence pointers
+- `docs/paper_tables_todo.md` — 表・図チェックリスト
 
-選択肢:
+---
 
-1. 独立 GT CSV を用意して unblock
-2. 本論文の main study から外す
-3. appendix / artifact only 扱いに落とす
+### 新 P0: 論文草稿の執筆
 
-曖昧なまま残すのが一番悪い。
+36 ready problems、3 dataset families の evidence が揃った。
+次は `docs/paper_draft_outline.md` をベースに actual prose を書く。
 
-完了条件:
+### 新 P1: evidence window をさらに増やす
 
-- `ct_lio_public_readiness_matrix.json` の state を変えるか
-- あるいは paper docs 上で scope-out を明文化する
+- MCD KTH day-06 追加中
+- KITTI Odometry データダウンロード後に `experiments/pending/` を有効化 → +10 ready
+- 他の MCD sequence (e.g. `ntu_night_04`, `tuhh_day_02`) も追加可能
 
-### P1-1: original-paper comparison sheets を作る
+### 新 P2: Docker clean-machine 再現性検証
 
-これはまだ未着手。
+`Dockerfile` のビルド + `refresh_study_docs.py` の実行確認。
 
-最低限必要なのは:
+### 新 P3: Ceres 2.2 互換修正の横展開確認
 
-- LiTAMIN2
-- GICP
-- NDT
-- KISS-ICP
-- CT-ICP
-- CT-LIO
-
-各手法で:
-
-- paper reported number
-- repo current default
-- active challenger
-- dataset / hardware / contract の違い
-
-を 1 枚にまとめる。
-
-### P1-2: pinned environment / container
-
-Track B の artifact 性を上げるために必要。
-
-最低限:
-
-- 依存関係の固定
-- docs refresh の clean-machine replay
-
-### P1-3: paper skeleton を切る
-
-これはもうやってよい。
-
-作るべきファイル例:
-
-- `docs/paper_draft_outline.md`
-- `docs/paper_claim.md`
-- `docs/paper_tables_todo.md`
+19 ファイルで `EigenQuaternionParameterization` → `EigenQuaternionManifold` に修正済み。
+全テストが通ることの確認。
 
 ---
 
@@ -673,21 +662,22 @@ python3 -m py_compile evaluation/scripts/*.py
 
 ## 14. 現時点の結論
 
-この repo はもう
-「正しい設計がある場所」ではなく、
+この repo は
 「比較を回しながら設計を進化させる場所」
-にかなり近づいている。
+として十分に成熟した。
 
-Claude に期待する次の仕事は、
-実装数をさらに増やすことではない。
+達成済み:
+
+1. ~~public evidence の family 数を増やす~~ → 3 families, 36 ready
+2. ~~blocked な CT-LIO の扱いを決める~~ → scope-out 決定済み
+3. ~~original-paper comparison を作る~~ → `docs/paper_comparison.md`
+4. ~~artifact として clean-machine 再現性を上げる~~ → `Dockerfile` + `requirements.txt`
+5. ~~empirical paper の skeleton を起こす~~ → `docs/paper_draft_outline.md` 他
 
 次の本筋は:
 
-1. public evidence の family 数を増やす
-2. blocked な CT-LIO の扱いを決める
-3. original-paper comparison を作る
-4. artifact として clean-machine 再現性を上げる
-5. empirical paper の skeleton を起こす
-
-この順番を崩さないこと。
+1. 論文草稿の執筆（prose を書く段階）
+2. evidence window のさらなる拡大（MCD KTH, KITTI 等）
+3. Docker clean-machine 再現性の実地検証
+4. 論文投稿先の選定と submission 準備
 

@@ -37,12 +37,44 @@ Some paper-named entries still use compact or simplified internals today, especi
 
 ---
 
+## Experiment-Driven Development
+
+This repository now keeps a small stable benchmark core and a discardable experiment layer.
+The current search state is externalized here:
+
+- [`docs/experiments.md`](docs/experiments.md): concrete variant comparisons
+- [`docs/decisions.md`](docs/decisions.md): adoption and rejection reasons
+- [`docs/interfaces.md`](docs/interfaces.md): current minimum stable interface
+- [`docs/paper_tracks.md`](docs/paper_tracks.md): publication narratives ranked by current evidence
+- [`docs/paper_roadmap.md`](docs/paper_roadmap.md): concrete path from benchmark state to a paper package
+- [`docs/paper_assets.md`](docs/paper_assets.md): paper-ready tables and Pareto views exported from experiment aggregates
+- [`docs/paper_captions.md`](docs/paper_captions.md): manuscript-facing caption snippets derived from the current aggregates
+
+Concrete variants live under [`experiments/`](experiments/) and are meant to be compared, challenged, and replaced.
+Current ready search problems cover `LiTAMIN2`, `GICP`, `NDT`, `KISS-ICP`, and `CT-ICP` across three repository-stored Istanbul windows plus multiple public HDL-400 reference windows.
+`CT-LIO` currently has a separate reference-trajectory comparison on HDL-400.
+A separate GT-backed `CT-LIO` public benchmark is still tracked as blocked until an independently curated trajectory CSV is prepared for that same window.
+
+```bash
+python3 evaluation/scripts/run_experiment_matrix.py
+```
+
+Use `--reuse-existing` to regenerate docs and aggregates from stored summaries without rerunning every benchmark.
+Use `--manifest experiments/<name>_matrix.json` to rerun only one problem.
+Use `python3 evaluation/scripts/refresh_study_docs.py` to refresh both experiment docs and publication docs together.
+Publication docs alone can be regenerated with `python3 evaluation/scripts/generate_publication_docs.py`.
+Paper-ready tables and Pareto figures can be regenerated with `python3 evaluation/scripts/export_paper_assets.py`.
+
+---
+
 ## Benchmark
 
 ### Real LiDAR Data
 
 The repository currently ships one real-data benchmark snapshot from the official Autoware Istanbul localization bag.
 GitHub Pages publishes the latest repository-stored report from [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
+The table below is the last full multi-method snapshot.
+Per-method profile adoption decisions are tracked separately in [`docs/decisions.md`](docs/decisions.md).
 The current snapshot uses a speed-oriented dogfooding profile with recent/local-map pruning.
 `LiTAMIN2` additionally uses OpenMP-enabled voxel-map and cost accumulation in this repository, with the benchmark profile defaulting to half of the detected hardware threads.
 For GT-seeded scan-to-map methods, weak updates fall back to the seed pose instead of forcing a poor refinement.
@@ -64,7 +96,8 @@ For GT-seeded scan-to-map methods, weak updates fall back to the seed pose inste
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
 
-`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--litamin2-paper-profile] [--litamin2-icp-only] [--litamin2-voxel-resolution X] [--litamin2-max-iterations N] [--litamin2-max-source-points N] [--litamin2-num-threads N] [--ct-lio-estimate-bias] [--ct-lio-fixed-lag-window N] [--ct-lio-fixed-lag-velocity-weight W] [--ct-lio-fixed-lag-gyro-bias-scale W] [--ct-lio-fixed-lag-accel-bias-scale W] [--ct-lio-fixed-lag-history-decay W] [--ct-lio-fixed-lag-outer-iterations N] [--ct-lio-fixed-lag-smoother]` evaluates sequential PCD datasets.
+`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--summary-json path] [variant flags...]` evaluates sequential PCD datasets against a shared trajectory CSV contract.
+Current method-specific profile flags include `--litamin2-*`, `--gicp-*`, `--ndt-*`, `--kiss-*`, `--ct-icp-*`, and `--ct-lio-*`.
 
 `CT-LIO` expects `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
 
@@ -103,6 +136,8 @@ For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp
 `--ct-lio-fixed-lag-window 4` enables a short history prior on velocity and bias. Current defaults are `velocity_weight=0.0`, `gyro_bias_scale=0.25`, `accel_bias_scale=0.25`, and `history_decay=1.0`. Lower `history_decay` biases the prior toward the most recent state.
 `--ct-lio-fixed-lag-smoother` re-optimizes `begin/end pose + begin_velocity + bias` inside the window with local point-to-plane and IMU residuals.
 `--ct-lio-fixed-lag-outer-iterations` controls correspondence relinearization passes in the smoother. The current default is `3` for accuracy; `1` is lighter but usually hurts long-run ATE.
+For public HDL-400 experiments, this repository now also supports a reference-trajectory CSV converted from `pose_trace.csv` via `python3 evaluation/scripts/pose_trace_to_gt_csv.py`.
+For additional HDL-400 windows, `python3 evaluation/scripts/slice_trajectory_csv_by_frames.py` can slice the shared reference CSV to the timestamp span covered by a newly extracted `frame_timestamps.csv`.
 
 ### Synthetic Urban (30 frames)
 

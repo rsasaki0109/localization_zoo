@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/ct_icp_hdl_400_reference_b_matrix.json",
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_hdl_400_reference_b",
+    "title": "CT-ICP throughput and drift trade-off on the second public HDL-400 reference window",
+    "question": "Which CT-ICP odometry profile should stay as the current default on a deeper HDL-400 public reference set while keeping faster and denser alternatives comparable?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_b",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference_b.csv",
+      "reference_role": "public reference trajectory sliced from the HDL-400 pose trace export"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_b",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference_b.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the continuous-time baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/balanced_window/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/balanced_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/balanced_window/run.log",
+      "status": "OK",
+      "ate_m": 0.872788,
+      "fps": 1.199157,
+      "time_ms": 100070.275742,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 57.28,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Shrink the working set and point budget to improve FPS.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/fast_window/summary.json --ct-icp-fast-profile",
+      "summary_path": "experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/fast_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/fast_window/run.log",
+      "status": "OK",
+      "ate_m": 1.210946,
+      "fps": 2.358097,
+      "time_ms": 50888.49628,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 72.96,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "drift-oriented",
+      "intent": "Increase point density and window richness to preserve more structure.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/dense_window/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/dense_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_hdl_400_reference_b_matrix/dense_window/run.log",
+      "status": "OK",
+      "ate_m": 0.556068,
+      "fps": 0.497522,
+      "time_ms": 241195.127295,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 60.55,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-02T22:31:26+00:00",
+  "manifest_path": "experiments/ct_icp_istanbul_window_c_matrix.json",
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_istanbul_window_c",
+    "title": "CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence",
+    "question": "Which CT-ICP odometry profile should stay as the current default on a third public Istanbul window while keeping faster and denser alternatives comparable?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_c",
+      "gt_csv": "dogfooding_results/autoware_istanbul_open_108_c_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_c",
+    "gt_csv": "dogfooding_results/autoware_istanbul_open_108_c_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the continuous-time baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_c dogfooding_results/autoware_istanbul_open_108_c_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_istanbul_window_c_matrix/balanced_window/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_istanbul_window_c_matrix/balanced_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_istanbul_window_c_matrix/balanced_window/run.log",
+      "status": "OK",
+      "ate_m": 7.539417,
+      "fps": 1.311901,
+      "time_ms": 82323.269482,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 73.41,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Shrink the working set and point budget to improve FPS.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_c dogfooding_results/autoware_istanbul_open_108_c_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_istanbul_window_c_matrix/fast_window/summary.json --ct-icp-fast-profile",
+      "summary_path": "experiments/results/runs/ct_icp_istanbul_window_c_matrix/fast_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_istanbul_window_c_matrix/fast_window/run.log",
+      "status": "OK",
+      "ate_m": 42.692039,
+      "fps": 2.802461,
+      "time_ms": 38537.56309,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 58.83,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "drift-oriented",
+      "intent": "Increase point density and window richness to preserve more structure.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108_c dogfooding_results/autoware_istanbul_open_108_c_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_istanbul_window_c_matrix/dense_window/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_istanbul_window_c_matrix/dense_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_istanbul_window_c_matrix/dense_window/run.log",
+      "status": "OK",
+      "ate_m": 15.284508,
+      "fps": 0.506119,
+      "time_ms": 213388.654322,
+      "frames": 108,
+      "note": "",
+      "benchmark_score": 33.69,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

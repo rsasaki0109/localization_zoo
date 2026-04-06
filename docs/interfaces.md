@@ -1,0 +1,102 @@
+# Minimal Interfaces
+
+_Generated at 2026-04-02T22:31:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+
+## Stable Core
+
+### CLI
+
+`build/evaluation/pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path> [variant flags...]`
+
+Current active binaries: `build/evaluation/pcd_dogfooding`
+
+### Summary JSON Contract
+
+| Field | Type | Meaning |
+|-------|------|---------|
+| `pcd_dir` | string | Input PCD sequence directory. |
+| `gt_csv` | string | Reference trajectory CSV matched to the sequence. |
+| `num_frames` | integer | Number of frames evaluated. |
+| `trajectory_length_m` | number | Total GT path length in meters. |
+| `timestamp_source` | string | Timestamp source used by the evaluator. |
+| `methods[]` | array | Per-method results emitted by the benchmark. |
+| `methods[].name` | string | Human-readable method name. |
+| `methods[].status` | string | `OK` or `SKIPPED`. |
+| `methods[].ate_m` | number or null | Absolute trajectory error in meters. |
+| `methods[].frames` | integer | Number of poses evaluated for the method. |
+| `methods[].time_ms` | number or null | End-to-end runtime in milliseconds. |
+| `methods[].fps` | number or null | Effective frames per second. |
+| `methods[].note` | string | Free-form method note or skip reason. |
+
+## Experimental Layer
+
+### Manifest Contract
+
+Every active search problem lives in `experiments/*.json` and must define:
+
+| Field | Type | Meaning |
+|-------|------|---------|
+| `problem.id` | string | Stable identifier for the search problem. |
+| `problem.state` | string | `ready` or `blocked`. Missing means `ready`. |
+| `problem.blocker` | string | Why the problem cannot be benchmarked yet. Optional for blocked problems. |
+| `problem.next_step` | string | The next concrete step to unblock the problem. Optional for blocked problems. |
+| `problem.dataset` | object | Shared dataset paths for every variant. |
+| `stable_interface.binary` | string | Stable benchmark entrypoint. |
+| `stable_interface.methods` | string | Shared method selector for comparability. |
+| `stable_interface.primary_method` | string | Result key to extract from summary JSON. |
+| `variants[]` | array | Concrete variants to compare, keep, or discard. |
+| `variants[].args` | array | Extra CLI flags layered on the stable core. |
+
+Current active selectors: `ct_icp`, `ct_lio`, `gicp`, `kiss_icp`, `litamin2`, `ndt`
+
+### Runner Contract
+
+`python3 evaluation/scripts/run_experiment_matrix.py [--manifest <path>]... [--reuse-existing]`
+
+If no manifest is specified, the runner executes every `experiments/*_matrix.json` file.
+
+The runner is responsible for:
+
+- running every variant against the same dataset and method selector
+- saving per-run summary JSON and logs under `experiments/results/runs/`
+- regenerating `docs/experiments.md`, `docs/decisions.md`, and `docs/interfaces.md`
+- writing per-problem aggregate JSON files plus `experiments/results/index.json`
+- optionally reusing existing per-variant summaries to avoid rerunning expensive variants
+
+## Stability Boundary
+
+- Stable core: `build/evaluation/pcd_dogfooding` plus the `--summary-json` result contract.
+- Experimental surface: manifests, run logs, aggregate results, and generated decision docs.
+- Promotion rule: a new default must emerge from shared data and shared metrics, not from a separate code path.
+
+## Active Problems
+
+| Problem | Status | Manifest | Selector | Current Default | Aggregate |
+|---------|--------|----------|----------|-----------------|-----------|
+| CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_b_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
+| CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
+| CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_b_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
+| CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_c_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
+| CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_profile_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_profile_matrix.json` |
+| CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `experiments/ct_lio_public_readiness_matrix.json` | `ct_lio` | `-` | `experiments/results/ct_lio_public_readiness_matrix.json` |
+| CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `experiments/ct_lio_reference_profile_matrix.json` | `ct_lio` | `seed_only_fast` | `experiments/results/ct_lio_reference_profile_matrix.json` |
+| GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/gicp_hdl_400_reference_b_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_hdl_400_reference_b_matrix.json` |
+| GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/gicp_hdl_400_reference_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_hdl_400_reference_matrix.json` |
+| GICP throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/gicp_istanbul_window_b_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_istanbul_window_b_matrix.json` |
+| GICP throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/gicp_istanbul_window_c_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_istanbul_window_c_matrix.json` |
+| GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/gicp_profile_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_profile_matrix.json` |
+| KISS-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `experiments/kiss_icp_hdl_400_reference_b_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_hdl_400_reference_b_matrix.json` |
+| KISS-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/kiss_icp_hdl_400_reference_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_hdl_400_reference_matrix.json` |
+| KISS-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_istanbul_window_b_matrix.json` | `kiss_icp` | `dense_local_map` | `experiments/results/kiss_icp_istanbul_window_b_matrix.json` |
+| KISS-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_istanbul_window_c_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_istanbul_window_c_matrix.json` |
+| KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_profile_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_profile_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/litamin2_hdl_400_reference_b_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_hdl_400_reference_b_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/litamin2_hdl_400_reference_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_b_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_c_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/litamin2_profile_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_profile_matrix.json` |
+| NDT throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/ndt_hdl_400_reference_b_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_hdl_400_reference_b_matrix.json` |
+| NDT throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/ndt_hdl_400_reference_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_hdl_400_reference_matrix.json` |
+| NDT throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ndt_istanbul_window_b_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_istanbul_window_b_matrix.json` |
+| NDT throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/ndt_istanbul_window_c_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_istanbul_window_c_matrix.json` |
+| NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/ndt_profile_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_profile_matrix.json` |

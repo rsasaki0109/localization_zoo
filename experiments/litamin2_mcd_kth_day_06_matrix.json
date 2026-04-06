@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_profile_tradeoff_mcd_kth_day_06",
+    "title": "LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+    "question": "Which LiTAMIN2 profile should stay as the current default on the MCD public dataset (KTH day-06)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "fast_cov_half_threads",
+      "label": "Fast local-map + covariance",
+      "design_style": "throughput-oriented",
+      "intent": "Keep the current repository default with recent/local-map pruning and covariance-aware cost.",
+      "args": []
+    },
+    {
+      "id": "fast_icp_only_half_threads",
+      "label": "Fast local-map + ICP-only",
+      "design_style": "single-term simplification",
+      "intent": "Remove the covariance-shape term while keeping the same fast local-map profile.",
+      "args": [
+        "--litamin2-icp-only"
+      ]
+    },
+    {
+      "id": "paper_cov_half_threads",
+      "label": "Paper-like 3m + covariance",
+      "design_style": "paper-oriented",
+      "intent": "Move closer to the paper's 3 m profile while preserving the same benchmark interface.",
+      "args": [
+        "--litamin2-paper-profile"
+      ]
+    },
+    {
+      "id": "paper_icp_only_half_threads",
+      "label": "Paper-like 3m + ICP-only",
+      "design_style": "paper-oriented simplification",
+      "intent": "Use the paper-like 3 m profile, but isolate the first cost term by disabling covariance cost.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only"
+      ]
+    }
+  ]
+}

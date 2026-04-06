@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-04-06T08:10:13+00:00",
+  "manifest_path": "experiments/litamin2_kitti_raw_0009_full_matrix.json",
+  "problem": {
+    "id": "litamin2_profile_tradeoff_kitti_raw_0009_full",
+    "title": "LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+    "question": "Which LiTAMIN2 profile on KITTI Raw drive 0009 full sequence (443 frames, urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "fast_cov_half_threads",
+      "label": "Fast local-map + covariance",
+      "design_style": "throughput-oriented",
+      "intent": "Keep the current repository default.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/fast_cov_half_threads/summary.json",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/fast_cov_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/fast_cov_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 1.144528,
+      "fps": 61.352218,
+      "time_ms": 7220.6028,
+      "frames": 443,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "fast_icp_only_half_threads",
+      "label": "Fast local-map + ICP-only",
+      "design_style": "single-term simplification",
+      "intent": "Remove covariance-shape term.",
+      "args": [
+        "--litamin2-icp-only"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/fast_icp_only_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/fast_icp_only_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 1.144528,
+      "fps": 48.184481,
+      "time_ms": 9193.831523,
+      "frames": 443,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.",
+      "benchmark_score": 89.27,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "paper_cov_half_threads",
+      "label": "Paper-like 3m + covariance",
+      "design_style": "paper-oriented",
+      "intent": "Paper 3m profile.",
+      "args": [
+        "--litamin2-paper-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/paper_cov_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/paper_cov_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 1.43789,
+      "fps": 49.904507,
+      "time_ms": 8876.953795,
+      "frames": 443,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 80.47,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "paper_icp_only_half_threads",
+      "label": "Paper-like 3m + ICP-only",
+      "design_style": "paper-oriented simplification",
+      "intent": "Paper 3m + ICP-only.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/paper_icp_only_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/paper_icp_only_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 1.43789,
+      "fps": 47.845066,
+      "time_ms": 9259.052936,
+      "frames": 443,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.",
+      "benchmark_score": 78.79,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

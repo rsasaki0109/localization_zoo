@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-06T08:10:13+00:00",
+  "manifest_path": "experiments/kiss_icp_kitti_raw_0061_full_matrix.json",
+  "problem": {
+    "id": "kiss_icp_profile_tradeoff_kitti_raw_0061_full",
+    "title": "KISS-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which KISS-ICP profile on KITTI Raw drive 0061 full sequence (703 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Default.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 4.342735,
+      "fps": 9.74847,
+      "time_ms": 72113.877106,
+      "frames": 703,
+      "note": "",
+      "benchmark_score": 93.41,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Fast.",
+      "args": [
+        "--kiss-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/fast_recent_map/summary.json --kiss-fast-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 4.622772,
+      "fps": 11.229322,
+      "time_ms": 62603.955735,
+      "frames": 703,
+      "note": "",
+      "benchmark_score": 96.97,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_local_map",
+      "label": "Dense local map",
+      "design_style": "drift-oriented",
+      "intent": "Dense.",
+      "args": [
+        "--kiss-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/dense_local_map/summary.json --kiss-dense-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/dense_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_raw_0061_full_matrix/dense_local_map/run.log",
+      "status": "OK",
+      "ate_m": 4.706278,
+      "fps": 3.026878,
+      "time_ms": 232252.519298,
+      "frames": 703,
+      "note": "",
+      "benchmark_score": 59.62,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

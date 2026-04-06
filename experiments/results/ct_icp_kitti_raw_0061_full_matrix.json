@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-06T07:57:23+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_raw_0061_full_matrix.json",
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_kitti_raw_0061_full",
+    "title": "CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which CT-ICP profile on KITTI Raw drive 0061 full sequence (703 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Default.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/balanced_window/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/balanced_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/balanced_window/run.log",
+      "status": "OK",
+      "ate_m": 20.357251,
+      "fps": 21.256061,
+      "time_ms": 33072.919968,
+      "frames": 703,
+      "note": "",
+      "benchmark_score": 45.39,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Fast.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/fast_window/summary.json --ct-icp-fast-profile",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/fast_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/fast_window/run.log",
+      "status": "OK",
+      "ate_m": 6.972412,
+      "fps": 37.596966,
+      "time_ms": 18698.3173,
+      "frames": 703,
+      "note": "",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "drift-oriented",
+      "intent": "Dense.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/dense_window/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/dense_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_matrix/dense_window/run.log",
+      "status": "OK",
+      "ate_m": 8.893796,
+      "fps": 13.334513,
+      "time_ms": 52720.333755,
+      "frames": 703,
+      "note": "",
+      "benchmark_score": 56.93,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

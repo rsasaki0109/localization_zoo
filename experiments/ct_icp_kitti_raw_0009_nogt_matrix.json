@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_kitti_raw_0009_nogt",
+    "title": "CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "Which CT-ICP profile on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Default.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Fast.",
+      "args": [
+        "--ct-icp-fast-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "drift-oriented",
+      "intent": "Dense.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

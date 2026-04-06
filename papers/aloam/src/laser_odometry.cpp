@@ -4,6 +4,7 @@
 #include <ceres/ceres.h>
 
 #include <vector>
+#include <common/ceres_compat.h>
 
 namespace localization_zoo {
 namespace aloam {
@@ -56,7 +57,7 @@ OdometryResult LaserOdometry::process(const FeatureCloud& features) {
     ceres::LossFunction* loss = new ceres::HuberLoss(params_.huber_loss_s);
 
     problem.AddParameterBlock(para_q, 4);
-    problem.SetManifold(para_q, new ceres::EigenQuaternionManifold());
+    localization_zoo::SetEigenQuaternionManifold(problem, para_q);
     problem.AddParameterBlock(para_t, 3);
 
     // エッジ対応

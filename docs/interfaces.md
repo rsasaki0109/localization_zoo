@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-06T06:33:08+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-06T07:31:51+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -77,6 +77,8 @@ The runner is responsible for:
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_b_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_c_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/ct_icp_kitti_raw_0009_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/ct_icp_kitti_raw_0061_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0061_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/ct_icp_mcd_kth_day_06_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/ct_icp_mcd_ntu_day_02_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ct_icp_mcd_tuhh_night_09_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
@@ -87,6 +89,8 @@ The runner is responsible for:
 | GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/gicp_hdl_400_reference_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_hdl_400_reference_matrix.json` |
 | GICP throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/gicp_istanbul_window_b_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_istanbul_window_b_matrix.json` |
 | GICP throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/gicp_istanbul_window_c_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_istanbul_window_c_matrix.json` |
+| GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/gicp_kitti_raw_0009_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_kitti_raw_0009_matrix.json` |
+| GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/gicp_kitti_raw_0061_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_kitti_raw_0061_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/gicp_mcd_kth_day_06_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_mcd_kth_day_06_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/gicp_mcd_ntu_day_02_matrix.json` | `gicp` | `dense_recent_map` | `experiments/results/gicp_mcd_ntu_day_02_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/gicp_mcd_tuhh_night_09_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
@@ -95,6 +99,8 @@ The runner is responsible for:
 | KISS-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/kiss_icp_hdl_400_reference_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_hdl_400_reference_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_istanbul_window_b_matrix.json` | `kiss_icp` | `dense_local_map` | `experiments/results/kiss_icp_istanbul_window_b_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_istanbul_window_c_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_istanbul_window_c_matrix.json` |
+| KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/kiss_icp_kitti_raw_0009_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_kitti_raw_0009_matrix.json` |
+| KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/kiss_icp_kitti_raw_0061_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/kiss_icp_mcd_kth_day_06_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/kiss_icp_mcd_ntu_day_02_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/kiss_icp_mcd_tuhh_night_09_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
@@ -103,6 +109,8 @@ The runner is responsible for:
 | LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/litamin2_hdl_400_reference_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_b_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_c_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/litamin2_kitti_raw_0009_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/litamin2_kitti_raw_0061_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/litamin2_mcd_kth_day_06_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/litamin2_mcd_ntu_day_02_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/litamin2_mcd_tuhh_night_09_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
@@ -111,6 +119,8 @@ The runner is responsible for:
 | NDT throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/ndt_hdl_400_reference_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_hdl_400_reference_matrix.json` |
 | NDT throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ndt_istanbul_window_b_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_istanbul_window_b_matrix.json` |
 | NDT throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/ndt_istanbul_window_c_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_istanbul_window_c_matrix.json` |
+| NDT throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/ndt_kitti_raw_0009_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_kitti_raw_0009_matrix.json` |
+| NDT throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/ndt_kitti_raw_0061_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_kitti_raw_0061_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/ndt_mcd_kth_day_06_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_kth_day_06_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/ndt_mcd_ntu_day_02_matrix.json` | `ndt` | `balanced_local_map` | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ndt_mcd_tuhh_night_09_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |

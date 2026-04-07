@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_lio.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -24,6 +24,9 @@
 #include "ct_icp/ct_icp_registration.h"
 #include "ct_lio/ct_lio_registration.h"
 #include "xicp/xicp_registration.h"
+#include "fast_lio2/fast_lio2.h"
+#include "hdl_graph_slam/hdl_graph_slam.h"
+#include "vgicp_slam/vgicp_slam.h"
 
 #define PCL_NO_PRECOMPILE
 #include <pcl/io/pcd_io.h>
@@ -32,6 +35,7 @@
 #include <pcl/point_types.h>
 #include <pcl/conversions.h>
 #include <pcl/filters/voxel_grid.h>
+#include <pcl/kdtree/kdtree_flann.h>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
@@ -147,7 +151,9 @@ bool isSupportedMethod(const std::string& method) {
          method == "kiss_icp" || method == "small_gicp" ||
          method == "voxel_gicp" || method == "aloam" || method == "floam" ||
          method == "dlo" || method == "dlio" || method == "lego_loam" ||
-         method == "mulls" || method == "ct_lio" || method == "ct_icp";
+         method == "mulls" || method == "ct_lio" || method == "ct_icp" ||
+         method == "xicp" || method == "fast_lio2" ||
+         method == "hdl_graph_slam" || method == "vgicp_slam";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -902,6 +908,55 @@ struct DLIODogfoodingOptions {
   double imu_translation_fusion_weight = 0.2;
   double imu_velocity_fusion_weight = 0.2;
   double lidar_confidence_correspondence_scale = 100.0;
+};
+
+struct XICPDogfoodingOptions {
+  double source_voxel_size = 1.0;
+  size_t max_source_points = 2500;
+  int max_iterations = 30;
+  double convergence_threshold = 1e-5;
+  double kappa_f = 0.1736;
+  double kappa_s = 0.707;
+  int k_neighbors = 10;
+  double max_correspondence_distance = 3.0;
+  size_t map_max_points = 40000;
+  size_t refresh_interval = 4;
+  double map_radius = 45.0;
+  double max_seed_translation_delta = 2.0;
+  double max_seed_rotation_delta_rad = 0.25;
+};
+
+struct FastLio2DogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+  int max_iterations = 8;
+  double voxel_resolution = 1.0;
+  double keypoint_voxel_size = 0.5;
+  double max_correspondence_distance = 3.0;
+  double planarity_threshold = 0.1;
+  int max_frames_in_map = 30;
+};
+
+struct HdlGraphSlamDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+  double registration_voxel_size = 0.7;
+  double map_voxel_size = 1.0;
+  bool enable_loop_closure = true;
+};
+
+struct VgicpSlamDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+  double registration_voxel_size = 0.4;
+  double map_voxel_size = 0.6;
+  bool enable_loop_closure = true;
 };
 
 /// ワールド座標に変換
@@ -2003,6 +2058,312 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
+                     const std::vector<Eigen::Matrix4d>& gt,
+                     const XICPDogfoodingOptions& options,
+                     bool no_gt_seed = false) {
+  using namespace localization_zoo::xicp;
+  MethodResult res;
+  res.name = "X-ICP";
+
+  XICPParams params;
+  params.max_iterations = options.max_iterations;
+  params.convergence_threshold = options.convergence_threshold;
+  params.kappa_f = options.kappa_f;
+  params.kappa_s = options.kappa_s;
+  XICPRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  Eigen::Matrix4d T_est = gt[0];
+  res.poses.push_back(T_est);
+
+  // KdTree for NN search in map
+  pcl::KdTreeFLANN<pcl::PointXYZ> kdtree;
+  pcl::PointCloud<pcl::PointXYZ>::Ptr map_cloud(new pcl::PointCloud<pcl::PointXYZ>);
+
+  auto rebuildKdTree = [&]() {
+    map_cloud->clear();
+    map_cloud->reserve(map_points.size());
+    for (const auto& p : map_points) {
+      pcl::PointXYZ pt;
+      pt.x = static_cast<float>(p.x());
+      pt.y = static_cast<float>(p.y());
+      pt.z = static_cast<float>(p.z());
+      map_cloud->push_back(pt);
+    }
+    if (!map_cloud->empty()) {
+      kdtree.setInputCloud(map_cloud);
+    }
+  };
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    if (i == 0) {
+      addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                     options.map_radius);
+      rebuildKdTree();
+      continue;
+    }
+
+    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+
+    // Transform source points to world frame using initial guess
+    Eigen::Matrix3d R_init = T_init_guess.block<3, 3>(0, 0);
+    Eigen::Vector3d t_init = T_init_guess.block<3, 1>(0, 3);
+
+    // Build correspondences: for each source point, find nearest map point
+    // and compute normal from neighborhood
+    std::vector<Correspondence> correspondences;
+    if (!map_cloud->empty()) {
+      const int K = options.k_neighbors;
+      std::vector<int> nn_indices(K);
+      std::vector<float> nn_dists(K);
+      const double max_dist_sq =
+          options.max_correspondence_distance * options.max_correspondence_distance;
+
+      for (const auto& p_local : pts_local) {
+        Eigen::Vector3d p_world = R_init * p_local + t_init;
+        pcl::PointXYZ query;
+        query.x = static_cast<float>(p_world.x());
+        query.y = static_cast<float>(p_world.y());
+        query.z = static_cast<float>(p_world.z());
+
+        if (kdtree.nearestKSearch(query, K, nn_indices, nn_dists) < 3) continue;
+        if (nn_dists[0] > max_dist_sq) continue;
+
+        // Compute normal from neighborhood covariance
+        Eigen::Vector3d centroid = Eigen::Vector3d::Zero();
+        int valid_nn = std::min(K, static_cast<int>(nn_indices.size()));
+        for (int k = 0; k < valid_nn; k++) {
+          centroid += map_points[nn_indices[k]];
+        }
+        centroid /= valid_nn;
+
+        Eigen::Matrix3d cov = Eigen::Matrix3d::Zero();
+        for (int k = 0; k < valid_nn; k++) {
+          Eigen::Vector3d d = map_points[nn_indices[k]] - centroid;
+          cov += d * d.transpose();
+        }
+        cov /= valid_nn;
+
+        Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> solver(cov);
+        Eigen::Vector3d normal = solver.eigenvectors().col(0);  // smallest eigenvalue
+
+        // Ensure consistent normal orientation (pointing toward sensor)
+        if (normal.dot(p_world - map_points[nn_indices[0]]) > 0) {
+          normal = -normal;
+        }
+
+        Correspondence corr;
+        corr.source = p_local;
+        corr.target = map_points[nn_indices[0]];
+        corr.normal = normal;
+        correspondences.push_back(corr);
+      }
+    }
+
+    bool accepted = false;
+    if (correspondences.size() >= 64) {
+      const auto result = reg.align(correspondences, T_init_guess);
+      if ((result.converged || correspondences.size() >= 128) &&
+          isReasonableRefinement(result.transformation, T_init_guess,
+                                 options.max_seed_translation_delta,
+                                 options.max_seed_rotation_delta_rad)) {
+        T_est = result.transformation;
+        accepted = true;
+      }
+    }
+    if (!accepted) {
+      T_est = T_init_guess;
+    }
+    res.poses.push_back(T_est);
+
+    addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                   options.map_radius);
+    if (shouldRefreshTargetMap(i, options.refresh_interval)) {
+      rebuildKdTree();
+    }
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [X-ICP] " << i << "/" << pcd_dirs.size()
+                << " corr=" << correspondences.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = no_gt_seed
+      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+        "in this dogfooding tool.";
+  return res;
+}
+
+MethodResult runFastLio2(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const std::vector<double>& frame_timestamps,
+                         const std::vector<ImuSampleCsv>& imu_samples,
+                         const FastLio2DogfoodingOptions& options) {
+  using namespace localization_zoo::fast_lio2;
+  MethodResult res;
+  res.name = "FAST-LIO2";
+
+  FastLio2Params params;
+  params.max_iterations = options.max_iterations;
+  params.voxel_resolution = options.voxel_resolution;
+  params.keypoint_voxel_size = options.keypoint_voxel_size;
+  params.max_correspondence_distance = options.max_correspondence_distance;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_frames_in_map = options.max_frames_in_map;
+
+  FastLio2 pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+
+    // Filter by range
+    std::vector<Eigen::Vector3d> filtered;
+    filtered.reserve(pts.size());
+    for (const auto& p : pts) {
+      double r = p.norm();
+      if (r >= options.min_range && r <= options.max_range) {
+        filtered.push_back(p);
+      }
+    }
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() && frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.process(filtered, imu_batch);
+
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.state.quat.toRotationMatrix();
+    pose.block<3, 1>(0, 3) = result.state.trans;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [FAST-LIO2] " << i << "/" << pcd_dirs.size()
+                << " imu=" << (result.imu_used ? "y" : "n")
+                << " corr=" << result.num_correspondences
+                << " map=" << result.map_size;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "LiDAR-inertial odometry with iterated Kalman filter and voxel map "
+      "(no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runHdlGraphSlam(const std::vector<std::string>& pcd_dirs,
+                             const std::vector<Eigen::Matrix4d>& gt,
+                             const HdlGraphSlamDogfoodingOptions& options) {
+  using namespace localization_zoo::hdl_graph_slam;
+  MethodResult res;
+  res.name = "HDL-Graph-SLAM";
+
+  HdlGraphSlamParams params;
+  params.min_range = options.min_range;
+  params.max_range = options.max_range;
+  params.registration_voxel_size = options.registration_voxel_size;
+  params.map_voxel_size = options.map_voxel_size;
+  params.enable_loop_closure = options.enable_loop_closure;
+
+  HdlGraphSlam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud =
+        toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [HDL-Graph-SLAM] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " loops=" << result.num_loop_edges
+                << " submap=" << result.submap_points;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "NDT odometry with pose-graph optimization and ScanContext loop closure "
+      "(no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runVgicpSlam(const std::vector<std::string>& pcd_dirs,
+                          const std::vector<Eigen::Matrix4d>& gt,
+                          const VgicpSlamDogfoodingOptions& options) {
+  using namespace localization_zoo::vgicp_slam;
+  MethodResult res;
+  res.name = "VGICP-SLAM";
+
+  VgicpSlamParams params;
+  params.min_range = options.min_range;
+  params.max_range = options.max_range;
+  params.registration_voxel_size = options.registration_voxel_size;
+  params.map_voxel_size = options.map_voxel_size;
+  params.enable_loop_closure = options.enable_loop_closure;
+
+  VgicpSlam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud =
+        toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [VGICP-SLAM] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " loops=" << result.num_loop_edges
+                << " submap=" << result.submap_points;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure "
+      "(no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
 void savePosesKITTI(const std::vector<Eigen::Matrix4d>& poses, const std::string& path) {
   std::ofstream f(path);
   for (auto& T : poses) {
@@ -2156,6 +2517,10 @@ int main(int argc, char** argv) {
   CTICPDogfoodingOptions ct_icp_options;
   DLODofeedingOptions dlo_options;
   DLIODogfoodingOptions dlio_options;
+  XICPDogfoodingOptions xicp_options;
+  FastLio2DogfoodingOptions fast_lio2_options;
+  HdlGraphSlamDogfoodingOptions hdl_graph_slam_options;
+  VgicpSlamDogfoodingOptions vgicp_slam_options;
   std::vector<std::string> selected_methods = {
       "litamin2", "gicp", "small_gicp", "aloam", "floam", "ndt", "kiss_icp",
       "ct_lio"};
@@ -3451,7 +3816,7 @@ int main(int argc, char** argv) {
     std::cerr
         << "No methods selected. Supported methods: litamin2, gicp, small_gicp, "
         << "voxel_gicp, ndt, kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, "
-        << "ct_lio, ct_icp"
+        << "ct_lio, ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam"
         << std::endl;
     return 1;
   }
@@ -3460,7 +3825,7 @@ int main(int argc, char** argv) {
       std::cerr << "Unsupported method: " << method
                 << " (supported: litamin2, gicp, small_gicp, voxel_gicp, ndt, "
                    "kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
-                   "ct_icp)"
+                   "ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam)"
                 << std::endl;
       return 1;
     }
@@ -3730,6 +4095,26 @@ int main(int argc, char** argv) {
               << " max_frames_in_map=" << ct_icp_options.max_frames_in_map
               << std::endl;
     results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "xicp")) {
+    std::cout << "Running X-ICP..." << std::endl;
+    results.push_back(runXICP(pcd_dirs, gt, xicp_options, no_gt_seed));
+  }
+
+  if (isMethodEnabled(selected_methods, "fast_lio2")) {
+    std::cout << "Running FAST-LIO2..." << std::endl;
+    results.push_back(runFastLio2(pcd_dirs, gt, frame_timestamps, imu_samples, fast_lio2_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "hdl_graph_slam")) {
+    std::cout << "Running HDL-Graph-SLAM..." << std::endl;
+    results.push_back(runHdlGraphSlam(pcd_dirs, gt, hdl_graph_slam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "vgicp_slam")) {
+    std::cout << "Running VGICP-SLAM..." << std::endl;
+    results.push_back(runVgicpSlam(pcd_dirs, gt, vgicp_slam_options));
   }
 
   // 結果表示

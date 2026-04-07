@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-07T13:50:03+00:00",
+  "generated_at": "2026-04-08T05:11:14+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_kitti_raw_0009_full",
@@ -9,6 +9,69 @@
       "manifest_path": "experiments/aloam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/aloam_kitti_raw_0009_full_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "balm2_kitti_raw_0009_full",
+      "title": "BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/balm2_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "balm2_kitti_raw_0009",
+      "title": "BALM2 on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/balm2_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "balm2_kitti_raw_0061_full",
+      "title": "BALM2 on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/balm2_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "balm2_kitti_raw_0061",
+      "title": "BALM2 on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/balm2_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "balm2_mcd_kth_day_06",
+      "title": "BALM2 on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/balm2_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "balm2_mcd_ntu_day_02",
+      "title": "BALM2 on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/balm2_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "balm2_mcd_tuhh_night_09",
+      "title": "BALM2 on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/balm2_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_hdl_400_reference_b",
@@ -164,6 +227,132 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "fast_lio2_kitti_raw_0009_full",
+      "title": "FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio2_kitti_raw_0009",
+      "title": "FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio2_kitti_raw_0061_full",
+      "title": "FAST-LIO2 on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio2_kitti_raw_0061",
+      "title": "FAST-LIO2 on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio2_mcd_kth_day_06",
+      "title": "FAST-LIO2 on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio2_mcd_ntu_day_02",
+      "title": "FAST-LIO2 on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio2_mcd_tuhh_night_09",
+      "title": "FAST-LIO2 on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio_slam_kitti_raw_0009_full",
+      "title": "FAST-LIO-SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio_slam_kitti_raw_0009",
+      "title": "FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio_slam_kitti_raw_0061_full",
+      "title": "FAST-LIO-SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio_slam_kitti_raw_0061",
+      "title": "FAST-LIO-SLAM on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio_slam_mcd_kth_day_06",
+      "title": "FAST-LIO-SLAM on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio_slam_mcd_ntu_day_02",
+      "title": "FAST-LIO-SLAM on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "fast_lio_slam_mcd_tuhh_night_09",
+      "title": "FAST-LIO-SLAM on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "floam_profile_tradeoff_kitti_raw_0009_full",
       "title": "F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
@@ -288,6 +477,132 @@
       "manifest_path": "experiments/gicp_profile_matrix.json",
       "aggregate_path": "experiments/results/gicp_profile_matrix.json",
       "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "hdl_graph_slam_kitti_raw_0009_full",
+      "title": "HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "hdl_graph_slam_kitti_raw_0009",
+      "title": "HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "hdl_graph_slam_kitti_raw_0061_full",
+      "title": "HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "hdl_graph_slam_kitti_raw_0061",
+      "title": "HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "hdl_graph_slam_mcd_kth_day_06",
+      "title": "HDL Graph SLAM on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "hdl_graph_slam_mcd_ntu_day_02",
+      "title": "HDL Graph SLAM on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "hdl_graph_slam_mcd_tuhh_night_09",
+      "title": "HDL Graph SLAM on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "isc_loam_kitti_raw_0009_full",
+      "title": "ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "isc_loam_kitti_raw_0009",
+      "title": "ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "isc_loam_kitti_raw_0061_full",
+      "title": "ISC-LOAM on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "isc_loam_kitti_raw_0061",
+      "title": "ISC-LOAM on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "isc_loam_mcd_kth_day_06",
+      "title": "ISC-LOAM on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "isc_loam_mcd_ntu_day_02",
+      "title": "ISC-LOAM on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "isc_loam_mcd_tuhh_night_09",
+      "title": "ISC-LOAM on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
     },
     {
       "problem_id": "kiss_icp_profile_tradeoff_hdl_400_reference_b",
@@ -416,6 +731,132 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "lins_kitti_raw_0009_full",
+      "title": "LINS on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/lins_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lins_kitti_raw_0009",
+      "title": "LINS on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/lins_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lins_kitti_raw_0061_full",
+      "title": "LINS on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/lins_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lins_kitti_raw_0061",
+      "title": "LINS on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/lins_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lins_mcd_kth_day_06",
+      "title": "LINS on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/lins_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lins_mcd_ntu_day_02",
+      "title": "LINS on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/lins_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lins_mcd_tuhh_night_09",
+      "title": "LINS on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/lins_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lio_sam_kitti_raw_0009_full",
+      "title": "LIO-SAM on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lio_sam_kitti_raw_0009",
+      "title": "LIO-SAM on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lio_sam_kitti_raw_0061_full",
+      "title": "LIO-SAM on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lio_sam_kitti_raw_0061",
+      "title": "LIO-SAM on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lio_sam_mcd_kth_day_06",
+      "title": "LIO-SAM on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lio_sam_mcd_ntu_day_02",
+      "title": "LIO-SAM on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "lio_sam_mcd_tuhh_night_09",
+      "title": "LIO-SAM on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "litamin2_profile_tradeoff_hdl_400_reference_b",
       "title": "LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window",
       "status": "ready",
@@ -531,6 +972,69 @@
       "manifest_path": "experiments/litamin2_profile_matrix.json",
       "aggregate_path": "experiments/results/litamin2_profile_matrix.json",
       "current_default": "fast_icp_only_half_threads"
+    },
+    {
+      "problem_id": "loam_livox_kitti_raw_0009_full",
+      "title": "LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "loam_livox_kitti_raw_0009",
+      "title": "LOAM Livox on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "loam_livox_kitti_raw_0061_full",
+      "title": "LOAM Livox on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "loam_livox_kitti_raw_0061",
+      "title": "LOAM Livox on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "loam_livox_mcd_kth_day_06",
+      "title": "LOAM Livox on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "loam_livox_mcd_ntu_day_02",
+      "title": "LOAM Livox on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "loam_livox_mcd_tuhh_night_09",
+      "title": "LOAM Livox on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
     },
     {
       "problem_id": "mulls_profile_tradeoff_kitti_raw_0009_full",
@@ -659,6 +1163,69 @@
       "current_default": "fast_coarse_map"
     },
     {
+      "problem_id": "point_lio_kitti_raw_0009_full",
+      "title": "Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "point_lio_kitti_raw_0009",
+      "title": "Point-LIO on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "point_lio_kitti_raw_0061_full",
+      "title": "Point-LIO on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "point_lio_kitti_raw_0061",
+      "title": "Point-LIO on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "point_lio_mcd_kth_day_06",
+      "title": "Point-LIO on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "point_lio_mcd_ntu_day_02",
+      "title": "Point-LIO on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "point_lio_mcd_tuhh_night_09",
+      "title": "Point-LIO on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "small_gicp_profile_tradeoff_kitti_raw_0009_full",
       "title": "Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
@@ -695,6 +1262,132 @@
       "current_default": "fast_recent_map"
     },
     {
+      "problem_id": "suma_kitti_raw_0009_full",
+      "title": "SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "suma_kitti_raw_0009",
+      "title": "SuMa on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "suma_kitti_raw_0061_full",
+      "title": "SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "suma_kitti_raw_0061",
+      "title": "SuMa on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "suma_mcd_kth_day_06",
+      "title": "SuMa on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/suma_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "suma_mcd_ntu_day_02",
+      "title": "SuMa on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/suma_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "suma_mcd_tuhh_night_09",
+      "title": "SuMa on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/suma_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "vgicp_slam_kitti_raw_0009_full",
+      "title": "VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "vgicp_slam_kitti_raw_0009",
+      "title": "VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "vgicp_slam_kitti_raw_0061_full",
+      "title": "VGICP SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "vgicp_slam_kitti_raw_0061",
+      "title": "VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "vgicp_slam_mcd_kth_day_06",
+      "title": "VGICP SLAM on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "vgicp_slam_mcd_ntu_day_02",
+      "title": "VGICP SLAM on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "vgicp_slam_mcd_tuhh_night_09",
+      "title": "VGICP SLAM on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0009_full",
       "title": "Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
@@ -729,6 +1422,69 @@
       "manifest_path": "experiments/voxel_gicp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json",
       "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "xicp_kitti_raw_0009_full",
+      "title": "X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/xicp_kitti_raw_0009_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "xicp_kitti_raw_0009",
+      "title": "X-ICP on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/xicp_kitti_raw_0009_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "xicp_kitti_raw_0061_full",
+      "title": "X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/xicp_kitti_raw_0061_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "xicp_kitti_raw_0061",
+      "title": "X-ICP on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/xicp_kitti_raw_0061_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "xicp_mcd_kth_day_06",
+      "title": "X-ICP on MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/xicp_mcd_kth_day_06_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "xicp_mcd_ntu_day_02",
+      "title": "X-ICP on MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/xicp_mcd_ntu_day_02_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "xicp_mcd_tuhh_night_09",
+      "title": "X-ICP on MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/xicp_mcd_tuhh_night_09_matrix.json",
+      "current_default": "default"
     }
   ]
 }

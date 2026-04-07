@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T03:19:40+00:00",
+  "generated_at": "2026-04-08T05:11:14+00:00",
   "manifest_path": "experiments/xicp_kitti_raw_0009_matrix.json",
   "problem": {
     "id": "xicp_kitti_raw_0009",
@@ -38,11 +38,11 @@
       "log_path": "experiments/results/runs/xicp_kitti_raw_0009_matrix/default/run.log",
       "status": "OK",
       "ate_m": 0.157543,
-      "fps": 59.995909,
-      "time_ms": 3333.560643,
+      "fps": 58.510189,
+      "time_ms": 3418.208053,
       "frames": 200,
       "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
-      "benchmark_score": 96.08,
+      "benchmark_score": 94.94,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,

@@ -1,12 +1,19 @@
 # Experiment Results
 
-_Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-08T05:11:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
 | Problem | Status | Current Default | Best ATE [m] | Best FPS | Aggregate |
 |---------|--------|-----------------|--------------|----------|-----------|
 | A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.105 | 5.8 | `experiments/results/aloam_kitti_raw_0009_full_matrix.json` |
+| BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 4.576 | 1.6 | `experiments/results/balm2_kitti_raw_0009_full_matrix.json` |
+| BALM2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 3.419 | 1.7 | `experiments/results/balm2_kitti_raw_0009_matrix.json` |
+| BALM2 on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 10.035 | 1.6 | `experiments/results/balm2_kitti_raw_0061_full_matrix.json` |
+| BALM2 on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 2.721 | 1.8 | `experiments/results/balm2_kitti_raw_0061_matrix.json` |
+| BALM2 on MCD KTH day-06 sequence | `ready` | `default` | 6.193 | 2.0 | `experiments/results/balm2_mcd_kth_day_06_matrix.json` |
+| BALM2 on MCD NTU day-02 sequence | `ready` | `default` | 0.062 | 1.6 | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
+| BALM2 on MCD TUHH night-09 sequence | `ready` | `default` | 1.270 | 2.0 | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_window` | 0.556 | 2.4 | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.357 | 2.4 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `balanced_window` | 6.820 | 3.1 | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
@@ -24,6 +31,20 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.412 | 0.5 | `experiments/results/ct_lio_reference_profile_matrix.json` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlo_kitti_raw_0009_full_matrix.json` |
+| FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 5.468 | 4.4 | `experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json` |
+| FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.483 | 5.2 | `experiments/results/fast_lio2_kitti_raw_0009_matrix.json` |
+| FAST-LIO2 on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 5.351 | 4.3 | `experiments/results/fast_lio2_kitti_raw_0061_full_matrix.json` |
+| FAST-LIO2 on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 0.729 | 4.2 | `experiments/results/fast_lio2_kitti_raw_0061_matrix.json` |
+| FAST-LIO2 on MCD KTH day-06 sequence | `ready` | `default` | 6.086 | 3.7 | `experiments/results/fast_lio2_mcd_kth_day_06_matrix.json` |
+| FAST-LIO2 on MCD NTU day-02 sequence | `ready` | `default` | 0.025 | 10.3 | `experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json` |
+| FAST-LIO2 on MCD TUHH night-09 sequence | `ready` | `default` | 1.334 | 5.4 | `experiments/results/fast_lio2_mcd_tuhh_night_09_matrix.json` |
+| FAST-LIO-SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 5.468 | 3.4 | `experiments/results/fast_lio_slam_kitti_raw_0009_full_matrix.json` |
+| FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.483 | 3.9 | `experiments/results/fast_lio_slam_kitti_raw_0009_matrix.json` |
+| FAST-LIO-SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 5.351 | 2.5 | `experiments/results/fast_lio_slam_kitti_raw_0061_full_matrix.json` |
+| FAST-LIO-SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 0.729 | 3.7 | `experiments/results/fast_lio_slam_kitti_raw_0061_matrix.json` |
+| FAST-LIO-SLAM on MCD KTH day-06 sequence | `ready` | `default` | 6.086 | 3.6 | `experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json` |
+| FAST-LIO-SLAM on MCD NTU day-02 sequence | `ready` | `default` | 0.025 | 9.0 | `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json` |
+| FAST-LIO-SLAM on MCD TUHH night-09 sequence | `ready` | `default` | 1.334 | 4.9 | `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json` |
 | F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.452 | 28.6 | `experiments/results/floam_kitti_raw_0009_full_matrix.json` |
 | GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_recent_map` | 0.135 | 1.7 | `experiments/results/gicp_hdl_400_reference_b_matrix.json` |
 | GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.091 | 1.7 | `experiments/results/gicp_hdl_400_reference_matrix.json` |
@@ -38,6 +59,20 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.017 | 28.7 | `experiments/results/gicp_mcd_ntu_day_02_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.317 | 31.2 | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
 | GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 0.994 | 6.3 | `experiments/results/gicp_profile_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 185.826 | 0.2 | `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 122.141 | 1.8 | `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `-` | -1.000 | -1.0 | `experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 118.996 | 1.5 | `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json` |
+| HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `default` | 5.113 | 4.3 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
+| HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `default` | 27.212 | 2.7 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
+| HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `default` | 10.818 | 3.2 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
+| ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 5.267 | 9.2 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
+| ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.778 | 9.4 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
+| ISC-LOAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 4.854 | 6.6 | `experiments/results/isc_loam_kitti_raw_0061_full_matrix.json` |
+| ISC-LOAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 0.986 | 11.6 | `experiments/results/isc_loam_kitti_raw_0061_matrix.json` |
+| ISC-LOAM on MCD KTH day-06 sequence | `ready` | `default` | 6.023 | 11.0 | `experiments/results/isc_loam_mcd_kth_day_06_matrix.json` |
+| ISC-LOAM on MCD NTU day-02 sequence | `ready` | `default` | 0.096 | 9.9 | `experiments/results/isc_loam_mcd_ntu_day_02_matrix.json` |
+| ISC-LOAM on MCD TUHH night-09 sequence | `ready` | `default` | 1.337 | 11.7 | `experiments/results/isc_loam_mcd_tuhh_night_09_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_recent_map` | 0.218 | 0.4 | `experiments/results/kiss_icp_hdl_400_reference_b_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 1.646 | 0.5 | `experiments/results/kiss_icp_hdl_400_reference_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `dense_local_map` | 143.921 | 3.6 | `experiments/results/kiss_icp_istanbul_window_b_matrix.json` |
@@ -52,6 +87,20 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 1.104 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `experiments/results/kiss_icp_profile_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
+| LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 183.795 | 40.4 | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
+| LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 120.280 | 31.5 | `experiments/results/lins_kitti_raw_0009_matrix.json` |
+| LINS on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 291.978 | 17.8 | `experiments/results/lins_kitti_raw_0061_full_matrix.json` |
+| LINS on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 82.383 | 14.7 | `experiments/results/lins_kitti_raw_0061_matrix.json` |
+| LINS on MCD KTH day-06 sequence | `ready` | `default` | 7.393 | 65.0 | `experiments/results/lins_mcd_kth_day_06_matrix.json` |
+| LINS on MCD NTU day-02 sequence | `ready` | `default` | 0.269 | 42.5 | `experiments/results/lins_mcd_ntu_day_02_matrix.json` |
+| LINS on MCD TUHH night-09 sequence | `ready` | `default` | 1.269 | 73.0 | `experiments/results/lins_mcd_tuhh_night_09_matrix.json` |
+| LIO-SAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 5.259 | 6.5 | `experiments/results/lio_sam_kitti_raw_0009_full_matrix.json` |
+| LIO-SAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.579 | 9.3 | `experiments/results/lio_sam_kitti_raw_0009_matrix.json` |
+| LIO-SAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 5.236 | 5.8 | `experiments/results/lio_sam_kitti_raw_0061_full_matrix.json` |
+| LIO-SAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 0.577 | 10.3 | `experiments/results/lio_sam_kitti_raw_0061_matrix.json` |
+| LIO-SAM on MCD KTH day-06 sequence | `ready` | `default` | 6.020 | 8.1 | `experiments/results/lio_sam_mcd_kth_day_06_matrix.json` |
+| LIO-SAM on MCD NTU day-02 sequence | `ready` | `default` | 0.067 | 8.4 | `experiments/results/lio_sam_mcd_ntu_day_02_matrix.json` |
+| LIO-SAM on MCD TUHH night-09 sequence | `ready` | `default` | 1.331 | 9.3 | `experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_icp_only_half_threads` | 0.168 | 6.1 | `experiments/results/litamin2_hdl_400_reference_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `paper_icp_only_half_threads` | 0.121 | 6.4 | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.222 | 20.9 | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
@@ -65,6 +114,13 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 105.6 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_cov_half_threads` | 0.194 | 106.5 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.213 | 23.5 | `experiments/results/litamin2_profile_matrix.json` |
+| LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 124.828 | 6.7 | `experiments/results/loam_livox_kitti_raw_0009_full_matrix.json` |
+| LOAM Livox on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 93.193 | 6.7 | `experiments/results/loam_livox_kitti_raw_0009_matrix.json` |
+| LOAM Livox on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 200.533 | 8.4 | `experiments/results/loam_livox_kitti_raw_0061_full_matrix.json` |
+| LOAM Livox on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 51.613 | 9.5 | `experiments/results/loam_livox_kitti_raw_0061_matrix.json` |
+| LOAM Livox on MCD KTH day-06 sequence | `ready` | `default` | 5.972 | 6.7 | `experiments/results/loam_livox_mcd_kth_day_06_matrix.json` |
+| LOAM Livox on MCD NTU day-02 sequence | `ready` | `default` | 0.057 | 7.2 | `experiments/results/loam_livox_mcd_ntu_day_02_matrix.json` |
+| LOAM Livox on MCD TUHH night-09 sequence | `ready` | `default` | 1.311 | 8.2 | `experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
 | NDT throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_coarse_map` | 0.065 | 0.9 | `experiments/results/ndt_hdl_400_reference_b_matrix.json` |
 | NDT throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_coarse_map` | 0.035 | 0.8 | `experiments/results/ndt_hdl_400_reference_matrix.json` |
@@ -79,14 +135,42 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `balanced_local_map` | 0.013 | 44.9 | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_coarse_map` | 0.063 | 40.8 | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
 | NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_coarse_map` | 0.070 | 2.0 | `experiments/results/ndt_profile_matrix.json` |
+| Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 183.631 | 4.8 | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |
+| Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 120.082 | 5.4 | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |
+| Point-LIO on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 292.255 | 2.3 | `experiments/results/point_lio_kitti_raw_0061_full_matrix.json` |
+| Point-LIO on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 82.702 | 2.1 | `experiments/results/point_lio_kitti_raw_0061_matrix.json` |
+| Point-LIO on MCD KTH day-06 sequence | `ready` | `default` | 7.113 | 1.2 | `experiments/results/point_lio_mcd_kth_day_06_matrix.json` |
+| Point-LIO on MCD NTU day-02 sequence | `ready` | `default` | 0.234 | 1.4 | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
+| Point-LIO on MCD TUHH night-09 sequence | `ready` | `default` | 1.116 | 0.8 | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.437 | 92.4 | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 0.806 | 107.9 | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.031 | 113.8 | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.250 | 107.2 | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
+| SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 14.181 | 35.0 | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
+| SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 3.291 | 39.7 | `experiments/results/suma_kitti_raw_0009_matrix.json` |
+| SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 19.448 | 24.4 | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
+| SuMa on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 3.877 | 31.6 | `experiments/results/suma_kitti_raw_0061_matrix.json` |
+| SuMa on MCD KTH day-06 sequence | `ready` | `default` | 6.064 | 22.7 | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
+| SuMa on MCD NTU day-02 sequence | `ready` | `default` | 0.065 | 29.1 | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |
+| SuMa on MCD TUHH night-09 sequence | `ready` | `default` | 1.414 | 59.1 | `experiments/results/suma_mcd_tuhh_night_09_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 3.948 | 5.4 | `experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 1.772 | 7.7 | `experiments/results/vgicp_slam_kitti_raw_0009_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 5.917 | 5.4 | `experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 0.803 | 8.6 | `experiments/results/vgicp_slam_kitti_raw_0061_matrix.json` |
+| VGICP SLAM on MCD KTH day-06 sequence | `ready` | `default` | 6.092 | 4.5 | `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json` |
+| VGICP SLAM on MCD NTU day-02 sequence | `ready` | `default` | 0.020 | 9.4 | `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json` |
+| VGICP SLAM on MCD TUHH night-09 sequence | `ready` | `default` | 1.319 | 6.0 | `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense_recent_map` | 0.640 | 110.1 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `dense_recent_map` | 0.926 | 124.2 | `experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.121 | 117.2 | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `dense_recent_map` | 0.286 | 116.4 | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 0.169 | 64.8 | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 0.158 | 65.1 | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
+| X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `default` | 0.138 | 66.1 | `experiments/results/xicp_kitti_raw_0061_full_matrix.json` |
+| X-ICP on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 0.141 | 61.6 | `experiments/results/xicp_kitti_raw_0061_matrix.json` |
+| X-ICP on MCD KTH day-06 sequence | `ready` | `default` | 0.305 | 75.2 | `experiments/results/xicp_mcd_kth_day_06_matrix.json` |
+| X-ICP on MCD NTU day-02 sequence | `ready` | `default` | 0.252 | 68.4 | `experiments/results/xicp_mcd_ntu_day_02_matrix.json` |
+| X-ICP on MCD TUHH night-09 sequence | `ready` | `default` | 0.122 | 76.6 | `experiments/results/xicp_mcd_tuhh_night_09_matrix.json` |
 
 ## A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
@@ -146,6 +230,258 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `balm2_kitti_raw_0009_full`
+- **Question**: How does BALM2 perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `balm2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/balm2_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 4.576 | 1.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.6 FPS.
+3. `default` is the most accurate observed variant at 4.576 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/balm2_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/balm2_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+
+## BALM2 on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `balm2_kitti_raw_0009`
+- **Question**: How does BALM2 perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `balm2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/balm2_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 3.419 | 1.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.7 FPS.
+3. `default` is the most accurate observed variant at 3.419 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/balm2_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/balm2_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+
+## BALM2 on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `balm2_kitti_raw_0061_full`
+- **Question**: How does BALM2 perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `balm2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/balm2_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 10.035 | 1.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.6 FPS.
+3. `default` is the most accurate observed variant at 10.035 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/balm2_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/balm2_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+
+## BALM2 on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `balm2_kitti_raw_0061`
+- **Question**: How does BALM2 perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `balm2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/balm2_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 2.721 | 1.8 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.8 FPS.
+3. `default` is the most accurate observed variant at 2.721 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/balm2_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/balm2_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+
+## BALM2 on MCD KTH day-06 sequence
+
+- **Problem ID**: `balm2_mcd_kth_day_06`
+- **Question**: How does BALM2 perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `balm2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/balm2_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 6.193 | 2.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 2.0 FPS.
+3. `default` is the most accurate observed variant at 6.193 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/balm2_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/balm2_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+
+## BALM2 on MCD NTU day-02 sequence
+
+- **Problem ID**: `balm2_mcd_ntu_day_02`
+- **Question**: How does BALM2 perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `balm2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/balm2_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.062 | 1.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.6 FPS.
+3. `default` is the most accurate observed variant at 0.062 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/balm2_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/balm2_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+
+## BALM2 on MCD TUHH night-09 sequence
+
+- **Problem ID**: `balm2_mcd_tuhh_night_09`
+- **Question**: How does BALM2 perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `balm2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/balm2_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 1.270 | 2.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 2.0 FPS.
+3. `default` is the most accurate observed variant at 1.270 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/balm2_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/balm2_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
 
 
 ## CT-ICP throughput and drift trade-off on the second public HDL-400 reference window
@@ -1130,6 +1466,510 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
 
 
+## FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `fast_lio2_kitti_raw_0009_full`
+- **Question**: How does FAST-LIO2 perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 5.468 | 4.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 4.4 FPS.
+3. `default` is the most accurate observed variant at 5.468 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio2_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio2_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `fast_lio2_kitti_raw_0009`
+- **Question**: How does FAST-LIO2 perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio2_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 2.483 | 5.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 5.2 FPS.
+3. `default` is the most accurate observed variant at 2.483 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio2_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio2_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO2 on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `fast_lio2_kitti_raw_0061_full`
+- **Question**: How does FAST-LIO2 perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio2_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 5.351 | 4.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 4.3 FPS.
+3. `default` is the most accurate observed variant at 5.351 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio2_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio2_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO2 on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `fast_lio2_kitti_raw_0061`
+- **Question**: How does FAST-LIO2 perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio2_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 0.729 | 4.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 4.2 FPS.
+3. `default` is the most accurate observed variant at 0.729 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO2 on MCD KTH day-06 sequence
+
+- **Problem ID**: `fast_lio2_mcd_kth_day_06`
+- **Question**: How does FAST-LIO2 perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio2_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 6.086 | 3.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 3.7 FPS.
+3. `default` is the most accurate observed variant at 6.086 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD KTH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio2_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio2_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO2 on MCD NTU day-02 sequence
+
+- **Problem ID**: `fast_lio2_mcd_ntu_day_02`
+- **Question**: How does FAST-LIO2 perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 0.025 | 10.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 10.3 FPS.
+3. `default` is the most accurate observed variant at 0.025 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD NTU fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio2_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio2_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO2 on MCD TUHH night-09 sequence
+
+- **Problem ID**: `fast_lio2_mcd_tuhh_night_09`
+- **Question**: How does FAST-LIO2 perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio2_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 1.334 | 5.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 5.4 FPS.
+3. `default` is the most accurate observed variant at 1.334 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD TUHH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio2_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio2_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO-SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `fast_lio_slam_kitti_raw_0009_full`
+- **Question**: How does FAST-LIO-SLAM perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio_slam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 5.468 | 3.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 3.4 FPS.
+3. `default` is the most accurate observed variant at 5.468 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `fast_lio_slam_kitti_raw_0009`
+- **Question**: How does FAST-LIO-SLAM perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio_slam_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 2.483 | 3.9 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 3.9 FPS.
+3. `default` is the most accurate observed variant at 2.483 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio_slam_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio_slam_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO-SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `fast_lio_slam_kitti_raw_0061_full`
+- **Question**: How does FAST-LIO-SLAM perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio_slam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 5.351 | 2.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 2.5 FPS.
+3. `default` is the most accurate observed variant at 5.351 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio_slam_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio_slam_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO-SLAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `fast_lio_slam_kitti_raw_0061`
+- **Question**: How does FAST-LIO-SLAM perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio_slam_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 0.729 | 3.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 3.7 FPS.
+3. `default` is the most accurate observed variant at 0.729 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio_slam_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio_slam_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO-SLAM on MCD KTH day-06 sequence
+
+- **Problem ID**: `fast_lio_slam_mcd_kth_day_06`
+- **Question**: How does FAST-LIO-SLAM perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 6.086 | 3.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 3.6 FPS.
+3. `default` is the most accurate observed variant at 6.086 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD KTH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO-SLAM on MCD NTU day-02 sequence
+
+- **Problem ID**: `fast_lio_slam_mcd_ntu_day_02`
+- **Question**: How does FAST-LIO-SLAM perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 0.025 | 9.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 9.0 FPS.
+3. `default` is the most accurate observed variant at 0.025 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD NTU fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio_slam_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio_slam_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
+
+
+## FAST-LIO-SLAM on MCD TUHH night-09 sequence
+
+- **Problem ID**: `fast_lio_slam_mcd_tuhh_night_09`
+- **Question**: How does FAST-LIO-SLAM perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `fast_lio_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 1.334 | 4.9 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 4.9 FPS.
+3. `default` is the most accurate observed variant at 1.334 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD TUHH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/fast_lio_slam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_lio_slam_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
+
+
 ## F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - **Problem ID**: `floam_profile_tradeoff_kitti_raw_0009_full`
@@ -1970,6 +2810,510 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `hdl_graph_slam_kitti_raw_0009_full`
+- **Question**: How does HDL Graph SLAM perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `hdl_graph_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 185.826 | 0.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 0.2 FPS.
+3. `default` is the most accurate observed variant at 185.826 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `hdl_graph_slam_kitti_raw_0009`
+- **Question**: How does HDL Graph SLAM perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `hdl_graph_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 122.141 | 1.8 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.8 FPS.
+3. `default` is the most accurate observed variant at 122.141 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `hdl_graph_slam_kitti_raw_0061_full`
+- **Question**: How does HDL Graph SLAM perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `hdl_graph_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | -1.000 | -1.0 | 0.0 | 5.00 | 5.00 | Rejected for this run |
+
+### Observations
+
+1. `-` is the current default for this problem.
+2. `default` is the fastest observed variant at -1.0 FPS.
+3. `default` is the most accurate observed variant at -1.000 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames)
+
+
+## HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `hdl_graph_slam_kitti_raw_0061`
+- **Question**: How does HDL Graph SLAM perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `hdl_graph_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 118.996 | 1.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.5 FPS.
+3. `default` is the most accurate observed variant at 118.996 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## HDL Graph SLAM on MCD KTH day-06 sequence
+
+- **Problem ID**: `hdl_graph_slam_mcd_kth_day_06`
+- **Question**: How does HDL Graph SLAM perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `hdl_graph_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 5.113 | 4.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 4.3 FPS.
+3. `default` is the most accurate observed variant at 5.113 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## HDL Graph SLAM on MCD NTU day-02 sequence
+
+- **Problem ID**: `hdl_graph_slam_mcd_ntu_day_02`
+- **Question**: How does HDL Graph SLAM perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `hdl_graph_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 27.212 | 2.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 2.7 FPS.
+3. `default` is the most accurate observed variant at 27.212 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## HDL Graph SLAM on MCD TUHH night-09 sequence
+
+- **Problem ID**: `hdl_graph_slam_mcd_tuhh_night_09`
+- **Question**: How does HDL Graph SLAM perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `hdl_graph_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 10.818 | 3.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 3.2 FPS.
+3. `default` is the most accurate observed variant at 10.818 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `isc_loam_kitti_raw_0009_full`
+- **Question**: How does ISC-LOAM perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `isc_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 5.267 | 9.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 9.2 FPS.
+3. `default` is the most accurate observed variant at 5.267 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/isc_loam_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/isc_loam_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).
+
+
+## ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `isc_loam_kitti_raw_0009`
+- **Question**: How does ISC-LOAM perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `isc_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/isc_loam_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 2.778 | 9.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 9.4 FPS.
+3. `default` is the most accurate observed variant at 2.778 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/isc_loam_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/isc_loam_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).
+
+
+## ISC-LOAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `isc_loam_kitti_raw_0061_full`
+- **Question**: How does ISC-LOAM perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `isc_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/isc_loam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 4.854 | 6.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 6.6 FPS.
+3. `default` is the most accurate observed variant at 4.854 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/isc_loam_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/isc_loam_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).
+
+
+## ISC-LOAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `isc_loam_kitti_raw_0061`
+- **Question**: How does ISC-LOAM perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `isc_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/isc_loam_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.986 | 11.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 11.6 FPS.
+3. `default` is the most accurate observed variant at 0.986 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/isc_loam_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/isc_loam_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).
+
+
+## ISC-LOAM on MCD KTH day-06 sequence
+
+- **Problem ID**: `isc_loam_mcd_kth_day_06`
+- **Question**: How does ISC-LOAM perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `isc_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/isc_loam_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 6.023 | 11.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 11.0 FPS.
+3. `default` is the most accurate observed variant at 6.023 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/isc_loam_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/isc_loam_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).
+
+
+## ISC-LOAM on MCD NTU day-02 sequence
+
+- **Problem ID**: `isc_loam_mcd_ntu_day_02`
+- **Question**: How does ISC-LOAM perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `isc_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/isc_loam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.096 | 9.9 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 9.9 FPS.
+3. `default` is the most accurate observed variant at 0.096 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/isc_loam_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/isc_loam_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).
+
+
+## ISC-LOAM on MCD TUHH night-09 sequence
+
+- **Problem ID**: `isc_loam_mcd_tuhh_night_09`
+- **Question**: How does ISC-LOAM perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `isc_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/isc_loam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 1.337 | 11.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 11.7 FPS.
+3. `default` is the most accurate observed variant at 1.337 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/isc_loam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/isc_loam_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).
+
+
 ## KISS-ICP throughput and drift trade-off on the second public HDL-400 reference window
 
 - **Problem ID**: `kiss_icp_profile_tradeoff_hdl_400_reference_b`
@@ -2808,6 +4152,510 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LINS on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `lins_kitti_raw_0009_full`
+- **Question**: How does LINS perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lins_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 183.795 | 40.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 40.4 FPS.
+3. `default` is the most accurate observed variant at 183.795 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods lins --summary-json experiments/results/runs/lins_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lins_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/lins_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## LINS on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `lins_kitti_raw_0009`
+- **Question**: How does LINS perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lins_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 120.280 | 31.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 31.5 FPS.
+3. `default` is the most accurate observed variant at 120.280 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods lins --summary-json experiments/results/runs/lins_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lins_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/lins_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## LINS on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `lins_kitti_raw_0061_full`
+- **Question**: How does LINS perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lins_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 291.978 | 17.8 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 17.8 FPS.
+3. `default` is the most accurate observed variant at 291.978 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods lins --summary-json experiments/results/runs/lins_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lins_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/lins_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## LINS on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `lins_kitti_raw_0061`
+- **Question**: How does LINS perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lins_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 82.383 | 14.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 14.7 FPS.
+3. `default` is the most accurate observed variant at 82.383 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods lins --summary-json experiments/results/runs/lins_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lins_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/lins_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## LINS on MCD KTH day-06 sequence
+
+- **Problem ID**: `lins_mcd_kth_day_06`
+- **Question**: How does LINS perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lins_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 7.393 | 65.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 65.0 FPS.
+3. `default` is the most accurate observed variant at 7.393 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD KTH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods lins --summary-json experiments/results/runs/lins_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lins_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/lins_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## LINS on MCD NTU day-02 sequence
+
+- **Problem ID**: `lins_mcd_ntu_day_02`
+- **Question**: How does LINS perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lins_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 0.269 | 42.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 42.5 FPS.
+3. `default` is the most accurate observed variant at 0.269 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD NTU fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods lins --summary-json experiments/results/runs/lins_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lins_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/lins_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## LINS on MCD TUHH night-09 sequence
+
+- **Problem ID**: `lins_mcd_tuhh_night_09`
+- **Question**: How does LINS perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lins_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 1.269 | 73.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 73.0 FPS.
+3. `default` is the most accurate observed variant at 1.269 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD TUHH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods lins --summary-json experiments/results/runs/lins_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lins_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/lins_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## LIO-SAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `lio_sam_kitti_raw_0009_full`
+- **Question**: How does LIO-SAM perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lio_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lio_sam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 5.259 | 6.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 6.5 FPS.
+3. `default` is the most accurate observed variant at 5.259 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lio_sam_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/lio_sam_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).
+
+
+## LIO-SAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `lio_sam_kitti_raw_0009`
+- **Question**: How does LIO-SAM perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lio_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lio_sam_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 2.579 | 9.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 9.3 FPS.
+3. `default` is the most accurate observed variant at 2.579 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lio_sam_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/lio_sam_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).
+
+
+## LIO-SAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `lio_sam_kitti_raw_0061_full`
+- **Question**: How does LIO-SAM perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lio_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lio_sam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 5.236 | 5.8 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 5.8 FPS.
+3. `default` is the most accurate observed variant at 5.236 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lio_sam_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/lio_sam_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).
+
+
+## LIO-SAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `lio_sam_kitti_raw_0061`
+- **Question**: How does LIO-SAM perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lio_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lio_sam_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 0.577 | 10.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 10.3 FPS.
+3. `default` is the most accurate observed variant at 0.577 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lio_sam_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/lio_sam_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).
+
+
+## LIO-SAM on MCD KTH day-06 sequence
+
+- **Problem ID**: `lio_sam_mcd_kth_day_06`
+- **Question**: How does LIO-SAM perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lio_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lio_sam_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 6.020 | 8.1 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 8.1 FPS.
+3. `default` is the most accurate observed variant at 6.020 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD KTH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lio_sam_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/lio_sam_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).
+
+
+## LIO-SAM on MCD NTU day-02 sequence
+
+- **Problem ID**: `lio_sam_mcd_ntu_day_02`
+- **Question**: How does LIO-SAM perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lio_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lio_sam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 0.067 | 8.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 8.4 FPS.
+3. `default` is the most accurate observed variant at 0.067 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD NTU fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lio_sam_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/lio_sam_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).
+
+
+## LIO-SAM on MCD TUHH night-09 sequence
+
+- **Problem ID**: `lio_sam_mcd_tuhh_night_09`
+- **Question**: How does LIO-SAM perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lio_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 1.331 | 9.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 9.3 FPS.
+3. `default` is the most accurate observed variant at 1.331 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD TUHH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lio_sam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/lio_sam_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).
 
 
 ## LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window
@@ -3746,6 +5594,258 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
 
 
+## LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `loam_livox_kitti_raw_0009_full`
+- **Question**: How does LOAM Livox perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `loam_livox`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/loam_livox_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 124.828 | 6.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 6.7 FPS.
+3. `default` is the most accurate observed variant at 124.828 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/loam_livox_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/loam_livox_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
+
+
+## LOAM Livox on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `loam_livox_kitti_raw_0009`
+- **Question**: How does LOAM Livox perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `loam_livox`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/loam_livox_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 93.193 | 6.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 6.7 FPS.
+3. `default` is the most accurate observed variant at 93.193 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/loam_livox_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/loam_livox_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
+
+
+## LOAM Livox on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `loam_livox_kitti_raw_0061_full`
+- **Question**: How does LOAM Livox perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `loam_livox`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/loam_livox_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 200.533 | 8.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 8.4 FPS.
+3. `default` is the most accurate observed variant at 200.533 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/loam_livox_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/loam_livox_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
+
+
+## LOAM Livox on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `loam_livox_kitti_raw_0061`
+- **Question**: How does LOAM Livox perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `loam_livox`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/loam_livox_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 51.613 | 9.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 9.5 FPS.
+3. `default` is the most accurate observed variant at 51.613 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/loam_livox_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/loam_livox_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
+
+
+## LOAM Livox on MCD KTH day-06 sequence
+
+- **Problem ID**: `loam_livox_mcd_kth_day_06`
+- **Question**: How does LOAM Livox perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `loam_livox`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/loam_livox_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 5.972 | 6.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 6.7 FPS.
+3. `default` is the most accurate observed variant at 5.972 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/loam_livox_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/loam_livox_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
+
+
+## LOAM Livox on MCD NTU day-02 sequence
+
+- **Problem ID**: `loam_livox_mcd_ntu_day_02`
+- **Question**: How does LOAM Livox perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `loam_livox`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/loam_livox_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.057 | 7.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 7.2 FPS.
+3. `default` is the most accurate observed variant at 0.057 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/loam_livox_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/loam_livox_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
+
+
+## LOAM Livox on MCD TUHH night-09 sequence
+
+- **Problem ID**: `loam_livox_mcd_tuhh_night_09`
+- **Question**: How does LOAM Livox perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `loam_livox`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 1.311 | 8.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 8.2 FPS.
+3. `default` is the most accurate observed variant at 1.311 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/loam_livox_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/loam_livox_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
+
+
 ## MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - **Problem ID**: `mulls_profile_tradeoff_kitti_raw_0009_full`
@@ -4586,6 +6686,258 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `point_lio_kitti_raw_0009_full`
+- **Question**: How does Point-LIO perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `point_lio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/point_lio_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 183.631 | 4.8 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 4.8 FPS.
+3. `default` is the most accurate observed variant at 183.631 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/point_lio_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/point_lio_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## Point-LIO on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `point_lio_kitti_raw_0009`
+- **Question**: How does Point-LIO perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `point_lio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/point_lio_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 120.082 | 5.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 5.4 FPS.
+3. `default` is the most accurate observed variant at 120.082 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/point_lio_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/point_lio_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## Point-LIO on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `point_lio_kitti_raw_0061_full`
+- **Question**: How does Point-LIO perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `point_lio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/point_lio_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 292.255 | 2.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 2.3 FPS.
+3. `default` is the most accurate observed variant at 292.255 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/point_lio_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/point_lio_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## Point-LIO on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `point_lio_kitti_raw_0061`
+- **Question**: How does Point-LIO perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `point_lio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/point_lio_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 82.702 | 2.1 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 2.1 FPS.
+3. `default` is the most accurate observed variant at 82.702 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/point_lio_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/point_lio_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## Point-LIO on MCD KTH day-06 sequence
+
+- **Problem ID**: `point_lio_mcd_kth_day_06`
+- **Question**: How does Point-LIO perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `point_lio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/point_lio_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 7.113 | 1.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.2 FPS.
+3. `default` is the most accurate observed variant at 7.113 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD KTH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/point_lio_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/point_lio_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## Point-LIO on MCD NTU day-02 sequence
+
+- **Problem ID**: `point_lio_mcd_ntu_day_02`
+- **Question**: How does Point-LIO perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `point_lio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/point_lio_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 0.234 | 1.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 1.4 FPS.
+3. `default` is the most accurate observed variant at 0.234 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD NTU fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/point_lio_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/point_lio_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
+## Point-LIO on MCD TUHH night-09 sequence
+
+- **Problem ID**: `point_lio_mcd_tuhh_night_09`
+- **Question**: How does Point-LIO perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `point_lio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 1.116 | 0.8 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 0.8 FPS.
+3. `default` is the most accurate observed variant at 1.116 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in MCD TUHH fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/point_lio_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/point_lio_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
 ## Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - **Problem ID**: `small_gicp_profile_tradeoff_kitti_raw_0009_full`
@@ -4826,6 +7178,510 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `suma_kitti_raw_0009_full`
+- **Question**: How does SuMa perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 14.181 | 35.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 35.0 FPS.
+3. `default` is the most accurate observed variant at 14.181 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/suma_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+
+## SuMa on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `suma_kitti_raw_0009`
+- **Question**: How does SuMa perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 3.291 | 39.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 39.7 FPS.
+3. `default` is the most accurate observed variant at 3.291 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/suma_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+
+## SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `suma_kitti_raw_0061_full`
+- **Question**: How does SuMa perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 19.448 | 24.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 24.4 FPS.
+3. `default` is the most accurate observed variant at 19.448 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/suma_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+
+## SuMa on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `suma_kitti_raw_0061`
+- **Question**: How does SuMa perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 3.877 | 31.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 31.6 FPS.
+3. `default` is the most accurate observed variant at 3.877 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/suma_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+
+## SuMa on MCD KTH day-06 sequence
+
+- **Problem ID**: `suma_mcd_kth_day_06`
+- **Question**: How does SuMa perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 6.064 | 22.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 22.7 FPS.
+3. `default` is the most accurate observed variant at 6.064 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods suma --summary-json experiments/results/runs/suma_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/suma_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+
+## SuMa on MCD NTU day-02 sequence
+
+- **Problem ID**: `suma_mcd_ntu_day_02`
+- **Question**: How does SuMa perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.065 | 29.1 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 29.1 FPS.
+3. `default` is the most accurate observed variant at 0.065 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods suma --summary-json experiments/results/runs/suma_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/suma_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+
+## SuMa on MCD TUHH night-09 sequence
+
+- **Problem ID**: `suma_mcd_tuhh_night_09`
+- **Question**: How does SuMa perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 1.414 | 59.1 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 59.1 FPS.
+3. `default` is the most accurate observed variant at 1.414 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods suma --summary-json experiments/results/runs/suma_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/suma_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+
+## VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `vgicp_slam_kitti_raw_0009_full`
+- **Question**: How does VGICP SLAM perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `vgicp_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 3.948 | 5.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 5.4 FPS.
+3. `default` is the most accurate observed variant at 3.948 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/vgicp_slam_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/vgicp_slam_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `vgicp_slam_kitti_raw_0009`
+- **Question**: How does VGICP SLAM perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `vgicp_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vgicp_slam_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 1.772 | 7.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 7.7 FPS.
+3. `default` is the most accurate observed variant at 1.772 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/vgicp_slam_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/vgicp_slam_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## VGICP SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `vgicp_slam_kitti_raw_0061_full`
+- **Question**: How does VGICP SLAM perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `vgicp_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 5.917 | 5.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 5.4 FPS.
+3. `default` is the most accurate observed variant at 5.917 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/vgicp_slam_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/vgicp_slam_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `vgicp_slam_kitti_raw_0061`
+- **Question**: How does VGICP SLAM perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `vgicp_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vgicp_slam_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.803 | 8.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 8.6 FPS.
+3. `default` is the most accurate observed variant at 0.803 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/vgicp_slam_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/vgicp_slam_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## VGICP SLAM on MCD KTH day-06 sequence
+
+- **Problem ID**: `vgicp_slam_mcd_kth_day_06`
+- **Question**: How does VGICP SLAM perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `vgicp_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 6.092 | 4.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 4.5 FPS.
+3. `default` is the most accurate observed variant at 6.092 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## VGICP SLAM on MCD NTU day-02 sequence
+
+- **Problem ID**: `vgicp_slam_mcd_ntu_day_02`
+- **Question**: How does VGICP SLAM perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `vgicp_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.020 | 9.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 9.4 FPS.
+3. `default` is the most accurate observed variant at 0.020 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/vgicp_slam_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/vgicp_slam_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## VGICP SLAM on MCD TUHH night-09 sequence
+
+- **Problem ID**: `vgicp_slam_mcd_tuhh_night_09`
+- **Question**: How does VGICP SLAM perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `vgicp_slam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 1.319 | 6.0 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 6.0 FPS.
+3. `default` is the most accurate observed variant at 1.319 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/vgicp_slam_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/vgicp_slam_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
 ## Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - **Problem ID**: `voxel_gicp_profile_tradeoff_kitti_raw_0009_full`
@@ -5064,4 +7920,340 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `xicp_kitti_raw_0009_full`
+- **Question**: How does X-ICP perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `xicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/xicp_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (GT seed) | balanced | 0.169 | 56.8 | 93.8 | 5.00 | 5.00 | Adopt as current default |
+| No GT seed | accuracy-oriented | 177.449 | 64.8 | 50.0 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `no_gt_seed` is the fastest observed variant at 64.8 FPS.
+3. `default` is the most accurate observed variant at 0.169 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default with ground-truth seed initialization.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/xicp_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/xicp_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `no_gt_seed`
+
+- Intent: Ablation without ground-truth seed to test convergence from identity.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_full_matrix/no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/xicp_kitti_raw_0009_full_matrix/no_gt_seed/summary.json`
+- Log: `experiments/results/runs/xicp_kitti_raw_0009_full_matrix/no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+
+
+## X-ICP on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `xicp_kitti_raw_0009`
+- **Question**: How does X-ICP perform on the KITTI Raw drive 0009 (200 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `xicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/xicp_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (GT seed) | balanced | 0.158 | 58.5 | 94.9 | 5.00 | 5.00 | Adopt as current default |
+| No GT seed | accuracy-oriented | 116.407 | 65.1 | 50.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `no_gt_seed` is the fastest observed variant at 65.1 FPS.
+3. `default` is the most accurate observed variant at 0.158 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default with ground-truth seed initialization.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_matrix/default/summary.json`
+- Summary: `experiments/results/runs/xicp_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/xicp_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `no_gt_seed`
+
+- Intent: Ablation without ground-truth seed to test convergence from identity.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_matrix/no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/xicp_kitti_raw_0009_matrix/no_gt_seed/summary.json`
+- Log: `experiments/results/runs/xicp_kitti_raw_0009_matrix/no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+
+
+## X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `xicp_kitti_raw_0061_full`
+- **Question**: How does X-ICP perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `xicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/xicp_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (GT seed) | balanced | 0.138 | 60.4 | 95.7 | 5.00 | 5.00 | Adopt as current default |
+| No GT seed | accuracy-oriented | 281.232 | 66.1 | 50.0 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `no_gt_seed` is the fastest observed variant at 66.1 FPS.
+3. `default` is the most accurate observed variant at 0.138 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default with ground-truth seed initialization.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0061_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/xicp_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/xicp_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `no_gt_seed`
+
+- Intent: Ablation without ground-truth seed to test convergence from identity.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0061_full_matrix/no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/xicp_kitti_raw_0061_full_matrix/no_gt_seed/summary.json`
+- Log: `experiments/results/runs/xicp_kitti_raw_0061_full_matrix/no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+
+
+## X-ICP on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `xicp_kitti_raw_0061`
+- **Question**: How does X-ICP perform on the KITTI Raw drive 0061 (200 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `xicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/xicp_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (GT seed) | balanced | 0.141 | 60.8 | 99.3 | 5.00 | 5.00 | Adopt as current default |
+| No GT seed | accuracy-oriented | 78.836 | 61.6 | 50.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `no_gt_seed` is the fastest observed variant at 61.6 FPS.
+3. `default` is the most accurate observed variant at 0.141 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default with ground-truth seed initialization.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0061_matrix/default/summary.json`
+- Summary: `experiments/results/runs/xicp_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/xicp_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `no_gt_seed`
+
+- Intent: Ablation without ground-truth seed to test convergence from identity.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0061_matrix/no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/xicp_kitti_raw_0061_matrix/no_gt_seed/summary.json`
+- Log: `experiments/results/runs/xicp_kitti_raw_0061_matrix/no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+
+
+## X-ICP on MCD KTH day-06 sequence
+
+- **Problem ID**: `xicp_mcd_kth_day_06`
+- **Question**: How does X-ICP perform on the MCD KTH day-06 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `xicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/xicp_mcd_kth_day_06_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (GT seed) | balanced | 0.305 | 63.5 | 92.3 | 5.00 | 5.00 | Adopt as current default |
+| No GT seed | accuracy-oriented | 8.838 | 75.2 | 51.7 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `no_gt_seed` is the fastest observed variant at 75.2 FPS.
+3. `default` is the most accurate observed variant at 0.305 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default with ground-truth seed initialization.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_mcd_kth_day_06_matrix/default/summary.json`
+- Summary: `experiments/results/runs/xicp_mcd_kth_day_06_matrix/default/summary.json`
+- Log: `experiments/results/runs/xicp_mcd_kth_day_06_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `no_gt_seed`
+
+- Intent: Ablation without ground-truth seed to test convergence from identity.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_mcd_kth_day_06_matrix/no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/xicp_mcd_kth_day_06_matrix/no_gt_seed/summary.json`
+- Log: `experiments/results/runs/xicp_mcd_kth_day_06_matrix/no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+
+
+## X-ICP on MCD NTU day-02 sequence
+
+- **Problem ID**: `xicp_mcd_ntu_day_02`
+- **Question**: How does X-ICP perform on the MCD NTU day-02 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `xicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/xicp_mcd_ntu_day_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (GT seed) | balanced | 0.252 | 68.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| No GT seed | accuracy-oriented | 2.943 | 66.5 | 52.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 68.4 FPS.
+3. `default` is the most accurate observed variant at 0.252 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default with ground-truth seed initialization.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_mcd_ntu_day_02_matrix/default/summary.json`
+- Summary: `experiments/results/runs/xicp_mcd_ntu_day_02_matrix/default/summary.json`
+- Log: `experiments/results/runs/xicp_mcd_ntu_day_02_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `no_gt_seed`
+
+- Intent: Ablation without ground-truth seed to test convergence from identity.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_mcd_ntu_day_02_matrix/no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/xicp_mcd_ntu_day_02_matrix/no_gt_seed/summary.json`
+- Log: `experiments/results/runs/xicp_mcd_ntu_day_02_matrix/no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+
+
+## X-ICP on MCD TUHH night-09 sequence
+
+- **Problem ID**: `xicp_mcd_tuhh_night_09`
+- **Question**: How does X-ICP perform on the MCD TUHH night-09 sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `xicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/xicp_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (GT seed) | balanced | 0.122 | 76.6 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| No GT seed | accuracy-oriented | 1.965 | 74.8 | 51.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 76.6 FPS.
+3. `default` is the most accurate observed variant at 0.122 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default with ground-truth seed initialization.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_mcd_tuhh_night_09_matrix/default/summary.json`
+- Summary: `experiments/results/runs/xicp_mcd_tuhh_night_09_matrix/default/summary.json`
+- Log: `experiments/results/runs/xicp_mcd_tuhh_night_09_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `no_gt_seed`
+
+- Intent: Ablation without ground-truth seed to test convergence from identity.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_mcd_tuhh_night_09_matrix/no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/xicp_mcd_tuhh_night_09_matrix/no_gt_seed/summary.json`
+- Log: `experiments/results/runs/xicp_mcd_tuhh_night_09_matrix/no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
 

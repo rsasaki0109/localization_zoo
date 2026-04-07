@@ -1,0 +1,15 @@
+method,autoware_istanbul_open_108,autoware_istanbul_open_108_b,autoware_istanbul_open_108_c,hdl_400_open_ct_lio_120,hdl_400_open_ct_lio_120_b,kitti_raw_0009_200,kitti_raw_0009_full,kitti_raw_0061_200,kitti_raw_0061_full,mcd_kth_day_06_108,mcd_ntu_day_02_108,mcd_tuhh_night_09_108
+aloam,,,,,,,fast,,,,,
+ct_icp,fast_window,balanced_window,balanced_window,fast_window,fast_window,balanced_window,balanced_window,fast_window,fast_window,fast_window,dense_window,fast_window
+ct_lio,,,,seed_only_fast,,,,,,,,
+dlio,,,,,,,fast,,,,,
+dlo,,,,,,,fast,,,,,
+floam,,,,,,,fast,,,,,
+gicp,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,dense_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,dense_recent_map,fast_recent_map
+kiss_icp,fast_recent_map,dense_local_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map
+lego_loam,,,,,,,fast,,,,,
+litamin2,fast_icp_only_half_threads,fast_icp_only_half_threads,paper_icp_only_half_threads,paper_icp_only_half_threads,fast_icp_only_half_threads,paper_cov_half_threads,fast_icp_only_half_threads,fast_cov_half_threads,fast_icp_only_half_threads,fast_cov_half_threads,paper_icp_only_half_threads,fast_cov_half_threads
+mulls,,,,,,,fast,,,,,
+ndt,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,balanced_local_map,fast_coarse_map
+small_gicp,,,,,,,fast_recent_map,,,fast_recent_map,dense_recent_map,fast_recent_map
+voxel_gicp,,,,,,,dense_recent_map,,,dense_recent_map,dense_recent_map,dense_recent_map

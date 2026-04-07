@@ -35,6 +35,11 @@ jobs:
       - name: Test
         run: cd build && ctest --output-on-failure
 
+      - name: Dogfooding smoke (committed 3-frame MCD fixture ~3MB)
+        run: |
+          chmod +x evaluation/scripts/smoke_ci_fixture.sh
+          bash evaluation/scripts/smoke_ci_fixture.sh
+
   ros2-colcon-build:
     runs-on: ubuntu-22.04
     container:

@@ -5,6 +5,7 @@
 Reads velodyne_points/data/*.bin + oxts/data/*.txt and produces:
   - PCD directory (NNNNNNNN/cloud.pcd)
   - GT CSV (timestamp, lidar_pose.x/y/z/roll/pitch/yaw)
+  - Optional imu.csv via ``--write-imu-csv`` (DLIO/CT-LIO; see kitti_oxts_imu_for_dogfooding.py).
 """
 
 from __future__ import annotations
@@ -12,6 +13,8 @@ from __future__ import annotations
 import argparse
 import csv
 import math
+import subprocess
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -29,6 +32,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--gt-csv", required=True, help="Output GT CSV path.")
     parser.add_argument("--start-frame", type=int, default=0)
     parser.add_argument("--max-frames", type=int, default=-1)
+    parser.add_argument(
+        "--write-imu-csv",
+        action="store_true",
+        help="After export, run kitti_oxts_imu_for_dogfooding.py into output-dir.",
+    )
     return parser.parse_args()
 
 
@@ -171,6 +179,21 @@ def main() -> int:
     n = len(selected_range)
     print(f"[done] wrote {n} PCD frames to {output_dir}")
     print(f"[done] wrote {n} GT poses to {gt_csv_path}")
+
+    if args.write_imu_csv:
+        helper = Path(__file__).resolve().parent / "kitti_oxts_imu_for_dogfooding.py"
+        subprocess.run(
+            [
+                sys.executable,
+                str(helper),
+                "--drive-dir",
+                str(drive_dir.resolve()),
+                "--pcd-dir",
+                str(output_dir.resolve()),
+            ],
+            check=True,
+        )
+
     return 0
 
 

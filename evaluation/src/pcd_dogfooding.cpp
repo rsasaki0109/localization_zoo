@@ -2,6 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_lio.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -10,6 +11,16 @@
 #include "kiss_icp/kiss_icp.h"
 #include "litamin2/litamin2_registration.h"
 #include "ndt/ndt_registration.h"
+#include "small_gicp/small_gicp_registration.h"
+#include "voxel_gicp/voxel_gicp_registration.h"
+#include "aloam/scan_registration.h"
+#include "aloam/laser_odometry.h"
+#include "aloam/laser_mapping.h"
+#include "floam/floam.h"
+#include "dlo/dlo.h"
+#include "dlio/dlio.h"
+#include "lego_loam/lego_loam.h"
+#include "mulls/mulls.h"
 #include "ct_icp/ct_icp_registration.h"
 #include "ct_lio/ct_lio_registration.h"
 #include "xicp/xicp_registration.h"
@@ -133,7 +144,10 @@ std::vector<std::string> splitMethodList(const std::string& csv) {
 
 bool isSupportedMethod(const std::string& method) {
   return method == "litamin2" || method == "gicp" || method == "ndt" ||
-         method == "kiss_icp" || method == "ct_lio" || method == "ct_icp";
+         method == "kiss_icp" || method == "small_gicp" ||
+         method == "voxel_gicp" || method == "aloam" || method == "floam" ||
+         method == "dlo" || method == "dlio" || method == "lego_loam" ||
+         method == "mulls" || method == "ct_lio" || method == "ct_icp";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -238,6 +252,16 @@ std::vector<ImuSampleCsv> loadImuCsv(const std::string& csv_path) {
 std::vector<Eigen::Vector3d> loadPCD(const std::string& path, double leaf = 0.5) {
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
   if (pcl::io::loadPCDFile<pcl::PointXYZ>(path, *cloud) == -1) return {};
+
+  if (!(leaf > 1e-9)) {
+    std::vector<Eigen::Vector3d> points;
+    points.reserve(cloud->size());
+    for (auto& p : cloud->points) {
+      double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+      if (r > 1.0 && r < 80.0) points.emplace_back(p.x, p.y, p.z);
+    }
+    return points;
+  }
 
   // ダウンサンプリング
   pcl::VoxelGrid<pcl::PointXYZ> vg;
@@ -352,6 +376,22 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5) {
   scan.has_per_point_time = !scan.relative_times.empty();
   normalizeRelativeTimes(scan.relative_times);
   return scan;
+}
+
+pcl::PointCloud<pcl::PointXYZI>::Ptr toPclXYZICloud(
+    const std::vector<Eigen::Vector3d>& points) {
+  auto cloud = pcl::PointCloud<pcl::PointXYZI>::Ptr(
+      new pcl::PointCloud<pcl::PointXYZI>);
+  cloud->reserve(points.size());
+  for (const auto& p : points) {
+    pcl::PointXYZI pt;
+    pt.x = static_cast<float>(p.x());
+    pt.y = static_cast<float>(p.y());
+    pt.z = static_cast<float>(p.z());
+    pt.intensity = 0.0f;
+    cloud->push_back(pt);
+  }
+  return cloud;
 }
 
 std::vector<std::string> listPCDDirs(const std::string& dir) {
@@ -626,6 +666,165 @@ struct GICPDogfoodingOptions {
   double max_seed_rotation_delta_rad = 0.25;
 };
 
+struct SmallGICPDogfoodingOptions {
+  double source_voxel_size = 1.0;
+  size_t max_source_points = 2500;
+  double voxel_resolution = 1.0;
+  int k_neighbors = 12;
+  double max_correspondence_distance = 4.0;
+  int max_correspondences = 256;
+  int max_iterations = 20;
+  double covariance_regularization = 1e-3;
+  double fitness_epsilon = 1e-6;
+  double rotation_epsilon = 1e-4;
+  double translation_epsilon = 1e-4;
+  size_t map_max_points = 40000;
+  size_t refresh_interval = 4;
+  double map_radius = 45.0;
+  double max_seed_translation_delta = 2.0;
+  double max_seed_rotation_delta_rad = 0.25;
+};
+
+struct VoxelGICPDogfoodingOptions {
+  double source_voxel_size = 1.0;
+  size_t max_source_points = 2500;
+  double voxel_resolution = 1.0;
+  int min_points_per_voxel = 1;
+  double max_correspondence_distance = 4.0;
+  int max_iterations = 20;
+  double covariance_regularization = 1e-3;
+  double fitness_epsilon = 1e-6;
+  double rotation_epsilon = 1e-4;
+  double translation_epsilon = 1e-4;
+  size_t map_max_points = 40000;
+  size_t refresh_interval = 4;
+  double map_radius = 45.0;
+  double max_seed_translation_delta = 2.0;
+  double max_seed_rotation_delta_rad = 0.25;
+};
+
+struct ALOAMDogfoodingOptions {
+  int n_scans = 64;
+  float scan_period = 0.1f;
+  float minimum_range = 1.0f;
+  float curvature_threshold = 0.1f;
+  int max_corner_sharp = 2;
+  int max_corner_less_sharp = 20;
+  int max_surf_flat = 4;
+  float less_flat_leaf_size = 0.2f;
+
+  double odom_distance_sq_threshold = 25.0;
+  double odom_nearby_scan = 2.5;
+  int odom_outer_iters = 2;
+  int odom_ceres_iters = 4;
+  double odom_huber_loss_s = 0.1;
+
+  double map_line_resolution = 0.4;
+  double map_plane_resolution = 0.8;
+  int map_outer_iters = 2;
+  int map_ceres_iters = 4;
+  double map_huber_loss_s = 0.1;
+  int map_knn = 5;
+  double map_knn_max_dist_sq = 1.0;
+  double map_edge_eigenvalue_ratio = 3.0;
+  double map_plane_threshold = 0.2;
+};
+
+struct FLOAMDogfoodingOptions {
+  int n_scans = 64;
+  float scan_period = 0.1f;
+  float minimum_range = 1.0f;
+
+  size_t input_point_stride = 2;
+  int mapping_update_interval = 2;
+  bool enable_mapping = true;
+
+  float curvature_threshold = 0.08f;
+  int max_corner_sharp = 1;
+  int max_corner_less_sharp = 10;
+  int max_surf_flat = 2;
+  float less_flat_leaf_size = 0.3f;
+
+  double odom_distance_sq_threshold = 16.0;
+  int odom_outer_iters = 1;
+  int odom_ceres_iters = 3;
+
+  double map_line_resolution = 0.6;
+  double map_plane_resolution = 1.0;
+  int map_outer_iters = 1;
+  int map_ceres_iters = 3;
+  double map_knn_max_dist_sq = 4.0;
+};
+
+struct LeGOLOAMDogfoodingOptions {
+  int n_scans = 64;
+  int ground_scan_limit = 6;
+  int num_subregions = 6;
+  int neighbor_window = 5;
+  float minimum_range = 1.0f;
+  float maximum_range = 100.0f;
+  float sensor_height = 1.8f;
+  float ground_height_tolerance = 0.4f;
+  float sensor_mount_angle_deg = 0.0f;
+  float ground_angle_threshold_deg = 10.0f;
+  float scan_period = 0.1f;
+  float curvature_threshold = 0.1f;
+  int max_corner_sharp = 2;
+  int max_corner_less_sharp = 20;
+  int max_surf_flat = 4;
+  float less_flat_leaf_size = 0.2f;
+
+  double odom_distance_sq_threshold = 25.0;
+  double odom_nearby_scan = 2.5;
+  int odom_outer_iters = 2;
+  int odom_ceres_iters = 4;
+  double odom_huber_loss_s = 0.1;
+
+  double map_line_resolution = 0.4;
+  double map_plane_resolution = 0.8;
+  int map_outer_iters = 2;
+  int map_ceres_iters = 4;
+  double map_huber_loss_s = 0.1;
+  int map_knn = 5;
+  double map_knn_max_dist_sq = 1.0;
+  double map_edge_eigenvalue_ratio = 3.0;
+  double map_plane_threshold = 0.2;
+};
+
+struct MULLSDogfoodingOptions {
+  int n_scans = 64;
+  float scan_period = 0.1f;
+  float minimum_range = 1.0f;
+  float curvature_threshold = 0.1f;
+  int max_corner_sharp = 2;
+  int max_corner_less_sharp = 20;
+  int max_surf_flat = 4;
+  float less_flat_leaf_size = 0.2f;
+
+  double odom_distance_sq_threshold = 25.0;
+  double odom_nearby_scan = 2.5;
+  int odom_outer_iters = 2;
+  int odom_ceres_iters = 4;
+  double odom_huber_loss_s = 0.1;
+
+  double line_resolution = 0.4;
+  double plane_resolution = 0.8;
+  double point_resolution = 1.0;
+  int mulls_map_iters = 2;
+  int mulls_ceres_iters = 4;
+  double mulls_huber_loss_s = 0.1;
+  int mulls_knn = 5;
+  double mulls_knn_max_dist_sq = 1.0;
+  double mulls_edge_eigenvalue_ratio = 3.0;
+  double mulls_plane_threshold = 0.2;
+  double mulls_point_neighbor_max_dist_sq = 4.0;
+  double mulls_line_weight = 1.0;
+  double mulls_plane_weight = 1.0;
+  double mulls_point_weight = 0.3;
+  int mulls_full_downsample_rate = 5;
+  int mulls_max_frames_in_map = 30;
+};
+
 struct NDTDogfoodingOptions {
   double source_voxel_size = 0.75;
   size_t max_source_points = 2000;
@@ -661,6 +860,48 @@ struct CTICPDogfoodingOptions {
   double planarity_threshold = 0.08;
   double keypoint_voxel_size = 1.25;
   int max_frames_in_map = 8;
+};
+
+struct DLODofeedingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+  double registration_voxel_size = 0.5;
+  double map_voxel_size = 0.8;
+  double keyframe_translation_threshold = 0.6;
+  double keyframe_rotation_threshold_rad = 8.0 * 3.14159265358979323846 / 180.0;
+  int max_keyframes_in_map = 30;
+  int gicp_k_neighbors = 15;
+  double gicp_max_correspondence_distance = 4.0;
+  int gicp_max_iterations = 25;
+  double gicp_rotation_epsilon = 1e-4;
+  double gicp_translation_epsilon = 1e-4;
+  double gicp_covariance_regularization = 1e-3;
+  double gicp_fitness_epsilon = 1e-6;
+};
+
+struct DLIODogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+  double registration_voxel_size = 0.5;
+  double map_voxel_size = 0.8;
+  double keyframe_translation_threshold = 0.6;
+  double keyframe_rotation_threshold_rad = 8.0 * 3.14159265358979323846 / 180.0;
+  int max_keyframes_in_map = 30;
+  int gicp_k_neighbors = 15;
+  double gicp_max_correspondence_distance = 4.0;
+  int gicp_max_iterations = 25;
+  double gicp_rotation_epsilon = 1e-4;
+  double gicp_translation_epsilon = 1e-4;
+  double gicp_covariance_regularization = 1e-3;
+  double gicp_fitness_epsilon = 1e-6;
+  double imu_rotation_fusion_weight = 0.15;
+  double imu_translation_fusion_weight = 0.2;
+  double imu_velocity_fusion_weight = 0.2;
+  double lidar_confidence_correspondence_scale = 100.0;
 };
 
 /// ワールド座標に変換
@@ -888,6 +1129,463 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
+                          const std::vector<Eigen::Matrix4d>& gt,
+                          const SmallGICPDogfoodingOptions& options,
+                          bool no_gt_seed = false) {
+  using namespace localization_zoo::small_gicp;
+  MethodResult res;
+  res.name = "Small-GICP";
+
+  SmallGICPParams params;
+  params.voxel_resolution = options.voxel_resolution;
+  params.k_neighbors = options.k_neighbors;
+  params.max_correspondence_distance = options.max_correspondence_distance;
+  params.max_correspondences = options.max_correspondences;
+  params.max_iterations = options.max_iterations;
+  params.rotation_epsilon = options.rotation_epsilon;
+  params.translation_epsilon = options.translation_epsilon;
+  params.covariance_regularization = options.covariance_regularization;
+  params.fitness_epsilon = options.fitness_epsilon;
+  SmallGICPRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  Eigen::Matrix4d T_est = gt[0];
+  res.poses.push_back(T_est);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    if (i == 0) {
+      addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                     options.map_radius);
+      reg.setTarget(map_points);
+      continue;
+    }
+
+    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const auto result = reg.align(pts_local, T_init_guess);
+    if ((result.converged || result.num_correspondences >= 96) &&
+        isReasonableRefinement(result.transformation, T_init_guess,
+                               options.max_seed_translation_delta,
+                               options.max_seed_rotation_delta_rad)) {
+      T_est = result.transformation;
+    } else {
+      T_est = T_init_guess;
+    }
+    res.poses.push_back(T_est);
+
+    addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                   options.map_radius);
+    if (shouldRefreshTargetMap(i, options.refresh_interval)) {
+      reg.setTarget(map_points);
+    }
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [Small-GICP] " << i << "/" << pcd_dirs.size()
+                << " corr=" << result.num_correspondences;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = no_gt_seed
+      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+        "in this dogfooding tool.";
+  return res;
+}
+
+MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
+                          const std::vector<Eigen::Matrix4d>& gt,
+                          const VoxelGICPDogfoodingOptions& options,
+                          bool no_gt_seed = false) {
+  using namespace localization_zoo::voxel_gicp;
+  MethodResult res;
+  res.name = "Voxel-GICP";
+
+  VoxelGICPParams params;
+  params.voxel_resolution = options.voxel_resolution;
+  params.min_points_per_voxel = options.min_points_per_voxel;
+  params.max_correspondence_distance = options.max_correspondence_distance;
+  params.max_iterations = options.max_iterations;
+  params.rotation_epsilon = options.rotation_epsilon;
+  params.translation_epsilon = options.translation_epsilon;
+  params.covariance_regularization = options.covariance_regularization;
+  params.fitness_epsilon = options.fitness_epsilon;
+  VoxelGICPRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  Eigen::Matrix4d T_est = gt[0];
+  res.poses.push_back(T_est);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    if (i == 0) {
+      addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                     options.map_radius);
+      reg.setTarget(map_points);
+      continue;
+    }
+
+    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const auto result = reg.align(pts_local, T_init_guess);
+    if ((result.converged || result.num_correspondences >= 96) &&
+        isReasonableRefinement(result.transformation, T_init_guess,
+                               options.max_seed_translation_delta,
+                               options.max_seed_rotation_delta_rad)) {
+      T_est = result.transformation;
+    } else {
+      T_est = T_init_guess;
+    }
+    res.poses.push_back(T_est);
+
+    addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
+                   options.map_radius);
+    if (shouldRefreshTargetMap(i, options.refresh_interval)) {
+      reg.setTarget(map_points);
+    }
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [Voxel-GICP] " << i << "/" << pcd_dirs.size()
+                << " corr=" << result.num_correspondences;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = no_gt_seed
+      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+        "in this dogfooding tool.";
+  return res;
+}
+
+MethodResult runALOAM(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const ALOAMDogfoodingOptions& options) {
+  using namespace localization_zoo::aloam;
+  MethodResult res;
+  res.name = "A-LOAM";
+
+  ScanRegistrationParams scan_params;
+  scan_params.n_scans = options.n_scans;
+  scan_params.minimum_range = options.minimum_range;
+  scan_params.scan_period = options.scan_period;
+  scan_params.curvature_threshold = options.curvature_threshold;
+  scan_params.max_corner_sharp = options.max_corner_sharp;
+  scan_params.max_corner_less_sharp = options.max_corner_less_sharp;
+  scan_params.max_surf_flat = options.max_surf_flat;
+  scan_params.less_flat_leaf_size = options.less_flat_leaf_size;
+  ScanRegistration scan_reg(scan_params);
+
+  LaserOdometryParams odom_params;
+  odom_params.distance_sq_threshold = options.odom_distance_sq_threshold;
+  odom_params.nearby_scan = options.odom_nearby_scan;
+  odom_params.num_optimization_iters = options.odom_outer_iters;
+  odom_params.ceres_max_iterations = options.odom_ceres_iters;
+  odom_params.huber_loss_s = options.odom_huber_loss_s;
+  odom_params.enable_distortion = false;
+  LaserOdometry laser_odom(odom_params);
+
+  LaserMappingParams map_params;
+  map_params.line_resolution = options.map_line_resolution;
+  map_params.plane_resolution = options.map_plane_resolution;
+  map_params.num_optimization_iters = options.map_outer_iters;
+  map_params.ceres_max_iterations = options.map_ceres_iters;
+  map_params.huber_loss_s = options.map_huber_loss_s;
+  map_params.knn = options.map_knn;
+  map_params.knn_max_dist_sq = options.map_knn_max_dist_sq;
+  map_params.edge_eigenvalue_ratio = options.map_edge_eigenvalue_ratio;
+  map_params.plane_threshold = options.map_plane_threshold;
+  LaserMapping laser_map(map_params);
+
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
+  res.poses.push_back(world_anchor);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0 /* no downsample */);
+    if (pts.empty()) continue;
+
+    auto cloud = toPclXYZICloud(pts);
+    FeatureCloud features = scan_reg.extract(cloud);
+
+    auto odom = laser_odom.process(features);
+    if (!odom.valid) {
+      if (i % 10 == 0) std::cerr << "\r  [A-LOAM] " << i << "/" << pcd_dirs.size();
+      continue;
+    }
+
+    auto mapping = laser_map.process(features.corner_less_sharp,
+                                     features.surf_less_flat,
+                                     features.full_cloud,
+                                     odom.q_w_curr,
+                                     odom.t_w_curr);
+    if (mapping.valid) {
+      T_rel.setIdentity();
+      T_rel.block<3, 3>(0, 0) = mapping.q_w_curr.toRotationMatrix();
+      T_rel.block<3, 1>(0, 3) = mapping.t_w_curr;
+    } else {
+      // Fallback: use odometry pose when mapping didn't update.
+      T_rel.setIdentity();
+      T_rel.block<3, 3>(0, 0) = odom.q_w_curr.toRotationMatrix();
+      T_rel.block<3, 1>(0, 3) = odom.t_w_curr;
+    }
+    res.poses.push_back(anchorRelativePose(world_anchor, T_rel));
+
+    if (i % 10 == 0) std::cerr << "\r  [A-LOAM] " << i << "/" << pcd_dirs.size();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.";
+  return res;
+}
+
+MethodResult runFLOAM(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const FLOAMDogfoodingOptions& options) {
+  using namespace localization_zoo::floam;
+  MethodResult res;
+  res.name = "F-LOAM";
+
+  FLoamParams params;
+  params.scan_registration.n_scans = options.n_scans;
+  params.scan_registration.scan_period = options.scan_period;
+  params.scan_registration.minimum_range = options.minimum_range;
+  params.scan_registration.curvature_threshold = options.curvature_threshold;
+  params.scan_registration.max_corner_sharp = options.max_corner_sharp;
+  params.scan_registration.max_corner_less_sharp = options.max_corner_less_sharp;
+  params.scan_registration.max_surf_flat = options.max_surf_flat;
+  params.scan_registration.less_flat_leaf_size = options.less_flat_leaf_size;
+
+  params.odometry.distance_sq_threshold = options.odom_distance_sq_threshold;
+  params.odometry.num_optimization_iters = options.odom_outer_iters;
+  params.odometry.ceres_max_iterations = options.odom_ceres_iters;
+  params.odometry.enable_distortion = false;
+
+  params.mapping.line_resolution = options.map_line_resolution;
+  params.mapping.plane_resolution = options.map_plane_resolution;
+  params.mapping.num_optimization_iters = options.map_outer_iters;
+  params.mapping.ceres_max_iterations = options.map_ceres_iters;
+  params.mapping.knn_max_dist_sq = options.map_knn_max_dist_sq;
+
+  params.input_point_stride = options.input_point_stride;
+  params.mapping_update_interval = options.mapping_update_interval;
+  params.enable_mapping = options.enable_mapping;
+
+  FLoam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  res.poses.push_back(world_anchor);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0 /* no downsample */);
+    if (pts.empty()) continue;
+    auto cloud = toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    if (!result.valid) {
+      if (i % 10 == 0) std::cerr << "\r  [F-LOAM] " << i << "/" << pcd_dirs.size();
+      continue;
+    }
+
+    Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
+    T_rel.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    T_rel.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, T_rel));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [F-LOAM] " << i << "/" << pcd_dirs.size()
+                << " map_updates=" << result.mapping_updates
+                << " stride=" << result.num_input_points << "->"
+                << result.num_processed_points;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).";
+  return res;
+}
+
+MethodResult runLeGOLOAM(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const LeGOLOAMDogfoodingOptions& options) {
+  using namespace localization_zoo::lego_loam;
+  MethodResult res;
+  res.name = "LeGO-LOAM";
+
+  LeGOLOAMParams params;
+  params.scan_registration.n_scans = options.n_scans;
+  params.scan_registration.ground_scan_limit = options.ground_scan_limit;
+  params.scan_registration.num_subregions = options.num_subregions;
+  params.scan_registration.neighbor_window = options.neighbor_window;
+  params.scan_registration.minimum_range = options.minimum_range;
+  params.scan_registration.maximum_range = options.maximum_range;
+  params.scan_registration.sensor_height = options.sensor_height;
+  params.scan_registration.ground_height_tolerance =
+      options.ground_height_tolerance;
+  params.scan_registration.sensor_mount_angle_deg =
+      options.sensor_mount_angle_deg;
+  params.scan_registration.ground_angle_threshold_deg =
+      options.ground_angle_threshold_deg;
+  params.scan_registration.scan_period = options.scan_period;
+  params.scan_registration.curvature_threshold = options.curvature_threshold;
+  params.scan_registration.max_corner_sharp = options.max_corner_sharp;
+  params.scan_registration.max_corner_less_sharp =
+      options.max_corner_less_sharp;
+  params.scan_registration.max_surf_flat = options.max_surf_flat;
+  params.scan_registration.less_flat_leaf_size = options.less_flat_leaf_size;
+
+  params.odometry.distance_sq_threshold = options.odom_distance_sq_threshold;
+  params.odometry.nearby_scan = options.odom_nearby_scan;
+  params.odometry.num_optimization_iters = options.odom_outer_iters;
+  params.odometry.ceres_max_iterations = options.odom_ceres_iters;
+  params.odometry.huber_loss_s = options.odom_huber_loss_s;
+  params.odometry.enable_distortion = false;
+
+  params.mapping.line_resolution = options.map_line_resolution;
+  params.mapping.plane_resolution = options.map_plane_resolution;
+  params.mapping.num_optimization_iters = options.map_outer_iters;
+  params.mapping.ceres_max_iterations = options.map_ceres_iters;
+  params.mapping.huber_loss_s = options.map_huber_loss_s;
+  params.mapping.knn = options.map_knn;
+  params.mapping.knn_max_dist_sq = options.map_knn_max_dist_sq;
+  params.mapping.edge_eigenvalue_ratio = options.map_edge_eigenvalue_ratio;
+  params.mapping.plane_threshold = options.map_plane_threshold;
+
+  LeGOLOAM pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  res.poses.push_back(world_anchor);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0 /* no downsample */);
+    if (pts.empty()) continue;
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud =
+        toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    if (!result.valid) {
+      if (i % 10 == 0) {
+        std::cerr << "\r  [LeGO-LOAM] " << i << "/" << pcd_dirs.size();
+      }
+      continue;
+    }
+
+    Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
+    T_rel.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    T_rel.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, T_rel));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [LeGO-LOAM] " << i << "/" << pcd_dirs.size()
+                << " ground=" << result.num_ground_points
+                << " corner=" << result.num_corner_features
+                << " surf=" << result.num_surface_features;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.";
+  return res;
+}
+
+MethodResult runMULLS(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const MULLSDogfoodingOptions& options) {
+  using namespace localization_zoo::mulls;
+  MethodResult res;
+  res.name = "MULLS";
+
+  MULLSParams params;
+  params.scan_registration.n_scans = options.n_scans;
+  params.scan_registration.minimum_range = options.minimum_range;
+  params.scan_registration.scan_period = options.scan_period;
+  params.scan_registration.curvature_threshold = options.curvature_threshold;
+  params.scan_registration.max_corner_sharp = options.max_corner_sharp;
+  params.scan_registration.max_corner_less_sharp = options.max_corner_less_sharp;
+  params.scan_registration.max_surf_flat = options.max_surf_flat;
+  params.scan_registration.less_flat_leaf_size = options.less_flat_leaf_size;
+
+  params.odometry.distance_sq_threshold = options.odom_distance_sq_threshold;
+  params.odometry.nearby_scan = options.odom_nearby_scan;
+  params.odometry.num_optimization_iters = options.odom_outer_iters;
+  params.odometry.ceres_max_iterations = options.odom_ceres_iters;
+  params.odometry.huber_loss_s = options.odom_huber_loss_s;
+  params.odometry.enable_distortion = false;
+
+  params.mapping.line_resolution = options.line_resolution;
+  params.mapping.plane_resolution = options.plane_resolution;
+  params.mapping.point_resolution = options.point_resolution;
+  params.mapping.num_optimization_iters = options.mulls_map_iters;
+  params.mapping.ceres_max_iterations = options.mulls_ceres_iters;
+  params.mapping.huber_loss_s = options.mulls_huber_loss_s;
+  params.mapping.knn = options.mulls_knn;
+  params.mapping.knn_max_dist_sq = options.mulls_knn_max_dist_sq;
+  params.mapping.edge_eigenvalue_ratio = options.mulls_edge_eigenvalue_ratio;
+  params.mapping.plane_threshold = options.mulls_plane_threshold;
+  params.mapping.point_neighbor_max_dist_sq =
+      options.mulls_point_neighbor_max_dist_sq;
+  params.mapping.line_weight = options.mulls_line_weight;
+  params.mapping.plane_weight = options.mulls_plane_weight;
+  params.mapping.point_weight = options.mulls_point_weight;
+  params.mapping.full_downsample_rate = options.mulls_full_downsample_rate;
+  params.mapping.max_frames_in_map = options.mulls_max_frames_in_map;
+
+  MULLS pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  res.poses.push_back(world_anchor);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0 /* no downsample */);
+    if (pts.empty()) continue;
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud =
+        toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    if (!result.valid) {
+      if (i % 10 == 0) {
+        std::cerr << "\r  [MULLS] " << i << "/" << pcd_dirs.size();
+      }
+      continue;
+    }
+
+    Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
+    T_rel.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    T_rel.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, T_rel));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [MULLS] " << i << "/" << pcd_dirs.size()
+                << " L=" << result.num_line_constraints
+                << " P=" << result.num_plane_constraints
+                << " Pt=" << result.num_point_constraints
+                << " map_frames=" << result.num_frames_in_map;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).";
+  return res;
+}
+
 MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
                     const std::vector<Eigen::Matrix4d>& gt,
                     const NDTDogfoodingOptions& options,
@@ -992,6 +1690,130 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  return res;
+}
+
+MethodResult runDLO(const std::vector<std::string>& pcd_dirs,
+                    const std::vector<Eigen::Matrix4d>& gt,
+                    const DLODofeedingOptions& options) {
+  using namespace localization_zoo::dlo;
+  MethodResult res;
+  res.name = "DLO";
+
+  DLOParams params;
+  params.min_range = options.min_range;
+  params.max_range = options.max_range;
+  params.registration_voxel_size = options.registration_voxel_size;
+  params.map_voxel_size = options.map_voxel_size;
+  params.keyframe_translation_threshold = options.keyframe_translation_threshold;
+  params.keyframe_rotation_threshold_rad = options.keyframe_rotation_threshold_rad;
+  params.max_keyframes_in_map = options.max_keyframes_in_map;
+  params.gicp.k_neighbors = options.gicp_k_neighbors;
+  params.gicp.max_correspondence_distance = options.gicp_max_correspondence_distance;
+  params.gicp.max_iterations = options.gicp_max_iterations;
+  params.gicp.rotation_epsilon = options.gicp_rotation_epsilon;
+  params.gicp.translation_epsilon = options.gicp_translation_epsilon;
+  params.gicp.covariance_regularization = options.gicp_covariance_regularization;
+  params.gicp.fitness_epsilon = options.gicp_fitness_epsilon;
+
+  DLO pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud =
+        toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [DLO] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " map_pts=" << result.map_points;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runDLIO(const std::vector<std::string>& pcd_dirs,
+                     const std::vector<Eigen::Matrix4d>& gt,
+                     const std::vector<double>& frame_timestamps,
+                     const std::vector<ImuSampleCsv>& imu_samples,
+                     const DLIODogfoodingOptions& options) {
+  using namespace localization_zoo::dlio;
+  MethodResult res;
+  res.name = "DLIO";
+
+  DLIOParams params;
+  params.min_range = options.min_range;
+  params.max_range = options.max_range;
+  params.registration_voxel_size = options.registration_voxel_size;
+  params.map_voxel_size = options.map_voxel_size;
+  params.keyframe_translation_threshold = options.keyframe_translation_threshold;
+  params.keyframe_rotation_threshold_rad = options.keyframe_rotation_threshold_rad;
+  params.max_keyframes_in_map = options.max_keyframes_in_map;
+  params.gicp.k_neighbors = options.gicp_k_neighbors;
+  params.gicp.max_correspondence_distance = options.gicp_max_correspondence_distance;
+  params.gicp.max_iterations = options.gicp_max_iterations;
+  params.gicp.rotation_epsilon = options.gicp_rotation_epsilon;
+  params.gicp.translation_epsilon = options.gicp_translation_epsilon;
+  params.gicp.covariance_regularization = options.gicp_covariance_regularization;
+  params.gicp.fitness_epsilon = options.gicp_fitness_epsilon;
+  params.imu_rotation_fusion_weight = options.imu_rotation_fusion_weight;
+  params.imu_translation_fusion_weight = options.imu_translation_fusion_weight;
+  params.imu_velocity_fusion_weight = options.imu_velocity_fusion_weight;
+  params.lidar_confidence_correspondence_scale =
+      options.lidar_confidence_correspondence_scale;
+
+  DLIO pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud =
+        toPclXYZICloud(pts);
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() && frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.process(cloud, imu_batch);
+    res.poses.push_back(anchorRelativePose(world_anchor, result.state.pose));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [DLIO] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " imu=" << (result.imu_used ? "y" : "n")
+                << " corr=" << result.num_correspondences;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration "
+      "prior between scans when imu.csv and per-frame timestamps align; otherwise "
+      "LiDAR motion prior only (no GT seed).";
   return res;
 }
 
@@ -1239,7 +2061,8 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp]"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,"
+              << "lego_loam,mulls,ct_lio,ct_icp]"
               << " [--summary-json path]"
               << " [--litamin2-paper-profile]"
               << " [--litamin2-icp-only]"
@@ -1251,6 +2074,37 @@ int main(int argc, char** argv) {
               << " [--gicp-dense-profile]"
               << " [--gicp-k-neighbors N]"
               << " [--gicp-max-iterations N]"
+              << " [--aloam-kitti-profile]"
+              << " [--aloam-fast-profile]"
+              << " [--aloam-dense-profile]"
+              << " [--floam-kitti-profile]"
+              << " [--floam-fast-profile]"
+              << " [--floam-dense-profile]"
+              << " [--lego-loam-kitti-profile]"
+              << " [--lego-loam-fast-profile]"
+              << " [--lego-loam-dense-profile]"
+              << " [--mulls-kitti-profile]"
+              << " [--mulls-fast-profile]"
+              << " [--mulls-dense-profile]"
+              << " [--dlo-kitti-profile]"
+              << " [--dlo-fast-profile]"
+              << " [--dlo-dense-profile]"
+              << " [--dlio-kitti-profile]"
+              << " [--dlio-fast-profile]"
+              << " [--dlio-dense-profile]"
+              << " [--small-gicp-fast-profile]"
+              << " [--small-gicp-dense-profile]"
+              << " [--voxel-gicp-fast-profile]"
+              << " [--voxel-gicp-dense-profile]"
+              << " [--voxel-gicp-voxel-resolution X]"
+              << " [--voxel-gicp-min-points-per-voxel N]"
+              << " [--voxel-gicp-max-correspondence-distance X]"
+              << " [--voxel-gicp-max-iterations N]"
+              << " [--small-gicp-voxel-resolution X]"
+              << " [--small-gicp-k-neighbors N]"
+              << " [--small-gicp-max-correspondence-distance X]"
+              << " [--small-gicp-max-correspondences N]"
+              << " [--small-gicp-max-iterations N]"
               << " [--ndt-fast-profile]"
               << " [--ndt-dense-profile]"
               << " [--ndt-resolution X]"
@@ -1291,11 +2145,20 @@ int main(int argc, char** argv) {
   bool ct_lio_fixed_lag_smoother = false;
   LiTAMIN2DogfoodingOptions litamin2_options;
   GICPDogfoodingOptions gicp_options;
+  SmallGICPDogfoodingOptions small_gicp_options;
+  VoxelGICPDogfoodingOptions voxel_gicp_options;
+  ALOAMDogfoodingOptions aloam_options;
+  FLOAMDogfoodingOptions floam_options;
+  LeGOLOAMDogfoodingOptions lego_loam_options;
+  MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
   KISSICPDogfoodingOptions kiss_icp_options;
   CTICPDogfoodingOptions ct_icp_options;
+  DLODofeedingOptions dlo_options;
+  DLIODogfoodingOptions dlio_options;
   std::vector<std::string> selected_methods = {
-      "litamin2", "gicp", "ndt", "kiss_icp", "ct_lio"};
+      "litamin2", "gicp", "small_gicp", "aloam", "floam", "ndt", "kiss_icp",
+      "ct_lio"};
   for (int i = 3; i < argc; i++) {
     std::string arg = argv[i];
     if (arg == "--force-ct-lio") {
@@ -1528,6 +2391,545 @@ int main(int argc, char** argv) {
     if (arg.rfind("--gicp-map-radius=", 0) == 0) {
       gicp_options.map_radius =
           std::stod(arg.substr(std::string("--gicp-map-radius=").size()));
+      continue;
+    }
+    if (arg == "--aloam-kitti-profile") {
+      aloam_options.n_scans = 64;
+      aloam_options.scan_period = 0.1f;
+      aloam_options.minimum_range = 1.0f;
+      aloam_options.curvature_threshold = 0.1f;
+      aloam_options.less_flat_leaf_size = 0.2f;
+      aloam_options.odom_outer_iters = 2;
+      aloam_options.odom_ceres_iters = 4;
+      aloam_options.map_outer_iters = 2;
+      aloam_options.map_ceres_iters = 4;
+      aloam_options.map_line_resolution = 0.4;
+      aloam_options.map_plane_resolution = 0.8;
+      aloam_options.map_knn = 5;
+      aloam_options.map_knn_max_dist_sq = 1.0;
+      aloam_options.map_edge_eigenvalue_ratio = 3.0;
+      aloam_options.map_plane_threshold = 0.2;
+      continue;
+    }
+    if (arg == "--aloam-fast-profile") {
+      aloam_options.curvature_threshold = 0.15f;
+      aloam_options.less_flat_leaf_size = 0.35f;
+      aloam_options.odom_outer_iters = 1;
+      aloam_options.odom_ceres_iters = 3;
+      aloam_options.map_outer_iters = 1;
+      aloam_options.map_ceres_iters = 3;
+      aloam_options.map_line_resolution = 0.6;
+      aloam_options.map_plane_resolution = 1.2;
+      aloam_options.map_knn = 5;
+      aloam_options.map_knn_max_dist_sq = 1.5;
+      aloam_options.map_plane_threshold = 0.25;
+      continue;
+    }
+    if (arg == "--aloam-dense-profile") {
+      aloam_options.curvature_threshold = 0.08f;
+      aloam_options.less_flat_leaf_size = 0.15f;
+      aloam_options.odom_outer_iters = 2;
+      aloam_options.odom_ceres_iters = 6;
+      aloam_options.map_outer_iters = 2;
+      aloam_options.map_ceres_iters = 6;
+      aloam_options.map_line_resolution = 0.3;
+      aloam_options.map_plane_resolution = 0.6;
+      aloam_options.map_knn = 7;
+      aloam_options.map_knn_max_dist_sq = 1.0;
+      aloam_options.map_plane_threshold = 0.18;
+      continue;
+    }
+    if (arg == "--floam-kitti-profile") {
+      floam_options.n_scans = 64;
+      floam_options.scan_period = 0.1f;
+      floam_options.minimum_range = 1.0f;
+      floam_options.input_point_stride = 2;
+      floam_options.mapping_update_interval = 2;
+      floam_options.enable_mapping = true;
+      continue;
+    }
+    if (arg == "--floam-fast-profile") {
+      floam_options.input_point_stride = 4;
+      floam_options.mapping_update_interval = 3;
+      floam_options.curvature_threshold = 0.12f;
+      floam_options.less_flat_leaf_size = 0.4f;
+      floam_options.odom_outer_iters = 1;
+      floam_options.odom_ceres_iters = 2;
+      floam_options.map_outer_iters = 1;
+      floam_options.map_ceres_iters = 2;
+      floam_options.map_line_resolution = 0.8;
+      floam_options.map_plane_resolution = 1.4;
+      floam_options.map_knn_max_dist_sq = 5.0;
+      continue;
+    }
+    if (arg == "--floam-dense-profile") {
+      floam_options.input_point_stride = 1;
+      floam_options.mapping_update_interval = 1;
+      floam_options.curvature_threshold = 0.06f;
+      floam_options.less_flat_leaf_size = 0.2f;
+      floam_options.odom_outer_iters = 2;
+      floam_options.odom_ceres_iters = 4;
+      floam_options.map_outer_iters = 2;
+      floam_options.map_ceres_iters = 4;
+      floam_options.map_line_resolution = 0.5;
+      floam_options.map_plane_resolution = 0.9;
+      floam_options.map_knn_max_dist_sq = 3.0;
+      continue;
+    }
+    if (arg == "--lego-loam-kitti-profile") {
+      lego_loam_options.n_scans = 64;
+      lego_loam_options.scan_period = 0.1f;
+      lego_loam_options.minimum_range = 1.0f;
+      lego_loam_options.maximum_range = 100.0f;
+      lego_loam_options.ground_scan_limit = 6;
+      lego_loam_options.sensor_height = 1.73f;
+      lego_loam_options.ground_height_tolerance = 0.4f;
+      lego_loam_options.curvature_threshold = 0.1f;
+      lego_loam_options.less_flat_leaf_size = 0.2f;
+      lego_loam_options.odom_distance_sq_threshold = 25.0;
+      lego_loam_options.odom_outer_iters = 2;
+      lego_loam_options.odom_ceres_iters = 4;
+      lego_loam_options.map_outer_iters = 2;
+      lego_loam_options.map_ceres_iters = 4;
+      lego_loam_options.map_line_resolution = 0.4;
+      lego_loam_options.map_plane_resolution = 0.8;
+      lego_loam_options.map_knn = 5;
+      lego_loam_options.map_knn_max_dist_sq = 1.0;
+      lego_loam_options.map_edge_eigenvalue_ratio = 3.0;
+      lego_loam_options.map_plane_threshold = 0.2;
+      continue;
+    }
+    if (arg == "--lego-loam-fast-profile") {
+      lego_loam_options.curvature_threshold = 0.15f;
+      lego_loam_options.less_flat_leaf_size = 0.35f;
+      lego_loam_options.odom_outer_iters = 1;
+      lego_loam_options.odom_ceres_iters = 3;
+      lego_loam_options.map_outer_iters = 1;
+      lego_loam_options.map_ceres_iters = 3;
+      lego_loam_options.map_line_resolution = 0.6;
+      lego_loam_options.map_plane_resolution = 1.2;
+      lego_loam_options.map_knn_max_dist_sq = 1.5;
+      lego_loam_options.map_plane_threshold = 0.25;
+      continue;
+    }
+    if (arg == "--lego-loam-dense-profile") {
+      lego_loam_options.curvature_threshold = 0.08f;
+      lego_loam_options.less_flat_leaf_size = 0.15f;
+      lego_loam_options.odom_outer_iters = 2;
+      lego_loam_options.odom_ceres_iters = 6;
+      lego_loam_options.map_outer_iters = 2;
+      lego_loam_options.map_ceres_iters = 6;
+      lego_loam_options.map_line_resolution = 0.3;
+      lego_loam_options.map_plane_resolution = 0.6;
+      lego_loam_options.map_knn = 7;
+      lego_loam_options.map_knn_max_dist_sq = 1.0;
+      lego_loam_options.map_plane_threshold = 0.18;
+      continue;
+    }
+    if (arg == "--mulls-kitti-profile") {
+      mulls_options.n_scans = 64;
+      mulls_options.scan_period = 0.1f;
+      mulls_options.minimum_range = 1.0f;
+      mulls_options.curvature_threshold = 0.1f;
+      mulls_options.less_flat_leaf_size = 0.2f;
+      mulls_options.odom_distance_sq_threshold = 25.0;
+      mulls_options.odom_outer_iters = 2;
+      mulls_options.odom_ceres_iters = 4;
+      mulls_options.line_resolution = 0.4;
+      mulls_options.plane_resolution = 0.8;
+      mulls_options.point_resolution = 1.0;
+      mulls_options.mulls_map_iters = 2;
+      mulls_options.mulls_ceres_iters = 4;
+      mulls_options.mulls_knn = 5;
+      mulls_options.mulls_knn_max_dist_sq = 1.0;
+      mulls_options.mulls_point_neighbor_max_dist_sq = 4.0;
+      mulls_options.mulls_point_weight = 0.3;
+      mulls_options.mulls_full_downsample_rate = 5;
+      mulls_options.mulls_max_frames_in_map = 30;
+      continue;
+    }
+    if (arg == "--mulls-fast-profile") {
+      mulls_options.curvature_threshold = 0.15f;
+      mulls_options.less_flat_leaf_size = 0.35f;
+      mulls_options.odom_outer_iters = 1;
+      mulls_options.odom_ceres_iters = 3;
+      mulls_options.line_resolution = 0.55;
+      mulls_options.plane_resolution = 1.0;
+      mulls_options.point_resolution = 1.2;
+      mulls_options.mulls_map_iters = 1;
+      mulls_options.mulls_ceres_iters = 3;
+      mulls_options.mulls_knn_max_dist_sq = 1.5;
+      mulls_options.mulls_point_neighbor_max_dist_sq = 5.0;
+      mulls_options.mulls_point_weight = 0.2;
+      mulls_options.mulls_full_downsample_rate = 8;
+      mulls_options.mulls_max_frames_in_map = 20;
+      continue;
+    }
+    if (arg == "--mulls-dense-profile") {
+      mulls_options.curvature_threshold = 0.08f;
+      mulls_options.less_flat_leaf_size = 0.15f;
+      mulls_options.odom_outer_iters = 2;
+      mulls_options.odom_ceres_iters = 6;
+      mulls_options.line_resolution = 0.3;
+      mulls_options.plane_resolution = 0.6;
+      mulls_options.point_resolution = 0.85;
+      mulls_options.mulls_map_iters = 2;
+      mulls_options.mulls_ceres_iters = 6;
+      mulls_options.mulls_knn = 7;
+      mulls_options.mulls_knn_max_dist_sq = 1.0;
+      mulls_options.mulls_plane_threshold = 0.18;
+      mulls_options.mulls_max_frames_in_map = 40;
+      continue;
+    }
+    if (arg == "--dlo-kitti-profile") {
+      dlo_options.input_voxel_size = 0.5;
+      dlo_options.max_input_points = 6000;
+      dlo_options.min_range = 1.0;
+      dlo_options.max_range = 100.0;
+      dlo_options.registration_voxel_size = 0.5;
+      dlo_options.map_voxel_size = 0.8;
+      dlo_options.keyframe_translation_threshold = 0.6;
+      dlo_options.keyframe_rotation_threshold_rad =
+          8.0 * 3.14159265358979323846 / 180.0;
+      dlo_options.max_keyframes_in_map = 30;
+      dlo_options.gicp_k_neighbors = 15;
+      dlo_options.gicp_max_correspondence_distance = 4.0;
+      dlo_options.gicp_max_iterations = 25;
+      continue;
+    }
+    if (arg == "--dlo-fast-profile") {
+      dlo_options.input_voxel_size = 0.65;
+      dlo_options.max_input_points = 4000;
+      dlo_options.registration_voxel_size = 0.85;
+      dlo_options.map_voxel_size = 1.1;
+      dlo_options.keyframe_translation_threshold = 0.75;
+      dlo_options.max_keyframes_in_map = 20;
+      dlo_options.gicp_k_neighbors = 12;
+      dlo_options.gicp_max_correspondence_distance = 5.5;
+      dlo_options.gicp_max_iterations = 14;
+      continue;
+    }
+    if (arg == "--dlo-dense-profile") {
+      dlo_options.input_voxel_size = 0.35;
+      dlo_options.max_input_points = 9000;
+      dlo_options.registration_voxel_size = 0.35;
+      dlo_options.map_voxel_size = 0.55;
+      dlo_options.keyframe_translation_threshold = 0.45;
+      dlo_options.max_keyframes_in_map = 40;
+      dlo_options.gicp_k_neighbors = 18;
+      dlo_options.gicp_max_correspondence_distance = 3.5;
+      dlo_options.gicp_max_iterations = 35;
+      continue;
+    }
+    if (arg == "--dlio-kitti-profile") {
+      dlio_options.input_voxel_size = 0.5;
+      dlio_options.max_input_points = 6000;
+      dlio_options.min_range = 1.0;
+      dlio_options.max_range = 100.0;
+      dlio_options.registration_voxel_size = 0.5;
+      dlio_options.map_voxel_size = 0.8;
+      dlio_options.keyframe_translation_threshold = 0.6;
+      dlio_options.keyframe_rotation_threshold_rad =
+          8.0 * 3.14159265358979323846 / 180.0;
+      dlio_options.max_keyframes_in_map = 30;
+      dlio_options.gicp_k_neighbors = 15;
+      dlio_options.gicp_max_correspondence_distance = 4.0;
+      dlio_options.gicp_max_iterations = 25;
+      dlio_options.imu_rotation_fusion_weight = 0.15;
+      dlio_options.imu_translation_fusion_weight = 0.2;
+      dlio_options.imu_velocity_fusion_weight = 0.2;
+      dlio_options.lidar_confidence_correspondence_scale = 100.0;
+      continue;
+    }
+    if (arg == "--dlio-fast-profile") {
+      dlio_options.input_voxel_size = 0.65;
+      dlio_options.max_input_points = 4000;
+      dlio_options.registration_voxel_size = 0.85;
+      dlio_options.map_voxel_size = 1.1;
+      dlio_options.keyframe_translation_threshold = 0.75;
+      dlio_options.max_keyframes_in_map = 20;
+      dlio_options.gicp_k_neighbors = 12;
+      dlio_options.gicp_max_correspondence_distance = 5.5;
+      dlio_options.gicp_max_iterations = 14;
+      dlio_options.imu_rotation_fusion_weight = 0.08;
+      dlio_options.imu_translation_fusion_weight = 0.12;
+      dlio_options.imu_velocity_fusion_weight = 0.12;
+      dlio_options.lidar_confidence_correspondence_scale = 80.0;
+      continue;
+    }
+    if (arg == "--dlio-dense-profile") {
+      dlio_options.input_voxel_size = 0.35;
+      dlio_options.max_input_points = 9000;
+      dlio_options.registration_voxel_size = 0.35;
+      dlio_options.map_voxel_size = 0.55;
+      dlio_options.keyframe_translation_threshold = 0.45;
+      dlio_options.max_keyframes_in_map = 40;
+      dlio_options.gicp_k_neighbors = 18;
+      dlio_options.gicp_max_correspondence_distance = 3.5;
+      dlio_options.gicp_max_iterations = 35;
+      dlio_options.imu_rotation_fusion_weight = 0.2;
+      dlio_options.imu_translation_fusion_weight = 0.25;
+      dlio_options.imu_velocity_fusion_weight = 0.25;
+      dlio_options.lidar_confidence_correspondence_scale = 120.0;
+      continue;
+    }
+    if (arg == "--small-gicp-fast-profile") {
+      small_gicp_options.source_voxel_size = 1.5;
+      small_gicp_options.max_source_points = 1600;
+      small_gicp_options.voxel_resolution = 1.5;
+      small_gicp_options.k_neighbors = 10;
+      small_gicp_options.max_correspondence_distance = 3.0;
+      small_gicp_options.max_correspondences = 160;
+      small_gicp_options.max_iterations = 10;
+      small_gicp_options.map_max_points = 25000;
+      small_gicp_options.refresh_interval = 6;
+      small_gicp_options.map_radius = 35.0;
+      continue;
+    }
+    if (arg == "--small-gicp-dense-profile") {
+      small_gicp_options.source_voxel_size = 0.75;
+      small_gicp_options.max_source_points = 3200;
+      small_gicp_options.voxel_resolution = 0.9;
+      small_gicp_options.k_neighbors = 14;
+      small_gicp_options.max_correspondence_distance = 4.5;
+      small_gicp_options.max_correspondences = 320;
+      small_gicp_options.max_iterations = 24;
+      small_gicp_options.map_max_points = 50000;
+      small_gicp_options.refresh_interval = 3;
+      small_gicp_options.map_radius = 55.0;
+      continue;
+    }
+    if (arg == "--small-gicp-source-voxel-size") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-source-voxel-size requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.source_voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--small-gicp-source-voxel-size=", 0) == 0) {
+      small_gicp_options.source_voxel_size = std::stod(
+          arg.substr(std::string("--small-gicp-source-voxel-size=").size()));
+      continue;
+    }
+    if (arg == "--small-gicp-max-source-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-max-source-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.max_source_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--small-gicp-max-source-points=", 0) == 0) {
+      small_gicp_options.max_source_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--small-gicp-max-source-points=").size()))));
+      continue;
+    }
+    if (arg == "--small-gicp-voxel-resolution") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-voxel-resolution requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.voxel_resolution = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--small-gicp-voxel-resolution=", 0) == 0) {
+      small_gicp_options.voxel_resolution = std::stod(
+          arg.substr(std::string("--small-gicp-voxel-resolution=").size()));
+      continue;
+    }
+    if (arg == "--small-gicp-k-neighbors") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-k-neighbors requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.k_neighbors = std::max(3, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--small-gicp-k-neighbors=", 0) == 0) {
+      small_gicp_options.k_neighbors = std::max(
+          3, std::stoi(arg.substr(std::string("--small-gicp-k-neighbors=").size())));
+      continue;
+    }
+    if (arg == "--small-gicp-max-correspondence-distance") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--small-gicp-max-correspondence-distance requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      small_gicp_options.max_correspondence_distance = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--small-gicp-max-correspondence-distance=", 0) == 0) {
+      small_gicp_options.max_correspondence_distance = std::stod(
+          arg.substr(
+              std::string("--small-gicp-max-correspondence-distance=").size()));
+      continue;
+    }
+    if (arg == "--small-gicp-max-correspondences") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-max-correspondences requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.max_correspondences = std::max(16, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--small-gicp-max-correspondences=", 0) == 0) {
+      small_gicp_options.max_correspondences = std::max(
+          16, std::stoi(arg.substr(
+                  std::string("--small-gicp-max-correspondences=").size())));
+      continue;
+    }
+    if (arg == "--small-gicp-max-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-max-iterations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.max_iterations = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--small-gicp-max-iterations=", 0) == 0) {
+      small_gicp_options.max_iterations = std::max(
+          1, std::stoi(arg.substr(std::string("--small-gicp-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--small-gicp-map-max-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-map-max-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.map_max_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--small-gicp-map-max-points=", 0) == 0) {
+      small_gicp_options.map_max_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--small-gicp-map-max-points=").size()))));
+      continue;
+    }
+    if (arg == "--small-gicp-refresh-interval") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-refresh-interval requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.refresh_interval =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--small-gicp-refresh-interval=", 0) == 0) {
+      small_gicp_options.refresh_interval = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--small-gicp-refresh-interval=").size()))));
+      continue;
+    }
+    if (arg == "--small-gicp-map-radius") {
+      if (i + 1 >= argc) {
+        std::cerr << "--small-gicp-map-radius requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      small_gicp_options.map_radius = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--small-gicp-map-radius=", 0) == 0) {
+      small_gicp_options.map_radius = std::stod(
+          arg.substr(std::string("--small-gicp-map-radius=").size()));
+      continue;
+    }
+    if (arg == "--voxel-gicp-fast-profile") {
+      voxel_gicp_options.source_voxel_size = 1.5;
+      voxel_gicp_options.max_source_points = 1600;
+      voxel_gicp_options.voxel_resolution = 1.5;
+      voxel_gicp_options.min_points_per_voxel = 1;
+      voxel_gicp_options.max_correspondence_distance = 3.0;
+      voxel_gicp_options.max_iterations = 10;
+      voxel_gicp_options.map_max_points = 25000;
+      voxel_gicp_options.refresh_interval = 6;
+      voxel_gicp_options.map_radius = 35.0;
+      continue;
+    }
+    if (arg == "--voxel-gicp-dense-profile") {
+      voxel_gicp_options.source_voxel_size = 0.75;
+      voxel_gicp_options.max_source_points = 3200;
+      voxel_gicp_options.voxel_resolution = 0.9;
+      voxel_gicp_options.min_points_per_voxel = 3;
+      voxel_gicp_options.max_correspondence_distance = 4.5;
+      voxel_gicp_options.max_iterations = 24;
+      voxel_gicp_options.map_max_points = 50000;
+      voxel_gicp_options.refresh_interval = 3;
+      voxel_gicp_options.map_radius = 55.0;
+      continue;
+    }
+    if (arg == "--voxel-gicp-voxel-resolution") {
+      if (i + 1 >= argc) {
+        std::cerr << "--voxel-gicp-voxel-resolution requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      voxel_gicp_options.voxel_resolution = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--voxel-gicp-voxel-resolution=", 0) == 0) {
+      voxel_gicp_options.voxel_resolution = std::stod(
+          arg.substr(std::string("--voxel-gicp-voxel-resolution=").size()));
+      continue;
+    }
+    if (arg == "--voxel-gicp-min-points-per-voxel") {
+      if (i + 1 >= argc) {
+        std::cerr << "--voxel-gicp-min-points-per-voxel requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      voxel_gicp_options.min_points_per_voxel =
+          std::max(2, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--voxel-gicp-min-points-per-voxel=", 0) == 0) {
+      voxel_gicp_options.min_points_per_voxel = std::max(
+          2, std::stoi(
+                 arg.substr(std::string("--voxel-gicp-min-points-per-voxel=").size())));
+      continue;
+    }
+    if (arg == "--voxel-gicp-max-correspondence-distance") {
+      if (i + 1 >= argc) {
+        std::cerr << "--voxel-gicp-max-correspondence-distance requires a value"
+                  << std::endl;
+        return 1;
+      }
+      voxel_gicp_options.max_correspondence_distance = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--voxel-gicp-max-correspondence-distance=", 0) == 0) {
+      voxel_gicp_options.max_correspondence_distance = std::stod(
+          arg.substr(
+              std::string("--voxel-gicp-max-correspondence-distance=").size()));
+      continue;
+    }
+    if (arg == "--voxel-gicp-max-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--voxel-gicp-max-iterations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      voxel_gicp_options.max_iterations = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--voxel-gicp-max-iterations=", 0) == 0) {
+      voxel_gicp_options.max_iterations = std::max(
+          1, std::stoi(
+                 arg.substr(std::string("--voxel-gicp-max-iterations=").size())));
       continue;
     }
     if (arg == "--ndt-fast-profile") {
@@ -2047,15 +3449,18 @@ int main(int argc, char** argv) {
 
   if (selected_methods.empty()) {
     std::cerr
-        << "No methods selected. Supported methods: litamin2, gicp, ndt, "
-        << "kiss_icp, ct_lio, ct_icp"
+        << "No methods selected. Supported methods: litamin2, gicp, small_gicp, "
+        << "voxel_gicp, ndt, kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, "
+        << "ct_lio, ct_icp"
         << std::endl;
     return 1;
   }
   for (const auto& method : selected_methods) {
     if (!isSupportedMethod(method)) {
       std::cerr << "Unsupported method: " << method
-                << " (supported: litamin2, gicp, ndt, kiss_icp, ct_lio, ct_icp)"
+                << " (supported: litamin2, gicp, small_gicp, voxel_gicp, ndt, "
+                   "kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
+                   "ct_icp)"
                 << std::endl;
       return 1;
     }
@@ -2080,6 +3485,17 @@ int main(int argc, char** argv) {
     frame_timestamp_source = FrameTimestampSource::kSampledGT;
   }
   auto frame_gap_stats = computeFrameGapStats(frame_timestamps);
+  if (frame_timestamp_source == FrameTimestampSource::kFrameTimestampCsv &&
+      frame_gap_stats.valid &&
+      frame_gap_stats.median_gap > 0.5) {
+    // Some preprocessed sequences provide sparse/keyframe timestamps that do not
+    // line up with the dense scan sequence expected by most methods. When that
+    // happens, fall back to index-based GT sampling to keep evaluation aligned.
+    frame_timestamps =
+        sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
+    frame_timestamp_source = FrameTimestampSource::kSampledGT;
+    frame_gap_stats = computeFrameGapStats(frame_timestamps);
+  }
   auto gt = sampleGTPoseMatrices(gt_poses_raw, frame_timestamps);
 
   std::cout << "========================================" << std::endl;
@@ -2144,6 +3560,80 @@ int main(int argc, char** argv) {
     results.push_back(runGICP(pcd_dirs, gt, gicp_options, no_gt_seed));
   }
 
+  if (isMethodEnabled(selected_methods, "small_gicp")) {
+    std::cout << "Running Small-GICP..." << std::endl;
+    std::cout << "  source_voxel_size=" << small_gicp_options.source_voxel_size
+              << " max_source_points=" << small_gicp_options.max_source_points
+              << " voxel_resolution=" << small_gicp_options.voxel_resolution
+              << " k_neighbors=" << small_gicp_options.k_neighbors
+              << " max_iterations=" << small_gicp_options.max_iterations
+              << " max_correspondences=" << small_gicp_options.max_correspondences
+              << " map_max_points=" << small_gicp_options.map_max_points
+              << std::endl;
+    results.push_back(
+        runSmallGICP(pcd_dirs, gt, small_gicp_options, no_gt_seed));
+  }
+
+  if (isMethodEnabled(selected_methods, "voxel_gicp")) {
+    std::cout << "Running Voxel-GICP..." << std::endl;
+    std::cout << "  source_voxel_size=" << voxel_gicp_options.source_voxel_size
+              << " max_source_points=" << voxel_gicp_options.max_source_points
+              << " voxel_resolution=" << voxel_gicp_options.voxel_resolution
+              << " min_points_per_voxel="
+              << voxel_gicp_options.min_points_per_voxel
+              << " max_iterations=" << voxel_gicp_options.max_iterations
+              << " map_max_points=" << voxel_gicp_options.map_max_points
+              << std::endl;
+    results.push_back(
+        runVoxelGICP(pcd_dirs, gt, voxel_gicp_options, no_gt_seed));
+  }
+
+  if (isMethodEnabled(selected_methods, "aloam")) {
+    std::cout << "Running A-LOAM..." << std::endl;
+    std::cout << "  n_scans=" << aloam_options.n_scans
+              << " scan_period=" << aloam_options.scan_period
+              << " curvature_threshold=" << aloam_options.curvature_threshold
+              << " less_flat_leaf_size=" << aloam_options.less_flat_leaf_size
+              << " odom_iters=" << aloam_options.odom_outer_iters
+              << " map_iters=" << aloam_options.map_outer_iters
+              << std::endl;
+    results.push_back(runALOAM(pcd_dirs, gt, aloam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "floam")) {
+    std::cout << "Running F-LOAM..." << std::endl;
+    std::cout << "  n_scans=" << floam_options.n_scans
+              << " stride=" << floam_options.input_point_stride
+              << " map_interval=" << floam_options.mapping_update_interval
+              << " curvature_threshold=" << floam_options.curvature_threshold
+              << " odom_iters=" << floam_options.odom_outer_iters
+              << " map_iters=" << floam_options.map_outer_iters
+              << std::endl;
+    results.push_back(runFLOAM(pcd_dirs, gt, floam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "lego_loam")) {
+    std::cout << "Running LeGO-LOAM..." << std::endl;
+    std::cout << "  n_scans=" << lego_loam_options.n_scans
+              << " sensor_height=" << lego_loam_options.sensor_height
+              << " ground_scan_limit=" << lego_loam_options.ground_scan_limit
+              << " curvature_threshold=" << lego_loam_options.curvature_threshold
+              << " odom_iters=" << lego_loam_options.odom_outer_iters
+              << " map_iters=" << lego_loam_options.map_outer_iters
+              << std::endl;
+    results.push_back(runLeGOLOAM(pcd_dirs, gt, lego_loam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "mulls")) {
+    std::cout << "Running MULLS..." << std::endl;
+    std::cout << "  n_scans=" << mulls_options.n_scans
+              << " mulls_map_iters=" << mulls_options.mulls_map_iters
+              << " mulls_ceres_iters=" << mulls_options.mulls_ceres_iters
+              << " max_frames_in_map=" << mulls_options.mulls_max_frames_in_map
+              << " point_w=" << mulls_options.mulls_point_weight << std::endl;
+    results.push_back(runMULLS(pcd_dirs, gt, mulls_options));
+  }
+
   if (isMethodEnabled(selected_methods, "ndt")) {
     std::cout << "Running NDT..." << std::endl;
     std::cout << "  source_voxel_size=" << ndt_options.source_voxel_size
@@ -2163,6 +3653,30 @@ int main(int argc, char** argv) {
               << " local_map_radius=" << kiss_icp_options.local_map_radius
               << std::endl;
     results.push_back(runKISSICP(pcd_dirs, gt, kiss_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "dlo")) {
+    std::cout << "Running DLO..." << std::endl;
+    std::cout << "  input_voxel_size=" << dlo_options.input_voxel_size
+              << " max_input_points=" << dlo_options.max_input_points
+              << " reg_voxel=" << dlo_options.registration_voxel_size
+              << " map_voxel=" << dlo_options.map_voxel_size
+              << " max_keyframes=" << dlo_options.max_keyframes_in_map
+              << " gicp_iters=" << dlo_options.gicp_max_iterations << std::endl;
+    results.push_back(runDLO(pcd_dirs, gt, dlo_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "dlio")) {
+    std::cout << "Running DLIO..." << std::endl;
+    std::cout << "  input_voxel_size=" << dlio_options.input_voxel_size
+              << " max_input_points=" << dlio_options.max_input_points
+              << " reg_voxel=" << dlio_options.registration_voxel_size
+              << " map_voxel=" << dlio_options.map_voxel_size
+              << " imu_rot_w=" << dlio_options.imu_rotation_fusion_weight
+              << " imu_trans_w=" << dlio_options.imu_translation_fusion_weight
+              << std::endl;
+    results.push_back(runDLIO(pcd_dirs, gt, frame_timestamps, imu_samples,
+                              dlio_options));
   }
 
   constexpr double kCTLIORecommendedMedianGapSec = 0.5;

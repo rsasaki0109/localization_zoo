@@ -51,16 +51,25 @@ The current search state is externalized here:
 - [`docs/paper_captions.md`](docs/paper_captions.md): manuscript-facing caption snippets derived from the current aggregates
 
 Concrete variants live under [`experiments/`](experiments/) and are meant to be compared, challenged, and replaced.
-Current ready search problems cover `LiTAMIN2`, `GICP`, `NDT`, `KISS-ICP`, and `CT-ICP` across three repository-stored Istanbul windows plus multiple public HDL-400 reference windows.
-`CT-LIO` currently has a separate reference-trajectory comparison on HDL-400.
-A separate GT-backed `CT-LIO` public benchmark is still tracked as blocked until an independently curated trajectory CSV is prepared for that same window.
+The matrix runner currently tracks **70+ ready problems** (plus a small number of blocked manifests) across **four dataset families**: Istanbul windows, HDL-400 reference windows, MCD (Ouster) windows, and KITTI Raw (short and full-sequence windows).
+[`PLAN.md`](PLAN.md) lists the **14 method families** wired into `pcd_dogfooding` today (`LiTAMIN2`, `GICP`, `Small-GICP`, `Voxel-GICP`, `NDT`, `KISS-ICP`, `DLO`, `DLIO`, `CT-ICP`, `CT-LIO`, `A-LOAM`, `F-LOAM`, `LeGO-LOAM`, `MULLS`).
+`CT-LIO` still has a separate reference-style comparison on HDL-400; a GT-backed public `CT-LIO` problem remains blocked pending an independently curated trajectory CSV for that sensor stack.
+
+### Three-step sanity check (after clone)
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j"$(nproc)"
+bash evaluation/scripts/smoke_ci_fixture.sh
+```
+
+The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB); the same script runs in **GitHub Actions** after `ctest`. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
 
 ```bash
 python3 evaluation/scripts/run_experiment_matrix.py
 ```
 
 Use `--reuse-existing` to regenerate docs and aggregates from stored summaries without rerunning every benchmark.
-Use `--manifest experiments/<name>_matrix.json` to rerun only one problem.
+Use `--manifest experiments/<name>_matrix.json` only for local iteration; a manifest-only run rewrites `experiments/results/index.json` to that subset, so **commit paths should finish with** `python3 evaluation/scripts/refresh_study_docs.py` (or a full `run_experiment_matrix.py` without `--manifest`).
 Use `python3 evaluation/scripts/refresh_study_docs.py` to refresh both experiment docs and publication docs together.
 Publication docs alone can be regenerated with `python3 evaluation/scripts/generate_publication_docs.py`.
 Paper-ready tables and Pareto figures can be regenerated with `python3 evaluation/scripts/export_paper_assets.py`.
@@ -96,12 +105,24 @@ For GT-seeded scan-to-map methods, weak updates fall back to the seed pose inste
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
 
-`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio] [--methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp] [--summary-json path] [variant flags...]` evaluates sequential PCD datasets against a shared trajectory CSV contract.
-Current method-specific profile flags include `--litamin2-*`, `--gicp-*`, `--ndt-*`, `--kiss-*`, `--ct-icp-*`, and `--ct-lio-*`.
+`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,ct_icp,ct_lio,aloam,floam,lego_loam,mulls] [--summary-json path] [variant flags...]` evaluates sequential PCD datasets against a shared trajectory CSV contract.
+Method-specific profile flags include `--litamin2-*`, `--gicp-*`, `--small-gicp-*`, `--voxel-gicp-*`, `--ndt-*`, `--kiss-*`, `--dlo-*`, `--dlio-*`, `--ct-icp-*`, `--ct-lio-*`, `--aloam-*`, `--floam-*`, `--lego-loam-*`, and `--mulls-*`.
 
 `CT-LIO` expects `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
 
 To extract a raw sequence from ROS 1 bags, use `./evaluation/scripts/extract_ros1_lidar_imu.py --pointcloud-bag corrected.bag --imu-bag record_slam.bag --output-dir dogfooding_results/raw_seq`.
+
+To build a KITTI Raw *sync* export (Velodyne `*.bin` + OXTS) into the sequential `NNNNNNNN/cloud.pcd` layout plus a trajectory CSV, run:
+
+```bash
+python3 evaluation/scripts/kitti_raw_to_benchmark.py \
+  --drive-dir /path/to/2011_09_26_drive_XXXX_sync \
+  --output-dir dogfooding_results/kitti_raw_XXXX \
+  --gt-csv experiments/reference_data/kitti_raw_XXXX_gt.csv \
+  --write-imu-csv   # optional: writes imu.csv for DLIO/CT-LIO (OXTS-derived, index-aligned stamps)
+```
+
+If you already have a dogfooding tree and only need `imu.csv`, use `python3 evaluation/scripts/kitti_oxts_imu_for_dogfooding.py --drive-dir <sync> --pcd-dir <dogfooding_dir>`.
 
 To reproduce the repository-stored Istanbul run from a ROS 2 bag:
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-06T08:10:13+00:00",
+  "generated_at": "2026-04-07T13:50:03+00:00",
   "manifest_path": "experiments/litamin2_kitti_raw_0009_nogt_matrix.json",
   "problem": {
     "id": "litamin2_profile_tradeoff_kitti_raw_0009_nogt",
@@ -40,11 +40,11 @@
       "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_cov_half_threads/run.log",
       "status": "OK",
       "ate_m": 122.280395,
-      "fps": 40.362798,
-      "time_ms": 4955.057823,
+      "fps": 63.630939,
+      "time_ms": 3143.125069,
       "frames": 200,
       "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
-      "benchmark_score": 81.69,
+      "benchmark_score": 86.44,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
@@ -66,17 +66,17 @@
       "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_icp_only_half_threads/run.log",
       "status": "OK",
       "ate_m": 122.280395,
-      "fps": 36.912862,
-      "time_ms": 5418.165687,
+      "fps": 81.69158,
+      "time_ms": 2448.232736,
       "frames": 200,
       "note": "Uses odometry-chain scan-to-map initialization (no GT seed). Covariance-shape term disabled.",
-      "benchmark_score": 78.98,
+      "benchmark_score": 96.78,
       "readability_score": 4.3,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.5,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
     },
     {
       "id": "paper_cov_half_threads",
@@ -92,17 +92,17 @@
       "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_cov_half_threads/run.log",
       "status": "OK",
       "ate_m": 122.27546,
-      "fps": 54.926199,
-      "time_ms": 3641.24957,
+      "fps": 87.307823,
+      "time_ms": 2290.745465,
       "frames": 200,
       "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
-      "benchmark_score": 93.13,
+      "benchmark_score": 100.0,
       "readability_score": 4.3,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.5,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as active challenger",
-      "decision_reason": "Close enough to the current default to keep as a live alternative."
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
     },
     {
       "id": "paper_icp_only_half_threads",
@@ -119,17 +119,17 @@
       "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_icp_only_half_threads/run.log",
       "status": "OK",
       "ate_m": 122.27546,
-      "fps": 63.675617,
-      "time_ms": 3140.919717,
+      "fps": 82.686881,
+      "time_ms": 2418.76338,
       "frames": 200,
       "note": "Uses odometry-chain scan-to-map initialization (no GT seed). Covariance-shape term disabled.",
-      "benchmark_score": 100.0,
+      "benchmark_score": 97.35,
       "readability_score": 3.95,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.25,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
     }
   ]
 }

@@ -20,15 +20,15 @@
 
 | 項目 | 値 / 状態 |
 |------|-----------|
-| **Ready problems** | **80**（`experiments/results/index.json` 内 `status: "ready"`） |
+| **Ready problems** | **164**（`experiments/results/index.json` 内 `status: "ready"`） |
 | **Blocked** | **1**（CT-LIO GT-backed 公共問題 — 方針は `docs/` に既存） |
-| **総 problem 行** | **81**（index の `problems` 配列長） |
+| **総 problem 行** | **165**（index の `problems` 配列長） |
 | **Dataset families** | **4**: Istanbul, HDL-400, **MCD（KTH / NTU / TUHH の 3 窓）**, KITTI Raw |
 | **`pcd_dogfooding` 統合** | **27 families**: LiTAMIN2, GICP, Small-GICP, Voxel-GICP, NDT, KISS-ICP, DLO, DLIO, CT-ICP, CT-LIO, A-LOAM, F-LOAM, LeGO-LOAM, MULLS, X-ICP, FAST-LIO2, HDL-Graph-SLAM, VGICP-SLAM, **SuMa**, **BALM2**, **ISC-LOAM**, **LOAM-Livox**, **LIO-SAM**, **LINS**, **FAST-LIO-SLAM**, **Point-LIO**, **CLINS** |
 | **コミット済みミニデータ** | `evaluation/fixtures/mcd_kth_smoke/` — **MCD KTH 由来 3 フレーム**（計 ~3MB）、**CI で `pcd_dogfooding` スモークに使用** |
 | **`dogfooding_results/`** | `.gitignore`** — 本番 MCD / KITTI ツリーは**各自用意**。マニフェスト・集計 JSON はコミット対象 |
 | **Paper-facing 生成物** | `docs/assets/paper/*`, `docs/paper_*.md` 等 — **手編集禁止**（generator 修正 → `refresh_study_docs.py`） |
-| **直近の Git 主題** | 27手法統合完了（Tier 1+2全統合）、CI修復（libunwind-dev + ROS2 shell fix）、CIスモーク拡張（全手法対応） |
+| **直近の Git 主題** | 27手法統合・84マニフェスト・全実験結果生成（164 ready）、CI修復・全38テスト通過、docs再生成済み |
 
 ---
 
@@ -270,13 +270,13 @@ docker build -t localization_zoo:test .
 
 ## 9. 結論（handoff メッセージ）
 
-**80 ready problems・4 dataset families・27 method families・81 index 行**という比較基盤は稼働している。  
+**164 ready problems・4 dataset families・27 method families・165 index 行**という比較基盤は稼働している。  
 **ミニ MCD フィクスチャ + CI スモーク**により「clone してビルドすれば最低限の回帰」がかかる状態になった。
 
 次の Claude / メンテ担当は次を優先するとよい:
 
-1. **残りの手法の実験結果生成**（hdl_graph_slam, vgicp_slam, suma, isc_loam, loam_livox, lio_sam, lins, point_lio, xicp の KITTI Raw full が未完。`refresh_study_docs.py` で個別マニフェスト指定か、HDL-Graph-SLAM の KITTI Raw full を先にスキップして残りを流す）
-2. **docs 再生成**（index.json + experiments.md/decisions.md を新手法込みで更新）
+1. **hdl_graph_slam_kitti_raw_0061_full** の実行（>1h のため SKIPPED 状態。将来的に時間があれば実行）
+2. **CLIプロファイルフラグ追加**（新手法に fast/dense プロファイルを追加し、各マニフェストを 3+ variants に拡張）
 3. **Istanbul / HDL 実データ配置**または **blocked 問題の解除条件の再確認**
 4. **CUBE-LIO**は前処理まで — **フル本体は別プロジェクト扱い**で論文・公式実装を待つ
 

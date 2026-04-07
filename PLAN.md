@@ -1,256 +1,285 @@
-# Localization Zoo - 引き継ぎ PLAN
+# Localization Zoo - 引き継ぎ PLAN（Claude / 次エージェント向け）
 
-> 最終更新: 2026-04-06 (第4版)
-> この `PLAN.md` は、メンテナ・共同研究者が `Localization Zoo` の
-> 現在地と次のアクションを短時間で把握するための handoff 文書である。
->
-> まずこのファイルを読み、次に
-> [`docs/variant_analysis.md`](docs/variant_analysis.md),
-> [`docs/paper_comparison.md`](docs/paper_comparison.md),
-> [`docs/experiments.md`](docs/experiments.md),
-> [`docs/decisions.md`](docs/decisions.md)
-> を見れば repo の状態を把握できる。
+> **最終更新: 2026-04-08（第 6 版）**  
+> 本ファイルは **リポジトリの現在地・契約・落とし穴・再利用スクリプト** を一文脈にまとめた handoff 用ドキュメントである。  
+> **先にここを通読**し、次に [`docs/experiments.md`](docs/experiments.md)、[`docs/decisions.md`](docs/decisions.md)、[`docs/interfaces.md`](docs/interfaces.md)、[`experiments/results/index.json`](experiments/results/index.json) を見ると全体像に届く。
 
 ---
 
-## 0. 1 分で把握すべきこと
+## Claude 向け: 最短読書順（15 分コース）
 
-- **73 ready problems + 1 blocked** の variant-first benchmark repo（※ 新 manifest 追加分は `refresh_study_docs` 後に index が増える）
-- **4 public dataset families**: Istanbul, HDL-400, MCD (3 windows), KITTI Raw (4 windows)
-- **14 method families** がベンチマーク統合済み: LiTAMIN2, GICP, Small-GICP, Voxel-GICP, NDT, KISS-ICP, DLO, DLIO, CT-ICP, CT-LIO, A-LOAM, F-LOAM, LeGO-LOAM, MULLS
-- **38 本の from-scratch 論文実装** が `papers/` にあり、うち約 25 本がまだベンチマーク未統合（13 families 統合済み）
-- `--no-gt-seed` フラグで GT-seeded vs pure odometry の ablation 実験済み
-- `docs/variant_analysis.md` に GT-seed ablation + cross-dataset stability + profile impact の 3 分析
-- Docker ビルド検証済み（Ceres 2.1/2.2 両対応 `common/include/common/ceres_compat.h`）
-- **次の本筋は「ベンチマーク手法の追加」と「論文執筆」**
+1. **本 `PLAN.md`**（§0〜3, §4 の罠, §5 コマンド）
+2. [`README.md`](README.md) の「Three-step sanity check」と Experiment-Driven の段落
+3. [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)（Istanbul / HDL / KITTI / ミニフィクスチャ）
+4. [`evaluation/scripts/VERIFY_KITTI_IMU_DLIO.md`](evaluation/scripts/VERIFY_KITTI_IMU_DLIO.md)（**KITTI 必須ではない**が、OXTS→`imu.csv` の代表例）
+5. [`papers/cube_lio_repro/README.md`](papers/cube_lio_repro/README.md)（CUBE-LIO **前処理スライス**の範囲と限界）
 
 ---
 
-## 1. Repo 構造
+## 0. 1 分サマリ（2026-04-08 時点）
+
+| 項目 | 値 / 状態 |
+|------|-----------|
+| **Ready problems** | **80**（`experiments/results/index.json` 内 `status: "ready"`） |
+| **Blocked** | **1**（CT-LIO GT-backed 公共問題 — 方針は `docs/` に既存） |
+| **総 problem 行** | **81**（index の `problems` 配列長） |
+| **Dataset families** | **4**: Istanbul, HDL-400, **MCD（KTH / NTU / TUHH の 3 窓）**, KITTI Raw |
+| **`pcd_dogfooding` 統合** | **18 families**: LiTAMIN2, GICP, Small-GICP, **Voxel-GICP**, NDT, KISS-ICP, DLO, DLIO, CT-ICP, CT-LIO, A-LOAM, F-LOAM, LeGO-LOAM, MULLS, **X-ICP**, **FAST-LIO2**, **HDL-Graph-SLAM**, **VGICP-SLAM** |
+| **コミット済みミニデータ** | `evaluation/fixtures/mcd_kth_smoke/` — **MCD KTH 由来 3 フレーム**（計 ~3MB）、**CI で `pcd_dogfooding` スモークに使用** |
+| **`dogfooding_results/`** | `.gitignore`** — 本番 MCD / KITTI ツリーは**各自用意**。マニフェスト・集計 JSON はコミット対象 |
+| **Paper-facing 生成物** | `docs/assets/paper/*`, `docs/paper_*.md` 等 — **手編集禁止**（generator 修正 → `refresh_study_docs.py`） |
+| **直近の Git 主題** | X-ICP/FAST-LIO2/HDL-Graph-SLAM/VGICP-SLAM 統合、CI修復（libunwind-dev + ROS2 shell fix）、CIスモーク拡張（18手法対応） |
+
+---
+
+## 1. Repo 構造（再掲 + 追記）
 
 ### 1.1 Stable Core
 
-- [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp) — 共有 CLI
-  - `--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,ct_icp,ct_lio,aloam,floam,lego_loam,mulls` — 現在統合済みの 14 手法
-  - `--no-gt-seed` — scan-to-map メソッドの GT 初期化無効化
-  - `--summary-json` — JSON 結果出力
-  - 各メソッドの profile flags (`--litamin2-paper-profile`, `--gicp-fast-profile` 等)
-- `papers/*` — 38 本の論文実装（全て from-scratch、ライブラリラッパーではない）
-- `common/include/common/ceres_compat.h` — Ceres 2.1/2.2 互換ヘルパー
+- **[`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)** — 単一 CLI の比較エントリ
+  - `--methods` … カンマ区切り（`isSupportedMethod()` と整合）
+  - `--summary-json` … 集計・CI・行列ランナーが読む契約
+  - `--no-gt-seed` … scan-to-map 系の ablation
+  - 各種 `--*-fast-profile` / `--*-dense-profile` 等
+- **`papers/*`** — 論文単位の C++ 実装（from-scratch が基本方針）
+- **`common/include/common/ceres_compat.h`** — Ceres 2.1 / 2.2 互換
 
-### 1.2 Experiment Layer
+### 1.2 Voxel-GICP（統合メモ・落とし穴）
 
-- `experiments/*_matrix.json` — problem manifest (variant 定義)
-- `experiments/pending/` — KITTI Odometry マニフェスト 10 本（データ待ち）
-- `experiments/results/` — aggregate JSON + per-variant summaries
-- `experiments/reference_data/` — GT CSV (committed)
+- 実体: [`papers/voxel_gicp/`](papers/voxel_gicp/) + `pcd_dogfooding` の `runVoxelGICP`
+- **重要**: 内部 `VoxelGICPMap` は **`min_points_per_voxel` 未満のボクセルを捨てる**。粗い `voxel_resolution` + 間引き点群だと **ターゲット／ソースが空→ ATE=0 かつ corr=0** の偽陽性になっていた。  
+  - **Dogfooding 既定は `min_points_per_voxel=1`**（[`pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp) 内 `VoxelGICPDogfoodingOptions`）  
+  - fast profile も **1** に設定済み
+- CLI: `--voxel-gicp-fast-profile`, `--voxel-gicp-dense-profile`, 個別 `--voxel-gicp-*`
 
-### 1.3 Generated Evidence Layer（手編集禁止）
+### 1.3 Experiment Layer
+
+- `experiments/*_matrix.json` — manifest（dataset + `stable_interface` + `variants[]`）
+- `experiments/pending/` — KITTI Odometry 系などデータ待ち
+- `experiments/results/*_matrix.json` — **aggregate（variant ごとの ate_m, fps, decision 等）**
+- `experiments/results/index.json` — **全 manifest の索引**（**`--manifest` 部分実行だけで上書きされると危険** → §4.4）
+- `experiments/reference_data/*.csv` — コミット GT
+
+### 1.4 生成ドキュメント（手編集禁止ゾーン）
 
 - `docs/experiments.md`, `docs/decisions.md`, `docs/interfaces.md`
-- `docs/paper_tracks.md`, `docs/paper_roadmap.md`
-- `docs/paper_comparison.md`, `docs/variant_analysis.md`
+- `docs/paper_tracks.md`, `docs/paper_roadmap.md`, `docs/paper_comparison.md`, `docs/variant_analysis.md`
 - `docs/paper_assets.md`, `docs/paper_captions.md`
-- `docs/assets/paper/` — CSV, PNG
+- `docs/assets/paper/` — CSV / PNG（Pareto、default×dataset 行列など）
 
-generator を直して `python3 evaluation/scripts/refresh_study_docs.py` で再生成する。
+再生成の正規ルート:
 
-### 1.4 Paper Skeleton（手編集 OK）
-
-- `docs/paper_draft_outline.md` — 論文構成
-- `docs/paper_claim.md` — Core claim + evidence pointers
-- `docs/paper_tables_todo.md` — 表・図チェックリスト
-
-### 1.5 Environment
-
-- `Dockerfile` — Ubuntu 22.04, `--target pcd_dogfooding` でビルド
-- `.dockerignore` — `build/`, `dogfooding_results/` 除外
-- `requirements.txt` — Python 依存
-
----
-
-## 2. 現在の Evidence Snapshot
-
-### 2.1 問題数
-
-- ready: **73**
-- blocked: **1** (CT-LIO GT-backed, scope-out 済み)
-
-### 2.2 Dataset families (4)
-
-| Family | Sensor | Windows | Frames | Contract |
-|--------|--------|---------|--------|----------|
-| Istanbul | Velodyne (~1.1k pts) | 3 × 108f | 324 | gt-backed |
-| HDL-400 | Velodyne HDL-32E | 2 × 120f | 240 | reference-based |
-| MCD | Ouster OS1-64/128 (61-84k pts) | 3 × 108f | 324 | gt-backed |
-| KITTI Raw | Velodyne HDL-64E (~120k pts) | 2 × 200f + 2 × full (443f, 703f) | 1546 | gt-backed |
-
-追加: no-GT-seed ablation (KITTI Raw 0009 × 200f × 5 methods)
-
-### 2.3 Method families (14 統合済み)
-
-| Method | Type | GT-seed | Variants | 品質 |
-|--------|------|---------|----------|------|
-| LiTAMIN2 | scan-to-map | あり | 4 | ⭐⭐⭐⭐⭐ |
-| GICP | scan-to-map | あり | 3 | ⭐⭐⭐⭐ |
-| Small-GICP | scan-to-map | あり | 3 | ⭐⭐⭐⭐ |
-| Voxel-GICP | scan-to-map (voxel cov.) | あり | 3 (`--voxel-gicp-*-profile`) | ⭐⭐⭐⭐ |
-| NDT | scan-to-map | あり | 3 | ⭐⭐⭐⭐ |
-| KISS-ICP | odometry | なし | 3 | ⭐⭐⭐⭐ |
-| DLO | keyframe scan-to-map (GICP) | なし | 3 (`--dlo-*-profile`) | ⭐⭐⭐⭐ |
-| DLIO | keyframe GICP + IMU 事前積分（任意） | なし | 3 (`--dlio-*-profile`) | ⭐⭐⭐⭐ |
-| CT-ICP | odometry | なし | 3 | ⭐⭐⭐⭐⭐ |
-| CT-LIO | LIO | なし | 3 | HDL-400 のみ |
-| A-LOAM | odometry+mapping | なし | 3 | ⭐⭐⭐ |
-| F-LOAM | odometry+mapping | なし | 3 | ⭐⭐⭐ |
-| LeGO-LOAM | ground-aware odometry+mapping | なし | 3 (`--lego-loam-*-profile`) | ⭐⭐⭐ |
-| MULLS | multi-metric scan-to-map (line/plane/point) | なし | 3 (`--mulls-*-profile`) | ⭐⭐⭐⭐ |
-
-### 2.4 Key findings (from variant_analysis.md)
-
-1. **GT-seed ablation**: LiTAMIN2/NDT は GT-seed なしで ATE 100m+ に発散。GICP は比較的ロバスト。KISS-ICP/CT-ICP は影響なし（元々 odometry）
-2. **Cross-dataset instability**: 5 手法中 3 手法で dataset ごとに default variant が変わる
-3. **Profile impact**: fast profile は throughput 2-3x 向上、ATE は dataset 依存で悪化/改善が分かれる
-4. **LOAM系の入力整合性**: 一部の `frame_timestamps.csv` が疎な keyframe 列になっていると ATE が破綻する。`pcd_dogfooding` 側で median gap が大きい場合は GT サンプリングにフォールバックして評価崩壊を回避（ただし根本は「連番 raw scan」入力の維持）。
-
----
-
-## 3. 次にやるべきこと（優先度順）
-
-### P0: ベンチマーク手法の追加
-
-**最優先。** `pcd_dogfooding` は 13 families 統合済みだが、`papers/` に未統合実装がまだ多数ある。
-pcd_dogfooding に統合して比較手法を増やす。
-
-**高優先度（LiDAR-only、IMU 不要）:**
-
-| Method | Dir | LOC | 特徴 | 統合難度 |
-|--------|-----|-----|------|----------|
-| A-LOAM | `papers/aloam/` | 965 | Feature-based LOAM 基準実装 | **済** |
-| F-LOAM | `papers/floam/` | - | Fast LOAM variant | **済** |
-| Small-GICP | `papers/small_gicp/` | 295 | 効率改善版 GICP | **済** |
-| Voxel-GICP | `papers/voxel_gicp/` | - | ボクセル代表 GICP | **済** |
-| DLO | `papers/dlo/` | - | Keyframe scan-to-map | **済** |
-| DLIO | `papers/dlio/` | - | DLO + IMU 事前積分 | **済** |
-| LeGO-LOAM | `papers/lego_loam/` | - | Ground-aware LOAM | **済** |
-| MULLS | `papers/mulls/` | - | Multi-metric 拡張 | **済** |
-
-**統合手順（1 手法あたり）:**
-
-1. `papers/{method}/` の registration/odometry interface を確認
-2. `pcd_dogfooding.cpp` に `runXxx()` 関数を追加
-3. CLI flags (profile variants) を追加
-4. `isSupportedMethod()` に登録
-5. ビルド & smoke test
-6. 3+ variant のマニフェスト作成
-7. 全 dataset で実験実行
-8. full refresh
-
-**目標: 10+ method families で variant-first 比較（DLIO / MULLS まで到達、さらに拡大中）。**
-これにより "38 本の実装から 10+ 手法を統一フレームワークで比較" という artifact 貢献が強まる。
-
-### P1: 論文草稿の執筆
-
-`docs/paper_draft_outline.md` をベースに prose を書く。
-P0 で手法が増えた後の方が story が強い。
-
-### P2: 再現性の再確認
-
-- 各実装が元論文のアルゴリズムを忠実に再現しているかの検証記録
-- `docs/implementation_notes.md` に手法ごとの deviation を明文化
-- テスト (`papers/*/test/`) の全パス確認
-
-### P3: README 更新
-
-- 現在の 73 ready problems, 4 dataset families を反映
-- MCD / KITTI Raw の追加手順を記載
-
----
-
-## 4. 実験 Workflow ルール
-
-### 4.1 variant を先に増やし、後で削る
-- 3+ variant を並べる。負け variant もすぐ消さない
-
-### 4.2 比較軸を壊さない
-- 同一 CLI, 同一 pcd_dir, 同一 gt_csv, 同一 metrics
-
-### 4.3 generated docs を手編集しない
-- generator 側を直して再生成
-
-### 4.4 targeted run の罠（重要）
-`--manifest` で subset 実行すると **index.json と docs が部分状態になる**。
-commit 前には必ず:
 ```bash
 python3 evaluation/scripts/refresh_study_docs.py
 ```
 
-### 4.5 local data と committed artifact を混同しない
-- `dogfooding_results/` は `.gitignore` 対象
-- commit するのは manifests, results JSON, reference CSV, generated docs
+（内部で `run_experiment_matrix.py --reuse-existing` → publication / export / comparison / variant_analysis を続ける）
+
+### 1.5 検証・スモーク用スクリプト（2026-04 追加）
+
+| スクリプト | 役割 |
+|------------|------|
+| [`evaluation/scripts/smoke_ci_fixture.sh`](evaluation/scripts/smoke_ci_fixture.sh) | **コミット済み** `evaluation/fixtures/mcd_kth_smoke`（3f）で **全主要メソッド**を短実行。GitHub Actions の `build-and-test` 最後に呼ばれる |
+| [`evaluation/scripts/smoke_mcd_pcd_dogfooding.sh`](evaluation/scripts/smoke_mcd_pcd_dogfooding.sh) | 手元の **`dogfooding_results/mcd_*`** 向け：`kth` / `ntu` / `tuhh` / `all`、フレーム数指定。`imu.csv` が無い限り **ct_lio はリストに入れない** |
+| [`evaluation/scripts/smoke_dlio_imu_when_ready.sh`](evaluation/scripts/smoke_dlio_imu_when_ready.sh) | **`PCD_DIR/imu.csv` が存在するとき** DLIO + CT-LIO。既定パスは MCD KTH（imu 無ければ exit 2）。**KITTI 不要** — env で任意ツリー指定可。`USE_DLIO_PROFILE=0` で `--dlio-kitti-profile` を外せる |
+| [`evaluation/scripts/cube_lio_cubemap_demo.py`](evaluation/scripts/cube_lio_cubemap_demo.py) | CUBE-LIO スライド準拠の **cubemap + IGM + semi-dense 特徴**。**単一 `--pcd`** または **`--sequence-pcd-dir`**。**`--montage`**, `--export-features-json` 等 |
+
+### 1.6 CI（`.github/workflows/ci.yml`）
+
+- `ubuntu-22.04`: apt で PCL/Ceres 等 → `cmake` → **`ctest`** → **`smoke_ci_fixture.sh`**
+- **フル MCD / KITTI は CI に含めない**（`dogfooding_results/` は ignore のため）。**3 フレーム・フィクスチャのみ**が常時回帰対象
 
 ---
 
-## 5. コマンド集
+## 2. 「MCD」とは（本 repo の呼び方）
+
+**KITTI ではない**公開系ウィンドウの総称として、マニフェスト上 **「MCD KTH / NTU / TUHH」** とラベル付き:
+
+- `dogfooding_results/mcd_kth_day_06_108`
+- `dogfooding_results/mcd_ntu_day_02_108`
+- `dogfooding_results/mcd_tuhh_night_09_108`
+
+各 **108 フレーム**（Ouster 系、点密度は KITTI より高い）。**元データの正式名称・引用は配布元の論文/ライセンスに従う**（リポはパスと実験契約を主に固定している）。
+
+---
+
+## 3. 再現実装の状態（期待値のキャリブレーション）
+
+### 3.1 **できている**
+
+- **14 手法**の統一ベンチ（ATE / FPS / variant 採択ルール）
+- **Voxel-GICP** の scan-to-map dogfooding 経路
+- **Small-GICP / Voxel-GICP × MCD 3 本**のマニフェスト + 集計（`refresh` 済み前提）
+- **CUBE-LIO** については **スライド Stage 1–2 相当**（投影・IGM・特徴・JSON 吐き）— [`papers/cube_lio_repro/README.md`](papers/cube_lio_repro/README.md)
+
+### 3.2 **まだ「論文フル再現」ではない**
+
+- **CUBE-LIO 全体**（光度残差＋幾何＋IMU の joint GN、ENWIDE 等の数値一致）— **未実装**。ICRA 2026 論文・公式コードの公開待ち or 別途大規模実装
+- **各 `papers/*` と原論文の bit-exact 一致** — 一部は compact baseline として意図的に簡略化（§6 参照）
+
+---
+
+## 4. 現在の Evidence スナップショット（要約）
+
+### 4.1 問題数（確定値の取り方）
 
 ```bash
-# ビルド
-cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j$(nproc) --target pcd_dogfooding
+python3 -c "import json;d=json.load(open('experiments/results/index.json'));print('total',len(d['problems']));print('ready',sum(1 for p in d['problems'] if p['status']=='ready'))"
+```
 
-# Full refresh (commit 前に必ず)
+**2026-04-07**: total **81**, ready **80**, blocked **1**。
+
+### 4.2 Dataset families（4）
+
+| Family | 内容 | 備考 |
+|--------|------|------|
+| Istanbul | Autoware 系ウィンドウ | `dogfooding_results/` に実体配置が必要 |
+| HDL-400 | 参照軌道付き窓 | 同上 |
+| MCD | KTH / NTU / TUHH × 108f | **CI はミニ 3f のみ**；本番は手元 |
+| KITTI Raw | 短縮 + full | `imu.csv` は Raw *sync* + スクリプトで生成可能 |
+
+### 4.3 Method families（18）
+
+（§0 表と同じ — `pcd_dogfooding` / `isSupportedMethod` と一致させること）
+
+**2026-04-08 追加**: X-ICP（localizability-aware ICP）、FAST-LIO2（LiDAR+IMU odometry）、HDL-Graph-SLAM（NDT+ScanContext loop closure）、VGICP-SLAM（Voxel-GICP+ScanContext loop closure）
+
+### 4.4 Variant analysis の示唆（詳細は `docs/variant_analysis.md`）
+
+- GT-seed ablation、cross-dataset での default 不安定、profile の speed-accuracy トレードオフ
+- LOAM 系は **`frame_timestamps.csv` と連番スキャンの整合**が崩れると評価が破綻しうる
+
+---
+
+## 5. 優先タスク（更新版）
+
+### P0 — ベンチに載せていない `papers/` の発掘（進行中）
+
+**2026-04-08**: Tier 1 の 4 手法（X-ICP, FAST-LIO2, HDL-Graph-SLAM, VGICP-SLAM）を統合済み。**18 families**。残りの Tier 2 候補: fast_lio_slam, point_lio, suma, balm2, clins, lins, lio_sam, isc_loam, loam_livox。統合手順の型は固定されている:
+
+1. `runXxx()` + CLI + `isSupportedMethod` + CMake `target_link_libraries`
+2. smoke（フィクスチャ or 手元 MCD）
+3. manifest（≥3 variants）→ **full** `refresh_study_docs.py`（§7）
+
+### P0.5 — データの物理配置
+
+- Istanbul / HDL: [`SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md) のパスに合わせて配置し、`run_experiment_matrix.py --reuse-existing` で集計を更新
+
+### P1 — IMU 付き LIO の実測
+
+- `imu.csv` を任意 `PCD_DIR` に置き、[`smoke_dlio_imu_when_ready.sh`](evaluation/scripts/smoke_dlio_imu_when_ready.sh) で DLIO/CT-LIO を確認（**KITTI 以外でも可**）
+
+### P2 — 論文 prose
+
+- `docs/paper_draft_outline.md` から執筆。Evidence は常に aggregate に紐づける
+
+### P3 — CUBE-LIO の行く末
+
+- 現状: **前処理デモのみ**。論文・コードが出たら **別バイナリ統合 or サブモジュール**を判断
+
+### P4 — CI とローカルの乖離監視
+
+- PR ごとに **Actions が緑か**（`smoke_ci_fixture` が落ちたら **ビルド or 実行パス or フィクスチャ**から切り分け）
+
+---
+
+## 6. 実験 Workflow ルール（必読）
+
+### 6.1 variant-first
+
+3+ variants。負け組もすぐ消さない（比較と説明のため）
+
+### 6.2 比較軸の保全
+
+同一 `pcd_dir`, `gt_csv`, metrics, binary 契約
+
+### 6.3 生成 docs の手編集禁止
+
+generator 修正 → `refresh_study_docs.py`
+
+### 6.4 **`--manifest` 部分実行の罠**
+
+subset だけ `run_experiment_matrix.py` すると **`index.json` がその分割だけになる**。  
+**コミット前は必ず**（引数なしの）full refresh か:
+
+```bash
+python3 evaluation/scripts/refresh_study_docs.py
+```
+
+### 6.5 `dogfooding_results/` はコミットしない
+
+中身は巨大・個人パス。コミットするのは **manifest / results JSON / reference CSV / generated docs / fixtures（小さいもののみ）**
+
+---
+
+## 7. コマンド集（増補）
+
+```bash
+# --- ビルド（ローカル）---
+cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j"$(nproc)"
+
+# --- CI と同じ超短スモーク（コミット済み 3 フレーム）---
+bash evaluation/scripts/smoke_ci_fixture.sh
+
+# --- 本番 MCD（手元に dogfooding_results が必要）---
+bash evaluation/scripts/smoke_mcd_pcd_dogfooding.sh all 30
+
+# --- 論文・研究ドキュメント全部更新（コミット前の定番）---
 python3 evaluation/scripts/refresh_study_docs.py
 
-# Targeted run (局所探索)
-python3 evaluation/scripts/run_experiment_matrix.py --manifest experiments/<name>_matrix.json
+# --- manifest だけ試す（最後に必ず full refresh）---
+python3 evaluation/scripts/run_experiment_matrix.py --manifest experiments/foo_matrix.json
 
-# Smoke benchmark
-./build/evaluation/pcd_dogfooding dogfooding_results/<data> experiments/reference_data/<gt>.csv \
-  --methods litamin2,gicp,ndt,kiss_icp,ct_icp --summary-json /tmp/smoke.json
-
-# No-GT-seed モード
-./build/evaluation/pcd_dogfooding <pcd_dir> <gt_csv> --methods litamin2,gicp,ndt --no-gt-seed
-
-# MCD データ準備
-python3 evaluation/scripts/extract_ros1_lidar.py --bag <bag> --pointcloud-topic /os_cloud_node/points --output-dir <out> --start-frame 10 --max-frames 108
-python3 evaluation/scripts/mcd_gt_to_csv.py --input <pose_inW.csv> --output <gt.csv> --frame-timestamps <frame_timestamps.csv>
-
-# KITTI Raw データ準備
-python3 evaluation/scripts/kitti_raw_to_benchmark.py --drive-dir <drive_sync> --output-dir <out> --gt-csv <gt.csv> --max-frames 200 --write-imu-csv
-
-# 既存 dogfooding ツリーにだけ imu.csv を足す場合（同期 drive が手元にあるとき）
-python3 evaluation/scripts/kitti_oxts_imu_for_dogfooding.py --drive-dir <drive_sync> --pcd-dir dogfooding_results/kitti_raw_0009_full
-
-# 論文用: elected default の方法×データセット行列 + 不安定可視化（`export_paper_assets` からも呼ばれる）
+# --- default×dataset 行列だけ再生成（export からも呼ばれる）---
 python3 evaluation/scripts/generate_default_variant_matrix.py
 
-# Script syntax check
-python3 -m py_compile evaluation/scripts/*.py
+# --- 単発 smoke ---
+./build/evaluation/pcd_dogfooding evaluation/fixtures/mcd_kth_smoke \
+  evaluation/fixtures/mcd_kth_smoke_gt.csv 3 --methods gicp --summary-json /tmp/s.json
 
-# Docker build
+# --- KITTI Raw → dogfooding + 任意で imu ---
+python3 evaluation/scripts/kitti_raw_to_benchmark.py \
+  --drive-dir /path/to/*_sync --output-dir dogfooding_results/kitti_raw_0009_full \
+  --gt-csv experiments/reference_data/kitti_raw_0009_full_gt.csv --write-imu-csv
+
+python3 evaluation/scripts/kitti_oxts_imu_for_dogfooding.py \
+  --drive-dir /path/to/*_sync --pcd-dir dogfooding_results/kitti_raw_0009_full
+
+# --- Cubemap / IGM デモ（CUBE-LIO スライド準拠の前処理のみ）---
+python3 evaluation/scripts/cube_lio_cubemap_demo.py \
+  --sequence-pcd-dir dogfooding_results/mcd_kth_day_06_108 \
+  --output-dir /tmp/cube_out --max-sequence-frames 5 --size 256 --export-features-json
+
+# Docker
 docker build -t localization_zoo:test .
 ```
 
 ---
 
-## 6. 実装品質メモ
+## 8. 実装品質・既知の deviation（要約）
 
-全 38 実装は from-scratch（外部ライブラリのラッパーではない）。
-テストカバレッジあり (`papers/*/test/`)。
-主な deviation:
+- **NDT**: neighbor interpolation 等を意図的に省略した lightweight 版
+- **KISS-ICP**: adaptive 回りを簡略化しうる
+- **GICP 系**: regularization 等、論文より短い経路がありうる
+- **LiTAMIN2, CT-ICP**: 相対的に忠実度が高い
 
-- **NDT**: Magnusson 論文の neighbor interpolation は未実装（lightweight 版として意図的）
-- **KISS-ICP**: adaptive threshold を簡略化（機能的には同等）
-- **GICP**: covariance regularization を若干簡略化
-- **LiTAMIN2, CT-ICP**: 論文忠実度高い
+詳細は各 `papers/*/README.md` を優先し、不足は `docs/implementation_notes.md`（あれば）へ追記する運用がよい。
 
 ---
 
-## 7. 結論
+## 9. 結論（handoff メッセージ）
 
-**73 ready problems, 4 dataset families, 14 method families** の比較基盤が稼働中（`pcd_dogfooding` 統合数；論エビデンスの index は更新タイミングで追随）。
-GT-seed ablation と variant analysis により、単なる hyperparameter sweep ではない分析が出ている。
+**80 ready problems・4 dataset families・18 method families・81 index 行**という比較基盤は稼働している。  
+**ミニ MCD フィクスチャ + CI スモーク**により「clone してビルドすれば最低限の回帰」がかかる状態になった。
 
-次のフェーズは：
-1. **手法数を 10+ に拡大** — papers/ の未統合実装を pcd_dogfooding に追加
-2. **論文執筆** — 手法数が増えた後に story を書く
-3. **再現性検証の明文化** — 各実装の deviation を文書化
+次の Claude / メンテ担当は次を優先するとよい:
+
+1. **Actions の緑維持**と **`smoke_ci_fixture` 失敗時の切り分け**（CI修復済み: libunwind-dev + ROS2 shell fix）
+2. **Tier 2 手法の統合**（fast_lio_slam, point_lio, suma, lio_sam, balm2 等 — 既に papers/ に実装あり）
+3. **Istanbul / HDL 実データ配置**または **blocked 問題の解除条件の再確認**
+4. **新手法のマニフェスト作成**（xicp, fast_lio2, hdl_graph_slam, vgicp_slam × MCD/KITTI の matrix）
+5. **CUBE-LIO**は前処理まで — **フル本体は別プロジェクト扱い**で論文・公式実装を待つ
+
+---
+
+*End of PLAN.md 第 6 版*

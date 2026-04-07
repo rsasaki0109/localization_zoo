@@ -17,6 +17,7 @@ fi
 METHODS=(
   litamin2 gicp small_gicp voxel_gicp ndt kiss_icp
   dlo dlio aloam floam lego_loam mulls ct_icp
+  xicp hdl_graph_slam vgicp_slam
 )
 
 for m in "${METHODS[@]}"; do
@@ -29,6 +30,9 @@ if [[ -f "${PCD}/imu.csv" ]]; then
   echo "=== CI fixture / ct_lio (imu present) ==="
   "${BIN}" "${PCD}" "${GT}" "${NFR}" --methods ct_lio \
     --summary-json "${OUT}/ct_lio.json"
+  echo "=== CI fixture / fast_lio2 (imu present) ==="
+  "${BIN}" "${PCD}" "${GT}" "${NFR}" --methods fast_lio2 \
+    --summary-json "${OUT}/fast_lio2_imu.json"
 fi
 
 echo "ci_fixture_smoke: OK -> ${OUT}"

@@ -22,6 +22,7 @@ jobs:
             libpcl-dev \
             libopencv-dev \
             libceres-dev \
+            libunwind-dev \
             libgtest-dev
 
       - name: Configure
@@ -71,6 +72,7 @@ jobs:
             ros-humble-pcl-ros
 
       - name: Build ROS2 package
+        shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           cd ros2

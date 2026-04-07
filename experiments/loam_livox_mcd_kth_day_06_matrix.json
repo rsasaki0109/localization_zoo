@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "loam_livox_mcd_kth_day_06",
+    "title": "LOAM Livox on MCD KTH day-06 sequence",
+    "question": "How does LOAM Livox perform on the MCD KTH day-06 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "loam_livox",
+    "primary_method": "LOAM Livox"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": []
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "fast_lio2_mcd_kth_day_06",
+    "title": "FAST-LIO2 on MCD KTH day-06 sequence",
+    "question": "How does FAST-LIO2 perform on the MCD KTH day-06 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "fast_lio2",
+    "primary_method": "FAST-LIO2"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in MCD KTH fixtures.",
+      "args": []
+    }
+  ]
+}

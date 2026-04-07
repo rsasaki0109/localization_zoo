@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import csv
 import json
+import subprocess
+import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -383,6 +385,9 @@ def render_markdown(points: list[VariantPoint], generated_at: str) -> str:
         f"- Core methods plot: [`manuscript_core_methods.png`](assets/paper/manuscript_core_methods.png)",
         f"- CSV export: [`ready_defaults.csv`](assets/paper/ready_defaults.csv)",
         f"- Manuscript core CSV: [`manuscript_core_defaults.csv`](assets/paper/manuscript_core_defaults.csv)",
+        f"- Default matrix (Table 3): [`default_variant_matrix.csv`](assets/paper/default_variant_matrix.csv), "
+        f"[`default_variant_matrix_long.csv`](assets/paper/default_variant_matrix_long.csv)",
+        f"- Default instability figure: [`default_variant_instability.png`](assets/paper/default_variant_instability.png)",
         f"- Caption snippets: [`paper_captions.md`](paper_captions.md)",
         "",
         "## Ready Defaults",
@@ -420,6 +425,17 @@ def main() -> None:
     (DOCS_DIR / "paper_assets.md").write_text(render_markdown(points, generated_at) + "\n")
     (DOCS_DIR / "paper_captions.md").write_text(
         render_caption_snippets(points, core_defaults, generated_at) + "\n"
+    )
+
+    subprocess.run(
+        [
+            sys.executable,
+            str(REPO_ROOT / "evaluation/scripts/generate_default_variant_matrix.py"),
+            "--output-dir",
+            str(ASSETS_DIR),
+        ],
+        cwd=str(REPO_ROOT),
+        check=True,
     )
 
     print(f"[done] wrote {relpath(ASSETS_DIR / 'ready_defaults.csv')}")

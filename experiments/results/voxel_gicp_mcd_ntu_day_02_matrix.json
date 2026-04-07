@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-04-07T13:50:03+00:00",
+  "manifest_path": "experiments/voxel_gicp_mcd_ntu_day_02_matrix.json",
+  "problem": {
+    "id": "voxel_gicp_profile_tradeoff_mcd_ntu_day_02",
+    "title": "Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+    "question": "Which Voxel-GICP profile should stay as the current default on the MCD public dataset (NTU day-02)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "voxel_gicp",
+    "primary_method": "Voxel-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.597633,
+      "fps": 44.353731,
+      "time_ms": 2434.969877,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 29.02,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxels and lighter iterations.",
+      "args": [
+        "--voxel-gicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/fast_recent_map/summary.json --voxel-gicp-fast-profile",
+      "summary_path": "experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 0.518448,
+      "fps": 64.860787,
+      "time_ms": 1665.104684,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 39.31,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels and deeper alignment.",
+      "args": [
+        "--voxel-gicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/dense_recent_map/summary.json --voxel-gicp-dense-profile",
+      "summary_path": "experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/dense_recent_map/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_mcd_ntu_day_02_matrix/dense_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 0.120636,
+      "fps": 117.186913,
+      "time_ms": 921.604618,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

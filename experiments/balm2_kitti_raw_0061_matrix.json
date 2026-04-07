@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "balm2_kitti_raw_0061",
+    "title": "BALM2 on KITTI Raw drive 0061 (200 frames, residential)",
+    "question": "How does BALM2 perform on the KITTI Raw drive 0061 (200 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "balm2",
+    "primary_method": "BALM2"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": []
+    }
+  ]
+}

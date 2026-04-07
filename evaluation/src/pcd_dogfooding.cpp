@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -27,6 +27,15 @@
 #include "fast_lio2/fast_lio2.h"
 #include "hdl_graph_slam/hdl_graph_slam.h"
 #include "vgicp_slam/vgicp_slam.h"
+#include "suma/suma.h"
+#include "balm2/balm2.h"
+#include "isc_loam/isc_loam.h"
+#include "loam_livox/loam_livox.h"
+#include "lio_sam/lio_sam.h"
+#include "lins/lins.h"
+#include "fast_lio_slam/fast_lio_slam.h"
+#include "point_lio/point_lio.h"
+#include "clins/clins.h"
 
 #define PCL_NO_PRECOMPILE
 #include <pcl/io/pcd_io.h>
@@ -153,7 +162,11 @@ bool isSupportedMethod(const std::string& method) {
          method == "dlo" || method == "dlio" || method == "lego_loam" ||
          method == "mulls" || method == "ct_lio" || method == "ct_icp" ||
          method == "xicp" || method == "fast_lio2" ||
-         method == "hdl_graph_slam" || method == "vgicp_slam";
+         method == "hdl_graph_slam" || method == "vgicp_slam" ||
+         method == "suma" || method == "balm2" || method == "isc_loam" ||
+         method == "loam_livox" || method == "lio_sam" || method == "lins" ||
+         method == "fast_lio_slam" || method == "point_lio" ||
+         method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -957,6 +970,55 @@ struct VgicpSlamDogfoodingOptions {
   double registration_voxel_size = 0.4;
   double map_voxel_size = 0.6;
   bool enable_loop_closure = true;
+};
+
+struct SuMaDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+};
+
+struct Balm2DogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+};
+
+struct IscLoamDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+};
+
+struct LoamLivoxDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+};
+
+struct LioSamDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+};
+
+struct LINSDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+};
+
+struct FastLioSlamDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+};
+
+struct PointLioDogfoodingOptions {
+  double input_voxel_size = 0.5;
+  size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+};
+
+struct CLINSDogfoodingOptions {
+  double source_voxel_size = 0.75;
+  size_t max_source_points = 500;
 };
 
 /// ワールド座標に変換
@@ -2364,6 +2426,407 @@ MethodResult runVgicpSlam(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
+                     const std::vector<Eigen::Matrix4d>& gt,
+                     const SuMaDogfoodingOptions& options) {
+  using namespace localization_zoo::suma;
+  MethodResult res;
+  res.name = "SuMa";
+  SuMaParams params;
+  SuMa pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud = toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    pose.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [SuMa] " << i << "/" << pcd_dirs.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Surfel-based mapping (no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runBalm2(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const Balm2DogfoodingOptions& options) {
+  using namespace localization_zoo::balm2;
+  MethodResult res;
+  res.name = "BALM2";
+  Balm2Params params;
+  BALM2 pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud = toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    pose.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [BALM2] " << i << "/" << pcd_dirs.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runIscLoam(const std::vector<std::string>& pcd_dirs,
+                        const std::vector<Eigen::Matrix4d>& gt,
+                        const IscLoamDogfoodingOptions& options) {
+  using namespace localization_zoo::isc_loam;
+  MethodResult res;
+  res.name = "ISC-LOAM";
+  IscLoamParams params;
+  IscLoam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud = toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    pose.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [ISC-LOAM] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " loops=" << result.num_loop_edges;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runLoamLivox(const std::vector<std::string>& pcd_dirs,
+                          const std::vector<Eigen::Matrix4d>& gt,
+                          const LoamLivoxDogfoodingOptions& options) {
+  using namespace localization_zoo::loam_livox;
+  MethodResult res;
+  res.name = "LOAM-Livox";
+  LivoxLOAMParams params;
+  LivoxLOAM pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud = toPclXYZICloud(pts);
+    const auto result = pipeline.process(cloud);
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    pose.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [LOAM-Livox] " << i << "/" << pcd_dirs.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runLioSam(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const std::vector<double>& frame_timestamps,
+                       const std::vector<ImuSampleCsv>& imu_samples,
+                       const LioSamDogfoodingOptions& options) {
+  using namespace localization_zoo::lio_sam;
+  MethodResult res;
+  res.name = "LIO-SAM";
+  LioSamParams params;
+  LioSam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud = toPclXYZICloud(pts);
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() && frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.process(cloud, imu_batch);
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    pose.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [LIO-SAM] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " loops=" << result.num_loop_edges
+                << " imu=" << (result.imu_used ? "y" : "n");
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure "
+      "(no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runLINS(const std::vector<std::string>& pcd_dirs,
+                     const std::vector<Eigen::Matrix4d>& gt,
+                     const std::vector<double>& frame_timestamps,
+                     const std::vector<ImuSampleCsv>& imu_samples,
+                     const LINSDogfoodingOptions& options) {
+  using namespace localization_zoo::lins;
+  MethodResult res;
+  res.name = "LINS";
+  LINSParams params;
+  LINS pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+    const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud = toPclXYZICloud(pts);
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() && frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.process(cloud, imu_batch);
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.state.rotation;
+    pose.block<3, 1>(0, 3) = result.state.position;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [LINS] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " corr=" << result.num_correspondences
+                << " map=" << result.map_points;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "LiDAR-inertial navigation with error-state iterated Kalman filter "
+      "(no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runFastLioSlam(const std::vector<std::string>& pcd_dirs,
+                            const std::vector<Eigen::Matrix4d>& gt,
+                            const std::vector<double>& frame_timestamps,
+                            const std::vector<ImuSampleCsv>& imu_samples,
+                            const FastLioSlamDogfoodingOptions& options) {
+  using namespace localization_zoo::fast_lio_slam;
+  MethodResult res;
+  res.name = "FAST-LIO-SLAM";
+  FastLioSlamParams params;
+  FastLioSlam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+
+    std::vector<Eigen::Vector3d> filtered;
+    filtered.reserve(pts.size());
+    for (const auto& p : pts) {
+      double r = p.norm();
+      if (r >= options.min_range && r <= options.max_range) {
+        filtered.push_back(p);
+      }
+    }
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() && frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.process(filtered, imu_batch);
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    pose.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [FAST-LIO-SLAM] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " loops=" << result.num_loop_edges
+                << " imu=" << (result.imu_used ? "y" : "n");
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization "
+      "(no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runPointLio(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const std::vector<double>& frame_timestamps,
+                         const std::vector<ImuSampleCsv>& imu_samples,
+                         const PointLioDogfoodingOptions& options) {
+  using namespace localization_zoo::point_lio;
+  MethodResult res;
+  res.name = "Point-LIO";
+  PointLioParams params;
+  PointLio pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitPoints(pts, options.max_input_points);
+    if (pts.empty()) continue;
+
+    std::vector<Eigen::Vector3d> filtered;
+    filtered.reserve(pts.size());
+    for (const auto& p : pts) {
+      double r = p.norm();
+      if (r >= options.min_range && r <= options.max_range) {
+        filtered.push_back(p);
+      }
+    }
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() && frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.process(filtered, imu_batch);
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose.block<3, 3>(0, 0) = result.state.rotation;
+    pose.block<3, 1>(0, 3) = result.state.position;
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [Point-LIO] " << i << "/" << pcd_dirs.size()
+                << " kf=" << result.num_keyframes
+                << " corr=" << result.num_correspondences
+                << " imu=" << (result.imu_used ? "y" : "n")
+                << " map=" << result.map_points;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter "
+      "(no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runCLINS(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const std::vector<double>& frame_timestamps,
+                      const std::vector<ImuSampleCsv>& imu_samples,
+                      const CLINSDogfoodingOptions& options) {
+  using namespace localization_zoo::clins;
+  using namespace localization_zoo::ct_lio;
+  MethodResult res;
+  res.name = "CLINS";
+
+  CLINSParams params;
+  CLINS pipeline(params);
+
+  CTLIOState state;
+  state.frame.begin_pose.trans = gt[0].block<3, 1>(0, 3);
+  state.frame.begin_pose.quat = Eigen::Quaterniond(gt[0].block<3, 3>(0, 0));
+  state.frame.end_pose = state.frame.begin_pose;
+  res.poses.push_back(gt[0]);
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto scan = limitLoadedScan(
+        loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size),
+        options.max_source_points);
+    if (scan.points.empty()) continue;
+
+    std::vector<localization_zoo::ct_icp::TimedPoint> timed;
+    timed.reserve(scan.points.size());
+    const size_t denom = scan.points.size() > 1 ? scan.points.size() - 1 : 1;
+    for (size_t j = 0; j < scan.points.size(); j++) {
+      localization_zoo::ct_icp::TimedPoint tp;
+      tp.raw_point = scan.points[j];
+      tp.timestamp = scan.has_per_point_time ? scan.relative_times[j]
+                                             : static_cast<double>(j) / denom;
+      timed.push_back(tp);
+    }
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() && frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.process(timed, imu_batch);
+
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<3, 3>(0, 0) = result.state.frame.end_pose.quat.toRotationMatrix();
+    T.block<3, 1>(0, 3) = result.state.frame.end_pose.trans;
+    if (i > 0) {
+      res.poses.push_back(T);
+    }
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [CLINS] " << i << "/" << pcd_dirs.size()
+                << " map=" << result.map_size;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Continuous-time LiDAR-inertial SLAM with CT-LIO registration "
+      "(GT-seeded initialization).";
+  return res;
+}
+
 void savePosesKITTI(const std::vector<Eigen::Matrix4d>& poses, const std::string& path) {
   std::ofstream f(path);
   for (auto& T : poses) {
@@ -2423,7 +2886,8 @@ int main(int argc, char** argv) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
               << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,"
-              << "lego_loam,mulls,ct_lio,ct_icp]"
+              << "lego_loam,mulls,ct_lio,ct_icp,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
+              << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
               << " [--litamin2-paper-profile]"
               << " [--litamin2-icp-only]"
@@ -2521,6 +2985,15 @@ int main(int argc, char** argv) {
   FastLio2DogfoodingOptions fast_lio2_options;
   HdlGraphSlamDogfoodingOptions hdl_graph_slam_options;
   VgicpSlamDogfoodingOptions vgicp_slam_options;
+  SuMaDogfoodingOptions suma_options;
+  Balm2DogfoodingOptions balm2_options;
+  IscLoamDogfoodingOptions isc_loam_options;
+  LoamLivoxDogfoodingOptions loam_livox_options;
+  LioSamDogfoodingOptions lio_sam_options;
+  LINSDogfoodingOptions lins_options;
+  FastLioSlamDogfoodingOptions fast_lio_slam_options;
+  PointLioDogfoodingOptions point_lio_options;
+  CLINSDogfoodingOptions clins_options;
   std::vector<std::string> selected_methods = {
       "litamin2", "gicp", "small_gicp", "aloam", "floam", "ndt", "kiss_icp",
       "ct_lio"};
@@ -3816,7 +4289,9 @@ int main(int argc, char** argv) {
     std::cerr
         << "No methods selected. Supported methods: litamin2, gicp, small_gicp, "
         << "voxel_gicp, ndt, kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, "
-        << "ct_lio, ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam"
+        << "ct_lio, ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
+        << "suma, balm2, isc_loam, loam_livox, lio_sam, lins, fast_lio_slam, "
+        << "point_lio, clins"
         << std::endl;
     return 1;
   }
@@ -3825,7 +4300,9 @@ int main(int argc, char** argv) {
       std::cerr << "Unsupported method: " << method
                 << " (supported: litamin2, gicp, small_gicp, voxel_gicp, ndt, "
                    "kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
-                   "ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam)"
+                   "ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
+                   "suma, balm2, isc_loam, loam_livox, lio_sam, lins, "
+                   "fast_lio_slam, point_lio, clins)"
                 << std::endl;
       return 1;
     }
@@ -4115,6 +4592,61 @@ int main(int argc, char** argv) {
   if (isMethodEnabled(selected_methods, "vgicp_slam")) {
     std::cout << "Running VGICP-SLAM..." << std::endl;
     results.push_back(runVgicpSlam(pcd_dirs, gt, vgicp_slam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "suma")) {
+    std::cout << "Running SuMa..." << std::endl;
+    results.push_back(runSuMa(pcd_dirs, gt, suma_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "balm2")) {
+    std::cout << "Running BALM2..." << std::endl;
+    results.push_back(runBalm2(pcd_dirs, gt, balm2_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "isc_loam")) {
+    std::cout << "Running ISC-LOAM..." << std::endl;
+    results.push_back(runIscLoam(pcd_dirs, gt, isc_loam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "loam_livox")) {
+    std::cout << "Running LOAM-Livox..." << std::endl;
+    results.push_back(runLoamLivox(pcd_dirs, gt, loam_livox_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "lio_sam")) {
+    std::cout << "Running LIO-SAM..." << std::endl;
+    results.push_back(runLioSam(pcd_dirs, gt, frame_timestamps, imu_samples,
+                                lio_sam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "lins")) {
+    std::cout << "Running LINS..." << std::endl;
+    results.push_back(runLINS(pcd_dirs, gt, frame_timestamps, imu_samples,
+                              lins_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "fast_lio_slam")) {
+    std::cout << "Running FAST-LIO-SLAM..." << std::endl;
+    results.push_back(runFastLioSlam(pcd_dirs, gt, frame_timestamps, imu_samples,
+                                     fast_lio_slam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "point_lio")) {
+    std::cout << "Running Point-LIO..." << std::endl;
+    results.push_back(runPointLio(pcd_dirs, gt, frame_timestamps, imu_samples,
+                                  point_lio_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "clins")) {
+    if (imu_samples.empty()) {
+      results.push_back(makeSkippedResult(
+          "CLINS", "imu.csv not found. CLINS requires synchronized IMU samples."));
+    } else {
+      std::cout << "Running CLINS..." << std::endl;
+      results.push_back(runCLINS(pcd_dirs, gt, frame_timestamps, imu_samples,
+                                 clins_options));
+    }
   }
 
   // 結果表示

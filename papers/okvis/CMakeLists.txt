@@ -11,6 +11,7 @@ target_include_directories(okvis PUBLIC
 
 target_link_libraries(okvis PUBLIC
   imu_preintegration
+  localization_common
   Eigen3::Eigen
   ${CERES_LIBRARIES}
 )

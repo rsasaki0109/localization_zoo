@@ -24,11 +24,11 @@
 | **Blocked** | **1**（CT-LIO GT-backed 公共問題 — 方針は `docs/` に既存） |
 | **総 problem 行** | **81**（index の `problems` 配列長） |
 | **Dataset families** | **4**: Istanbul, HDL-400, **MCD（KTH / NTU / TUHH の 3 窓）**, KITTI Raw |
-| **`pcd_dogfooding` 統合** | **18 families**: LiTAMIN2, GICP, Small-GICP, **Voxel-GICP**, NDT, KISS-ICP, DLO, DLIO, CT-ICP, CT-LIO, A-LOAM, F-LOAM, LeGO-LOAM, MULLS, **X-ICP**, **FAST-LIO2**, **HDL-Graph-SLAM**, **VGICP-SLAM** |
+| **`pcd_dogfooding` 統合** | **27 families**: LiTAMIN2, GICP, Small-GICP, Voxel-GICP, NDT, KISS-ICP, DLO, DLIO, CT-ICP, CT-LIO, A-LOAM, F-LOAM, LeGO-LOAM, MULLS, X-ICP, FAST-LIO2, HDL-Graph-SLAM, VGICP-SLAM, **SuMa**, **BALM2**, **ISC-LOAM**, **LOAM-Livox**, **LIO-SAM**, **LINS**, **FAST-LIO-SLAM**, **Point-LIO**, **CLINS** |
 | **コミット済みミニデータ** | `evaluation/fixtures/mcd_kth_smoke/` — **MCD KTH 由来 3 フレーム**（計 ~3MB）、**CI で `pcd_dogfooding` スモークに使用** |
 | **`dogfooding_results/`** | `.gitignore`** — 本番 MCD / KITTI ツリーは**各自用意**。マニフェスト・集計 JSON はコミット対象 |
 | **Paper-facing 生成物** | `docs/assets/paper/*`, `docs/paper_*.md` 等 — **手編集禁止**（generator 修正 → `refresh_study_docs.py`） |
-| **直近の Git 主題** | X-ICP/FAST-LIO2/HDL-Graph-SLAM/VGICP-SLAM 統合、CI修復（libunwind-dev + ROS2 shell fix）、CIスモーク拡張（18手法対応） |
+| **直近の Git 主題** | 27手法統合完了（Tier 1+2全統合）、CI修復（libunwind-dev + ROS2 shell fix）、CIスモーク拡張（全手法対応） |
 
 ---
 
@@ -138,11 +138,12 @@ python3 -c "import json;d=json.load(open('experiments/results/index.json'));prin
 | MCD | KTH / NTU / TUHH × 108f | **CI はミニ 3f のみ**；本番は手元 |
 | KITTI Raw | 短縮 + full | `imu.csv` は Raw *sync* + スクリプトで生成可能 |
 
-### 4.3 Method families（18）
+### 4.3 Method families（27）
 
 （§0 表と同じ — `pcd_dogfooding` / `isSupportedMethod` と一致させること）
 
-**2026-04-08 追加**: X-ICP（localizability-aware ICP）、FAST-LIO2（LiDAR+IMU odometry）、HDL-Graph-SLAM（NDT+ScanContext loop closure）、VGICP-SLAM（Voxel-GICP+ScanContext loop closure）
+**2026-04-08 追加 Tier 1**: X-ICP, FAST-LIO2, HDL-Graph-SLAM, VGICP-SLAM
+**2026-04-08 追加 Tier 2**: SuMa, BALM2, ISC-LOAM, LOAM-Livox, LIO-SAM, LINS, FAST-LIO-SLAM, Point-LIO, CLINS
 
 ### 4.4 Variant analysis の示唆（詳細は `docs/variant_analysis.md`）
 
@@ -155,7 +156,7 @@ python3 -c "import json;d=json.load(open('experiments/results/index.json'));prin
 
 ### P0 — ベンチに載せていない `papers/` の発掘（進行中）
 
-**2026-04-08**: Tier 1 の 4 手法（X-ICP, FAST-LIO2, HDL-Graph-SLAM, VGICP-SLAM）を統合済み。**18 families**。残りの Tier 2 候補: fast_lio_slam, point_lio, suma, balm2, clins, lins, lio_sam, isc_loam, loam_livox。統合手順の型は固定されている:
+**2026-04-08**: Tier 1+2 全13手法を統合済み。**27 families**。papers/ の LiDAR/LIO 系はほぼ網羅。残りは visual 系（orb_slam3, vins_fusion 等）・ユーティリティ（scan_context, relead 等）・特殊（cube_lio_repro）で統合不要。統合手順の型は固定されている:
 
 1. `runXxx()` + CLI + `isSupportedMethod` + CMake `target_link_libraries`
 2. smoke（フィクスチャ or 手元 MCD）
@@ -269,16 +270,15 @@ docker build -t localization_zoo:test .
 
 ## 9. 結論（handoff メッセージ）
 
-**80 ready problems・4 dataset families・18 method families・81 index 行**という比較基盤は稼働している。  
+**80 ready problems・4 dataset families・27 method families・81 index 行**という比較基盤は稼働している。  
 **ミニ MCD フィクスチャ + CI スモーク**により「clone してビルドすれば最低限の回帰」がかかる状態になった。
 
 次の Claude / メンテ担当は次を優先するとよい:
 
 1. **Actions の緑維持**と **`smoke_ci_fixture` 失敗時の切り分け**（CI修復済み: libunwind-dev + ROS2 shell fix）
-2. **Tier 2 手法の統合**（fast_lio_slam, point_lio, suma, lio_sam, balm2 等 — 既に papers/ に実装あり）
+2. **新手法のマニフェスト作成**（27手法 × MCD/KITTI の matrix → refresh_study_docs.py）
 3. **Istanbul / HDL 実データ配置**または **blocked 問題の解除条件の再確認**
-4. **新手法のマニフェスト作成**（xicp, fast_lio2, hdl_graph_slam, vgicp_slam × MCD/KITTI の matrix）
-5. **CUBE-LIO**は前処理まで — **フル本体は別プロジェクト扱い**で論文・公式実装を待つ
+4. **CUBE-LIO**は前処理まで — **フル本体は別プロジェクト扱い**で論文・公式実装を待つ
 
 ---
 

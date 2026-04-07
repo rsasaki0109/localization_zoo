@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T01:20:26+00:00",
+  "manifest_path": "experiments/balm2_kitti_raw_0009_full_matrix.json",
+  "problem": {
+    "id": "balm2_kitti_raw_0009_full",
+    "title": "BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+    "question": "How does BALM2 perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "balm2",
+    "primary_method": "BALM2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0009_full_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/balm2_kitti_raw_0009_full_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/balm2_kitti_raw_0009_full_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 4.576342,
+      "fps": 1.590302,
+      "time_ms": 278563.486139,
+      "frames": 443,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

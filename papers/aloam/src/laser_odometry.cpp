@@ -34,8 +34,12 @@ OdometryResult LaserOdometry::process(const FeatureCloud& features) {
     // 最初のフレーム: 前フレームとして保存
     corner_last_ = features.corner_less_sharp;
     surf_last_ = features.surf_less_flat;
-    kd_corner_last_.setInputCloud(corner_last_);
-    kd_surf_last_.setInputCloud(surf_last_);
+    if (!corner_last_->empty()) {
+      kd_corner_last_.setInputCloud(corner_last_);
+    }
+    if (!surf_last_->empty()) {
+      kd_surf_last_.setInputCloud(surf_last_);
+    }
     initialized_ = true;
     result.valid = false;
     return result;
@@ -226,8 +230,12 @@ OdometryResult LaserOdometry::process(const FeatureCloud& features) {
   // 前フレームを更新
   corner_last_ = features.corner_less_sharp;
   surf_last_ = features.surf_less_flat;
-  kd_corner_last_.setInputCloud(corner_last_);
-  kd_surf_last_.setInputCloud(surf_last_);
+  if (!corner_last_->empty()) {
+    kd_corner_last_.setInputCloud(corner_last_);
+  }
+  if (!surf_last_->empty()) {
+    kd_surf_last_.setInputCloud(surf_last_);
+  }
 
   result.q_w_curr = q_w_curr_;
   result.t_w_curr = t_w_curr_;

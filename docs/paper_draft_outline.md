@@ -12,8 +12,8 @@
 
 **Contribution.**
 - A _variant-first_ benchmarking framework that keeps 3+ concrete variants alive per method family under a shared CLI contract (`pcd_dogfooding --summary-json`).
-- An empirical study across 6 method families (LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP, CT-LIO) and 3 public dataset families (Istanbul, HDL-400, KITTI), covering 26 ready problem instances.
-- Evidence that the "best" default variant shifts across datasets, proving that premature canonicalization loses information.
+- An empirical study across **13** integrated method families — LiTAMIN2, GICP, Small-GICP, NDT, KISS-ICP, DLO, DLIO, CT-ICP, CT-LIO, A-LOAM, F-LOAM, LeGO-LOAM, MULLS — and **four** public dataset families (**Istanbul**, **HDL-400**, **MCD**, **KITTI Raw**), with **73** ready search problems in `experiments/results/index.json` (plus one blocked CT-LIO GT-backed manifest).
+- Evidence that, for every family with **broad** cross-window coverage today (LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP on twelve shared windows), the elected default **is not unique** across datasets — premature canonicalization discards real trade-offs.
 
 ---
 
@@ -24,7 +24,7 @@
 - Distribution-to-distribution (NDT).
 - Adaptive-threshold odometry (KISS-ICP).
 - Continuous-time methods (CT-ICP, CT-LIO).
-- Relationship to the 6 families implemented in this repository.
+- Relationship to the **13** families currently benchmarked under `pcd_dogfooding` (see `PLAN.md`).
 
 ### 2.2 Benchmarking Methodology
 - Existing LiDAR benchmarks (KITTI odometry leaderboard, Hilti Challenge, FusionPortable).
@@ -47,10 +47,11 @@
 - Promotion/demotion rules: adopt as default, keep as reference, or retire.
 
 ### 3.3 Dataset Selection
-- **Istanbul**: repository-stored urban sequences (3 windows: a, b, c). ~108 frames each.
-- **HDL-400**: public Velodyne dataset, 120-frame reference windows (2 windows: a, b). Includes LiDAR+IMU for CT-LIO.
-- **KITTI**: standard odometry sequences (planned expansion for camera-era generality).
-- Table 1 placeholder: dataset characteristics (sensor, frames, environment, GT source).
+- **Istanbul**: Autoware-class urban Velodyne windows (3 × ~108 frames); GT CSV.
+- **HDL-400**: public Velodyne HDL-32E; 120-frame reference windows (2); LiDAR+IMU available for CT-LIO-style runs (**CT-LIO GT-backed** manifest remains blocked pending curated open GT).
+- **MCD**: three Ouster OS1 windows (KTH / NTU / TUHH), 108 frames each; GT CSV.
+- **KITTI Raw**: Velodyne HDL-64E; **200-frame** and **full-sequence** slices for drives **0009** and **0061**; GT from OXTS-exported poses (see `evaluation/scripts/kitti_raw_to_benchmark.py`); optional `imu.csv` from `kitti_oxts_imu_for_dogfooding.py` for DLIO/CT-LIO.
+- Table 1: dataset characteristics (sensor, frames, environment, GT source).
 
 ### 3.4 Metrics
 - **ATE (Absolute Trajectory Error)**: meters, computed against GT or reference trajectory.
@@ -67,42 +68,48 @@
 | Dataset | Sensor | Frames | Environment | GT Source |
 |---------|--------|--------|-------------|-----------|
 | Istanbul (a/b/c) | Velodyne | ~108 | Urban | GT CSV |
-| HDL-400 (a/b) | Velodyne | 120 | Indoor/outdoor | GT CSV |
-| KITTI | Velodyne HDL-64E | varies | Urban/highway | GPS/INS |
+| HDL-400 (a/b) | Velodyne HDL-32E | 120 | Indoor / outdoor | GT / reference CSV |
+| MCD (KTH / NTU / TUHH) | Ouster OS1 | ~108 | Various | GT CSV |
+| KITTI Raw (0009 / 0061) | Velodyne HDL-64E | 200 or full (~443 / ~703) | Urban / highway | OXTS-derived pose CSV |
 
 ### Table 2: Method Families and Variant Counts
 
-| Method Family | Variants | Example Variant Names |
-|---------------|----------|----------------------|
-| LiTAMIN2 | 3+ | `fast_icp_only_half_threads`, `paper_icp_only_half_threads`, ... |
-| GICP | 3+ | `fast_recent_map`, `balanced_recent_map`, `dense_recent_map`, ... |
-| NDT | 3+ | `fast_coarse_map`, `balanced_coarse_map`, `dense_coarse_map`, ... |
-| KISS-ICP | 3+ | `fast_recent_map`, `dense_local_map`, ... |
-| CT-ICP | 3+ | `fast_window`, `balanced_window`, `dense_window` |
-| CT-LIO | 3+ | `seed_only_fast`, ... (reference-based only) |
+Each integrated family ships **≥3** CLI profiles in manifests (see `experiments/*_matrix.json`). Core examples:
+
+| Method Family | Example variant ids |
+|---------------|---------------------|
+| LiTAMIN2 | `fast_icp_only_half_threads`, `paper_icp_only_half_threads`, `fast_cov_half_threads`, … |
+| GICP / Small-GICP | `fast_recent_map`, `balanced_local_map`, `dense_recent_map`, … |
+| NDT | `fast_coarse_map`, `balanced_local_map`, `dense_local_map`, … |
+| KISS-ICP | `fast_recent_map`, `balanced_local_map`, `dense_local_map`, … |
+| CT-ICP | `fast_window`, `balanced_window`, `dense_window` |
+| DLO / DLIO | `kitti_default`, `fast`, `dense` (+ profile stacks) |
+| A-LOAM / F-LOAM / LeGO-LOAM | `kitti_default`, `fast`, `dense` |
+| MULLS | `kitti_default`, `fast`, `dense` |
+| CT-LIO | e.g. `seed_only_fast` (reference-based window; GT-backed blocked) |
 
 ---
 
 ## 5. Results
 
 ### Table 3: Cross-Dataset Default Variants
-- One row per (method, dataset) pair showing the elected default.
-- Key observation: defaults are _not_ stable across datasets.
-  - LiTAMIN2: `fast_icp_only_half_threads` on Istanbul, `paper_icp_only_half_threads` on HDL-400 (window a).
-  - CT-ICP: `fast_window` on HDL-400, `balanced_window` on Istanbul (b, c).
-  - KISS-ICP: `fast_recent_map` mostly, but `dense_local_map` on Istanbul-b.
-- Data source: `experiments/results/index.json`, `docs/assets/paper/manuscript_core_defaults.csv`.
+- One row per (method family, benchmark window) showing the elected default (`current_default` in aggregates).
+- Key observation: among LiTAMIN2, GICP, NDT, KISS-ICP, and CT-ICP, **each** shows **2–3** unique defaults across the **twelve** Istanbul+HDL+KITTI+MCD windows summarized in `docs/variant_analysis.md` §2.
+- Data source: `experiments/results/index.json`, `docs/variant_analysis.md`, `docs/assets/paper/manuscript_core_defaults.csv` (overview slice only).
 
 ### Figure 1: Pareto Fronts (ATE vs. FPS)
-- Scatter plot of all 26 ready defaults on ATE (x) vs. FPS (y).
-- Separate markers for GT-backed and reference-based.
-- Fastest default: LiTAMIN2 `fast_icp_only_half_threads` at 23.5 FPS.
-- Lowest ATE: NDT `fast_coarse_map` at 0.005 m.
+- Scatter plot of **all 73** ready-problem defaults (`docs/assets/paper/ready_defaults.csv`): ATE (m) vs. FPS.
+- Separate markers (or faceting) for GT-backed vs. reference-based contracts.
+- Annotate extremes from the current CSV (e.g., NDT **~0.005 m** ATE on an Istanbul window; **~106 FPS** peak on high-speed MCD/LiTAMIN2 rows — exact pairings depend on export date).
 - Source: `docs/assets/paper/ready_defaults_pareto.png`.
 
 ### Figure 2: Default Instability Across Datasets
 - Per-method subplots showing how the elected default moves in ATE/FPS space across dataset windows.
 - Source: `docs/assets/paper/variant_fronts_by_selector.png`.
+
+### Figure 4 (new): Default mismatch heatmap
+- Matrix view: rows = `pcd_dogfooding` method selectors, columns = dataset directory basenames (twelve-window grid where populated). Row-plurality agreement encoded as green vs red (see script header).
+- Source: `docs/assets/paper/default_variant_instability.png`, table export `docs/assets/paper/default_variant_matrix.csv`.
 
 ### Additional Results
 - Per-method accuracy breakdown tables (appendix).
@@ -112,9 +119,9 @@
 
 ## 6. Discussion
 
-### Finding 1: No Universal Default
-- For 4 out of 6 method families, the elected default changes when switching datasets.
-- Implication: repos that freeze a single default lose information about the trade-off.
+### Finding 1: No Universal Default (under broad coverage)
+- For **all five** widely covered scan-to-map / odometry families in the twelve-window grid (LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP), the promoted default **varies** with the benchmark window.
+- Implication: a single repo-wide default cannot summarize the empirical Pareto front.
 
 ### Finding 2: Fast Profiles Are Competitive
 - Several "fast" variants achieve accuracy within 2x of the "paper" variant while running 3-5x faster.
@@ -125,16 +132,17 @@
 - This is not a flaw; it is the information that variant-first benchmarking is designed to surface.
 
 ### Limitations
-- Current dataset coverage is 2 families (3 planned); KITTI expansion pending.
-- CT-LIO GT-backed evaluation blocked pending aligned GT CSV for HDL-400 LiDAR+IMU.
-- Hardware profile is single-machine; cross-platform scaling not yet tested.
+- Several newly integrated families (LOAM variants, DLO/DLIO, MULLS, Small-GICP) appear on **fewer** windows than the historical five-way grid; expanding their manifests closes the circle on cross-dataset claims.
+- CT-LIO **GT-backed** evaluation remains blocked pending aligned open GT for the HDL-400 LIO window.
+- KITTI DLIO experiments currently mirror LiDAR-only behavior unless `imu.csv` is present (`--write-imu-csv` path in README / `PLAN.md`).
+- Hardware profile is single-machine; cross-machine scaling not yet characterized.
 
 ---
 
 ## 7. Conclusion
 
 - Variant-first benchmarking with a stable CLI contract is practical and reveals trade-offs hidden by canonical repos.
-- The 26-problem, 6-method study demonstrates that default instability is the norm, not the exception.
+- The **73-problem**, **13-family** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
 - Artifacts (experiment matrices, generated decision tables, Pareto exports) are fully reproducible via `run_experiment_matrix.py --reuse-existing`.
 
 ---
@@ -142,8 +150,7 @@
 ## Appendix
 
 ### A. Full Variant Results
-- Complete tables for all 27 problem instances (26 ready + 1 blocked).
-- Source: per-method `*_matrix.json` files under `experiments/results/`.
+- Complete tables for **74** manifest lines in the index (**73** ready + **1** blocked) and per-variant rows inside each `experiments/results/*_matrix.json`.
 
 ### B. CT-LIO Reference-Based Evaluation
 - Separate treatment of `ct_lio_reference_tradeoff` results.

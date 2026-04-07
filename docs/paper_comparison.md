@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-04-06T08:10:21+00:00
+> Generated: 2026-04-07T13:50:26+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (RPE vs ATE).
 
@@ -31,9 +31,9 @@ This document compares paper-reported metrics with the current repository defaul
 | HDL-400 | Paper-like 3m + ICP-only | 0.121 | 6.43 |
 | Istanbul | Fast local-map + ICP-only | 1.222 | 20.95 |
 | Istanbul | Paper-like 3m + ICP-only | 0.741 | 17.25 |
-| KITTI | Fast local-map + covariance | 1.145 | 61.35 |
+| KITTI | Fast local-map + ICP-only | 1.145 | 48.81 |
 | KITTI | Paper-like 3m + ICP-only | 1.397 | 43.69 |
-| KITTI | Paper-like 3m + ICP-only | 122.275 | 63.68 |
+| KITTI | Paper-like 3m + covariance | 122.275 | 87.31 |
 | KITTI | Fast local-map + ICP-only | 0.944 | 58.11 |
 | KITTI | Fast local-map + covariance | 0.511 | 67.74 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast local-map + covariance | 0.401 | 64.22 |
@@ -61,9 +61,9 @@ This document compares paper-reported metrics with the current repository defaul
 | HDL-400 | Fast recent map | 0.193 | 1.68 |
 | Istanbul | Fast recent map | 1.166 | 5.68 |
 | Istanbul | Fast recent map | 0.982 | 4.27 |
-| KITTI | Fast recent map | 1.170 | 22.01 |
+| KITTI | Fast recent map | 1.170 | 23.01 |
 | KITTI | Fast recent map | 1.177 | 25.84 |
-| KITTI | Dense recent map | 1.510 | 7.74 |
+| KITTI | Dense recent map | 1.510 | 10.93 |
 | KITTI | Fast recent map | 1.081 | 22.76 |
 | KITTI | Fast recent map | 0.959 | 25.74 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast recent map | 0.630 | 24.67 |
@@ -91,9 +91,9 @@ This document compares paper-reported metrics with the current repository defaul
 | HDL-400 | Fast coarse map | 0.051 | 0.79 |
 | Istanbul | Fast coarse map | 0.007 | 2.08 |
 | Istanbul | Fast coarse map | 0.005 | 1.95 |
-| KITTI | Balanced local map | 0.255 | 20.10 |
+| KITTI | Fast coarse map | 0.307 | 30.91 |
 | KITTI | Fast coarse map | 0.374 | 36.15 |
-| KITTI | Fast coarse map | 122.547 | 11.97 |
+| KITTI | Fast coarse map | 122.547 | 24.99 |
 | KITTI | Fast coarse map | 0.247 | 23.80 |
 | KITTI | Fast coarse map | 0.319 | 41.22 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast coarse map | 0.208 | 31.21 |
@@ -133,9 +133,9 @@ This document compares paper-reported metrics with the current repository defaul
 | HDL-400 | Fast recent map | 1.646 | 0.52 |
 | Istanbul | Dense local map | 144.086 | 3.59 |
 | Istanbul | Fast recent map | 131.692 | 3.74 |
-| KITTI | Fast recent map | 5.839 | 24.64 |
+| KITTI | Fast recent map | 5.839 | 21.88 |
 | KITTI | Fast recent map | 2.642 | 24.43 |
-| KITTI | Fast recent map | 2.642 | 25.59 |
+| KITTI | Fast recent map | 2.642 | 28.21 |
 | KITTI | Fast recent map | 4.623 | 11.23 |
 | KITTI | Fast recent map | 0.679 | 28.26 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast recent map | 5.568 | 11.29 |
@@ -175,9 +175,9 @@ This document compares paper-reported metrics with the current repository defaul
 | HDL-400 | Fast window | 1.513 | 2.41 |
 | Istanbul | Balanced window | 6.820 | 1.58 |
 | Istanbul | Balanced window | 7.539 | 1.31 |
-| KITTI | Fast window | 5.853 | 45.40 |
+| KITTI | Balanced window | 4.673 | 40.58 |
 | KITTI | Balanced window | 1.659 | 34.38 |
-| KITTI | Balanced window | 1.659 | 34.31 |
+| KITTI | Balanced window | 1.659 | 44.51 |
 | KITTI | Fast window | 6.972 | 37.60 |
 | KITTI | Fast window | 1.475 | 56.88 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast window | 6.525 | 59.77 |

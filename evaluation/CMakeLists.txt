@@ -32,8 +32,16 @@ add_executable(pcd_dogfooding src/pcd_dogfooding.cpp)
 target_link_libraries(pcd_dogfooding PRIVATE
   litamin2
   gicp
+  small_gicp
+  voxel_gicp
   ndt
   kiss_icp
+  aloam
+  floam
+  dlo
+  dlio
+  lego_loam
+  mulls
   ct_icp
   ct_lio
   imu_preintegration

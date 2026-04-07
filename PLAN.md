@@ -1,8 +1,8 @@
 # Localization Zoo - 引き継ぎ PLAN
 
-> 最終更新: 2026-04-06 (第3版)
-> この `PLAN.md` は、Cursor 等の AI アシスタントが `Localization Zoo` の
-> 現在地と次のアクションを即座に把握するための handoff 文書である。
+> 最終更新: 2026-04-06 (第4版)
+> この `PLAN.md` は、メンテナ・共同研究者が `Localization Zoo` の
+> 現在地と次のアクションを短時間で把握するための handoff 文書である。
 >
 > まずこのファイルを読み、次に
 > [`docs/variant_analysis.md`](docs/variant_analysis.md),
@@ -15,10 +15,10 @@
 
 ## 0. 1 分で把握すべきこと
 
-- **66 ready problems + 1 blocked** の variant-first benchmark repo
+- **73 ready problems + 1 blocked** の variant-first benchmark repo（※ 新 manifest 追加分は `refresh_study_docs` 後に index が増える）
 - **4 public dataset families**: Istanbul, HDL-400, MCD (3 windows), KITTI Raw (4 windows)
-- **6 method families** がベンチマーク統合済み: LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP, CT-LIO
-- **38 本の from-scratch 論文実装** が `papers/` にあり、うち 32 本がまだベンチマーク未統合
+- **14 method families** がベンチマーク統合済み: LiTAMIN2, GICP, Small-GICP, Voxel-GICP, NDT, KISS-ICP, DLO, DLIO, CT-ICP, CT-LIO, A-LOAM, F-LOAM, LeGO-LOAM, MULLS
+- **38 本の from-scratch 論文実装** が `papers/` にあり、うち約 25 本がまだベンチマーク未統合（13 families 統合済み）
 - `--no-gt-seed` フラグで GT-seeded vs pure odometry の ablation 実験済み
 - `docs/variant_analysis.md` に GT-seed ablation + cross-dataset stability + profile impact の 3 分析
 - Docker ビルド検証済み（Ceres 2.1/2.2 両対応 `common/include/common/ceres_compat.h`）
@@ -31,7 +31,7 @@
 ### 1.1 Stable Core
 
 - [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp) — 共有 CLI
-  - `--methods litamin2,gicp,ndt,kiss_icp,ct_icp,ct_lio` — 現在統合済みの 6 手法
+  - `--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,ct_icp,ct_lio,aloam,floam,lego_loam,mulls` — 現在統合済みの 14 手法
   - `--no-gt-seed` — scan-to-map メソッドの GT 初期化無効化
   - `--summary-json` — JSON 結果出力
   - 各メソッドの profile flags (`--litamin2-paper-profile`, `--gicp-fast-profile` 等)
@@ -73,7 +73,7 @@ generator を直して `python3 evaluation/scripts/refresh_study_docs.py` で再
 
 ### 2.1 問題数
 
-- ready: **66**
+- ready: **73**
 - blocked: **1** (CT-LIO GT-backed, scope-out 済み)
 
 ### 2.2 Dataset families (4)
@@ -87,22 +87,31 @@ generator を直して `python3 evaluation/scripts/refresh_study_docs.py` で再
 
 追加: no-GT-seed ablation (KITTI Raw 0009 × 200f × 5 methods)
 
-### 2.3 Method families (6 統合済み)
+### 2.3 Method families (14 統合済み)
 
 | Method | Type | GT-seed | Variants | 品質 |
 |--------|------|---------|----------|------|
 | LiTAMIN2 | scan-to-map | あり | 4 | ⭐⭐⭐⭐⭐ |
 | GICP | scan-to-map | あり | 3 | ⭐⭐⭐⭐ |
+| Small-GICP | scan-to-map | あり | 3 | ⭐⭐⭐⭐ |
+| Voxel-GICP | scan-to-map (voxel cov.) | あり | 3 (`--voxel-gicp-*-profile`) | ⭐⭐⭐⭐ |
 | NDT | scan-to-map | あり | 3 | ⭐⭐⭐⭐ |
 | KISS-ICP | odometry | なし | 3 | ⭐⭐⭐⭐ |
+| DLO | keyframe scan-to-map (GICP) | なし | 3 (`--dlo-*-profile`) | ⭐⭐⭐⭐ |
+| DLIO | keyframe GICP + IMU 事前積分（任意） | なし | 3 (`--dlio-*-profile`) | ⭐⭐⭐⭐ |
 | CT-ICP | odometry | なし | 3 | ⭐⭐⭐⭐⭐ |
 | CT-LIO | LIO | なし | 3 | HDL-400 のみ |
+| A-LOAM | odometry+mapping | なし | 3 | ⭐⭐⭐ |
+| F-LOAM | odometry+mapping | なし | 3 | ⭐⭐⭐ |
+| LeGO-LOAM | ground-aware odometry+mapping | なし | 3 (`--lego-loam-*-profile`) | ⭐⭐⭐ |
+| MULLS | multi-metric scan-to-map (line/plane/point) | なし | 3 (`--mulls-*-profile`) | ⭐⭐⭐⭐ |
 
 ### 2.4 Key findings (from variant_analysis.md)
 
 1. **GT-seed ablation**: LiTAMIN2/NDT は GT-seed なしで ATE 100m+ に発散。GICP は比較的ロバスト。KISS-ICP/CT-ICP は影響なし（元々 odometry）
 2. **Cross-dataset instability**: 5 手法中 3 手法で dataset ごとに default variant が変わる
 3. **Profile impact**: fast profile は throughput 2-3x 向上、ATE は dataset 依存で悪化/改善が分かれる
+4. **LOAM系の入力整合性**: 一部の `frame_timestamps.csv` が疎な keyframe 列になっていると ATE が破綻する。`pcd_dogfooding` 側で median gap が大きい場合は GT サンプリングにフォールバックして評価崩壊を回避（ただし根本は「連番 raw scan」入力の維持）。
 
 ---
 
@@ -110,19 +119,21 @@ generator を直して `python3 evaluation/scripts/refresh_study_docs.py` で再
 
 ### P0: ベンチマーク手法の追加
 
-**最優先。** 現在 6 手法だが、`papers/` に 32 本の未統合実装がある。
+**最優先。** `pcd_dogfooding` は 13 families 統合済みだが、`papers/` に未統合実装がまだ多数ある。
 pcd_dogfooding に統合して比較手法を増やす。
 
 **高優先度（LiDAR-only、IMU 不要）:**
 
 | Method | Dir | LOC | 特徴 | 統合難度 |
 |--------|-----|-----|------|----------|
-| A-LOAM | `papers/aloam/` | 965 | Feature-based LOAM 基準実装 | 中 |
-| F-LOAM | `papers/floam/` | - | Fast LOAM variant | 中 |
-| Small-GICP | `papers/small_gicp/` | 295 | 効率改善版 GICP | 低 |
-| DLO | `papers/dlo/` | - | Keyframe scan-to-map | 中 |
-| LeGO-LOAM | `papers/lego_loam/` | - | Ground-aware LOAM | 中 |
-| MULLS | `papers/mulls/` | - | Multi-metric 拡張 | 中 |
+| A-LOAM | `papers/aloam/` | 965 | Feature-based LOAM 基準実装 | **済** |
+| F-LOAM | `papers/floam/` | - | Fast LOAM variant | **済** |
+| Small-GICP | `papers/small_gicp/` | 295 | 効率改善版 GICP | **済** |
+| Voxel-GICP | `papers/voxel_gicp/` | - | ボクセル代表 GICP | **済** |
+| DLO | `papers/dlo/` | - | Keyframe scan-to-map | **済** |
+| DLIO | `papers/dlio/` | - | DLO + IMU 事前積分 | **済** |
+| LeGO-LOAM | `papers/lego_loam/` | - | Ground-aware LOAM | **済** |
+| MULLS | `papers/mulls/` | - | Multi-metric 拡張 | **済** |
 
 **統合手順（1 手法あたり）:**
 
@@ -135,7 +146,7 @@ pcd_dogfooding に統合して比較手法を増やす。
 7. 全 dataset で実験実行
 8. full refresh
 
-**目標: 10+ method families で variant-first 比較。**
+**目標: 10+ method families で variant-first 比較（DLIO / MULLS まで到達、さらに拡大中）。**
 これにより "38 本の実装から 10+ 手法を統一フレームワークで比較" という artifact 貢献が強まる。
 
 ### P1: 論文草稿の執筆
@@ -151,7 +162,7 @@ P0 で手法が増えた後の方が story が強い。
 
 ### P3: README 更新
 
-- 現在の 66 ready problems, 4 dataset families を反映
+- 現在の 73 ready problems, 4 dataset families を反映
 - MCD / KITTI Raw の追加手順を記載
 
 ---
@@ -204,7 +215,13 @@ python3 evaluation/scripts/extract_ros1_lidar.py --bag <bag> --pointcloud-topic 
 python3 evaluation/scripts/mcd_gt_to_csv.py --input <pose_inW.csv> --output <gt.csv> --frame-timestamps <frame_timestamps.csv>
 
 # KITTI Raw データ準備
-python3 evaluation/scripts/kitti_raw_to_benchmark.py --drive-dir <drive_sync> --output-dir <out> --gt-csv <gt.csv> --max-frames 200
+python3 evaluation/scripts/kitti_raw_to_benchmark.py --drive-dir <drive_sync> --output-dir <out> --gt-csv <gt.csv> --max-frames 200 --write-imu-csv
+
+# 既存 dogfooding ツリーにだけ imu.csv を足す場合（同期 drive が手元にあるとき）
+python3 evaluation/scripts/kitti_oxts_imu_for_dogfooding.py --drive-dir <drive_sync> --pcd-dir dogfooding_results/kitti_raw_0009_full
+
+# 論文用: elected default の方法×データセット行列 + 不安定可視化（`export_paper_assets` からも呼ばれる）
+python3 evaluation/scripts/generate_default_variant_matrix.py
 
 # Script syntax check
 python3 -m py_compile evaluation/scripts/*.py
@@ -230,7 +247,7 @@ docker build -t localization_zoo:test .
 
 ## 7. 結論
 
-**66 ready problems, 4 dataset families, 6 method families** の比較基盤が稼働中。
+**73 ready problems, 4 dataset families, 14 method families** の比較基盤が稼働中（`pcd_dogfooding` 統合数；論エビデンスの index は更新タイミングで追随）。
 GT-seed ablation と variant analysis により、単なる hyperparameter sweep ではない分析が出ている。
 
 次のフェーズは：

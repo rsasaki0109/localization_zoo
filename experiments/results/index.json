@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-04-06T08:10:13+00:00",
+  "generated_at": "2026-04-07T13:50:03+00:00",
   "problems": [
+    {
+      "problem_id": "aloam_profile_tradeoff_kitti_raw_0009_full",
+      "title": "A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/aloam_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
     {
       "problem_id": "ct_icp_profile_tradeoff_hdl_400_reference_b",
       "title": "CT-ICP throughput and drift trade-off on the second public HDL-400 reference window",
@@ -44,7 +53,7 @@
       "blocker": "",
       "manifest_path": "experiments/ct_icp_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_raw_0009_full_matrix.json",
-      "current_default": "fast_window"
+      "current_default": "balanced_window"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_kitti_raw_0009",
@@ -135,6 +144,33 @@
       "manifest_path": "experiments/ct_lio_reference_profile_matrix.json",
       "aggregate_path": "experiments/results/ct_lio_reference_profile_matrix.json",
       "current_default": "seed_only_fast"
+    },
+    {
+      "problem_id": "dlio_profile_tradeoff_kitti_raw_0009_full",
+      "title": "DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/dlio_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_kitti_raw_0009_full",
+      "title": "DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/dlo_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_kitti_raw_0009_full",
+      "title": "F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/floam_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "gicp_profile_tradeoff_hdl_400_reference_b",
@@ -371,6 +407,15 @@
       "current_default": "fast_recent_map"
     },
     {
+      "problem_id": "lego_loam_profile_tradeoff_kitti_raw_0009_full",
+      "title": "LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "litamin2_profile_tradeoff_hdl_400_reference_b",
       "title": "LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window",
       "status": "ready",
@@ -413,7 +458,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_full_matrix.json",
-      "current_default": "fast_cov_half_threads"
+      "current_default": "fast_icp_only_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_kitti_raw_0009",
@@ -431,7 +476,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_kitti_raw_0009_nogt_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json",
-      "current_default": "paper_icp_only_half_threads"
+      "current_default": "paper_cov_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_kitti_raw_0061_full",
@@ -488,6 +533,15 @@
       "current_default": "fast_icp_only_half_threads"
     },
     {
+      "problem_id": "mulls_profile_tradeoff_kitti_raw_0009_full",
+      "title": "MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "ndt_profile_tradeoff_hdl_400_reference_b",
       "title": "NDT throughput and accuracy trade-off on the second public HDL-400 reference window",
       "status": "ready",
@@ -530,7 +584,7 @@
       "blocker": "",
       "manifest_path": "experiments/ndt_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/ndt_kitti_raw_0009_full_matrix.json",
-      "current_default": "balanced_local_map"
+      "current_default": "fast_coarse_map"
     },
     {
       "problem_id": "ndt_profile_tradeoff_kitti_raw_0009",
@@ -603,6 +657,78 @@
       "manifest_path": "experiments/ndt_profile_matrix.json",
       "aggregate_path": "experiments/results/ndt_profile_matrix.json",
       "current_default": "fast_coarse_map"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_kitti_raw_0009_full",
+      "title": "Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_mcd_kth_day_06",
+      "title": "Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_mcd_kth_day_06_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_mcd_ntu_day_02",
+      "title": "Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_mcd_ntu_day_02_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_mcd_tuhh_night_09",
+      "title": "Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0009_full",
+      "title": "Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_mcd_kth_day_06",
+      "title": "Voxel-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_mcd_ntu_day_02",
+      "title": "Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_mcd_tuhh_night_09",
+      "title": "Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json",
+      "current_default": "dense_recent_map"
     }
   ]
 }

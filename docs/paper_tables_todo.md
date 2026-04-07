@@ -10,12 +10,12 @@
 - [x] **Table 2: Method Families and Variant Counts**
   - Description: One row per method family showing the number of active variants and example variant names.
   - Data source: `experiments/results/index.json` (group by method prefix), `docs/decisions.md`.
-  - Status: Done (6 families, variant names extractable from index.json).
+  - Status: Done for prose table in `paper_draft_outline.md` (**13** integrated families; per-manifest variant ids under `experiments/`).
 
-- [ ] **Table 3: Cross-Dataset Default Variants**
-  - Description: Matrix of (method family x dataset) showing the elected default variant for each cell. Highlights cells where the default differs from the method's most common default.
-  - Data source: `experiments/results/index.json` (`current_default` field per problem).
-  - Status: Todo -- needs pivot table generation from index.json.
+- [x] **Table 3: Cross-Dataset Default Variants**
+  - Description: Matrix of (method family × dataset slug) with elected `current_default` per cell. Wide CSV for TeX import; long CSV for spreadsheets.
+  - Data source: `experiments/results/index.json` + per-problem aggregates (`stable_interface.methods`, `dataset.pcd_dir` basename).
+  - Status: Done — `evaluation/scripts/generate_default_variant_matrix.py` → `docs/assets/paper/default_variant_matrix.csv` (+ long form). Invoked from `export_paper_assets.py`.
 
 - [x] **Table 4: Ready Defaults Summary (Core)**
   - Description: One representative default per method family with ATE, FPS, contract type, and dataset.
@@ -23,7 +23,7 @@
   - Status: Done (CSV exported by `export_paper_assets.py`).
 
 - [ ] **Table 5: Full Variant Results (Appendix)**
-  - Description: All variants for all 27 problem instances with ATE, FPS, decision (adopt/keep/retire), and contract type.
+  - Description: All variants for all **74** index problems (**73** ready + **1** blocked) with ATE, FPS, decision (adopt/keep/retire), and contract type.
   - Data source: Per-method `*_matrix.json` files under `experiments/results/`.
   - Status: Todo -- needs aggregation script across all matrix JSONs.
 
@@ -45,7 +45,7 @@
 ## Figures
 
 - [x] **Figure 1: Pareto Front (ATE vs. FPS)**
-  - Description: Scatter plot of all 26 ready default variants. X-axis: ATE (m, log scale). Y-axis: FPS. Separate markers for GT-backed and reference-based. Annotates fastest (LiTAMIN2, 23.5 FPS) and most accurate (NDT, 0.005 m).
+  - Description: Scatter plot of all **73** ready default variants (`ready_defaults.csv`). X-axis: ATE (m); Y-axis: FPS. Separate markers for GT-backed and reference-based. Re-annotate extremes after each export (current CSV spans roughly **0.005–183 m** ATE and **0.4–106** FPS).
   - Data source: `docs/assets/paper/ready_defaults_pareto.png`.
   - Status: Done (exported by `export_paper_assets.py`).
 
@@ -59,10 +59,10 @@
   - Data source: `docs/assets/paper/manuscript_core_methods.png`.
   - Status: Done (exported by `export_paper_assets.py`).
 
-- [ ] **Figure 4: Default Instability Heatmap**
-  - Description: Heatmap or matrix plot with method families on rows, datasets on columns, colored by which variant is the default. Visually highlights that defaults are not stable.
-  - Data source: `experiments/results/index.json`.
-  - Status: Todo -- needs new visualization script.
+- [x] **Figure 4: Default Instability Heatmap**
+  - Description: Methods × datasets; **green** = matches row plurality default, **red** = differs, **gray** = no benchmark cell; variant id annotated in small type.
+  - Data source: same as Table 3.
+  - Status: Done — `docs/assets/paper/default_variant_instability.png` (generator script as above).
 
 - [ ] **Figure 5: Per-Method Pareto Overlay**
   - Description: One combined plot showing the Pareto front for each method family as a separate curve/color, making it easy to see where families overlap and where they dominate.
@@ -83,6 +83,6 @@
 
 | Category | Done | Todo | Total |
 |----------|------|------|-------|
-| Tables | 2 | 6 | 8 |
-| Figures | 3 | 4 | 7 |
-| **Total** | **5** | **10** | **15** |
+| Tables | 3 | 5 | 8 |
+| Figures | 4 | 3 | 7 |
+| **Total** | **7** | **8** | **15** |

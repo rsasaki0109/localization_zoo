@@ -11,6 +11,7 @@ target_include_directories(vins_fusion PUBLIC
 
 target_link_libraries(vins_fusion PUBLIC
   imu_preintegration
+  localization_common
   Eigen3::Eigen
   ${CERES_LIBRARIES}
 )

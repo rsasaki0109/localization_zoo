@@ -38,6 +38,8 @@ METHODS_BASE=(
   litamin2 gicp small_gicp voxel_gicp ndt kiss_icp
   dlo dlio aloam floam lego_loam mulls ct_icp
   xicp fast_lio2 hdl_graph_slam vgicp_slam
+  suma balm2 isc_loam loam_livox lio_sam lins
+  fast_lio_slam point_lio
 )
 
 run_one_dataset() {

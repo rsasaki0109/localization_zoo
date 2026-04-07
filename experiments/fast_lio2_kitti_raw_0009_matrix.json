@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "fast_lio2_kitti_raw_0009",
+    "title": "FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "How does FAST-LIO2 perform on the KITTI Raw drive 0009 (200 frames, urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "fast_lio2",
+    "primary_method": "FAST-LIO2"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": []
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "lio_sam_kitti_raw_0009_full",
+    "title": "LIO-SAM on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+    "question": "How does LIO-SAM perform on the KITTI Raw drive 0009 full sequence (443 frames, urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lio_sam",
+    "primary_method": "LIO-SAM"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": []
+    }
+  ]
+}

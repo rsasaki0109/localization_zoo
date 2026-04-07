@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T01:42:38+00:00",
+  "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_matrix.json",
+  "problem": {
+    "id": "hdl_graph_slam_kitti_raw_0009",
+    "title": "HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "How does HDL Graph SLAM perform on the KITTI Raw drive 0009 (200 frames, urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "hdl_graph_slam",
+    "primary_method": "HDL-Graph-SLAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 122.140983,
+      "fps": 1.818869,
+      "time_ms": 109958.42064,
+      "frames": 200,
+      "note": "NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

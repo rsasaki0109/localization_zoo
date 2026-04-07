@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T02:51:38+00:00",
+  "manifest_path": "experiments/suma_kitti_raw_0061_full_matrix.json",
+  "problem": {
+    "id": "suma_kitti_raw_0061_full",
+    "title": "SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "How does SuMa perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_raw_0061_full_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/suma_kitti_raw_0061_full_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_raw_0061_full_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 19.447592,
+      "fps": 24.392357,
+      "time_ms": 28820.503026,
+      "frames": 703,
+      "note": "Surfel-based mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

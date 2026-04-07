@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T03:04:30+00:00",
+  "manifest_path": "experiments/lins_mcd_ntu_day_02_matrix.json",
+  "problem": {
+    "id": "lins_mcd_ntu_day_02",
+    "title": "LINS on MCD NTU day-02 sequence",
+    "question": "How does LINS perform on the MCD NTU day-02 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lins",
+    "primary_method": "LINS"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in MCD NTU fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods lins --summary-json experiments/results/runs/lins_mcd_ntu_day_02_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/lins_mcd_ntu_day_02_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/lins_mcd_ntu_day_02_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.269182,
+      "fps": 42.474614,
+      "time_ms": 2542.695285,
+      "frames": 108,
+      "note": "LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

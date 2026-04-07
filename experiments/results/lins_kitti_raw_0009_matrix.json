@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T03:04:30+00:00",
+  "manifest_path": "experiments/lins_kitti_raw_0009_matrix.json",
+  "problem": {
+    "id": "lins_kitti_raw_0009",
+    "title": "LINS on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "How does LINS perform on the KITTI Raw drive 0009 (200 frames, urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lins",
+    "primary_method": "LINS"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods lins --summary-json experiments/results/runs/lins_kitti_raw_0009_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/lins_kitti_raw_0009_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/lins_kitti_raw_0009_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 120.280399,
+      "fps": 31.468311,
+      "time_ms": 6355.600103,
+      "frames": 200,
+      "note": "LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

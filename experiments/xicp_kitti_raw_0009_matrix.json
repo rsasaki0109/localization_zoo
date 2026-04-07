@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "xicp_kitti_raw_0009",
+    "title": "X-ICP on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "How does X-ICP perform on the KITTI Raw drive 0009 (200 frames, urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "xicp",
+    "primary_method": "X-ICP"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (GT seed)",
+      "design_style": "balanced",
+      "intent": "Repository default with ground-truth seed initialization.",
+      "args": []
+    },
+    {
+      "id": "no_gt_seed",
+      "label": "No GT seed",
+      "design_style": "accuracy-oriented",
+      "intent": "Ablation without ground-truth seed to test convergence from identity.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

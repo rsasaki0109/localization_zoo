@@ -11,6 +11,7 @@ target_include_directories(orb_slam3 PUBLIC
 
 target_link_libraries(orb_slam3 PUBLIC
   imu_preintegration
+  localization_common
   Eigen3::Eigen
   ${CERES_LIBRARIES}
 )

@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T03:02:28+00:00",
+  "manifest_path": "experiments/lio_sam_kitti_raw_0061_full_matrix.json",
+  "problem": {
+    "id": "lio_sam_kitti_raw_0061_full",
+    "title": "LIO-SAM on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "How does LIO-SAM perform on the KITTI Raw drive 0061 full sequence (703 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lio_sam",
+    "primary_method": "LIO-SAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_kitti_raw_0061_full_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/lio_sam_kitti_raw_0061_full_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/lio_sam_kitti_raw_0061_full_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 5.236252,
+      "fps": 5.799722,
+      "time_ms": 121212.701939,
+      "frames": 703,
+      "note": "Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

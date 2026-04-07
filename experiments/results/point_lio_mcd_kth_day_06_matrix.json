@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T03:05:41+00:00",
+  "manifest_path": "experiments/point_lio_mcd_kth_day_06_matrix.json",
+  "problem": {
+    "id": "point_lio_mcd_kth_day_06",
+    "title": "Point-LIO on MCD KTH day-06 sequence",
+    "question": "How does Point-LIO perform on the MCD KTH day-06 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "point_lio",
+    "primary_method": "Point-LIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+    "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in MCD KTH fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_mcd_kth_day_06_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/point_lio_mcd_kth_day_06_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/point_lio_mcd_kth_day_06_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 7.112642,
+      "fps": 1.179943,
+      "time_ms": 91529.834941,
+      "frames": 108,
+      "note": "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

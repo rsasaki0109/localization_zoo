@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T02:59:59+00:00",
+  "manifest_path": "experiments/lio_sam_mcd_kth_day_06_matrix.json",
+  "problem": {
+    "id": "lio_sam_mcd_kth_day_06",
+    "title": "LIO-SAM on MCD KTH day-06 sequence",
+    "question": "How does LIO-SAM perform on the MCD KTH day-06 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lio_sam",
+    "primary_method": "LIO-SAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+    "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in MCD KTH fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_mcd_kth_day_06_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/lio_sam_mcd_kth_day_06_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/lio_sam_mcd_kth_day_06_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 6.019893,
+      "fps": 8.056481,
+      "time_ms": 13405.356628,
+      "frames": 108,
+      "note": "Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

@@ -49,6 +49,15 @@ target_link_libraries(pcd_dogfooding PRIVATE
   fast_lio2
   hdl_graph_slam
   vgicp_slam
+  suma
+  balm2
+  isc_loam
+  loam_livox
+  lio_sam
+  lins
+  fast_lio_slam
+  point_lio
+  clins
   ${PCL_LIBRARIES}
 )
 target_include_directories(pcd_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})

@@ -275,8 +275,8 @@ docker build -t localization_zoo:test .
 
 次の Claude / メンテ担当は次を優先するとよい:
 
-1. **Actions の緑維持**と **`smoke_ci_fixture` 失敗時の切り分け**（CI修復済み: libunwind-dev + ROS2 shell fix）
-2. **新手法のマニフェスト作成**（27手法 × MCD/KITTI の matrix → refresh_study_docs.py）
+1. **残りの手法の実験結果生成**（hdl_graph_slam, vgicp_slam, suma, isc_loam, loam_livox, lio_sam, lins, point_lio, xicp の KITTI Raw full が未完。`refresh_study_docs.py` で個別マニフェスト指定か、HDL-Graph-SLAM の KITTI Raw full を先にスキップして残りを流す）
+2. **docs 再生成**（index.json + experiments.md/decisions.md を新手法込みで更新）
 3. **Istanbul / HDL 実データ配置**または **blocked 問題の解除条件の再確認**
 4. **CUBE-LIO**は前処理まで — **フル本体は別プロジェクト扱い**で論文・公式実装を待つ
 

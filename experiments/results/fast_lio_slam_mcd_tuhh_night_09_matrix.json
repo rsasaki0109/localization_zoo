@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T01:20:26+00:00",
+  "manifest_path": "experiments/fast_lio_slam_mcd_tuhh_night_09_matrix.json",
+  "problem": {
+    "id": "fast_lio_slam_mcd_tuhh_night_09",
+    "title": "FAST-LIO-SLAM on MCD TUHH night-09 sequence",
+    "question": "How does FAST-LIO-SLAM perform on the MCD TUHH night-09 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+      "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "fast_lio_slam",
+    "primary_method": "FAST-LIO-SLAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+    "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in MCD TUHH fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_mcd_tuhh_night_09_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/fast_lio_slam_mcd_tuhh_night_09_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/fast_lio_slam_mcd_tuhh_night_09_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 1.334217,
+      "fps": 4.938815,
+      "time_ms": 21867.595126,
+      "frames": 108,
+      "note": "FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

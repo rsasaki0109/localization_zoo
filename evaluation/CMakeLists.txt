@@ -46,6 +46,9 @@ target_link_libraries(pcd_dogfooding PRIVATE
   ct_lio
   imu_preintegration
   xicp
+  fast_lio2
+  hdl_graph_slam
+  vgicp_slam
   ${PCL_LIBRARIES}
 )
 target_include_directories(pcd_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})

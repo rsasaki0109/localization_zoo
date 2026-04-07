@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T01:41:24+00:00",
+  "manifest_path": "experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
+  "problem": {
+    "id": "hdl_graph_slam_mcd_ntu_day_02",
+    "title": "HDL Graph SLAM on MCD NTU day-02 sequence",
+    "question": "How does HDL Graph SLAM perform on the MCD NTU day-02 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "hdl_graph_slam",
+    "primary_method": "HDL-Graph-SLAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 27.211615,
+      "fps": 2.666864,
+      "time_ms": 40497.006499,
+      "frames": 108,
+      "note": "NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

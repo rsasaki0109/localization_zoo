@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-04-08T03:19:46+00:00",
+  "manifest_path": "experiments/xicp_kitti_raw_0061_matrix.json",
+  "problem": {
+    "id": "xicp_kitti_raw_0061",
+    "title": "X-ICP on KITTI Raw drive 0061 (200 frames, residential)",
+    "question": "How does X-ICP perform on the KITTI Raw drive 0061 (200 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "xicp",
+    "primary_method": "X-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (GT seed)",
+      "design_style": "balanced",
+      "intent": "Repository default with ground-truth seed initialization.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0061_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/xicp_kitti_raw_0061_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/xicp_kitti_raw_0061_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.140955,
+      "fps": 60.763714,
+      "time_ms": 3291.438032,
+      "frames": 200,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 99.3,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "no_gt_seed",
+      "label": "No GT seed",
+      "design_style": "accuracy-oriented",
+      "intent": "Ablation without ground-truth seed to test convergence from identity.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0061_matrix/no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/xicp_kitti_raw_0061_matrix/no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/xicp_kitti_raw_0061_matrix/no_gt_seed/run.log",
+      "status": "OK",
+      "ate_m": 78.836359,
+      "fps": 61.630813,
+      "time_ms": 3245.129995,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 50.09,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

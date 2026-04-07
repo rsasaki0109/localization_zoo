@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T03:19:37+00:00",
+  "generated_at": "2026-04-08T05:11:14+00:00",
   "manifest_path": "experiments/xicp_mcd_tuhh_night_09_matrix.json",
   "problem": {
     "id": "xicp_mcd_tuhh_night_09",
@@ -38,8 +38,8 @@
       "log_path": "experiments/results/runs/xicp_mcd_tuhh_night_09_matrix/default/run.log",
       "status": "OK",
       "ate_m": 0.122192,
-      "fps": 75.16909,
-      "time_ms": 1436.760777,
+      "fps": 76.617286,
+      "time_ms": 1409.603566,
       "frames": 108,
       "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
       "benchmark_score": 100.0,
@@ -67,7 +67,7 @@
       "time_ms": 1443.24422,
       "frames": 108,
       "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
-      "benchmark_score": 52.88,
+      "benchmark_score": 51.94,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,

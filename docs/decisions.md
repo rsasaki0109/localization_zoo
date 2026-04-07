@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-08T05:11:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -20,6 +20,69 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/balm2_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## BALM2 on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/balm2_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## BALM2 on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/balm2_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## BALM2 on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/balm2_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## BALM2 on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/balm2_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## BALM2 on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/balm2_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## BALM2 on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/balm2_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP throughput and drift trade-off on the second public HDL-400 reference window
 
@@ -224,6 +287,132 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio2_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO2 on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio2_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO2 on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio2_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO2 on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio2_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO2 on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO2 on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio2_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO-SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio_slam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio_slam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO-SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio_slam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO-SLAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio_slam_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO-SLAM on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO-SLAM on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## FAST-LIO-SLAM on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -391,6 +580,132 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `-`.
+- Aggregate result: `experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Rejected for this run | The variant did not produce a valid benchmark result. |
+
+## HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## HDL Graph SLAM on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## HDL Graph SLAM on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## HDL Graph SLAM on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/isc_loam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ISC-LOAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/isc_loam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ISC-LOAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/isc_loam_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ISC-LOAM on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/isc_loam_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ISC-LOAM on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/isc_loam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## ISC-LOAM on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/isc_loam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## KISS-ICP throughput and drift trade-off on the second public HDL-400 reference window
 
@@ -561,6 +876,132 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LINS on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lins_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LINS on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lins_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LINS on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lins_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LINS on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lins_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LINS on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lins_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LINS on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lins_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LINS on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lins_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LIO-SAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lio_sam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LIO-SAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lio_sam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LIO-SAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lio_sam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LIO-SAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lio_sam_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LIO-SAM on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lio_sam_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LIO-SAM on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lio_sam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LIO-SAM on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window
 
@@ -742,6 +1183,69 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/loam_livox_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LOAM Livox on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/loam_livox_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LOAM Livox on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/loam_livox_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LOAM Livox on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/loam_livox_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LOAM Livox on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/loam_livox_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LOAM Livox on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/loam_livox_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LOAM Livox on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -913,6 +1417,69 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_coarse_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/point_lio_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Point-LIO on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/point_lio_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Point-LIO on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/point_lio_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Point-LIO on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/point_lio_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Point-LIO on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/point_lio_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Point-LIO on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/point_lio_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Point-LIO on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast_recent_map`.
@@ -960,6 +1527,132 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/suma_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/suma_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/suma_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/suma_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/suma_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/suma_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/suma_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vgicp_slam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## VGICP SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vgicp_slam_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## VGICP SLAM on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## VGICP SLAM on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## VGICP SLAM on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
@@ -1009,3 +1702,80 @@ _Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_recent_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- Current default: `default`.
+- Reference variants: `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## X-ICP on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `default`.
+- Reference variants: `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `default`.
+- Reference variants: `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## X-ICP on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `default`.
+- Reference variants: `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## X-ICP on MCD KTH day-06 sequence
+
+- Current default: `default`.
+- Reference variants: `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## X-ICP on MCD NTU day-02 sequence
+
+- Current default: `default`.
+- Reference variants: `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## X-ICP on MCD TUHH night-09 sequence
+
+- Current default: `default`.
+- Reference variants: `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |

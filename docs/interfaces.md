@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-07T13:50:03+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-08T05:11:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -47,7 +47,7 @@ Every active search problem lives in `experiments/*.json` and must define:
 | `variants[]` | array | Concrete variants to compare, keep, or discard. |
 | `variants[].args` | array | Extra CLI flags layered on the stable core. |
 
-Current active selectors: `aloam`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `floam`, `gicp`, `kiss_icp`, `lego_loam`, `litamin2`, `mulls`, `ndt`, `small_gicp`, `voxel_gicp`
+Current active selectors: `aloam`, `balm2`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `floam`, `gicp`, `hdl_graph_slam`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `mulls`, `ndt`, `point_lio`, `small_gicp`, `suma`, `vgicp_slam`, `voxel_gicp`, `xicp`
 
 ### Runner Contract
 
@@ -74,6 +74,13 @@ The runner is responsible for:
 | Problem | Status | Manifest | Selector | Current Default | Aggregate |
 |---------|--------|----------|----------|-----------------|-----------|
 | A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/aloam_kitti_raw_0009_full_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0009_full_matrix.json` |
+| BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/balm2_kitti_raw_0009_full_matrix.json` | `balm2` | `default` | `experiments/results/balm2_kitti_raw_0009_full_matrix.json` |
+| BALM2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/balm2_kitti_raw_0009_matrix.json` | `balm2` | `default` | `experiments/results/balm2_kitti_raw_0009_matrix.json` |
+| BALM2 on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/balm2_kitti_raw_0061_full_matrix.json` | `balm2` | `default` | `experiments/results/balm2_kitti_raw_0061_full_matrix.json` |
+| BALM2 on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/balm2_kitti_raw_0061_matrix.json` | `balm2` | `default` | `experiments/results/balm2_kitti_raw_0061_matrix.json` |
+| BALM2 on MCD KTH day-06 sequence | `ready` | `experiments/balm2_mcd_kth_day_06_matrix.json` | `balm2` | `default` | `experiments/results/balm2_mcd_kth_day_06_matrix.json` |
+| BALM2 on MCD NTU day-02 sequence | `ready` | `experiments/balm2_mcd_ntu_day_02_matrix.json` | `balm2` | `default` | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
+| BALM2 on MCD TUHH night-09 sequence | `ready` | `experiments/balm2_mcd_tuhh_night_09_matrix.json` | `balm2` | `default` | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_b_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_b_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
@@ -91,6 +98,20 @@ The runner is responsible for:
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `experiments/ct_lio_reference_profile_matrix.json` | `ct_lio` | `seed_only_fast` | `experiments/results/ct_lio_reference_profile_matrix.json` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/dlio_kitti_raw_0009_full_matrix.json` | `dlio` | `fast` | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/dlo_kitti_raw_0009_full_matrix.json` | `dlo` | `fast` | `experiments/results/dlo_kitti_raw_0009_full_matrix.json` |
+| FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/fast_lio2_kitti_raw_0009_full_matrix.json` | `fast_lio2` | `default` | `experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json` |
+| FAST-LIO2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/fast_lio2_kitti_raw_0009_matrix.json` | `fast_lio2` | `default` | `experiments/results/fast_lio2_kitti_raw_0009_matrix.json` |
+| FAST-LIO2 on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/fast_lio2_kitti_raw_0061_full_matrix.json` | `fast_lio2` | `default` | `experiments/results/fast_lio2_kitti_raw_0061_full_matrix.json` |
+| FAST-LIO2 on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/fast_lio2_kitti_raw_0061_matrix.json` | `fast_lio2` | `default` | `experiments/results/fast_lio2_kitti_raw_0061_matrix.json` |
+| FAST-LIO2 on MCD KTH day-06 sequence | `ready` | `experiments/fast_lio2_mcd_kth_day_06_matrix.json` | `fast_lio2` | `default` | `experiments/results/fast_lio2_mcd_kth_day_06_matrix.json` |
+| FAST-LIO2 on MCD NTU day-02 sequence | `ready` | `experiments/fast_lio2_mcd_ntu_day_02_matrix.json` | `fast_lio2` | `default` | `experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json` |
+| FAST-LIO2 on MCD TUHH night-09 sequence | `ready` | `experiments/fast_lio2_mcd_tuhh_night_09_matrix.json` | `fast_lio2` | `default` | `experiments/results/fast_lio2_mcd_tuhh_night_09_matrix.json` |
+| FAST-LIO-SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/fast_lio_slam_kitti_raw_0009_full_matrix.json` | `fast_lio_slam` | `default` | `experiments/results/fast_lio_slam_kitti_raw_0009_full_matrix.json` |
+| FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/fast_lio_slam_kitti_raw_0009_matrix.json` | `fast_lio_slam` | `default` | `experiments/results/fast_lio_slam_kitti_raw_0009_matrix.json` |
+| FAST-LIO-SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/fast_lio_slam_kitti_raw_0061_full_matrix.json` | `fast_lio_slam` | `default` | `experiments/results/fast_lio_slam_kitti_raw_0061_full_matrix.json` |
+| FAST-LIO-SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/fast_lio_slam_kitti_raw_0061_matrix.json` | `fast_lio_slam` | `default` | `experiments/results/fast_lio_slam_kitti_raw_0061_matrix.json` |
+| FAST-LIO-SLAM on MCD KTH day-06 sequence | `ready` | `experiments/fast_lio_slam_mcd_kth_day_06_matrix.json` | `fast_lio_slam` | `default` | `experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json` |
+| FAST-LIO-SLAM on MCD NTU day-02 sequence | `ready` | `experiments/fast_lio_slam_mcd_ntu_day_02_matrix.json` | `fast_lio_slam` | `default` | `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json` |
+| FAST-LIO-SLAM on MCD TUHH night-09 sequence | `ready` | `experiments/fast_lio_slam_mcd_tuhh_night_09_matrix.json` | `fast_lio_slam` | `default` | `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json` |
 | F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/floam_kitti_raw_0009_full_matrix.json` | `floam` | `fast` | `experiments/results/floam_kitti_raw_0009_full_matrix.json` |
 | GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/gicp_hdl_400_reference_b_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_hdl_400_reference_b_matrix.json` |
 | GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/gicp_hdl_400_reference_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_hdl_400_reference_matrix.json` |
@@ -105,6 +126,20 @@ The runner is responsible for:
 | GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/gicp_mcd_ntu_day_02_matrix.json` | `gicp` | `dense_recent_map` | `experiments/results/gicp_mcd_ntu_day_02_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/gicp_mcd_tuhh_night_09_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
 | GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/gicp_profile_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_profile_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0009_full_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0009_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0061_full_matrix.json` | `hdl_graph_slam` | `-` | `experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0061_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json` |
+| HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
+| HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
+| HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
+| ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/isc_loam_kitti_raw_0009_full_matrix.json` | `isc_loam` | `default` | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
+| ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/isc_loam_kitti_raw_0009_matrix.json` | `isc_loam` | `default` | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
+| ISC-LOAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/isc_loam_kitti_raw_0061_full_matrix.json` | `isc_loam` | `default` | `experiments/results/isc_loam_kitti_raw_0061_full_matrix.json` |
+| ISC-LOAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/isc_loam_kitti_raw_0061_matrix.json` | `isc_loam` | `default` | `experiments/results/isc_loam_kitti_raw_0061_matrix.json` |
+| ISC-LOAM on MCD KTH day-06 sequence | `ready` | `experiments/isc_loam_mcd_kth_day_06_matrix.json` | `isc_loam` | `default` | `experiments/results/isc_loam_mcd_kth_day_06_matrix.json` |
+| ISC-LOAM on MCD NTU day-02 sequence | `ready` | `experiments/isc_loam_mcd_ntu_day_02_matrix.json` | `isc_loam` | `default` | `experiments/results/isc_loam_mcd_ntu_day_02_matrix.json` |
+| ISC-LOAM on MCD TUHH night-09 sequence | `ready` | `experiments/isc_loam_mcd_tuhh_night_09_matrix.json` | `isc_loam` | `default` | `experiments/results/isc_loam_mcd_tuhh_night_09_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `experiments/kiss_icp_hdl_400_reference_b_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_hdl_400_reference_b_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/kiss_icp_hdl_400_reference_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_hdl_400_reference_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_istanbul_window_b_matrix.json` | `kiss_icp` | `dense_local_map` | `experiments/results/kiss_icp_istanbul_window_b_matrix.json` |
@@ -119,6 +154,20 @@ The runner is responsible for:
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/kiss_icp_mcd_tuhh_night_09_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_profile_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_profile_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lego_loam_kitti_raw_0009_full_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
+| LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lins_kitti_raw_0009_full_matrix.json` | `lins` | `default` | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
+| LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/lins_kitti_raw_0009_matrix.json` | `lins` | `default` | `experiments/results/lins_kitti_raw_0009_matrix.json` |
+| LINS on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/lins_kitti_raw_0061_full_matrix.json` | `lins` | `default` | `experiments/results/lins_kitti_raw_0061_full_matrix.json` |
+| LINS on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/lins_kitti_raw_0061_matrix.json` | `lins` | `default` | `experiments/results/lins_kitti_raw_0061_matrix.json` |
+| LINS on MCD KTH day-06 sequence | `ready` | `experiments/lins_mcd_kth_day_06_matrix.json` | `lins` | `default` | `experiments/results/lins_mcd_kth_day_06_matrix.json` |
+| LINS on MCD NTU day-02 sequence | `ready` | `experiments/lins_mcd_ntu_day_02_matrix.json` | `lins` | `default` | `experiments/results/lins_mcd_ntu_day_02_matrix.json` |
+| LINS on MCD TUHH night-09 sequence | `ready` | `experiments/lins_mcd_tuhh_night_09_matrix.json` | `lins` | `default` | `experiments/results/lins_mcd_tuhh_night_09_matrix.json` |
+| LIO-SAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lio_sam_kitti_raw_0009_full_matrix.json` | `lio_sam` | `default` | `experiments/results/lio_sam_kitti_raw_0009_full_matrix.json` |
+| LIO-SAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/lio_sam_kitti_raw_0009_matrix.json` | `lio_sam` | `default` | `experiments/results/lio_sam_kitti_raw_0009_matrix.json` |
+| LIO-SAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/lio_sam_kitti_raw_0061_full_matrix.json` | `lio_sam` | `default` | `experiments/results/lio_sam_kitti_raw_0061_full_matrix.json` |
+| LIO-SAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/lio_sam_kitti_raw_0061_matrix.json` | `lio_sam` | `default` | `experiments/results/lio_sam_kitti_raw_0061_matrix.json` |
+| LIO-SAM on MCD KTH day-06 sequence | `ready` | `experiments/lio_sam_mcd_kth_day_06_matrix.json` | `lio_sam` | `default` | `experiments/results/lio_sam_mcd_kth_day_06_matrix.json` |
+| LIO-SAM on MCD NTU day-02 sequence | `ready` | `experiments/lio_sam_mcd_ntu_day_02_matrix.json` | `lio_sam` | `default` | `experiments/results/lio_sam_mcd_ntu_day_02_matrix.json` |
+| LIO-SAM on MCD TUHH night-09 sequence | `ready` | `experiments/lio_sam_mcd_tuhh_night_09_matrix.json` | `lio_sam` | `default` | `experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/litamin2_hdl_400_reference_b_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_hdl_400_reference_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/litamin2_hdl_400_reference_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_b_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
@@ -132,6 +181,13 @@ The runner is responsible for:
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/litamin2_mcd_ntu_day_02_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/litamin2_mcd_tuhh_night_09_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/litamin2_profile_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_profile_matrix.json` |
+| LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/loam_livox_kitti_raw_0009_full_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_kitti_raw_0009_full_matrix.json` |
+| LOAM Livox on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/loam_livox_kitti_raw_0009_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_kitti_raw_0009_matrix.json` |
+| LOAM Livox on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/loam_livox_kitti_raw_0061_full_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_kitti_raw_0061_full_matrix.json` |
+| LOAM Livox on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/loam_livox_kitti_raw_0061_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_kitti_raw_0061_matrix.json` |
+| LOAM Livox on MCD KTH day-06 sequence | `ready` | `experiments/loam_livox_mcd_kth_day_06_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_mcd_kth_day_06_matrix.json` |
+| LOAM Livox on MCD NTU day-02 sequence | `ready` | `experiments/loam_livox_mcd_ntu_day_02_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_mcd_ntu_day_02_matrix.json` |
+| LOAM Livox on MCD TUHH night-09 sequence | `ready` | `experiments/loam_livox_mcd_tuhh_night_09_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/mulls_kitti_raw_0009_full_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
 | NDT throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/ndt_hdl_400_reference_b_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_hdl_400_reference_b_matrix.json` |
 | NDT throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/ndt_hdl_400_reference_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_hdl_400_reference_matrix.json` |
@@ -146,11 +202,39 @@ The runner is responsible for:
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/ndt_mcd_ntu_day_02_matrix.json` | `ndt` | `balanced_local_map` | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ndt_mcd_tuhh_night_09_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
 | NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/ndt_profile_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_profile_matrix.json` |
+| Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/point_lio_kitti_raw_0009_full_matrix.json` | `point_lio` | `default` | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |
+| Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/point_lio_kitti_raw_0009_matrix.json` | `point_lio` | `default` | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |
+| Point-LIO on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/point_lio_kitti_raw_0061_full_matrix.json` | `point_lio` | `default` | `experiments/results/point_lio_kitti_raw_0061_full_matrix.json` |
+| Point-LIO on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/point_lio_kitti_raw_0061_matrix.json` | `point_lio` | `default` | `experiments/results/point_lio_kitti_raw_0061_matrix.json` |
+| Point-LIO on MCD KTH day-06 sequence | `ready` | `experiments/point_lio_mcd_kth_day_06_matrix.json` | `point_lio` | `default` | `experiments/results/point_lio_mcd_kth_day_06_matrix.json` |
+| Point-LIO on MCD NTU day-02 sequence | `ready` | `experiments/point_lio_mcd_ntu_day_02_matrix.json` | `point_lio` | `default` | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
+| Point-LIO on MCD TUHH night-09 sequence | `ready` | `experiments/point_lio_mcd_tuhh_night_09_matrix.json` | `point_lio` | `default` | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/small_gicp_kitti_raw_0009_full_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/small_gicp_mcd_kth_day_06_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/small_gicp_mcd_ntu_day_02_matrix.json` | `small_gicp` | `dense_recent_map` | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/small_gicp_mcd_tuhh_night_09_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
+| SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/suma_kitti_raw_0009_full_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
+| SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/suma_kitti_raw_0009_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_raw_0009_matrix.json` |
+| SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/suma_kitti_raw_0061_full_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
+| SuMa on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/suma_kitti_raw_0061_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_raw_0061_matrix.json` |
+| SuMa on MCD KTH day-06 sequence | `ready` | `experiments/suma_mcd_kth_day_06_matrix.json` | `suma` | `default` | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
+| SuMa on MCD NTU day-02 sequence | `ready` | `experiments/suma_mcd_ntu_day_02_matrix.json` | `suma` | `default` | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |
+| SuMa on MCD TUHH night-09 sequence | `ready` | `experiments/suma_mcd_tuhh_night_09_matrix.json` | `suma` | `default` | `experiments/results/suma_mcd_tuhh_night_09_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/vgicp_slam_kitti_raw_0009_full_matrix.json` | `vgicp_slam` | `default` | `experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/vgicp_slam_kitti_raw_0009_matrix.json` | `vgicp_slam` | `default` | `experiments/results/vgicp_slam_kitti_raw_0009_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/vgicp_slam_kitti_raw_0061_full_matrix.json` | `vgicp_slam` | `default` | `experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/vgicp_slam_kitti_raw_0061_matrix.json` | `vgicp_slam` | `default` | `experiments/results/vgicp_slam_kitti_raw_0061_matrix.json` |
+| VGICP SLAM on MCD KTH day-06 sequence | `ready` | `experiments/vgicp_slam_mcd_kth_day_06_matrix.json` | `vgicp_slam` | `default` | `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json` |
+| VGICP SLAM on MCD NTU day-02 sequence | `ready` | `experiments/vgicp_slam_mcd_ntu_day_02_matrix.json` | `vgicp_slam` | `default` | `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json` |
+| VGICP SLAM on MCD TUHH night-09 sequence | `ready` | `experiments/vgicp_slam_mcd_tuhh_night_09_matrix.json` | `vgicp_slam` | `default` | `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/voxel_gicp_kitti_raw_0009_full_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/voxel_gicp_mcd_kth_day_06_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/voxel_gicp_mcd_ntu_day_02_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/voxel_gicp_mcd_tuhh_night_09_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/xicp_kitti_raw_0009_full_matrix.json` | `xicp` | `default` | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/xicp_kitti_raw_0009_matrix.json` | `xicp` | `default` | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
+| X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/xicp_kitti_raw_0061_full_matrix.json` | `xicp` | `default` | `experiments/results/xicp_kitti_raw_0061_full_matrix.json` |
+| X-ICP on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/xicp_kitti_raw_0061_matrix.json` | `xicp` | `default` | `experiments/results/xicp_kitti_raw_0061_matrix.json` |
+| X-ICP on MCD KTH day-06 sequence | `ready` | `experiments/xicp_mcd_kth_day_06_matrix.json` | `xicp` | `default` | `experiments/results/xicp_mcd_kth_day_06_matrix.json` |
+| X-ICP on MCD NTU day-02 sequence | `ready` | `experiments/xicp_mcd_ntu_day_02_matrix.json` | `xicp` | `default` | `experiments/results/xicp_mcd_ntu_day_02_matrix.json` |
+| X-ICP on MCD TUHH night-09 sequence | `ready` | `experiments/xicp_mcd_tuhh_night_09_matrix.json` | `xicp` | `default` | `experiments/results/xicp_mcd_tuhh_night_09_matrix.json` |

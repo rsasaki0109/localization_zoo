@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-04-08T03:19:32+00:00",
+  "manifest_path": "experiments/xicp_mcd_kth_day_06_matrix.json",
+  "problem": {
+    "id": "xicp_mcd_kth_day_06",
+    "title": "X-ICP on MCD KTH day-06 sequence",
+    "question": "How does X-ICP perform on the MCD KTH day-06 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "xicp",
+    "primary_method": "X-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+    "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (GT seed)",
+      "design_style": "balanced",
+      "intent": "Repository default with ground-truth seed initialization.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_mcd_kth_day_06_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/xicp_mcd_kth_day_06_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/xicp_mcd_kth_day_06_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.30475,
+      "fps": 63.51931,
+      "time_ms": 1700.270354,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 92.26,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "no_gt_seed",
+      "label": "No GT seed",
+      "design_style": "accuracy-oriented",
+      "intent": "Ablation without ground-truth seed to test convergence from identity.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_mcd_kth_day_06_matrix/no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/xicp_mcd_kth_day_06_matrix/no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/xicp_mcd_kth_day_06_matrix/no_gt_seed/run.log",
+      "status": "OK",
+      "ate_m": 8.83779,
+      "fps": 75.15138,
+      "time_ms": 1437.099353,
+      "frames": 108,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 51.72,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

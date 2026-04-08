@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T03:11:19+00:00",
+  "manifest_path": "experiments/point_lio_kitti_raw_0061_matrix.json",
+  "problem": {
+    "id": "point_lio_kitti_raw_0061",
+    "title": "Point-LIO on KITTI Raw drive 0061 (200 frames, residential)",
+    "question": "How does Point-LIO perform on the KITTI Raw drive 0061 (200 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "point_lio",
+    "primary_method": "Point-LIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_kitti_raw_0061_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/point_lio_kitti_raw_0061_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/point_lio_kitti_raw_0061_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 82.702074,
+      "fps": 2.108595,
+      "time_ms": 94849.889083,
+      "frames": 200,
+      "note": "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

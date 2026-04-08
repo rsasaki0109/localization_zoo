@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T02:52:18+00:00",
+  "manifest_path": "experiments/isc_loam_mcd_ntu_day_02_matrix.json",
+  "problem": {
+    "id": "isc_loam_mcd_ntu_day_02",
+    "title": "ISC-LOAM on MCD NTU day-02 sequence",
+    "question": "How does ISC-LOAM perform on the MCD NTU day-02 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "isc_loam",
+    "primary_method": "ISC-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_mcd_ntu_day_02_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/isc_loam_mcd_ntu_day_02_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/isc_loam_mcd_ntu_day_02_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.096015,
+      "fps": 9.881857,
+      "time_ms": 10929.119473,
+      "frames": 108,
+      "note": "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

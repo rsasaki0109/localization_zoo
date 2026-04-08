@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T02:56:23+00:00",
+  "manifest_path": "experiments/loam_livox_mcd_tuhh_night_09_matrix.json",
+  "problem": {
+    "id": "loam_livox_mcd_tuhh_night_09",
+    "title": "LOAM Livox on MCD TUHH night-09 sequence",
+    "question": "How does LOAM Livox perform on the MCD TUHH night-09 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+      "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "loam_livox",
+    "primary_method": "LOAM-Livox"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+    "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_mcd_tuhh_night_09_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/loam_livox_mcd_tuhh_night_09_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/loam_livox_mcd_tuhh_night_09_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 1.310894,
+      "fps": 8.20364,
+      "time_ms": 13164.888296,
+      "frames": 108,
+      "note": "LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

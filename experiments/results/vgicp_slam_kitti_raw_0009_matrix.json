@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-08T02:47:21+00:00",
+  "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_matrix.json",
+  "problem": {
+    "id": "vgicp_slam_kitti_raw_0009",
+    "title": "VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "How does VGICP SLAM perform on the KITTI Raw drive 0009 (200 frames, urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "vgicp_slam",
+    "primary_method": "VGICP-SLAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+  },
+  "status": "ready",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_kitti_raw_0009_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/vgicp_slam_kitti_raw_0009_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/vgicp_slam_kitti_raw_0009_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 1.772197,
+      "fps": 7.727267,
+      "time_ms": 25882.373014,
+      "frames": 200,
+      "note": "Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

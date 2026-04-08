@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "fast_lio_slam_kitti_raw_0061",
+    "title": "FAST-LIO-SLAM on KITTI Raw drive 0061 (200 frames, residential)",
+    "question": "How does FAST-LIO-SLAM perform on the KITTI Raw drive 0061 (200 frames, residential)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "fast_lio_slam",
+    "primary_method": "FAST-LIO-SLAM"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": []
+    }
+  ]
+}

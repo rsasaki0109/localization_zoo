@@ -18,7 +18,7 @@
   "stable_interface": {
     "binary": "build/evaluation/pcd_dogfooding",
     "methods": "vgicp_slam",
-    "primary_method": "VGICP SLAM"
+    "primary_method": "VGICP-SLAM"
   },
   "variants": [
     {

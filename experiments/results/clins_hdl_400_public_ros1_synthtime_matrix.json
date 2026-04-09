@@ -1,0 +1,115 @@
+{
+  "generated_at": "2026-04-10T09:03:38+00:00",
+  "manifest_path": "experiments/clins_hdl_400_public_ros1_synthtime_matrix.json",
+  "problem": {
+    "id": "clins_hdl_400_public_ros1_synthtime_tradeoff",
+    "title": "CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+    "question": "Which CLINS profile should stay as the current default when the public ROS1 HDL-400 bag is reconstructed with scan-order synthetic point timestamps?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv",
+      "source_bag_url": "https://www.aisl.cs.tut.ac.jp/databases/hdl_graph_slam/hdl_400.bag.tar.gz",
+      "pointcloud_topic": "/velodyne_points",
+      "imu_topic": "/gpsimu_driver/imu_data",
+      "reconstruction_script": "evaluation/scripts/extract_ros1_lidar_imu.py",
+      "reconstruction_start_frame": 1,
+      "reconstruction_max_frames": 120,
+      "reconstruction_time_mode": "index",
+      "timestamp_note": "The public ROS1 bag lacks a native time field, so per-point time is synthesized from scan order."
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "clins",
+    "primary_method": "CLINS"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default CLINS front-end density on the public HDL-400 ROS1 reconstruction.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods clins --summary-json experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 484.064284,
+      "fps": 61.271053,
+      "time_ms": 1958.510489,
+      "frames": 120,
+      "note": "Continuous-time LiDAR-inertial SLAM with CT-LIO registration (GT-seeded initialization).",
+      "benchmark_score": 30.71,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser source downsampling and fewer retained points for lighter continuous-time registration.",
+      "args": [
+        "--clins-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods clins --summary-json experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/fast/summary.json --clins-fast-profile",
+      "summary_path": "experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 350.051541,
+      "fps": 100.269128,
+      "time_ms": 1196.779138,
+      "frames": 120,
+      "note": "Continuous-time LiDAR-inertial SLAM with CT-LIO registration (GT-seeded initialization).",
+      "benchmark_score": 50.21,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer source downsampling and retain more points for denser continuous-time registration.",
+      "args": [
+        "--clins-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods clins --summary-json experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/dense/summary.json --clins-dense-profile",
+      "summary_path": "experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 1.473223,
+      "fps": 12.200311,
+      "time_ms": 9835.814791,
+      "frames": 120,
+      "note": "Continuous-time LiDAR-inertial SLAM with CT-LIO registration (GT-seeded initialization).",
+      "benchmark_score": 56.08,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

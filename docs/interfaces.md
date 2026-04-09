@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -47,7 +47,7 @@ Every active search problem lives in `experiments/*.json` and must define:
 | `variants[]` | array | Concrete variants to compare, keep, or discard. |
 | `variants[].args` | array | Extra CLI flags layered on the stable core. |
 
-Current active selectors: `aloam`, `balm2`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `floam`, `gicp`, `hdl_graph_slam`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `mulls`, `ndt`, `point_lio`, `small_gicp`, `suma`, `vgicp_slam`, `voxel_gicp`, `xicp`
+Current active selectors: `aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `floam`, `gicp`, `hdl_graph_slam`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `mulls`, `ndt`, `point_lio`, `small_gicp`, `suma`, `vgicp_slam`, `voxel_gicp`, `xicp`
 
 ### Runner Contract
 
@@ -81,6 +81,7 @@ The runner is responsible for:
 | BALM2 on MCD KTH day-06 sequence | `ready` | `experiments/balm2_mcd_kth_day_06_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_mcd_kth_day_06_matrix.json` |
 | BALM2 on MCD NTU day-02 sequence | `ready` | `experiments/balm2_mcd_ntu_day_02_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `experiments/balm2_mcd_tuhh_night_09_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
+| CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `experiments/clins_hdl_400_public_ros1_synthtime_matrix.json` | `clins` | `dense` | `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_b_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |

@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-04-09T08:49:49+00:00
+> Generated: 2026-04-10T09:03:51+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -70,6 +70,14 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-TUHH | fast | 1.698 | 14.6 |
 
 **Stability**: 1 unique default(s) across 7 windows.
+
+### CLINS
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| HDL-400 | dense | 1.473 | 12.2 |
+
+**Stability**: 1 unique default(s) across 1 windows.
 
 ### CT-ICP
 
@@ -410,6 +418,14 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | default | 4.039 | 1.8 | 7 |
 | dense | 4.081 | 0.7 | 7 |
 | fast | 4.614 | 13.1 | 7 |
+
+### CLINS
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| default | 484.064 | 61.3 | 1 |
+| dense | 1.473 | 12.2 | 1 |
+| fast | 350.052 | 100.3 | 1 |
 
 ### CT-ICP
 

@@ -1,702 +1,589 @@
-# Localization Zoo - Codex 向け引き継ぎ PLAN
+# Localization Zoo - GitHub Copilot 向け引き継ぎ PLAN
 
-> **最終更新: 2026-04-08**
->  
-> この文書は「次の Codex / メンテ担当が、いま何が終わっていて、何が終わっておらず、どの数字を信じるべきか」を最短で掴むための handoff である。
->  
-> 先に本ファイルを読み、その後に [`experiments/results/index.json`](experiments/results/index.json)、[`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)、[`docs/experiments.md`](docs/experiments.md) を見るのが最短。
+> **最終更新: 2026-04-09**
+>
+> この文書は、次の GitHub Copilot / Copilot Chat / Codex が
+> 「いまの repo の真実はどこにあるか」
+> 「last committed state と current dirty worktree がどうズレているか」
+> 「どの benchmark 数字を public に言ってよく、どれを exact reproduction と呼んではいけないか」
+> を短時間で掴むための handoff である。
+>
+> 最初に本ファイルを読み、その後に次を見るのが最短:
+>
+> 1. [`experiments/results/index.json`](experiments/results/index.json)
+> 2. [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
+> 3. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
+> 4. `git status --short`
 
 ---
 
-## 0. この文書の役割
+## 0. この文書の目的
 
-- これは「将来計画」ではなく、**現在地の正確な説明 + 次に触る順番 + 罠一覧**である。
-- 特にこの repo は **CLI 側の統合数** と **manifest / result 側の被覆数** が完全には一致しないため、その差を埋めて書く。
-- また、`README.md` や一部 `docs/paper_*.md` に **古い数字**が残っている。次の作業者がそこに引っ張られないよう、**真実源泉の優先順位**を明示する。
+- これは wishlist ではなく、**現在地の正確な説明**である。
+- 特にこの repo は、**commit 済みの状態**と**未コミットの dirty worktree**がはっきり分かれている。
+- さらに HDL-400 の CT 系は、**native per-point `time` を前提にした reference**と、**public ROS1 bag + synthetic time を使う public-only split**が別物である。
+- ここを曖昧にすると、Copilot は「exact reproduction ができた」と誤認しやすい。
 
 ---
 
-## 1. 今の HEAD と作業ツリー
+## 1. いまの HEAD と作業ツリー
 
 | 項目 | 値 |
 |------|----|
 | Branch | `main` |
-| HEAD | `a52d0f83ea44f35c078ff7b55c37c4203125f988` (`a52d0f8`) |
-| Worktree | dirty (`public ROS1 synthetic-time` split + generated docs/results を含む) |
-| 直近の PLAN 専用コミット | `a52d0f8 Update PLAN.md v6 final: 164 ready problems, all tasks completed` |
-| 直近の docs / index 再生成コミット | `08df6b8 Refresh study docs and index: 164 ready problems, 27 method families` |
+| HEAD | `e4d9af4678847a44e73562399605ef794e203c06` (`e4d9af4`) |
+| HEAD message | `Split public ROS1 HDL-400 CT benchmarks` |
+| Worktree | **dirty** |
+| Push 状態 | この turn では push していない |
 
-### 1.1 直近コミット列の意味
+### 1.1 HEAD `e4d9af4` が意味するもの
 
-重要なのは次の流れ:
+`e4d9af4` は、少なくとも次を **commit 済み**として持っている:
 
-1. `1d1c26b`  
-   Tier 1 と CI 修復。`X-ICP`, `FAST-LIO2`, `HDL-Graph-SLAM`, `VGICP-SLAM` を bench 側に接続。
-2. `e5d9d71`  
-   Tier 2 と build 修正。`SuMa`, `BALM2`, `ISC-LOAM`, `LOAM-Livox`, `LIO-SAM`, `LINS`, `FAST-LIO-SLAM`, `Point-LIO`, `CLINS` を追加。
-3. `7b3c429`  
-   MCD manifest 36 件。
-4. `14c63b6`  
-   KITTI Raw manifest 48 件。
-5. `64354f9`  
-   `primary_method` 名の修正。
-6. `5253d55`  
-   `balm2`, `fast_lio2`, `fast_lio_slam` の結果追加。
-7. `77b03e0`  
-   一時点の PLAN 更新。
-8. `c6ad89f`  
-   新規手法ぶんの実験結果を追加。
-9. `08df6b8`  
-   `refresh_study_docs.py` で docs / index を再生成。
-10. `a52d0f8`  
-    PLAN 最終版更新。
+- public ROS1 HDL-400 を native-time benchmark とは別 manifest に分離
+- [`evaluation/scripts/extract_ros1_lidar_imu.py`](evaluation/scripts/extract_ros1_lidar_imu.py) に `--time-mode preserve|index|azimuth` を追加
+- [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md) を public ROS1 synthetic-time 前提に更新
+- [`experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json) を追加
+- [`experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json) を追加
+- [`experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json) を追加
+- [`experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json) を追加
 
-### 1.2 背景コマンド `exit 144` について
+### 1.2 current dirty worktree が意味するもの
 
-前セッションで `refresh_study_docs.py` / index 更新をバックグラウンドで回し、その後 kill されたジョブが `exit code 144 (SIGKILL)` を出している。  
-**これは失敗の痕跡ではなく、直接実行系で再生成が完了した後の kill 済みジョブの終了コード**である。  
-**正とみなすべき根拠は `08df6b8` の内容**であり、`144` のログではない。
+今の dirty worktree には、`e4d9af4` の上に少なくとも次が載っている:
+
+- [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
+  - manifest ごとの `benchmark_weights` を読めるようにした
+  - これで benchmark score を `ATE` 優先に寄せられる
+- [`experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
+  - `CT-ICP throughput and drift trade-off` から
+    `CT-ICP performance-priority trade-off` へ文言変更
+  - `benchmark_weights: { ate_m: 1.0, fps: 0.0 }` を追加
+  - つまり public ROS1 CT-ICP は **性能優先**で default を選ぶ
+- full refresh による generated docs / aggregate JSON の広範な再生成
+- さらに、それ以前から残っている大きな uncommitted batch
+  - [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
+  - `balm2 / fast_lio2 / fast_lio_slam / isc_loam / lins / lio_sam / loam_livox / point_lio / suma / vgicp_slam / xicp`
+    の manifest 群
+  - 対応する `experiments/results/*`
+  - 再生成 docs / paper assets
+
+**重要**: 現在の dirty worktree は、「CT-ICP public ROS1 performance-priority change」だけではない。  
+それ以前からある **大きい未コミット batch** と混ざっている。
 
 ---
 
-## 2. 数で見る現状
+## 2. commit 済みの真実と worktree 上の真実は分けて扱う
 
-この節の数字は **2026-04-08 時点でファイルを直接読んで再確認した値**。
+これが一番重要。
 
-### 2.1 ベンチ全体
+### 2.1 last committed truth (`e4d9af4`)
+
+`e4d9af4` で言えること:
+
+- public ROS1 HDL-400 synthetic-time split は **正式に commit 済み**
+- public ROS1 CT-LIO default は `seed_only_fast`
+- public ROS1 CT-ICP default は `fast_window`
+- native-time reference 側の aggregate は、まだ次の数字を持っている:
+  - CT-LIO reference `seed_only_fast = 0.411644`
+  - CT-ICP reference `fast_window = 1.513295`
+
+### 2.2 current working truth (dirty worktree)
+
+いまの worktree で言えること:
+
+- public ROS1 CT-LIO default はそのまま `seed_only_fast = 0.479317`
+- public ROS1 CT-ICP default は **性能優先採択**に切り替わり
+  `dense_window = 1.254043`
+- 一方で native-time reference 側の aggregate は、dirty refresh の結果として今は:
+  - CT-LIO reference `seed_only_fast = 0.488244`
+  - CT-ICP reference `fast_window = 2.582133`
+ になっている
+
+### 2.3 なぜこれが危険か
+
+この repo の current worktree では、reference manifest が参照する local PCD window と aggregate の provenance が、もはや「昔の native-time artifact と完全一致している」とは限らない。
+
+つまり:
+
+- **public ROS1 split** は意図通りの separate bench
+- **reference aggregate の current dirty values** は、history 的な canonical native-time truth ではなく、
+  **現在の local data / refresh 結果**に引っ張られている可能性が高い
+
+Copilot が最初にやるべき判断は:
+
+1. `e4d9af4` を基準に話すのか
+2. current dirty worktree を基準に話すのか
+
+この二者択一である。
+
+---
+
+## 3. 数で見る現在地
+
+以下は **2026-04-09 に current worktree から直接数えた値**。
+
+### 3.1 ベンチ全体
 
 | 指標 | 値 | 備考 |
 |------|----|------|
 | manifest 数 | **167** | `experiments/*_matrix.json` |
 | aggregate 数 | **167** | `experiments/results/*_matrix.json` |
 | stored summary 数 | **440** | `experiments/results/runs/**/summary.json` |
-| `index.json` 上の ready | **165** | `status == "ready"` の件数 |
-| `index.json` 上の blocked | **1** | `ct_lio_public_gt_readiness` |
-| `index.json` 上の skipped | **1** | `hdl_graph_slam_kitti_raw_0061_full` |
+| ready | **165** | `experiments/results/index.json` |
+| blocked | **1** | `ct_lio_public_gt_readiness` |
+| skipped | **1** | `hdl_graph_slam_kitti_raw_0061_full` |
 | dataset families | **4** | Istanbul / HDL-400 / MCD / KITTI Raw |
-| `pcd_dogfooding` 対応 method families | **27** | CLI 実装済み |
-| manifests を持つ method families | **26** | `clins` はまだ manifest なし |
+| CLI method families | **27** | `pcd_dogfooding` 実装済み |
+| manifest を持つ method families | **26** | `clins` は未 manifest |
 
-### 2.2 manifest の内訳
+### 3.2 HDL-400 の内訳
 
-`167` の中身は次のとおり:
+HDL-400 系 manifest は **12** 件ある:
 
-| 区分 | 件数 | 説明 |
-|------|------|------|
-| KITTI Raw | **81** | short / full を含む主戦場 |
-| MCD | **57** | `kth` / `ntu` / `tuhh` |
-| Istanbul | **10** | 主に core methods + tradeoff |
-| HDL-400 ready | **12** | native-time reference 10 + public ROS1 synthetic-time 2 |
-| profile tradeoff studies | **5** | `litamin2`, `gicp`, `ndt`, `kiss_icp`, `ct_icp` |
-| CT-LIO reference tradeoff | **1** | `ct_lio_reference_tradeoff` |
-| blocked readiness | **1** | `ct_lio_public_gt_readiness` |
+- native-time/public reference 系: **10**
+  - `gicp`, `kiss_icp`, `litamin2`, `ndt` の `reference / reference_b`
+  - `ct_icp_hdl_400_reference`
+  - `ct_lio_reference_profile`
+- public ROS1 synthetic-time 系: **2**
+  - `ct_lio_hdl_400_public_ros1_synthtime`
+  - `ct_icp_hdl_400_public_ros1_synthtime`
 
-### 2.3 ここで注意すべきこと
+### 3.3 CT 系 manifest counts
 
-- 以前は **`hdl_graph_slam_kitti_raw_0061_full` が phantom ready** だったが、この turn で runner を修正し、**全 variant `SKIPPED` の problem は `skipped` として index / aggregate に落ちる**ようにした。
-- その結果、現在の全体像は:
-  - **ready = 165**
-  - **blocked = 1**
-  - **skipped = 1**
-  である。
-- `skipped` は **manifest 設計上は対象だが、有効な benchmark result がまだ無い**ことを意味する。
+| method | manifest 数 |
+|--------|-------------|
+| `ct_icp` | **14** |
+| `ct_lio` | **3** |
 
----
+### 3.4 27 CLI methods と 26 manifest methods の差
 
-## 3. 真実源泉の優先順位
-
-この repo は docs が多いが、**全部を同じ重みで信じてはいけない**。
-
-### 3.1 最上位の真実源泉
-
-1. [`experiments/results/index.json`](experiments/results/index.json)  
-   ベンチ全体の数え上げ・問題一覧。
-2. 個々の [`experiments/results/*_matrix.json`](experiments/results)  
-   各 problem の実際の variant 状態。`index.json` より具体的。
-3. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)  
-   実装済み method / CLI flags / profile flags の真実源泉。
-4. [`experiments/*_matrix.json`](experiments/)  
-   各 manifest の variant 設計と dataset 契約。
-
-### 3.2 便利だが二次資料
-
-- [`docs/experiments.md`](docs/experiments.md)
-- [`docs/decisions.md`](docs/decisions.md)
-- [`docs/interfaces.md`](docs/interfaces.md)
-
-これらは読む価値があるが、**最終確認は JSON を見る**こと。特に status の境界ケースは JSON の方が明確。
-
-### 3.3 現時点で stale 扱いすべき資料
-
-少なくとも次は古い数字が残っている:
-
-- [`README.md`](README.md)
-- [`docs/paper_tracks.md`](docs/paper_tracks.md)
-- [`docs/paper_captions.md`](docs/paper_captions.md)
-
-たとえば `README.md` はまだ **70+ ready / 14 methods** 時代の説明になっている。  
-次の作業者は **README の数は信用しない**こと。
-
-### 3.4 生成 docs の扱い
-
-次は **手編集禁止**:
-
-- [`docs/experiments.md`](docs/experiments.md)
-- [`docs/decisions.md`](docs/decisions.md)
-- [`docs/interfaces.md`](docs/interfaces.md)
-- `docs/paper_*.md`
-- `docs/assets/paper/*`
-
-編集したい場合は **generator を直して**:
-
-```bash
-python3 evaluation/scripts/refresh_study_docs.py
-```
-
----
-
-## 4. method 統合の状態
-
-### 4.1 CLI に統合済みの 27 families
-
-`pcd_dogfooding` が受け付ける method は現時点で次の 27:
+CLI 実装済み 27 method:
 
 `aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `floam`, `gicp`, `hdl_graph_slam`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `mulls`, `ndt`, `point_lio`, `small_gicp`, `suma`, `vgicp_slam`, `voxel_gicp`, `xicp`
 
-真実源泉は [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp) の `isSupportedMethod()`。
+manifest が無いのは:
 
-### 4.2 manifests / results の被覆
+- `clins`
 
-method ごとの manifest 数:
-
-| 件数 | methods |
-|------|---------|
-| **14** | `ct_icp` |
-| **13** | `litamin2`, `gicp`, `ndt`, `kiss_icp` |
-| **7** | `balm2`, `fast_lio2`, `fast_lio_slam`, `hdl_graph_slam`, `isc_loam`, `lins`, `lio_sam`, `loam_livox`, `point_lio`, `suma`, `vgicp_slam`, `xicp` |
-| **4** | `small_gicp`, `voxel_gicp` |
-| **3** | `ct_lio` |
-| **1** | `aloam`, `dlio`, `dlo`, `floam`, `lego_loam`, `mulls` |
-| **0** | `clins` |
-
-### 4.3 重要な差分
-
-- **27 methods が CLI にいる**
-- しかし **manifest があるのは 26 methods**
-- **`clins` は bench バイナリに統合済みだが、manifest / result / docs 被覆はゼロ**
-
-この差を忘れると、「27 methods が全部 experiments に入っている」と誤認する。
+つまり public-facing に「27 methods 対応」とは言えても、bench evidence は **26 methods 分**で止まっている。
 
 ---
 
-## 5. variants の成熟度
+## 4. 真実源泉の優先順位
 
-この repo の研究仮説は **variant-first** であり、本来は **各 method / problem に 3+ variants** が望ましい。  
-しかし新規統合 handoff の現実として、まだそこまで到達していない。
-
-### 5.1 3+ variants 未達の method 群
-
-現時点で `<3 variants` の manifest を持つ method:
-
-- `hdl_graph_slam` : 7/7 manifest が 1 variant
-
-この turn で 3+ variants 化まで完了した method:
-
-- `balm2` : 7/7 manifest が 3 variants
-- `fast_lio2` : 7/7 manifest が 3 variants
-- `fast_lio_slam` : 7/7 manifest が 3 variants
-- `isc_loam` : 7/7 manifest が 3 variants
-- `lins` : 7/7 manifest が 3 variants
-- `lio_sam` : 7/7 manifest が 3 variants
-- `loam_livox` : 7/7 manifest が 3 variants
-- `point_lio` : 7/7 manifest が 3 variants
-- `suma` : 7/7 manifest が 3 variants
-- `vgicp_slam` : 7/7 manifest が 3 variants
-- `xicp` : 7/7 manifest が 4 variants (`default / fast / dense / no_gt_seed`)
-
-### 5.2 原因
-
-原因は単純で、**残り 1 method** である `hdl_graph_slam` だけが、まだ manifest 側で `default` のみのまま止まっているため。
-
-逆に、この turn で `balm2` / `fast_lio2` / `fast_lio_slam` / `isc_loam` / `lins` / `lio_sam` / `loam_livox` / `point_lio` / `suma` / `vgicp_slam` / `xicp` は CLI フラグ追加と manifest 拡張まで終わった。
-
-補足:
-
-- `lio_sam` の最初の dense profile は `0061_full` で重すぎたため、この turn で **`0.35 / 9000` -> `0.45 / 7000`** に戻して再実行した
-- したがって今の `lio_sam` dense は「default より密だが、runtime が破綻しない」現実的な比較設定になっている
-- `balm2` の最初の dense profile も full 系で重すぎたため、この turn で **`0.35 / 9000 / window=7 / outer=3 / ceres=8` -> `0.45 / 7000 / window=6 / outer=2 / ceres=6`** に戻して再実行した
-- その結果、`balm2` dense は「精度寄りの比較設定」には留まりつつも、full 系を回し切れる帯に収まった
-
-既存の old/core methods では:
-
-- `gicp`
-- `small_gicp`
-- `voxel_gicp`
-- `ndt`
-- `kiss_icp`
-- `ct_icp`
-- `aloam`
-- `floam`
-- `lego_loam`
-- `mulls`
-- `dlo`
-- `dlio`
-
-などが fast / dense プロファイルを持つが、新規 method 群はそこまで到達していない。
-
-### 5.3 次にやるなら何をすべきか
-
-次の一手として最もまっとうなのは:
-
-1. `hdl_graph_slam` の fast / dense manifest を作るかどうかを先に決める
-2. 作るなら `0009_full` と `0061_full` で runtime guard を入れながら個別に回す
-3. 無理なら `default only + skipped fast/dense` のような truth-preserving 設計は避け、現状の 1 variant のまま残す
-
-理由:
-
-- `fast_lio_slam` / `point_lio` / `balm2` は今回の turn で回し切れた
-- `0061_full` では `fast_lio_slam` / `point_lio` / `balm2` / `isc_loam` / `lio_sam` / `loam_livox` / `vgicp_slam` のいずれも **`fast` が benchmark winner** になっており、新規群の比較軸は十分立った
-- 一方 `hdl_graph_slam` は `0009_full` default だけで `2564s` 級なので、truthfulness を壊さずに進めるには最後に扱う方が安全
-
-実作業の型は変わらない:
-
-1. `pcd_dogfooding.cpp` に各 method の fast / dense profile を追加する
-2. 対応する 7 manifest を `default / fast / dense` に広げる
-3. method ごとに 1 本だけ先に sanity check する
-4. 問題なければ 7 manifest を回し、最後に **必ず full refresh**
-
----
-
-## 6. この turn で再確認したこと
-
-この節は「前セッションの伝聞」ではなく、この turn で実行した結果。
-
-### 6.1 CTest
-
-以下を実行:
-
-```bash
-ctest --test-dir build --output-on-failure -j"$(nproc)"
-```
-
-結果:
-
-- **38/38 tests passed**
-- 実時間は約 3.28 秒
-
-### 6.2 CI フィクスチャ smoke
-
-以下を実行:
-
-```bash
-bash evaluation/scripts/smoke_ci_fixture.sh
-```
-
-結果:
-
-- **成功**
-- 現在の fixture には `imu.csv` がないため、常時走るのは **24 method**
-- `ct_lio`, `fast_lio2`, `clins` は fixture に `imu.csv` がある場合のみ smoke に乗る
-
-### 6.3 Worktree
-
-- smoke 実行後も `git status --short` は clean
-- `experiments/results/runs/ci_fixture_smoke/` は既存運用に吸収され、今回の作業で追加差分は出ていない
-
----
-
-## 7. 重要な罠・齟齬
-
-### 7.1 `skipped` は `blocked` とは別物
-
-対象:
-
-- manifest: [`experiments/hdl_graph_slam_kitti_raw_0061_full_matrix.json`](experiments/hdl_graph_slam_kitti_raw_0061_full_matrix.json)
-- aggregate: [`experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json`](experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json)
-
-状態:
-
-- manifest 上の `problem.state` は `ready`
-- しかし唯一の variant は `SKIPPED`
-- runner はこれを **aggregate / index では `status: "skipped"`** として出力する
-- `current_default == null`
-
-つまりこれは:
-
-- **blocked**: そもそも契約上まだ bench できない
-- **skipped**: bench 契約はあるが、その run では有効な結果が得られていない
-
-この区別は重要。`skipped` を `ready` に混ぜると、また phantom ready が復活する。
-
-次の作業者は、`hdl_graph_slam_kitti_raw_0061_full` を次のどちらかで処理すべき:
-
-1. 実際に full sequence を最後まで走らせて真の `ready` にする
-2. あるいは lighter profile / shorter slice を明示的に追加し、`default` とは別に比較可能な variant を作る
-
-### 7.2 `--manifest` 部分実行の罠
-
-`run_experiment_matrix.py --manifest ...` は便利だが、**その subset で `experiments/results/index.json` を上書きする**。  
-したがって、manifest を個別に回した後は **コミット前に必ず**:
-
-```bash
-python3 evaluation/scripts/refresh_study_docs.py
-```
-
-を実行すること。
-
-### 7.3 CT-LIO は「統合済み」だが main study 完走ではない
-
-CT-LIO には:
-
-- native-time reference-based な比較 1 件
-- public ROS1 synthetic-time な比較 1 件
-- blocked readiness 1 件
-
-がある。  
-**GT-backed public benchmark としては未解決**であり、main study の ready count に含めるべき対象ではない。
-
-### 7.4 `dogfooding_results/` はコミットしない
-
-大きい public / local データは `.gitignore` であり、コミット対象ではない。  
-コミット対象は:
-
-- manifest JSON
-- aggregate JSON
-- reference CSV
-- 生成 docs
-- 小さい fixture
-
-のみ。
-
-### 7.5 `README.md` を見て安心しない
-
-`README.md` の benchmark 説明と method 数は古い。  
-数字が必要なら必ず `index.json` と `pcd_dogfooding.cpp` を見ること。
-
----
-
-## 8. blocked 問題の扱い
-
-blocked は 1 件だけ:
-
-- [`experiments/ct_lio_public_readiness_matrix.json`](experiments/ct_lio_public_readiness_matrix.json)
-- [`experiments/results/ct_lio_public_readiness_matrix.json`](experiments/results/ct_lio_public_readiness_matrix.json)
-
-内容:
-
-- HDL-400 の LiDAR + IMU sequence はある
-- しかし **独立に信頼できる GT CSV が repo 契約に沿って用意されていない**
-- そのため CT-LIO は HDL-400 で **reference-based** / **public ROS1 synthetic-time** の補足比較に留め、main empirical study から外している
-
-補足:
-
-- [`experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json)
-- [`experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json)
-- [`experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
-- [`experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
-
-この turn で public ROS1 HDL-400 bag を `evaluation/scripts/extract_ros1_lidar_imu.py --time-mode index` で復元した **synthetic per-point time bench** を separate problem として追加した。  
-これにより:
-
-- CT-LIO の public ROS1 synthetic-time default は `seed_only_fast` (`ATE 0.479317`)
-- CT-ICP の public ROS1 synthetic-time default は `fast_window` (`ATE 2.464608`)
-
-が明示的に再現できるようになった。  
-ただし native-time reference result とは一致しないため、**exact reproduction の代用品ではなく、public-only の truth-preserving split** と捉えること。
-
-次の作業者がこの blocked を触るべきか:
-
-- **優先度は低い**
-- 先にやるべきは **新規 method 群の 3+ variants 化** と **`clins` の manifest 化**
-
----
-
-## 9. dataset family の見方
-
-### 9.1 今ある 4 family
-
-1. **Istanbul**
-   - Autoware 系 window
-   - 一部 core methods の比較土台
-2. **HDL-400**
-   - public native-time reference / public ROS1 synthetic-time / readiness 系
-   - CT-LIO の blocked 論点が集中
-3. **MCD**
-   - `kth`, `ntu`, `tuhh`
-   - Ouster 系 108 frames
-   - CI はその 3 frame fixture を利用
-4. **KITTI Raw**
-   - short / full
-   - 新規 12 method 群の主な収容先
-
-### 9.2 物理データ配置の正規資料
-
-外部データ配置は:
-
-- [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)
-- [`evaluation/scripts/VERIFY_KITTI_IMU_DLIO.md`](evaluation/scripts/VERIFY_KITTI_IMU_DLIO.md)
-
-を使う。
-
-### 9.3 IMU 契約の重要点
-
-この repo では **KITTI でなければいけないわけではない**。  
-`DLIO`, `CT-LIO`, `FAST-LIO2`, `CLINS` など IMU 依存手法に必要なのは:
-
-- `frame_timestamps.csv`
-- それと整合した `imu.csv`
-
-であり、データソース自体は任意。  
-[`evaluation/scripts/smoke_dlio_imu_when_ready.sh`](evaluation/scripts/smoke_dlio_imu_when_ready.sh) にもその方針が明記されている。
-
----
-
-## 10. Koide / AIST dataset メモ
-
-前セッションの意図を汲むと、「次の dataset family を増やすなら Koide/AIST 系が候補ではないか」という論点があった。  
-ここでは、その判断だけ短く固定しておく。
-
-### 10.1 結論
-
-**もし第 5 の public dataset family を増やすなら、AIST / Koide 系では `GLIM` の cross-sensor evaluation dataset を優先し、ICRA2024 の prior-map localization dataset は別トラック扱いにするのがよい。**
-
-### 10.2 理由
-
-公式ページによると:
-
-- Koide の **GLIM cross-sensor evaluation dataset** は  
-  **複数 LiDAR / depth sensor の LiDAR-IMU mapping test sequences** と  
-  **groundtruth IMU trajectories** を提供する  
-  <https://staff.aist.go.jp/k.koide/projects/glimsupp/versatile.html>
-- 一方、Koide らの **ICRA2024 LiDAR-IMU Localization dataset** は  
-  **3D prior map に対する localization** 用のデータである  
-  <https://staff.aist.go.jp/k.koide/projects/icra2024_gl/>
-
-この repo の現行契約は:
-
-- `pcd_dogfooding <pcd_dir> <gt_csv> ...`
-- sequence directory + GT trajectory CSV
-- optional `imu.csv`
-
-であり、これは **mapping / odometry / scan-to-map** ベンチの形に近い。  
-したがって、**prior map を前提にする localization dataset をそのまま main bench に入れるのは契約がズレる**。
-
-### 10.3 実務上の提案
-
-次の作業者が dataset expansion をやるなら:
-
-1. まず GLIM cross-sensor dataset を 1 つ選び、`pcd_dir + gt_csv + optional imu.csv` に変換する
-2. core methods 数本で smoke する
-3. それが安定したら family 化する
-4. prior-map localization 系は別の benchmark track として設計する
-
-### 10.4 これは推論である
-
-上の「GLIM を先、ICRA2024 localization は別トラック」は、**AIST の公式 project pages と、この repo の現行 CLI 契約からの推論**である。  
-今の repo に prior map benchmark 契約が無い以上、この切り分けは妥当。
-
----
-
-## 11. 次にやるべきこと
-
-ここから先は priority 順に書く。
-
-### P0. 新規 method 群を 3+ variants 化する
-
-この turn で完了:
-
-- `balm2`
-- `fast_lio2`
-- `fast_lio_slam`
-- `isc_loam`
-- `lins`
-- `lio_sam`
-- `loam_livox`
-- `point_lio`
-- `suma`
-- `vgicp_slam`
-- `xicp`
-
-残対象 method:
-
-- `hdl_graph_slam`
-
-やること:
-
-1. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp) に profile flag を足す
-2. 各 [`experiments/*_matrix.json`](experiments/) を `default / fast / dense` に広げる
-3. method ごとに 1 manifest で sanity check
-4. 全 manifest について results / docs を更新
-
-理由:
-
-- 今のままでは variant-first の論文主張に対して新規群だけ設計密度が低い
-- ただし `hdl_graph_slam` 以外はこの段階を抜けたので、残る実質タスクは `hdl_graph_slam` の扱いだけでよい
-
-### P1. `clins` の manifest を作る
-
-状況:
-
-- CLI 実装はある
-- CTest も通る
-- しかし experiments 層が無い
-
-やること:
-
-1. まず `KITTI Raw` または `imu.csv` 付きデータで 1 manifest 作成
-2. その後 7 manifest へ広げるか判断
-
-理由:
-
-- 「27 methods 対応」と書けても、bench evidence は 26 methods 分しかない
-
-### P2. README / paper docs の stale 数字を掃除する
-
-対象:
-
-- [`README.md`](README.md)
-- [`docs/paper_tracks.md`](docs/paper_tracks.md)
-- [`docs/paper_captions.md`](docs/paper_captions.md)
-
-理由:
-
-- handoff ではなく public-facing な混乱源になっている
-- 新規 contributor が最初に誤読する箇所
-
-### P3. `hdl_graph_slam_kitti_raw_0061_full` を本当に `ready` にするか判断する
-
-現状:
-
-- [`experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json`](experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json) は `status: "skipped"`
-- blocker は `Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames)`
-
-やること:
-
-1. そのまま long run を受け入れて本当に回す
-2. もしくは fast profile / shorter full-like slice を導入する
-3. どちらもやらないなら、`skipped` のまま stable に運用する
-
-### P4. Istanbul / HDL の物理データ整備
-
-やること:
-
-- [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md) の想定パスに配置
-- 必要なら GT / `imu.csv` を整理
-
-理由:
-
-- 現在の main bench は KITTI / MCD に重心が寄っている
-- 4 family を均等に使いたいなら、Istanbul / HDL の再現性を上げる必要がある
-
-### P5. dataset expansion をするなら GLIM 系を先に
-
-これは P0-P4 より後。  
-まずは今ある 4 family と **26 methods 分の manifest 被覆 + 半統合状態の `clins`** をきれいにする方が先。
-
----
-
-## 12. 作業プレイブック
-
-### 12.1 新規 profile flag を 1 method に追加するときの最短ルート
-
-例: `hdl_graph_slam`
-
-1. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp) に:
-   - options struct のパラメータ
-   - usage 文
-   - `--hdl-graph-slam-fast-profile`
-   - `--hdl-graph-slam-dense-profile`
-   を追加
-2. [`experiments/hdl_graph_slam_*_matrix.json`](experiments/) の `variants` を増やす
-3. 個別確認:
-
-```bash
-python3 evaluation/scripts/run_experiment_matrix.py \
-  --manifest experiments/hdl_graph_slam_kitti_raw_0009_matrix.json
-```
-
-4. 問題なければ full refresh:
-
-```bash
-python3 evaluation/scripts/refresh_study_docs.py
-```
-
-### 12.2 IMU 系 method を bench に載せるとき
-
-確認事項:
-
-- `frame_timestamps.csv` があるか
-- `imu.csv` が同じ timeline 契約で置かれているか
-- smoke は [`evaluation/scripts/smoke_dlio_imu_when_ready.sh`](evaluation/scripts/smoke_dlio_imu_when_ready.sh) を使う
-
-### 12.3 full refresh 前にやること
-
-最低限:
-
-```bash
-ctest --test-dir build --output-on-failure -j"$(nproc)"
-bash evaluation/scripts/smoke_ci_fixture.sh
-python3 evaluation/scripts/refresh_study_docs.py
-```
-
-### 12.4 full refresh 後に見るもの
+### 4.1 最上位
 
 1. [`experiments/results/index.json`](experiments/results/index.json)
-2. 更新した method の aggregate JSON
-3. [`docs/experiments.md`](docs/experiments.md)
-4. `git status`
+2. 個別の [`experiments/results/*_matrix.json`](experiments/results)
+3. [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
+4. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
+5. [`experiments/*_matrix.json`](experiments/)
 
----
-
-## 13. 便利ファイル一覧
-
-### 13.1 bench / runner
-
-- [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
-- [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
-- [`evaluation/scripts/refresh_study_docs.py`](evaluation/scripts/refresh_study_docs.py)
-
-### 13.2 smoke / setup
-
-- [`evaluation/scripts/smoke_ci_fixture.sh`](evaluation/scripts/smoke_ci_fixture.sh)
-- [`evaluation/scripts/smoke_mcd_pcd_dogfooding.sh`](evaluation/scripts/smoke_mcd_pcd_dogfooding.sh)
-- [`evaluation/scripts/smoke_dlio_imu_when_ready.sh`](evaluation/scripts/smoke_dlio_imu_when_ready.sh)
-- [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)
-- [`evaluation/scripts/VERIFY_KITTI_IMU_DLIO.md`](evaluation/scripts/VERIFY_KITTI_IMU_DLIO.md)
-
-### 13.3 generated docs
+### 4.2 二次資料
 
 - [`docs/experiments.md`](docs/experiments.md)
 - [`docs/decisions.md`](docs/decisions.md)
 - [`docs/interfaces.md`](docs/interfaces.md)
 - [`docs/variant_analysis.md`](docs/variant_analysis.md)
+- [`docs/paper_assets.md`](docs/paper_assets.md)
+- [`docs/paper_tracks.md`](docs/paper_tracks.md)
 
-### 13.4 special topic
+### 4.3 stale と見なすべきもの
 
-- [`papers/cube_lio_repro/README.md`](papers/cube_lio_repro/README.md)
+- [`README.md`](README.md)
+- 一部 `docs/paper_*` の narrative 文
 
-`CUBE-LIO` は現状 **前処理 / cubemap / IGM デモ**まで。  
-フル本体の再現実装として扱わないこと。
+特に `README.md` の method 数や ready count は古い前提が残っている可能性が高い。
 
 ---
 
-## 14. 最終 handoff
+## 5. HDL-400 / CT 系の現在地
 
-いまの repo は:
+### 5.1 public ROS1 synthetic-time は separate bench としては成立している
 
-- **CLI とテストの土台は動いている**
-- **167 manifests / 165 ready / 1 blocked / 1 skipped** という index はある
-- **38/38 tests** と **CI fixture smoke** は earlier turn の最新成功記録があり、この turn では `extract_ros1_lidar_imu.py` の `py_compile` と manifest/docs 再生成までを再確認した
+**CT-LIO public ROS1 synthetic-time**
 
-ただし、次の Codex が本当に向き合うべき未完は次の 4 点:
+- manifest: [`experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json)
+- aggregate: [`experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json)
+- current default: `seed_only_fast`
+- current ATE: `0.479317`
+- current FPS: `19.561344`
 
-1. **`hdl_graph_slam` を 3+ variants 化するか、1 variant のまま truthfully 固定するか決めること**
-2. **`clins` を evidence 層に載せること**
-3. **stale docs の数字を掃除すること**
-4. **native-time CT reference を exact reproduction したいなら、`hdl_400_ros2` 系 artifact の provenance を回収すること**
+**CT-ICP public ROS1 synthetic-time**
 
-数字だけ見ると大きく前進しているが、構造的にはまだ **「統合は終わった、比較設計と provenance が一部未熟」** という段階にある。  
-次の担当は、method を増やすより **variants・truthfulness・source provenance を整える**方が価値が高い。
+- manifest: [`experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
+- aggregate: [`experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
+- current dirty default: `dense_window`
+- current ATE: `1.254043`
+- current FPS: `16.612127`
+
+### 5.2 last committed `e4d9af4` での CT synthetic-time defaults
+
+`e4d9af4` に限ると:
+
+| problem | default | ATE | FPS |
+|---------|---------|-----|-----|
+| CT-LIO public ROS1 synthetic-time | `seed_only_fast` | `0.479317` | `19.561344` |
+| CT-ICP public ROS1 synthetic-time | `fast_window` | `2.464608` | `68.524052` |
+
+つまり、**CT-ICP public ROS1 の性能優先 default 変更はまだ未コミット**である。
+
+### 5.3 native-time reference 側の数字は二層ある
+
+**`e4d9af4` 時点**
+
+| problem | default | ATE | FPS |
+|---------|---------|-----|-----|
+| CT-LIO reference | `seed_only_fast` | `0.411644` | `0.443120` |
+| CT-ICP reference | `fast_window` | `1.513295` | `2.414365` |
+
+**current dirty worktree**
+
+| problem | default | ATE | FPS |
+|---------|---------|-----|-----|
+| CT-LIO reference | `seed_only_fast` | `0.488244` | `17.477206` |
+| CT-ICP reference | `fast_window` | `2.582133` | `72.912540` |
+
+この差は、Copilot にとって最も危険な罠である。  
+current worktree の reference aggregate は、昔の native-time canonical result として読んではいけない。
+
+### 5.4 synthetic time は使ってよいか
+
+結論:
+
+- **使ってよい**
+- ただし **exact reproduction と呼んではいけない**
+
+OK:
+
+- public ROS1 bag しか無い状況で、別 benchmark track として使う
+- 同じ synthetic-time 契約の中で variant 比較をする
+- public-only benchmark として regression を見る
+
+NG:
+
+- native per-point `time` 付き benchmark と同一物として扱う
+- “original native-time benchmark を再現できた” と主張する
+
+---
+
+## 6. current dirty worktree の中身
+
+いまの `git status --short` は、単なる数ファイル変更ではない。  
+大きく 3 バッチある。
+
+### 6.1 バッチ A: CT public ROS1 performance-priority
+
+主ファイル:
+
+- [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
+- [`experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
+- [`experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
+- [`experiments/results/index.json`](experiments/results/index.json)
+- generated docs 群
+
+意味:
+
+- manifest-level `benchmark_weights` を導入
+- public ROS1 CT-ICP だけ ATE 優先で default を選ぶ
+
+### 6.2 バッチ B: 新規 method 群の profile expansion
+
+主ファイル:
+
+- [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
+- `balm2 / fast_lio2 / fast_lio_slam / hdl_graph_slam / isc_loam / lins / lio_sam / loam_livox / point_lio / suma / vgicp_slam / xicp`
+  の manifest 群
+- 対応する aggregate / docs
+
+意味:
+
+- 新規群の `default / fast / dense` 拡張
+- `hdl_graph_slam` は ready な短尺 problem では 3 variants 化済み
+- ただし full-sequence 側は `kitti_raw_0009_full = default only` / `kitti_raw_0061_full = skipped` のまま
+
+### 6.3 バッチ C: generated paper assets / docs
+
+主ファイル:
+
+- `docs/assets/paper/*`
+- [`docs/paper_tracks.md`](docs/paper_tracks.md)
+- [`docs/paper_assets.md`](docs/paper_assets.md)
+- [`docs/paper_comparison.md`](docs/paper_comparison.md)
+- [`docs/variant_analysis.md`](docs/variant_analysis.md)
+
+意味:
+
+- full refresh 後の再生成
+- 単独で手編集すべきではない
+
+### 6.4 Copilot への重要指示
+
+この dirty worktree を **一括で revert しないこと**。  
+少なくとも current owner の意図は複数バッチに分かれており、`git checkout -- .` のような破壊的操作は危険。
+
+---
+
+## 7. 重要な罠
+
+### 7.1 `--manifest` 部分実行は `index.json` を壊す
+
+`python3 evaluation/scripts/run_experiment_matrix.py --manifest ...`
+は便利だが、その subset で [`experiments/results/index.json`](experiments/results/index.json) を上書きする。
+
+対策:
+
+```bash
+python3 evaluation/scripts/refresh_study_docs.py
+```
+
+を最後に必ず実行すること。
+
+### 7.2 `skipped` と `blocked` は別
+
+- blocked: bench 契約上まだ解けていない
+- skipped: manifest は ready だが、その run で有効 result が無い
+
+current:
+
+- blocked = [`experiments/results/ct_lio_public_readiness_matrix.json`](experiments/results/ct_lio_public_readiness_matrix.json)
+- skipped = [`experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json`](experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json)
+
+### 7.3 `paper_tracks.md` の FPS 列は default FPS ではない
+
+[`docs/paper_tracks.md`](docs/paper_tracks.md) の table header は:
+
+- `Best ATE [m]`
+- `Best FPS`
+
+であり、**default の FPS ではない**。
+
+そのため、public ROS1 CT-ICP が `dense_window` default になっていても、
+table には `68.5` のような別 variant 由来の `Best FPS` が出る。
+
+default の実 FPS を見るべき場所は:
+
+- [`docs/paper_assets.md`](docs/paper_assets.md)
+- 個別 aggregate JSON
+
+### 7.4 `dogfooding_results/` は commit 対象ではない
+
+大きい raw data / local reconstructed data は `.gitignore` 前提。
+
+commit 対象は:
+
+- manifest JSON
+- aggregate JSON
+- generator / runner
+- generated docs
+- 小さい fixture
+
+のみ。
+
+### 7.5 current worktree の reference JSON を canonical native-time truth と見なすな
+
+これは再度強調する。  
+current dirty worktree の:
+
+- [`experiments/results/ct_lio_reference_profile_matrix.json`](experiments/results/ct_lio_reference_profile_matrix.json)
+- [`experiments/results/ct_icp_hdl_400_reference_matrix.json`](experiments/results/ct_icp_hdl_400_reference_matrix.json)
+
+は、**昔の native-time artifact 数字そのもの**としては扱わないこと。
+
+---
+
+## 8. 何を public に言ってよいか
+
+### 8.1 言ってよい
+
+- public ROS1 HDL-400 synthetic-time split を separate bench として追加した
+- CT-LIO public ROS1 synthetic-time は `seed_only_fast` で `ATE 0.479317`
+- CT-ICP public ROS1 synthetic-time は current dirty worktree では `dense_window` で `ATE 1.254043`
+- synthetic time は public-only benchmark 契約としては使える
+
+### 8.2 言ってはいけない
+
+- synthetic-time 結果で original native-time benchmark を exact reproduction した
+- current dirty reference aggregate が canonical native-time numbers だ
+- `paper_tracks.md` の FPS が default の FPS だ
+
+---
+
+## 9. 次にやるべきこと
+
+### P0. dirty worktree を commit 戦略で整理する
+
+最優先はここ。Copilot はまず「何を commit 単位に分けるか」を決めるべき。
+
+推奨:
+
+1. **profile expansion batch**
+   - [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
+   - 多数の new-method manifests / aggregates
+2. **CT public ROS1 performance-priority batch**
+   - [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
+   - [`experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
+   - 対応 aggregate / docs
+
+もし分離が難しければ、少なくとも **current dirty state を WIP commit** で保全する方が安全。
+
+### P1. `hdl_graph_slam` の full-sequence policy を決める
+
+現状:
+
+- manifest は 7 件ある
+- `kitti_raw_0009 / kitti_raw_0061 / mcd_* x3` は `default / fast / dense` を持つ
+- 現在の採択 default は
+  - `kitti_raw_0009 = fast`
+  - `kitti_raw_0061 = fast`
+  - `mcd_kth_day_06 = fast`
+  - `mcd_ntu_day_02 = dense`
+  - `mcd_tuhh_night_09 = dense`
+- `hdl_graph_slam_kitti_raw_0009_full` は runtime の重さから `default` のみ維持
+- `hdl_graph_slam_kitti_raw_0061_full` は引き続き `skipped`
+
+選択肢:
+
+1. full-sequence 2 本だけは truthfully 例外扱いで維持する
+2. 長時間実行を受け入れて `0009_full` にも fast / dense を載せる
+3. さらに軽い slice / profile を設計して `0061_full` の skipped を崩す
+
+### P2. `clins` を evidence 層に載せる
+
+現状:
+
+- CLI 実装あり
+- manifest なし
+- result なし
+
+最初の 1 本は KITTI Raw か IMU 付き public data で十分。
+
+### P3. exact native-time provenance を回収する
+
+もし本当に exact reproduction をやるなら必要なのは:
+
+- `hdl_400_ros2` 系 source artifact
+- あるいは同等の native per-point `time` を保持した元点群
+
+synthetic time ではここは埋まらない。
+
+### P4. stale public docs を掃除する
+
+対象:
+
+- [`README.md`](README.md)
+- narrative 部分の `docs/paper_*`
+
+---
+
+## 10. 作業プレイブック
+
+### 10.1 まず current snapshot を保存する
+
+Copilot に引き継ぐ前に最小限やるなら:
+
+```bash
+git status --short
+git diff --stat
+```
+
+### 10.2 full refresh
+
+```bash
+python3 evaluation/scripts/refresh_study_docs.py
+```
+
+### 10.3 最低限の script 検証
+
+```bash
+python3 -m py_compile evaluation/scripts/run_experiment_matrix.py
+python3 -m py_compile evaluation/scripts/extract_ros1_lidar_imu.py
+```
+
+### 10.4 full verification をやるなら
+
+この turn では未実施。  
+last known success は earlier turn。
+
+```bash
+ctest --test-dir build --output-on-failure -j"$(nproc)"
+bash evaluation/scripts/smoke_ci_fixture.sh
+```
+
+---
+
+## 11. 最初に見るべきファイル
+
+### 11.1 bench / runner
+
+- [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
+- [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
+- [`evaluation/scripts/refresh_study_docs.py`](evaluation/scripts/refresh_study_docs.py)
+
+### 11.2 HDL-400 / CT 関係
+
+- [`evaluation/scripts/extract_ros1_lidar_imu.py`](evaluation/scripts/extract_ros1_lidar_imu.py)
+- [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)
+- [`experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json)
+- [`experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
+- [`experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json)
+- [`experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
+- [`experiments/results/ct_lio_reference_profile_matrix.json`](experiments/results/ct_lio_reference_profile_matrix.json)
+- [`experiments/results/ct_icp_hdl_400_reference_matrix.json`](experiments/results/ct_icp_hdl_400_reference_matrix.json)
+- [`experiments/ct_lio_public_readiness_matrix.json`](experiments/ct_lio_public_readiness_matrix.json)
+
+### 11.3 generated docs
+
+- [`docs/experiments.md`](docs/experiments.md)
+- [`docs/decisions.md`](docs/decisions.md)
+- [`docs/interfaces.md`](docs/interfaces.md)
+- [`docs/paper_tracks.md`](docs/paper_tracks.md)
+- [`docs/paper_assets.md`](docs/paper_assets.md)
+- [`docs/variant_analysis.md`](docs/variant_analysis.md)
+
+---
+
+## 12. verification メモ
+
+### 12.1 current turn で確認したこと
+
+- `git status --short`
+- `git log --oneline -5`
+- `python3 -m py_compile evaluation/scripts/run_experiment_matrix.py`
+- `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing --manifest experiments/hdl_graph_slam_kitti_raw_0009_matrix.json --manifest experiments/hdl_graph_slam_kitti_raw_0061_matrix.json --manifest experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json --manifest experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json --manifest experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json`
+- current aggregate / index / manifest counts
+- `python3 evaluation/scripts/refresh_study_docs.py`
+
+### 12.2 earlier turn の最新成功記録
+
+- `ctest --test-dir build --output-on-failure -j"$(nproc)"`: **38/38 passed**
+- `bash evaluation/scripts/smoke_ci_fixture.sh`: **success**
+
+ただしこの 2 つは **2026-04-09 の current dirty worktree では再実行していない**。
+
+---
+
+## 13. 最終 handoff
+
+いまの repo は、ざっくり言うと次の状態にある。
+
+- **統合はかなり進んでいる**
+- **167 manifests / 165 ready / 1 blocked / 1 skipped** の bench index がある
+- **public ROS1 synthetic-time** は separate benchmark として成立している
+- しかし **exact native-time CT provenance** はまだ unresolved
+- さらに current worktree は **large dirty state** で、commit 済みの真実と混ざっている
+
+GitHub Copilot に一番伝えるべきことはこれ:
+
+1. **`e4d9af4` を clean boundary として覚えること**
+2. **current dirty worktree の CT-ICP public ROS1 default は `dense_window` だが、まだ未コミットであること**
+3. **current dirty reference aggregates を canonical native-time truth と見なさないこと**
+4. **`paper_tracks.md` の FPS を default FPS と誤読しないこと**
+5. **`hdl_graph_slam` と `clins` が、次の構造的な未完であること**
+
+もし Copilot が次に 1 手だけ打つなら、最優先は **dirty worktree の commit 戦略整理** である。  
+そこを曖昧にしたまま新しい実装や docs 編集に入ると、履歴も provenance もさらに壊れる。
 
 ---
 

@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-04-08T13:05:50+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -33,7 +33,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | ct_icp | `autoware_istanbul_open_108_c` | gt-backed | `balanced_window` | 7.539 | 1.3 | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
 | ct_icp | `hdl_400_open_ct_lio_120` | reference-based | `fast_window` | 2.582 | 72.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | ct_icp | `hdl_400_open_ct_lio_120_b` | reference-based | `fast_window` | 1.211 | 2.4 | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
-| ct_icp | `hdl_400_ros1_open_ct_lio_120_time_index` | reference-based | `fast_window` | 2.465 | 68.5 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
+| ct_icp | `hdl_400_ros1_open_ct_lio_120_time_index` | reference-based | `dense_window` | 1.254 | 16.6 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
 | ct_icp | `kitti_raw_0009_200` | reference-based | `balanced_window` | 1.659 | 34.4 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | ct_icp | `kitti_raw_0009_200` | reference-based | `balanced_window` | 1.659 | 44.5 | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | ct_icp | `kitti_raw_0009_full` | reference-based | `balanced_window` | 4.673 | 40.6 | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
@@ -74,12 +74,12 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | gicp | `mcd_kth_day_06_108` | reference-based | `fast_recent_map` | 0.630 | 24.7 | `experiments/results/gicp_mcd_kth_day_06_matrix.json` |
 | gicp | `mcd_ntu_day_02_108` | reference-based | `dense_recent_map` | 0.017 | 13.0 | `experiments/results/gicp_mcd_ntu_day_02_matrix.json` |
 | gicp | `mcd_tuhh_night_09_108` | reference-based | `fast_recent_map` | 0.317 | 31.2 | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
-| hdl_graph_slam | `kitti_raw_0009_200` | reference-based | `default` | 122.141 | 1.8 | `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json` |
+| hdl_graph_slam | `kitti_raw_0009_200` | reference-based | `fast` | 2.878 | 15.4 | `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json` |
 | hdl_graph_slam | `kitti_raw_0009_full` | reference-based | `default` | 185.826 | 0.2 | `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json` |
-| hdl_graph_slam | `kitti_raw_0061_200` | reference-based | `default` | 118.996 | 1.5 | `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json` |
-| hdl_graph_slam | `mcd_kth_day_06_108` | reference-based | `default` | 5.113 | 4.3 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
-| hdl_graph_slam | `mcd_ntu_day_02_108` | reference-based | `default` | 27.212 | 2.7 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
-| hdl_graph_slam | `mcd_tuhh_night_09_108` | reference-based | `default` | 10.818 | 3.2 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
+| hdl_graph_slam | `kitti_raw_0061_200` | reference-based | `fast` | 6.421 | 19.2 | `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json` |
+| hdl_graph_slam | `mcd_kth_day_06_108` | reference-based | `fast` | 9.241 | 13.9 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
+| hdl_graph_slam | `mcd_ntu_day_02_108` | reference-based | `dense` | 0.180 | 6.5 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
+| hdl_graph_slam | `mcd_tuhh_night_09_108` | reference-based | `dense` | 1.373 | 4.2 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
 | isc_loam | `kitti_raw_0009_200` | reference-based | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
 | isc_loam | `kitti_raw_0009_full` | reference-based | `fast` | 4.323 | 30.5 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | isc_loam | `kitti_raw_0061_200` | reference-based | `dense` | 0.494 | 23.7 | `experiments/results/isc_loam_kitti_raw_0061_matrix.json` |

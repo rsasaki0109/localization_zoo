@@ -27,6 +27,24 @@
       "design_style": "balanced",
       "intent": "Repository default hyperparameters.",
       "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser map grids and fewer outer refinement passes for faster Livox-style LOAM updates.",
+      "args": [
+        "--loam-livox-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer map grids and extra outer refinement passes for a more exhaustive LOAM solve.",
+      "args": [
+        "--loam-livox-dense-profile"
+      ]
     }
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-04-08T13:02:25+00:00",
+  "generated_at": "2026-04-09T08:49:38+00:00",
   "manifest_path": "experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json",
   "problem": {
     "id": "ct_icp_profile_tradeoff_hdl_400_public_ros1_synthtime",
-    "title": "CT-ICP throughput and drift trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
-    "question": "Which CT-ICP odometry profile should stay as the current default when the public ROS1 HDL-400 bag is reconstructed with scan-order synthetic point timestamps?",
+    "title": "CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+    "question": "Which CT-ICP odometry profile should stay as the current default when ATE matters more than throughput on the public ROS1 HDL-400 bag reconstructed with scan-order synthetic point timestamps?",
     "dataset": {
       "pcd_dir": "dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index",
       "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
@@ -23,7 +23,11 @@
       "fps",
       "readability_score",
       "extensibility_score"
-    ]
+    ],
+    "benchmark_weights": {
+      "ate_m": 1.0,
+      "fps": 0.0
+    }
   },
   "stable_interface": {
     "binary": "build/evaluation/pcd_dogfooding",
@@ -53,13 +57,13 @@
       "time_ms": 2978.670908,
       "frames": 120,
       "note": "",
-      "benchmark_score": 68.5,
+      "benchmark_score": 78.2,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
-      "decision": "Keep as active challenger",
-      "decision_reason": "Close enough to the current default to keep as a live alternative."
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     },
     {
       "id": "fast_window",
@@ -78,19 +82,19 @@
       "time_ms": 1751.209937,
       "frames": 120,
       "note": "",
-      "benchmark_score": 75.44,
+      "benchmark_score": 50.88,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     },
     {
       "id": "dense_window",
       "label": "Dense window",
-      "design_style": "drift-oriented",
-      "intent": "Increase point density and window richness to preserve more structure.",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase point density and window richness to preserve more structure when drift matters more than throughput.",
       "args": [
         "--ct-icp-dense-profile"
       ],
@@ -103,13 +107,13 @@
       "time_ms": 7223.63867,
       "frames": 120,
       "note": "",
-      "benchmark_score": 62.12,
+      "benchmark_score": 100.0,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
     }
   ]
 }

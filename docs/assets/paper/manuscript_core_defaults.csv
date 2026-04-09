@@ -1,6 +1,7 @@
 selector,dataset,contract_type,variant_id,ate_m,fps,aggregate_path
 aloam,kitti_raw_0009_full,reference-based,fast,6.104840,5.779396,experiments/results/aloam_kitti_raw_0009_full_matrix.json
 balm2,mcd_ntu_day_02_108,reference-based,fast,0.171767,12.738187,experiments/results/balm2_mcd_ntu_day_02_matrix.json
+clins,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,dense,1.473223,12.200311,experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json
 ct_icp,autoware_istanbul_open_108_b,gt-backed,balanced_window,6.819773,1.582405,experiments/results/ct_icp_istanbul_window_b_matrix.json
 ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,seed_only_fast,0.479317,19.561344,experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json
 dlio,kitti_raw_0009_full,reference-based,fast,5.026012,7.305497,experiments/results/dlio_kitti_raw_0009_full_matrix.json

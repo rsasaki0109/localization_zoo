@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-04-10T09:03:39+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -28,6 +28,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | balm2 | `mcd_kth_day_06_108` | reference-based | `fast` | 6.227 | 13.4 | `experiments/results/balm2_mcd_kth_day_06_matrix.json` |
 | balm2 | `mcd_ntu_day_02_108` | reference-based | `fast` | 0.172 | 12.7 | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
 | balm2 | `mcd_tuhh_night_09_108` | reference-based | `fast` | 1.698 | 14.6 | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
+| clins | `hdl_400_ros1_open_ct_lio_120_time_index` | reference-based | `dense` | 1.473 | 12.2 | `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json` |
 | ct_icp | `autoware_istanbul_open_108` | gt-backed | `fast_window` | 79.761 | 2.7 | `experiments/results/ct_icp_profile_matrix.json` |
 | ct_icp | `autoware_istanbul_open_108_b` | gt-backed | `balanced_window` | 6.820 | 1.6 | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | ct_icp | `autoware_istanbul_open_108_c` | gt-backed | `balanced_window` | 7.539 | 1.3 | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |

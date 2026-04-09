@@ -7,6 +7,7 @@ balm2,kitti_raw_0061_full,reference-based,fast,Fast,15.574380,11.357471,experime
 balm2,mcd_kth_day_06_108,reference-based,fast,Fast,6.227478,13.389958,experiments/results/balm2_mcd_kth_day_06_matrix.json
 balm2,mcd_ntu_day_02_108,reference-based,fast,Fast,0.171767,12.738187,experiments/results/balm2_mcd_ntu_day_02_matrix.json
 balm2,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.697580,14.612592,experiments/results/balm2_mcd_tuhh_night_09_matrix.json
+clins,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,dense,Dense,1.473223,12.200311,experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json
 ct_icp,autoware_istanbul_open_108,gt-backed,fast_window,Fast window,79.760529,2.745632,experiments/results/ct_icp_profile_matrix.json
 ct_icp,autoware_istanbul_open_108_b,gt-backed,balanced_window,Balanced window,6.819773,1.582405,experiments/results/ct_icp_istanbul_window_b_matrix.json
 ct_icp,autoware_istanbul_open_108_c,gt-backed,balanced_window,Balanced window,7.539417,1.311901,experiments/results/ct_icp_istanbul_window_c_matrix.json

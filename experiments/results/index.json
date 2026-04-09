@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-09T08:49:38+00:00",
+  "generated_at": "2026-04-10T09:03:38+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_kitti_raw_0009_full",
@@ -72,6 +72,15 @@
       "manifest_path": "experiments/balm2_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/balm2_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "clins_hdl_400_public_ros1_synthtime_tradeoff",
+      "title": "CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/clins_hdl_400_public_ros1_synthtime_matrix.json",
+      "aggregate_path": "experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json",
+      "current_default": "dense"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_hdl_400_public_ros1_synthtime",

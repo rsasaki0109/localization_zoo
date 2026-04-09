@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -14,6 +14,7 @@ _Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_ma
 | BALM2 on MCD KTH day-06 sequence | `ready` | `fast` | 6.184 | 13.4 | `experiments/results/balm2_mcd_kth_day_06_matrix.json` |
 | BALM2 on MCD NTU day-02 sequence | `ready` | `fast` | 0.062 | 12.7 | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `fast` | 1.270 | 14.6 | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
+| CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense` | 1.473 | 100.3 | `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 68.5 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_window` | 0.556 | 2.4 | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 72.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
@@ -652,6 +653,66 @@ _Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+
+## CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time
+
+- **Problem ID**: `clins_hdl_400_public_ros1_synthtime_tradeoff`
+- **Question**: Which CLINS profile should stay as the current default when the public ROS1 HDL-400 bag is reconstructed with scan-order synthetic point timestamps?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `clins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 484.064 | 61.3 | 30.7 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 350.052 | 100.3 | 50.2 | 4.65 | 4.75 | Keep as reference variant |
+| Dense | accuracy-oriented | 1.473 | 12.2 | 56.1 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `dense` is the current default for this problem.
+2. `fast` is the fastest observed variant at 100.3 FPS.
+3. `dense` is the most accurate observed variant at 1.473 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default CLINS front-end density on the public HDL-400 ROS1 reconstruction.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods clins --summary-json experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/default/summary.json`
+- Summary: `experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/default/summary.json`
+- Log: `experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Continuous-time LiDAR-inertial SLAM with CT-LIO registration (GT-seeded initialization).
+
+#### `fast`
+
+- Intent: Use coarser source downsampling and fewer retained points for lighter continuous-time registration.
+- CLI args: `--clins-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods clins --summary-json experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/fast/summary.json --clins-fast-profile`
+- Summary: `experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/fast/summary.json`
+- Log: `experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Continuous-time LiDAR-inertial SLAM with CT-LIO registration (GT-seeded initialization).
+
+#### `dense`
+
+- Intent: Use finer source downsampling and retain more points for denser continuous-time registration.
+- CLI args: `--clins-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods clins --summary-json experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/dense/summary.json --clins-dense-profile`
+- Summary: `experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/dense/summary.json`
+- Log: `experiments/results/runs/clins_hdl_400_public_ros1_synthtime_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Continuous-time LiDAR-inertial SLAM with CT-LIO registration (GT-seeded initialization).
 
 
 ## CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time

@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -81,7 +81,7 @@ The runner is responsible for:
 | BALM2 on MCD KTH day-06 sequence | `ready` | `experiments/balm2_mcd_kth_day_06_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_mcd_kth_day_06_matrix.json` |
 | BALM2 on MCD NTU day-02 sequence | `ready` | `experiments/balm2_mcd_ntu_day_02_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `experiments/balm2_mcd_tuhh_night_09_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
-| CT-ICP throughput and drift trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
+| CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_b_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_b_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
@@ -129,12 +129,12 @@ The runner is responsible for:
 | GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/gicp_mcd_tuhh_night_09_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
 | GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/gicp_profile_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_profile_matrix.json` |
 | HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0009_full_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json` |
-| HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0009_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0009_matrix.json` | `hdl_graph_slam` | `fast` | `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json` |
 | HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `experiments/hdl_graph_slam_kitti_raw_0061_full_matrix.json` | `hdl_graph_slam` | `-` | `experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json` |
-| HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0061_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json` |
-| HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
-| HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
-| HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` | `hdl_graph_slam` | `default` | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/hdl_graph_slam_kitti_raw_0061_matrix.json` | `hdl_graph_slam` | `fast` | `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json` |
+| HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json` | `hdl_graph_slam` | `fast` | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
+| HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json` | `hdl_graph_slam` | `dense` | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
+| HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` | `hdl_graph_slam` | `dense` | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/isc_loam_kitti_raw_0009_full_matrix.json` | `isc_loam` | `fast` | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/isc_loam_kitti_raw_0009_matrix.json` | `isc_loam` | `fast` | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/isc_loam_kitti_raw_0061_full_matrix.json` | `isc_loam` | `fast` | `experiments/results/isc_loam_kitti_raw_0061_full_matrix.json` |

@@ -27,6 +27,24 @@
       "design_style": "balanced",
       "intent": "Repository default hyperparameters.",
       "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser surfels and a shorter history window for faster dense mapping.",
+      "args": [
+        "--suma-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer surfels and a longer history window for a denser dense-mapping solve.",
+      "args": [
+        "--suma-dense-profile"
+      ]
     }
   ]
 }

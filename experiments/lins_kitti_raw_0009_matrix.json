@@ -23,10 +23,28 @@
   "variants": [
     {
       "id": "default",
-      "label": "Default (no IMU)",
+      "label": "Default",
       "design_style": "balanced",
-      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "intent": "Repository default hyperparameters.",
       "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarsen the voxel maps and cap correspondences to favor throughput.",
+      "args": [
+        "--lins-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer voxel maps and more correspondences for a denser iterated Kalman update.",
+      "args": [
+        "--lins-dense-profile"
+      ]
     }
   ]
 }

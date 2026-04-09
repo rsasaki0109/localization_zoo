@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-09T08:49:38+00:00",
   "manifest_path": "experiments/kiss_icp_kitti_raw_0061_matrix.json",
   "problem": {
     "id": "kiss_icp_profile_tradeoff_kitti_raw_0061",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "balanced_local_map",

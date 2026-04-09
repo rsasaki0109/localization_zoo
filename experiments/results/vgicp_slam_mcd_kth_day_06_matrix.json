@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-09T08:49:38+00:00",
   "manifest_path": "experiments/vgicp_slam_mcd_kth_day_06_matrix.json",
   "problem": {
     "id": "vgicp_slam_mcd_kth_day_06",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 23943.803369,
       "frames": 108,
       "note": "Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 60.85,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarsen registration and submap density while reducing keyframe and loop-closure frequency for faster pose-graph updates.",
+      "args": [
+        "--vgicp-slam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/fast/summary.json --vgicp-slam-fast-profile",
+      "summary_path": "experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 6.096382,
+      "fps": 20.782707,
+      "time_ms": 5196.628254,
+      "frames": 108,
+      "note": "Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 99.97,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Densify registration and submaps while revisiting keyframes and loop closure more aggressively.",
+      "args": [
+        "--vgicp-slam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods vgicp_slam --summary-json experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/dense/summary.json --vgicp-slam-dense-profile",
+      "summary_path": "experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/vgicp_slam_mcd_kth_day_06_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 6.098811,
+      "fps": 9.919984,
+      "time_ms": 10887.114806,
+      "frames": 108,
+      "note": "Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 73.81,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

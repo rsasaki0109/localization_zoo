@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -105,18 +105,17 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
-## CT-ICP throughput and drift trade-off on the public ROS1 HDL-400 window with synthesized per-point time
+## CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time
 
-- Current default: `fast_window`.
-- Active challengers: `balanced_window`.
-- Reference variants: `dense_window`.
+- Current default: `dense_window`.
+- Reference variants: `balanced_window`, `fast_window`.
 - Aggregate result: `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| balanced_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP throughput and drift trade-off on the second public HDL-400 reference window
 
@@ -680,12 +679,15 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban)
 
-- Current default: `default`.
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -697,39 +699,51 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential)
 
-- Current default: `default`.
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## HDL Graph SLAM on MCD KTH day-06 sequence
 
-- Current default: `default`.
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## HDL Graph SLAM on MCD NTU day-02 sequence
 
-- Current default: `default`.
+- Current default: `dense`.
+- Reference variants: `default`, `fast`.
 - Aggregate result: `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## HDL Graph SLAM on MCD TUHH night-09 sequence
 
-- Current default: `default`.
+- Current default: `dense`.
+- Reference variants: `default`, `fast`.
 - Aggregate result: `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
 

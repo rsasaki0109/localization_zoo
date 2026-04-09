@@ -2,8 +2,8 @@
   "schema_version": 1,
   "problem": {
     "id": "ct_icp_profile_tradeoff_hdl_400_public_ros1_synthtime",
-    "title": "CT-ICP throughput and drift trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
-    "question": "Which CT-ICP odometry profile should stay as the current default when the public ROS1 HDL-400 bag is reconstructed with scan-order synthetic point timestamps?",
+    "title": "CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+    "question": "Which CT-ICP odometry profile should stay as the current default when ATE matters more than throughput on the public ROS1 HDL-400 bag reconstructed with scan-order synthetic point timestamps?",
     "dataset": {
       "pcd_dir": "dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index",
       "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
@@ -22,7 +22,11 @@
       "fps",
       "readability_score",
       "extensibility_score"
-    ]
+    ],
+    "benchmark_weights": {
+      "ate_m": 1.0,
+      "fps": 0.0
+    }
   },
   "stable_interface": {
     "binary": "build/evaluation/pcd_dogfooding",
@@ -49,8 +53,8 @@
     {
       "id": "dense_window",
       "label": "Dense window",
-      "design_style": "drift-oriented",
-      "intent": "Increase point density and window richness to preserve more structure.",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase point density and window richness to preserve more structure when drift matters more than throughput.",
       "args": [
         "--ct-icp-dense-profile"
       ]

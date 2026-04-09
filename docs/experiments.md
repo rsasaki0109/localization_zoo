@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -14,7 +14,7 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 | BALM2 on MCD KTH day-06 sequence | `ready` | `fast` | 6.184 | 13.4 | `experiments/results/balm2_mcd_kth_day_06_matrix.json` |
 | BALM2 on MCD NTU day-02 sequence | `ready` | `fast` | 0.062 | 12.7 | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `fast` | 1.270 | 14.6 | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
-| CT-ICP throughput and drift trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `fast_window` | 1.254 | 68.5 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
+| CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 68.5 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_window` | 0.556 | 2.4 | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 72.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `balanced_window` | 6.820 | 3.1 | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
@@ -62,12 +62,12 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 | GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.317 | 31.2 | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
 | GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 0.994 | 6.3 | `experiments/results/gicp_profile_matrix.json` |
 | HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 185.826 | 0.2 | `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json` |
-| HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 122.141 | 1.8 | `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.878 | 15.4 | `experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json` |
 | HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | -1.000 | -1.0 | `experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json` |
-| HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `default` | 118.996 | 1.5 | `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json` |
-| HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `default` | 5.113 | 4.3 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
-| HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `default` | 27.212 | 2.7 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
-| HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `default` | 10.818 | 3.2 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
+| HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 5.178 | 19.2 | `experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json` |
+| HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 5.057 | 13.9 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
+| HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `dense` | 0.180 | 21.9 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
+| HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `dense` | 1.373 | 14.5 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 4.854 | 33.5 | `experiments/results/isc_loam_kitti_raw_0061_full_matrix.json` |
@@ -654,10 +654,10 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
 
 
-## CT-ICP throughput and drift trade-off on the public ROS1 HDL-400 window with synthesized per-point time
+## CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time
 
 - **Problem ID**: `ct_icp_profile_tradeoff_hdl_400_public_ros1_synthtime`
-- **Question**: Which CT-ICP odometry profile should stay as the current default when the public ROS1 HDL-400 bag is reconstructed with scan-order synthetic point timestamps?
+- **Question**: Which CT-ICP odometry profile should stay as the current default when ATE matters more than throughput on the public ROS1 HDL-400 bag reconstructed with scan-order synthetic point timestamps?
 - **Status**: `ready`
 - **Dataset PCD directory**: `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index`
 - **Reference CSV**: `experiments/reference_data/hdl_400_public_reference.csv`
@@ -668,13 +668,13 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.604 | 40.3 | 68.5 | 5.00 | 5.00 | Keep as active challenger |
-| Fast window | throughput-oriented | 2.465 | 68.5 | 75.4 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 1.254 | 16.6 | 62.1 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 1.604 | 40.3 | 78.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 2.465 | 68.5 | 50.9 | 4.65 | 4.75 | Keep as reference variant |
+| Dense window | accuracy-oriented | 1.254 | 16.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
-1. `fast_window` is the current default for this problem.
+1. `dense_window` is the current default for this problem.
 2. `fast_window` is the fastest observed variant at 68.5 FPS.
 3. `dense_window` is the most accurate observed variant at 1.254 m ATE.
 
@@ -704,7 +704,7 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 #### `dense_window`
 
-- Intent: Increase point density and window richness to preserve more structure.
+- Intent: Increase point density and window richness to preserve more structure when drift matters more than throughput.
 - CLI args: `--ct-icp-dense-profile`
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_hdl_400_public_ros1_synthtime_matrix/dense_window/summary.json --ct-icp-dense-profile`
 - Summary: `experiments/results/runs/ct_icp_hdl_400_public_ros1_synthtime_matrix/dense_window/summary.json`
@@ -3486,13 +3486,15 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 122.141 | 1.8 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Default | balanced | 122.141 | 1.8 | 7.1 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 2.878 | 15.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 24.734 | 1.8 | 11.7 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `default` is the current default for this problem.
-2. `default` is the fastest observed variant at 1.8 FPS.
-3. `default` is the most accurate observed variant at 122.141 m ATE.
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 15.4 FPS.
+3. `fast` is the most accurate observed variant at 2.878 m ATE.
 
 ### Variant Notes
 
@@ -3505,6 +3507,28 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Coarsen registration and submap density while trimming keyframe and loop-closure work for faster pose-graph updates.
+- CLI args: `--hdl-graph-slam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/fast/summary.json --hdl-graph-slam-fast-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/fast/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Densify registration and submaps while keeping every keyframe and loop-closure constraint active.
+- CLI args: `--hdl-graph-slam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/dense/summary.json --hdl-graph-slam-dense-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/dense/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
 
 
@@ -3542,13 +3566,15 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 118.996 | 1.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Default | balanced | 118.996 | 1.5 | 6.1 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 6.421 | 19.2 | 90.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 5.178 | 2.1 | 55.4 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `default` is the current default for this problem.
-2. `default` is the fastest observed variant at 1.5 FPS.
-3. `default` is the most accurate observed variant at 118.996 m ATE.
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 19.2 FPS.
+3. `dense` is the most accurate observed variant at 5.178 m ATE.
 
 ### Variant Notes
 
@@ -3561,6 +3587,28 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Coarsen registration and submap density while trimming keyframe and loop-closure work for faster pose-graph updates.
+- CLI args: `--hdl-graph-slam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/fast/summary.json --hdl-graph-slam-fast-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/fast/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Densify registration and submaps while keeping every keyframe and loop-closure constraint active.
+- CLI args: `--hdl-graph-slam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/dense/summary.json --hdl-graph-slam-dense-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/dense/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
 
 
@@ -3578,13 +3626,15 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 5.113 | 4.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Default | balanced | 5.113 | 4.3 | 64.9 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 9.241 | 13.9 | 77.4 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 5.057 | 3.1 | 61.1 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `default` is the current default for this problem.
-2. `default` is the fastest observed variant at 4.3 FPS.
-3. `default` is the most accurate observed variant at 5.113 m ATE.
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 13.9 FPS.
+3. `dense` is the most accurate observed variant at 5.057 m ATE.
 
 ### Variant Notes
 
@@ -3597,6 +3647,28 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Coarsen registration and submap density while trimming keyframe and loop-closure work for faster pose-graph updates.
+- CLI args: `--hdl-graph-slam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/fast/summary.json --hdl-graph-slam-fast-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/fast/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Densify registration and submaps while keeping every keyframe and loop-closure constraint active.
+- CLI args: `--hdl-graph-slam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/dense/summary.json --hdl-graph-slam-dense-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/dense/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_kth_day_06_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
 
 
@@ -3614,13 +3686,15 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 27.212 | 2.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Default | balanced | 27.212 | 2.7 | 6.4 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 28.002 | 21.9 | 50.3 | 4.65 | 4.75 | Keep as reference variant |
+| Dense | accuracy-oriented | 0.180 | 6.5 | 64.9 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
-1. `default` is the current default for this problem.
-2. `default` is the fastest observed variant at 2.7 FPS.
-3. `default` is the most accurate observed variant at 27.212 m ATE.
+1. `dense` is the current default for this problem.
+2. `fast` is the fastest observed variant at 21.9 FPS.
+3. `dense` is the most accurate observed variant at 0.180 m ATE.
 
 ### Variant Notes
 
@@ -3633,6 +3707,28 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Coarsen registration and submap density while trimming keyframe and loop-closure work for faster pose-graph updates.
+- CLI args: `--hdl-graph-slam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/fast/summary.json --hdl-graph-slam-fast-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/fast/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Densify registration and submaps while keeping every keyframe and loop-closure constraint active.
+- CLI args: `--hdl-graph-slam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/dense/summary.json --hdl-graph-slam-dense-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/dense/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_ntu_day_02_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
 
 
@@ -3650,13 +3746,15 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 10.818 | 3.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Default | balanced | 10.818 | 3.2 | 17.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 10.877 | 14.5 | 56.3 | 4.65 | 4.75 | Keep as reference variant |
+| Dense | accuracy-oriented | 1.373 | 4.2 | 64.3 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
-1. `default` is the current default for this problem.
-2. `default` is the fastest observed variant at 3.2 FPS.
-3. `default` is the most accurate observed variant at 10.818 m ATE.
+1. `dense` is the current default for this problem.
+2. `fast` is the fastest observed variant at 14.5 FPS.
+3. `dense` is the most accurate observed variant at 1.373 m ATE.
 
 ### Variant Notes
 
@@ -3669,6 +3767,28 @@ _Generated at 2026-04-08T13:02:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Coarsen registration and submap density while trimming keyframe and loop-closure work for faster pose-graph updates.
+- CLI args: `--hdl-graph-slam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/fast/summary.json --hdl-graph-slam-fast-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/fast/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Densify registration and submaps while keeping every keyframe and loop-closure constraint active.
+- CLI args: `--hdl-graph-slam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/dense/summary.json --hdl-graph-slam-dense-profile`
+- Summary: `experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/dense/summary.json`
+- Log: `experiments/results/runs/hdl_graph_slam_mcd_tuhh_night_09_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
 
 

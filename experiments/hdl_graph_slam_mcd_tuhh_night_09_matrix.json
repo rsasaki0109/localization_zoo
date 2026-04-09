@@ -27,6 +27,24 @@
       "design_style": "balanced",
       "intent": "Repository default hyperparameters.",
       "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarsen registration and submap density while trimming keyframe and loop-closure work for faster pose-graph updates.",
+      "args": [
+        "--hdl-graph-slam-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Densify registration and submaps while keeping every keyframe and loop-closure constraint active.",
+      "args": [
+        "--hdl-graph-slam-dense-profile"
+      ]
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-09T08:49:38+00:00",
   "manifest_path": "experiments/isc_loam_kitti_raw_0009_matrix.json",
   "problem": {
     "id": "isc_loam_kitti_raw_0009",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 21363.713636,
       "frames": 200,
       "note": "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 54.94,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce input density, keyframe rate, and loop-closure frequency for faster scan-context SLAM updates.",
+      "args": [
+        "--isc-loam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_kitti_raw_0009_matrix/fast/summary.json --isc-loam-fast-profile",
+      "summary_path": "experiments/results/runs/isc_loam_kitti_raw_0009_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/isc_loam_kitti_raw_0009_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 2.321429,
+      "fps": 35.591566,
+      "time_ms": 5619.308843,
+      "frames": 200,
+      "note": "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase input density and revisit keyframes more aggressively with tighter loop-closure cadence.",
+      "args": [
+        "--isc-loam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_kitti_raw_0009_matrix/dense/summary.json --isc-loam-dense-profile",
+      "summary_path": "experiments/results/runs/isc_loam_kitti_raw_0009_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/isc_loam_kitti_raw_0009_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 2.739922,
+      "fps": 21.671329,
+      "time_ms": 9228.78321,
+      "frames": 200,
+      "note": "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 72.81,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

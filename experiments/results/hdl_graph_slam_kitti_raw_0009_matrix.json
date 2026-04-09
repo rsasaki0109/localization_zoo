@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-09T08:49:38+00:00",
   "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_matrix.json",
   "problem": {
     "id": "hdl_graph_slam_kitti_raw_0009",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 109958.42064,
       "frames": 200,
       "note": "NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 7.08,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarsen registration and submap density while trimming keyframe and loop-closure work for faster pose-graph updates.",
+      "args": [
+        "--hdl-graph-slam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/fast/summary.json --hdl-graph-slam-fast-profile",
+      "summary_path": "experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 2.877962,
+      "fps": 15.41647,
+      "time_ms": 12973.138382,
+      "frames": 200,
+      "note": "NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Densify registration and submaps while keeping every keyframe and loop-closure constraint active.",
+      "args": [
+        "--hdl-graph-slam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/dense/summary.json --hdl-graph-slam-dense-profile",
+      "summary_path": "experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/hdl_graph_slam_kitti_raw_0009_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 24.734127,
+      "fps": 1.817481,
+      "time_ms": 110042.418094,
+      "frames": 200,
+      "note": "NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 11.71,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

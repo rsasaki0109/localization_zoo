@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-09T08:49:38+00:00",
   "manifest_path": "experiments/point_lio_kitti_raw_0009_matrix.json",
   "problem": {
     "id": "point_lio_kitti_raw_0009",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 37134.272337,
       "frames": 200,
       "note": "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 52.21,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser registration and a smaller local map to speed up point-level Kalman updates; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--point-lio-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_kitti_raw_0009_matrix/fast/summary.json --point-lio-fast-profile",
+      "summary_path": "experiments/results/runs/point_lio_kitti_raw_0009_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/point_lio_kitti_raw_0009_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 119.89004,
+      "fps": 117.416108,
+      "time_ms": 1703.343799,
+      "frames": 200,
+      "note": "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer registration and a larger local map with more correspondences; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--point-lio-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods point_lio --summary-json experiments/results/runs/point_lio_kitti_raw_0009_matrix/dense/summary.json --point-lio-dense-profile",
+      "summary_path": "experiments/results/runs/point_lio_kitti_raw_0009_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/point_lio_kitti_raw_0009_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 120.217182,
+      "fps": 33.01873,
+      "time_ms": 6057.168247,
+      "frames": 200,
+      "note": "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 63.92,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

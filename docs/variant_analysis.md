@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-04-08T13:06:08+00:00
+> Generated: 2026-04-09T08:49:49+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -23,7 +23,7 @@ Scan-to-map methods (LiTAMIN2, GICP, NDT) can use GT poses as per-frame initiali
 | floam | GT-seeded full | fast | 5.452 | 28.6 |
 | gicp | No GT seed 200f | dense_recent_map | 1.510 | 10.9 |
 | gicp | GT-seeded full | fast_recent_map | 1.177 | 25.8 |
-| hdl_graph_slam | GT-seeded full | default | 122.141 | 1.8 |
+| hdl_graph_slam | GT-seeded full | fast | 2.878 | 15.4 |
 | isc_loam | GT-seeded full | fast | 2.321 | 35.6 |
 | kiss_icp | No GT seed 200f | fast_recent_map | 2.642 | 28.2 |
 | kiss_icp | GT-seeded full | fast_recent_map | 2.642 | 24.4 |
@@ -75,7 +75,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
-| HDL-400 | fast_window | 2.465 | 68.5 |
+| HDL-400 | dense_window | 1.254 | 16.6 |
 | HDL-400 | fast_window | 1.211 | 2.4 |
 | HDL-400 | fast_window | 2.582 | 72.9 |
 | Istanbul | balanced_window | 6.820 | 1.6 |
@@ -175,14 +175,14 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
-| KITTI-kitti_raw_0009_200 | default | 122.141 | 1.8 |
+| KITTI-kitti_raw_0009_200 | fast | 2.878 | 15.4 |
 | KITTI-kitti_raw_0009_full | default | 185.826 | 0.2 |
-| KITTI-kitti_raw_0061_200 | default | 118.996 | 1.5 |
-| MCD-KTH | default | 5.113 | 4.3 |
-| MCD-NTU | default | 27.212 | 2.7 |
-| MCD-TUHH | default | 10.818 | 3.2 |
+| KITTI-kitti_raw_0061_200 | fast | 6.421 | 19.2 |
+| MCD-KTH | fast | 9.241 | 13.9 |
+| MCD-NTU | dense | 0.180 | 6.5 |
+| MCD-TUHH | dense | 1.373 | 4.2 |
 
-**Stability**: 1 unique default(s) across 6 windows.
+**Stability**: 3 unique default(s) across 6 windows.
 
 ### ISC-LOAM
 
@@ -480,6 +480,8 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
 | default | 78.351 | 2.3 | 6 |
+| dense | 7.304 | 3.5 | 5 |
+| fast | 11.484 | 17.0 | 5 |
 
 ### ISC-LOAM
 

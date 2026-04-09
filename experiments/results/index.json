@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T13:02:25+00:00",
+  "generated_at": "2026-04-09T08:49:38+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_kitti_raw_0009_full",
@@ -75,12 +75,12 @@
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_hdl_400_public_ros1_synthtime",
-      "title": "CT-ICP throughput and drift trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+      "title": "CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json",
-      "current_default": "fast_window"
+      "current_default": "dense_window"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_hdl_400_reference_b",
@@ -512,7 +512,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "hdl_graph_slam_kitti_raw_0061_full",
@@ -530,7 +530,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_kth_day_06",
@@ -539,7 +539,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_ntu_day_02",
@@ -548,7 +548,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_tuhh_night_09",
@@ -557,7 +557,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0009_full",

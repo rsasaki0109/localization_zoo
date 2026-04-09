@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-09T08:49:38+00:00",
   "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0061_full_matrix.json",
   "problem": {
     "id": "hdl_graph_slam_kitti_raw_0061_full",
@@ -25,7 +25,9 @@
     "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
     "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
   },
-  "status": "ready",
+  "status": "skipped",
+  "blocker": "Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames)",
+  "next_step": "Run a lighter slice/profile, or keep this problem out of the ready set until a real result is available.",
   "variants": [
     {
       "id": "default",

@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `165` ready problems and `2` blocked problems.
+Current coverage: `166` ready problems and `2` blocked problems.
 
 ## Current State
 
@@ -19,6 +19,7 @@ Current coverage: `165` ready problems and `2` blocked problems.
 | BALM2 on MCD KTH day-06 sequence | `ready` | `fast` | 6.184 | 13.4 | `dogfooding_results/mcd_kth_day_06_108` |
 | BALM2 on MCD NTU day-02 sequence | `ready` | `fast` | 0.062 | 12.7 | `dogfooding_results/mcd_ntu_day_02_108` |
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `fast` | 1.270 | 14.6 | `dogfooding_results/mcd_tuhh_night_09_108` |
+| CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense` | 1.473 | 100.3 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
 | CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 68.5 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `balanced_window` | 1.659 | 54.8 | `dogfooding_results/kitti_raw_0009_200` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_window` | 1.475 | 56.9 | `dogfooding_results/kitti_raw_0061_200` |
@@ -193,7 +194,7 @@ Current coverage: `165` ready problems and `2` blocked problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 165 ready problems under one CLI and one summary JSON interface.
+- The stable benchmark contract now covers 166 ready problems under one CLI and one summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=paper_icp_only_half_threads` at 43.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

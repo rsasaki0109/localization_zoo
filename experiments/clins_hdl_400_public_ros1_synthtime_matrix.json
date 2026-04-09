@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "clins_hdl_400_public_ros1_synthtime_tradeoff",
+    "title": "CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+    "question": "Which CLINS profile should stay as the current default when the public ROS1 HDL-400 bag is reconstructed with scan-order synthetic point timestamps?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv",
+      "source_bag_url": "https://www.aisl.cs.tut.ac.jp/databases/hdl_graph_slam/hdl_400.bag.tar.gz",
+      "pointcloud_topic": "/velodyne_points",
+      "imu_topic": "/gpsimu_driver/imu_data",
+      "reconstruction_script": "evaluation/scripts/extract_ros1_lidar_imu.py",
+      "reconstruction_start_frame": 1,
+      "reconstruction_max_frames": 120,
+      "reconstruction_time_mode": "index",
+      "timestamp_note": "The public ROS1 bag lacks a native time field, so per-point time is synthesized from scan order."
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "clins",
+    "primary_method": "CLINS"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default CLINS front-end density on the public HDL-400 ROS1 reconstruction.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser source downsampling and fewer retained points for lighter continuous-time registration.",
+      "args": [
+        "--clins-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer source downsampling and retain more points for denser continuous-time registration.",
+      "args": [
+        "--clins-dense-profile"
+      ]
+    }
+  ]
+}

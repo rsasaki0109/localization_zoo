@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -104,6 +104,18 @@ _Generated at 2026-04-09T08:49:38+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time
+
+- Current default: `dense`.
+- Reference variants: `default`, `fast`.
+- Aggregate result: `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time
 

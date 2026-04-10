@@ -52,6 +52,7 @@ The current search state is externalized here:
 
 Concrete variants live under [`experiments/`](experiments/) and are meant to be compared, challenged, and replaced.
 The matrix runner tracks the generated problem set in [`experiments/results/index.json`](experiments/results/index.json) across Istanbul windows, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD (Ouster) windows, and KITTI Raw (short and full-sequence windows).
+For heavy KITTI Raw full-sequence HDL Graph SLAM runs, the repository now keeps truthful exceptions instead of inventing pseudo-equivalent lightweight profiles: `kitti_raw_0009_full` stays `default`-only, and `kitti_raw_0061_full` stays `skipped`.
 [`docs/interfaces.md`](docs/interfaces.md) lists the current active selectors wired into `pcd_dogfooding`; the full integration surface is intentionally broader than any single manuscript-facing subset.
 `CT-LIO` and `CLINS` now both have public ROS1 HDL-400 synthetic-time comparisons, while GT-backed public `CT-LIO` remains blocked pending an independently curated trajectory CSV for that LiDAR+IMU stack. Those public ROS1 synthetic-time runs are useful comparative evidence, but they should be treated as a separate public-only benchmark, **not** as an exact native per-point-time reproduction of the reference/native-time HDL-400 setup.
 

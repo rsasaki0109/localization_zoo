@@ -42,7 +42,7 @@
 - Separation of stable interface (core) from exploratory profiles (experiments/).
 
 ### 3.2 Variant Design
-- At least 3 concrete variants for most ready problems (see `docs/decisions.md` rules); explicit exceptions such as some HDL Graph SLAM full-sequence manifests stay documented as truthful outliers instead of being padded with synthetic variants.
+- At least 3 concrete variants for most ready problems (see `docs/decisions.md` rules); explicit exceptions such as HDL Graph SLAM KITTI full-sequence manifests stay documented as truthful outliers instead of being padded with synthetic variants (`kitti_raw_0009_full` remains `default`-only; `kitti_raw_0061_full` remains `skipped`).
 - Variant axes: voxel resolution, thread count, ICP iterations, map strategy, window size.
 - Promotion/demotion rules: adopt as default, keep as reference, or retire.
 

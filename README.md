@@ -51,9 +51,9 @@ The current search state is externalized here:
 - [`docs/paper_captions.md`](docs/paper_captions.md): manuscript-facing caption snippets derived from the current aggregates
 
 Concrete variants live under [`experiments/`](experiments/) and are meant to be compared, challenged, and replaced.
-The matrix runner currently tracks **70+ ready problems** (plus a small number of blocked manifests) across **four dataset families**: Istanbul windows, HDL-400 reference windows, MCD (Ouster) windows, and KITTI Raw (short and full-sequence windows).
-[`PLAN.md`](PLAN.md) lists the **14 method families** wired into `pcd_dogfooding` today (`LiTAMIN2`, `GICP`, `Small-GICP`, `Voxel-GICP`, `NDT`, `KISS-ICP`, `DLO`, `DLIO`, `CT-ICP`, `CT-LIO`, `A-LOAM`, `F-LOAM`, `LeGO-LOAM`, `MULLS`).
-`CT-LIO` still has a separate reference-style comparison on HDL-400; a GT-backed public `CT-LIO` problem remains blocked pending an independently curated trajectory CSV for that sensor stack.
+The matrix runner tracks the generated problem set in [`experiments/results/index.json`](experiments/results/index.json) across Istanbul windows, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD (Ouster) windows, and KITTI Raw (short and full-sequence windows).
+[`docs/interfaces.md`](docs/interfaces.md) lists the current active selectors wired into `pcd_dogfooding`; the full integration surface is intentionally broader than any single manuscript-facing subset.
+`CT-LIO` and `CLINS` now both have public ROS1 HDL-400 synthetic-time comparisons, while GT-backed public `CT-LIO` remains blocked pending an independently curated trajectory CSV for that LiDAR+IMU stack. Those public ROS1 synthetic-time runs are useful comparative evidence, but they should be treated as a separate public-only benchmark, **not** as an exact native per-point-time reproduction of the reference/native-time HDL-400 setup.
 
 ### Three-step sanity check (after clone)
 
@@ -105,10 +105,10 @@ For GT-seeded scan-to-map methods, weak updates fall back to the seed pose inste
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
 
-`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,ct_icp,ct_lio,aloam,floam,lego_loam,mulls] [--summary-json path] [variant flags...]` evaluates sequential PCD datasets against a shared trajectory CSV contract.
-Method-specific profile flags include `--litamin2-*`, `--gicp-*`, `--small-gicp-*`, `--voxel-gicp-*`, `--ndt-*`, `--kiss-*`, `--dlo-*`, `--dlio-*`, `--ct-icp-*`, `--ct-lio-*`, `--aloam-*`, `--floam-*`, `--lego-loam-*`, and `--mulls-*`.
+`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path> [variant flags...]` evaluates sequential PCD datasets against a shared trajectory CSV contract.
+The exact current selector list and manifest contract are generated in [`docs/interfaces.md`](docs/interfaces.md). Method-specific profile flags now span the older paper-style families plus newer graph/LIO surfaces such as `--hdl-graph-slam-*`, `--vgicp-slam-*`, `--suma-*`, `--balm2-*`, `--isc-loam-*`, `--loam-livox-*`, `--lio-sam-*`, `--lins-*`, `--fast-lio-slam-*`, `--point-lio-*`, and `--clins-*`.
 
-`CT-LIO` expects `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
+`CT-LIO` and `CLINS` expect `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
 
 To extract a raw sequence from ROS 1 bags, use `./evaluation/scripts/extract_ros1_lidar_imu.py --pointcloud-bag corrected.bag --imu-bag record_slam.bag --output-dir dogfooding_results/raw_seq`.
 
@@ -159,6 +159,7 @@ For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp
 `--ct-lio-fixed-lag-outer-iterations` controls correspondence relinearization passes in the smoother. The current default is `3` for accuracy; `1` is lighter but usually hurts long-run ATE.
 For public HDL-400 experiments, this repository now also supports a reference-trajectory CSV converted from `pose_trace.csv` via `python3 evaluation/scripts/pose_trace_to_gt_csv.py`.
 For additional HDL-400 windows, `python3 evaluation/scripts/slice_trajectory_csv_by_frames.py` can slice the shared reference CSV to the timestamp span covered by a newly extracted `frame_timestamps.csv`.
+The repository keeps those reference/native-time-style HDL-400 windows separate from the public ROS1 synthetic-time reconstructions under `dogfooding_results/hdl_400_ros1_open_ct_lio_*_time_index`. The latter are public and reproducible from the released ROS1 bag, but they use synthesized per-point time and therefore should not be described as exact native-time reproduction.
 
 ### Synthetic Urban (30 frames)
 

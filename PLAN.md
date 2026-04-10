@@ -1,12 +1,14 @@
 # Localization Zoo - GitHub Copilot 向け引き継ぎ PLAN
 
-> **最終更新: 2026-04-09**
+> **最終更新: 2026-04-10**
 >
 > この文書は、次の GitHub Copilot / Copilot Chat / Codex が
 > 「いまの repo の真実はどこにあるか」
 > 「last committed state と current dirty worktree がどうズレているか」
 > 「どの benchmark 数字を public に言ってよく、どれを exact reproduction と呼んではいけないか」
 > を短時間で掴むための handoff である。
+>
+> **2026-04-10 update:** dirty worktree として説明している batch の大半は、その後 `wip/profile-expansion-refresh` に commit/push され、draft PR #1 に載っている。前半の dirty-worktree 記述は provenance 用の履歴として残し、**現在の優先順位は §9 と §13 を正**とする。
 >
 > 最初に本ファイルを読み、その後に次を見るのが最短:
 >
@@ -412,44 +414,36 @@ current dirty worktree の:
 
 ## 9. 次にやるべきこと
 
-### P0. dirty worktree を commit 戦略で整理する
+### P0. dirty worktree の保全
 
-最優先はここ。Copilot はまず「何を commit 単位に分けるか」を決めるべき。
-
-推奨:
-
-1. **profile expansion batch**
-   - [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
-   - 多数の new-method manifests / aggregates
-2. **CT public ROS1 performance-priority batch**
-   - [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
-   - [`experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`](experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json)
-   - 対応 aggregate / docs
-
-もし分離が難しければ、少なくとも **current dirty state を WIP commit** で保全する方が安全。
+これは **対応済み**。dirty worktree ベースだった差分は `wip/profile-expansion-refresh` へ commit/push され、draft PR #1 上で継続開発する形に移した。
 
 ### P1. `hdl_graph_slam` の full-sequence policy を決める
 
-現状:
+**決定:** full-sequence 2 本は truthfully 例外扱いで維持する。
+
+現状と採択:
 
 - manifest は 7 件ある
 - `kitti_raw_0009 / kitti_raw_0061 / mcd_* x3` は `default / fast / dense` を持つ
 - 現在の採択 default は
   - `kitti_raw_0009 = fast`
   - `kitti_raw_0061 = fast`
-  - `mcd_kth_day_06 = fast`
-  - `mcd_ntu_day_02 = dense`
-  - `mcd_tuhh_night_09 = dense`
-- `hdl_graph_slam_kitti_raw_0009_full` は runtime の重さから `default` のみ維持
-- `hdl_graph_slam_kitti_raw_0061_full` は引き続き `skipped`
+- `mcd_kth_day_06 = fast`
+- `mcd_ntu_day_02 = dense`
+- `mcd_tuhh_night_09 = dense`
+- `hdl_graph_slam_kitti_raw_0009_full` は runtime の重さから **`default` のみ維持**
+- `hdl_graph_slam_kitti_raw_0061_full` は計算量から **`skipped` 維持**
 
-選択肢:
+理由:
 
-1. full-sequence 2 本だけは truthfully 例外扱いで維持する
-2. 長時間実行を受け入れて `0009_full` にも fast / dense を載せる
-3. さらに軽い slice / profile を設計して `0061_full` の skipped を崩す
+1. `0009_full` の fast/dense を無理に追加すると、短尺 ready set と同じ cadence で回せない
+2. `0061_full` は現状でも 1 時間超級で、`skipped` を崩すだけの semantically equivalent な軽量 profile がまだ無い
+3. したがって、**full-sequence だけは truthful outlier として残す** 方が、artifact の意味を壊さない
 
 ### P2. `clins` を evidence 層に載せる
+
+これは **対応済み**。
 
 現状:
 
@@ -475,6 +469,8 @@ current dirty worktree の:
 synthetic time ではここは埋まらない。
 
 ### P4. stale public docs を掃除する
+
+これは **対応済み**。対象だった narrative docs は current artifact に合わせて更新済み。
 
 対象:
 
@@ -580,18 +576,19 @@ bash evaluation/scripts/smoke_ci_fixture.sh
 - **168 manifests / 166 ready / 1 blocked / 1 skipped** の bench index がある
 - **public ROS1 synthetic-time** は separate benchmark として成立している
 - しかし **exact native-time CT provenance** はまだ unresolved
-- さらに current worktree は **large dirty state** で、commit 済みの真実と混ざっている
+- `hdl_graph_slam` full-sequence は **truthful exception policy** で固定した
+- draft PR #1 (`wip/profile-expansion-refresh`) 上に、ここまでの更新が積まれている
 
 GitHub Copilot に一番伝えるべきことはこれ:
 
 1. **`e4d9af4` を clean boundary として覚えること**
-2. **current dirty worktree の CT-ICP public ROS1 default は `dense_window` だが、まだ未コミットであること**
-3. **current dirty reference aggregates を canonical native-time truth と見なさないこと**
+2. **public ROS1 synthetic-time と exact native-time provenance は別問題であること**
+3. **current reference aggregates を canonical native-time truth と見なさないこと**
 4. **`paper_tracks.md` の FPS を default FPS と誤読しないこと**
-5. **`hdl_graph_slam` と `clins` が、次の構造的な未完であること**
+5. **次の構造的な未完は、exact native-time provenance 回収であること**
 
-もし Copilot が次に 1 手だけ打つなら、最優先は **dirty worktree の commit 戦略整理** である。  
-そこを曖昧にしたまま新しい実装や docs 編集に入ると、履歴も provenance もさらに壊れる。
+もし Copilot が次に 1 手だけ打つなら、最優先は **exact native-time provenance の source artifact 条件を明文化すること** である。  
+synthetic-time 側が前進しても、ここは別に埋まらない。
 
 ---
 

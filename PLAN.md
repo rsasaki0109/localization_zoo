@@ -454,10 +454,16 @@ current dirty worktree の:
 現状:
 
 - CLI 実装あり
-- manifest なし
-- result なし
+- `experiments/clins_hdl_400_public_ros1_synthtime_matrix.json` を追加済み
+- public ROS1 HDL-400 synthetic-time window で aggregate/result を生成済み
+- 現在の採択 default は `dense`
+- observed trade-off は
+  - `default`: ATE `484.064284`, FPS `61.271053`
+  - `fast`: ATE `350.051541`, FPS `100.269128`
+  - `dense`: ATE `1.473223`, FPS `12.200311`
 
-最初の 1 本は KITTI Raw か IMU 付き public data で十分。
+最初の 1 本は **IMU 付き public ROS1 HDL-400** で成立した。  
+次にやるなら、KITTI Raw のような別 IMU dataset へ横展開するか、`clins` の profile 面をさらに増やす。
 
 ### P3. exact native-time provenance を回収する
 
@@ -552,15 +558,17 @@ bash evaluation/scripts/smoke_ci_fixture.sh
 - `git log --oneline -5`
 - `python3 -m py_compile evaluation/scripts/run_experiment_matrix.py`
 - `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing --manifest experiments/hdl_graph_slam_kitti_raw_0009_matrix.json --manifest experiments/hdl_graph_slam_kitti_raw_0061_matrix.json --manifest experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json --manifest experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json --manifest experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json`
+- `cmake --build build -j8`
+- `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing --manifest experiments/clins_hdl_400_public_ros1_synthtime_matrix.json`
 - current aggregate / index / manifest counts
+- `ctest --test-dir build --output-on-failure -j8`
+- `bash evaluation/scripts/smoke_ci_fixture.sh`
 - `python3 evaluation/scripts/refresh_study_docs.py`
 
 ### 12.2 earlier turn の最新成功記録
 
-- `ctest --test-dir build --output-on-failure -j"$(nproc)"`: **38/38 passed**
-- `bash evaluation/scripts/smoke_ci_fixture.sh`: **success**
-
-ただしこの 2 つは **2026-04-09 の current dirty worktree では再実行していない**。
+- earlier turn でも `ctest --test-dir build --output-on-failure -j"$(nproc)"`: **38/38 passed**
+- earlier turn でも `bash evaluation/scripts/smoke_ci_fixture.sh`: **success**
 
 ---
 
@@ -569,7 +577,7 @@ bash evaluation/scripts/smoke_ci_fixture.sh
 いまの repo は、ざっくり言うと次の状態にある。
 
 - **統合はかなり進んでいる**
-- **167 manifests / 165 ready / 1 blocked / 1 skipped** の bench index がある
+- **168 manifests / 166 ready / 1 blocked / 1 skipped** の bench index がある
 - **public ROS1 synthetic-time** は separate benchmark として成立している
 - しかし **exact native-time CT provenance** はまだ unresolved
 - さらに current worktree は **large dirty state** で、commit 済みの真実と混ざっている

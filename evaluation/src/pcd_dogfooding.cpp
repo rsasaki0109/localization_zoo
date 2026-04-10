@@ -3070,12 +3070,14 @@ int main(int argc, char** argv) {
               << " [--lio-sam-dense-profile]"
               << " [--lins-fast-profile]"
               << " [--lins-dense-profile]"
-              << " [--fast-lio-slam-fast-profile]"
-              << " [--fast-lio-slam-dense-profile]"
-              << " [--point-lio-fast-profile]"
-              << " [--point-lio-dense-profile]"
-              << " [--ct-lio-estimate-bias]"
-              << " [--ct-lio-fixed-lag-window N]"
+               << " [--fast-lio-slam-fast-profile]"
+               << " [--fast-lio-slam-dense-profile]"
+               << " [--point-lio-fast-profile]"
+               << " [--point-lio-dense-profile]"
+               << " [--clins-fast-profile]"
+               << " [--clins-dense-profile]"
+               << " [--ct-lio-estimate-bias]"
+               << " [--ct-lio-fixed-lag-window N]"
               << " [--ct-lio-fixed-lag-velocity-weight W]"
               << " [--ct-lio-fixed-lag-gyro-bias-scale W]"
               << " [--ct-lio-fixed-lag-accel-bias-scale W]"
@@ -4561,6 +4563,16 @@ int main(int argc, char** argv) {
       point_lio_options.map_voxel_size = 0.5;
       point_lio_options.max_correspondences = 320;
       point_lio_options.max_keyframes_in_map = 40;
+      continue;
+    }
+    if (arg == "--clins-fast-profile") {
+      clins_options.source_voxel_size = 1.0;
+      clins_options.max_source_points = 300;
+      continue;
+    }
+    if (arg == "--clins-dense-profile") {
+      clins_options.source_voxel_size = 0.45;
+      clins_options.max_source_points = 900;
       continue;
     }
     if (arg == "--ct-lio-fixed-lag-window") {

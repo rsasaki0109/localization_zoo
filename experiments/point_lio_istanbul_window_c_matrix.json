@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "point_lio_istanbul_window_c",
+    "title": "Point-LIO on the third repository-stored Istanbul sequence",
+    "question": "How does Point-LIO perform on a third public Istanbul window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_c",
+      "gt_csv": "dogfooding_results/autoware_istanbul_open_108_c_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "point_lio",
+    "primary_method": "Point-LIO"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser registration and a smaller local map to speed up point-level Kalman updates; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--point-lio-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer registration and a larger local map with more correspondences; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--point-lio-dense-profile"
+      ]
+    }
+  ]
+}

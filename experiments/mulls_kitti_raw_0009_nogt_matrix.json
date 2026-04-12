@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "mulls_profile_tradeoff_kitti_raw_0009_nogt",
+    "title": "MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "Which MULLS profile should stay as the current default on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "mulls",
+    "primary_method": "MULLS"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "A-LOAM-style features + multi-metric scan-to-map (line/plane/point) baseline for HDL-64E.",
+      "args": [
+        "--mulls-kitti-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxels, lighter Ceres, shorter submap window, sparser point metric.",
+      "args": [
+        "--mulls-kitti-profile",
+        "--mulls-fast-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer map voxels, more knn, deeper Ceres, longer history.",
+      "args": [
+        "--mulls-kitti-profile",
+        "--mulls-dense-profile",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

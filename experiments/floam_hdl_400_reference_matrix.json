@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "floam_profile_tradeoff_hdl_400_reference",
+    "title": "F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window",
+    "question": "Which F-LOAM profile should stay as the current default on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "floam",
+    "primary_method": "F-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline F-LOAM settings for KITTI (n_scans=64).",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Thin input and throttle mapping for speed.",
+      "args": [
+        "--floam-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Process denser input and update mapping every frame.",
+      "args": [
+        "--floam-dense-profile"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "aloam_profile_tradeoff_kitti_raw_0061_full",
+    "title": "A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which A-LOAM profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "aloam",
+    "primary_method": "A-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline settings for KITTI (n_scans=64).",
+      "args": [
+        "--aloam-kitti-profile"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce feature density and solver work for speed.",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase feature density and solver iterations for accuracy.",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-dense-profile"
+      ]
+    }
+  ]
+}

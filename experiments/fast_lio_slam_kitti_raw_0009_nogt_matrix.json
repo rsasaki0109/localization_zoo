@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "fast_lio_slam_kitti_raw_0009_nogt",
+    "title": "FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "How does FAST-LIO-SLAM perform on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "fast_lio_slam",
+    "primary_method": "FAST-LIO-SLAM"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce input density, shrink the front-end map window, and disable loop closure; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--fast-lio-slam-fast-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase input density, keep a larger front-end map, and tighten loop-closure cadence; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--fast-lio-slam-dense-profile",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

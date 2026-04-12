@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "balm2_kitti_raw_0009_nogt",
+    "title": "BALM2 on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "How does BALM2 perform on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "balm2",
+    "primary_method": "BALM2"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce feature density and bundle-adjustment effort for a lighter mapping window.",
+      "args": [
+        "--balm2-fast-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase feature density and keep a slightly larger optimization window for a more exhaustive mapping solve without the previous runtime blow-up.",
+      "args": [
+        "--balm2-dense-profile",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

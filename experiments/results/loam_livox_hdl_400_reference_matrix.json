@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/loam_livox_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "loam_livox_hdl_400_reference",
+    "title": "LOAM-Livox on the public HDL-400 reference window",
+    "question": "How does LOAM-Livox perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "loam_livox",
+    "primary_method": "LOAM-Livox"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_hdl_400_reference_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/loam_livox_hdl_400_reference_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/loam_livox_hdl_400_reference_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.091487,
+      "fps": 17.783503,
+      "time_ms": 6747.8268,
+      "frames": 120,
+      "note": "LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 60.19,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser map grids and fewer outer refinement passes for faster Livox-style LOAM updates.",
+      "args": [
+        "--loam-livox-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_hdl_400_reference_matrix/fast/summary.json --loam-livox-fast-profile",
+      "summary_path": "experiments/results/runs/loam_livox_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/loam_livox_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 2.919638,
+      "fps": 51.976603,
+      "time_ms": 2308.731122,
+      "frames": 120,
+      "note": "LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 51.35,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer map grids and extra outer refinement passes for a more exhaustive LOAM solve.",
+      "args": [
+        "--loam-livox-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods loam_livox --summary-json experiments/results/runs/loam_livox_hdl_400_reference_matrix/dense/summary.json --loam-livox-dense-profile",
+      "summary_path": "experiments/results/runs/loam_livox_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/loam_livox_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.078838,
+      "fps": 10.349029,
+      "time_ms": 11595.290538,
+      "frames": 120,
+      "note": "LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 59.96,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

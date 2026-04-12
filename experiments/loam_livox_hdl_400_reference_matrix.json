@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "loam_livox_hdl_400_reference",
+    "title": "LOAM-Livox on the public HDL-400 reference window",
+    "question": "How does LOAM-Livox perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "loam_livox",
+    "primary_method": "LOAM-Livox"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser map grids and fewer outer refinement passes for faster Livox-style LOAM updates.",
+      "args": [
+        "--loam-livox-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer map grids and extra outer refinement passes for a more exhaustive LOAM solve.",
+      "args": [
+        "--loam-livox-dense-profile"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "voxel_gicp_profile_tradeoff_hdl_400_reference_b",
+    "title": "Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window",
+    "question": "Which Voxel-GICP profile should stay as the current default on the second public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_b",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference_b.csv",
+      "reference_role": "public reference trajectory sliced from the HDL-400 pose trace export"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "voxel_gicp",
+    "primary_method": "Voxel-GICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": []
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxels and lighter iterations.",
+      "args": [
+        "--voxel-gicp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels and deeper alignment.",
+      "args": [
+        "--voxel-gicp-dense-profile"
+      ]
+    }
+  ]
+}

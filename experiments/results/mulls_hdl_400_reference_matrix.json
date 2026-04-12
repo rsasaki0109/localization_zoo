@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/mulls_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "mulls_profile_tradeoff_hdl_400_reference",
+    "title": "MULLS throughput and accuracy trade-off on the public HDL-400 reference window",
+    "question": "Which MULLS profile should stay as the current default on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "mulls",
+    "primary_method": "MULLS"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "A-LOAM-style features + multi-metric scan-to-map (line/plane/point) baseline for HDL-64E.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods mulls --summary-json experiments/results/runs/mulls_hdl_400_reference_matrix/kitti_default/summary.json",
+      "summary_path": "experiments/results/runs/mulls_hdl_400_reference_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/mulls_hdl_400_reference_matrix/kitti_default/run.log",
+      "status": "OK",
+      "ate_m": 0.897886,
+      "fps": 3.47918,
+      "time_ms": 34203.458446,
+      "frames": 119,
+      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
+      "benchmark_score": 67.3,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxels, lighter Ceres, shorter submap window, sparser point metric.",
+      "args": [
+        "--mulls-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods mulls --summary-json experiments/results/runs/mulls_hdl_400_reference_matrix/fast/summary.json --mulls-fast-profile",
+      "summary_path": "experiments/results/runs/mulls_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/mulls_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.875584,
+      "fps": 9.340595,
+      "time_ms": 12740.087633,
+      "frames": 119,
+      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
+      "benchmark_score": 99.91,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer map voxels, more knn, deeper Ceres, longer history.",
+      "args": [
+        "--mulls-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods mulls --summary-json experiments/results/runs/mulls_hdl_400_reference_matrix/dense/summary.json --mulls-dense-profile",
+      "summary_path": "experiments/results/runs/mulls_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/mulls_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.874062,
+      "fps": 3.065782,
+      "time_ms": 38815.541159,
+      "frames": 119,
+      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
+      "benchmark_score": 66.41,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

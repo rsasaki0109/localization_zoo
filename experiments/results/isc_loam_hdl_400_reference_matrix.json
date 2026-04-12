@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/isc_loam_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "isc_loam_hdl_400_reference",
+    "title": "ISC-LOAM on the public HDL-400 reference window",
+    "question": "How does ISC-LOAM perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "isc_loam",
+    "primary_method": "ISC-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_hdl_400_reference_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/isc_loam_hdl_400_reference_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/isc_loam_hdl_400_reference_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.19535,
+      "fps": 26.415992,
+      "time_ms": 4542.702709,
+      "frames": 120,
+      "note": "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 76.97,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce input density, keyframe rate, and loop-closure frequency for faster scan-context SLAM updates.",
+      "args": [
+        "--isc-loam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_hdl_400_reference_matrix/fast/summary.json --isc-loam-fast-profile",
+      "summary_path": "experiments/results/runs/isc_loam_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/isc_loam_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.161975,
+      "fps": 37.004353,
+      "time_ms": 3242.861694,
+      "frames": 120,
+      "note": "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 99.78,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase input density and revisit keyframes more aggressively with tighter loop-closure cadence.",
+      "args": [
+        "--isc-loam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods isc_loam --summary-json experiments/results/runs/isc_loam_hdl_400_reference_matrix/dense/summary.json --isc-loam-dense-profile",
+      "summary_path": "experiments/results/runs/isc_loam_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/isc_loam_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.161261,
+      "fps": 20.071574,
+      "time_ms": 5978.604461,
+      "frames": 120,
+      "note": "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 77.12,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

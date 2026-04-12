@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/balm2_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "balm2_hdl_400_reference",
+    "title": "BALM2 on the public HDL-400 reference window",
+    "question": "How does BALM2 perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "balm2",
+    "primary_method": "BALM2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/balm2_hdl_400_reference_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/balm2_hdl_400_reference_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.554789,
+      "fps": 1.139547,
+      "time_ms": 105304.958015,
+      "frames": 120,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 49.22,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce feature density and bundle-adjustment effort for a lighter mapping window.",
+      "args": [
+        "--balm2-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_matrix/fast/summary.json --balm2-fast-profile",
+      "summary_path": "experiments/results/runs/balm2_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/balm2_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.826897,
+      "fps": 8.996424,
+      "time_ms": 13338.633258,
+      "frames": 120,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 78.77,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase feature density and keep a slightly larger optimization window for a more exhaustive mapping solve without the previous runtime blow-up.",
+      "args": [
+        "--balm2-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_matrix/dense/summary.json --balm2-dense-profile",
+      "summary_path": "experiments/results/runs/balm2_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/balm2_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.475872,
+      "fps": 0.542627,
+      "time_ms": 221146.508906,
+      "frames": 120,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 53.02,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

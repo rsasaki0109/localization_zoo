@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -8,6 +8,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 2. Promote a variant only when it is comparable on the same binary, dataset, and metrics.
 3. Store the benchmark contract in the stable core and keep the profile search in `experiments/`.
 4. Do not delete weaker variants unless they stop being informative.
+
+## A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
@@ -18,6 +30,103 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence
+
+- Current default: `dense`.
+- Active challengers: `fast`.
+- Reference variants: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## BALM2 on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/balm2_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
@@ -38,6 +147,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/balm2_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## BALM2 on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/balm2_kitti_raw_0009_nogt_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -320,11 +441,120 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | seed_only_fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | history_smoother_dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlio_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
 - Reference variants: `kitti_default`, `dense`.
 - Aggregate result: `experiments/results/dlio_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlio_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlio_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLIO throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlio_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLIO throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlio_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLIO throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlio_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLIO throughput and accuracy trade-off on the MCD NTU day-02 sequence
+
+- Current default: `kitti_default`.
+- Active challengers: `fast`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/dlio_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLIO throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlio_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlo_hdl_400_reference_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -341,6 +571,103 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlo_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlo_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlo_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlo_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlo_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on the MCD NTU day-02 sequence
+
+- Current default: `kitti_default`.
+- Active challengers: `fast`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/dlo_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlo_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## FAST-LIO2 on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/fast_lio2_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
@@ -361,6 +688,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/fast_lio2_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## FAST-LIO2 on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/fast_lio2_kitti_raw_0009_nogt_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -428,6 +767,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## FAST-LIO-SLAM on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/fast_lio_slam_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## FAST-LIO-SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -445,6 +796,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/fast_lio_slam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/fast_lio_slam_kitti_raw_0009_nogt_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -512,11 +875,108 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Active challengers: `kitti_default`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/floam_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
 - Reference variants: `kitti_default`, `dense`.
 - Aggregate result: `experiments/results/floam_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/floam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/floam_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/floam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/floam_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/floam_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/floam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/floam_mcd_tuhh_night_09_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -680,6 +1140,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## HDL-Graph-SLAM on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/hdl_graph_slam_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `default`.
@@ -700,6 +1172,15 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## HDL-Graph-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/hdl_graph_slam_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -757,6 +1238,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## ISC-LOAM on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/isc_loam_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -774,6 +1267,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/isc_loam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## ISC-LOAM on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/isc_loam_kitti_raw_0009_nogt_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1000,6 +1505,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/lego_loam_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -1009,6 +1526,103 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/lego_loam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/lego_loam_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/lego_loam_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/lego_loam_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence
+
+- Current default: `fast`.
+- Active challengers: `dense`.
+- Reference variants: `kitti_default`.
+- Aggregate result: `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LINS on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/lins_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
@@ -1029,6 +1643,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/lins_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LINS on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/lins_kitti_raw_0009_nogt_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1097,6 +1723,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LIO-SAM on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/lio_sam_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LIO-SAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -1114,6 +1752,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/lio_sam_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LIO-SAM on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/lio_sam_kitti_raw_0009_nogt_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1361,6 +2011,19 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LOAM-Livox on the public HDL-400 reference window
+
+- Current default: `default`.
+- Active challengers: `dense`.
+- Reference variants: `fast`.
+- Aggregate result: `experiments/results/loam_livox_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -1378,6 +2041,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/loam_livox_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LOAM-Livox on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/loam_livox_kitti_raw_0009_nogt_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1445,11 +2120,108 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## MULLS throughput and accuracy trade-off on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/mulls_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
 - Reference variants: `kitti_default`, `dense`.
 - Aggregate result: `experiments/results/mulls_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_raw_0061_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/mulls_mcd_kth_day_06_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS throughput and accuracy trade-off on the MCD NTU day-02 sequence
+
+- Current default: `kitti_default`.
+- Active challengers: `fast`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/mulls_mcd_ntu_day_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS throughput and accuracy trade-off on the MCD TUHH night-09 sequence
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/mulls_mcd_tuhh_night_09_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1617,6 +2389,19 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_coarse_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## Point-LIO on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Active challengers: `dense`.
+- Reference variants: `default`.
+- Aggregate result: `experiments/results/point_lio_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -1634,6 +2419,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `default`, `dense`.
 - Aggregate result: `experiments/results/point_lio_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## Point-LIO on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/point_lio_kitti_raw_0009_nogt_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1701,11 +2498,71 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window
+
+- Current default: `fast_recent_map`.
+- Active challengers: `balanced_local_map`, `dense_recent_map`.
+- Aggregate result: `experiments/results/small_gicp_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_recent_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast_recent_map`.
 - Reference variants: `balanced_local_map`, `dense_recent_map`.
 - Aggregate result: `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `fast_recent_map`.
+- Reference variants: `balanced_local_map`, `dense_recent_map`.
+- Aggregate result: `experiments/results/small_gicp_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `balanced_local_map`.
+- Reference variants: `fast_recent_map`, `dense_recent_map`.
+- Aggregate result: `experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `fast_recent_map`.
+- Reference variants: `balanced_local_map`, `dense_recent_map`.
+- Aggregate result: `experiments/results/small_gicp_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `fast_recent_map`.
+- Reference variants: `balanced_local_map`, `dense_recent_map`.
+- Aggregate result: `experiments/results/small_gicp_kitti_raw_0061_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1749,6 +2606,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## SuMa on the public HDL-400 reference window
+
+- Current default: `default`.
+- Active challengers: `fast`, `dense`.
+- Aggregate result: `experiments/results/suma_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| dense | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `dense`.
@@ -1773,6 +2642,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## SuMa on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `default`.
+- Reference variants: `fast`, `dense`.
+- Aggregate result: `experiments/results/suma_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
@@ -1835,6 +2716,18 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## VGICP-SLAM on the public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/vgicp_slam_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast`.
@@ -1856,6 +2749,19 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## VGICP-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Active challengers: `default`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/vgicp_slam_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
@@ -1919,11 +2825,71 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window
+
+- Current default: `dense_recent_map`.
+- Reference variants: `balanced_local_map`, `fast_recent_map`.
+- Aggregate result: `experiments/results/voxel_gicp_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `dense_recent_map`.
 - Reference variants: `balanced_local_map`, `fast_recent_map`.
 - Aggregate result: `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- Current default: `dense_recent_map`.
+- Reference variants: `balanced_local_map`, `fast_recent_map`.
+- Aggregate result: `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `dense_recent_map`.
+- Reference variants: `balanced_local_map`, `fast_recent_map`.
+- Aggregate result: `experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- Current default: `dense_recent_map`.
+- Reference variants: `balanced_local_map`, `fast_recent_map`.
+- Aggregate result: `experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- Current default: `dense_recent_map`.
+- Reference variants: `balanced_local_map`, `fast_recent_map`.
+- Aggregate result: `experiments/results/voxel_gicp_kitti_raw_0061_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1968,6 +2934,19 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_recent_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## X-ICP on the public HDL-400 reference window
+
+- Current default: `dense`.
+- Reference variants: `default`, `fast`, `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_hdl_400_reference_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `dense`.
@@ -1994,6 +2973,20 @@ _Generated at 2026-04-10T09:03:38+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed)
+
+- Current default: `fast`.
+- Active challengers: `default`, `no_gt_seed`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/xicp_kitti_raw_0009_nogt_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_gt_seed | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential)
 

@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-04-13T12:28:24+00:00",
+  "manifest_path": "experiments/small_gicp_kitti_raw_0009_matrix.json",
+  "problem": {
+    "id": "small_gicp_profile_tradeoff_kitti_raw_0009",
+    "title": "Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "Which Small-GICP profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "small_gicp",
+    "primary_method": "Small-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Default.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_raw_0009_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/small_gicp_kitti_raw_0009_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_kitti_raw_0009_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 1.077777,
+      "fps": 49.847805,
+      "time_ms": 4012.212798,
+      "frames": 200,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 51.76,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Fast.",
+      "args": [
+        "--small-gicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_raw_0009_matrix/fast_recent_map/summary.json --small-gicp-fast-profile",
+      "summary_path": "experiments/results/runs/small_gicp_kitti_raw_0009_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_kitti_raw_0009_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 0.470785,
+      "fps": 83.30148,
+      "time_ms": 2400.917716,
+      "frames": 200,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Dense.",
+      "args": [
+        "--small-gicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_raw_0009_matrix/dense_recent_map/summary.json --small-gicp-dense-profile",
+      "summary_path": "experiments/results/runs/small_gicp_kitti_raw_0009_matrix/dense_recent_map/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_kitti_raw_0009_matrix/dense_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 1.090884,
+      "fps": 38.158923,
+      "time_ms": 5241.238028,
+      "frames": 200,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 44.48,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:28:24+00:00",
+  "manifest_path": "experiments/small_gicp_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "small_gicp_profile_tradeoff_hdl_400_reference",
+    "title": "Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window",
+    "question": "Which Small-GICP profile should stay as the current default on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "small_gicp",
+    "primary_method": "Small-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Default.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/small_gicp_hdl_400_reference_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_hdl_400_reference_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.132993,
+      "fps": 62.847699,
+      "time_ms": 1909.377792,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 69.29,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Fast.",
+      "args": [
+        "--small-gicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_matrix/fast_recent_map/summary.json --small-gicp-fast-profile",
+      "summary_path": "experiments/results/runs/small_gicp_hdl_400_reference_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_hdl_400_reference_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 0.250871,
+      "fps": 110.327862,
+      "time_ms": 1087.667233,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 71.64,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Dense.",
+      "args": [
+        "--small-gicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_matrix/dense_recent_map/summary.json --small-gicp-dense-profile",
+      "summary_path": "experiments/results/runs/small_gicp_hdl_400_reference_matrix/dense_recent_map/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_hdl_400_reference_matrix/dense_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 0.108555,
+      "fps": 47.607736,
+      "time_ms": 2520.598742,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 71.58,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

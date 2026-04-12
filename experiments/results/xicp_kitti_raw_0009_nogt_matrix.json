@@ -1,0 +1,135 @@
+{
+  "generated_at": "2026-04-13T12:28:24+00:00",
+  "manifest_path": "experiments/xicp_kitti_raw_0009_nogt_matrix.json",
+  "problem": {
+    "id": "xicp_kitti_raw_0009_nogt",
+    "title": "X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "How does X-ICP perform on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "xicp",
+    "primary_method": "X-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (GT seed)",
+      "design_style": "balanced",
+      "intent": "Repository default with ground-truth seed initialization.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/default/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 116.407009,
+      "fps": 62.784034,
+      "time_ms": 3185.523228,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 85.36,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "fast",
+      "label": "Fast (GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxel map and smaller working set while keeping the GT-seeded initialization path.",
+      "args": [
+        "--xicp-fast-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/fast/summary.json --xicp-fast-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 121.338296,
+      "fps": 81.230129,
+      "time_ms": 2462.140626,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 94.81,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense (GT seed)",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxel map and larger correspondence budget while keeping the GT-seeded initialization path.",
+      "args": [
+        "--xicp-dense-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/dense/summary.json --xicp-dense-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 108.747665,
+      "fps": 51.695809,
+      "time_ms": 3868.785593,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 81.82,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "no_gt_seed",
+      "label": "No GT seed",
+      "design_style": "accuracy-oriented",
+      "intent": "Ablation without ground-truth seed to test convergence from identity.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/no_gt_seed/run.log",
+      "status": "OK",
+      "ate_m": 116.407009,
+      "fps": 64.266803,
+      "time_ms": 3112.026586,
+      "frames": 200,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 86.27,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

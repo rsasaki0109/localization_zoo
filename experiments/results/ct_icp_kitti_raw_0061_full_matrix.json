@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-13T12:38:34+00:00",
   "manifest_path": "experiments/ct_icp_kitti_raw_0061_full_matrix.json",
   "problem": {
     "id": "ct_icp_profile_tradeoff_kitti_raw_0061_full",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "balanced_window",

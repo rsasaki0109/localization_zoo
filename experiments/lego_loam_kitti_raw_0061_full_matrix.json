@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "lego_loam_profile_tradeoff_kitti_raw_0061_full",
+    "title": "LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which LeGO-LOAM profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lego_loam",
+    "primary_method": "LeGO-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Ground-aware LeGO-LOAM baseline for HDL-64E (n_scans=64, sensor height ~KITTI).",
+      "args": [
+        "--lego-loam-kitti-profile"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser surf sampling and lighter odometry/mapping Ceres budgets.",
+      "args": [
+        "--lego-loam-kitti-profile",
+        "--lego-loam-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer features and deeper optimization passes.",
+      "args": [
+        "--lego-loam-kitti-profile",
+        "--lego-loam-dense-profile"
+      ]
+    }
+  ]
+}

@@ -53,6 +53,16 @@ def parse_args() -> argparse.Namespace:
         default=-1,
         help="Maximum number of lidar frames to export. -1 means all.",
     )
+    parser.add_argument(
+        "--time-mode",
+        default="preserve",
+        choices=["preserve", "index", "azimuth"],
+        help=(
+            "How to populate per-point time when the source PointCloud2 lacks a "
+            "'time' field. 'preserve' keeps current behavior and errors, "
+            "'index' uses firing order, 'azimuth' uses scan-order azimuth."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -67,35 +77,64 @@ def stamp_to_sec(stamp) -> float:
     return float(stamp.sec) + float(stamp.nanosec) * 1e-9
 
 
-def pointcloud_dtype(msg) -> np.dtype:
+def pointcloud_dtype(msg, names: tuple[str, ...]) -> np.dtype:
     offsets = {field.name: field.offset for field in msg.fields}
-    required = ("x", "y", "z", "intensity", "time")
-    missing = [name for name in required if name not in offsets]
+    missing = [name for name in names if name not in offsets]
     if missing:
         raise RuntimeError(f"PointCloud2 is missing fields: {', '.join(missing)}")
     return np.dtype(
         {
-            "names": list(required),
-            "formats": ["<f4", "<f4", "<f4", "<f4", "<f4"],
-            "offsets": [
-                offsets["x"],
-                offsets["y"],
-                offsets["z"],
-                offsets["intensity"],
-                offsets["time"],
-            ],
+            "names": list(names),
+            "formats": ["<f4"] * len(names),
+            "offsets": [offsets[name] for name in names],
             "itemsize": msg.point_step,
         }
     )
 
 
-def extract_points(msg) -> np.ndarray:
-    source_dtype = pointcloud_dtype(msg)
+def synthesize_index_time(count: int) -> np.ndarray:
+    if count <= 1:
+        return np.zeros(count, dtype=np.float32)
+    return np.linspace(0.0, 1.0, count, dtype=np.float32)
+
+
+def synthesize_azimuth_time(x: np.ndarray, y: np.ndarray) -> np.ndarray:
+    azimuth = np.arctan2(y, x)
+    unwrapped = np.unwrap(azimuth)
+    span = float(unwrapped[-1] - unwrapped[0]) if len(unwrapped) > 1 else 0.0
+    if abs(span) <= 1e-9:
+        return synthesize_index_time(len(unwrapped))
+    normalized = (unwrapped - unwrapped[0]) / span
+    return np.clip(normalized.astype(np.float32), 0.0, 1.0)
+
+
+def extract_points(msg, time_mode: str) -> np.ndarray:
+    offsets = {field.name: field.offset for field in msg.fields}
+    source_names = ["x", "y", "z"]
+    if "intensity" in offsets:
+        source_names.append("intensity")
+    if "time" in offsets:
+        source_names.append("time")
+
+    source_dtype = pointcloud_dtype(msg, tuple(source_names))
     count = int(msg.width) * int(msg.height)
     source = np.frombuffer(msg.data, dtype=source_dtype, count=count)
     packed = np.empty(count, dtype=PACKED_POINT_DTYPE)
-    for name in PACKED_POINT_DTYPE.names:
-        packed[name] = source[name]
+    packed["x"] = source["x"]
+    packed["y"] = source["y"]
+    packed["z"] = source["z"]
+    packed["intensity"] = source["intensity"] if "intensity" in source.dtype.names else 0.0
+    if "time" in source.dtype.names:
+        packed["time"] = source["time"]
+    elif time_mode == "index":
+        packed["time"] = synthesize_index_time(count)
+    elif time_mode == "azimuth":
+        packed["time"] = synthesize_azimuth_time(source["x"], source["y"])
+    else:
+        raise RuntimeError(
+            "PointCloud2 is missing fields: time. "
+            "Re-run with --time-mode index or --time-mode azimuth to synthesize it."
+        )
     return packed
 
 
@@ -129,6 +168,7 @@ def export_pointclouds(
     start_frame: int,
     max_frames: int,
     typestore,
+    time_mode: str,
 ) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     timestamps_path = out_dir / "frame_timestamps.csv"
@@ -146,7 +186,7 @@ def export_pointclouds(
                 break
 
             msg = typestore.deserialize_ros1(raw, conn.msgtype)
-            points = extract_points(msg)
+            points = extract_points(msg, time_mode)
             scan_dir = out_dir / f"{written:08d}"
             scan_dir.mkdir(parents=True, exist_ok=True)
             write_binary_pcd(scan_dir / "cloud.pcd", points)
@@ -209,6 +249,7 @@ def main() -> int:
         start_frame=args.start_frame,
         max_frames=args.max_frames,
         typestore=typestore,
+        time_mode=args.time_mode,
     )
     imu_count = export_imu(
         bag_path=Path(args.imu_bag),

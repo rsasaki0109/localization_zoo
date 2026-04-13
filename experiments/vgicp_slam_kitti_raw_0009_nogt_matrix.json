@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "vgicp_slam_kitti_raw_0009_nogt",
+    "title": "VGICP-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "How does VGICP-SLAM perform on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "vgicp_slam",
+    "primary_method": "VGICP-SLAM"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarsen registration and submap density while reducing keyframe and loop-closure frequency for faster pose-graph updates.",
+      "args": [
+        "--vgicp-slam-fast-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Densify registration and submaps while revisiting keyframes and loop closure more aggressively.",
+      "args": [
+        "--vgicp-slam-dense-profile",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

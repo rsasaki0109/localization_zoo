@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-13T12:38:34+00:00",
   "manifest_path": "experiments/lio_sam_kitti_raw_0061_matrix.json",
   "problem": {
     "id": "lio_sam_kitti_raw_0061",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 19496.776345,
       "frames": 200,
       "note": "Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 68.92,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce input density and keyframe rate while disabling loop closure; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--lio-sam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_kitti_raw_0061_matrix/fast/summary.json --lio-sam-fast-profile",
+      "summary_path": "experiments/results/runs/lio_sam_kitti_raw_0061_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/lio_sam_kitti_raw_0061_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.703993,
+      "fps": 27.102457,
+      "time_ms": 7379.404708,
+      "frames": 200,
+      "note": "Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 90.97,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase input density while keeping the full keyframe cadence and loop closure enabled; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--lio-sam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods lio_sam --summary-json experiments/results/runs/lio_sam_kitti_raw_0061_matrix/dense/summary.json --lio-sam-dense-profile",
+      "summary_path": "experiments/results/runs/lio_sam_kitti_raw_0061_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/lio_sam_kitti_raw_0061_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.840169,
+      "fps": 17.214182,
+      "time_ms": 11618.327488,
+      "frames": 200,
+      "note": "Tightly-coupled LiDAR-inertial odometry with factor graph and loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 66.08,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:28:24+00:00",
+  "manifest_path": "experiments/point_lio_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "point_lio_hdl_400_reference",
+    "title": "Point-LIO on the public HDL-400 reference window",
+    "question": "How does Point-LIO perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "point_lio",
+    "primary_method": "Point-LIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/point_lio_hdl_400_reference_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/point_lio_hdl_400_reference_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 108.182404,
+      "fps": 28.442752,
+      "time_ms": 4219.001011,
+      "frames": 120,
+      "note": "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 28.63,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser registration and a smaller local map to speed up point-level Kalman updates; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--point-lio-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_matrix/fast/summary.json --point-lio-fast-profile",
+      "summary_path": "experiments/results/runs/point_lio_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/point_lio_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 165.820193,
+      "fps": 69.922756,
+      "time_ms": 1716.179492,
+      "frames": 120,
+      "note": "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 55.41,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer registration and a larger local map with more correspondences; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--point-lio-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_matrix/dense/summary.json --point-lio-dense-profile",
+      "summary_path": "experiments/results/runs/point_lio_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/point_lio_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 17.92935,
+      "fps": 3.243061,
+      "time_ms": 37002.074814,
+      "frames": 120,
+      "note": "Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 52.32,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

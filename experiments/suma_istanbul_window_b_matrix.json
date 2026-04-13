@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "suma_istanbul_window_b",
+    "title": "SuMa on the second repository-stored Istanbul sequence",
+    "question": "How does SuMa perform on a second public Istanbul window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_b",
+      "gt_csv": "dogfooding_results/autoware_istanbul_open_108_b_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser surfels and a shorter history window for faster dense mapping.",
+      "args": [
+        "--suma-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer surfels and a longer history window for a denser dense-mapping solve.",
+      "args": [
+        "--suma-dense-profile"
+      ]
+    }
+  ]
+}

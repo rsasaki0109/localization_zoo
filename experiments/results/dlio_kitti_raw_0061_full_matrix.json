@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/dlio_kitti_raw_0061_full_matrix.json",
+  "problem": {
+    "id": "dlio_profile_tradeoff_kitti_raw_0061_full",
+    "title": "DLIO throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which DLIO profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dlio",
+    "primary_method": "DLIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced GICP+IMU fusion",
+      "intent": "Baseline DLIO-style GICP keyframe odometry with default IMU/LiDAR fusion weights.",
+      "args": [
+        "--dlio-kitti-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods dlio --summary-json experiments/results/runs/dlio_kitti_raw_0061_full_matrix/kitti_default/summary.json --dlio-kitti-profile",
+      "summary_path": "experiments/results/runs/dlio_kitti_raw_0061_full_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/dlio_kitti_raw_0061_full_matrix/kitti_default/run.log",
+      "status": "OK",
+      "ate_m": 7.348607,
+      "fps": 3.303321,
+      "time_ms": 212816.121948,
+      "frames": 703,
+      "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).",
+      "benchmark_score": 65.51,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser downsampling, fewer GICP iterations, lighter IMU fusion influence.",
+      "args": [
+        "--dlio-kitti-profile",
+        "--dlio-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods dlio --summary-json experiments/results/runs/dlio_kitti_raw_0061_full_matrix/fast/summary.json --dlio-kitti-profile --dlio-fast-profile",
+      "summary_path": "experiments/results/runs/dlio_kitti_raw_0061_full_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/dlio_kitti_raw_0061_full_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 7.369901,
+      "fps": 10.6519,
+      "time_ms": 65997.612991,
+      "frames": 703,
+      "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).",
+      "benchmark_score": 99.86,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels, deeper GICP, stronger IMU term when imu.csv is present.",
+      "args": [
+        "--dlio-kitti-profile",
+        "--dlio-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods dlio --summary-json experiments/results/runs/dlio_kitti_raw_0061_full_matrix/dense/summary.json --dlio-kitti-profile --dlio-dense-profile",
+      "summary_path": "experiments/results/runs/dlio_kitti_raw_0061_full_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/dlio_kitti_raw_0061_full_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 7.595709,
+      "fps": 1.328289,
+      "time_ms": 529252.354635,
+      "frames": 703,
+      "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).",
+      "benchmark_score": 54.61,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

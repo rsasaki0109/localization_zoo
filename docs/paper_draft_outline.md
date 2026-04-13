@@ -12,7 +12,7 @@
 
 **Contribution.**
 - A _variant-first_ benchmarking framework that keeps 3+ concrete variants alive per method family under a shared CLI contract (`pcd_dogfooding --summary-json`).
-- An empirical study across **13** integrated method families — LiTAMIN2, GICP, Small-GICP, NDT, KISS-ICP, DLO, DLIO, CT-ICP, CT-LIO, A-LOAM, F-LOAM, LeGO-LOAM, MULLS — and **four** public dataset families (**Istanbul**, **HDL-400**, **MCD**, **KITTI Raw**), with **73** ready search problems in `experiments/results/index.json` (plus one blocked CT-LIO GT-backed manifest).
+- A full artifact that currently wires **27 active selectors** and **168 manifests** (**166 ready**, **1 blocked**, **1 skipped**) across Istanbul, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD, and KITTI Raw. The manuscript-facing core claim can still stay centered on the five families that share the same twelve-window grid.
 - Evidence that, for every family with **broad** cross-window coverage today (LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP on twelve shared windows), the elected default **is not unique** across datasets — premature canonicalization discards real trade-offs.
 
 ---
@@ -24,7 +24,7 @@
 - Distribution-to-distribution (NDT).
 - Adaptive-threshold odometry (KISS-ICP).
 - Continuous-time methods (CT-ICP, CT-LIO).
-- Relationship to the **13** families currently benchmarked under `pcd_dogfooding` (see `PLAN.md`).
+- Relationship to the broader selector set currently benchmarked under `pcd_dogfooding` (see `docs/interfaces.md` and `PLAN.md`).
 
 ### 2.2 Benchmarking Methodology
 - Existing LiDAR benchmarks (KITTI odometry leaderboard, Hilti Challenge, FusionPortable).
@@ -42,15 +42,16 @@
 - Separation of stable interface (core) from exploratory profiles (experiments/).
 
 ### 3.2 Variant Design
-- At least 3 concrete variants per method family (see `docs/decisions.md` rules).
+- At least 3 concrete variants for most ready problems (see `docs/decisions.md` rules); explicit exceptions such as HDL Graph SLAM KITTI full-sequence manifests stay documented as truthful outliers instead of being padded with synthetic variants (`kitti_raw_0009_full` remains `default`-only; `kitti_raw_0061_full` remains `skipped`).
 - Variant axes: voxel resolution, thread count, ICP iterations, map strategy, window size.
 - Promotion/demotion rules: adopt as default, keep as reference, or retire.
 
 ### 3.3 Dataset Selection
 - **Istanbul**: Autoware-class urban Velodyne windows (3 × ~108 frames); GT CSV.
-- **HDL-400**: public Velodyne HDL-32E; 120-frame reference windows (2); LiDAR+IMU available for CT-LIO-style runs (**CT-LIO GT-backed** manifest remains blocked pending curated open GT).
+- **HDL-400 reference windows**: public Velodyne HDL-32E; 120-frame reference/native-time-style windows (2); useful for cross-method reference-based comparison.
+- **HDL-400 public ROS1 synthetic-time windows**: public ROS1 bag reconstructions with synthesized per-point time; now used by CT-ICP, CT-LIO, and CLINS as separate public-only evidence, not as exact native-time reproduction.
 - **MCD**: three Ouster OS1 windows (KTH / NTU / TUHH), 108 frames each; GT CSV.
-- **KITTI Raw**: Velodyne HDL-64E; **200-frame** and **full-sequence** slices for drives **0009** and **0061**; GT from OXTS-exported poses (see `evaluation/scripts/kitti_raw_to_benchmark.py`); optional `imu.csv` from `kitti_oxts_imu_for_dogfooding.py` for DLIO/CT-LIO.
+- **KITTI Raw**: Velodyne HDL-64E; **200-frame** and **full-sequence** slices for drives **0009** and **0061**; GT from OXTS-exported poses (see `evaluation/scripts/kitti_raw_to_benchmark.py`); optional `imu.csv` from `kitti_oxts_imu_for_dogfooding.py` for DLIO/CT-LIO/CLINS.
 - Table 1: dataset characteristics (sensor, frames, environment, GT source).
 
 ### 3.4 Metrics
@@ -68,13 +69,14 @@
 | Dataset | Sensor | Frames | Environment | GT Source |
 |---------|--------|--------|-------------|-----------|
 | Istanbul (a/b/c) | Velodyne | ~108 | Urban | GT CSV |
-| HDL-400 (a/b) | Velodyne HDL-32E | 120 | Indoor / outdoor | GT / reference CSV |
+| HDL-400 reference (a/b) | Velodyne HDL-32E | 120 | Indoor / outdoor | Reference CSV |
+| HDL-400 public ROS1 synth-time | Velodyne HDL-32E | 120 | Indoor / outdoor | Reference CSV + synthesized per-point time |
 | MCD (KTH / NTU / TUHH) | Ouster OS1 | ~108 | Various | GT CSV |
 | KITTI Raw (0009 / 0061) | Velodyne HDL-64E | 200 or full (~443 / ~703) | Urban / highway | OXTS-derived pose CSV |
 
 ### Table 2: Method Families and Variant Counts
 
-Each integrated family ships **≥3** CLI profiles in manifests (see `experiments/*_matrix.json`). Core examples:
+Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_matrix.json`). Core examples:
 
 | Method Family | Example variant ids |
 |---------------|---------------------|
@@ -86,7 +88,7 @@ Each integrated family ships **≥3** CLI profiles in manifests (see `experiment
 | DLO / DLIO | `kitti_default`, `fast`, `dense` (+ profile stacks) |
 | A-LOAM / F-LOAM / LeGO-LOAM | `kitti_default`, `fast`, `dense` |
 | MULLS | `kitti_default`, `fast`, `dense` |
-| CT-LIO | e.g. `seed_only_fast` (reference-based window; GT-backed blocked) |
+| CT-LIO / CLINS | e.g. `seed_only_fast`, `default`, `fast`, `dense` on reference-based or public ROS1 synth-time windows |
 
 ---
 
@@ -98,7 +100,7 @@ Each integrated family ships **≥3** CLI profiles in manifests (see `experiment
 - Data source: `experiments/results/index.json`, `docs/variant_analysis.md`, `docs/assets/paper/manuscript_core_defaults.csv` (overview slice only).
 
 ### Figure 1: Pareto Fronts (ATE vs. FPS)
-- Scatter plot of **all 73** ready-problem defaults (`docs/assets/paper/ready_defaults.csv`): ATE (m) vs. FPS.
+- Scatter plot of **all 166** ready-problem defaults (`docs/assets/paper/ready_defaults.csv`): ATE (m) vs. FPS.
 - Separate markers (or faceting) for GT-backed vs. reference-based contracts.
 - Annotate extremes from the current CSV (e.g., NDT **~0.005 m** ATE on an Istanbul window; **~106 FPS** peak on high-speed MCD/LiTAMIN2 rows — exact pairings depend on export date).
 - Source: `docs/assets/paper/ready_defaults_pareto.png`.
@@ -113,7 +115,7 @@ Each integrated family ships **≥3** CLI profiles in manifests (see `experiment
 
 ### Additional Results
 - Per-method accuracy breakdown tables (appendix).
-- CT-LIO reference-based results shown separately due to blocked GT status.
+- CT-LIO GT-backed results remain blocked, while CT-ICP / CT-LIO / CLINS public ROS1 synthetic-time results are shown separately from the HDL-400 reference/native-time-style windows.
 
 ---
 
@@ -128,12 +130,13 @@ Each integrated family ships **≥3** CLI profiles in manifests (see `experiment
 - The Pareto front is denser than expected near the speed end.
 
 ### Finding 3: Dataset Dependency Is the Norm
-- Istanbul (urban, GPS-grade GT) and HDL-400 (shorter, higher-precision GT) produce different rankings.
+- Istanbul, HDL-400 reference windows, HDL-400 public ROS1 synthetic-time windows, MCD, and KITTI Raw produce different rankings.
 - This is not a flaw; it is the information that variant-first benchmarking is designed to surface.
 
 ### Limitations
 - Several newly integrated families (LOAM variants, DLO/DLIO, MULLS, Small-GICP) appear on **fewer** windows than the historical five-way grid; expanding their manifests closes the circle on cross-dataset claims.
 - CT-LIO **GT-backed** evaluation remains blocked pending aligned open GT for the HDL-400 LIO window.
+- Public ROS1 HDL-400 synth-time benchmarks are public and reproducible, but they do **not** resolve the missing native per-point-time provenance needed for exact reproduction claims.
 - KITTI DLIO experiments currently mirror LiDAR-only behavior unless `imu.csv` is present (`--write-imu-csv` path in README / `PLAN.md`).
 - Hardware profile is single-machine; cross-machine scaling not yet characterized.
 
@@ -142,7 +145,7 @@ Each integrated family ships **≥3** CLI profiles in manifests (see `experiment
 ## 7. Conclusion
 
 - Variant-first benchmarking with a stable CLI contract is practical and reveals trade-offs hidden by canonical repos.
-- The **73-problem**, **13-family** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
+- The current **168-manifest / 27-selector** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
 - Artifacts (experiment matrices, generated decision tables, Pareto exports) are fully reproducible via `run_experiment_matrix.py --reuse-existing`.
 
 ---
@@ -150,11 +153,11 @@ Each integrated family ships **≥3** CLI profiles in manifests (see `experiment
 ## Appendix
 
 ### A. Full Variant Results
-- Complete tables for **74** manifest lines in the index (**73** ready + **1** blocked) and per-variant rows inside each `experiments/results/*_matrix.json`.
+- Complete tables for **168** manifest lines in the index (**166** ready + **1** blocked + **1** skipped) and per-variant rows inside each `experiments/results/*_matrix.json`.
 
-### B. CT-LIO Reference-Based Evaluation
-- Separate treatment of `ct_lio_reference_tradeoff` results.
-- Explanation of why GT-backed CT-LIO is blocked and how reference-based comparison differs.
+### B. CT-LIO / CLINS Public HDL-400 Evaluation
+- Separate treatment of HDL-400 reference/native-time-style windows and public ROS1 synthetic-time windows.
+- Explanation of why GT-backed CT-LIO is blocked and why synth-time evidence should not be sold as exact native-time reproduction.
 
 ### C. Reproduction Instructions
 - Step 1: Install dependencies and build via CMake.

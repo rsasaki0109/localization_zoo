@@ -27,6 +27,24 @@
       "design_style": "balanced",
       "intent": "Repository default hyperparameters.",
       "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce feature density and bundle-adjustment effort for a lighter mapping window.",
+      "args": [
+        "--balm2-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase feature density and keep a slightly larger optimization window for a more exhaustive mapping solve without the previous runtime blow-up.",
+      "args": [
+        "--balm2-dense-profile"
+      ]
     }
   ]
 }

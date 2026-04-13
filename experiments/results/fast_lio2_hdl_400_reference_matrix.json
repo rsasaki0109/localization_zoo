@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/fast_lio2_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "fast_lio2_hdl_400_reference",
+    "title": "FAST-LIO2 on the public HDL-400 reference window",
+    "question": "How does FAST-LIO2 perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "fast_lio2",
+    "primary_method": "FAST-LIO2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_hdl_400_reference_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/fast_lio2_hdl_400_reference_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/fast_lio2_hdl_400_reference_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.113927,
+      "fps": 3.040097,
+      "time_ms": 39472.423019,
+      "frames": 120,
+      "note": "LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 62.51,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce keypoint density and map window for faster LiDAR-inertial updates.",
+      "args": [
+        "--fast-lio2-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_hdl_400_reference_matrix/fast/summary.json --fast-lio2-fast-profile",
+      "summary_path": "experiments/results/runs/fast_lio2_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/fast_lio2_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.114415,
+      "fps": 9.128332,
+      "time_ms": 13145.884965,
+      "frames": 120,
+      "note": "LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 95.66,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase keypoint density and map window for a more exhaustive LiDAR-inertial solve.",
+      "args": [
+        "--fast-lio2-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_hdl_400_reference_matrix/dense/summary.json --fast-lio2-dense-profile",
+      "summary_path": "experiments/results/runs/fast_lio2_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/fast_lio2_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.104486,
+      "fps": 1.517056,
+      "time_ms": 79100.575863,
+      "frames": 120,
+      "note": "LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 58.31,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-13T12:28:24+00:00",
   "problems": [
+    {
+      "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
+      "title": "A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/aloam_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
     {
       "problem_id": "aloam_profile_tradeoff_kitti_raw_0009_full",
       "title": "A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
@@ -11,13 +20,85 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "aloam_profile_tradeoff_kitti_raw_0009",
+      "title": "A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/aloam_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "aloam_profile_tradeoff_kitti_raw_0009_nogt",
+      "title": "A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/aloam_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "aloam_profile_tradeoff_kitti_raw_0061_full",
+      "title": "A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/aloam_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "aloam_profile_tradeoff_kitti_raw_0061",
+      "title": "A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/aloam_kitti_raw_0061_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "aloam_profile_tradeoff_mcd_kth_day_06",
+      "title": "A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/aloam_mcd_kth_day_06_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "aloam_profile_tradeoff_mcd_ntu_day_02",
+      "title": "A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/aloam_mcd_ntu_day_02_matrix.json",
+      "current_default": "dense"
+    },
+    {
+      "problem_id": "aloam_profile_tradeoff_mcd_tuhh_night_09",
+      "title": "A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/aloam_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "balm2_hdl_400_reference",
+      "title": "BALM2 on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/balm2_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "balm2_kitti_raw_0009_full",
       "title": "BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/balm2_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/balm2_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_kitti_raw_0009",
@@ -26,7 +107,16 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/balm2_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "balm2_kitti_raw_0009_nogt",
+      "title": "BALM2 on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/balm2_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/balm2_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_kitti_raw_0061_full",
@@ -35,7 +125,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/balm2_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_kitti_raw_0061",
@@ -44,7 +134,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/balm2_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_mcd_kth_day_06",
@@ -53,7 +143,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/balm2_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_mcd_ntu_day_02",
@@ -62,7 +152,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/balm2_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_mcd_tuhh_night_09",
@@ -71,7 +161,25 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/balm2_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "clins_hdl_400_public_ros1_synthtime_tradeoff",
+      "title": "CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/clins_hdl_400_public_ros1_synthtime_matrix.json",
+      "aggregate_path": "experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json",
+      "current_default": "dense"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_hdl_400_public_ros1_synthtime",
+      "title": "CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json",
+      "current_default": "dense_window"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_hdl_400_reference_b",
@@ -191,6 +299,15 @@
       "current_default": "fast_window"
     },
     {
+      "problem_id": "ct_lio_hdl_400_public_ros1_synthtime_tradeoff",
+      "title": "CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json",
+      "aggregate_path": "experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json",
+      "current_default": "seed_only_fast"
+    },
+    {
       "problem_id": "ct_lio_public_gt_readiness",
       "title": "CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data",
       "status": "blocked",
@@ -209,12 +326,93 @@
       "current_default": "seed_only_fast"
     },
     {
+      "problem_id": "dlio_profile_tradeoff_hdl_400_reference",
+      "title": "DLIO throughput and accuracy trade-off on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/dlio_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "dlio_profile_tradeoff_kitti_raw_0009_full",
       "title": "DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/dlio_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/dlio_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlio_profile_tradeoff_kitti_raw_0009",
+      "title": "DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/dlio_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlio_profile_tradeoff_kitti_raw_0009_nogt",
+      "title": "DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/dlio_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlio_profile_tradeoff_kitti_raw_0061_full",
+      "title": "DLIO throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/dlio_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlio_profile_tradeoff_kitti_raw_0061",
+      "title": "DLIO throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/dlio_kitti_raw_0061_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlio_profile_tradeoff_mcd_kth_day_06",
+      "title": "DLIO throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/dlio_mcd_kth_day_06_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlio_profile_tradeoff_mcd_ntu_day_02",
+      "title": "DLIO throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/dlio_mcd_ntu_day_02_matrix.json",
+      "current_default": "kitti_default"
+    },
+    {
+      "problem_id": "dlio_profile_tradeoff_mcd_tuhh_night_09",
+      "title": "DLIO throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/dlio_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_hdl_400_reference",
+      "title": "DLO throughput and accuracy trade-off on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/dlo_hdl_400_reference_matrix.json",
       "current_default": "fast"
     },
     {
@@ -227,13 +425,85 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "dlo_profile_tradeoff_kitti_raw_0009",
+      "title": "DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/dlo_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_kitti_raw_0009_nogt",
+      "title": "DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/dlo_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_kitti_raw_0061_full",
+      "title": "DLO throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/dlo_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_kitti_raw_0061",
+      "title": "DLO throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/dlo_kitti_raw_0061_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_mcd_kth_day_06",
+      "title": "DLO throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/dlo_mcd_kth_day_06_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_mcd_ntu_day_02",
+      "title": "DLO throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/dlo_mcd_ntu_day_02_matrix.json",
+      "current_default": "kitti_default"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_mcd_tuhh_night_09",
+      "title": "DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/dlo_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "fast_lio2_hdl_400_reference",
+      "title": "FAST-LIO2 on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "fast_lio2_kitti_raw_0009_full",
       "title": "FAST-LIO2 on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_kitti_raw_0009",
@@ -242,7 +512,16 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "fast_lio2_kitti_raw_0009_nogt",
+      "title": "FAST-LIO2 on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio2_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_kitti_raw_0061_full",
@@ -251,7 +530,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_kitti_raw_0061",
@@ -260,7 +539,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_mcd_kth_day_06",
@@ -269,7 +548,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_mcd_ntu_day_02",
@@ -278,7 +557,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_mcd_tuhh_night_09",
@@ -287,7 +566,16 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "fast_lio_slam_hdl_400_reference",
+      "title": "FAST-LIO-SLAM on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_hdl_400_reference_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_kitti_raw_0009_full",
@@ -296,7 +584,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_kitti_raw_0009",
@@ -305,7 +593,16 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "fast_lio_slam_kitti_raw_0009_nogt",
+      "title": "FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_lio_slam_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_kitti_raw_0061_full",
@@ -314,7 +611,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_kitti_raw_0061",
@@ -323,7 +620,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_mcd_kth_day_06",
@@ -332,7 +629,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_mcd_ntu_day_02",
@@ -341,7 +638,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_mcd_tuhh_night_09",
@@ -350,7 +647,16 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_hdl_400_reference",
+      "title": "F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/floam_hdl_400_reference_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "floam_profile_tradeoff_kitti_raw_0009_full",
@@ -359,6 +665,69 @@
       "blocker": "",
       "manifest_path": "experiments/floam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/floam_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_kitti_raw_0009",
+      "title": "F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/floam_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_kitti_raw_0009_nogt",
+      "title": "F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/floam_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_kitti_raw_0061_full",
+      "title": "F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/floam_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_kitti_raw_0061",
+      "title": "F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/floam_kitti_raw_0061_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_mcd_kth_day_06",
+      "title": "F-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/floam_mcd_kth_day_06_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_mcd_ntu_day_02",
+      "title": "F-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/floam_mcd_ntu_day_02_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "floam_profile_tradeoff_mcd_tuhh_night_09",
+      "title": "F-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/floam_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/floam_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
     },
     {
@@ -479,6 +848,15 @@
       "current_default": "fast_recent_map"
     },
     {
+      "problem_id": "hdl_graph_slam_hdl_400_reference",
+      "title": "HDL-Graph-SLAM on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "hdl_graph_slam_kitti_raw_0009_full",
       "title": "HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
@@ -494,13 +872,22 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "hdl_graph_slam_kitti_raw_0009_nogt",
+      "title": "HDL-Graph-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0009_nogt_matrix.json",
       "current_default": "default"
     },
     {
       "problem_id": "hdl_graph_slam_kitti_raw_0061_full",
       "title": "HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)",
-      "status": "ready",
-      "blocker": "",
+      "status": "skipped",
+      "blocker": "Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames)",
       "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json",
       "current_default": null
@@ -512,7 +899,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_kth_day_06",
@@ -521,7 +908,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_ntu_day_02",
@@ -530,7 +917,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_tuhh_night_09",
@@ -539,7 +926,16 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
+    },
+    {
+      "problem_id": "isc_loam_hdl_400_reference",
+      "title": "ISC-LOAM on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_hdl_400_reference_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0009_full",
@@ -548,7 +944,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0009",
@@ -557,7 +953,16 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "isc_loam_kitti_raw_0009_nogt",
+      "title": "ISC-LOAM on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/isc_loam_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/isc_loam_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0061_full",
@@ -566,7 +971,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0061",
@@ -575,7 +980,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "isc_loam_mcd_kth_day_06",
@@ -584,7 +989,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_mcd_ntu_day_02",
@@ -593,7 +998,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_mcd_tuhh_night_09",
@@ -602,7 +1007,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "kiss_icp_profile_tradeoff_hdl_400_reference_b",
@@ -722,6 +1127,15 @@
       "current_default": "fast_recent_map"
     },
     {
+      "problem_id": "lego_loam_profile_tradeoff_hdl_400_reference",
+      "title": "LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "lego_loam_profile_tradeoff_kitti_raw_0009_full",
       "title": "LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
@@ -731,13 +1145,85 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "lego_loam_profile_tradeoff_kitti_raw_0009",
+      "title": "LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lego_loam_profile_tradeoff_kitti_raw_0009_nogt",
+      "title": "LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lego_loam_profile_tradeoff_kitti_raw_0061_full",
+      "title": "LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lego_loam_profile_tradeoff_kitti_raw_0061",
+      "title": "LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_kitti_raw_0061_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lego_loam_profile_tradeoff_mcd_kth_day_06",
+      "title": "LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_mcd_kth_day_06_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lego_loam_profile_tradeoff_mcd_ntu_day_02",
+      "title": "LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_mcd_ntu_day_02_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lego_loam_profile_tradeoff_mcd_tuhh_night_09",
+      "title": "LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lego_loam_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lins_hdl_400_reference",
+      "title": "LINS on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/lins_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "lins_kitti_raw_0009_full",
       "title": "LINS on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/lins_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/lins_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_kitti_raw_0009",
@@ -746,7 +1232,16 @@
       "blocker": "",
       "manifest_path": "experiments/lins_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/lins_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lins_kitti_raw_0009_nogt",
+      "title": "LINS on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/lins_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_kitti_raw_0061_full",
@@ -755,7 +1250,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/lins_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_kitti_raw_0061",
@@ -764,7 +1259,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/lins_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_mcd_kth_day_06",
@@ -773,7 +1268,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/lins_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_mcd_ntu_day_02",
@@ -782,7 +1277,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/lins_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "lins_mcd_tuhh_night_09",
@@ -791,7 +1286,16 @@
       "blocker": "",
       "manifest_path": "experiments/lins_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/lins_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lio_sam_hdl_400_reference",
+      "title": "LIO-SAM on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_hdl_400_reference_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_kitti_raw_0009_full",
@@ -800,7 +1304,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_kitti_raw_0009",
@@ -809,7 +1313,16 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "lio_sam_kitti_raw_0009_nogt",
+      "title": "LIO-SAM on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lio_sam_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/lio_sam_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_kitti_raw_0061_full",
@@ -818,7 +1331,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_kitti_raw_0061",
@@ -827,7 +1340,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_mcd_kth_day_06",
@@ -836,7 +1349,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_mcd_ntu_day_02",
@@ -845,7 +1358,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_mcd_tuhh_night_09",
@@ -854,7 +1367,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_hdl_400_reference_b",
@@ -872,7 +1385,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_hdl_400_reference_matrix.json",
       "aggregate_path": "experiments/results/litamin2_hdl_400_reference_matrix.json",
-      "current_default": "paper_icp_only_half_threads"
+      "current_default": "paper_cov_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_istanbul_window_b",
@@ -974,13 +1487,22 @@
       "current_default": "fast_icp_only_half_threads"
     },
     {
+      "problem_id": "loam_livox_hdl_400_reference",
+      "title": "LOAM-Livox on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_hdl_400_reference_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "loam_livox_kitti_raw_0009_full",
       "title": "LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/loam_livox_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_kitti_raw_0009",
@@ -989,7 +1511,16 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "loam_livox_kitti_raw_0009_nogt",
+      "title": "LOAM-Livox on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/loam_livox_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/loam_livox_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_kitti_raw_0061_full",
@@ -998,7 +1529,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_kitti_raw_0061",
@@ -1007,7 +1538,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_mcd_kth_day_06",
@@ -1016,7 +1547,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_mcd_ntu_day_02",
@@ -1025,7 +1556,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_mcd_tuhh_night_09",
@@ -1034,7 +1565,16 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_profile_tradeoff_hdl_400_reference",
+      "title": "MULLS throughput and accuracy trade-off on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/mulls_hdl_400_reference_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "mulls_profile_tradeoff_kitti_raw_0009_full",
@@ -1043,6 +1583,69 @@
       "blocker": "",
       "manifest_path": "experiments/mulls_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/mulls_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_profile_tradeoff_kitti_raw_0009",
+      "title": "MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_profile_tradeoff_kitti_raw_0009_nogt",
+      "title": "MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_profile_tradeoff_kitti_raw_0061_full",
+      "title": "MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_profile_tradeoff_kitti_raw_0061",
+      "title": "MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_raw_0061_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_profile_tradeoff_mcd_kth_day_06",
+      "title": "MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_mcd_kth_day_06_matrix.json",
+      "aggregate_path": "experiments/results/mulls_mcd_kth_day_06_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_profile_tradeoff_mcd_ntu_day_02",
+      "title": "MULLS throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_mcd_ntu_day_02_matrix.json",
+      "aggregate_path": "experiments/results/mulls_mcd_ntu_day_02_matrix.json",
+      "current_default": "kitti_default"
+    },
+    {
+      "problem_id": "mulls_profile_tradeoff_mcd_tuhh_night_09",
+      "title": "MULLS throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_mcd_tuhh_night_09_matrix.json",
+      "aggregate_path": "experiments/results/mulls_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
     },
     {
@@ -1163,13 +1766,22 @@
       "current_default": "fast_coarse_map"
     },
     {
+      "problem_id": "point_lio_hdl_400_reference",
+      "title": "Point-LIO on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "point_lio_kitti_raw_0009_full",
       "title": "Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/point_lio_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/point_lio_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_kitti_raw_0009",
@@ -1178,7 +1790,16 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/point_lio_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "point_lio_kitti_raw_0009_nogt",
+      "title": "Point-LIO on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_kitti_raw_0061_full",
@@ -1187,7 +1808,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/point_lio_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_kitti_raw_0061",
@@ -1196,7 +1817,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/point_lio_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_mcd_kth_day_06",
@@ -1205,7 +1826,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/point_lio_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_mcd_ntu_day_02",
@@ -1214,7 +1835,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/point_lio_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_mcd_tuhh_night_09",
@@ -1223,7 +1844,16 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/point_lio_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_hdl_400_reference",
+      "title": "Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_hdl_400_reference_matrix.json",
+      "current_default": "fast_recent_map"
     },
     {
       "problem_id": "small_gicp_profile_tradeoff_kitti_raw_0009_full",
@@ -1232,6 +1862,42 @@
       "blocker": "",
       "manifest_path": "experiments/small_gicp_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/small_gicp_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_kitti_raw_0009",
+      "title": "Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_kitti_raw_0009_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_kitti_raw_0009_nogt",
+      "title": "Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "balanced_local_map"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_kitti_raw_0061_full",
+      "title": "Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "small_gicp_profile_tradeoff_kitti_raw_0061",
+      "title": "Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_kitti_raw_0061_matrix.json",
       "current_default": "fast_recent_map"
     },
     {
@@ -1262,13 +1928,22 @@
       "current_default": "fast_recent_map"
     },
     {
+      "problem_id": "suma_hdl_400_reference",
+      "title": "SuMa on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/suma_hdl_400_reference_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "suma_kitti_raw_0009_full",
       "title": "SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "suma_kitti_raw_0009",
@@ -1280,13 +1955,22 @@
       "current_default": "default"
     },
     {
+      "problem_id": "suma_kitti_raw_0009_nogt",
+      "title": "SuMa on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "suma_kitti_raw_0061_full",
       "title": "SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "suma_kitti_raw_0061",
@@ -1295,7 +1979,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "suma_mcd_kth_day_06",
@@ -1304,7 +1988,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/suma_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "suma_mcd_ntu_day_02",
@@ -1313,7 +1997,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/suma_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "suma_mcd_tuhh_night_09",
@@ -1325,13 +2009,22 @@
       "current_default": "default"
     },
     {
+      "problem_id": "vgicp_slam_hdl_400_reference",
+      "title": "VGICP-SLAM on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_hdl_400_reference_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "vgicp_slam_kitti_raw_0009_full",
       "title": "VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_kitti_raw_0009",
@@ -1340,7 +2033,16 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "vgicp_slam_kitti_raw_0009_nogt",
+      "title": "VGICP-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_kitti_raw_0061_full",
@@ -1349,7 +2051,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_kitti_raw_0061",
@@ -1358,7 +2060,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_mcd_kth_day_06",
@@ -1367,7 +2069,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_mcd_ntu_day_02",
@@ -1376,7 +2078,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_mcd_tuhh_night_09",
@@ -1385,7 +2087,16 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_hdl_400_reference",
+      "title": "Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_hdl_400_reference_matrix.json",
+      "current_default": "dense_recent_map"
     },
     {
       "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0009_full",
@@ -1394,6 +2105,42 @@
       "blocker": "",
       "manifest_path": "experiments/voxel_gicp_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0009",
+      "title": "Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_kitti_raw_0009_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0009_nogt",
+      "title": "Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0061_full",
+      "title": "Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0061",
+      "title": "Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_kitti_raw_0061_matrix.json",
       "current_default": "dense_recent_map"
     },
     {
@@ -1424,13 +2171,22 @@
       "current_default": "dense_recent_map"
     },
     {
+      "problem_id": "xicp_hdl_400_reference",
+      "title": "X-ICP on the public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_hdl_400_reference_matrix.json",
+      "aggregate_path": "experiments/results/xicp_hdl_400_reference_matrix.json",
+      "current_default": "dense"
+    },
+    {
       "problem_id": "xicp_kitti_raw_0009_full",
       "title": "X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "xicp_kitti_raw_0009",
@@ -1439,7 +2195,16 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
+    },
+    {
+      "problem_id": "xicp_kitti_raw_0009_nogt",
+      "title": "X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_kitti_raw_0009_nogt_matrix.json",
+      "aggregate_path": "experiments/results/xicp_kitti_raw_0009_nogt_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "xicp_kitti_raw_0061_full",
@@ -1448,7 +2213,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "xicp_kitti_raw_0061",
@@ -1457,7 +2222,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "xicp_mcd_kth_day_06",
@@ -1466,7 +2231,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/xicp_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "xicp_mcd_ntu_day_02",
@@ -1475,7 +2240,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/xicp_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "xicp_mcd_tuhh_night_09",
@@ -1484,7 +2249,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/xicp_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     }
   ]
 }

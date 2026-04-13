@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "dlio_profile_tradeoff_kitti_raw_0061_full",
+    "title": "DLIO throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which DLIO profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dlio",
+    "primary_method": "DLIO"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced GICP+IMU fusion",
+      "intent": "Baseline DLIO-style GICP keyframe odometry with default IMU/LiDAR fusion weights.",
+      "args": [
+        "--dlio-kitti-profile"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser downsampling, fewer GICP iterations, lighter IMU fusion influence.",
+      "args": [
+        "--dlio-kitti-profile",
+        "--dlio-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels, deeper GICP, stronger IMU term when imu.csv is present.",
+      "args": [
+        "--dlio-kitti-profile",
+        "--dlio-dense-profile"
+      ]
+    }
+  ]
+}

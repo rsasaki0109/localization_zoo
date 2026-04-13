@@ -201,71 +201,39 @@ def render_default_pareto(points: list[VariantPoint], output_path: Path) -> None
     defaults = [point for point in points if point.is_default]
     if not defaults:
         return
-    fig, ax = plt.subplots(figsize=(14, 9))
 
-    # Assign a unique color per method selector
-    selectors = sorted(set(p.selector for p in defaults))
-    cmap = plt.cm.get_cmap("tab20", len(selectors))
-    color_map = {s: cmap(i) for i, s in enumerate(selectors)}
+    # Pick ONE representative per method: the one with best (lowest) ATE
+    best_per_method: dict[str, VariantPoint] = {}
+    for p in defaults:
+        if p.selector not in best_per_method or p.ate_m < best_per_method[p.selector].ate_m:
+            best_per_method[p.selector] = p
+    reps = sorted(best_per_method.values(), key=lambda p: p.ate_m)
 
-    marker_list = ["o", "s", "^", "D", "P", "X", "v", "<", ">", "h", "p", "*",
-                   "8", "H", "d", "|", "_", "1", "2", "3"]
-    marker_map = {s: marker_list[i % len(marker_list)] for i, s in enumerate(selectors)}
+    fig, ax = plt.subplots(figsize=(12, 8))
 
-    # Plot all points
-    for item in defaults:
-        ax.scatter(
-            item.ate_m,
-            item.fps,
-            s=100,
-            color=color_map.get(item.selector, "#475569"),
-            marker=marker_map.get(item.selector, "o"),
-            edgecolors="#111827",
-            linewidths=0.5,
-            alpha=0.75,
-        )
+    for item in reps:
+        ax.scatter(item.ate_m, item.fps, s=180, edgecolors="#111827",
+                   linewidths=1.0, alpha=0.9, zorder=3)
 
-    # Label only Pareto front points + best per method (avoid clutter)
-    xs = [p.ate_m for p in defaults]
-    ys = [p.fps for p in defaults]
-    front = _pareto_front_indices(xs, ys)
-
-    # Also pick the best ATE per selector as representative
-    best_per_selector: dict[str, int] = {}
-    for i, p in enumerate(defaults):
-        if p.selector not in best_per_selector or p.ate_m < defaults[best_per_selector[p.selector]].ate_m:
-            best_per_selector[p.selector] = i
-    label_indices = front | set(best_per_selector.values())
-
-    from adjustText import adjust_text  # type: ignore
-    texts = []
-    for i in label_indices:
-        item = defaults[i]
-        texts.append(ax.annotate(
-            item.selector,
-            (item.ate_m, item.fps),
-            fontsize=7,
-            alpha=0.85,
-        ))
     try:
-        adjust_text(texts, ax=ax)
-    except Exception:
-        pass  # adjustText not installed, labels may overlap
+        from adjustText import adjust_text  # type: ignore
+        texts = []
+        for item in reps:
+            texts.append(ax.text(item.ate_m, item.fps, f"  {item.selector}",
+                                 fontsize=9, va="center"))
+        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="-", color="gray", lw=0.5))
+    except ImportError:
+        for item in reps:
+            ax.annotate(item.selector, (item.ate_m, item.fps),
+                        textcoords="offset points", xytext=(8, 4), fontsize=9)
 
-    ax.set_title("Ready Default Variants: Accuracy / Throughput Pareto View", fontsize=13)
-    ax.set_xlabel("ATE [m] (lower is better)", fontsize=11)
-    ax.set_ylabel("FPS (higher is better)", fontsize=11)
-    ax.grid(alpha=0.2)
-    ax.set_xscale("symlog", linthresh=1.0)
-
-    # Legend: one entry per method
-    legend_handles = [
-        plt.Line2D([0], [0], marker=marker_map[s], color="w", label=s,
-                   markerfacecolor=color_map[s], markersize=8, markeredgecolor="#111827", markeredgewidth=0.5)
-        for s in selectors
-    ]
-    ax.legend(handles=legend_handles, title="Method", loc="upper right",
-              fontsize=7, title_fontsize=8, ncol=2)
+    ax.set_title(f"Best Default per Method ({len(reps)} methods, best ATE across all windows)",
+                 fontsize=13, pad=12)
+    ax.set_xlabel("ATE [m] (lower is better)", fontsize=12)
+    ax.set_ylabel("FPS (higher is better)", fontsize=12)
+    ax.grid(alpha=0.25, linestyle="--")
+    ax.set_xscale("log")
+    ax.tick_params(labelsize=10)
     fig.tight_layout()
     fig.savefig(output_path, dpi=200)
     plt.close(fig)

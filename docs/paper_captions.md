@@ -1,6 +1,6 @@
 # Paper Caption Snippets
 
-_Generated at 2026-04-13T16:50:48+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-04-13T16:56:11+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 ## Table Caption
 

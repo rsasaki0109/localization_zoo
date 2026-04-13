@@ -185,53 +185,89 @@ def write_manuscript_core_csv(points: list[VariantPoint], output_path: Path) -> 
     return chosen
 
 
+def _pareto_front_indices(xs: list[float], ys: list[float]) -> set[int]:
+    """Return indices on the Pareto front (minimize x, maximize y)."""
+    indexed = sorted(range(len(xs)), key=lambda i: (xs[i], -ys[i]))
+    front: set[int] = set()
+    best_y = -float("inf")
+    for i in indexed:
+        if ys[i] > best_y:
+            front.add(i)
+            best_y = ys[i]
+    return front
+
+
 def render_default_pareto(points: list[VariantPoint], output_path: Path) -> None:
     defaults = [point for point in points if point.is_default]
     if not defaults:
         return
-    fig, ax = plt.subplots(figsize=(11, 7))
-    color_map = {
-        "gt-backed": "#2563eb",
-        "reference-based": "#dc2626",
-    }
-    marker_map = {
-        "ct_icp": "o",
-        "ct_lio": "s",
-        "gicp": "^",
-        "kiss_icp": "D",
-        "litamin2": "P",
-        "ndt": "X",
-    }
+    fig, ax = plt.subplots(figsize=(14, 9))
+
+    # Assign a unique color per method selector
+    selectors = sorted(set(p.selector for p in defaults))
+    cmap = plt.cm.get_cmap("tab20", len(selectors))
+    color_map = {s: cmap(i) for i, s in enumerate(selectors)}
+
+    marker_list = ["o", "s", "^", "D", "P", "X", "v", "<", ">", "h", "p", "*",
+                   "8", "H", "d", "|", "_", "1", "2", "3"]
+    marker_map = {s: marker_list[i % len(marker_list)] for i, s in enumerate(selectors)}
+
+    # Plot all points
     for item in defaults:
         ax.scatter(
             item.ate_m,
             item.fps,
-            s=130,
-            color=color_map.get(item.contract_type, "#475569"),
+            s=100,
+            color=color_map.get(item.selector, "#475569"),
             marker=marker_map.get(item.selector, "o"),
             edgecolors="#111827",
-            linewidths=0.8,
-            alpha=0.9,
+            linewidths=0.5,
+            alpha=0.75,
         )
-        ax.annotate(
-            f"{item.selector}@{item.dataset_name}",
+
+    # Label only Pareto front points + best per method (avoid clutter)
+    xs = [p.ate_m for p in defaults]
+    ys = [p.fps for p in defaults]
+    front = _pareto_front_indices(xs, ys)
+
+    # Also pick the best ATE per selector as representative
+    best_per_selector: dict[str, int] = {}
+    for i, p in enumerate(defaults):
+        if p.selector not in best_per_selector or p.ate_m < defaults[best_per_selector[p.selector]].ate_m:
+            best_per_selector[p.selector] = i
+    label_indices = front | set(best_per_selector.values())
+
+    from adjustText import adjust_text  # type: ignore
+    texts = []
+    for i in label_indices:
+        item = defaults[i]
+        texts.append(ax.annotate(
+            item.selector,
             (item.ate_m, item.fps),
-            textcoords="offset points",
-            xytext=(6, 5),
-            fontsize=8,
-        )
-    ax.set_title("Ready Default Variants: Accuracy / Throughput Pareto View")
-    ax.set_xlabel("ATE [m] (lower is better)")
-    ax.set_ylabel("FPS (higher is better)")
-    ax.grid(alpha=0.25)
+            fontsize=7,
+            alpha=0.85,
+        ))
+    try:
+        adjust_text(texts, ax=ax)
+    except Exception:
+        pass  # adjustText not installed, labels may overlap
+
+    ax.set_title("Ready Default Variants: Accuracy / Throughput Pareto View", fontsize=13)
+    ax.set_xlabel("ATE [m] (lower is better)", fontsize=11)
+    ax.set_ylabel("FPS (higher is better)", fontsize=11)
+    ax.grid(alpha=0.2)
     ax.set_xscale("symlog", linthresh=1.0)
-    contract_handles = [
-        plt.Line2D([0], [0], marker="o", color="w", label=label, markerfacecolor=color, markersize=10)
-        for label, color in color_map.items()
+
+    # Legend: one entry per method
+    legend_handles = [
+        plt.Line2D([0], [0], marker=marker_map[s], color="w", label=s,
+                   markerfacecolor=color_map[s], markersize=8, markeredgecolor="#111827", markeredgewidth=0.5)
+        for s in selectors
     ]
-    ax.legend(handles=contract_handles, title="Contract", loc="best")
+    ax.legend(handles=legend_handles, title="Method", loc="upper right",
+              fontsize=7, title_fontsize=8, ncol=2)
     fig.tight_layout()
-    fig.savefig(output_path, dpi=180)
+    fig.savefig(output_path, dpi=200)
     plt.close(fig)
 
 

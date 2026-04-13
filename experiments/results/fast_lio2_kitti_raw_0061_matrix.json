@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-13T12:38:34+00:00",
   "manifest_path": "experiments/fast_lio2_kitti_raw_0061_matrix.json",
   "problem": {
     "id": "fast_lio2_kitti_raw_0061",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 47694.40028,
       "frames": 200,
       "note": "LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 58.89,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce keypoint density and map window for faster LiDAR-inertial updates.",
+      "args": [
+        "--fast-lio2-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/fast/summary.json --fast-lio2-fast-profile",
+      "summary_path": "experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.633601,
+      "fps": 13.570689,
+      "time_ms": 14737.645491,
+      "frames": 200,
+      "note": "LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase keypoint density and map window for a more exhaustive LiDAR-inertial solve.",
+      "args": [
+        "--fast-lio2-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_lio2 --summary-json experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/dense/summary.json --fast-lio2-dense-profile",
+      "summary_path": "experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/fast_lio2_kitti_raw_0061_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.738747,
+      "fps": 2.947465,
+      "time_ms": 67854.909333,
+      "frames": 200,
+      "note": "LiDAR-inertial odometry with iterated Kalman filter and voxel map (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 53.74,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

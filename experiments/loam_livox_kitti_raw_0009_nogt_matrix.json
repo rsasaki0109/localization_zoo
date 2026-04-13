@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "loam_livox_kitti_raw_0009_nogt",
+    "title": "LOAM-Livox on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "How does LOAM-Livox perform on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "loam_livox",
+    "primary_method": "LOAM-Livox"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser map grids and fewer outer refinement passes for faster Livox-style LOAM updates.",
+      "args": [
+        "--loam-livox-fast-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer map grids and extra outer refinement passes for a more exhaustive LOAM solve.",
+      "args": [
+        "--loam-livox-dense-profile",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

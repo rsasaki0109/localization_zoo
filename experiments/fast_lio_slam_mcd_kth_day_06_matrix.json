@@ -25,8 +25,26 @@
       "id": "default",
       "label": "Default (no IMU)",
       "design_style": "balanced",
-      "intent": "LiDAR-only mode; no IMU data available in MCD KTH fixtures.",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
       "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce input density, shrink the front-end map window, and disable loop closure; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--fast-lio-slam-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase input density, keep a larger front-end map, and tighten loop-closure cadence; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--fast-lio-slam-dense-profile"
+      ]
     }
   ]
 }

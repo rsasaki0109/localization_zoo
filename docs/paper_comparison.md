@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-04-07T13:50:26+00:00
+> Generated: 2026-04-13T12:42:03+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (RPE vs ATE).
 
@@ -28,7 +28,7 @@ This document compares paper-reported metrics with the current repository defaul
 | Dataset | Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | HDL-400 | Fast local-map + ICP-only | 0.168 | 5.20 |
-| HDL-400 | Paper-like 3m + ICP-only | 0.121 | 6.43 |
+| HDL-400 | Paper-like 3m + covariance | 0.129 | 94.24 |
 | Istanbul | Fast local-map + ICP-only | 1.222 | 20.95 |
 | Istanbul | Paper-like 3m + ICP-only | 0.741 | 17.25 |
 | KITTI | Fast local-map + ICP-only | 1.145 | 48.81 |
@@ -58,7 +58,7 @@ This document compares paper-reported metrics with the current repository defaul
 | Dataset | Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | HDL-400 | Fast recent map | 0.284 | 1.71 |
-| HDL-400 | Fast recent map | 0.193 | 1.68 |
+| HDL-400 | Fast recent map | 0.215 | 23.34 |
 | Istanbul | Fast recent map | 1.166 | 5.68 |
 | Istanbul | Fast recent map | 0.982 | 4.27 |
 | KITTI | Fast recent map | 1.170 | 23.01 |
@@ -88,7 +88,7 @@ This document compares paper-reported metrics with the current repository defaul
 | Dataset | Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | HDL-400 | Fast coarse map | 0.065 | 0.86 |
-| HDL-400 | Fast coarse map | 0.051 | 0.79 |
+| HDL-400 | Fast coarse map | 0.052 | 32.17 |
 | Istanbul | Fast coarse map | 0.007 | 2.08 |
 | Istanbul | Fast coarse map | 0.005 | 1.95 |
 | KITTI | Fast coarse map | 0.307 | 30.91 |
@@ -130,7 +130,7 @@ This document compares paper-reported metrics with the current repository defaul
 | Dataset | Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | HDL-400 | Fast recent map | 0.218 | 0.45 |
-| HDL-400 | Fast recent map | 1.646 | 0.52 |
+| HDL-400 | Fast recent map | 1.281 | 11.28 |
 | Istanbul | Dense local map | 144.086 | 3.59 |
 | Istanbul | Fast recent map | 131.692 | 3.74 |
 | KITTI | Fast recent map | 5.839 | 21.88 |
@@ -171,8 +171,9 @@ This document compares paper-reported metrics with the current repository defaul
 
 | Dataset | Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | Dense window | 1.254 | 16.61 |
 | HDL-400 | Fast window | 1.211 | 2.36 |
-| HDL-400 | Fast window | 1.513 | 2.41 |
+| HDL-400 | Fast window | 2.582 | 72.91 |
 | Istanbul | Balanced window | 6.820 | 1.58 |
 | Istanbul | Balanced window | 7.539 | 1.31 |
 | KITTI | Balanced window | 4.673 | 40.58 |
@@ -201,7 +202,8 @@ This document compares paper-reported metrics with the current repository defaul
 
 | Dataset | Variant | ATE [m] | FPS |
 |---|---|---:|---:|
-| HDL-400 | Seed-only fast | 0.412 | 0.44 |
+| HDL-400 | Seed-only fast | 0.479 | 19.56 |
+| HDL-400 | Seed-only fast | 0.488 | 17.48 |
 
 **Notes**: CT-LIO in this repo is a custom integration. Not directly comparable to any single published paper. Reference-based comparison only.
 

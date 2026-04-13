@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-13T12:38:34+00:00",
   "manifest_path": "experiments/balm2_kitti_raw_0061_matrix.json",
   "problem": {
     "id": "balm2_kitti_raw_0061",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 112010.828337,
       "frames": 200,
       "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 41.36,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce feature density and bundle-adjustment effort for a lighter mapping window.",
+      "args": [
+        "--balm2-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0061_matrix/fast/summary.json --balm2-fast-profile",
+      "summary_path": "experiments/results/runs/balm2_kitti_raw_0061_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/balm2_kitti_raw_0061_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 2.926082,
+      "fps": 13.186665,
+      "time_ms": 15166.837666,
+      "frames": 200,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 82.17,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase feature density and keep a slightly larger optimization window for a more exhaustive mapping solve without the previous runtime blow-up.",
+      "args": [
+        "--balm2-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0061_matrix/dense/summary.json --balm2-dense-profile",
+      "summary_path": "experiments/results/runs/balm2_kitti_raw_0061_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/balm2_kitti_raw_0061_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 1.882517,
+      "fps": 0.727141,
+      "time_ms": 275049.795447,
+      "frames": 200,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 52.76,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

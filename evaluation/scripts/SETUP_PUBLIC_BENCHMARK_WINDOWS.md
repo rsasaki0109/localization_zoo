@@ -20,6 +20,22 @@
 
 公開元・利用条件は問題タイトル（`public HDL-400 reference`）に合わせたデータセット説明を確認してください。
 
+ROS1 公開 bag は `/velodyne_points` に **native の `time` field を含みません**。`ct_lio` / `ct_icp` を public bag から復元する場合は、`evaluation/scripts/extract_ros1_lidar_imu.py` に `--time-mode index` か `--time-mode azimuth` を付けて synthetic per-point time を埋めてください。
+
+```bash
+python3 evaluation/scripts/extract_ros1_lidar_imu.py \
+  --pointcloud-bag /path/to/hdl_400.bag \
+  --pointcloud-topic /velodyne_points \
+  --imu-bag /path/to/hdl_400.bag \
+  --imu-topic /gpsimu_driver/imu_data \
+  --output-dir dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index \
+  --start-frame 1 \
+  --max-frames 120 \
+  --time-mode index
+```
+
+この synthetic time で **non-CT 系はほぼ再現**できますが、`ct_lio` / `ct_icp` の stored reference aggregate までは一致しません。stored CT reference を正確に再現したい場合は、元の `hdl_400_ros2` 抽出窓のような **native per-point `time` 付き点群**が必要です。
+
 ## KITTI Raw（フル PCD + IMU）
 
 - `evaluation/scripts/setup_kitti_benchmark.sh` … **Odometry** velodyne（Raw の OXTS なし）

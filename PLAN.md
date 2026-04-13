@@ -1,6 +1,6 @@
 # Localization Zoo - GitHub Copilot 向け引き継ぎ PLAN
 
-> **最終更新: 2026-04-11**
+> **最終更新: 2026-04-14**
 >
 > この文書は、次の GitHub Copilot / Copilot Chat / Codex が
 > 「いまの repo の真実はどこにあるか」
@@ -34,12 +34,11 @@
 | 項目 | 値 |
 |------|----|
 | Branch | `wip/profile-expansion-refresh` |
-| HEAD | `c4f367fcf3d107a58fc5db56604b663b7a000d11` (`c4f367f`) |
-| HEAD message | `Document HDL Graph SLAM full-sequence policy` |
+| HEAD | `e8a0797` |
+| HEAD message | `Run 74 new benchmarks across MCD/KITTI/HDL-400 windows (248 ready)` |
 | Worktree | **clean** |
 | Push 状態 | `origin/wip/profile-expansion-refresh` へ push 済み |
 | PR | Draft PR #1 — `https://github.com/rsasaki0109/localization_zoo/pull/1` |
-| 最新 PR CI | `build-and-test = success`, `ros2-colcon-build = success` |
 
 ### 1.1 HEAD `e4d9af4` が意味するもの
 
@@ -129,21 +128,22 @@ Copilot が最初にやるべき判断は:
 
 ## 3. 数で見る現在地
 
-以下は **2026-04-11 に current branch / current generated files から取り直した値**。
+以下は **2026-04-14 に current branch / current generated files から取り直した値**。
 
 ### 3.1 ベンチ全体
 
 | 指標 | 値 | 備考 |
 |------|----|------|
-| manifest 数 | **168** | `experiments/*_matrix.json` |
-| aggregate 数 | **168** | `experiments/results/*_matrix.json` |
-| stored summary 数 | **454** | `experiments/results/runs/**/summary.json` |
-| ready | **166** | `experiments/results/index.json` |
+| manifest 数 (active) | **250** | `experiments/*_matrix.json` |
+| manifest 数 (pending) | **80** | `experiments/pending/*_matrix.json` (Istanbul/HDL-400 B のローカルデータ待ち) |
+| aggregate 数 | **250** | `experiments/results/*_matrix.json` |
+| ready | **248** | `experiments/results/index.json` |
 | blocked | **1** | `ct_lio_public_gt_readiness` |
 | skipped | **1** | `hdl_graph_slam_kitti_raw_0061_full` |
 | dataset surfaces | **5** | Istanbul / HDL-400 reference-native-style / HDL-400 public ROS1 synthetic-time / MCD / KITTI Raw |
 | CLI method families | **27** | `pcd_dogfooding` 実装済み |
-| manifest を持つ method families | **27** | `clins` も manifest 済み |
+| manifest を持つ method families | **27** | 全 method が全 window カバー (pending 含む) |
+| ctest | **38/38 passed** | 全テストパス確認済み |
 
 ### 3.2 HDL-400 の内訳
 

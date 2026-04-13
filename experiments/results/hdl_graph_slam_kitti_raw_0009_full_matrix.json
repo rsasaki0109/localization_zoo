@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-10T09:03:38+00:00",
   "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_full_matrix.json",
   "problem": {
     "id": "hdl_graph_slam_kitti_raw_0009_full",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",

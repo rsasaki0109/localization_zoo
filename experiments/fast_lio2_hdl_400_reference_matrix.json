@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "fast_lio2_hdl_400_reference",
+    "title": "FAST-LIO2 on the public HDL-400 reference window",
+    "question": "How does FAST-LIO2 perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "fast_lio2",
+    "primary_method": "FAST-LIO2"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce keypoint density and map window for faster LiDAR-inertial updates.",
+      "args": [
+        "--fast-lio2-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase keypoint density and map window for a more exhaustive LiDAR-inertial solve.",
+      "args": [
+        "--fast-lio2-dense-profile"
+      ]
+    }
+  ]
+}

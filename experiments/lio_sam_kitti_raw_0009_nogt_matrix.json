@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "lio_sam_kitti_raw_0009_nogt",
+    "title": "LIO-SAM on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "How does LIO-SAM perform on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lio_sam",
+    "primary_method": "LIO-SAM"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (no IMU)",
+      "design_style": "balanced",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce input density and keyframe rate while disabling loop closure; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--lio-sam-fast-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase input density while keeping the full keyframe cadence and loop closure enabled; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--lio-sam-dense-profile",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

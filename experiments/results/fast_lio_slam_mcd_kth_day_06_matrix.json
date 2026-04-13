@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-10T09:03:38+00:00",
   "manifest_path": "experiments/fast_lio_slam_mcd_kth_day_06_matrix.json",
   "problem": {
     "id": "fast_lio_slam_mcd_kth_day_06",
@@ -26,12 +26,14 @@
     "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
       "label": "Default (no IMU)",
       "design_style": "balanced",
-      "intent": "LiDAR-only mode; no IMU data available in MCD KTH fixtures.",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
       "args": [],
       "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/default/summary.json",
       "summary_path": "experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/default/summary.json",
@@ -42,13 +44,63 @@
       "time_ms": 29790.346717,
       "frames": 108,
       "note": "FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 69.14,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce input density, shrink the front-end map window, and disable loop closure; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--fast-lio-slam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/fast/summary.json --fast-lio-slam-fast-profile",
+      "summary_path": "experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 6.074937,
+      "fps": 9.424651,
+      "time_ms": 11459.310785,
+      "frames": 108,
+      "note": "FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase input density, keep a larger front-end map, and tighten loop-closure cadence; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--fast-lio-slam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/dense/summary.json --fast-lio-slam-dense-profile",
+      "summary_path": "experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/fast_lio_slam_mcd_kth_day_06_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 6.091332,
+      "fps": 1.800082,
+      "time_ms": 59997.255823,
+      "frames": 108,
+      "note": "FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 59.42,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

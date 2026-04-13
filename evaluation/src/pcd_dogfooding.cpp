@@ -945,8 +945,10 @@ struct FastLio2DogfoodingOptions {
   double min_range = 1.0;
   double max_range = 100.0;
   int max_iterations = 8;
+  int ceres_max_iterations = 6;
   double voxel_resolution = 1.0;
   double keypoint_voxel_size = 0.5;
+  int knn = 5;
   double max_correspondence_distance = 3.0;
   double planarity_threshold = 0.1;
   int max_frames_in_map = 30;
@@ -959,7 +961,11 @@ struct HdlGraphSlamDogfoodingOptions {
   double max_range = 100.0;
   double registration_voxel_size = 0.7;
   double map_voxel_size = 1.0;
+  int keyframe_stride = 1;
+  int max_keyframes_in_submap = 30;
+  size_t loop_stride = 3;
   bool enable_loop_closure = true;
+  bool enable_floor_constraint = true;
 };
 
 struct VgicpSlamDogfoodingOptions {
@@ -969,37 +975,72 @@ struct VgicpSlamDogfoodingOptions {
   double max_range = 100.0;
   double registration_voxel_size = 0.4;
   double map_voxel_size = 0.6;
+  int keyframe_stride = 1;
+  int max_keyframes_in_submap = 30;
+  size_t loop_stride = 3;
   bool enable_loop_closure = true;
 };
 
 struct SuMaDogfoodingOptions {
   double input_voxel_size = 0.5;
   size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 80.0;
+  double surfel_resolution = 0.4;
+  int surfel_stride = 1;
+  int max_iterations = 4;
+  int max_frames_in_map = 20;
 };
 
 struct Balm2DogfoodingOptions {
   double input_voxel_size = 0.5;
   size_t max_input_points = 6000;
+  double corner_resolution = 0.3;
+  double surface_resolution = 0.6;
+  int corner_stride = 2;
+  int surface_stride = 3;
+  int window_size = 5;
+  int num_outer_iterations = 2;
+  int ceres_max_iterations = 6;
 };
 
 struct IscLoamDogfoodingOptions {
   double input_voxel_size = 0.5;
   size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+  int keyframe_stride = 1;
+  size_t loop_stride = 3;
+  bool enable_loop_closure = true;
 };
 
 struct LoamLivoxDogfoodingOptions {
   double input_voxel_size = 0.5;
   size_t max_input_points = 6000;
+  float less_flat_leaf_size = 0.2f;
+  int odom_outer_iters = 2;
+  int map_outer_iters = 2;
+  double map_line_resolution = 0.4;
+  double map_plane_resolution = 0.8;
 };
 
 struct LioSamDogfoodingOptions {
   double input_voxel_size = 0.5;
   size_t max_input_points = 6000;
+  int keyframe_stride = 1;
+  bool enable_loop_closure = true;
+  bool enable_imu_rotation_prior = true;
 };
 
 struct LINSDogfoodingOptions {
   double input_voxel_size = 0.5;
   size_t max_input_points = 6000;
+  double min_range = 1.0;
+  double max_range = 100.0;
+  double registration_voxel_size = 0.5;
+  double map_voxel_size = 0.8;
+  int max_correspondences = 200;
+  int max_keyframes_in_map = 30;
 };
 
 struct FastLioSlamDogfoodingOptions {
@@ -1007,6 +1048,14 @@ struct FastLioSlamDogfoodingOptions {
   size_t max_input_points = 6000;
   double min_range = 1.0;
   double max_range = 100.0;
+  int max_iterations = 8;
+  int ceres_max_iterations = 6;
+  double voxel_resolution = 1.0;
+  double keypoint_voxel_size = 0.5;
+  int max_frames_in_map = 30;
+  int keyframe_stride = 1;
+  size_t loop_stride = 4;
+  bool enable_loop_closure = true;
 };
 
 struct PointLioDogfoodingOptions {
@@ -1014,6 +1063,10 @@ struct PointLioDogfoodingOptions {
   size_t max_input_points = 6000;
   double min_range = 1.0;
   double max_range = 100.0;
+  double registration_voxel_size = 0.4;
+  double map_voxel_size = 0.7;
+  int max_correspondences = 250;
+  int max_keyframes_in_map = 30;
 };
 
 struct CLINSDogfoodingOptions {
@@ -2277,8 +2330,10 @@ MethodResult runFastLio2(const std::vector<std::string>& pcd_dirs,
 
   FastLio2Params params;
   params.max_iterations = options.max_iterations;
+  params.ceres_max_iterations = options.ceres_max_iterations;
   params.voxel_resolution = options.voxel_resolution;
   params.keypoint_voxel_size = options.keypoint_voxel_size;
+  params.knn = options.knn;
   params.max_correspondence_distance = options.max_correspondence_distance;
   params.planarity_threshold = options.planarity_threshold;
   params.max_frames_in_map = options.max_frames_in_map;
@@ -2346,7 +2401,11 @@ MethodResult runHdlGraphSlam(const std::vector<std::string>& pcd_dirs,
   params.max_range = options.max_range;
   params.registration_voxel_size = options.registration_voxel_size;
   params.map_voxel_size = options.map_voxel_size;
+  params.keyframe_stride = options.keyframe_stride;
+  params.max_keyframes_in_submap = options.max_keyframes_in_submap;
+  params.loop_stride = options.loop_stride;
   params.enable_loop_closure = options.enable_loop_closure;
+  params.enable_floor_constraint = options.enable_floor_constraint;
 
   HdlGraphSlam pipeline(params);
   const Eigen::Matrix4d world_anchor =
@@ -2392,6 +2451,9 @@ MethodResult runVgicpSlam(const std::vector<std::string>& pcd_dirs,
   params.max_range = options.max_range;
   params.registration_voxel_size = options.registration_voxel_size;
   params.map_voxel_size = options.map_voxel_size;
+  params.keyframe_stride = options.keyframe_stride;
+  params.max_keyframes_in_submap = options.max_keyframes_in_submap;
+  params.loop_stride = options.loop_stride;
   params.enable_loop_closure = options.enable_loop_closure;
 
   VgicpSlam pipeline(params);
@@ -2433,6 +2495,12 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "SuMa";
   SuMaParams params;
+  params.min_range = options.min_range;
+  params.max_range = options.max_range;
+  params.surfel_resolution = options.surfel_resolution;
+  params.surfel_stride = options.surfel_stride;
+  params.max_iterations = options.max_iterations;
+  params.max_frames_in_map = options.max_frames_in_map;
   SuMa pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -2465,6 +2533,13 @@ MethodResult runBalm2(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "BALM2";
   Balm2Params params;
+  params.corner_resolution = options.corner_resolution;
+  params.surface_resolution = options.surface_resolution;
+  params.corner_stride = options.corner_stride;
+  params.surface_stride = options.surface_stride;
+  params.window_size = options.window_size;
+  params.num_outer_iterations = options.num_outer_iterations;
+  params.ceres_max_iterations = options.ceres_max_iterations;
   BALM2 pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -2497,6 +2572,11 @@ MethodResult runIscLoam(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "ISC-LOAM";
   IscLoamParams params;
+  params.min_range = options.min_range;
+  params.max_range = options.max_range;
+  params.keyframe_stride = options.keyframe_stride;
+  params.loop_stride = options.loop_stride;
+  params.enable_loop_closure = options.enable_loop_closure;
   IscLoam pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -2531,6 +2611,11 @@ MethodResult runLoamLivox(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "LOAM-Livox";
   LivoxLOAMParams params;
+  params.scan_registration.less_flat_leaf_size = options.less_flat_leaf_size;
+  params.odometry.num_optimization_iters = options.odom_outer_iters;
+  params.mapping.num_optimization_iters = options.map_outer_iters;
+  params.mapping.line_resolution = options.map_line_resolution;
+  params.mapping.plane_resolution = options.map_plane_resolution;
   LivoxLOAM pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -2565,6 +2650,9 @@ MethodResult runLioSam(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "LIO-SAM";
   LioSamParams params;
+  params.keyframe_stride = options.keyframe_stride;
+  params.enable_loop_closure = options.enable_loop_closure;
+  params.enable_imu_rotation_prior = options.enable_imu_rotation_prior;
   LioSam pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -2612,6 +2700,12 @@ MethodResult runLINS(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "LINS";
   LINSParams params;
+  params.min_range = options.min_range;
+  params.max_range = options.max_range;
+  params.registration_voxel_size = options.registration_voxel_size;
+  params.map_voxel_size = options.map_voxel_size;
+  params.max_correspondences = options.max_correspondences;
+  params.max_keyframes_in_map = options.max_keyframes_in_map;
   LINS pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -2659,6 +2753,14 @@ MethodResult runFastLioSlam(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "FAST-LIO-SLAM";
   FastLioSlamParams params;
+  params.front_end.max_iterations = options.max_iterations;
+  params.front_end.ceres_max_iterations = options.ceres_max_iterations;
+  params.front_end.voxel_resolution = options.voxel_resolution;
+  params.front_end.keypoint_voxel_size = options.keypoint_voxel_size;
+  params.front_end.max_frames_in_map = options.max_frames_in_map;
+  params.keyframe_stride = options.keyframe_stride;
+  params.loop_stride = options.loop_stride;
+  params.enable_loop_closure = options.enable_loop_closure;
   FastLioSlam pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -2714,6 +2816,12 @@ MethodResult runPointLio(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = "Point-LIO";
   PointLioParams params;
+  params.min_range = options.min_range;
+  params.max_range = options.max_range;
+  params.registration_voxel_size = options.registration_voxel_size;
+  params.map_voxel_size = options.map_voxel_size;
+  params.max_correspondences = options.max_correspondences;
+  params.max_keyframes_in_map = options.max_keyframes_in_map;
   PointLio pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -2942,8 +3050,34 @@ int main(int argc, char** argv) {
               << " [--ct-icp-dense-profile]"
               << " [--ct-icp-voxel-resolution X]"
               << " [--ct-icp-max-iterations N]"
-              << " [--ct-lio-estimate-bias]"
-              << " [--ct-lio-fixed-lag-window N]"
+              << " [--xicp-fast-profile]"
+              << " [--xicp-dense-profile]"
+              << " [--fast-lio2-fast-profile]"
+              << " [--fast-lio2-dense-profile]"
+              << " [--hdl-graph-slam-fast-profile]"
+              << " [--hdl-graph-slam-dense-profile]"
+              << " [--vgicp-slam-fast-profile]"
+              << " [--vgicp-slam-dense-profile]"
+              << " [--suma-fast-profile]"
+              << " [--suma-dense-profile]"
+              << " [--balm2-fast-profile]"
+              << " [--balm2-dense-profile]"
+              << " [--isc-loam-fast-profile]"
+              << " [--isc-loam-dense-profile]"
+              << " [--loam-livox-fast-profile]"
+              << " [--loam-livox-dense-profile]"
+              << " [--lio-sam-fast-profile]"
+              << " [--lio-sam-dense-profile]"
+              << " [--lins-fast-profile]"
+              << " [--lins-dense-profile]"
+               << " [--fast-lio-slam-fast-profile]"
+               << " [--fast-lio-slam-dense-profile]"
+               << " [--point-lio-fast-profile]"
+               << " [--point-lio-dense-profile]"
+               << " [--clins-fast-profile]"
+               << " [--clins-dense-profile]"
+               << " [--ct-lio-estimate-bias]"
+               << " [--ct-lio-fixed-lag-window N]"
               << " [--ct-lio-fixed-lag-velocity-weight W]"
               << " [--ct-lio-fixed-lag-gyro-bias-scale W]"
               << " [--ct-lio-fixed-lag-accel-bias-scale W]"
@@ -4175,6 +4309,270 @@ int main(int argc, char** argv) {
     if (arg.rfind("--ct-icp-max-frames-in-map=", 0) == 0) {
       ct_icp_options.max_frames_in_map = std::max(
           1, std::stoi(arg.substr(std::string("--ct-icp-max-frames-in-map=").size())));
+      continue;
+    }
+    if (arg == "--xicp-fast-profile") {
+      xicp_options.source_voxel_size = 1.4;
+      xicp_options.max_source_points = 1800;
+      xicp_options.max_iterations = 20;
+      xicp_options.k_neighbors = 8;
+      xicp_options.max_correspondence_distance = 2.2;
+      xicp_options.map_max_points = 30000;
+      xicp_options.refresh_interval = 6;
+      xicp_options.map_radius = 35.0;
+      xicp_options.max_seed_translation_delta = 1.5;
+      xicp_options.max_seed_rotation_delta_rad = 0.20;
+      continue;
+    }
+    if (arg == "--xicp-dense-profile") {
+      xicp_options.source_voxel_size = 0.7;
+      xicp_options.max_source_points = 3200;
+      xicp_options.max_iterations = 40;
+      xicp_options.k_neighbors = 12;
+      xicp_options.max_correspondence_distance = 3.5;
+      xicp_options.map_max_points = 50000;
+      xicp_options.refresh_interval = 3;
+      xicp_options.map_radius = 55.0;
+      xicp_options.max_seed_translation_delta = 2.5;
+      xicp_options.max_seed_rotation_delta_rad = 0.35;
+      continue;
+    }
+    if (arg == "--fast-lio2-fast-profile") {
+      fast_lio2_options.input_voxel_size = 0.7;
+      fast_lio2_options.max_input_points = 3500;
+      fast_lio2_options.max_iterations = 5;
+      fast_lio2_options.ceres_max_iterations = 4;
+      fast_lio2_options.voxel_resolution = 1.2;
+      fast_lio2_options.keypoint_voxel_size = 0.7;
+      fast_lio2_options.knn = 4;
+      fast_lio2_options.max_correspondence_distance = 2.5;
+      fast_lio2_options.planarity_threshold = 0.15;
+      fast_lio2_options.max_frames_in_map = 20;
+      continue;
+    }
+    if (arg == "--fast-lio2-dense-profile") {
+      fast_lio2_options.input_voxel_size = 0.35;
+      fast_lio2_options.max_input_points = 9000;
+      fast_lio2_options.max_iterations = 10;
+      fast_lio2_options.ceres_max_iterations = 8;
+      fast_lio2_options.voxel_resolution = 0.8;
+      fast_lio2_options.keypoint_voxel_size = 0.35;
+      fast_lio2_options.knn = 6;
+      fast_lio2_options.max_correspondence_distance = 3.5;
+      fast_lio2_options.planarity_threshold = 0.08;
+      fast_lio2_options.max_frames_in_map = 40;
+      continue;
+    }
+    if (arg == "--hdl-graph-slam-fast-profile") {
+      hdl_graph_slam_options.input_voxel_size = 0.7;
+      hdl_graph_slam_options.max_input_points = 4000;
+      hdl_graph_slam_options.registration_voxel_size = 0.9;
+      hdl_graph_slam_options.map_voxel_size = 1.4;
+      hdl_graph_slam_options.keyframe_stride = 2;
+      hdl_graph_slam_options.max_keyframes_in_submap = 20;
+      hdl_graph_slam_options.loop_stride = 5;
+      hdl_graph_slam_options.enable_loop_closure = false;
+      hdl_graph_slam_options.enable_floor_constraint = false;
+      continue;
+    }
+    if (arg == "--hdl-graph-slam-dense-profile") {
+      hdl_graph_slam_options.input_voxel_size = 0.35;
+      hdl_graph_slam_options.max_input_points = 9000;
+      hdl_graph_slam_options.registration_voxel_size = 0.5;
+      hdl_graph_slam_options.map_voxel_size = 0.7;
+      hdl_graph_slam_options.keyframe_stride = 1;
+      hdl_graph_slam_options.max_keyframes_in_submap = 40;
+      hdl_graph_slam_options.loop_stride = 2;
+      hdl_graph_slam_options.enable_loop_closure = true;
+      hdl_graph_slam_options.enable_floor_constraint = true;
+      continue;
+    }
+    if (arg == "--vgicp-slam-fast-profile") {
+      vgicp_slam_options.input_voxel_size = 0.7;
+      vgicp_slam_options.max_input_points = 4000;
+      vgicp_slam_options.registration_voxel_size = 0.55;
+      vgicp_slam_options.map_voxel_size = 0.85;
+      vgicp_slam_options.keyframe_stride = 2;
+      vgicp_slam_options.max_keyframes_in_submap = 20;
+      vgicp_slam_options.loop_stride = 5;
+      vgicp_slam_options.enable_loop_closure = false;
+      continue;
+    }
+    if (arg == "--vgicp-slam-dense-profile") {
+      vgicp_slam_options.input_voxel_size = 0.35;
+      vgicp_slam_options.max_input_points = 9000;
+      vgicp_slam_options.registration_voxel_size = 0.3;
+      vgicp_slam_options.map_voxel_size = 0.45;
+      vgicp_slam_options.keyframe_stride = 1;
+      vgicp_slam_options.max_keyframes_in_submap = 40;
+      vgicp_slam_options.loop_stride = 2;
+      vgicp_slam_options.enable_loop_closure = true;
+      continue;
+    }
+    if (arg == "--suma-fast-profile") {
+      suma_options.input_voxel_size = 0.7;
+      suma_options.max_input_points = 4000;
+      suma_options.surfel_resolution = 0.6;
+      suma_options.surfel_stride = 2;
+      suma_options.max_iterations = 3;
+      suma_options.max_frames_in_map = 12;
+      continue;
+    }
+    if (arg == "--suma-dense-profile") {
+      suma_options.input_voxel_size = 0.35;
+      suma_options.max_input_points = 9000;
+      suma_options.surfel_resolution = 0.3;
+      suma_options.surfel_stride = 1;
+      suma_options.max_iterations = 6;
+      suma_options.max_frames_in_map = 30;
+      continue;
+    }
+    if (arg == "--balm2-fast-profile") {
+      balm2_options.input_voxel_size = 0.7;
+      balm2_options.max_input_points = 4000;
+      balm2_options.corner_resolution = 0.4;
+      balm2_options.surface_resolution = 0.8;
+      balm2_options.corner_stride = 3;
+      balm2_options.surface_stride = 4;
+      balm2_options.window_size = 4;
+      balm2_options.num_outer_iterations = 1;
+      balm2_options.ceres_max_iterations = 4;
+      continue;
+    }
+    if (arg == "--balm2-dense-profile") {
+      balm2_options.input_voxel_size = 0.45;
+      balm2_options.max_input_points = 7000;
+      balm2_options.corner_resolution = 0.25;
+      balm2_options.surface_resolution = 0.5;
+      balm2_options.corner_stride = 1;
+      balm2_options.surface_stride = 2;
+      balm2_options.window_size = 6;
+      balm2_options.num_outer_iterations = 2;
+      balm2_options.ceres_max_iterations = 6;
+      continue;
+    }
+    if (arg == "--isc-loam-fast-profile") {
+      isc_loam_options.input_voxel_size = 0.7;
+      isc_loam_options.max_input_points = 4000;
+      isc_loam_options.keyframe_stride = 2;
+      isc_loam_options.loop_stride = 5;
+      isc_loam_options.enable_loop_closure = false;
+      continue;
+    }
+    if (arg == "--isc-loam-dense-profile") {
+      isc_loam_options.input_voxel_size = 0.35;
+      isc_loam_options.max_input_points = 9000;
+      isc_loam_options.keyframe_stride = 1;
+      isc_loam_options.loop_stride = 2;
+      isc_loam_options.enable_loop_closure = true;
+      continue;
+    }
+    if (arg == "--loam-livox-fast-profile") {
+      loam_livox_options.input_voxel_size = 0.7;
+      loam_livox_options.max_input_points = 4000;
+      loam_livox_options.less_flat_leaf_size = 0.35f;
+      loam_livox_options.odom_outer_iters = 1;
+      loam_livox_options.map_outer_iters = 1;
+      loam_livox_options.map_line_resolution = 0.6;
+      loam_livox_options.map_plane_resolution = 1.2;
+      continue;
+    }
+    if (arg == "--loam-livox-dense-profile") {
+      loam_livox_options.input_voxel_size = 0.35;
+      loam_livox_options.max_input_points = 9000;
+      loam_livox_options.less_flat_leaf_size = 0.15f;
+      loam_livox_options.odom_outer_iters = 2;
+      loam_livox_options.map_outer_iters = 2;
+      loam_livox_options.map_line_resolution = 0.3;
+      loam_livox_options.map_plane_resolution = 0.6;
+      continue;
+    }
+    if (arg == "--lio-sam-fast-profile") {
+      lio_sam_options.input_voxel_size = 0.7;
+      lio_sam_options.max_input_points = 4000;
+      lio_sam_options.keyframe_stride = 2;
+      lio_sam_options.enable_loop_closure = false;
+      lio_sam_options.enable_imu_rotation_prior = true;
+      continue;
+    }
+    if (arg == "--lio-sam-dense-profile") {
+      lio_sam_options.input_voxel_size = 0.45;
+      lio_sam_options.max_input_points = 7000;
+      lio_sam_options.keyframe_stride = 1;
+      lio_sam_options.enable_loop_closure = true;
+      lio_sam_options.enable_imu_rotation_prior = true;
+      continue;
+    }
+    if (arg == "--lins-fast-profile") {
+      lins_options.input_voxel_size = 0.7;
+      lins_options.max_input_points = 4000;
+      lins_options.registration_voxel_size = 0.7;
+      lins_options.map_voxel_size = 1.0;
+      lins_options.max_correspondences = 140;
+      lins_options.max_keyframes_in_map = 20;
+      continue;
+    }
+    if (arg == "--lins-dense-profile") {
+      lins_options.input_voxel_size = 0.35;
+      lins_options.max_input_points = 9000;
+      lins_options.registration_voxel_size = 0.35;
+      lins_options.map_voxel_size = 0.55;
+      lins_options.max_correspondences = 280;
+      lins_options.max_keyframes_in_map = 40;
+      continue;
+    }
+    if (arg == "--fast-lio-slam-fast-profile") {
+      fast_lio_slam_options.input_voxel_size = 0.7;
+      fast_lio_slam_options.max_input_points = 3500;
+      fast_lio_slam_options.max_iterations = 5;
+      fast_lio_slam_options.ceres_max_iterations = 4;
+      fast_lio_slam_options.voxel_resolution = 1.2;
+      fast_lio_slam_options.keypoint_voxel_size = 0.7;
+      fast_lio_slam_options.max_frames_in_map = 20;
+      fast_lio_slam_options.keyframe_stride = 2;
+      fast_lio_slam_options.loop_stride = 5;
+      fast_lio_slam_options.enable_loop_closure = false;
+      continue;
+    }
+    if (arg == "--fast-lio-slam-dense-profile") {
+      fast_lio_slam_options.input_voxel_size = 0.35;
+      fast_lio_slam_options.max_input_points = 9000;
+      fast_lio_slam_options.max_iterations = 10;
+      fast_lio_slam_options.ceres_max_iterations = 8;
+      fast_lio_slam_options.voxel_resolution = 0.8;
+      fast_lio_slam_options.keypoint_voxel_size = 0.35;
+      fast_lio_slam_options.max_frames_in_map = 40;
+      fast_lio_slam_options.keyframe_stride = 1;
+      fast_lio_slam_options.loop_stride = 2;
+      fast_lio_slam_options.enable_loop_closure = true;
+      continue;
+    }
+    if (arg == "--point-lio-fast-profile") {
+      point_lio_options.input_voxel_size = 0.7;
+      point_lio_options.max_input_points = 4000;
+      point_lio_options.registration_voxel_size = 0.6;
+      point_lio_options.map_voxel_size = 0.9;
+      point_lio_options.max_correspondences = 160;
+      point_lio_options.max_keyframes_in_map = 20;
+      continue;
+    }
+    if (arg == "--point-lio-dense-profile") {
+      point_lio_options.input_voxel_size = 0.35;
+      point_lio_options.max_input_points = 9000;
+      point_lio_options.registration_voxel_size = 0.3;
+      point_lio_options.map_voxel_size = 0.5;
+      point_lio_options.max_correspondences = 320;
+      point_lio_options.max_keyframes_in_map = 40;
+      continue;
+    }
+    if (arg == "--clins-fast-profile") {
+      clins_options.source_voxel_size = 1.0;
+      clins_options.max_source_points = 300;
+      continue;
+    }
+    if (arg == "--clins-dense-profile") {
+      clins_options.source_voxel_size = 0.45;
+      clins_options.max_source_points = 900;
       continue;
     }
     if (arg == "--ct-lio-fixed-lag-window") {

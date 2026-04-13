@@ -10,7 +10,7 @@
 - [x] **Table 2: Method Families and Variant Counts**
   - Description: One row per method family showing the number of active variants and example variant names.
   - Data source: `experiments/results/index.json` (group by method prefix), `docs/decisions.md`.
-  - Status: Done for prose table in `paper_draft_outline.md` (**13** integrated families; per-manifest variant ids under `experiments/`).
+  - Status: Done for prose table in `paper_draft_outline.md` (current artifact is broader than the manuscript core; see `docs/interfaces.md` for the active selector set and `experiments/` for per-manifest variant ids).
 
 - [x] **Table 3: Cross-Dataset Default Variants**
   - Description: Matrix of (method family × dataset slug) with elected `current_default` per cell. Wide CSV for TeX import; long CSV for spreadsheets.
@@ -23,7 +23,7 @@
   - Status: Done (CSV exported by `export_paper_assets.py`).
 
 - [ ] **Table 5: Full Variant Results (Appendix)**
-  - Description: All variants for all **74** index problems (**73** ready + **1** blocked) with ATE, FPS, decision (adopt/keep/retire), and contract type.
+  - Description: All variants for all **168** index problems (**166** ready + **1** blocked + **1** skipped) with ATE, FPS, decision (adopt/keep/retire), and contract type.
   - Data source: Per-method `*_matrix.json` files under `experiments/results/`.
   - Status: Todo -- needs aggregation script across all matrix JSONs.
 
@@ -33,9 +33,9 @@
   - Status: Todo -- original paper numbers not yet collected.
 
 - [ ] **Table 7: CT-LIO Reference-Based Results (Appendix)**
-  - Description: Separate table for CT-LIO reference-based evaluation, explaining the blocked GT status and showing reference-trajectory metrics.
-  - Data source: `experiments/results/ct_lio_reference_profile_matrix.json`, `experiments/results/ct_lio_public_readiness_matrix.json`.
-  - Status: Todo -- data exists but not formatted for paper.
+  - Description: Separate table for HDL-400 reference/native-time-style evaluation versus public ROS1 synthetic-time evidence, explaining the blocked GT status and keeping exact-reproduction claims out of the synth-time rows.
+  - Data source: `experiments/results/ct_lio_reference_profile_matrix.json`, `experiments/results/ct_lio_public_readiness_matrix.json`, `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json`, `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`.
+  - Status: Todo -- data exists but not yet formatted into a manuscript-facing appendix table.
 
 - [ ] **Table 8: Hardware and Environment Specification**
   - Description: CPU, GPU, RAM, OS, compiler, and library versions used for all benchmark runs.
@@ -45,7 +45,7 @@
 ## Figures
 
 - [x] **Figure 1: Pareto Front (ATE vs. FPS)**
-  - Description: Scatter plot of all **73** ready default variants (`ready_defaults.csv`). X-axis: ATE (m); Y-axis: FPS. Separate markers for GT-backed and reference-based. Re-annotate extremes after each export (current CSV spans roughly **0.005–183 m** ATE and **0.4–106** FPS).
+  - Description: Scatter plot of all **166** ready default variants (`ready_defaults.csv`). X-axis: ATE (m); Y-axis: FPS. Separate markers for GT-backed and reference-based. Re-annotate extremes after each export (current CSV spans roughly **0.005–183 m** ATE and **0.4–106** FPS).
   - Data source: `docs/assets/paper/ready_defaults_pareto.png`.
   - Status: Done (exported by `export_paper_assets.py`).
 

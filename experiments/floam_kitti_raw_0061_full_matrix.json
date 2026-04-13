@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "floam_profile_tradeoff_kitti_raw_0061_full",
+    "title": "F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which F-LOAM profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "floam",
+    "primary_method": "F-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline F-LOAM settings for KITTI (n_scans=64).",
+      "args": [
+        "--floam-kitti-profile"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Thin input and throttle mapping for speed.",
+      "args": [
+        "--floam-kitti-profile",
+        "--floam-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Process denser input and update mapping every frame.",
+      "args": [
+        "--floam-kitti-profile",
+        "--floam-dense-profile"
+      ]
+    }
+  ]
+}

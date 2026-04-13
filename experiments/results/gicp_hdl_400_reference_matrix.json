@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-02T22:31:26+00:00",
+  "generated_at": "2026-04-10T09:03:38+00:00",
   "manifest_path": "experiments/gicp_hdl_400_reference_matrix.json",
   "problem": {
     "id": "gicp_profile_tradeoff_hdl_400_reference",
@@ -27,6 +27,8 @@
     "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "balanced_local_map",
@@ -38,18 +40,18 @@
       "summary_path": "experiments/results/runs/gicp_hdl_400_reference_matrix/balanced_local_map/summary.json",
       "log_path": "experiments/results/runs/gicp_hdl_400_reference_matrix/balanced_local_map/run.log",
       "status": "OK",
-      "ate_m": 0.16061,
-      "fps": 0.8356,
-      "time_ms": 143609.305311,
+      "ate_m": 0.146016,
+      "fps": 16.032025,
+      "time_ms": 7485.018191,
       "frames": 120,
       "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
-      "benchmark_score": 53.12,
+      "benchmark_score": 68.99,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
-      "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
     },
     {
       "id": "fast_recent_map",
@@ -63,12 +65,12 @@
       "summary_path": "experiments/results/runs/gicp_hdl_400_reference_matrix/fast_recent_map/summary.json",
       "log_path": "experiments/results/runs/gicp_hdl_400_reference_matrix/fast_recent_map/run.log",
       "status": "OK",
-      "ate_m": 0.19341,
-      "fps": 1.677905,
-      "time_ms": 71517.755931,
+      "ate_m": 0.214675,
+      "fps": 23.337712,
+      "time_ms": 5141.892122,
       "frames": 120,
       "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
-      "benchmark_score": 73.44,
+      "benchmark_score": 73.56,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
@@ -88,18 +90,18 @@
       "summary_path": "experiments/results/runs/gicp_hdl_400_reference_matrix/dense_recent_map/summary.json",
       "log_path": "experiments/results/runs/gicp_hdl_400_reference_matrix/dense_recent_map/run.log",
       "status": "OK",
-      "ate_m": 0.090664,
-      "fps": 0.47994,
-      "time_ms": 250031.403679,
+      "ate_m": 0.101173,
+      "fps": 9.291615,
+      "time_ms": 12914.869636,
       "frames": 120,
       "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
-      "benchmark_score": 64.3,
+      "benchmark_score": 69.91,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
     }
   ]
 }

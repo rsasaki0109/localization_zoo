@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-10T09:03:38+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_kitti_raw_0009_full",
@@ -17,7 +17,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/balm2_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_kitti_raw_0009",
@@ -26,7 +26,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/balm2_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_kitti_raw_0061_full",
@@ -35,7 +35,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/balm2_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_kitti_raw_0061",
@@ -44,7 +44,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/balm2_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_mcd_kth_day_06",
@@ -53,7 +53,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/balm2_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_mcd_ntu_day_02",
@@ -62,7 +62,7 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/balm2_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "balm2_mcd_tuhh_night_09",
@@ -71,7 +71,25 @@
       "blocker": "",
       "manifest_path": "experiments/balm2_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/balm2_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "clins_hdl_400_public_ros1_synthtime_tradeoff",
+      "title": "CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/clins_hdl_400_public_ros1_synthtime_matrix.json",
+      "aggregate_path": "experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json",
+      "current_default": "dense"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_hdl_400_public_ros1_synthtime",
+      "title": "CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_hdl_400_public_ros1_synthtime_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json",
+      "current_default": "dense_window"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_hdl_400_reference_b",
@@ -191,6 +209,15 @@
       "current_default": "fast_window"
     },
     {
+      "problem_id": "ct_lio_hdl_400_public_ros1_synthtime_tradeoff",
+      "title": "CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json",
+      "aggregate_path": "experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json",
+      "current_default": "seed_only_fast"
+    },
+    {
       "problem_id": "ct_lio_public_gt_readiness",
       "title": "CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data",
       "status": "blocked",
@@ -233,7 +260,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_kitti_raw_0009",
@@ -242,7 +269,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_kitti_raw_0061_full",
@@ -251,7 +278,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_kitti_raw_0061",
@@ -260,7 +287,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_mcd_kth_day_06",
@@ -269,7 +296,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_mcd_ntu_day_02",
@@ -278,7 +305,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio2_mcd_tuhh_night_09",
@@ -287,7 +314,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio2_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/fast_lio2_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_kitti_raw_0009_full",
@@ -296,7 +323,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_kitti_raw_0009",
@@ -305,7 +332,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_kitti_raw_0061_full",
@@ -314,7 +341,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_kitti_raw_0061",
@@ -323,7 +350,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_mcd_kth_day_06",
@@ -332,7 +359,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_mcd_ntu_day_02",
@@ -341,7 +368,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "fast_lio_slam_mcd_tuhh_night_09",
@@ -350,7 +377,7 @@
       "blocker": "",
       "manifest_path": "experiments/fast_lio_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "floam_profile_tradeoff_kitti_raw_0009_full",
@@ -494,13 +521,13 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "hdl_graph_slam_kitti_raw_0061_full",
       "title": "HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)",
-      "status": "ready",
-      "blocker": "",
+      "status": "skipped",
+      "blocker": "Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames)",
       "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0061_full_matrix.json",
       "current_default": null
@@ -512,7 +539,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_kth_day_06",
@@ -521,7 +548,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_ntu_day_02",
@@ -530,7 +557,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "hdl_graph_slam_mcd_tuhh_night_09",
@@ -539,7 +566,7 @@
       "blocker": "",
       "manifest_path": "experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0009_full",
@@ -548,7 +575,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0009",
@@ -557,7 +584,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0061_full",
@@ -566,7 +593,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_kitti_raw_0061",
@@ -575,7 +602,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "isc_loam_mcd_kth_day_06",
@@ -584,7 +611,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_mcd_ntu_day_02",
@@ -593,7 +620,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "isc_loam_mcd_tuhh_night_09",
@@ -602,7 +629,7 @@
       "blocker": "",
       "manifest_path": "experiments/isc_loam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/isc_loam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "kiss_icp_profile_tradeoff_hdl_400_reference_b",
@@ -737,7 +764,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/lins_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_kitti_raw_0009",
@@ -746,7 +773,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/lins_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_kitti_raw_0061_full",
@@ -755,7 +782,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/lins_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_kitti_raw_0061",
@@ -764,7 +791,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/lins_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_mcd_kth_day_06",
@@ -773,7 +800,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/lins_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lins_mcd_ntu_day_02",
@@ -782,7 +809,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/lins_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "lins_mcd_tuhh_night_09",
@@ -791,7 +818,7 @@
       "blocker": "",
       "manifest_path": "experiments/lins_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/lins_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_kitti_raw_0009_full",
@@ -800,7 +827,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_kitti_raw_0009",
@@ -809,7 +836,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_kitti_raw_0061_full",
@@ -818,7 +845,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_kitti_raw_0061",
@@ -827,7 +854,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_mcd_kth_day_06",
@@ -836,7 +863,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_mcd_ntu_day_02",
@@ -845,7 +872,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "lio_sam_mcd_tuhh_night_09",
@@ -854,7 +881,7 @@
       "blocker": "",
       "manifest_path": "experiments/lio_sam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_hdl_400_reference_b",
@@ -872,7 +899,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_hdl_400_reference_matrix.json",
       "aggregate_path": "experiments/results/litamin2_hdl_400_reference_matrix.json",
-      "current_default": "paper_icp_only_half_threads"
+      "current_default": "paper_cov_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_istanbul_window_b",
@@ -980,7 +1007,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_kitti_raw_0009",
@@ -989,7 +1016,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_kitti_raw_0061_full",
@@ -998,7 +1025,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_kitti_raw_0061",
@@ -1007,7 +1034,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_mcd_kth_day_06",
@@ -1016,7 +1043,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_mcd_ntu_day_02",
@@ -1025,7 +1052,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "loam_livox_mcd_tuhh_night_09",
@@ -1034,7 +1061,7 @@
       "blocker": "",
       "manifest_path": "experiments/loam_livox_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "mulls_profile_tradeoff_kitti_raw_0009_full",
@@ -1169,7 +1196,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/point_lio_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_kitti_raw_0009",
@@ -1178,7 +1205,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/point_lio_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_kitti_raw_0061_full",
@@ -1187,7 +1214,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/point_lio_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_kitti_raw_0061",
@@ -1196,7 +1223,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/point_lio_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_mcd_kth_day_06",
@@ -1205,7 +1232,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/point_lio_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_mcd_ntu_day_02",
@@ -1214,7 +1241,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/point_lio_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_mcd_tuhh_night_09",
@@ -1223,7 +1250,7 @@
       "blocker": "",
       "manifest_path": "experiments/point_lio_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/point_lio_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "small_gicp_profile_tradeoff_kitti_raw_0009_full",
@@ -1268,7 +1295,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "suma_kitti_raw_0009",
@@ -1286,7 +1313,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "suma_kitti_raw_0061",
@@ -1295,7 +1322,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "suma_mcd_kth_day_06",
@@ -1304,7 +1331,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/suma_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "suma_mcd_ntu_day_02",
@@ -1313,7 +1340,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/suma_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "suma_mcd_tuhh_night_09",
@@ -1331,7 +1358,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_kitti_raw_0009",
@@ -1340,7 +1367,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_kitti_raw_0061_full",
@@ -1349,7 +1376,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_kitti_raw_0061",
@@ -1358,7 +1385,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_mcd_kth_day_06",
@@ -1367,7 +1394,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_mcd_ntu_day_02",
@@ -1376,7 +1403,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "vgicp_slam_mcd_tuhh_night_09",
@@ -1385,7 +1412,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0009_full",
@@ -1430,7 +1457,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0009_full_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "xicp_kitti_raw_0009",
@@ -1439,7 +1466,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0009_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "xicp_kitti_raw_0061_full",
@@ -1448,7 +1475,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0061_full_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0061_full_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "xicp_kitti_raw_0061",
@@ -1457,7 +1484,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0061_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "xicp_mcd_kth_day_06",
@@ -1466,7 +1493,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/xicp_mcd_kth_day_06_matrix.json",
-      "current_default": "default"
+      "current_default": "fast"
     },
     {
       "problem_id": "xicp_mcd_ntu_day_02",
@@ -1475,7 +1502,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_mcd_ntu_day_02_matrix.json",
       "aggregate_path": "experiments/results/xicp_mcd_ntu_day_02_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "xicp_mcd_tuhh_night_09",
@@ -1484,7 +1511,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/xicp_mcd_tuhh_night_09_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     }
   ]
 }

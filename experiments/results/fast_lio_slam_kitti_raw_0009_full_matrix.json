@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-10T09:03:38+00:00",
   "manifest_path": "experiments/fast_lio_slam_kitti_raw_0009_full_matrix.json",
   "problem": {
     "id": "fast_lio_slam_kitti_raw_0009_full",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 131817.922577,
       "frames": 443,
       "note": "FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 63.29,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce input density, shrink the front-end map window, and disable loop closure; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--fast-lio-slam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/fast/summary.json --fast-lio-slam-fast-profile",
+      "summary_path": "experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 5.289333,
+      "fps": 11.256113,
+      "time_ms": 39356.392739,
+      "frames": 443,
+      "note": "FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase input density, keep a larger front-end map, and tighten loop-closure cadence; remains LiDAR-only when imu.csv is absent.",
+      "args": [
+        "--fast-lio-slam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_lio_slam --summary-json experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/dense/summary.json --fast-lio-slam-dense-profile",
+      "summary_path": "experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/fast_lio_slam_kitti_raw_0009_full_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 5.700504,
+      "fps": 2.625304,
+      "time_ms": 168742.34885,
+      "frames": 443,
+      "note": "FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 58.06,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

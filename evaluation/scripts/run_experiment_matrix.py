@@ -335,23 +335,55 @@ def run_variant(
     )
 
 
-def compute_benchmark_scores(results: list[VariantResult]) -> None:
+def compute_benchmark_scores(
+    results: list[VariantResult],
+    ate_weight: float = 0.5,
+    fps_weight: float = 0.5,
+) -> None:
+    ate_weight = max(0.0, ate_weight)
+    fps_weight = max(0.0, fps_weight)
+    total_weight = ate_weight + fps_weight
+    if total_weight <= 1e-9:
+        ate_weight = 0.5
+        fps_weight = 0.5
+        total_weight = 1.0
+    ate_weight /= total_weight
+    fps_weight /= total_weight
+
+    require_ate = ate_weight > 1e-9
+    require_fps = fps_weight > 1e-9
     valid = [
         result
         for result in results
-        if result.status == "OK" and result.ate_m is not None and result.fps is not None
+        if result.status == "OK"
+        and (not require_ate or result.ate_m is not None)
+        and (not require_fps or result.fps is not None)
     ]
     if not valid:
         return
-    best_ate = min(result.ate_m for result in valid if result.ate_m is not None)
-    best_fps = max(result.fps for result in valid if result.fps is not None)
+    best_ate = (
+        min(result.ate_m for result in valid if result.ate_m is not None)
+        if require_ate
+        else None
+    )
+    best_fps = (
+        max(result.fps for result in valid if result.fps is not None)
+        if require_fps
+        else None
+    )
     for result in results:
-        if result.status != "OK" or result.ate_m is None or result.fps is None:
+        if (
+            result.status != "OK"
+            or (require_ate and result.ate_m is None)
+            or (require_fps and result.fps is None)
+        ):
             result.benchmark_score = 0.0
             continue
-        ate_ratio = best_ate / max(result.ate_m, 1e-9)
-        fps_ratio = result.fps / max(best_fps, 1e-9)
-        result.benchmark_score = round(100.0 * (0.5 * ate_ratio + 0.5 * fps_ratio), 2)
+        ate_ratio = best_ate / max(result.ate_m, 1e-9) if require_ate else 0.0
+        fps_ratio = result.fps / max(best_fps, 1e-9) if require_fps else 0.0
+        result.benchmark_score = round(
+            100.0 * (ate_weight * ate_ratio + fps_weight * fps_ratio), 2
+        )
 
 
 def assign_decisions(results: list[VariantResult]) -> None:
@@ -380,6 +412,50 @@ def assign_decisions(results: list[VariantResult]) -> None:
             result.decision_reason = (
                 "Useful for comparison, but not strong enough to replace the current default."
             )
+
+
+def dedupe_notes(results: list[VariantResult]) -> list[str]:
+    seen: set[str] = set()
+    notes: list[str] = []
+    for result in results:
+        note = (result.note or "").strip()
+        if not note or note in seen:
+            continue
+        seen.add(note)
+        notes.append(note)
+    return notes
+
+
+def finalize_problem_outcome(
+    *,
+    manifest_state: str,
+    blocker: str,
+    next_step: str,
+    results: list[VariantResult],
+) -> tuple[str, str, str]:
+    if manifest_state != "ready":
+        return manifest_state, blocker, next_step
+
+    if any(result.status == "OK" for result in results):
+        return "ready", blocker, next_step
+
+    if results and all(result.status == "SKIPPED" for result in results):
+        notes = dedupe_notes(results)
+        derived_blocker = (
+            " ; ".join(notes)
+            if notes
+            else "All variants were skipped and no valid benchmark result was produced."
+        )
+        derived_next_step = (
+            "Run a lighter slice/profile, or keep this problem out of the ready set until a real result is available."
+        )
+        return "skipped", derived_blocker, derived_next_step
+
+    return (
+        "skipped",
+        "No variant produced a valid benchmark result.",
+        "Inspect per-variant logs and rerun with a lighter profile or corrected dataset/config.",
+    )
 
 
 def variant_result_to_dict(result: VariantResult) -> dict[str, Any]:
@@ -475,7 +551,7 @@ def render_experiments_md(
                 f"- **Aggregate result**: `{problem_run.aggregate_relpath}`",
             ]
         )
-        if problem_run.problem_state != "ready":
+        if problem_run.problem_state == "blocked":
             lines.extend(
                 [
                     f"- **Blocker**: {problem_run.blocker}",
@@ -491,6 +567,24 @@ def render_experiments_md(
                 arg_text = " ".join(variant.get("args", [])) or "(default flags only)"
                 lines.append(
                     f"| {variant['label']} | {variant['design_style']} | {variant['intent']} | `{arg_text}` |"
+                )
+            continue
+        if problem_run.problem_state != "ready":
+            lines.extend(
+                [
+                    f"- **Blocker**: {problem_run.blocker}",
+                    f"- **Next step**: {problem_run.next_step}",
+                    "",
+                    "### Attempted Variants",
+                    "",
+                    "| Variant | Style | Status | Note | Summary | Log |",
+                    "|---------|-------|--------|------|---------|-----|",
+                ]
+            )
+            for result in problem_run.results:
+                lines.append(
+                    f"| {result.label} | {result.design_style} | `{result.status}` | {result.note or '-'} | "
+                    f"`{result.summary_path}` | `{result.log_path}` |"
                 )
             continue
         lines.extend(
@@ -655,7 +749,7 @@ def render_interfaces_md(
         "| Field | Type | Meaning |",
         "|-------|------|---------|",
         "| `problem.id` | string | Stable identifier for the search problem. |",
-        "| `problem.state` | string | `ready` or `blocked`. Missing means `ready`. |",
+        "| `problem.state` | string | `ready` or `blocked`. Missing means `ready`. Generated outputs may downgrade a `ready` problem to `skipped` if every variant is skipped. |",
         "| `problem.blocker` | string | Why the problem cannot be benchmarked yet. Optional for blocked problems. |",
         "| `problem.next_step` | string | The next concrete step to unblock the problem. Optional for blocked problems. |",
         "| `problem.dataset` | object | Shared dataset paths for every variant. |",
@@ -789,15 +883,18 @@ def run_problem(
                     decision=v.get("decision", ""),
                     decision_reason=v.get("decision_reason", ""),
                 ))
+            aggregate_state = str(aggregate.get("status", problem_state))
+            aggregate_blocker = str(aggregate.get("blocker", blocker))
+            aggregate_next_step = str(aggregate.get("next_step", next_step))
             return ProblemRun(
                 manifest_path=relpath(manifest_path),
                 manifest_stem=manifest_stem,
                 problem_id=problem_cfg["id"],
                 title=problem_cfg["title"],
                 question=problem_cfg["question"],
-                problem_state=problem_state,
-                blocker=blocker,
-                next_step=next_step,
+                problem_state=aggregate_state,
+                blocker=aggregate_blocker,
+                next_step=aggregate_next_step,
                 dataset_pcd_dir=str(dataset_pcd_raw),
                 dataset_gt_csv=str(dataset_gt_raw),
                 binary_path=relpath(binary),
@@ -830,8 +927,19 @@ def run_problem(
             )
         )
 
-    compute_benchmark_scores(results)
+    benchmark_weights = problem_cfg.get("benchmark_weights", {})
+    compute_benchmark_scores(
+        results,
+        ate_weight=float(benchmark_weights.get("ate_m", 0.5)),
+        fps_weight=float(benchmark_weights.get("fps", 0.5)),
+    )
     assign_decisions(results)
+    final_state, final_blocker, final_next_step = finalize_problem_outcome(
+        manifest_state=problem_state,
+        blocker=blocker,
+        next_step=next_step,
+        results=results,
+    )
 
     aggregate_path = output_dir / f"{manifest_stem}.json"
     aggregate = {
@@ -843,7 +951,9 @@ def run_problem(
             "pcd_dir": relpath(pcd_dir),
             "gt_csv": relpath(gt_csv),
         },
-        "status": problem_state,
+        "status": final_state,
+        "blocker": final_blocker,
+        "next_step": final_next_step,
         "variants": [variant_result_to_dict(result) for result in results],
     }
     aggregate_path.write_text(json.dumps(aggregate, indent=2) + "\n")
@@ -854,9 +964,9 @@ def run_problem(
         problem_id=problem_cfg["id"],
         title=problem_cfg["title"],
         question=problem_cfg["question"],
-        problem_state=problem_state,
-        blocker=blocker,
-        next_step=next_step,
+        problem_state=final_state,
+        blocker=final_blocker,
+        next_step=final_next_step,
         dataset_pcd_dir=relpath(pcd_dir),
         dataset_gt_csv=relpath(gt_csv),
         binary_path=relpath(binary),

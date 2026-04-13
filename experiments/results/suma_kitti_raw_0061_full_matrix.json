@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-10T09:03:38+00:00",
   "manifest_path": "experiments/suma_kitti_raw_0061_full_matrix.json",
   "problem": {
     "id": "suma_kitti_raw_0061_full",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,13 +44,63 @@
       "time_ms": 28820.503026,
       "frames": 703,
       "note": "Surfel-based mapping (no GT seed; anchor matches first GT pose).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 50.54,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Use coarser surfels and a shorter history window for faster dense mapping.",
+      "args": [
+        "--suma-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_raw_0061_full_matrix/fast/summary.json --suma-fast-profile",
+      "summary_path": "experiments/results/runs/suma_kitti_raw_0061_full_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_raw_0061_full_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 32.42871,
+      "fps": 110.93114,
+      "time_ms": 6337.264701,
+      "frames": 703,
+      "note": "Surfel-based mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 73.72,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Use finer surfels and a longer history window for a denser dense-mapping solve.",
+      "args": [
+        "--suma-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_raw_0061_full_matrix/dense/summary.json --suma-dense-profile",
+      "summary_path": "experiments/results/runs/suma_kitti_raw_0061_full_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_raw_0061_full_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 15.381473,
+      "fps": 28.920641,
+      "time_ms": 24307.897937,
+      "frames": 703,
+      "note": "Surfel-based mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 63.04,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
     }
   ]
 }

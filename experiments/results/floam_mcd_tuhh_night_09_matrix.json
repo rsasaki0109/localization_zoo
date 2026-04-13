@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/floam_mcd_tuhh_night_09_matrix.json",
+  "problem": {
+    "id": "floam_profile_tradeoff_mcd_tuhh_night_09",
+    "title": "F-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence",
+    "question": "Which F-LOAM profile should stay as the current default on the MCD TUHH night-09 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+      "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "floam",
+    "primary_method": "F-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+    "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline F-LOAM settings for KITTI (n_scans=64).",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods floam --summary-json experiments/results/runs/floam_mcd_tuhh_night_09_matrix/kitti_default/summary.json",
+      "summary_path": "experiments/results/runs/floam_mcd_tuhh_night_09_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/floam_mcd_tuhh_night_09_matrix/kitti_default/run.log",
+      "status": "OK",
+      "ate_m": 1.361545,
+      "fps": 11.980081,
+      "time_ms": 9014.964291,
+      "frames": 108,
+      "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
+      "benchmark_score": 71.09,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Thin input and throttle mapping for speed.",
+      "args": [
+        "--floam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods floam --summary-json experiments/results/runs/floam_mcd_tuhh_night_09_matrix/fast/summary.json --floam-fast-profile",
+      "summary_path": "experiments/results/runs/floam_mcd_tuhh_night_09_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/floam_mcd_tuhh_night_09_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 1.344956,
+      "fps": 27.605206,
+      "time_ms": 3912.305492,
+      "frames": 108,
+      "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Process denser input and update mapping every frame.",
+      "args": [
+        "--floam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods floam --summary-json experiments/results/runs/floam_mcd_tuhh_night_09_matrix/dense/summary.json --floam-dense-profile",
+      "summary_path": "experiments/results/runs/floam_mcd_tuhh_night_09_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/floam_mcd_tuhh_night_09_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 1.377401,
+      "fps": 2.51503,
+      "time_ms": 42941.838177,
+      "frames": 108,
+      "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
+      "benchmark_score": 53.38,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

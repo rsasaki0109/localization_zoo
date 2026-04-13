@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/dlo_kitti_raw_0061_matrix.json",
+  "problem": {
+    "id": "dlo_profile_tradeoff_kitti_raw_0061",
+    "title": "DLO throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+    "question": "Which DLO profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dlo",
+    "primary_method": "DLO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline DLO GICP keyframe odometry for KITTI-scale LiDAR.",
+      "args": [
+        "--dlo-kitti-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods dlo --summary-json experiments/results/runs/dlo_kitti_raw_0061_matrix/kitti_default/summary.json --dlo-kitti-profile",
+      "summary_path": "experiments/results/runs/dlo_kitti_raw_0061_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/dlo_kitti_raw_0061_matrix/kitti_default/run.log",
+      "status": "OK",
+      "ate_m": 0.797539,
+      "fps": 2.758268,
+      "time_ms": 72509.264251,
+      "frames": 200,
+      "note": "Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 66.29,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser downsampling and fewer GICP iterations.",
+      "args": [
+        "--dlo-kitti-profile",
+        "--dlo-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods dlo --summary-json experiments/results/runs/dlo_kitti_raw_0061_matrix/fast/summary.json --dlo-kitti-profile --dlo-fast-profile",
+      "summary_path": "experiments/results/runs/dlo_kitti_raw_0061_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/dlo_kitti_raw_0061_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.881768,
+      "fps": 8.465097,
+      "time_ms": 23626.426654,
+      "frames": 200,
+      "note": "Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 95.22,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels, more map keyframes, and deeper GICP.",
+      "args": [
+        "--dlo-kitti-profile",
+        "--dlo-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods dlo --summary-json experiments/results/runs/dlo_kitti_raw_0061_matrix/dense/summary.json --dlo-kitti-profile --dlo-dense-profile",
+      "summary_path": "experiments/results/runs/dlo_kitti_raw_0061_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/dlo_kitti_raw_0061_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.801728,
+      "fps": 1.139344,
+      "time_ms": 175539.627908,
+      "frames": 200,
+      "note": "Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 56.47,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

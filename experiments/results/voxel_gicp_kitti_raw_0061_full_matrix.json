@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-04-13T12:28:24+00:00",
+  "manifest_path": "experiments/voxel_gicp_kitti_raw_0061_full_matrix.json",
+  "problem": {
+    "id": "voxel_gicp_profile_tradeoff_kitti_raw_0061_full",
+    "title": "Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which Voxel-GICP profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "voxel_gicp",
+    "primary_method": "Voxel-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 0.91674,
+      "fps": 19.124495,
+      "time_ms": 36759.140579,
+      "frames": 703,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 62.69,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxels and lighter iterations.",
+      "args": [
+        "--voxel-gicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/fast_recent_map/summary.json --voxel-gicp-fast-profile",
+      "summary_path": "experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 1.123351,
+      "fps": 50.080164,
+      "time_ms": 14037.493921,
+      "frames": 703,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 74.03,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels and deeper alignment.",
+      "args": [
+        "--voxel-gicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/dense_recent_map/summary.json --voxel-gicp-dense-profile",
+      "summary_path": "experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/dense_recent_map/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_kitti_raw_0061_full_matrix/dense_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 1.06161,
+      "fps": 75.368071,
+      "time_ms": 9327.557328,
+      "frames": 703,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 93.18,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

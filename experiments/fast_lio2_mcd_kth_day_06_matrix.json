@@ -25,8 +25,26 @@
       "id": "default",
       "label": "Default (no IMU)",
       "design_style": "balanced",
-      "intent": "LiDAR-only mode; no IMU data available in MCD KTH fixtures.",
+      "intent": "LiDAR-only mode; no IMU data available in KITTI Raw fixtures.",
       "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce keypoint density and map window for faster LiDAR-inertial updates.",
+      "args": [
+        "--fast-lio2-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase keypoint density and map window for a more exhaustive LiDAR-inertial solve.",
+      "args": [
+        "--fast-lio2-dense-profile"
+      ]
     }
   ]
 }

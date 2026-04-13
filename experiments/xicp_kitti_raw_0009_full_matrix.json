@@ -29,6 +29,24 @@
       "args": []
     },
     {
+      "id": "fast",
+      "label": "Fast (GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxel map and smaller working set while keeping the GT-seeded initialization path.",
+      "args": [
+        "--xicp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense (GT seed)",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxel map and larger correspondence budget while keeping the GT-seeded initialization path.",
+      "args": [
+        "--xicp-dense-profile"
+      ]
+    },
+    {
       "id": "no_gt_seed",
       "label": "No GT seed",
       "design_style": "accuracy-oriented",

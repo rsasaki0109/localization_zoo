@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "dlo_profile_tradeoff_mcd_ntu_day_02",
+    "title": "DLO throughput and accuracy trade-off on the MCD NTU day-02 sequence",
+    "question": "Which DLO profile should stay as the current default on the MCD NTU day-02 sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dlo",
+    "primary_method": "DLO"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline DLO GICP keyframe odometry for KITTI-scale LiDAR.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser downsampling and fewer GICP iterations.",
+      "args": [
+        "--dlo-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels, more map keyframes, and deeper GICP.",
+      "args": [
+        "--dlo-dense-profile"
+      ]
+    }
+  ]
+}

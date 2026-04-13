@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "small_gicp_profile_tradeoff_istanbul_window_c",
+    "title": "Small-GICP throughput and accuracy trade-off on the third repository-stored Istanbul sequence",
+    "question": "Which Small-GICP profile should stay as the current default on a third public Istanbul window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/autoware_istanbul_open_108_c",
+      "gt_csv": "dogfooding_results/autoware_istanbul_open_108_c_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "small_gicp",
+    "primary_method": "Small-GICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Default.",
+      "args": []
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Fast.",
+      "args": [
+        "--small-gicp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Dense.",
+      "args": [
+        "--small-gicp-dense-profile"
+      ]
+    }
+  ]
+}

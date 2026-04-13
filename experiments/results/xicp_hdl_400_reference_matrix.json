@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-04-13T12:28:24+00:00",
+  "manifest_path": "experiments/xicp_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "xicp_hdl_400_reference",
+    "title": "X-ICP on the public HDL-400 reference window",
+    "question": "How does X-ICP perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "xicp",
+    "primary_method": "X-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default (GT seed)",
+      "design_style": "balanced",
+      "intent": "Repository default with ground-truth seed initialization.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/xicp_hdl_400_reference_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/xicp_hdl_400_reference_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 0.293817,
+      "fps": 92.776632,
+      "time_ms": 1293.429149,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 66.03,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast (GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxel map and smaller working set while keeping the GT-seeded initialization path.",
+      "args": [
+        "--xicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_matrix/fast/summary.json --xicp-fast-profile",
+      "summary_path": "experiments/results/runs/xicp_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/xicp_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.654608,
+      "fps": 123.896605,
+      "time_ms": 968.54954,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 62.83,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense",
+      "label": "Dense (GT seed)",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxel map and larger correspondence budget while keeping the GT-seeded initialization path.",
+      "args": [
+        "--xicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_matrix/dense/summary.json --xicp-dense-profile",
+      "summary_path": "experiments/results/runs/xicp_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/xicp_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.167982,
+      "fps": 71.766427,
+      "time_ms": 1672.09104,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 78.96,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "no_gt_seed",
+      "label": "No GT seed",
+      "design_style": "accuracy-oriented",
+      "intent": "Ablation without ground-truth seed to test convergence from identity.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_matrix/no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/xicp_hdl_400_reference_matrix/no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/xicp_hdl_400_reference_matrix/no_gt_seed/run.log",
+      "status": "OK",
+      "ate_m": 5.786293,
+      "fps": 91.580201,
+      "time_ms": 1310.326892,
+      "frames": 120,
+      "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
+      "benchmark_score": 38.41,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

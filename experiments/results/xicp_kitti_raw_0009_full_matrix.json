@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-13T12:28:24+00:00",
   "manifest_path": "experiments/xicp_kitti_raw_0009_full_matrix.json",
   "problem": {
     "id": "xicp_kitti_raw_0009_full",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "default",
@@ -42,11 +44,61 @@
       "time_ms": 7795.373471,
       "frames": 443,
       "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
-      "benchmark_score": 93.83,
+      "benchmark_score": 69.05,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast (GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxel map and smaller working set while keeping the GT-seeded initialization path.",
+      "args": [
+        "--xicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_full_matrix/fast/summary.json --xicp-fast-profile",
+      "summary_path": "experiments/results/runs/xicp_kitti_raw_0009_full_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/xicp_kitti_raw_0009_full_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.501319,
+      "fps": 92.922566,
+      "time_ms": 4767.41034,
+      "frames": 443,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 62.94,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense",
+      "label": "Dense (GT seed)",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxel map and larger correspondence budget while keeping the GT-seeded initialization path.",
+      "args": [
+        "--xicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods xicp --summary-json experiments/results/runs/xicp_kitti_raw_0009_full_matrix/dense/summary.json --xicp-dense-profile",
+      "summary_path": "experiments/results/runs/xicp_kitti_raw_0009_full_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/xicp_kitti_raw_0009_full_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.12972,
+      "fps": 59.932026,
+      "time_ms": 7391.70745,
+      "frames": 443,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 82.25,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
       "decision": "Adopt as current default",
       "decision_reason": "Best combined benchmark score on the shared dataset and interface."
     },
@@ -67,7 +119,7 @@
       "time_ms": 6833.114244,
       "frames": 443,
       "note": "Uses odometry-chain scan-to-map initialization (no GT seed).",
-      "benchmark_score": 50.05,
+      "benchmark_score": 34.92,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,

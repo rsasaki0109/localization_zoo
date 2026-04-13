@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/dlio_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "dlio_profile_tradeoff_hdl_400_reference",
+    "title": "DLIO throughput and accuracy trade-off on the public HDL-400 reference window",
+    "question": "Which DLIO profile should stay as the current default on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dlio",
+    "primary_method": "DLIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced GICP+IMU fusion",
+      "intent": "Baseline DLIO-style GICP keyframe odometry with default IMU/LiDAR fusion weights.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_matrix/kitti_default/summary.json",
+      "summary_path": "experiments/results/runs/dlio_hdl_400_reference_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/dlio_hdl_400_reference_matrix/kitti_default/run.log",
+      "status": "OK",
+      "ate_m": 0.544742,
+      "fps": 4.753471,
+      "time_ms": 25244.712277,
+      "frames": 120,
+      "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).",
+      "benchmark_score": 41.67,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser downsampling, fewer GICP iterations, lighter IMU fusion influence.",
+      "args": [
+        "--dlio-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_matrix/fast/summary.json --dlio-fast-profile",
+      "summary_path": "experiments/results/runs/dlio_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/dlio_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.2393,
+      "fps": 12.06198,
+      "time_ms": 9948.615326,
+      "frames": 120,
+      "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels, deeper GICP, stronger IMU term when imu.csv is present.",
+      "args": [
+        "--dlio-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_matrix/dense/summary.json --dlio-dense-profile",
+      "summary_path": "experiments/results/runs/dlio_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/dlio_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.656566,
+      "fps": 1.933713,
+      "time_ms": 62056.765854,
+      "frames": 120,
+      "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).",
+      "benchmark_score": 26.24,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/balm2_kitti_raw_0009_nogt_matrix.json",
+  "problem": {
+    "id": "balm2_kitti_raw_0009_nogt",
+    "title": "BALM2 on KITTI Raw drive 0009 (200 frames, no GT seed)",
+    "question": "How does BALM2 perform on KITTI Raw drive 0009 (200 frames, no GT seed)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "balm2",
+    "primary_method": "BALM2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/default/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 3.419024,
+      "fps": 1.744691,
+      "time_ms": 114633.464899,
+      "frames": 200,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 41.54,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce feature density and bundle-adjustment effort for a lighter mapping window.",
+      "args": [
+        "--balm2-fast-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/fast/summary.json --balm2-fast-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 2.366319,
+      "fps": 12.577467,
+      "time_ms": 15901.452838,
+      "frames": 200,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase feature density and keep a slightly larger optimization window for a more exhaustive mapping solve without the previous runtime blow-up.",
+      "args": [
+        "--balm2-dense-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods balm2 --summary-json experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/dense/summary.json --balm2-dense-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 3.60827,
+      "fps": 0.692566,
+      "time_ms": 288781.258101,
+      "frames": 200,
+      "note": "Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 35.54,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

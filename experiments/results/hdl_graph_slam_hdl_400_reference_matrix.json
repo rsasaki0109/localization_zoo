@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-13T12:38:34+00:00",
+  "manifest_path": "experiments/hdl_graph_slam_hdl_400_reference_matrix.json",
+  "problem": {
+    "id": "hdl_graph_slam_hdl_400_reference",
+    "title": "HDL-Graph-SLAM on the public HDL-400 reference window",
+    "question": "How does HDL-Graph-SLAM perform on the public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+      "reference_role": "public reference trajectory converted from pose_trace.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "hdl_graph_slam",
+    "primary_method": "HDL-Graph-SLAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 14.452825,
+      "fps": 2.993749,
+      "time_ms": 40083.518137,
+      "frames": 120,
+      "note": "NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 69.99,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarsen registration and submap density while trimming keyframe and loop-closure work for faster pose-graph updates.",
+      "args": [
+        "--hdl-graph-slam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/fast/summary.json --hdl-graph-slam-fast-profile",
+      "summary_path": "experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 15.655995,
+      "fps": 6.749644,
+      "time_ms": 17778.715589,
+      "frames": 120,
+      "note": "NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 94.14,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Densify registration and submaps while keeping every keyframe and loop-closure constraint active.",
+      "args": [
+        "--hdl-graph-slam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120 experiments/reference_data/hdl_400_public_reference.csv --methods hdl_graph_slam --summary-json experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/dense/summary.json --hdl-graph-slam-dense-profile",
+      "summary_path": "experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/hdl_graph_slam_hdl_400_reference_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 13.820313,
+      "fps": 2.294928,
+      "time_ms": 52289.232209,
+      "frames": 120,
+      "note": "NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 67.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

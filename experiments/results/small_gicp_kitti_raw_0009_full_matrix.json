@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-08T05:11:14+00:00",
+  "generated_at": "2026-04-13T12:28:24+00:00",
   "manifest_path": "experiments/small_gicp_kitti_raw_0009_full_matrix.json",
   "problem": {
     "id": "small_gicp_profile_tradeoff_kitti_raw_0009_full",
@@ -26,6 +26,8 @@
     "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
   },
   "status": "ready",
+  "blocker": "",
+  "next_step": "",
   "variants": [
     {
       "id": "balanced_local_map",

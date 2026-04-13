@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "dlo_profile_tradeoff_hdl_400_reference_b",
+    "title": "DLO throughput and accuracy trade-off on the second public HDL-400 reference window",
+    "question": "Which DLO profile should stay as the current default on the second public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_b",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference_b.csv",
+      "reference_role": "public reference trajectory sliced from the HDL-400 pose trace export"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dlo",
+    "primary_method": "DLO"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline DLO GICP keyframe odometry for KITTI-scale LiDAR.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser downsampling and fewer GICP iterations.",
+      "args": [
+        "--dlo-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels, more map keyframes, and deeper GICP.",
+      "args": [
+        "--dlo-dense-profile"
+      ]
+    }
+  ]
+}

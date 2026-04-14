@@ -1,0 +1,144 @@
+{
+  "generated_at": "2026-04-14T11:47:37+00:00",
+  "manifest_path": "experiments/lvi_sam_kitti_raw_0009_matrix.json",
+  "problem": {
+    "id": "lvi_sam_profile_tradeoff_kitti_raw_0009",
+    "title": "LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?",
+    "variant_timeout_seconds": 600,
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv",
+      "extra_args": [
+        "--landmarks-csv",
+        "dogfooding_results/kitti_raw_0009_200/landmarks.csv",
+        "--visual-observations-csv",
+        "dogfooding_results/kitti_raw_0009_200/visual_observations.csv",
+        "--camera-fx",
+        "721.5377",
+        "--camera-fy",
+        "721.5377",
+        "--camera-cx",
+        "609.5593",
+        "--camera-cy",
+        "172.8540",
+        "--camera-width",
+        "1241",
+        "--camera-height",
+        "376"
+      ]
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/multimodal_dogfooding",
+    "methods": "lvi_sam",
+    "primary_method": "LVI-SAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv",
+    "extra_args": [
+      "--landmarks-csv",
+      "dogfooding_results/kitti_raw_0009_200/landmarks.csv",
+      "--visual-observations-csv",
+      "dogfooding_results/kitti_raw_0009_200/visual_observations.csv",
+      "--camera-fx",
+      "721.5377",
+      "--camera-fy",
+      "721.5377",
+      "--camera-cx",
+      "609.5593",
+      "--camera-cy",
+      "172.8540",
+      "--camera-width",
+      "1241",
+      "--camera-height",
+      "376"
+    ]
+  },
+  "variant_timeout_seconds": 120.0,
+  "status": "skipped",
+  "blocker": "Timed out after 120 seconds.",
+  "next_step": "Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Keep the current LVI-SAM defaults as the multimodal baseline.",
+      "args": [],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods lvi_sam --summary-json experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376",
+      "summary_path": "experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/run.log",
+      "status": "TIMED_OUT",
+      "ate_m": null,
+      "fps": null,
+      "time_ms": 120000.0,
+      "frames": null,
+      "note": "Timed out after 120 seconds.",
+      "benchmark_score": 0.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce LiDAR and visual working-set size for higher FPS.",
+      "args": [
+        "--lvi-sam-fast-profile"
+      ],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods lvi_sam --summary-json experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --lvi-sam-fast-profile",
+      "summary_path": "experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/run.log",
+      "status": "TIMED_OUT",
+      "ate_m": null,
+      "fps": null,
+      "time_ms": 120000.0,
+      "frames": null,
+      "note": "Timed out after 120 seconds.",
+      "benchmark_score": 0.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Keep richer LiDAR and visual support to protect accuracy.",
+      "args": [
+        "--lvi-sam-dense-profile"
+      ],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods lvi_sam --summary-json experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --lvi-sam-dense-profile",
+      "summary_path": "experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/run.log",
+      "status": "TIMED_OUT",
+      "ate_m": null,
+      "fps": null,
+      "time_ms": 120000.0,
+      "frames": null,
+      "note": "Timed out after 120 seconds.",
+      "benchmark_score": 0.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
+    }
+  ]
+}

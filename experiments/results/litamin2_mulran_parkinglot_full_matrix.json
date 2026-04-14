@@ -1,0 +1,142 @@
+{
+  "generated_at": "2026-04-15T12:59:34+00:00",
+  "manifest_path": "experiments/litamin2_mulran_parkinglot_full_matrix.json",
+  "problem": {
+    "id": "litamin2_profile_tradeoff_mulran_parkinglot_full",
+    "title": "LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence)",
+    "question": "Which LiTAMIN2 profile should stay as the default on a full MulRan Ouster sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+    "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_cov_half_threads",
+      "label": "Fast local-map + covariance",
+      "design_style": "throughput-oriented",
+      "intent": "Repository default local-map profile with covariance cost.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/summary.json",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 0.710731,
+      "rpe_trans_pct": 1.263171,
+      "rpe_rot_deg_per_m": 0.024128,
+      "fps": 44.094074,
+      "time_ms": 26647.571902,
+      "frames": 1175,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 68.58,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_icp_only_half_threads",
+      "label": "Fast local-map + ICP-only",
+      "design_style": "single-term simplification",
+      "intent": "Disable covariance-shape term.",
+      "args": [
+        "--litamin2-icp-only"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 0.710731,
+      "rpe_trans_pct": 1.263171,
+      "rpe_rot_deg_per_m": 0.024128,
+      "fps": 118.632095,
+      "time_ms": 9904.570911,
+      "frames": 1175,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "paper_cov_half_threads",
+      "label": "Paper-like 3m + covariance",
+      "design_style": "paper-oriented",
+      "intent": "Paper-like 3m local map.",
+      "args": [
+        "--litamin2-paper-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 1.151319,
+      "rpe_trans_pct": 2.050394,
+      "rpe_rot_deg_per_m": 0.036758,
+      "fps": 112.450047,
+      "time_ms": 10449.084161,
+      "frames": 1175,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 78.26,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "paper_icp_only_half_threads",
+      "label": "Paper-like 3m + ICP-only",
+      "design_style": "paper-oriented simplification",
+      "intent": "Paper profile without covariance cost.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/run.log",
+      "status": "OK",
+      "ate_m": 1.151319,
+      "rpe_trans_pct": 2.050394,
+      "rpe_rot_deg_per_m": 0.036758,
+      "fps": 70.111882,
+      "time_ms": 16758.928158,
+      "frames": 1175,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.",
+      "benchmark_score": 60.42,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

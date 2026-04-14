@@ -36,9 +36,10 @@ python3 evaluation/scripts/extract_ros1_lidar_imu.py \
 
 この synthetic time で **non-CT 系はほぼ再現**できますが、`ct_lio` / `ct_icp` の stored reference aggregate までは一致しません。stored CT reference を正確に再現したい場合は、元の `hdl_400_ros2` 抽出窓のような **native per-point `time` 付き点群**が必要です。
 
-## KITTI Raw（フル PCD + IMU）
+## KITTI Raw / Odometry
 
-- `evaluation/scripts/setup_kitti_benchmark.sh` … **Odometry** velodyne（Raw の OXTS なし）
+- `evaluation/scripts/prepare_kitti_odometry_inputs.py` … **Odometry** velodyne + poses から `kitti_seq_<seq>_<window>` と `kitti_seq_<seq>_full` を生成
+- `evaluation/scripts/setup_kitti_benchmark.sh` … 上の薄い wrapper。既定では `00/07` の `108-frame` 窓を作り、`--include-full` もそのまま渡せる
 - `evaluation/scripts/VERIFY_KITTI_IMU_DLIO.md` … **Raw *sync*** から GT + PCD + `imu.csv` を作る例（**KITTI 以外でも**同じ `imu.csv` 契約なら `PCD_DIR` / `GT_CSV` を差し替えて `smoke_dlio_imu_when_ready.sh` 可）
 
 ## 手元ですぐ試せる最小データ

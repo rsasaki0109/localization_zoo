@@ -41,6 +41,14 @@ jobs:
           chmod +x evaluation/scripts/smoke_ci_fixture.sh
           bash evaluation/scripts/smoke_ci_fixture.sh
 
+      - name: Multimodal smoke (committed 3-frame MCD fixture + visual CSVs)
+        run: |
+          chmod +x evaluation/scripts/smoke_multimodal_fixture.sh
+          bash evaluation/scripts/smoke_multimodal_fixture.sh
+
+      - name: Python script regressions
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+
   ros2-colcon-build:
     runs-on: ubuntu-22.04
     container:

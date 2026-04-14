@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "vins_fusion_profile_tradeoff_kitti_raw_0061_full",
+    "title": "VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+    "question": "Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?",
+    "variant_timeout_seconds": 300,
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv",
+      "extra_args": [
+        "--landmarks-csv",
+        "dogfooding_results/kitti_raw_0061_full/landmarks.csv",
+        "--visual-observations-csv",
+        "dogfooding_results/kitti_raw_0061_full/visual_observations.csv",
+        "--camera-fx",
+        "721.5377",
+        "--camera-fy",
+        "721.5377",
+        "--camera-cx",
+        "609.5593",
+        "--camera-cy",
+        "172.8540",
+        "--camera-width",
+        "1241",
+        "--camera-height",
+        "376"
+      ]
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/multimodal_dogfooding",
+    "methods": "vins_fusion",
+    "primary_method": "VINS-Fusion"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Keep the current VINS-Fusion defaults as the multimodal baseline.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce visual observation pressure and backend work for higher FPS.",
+      "args": [
+        "--vins-fusion-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Keep more visual constraints active to protect drift at lower speed.",
+      "args": [
+        "--vins-fusion-dense-profile"
+      ]
+    }
+  ]
+}

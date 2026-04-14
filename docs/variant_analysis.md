@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-04-13T12:42:03+00:00
+> Generated: 2026-04-15T13:56:41+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -17,7 +17,7 @@ Scan-to-map methods (LiTAMIN2, GICP, NDT) can use GT poses as per-frame initiali
 | balm2 | No GT seed 200f | fast | 2.366 | 12.6 |
 | balm2 | GT-seeded full | fast | 2.366 | 13.7 |
 | ct_icp | No GT seed 200f | balanced_window | 1.659 | 44.5 |
-| ct_icp | GT-seeded full | balanced_window | 1.659 | 34.4 |
+| ct_icp | GT-seeded full | fast_window | 2.728 | 49.3 |
 | dlio | No GT seed 200f | fast | 2.362 | 7.0 |
 | dlio | GT-seeded full | fast | 2.362 | 5.3 |
 | dlo | No GT seed 200f | fast | 2.362 | 7.1 |
@@ -26,6 +26,7 @@ Scan-to-map methods (LiTAMIN2, GICP, NDT) can use GT poses as per-frame initiali
 | fast_lio2 | GT-seeded full | fast | 2.328 | 12.3 |
 | fast_lio_slam | No GT seed 200f | fast | 2.382 | 11.3 |
 | fast_lio_slam | GT-seeded full | fast | 2.382 | 8.8 |
+| fast_livo2 | GT-seeded full | fast | 31.368 | 8.3 |
 | floam | No GT seed 200f | fast | 3.486 | 28.0 |
 | floam | GT-seeded full | fast | 3.486 | 24.6 |
 | gicp | No GT seed 200f | dense_recent_map | 1.510 | 10.9 |
@@ -43,13 +44,14 @@ Scan-to-map methods (LiTAMIN2, GICP, NDT) can use GT poses as per-frame initiali
 | lio_sam | No GT seed 200f | fast | 2.649 | 23.1 |
 | lio_sam | GT-seeded full | fast | 2.649 | 24.9 |
 | litamin2 | No GT seed 200f | paper_cov_half_threads | 122.275 | 87.3 |
-| litamin2 | GT-seeded full | paper_icp_only_half_threads | 1.397 | 43.7 |
+| litamin2 | GT-seeded full | fast_cov_half_threads | 1.053 | 34.2 |
 | loam_livox | No GT seed 200f | fast | 98.811 | 40.2 |
 | loam_livox | GT-seeded full | fast | 98.811 | 43.8 |
 | mulls | No GT seed 200f | fast | 2.651 | 3.4 |
 | mulls | GT-seeded full | fast | 2.651 | 3.1 |
 | ndt | No GT seed 200f | fast_coarse_map | 122.547 | 25.0 |
 | ndt | GT-seeded full | fast_coarse_map | 0.374 | 36.1 |
+| okvis | GT-seeded full | fast | 31.400 | 524.0 |
 | point_lio | No GT seed 200f | fast | 119.890 | 95.6 |
 | point_lio | GT-seeded full | fast | 119.890 | 117.4 |
 | small_gicp | No GT seed 200f | balanced_local_map | 1.624 | 49.6 |
@@ -58,6 +60,7 @@ Scan-to-map methods (LiTAMIN2, GICP, NDT) can use GT poses as per-frame initiali
 | suma | GT-seeded full | default | 3.291 | 39.7 |
 | vgicp_slam | No GT seed 200f | fast | 2.085 | 19.1 |
 | vgicp_slam | GT-seeded full | fast | 2.085 | 23.7 |
+| vins_fusion | GT-seeded full | fast | 85.802 | 83.5 |
 | voxel_gicp | No GT seed 200f | dense_recent_map | 52.522 | 82.1 |
 | voxel_gicp | GT-seeded full | dense_recent_map | 0.670 | 93.9 |
 | xicp | No GT seed 200f | fast | 121.338 | 81.2 |
@@ -111,21 +114,23 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
-| HDL-400 | dense_window | 1.254 | 16.6 |
+| HDL-400 | dense_window | 1.254 | 18.7 |
 | HDL-400 | fast_window | 1.211 | 2.4 |
-| HDL-400 | fast_window | 2.582 | 72.9 |
+| HDL-400 | fast_window | 2.582 | 54.9 |
 | Istanbul | balanced_window | 6.820 | 1.6 |
 | Istanbul | balanced_window | 7.539 | 1.3 |
 | Istanbul | fast_window | 79.761 | 2.7 |
-| KITTI-kitti_raw_0009_200 | balanced_window | 1.659 | 34.4 |
+| KITTI-kitti_raw_0009_200 | fast_window | 2.728 | 49.3 |
 | KITTI-kitti_raw_0009_full | balanced_window | 4.673 | 40.6 |
 | KITTI-kitti_raw_0061_200 | fast_window | 1.475 | 56.9 |
 | KITTI-kitti_raw_0061_full | fast_window | 6.972 | 37.6 |
-| MCD-KTH | fast_window | 6.525 | 59.8 |
-| MCD-NTU | dense_window | 0.325 | 22.0 |
-| MCD-TUHH | fast_window | 3.553 | 71.6 |
+| MCD-KTH | fast_window | 6.525 | 57.2 |
+| MCD-NTU | dense_window | 0.325 | 18.6 |
+| MCD-TUHH | fast_window | 3.553 | 51.4 |
+| dogfooding_results/mulran_parkinglot_120 | fast_window | 16.474 | 74.7 |
+| dogfooding_results/mulran_parkinglot_full | fast_window | 80.958 | 59.7 |
 
-**Stability**: 3 unique default(s) across 13 windows.
+**Stability**: 3 unique default(s) across 15 windows.
 
 ### CT-LIO
 
@@ -196,6 +201,17 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 **Stability**: 1 unique default(s) across 8 windows.
 
+### FAST-LIVO2
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| KITTI-kitti_raw_0009_200 | fast | 31.368 | 8.3 |
+| KITTI-kitti_raw_0009_full | fast | 49.629 | 7.5 |
+| KITTI-kitti_raw_0061_200 | fast | 27.581 | 7.2 |
+| KITTI-kitti_raw_0061_full | fast | 96.345 | 14.0 |
+
+**Stability**: 1 unique default(s) across 4 windows.
+
 ### FLOAM
 
 | Dataset | Default Variant | ATE [m] | FPS |
@@ -227,8 +243,10 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-KTH | fast_recent_map | 0.630 | 24.7 |
 | MCD-NTU | dense_recent_map | 0.017 | 13.0 |
 | MCD-TUHH | fast_recent_map | 0.317 | 31.2 |
+| dogfooding_results/mulran_parkinglot_120 | fast_recent_map | 0.644 | 27.7 |
+| dogfooding_results/mulran_parkinglot_full | fast_recent_map | 1.149 | 30.3 |
 
-**Stability**: 2 unique default(s) across 12 windows.
+**Stability**: 2 unique default(s) across 14 windows.
 
 ### HDL-GRAPH-SLAM
 
@@ -275,8 +293,10 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-KTH | fast_recent_map | 5.568 | 11.3 |
 | MCD-NTU | fast_recent_map | 0.026 | 66.7 |
 | MCD-TUHH | fast_recent_map | 1.303 | 24.1 |
+| dogfooding_results/mulran_parkinglot_120 | fast_recent_map | 15.641 | 27.3 |
+| dogfooding_results/mulran_parkinglot_full | fast_recent_map | 74.337 | 26.9 |
 
-**Stability**: 2 unique default(s) across 12 windows.
+**Stability**: 2 unique default(s) across 14 windows.
 
 ### LEGO-LOAM
 
@@ -328,19 +348,21 @@ Does the same variant win across all datasets? Instability here is the core evid
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
 | HDL-400 | fast_icp_only_half_threads | 0.168 | 5.2 |
-| HDL-400 | paper_cov_half_threads | 0.129 | 94.2 |
+| HDL-400 | fast_cov_half_threads | 0.111 | 80.7 |
 | Istanbul | fast_icp_only_half_threads | 1.222 | 20.9 |
 | Istanbul | paper_icp_only_half_threads | 0.741 | 17.2 |
 | Istanbul | fast_icp_only_half_threads | 1.213 | 23.5 |
-| KITTI-kitti_raw_0009_200 | paper_icp_only_half_threads | 1.397 | 43.7 |
+| KITTI-kitti_raw_0009_200 | fast_cov_half_threads | 1.053 | 34.2 |
 | KITTI-kitti_raw_0009_full | fast_icp_only_half_threads | 1.145 | 48.8 |
 | KITTI-kitti_raw_0061_200 | fast_cov_half_threads | 0.511 | 67.7 |
 | KITTI-kitti_raw_0061_full | fast_icp_only_half_threads | 0.944 | 58.1 |
-| MCD-KTH | fast_cov_half_threads | 0.401 | 64.2 |
-| MCD-NTU | paper_icp_only_half_threads | 0.045 | 105.6 |
-| MCD-TUHH | fast_cov_half_threads | 0.194 | 106.5 |
+| MCD-KTH | fast_icp_only_half_threads | 0.401 | 91.6 |
+| MCD-NTU | paper_icp_only_half_threads | 0.045 | 81.2 |
+| MCD-TUHH | fast_icp_only_half_threads | 0.194 | 107.2 |
+| dogfooding_results/mulran_parkinglot_120 | fast_cov_half_threads | 0.498 | 90.2 |
+| dogfooding_results/mulran_parkinglot_full | fast_icp_only_half_threads | 0.711 | 118.6 |
 
-**Stability**: 4 unique default(s) across 12 windows.
+**Stability**: 3 unique default(s) across 14 windows.
 
 ### LOAM-LIVOX
 
@@ -390,6 +412,17 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-TUHH | fast_coarse_map | 0.070 | 40.8 |
 
 **Stability**: 2 unique default(s) across 12 windows.
+
+### OKVIS
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| KITTI-kitti_raw_0009_200 | fast | 31.400 | 524.0 |
+| KITTI-kitti_raw_0009_full | fast | 108.629 | 1146.6 |
+| KITTI-kitti_raw_0061_200 | fast | 29.001 | 894.7 |
+| KITTI-kitti_raw_0061_full | fast | 225.666 | 1717.1 |
+
+**Stability**: 1 unique default(s) across 4 windows.
 
 ### POINT-LIO
 
@@ -450,6 +483,17 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-TUHH | fast | 1.322 | 21.8 |
 
 **Stability**: 1 unique default(s) across 8 windows.
+
+### VINS-FUSION
+
+| Dataset | Default Variant | ATE [m] | FPS |
+|---|---|---:|---:|
+| KITTI-kitti_raw_0009_200 | fast | 85.802 | 83.5 |
+| KITTI-kitti_raw_0009_full | fast | 136.572 | 93.7 |
+| KITTI-kitti_raw_0061_200 | fast | 61.904 | 255.5 |
+| KITTI-kitti_raw_0061_full | fast | 257.641 | 236.7 |
+
+**Stability**: 1 unique default(s) across 4 windows.
 
 ### VOXEL-GICP
 
@@ -513,9 +557,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| balanced_window | 10.377 | 23.9 | 13 |
-| dense_window | 11.098 | 12.5 | 13 |
-| fast_window | 14.873 | 42.3 | 13 |
+| balanced_window | 15.182 | 24.5 | 15 |
+| dense_window | 15.648 | 13.0 | 15 |
+| fast_window | 19.385 | 41.6 | 15 |
 
 ### CT-LIO
 
@@ -557,6 +601,14 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | dense | 2.796 | 2.6 | 8 |
 | fast | 2.605 | 11.4 | 8 |
 
+### FAST-LIVO2
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| default | 51.390 | 2.9 | 4 |
+| dense | 51.260 | 2.4 | 4 |
+| fast | 51.231 | 9.2 | 4 |
+
 ### FLOAM
 
 | Variant | Avg ATE [m] | Avg FPS | N |
@@ -569,9 +621,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| balanced_local_map | 0.855 | 10.9 | 12 |
-| dense_recent_map | 0.830 | 6.3 | 12 |
-| fast_recent_map | 0.776 | 18.6 | 12 |
+| balanced_local_map | 0.866 | 11.5 | 14 |
+| dense_recent_map | 0.838 | 6.8 | 14 |
+| fast_recent_map | 0.793 | 20.1 | 14 |
 
 ### HDL-GRAPH-SLAM
 
@@ -593,9 +645,10 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| balanced_local_map | 40.209 | 9.8 | 12 |
+| balanced_local_map | 40.887 | 10.0 | 14 |
 | dense_local_map | 40.251 | 6.8 | 12 |
-| fast_recent_map | 40.063 | 17.6 | 12 |
+| dense_recent_map | 44.631 | 6.8 | 2 |
+| fast_recent_map | 40.766 | 18.9 | 14 |
 
 ### LEGO-LOAM
 
@@ -625,10 +678,10 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| fast_cov_half_threads | 0.664 | 48.4 | 12 |
-| fast_icp_only_half_threads | 0.664 | 49.3 | 12 |
-| paper_cov_half_threads | 0.860 | 47.6 | 12 |
-| paper_icp_only_half_threads | 0.860 | 49.9 | 12 |
+| fast_cov_half_threads | 0.655 | 51.1 | 14 |
+| fast_icp_only_half_threads | 0.655 | 57.7 | 14 |
+| paper_cov_half_threads | 0.871 | 58.7 | 14 |
+| paper_icp_only_half_threads | 0.871 | 52.0 | 14 |
 
 ### LOAM-LIVOX
 
@@ -653,6 +706,14 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | balanced_local_map | 0.142 | 15.9 | 12 |
 | dense_local_map | 0.159 | 9.5 | 12 |
 | fast_coarse_map | 0.146 | 24.0 | 12 |
+
+### OKVIS
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| default | 96.788 | 476.9 | 4 |
+| dense | 92.416 | 215.8 | 4 |
+| fast | 98.674 | 1070.6 | 4 |
 
 ### POINT-LIO
 
@@ -685,6 +746,14 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 | default | 2.506 | 7.2 | 8 |
 | dense | 2.667 | 11.1 | 8 |
 | fast | 2.544 | 24.9 | 8 |
+
+### VINS-FUSION
+
+| Variant | Avg ATE [m] | Avg FPS | N |
+|---|---:|---:|---:|
+| default | 76.709 | 11.2 | 4 |
+| dense | 51.770 | 8.3 | 4 |
+| fast | 135.480 | 167.4 | 4 |
 
 ### VOXEL-GICP
 

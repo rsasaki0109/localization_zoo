@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-15T13:56:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -25,19 +25,21 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | BALM2 on MCD NTU day-02 sequence | `ready` | `fast` | 0.062 | 12.7 | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `fast` | 1.270 | 14.6 | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
 | CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense` | 1.473 | 100.3 | `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json` |
-| CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 68.5 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
+| CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 65.9 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_window` | 0.556 | 2.4 | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
-| CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 72.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
+| CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 54.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `balanced_window` | 6.820 | 3.1 | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `balanced_window` | 7.539 | 2.8 | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `balanced_window` | 4.673 | 44.9 | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `balanced_window` | 1.659 | 54.8 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_window` | 1.659 | 49.3 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_window` | 1.659 | 71.4 | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_window` | 6.972 | 37.6 | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_window` | 1.475 | 56.9 | `experiments/results/ct_icp_kitti_raw_0061_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_window` | 6.115 | 59.8 | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_window` | 0.325 | 71.7 | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_window` | 1.652 | 71.6 | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_window` | 6.115 | 57.2 | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_window` | 0.325 | 60.0 | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_window` | 1.652 | 51.4 | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
+| CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_window` | 15.873 | 74.7 | `experiments/results/ct_icp_mulran_parkinglot_120_matrix.json` |
+| CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_window` | 74.578 | 59.7 | `experiments/results/ct_icp_mulran_parkinglot_full_matrix.json` |
 | CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_window` | 75.075 | 2.7 | `experiments/results/ct_icp_profile_matrix.json` |
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `experiments/results/ct_lio_public_readiness_matrix.json` |
@@ -78,6 +80,10 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | FAST-LIO-SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 6.075 | 9.4 | `experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json` |
 | FAST-LIO-SLAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.025 | 20.4 | `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json` |
 | FAST-LIO-SLAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.330 | 12.8 | `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json` |
+| FAST-LIVO2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 49.209 | 7.5 | `experiments/results/fast_livo2_kitti_raw_0009_full_matrix.json` |
+| FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.298 | 8.3 | `experiments/results/fast_livo2_kitti_raw_0009_matrix.json` |
+| FAST-LIVO2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 96.345 | 14.0 | `experiments/results/fast_livo2_kitti_raw_0061_full_matrix.json` |
+| FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.581 | 7.2 | `experiments/results/fast_livo2_kitti_raw_0061_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.193 | 64.2 | `experiments/results/floam_hdl_400_reference_matrix.json` |
 | F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.452 | 28.6 | `experiments/results/floam_kitti_raw_0009_full_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.883 | 24.6 | `experiments/results/floam_kitti_raw_0009_matrix.json` |
@@ -99,6 +105,8 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 0.630 | 24.7 | `experiments/results/gicp_mcd_kth_day_06_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.017 | 28.7 | `experiments/results/gicp_mcd_ntu_day_02_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.317 | 31.2 | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
+| GICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 0.644 | 27.7 | `experiments/results/gicp_mulran_parkinglot_120_matrix.json` |
+| GICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 0.944 | 30.3 | `experiments/results/gicp_mulran_parkinglot_full_matrix.json` |
 | GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 0.994 | 6.3 | `experiments/results/gicp_profile_matrix.json` |
 | HDL-Graph-SLAM on the public HDL-400 reference window | `ready` | `fast` | 13.820 | 6.7 | `experiments/results/hdl_graph_slam_hdl_400_reference_matrix.json` |
 | HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 185.826 | 0.2 | `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json` |
@@ -130,6 +138,8 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 5.568 | 11.3 | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast_recent_map` | 0.017 | 66.7 | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 1.104 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
+| KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json` |
+| KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 73.621 | 26.9 | `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `experiments/results/kiss_icp_profile_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.147 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
@@ -159,17 +169,19 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | LIO-SAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.045 | 31.7 | `experiments/results/lio_sam_mcd_ntu_day_02_matrix.json` |
 | LIO-SAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.314 | 30.0 | `experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_icp_only_half_threads` | 0.168 | 6.1 | `experiments/results/litamin2_hdl_400_reference_b_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `paper_cov_half_threads` | 0.111 | 94.2 | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_cov_half_threads` | 0.111 | 80.7 | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.222 | 20.9 | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `paper_icp_only_half_threads` | 0.741 | 21.2 | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_icp_only_half_threads` | 1.145 | 48.8 | `experiments/results/litamin2_kitti_raw_0009_full_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `paper_icp_only_half_threads` | 1.053 | 43.7 | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_cov_half_threads` | 1.053 | 34.2 | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `paper_cov_half_threads` | 122.275 | 87.3 | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_icp_only_half_threads` | 0.944 | 58.1 | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_cov_half_threads` | 0.511 | 68.6 | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_cov_half_threads` | 0.401 | 64.2 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 105.6 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_cov_half_threads` | 0.194 | 106.5 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_icp_only_half_threads` | 0.401 | 113.0 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_cov_half_threads` | 0.498 | 121.0 | `experiments/results/litamin2_mulran_parkinglot_120_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_icp_only_half_threads` | 0.711 | 118.6 | `experiments/results/litamin2_mulran_parkinglot_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.213 | 23.5 | `experiments/results/litamin2_profile_matrix.json` |
 | LOAM-Livox on the public HDL-400 reference window | `ready` | `default` | 0.079 | 52.0 | `experiments/results/loam_livox_hdl_400_reference_matrix.json` |
 | LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 124.828 | 33.1 | `experiments/results/loam_livox_kitti_raw_0009_full_matrix.json` |
@@ -180,6 +192,10 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | LOAM Livox on MCD KTH day-06 sequence | `ready` | `fast` | 4.095 | 66.3 | `experiments/results/loam_livox_mcd_kth_day_06_matrix.json` |
 | LOAM Livox on MCD NTU day-02 sequence | `ready` | `fast` | 0.057 | 69.0 | `experiments/results/loam_livox_mcd_ntu_day_02_matrix.json` |
 | LOAM Livox on MCD TUHH night-09 sequence | `ready` | `fast` | 1.192 | 68.8 | `experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json` |
+| LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0009_full_matrix.json` |
+| LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0009_matrix.json` |
+| LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json` |
+| LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.874 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.651 | 3.1 | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
@@ -202,6 +218,14 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `balanced_local_map` | 0.013 | 44.9 | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_coarse_map` | 0.063 | 40.8 | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
 | NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_coarse_map` | 0.070 | 2.0 | `experiments/results/ndt_profile_matrix.json` |
+| OKVIS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 108.629 | 1146.6 | `experiments/results/okvis_kitti_raw_0009_full_matrix.json` |
+| OKVIS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.400 | 524.0 | `experiments/results/okvis_kitti_raw_0009_matrix.json` |
+| OKVIS trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 201.724 | 1717.1 | `experiments/results/okvis_kitti_raw_0061_full_matrix.json` |
+| OKVIS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.889 | 894.7 | `experiments/results/okvis_kitti_raw_0061_matrix.json` |
+| ORB-SLAM3 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0009_full_matrix.json` |
+| ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0009_matrix.json` |
+| ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0061_full_matrix.json` |
+| ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0061_matrix.json` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `fast` | 17.929 | 69.9 | `experiments/results/point_lio_hdl_400_reference_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.384 | 113.1 | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.890 | 117.4 | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |
@@ -211,6 +235,10 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | Point-LIO on MCD KTH day-06 sequence | `ready` | `fast` | 7.113 | 112.7 | `experiments/results/point_lio_mcd_kth_day_06_matrix.json` |
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `fast` | 0.083 | 77.3 | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `fast` | 1.116 | 88.7 | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
+| R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0009_full_matrix.json` |
+| R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0009_matrix.json` |
+| R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0061_full_matrix.json` |
+| R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0061_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.109 | 110.3 | `experiments/results/small_gicp_hdl_400_reference_matrix.json` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.437 | 92.4 | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 0.471 | 83.3 | `experiments/results/small_gicp_kitti_raw_0009_matrix.json` |
@@ -238,6 +266,10 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | VGICP SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 6.092 | 20.8 | `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json` |
 | VGICP SLAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.016 | 40.3 | `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json` |
 | VGICP SLAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.319 | 21.8 | `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json` |
+| VINS-Fusion trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 50.238 | 93.7 | `experiments/results/vins_fusion_kitti_raw_0009_full_matrix.json` |
+| VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.407 | 83.5 | `experiments/results/vins_fusion_kitti_raw_0009_matrix.json` |
+| VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 97.611 | 236.7 | `experiments/results/vins_fusion_kitti_raw_0061_full_matrix.json` |
+| VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.811 | 255.5 | `experiments/results/vins_fusion_kitti_raw_0061_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `dense_recent_map` | 0.268 | 141.1 | `experiments/results/voxel_gicp_hdl_400_reference_matrix.json` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense_recent_map` | 0.640 | 110.1 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense_recent_map` | 0.670 | 93.9 | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
@@ -1411,14 +1443,14 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.604 | 40.3 | 78.2 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 2.465 | 68.5 | 50.9 | 4.65 | 4.75 | Keep as reference variant |
-| Dense window | accuracy-oriented | 1.254 | 16.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Balanced window | balanced | 1.604 | 29.8 | 78.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 2.465 | 65.9 | 50.9 | 4.65 | 4.75 | Keep as reference variant |
+| Dense window | accuracy-oriented | 1.254 | 18.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `dense_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 68.5 FPS.
+2. `fast_window` is the fastest observed variant at 65.9 FPS.
 3. `dense_window` is the most accurate observed variant at 1.254 m ATE.
 
 ### Variant Notes
@@ -1531,14 +1563,14 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.668 | 22.6 | 53.0 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 2.582 | 72.9 | 74.2 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 1.251 | 19.5 | 63.4 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 1.668 | 38.7 | 72.7 | 5.00 | 5.00 | Keep as active challenger |
+| Fast window | throughput-oriented | 2.582 | 54.9 | 74.2 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 1.251 | 18.7 | 67.0 | 4.65 | 4.75 | Keep as active challenger |
 
 ### Observations
 
 1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 72.9 FPS.
+2. `fast_window` is the fastest observed variant at 54.9 FPS.
 3. `dense_window` is the most accurate observed variant at 1.251 m ATE.
 
 ### Variant Notes
@@ -1771,14 +1803,14 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.659 | 34.4 | 81.4 | 5.00 | 5.00 | Adopt as current default |
-| Fast window | throughput-oriented | 2.728 | 54.8 | 80.4 | 4.65 | 4.75 | Keep as active challenger |
-| Dense window | drift-oriented | 2.653 | 17.6 | 47.3 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 1.659 | 29.6 | 80.1 | 5.00 | 5.00 | Keep as active challenger |
+| Fast window | throughput-oriented | 2.728 | 49.3 | 80.4 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 2.653 | 18.3 | 49.9 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `balanced_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 54.8 FPS.
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 49.3 FPS.
 3. `balanced_window` is the most accurate observed variant at 1.659 m ATE.
 
 ### Variant Notes
@@ -2011,14 +2043,14 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 6.295 | 34.6 | 77.5 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 6.525 | 59.8 | 96.9 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 6.115 | 15.3 | 62.8 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 6.295 | 34.5 | 78.7 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 6.525 | 57.2 | 96.9 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 6.115 | 17.3 | 65.1 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 59.8 FPS.
+2. `fast_window` is the fastest observed variant at 57.2 FPS.
 3. `dense_window` is the most accurate observed variant at 6.115 m ATE.
 
 ### Variant Notes
@@ -2071,14 +2103,14 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 0.926 | 39.2 | 44.9 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 2.498 | 71.7 | 56.5 | 4.65 | 4.75 | Keep as reference variant |
-| Dense window | drift-oriented | 0.325 | 22.0 | 65.3 | 4.65 | 4.75 | Adopt as current default |
+| Balanced window | balanced | 0.926 | 29.1 | 41.8 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 2.498 | 60.0 | 56.5 | 4.65 | 4.75 | Keep as reference variant |
+| Dense window | drift-oriented | 0.325 | 18.6 | 65.5 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `dense_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 71.7 FPS.
+2. `fast_window` is the fastest observed variant at 60.0 FPS.
 3. `dense_window` is the most accurate observed variant at 0.325 m ATE.
 
 ### Variant Notes
@@ -2131,14 +2163,14 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 2.387 | 39.2 | 62.0 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 3.553 | 71.6 | 73.3 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 1.652 | 19.4 | 63.5 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 2.387 | 27.6 | 61.5 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 3.553 | 51.4 | 73.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 1.652 | 14.0 | 63.6 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 71.6 FPS.
+2. `fast_window` is the fastest observed variant at 51.4 FPS.
 3. `dense_window` is the most accurate observed variant at 1.652 m ATE.
 
 ### Variant Notes
@@ -2172,6 +2204,126 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_matrix/dense_window/summary.json --ct-icp-dense-profile`
 - Summary: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_matrix/dense_window/summary.json`
 - Log: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+
+## CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window)
+
+- **Problem ID**: `ct_icp_profile_tradeoff_mulran_parkinglot_120`
+- **Question**: Which CT-ICP profile should stay as the default on a MulRan Ouster window after data prep?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mulran_parkinglot_120_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 16.280 | 42.3 | 77.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 16.474 | 74.7 | 98.2 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | accuracy-oriented | 15.873 | 20.1 | 63.5 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 74.7 FPS.
+3. `dense_window` is the most accurate observed variant at 15.873 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Continuous-time baseline profile.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_window`
+
+- Intent: Faster CT-ICP profile.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_window`
+
+- Intent: Denser map / point budget.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+
+## CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence)
+
+- **Problem ID**: `ct_icp_profile_tradeoff_mulran_parkinglot_full`
+- **Question**: Which CT-ICP profile should stay as the default on a full MulRan Ouster sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mulran_parkinglot_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 76.545 | 35.4 | 78.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 80.958 | 59.7 | 96.1 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | accuracy-oriented | 74.578 | 17.4 | 64.5 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 59.7 FPS.
+3. `dense_window` is the most accurate observed variant at 74.578 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Continuous-time baseline profile.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_window`
+
+- Intent: Faster CT-ICP profile.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_window`
+
+- Intent: Denser map / point budget.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
@@ -4539,6 +4691,246 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
 
 
+## FAST-LIVO2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `fast_livo2_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `fast_livo2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_livo2_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 49.423 | 2.2 | 64.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 49.629 | 7.5 | 99.6 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 49.209 | 2.3 | 65.2 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 7.5 FPS.
+3. `dense` is the most accurate observed variant at 49.209 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current FAST-LIVO2 defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `fast`
+
+- Intent: Trim LiDAR and visual update work to favor throughput.
+- CLI args: `--fast-livo2-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `dense`
+
+- Intent: Keep a denser fused update for accuracy at lower FPS.
+- CLI args: `--fast-livo2-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+
+## FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `fast_livo2_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `fast_livo2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_livo2_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 31.298 | 2.6 | 66.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 31.368 | 8.3 | 99.9 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 31.298 | 2.3 | 64.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 8.3 FPS.
+3. `dense` is the most accurate observed variant at 31.298 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current FAST-LIVO2 defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `fast`
+
+- Intent: Trim LiDAR and visual update work to favor throughput.
+- CLI args: `--fast-livo2-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `dense`
+
+- Intent: Keep a denser fused update for accuracy at lower FPS.
+- CLI args: `--fast-livo2-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+
+## FAST-LIVO2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `fast_livo2_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `fast_livo2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_livo2_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 96.904 | 4.1 | 64.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 96.345 | 14.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 96.759 | 3.0 | 60.5 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 14.0 FPS.
+3. `fast` is the most accurate observed variant at 96.345 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current FAST-LIVO2 defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `fast`
+
+- Intent: Trim LiDAR and visual update work to favor throughput.
+- CLI args: `--fast-livo2-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `dense`
+
+- Intent: Keep a denser fused update for accuracy at lower FPS.
+- CLI args: `--fast-livo2-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+
+## FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `fast_livo2_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `fast_livo2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_livo2_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 27.934 | 2.8 | 69.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 27.581 | 7.2 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 27.774 | 1.8 | 62.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 7.2 FPS.
+3. `fast` is the most accurate observed variant at 27.581 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current FAST-LIVO2 defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `fast`
+
+- Intent: Trim LiDAR and visual update work to favor throughput.
+- CLI args: `--fast-livo2-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/fast/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `dense`
+
+- Intent: Keep a denser fused update for accuracy at lower FPS.
+- CLI args: `--fast-livo2-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/dense/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+
 ## F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
 
 - **Problem ID**: `floam_profile_tradeoff_hdl_400_reference`
@@ -5794,6 +6186,126 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mcd_tuhh_night_09_matrix/dense_recent_map/summary.json --gicp-dense-profile`
 - Summary: `experiments/results/runs/gicp_mcd_tuhh_night_09_matrix/dense_recent_map/summary.json`
 - Log: `experiments/results/runs/gicp_mcd_tuhh_night_09_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## GICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)
+
+- **Problem ID**: `gicp_profile_tradeoff_mulran_parkinglot_120`
+- **Question**: Which GICP profile should stay as the default on a MulRan Ouster window after data prep?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `gicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/gicp_mulran_parkinglot_120_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 0.800 | 15.6 | 68.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 0.644 | 27.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 0.819 | 8.9 | 55.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 27.7 FPS.
+3. `fast_recent_map` is the most accurate observed variant at 0.644 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default trade-off.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_recent_map`
+
+- Intent: Faster profile.
+- CLI args: `--gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json --gicp-fast-profile`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_recent_map`
+
+- Intent: Denser map profile.
+- CLI args: `--gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json --gicp-dense-profile`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## GICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence)
+
+- **Problem ID**: `gicp_profile_tradeoff_mulran_parkinglot_full`
+- **Question**: Which GICP profile should stay as the default on a full MulRan Ouster sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `gicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/gicp_mulran_parkinglot_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 1.060 | 13.8 | 67.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 1.149 | 30.3 | 91.1 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 0.944 | 9.9 | 66.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 30.3 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 0.944 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default trade-off.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_recent_map`
+
+- Intent: Faster profile.
+- CLI args: `--gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json --gicp-fast-profile`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_recent_map`
+
+- Intent: Denser map profile.
+- CLI args: `--gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json --gicp-dense-profile`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
@@ -7571,6 +8083,126 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)
+
+- **Problem ID**: `kiss_icp_profile_tradeoff_mulran_parkinglot_120`
+- **Question**: Which KISS-ICP configuration should stay as the default on a MulRan Ouster window after data prep?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 15.654 | 12.7 | 73.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 15.641 | 27.3 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 15.641 | 9.2 | 66.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 27.3 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 15.641 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default trade-off.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_recent_map`
+
+- Intent: Faster profile.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_recent_map`
+
+- Intent: Denser map profile.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+
+## KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence)
+
+- **Problem ID**: `kiss_icp_profile_tradeoff_mulran_parkinglot_full`
+- **Question**: Which KISS-ICP configuration should stay as the default on a full MulRan Ouster sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 74.259 | 10.1 | 68.4 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 74.337 | 26.9 | 99.5 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 73.621 | 4.4 | 58.2 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 26.9 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 73.621 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default trade-off.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_recent_map`
+
+- Intent: Faster profile.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_recent_map`
+
+- Intent: Denser map profile.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+
 ## KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence
 
 - **Problem ID**: `kiss_icp_profile_tradeoff`
@@ -9337,15 +9969,15 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 0.111 | 61.6 | 82.7 | 5.00 | 5.00 | Keep as reference variant |
-| Fast local-map + ICP-only | single-term simplification | 0.111 | 58.6 | 81.1 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + covariance | paper-oriented | 0.129 | 94.2 | 93.1 | 4.65 | 4.75 | Adopt as current default |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 0.129 | 89.9 | 90.8 | 4.30 | 4.50 | Keep as active challenger |
+| Fast local-map + covariance | throughput-oriented | 0.111 | 80.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Fast local-map + ICP-only | single-term simplification | 0.111 | 71.3 | 94.2 | 4.65 | 4.75 | Keep as active challenger |
+| Paper-like 3m + covariance | paper-oriented | 0.129 | 75.5 | 89.8 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.129 | 79.9 | 92.6 | 4.30 | 4.50 | Keep as active challenger |
 
 ### Observations
 
-1. `paper_cov_half_threads` is the current default for this problem.
-2. `paper_cov_half_threads` is the fastest observed variant at 94.2 FPS.
+1. `fast_cov_half_threads` is the current default for this problem.
+2. `fast_cov_half_threads` is the fastest observed variant at 80.7 FPS.
 3. `fast_cov_half_threads` is the most accurate observed variant at 0.111 m ATE.
 
 ### Variant Notes
@@ -9625,15 +10257,15 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 1.053 | 27.1 | 81.0 | 5.00 | 5.00 | Keep as active challenger |
-| Fast local-map + ICP-only | single-term simplification | 1.053 | 30.0 | 84.3 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + covariance | paper-oriented | 1.397 | 33.8 | 76.4 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 1.397 | 43.7 | 87.7 | 4.30 | 4.50 | Adopt as current default |
+| Fast local-map + covariance | throughput-oriented | 1.053 | 34.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Fast local-map + ICP-only | single-term simplification | 1.053 | 32.6 | 97.7 | 4.65 | 4.75 | Keep as active challenger |
+| Paper-like 3m + covariance | paper-oriented | 1.397 | 30.7 | 82.6 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 1.397 | 31.1 | 83.2 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `paper_icp_only_half_threads` is the current default for this problem.
-2. `paper_icp_only_half_threads` is the fastest observed variant at 43.7 FPS.
+1. `fast_cov_half_threads` is the current default for this problem.
+2. `fast_cov_half_threads` is the fastest observed variant at 34.2 FPS.
 3. `fast_cov_half_threads` is the most accurate observed variant at 1.053 m ATE.
 
 ### Variant Notes
@@ -9913,15 +10545,15 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 0.401 | 64.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
-| Fast local-map + ICP-only | single-term simplification | 0.401 | 53.6 | 91.8 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + covariance | paper-oriented | 0.953 | 45.2 | 56.3 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 0.953 | 54.5 | 63.5 | 4.30 | 4.50 | Keep as reference variant |
+| Fast local-map + covariance | throughput-oriented | 0.401 | 89.4 | 89.6 | 5.00 | 5.00 | Keep as active challenger |
+| Fast local-map + ICP-only | single-term simplification | 0.401 | 91.6 | 90.5 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 0.953 | 113.0 | 71.1 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.953 | 89.1 | 60.5 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_cov_half_threads` is the current default for this problem.
-2. `fast_cov_half_threads` is the fastest observed variant at 64.2 FPS.
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `paper_cov_half_threads` is the fastest observed variant at 113.0 FPS.
 3. `fast_cov_half_threads` is the most accurate observed variant at 0.401 m ATE.
 
 ### Variant Notes
@@ -9985,15 +10617,15 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 0.075 | 99.5 | 77.4 | 5.00 | 5.00 | Keep as reference variant |
-| Fast local-map + ICP-only | single-term simplification | 0.075 | 100.6 | 77.9 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + covariance | paper-oriented | 0.045 | 102.8 | 98.7 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 0.045 | 105.6 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| Fast local-map + covariance | throughput-oriented | 0.075 | 72.9 | 75.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast local-map + ICP-only | single-term simplification | 0.075 | 79.4 | 79.2 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + covariance | paper-oriented | 0.045 | 73.2 | 95.0 | 4.65 | 4.75 | Keep as active challenger |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.045 | 81.2 | 100.0 | 4.30 | 4.50 | Adopt as current default |
 
 ### Observations
 
 1. `paper_icp_only_half_threads` is the current default for this problem.
-2. `paper_icp_only_half_threads` is the fastest observed variant at 105.6 FPS.
+2. `paper_icp_only_half_threads` is the fastest observed variant at 81.2 FPS.
 3. `paper_cov_half_threads` is the most accurate observed variant at 0.045 m ATE.
 
 ### Variant Notes
@@ -10057,15 +10689,15 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 0.194 | 106.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
-| Fast local-map + ICP-only | single-term simplification | 0.194 | 105.8 | 99.7 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + covariance | paper-oriented | 0.291 | 97.9 | 79.2 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 0.291 | 106.4 | 83.2 | 4.30 | 4.50 | Keep as reference variant |
+| Fast local-map + covariance | throughput-oriented | 0.194 | 81.8 | 83.8 | 5.00 | 5.00 | Keep as reference variant |
+| Fast local-map + ICP-only | single-term simplification | 0.194 | 107.2 | 94.2 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 0.291 | 121.2 | 83.3 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.291 | 57.5 | 57.0 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_cov_half_threads` is the current default for this problem.
-2. `fast_cov_half_threads` is the fastest observed variant at 106.5 FPS.
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `paper_cov_half_threads` is the fastest observed variant at 121.2 FPS.
 3. `fast_cov_half_threads` is the most accurate observed variant at 0.194 m ATE.
 
 ### Variant Notes
@@ -10110,6 +10742,150 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_tuhh_night_09_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
 - Summary: `experiments/results/runs/litamin2_mcd_tuhh_night_09_matrix/paper_icp_only_half_threads/summary.json`
 - Log: `experiments/results/runs/litamin2_mcd_tuhh_night_09_matrix/paper_icp_only_half_threads/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)
+
+- **Problem ID**: `litamin2_profile_tradeoff_mulran_parkinglot_120`
+- **Question**: Which LiTAMIN2 profile should stay as the default on a MulRan Ouster window after data prep?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mulran_parkinglot_120_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast local-map + covariance | throughput-oriented | 0.498 | 90.2 | 87.3 | 5.00 | 5.00 | Adopt as current default |
+| Fast local-map + ICP-only | single-term simplification | 0.498 | 64.4 | 76.6 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + covariance | paper-oriented | 0.730 | 97.5 | 74.4 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.730 | 121.0 | 84.1 | 4.30 | 4.50 | Keep as active challenger |
+
+### Observations
+
+1. `fast_cov_half_threads` is the current default for this problem.
+2. `paper_icp_only_half_threads` is the fastest observed variant at 121.0 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 0.498 m ATE.
+
+### Variant Notes
+
+#### `fast_cov_half_threads`
+
+- Intent: Repository default local-map profile with covariance cost.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_cov_half_threads/summary.json`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_cov_half_threads/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_icp_only_half_threads`
+
+- Intent: Disable covariance-shape term.
+- CLI args: `--litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_icp_only_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+#### `paper_cov_half_threads`
+
+- Intent: Paper-like 3m local map.
+- CLI args: `--litamin2-paper-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_cov_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `paper_icp_only_half_threads`
+
+- Intent: Paper profile without covariance cost.
+- CLI args: `--litamin2-paper-profile --litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_icp_only_half_threads/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence)
+
+- **Problem ID**: `litamin2_profile_tradeoff_mulran_parkinglot_full`
+- **Question**: Which LiTAMIN2 profile should stay as the default on a full MulRan Ouster sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mulran_parkinglot_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast local-map + covariance | throughput-oriented | 0.711 | 44.1 | 68.6 | 5.00 | 5.00 | Keep as reference variant |
+| Fast local-map + ICP-only | single-term simplification | 0.711 | 118.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 1.151 | 112.5 | 78.3 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 1.151 | 70.1 | 60.4 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `fast_icp_only_half_threads` is the fastest observed variant at 118.6 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 0.711 m ATE.
+
+### Variant Notes
+
+#### `fast_cov_half_threads`
+
+- Intent: Repository default local-map profile with covariance cost.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/summary.json`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_icp_only_half_threads`
+
+- Intent: Disable covariance-shape term.
+- CLI args: `--litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+#### `paper_cov_half_threads`
+
+- Intent: Paper-like 3m local map.
+- CLI args: `--litamin2-paper-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `paper_icp_only_half_threads`
+
+- Intent: Paper profile without covariance cost.
+- CLI args: `--litamin2-paper-profile --litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
@@ -10726,6 +11502,94 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
 
+
+## LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `lvi_sam_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `lvi_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lvi_sam_kitti_raw_0009_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/run.log` |
+
+## LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `lvi_sam_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `lvi_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lvi_sam_kitti_raw_0009_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/run.log` |
+
+## LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `lvi_sam_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `lvi_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/run.log` |
+
+## LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `lvi_sam_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `lvi_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lvi_sam_kitti_raw_0061_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/run.log` |
 
 ## MULLS throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -12047,6 +12911,334 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## OKVIS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `okvis_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which OKVIS profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `okvis`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/okvis_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 108.630 | 467.0 | 70.4 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 108.629 | 1146.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 108.634 | 227.8 | 59.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 1146.6 FPS.
+3. `fast` is the most accurate observed variant at 108.629 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current OKVIS defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `fast`
+
+- Intent: Trim keyframe retention and optimization work for higher FPS.
+- CLI args: `--okvis-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-fast-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `dense`
+
+- Intent: Spend more optimization work to preserve more visual constraints.
+- CLI args: `--okvis-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-dense-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+
+## OKVIS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `okvis_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which OKVIS profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `okvis`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/okvis_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 31.407 | 215.1 | 70.5 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 31.400 | 524.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 31.418 | 96.8 | 59.2 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 524.0 FPS.
+3. `fast` is the most accurate observed variant at 31.400 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current OKVIS defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `fast`
+
+- Intent: Trim keyframe retention and optimization work for higher FPS.
+- CLI args: `--okvis-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-fast-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_matrix/fast/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `dense`
+
+- Intent: Spend more optimization work to preserve more visual constraints.
+- CLI args: `--okvis-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-dense-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_matrix/dense/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+
+## OKVIS trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `okvis_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which OKVIS profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `okvis`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/okvis_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 218.647 | 692.6 | 66.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 225.666 | 1717.1 | 94.7 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 201.724 | 269.2 | 57.8 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 1717.1 FPS.
+3. `dense` is the most accurate observed variant at 201.724 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current OKVIS defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `fast`
+
+- Intent: Trim keyframe retention and optimization work for higher FPS.
+- CLI args: `--okvis-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-fast-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `dense`
+
+- Intent: Spend more optimization work to preserve more visual constraints.
+- CLI args: `--okvis-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-dense-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+
+## OKVIS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `okvis_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which OKVIS profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `okvis`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/okvis_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 28.469 | 533.0 | 78.8 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 29.001 | 894.7 | 98.1 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 27.889 | 269.2 | 65.0 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 894.7 FPS.
+3. `dense` is the most accurate observed variant at 27.889 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current OKVIS defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `fast`
+
+- Intent: Trim keyframe retention and optimization work for higher FPS.
+- CLI args: `--okvis-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-fast-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_matrix/fast/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `dense`
+
+- Intent: Spend more optimization work to preserve more visual constraints.
+- CLI args: `--okvis-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-dense-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_matrix/dense/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+
+## ORB-SLAM3 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `orb_slam3_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which ORB-SLAM3 profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `orb_slam3`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/orb_slam3_kitti_raw_0009_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/run.log` |
+
+## ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `orb_slam3_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which ORB-SLAM3 profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `orb_slam3`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/orb_slam3_kitti_raw_0009_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/run.log` |
+
+## ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `orb_slam3_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which ORB-SLAM3 profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `orb_slam3`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/orb_slam3_kitti_raw_0061_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/run.log` |
+
+## ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `orb_slam3_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which ORB-SLAM3 profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `orb_slam3`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/orb_slam3_kitti_raw_0061_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/run.log` |
+
 ## Point-LIO on the public HDL-400 reference window
 
 - **Problem ID**: `point_lio_hdl_400_reference`
@@ -12586,6 +13778,94 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
 
+
+## R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which R2LIVE profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `r2live`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/r2live_kitti_raw_0009_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/run.log` |
+
+## R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which R2LIVE profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `r2live`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/r2live_kitti_raw_0009_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/run.log` |
+
+## R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which R2LIVE profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `r2live`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/r2live_kitti_raw_0061_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/run.log` |
+
+## R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which R2LIVE profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `r2live`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/r2live_kitti_raw_0061_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `TIMED_OUT` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/run.log` |
 
 ## Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -14205,6 +15485,246 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## VINS-Fusion trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `vins_fusion_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `vins_fusion`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vins_fusion_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 50.522 | 6.2 | 53.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 136.572 | 93.7 | 68.4 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 50.238 | 4.4 | 52.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 93.7 FPS.
+3. `dense` is the most accurate observed variant at 50.238 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current VINS-Fusion defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `fast`
+
+- Intent: Reduce visual observation pressure and backend work for higher FPS.
+- CLI args: `--vins-fusion-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-fast-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `dense`
+
+- Intent: Keep more visual constraints active to protect drift at lower speed.
+- CLI args: `--vins-fusion-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-dense-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+
+## VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `vins_fusion_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `vins_fusion`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vins_fusion_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 31.407 | 4.8 | 52.9 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 85.802 | 83.5 | 68.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 31.418 | 3.5 | 52.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 83.5 FPS.
+3. `default` is the most accurate observed variant at 31.407 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current VINS-Fusion defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `fast`
+
+- Intent: Reduce visual observation pressure and backend work for higher FPS.
+- CLI args: `--vins-fusion-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-fast-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/fast/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `dense`
+
+- Intent: Keep more visual constraints active to protect drift at lower speed.
+- CLI args: `--vins-fusion-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-dense-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/dense/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+
+## VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `vins_fusion_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `vins_fusion`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vins_fusion_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 197.043 | 16.1 | 28.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 257.641 | 236.7 | 68.9 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 97.611 | 13.5 | 52.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 236.7 FPS.
+3. `dense` is the most accurate observed variant at 97.611 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current VINS-Fusion defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `fast`
+
+- Intent: Reduce visual observation pressure and backend work for higher FPS.
+- CLI args: `--vins-fusion-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-fast-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `dense`
+
+- Intent: Keep more visual constraints active to protect drift at lower speed.
+- CLI args: `--vins-fusion-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-dense-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+
+## VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `vins_fusion_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `vins_fusion`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vins_fusion_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 27.864 | 17.6 | 53.4 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 61.904 | 255.5 | 72.5 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 27.811 | 11.7 | 52.3 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 255.5 FPS.
+3. `dense` is the most accurate observed variant at 27.811 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current VINS-Fusion defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `fast`
+
+- Intent: Reduce visual observation pressure and backend work for higher FPS.
+- CLI args: `--vins-fusion-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-fast-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/fast/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `dense`
+
+- Intent: Keep more visual constraints active to protect drift at lower speed.
+- CLI args: `--vins-fusion-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-dense-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/dense/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
 
 
 ## Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window

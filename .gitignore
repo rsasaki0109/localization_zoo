@@ -8,6 +8,7 @@ compile_commands.json
 *.pyc
 .vscode/
 .idea/
+.claude/
 
 # Cloned reference repos (not part of this project)
 /A-LOAM/
@@ -18,3 +19,6 @@ ros2/build/
 ros2/install/
 dogfooding_results/
 experiments/results/runs/
+
+# Downloaded public datasets (e.g. MulRan ParkingLot under data/)
+/data/

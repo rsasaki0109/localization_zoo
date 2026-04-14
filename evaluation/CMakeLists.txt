@@ -61,3 +61,16 @@ target_link_libraries(pcd_dogfooding PRIVATE
   ${PCL_LIBRARIES}
 )
 target_include_directories(pcd_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})
+
+add_executable(multimodal_dogfooding src/multimodal_dogfooding.cpp)
+target_link_libraries(multimodal_dogfooding PRIVATE
+  vins_fusion
+  okvis
+  orb_slam3
+  lvi_sam
+  fast_livo2
+  r2live
+  imu_preintegration
+  ${PCL_LIBRARIES}
+)
+target_include_directories(multimodal_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "okvis_profile_tradeoff_kitti_raw_0009",
+    "title": "OKVIS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "Which OKVIS profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?",
+    "variant_timeout_seconds": 120,
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv",
+      "extra_args": [
+        "--landmarks-csv",
+        "dogfooding_results/kitti_raw_0009_200/landmarks.csv",
+        "--visual-observations-csv",
+        "dogfooding_results/kitti_raw_0009_200/visual_observations.csv",
+        "--camera-fx",
+        "721.5377",
+        "--camera-fy",
+        "721.5377",
+        "--camera-cx",
+        "609.5593",
+        "--camera-cy",
+        "172.8540",
+        "--camera-width",
+        "1241",
+        "--camera-height",
+        "376"
+      ]
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/multimodal_dogfooding",
+    "methods": "okvis",
+    "primary_method": "OKVIS"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Keep the current OKVIS defaults as the multimodal baseline.",
+      "args": []
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Trim keyframe retention and optimization work for higher FPS.",
+      "args": [
+        "--okvis-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Spend more optimization work to preserve more visual constraints.",
+      "args": [
+        "--okvis-dense-profile"
+      ]
+    }
+  ]
+}

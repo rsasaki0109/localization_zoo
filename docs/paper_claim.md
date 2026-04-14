@@ -17,7 +17,7 @@ Across the **five** method families that currently share the **same twelve bench
 
 ### Sub-Claim 2: The Pareto front is informative and non-trivial
 
-The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/ready_defaults.csv` (one row per **ready** problem instance) spans roughly **0.005 m to 183 m** ATE and **0.4 to 106** FPS on the machine used for the stored aggregates. No single method family dominates the full front; fast scan-to-map variants (e.g., LiTAMIN2 `fast_*`, Small-GICP on KITTI) coexist with high-accuracy NDT configurations on other windows.
+The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/ready_defaults.csv` (one row per **ready** problem instance) spans roughly **0.005 m to 292 m** ATE and **0.17 to 1717** FPS on the machine used for the stored aggregates. No single method family dominates the full front; fast scan-to-map variants (e.g., LiTAMIN2 `fast_*`, Small-GICP on KITTI) coexist with high-throughput multimodal OKVIS configurations and high-accuracy NDT configurations on other windows.
 
 **Evidence:**
 - `docs/assets/paper/ready_defaults_pareto.png`
@@ -25,7 +25,7 @@ The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/read
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The `pcd_dogfooding --summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **166** ready problems, **1** blocked manifest, and **1** skipped manifest across **27** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py`.
+The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **260** ready problems, **1** blocked manifest, and **13** skipped manifests across **33** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -46,7 +46,7 @@ CT-LIO GT-backed evaluation is blocked due to missing repository-aligned GT CSV 
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **166** ready + **1** blocked + **1** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **260** ready + **1** blocked + **13** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |
@@ -55,4 +55,5 @@ CT-LIO GT-backed evaluation is blocked due to missing repository-aligned GT CSV 
 | `docs/assets/paper/default_variant_matrix.csv` | Wide Table 3 — method × dataset slug → default variant |
 | `docs/assets/paper/default_variant_instability.png` | Green/red heatmap vs row plurality (Figure 4) |
 | `docs/assets/paper/manuscript_core_defaults.csv` | One representative default per **overview** method family |
+| `evaluation/scripts/SETUP_MULTIMODAL_BENCHMARK.md` | Camera-aware benchmark contract and KITTI multimodal workflow |
 | `docs/paper_tracks.md` / `docs/paper_comparison.md` | Full tables derived from aggregates |

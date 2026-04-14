@@ -21,17 +21,19 @@ clins,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,dense,Dense,1.4732
 ct_icp,autoware_istanbul_open_108,gt-backed,fast_window,Fast window,79.760529,2.745632,experiments/results/ct_icp_profile_matrix.json
 ct_icp,autoware_istanbul_open_108_b,gt-backed,balanced_window,Balanced window,6.819773,1.582405,experiments/results/ct_icp_istanbul_window_b_matrix.json
 ct_icp,autoware_istanbul_open_108_c,gt-backed,balanced_window,Balanced window,7.539417,1.311901,experiments/results/ct_icp_istanbul_window_c_matrix.json
-ct_icp,hdl_400_open_ct_lio_120,reference-based,fast_window,Fast window,2.582133,72.912540,experiments/results/ct_icp_hdl_400_reference_matrix.json
+ct_icp,hdl_400_open_ct_lio_120,reference-based,fast_window,Fast window,2.582133,54.942143,experiments/results/ct_icp_hdl_400_reference_matrix.json
 ct_icp,hdl_400_open_ct_lio_120_b,reference-based,fast_window,Fast window,1.210946,2.358097,experiments/results/ct_icp_hdl_400_reference_b_matrix.json
-ct_icp,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,dense_window,Dense window,1.254043,16.612127,experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json
-ct_icp,kitti_raw_0009_200,reference-based,balanced_window,Balanced window,1.659312,34.382141,experiments/results/ct_icp_kitti_raw_0009_matrix.json
+ct_icp,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,dense_window,Dense window,1.254043,18.700985,experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json
+ct_icp,kitti_raw_0009_200,reference-based,fast_window,Fast window,2.728022,49.269108,experiments/results/ct_icp_kitti_raw_0009_matrix.json
 ct_icp,kitti_raw_0009_200,reference-based,balanced_window,Balanced window,1.659312,44.509873,experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json
 ct_icp,kitti_raw_0009_full,reference-based,balanced_window,Balanced window,4.673164,40.575491,experiments/results/ct_icp_kitti_raw_0009_full_matrix.json
 ct_icp,kitti_raw_0061_200,reference-based,fast_window,Fast window,1.474966,56.877472,experiments/results/ct_icp_kitti_raw_0061_matrix.json
 ct_icp,kitti_raw_0061_full,reference-based,fast_window,Fast window,6.972412,37.596966,experiments/results/ct_icp_kitti_raw_0061_full_matrix.json
-ct_icp,mcd_kth_day_06_108,reference-based,fast_window,Fast window,6.524810,59.773656,experiments/results/ct_icp_mcd_kth_day_06_matrix.json
-ct_icp,mcd_ntu_day_02_108,reference-based,dense_window,Dense window,0.325263,22.020536,experiments/results/ct_icp_mcd_ntu_day_02_matrix.json
-ct_icp,mcd_tuhh_night_09_108,reference-based,fast_window,Fast window,3.552540,71.574402,experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json
+ct_icp,mcd_kth_day_06_108,reference-based,fast_window,Fast window,6.524810,57.236695,experiments/results/ct_icp_mcd_kth_day_06_matrix.json
+ct_icp,mcd_ntu_day_02_108,reference-based,dense_window,Dense window,0.325263,18.615633,experiments/results/ct_icp_mcd_ntu_day_02_matrix.json
+ct_icp,mcd_tuhh_night_09_108,reference-based,fast_window,Fast window,3.552540,51.379223,experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json
+ct_icp,mulran_parkinglot_120,reference-based,fast_window,Fast window,16.474292,74.718714,experiments/results/ct_icp_mulran_parkinglot_120_matrix.json
+ct_icp,mulran_parkinglot_full,reference-based,fast_window,Fast window,80.958211,59.749697,experiments/results/ct_icp_mulran_parkinglot_full_matrix.json
 ct_lio,hdl_400_open_ct_lio_120,reference-based,seed_only_fast,Seed-only fast,0.488244,17.477206,experiments/results/ct_lio_reference_profile_matrix.json
 ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,seed_only_fast,Seed-only fast,0.479317,19.561344,experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json
 dlio,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.239300,12.061980,experiments/results/dlio_hdl_400_reference_matrix.json
@@ -70,6 +72,10 @@ fast_lio_slam,kitti_raw_0061_full,reference-based,fast,Fast,4.945071,9.117200,ex
 fast_lio_slam,mcd_kth_day_06_108,reference-based,fast,Fast,6.074937,9.424651,experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json
 fast_lio_slam,mcd_ntu_day_02_108,reference-based,fast,Fast,0.027647,20.416410,experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json
 fast_lio_slam,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.331989,12.753311,experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json
+fast_livo2,kitti_raw_0009_200,reference-based,fast,Fast,31.368137,8.304955,experiments/results/fast_livo2_kitti_raw_0009_matrix.json
+fast_livo2,kitti_raw_0009_full,reference-based,fast,Fast,49.629492,7.454006,experiments/results/fast_livo2_kitti_raw_0009_full_matrix.json
+fast_livo2,kitti_raw_0061_200,reference-based,fast,Fast,27.581017,7.172801,experiments/results/fast_livo2_kitti_raw_0061_matrix.json
+fast_livo2,kitti_raw_0061_full,reference-based,fast,Fast,96.345205,14.034048,experiments/results/fast_livo2_kitti_raw_0061_full_matrix.json
 floam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.411389,64.153154,experiments/results/floam_hdl_400_reference_matrix.json
 floam,kitti_raw_0009_200,reference-based,fast,Fast,3.485754,28.042056,experiments/results/floam_kitti_raw_0009_nogt_matrix.json
 floam,kitti_raw_0009_200,reference-based,fast,Fast,3.485754,24.630711,experiments/results/floam_kitti_raw_0009_matrix.json
@@ -92,6 +98,8 @@ gicp,kitti_raw_0061_full,reference-based,fast_recent_map,Fast recent map,1.08085
 gicp,mcd_kth_day_06_108,reference-based,fast_recent_map,Fast recent map,0.629828,24.673568,experiments/results/gicp_mcd_kth_day_06_matrix.json
 gicp,mcd_ntu_day_02_108,reference-based,dense_recent_map,Dense recent map,0.016816,12.991898,experiments/results/gicp_mcd_ntu_day_02_matrix.json
 gicp,mcd_tuhh_night_09_108,reference-based,fast_recent_map,Fast recent map,0.316541,31.240385,experiments/results/gicp_mcd_tuhh_night_09_matrix.json
+gicp,mulran_parkinglot_120,reference-based,fast_recent_map,Fast recent map,0.643851,27.744637,experiments/results/gicp_mulran_parkinglot_120_matrix.json
+gicp,mulran_parkinglot_full,reference-based,fast_recent_map,Fast recent map,1.148695,30.276080,experiments/results/gicp_mulran_parkinglot_full_matrix.json
 hdl_graph_slam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,15.655995,6.749644,experiments/results/hdl_graph_slam_hdl_400_reference_matrix.json
 hdl_graph_slam,kitti_raw_0009_200,reference-based,fast,Fast,2.877962,15.416470,experiments/results/hdl_graph_slam_kitti_raw_0009_matrix.json
 hdl_graph_slam,kitti_raw_0009_200,reference-based,default,Default,122.140983,1.889904,experiments/results/hdl_graph_slam_kitti_raw_0009_nogt_matrix.json
@@ -122,6 +130,8 @@ kiss_icp,kitti_raw_0061_full,reference-based,fast_recent_map,Fast recent map,4.6
 kiss_icp,mcd_kth_day_06_108,reference-based,fast_recent_map,Fast recent map,5.567867,11.289632,experiments/results/kiss_icp_mcd_kth_day_06_matrix.json
 kiss_icp,mcd_ntu_day_02_108,reference-based,fast_recent_map,Fast recent map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json
 kiss_icp,mcd_tuhh_night_09_108,reference-based,fast_recent_map,Fast recent map,1.302876,24.096147,experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json
+kiss_icp,mulran_parkinglot_120,reference-based,fast_recent_map,Fast recent map,15.640868,27.259361,experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json
+kiss_icp,mulran_parkinglot_full,reference-based,fast_recent_map,Fast recent map,74.336896,26.851105,experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json
 lego_loam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.225549,21.813787,experiments/results/lego_loam_hdl_400_reference_matrix.json
 lego_loam,kitti_raw_0009_200,reference-based,fast,Fast,3.216463,9.939628,experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json
 lego_loam,kitti_raw_0009_200,reference-based,fast,Fast,3.216463,8.914729,experiments/results/lego_loam_kitti_raw_0009_matrix.json
@@ -152,16 +162,18 @@ lio_sam,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.314104,30.021739,exper
 litamin2,autoware_istanbul_open_108,gt-backed,fast_icp_only_half_threads,Fast local-map + ICP-only,1.213391,23.518337,experiments/results/litamin2_profile_matrix.json
 litamin2,autoware_istanbul_open_108_b,gt-backed,fast_icp_only_half_threads,Fast local-map + ICP-only,1.221590,20.945227,experiments/results/litamin2_istanbul_window_b_matrix.json
 litamin2,autoware_istanbul_open_108_c,gt-backed,paper_icp_only_half_threads,Paper-like 3m + ICP-only,0.741485,17.249127,experiments/results/litamin2_istanbul_window_c_matrix.json
-litamin2,hdl_400_open_ct_lio_120,reference-based,paper_cov_half_threads,Paper-like 3m + covariance,0.128962,94.243566,experiments/results/litamin2_hdl_400_reference_matrix.json
+litamin2,hdl_400_open_ct_lio_120,reference-based,fast_cov_half_threads,Fast local-map + covariance,0.111115,80.708405,experiments/results/litamin2_hdl_400_reference_matrix.json
 litamin2,hdl_400_open_ct_lio_120_b,reference-based,fast_icp_only_half_threads,Fast local-map + ICP-only,0.168429,5.198294,experiments/results/litamin2_hdl_400_reference_b_matrix.json
-litamin2,kitti_raw_0009_200,reference-based,paper_icp_only_half_threads,Paper-like 3m + ICP-only,1.396564,43.686921,experiments/results/litamin2_kitti_raw_0009_matrix.json
+litamin2,kitti_raw_0009_200,reference-based,fast_cov_half_threads,Fast local-map + covariance,1.052834,34.161053,experiments/results/litamin2_kitti_raw_0009_matrix.json
 litamin2,kitti_raw_0009_200,reference-based,paper_cov_half_threads,Paper-like 3m + covariance,122.275460,87.307823,experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json
 litamin2,kitti_raw_0009_full,reference-based,fast_icp_only_half_threads,Fast local-map + ICP-only,1.144528,48.808664,experiments/results/litamin2_kitti_raw_0009_full_matrix.json
 litamin2,kitti_raw_0061_200,reference-based,fast_cov_half_threads,Fast local-map + covariance,0.510660,67.739260,experiments/results/litamin2_kitti_raw_0061_matrix.json
 litamin2,kitti_raw_0061_full,reference-based,fast_icp_only_half_threads,Fast local-map + ICP-only,0.943964,58.114664,experiments/results/litamin2_kitti_raw_0061_full_matrix.json
-litamin2,mcd_kth_day_06_108,reference-based,fast_cov_half_threads,Fast local-map + covariance,0.401468,64.216449,experiments/results/litamin2_mcd_kth_day_06_matrix.json
-litamin2,mcd_ntu_day_02_108,reference-based,paper_icp_only_half_threads,Paper-like 3m + ICP-only,0.045457,105.647299,experiments/results/litamin2_mcd_ntu_day_02_matrix.json
-litamin2,mcd_tuhh_night_09_108,reference-based,fast_cov_half_threads,Fast local-map + covariance,0.193749,106.479519,experiments/results/litamin2_mcd_tuhh_night_09_matrix.json
+litamin2,mcd_kth_day_06_108,reference-based,fast_icp_only_half_threads,Fast local-map + ICP-only,0.401468,91.635910,experiments/results/litamin2_mcd_kth_day_06_matrix.json
+litamin2,mcd_ntu_day_02_108,reference-based,paper_icp_only_half_threads,Paper-like 3m + ICP-only,0.045457,81.240234,experiments/results/litamin2_mcd_ntu_day_02_matrix.json
+litamin2,mcd_tuhh_night_09_108,reference-based,fast_icp_only_half_threads,Fast local-map + ICP-only,0.193749,107.210734,experiments/results/litamin2_mcd_tuhh_night_09_matrix.json
+litamin2,mulran_parkinglot_120,reference-based,fast_cov_half_threads,Fast local-map + covariance,0.497612,90.232570,experiments/results/litamin2_mulran_parkinglot_120_matrix.json
+litamin2,mulran_parkinglot_full,reference-based,fast_icp_only_half_threads,Fast local-map + ICP-only,0.710731,118.632095,experiments/results/litamin2_mulran_parkinglot_full_matrix.json
 loam_livox,hdl_400_open_ct_lio_120,reference-based,default,Default,0.091487,17.783503,experiments/results/loam_livox_hdl_400_reference_matrix.json
 loam_livox,kitti_raw_0009_200,reference-based,fast,Fast,98.811045,43.763362,experiments/results/loam_livox_kitti_raw_0009_matrix.json
 loam_livox,kitti_raw_0009_200,reference-based,fast,Fast,98.811045,40.154718,experiments/results/loam_livox_kitti_raw_0009_nogt_matrix.json
@@ -193,6 +205,10 @@ ndt,kitti_raw_0061_full,reference-based,fast_coarse_map,Fast coarse map,0.246965
 ndt,mcd_kth_day_06_108,reference-based,fast_coarse_map,Fast coarse map,0.207671,31.211893,experiments/results/ndt_mcd_kth_day_06_matrix.json
 ndt,mcd_ntu_day_02_108,reference-based,balanced_local_map,Balanced local map,0.014334,32.664591,experiments/results/ndt_mcd_ntu_day_02_matrix.json
 ndt,mcd_tuhh_night_09_108,reference-based,fast_coarse_map,Fast coarse map,0.070444,40.826425,experiments/results/ndt_mcd_tuhh_night_09_matrix.json
+okvis,kitti_raw_0009_200,reference-based,fast,Fast,31.399760,523.985294,experiments/results/okvis_kitti_raw_0009_matrix.json
+okvis,kitti_raw_0009_full,reference-based,fast,Fast,108.628535,1146.628889,experiments/results/okvis_kitti_raw_0009_full_matrix.json
+okvis,kitti_raw_0061_200,reference-based,fast,Fast,29.001262,894.663134,experiments/results/okvis_kitti_raw_0061_matrix.json
+okvis,kitti_raw_0061_full,reference-based,fast,Fast,225.666134,1717.136446,experiments/results/okvis_kitti_raw_0061_full_matrix.json
 point_lio,hdl_400_open_ct_lio_120,reference-based,fast,Fast,165.820193,69.922756,experiments/results/point_lio_hdl_400_reference_matrix.json
 point_lio,kitti_raw_0009_200,reference-based,fast,Fast,119.890040,95.649174,experiments/results/point_lio_kitti_raw_0009_nogt_matrix.json
 point_lio,kitti_raw_0009_200,reference-based,fast,Fast,119.890040,117.416108,experiments/results/point_lio_kitti_raw_0009_matrix.json
@@ -229,6 +245,10 @@ vgicp_slam,kitti_raw_0061_full,reference-based,fast,Fast,5.229534,22.762176,expe
 vgicp_slam,mcd_kth_day_06_108,reference-based,fast,Fast,6.096382,20.782707,experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json
 vgicp_slam,mcd_ntu_day_02_108,reference-based,fast,Fast,0.026425,40.284951,experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json
 vgicp_slam,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.321745,21.792757,experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json
+vins_fusion,kitti_raw_0009_200,reference-based,fast,Fast,85.802289,83.526232,experiments/results/vins_fusion_kitti_raw_0009_matrix.json
+vins_fusion,kitti_raw_0009_full,reference-based,fast,Fast,136.572287,93.693069,experiments/results/vins_fusion_kitti_raw_0009_full_matrix.json
+vins_fusion,kitti_raw_0061_200,reference-based,fast,Fast,61.903607,255.514219,experiments/results/vins_fusion_kitti_raw_0061_matrix.json
+vins_fusion,kitti_raw_0061_full,reference-based,fast,Fast,257.640925,236.719603,experiments/results/vins_fusion_kitti_raw_0061_full_matrix.json
 voxel_gicp,hdl_400_open_ct_lio_120,reference-based,dense_recent_map,Dense recent map,0.268118,141.123882,experiments/results/voxel_gicp_hdl_400_reference_matrix.json
 voxel_gicp,kitti_raw_0009_200,reference-based,dense_recent_map,Dense recent map,52.522291,82.079183,experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json
 voxel_gicp,kitti_raw_0009_200,reference-based,dense_recent_map,Dense recent map,0.670187,93.926869,experiments/results/voxel_gicp_kitti_raw_0009_matrix.json

@@ -40,8 +40,9 @@ def main() -> int:
     all_ok &= check("g++", bool(gcc_ver), gcc_ver)
 
     # Build artifact
-    binary = REPO_ROOT / "build" / "evaluation" / "pcd_dogfooding"
-    all_ok &= check("pcd_dogfooding binary", binary.exists(), str(binary))
+    for binary_name in ["pcd_dogfooding", "multimodal_dogfooding"]:
+        binary = REPO_ROOT / "build" / "evaluation" / binary_name
+        all_ok &= check(f"{binary_name} binary", binary.exists(), str(binary))
 
     # Python packages
     for pkg in ["numpy", "matplotlib"]:
@@ -66,6 +67,17 @@ def main() -> int:
     for script in [
         "run_experiment_matrix.py",
         "refresh_study_docs.py",
+        "generate_reproduction_status.py",
+        "run_multimodal_study.py",
+        "prepare_kitti_multimodal_inputs.py",
+        "prepare_kitti_odometry_inputs.py",
+        "prepare_mulran_inputs.py",
+        "mulran_global_pose_to_gt_csv.py",
+        "mulran_pose_io.py",
+        "prepare_newer_college_inputs.py",
+        "newer_college_pose_io.py",
+        "smoke_ci_fixture.sh",
+        "smoke_multimodal_fixture.sh",
         "kitti_bin_to_pcd_dir.py",
         "kitti_poses_to_gt_csv.py",
     ]:

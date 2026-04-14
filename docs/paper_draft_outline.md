@@ -11,8 +11,8 @@
 **Problem.** Most open-source LiDAR localization repositories ship a single canonical configuration per method. Users must accept the upstream default or hand-tune parameters without visibility into the accuracy/throughput trade-off space. This hides useful Pareto fronts and makes cross-method comparison misleading.
 
 **Contribution.**
-- A _variant-first_ benchmarking framework that keeps 3+ concrete variants alive per method family under a shared CLI contract (`pcd_dogfooding --summary-json`).
-- A full artifact that currently wires **27 active selectors** and **168 manifests** (**166 ready**, **1 blocked**, **1 skipped**) across Istanbul, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD, and KITTI Raw. The manuscript-facing core claim can still stay centered on the five families that share the same twelve-window grid.
+- A _variant-first_ benchmarking framework that keeps 3+ concrete variants alive per method family under a shared summary contract (`pcd_dogfooding --summary-json` for LiDAR; sibling `multimodal_dogfooding --summary-json` for camera-aware methods).
+- A full artifact that currently wires **33 active selectors** and **274 manifests** (**260 ready**, **1 blocked**, **13 skipped**) across Istanbul, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD, KITTI Raw, and a canonical KITTI Raw multimodal extension. The manuscript-facing core claim can still stay centered on the five LiDAR families that share the same twelve-window grid.
 - Evidence that, for every family with **broad** cross-window coverage today (LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP on twelve shared windows), the elected default **is not unique** across datasets — premature canonicalization discards real trade-offs.
 
 ---
@@ -37,7 +37,7 @@
 ## 3. Methodology
 
 ### 3.1 Stable Core Contract
-- The `pcd_dogfooding` CLI as the shared entry point for all methods.
+- The `pcd_dogfooding` CLI as the shared LiDAR entry point, plus a sibling `multimodal_dogfooding` CLI for camera-aware families.
 - Contract: every method variant must produce `--summary-json` output with ATE and FPS fields.
 - Separation of stable interface (core) from exploratory profiles (experiments/).
 
@@ -52,6 +52,7 @@
 - **HDL-400 public ROS1 synthetic-time windows**: public ROS1 bag reconstructions with synthesized per-point time; now used by CT-ICP, CT-LIO, and CLINS as separate public-only evidence, not as exact native-time reproduction.
 - **MCD**: three Ouster OS1 windows (KTH / NTU / TUHH), 108 frames each; GT CSV.
 - **KITTI Raw**: Velodyne HDL-64E; **200-frame** and **full-sequence** slices for drives **0009** and **0061**; GT from OXTS-exported poses (see `evaluation/scripts/kitti_raw_to_benchmark.py`); optional `imu.csv` from `kitti_oxts_imu_for_dogfooding.py` for DLIO/CT-LIO/CLINS.
+- **KITTI Raw multimodal extension**: the same four KITTI windows paired with real-image-derived `landmarks.csv` and `visual_observations.csv` for `vins_fusion`, `okvis`, `orb_slam3`, `lvi_sam`, `fast_livo2`, and `r2live`; this is now part of the canonical artifact, while still serving as a KITTI-focused extension to the main LiDAR claim.
 - Table 1: dataset characteristics (sensor, frames, environment, GT source).
 
 ### 3.4 Metrics
@@ -100,9 +101,9 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - Data source: `experiments/results/index.json`, `docs/variant_analysis.md`, `docs/assets/paper/manuscript_core_defaults.csv` (overview slice only).
 
 ### Figure 1: Pareto Fronts (ATE vs. FPS)
-- Scatter plot of **all 166** ready-problem defaults (`docs/assets/paper/ready_defaults.csv`): ATE (m) vs. FPS.
+- Scatter plot of **all 260** ready-problem defaults (`docs/assets/paper/ready_defaults.csv`): ATE (m) vs. FPS.
 - Separate markers (or faceting) for GT-backed vs. reference-based contracts.
-- Annotate extremes from the current CSV (e.g., NDT **~0.005 m** ATE on an Istanbul window; **~106 FPS** peak on high-speed MCD/LiTAMIN2 rows — exact pairings depend on export date).
+- Annotate extremes from the current CSV (e.g., NDT **~0.005 m** ATE on an Istanbul window; **~1717 FPS** peak on a fast multimodal OKVIS row — exact pairings depend on export date).
 - Source: `docs/assets/paper/ready_defaults_pareto.png`.
 
 ### Figure 2: Default Instability Across Datasets
@@ -116,6 +117,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 ### Additional Results
 - Per-method accuracy breakdown tables (appendix).
 - CT-LIO GT-backed results remain blocked, while CT-ICP / CT-LIO / CLINS public ROS1 synthetic-time results are shown separately from the HDL-400 reference/native-time-style windows.
+- Canonical multimodal KITTI extension: `okvis`, `vins_fusion`, and `fast_livo2` finish all four windows with `fast` adopted everywhere; `orb_slam3`, `lvi_sam`, and `r2live` exceed practical `120s/300s` study budgets, with only `lvi_sam` and `r2live` completing the easiest `0061_200 fast` probe at roughly `0.5-0.6 FPS`.
 
 ---
 
@@ -138,6 +140,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - CT-LIO **GT-backed** evaluation remains blocked pending aligned open GT for the HDL-400 LIO window.
 - Public ROS1 HDL-400 synth-time benchmarks are public and reproducible, but they do **not** resolve the missing native per-point-time provenance needed for exact reproduction claims.
 - KITTI DLIO experiments currently mirror LiDAR-only behavior unless `imu.csv` is present (`--write-imu-csv` path in README / `PLAN.md`).
+- The multimodal extension is currently limited to four KITTI Raw windows and known-landmark reprojection inputs; it strengthens breadth but does not replace the LiDAR twelve-window core claim.
 - Hardware profile is single-machine; cross-machine scaling not yet characterized.
 
 ---
@@ -145,7 +148,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 ## 7. Conclusion
 
 - Variant-first benchmarking with a stable CLI contract is practical and reveals trade-offs hidden by canonical repos.
-- The current **168-manifest / 27-selector** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
+- The current **274-manifest / 33-selector** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
 - Artifacts (experiment matrices, generated decision tables, Pareto exports) are fully reproducible via `run_experiment_matrix.py --reuse-existing`.
 
 ---
@@ -153,7 +156,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 ## Appendix
 
 ### A. Full Variant Results
-- Complete tables for **168** manifest lines in the index (**166** ready + **1** blocked + **1** skipped) and per-variant rows inside each `experiments/results/*_matrix.json`.
+- Complete tables for **274** manifest lines in the index (**260** ready + **1** blocked + **13** skipped) and per-variant rows inside each `experiments/results/*_matrix.json`.
 
 ### B. CT-LIO / CLINS Public HDL-400 Evaluation
 - Separate treatment of HDL-400 reference/native-time-style windows and public ROS1 synthetic-time windows.
@@ -164,3 +167,8 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - Step 2: Run `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing`.
 - Step 3: Run `python3 evaluation/scripts/export_paper_assets.py` to regenerate all tables and figures.
 - Step 4: Verify against `experiments/results/index.json` counts.
+
+### D. Multimodal KITTI Extension
+- Build `multimodal_dogfooding` and prepare KITTI inputs via `prepare_kitti_multimodal_inputs.py`.
+- Run the 24 camera-aware manifests through `run_multimodal_study.py`.
+- Report `okvis`, `vins_fusion`, and `fast_livo2` as complete four-window canonical results; treat `orb_slam3`, `lvi_sam`, and `r2live` as practical-budget `skipped` rows unless longer runs are formally admitted.

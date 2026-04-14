@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-13T12:38:34+00:00",
+  "generated_at": "2026-04-15T06:51:40+00:00",
   "manifest_path": "experiments/ct_icp_kitti_raw_0009_matrix.json",
   "problem": {
     "id": "ct_icp_profile_tradeoff_kitti_raw_0009",
@@ -23,8 +23,10 @@
   },
   "dataset": {
     "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
-    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv",
+    "extra_args": []
   },
+  "variant_timeout_seconds": null,
   "status": "ready",
   "blocker": "",
   "next_step": "",
@@ -40,17 +42,19 @@
       "log_path": "experiments/results/runs/ct_icp_kitti_raw_0009_matrix/balanced_window/run.log",
       "status": "OK",
       "ate_m": 1.659312,
-      "fps": 34.382141,
-      "time_ms": 5816.973399,
+      "rpe_trans_pct": 1.745803,
+      "rpe_rot_deg_per_m": 0.023386,
+      "fps": 29.644272,
+      "time_ms": 6746.665949,
       "frames": 200,
       "note": "",
-      "benchmark_score": 81.37,
+      "benchmark_score": 80.08,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
-      "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
     },
     {
       "id": "fast_window",
@@ -65,8 +69,10 @@
       "log_path": "experiments/results/runs/ct_icp_kitti_raw_0009_matrix/fast_window/run.log",
       "status": "OK",
       "ate_m": 2.728022,
-      "fps": 54.793602,
-      "time_ms": 3650.061189,
+      "rpe_trans_pct": 2.198441,
+      "rpe_rot_deg_per_m": 0.023386,
+      "fps": 49.269108,
+      "time_ms": 4059.338733,
       "frames": 200,
       "note": "",
       "benchmark_score": 80.41,
@@ -74,8 +80,8 @@
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as active challenger",
-      "decision_reason": "Close enough to the current default to keep as a live alternative."
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
     },
     {
       "id": "dense_window",
@@ -90,11 +96,13 @@
       "log_path": "experiments/results/runs/ct_icp_kitti_raw_0009_matrix/dense_window/run.log",
       "status": "OK",
       "ate_m": 2.65263,
-      "fps": 17.574242,
-      "time_ms": 11380.291772,
+      "rpe_trans_pct": 1.517693,
+      "rpe_rot_deg_per_m": 0.019379,
+      "fps": 18.308168,
+      "time_ms": 10924.086038,
       "frames": 200,
       "note": "",
-      "benchmark_score": 47.31,
+      "benchmark_score": 49.86,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,

@@ -1,6 +1,6 @@
 # Paper Roadmap
 
-_Generated at 2026-04-13T12:41:47+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-15T13:56:26+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 ## Chosen Direction
 
@@ -10,9 +10,9 @@ _Generated at 2026-04-13T12:41:47+00:00 by `evaluation/scripts/generate_publicat
 
 ## Phase 1: Lock the Study Contract
 
-- Keep the current `248` ready problems reproducible through `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing`.
+- Keep the current `268` ready problems reproducible through `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing`.
 - Freeze the meaning of `reference-based` versus `GT-backed` results and keep them in separate tables.
-- Do not merge ad-hoc benchmark scripts outside the stable `pcd_dogfooding --summary-json` contract.
+- Do not merge ad-hoc benchmark scripts outside the stable dogfooding `--summary-json` contract.
 
 ## Phase 2: Expand Public Evidence
 
@@ -46,3 +46,15 @@ _Generated at 2026-04-13T12:41:47+00:00 by `evaluation/scripts/generate_publicat
 
 - `CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data`: A reference-based CT-LIO comparison now exists separately, but this repository still does not ship an independently curated GT CSV aligned to the extracted HDL-400 LiDAR+IMU sequence.
 - `HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)`: Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames)
+- `LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)`: Timed out after 120 seconds.
+- `LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)`: Timed out after 120 seconds.
+- `LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)`: Timed out after 300 seconds.
+- `LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)`: Timed out after 300 seconds.
+- `ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)`: Timed out after 120 seconds.
+- `ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)`: Timed out after 120 seconds.
+- `ORB-SLAM3 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)`: Timed out after 300 seconds.
+- `ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)`: Timed out after 300 seconds.
+- `R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)`: Timed out after 120 seconds.
+- `R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)`: Timed out after 120 seconds.
+- `R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)`: Timed out after 300 seconds.
+- `R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)`: Timed out after 300 seconds.

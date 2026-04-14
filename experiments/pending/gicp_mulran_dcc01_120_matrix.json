@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "gicp_profile_tradeoff_mulran_dcc01_120",
+    "title": "GICP throughput and accuracy trade-off on MulRan DCC01 (120-frame window)",
+    "question": "Which GICP profile should stay as the default on a MulRan Ouster window after data prep?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_dcc01_120",
+      "gt_csv": "experiments/reference_data/mulran_dcc01_120_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "gicp",
+    "primary_method": "GICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Repository default trade-off.",
+      "args": []
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Faster profile.",
+      "args": [
+        "--gicp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Denser map profile.",
+      "args": [
+        "--gicp-dense-profile"
+      ]
+    }
+  ]
+}

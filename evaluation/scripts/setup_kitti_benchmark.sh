@@ -13,10 +13,10 @@ set -euo pipefail
 #      <kitti_root>/poses/00.txt ...
 #
 # Usage:
-#   ./evaluation/scripts/setup_kitti_benchmark.sh <kitti_root>
+#   ./evaluation/scripts/setup_kitti_benchmark.sh <kitti_root> [--include-full]
 #
 # This script:
-#   1. Converts KITTI sequences 00 and 07 to PCD format (108-frame windows)
+#   1. Converts KITTI sequences 00 and 07 to PCD format (108-frame windows by default)
 #   2. Generates GT CSV files
 #   3. Validates the output structure
 # ============================================================
@@ -25,12 +25,13 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 <kitti_root>"
+    echo "Usage: $0 <kitti_root> [--include-full]"
     echo "  kitti_root: directory containing sequences/ and poses/"
     exit 1
 fi
 
 KITTI_ROOT="$1"
+shift
 
 # Validate KITTI directory structure
 for seq in 00 07; do
@@ -46,55 +47,9 @@ for seq in 00 07; do
     fi
 done
 
-echo "=== KITTI Odometry Benchmark Setup ==="
-echo "KITTI root: $KITTI_ROOT"
-echo "Repo root:  $REPO_ROOT"
-
-# Convert sequence 00 (frames 0-107, 108 frames)
-echo ""
-echo "--- Converting sequence 00 (frames 0-107) ---"
-python3 "$SCRIPT_DIR/kitti_bin_to_pcd_dir.py" \
-    --velodyne-dir "$KITTI_ROOT/sequences/00/velodyne" \
-    --output-dir "$REPO_ROOT/dogfooding_results/kitti_seq_00_108" \
-    --start-frame 0 \
-    --max-frames 108
-
-python3 "$SCRIPT_DIR/kitti_poses_to_gt_csv.py" \
-    --poses-file "$KITTI_ROOT/poses/00.txt" \
-    --output "$REPO_ROOT/experiments/reference_data/kitti_seq_00_108_gt.csv" \
-    --start-frame 0 \
-    --max-frames 108
-
-# Convert sequence 07 (frames 0-107, 108 frames)
-echo ""
-echo "--- Converting sequence 07 (frames 0-107) ---"
-python3 "$SCRIPT_DIR/kitti_bin_to_pcd_dir.py" \
-    --velodyne-dir "$KITTI_ROOT/sequences/07/velodyne" \
-    --output-dir "$REPO_ROOT/dogfooding_results/kitti_seq_07_108" \
-    --start-frame 0 \
-    --max-frames 108
-
-python3 "$SCRIPT_DIR/kitti_poses_to_gt_csv.py" \
-    --poses-file "$KITTI_ROOT/poses/07.txt" \
-    --output "$REPO_ROOT/experiments/reference_data/kitti_seq_07_108_gt.csv" \
-    --start-frame 0 \
-    --max-frames 108
-
-# Validate outputs
-echo ""
-echo "=== Validation ==="
-for seq in 00 07; do
-    dir="$REPO_ROOT/dogfooding_results/kitti_seq_${seq}_108"
-    csv="$REPO_ROOT/experiments/reference_data/kitti_seq_${seq}_108_gt.csv"
-    n_pcd=$(ls -d "$dir"/0* 2>/dev/null | wc -l)
-    n_gt=$(wc -l < "$csv")
-    echo "  seq $seq: $n_pcd PCD frames, $((n_gt - 1)) GT poses"
-done
-
-echo ""
-echo "=== Setup complete ==="
-echo ""
-echo "Next steps:"
-echo "  1. Build:  cmake -B build && cmake --build build -j\$(nproc)"
-echo "  2. Run:    python3 evaluation/scripts/run_experiment_matrix.py --manifest experiments/*kitti*.json"
-echo "  3. Refresh: python3 evaluation/scripts/refresh_study_docs.py"
+python3 "$SCRIPT_DIR/prepare_kitti_odometry_inputs.py" \
+    --kitti-root "$KITTI_ROOT" \
+    --sequence 00 \
+    --sequence 07 \
+    --window-size 108 \
+    "$@"

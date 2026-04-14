@@ -38,6 +38,8 @@ def gather_repo_defaults(index: dict[str, Any]) -> dict[str, list[dict[str, Any]
                     "variant_id": v.get("id", ""),
                     "variant_label": v.get("label", ""),
                     "ate_m": v.get("ate_m"),
+                    "rpe_trans_pct": v.get("rpe_trans_pct"),
+                    "rpe_rot_deg_per_m": v.get("rpe_rot_deg_per_m"),
                     "fps": v.get("fps"),
                     "dataset": dataset_pcd,
                 })
@@ -82,7 +84,11 @@ def main() -> int:
     lines.append(
         "This document compares paper-reported metrics with the current repository defaults "
         "across each method family. Direct comparison is limited by differences in dataset windows, "
-        "hardware, and metric definitions (RPE vs ATE).\n"
+        "hardware, and metric definitions (ATE and RPE availability still differs by family).\n"
+    )
+    lines.append(
+        "For an explicit statement of implementation scope and what the repo currently claims to reproduce, "
+        "see [`docs/reproduction_status.md`](reproduction_status.md).\n"
     )
 
     for selector, info in methods.items():
@@ -103,6 +109,24 @@ def main() -> int:
         if info.get("reported_fps") is not None:
             lines.append(f"**Reported FPS**: ~{info['reported_fps']}")
         lines.append(f"**Hardware**: {info.get('reported_hardware', 'N/A')}")
+        if info.get("repo_scope_label"):
+            lines.append(
+                f"**Repo scope**: {info['repo_scope_label']} — {info.get('repo_scope_summary', '')}"
+            )
+        if info.get("reproduction_status_label"):
+            lines.append(
+                f"**Current claim**: {info['reproduction_status_label']} — "
+                f"{info.get('reproduction_status_summary', '')}"
+            )
+        if info.get("numeric_comparison_label"):
+            lines.append(
+                f"**Numeric comparison**: {info['numeric_comparison_label']} — "
+                f"{info.get('numeric_comparison_summary', '')}"
+            )
+        if info.get("main_blocker"):
+            lines.append(f"**Main blocker**: {info['main_blocker']}")
+        if info.get("next_step"):
+            lines.append(f"**Next step**: {info['next_step']}")
         lines.append("")
 
         reported = info.get("reported_values", {})
@@ -117,12 +141,14 @@ def main() -> int:
         defaults = repo_defaults.get(selector, [])
         if defaults:
             lines.append("### Repository Defaults\n")
-            lines.append("| Dataset | Variant | ATE [m] | FPS |")
-            lines.append("|---|---|---:|---:|")
+            lines.append("| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |")
+            lines.append("|---|---|---:|---:|---:|---:|")
             for d in defaults:
                 ds = classify_dataset(d["dataset"])
                 lines.append(
-                    f"| {ds} | {d['variant_label']} | {fmt(d['ate_m'], 3)} | {fmt(d['fps'], 2)} |"
+                    f"| {ds} | {d['variant_label']} | {fmt(d['ate_m'], 3)} | "
+                    f"{fmt(d['rpe_trans_pct'], 3)} | {fmt(d['rpe_rot_deg_per_m'], 6)} | "
+                    f"{fmt(d['fps'], 2)} |"
                 )
             lines.append("")
 

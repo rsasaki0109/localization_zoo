@@ -1,0 +1,144 @@
+{
+  "generated_at": "2026-04-14T11:47:37+00:00",
+  "manifest_path": "experiments/r2live_kitti_raw_0061_matrix.json",
+  "problem": {
+    "id": "r2live_profile_tradeoff_kitti_raw_0061",
+    "title": "R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+    "question": "Which R2LIVE profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?",
+    "variant_timeout_seconds": 600,
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv",
+      "extra_args": [
+        "--landmarks-csv",
+        "dogfooding_results/kitti_raw_0061_200/landmarks.csv",
+        "--visual-observations-csv",
+        "dogfooding_results/kitti_raw_0061_200/visual_observations.csv",
+        "--camera-fx",
+        "721.5377",
+        "--camera-fy",
+        "721.5377",
+        "--camera-cx",
+        "609.5593",
+        "--camera-cy",
+        "172.8540",
+        "--camera-width",
+        "1241",
+        "--camera-height",
+        "376"
+      ]
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/multimodal_dogfooding",
+    "methods": "r2live",
+    "primary_method": "R2LIVE"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv",
+    "extra_args": [
+      "--landmarks-csv",
+      "dogfooding_results/kitti_raw_0061_200/landmarks.csv",
+      "--visual-observations-csv",
+      "dogfooding_results/kitti_raw_0061_200/visual_observations.csv",
+      "--camera-fx",
+      "721.5377",
+      "--camera-fy",
+      "721.5377",
+      "--camera-cx",
+      "609.5593",
+      "--camera-cy",
+      "172.8540",
+      "--camera-width",
+      "1241",
+      "--camera-height",
+      "376"
+    ]
+  },
+  "variant_timeout_seconds": 120.0,
+  "status": "skipped",
+  "blocker": "Timed out after 120 seconds.",
+  "next_step": "Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Keep the current R2LIVE defaults as the multimodal baseline.",
+      "args": [],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods r2live --summary-json experiments/results/runs/r2live_kitti_raw_0061_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376",
+      "summary_path": "experiments/results/runs/r2live_kitti_raw_0061_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/r2live_kitti_raw_0061_matrix/default/run.log",
+      "status": "TIMED_OUT",
+      "ate_m": null,
+      "fps": null,
+      "time_ms": 120000.0,
+      "frames": null,
+      "note": "Timed out after 120 seconds.",
+      "benchmark_score": 0.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce fused update pressure to improve throughput.",
+      "args": [
+        "--r2live-fast-profile"
+      ],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods r2live --summary-json experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --r2live-fast-profile",
+      "summary_path": "experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/run.log",
+      "status": "TIMED_OUT",
+      "ate_m": null,
+      "fps": null,
+      "time_ms": 120000.0,
+      "frames": null,
+      "note": "Timed out after 120 seconds.",
+      "benchmark_score": 0.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Keep richer visual support to reduce drift at lower speed.",
+      "args": [
+        "--r2live-dense-profile"
+      ],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods r2live --summary-json experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --r2live-dense-profile",
+      "summary_path": "experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/run.log",
+      "status": "TIMED_OUT",
+      "ate_m": null,
+      "fps": null,
+      "time_ms": 120000.0,
+      "frames": null,
+      "note": "Timed out after 120 seconds.",
+      "benchmark_score": 0.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
+    }
+  ]
+}

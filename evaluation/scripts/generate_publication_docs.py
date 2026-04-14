@@ -277,7 +277,7 @@ def render_paper_tracks_md(
     )
 
     empirical_evidence = [
-        f"The stable benchmark contract now covers {len(ready)} ready problems under one CLI and one summary JSON interface.",
+        f"The stable benchmark contract now covers {len(ready)} ready problems under stable dogfooding binaries and one shared summary JSON interface.",
         "Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.",
         f"Current defaults already show non-trivial trade-offs, such as `LiTAMIN2={litamin2.current_default}` at {render_metric(litamin2.default_fps, digits=1)} FPS and `CT-LIO={ct_lio.current_default}` at {render_metric(ct_lio.default_ate_m)} m ATE on the public HDL-400 reference window."
         if litamin2 and ct_lio
@@ -339,7 +339,7 @@ def render_paper_tracks_md(
     lines.append("")
 
     artifact_evidence = [
-        "The repository already separates stable core (`pcd_dogfooding --summary-json`) from discardable experimental manifests.",
+        "The repository already separates stable cores (`pcd_dogfooding --summary-json`, `multimodal_dogfooding --summary-json`) from discardable experimental manifests.",
         "Comparison state is externalized into generated docs instead of being trapped in code comments or ad-hoc notebooks.",
         "The runner now supports `--reuse-existing`, which makes expensive comparisons reproducible without rerunning every variant.",
         "Experiment-facing and publication-facing docs can now be refreshed in one command via `python3 evaluation/scripts/refresh_study_docs.py`.",
@@ -455,7 +455,7 @@ def render_paper_roadmap_md(
         "",
         f"- Keep the current `{len(ready)}` ready problems reproducible through `python3 evaluation/scripts/run_experiment_matrix.py --reuse-existing`.",
         "- Freeze the meaning of `reference-based` versus `GT-backed` results and keep them in separate tables.",
-        "- Do not merge ad-hoc benchmark scripts outside the stable `pcd_dogfooding --summary-json` contract.",
+        "- Do not merge ad-hoc benchmark scripts outside the stable dogfooding `--summary-json` contract.",
         "",
         "## Phase 2: Expand Public Evidence",
         "",

@@ -571,6 +571,69 @@ double computeATE(const std::vector<Eigen::Matrix4d>& est,
   return std::sqrt(sum / n);
 }
 
+struct RPEMetrics {
+  bool available = false;
+  double trans_pct = 0.0;
+  double rot_deg_per_m = 0.0;
+};
+
+// KITTI-style benchmarks use 100 m segments when the trajectory is long enough.
+// For short public windows (e.g. MCD ~15 m), scale the segment length down so RPE
+// is still defined without changing behavior on sequences >= 100 m.
+double rpeSegmentLengthM(double trajectory_length_m) {
+  if (trajectory_length_m <= 0.0) return 0.0;
+  constexpr double kKitBench = 100.0;
+  if (trajectory_length_m >= kKitBench) return kKitBench;
+  const double half = 0.5 * trajectory_length_m;
+  constexpr double kMinSeg = 3.0;
+  double seg = std::max(half, kMinSeg);
+  seg = std::min(seg, trajectory_length_m * 0.95);
+  return seg;
+}
+
+RPEMetrics computeRPE(const std::vector<Eigen::Matrix4d>& est,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      double segment_length_m = 100.0) {
+  const int n = std::min(est.size(), gt.size());
+  if (n < 2 || segment_length_m <= 0.0) return {};
+
+  std::vector<double> trans_errs;
+  std::vector<double> rot_errs;
+  for (int i = 0; i < n; i++) {
+    double dist = 0.0;
+    int j = i + 1;
+    while (j < n) {
+      dist += (gt[j].block<3, 1>(0, 3) - gt[j - 1].block<3, 1>(0, 3)).norm();
+      if (dist >= segment_length_m) break;
+      ++j;
+    }
+    if (j >= n || dist <= 1e-9) break;
+
+    const Eigen::Matrix4d dT_est = est[i].inverse() * est[j];
+    const Eigen::Matrix4d dT_gt = gt[i].inverse() * gt[j];
+    const Eigen::Matrix4d T_err = dT_gt.inverse() * dT_est;
+
+    const double t_err = T_err.block<3, 1>(0, 3).norm();
+    const Eigen::Matrix3d R_err = T_err.block<3, 3>(0, 0);
+    const double trace_term =
+        std::clamp((R_err.trace() - 1.0) / 2.0, -1.0, 1.0);
+    const double r_err_rad = std::acos(trace_term);
+
+    trans_errs.push_back(t_err / dist * 100.0);
+    rot_errs.push_back(r_err_rad / dist * 180.0 / M_PI);
+  }
+
+  if (trans_errs.empty()) return {};
+
+  RPEMetrics metrics;
+  metrics.available = true;
+  for (double value : trans_errs) metrics.trans_pct += value;
+  for (double value : rot_errs) metrics.rot_deg_per_m += value;
+  metrics.trans_pct /= trans_errs.size();
+  metrics.rot_deg_per_m /= rot_errs.size();
+  return metrics;
+}
+
 int frameToGTIndex(size_t frame_idx, size_t total_pcd_frames, size_t num_gt_poses) {
   if (num_gt_poses == 0) return 0;
   if (num_gt_poses == total_pcd_frames) {
@@ -645,6 +708,9 @@ struct MethodResult {
   std::vector<Eigen::Matrix4d> poses;
   double time_ms = 0;
   double ate = 0;
+  double rpe_trans_pct = 0;
+  double rpe_rot_deg_per_m = 0;
+  bool has_rpe = false;
   bool skipped = false;
   std::string note;
 };
@@ -2968,6 +3034,8 @@ void writeSummaryJson(const std::string& path,
     out << "      \"status\": \"" << (r.skipped ? "SKIPPED" : "OK") << "\",\n";
     if (r.skipped) {
       out << "      \"ate_m\": null,\n";
+      out << "      \"rpe_trans_pct\": null,\n";
+      out << "      \"rpe_rot_deg_per_m\": null,\n";
       out << "      \"frames\": 0,\n";
       out << "      \"time_ms\": null,\n";
       out << "      \"fps\": null,\n";
@@ -2976,6 +3044,15 @@ void writeSummaryJson(const std::string& path,
           r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
       out << "      \"ate_m\": " << std::fixed << std::setprecision(6) << r.ate
           << ",\n";
+      if (r.has_rpe) {
+        out << "      \"rpe_trans_pct\": " << std::fixed << std::setprecision(6)
+            << r.rpe_trans_pct << ",\n";
+        out << "      \"rpe_rot_deg_per_m\": " << std::fixed << std::setprecision(6)
+            << r.rpe_rot_deg_per_m << ",\n";
+      } else {
+        out << "      \"rpe_trans_pct\": null,\n";
+        out << "      \"rpe_rot_deg_per_m\": null,\n";
+      }
       out << "      \"frames\": " << r.poses.size() << ",\n";
       out << "      \"time_ms\": " << std::fixed << std::setprecision(6)
           << r.time_ms << ",\n";
@@ -5077,6 +5154,12 @@ int main(int argc, char** argv) {
     }
 
     r.ate = computeATE(r.poses, gt);
+    const RPEMetrics rpe = computeRPE(r.poses, gt, rpeSegmentLengthM(dist));
+    r.has_rpe = rpe.available;
+    if (rpe.available) {
+      r.rpe_trans_pct = rpe.trans_pct;
+      r.rpe_rot_deg_per_m = rpe.rot_deg_per_m;
+    }
     double fps = r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
     std::cout << std::setw(24) << r.name
               << std::setw(12) << "OK"

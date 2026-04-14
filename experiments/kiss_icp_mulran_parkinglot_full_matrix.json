@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "kiss_icp_profile_tradeoff_mulran_parkinglot_full",
+    "title": "KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence)",
+    "question": "Which KISS-ICP configuration should stay as the default on a full MulRan Ouster sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Repository default trade-off.",
+      "args": []
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Faster profile.",
+      "args": [
+        "--kiss-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Denser map profile.",
+      "args": [
+        "--kiss-dense-profile"
+      ]
+    }
+  ]
+}

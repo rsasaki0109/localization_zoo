@@ -8,6 +8,7 @@ dlio,mcd_ntu_day_02_108,reference-based,kitti_default,0.016238,10.289113,experim
 dlo,mcd_ntu_day_02_108,reference-based,kitti_default,0.016238,10.157369,experiments/results/dlo_mcd_ntu_day_02_matrix.json
 fast_lio2,mcd_ntu_day_02_108,reference-based,fast,0.024772,23.695211,experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json
 fast_lio_slam,mcd_ntu_day_02_108,reference-based,fast,0.027647,20.416410,experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json
+fast_livo2,kitti_raw_0061_200,reference-based,fast,27.581017,7.172801,experiments/results/fast_livo2_kitti_raw_0061_matrix.json
 floam,mcd_ntu_day_02_108,reference-based,fast,0.151863,26.990908,experiments/results/floam_mcd_ntu_day_02_matrix.json
 gicp,autoware_istanbul_open_108_c,gt-backed,fast_recent_map,0.981916,4.265101,experiments/results/gicp_istanbul_window_c_matrix.json
 hdl_graph_slam,mcd_ntu_day_02_108,reference-based,dense,0.179861,6.514175,experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json
@@ -20,9 +21,11 @@ litamin2,autoware_istanbul_open_108_c,gt-backed,paper_icp_only_half_threads,0.74
 loam_livox,hdl_400_open_ct_lio_120,reference-based,default,0.091487,17.783503,experiments/results/loam_livox_hdl_400_reference_matrix.json
 mulls,mcd_ntu_day_02_108,reference-based,kitti_default,0.097083,1.170111,experiments/results/mulls_mcd_ntu_day_02_matrix.json
 ndt,autoware_istanbul_open_108_c,gt-backed,fast_coarse_map,0.005456,1.947388,experiments/results/ndt_istanbul_window_c_matrix.json
+okvis,kitti_raw_0061_200,reference-based,fast,29.001262,894.663134,experiments/results/okvis_kitti_raw_0061_matrix.json
 point_lio,mcd_ntu_day_02_108,reference-based,fast,0.082766,77.298267,experiments/results/point_lio_mcd_ntu_day_02_matrix.json
 small_gicp,mcd_ntu_day_02_108,reference-based,dense_recent_map,0.030740,56.784655,experiments/results/small_gicp_mcd_ntu_day_02_matrix.json
 suma,mcd_ntu_day_02_108,reference-based,dense,0.035750,33.946904,experiments/results/suma_mcd_ntu_day_02_matrix.json
 vgicp_slam,mcd_ntu_day_02_108,reference-based,fast,0.026425,40.284951,experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json
+vins_fusion,kitti_raw_0061_200,reference-based,fast,61.903607,255.514219,experiments/results/vins_fusion_kitti_raw_0061_matrix.json
 voxel_gicp,mcd_ntu_day_02_108,reference-based,dense_recent_map,0.120636,117.186913,experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json
 xicp,mcd_tuhh_night_09_108,reference-based,dense,0.080524,71.953398,experiments/results/xicp_mcd_tuhh_night_09_matrix.json

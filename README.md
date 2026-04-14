@@ -34,6 +34,7 @@ This repository mixes three levels of implementation scope:
 
 Methods already labeled `Derived` or `Hybrid` are intentionally adapted versions.
 Some paper-named entries still use compact or simplified internals today, especially `NDT`, `KISS-ICP`, and `DLIO`. Check each method README for current scope and deviations.
+The tracked claim boundary for original-paper reproduction is summarized separately in [`docs/reproduction_status.md`](docs/reproduction_status.md); benchmark usefulness and paper-result reproducibility are not treated as the same thing in this repository.
 
 ---
 
@@ -45,6 +46,7 @@ The current search state is externalized here:
 - [`docs/experiments.md`](docs/experiments.md): concrete variant comparisons
 - [`docs/decisions.md`](docs/decisions.md): adoption and rejection reasons
 - [`docs/interfaces.md`](docs/interfaces.md): current minimum stable interface
+- [`docs/reproduction_status.md`](docs/reproduction_status.md): what the repo currently can and cannot claim about reproducing original-paper results
 - [`docs/paper_tracks.md`](docs/paper_tracks.md): publication narratives ranked by current evidence
 - [`docs/paper_roadmap.md`](docs/paper_roadmap.md): concrete path from benchmark state to a paper package
 - [`docs/paper_assets.md`](docs/paper_assets.md): paper-ready tables and Pareto views exported from experiment aggregates
@@ -56,14 +58,16 @@ For heavy KITTI Raw full-sequence HDL Graph SLAM runs, the repository now keeps 
 [`docs/interfaces.md`](docs/interfaces.md) lists the current active selectors wired into `pcd_dogfooding`; the full integration surface is intentionally broader than any single manuscript-facing subset.
 `CT-LIO` and `CLINS` now both have public ROS1 HDL-400 synthetic-time comparisons, while GT-backed public `CT-LIO` remains blocked pending an independently curated trajectory CSV for that LiDAR+IMU stack. Those public ROS1 synthetic-time runs are useful comparative evidence, but they should be treated as a separate public-only benchmark, **not** as an exact native per-point-time reproduction of the reference/native-time HDL-400 setup.
 
-### Three-step sanity check (after clone)
+### Quick sanity checks (after clone)
 
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j"$(nproc)"
 bash evaluation/scripts/smoke_ci_fixture.sh
+bash evaluation/scripts/smoke_multimodal_fixture.sh
+python3 evaluation/scripts/verify_environment.py
 ```
 
-The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB); the same script runs in **GitHub Actions** after `ctest`. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
+The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB). `smoke_ci_fixture.sh` checks the LiDAR-only core, `smoke_multimodal_fixture.sh` checks the camera-aware `multimodal_dogfooding` path, and both scripts run in **GitHub Actions**. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
 
 ```bash
 python3 evaluation/scripts/run_experiment_matrix.py
@@ -74,6 +78,7 @@ Use `--manifest experiments/<name>_matrix.json` only for local iteration; a mani
 Use `python3 evaluation/scripts/refresh_study_docs.py` to refresh both experiment docs and publication docs together.
 Publication docs alone can be regenerated with `python3 evaluation/scripts/generate_publication_docs.py`.
 Paper-ready tables and Pareto figures can be regenerated with `python3 evaluation/scripts/export_paper_assets.py`.
+For KITTI Odometry public velodyne+poses inputs, use `python3 evaluation/scripts/prepare_kitti_odometry_inputs.py --kitti-root /path/to/kitti_odometry --sequence 00 --sequence 07 --window-size 108 --include-full` (or the compatibility wrapper `bash evaluation/scripts/setup_kitti_benchmark.sh /path/to/kitti_odometry --include-full`).
 
 ---
 
@@ -124,6 +129,29 @@ python3 evaluation/scripts/kitti_raw_to_benchmark.py \
 ```
 
 If you already have a dogfooding tree and only need `imu.csv`, use `python3 evaluation/scripts/kitti_oxts_imu_for_dogfooding.py --drive-dir <sync> --pcd-dir <dogfooding_dir>`.
+
+To build KITTI Odometry public-sequence inputs (velodyne + poses, no IMU) into the repository's `kitti_seq_*` layout, run:
+
+```bash
+python3 evaluation/scripts/prepare_kitti_odometry_inputs.py \
+  --kitti-root /path/to/data_odometry \
+  --sequence 00 \
+  --sequence 07 \
+  --window-size 108 \
+  --include-full
+```
+
+This writes:
+
+- `dogfooding_results/kitti_seq_00_108`, `dogfooding_results/kitti_seq_07_108`
+- `dogfooding_results/kitti_seq_00_full`, `dogfooding_results/kitti_seq_07_full`
+- matching `experiments/reference_data/kitti_seq_*_gt.csv`
+
+The older shell wrapper still works:
+
+```bash
+bash evaluation/scripts/setup_kitti_benchmark.sh /path/to/data_odometry --include-full
+```
 
 To reproduce the repository-stored Istanbul run from a ROS 2 bag:
 

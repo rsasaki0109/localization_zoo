@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-13T12:28:24+00:00",
+  "generated_at": "2026-04-15T13:56:26+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -233,7 +233,7 @@
       "blocker": "",
       "manifest_path": "experiments/ct_icp_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_raw_0009_matrix.json",
-      "current_default": "balanced_window"
+      "current_default": "fast_window"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_kitti_raw_0009_nogt",
@@ -287,6 +287,24 @@
       "blocker": "",
       "manifest_path": "experiments/ct_icp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_mulran_parkinglot_120",
+      "title": "CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_mulran_parkinglot_120_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_mulran_parkinglot_120_matrix.json",
+      "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_mulran_parkinglot_full",
+      "title": "CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_mulran_parkinglot_full_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_mulran_parkinglot_full_matrix.json",
       "current_default": "fast_window"
     },
     {
@@ -650,6 +668,42 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "fast_livo2_profile_tradeoff_kitti_raw_0009_full",
+      "title": "FAST-LIVO2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_livo2_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/fast_livo2_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "fast_livo2_profile_tradeoff_kitti_raw_0009",
+      "title": "FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_livo2_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/fast_livo2_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "fast_livo2_profile_tradeoff_kitti_raw_0061_full",
+      "title": "FAST-LIVO2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_livo2_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/fast_livo2_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "fast_livo2_profile_tradeoff_kitti_raw_0061",
+      "title": "FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/fast_livo2_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/fast_livo2_kitti_raw_0061_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "floam_profile_tradeoff_hdl_400_reference",
       "title": "F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window",
       "status": "ready",
@@ -836,6 +890,24 @@
       "blocker": "",
       "manifest_path": "experiments/gicp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/gicp_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "gicp_profile_tradeoff_mulran_parkinglot_120",
+      "title": "GICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/gicp_mulran_parkinglot_120_matrix.json",
+      "aggregate_path": "experiments/results/gicp_mulran_parkinglot_120_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "gicp_profile_tradeoff_mulran_parkinglot_full",
+      "title": "GICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/gicp_mulran_parkinglot_full_matrix.json",
+      "aggregate_path": "experiments/results/gicp_mulran_parkinglot_full_matrix.json",
       "current_default": "fast_recent_map"
     },
     {
@@ -1118,6 +1190,24 @@
       "current_default": "fast_recent_map"
     },
     {
+      "problem_id": "kiss_icp_profile_tradeoff_mulran_parkinglot_120",
+      "title": "KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/kiss_icp_mulran_parkinglot_120_matrix.json",
+      "aggregate_path": "experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "kiss_icp_profile_tradeoff_mulran_parkinglot_full",
+      "title": "KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/kiss_icp_mulran_parkinglot_full_matrix.json",
+      "aggregate_path": "experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
       "problem_id": "kiss_icp_profile_tradeoff",
       "title": "KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence",
       "status": "ready",
@@ -1385,7 +1475,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_hdl_400_reference_matrix.json",
       "aggregate_path": "experiments/results/litamin2_hdl_400_reference_matrix.json",
-      "current_default": "paper_cov_half_threads"
+      "current_default": "fast_cov_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_istanbul_window_b",
@@ -1421,7 +1511,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_matrix.json",
-      "current_default": "paper_icp_only_half_threads"
+      "current_default": "fast_cov_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_kitti_raw_0009_nogt",
@@ -1457,7 +1547,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_mcd_kth_day_06_matrix.json",
       "aggregate_path": "experiments/results/litamin2_mcd_kth_day_06_matrix.json",
-      "current_default": "fast_cov_half_threads"
+      "current_default": "fast_icp_only_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_mcd_ntu_day_02",
@@ -1475,7 +1565,25 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/litamin2_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast_icp_only_half_threads"
+    },
+    {
+      "problem_id": "litamin2_profile_tradeoff_mulran_parkinglot_120",
+      "title": "LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_mulran_parkinglot_120_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_mulran_parkinglot_120_matrix.json",
       "current_default": "fast_cov_half_threads"
+    },
+    {
+      "problem_id": "litamin2_profile_tradeoff_mulran_parkinglot_full",
+      "title": "LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_mulran_parkinglot_full_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_mulran_parkinglot_full_matrix.json",
+      "current_default": "fast_icp_only_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff",
@@ -1566,6 +1674,42 @@
       "manifest_path": "experiments/loam_livox_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "lvi_sam_profile_tradeoff_kitti_raw_0009_full",
+      "title": "LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "skipped",
+      "blocker": "Timed out after 300 seconds.",
+      "manifest_path": "experiments/lvi_sam_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/lvi_sam_kitti_raw_0009_full_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "lvi_sam_profile_tradeoff_kitti_raw_0009",
+      "title": "LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "skipped",
+      "blocker": "Timed out after 120 seconds.",
+      "manifest_path": "experiments/lvi_sam_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/lvi_sam_kitti_raw_0009_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "lvi_sam_profile_tradeoff_kitti_raw_0061_full",
+      "title": "LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "skipped",
+      "blocker": "Timed out after 300 seconds.",
+      "manifest_path": "experiments/lvi_sam_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "lvi_sam_profile_tradeoff_kitti_raw_0061",
+      "title": "LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "skipped",
+      "blocker": "Timed out after 120 seconds.",
+      "manifest_path": "experiments/lvi_sam_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/lvi_sam_kitti_raw_0061_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "mulls_profile_tradeoff_hdl_400_reference",
@@ -1766,6 +1910,78 @@
       "current_default": "fast_coarse_map"
     },
     {
+      "problem_id": "okvis_profile_tradeoff_kitti_raw_0009_full",
+      "title": "OKVIS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/okvis_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/okvis_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "okvis_profile_tradeoff_kitti_raw_0009",
+      "title": "OKVIS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/okvis_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/okvis_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "okvis_profile_tradeoff_kitti_raw_0061_full",
+      "title": "OKVIS trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/okvis_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/okvis_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "okvis_profile_tradeoff_kitti_raw_0061",
+      "title": "OKVIS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/okvis_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/okvis_kitti_raw_0061_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "orb_slam3_profile_tradeoff_kitti_raw_0009_full",
+      "title": "ORB-SLAM3 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "skipped",
+      "blocker": "Timed out after 300 seconds.",
+      "manifest_path": "experiments/orb_slam3_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/orb_slam3_kitti_raw_0009_full_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "orb_slam3_profile_tradeoff_kitti_raw_0009",
+      "title": "ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "skipped",
+      "blocker": "Timed out after 120 seconds.",
+      "manifest_path": "experiments/orb_slam3_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/orb_slam3_kitti_raw_0009_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "orb_slam3_profile_tradeoff_kitti_raw_0061_full",
+      "title": "ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "skipped",
+      "blocker": "Timed out after 300 seconds.",
+      "manifest_path": "experiments/orb_slam3_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/orb_slam3_kitti_raw_0061_full_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "orb_slam3_profile_tradeoff_kitti_raw_0061",
+      "title": "ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "skipped",
+      "blocker": "Timed out after 120 seconds.",
+      "manifest_path": "experiments/orb_slam3_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/orb_slam3_kitti_raw_0061_matrix.json",
+      "current_default": null
+    },
+    {
       "problem_id": "point_lio_hdl_400_reference",
       "title": "Point-LIO on the public HDL-400 reference window",
       "status": "ready",
@@ -1845,6 +2061,42 @@
       "manifest_path": "experiments/point_lio_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/point_lio_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "r2live_profile_tradeoff_kitti_raw_0009_full",
+      "title": "R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "skipped",
+      "blocker": "Timed out after 300 seconds.",
+      "manifest_path": "experiments/r2live_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/r2live_kitti_raw_0009_full_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "r2live_profile_tradeoff_kitti_raw_0009",
+      "title": "R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "skipped",
+      "blocker": "Timed out after 120 seconds.",
+      "manifest_path": "experiments/r2live_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/r2live_kitti_raw_0009_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "r2live_profile_tradeoff_kitti_raw_0061_full",
+      "title": "R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "skipped",
+      "blocker": "Timed out after 300 seconds.",
+      "manifest_path": "experiments/r2live_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/r2live_kitti_raw_0061_full_matrix.json",
+      "current_default": null
+    },
+    {
+      "problem_id": "r2live_profile_tradeoff_kitti_raw_0061",
+      "title": "R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "skipped",
+      "blocker": "Timed out after 120 seconds.",
+      "manifest_path": "experiments/r2live_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/r2live_kitti_raw_0061_matrix.json",
+      "current_default": null
     },
     {
       "problem_id": "small_gicp_profile_tradeoff_hdl_400_reference",
@@ -2087,6 +2339,42 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "vins_fusion_profile_tradeoff_kitti_raw_0009_full",
+      "title": "VINS-Fusion trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vins_fusion_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/vins_fusion_kitti_raw_0009_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "vins_fusion_profile_tradeoff_kitti_raw_0009",
+      "title": "VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vins_fusion_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/vins_fusion_kitti_raw_0009_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "vins_fusion_profile_tradeoff_kitti_raw_0061_full",
+      "title": "VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vins_fusion_kitti_raw_0061_full_matrix.json",
+      "aggregate_path": "experiments/results/vins_fusion_kitti_raw_0061_full_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "vins_fusion_profile_tradeoff_kitti_raw_0061",
+      "title": "VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/vins_fusion_kitti_raw_0061_matrix.json",
+      "aggregate_path": "experiments/results/vins_fusion_kitti_raw_0061_matrix.json",
       "current_default": "fast"
     },
     {

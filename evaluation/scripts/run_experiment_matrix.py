@@ -29,6 +29,8 @@ class VariantResult:
     log_path: str
     status: str
     ate_m: float | None
+    rpe_trans_pct: float | None
+    rpe_rot_deg_per_m: float | None
     fps: float | None
     time_ms: float | None
     frames: int | None
@@ -103,6 +105,20 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Reuse existing per-variant summary.json files when present instead of rerunning the benchmark.",
     )
+    parser.add_argument(
+        "--reuse-aggregates",
+        action="store_true",
+        help="Reuse existing per-problem aggregate JSON files when present instead of rebuilding them.",
+    )
+    parser.add_argument(
+        "--variant-timeout-seconds",
+        type=float,
+        default=None,
+        help=(
+            "Optional per-variant wall-clock timeout applied to benchmark subprocesses. "
+            "Overrides problem.variant_timeout_seconds when set."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -149,6 +165,67 @@ def load_manifest(path: Path) -> dict[str, Any]:
     return data
 
 
+def problem_run_from_aggregate(
+    manifest_path: Path,
+    manifest: dict[str, Any],
+    aggregate_path: Path,
+) -> ProblemRun:
+    aggregate = json.loads(aggregate_path.read_text())
+    problem_cfg = manifest["problem"]
+    stable_interface = manifest["stable_interface"]
+    dataset = aggregate.get("dataset", {})
+    binary_raw = str(stable_interface["binary"])
+    binary_path = resolve_path(binary_raw)
+    results: list[VariantResult] = []
+    for item in aggregate.get("variants", []):
+        results.append(
+            VariantResult(
+                id=item["id"],
+                label=item.get("label", ""),
+                design_style=item.get("design_style", ""),
+                intent=item.get("intent", ""),
+                args=item.get("args", []),
+                command=item.get("command", ""),
+                summary_path=item.get("summary_path", ""),
+                log_path=item.get("log_path", ""),
+                status=item.get("status", "OK"),
+                ate_m=item.get("ate_m"),
+                rpe_trans_pct=item.get("rpe_trans_pct"),
+                rpe_rot_deg_per_m=item.get("rpe_rot_deg_per_m"),
+                fps=item.get("fps"),
+                time_ms=item.get("time_ms"),
+                frames=item.get("frames"),
+                note=item.get("note", ""),
+                benchmark_score=item.get("benchmark_score", 0),
+                readability_score=item.get("readability_score", 0),
+                readability_note=item.get("readability_note", ""),
+                extensibility_score=item.get("extensibility_score", 0),
+                extensibility_note=item.get("extensibility_note", ""),
+                decision=item.get("decision", ""),
+                decision_reason=item.get("decision_reason", ""),
+            )
+        )
+    return ProblemRun(
+        manifest_path=relpath(manifest_path),
+        manifest_stem=manifest_path.stem,
+        problem_id=problem_cfg["id"],
+        title=problem_cfg["title"],
+        question=problem_cfg["question"],
+        problem_state=str(aggregate.get("status", problem_cfg.get("state", "ready"))),
+        blocker=str(aggregate.get("blocker", problem_cfg.get("blocker", ""))),
+        next_step=str(aggregate.get("next_step", problem_cfg.get("next_step", ""))),
+        dataset_pcd_dir=str(dataset.get("pcd_dir", problem_cfg["dataset"].get("pcd_dir", ""))),
+        dataset_gt_csv=str(dataset.get("gt_csv", problem_cfg["dataset"].get("gt_csv", ""))),
+        binary_path=relpath(binary_path) if binary_path is not None else binary_raw,
+        method_selector=stable_interface["methods"],
+        primary_method=stable_interface["primary_method"],
+        same_metrics=list(problem_cfg["same_metrics"]),
+        aggregate_relpath=relpath(aggregate_path),
+        results=results,
+        planned_variants=list(manifest["variants"]),
+    )
+
+
 def split_flag_surface(args: list[str]) -> tuple[int, int]:
     flag_count = 0
     valued_flag_count = 0
@@ -192,6 +269,7 @@ def build_command(
     pcd_dir: Path,
     gt_csv: Path,
     methods: str,
+    dataset_extra_args: list[str],
     args: list[str],
     summary_path: Path,
 ) -> list[str]:
@@ -203,6 +281,7 @@ def build_command(
         methods,
         "--summary-json",
         str(summary_path),
+        *dataset_extra_args,
         *args,
     ]
 
@@ -212,6 +291,7 @@ def display_command(
     pcd_dir: Path,
     gt_csv: Path,
     methods: str,
+    dataset_extra_args: list[str],
     args: list[str],
     summary_path: Path,
 ) -> str:
@@ -223,6 +303,7 @@ def display_command(
         methods,
         "--summary-json",
         relpath(summary_path),
+        *dataset_extra_args,
         *args,
     ]
     return " ".join(shlex.quote(token) for token in tokens)
@@ -247,6 +328,7 @@ def variant_result_from_summary(
     pcd_dir: Path,
     gt_csv: Path,
     methods: str,
+    dataset_extra_args: list[str],
     summary_path: Path,
     log_path: Path,
 ) -> VariantResult:
@@ -270,15 +352,83 @@ def variant_result_from_summary(
         design_style=variant["design_style"],
         intent=variant["intent"],
         args=list(variant["args"]),
-        command=display_command(binary, pcd_dir, gt_csv, methods, variant["args"], summary_path),
+        command=display_command(
+            binary,
+            pcd_dir,
+            gt_csv,
+            methods,
+            dataset_extra_args,
+            variant["args"],
+            summary_path,
+        ),
         summary_path=relpath(summary_path),
         log_path=relpath(log_path),
         status=str(method_result["status"]).upper(),
         ate_m=method_result["ate_m"],
+        rpe_trans_pct=method_result.get("rpe_trans_pct"),
+        rpe_rot_deg_per_m=method_result.get("rpe_rot_deg_per_m"),
         fps=method_result["fps"],
         time_ms=method_result["time_ms"],
         frames=method_result["frames"],
         note=method_result["note"],
+        benchmark_score=0.0,
+        readability_score=round(readability, 2),
+        readability_note=readability_note,
+        extensibility_score=round(extensibility, 2),
+        extensibility_note=extensibility_note,
+    )
+
+
+def normalize_process_output(value: str | bytes | None) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, bytes):
+        return value.decode("utf-8", errors="replace")
+    return value
+
+
+def variant_result_without_summary(
+    *,
+    variant: dict[str, Any],
+    binary: Path,
+    pcd_dir: Path,
+    gt_csv: Path,
+    methods: str,
+    dataset_extra_args: list[str],
+    summary_path: Path,
+    log_path: Path,
+    status: str,
+    note: str,
+    time_ms: float | None = None,
+) -> VariantResult:
+    readability, readability_note, extensibility, extensibility_note = compute_proxy_scores(
+        variant["args"]
+    )
+    return VariantResult(
+        id=variant["id"],
+        label=variant["label"],
+        design_style=variant["design_style"],
+        intent=variant["intent"],
+        args=list(variant["args"]),
+        command=display_command(
+            binary,
+            pcd_dir,
+            gt_csv,
+            methods,
+            dataset_extra_args,
+            variant["args"],
+            summary_path,
+        ),
+        summary_path=relpath(summary_path),
+        log_path=relpath(log_path),
+        status=status,
+        ate_m=None,
+        rpe_trans_pct=None,
+        rpe_rot_deg_per_m=None,
+        fps=None,
+        time_ms=time_ms,
+        frames=None,
+        note=note,
         benchmark_score=0.0,
         readability_score=round(readability, 2),
         readability_note=readability_note,
@@ -293,10 +443,12 @@ def run_variant(
     pcd_dir: Path,
     gt_csv: Path,
     methods: str,
+    dataset_extra_args: list[str],
     primary_method: str,
     output_dir: Path,
     variant: dict[str, Any],
     reuse_existing: bool,
+    timeout_seconds: float | None,
 ) -> VariantResult:
     variant_dir = output_dir / "runs" / manifest_stem / variant["id"]
     variant_dir.mkdir(parents=True, exist_ok=True)
@@ -310,18 +462,58 @@ def run_variant(
             pcd_dir=pcd_dir,
             gt_csv=gt_csv,
             methods=methods,
+            dataset_extra_args=dataset_extra_args,
             summary_path=summary_path,
             log_path=log_path,
         )
-    command = build_command(binary, pcd_dir, gt_csv, methods, variant["args"], summary_path)
-    completed = subprocess.run(
-        command,
-        cwd=REPO_ROOT,
-        check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
+    for path in (summary_path, log_path):
+        if path.exists():
+            path.unlink()
+    command = build_command(
+        binary,
+        pcd_dir,
+        gt_csv,
+        methods,
+        dataset_extra_args,
+        variant["args"],
+        summary_path,
     )
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=REPO_ROOT,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            timeout=timeout_seconds,
+        )
+    except subprocess.TimeoutExpired as exc:
+        combined_output = normalize_process_output(exc.stdout)
+        if exc.stderr is not None:
+            combined_output += normalize_process_output(exc.stderr)
+        timeout_note = f"Timed out after {exc.timeout:g} seconds."
+        if combined_output:
+            log_path.write_text(
+                combined_output.rstrip() + f"\n[runner] {timeout_note}\n"
+            )
+        else:
+            log_path.write_text(f"[runner] {timeout_note}\n")
+        if summary_path.exists():
+            summary_path.unlink()
+        return variant_result_without_summary(
+            variant=variant,
+            binary=binary,
+            pcd_dir=pcd_dir,
+            gt_csv=gt_csv,
+            methods=methods,
+            dataset_extra_args=dataset_extra_args,
+            summary_path=summary_path,
+            log_path=log_path,
+            status="TIMED_OUT",
+            note=timeout_note,
+            time_ms=float(exc.timeout) * 1000.0,
+        )
     log_path.write_text(completed.stdout)
     return variant_result_from_summary(
         variant=variant,
@@ -330,6 +522,7 @@ def run_variant(
         pcd_dir=pcd_dir,
         gt_csv=gt_csv,
         methods=methods,
+        dataset_extra_args=dataset_extra_args,
         summary_path=summary_path,
         log_path=log_path,
     )
@@ -439,7 +632,7 @@ def finalize_problem_outcome(
     if any(result.status == "OK" for result in results):
         return "ready", blocker, next_step
 
-    if results and all(result.status == "SKIPPED" for result in results):
+    if results and all(result.status in {"SKIPPED", "TIMED_OUT"} for result in results):
         notes = dedupe_notes(results)
         derived_blocker = (
             " ; ".join(notes)
@@ -447,7 +640,7 @@ def finalize_problem_outcome(
             else "All variants were skipped and no valid benchmark result was produced."
         )
         derived_next_step = (
-            "Run a lighter slice/profile, or keep this problem out of the ready set until a real result is available."
+            "Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available."
         )
         return "skipped", derived_blocker, derived_next_step
 
@@ -470,6 +663,8 @@ def variant_result_to_dict(result: VariantResult) -> dict[str, Any]:
         "log_path": result.log_path,
         "status": result.status,
         "ate_m": result.ate_m,
+        "rpe_trans_pct": result.rpe_trans_pct,
+        "rpe_rot_deg_per_m": result.rpe_rot_deg_per_m,
         "fps": result.fps,
         "time_ms": result.time_ms,
         "frames": result.frames,
@@ -718,7 +913,7 @@ def render_interfaces_md(
         "",
         "### CLI",
         "",
-        "`build/evaluation/pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path> [variant flags...]`",
+        "`<stable_binary> <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path> [dataset flags...] [variant flags...]`",
         "",
         f"Current active binaries: {', '.join(f'`{item}`' for item in binaries)}",
         "",
@@ -735,6 +930,8 @@ def render_interfaces_md(
         "| `methods[].name` | string | Human-readable method name. |",
         "| `methods[].status` | string | `OK` or `SKIPPED`. |",
         "| `methods[].ate_m` | number or null | Absolute trajectory error in meters. |",
+        "| `methods[].rpe_trans_pct` | number or null | Average 100 m relative translation error in percent. |",
+        "| `methods[].rpe_rot_deg_per_m` | number or null | Average 100 m relative rotation error in degrees per meter. |",
         "| `methods[].frames` | integer | Number of poses evaluated for the method. |",
         "| `methods[].time_ms` | number or null | End-to-end runtime in milliseconds. |",
         "| `methods[].fps` | number or null | Effective frames per second. |",
@@ -752,7 +949,9 @@ def render_interfaces_md(
         "| `problem.state` | string | `ready` or `blocked`. Missing means `ready`. Generated outputs may downgrade a `ready` problem to `skipped` if every variant is skipped. |",
         "| `problem.blocker` | string | Why the problem cannot be benchmarked yet. Optional for blocked problems. |",
         "| `problem.next_step` | string | The next concrete step to unblock the problem. Optional for blocked problems. |",
+        "| `problem.variant_timeout_seconds` | number | Optional per-variant wall-clock timeout budget used by the runner. |",
         "| `problem.dataset` | object | Shared dataset paths for every variant. |",
+        "| `problem.dataset.extra_args` | array | Optional fixed CLI args shared by every variant for that dataset. |",
         "| `stable_interface.binary` | string | Stable benchmark entrypoint. |",
         "| `stable_interface.methods` | string | Shared method selector for comparability. |",
         "| `stable_interface.primary_method` | string | Result key to extract from summary JSON. |",
@@ -763,7 +962,7 @@ def render_interfaces_md(
         "",
         "### Runner Contract",
         "",
-        "`python3 evaluation/scripts/run_experiment_matrix.py [--manifest <path>]... [--reuse-existing]`",
+        "`python3 evaluation/scripts/run_experiment_matrix.py [--manifest <path>]... [--reuse-existing] [--reuse-aggregates] [--variant-timeout-seconds <seconds>]`",
         "",
         "If no manifest is specified, the runner executes every `experiments/*_matrix.json` file.",
         "",
@@ -774,10 +973,12 @@ def render_interfaces_md(
         "- regenerating `docs/experiments.md`, `docs/decisions.md`, and `docs/interfaces.md`",
         "- writing per-problem aggregate JSON files plus `experiments/results/index.json`",
         "- optionally reusing existing per-variant summaries to avoid rerunning expensive variants",
+        "- optionally reusing existing aggregate JSON files to rebuild docs without touching local data",
+        "- marking timed-out variants in aggregate results instead of blocking the whole study",
         "",
         "## Stability Boundary",
         "",
-        "- Stable core: `build/evaluation/pcd_dogfooding` plus the `--summary-json` result contract.",
+        "- Stable core: the configured stable binary plus the `--summary-json` result contract.",
         "- Experimental surface: manifests, run logs, aggregate results, and generated decision docs.",
         "- Promotion rule: a new default must emerge from shared data and shared metrics, not from a separate code path.",
         "",
@@ -802,6 +1003,18 @@ def run_problem(
     generated_at: str,
 ) -> ProblemRun:
     manifest = load_manifest(manifest_path)
+    manifest_stem = manifest_path.stem
+    aggregate_path = output_dir / f"{manifest_stem}.json"
+    if (
+        args.reuse_aggregates
+        and aggregate_path.exists()
+        and args.binary is None
+        and args.pcd_dir is None
+        and args.gt_csv is None
+        and args.variant_timeout_seconds is None
+    ):
+        return problem_run_from_aggregate(manifest_path, manifest, aggregate_path)
+
     problem_cfg = manifest["problem"]
     problem_state = str(problem_cfg.get("state", "ready"))
     stable_interface = manifest["stable_interface"]
@@ -812,14 +1025,21 @@ def run_problem(
     dataset_cfg = problem_cfg["dataset"]
     dataset_pcd_raw = args.pcd_dir or dataset_cfg.get("pcd_dir", "")
     dataset_gt_raw = args.gt_csv or dataset_cfg.get("gt_csv", "")
+    dataset_extra_args = [str(item) for item in dataset_cfg.get("extra_args", [])]
+    timeout_raw = (
+        args.variant_timeout_seconds
+        if args.variant_timeout_seconds is not None
+        else problem_cfg.get("variant_timeout_seconds")
+    )
+    timeout_seconds = float(timeout_raw) if timeout_raw is not None else None
+    if timeout_seconds is not None and timeout_seconds <= 0:
+        timeout_seconds = None
     pcd_dir = resolve_path(dataset_pcd_raw)
     gt_csv = resolve_path(dataset_gt_raw)
 
-    manifest_stem = manifest_path.stem
     blocker = str(problem_cfg.get("blocker", ""))
     next_step = str(problem_cfg.get("next_step", ""))
     if problem_state != "ready":
-        aggregate_path = output_dir / f"{manifest_stem}.json"
         aggregate = {
             "generated_at": generated_at,
             "manifest_path": relpath(manifest_path),
@@ -828,7 +1048,9 @@ def run_problem(
             "dataset": {
                 "pcd_dir": str(dataset_pcd_raw),
                 "gt_csv": str(dataset_gt_raw),
+                "extra_args": dataset_extra_args,
             },
+            "variant_timeout_seconds": timeout_seconds,
             "status": problem_state,
             "blocker": blocker,
             "next_step": next_step,
@@ -857,54 +1079,11 @@ def run_problem(
         )
 
     # When reusing existing results, allow missing local data if aggregate exists
-    aggregate_path = output_dir / f"{manifest_stem}.json"
     data_available = (pcd_dir is not None and pcd_dir.exists()
                       and gt_csv is not None and gt_csv.exists())
     if not data_available:
         if args.reuse_existing and aggregate_path.exists():
-            aggregate = json.loads(aggregate_path.read_text())
-            results: list[VariantResult] = []
-            for v in aggregate.get("variants", []):
-                results.append(VariantResult(
-                    id=v["id"], label=v.get("label", ""),
-                    design_style=v.get("design_style", ""),
-                    intent=v.get("intent", ""),
-                    args=v.get("args", []),
-                    command=v.get("command", ""), summary_path=v.get("summary_path", ""),
-                    log_path=v.get("log_path", ""),
-                    status=v.get("status", "OK"), ate_m=v.get("ate_m"),
-                    fps=v.get("fps"), time_ms=v.get("time_ms"),
-                    frames=v.get("frames"), note=v.get("note", ""),
-                    benchmark_score=v.get("benchmark_score", 0),
-                    readability_score=v.get("readability_score", 0),
-                    readability_note=v.get("readability_note", ""),
-                    extensibility_score=v.get("extensibility_score", 0),
-                    extensibility_note=v.get("extensibility_note", ""),
-                    decision=v.get("decision", ""),
-                    decision_reason=v.get("decision_reason", ""),
-                ))
-            aggregate_state = str(aggregate.get("status", problem_state))
-            aggregate_blocker = str(aggregate.get("blocker", blocker))
-            aggregate_next_step = str(aggregate.get("next_step", next_step))
-            return ProblemRun(
-                manifest_path=relpath(manifest_path),
-                manifest_stem=manifest_stem,
-                problem_id=problem_cfg["id"],
-                title=problem_cfg["title"],
-                question=problem_cfg["question"],
-                problem_state=aggregate_state,
-                blocker=aggregate_blocker,
-                next_step=aggregate_next_step,
-                dataset_pcd_dir=str(dataset_pcd_raw),
-                dataset_gt_csv=str(dataset_gt_raw),
-                binary_path=relpath(binary),
-                method_selector=stable_interface["methods"],
-                primary_method=stable_interface["primary_method"],
-                same_metrics=list(problem_cfg["same_metrics"]),
-                aggregate_relpath=relpath(aggregate_path),
-                results=results,
-                planned_variants=list(manifest["variants"]),
-            )
+            return problem_run_from_aggregate(manifest_path, manifest, aggregate_path)
         if pcd_dir is None or not pcd_dir.exists():
             raise FileNotFoundError(f"PCD directory not found: {pcd_dir}")
         if gt_csv is None or not gt_csv.exists():
@@ -920,10 +1099,12 @@ def run_problem(
                 pcd_dir=pcd_dir,
                 gt_csv=gt_csv,
                 methods=stable_interface["methods"],
+                dataset_extra_args=dataset_extra_args,
                 primary_method=stable_interface["primary_method"],
                 output_dir=output_dir,
                 variant=variant,
                 reuse_existing=args.reuse_existing,
+                timeout_seconds=timeout_seconds,
             )
         )
 
@@ -950,7 +1131,9 @@ def run_problem(
         "dataset": {
             "pcd_dir": relpath(pcd_dir),
             "gt_csv": relpath(gt_csv),
+            "extra_args": dataset_extra_args,
         },
+        "variant_timeout_seconds": timeout_seconds,
         "status": final_state,
         "blocker": final_blocker,
         "next_step": final_next_step,

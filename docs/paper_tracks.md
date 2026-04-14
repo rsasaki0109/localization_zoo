@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-04-13T12:41:47+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-15T13:56:26+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `248` ready problems and `2` blocked problems.
+Current coverage: `268` ready problems and `14` blocked problems.
 
 ## Current State
 
@@ -30,13 +30,15 @@ Current coverage: `248` ready problems and `2` blocked problems.
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `fast` | 1.270 | 14.6 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | BALM2 on the public HDL-400 reference window | `ready` | `fast` | 0.476 | 9.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense` | 1.473 | 100.3 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
-| CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 68.5 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
-| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `balanced_window` | 1.659 | 54.8 | `dogfooding_results/kitti_raw_0009_200` |
+| CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 65.9 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
+| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_window` | 1.659 | 49.3 | `dogfooding_results/kitti_raw_0009_200` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_window` | 1.475 | 56.9 | `dogfooding_results/kitti_raw_0061_200` |
-| CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_window` | 6.115 | 59.8 | `dogfooding_results/mcd_kth_day_06_108` |
-| CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_window` | 0.325 | 71.7 | `dogfooding_results/mcd_ntu_day_02_108` |
-| CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_window` | 1.652 | 71.6 | `dogfooding_results/mcd_tuhh_night_09_108` |
-| CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 72.9 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_window` | 6.115 | 57.2 | `dogfooding_results/mcd_kth_day_06_108` |
+| CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_window` | 0.325 | 60.0 | `dogfooding_results/mcd_ntu_day_02_108` |
+| CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_window` | 1.652 | 51.4 | `dogfooding_results/mcd_tuhh_night_09_108` |
+| CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_window` | 15.873 | 74.7 | `dogfooding_results/mulran_parkinglot_120` |
+| CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_window` | 74.578 | 59.7 | `dogfooding_results/mulran_parkinglot_full` |
+| CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 54.9 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_window` | 75.075 | 2.7 | `dogfooding_results/autoware_istanbul_open_108` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_window` | 0.556 | 2.4 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `balanced_window` | 6.820 | 3.1 | `dogfooding_results/autoware_istanbul_open_108_b` |
@@ -92,8 +94,14 @@ Current coverage: `248` ready problems and `2` blocked problems.
 | FAST-LIO2 on MCD NTU day-02 sequence | `ready` | `fast` | 0.025 | 23.7 | `dogfooding_results/mcd_ntu_day_02_108` |
 | FAST-LIO2 on MCD TUHH night-09 sequence | `ready` | `fast` | 1.333 | 14.2 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | FAST-LIO2 on the public HDL-400 reference window | `ready` | `fast` | 0.104 | 9.1 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.298 | 8.3 | `dogfooding_results/kitti_raw_0009_200` |
+| FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.581 | 7.2 | `dogfooding_results/kitti_raw_0061_200` |
+| FAST-LIVO2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 49.209 | 7.5 | `dogfooding_results/kitti_raw_0009_full` |
+| FAST-LIVO2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 96.345 | 14.0 | `dogfooding_results/kitti_raw_0061_full` |
 | GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 1.177 | 25.8 | `dogfooding_results/kitti_raw_0009_200` |
 | GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.781 | 25.7 | `dogfooding_results/kitti_raw_0061_200` |
+| GICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 0.644 | 27.7 | `dogfooding_results/mulran_parkinglot_120` |
+| GICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 0.944 | 30.3 | `dogfooding_results/mulran_parkinglot_full` |
 | GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 0.630 | 24.7 | `dogfooding_results/mcd_kth_day_06_108` |
 | GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.017 | 28.7 | `dogfooding_results/mcd_ntu_day_02_108` |
 | GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.317 | 31.2 | `dogfooding_results/mcd_tuhh_night_09_108` |
@@ -125,6 +133,8 @@ Current coverage: `248` ready problems and `2` blocked problems.
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 2.412 | 24.4 | `dogfooding_results/kitti_raw_0009_200` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `dogfooding_results/kitti_raw_0061_200` |
+| KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `dogfooding_results/mulran_parkinglot_120` |
+| KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 73.621 | 26.9 | `dogfooding_results/mulran_parkinglot_full` |
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 5.568 | 11.3 | `dogfooding_results/mcd_kth_day_06_108` |
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast_recent_map` | 0.017 | 66.7 | `dogfooding_results/mcd_ntu_day_02_108` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 1.104 | 24.1 | `dogfooding_results/mcd_tuhh_night_09_108` |
@@ -163,12 +173,14 @@ Current coverage: `248` ready problems and `2` blocked problems.
 | LIO-SAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.045 | 31.7 | `dogfooding_results/mcd_ntu_day_02_108` |
 | LIO-SAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.314 | 30.0 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | LIO-SAM on the public HDL-400 reference window | `ready` | `fast` | 0.202 | 18.1 | `dogfooding_results/hdl_400_open_ct_lio_120` |
-| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `paper_icp_only_half_threads` | 1.053 | 43.7 | `dogfooding_results/kitti_raw_0009_200` |
+| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_cov_half_threads` | 1.053 | 34.2 | `dogfooding_results/kitti_raw_0009_200` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_cov_half_threads` | 0.511 | 68.6 | `dogfooding_results/kitti_raw_0061_200` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_cov_half_threads` | 0.401 | 64.2 | `dogfooding_results/mcd_kth_day_06_108` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 105.6 | `dogfooding_results/mcd_ntu_day_02_108` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_cov_half_threads` | 0.194 | 106.5 | `dogfooding_results/mcd_tuhh_night_09_108` |
-| LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `paper_cov_half_threads` | 0.111 | 94.2 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_cov_half_threads` | 0.498 | 121.0 | `dogfooding_results/mulran_parkinglot_120` |
+| LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_icp_only_half_threads` | 0.711 | 118.6 | `dogfooding_results/mulran_parkinglot_full` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_icp_only_half_threads` | 0.401 | 113.0 | `dogfooding_results/mcd_kth_day_06_108` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `dogfooding_results/mcd_ntu_day_02_108` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `dogfooding_results/mcd_tuhh_night_09_108` |
+| LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_cov_half_threads` | 0.111 | 80.7 | `dogfooding_results/hdl_400_open_ct_lio_120` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.213 | 23.5 | `dogfooding_results/autoware_istanbul_open_108` |
 | LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_icp_only_half_threads` | 0.168 | 6.1 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.222 | 20.9 | `dogfooding_results/autoware_istanbul_open_108_b` |
@@ -185,6 +197,10 @@ Current coverage: `248` ready problems and `2` blocked problems.
 | LOAM Livox on MCD TUHH night-09 sequence | `ready` | `fast` | 1.192 | 68.8 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | LOAM-Livox on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 92.735 | 40.2 | `dogfooding_results/kitti_raw_0009_200` |
 | LOAM-Livox on the public HDL-400 reference window | `ready` | `default` | 0.079 | 52.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_200` |
+| LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_200` |
+| LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_full` |
+| LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_full` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.651 | 3.4 | `dogfooding_results/kitti_raw_0009_200` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.651 | 3.1 | `dogfooding_results/kitti_raw_0009_200` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.425 | 3.3 | `dogfooding_results/kitti_raw_0061_200` |
@@ -207,6 +223,14 @@ Current coverage: `248` ready problems and `2` blocked problems.
 | NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_coarse_map` | 121.733 | 25.0 | `dogfooding_results/kitti_raw_0009_200` |
 | NDT trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_coarse_map` | 0.255 | 30.9 | `dogfooding_results/kitti_raw_0009_full` |
 | NDT trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_coarse_map` | 0.247 | 23.8 | `dogfooding_results/kitti_raw_0061_full` |
+| OKVIS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.400 | 524.0 | `dogfooding_results/kitti_raw_0009_200` |
+| OKVIS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.889 | 894.7 | `dogfooding_results/kitti_raw_0061_200` |
+| OKVIS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 108.629 | 1146.6 | `dogfooding_results/kitti_raw_0009_full` |
+| OKVIS trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 201.724 | 1717.1 | `dogfooding_results/kitti_raw_0061_full` |
+| ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_200` |
+| ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_200` |
+| ORB-SLAM3 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_full` |
+| ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_full` |
 | Point-LIO on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 119.890 | 95.6 | `dogfooding_results/kitti_raw_0009_200` |
 | Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.890 | 117.4 | `dogfooding_results/kitti_raw_0009_200` |
 | Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.384 | 113.1 | `dogfooding_results/kitti_raw_0009_full` |
@@ -216,6 +240,10 @@ Current coverage: `248` ready problems and `2` blocked problems.
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `fast` | 0.083 | 77.3 | `dogfooding_results/mcd_ntu_day_02_108` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `fast` | 1.116 | 88.7 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `fast` | 17.929 | 69.9 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_200` |
+| R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_200` |
+| R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0009_full` |
+| R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `dogfooding_results/kitti_raw_0061_full` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_local_map` | 1.624 | 76.3 | `dogfooding_results/kitti_raw_0009_200` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 0.471 | 83.3 | `dogfooding_results/kitti_raw_0009_200` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.639 | 78.1 | `dogfooding_results/kitti_raw_0061_200` |
@@ -243,6 +271,10 @@ Current coverage: `248` ready problems and `2` blocked problems.
 | VGICP SLAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.319 | 21.8 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | VGICP-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 1.772 | 19.1 | `dogfooding_results/kitti_raw_0009_200` |
 | VGICP-SLAM on the public HDL-400 reference window | `ready` | `fast` | 0.145 | 16.8 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.407 | 83.5 | `dogfooding_results/kitti_raw_0009_200` |
+| VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.811 | 255.5 | `dogfooding_results/kitti_raw_0061_200` |
+| VINS-Fusion trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 50.238 | 93.7 | `dogfooding_results/kitti_raw_0009_full` |
+| VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 97.611 | 236.7 | `dogfooding_results/kitti_raw_0061_full` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense_recent_map` | 27.610 | 82.1 | `dogfooding_results/kitti_raw_0009_200` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense_recent_map` | 0.670 | 93.9 | `dogfooding_results/kitti_raw_0009_200` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `dense_recent_map` | 0.741 | 73.7 | `dogfooding_results/kitti_raw_0061_200` |
@@ -276,13 +308,13 @@ Current coverage: `248` ready problems and `2` blocked problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 248 ready problems under one CLI and one summary JSON interface.
+- The stable benchmark contract now covers 268 ready problems under stable dogfooding binaries and one shared summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
-- Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=paper_icp_only_half_threads` at 43.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
+- Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=fast_cov_half_threads` at 34.2 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 
 ### Gaps
 
-- LiDAR-only methods now cover 13 repository-stored open sequences across 6 public dataset families, but external validity still rests on only 6 families.
+- LiDAR-only methods now cover 15 repository-stored open sequences across 7 public dataset families, but external validity still rests on only 7 families.
 - Reference-based and GT-backed results are now separated conceptually, but the GT-backed CT-LIO public benchmark is still blocked.
 - There is no paper-ready comparison against originally reported results yet.
 - Hardware-normalized reruns and confidence intervals are not exported yet.
@@ -302,7 +334,7 @@ Current coverage: `248` ready problems and `2` blocked problems.
 
 ### Strongest Evidence
 
-- The repository already separates stable core (`pcd_dogfooding --summary-json`) from discardable experimental manifests.
+- The repository already separates stable cores (`pcd_dogfooding --summary-json`, `multimodal_dogfooding --summary-json`) from discardable experimental manifests.
 - Comparison state is externalized into generated docs instead of being trapped in code comments or ad-hoc notebooks.
 - The runner now supports `--reuse-existing`, which makes expensive comparisons reproducible without rerunning every variant.
 - Experiment-facing and publication-facing docs can now be refreshed in one command via `python3 evaluation/scripts/refresh_study_docs.py`.

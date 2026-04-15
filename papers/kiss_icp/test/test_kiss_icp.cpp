@@ -17,6 +17,13 @@ std::vector<Eigen::Vector3d> makeScene(std::mt19937& rng) {
 }
 }
 
+TEST(KISSICP, FirstFrameEmptyInitializesMap) {
+  KISSICPPipeline pipeline(KISSICPParams{});
+  const auto result = pipeline.registerFrame({});
+  EXPECT_TRUE(result.converged);
+  EXPECT_TRUE(pipeline.pose().isApprox(result.pose));
+}
+
 TEST(KISSICP, VoxelHashMap) {
   VoxelHashMap map(1.0);
   std::mt19937 rng(42);

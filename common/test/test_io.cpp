@@ -1,4 +1,5 @@
 #include "common/io.h"
+#include "test_thresholds.h"
 
 #include <gtest/gtest.h>
 
@@ -9,6 +10,7 @@
 #include <unistd.h>
 
 using namespace localization_zoo;
+using namespace localization_zoo::test;
 
 namespace {
 
@@ -39,10 +41,12 @@ TEST(CommonIO, LoadPosesCsvParsesQuaternionOrder) {
 
   const auto poses = io::loadPosesCsv(path);
   ASSERT_EQ(poses.size(), 1u);
-  EXPECT_DOUBLE_EQ(poses[0].first, 1.25);
-  EXPECT_TRUE(poses[0].second.position.isApprox(Eigen::Vector3d(1, 2, 3)));
+  EXPECT_DOUBLE_EQ(poses[0].first, kGoldenPoseTimestamp);
+  EXPECT_TRUE(poses[0].second.position.isApprox(
+      Eigen::Vector3d(kGoldenPoseX, kGoldenPoseY, kGoldenPoseZ), kEpsilonVector3));
   EXPECT_TRUE(poses[0].second.orientation.isApprox(
-      Eigen::Quaterniond(1, 0, 0, 0), 1e-12));
+      Eigen::Quaterniond(kGoldenQuatW, kGoldenQuatX, kGoldenQuatY, kGoldenQuatZ),
+      kEpsilonQuaternion));
 
   std::remove(path.c_str());
 }
@@ -56,10 +60,11 @@ TEST(CommonIO, LoadImuCsvParsesGyroAndAccel) {
 
   const auto imu = io::loadImuCsv(path);
   ASSERT_EQ(imu.size(), 1u);
-  EXPECT_DOUBLE_EQ(imu[0].timestamp, 0.5);
-  EXPECT_TRUE(imu[0].angular_velocity.isApprox(Eigen::Vector3d(0.1, 0.2, 0.3)));
-  EXPECT_TRUE(
-      imu[0].linear_acceleration.isApprox(Eigen::Vector3d(1, 2, 3)));
+  EXPECT_DOUBLE_EQ(imu[0].timestamp, kGoldenImuTimestamp);
+  EXPECT_TRUE(imu[0].angular_velocity.isApprox(
+      Eigen::Vector3d(kGyroX, kGyroY, kGyroZ), kEpsilonVector3));
+  EXPECT_TRUE(imu[0].linear_acceleration.isApprox(
+      Eigen::Vector3d(kAccelX, kAccelY, kAccelZ), kEpsilonVector3));
 
   std::remove(path.c_str());
 }

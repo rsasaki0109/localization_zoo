@@ -116,7 +116,7 @@ def write_ready_defaults_csv(points: list[VariantPoint], output_path: Path) -> N
         key=lambda item: (item.selector, item.dataset_name, item.problem_title),
     )
     with output_path.open("w", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(
             [
                 "selector",
@@ -158,7 +158,7 @@ def write_manuscript_core_csv(points: list[VariantPoint], output_path: Path) -> 
     chosen = [choose_core_default(points, selector) for selector in selectors]
     chosen = [item for item in chosen if item is not None]
     with output_path.open("w", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(
             [
                 "selector",

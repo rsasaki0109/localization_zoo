@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import sys
@@ -32,6 +33,10 @@ def run_version(cmd: list[str]) -> str:
 
 def find_cmake_config(names: list[str]) -> str:
     patterns = []
+    for prefix in os.environ.get("CMAKE_PREFIX_PATH", "").split(":"):
+        if prefix:
+            for name in names:
+                patterns.append(f"{prefix}/**/{name}")
     for base in (
         "/usr/lib",
         "/usr/lib64",

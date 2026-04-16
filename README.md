@@ -72,7 +72,7 @@ python3 evaluation/scripts/run_experiment_matrix.py
 ```
 
 Use `--reuse-existing` to regenerate docs and aggregates from stored summaries without rerunning every benchmark.
-Use `--manifest experiments/<name>_matrix.json` only for local iteration; a manifest-only run rewrites `experiments/results/index.json` to that subset, so **commit paths should finish with** `python3 evaluation/scripts/refresh_study_docs.py` (or a full `run_experiment_matrix.py` without `--manifest`).
+Use `--manifest experiments/<name>_matrix.json --merge-existing-index` when adding or refreshing a single manifest; without `--merge-existing-index`, a manifest-only run rewrites `experiments/results/index.json` to that subset.
 Use `python3 evaluation/scripts/refresh_study_docs.py` to refresh both experiment docs and publication docs together.
 Publication docs alone can be regenerated with `python3 evaluation/scripts/generate_publication_docs.py`.
 Paper-ready tables and Pareto figures can be regenerated with `python3 evaluation/scripts/export_paper_assets.py`.

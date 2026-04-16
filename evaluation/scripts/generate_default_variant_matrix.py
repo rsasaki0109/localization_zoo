@@ -89,7 +89,7 @@ def build_matrix() -> dict[str, dict[str, str]]:
 def write_wide_csv(matrix: dict[str, dict[str, str]], columns: list[str], out: Path) -> None:
     methods = sorted(matrix.keys())
     with out.open("w", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(["method", *columns])
         for m in methods:
             row = [m] + [matrix[m].get(c, "") for c in columns]
@@ -98,7 +98,7 @@ def write_wide_csv(matrix: dict[str, dict[str, str]], columns: list[str], out: P
 
 def write_long_csv(matrix: dict[str, dict[str, str]], out: Path) -> None:
     with out.open("w", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(["method", "dataset_slug", "default_variant_id"])
         for m in sorted(matrix.keys()):
             for slug in sorted(matrix[m].keys(), key=dataset_sort_key):

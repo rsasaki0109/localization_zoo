@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-04-13T16:56:11+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-04-16T22:57:03+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -21,6 +21,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | Method family | Dataset | Contract | Default variant | ATE [m] | FPS | Aggregate |
 |---------------|---------|----------|-----------------|---------|-----|-----------|
 | aloam | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.193 | 13.8 | `experiments/results/aloam_hdl_400_reference_matrix.json` |
+| aloam | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 0.166 | 19.0 | `experiments/results/aloam_hdl_400_reference_b_matrix.json` |
 | aloam | `kitti_raw_0009_200` | reference-based | `fast` | 3.433 | 3.4 | `experiments/results/aloam_kitti_raw_0009_matrix.json` |
 | aloam | `kitti_raw_0009_200` | reference-based | `fast` | 3.433 | 4.8 | `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json` |
 | aloam | `kitti_raw_0009_full` | reference-based | `fast` | 6.105 | 5.8 | `experiments/results/aloam_kitti_raw_0009_full_matrix.json` |

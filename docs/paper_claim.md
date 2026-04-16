@@ -17,7 +17,7 @@ Across the **five** method families that currently share the **same twelve bench
 
 ### Sub-Claim 2: The Pareto front is informative and non-trivial
 
-The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/ready_defaults.csv` (one row per **ready** problem instance) spans roughly **0.005 m to 183 m** ATE and **0.4 to 106** FPS on the machine used for the stored aggregates. No single method family dominates the full front; fast scan-to-map variants (e.g., LiTAMIN2 `fast_*`, Small-GICP on KITTI) coexist with high-accuracy NDT configurations on other windows.
+The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/ready_defaults.csv` (one row per **ready** problem instance) spans roughly **0.005 m to 292 m** ATE and **0.17 to 173** FPS on the machine used for the stored aggregates. No single method family dominates the full front; fast scan-to-map variants (e.g., LiTAMIN2 `fast_*`, Small-GICP on KITTI) coexist with high-accuracy NDT configurations on other windows.
 
 **Evidence:**
 - `docs/assets/paper/ready_defaults_pareto.png`
@@ -25,7 +25,7 @@ The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/read
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The `pcd_dogfooding --summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **166** ready problems, **1** blocked manifest, and **1** skipped manifest across **27** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py`.
+The `pcd_dogfooding --summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **249** ready problems, **1** blocked manifest, and **1** skipped manifest across **27** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py`.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -46,7 +46,7 @@ CT-LIO GT-backed evaluation is blocked due to missing repository-aligned GT CSV 
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **166** ready + **1** blocked + **1** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **249** ready + **1** blocked + **1** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |

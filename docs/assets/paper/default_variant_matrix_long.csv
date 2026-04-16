@@ -1,5 +1,6 @@
 method,dataset_slug,default_variant_id
 aloam,hdl_400_open_ct_lio_120,fast
+aloam,hdl_400_open_ct_lio_120_b,fast
 aloam,kitti_raw_0009_200,fast
 aloam,kitti_raw_0009_full,fast
 aloam,kitti_raw_0061_200,fast

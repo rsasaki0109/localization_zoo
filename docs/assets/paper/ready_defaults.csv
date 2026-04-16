@@ -1,5 +1,6 @@
 selector,dataset,contract_type,variant_id,variant_label,ate_m,fps,aggregate_path
 aloam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.192990,13.770110,experiments/results/aloam_hdl_400_reference_matrix.json
+aloam,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast,0.166484,18.998071,experiments/results/aloam_hdl_400_reference_b_matrix.json
 aloam,kitti_raw_0009_200,reference-based,fast,Fast,3.432916,4.848225,experiments/results/aloam_kitti_raw_0009_nogt_matrix.json
 aloam,kitti_raw_0009_200,reference-based,fast,Fast,3.432916,3.410079,experiments/results/aloam_kitti_raw_0009_matrix.json
 aloam,kitti_raw_0009_full,reference-based,fast,Fast,6.104840,5.779396,experiments/results/aloam_kitti_raw_0009_full_matrix.json

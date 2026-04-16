@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -73,6 +73,7 @@ The runner is responsible for:
 
 | Problem | Status | Manifest | Selector | Current Default | Aggregate |
 |---------|--------|----------|----------|-----------------|-----------|
+| A-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/aloam_hdl_400_reference_b_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_hdl_400_reference_b_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/aloam_hdl_400_reference_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_hdl_400_reference_matrix.json` |
 | A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/aloam_kitti_raw_0009_full_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0009_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/aloam_kitti_raw_0009_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0009_matrix.json` |

@@ -10,7 +10,6 @@ target_include_directories(localization_common PUBLIC
 target_link_libraries(localization_common PUBLIC
   Eigen3::Eigen
   ${PCL_LIBRARIES}
-  ${OpenCV_LIBS}
 )
 
 target_include_directories(localization_common PUBLIC

@@ -63,6 +63,8 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j"$(nproc)"
 bash evaluation/scripts/smoke_ci_fixture.sh
 ```
 
+To run **ctest**, **synthetic_benchmark**, and the same **smoke fixture** in one go: `bash evaluation/scripts/run_local_evaluation_suite.sh` (see [`evaluation/README.md`](evaluation/README.md)).
+
 The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB); the same script runs in **GitHub Actions** after `ctest`. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
 
 ```bash

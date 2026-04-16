@@ -39,9 +39,17 @@ def main() -> int:
     gcc_ver = run_version(["g++", "--version"]).split("\n")[0] if run_version(["g++", "--version"]) else ""
     all_ok &= check("g++", bool(gcc_ver), gcc_ver)
 
-    # Build artifact
-    binary = REPO_ROOT / "build" / "evaluation" / "pcd_dogfooding"
-    all_ok &= check("pcd_dogfooding binary", binary.exists(), str(binary))
+    # Build artifacts (evaluation stack)
+    eval_dir = REPO_ROOT / "build" / "evaluation"
+    for name in ("pcd_dogfooding", "synthetic_benchmark"):
+        path = eval_dir / name
+        all_ok &= check(f"build/evaluation/{name}", path.exists(), str(path))
+
+    fixture_pcd = REPO_ROOT / "evaluation" / "fixtures" / "mcd_kth_smoke"
+    all_ok &= check("evaluation/fixtures/mcd_kth_smoke/", fixture_pcd.is_dir())
+
+    suite = REPO_ROOT / "evaluation" / "scripts" / "run_local_evaluation_suite.sh"
+    all_ok &= check("script: run_local_evaluation_suite.sh", suite.exists())
 
     # Python packages
     for pkg in ["numpy", "matplotlib"]:

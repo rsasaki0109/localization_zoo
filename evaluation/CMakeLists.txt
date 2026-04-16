@@ -61,3 +61,9 @@ target_link_libraries(pcd_dogfooding PRIVATE
   ${PCL_LIBRARIES}
 )
 target_include_directories(pcd_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})
+
+add_custom_target(
+  eval_local_suite
+  COMMAND ${CMAKE_SOURCE_DIR}/evaluation/scripts/run_local_evaluation_suite.sh
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  COMMENT "Run ctest + synthetic_benchmark + smoke_ci_fixture (see evaluation/README.md)")

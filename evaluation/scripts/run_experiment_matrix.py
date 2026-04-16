@@ -103,6 +103,14 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Reuse existing per-variant summary.json files when present instead of rerunning the benchmark.",
     )
+    parser.add_argument(
+        "--merge-existing-index",
+        action="store_true",
+        help=(
+            "When running a manifest subset, keep problems from the existing "
+            "output-dir index and replace only the manifests run in this invocation."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -482,6 +490,89 @@ def variant_result_to_dict(result: VariantResult) -> dict[str, Any]:
         "decision": result.decision,
         "decision_reason": result.decision_reason,
     }
+
+
+def variant_result_from_dict(data: dict[str, Any]) -> VariantResult:
+    return VariantResult(
+        id=str(data["id"]),
+        label=str(data.get("label", "")),
+        design_style=str(data.get("design_style", "")),
+        intent=str(data.get("intent", "")),
+        args=list(data.get("args", [])),
+        command=str(data.get("command", "")),
+        summary_path=str(data.get("summary_path", "")),
+        log_path=str(data.get("log_path", "")),
+        status=str(data.get("status", "OK")),
+        ate_m=data.get("ate_m"),
+        fps=data.get("fps"),
+        time_ms=data.get("time_ms"),
+        frames=data.get("frames"),
+        note=str(data.get("note", "")),
+        benchmark_score=float(data.get("benchmark_score", 0.0)),
+        readability_score=float(data.get("readability_score", 0.0)),
+        readability_note=str(data.get("readability_note", "")),
+        extensibility_score=float(data.get("extensibility_score", 0.0)),
+        extensibility_note=str(data.get("extensibility_note", "")),
+        decision=str(data.get("decision", "")),
+        decision_reason=str(data.get("decision_reason", "")),
+    )
+
+
+def problem_run_from_aggregate(aggregate_path: Path) -> ProblemRun:
+    aggregate = json.loads(aggregate_path.read_text())
+    problem_cfg = aggregate["problem"]
+    stable_interface = aggregate["stable_interface"]
+    dataset_cfg = aggregate.get("dataset", {})
+    manifest_path = str(aggregate["manifest_path"])
+    return ProblemRun(
+        manifest_path=manifest_path,
+        manifest_stem=Path(manifest_path).stem,
+        problem_id=str(problem_cfg["id"]),
+        title=str(problem_cfg["title"]),
+        question=str(problem_cfg["question"]),
+        problem_state=str(aggregate.get("status", problem_cfg.get("state", "ready"))),
+        blocker=str(aggregate.get("blocker", problem_cfg.get("blocker", ""))),
+        next_step=str(aggregate.get("next_step", problem_cfg.get("next_step", ""))),
+        dataset_pcd_dir=str(dataset_cfg.get("pcd_dir", "")),
+        dataset_gt_csv=str(dataset_cfg.get("gt_csv", "")),
+        binary_path=str(stable_interface["binary"]),
+        method_selector=str(stable_interface["methods"]),
+        primary_method=str(stable_interface["primary_method"]),
+        same_metrics=list(problem_cfg.get("same_metrics", [])),
+        aggregate_relpath=relpath(aggregate_path),
+        results=[variant_result_from_dict(item) for item in aggregate.get("variants", [])],
+        planned_variants=list(aggregate.get("planned_variants", [])),
+    )
+
+
+def merge_with_existing_index(
+    current_runs: list[ProblemRun],
+    output_dir: Path,
+) -> list[ProblemRun]:
+    index_path = output_dir / "index.json"
+    if not index_path.exists():
+        return current_runs
+
+    current_by_manifest = {run.manifest_path: run for run in current_runs}
+    merged_by_manifest: dict[str, ProblemRun] = {}
+    existing_index = json.loads(index_path.read_text())
+    for entry in existing_index.get("problems", []):
+        manifest_path = str(entry.get("manifest_path", ""))
+        if manifest_path in current_by_manifest:
+            merged_by_manifest[manifest_path] = current_by_manifest[manifest_path]
+            continue
+        aggregate_raw = entry.get("aggregate_path")
+        if not aggregate_raw:
+            continue
+        aggregate_path = resolve_path(str(aggregate_raw))
+        if aggregate_path is None or not aggregate_path.exists():
+            continue
+        merged_by_manifest[manifest_path] = problem_run_from_aggregate(aggregate_path)
+
+    for run in current_runs:
+        merged_by_manifest[run.manifest_path] = run
+
+    return sorted(merged_by_manifest.values(), key=lambda item: item.manifest_path)
 
 
 def render_metric(value: float | None, digits: int = 3) -> str:
@@ -999,6 +1090,8 @@ def main() -> None:
         )
         for manifest_path in manifest_paths
     ]
+    if args.merge_existing_index and args.manifest:
+        problem_runs = merge_with_existing_index(problem_runs, output_dir)
 
     index_path = output_dir / "index.json"
     index_payload = {

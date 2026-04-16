@@ -1,6 +1,6 @@
 # Paper Roadmap
 
-_Generated at 2026-04-16T21:49:01+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-16T22:18:06+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 ## Chosen Direction
 
@@ -16,7 +16,7 @@ _Generated at 2026-04-16T21:49:01+00:00 by `evaluation/scripts/generate_publicat
 
 ## Phase 2: Expand Public Evidence
 
-- Add a third public dataset family, or broaden the current two-family evidence with longer windows.
+- Add another public dataset family, or broaden the current 4-family evidence with longer windows.
 - Keep the scoped-out GT-backed CT-LIO item in appendix/artifact docs; revisit only if independent GT appears.
 - Re-run every ready problem on the same hardware profile and archive the outputs under `experiments/results/`.
 
@@ -36,7 +36,7 @@ _Generated at 2026-04-16T21:49:01+00:00 by `evaluation/scripts/generate_publicat
 
 | Priority | Task | Why it matters |
 |----------|------|----------------|
-| P0 | Add a third public dataset family or broader windows from the current families. | The study now spans two families, but that is still a narrow basis for a paper claim. |
+| P0 | Add another public dataset family or broader windows from the current 4 families. | The study spans multiple families, but external validity improves with another independent source or deeper windows. |
 | P1 | Keep GT-backed CT-LIO scoped out of main evidence tables. | The status is decided; future refreshes should not mix blocked evidence with accepted results. |
 | P1 | Curate manuscript-facing subsets and captions from the generated paper assets. | The exports exist now; the remaining work is turning them into final paper figures and tables. |
 | P1 | Add dataset bootstrap helpers and a pinned environment. | The refresh entrypoint exists, but a clean-machine replay path is still missing. |

@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -83,6 +83,7 @@ The runner is responsible for:
 | A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/aloam_mcd_kth_day_06_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_mcd_kth_day_06_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/aloam_mcd_ntu_day_02_matrix.json` | `aloam` | `dense` | `experiments/results/aloam_mcd_ntu_day_02_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/aloam_mcd_tuhh_night_09_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
+| BALM2 on the second public HDL-400 reference window | `ready` | `experiments/balm2_hdl_400_reference_b_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_hdl_400_reference_b_matrix.json` |
 | BALM2 on the public HDL-400 reference window | `ready` | `experiments/balm2_hdl_400_reference_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_hdl_400_reference_matrix.json` |
 | BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/balm2_kitti_raw_0009_full_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_kitti_raw_0009_full_matrix.json` |
 | BALM2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/balm2_kitti_raw_0009_matrix.json` | `balm2` | `fast` | `experiments/results/balm2_kitti_raw_0009_matrix.json` |
@@ -146,6 +147,7 @@ The runner is responsible for:
 | FAST-LIO-SLAM on MCD KTH day-06 sequence | `ready` | `experiments/fast_lio_slam_mcd_kth_day_06_matrix.json` | `fast_lio_slam` | `fast` | `experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json` |
 | FAST-LIO-SLAM on MCD NTU day-02 sequence | `ready` | `experiments/fast_lio_slam_mcd_ntu_day_02_matrix.json` | `fast_lio_slam` | `fast` | `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json` |
 | FAST-LIO-SLAM on MCD TUHH night-09 sequence | `ready` | `experiments/fast_lio_slam_mcd_tuhh_night_09_matrix.json` | `fast_lio_slam` | `fast` | `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json` |
+| F-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/floam_hdl_400_reference_b_matrix.json` | `floam` | `fast` | `experiments/results/floam_hdl_400_reference_b_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/floam_hdl_400_reference_matrix.json` | `floam` | `fast` | `experiments/results/floam_hdl_400_reference_matrix.json` |
 | F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/floam_kitti_raw_0009_full_matrix.json` | `floam` | `fast` | `experiments/results/floam_kitti_raw_0009_full_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/floam_kitti_raw_0009_matrix.json` | `floam` | `fast` | `experiments/results/floam_kitti_raw_0009_matrix.json` |
@@ -199,6 +201,7 @@ The runner is responsible for:
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/kiss_icp_mcd_ntu_day_02_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/kiss_icp_mcd_tuhh_night_09_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_profile_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_profile_matrix.json` |
+| LeGO-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/lego_loam_hdl_400_reference_b_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_hdl_400_reference_b_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/lego_loam_hdl_400_reference_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lego_loam_kitti_raw_0009_full_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/lego_loam_kitti_raw_0009_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |

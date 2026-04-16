@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-04-16T22:56:26+00:00
+> Generated: 2026-04-17T11:59:13+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -89,6 +89,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 0.714 | 15.9 |
 | HDL-400 | fast | 0.827 | 9.0 |
 | KITTI-kitti_raw_0009_200 | fast | 2.366 | 13.7 |
 | KITTI-kitti_raw_0009_full | fast | 3.338 | 12.7 |
@@ -98,7 +99,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | fast | 0.172 | 12.7 |
 | MCD-TUHH | fast | 1.698 | 14.6 |
 
-**Stability**: 1 unique default(s) across 8 windows.
+**Stability**: 1 unique default(s) across 9 windows.
 
 ### CLINS
 
@@ -201,6 +202,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 0.102 | 76.6 |
 | HDL-400 | fast | 0.411 | 64.2 |
 | KITTI-kitti_raw_0009_200 | fast | 3.486 | 24.6 |
 | KITTI-kitti_raw_0009_full | fast | 5.452 | 28.6 |
@@ -210,7 +212,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | fast | 0.152 | 27.0 |
 | MCD-TUHH | fast | 1.345 | 27.6 |
 
-**Stability**: 1 unique default(s) across 8 windows.
+**Stability**: 1 unique default(s) across 9 windows.
 
 ### GICP
 
@@ -283,6 +285,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 0.163 | 26.1 |
 | HDL-400 | fast | 0.226 | 21.8 |
 | KITTI-kitti_raw_0009_200 | fast | 3.216 | 8.9 |
 | KITTI-kitti_raw_0009_full | fast | 6.498 | 9.5 |
@@ -292,7 +295,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | fast | 0.079 | 8.4 |
 | MCD-TUHH | fast | 1.401 | 10.1 |
 
-**Stability**: 1 unique default(s) across 8 windows.
+**Stability**: 1 unique default(s) across 9 windows.
 
 ### LINS
 
@@ -498,9 +501,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| default | 3.604 | 1.7 | 8 |
-| dense | 3.630 | 0.7 | 8 |
-| fast | 4.141 | 12.6 | 8 |
+| default | 3.254 | 1.7 | 9 |
+| dense | 3.275 | 0.7 | 9 |
+| fast | 3.760 | 12.9 | 9 |
 
 ### CLINS
 
@@ -562,9 +565,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| dense | 2.842 | 3.4 | 8 |
-| fast | 2.679 | 32.5 | 8 |
-| kitti_default | 3.054 | 14.3 | 8 |
+| dense | 2.541 | 3.9 | 9 |
+| fast | 2.392 | 37.4 | 9 |
+| kitti_default | 2.724 | 16.6 | 9 |
 
 ### GICP
 
@@ -602,9 +605,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| dense | 3.387 | 4.4 | 8 |
-| fast | 2.906 | 11.2 | 8 |
-| kitti_default | 2.886 | 3.7 | 8 |
+| dense | 3.031 | 5.0 | 9 |
+| fast | 2.601 | 12.8 | 9 |
+| kitti_default | 2.582 | 4.3 | 9 |
 
 ### LINS
 

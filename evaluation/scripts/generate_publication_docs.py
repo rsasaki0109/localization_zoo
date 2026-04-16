@@ -122,12 +122,14 @@ def dataset_family_key(dataset_path: str) -> str:
         return "autoware_istanbul"
     if "hdl_400" in name:
         return "hdl_400"
+    if "mcd_" in name or name.startswith("mcd"):
+        return "mcd"
     for token in (
         "kitti",
-        "mulran",
         "nclt",
         "newer_college",
         "newercollege",
+        "mulran",
         "oxford",
         "boreas",
     ):
@@ -347,7 +349,7 @@ def render_paper_tracks_md(
                     else (
                         "Deepen the newer dataset family with at least one more LiDAR-only sequence, or add a third family, so the study is not resting on one reference window."
                         if smallest_family_count <= 1
-                        else "Add a third public dataset family, or expand the current two-family evidence with longer and less curated windows."
+                        else f"Add another public dataset family, or expand the current {non_imu_family_count}-family evidence with longer and less curated windows."
                     )
                 )
             )
@@ -454,7 +456,7 @@ def render_paper_roadmap_md(
                 else (
                     "- Deepen the newer public dataset family with another LiDAR-only sequence, or add a third family."
                     if smallest_family_count <= 1
-                    else "- Add a third public dataset family, or broaden the current two-family evidence with longer windows."
+                    else f"- Add another public dataset family, or broaden the current {non_imu_family_count}-family evidence with longer windows."
                 )
             )
         )
@@ -476,7 +478,7 @@ def render_paper_roadmap_md(
                 else (
                     "| P0 | Add another LiDAR-only sequence from the HDL-400 family or add a third dataset family. | The study now spans multiple families, but one of them is still represented by a single short reference window. |"
                     if smallest_family_count <= 1
-                    else "| P0 | Add a third public dataset family or broader windows from the current families. | The study now spans two families, but that is still a narrow basis for a paper claim. |"
+                    else f"| P0 | Add another public dataset family or broader windows from the current {non_imu_family_count} families. | The study spans multiple families, but external validity improves with another independent source or deeper windows. |"
                 )
             )
         )

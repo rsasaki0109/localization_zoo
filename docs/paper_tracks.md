@@ -1,6 +1,6 @@
 # Paper Tracks
 
-_Generated at 2026-04-16T21:49:01+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-16T22:18:06+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
@@ -282,14 +282,14 @@ Current coverage: `248` ready, `1` blocked, `1` skipped problems.
 
 ### Gaps
 
-- LiDAR-only methods now cover 13 repository-stored open sequences across 6 public dataset families, but external validity still rests on only 6 families.
+- LiDAR-only methods now cover 13 repository-stored open sequences across 4 public dataset families, but external validity still rests on only 4 families.
 - Reference-based and GT-backed results are separated, and the GT-backed CT-LIO public benchmark is explicitly scoped out of the main study until independent GT appears.
 - There is no paper-ready comparison against originally reported results yet.
 - Hardware-normalized reruns and confidence intervals are not exported yet.
 
 ### Next Experiments
 
-- Add a third public dataset family, or expand the current two-family evidence with longer and less curated windows.
+- Add another public dataset family, or expand the current 4-family evidence with longer and less curated windows.
 - Keep GT-backed CT-LIO out of the main evidence tables and revisit only if independent HDL-400 GT becomes available.
 - Generate a method-by-method table comparing repository defaults, challengers, and original-paper numbers.
 - Export paper-ready Pareto figures from `experiments/results/*.json`.

@@ -46,7 +46,7 @@ print("generated_at", d.get("generated_at"))
 PY
 ```
 
-**2026-04-16 時点の例:** `problems` **250** 件、`ready` **248**、`blocked` **1**、`skipped` **1**（再実行で変わる可能性あり）。
+**2026-04-17 時点の例:** `problems` **251** 件、`ready` **249**、`blocked` **1**、`skipped` **1**（再実行で変わる可能性あり）。
 
 ### 1.3 テスト基盤（2026-04 強化）
 
@@ -129,14 +129,14 @@ repo 単体では完結しない。必要になるのは例えば:
 
 ---
 
-## 5. 数で見る規模（参考・2026-04-16 時点の例）
+## 5. 数で見る規模（参考・2026-04-17 時点の例）
 
 旧 PLAN の詳細表と矛盾しないよう、**件数は §1.2 のスクリプトで取り直すこと**。
 
 | 指標 | 例 |
 |------|-----|
-| `index.json` の `problems` | 250 |
-| `ready` / `blocked` / `skipped` | 248 / 1 / 1 |
+| `index.json` の `problems` | 251 |
+| `ready` / `blocked` / `skipped` | 249 / 1 / 1 |
 | CLI method family（`pcd_dogfooding`） | README・`docs/interfaces.md` と整合を取る |
 
 **27 methods** や manifest 数は時期によって変わる。**「27」と書く前に `pcd_dogfooding` の selector と manifest 一覧を grep / 集計する。**
@@ -147,15 +147,15 @@ repo 単体では完結しない。必要になるのは例えば:
 
 ### 6.1 `--manifest` 部分実行
 
-`run_experiment_matrix.py --manifest ...` は便利だが、`index.json` を subset で上書きしうる。
+`run_experiment_matrix.py --manifest ...` は便利だが、`--merge-existing-index` なしでは `index.json` を subset で上書きしうる。
 
 対策: 最後に
 
 ```bash
-python3 evaluation/scripts/refresh_study_docs.py
+python3 evaluation/scripts/run_experiment_matrix.py --manifest experiments/<name>_matrix.json --reuse-existing --merge-existing-index
 ```
 
-（またはフルマトリクスで再生成）
+（または `refresh_study_docs.py` / フルマトリクスで再生成）
 
 ### 6.2 `blocked` と `skipped`
 

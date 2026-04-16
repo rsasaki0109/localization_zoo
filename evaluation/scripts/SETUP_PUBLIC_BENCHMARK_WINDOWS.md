@@ -36,6 +36,22 @@ python3 evaluation/scripts/extract_ros1_lidar_imu.py \
 
 この synthetic time で **non-CT 系はほぼ再現**できますが、`ct_lio` / `ct_icp` の stored reference aggregate までは一致しません。stored CT reference を正確に再現したい場合は、元の `hdl_400_ros2` 抽出窓のような **native per-point `time` 付き点群**が必要です。
 
+### HDL-400 ROS2 native-time B window
+
+`experiments/*_hdl_400_reference_b_matrix.json` が参照する B window は、native per-point `time` を持つ ROS2 bag から以下の範囲を抽出する契約です。
+
+```bash
+python3 evaluation/scripts/extract_ros2_lidar_imu.py \
+  --bag /path/to/hdl_400_ros2 \
+  --pointcloud-topic /velodyne_points \
+  --imu-topic /gpsimu_driver/imu_data \
+  --output-dir dogfooding_results/hdl_400_open_ct_lio_120_b \
+  --start-frame 360 \
+  --max-frames 120
+```
+
+この window は `experiments/reference_data/hdl_400_public_reference_b.csv` と timestamp が対応します。先頭フレームは `1509348833.091089964`、末尾フレームは `1509348845.001411915` です。
+
 ## KITTI Raw（フル PCD + IMU）
 
 - `evaluation/scripts/setup_kitti_benchmark.sh` … **Odometry** velodyne（Raw の OXTS なし）

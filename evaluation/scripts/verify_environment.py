@@ -7,6 +7,7 @@ from __future__ import annotations
 import shutil
 import subprocess
 import sys
+from glob import glob
 from pathlib import Path
 
 
@@ -29,6 +30,24 @@ def run_version(cmd: list[str]) -> str:
         return ""
 
 
+def find_cmake_config(names: list[str]) -> str:
+    patterns = []
+    for base in (
+        "/usr/lib",
+        "/usr/lib64",
+        "/usr/local/lib",
+        "/usr/local/lib64",
+        "/opt",
+    ):
+        for name in names:
+            patterns.append(f"{base}/**/{name}")
+    for pattern in patterns:
+        matches = sorted(glob(pattern, recursive=True))
+        if matches:
+            return matches[0]
+    return ""
+
+
 def main() -> int:
     all_ok = True
 
@@ -38,6 +57,9 @@ def main() -> int:
 
     gcc_ver = run_version(["g++", "--version"]).split("\n")[0] if run_version(["g++", "--version"]) else ""
     all_ok &= check("g++", bool(gcc_ver), gcc_ver)
+
+    ceres_config = find_cmake_config(["CeresConfig.cmake", "ceres-config.cmake"])
+    all_ok &= check("Ceres CMake package", bool(ceres_config), ceres_config or "not found")
 
     # Build artifacts (evaluation stack)
     eval_dir = REPO_ROOT / "build" / "evaluation"

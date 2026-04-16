@@ -22,6 +22,8 @@ class ProblemSummary:
     title: str
     status: str
     blocker: str
+    next_step: str
+    scope_decision: str
     manifest_path: str
     aggregate_path: str
     current_default: str | None
@@ -83,6 +85,8 @@ def summarize_problem(entry: dict[str, Any]) -> ProblemSummary:
         title=entry["title"],
         status=entry["status"],
         blocker=entry.get("blocker", ""),
+        next_step=str(aggregate.get("next_step") or problem.get("next_step", "")),
+        scope_decision=str(problem.get("scope_decision", "")),
         manifest_path=entry["manifest_path"],
         aggregate_path=entry["aggregate_path"],
         current_default=entry.get("current_default"),
@@ -154,26 +158,26 @@ def non_imu_dataset_family_counts(problems: list[ProblemSummary]) -> dict[str, i
 
 def compute_track_scores(problems: list[ProblemSummary]) -> dict[str, int]:
     ready = [problem for problem in problems if problem.status == "ready"]
-    blocked = [problem for problem in problems if problem.status != "ready"]
+    nonready = [problem for problem in problems if problem.status != "ready"]
     selectors = {problem.selector for problem in ready}
 
     empirical = 25
     empirical += min(len(ready) * 6, 30)
     empirical += 10 if len(selectors) >= 5 else 0
     empirical += 10 if any(problem.selector == "ct_lio" for problem in ready) else 0
-    empirical -= min(len(blocked) * 10, 20)
+    empirical -= min(len(nonready) * 10, 20)
     empirical = max(0, min(empirical, 100))
 
     artifact = 45
     artifact += min(len(ready) * 4, 24)
-    artifact += 10 if blocked else 0
+    artifact += 10 if nonready else 0
     artifact += 8 if any(problem.current_default for problem in ready) else 0
     artifact = max(0, min(artifact, 100))
 
     method = 15
     method += 20 if any(problem.selector == "ct_lio" for problem in ready) else 0
     method += 10 if len({problem.dataset_pcd_dir for problem in ready}) >= 2 else 0
-    method -= 15 if blocked else 0
+    method -= 15 if nonready else 0
     method -= 10 if len(ready) > 4 else 0
     method = max(0, min(method, 100))
 
@@ -182,6 +186,29 @@ def compute_track_scores(problems: list[ProblemSummary]) -> dict[str, int]:
         "artifact": artifact,
         "method": method,
     }
+
+
+def gt_lio_is_scoped_out(problems: list[ProblemSummary]) -> bool:
+    for problem in problems:
+        if problem.problem_id != "ct_lio_public_gt_readiness":
+            continue
+        decision_text = f"{problem.next_step} {problem.scope_decision}".lower()
+        return (
+            "scoped out" in decision_text
+            or "excluded from the main study" in decision_text
+            or "no action planned" in decision_text
+        )
+    return False
+
+
+def status_count_text(problems: list[ProblemSummary]) -> str:
+    counts = Counter(problem.status for problem in problems)
+    order = ["ready", "blocked", "skipped"]
+    parts = [f"`{counts[status]}` {status}" for status in order if counts.get(status)]
+    parts.extend(
+        f"`{count}` {status}" for status, count in sorted(counts.items()) if status not in order
+    )
+    return ", ".join(parts)
 
 
 def render_current_state(problems: list[ProblemSummary]) -> list[str]:
@@ -244,13 +271,13 @@ def render_paper_tracks_md(
     problems: list[ProblemSummary], scores: dict[str, int], generated_at: str
 ) -> str:
     ready = [problem for problem in problems if problem.status == "ready"]
-    blocked = [problem for problem in problems if problem.status != "ready"]
     non_imu_dataset_count = len(unique_non_imu_datasets(ready))
     non_imu_family_count = len(unique_non_imu_dataset_families(ready))
     family_counts = non_imu_dataset_family_counts(ready)
     smallest_family_count = min(family_counts.values()) if family_counts else 0
     ct_lio = next((problem for problem in ready if problem.selector == "ct_lio"), None)
     litamin2 = next((problem for problem in ready if problem.selector == "litamin2"), None)
+    gt_lio_scoped_out = gt_lio_is_scoped_out(problems)
 
     lines = [
         "# Paper Tracks",
@@ -260,7 +287,7 @@ def render_paper_tracks_md(
         "This repository should not be pitched as \"many implementations exist here\".",
         "The paper target has to be a claim about what this experiment-driven process reveals.",
         "",
-        f"Current coverage: `{len(ready)}` ready problems and `{len(blocked)}` blocked problems.",
+        f"Current coverage: {status_count_text(problems)} problems.",
         "",
     ]
     lines.extend(render_current_state(problems))
@@ -299,7 +326,11 @@ def render_paper_tracks_md(
                 )
             )
         ),
-        "Reference-based and GT-backed results are now separated conceptually, but the GT-backed CT-LIO public benchmark is still blocked.",
+        (
+            "Reference-based and GT-backed results are separated, and the GT-backed CT-LIO public benchmark is explicitly scoped out of the main study until independent GT appears."
+            if gt_lio_scoped_out
+            else "Reference-based and GT-backed results are now separated conceptually, but the GT-backed CT-LIO public benchmark is still blocked."
+        ),
         "There is no paper-ready comparison against originally reported results yet.",
         "Hardware-normalized reruns and confidence intervals are not exported yet.",
     ]
@@ -321,7 +352,11 @@ def render_paper_tracks_md(
                 )
             )
         ),
-        "Unblock or explicitly exclude GT-backed CT-LIO from the main study before writing.",
+        (
+            "Keep GT-backed CT-LIO out of the main evidence tables and revisit only if independent HDL-400 GT becomes available."
+            if gt_lio_scoped_out
+            else "Unblock or explicitly exclude GT-backed CT-LIO from the main study before writing."
+        ),
         "Generate a method-by-method table comparing repository defaults, challengers, and original-paper numbers.",
         "Export paper-ready Pareto figures from `experiments/results/*.json`.",
     ]
@@ -401,11 +436,12 @@ def render_paper_roadmap_md(
     problems: list[ProblemSummary], scores: dict[str, int], generated_at: str
 ) -> str:
     ready = [problem for problem in problems if problem.status == "ready"]
-    blocked = [problem for problem in problems if problem.status != "ready"]
+    nonready = [problem for problem in problems if problem.status != "ready"]
     non_imu_dataset_count = len(unique_non_imu_datasets(ready))
     non_imu_family_count = len(unique_non_imu_dataset_families(ready))
     family_counts = non_imu_dataset_family_counts(ready)
     smallest_family_count = min(family_counts.values()) if family_counts else 0
+    gt_lio_scoped_out = gt_lio_is_scoped_out(problems)
     expand_public_evidence = (
         "- Add at least two additional open sequences for LiDAR-only methods."
         if non_imu_dataset_count <= 1
@@ -423,6 +459,11 @@ def render_paper_roadmap_md(
             )
         )
     )
+    gt_lio_phase2_task = (
+        "- Keep the scoped-out GT-backed CT-LIO item in appendix/artifact docs; revisit only if independent GT appears."
+        if gt_lio_scoped_out
+        else "- Resolve the blocked GT-backed CT-LIO item or explicitly scope it out of the main paper."
+    )
     immediate_public_task = (
         "| P0 | Add another public LiDAR-only sequence to every ready non-IMU problem. | One-sequence evidence is too thin for a paper claim. |"
         if non_imu_dataset_count <= 1
@@ -439,6 +480,11 @@ def render_paper_roadmap_md(
                 )
             )
         )
+    )
+    gt_lio_immediate_task = (
+        "| P1 | Keep GT-backed CT-LIO scoped out of main evidence tables. | The status is decided; future refreshes should not mix blocked evidence with accepted results. |"
+        if gt_lio_scoped_out
+        else "| P0 | Decide the status of GT-backed CT-LIO. | The paper must separate blocked and accepted evidence cleanly. |"
     )
     lines = [
         "# Paper Roadmap",
@@ -460,7 +506,7 @@ def render_paper_roadmap_md(
         "## Phase 2: Expand Public Evidence",
         "",
         expand_public_evidence,
-        "- Resolve the blocked GT-backed CT-LIO item or explicitly scope it out of the main paper.",
+        gt_lio_phase2_task,
         "- Re-run every ready problem on the same hardware profile and archive the outputs under `experiments/results/`.",
         "",
         "## Phase 3: Paper Assets",
@@ -480,19 +526,22 @@ def render_paper_roadmap_md(
         "| Priority | Task | Why it matters |",
         "|----------|------|----------------|",
         immediate_public_task,
-        "| P0 | Decide the status of GT-backed CT-LIO. | The paper must separate blocked and accepted evidence cleanly. |",
+        gt_lio_immediate_task,
         "| P1 | Curate manuscript-facing subsets and captions from the generated paper assets. | The exports exist now; the remaining work is turning them into final paper figures and tables. |",
         "| P1 | Add dataset bootstrap helpers and a pinned environment. | The refresh entrypoint exists, but a clean-machine replay path is still missing. |",
         "| P2 | Add original-paper comparison sheets for LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP, and CT-LIO. | Needed for a stronger empirical framing. |",
         "",
-        "## Current Blockers",
+        "## Current Non-Ready Problems",
         "",
     ]
-    if not blocked:
-        lines.append("- No blocked problems are currently registered.")
+    if not nonready:
+        lines.append("- No non-ready problems are currently registered.")
     else:
-        for problem in blocked:
-            lines.append(f"- `{problem.title}`: {problem.blocker}")
+        for problem in nonready:
+            line = f"- `{problem.title}` (`{problem.status}`): {problem.blocker}"
+            if problem.next_step:
+                line += f" Next step: {problem.next_step}"
+            lines.append(line)
     return "\n".join(lines)
 
 

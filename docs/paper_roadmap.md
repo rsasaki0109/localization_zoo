@@ -1,6 +1,6 @@
 # Paper Roadmap
 
-_Generated at 2026-04-13T12:41:47+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-16T21:49:01+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 ## Chosen Direction
 
@@ -17,7 +17,7 @@ _Generated at 2026-04-13T12:41:47+00:00 by `evaluation/scripts/generate_publicat
 ## Phase 2: Expand Public Evidence
 
 - Add a third public dataset family, or broaden the current two-family evidence with longer windows.
-- Resolve the blocked GT-backed CT-LIO item or explicitly scope it out of the main paper.
+- Keep the scoped-out GT-backed CT-LIO item in appendix/artifact docs; revisit only if independent GT appears.
 - Re-run every ready problem on the same hardware profile and archive the outputs under `experiments/results/`.
 
 ## Phase 3: Paper Assets
@@ -37,12 +37,12 @@ _Generated at 2026-04-13T12:41:47+00:00 by `evaluation/scripts/generate_publicat
 | Priority | Task | Why it matters |
 |----------|------|----------------|
 | P0 | Add a third public dataset family or broader windows from the current families. | The study now spans two families, but that is still a narrow basis for a paper claim. |
-| P0 | Decide the status of GT-backed CT-LIO. | The paper must separate blocked and accepted evidence cleanly. |
+| P1 | Keep GT-backed CT-LIO scoped out of main evidence tables. | The status is decided; future refreshes should not mix blocked evidence with accepted results. |
 | P1 | Curate manuscript-facing subsets and captions from the generated paper assets. | The exports exist now; the remaining work is turning them into final paper figures and tables. |
 | P1 | Add dataset bootstrap helpers and a pinned environment. | The refresh entrypoint exists, but a clean-machine replay path is still missing. |
 | P2 | Add original-paper comparison sheets for LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP, and CT-LIO. | Needed for a stronger empirical framing. |
 
-## Current Blockers
+## Current Non-Ready Problems
 
-- `CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data`: A reference-based CT-LIO comparison now exists separately, but this repository still does not ship an independently curated GT CSV aligned to the extracted HDL-400 LiDAR+IMU sequence.
-- `HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)`: Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames)
+- `CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data` (`blocked`): A reference-based CT-LIO comparison now exists separately, but this repository still does not ship an independently curated GT CSV aligned to the extracted HDL-400 LiDAR+IMU sequence. Next step: No action planned. CT-LIO GT-backed is excluded from the main study scope. If an independent GT source becomes available for HDL-400, this can be revisited.
+- `HDL Graph SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential)` (`skipped`): Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames) Next step: Run a lighter slice/profile, or keep this problem out of the ready set until a real result is available.

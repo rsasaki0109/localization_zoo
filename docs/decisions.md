@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -8,6 +8,18 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 2. Promote a variant only when it is comparable on the same binary, dataset, and metrics.
 3. Store the benchmark contract in the stable core and keep the profile search in `experiments/`.
 4. Do not delete weaker variants unless they stop being informative.
+
+## A-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_hdl_400_reference_b_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
 

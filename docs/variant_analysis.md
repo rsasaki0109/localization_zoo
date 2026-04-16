@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-04-13T12:42:03+00:00
+> Generated: 2026-04-16T22:56:26+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -73,6 +73,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 0.166 | 19.0 |
 | HDL-400 | fast | 0.193 | 13.8 |
 | KITTI-kitti_raw_0009_200 | fast | 3.433 | 3.4 |
 | KITTI-kitti_raw_0009_full | fast | 6.105 | 5.8 |
@@ -82,7 +83,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | dense | 0.035 | 3.0 |
 | MCD-TUHH | fast | 1.374 | 6.5 |
 
-**Stability**: 2 unique default(s) across 8 windows.
+**Stability**: 2 unique default(s) across 9 windows.
 
 ### BALM2
 
@@ -489,9 +490,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| dense | 2.809 | 3.3 | 8 |
-| fast | 2.684 | 6.7 | 8 |
-| kitti_default | 2.952 | 2.6 | 8 |
+| dense | 2.514 | 3.9 | 9 |
+| fast | 2.404 | 8.1 | 9 |
+| kitti_default | 2.638 | 3.3 | 9 |
 
 ### BALM2
 

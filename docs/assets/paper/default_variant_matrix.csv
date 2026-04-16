@@ -1,5 +1,5 @@
 method,autoware_istanbul_open_108,autoware_istanbul_open_108_b,autoware_istanbul_open_108_c,hdl_400_open_ct_lio_120,hdl_400_open_ct_lio_120_b,hdl_400_ros1_open_ct_lio_120_time_index,kitti_raw_0009_200,kitti_raw_0009_full,kitti_raw_0061_200,kitti_raw_0061_full,mcd_kth_day_06_108,mcd_ntu_day_02_108,mcd_tuhh_night_09_108
-aloam,,,,fast,,,fast,fast,fast,fast,fast,dense,fast
+aloam,,,,fast,fast,,fast,fast,fast,fast,fast,dense,fast
 balm2,,,,fast,,,fast,fast,fast,fast,fast,fast,fast
 clins,,,,,,dense,,,,,,,
 ct_icp,fast_window,balanced_window,balanced_window,fast_window,fast_window,dense_window,balanced_window,balanced_window,fast_window,fast_window,fast_window,dense_window,fast_window

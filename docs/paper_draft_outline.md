@@ -12,7 +12,7 @@
 
 **Contribution.**
 - A _variant-first_ benchmarking framework that keeps 3+ concrete variants alive per method family under a shared CLI contract (`pcd_dogfooding --summary-json`).
-- A full artifact that currently wires **27 active selectors** and **251 indexed problems** (**249 ready**, **1 blocked**, **1 skipped**) across Istanbul, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD, and KITTI Raw. The manuscript-facing core claim can still stay centered on the five families that share the same twelve-window grid.
+- A full artifact that currently wires **27 active selectors** and **254 indexed problems** (**252 ready**, **1 blocked**, **1 skipped**) across Istanbul, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD, and KITTI Raw. The manuscript-facing core claim can still stay centered on the five families that share the same twelve-window grid.
 - Evidence that, for every family with **broad** cross-window coverage today (LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP on twelve shared windows), the elected default **is not unique** across datasets — premature canonicalization discards real trade-offs.
 
 ---
@@ -100,7 +100,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - Data source: `experiments/results/index.json`, `docs/variant_analysis.md`, `docs/assets/paper/manuscript_core_defaults.csv` (overview slice only).
 
 ### Figure 1: Pareto Fronts (ATE vs. FPS)
-- Scatter plot of **all 249** ready-problem defaults (`docs/assets/paper/ready_defaults.csv`): ATE (m) vs. FPS.
+- Scatter plot of **all 252** ready-problem defaults (`docs/assets/paper/ready_defaults.csv`): ATE (m) vs. FPS.
 - Separate markers (or faceting) for GT-backed vs. reference-based contracts.
 - Annotate extremes from the current CSV (e.g., NDT **~0.005 m** ATE on an Istanbul window; **~173 FPS** peak on high-speed MCD rows — exact pairings depend on export date).
 - Source: `docs/assets/paper/ready_defaults_pareto.png`.
@@ -145,7 +145,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 ## 7. Conclusion
 
 - Variant-first benchmarking with a stable CLI contract is practical and reveals trade-offs hidden by canonical repos.
-- The current **251-problem / 27-selector** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
+- The current **254-problem / 27-selector** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
 - Artifacts (experiment matrices, generated decision tables, Pareto exports) are fully reproducible via `run_experiment_matrix.py --reuse-existing`.
 
 ---
@@ -153,7 +153,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 ## Appendix
 
 ### A. Full Variant Results
-- Complete tables for **251** problem lines in the index (**249** ready + **1** blocked + **1** skipped) and per-variant rows inside each `experiments/results/*_matrix.json`.
+- Complete tables for **254** problem lines in the index (**252** ready + **1** blocked + **1** skipped) and per-variant rows inside each `experiments/results/*_matrix.json`.
 
 ### B. CT-LIO / CLINS Public HDL-400 Evaluation
 - Separate treatment of HDL-400 reference/native-time-style windows and public ROS1 synthetic-time windows.

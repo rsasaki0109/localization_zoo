@@ -25,7 +25,7 @@ The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/read
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The `pcd_dogfooding --summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **249** ready problems, **1** blocked manifest, and **1** skipped manifest across **27** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py`.
+The `pcd_dogfooding --summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **252** ready problems, **1** blocked manifest, and **1** skipped manifest across **27** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py`.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -46,7 +46,7 @@ CT-LIO GT-backed evaluation is blocked due to missing repository-aligned GT CSV 
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **249** ready + **1** blocked + **1** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **252** ready + **1** blocked + **1** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |

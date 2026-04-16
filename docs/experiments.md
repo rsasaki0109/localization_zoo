@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -16,6 +16,7 @@ _Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_ma
 | A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.077 | 6.7 | `experiments/results/aloam_mcd_kth_day_06_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense` | 0.035 | 5.8 | `experiments/results/aloam_mcd_ntu_day_02_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.336 | 6.5 | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
+| BALM2 on the second public HDL-400 reference window | `ready` | `fast` | 0.429 | 15.9 | `experiments/results/balm2_hdl_400_reference_b_matrix.json` |
 | BALM2 on the public HDL-400 reference window | `ready` | `fast` | 0.476 | 9.0 | `experiments/results/balm2_hdl_400_reference_matrix.json` |
 | BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 3.338 | 12.7 | `experiments/results/balm2_kitti_raw_0009_full_matrix.json` |
 | BALM2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.366 | 13.7 | `experiments/results/balm2_kitti_raw_0009_matrix.json` |
@@ -79,6 +80,7 @@ _Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_ma
 | FAST-LIO-SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 6.075 | 9.4 | `experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json` |
 | FAST-LIO-SLAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.025 | 20.4 | `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json` |
 | FAST-LIO-SLAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.330 | 12.8 | `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json` |
+| F-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.089 | 76.6 | `experiments/results/floam_hdl_400_reference_b_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.193 | 64.2 | `experiments/results/floam_hdl_400_reference_matrix.json` |
 | F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.452 | 28.6 | `experiments/results/floam_kitti_raw_0009_full_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.883 | 24.6 | `experiments/results/floam_kitti_raw_0009_matrix.json` |
@@ -132,6 +134,7 @@ _Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast_recent_map` | 0.017 | 66.7 | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 1.104 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `experiments/results/kiss_icp_profile_matrix.json` |
+| LeGO-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.146 | 26.1 | `experiments/results/lego_loam_hdl_400_reference_b_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.147 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.865 | 8.9 | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |
@@ -856,6 +859,66 @@ _Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## BALM2 on the second public HDL-400 reference window
+
+- **Problem ID**: `balm2_hdl_400_reference_b`
+- **Question**: How does BALM2 perform on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `balm2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/balm2_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.452 | 2.0 | 53.9 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 0.714 | 15.9 | 80.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 0.429 | 0.7 | 52.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 15.9 FPS.
+3. `dense` is the most accurate observed variant at 0.429 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_b_matrix/default/summary.json`
+- Summary: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/default/summary.json`
+- Log: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Reduce feature density and bundle-adjustment effort for a lighter mapping window.
+- CLI args: `--balm2-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_b_matrix/fast/summary.json --balm2-fast-profile`
+- Summary: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Increase feature density and keep a slightly larger optimization window for a more exhaustive mapping solve without the previous runtime blow-up.
+- CLI args: `--balm2-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_b_matrix/dense/summary.json --balm2-dense-profile`
+- Summary: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
 
 
 ## BALM2 on the public HDL-400 reference window
@@ -4600,6 +4663,66 @@ _Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
 
 
+## F-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- **Problem ID**: `floam_profile_tradeoff_hdl_400_reference_b`
+- **Question**: Which F-LOAM profile should stay as the current default on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 0.089 | 35.3 | 73.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 0.102 | 76.6 | 93.6 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 0.137 | 8.2 | 37.8 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 76.6 FPS.
+3. `kitti_default` is the most accurate observed variant at 0.089 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Baseline F-LOAM settings for KITTI (n_scans=64).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods floam --summary-json experiments/results/runs/floam_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Summary: `experiments/results/runs/floam_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_hdl_400_reference_b_matrix/kitti_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `fast`
+
+- Intent: Thin input and throttle mapping for speed.
+- CLI args: `--floam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods floam --summary-json experiments/results/runs/floam_hdl_400_reference_b_matrix/fast/summary.json --floam-fast-profile`
+- Summary: `experiments/results/runs/floam_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/floam_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Process denser input and update mapping every frame.
+- CLI args: `--floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods floam --summary-json experiments/results/runs/floam_hdl_400_reference_b_matrix/dense/summary.json --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
 ## F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
 
 - **Problem ID**: `floam_profile_tradeoff_hdl_400_reference`
@@ -7690,6 +7813,66 @@ _Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
+
+
+## LeGO-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- **Problem ID**: `lego_loam_profile_tradeoff_hdl_400_reference_b`
+- **Question**: Which LeGO-LOAM profile should stay as the current default on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 0.146 | 9.0 | 67.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 0.163 | 26.1 | 94.7 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 0.187 | 10.3 | 58.8 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 26.1 FPS.
+3. `kitti_default` is the most accurate observed variant at 0.146 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Ground-aware LeGO-LOAM baseline for HDL-64E (n_scans=64, sensor height ~KITTI).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Summary: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/kitti_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+#### `fast`
+
+- Intent: Coarser surf sampling and lighter odometry/mapping Ceres budgets.
+- CLI args: `--lego-loam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/fast/summary.json --lego-loam-fast-profile`
+- Summary: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+#### `dense`
+
+- Intent: Finer features and deeper optimization passes.
+- CLI args: `--lego-loam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/dense/summary.json --lego-loam-dense-profile`
+- Summary: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
 
 
 ## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window

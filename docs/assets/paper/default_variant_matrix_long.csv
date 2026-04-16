@@ -9,6 +9,7 @@ aloam,mcd_kth_day_06_108,fast
 aloam,mcd_ntu_day_02_108,dense
 aloam,mcd_tuhh_night_09_108,fast
 balm2,hdl_400_open_ct_lio_120,fast
+balm2,hdl_400_open_ct_lio_120_b,fast
 balm2,kitti_raw_0009_200,fast
 balm2,kitti_raw_0009_full,fast
 balm2,kitti_raw_0061_200,fast
@@ -65,6 +66,7 @@ fast_lio_slam,mcd_kth_day_06_108,fast
 fast_lio_slam,mcd_ntu_day_02_108,fast
 fast_lio_slam,mcd_tuhh_night_09_108,fast
 floam,hdl_400_open_ct_lio_120,fast
+floam,hdl_400_open_ct_lio_120_b,fast
 floam,kitti_raw_0009_200,fast
 floam,kitti_raw_0009_full,fast
 floam,kitti_raw_0061_200,fast
@@ -112,6 +114,7 @@ kiss_icp,mcd_kth_day_06_108,fast_recent_map
 kiss_icp,mcd_ntu_day_02_108,fast_recent_map
 kiss_icp,mcd_tuhh_night_09_108,fast_recent_map
 lego_loam,hdl_400_open_ct_lio_120,fast
+lego_loam,hdl_400_open_ct_lio_120_b,fast
 lego_loam,kitti_raw_0009_200,fast
 lego_loam,kitti_raw_0009_full,fast
 lego_loam,kitti_raw_0061_200,fast

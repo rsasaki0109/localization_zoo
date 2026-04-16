@@ -23,7 +23,7 @@ TEST(MathUtils, SkewMatchesCrossProduct) {
   for (int i = 0; i < 32; ++i) {
     const Eigen::Vector3d a(u(rng), u(rng), u(rng));
     const Eigen::Vector3d b(u(rng), u(rng), u(rng));
-    EXPECT_TRUE(skew(a) * b.isApprox(a.cross(b), kEpsilonSkew));
+    EXPECT_TRUE((skew(a) * b).isApprox(a.cross(b), kEpsilonSkew));
   }
 }
 

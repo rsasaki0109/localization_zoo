@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-04-13T12:28:24+00:00",
+  "generated_at": "2026-04-16T22:55:21+00:00",
   "problems": [
+    {
+      "problem_id": "aloam_profile_tradeoff_hdl_400_reference_b",
+      "title": "A-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/aloam_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/aloam_hdl_400_reference_b_matrix.json",
+      "current_default": "fast"
+    },
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
       "title": "A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window",

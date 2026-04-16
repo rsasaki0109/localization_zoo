@@ -1,11 +1,12 @@
 # Experiment Results
 
-_Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-16T22:55:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
 | Problem | Status | Current Default | Best ATE [m] | Best FPS | Aggregate |
 |---------|--------|-----------------|--------------|----------|-----------|
+| A-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.131 | 19.0 | `experiments/results/aloam_hdl_400_reference_b_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.146 | 13.8 | `experiments/results/aloam_hdl_400_reference_matrix.json` |
 | A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.105 | 5.8 | `experiments/results/aloam_kitti_raw_0009_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 3.185 | 3.4 | `experiments/results/aloam_kitti_raw_0009_matrix.json` |
@@ -256,6 +257,66 @@ _Generated at 2026-04-13T12:28:24+00:00 by `evaluation/scripts/run_experiment_ma
 | X-ICP on MCD KTH day-06 sequence | `ready` | `fast` | 0.305 | 84.8 | `experiments/results/xicp_mcd_kth_day_06_matrix.json` |
 | X-ICP on MCD NTU day-02 sequence | `ready` | `dense` | 0.095 | 81.8 | `experiments/results/xicp_mcd_ntu_day_02_matrix.json` |
 | X-ICP on MCD TUHH night-09 sequence | `ready` | `dense` | 0.081 | 100.4 | `experiments/results/xicp_mcd_tuhh_night_09_matrix.json` |
+
+## A-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- **Problem ID**: `aloam_profile_tradeoff_hdl_400_reference_b`
+- **Question**: Which A-LOAM profile should stay as the current default on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 0.131 | 8.3 | 71.9 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 0.166 | 19.0 | 89.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 0.157 | 9.2 | 66.0 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 19.0 FPS.
+3. `kitti_default` is the most accurate observed variant at 0.131 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Baseline settings for KITTI (n_scans=64).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods aloam --summary-json experiments/results/runs/aloam_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Summary: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/kitti_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Reduce feature density and solver work for speed.
+- CLI args: `--aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods aloam --summary-json experiments/results/runs/aloam_hdl_400_reference_b_matrix/fast/summary.json --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `dense`
+
+- Intent: Increase feature density and solver iterations for accuracy.
+- CLI args: `--aloam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods aloam --summary-json experiments/results/runs/aloam_hdl_400_reference_b_matrix/dense/summary.json --aloam-dense-profile`
+- Summary: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
 
 ## A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
 

@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-04-17T11:59:13+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-04-18T09:40:25+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -228,6 +228,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | point_lio | `mcd_ntu_day_02_108` | reference-based | `fast` | 0.083 | 77.3 | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
 | point_lio | `mcd_tuhh_night_09_108` | reference-based | `fast` | 1.158 | 88.7 | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
 | small_gicp | `hdl_400_open_ct_lio_120` | reference-based | `fast_recent_map` | 0.251 | 110.3 | `experiments/results/small_gicp_hdl_400_reference_matrix.json` |
+| small_gicp | `hdl_400_open_ct_lio_120_b` | reference-based | `fast_recent_map` | 0.226 | 117.5 | `experiments/results/small_gicp_hdl_400_reference_b_matrix.json` |
 | small_gicp | `kitti_raw_0009_200` | reference-based | `fast_recent_map` | 0.471 | 83.3 | `experiments/results/small_gicp_kitti_raw_0009_matrix.json` |
 | small_gicp | `kitti_raw_0009_200` | reference-based | `balanced_local_map` | 1.624 | 49.6 | `experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json` |
 | small_gicp | `kitti_raw_0009_full` | reference-based | `fast_recent_map` | 0.437 | 92.4 | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
@@ -237,6 +238,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | small_gicp | `mcd_ntu_day_02_108` | reference-based | `dense_recent_map` | 0.031 | 56.8 | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | small_gicp | `mcd_tuhh_night_09_108` | reference-based | `fast_recent_map` | 0.466 | 107.2 | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
 | suma | `hdl_400_open_ct_lio_120` | reference-based | `default` | 0.248 | 74.6 | `experiments/results/suma_hdl_400_reference_matrix.json` |
+| suma | `hdl_400_open_ct_lio_120_b` | reference-based | `dense` | 0.175 | 30.5 | `experiments/results/suma_hdl_400_reference_b_matrix.json` |
 | suma | `kitti_raw_0009_200` | reference-based | `default` | 3.291 | 39.7 | `experiments/results/suma_kitti_raw_0009_matrix.json` |
 | suma | `kitti_raw_0009_200` | reference-based | `default` | 3.291 | 82.3 | `experiments/results/suma_kitti_raw_0009_nogt_matrix.json` |
 | suma | `kitti_raw_0009_full` | reference-based | `dense` | 5.487 | 25.0 | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
@@ -255,6 +257,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | vgicp_slam | `mcd_ntu_day_02_108` | reference-based | `fast` | 0.026 | 40.3 | `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json` |
 | vgicp_slam | `mcd_tuhh_night_09_108` | reference-based | `fast` | 1.322 | 21.8 | `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json` |
 | voxel_gicp | `hdl_400_open_ct_lio_120` | reference-based | `dense_recent_map` | 0.268 | 141.1 | `experiments/results/voxel_gicp_hdl_400_reference_matrix.json` |
+| voxel_gicp | `hdl_400_open_ct_lio_120_b` | reference-based | `dense_recent_map` | 0.427 | 148.5 | `experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json` |
 | voxel_gicp | `kitti_raw_0009_200` | reference-based | `dense_recent_map` | 0.670 | 93.9 | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
 | voxel_gicp | `kitti_raw_0009_200` | reference-based | `dense_recent_map` | 52.522 | 82.1 | `experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json` |
 | voxel_gicp | `kitti_raw_0009_full` | reference-based | `dense_recent_map` | 0.640 | 110.1 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
@@ -264,6 +267,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | voxel_gicp | `mcd_ntu_day_02_108` | reference-based | `dense_recent_map` | 0.121 | 117.2 | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | voxel_gicp | `mcd_tuhh_night_09_108` | reference-based | `dense_recent_map` | 0.478 | 116.4 | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |
 | xicp | `hdl_400_open_ct_lio_120` | reference-based | `dense` | 0.168 | 71.8 | `experiments/results/xicp_hdl_400_reference_matrix.json` |
+| xicp | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 0.180 | 130.0 | `experiments/results/xicp_hdl_400_reference_b_matrix.json` |
 | xicp | `kitti_raw_0009_200` | reference-based | `dense` | 0.139 | 58.5 | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
 | xicp | `kitti_raw_0009_200` | reference-based | `fast` | 121.338 | 81.2 | `experiments/results/xicp_kitti_raw_0009_nogt_matrix.json` |
 | xicp | `kitti_raw_0009_full` | reference-based | `dense` | 0.130 | 59.9 | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |

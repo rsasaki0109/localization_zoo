@@ -207,6 +207,7 @@ point_lio,mcd_kth_day_06_108,reference-based,fast,Fast,7.325300,112.691159,exper
 point_lio,mcd_ntu_day_02_108,reference-based,fast,Fast,0.082766,77.298267,experiments/results/point_lio_mcd_ntu_day_02_matrix.json
 point_lio,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.158008,88.670076,experiments/results/point_lio_mcd_tuhh_night_09_matrix.json
 small_gicp,hdl_400_open_ct_lio_120,reference-based,fast_recent_map,Fast recent map,0.250871,110.327862,experiments/results/small_gicp_hdl_400_reference_matrix.json
+small_gicp,hdl_400_open_ct_lio_120_b,reference-based,fast_recent_map,Fast recent map,0.226182,117.474816,experiments/results/small_gicp_hdl_400_reference_b_matrix.json
 small_gicp,kitti_raw_0009_200,reference-based,balanced_local_map,Balanced local map,1.623753,49.634257,experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json
 small_gicp,kitti_raw_0009_200,reference-based,fast_recent_map,Fast recent map,0.470785,83.301480,experiments/results/small_gicp_kitti_raw_0009_matrix.json
 small_gicp,kitti_raw_0009_full,reference-based,fast_recent_map,Fast recent map,0.436733,92.437277,experiments/results/small_gicp_kitti_raw_0009_full_matrix.json
@@ -216,6 +217,7 @@ small_gicp,mcd_kth_day_06_108,reference-based,fast_recent_map,Fast recent map,0.
 small_gicp,mcd_ntu_day_02_108,reference-based,dense_recent_map,Dense recent map,0.030740,56.784655,experiments/results/small_gicp_mcd_ntu_day_02_matrix.json
 small_gicp,mcd_tuhh_night_09_108,reference-based,fast_recent_map,Fast recent map,0.466312,107.179868,experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json
 suma,hdl_400_open_ct_lio_120,reference-based,default,Default,0.247666,74.598116,experiments/results/suma_hdl_400_reference_matrix.json
+suma,hdl_400_open_ct_lio_120_b,reference-based,dense,Dense,0.174787,30.472218,experiments/results/suma_hdl_400_reference_b_matrix.json
 suma,kitti_raw_0009_200,reference-based,default,Default,3.291002,82.297335,experiments/results/suma_kitti_raw_0009_nogt_matrix.json
 suma,kitti_raw_0009_200,reference-based,default,Default,3.291002,39.679039,experiments/results/suma_kitti_raw_0009_matrix.json
 suma,kitti_raw_0009_full,reference-based,dense,Dense,5.487291,24.967455,experiments/results/suma_kitti_raw_0009_full_matrix.json
@@ -234,6 +236,7 @@ vgicp_slam,mcd_kth_day_06_108,reference-based,fast,Fast,6.096382,20.782707,exper
 vgicp_slam,mcd_ntu_day_02_108,reference-based,fast,Fast,0.026425,40.284951,experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json
 vgicp_slam,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.321745,21.792757,experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json
 voxel_gicp,hdl_400_open_ct_lio_120,reference-based,dense_recent_map,Dense recent map,0.268118,141.123882,experiments/results/voxel_gicp_hdl_400_reference_matrix.json
+voxel_gicp,hdl_400_open_ct_lio_120_b,reference-based,dense_recent_map,Dense recent map,0.427190,148.475153,experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json
 voxel_gicp,kitti_raw_0009_200,reference-based,dense_recent_map,Dense recent map,52.522291,82.079183,experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json
 voxel_gicp,kitti_raw_0009_200,reference-based,dense_recent_map,Dense recent map,0.670187,93.926869,experiments/results/voxel_gicp_kitti_raw_0009_matrix.json
 voxel_gicp,kitti_raw_0009_full,reference-based,dense_recent_map,Dense recent map,0.640487,110.068936,experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json
@@ -243,6 +246,7 @@ voxel_gicp,mcd_kth_day_06_108,reference-based,dense_recent_map,Dense recent map,
 voxel_gicp,mcd_ntu_day_02_108,reference-based,dense_recent_map,Dense recent map,0.120636,117.186913,experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json
 voxel_gicp,mcd_tuhh_night_09_108,reference-based,dense_recent_map,Dense recent map,0.477675,116.353465,experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json
 xicp,hdl_400_open_ct_lio_120,reference-based,dense,Dense (GT seed),0.167982,71.766427,experiments/results/xicp_hdl_400_reference_matrix.json
+xicp,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast (GT seed),0.179729,129.956517,experiments/results/xicp_hdl_400_reference_b_matrix.json
 xicp,kitti_raw_0009_200,reference-based,fast,Fast (GT seed),121.338296,81.230129,experiments/results/xicp_kitti_raw_0009_nogt_matrix.json
 xicp,kitti_raw_0009_200,reference-based,dense,Dense (GT seed),0.139370,58.464512,experiments/results/xicp_kitti_raw_0009_matrix.json
 xicp,kitti_raw_0009_full,reference-based,dense,Dense (GT seed),0.129720,59.932026,experiments/results/xicp_kitti_raw_0009_full_matrix.json

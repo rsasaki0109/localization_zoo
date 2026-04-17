@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-17T11:54:18+00:00",
+  "generated_at": "2026-04-18T09:39:41+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference_b",
@@ -1883,6 +1883,15 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "small_gicp_profile_tradeoff_hdl_400_reference_b",
+      "title": "Small-GICP throughput and accuracy trade-off on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_hdl_400_reference_b_matrix.json",
+      "current_default": "fast_recent_map"
+    },
+    {
       "problem_id": "small_gicp_profile_tradeoff_hdl_400_reference",
       "title": "Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window",
       "status": "ready",
@@ -1962,6 +1971,15 @@
       "manifest_path": "experiments/small_gicp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "suma_hdl_400_reference_b",
+      "title": "SuMa on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/suma_hdl_400_reference_b_matrix.json",
+      "current_default": "dense"
     },
     {
       "problem_id": "suma_hdl_400_reference",
@@ -2126,6 +2144,15 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "voxel_gicp_profile_tradeoff_hdl_400_reference_b",
+      "title": "Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json",
+      "current_default": "dense_recent_map"
+    },
+    {
       "problem_id": "voxel_gicp_profile_tradeoff_hdl_400_reference",
       "title": "Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window",
       "status": "ready",
@@ -2205,6 +2232,15 @@
       "manifest_path": "experiments/voxel_gicp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json",
       "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "xicp_hdl_400_reference_b",
+      "title": "X-ICP on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/xicp_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/xicp_hdl_400_reference_b_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "xicp_hdl_400_reference",

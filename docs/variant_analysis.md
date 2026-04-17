@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-04-17T11:59:13+00:00
+> Generated: 2026-04-18T09:40:25+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -414,6 +414,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast_recent_map | 0.226 | 117.5 |
 | HDL-400 | fast_recent_map | 0.251 | 110.3 |
 | KITTI-kitti_raw_0009_200 | fast_recent_map | 0.471 | 83.3 |
 | KITTI-kitti_raw_0009_full | fast_recent_map | 0.437 | 92.4 |
@@ -423,12 +424,13 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | dense_recent_map | 0.031 | 56.8 |
 | MCD-TUHH | fast_recent_map | 0.466 | 107.2 |
 
-**Stability**: 2 unique default(s) across 8 windows.
+**Stability**: 2 unique default(s) across 9 windows.
 
 ### SUMA
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | dense | 0.175 | 30.5 |
 | HDL-400 | default | 0.248 | 74.6 |
 | KITTI-kitti_raw_0009_200 | default | 3.291 | 39.7 |
 | KITTI-kitti_raw_0009_full | dense | 5.487 | 25.0 |
@@ -438,7 +440,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | dense | 0.036 | 33.9 |
 | MCD-TUHH | default | 1.414 | 59.1 |
 
-**Stability**: 3 unique default(s) across 8 windows.
+**Stability**: 3 unique default(s) across 9 windows.
 
 ### VGICP-SLAM
 
@@ -459,6 +461,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | dense_recent_map | 0.427 | 148.5 |
 | HDL-400 | dense_recent_map | 0.268 | 141.1 |
 | KITTI-kitti_raw_0009_200 | dense_recent_map | 0.670 | 93.9 |
 | KITTI-kitti_raw_0009_full | dense_recent_map | 0.640 | 110.1 |
@@ -468,12 +471,13 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | dense_recent_map | 0.121 | 117.2 |
 | MCD-TUHH | dense_recent_map | 0.478 | 116.4 |
 
-**Stability**: 1 unique default(s) across 8 windows.
+**Stability**: 1 unique default(s) across 9 windows.
 
 ### XICP
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 0.180 | 130.0 |
 | HDL-400 | dense | 0.168 | 71.8 |
 | KITTI-kitti_raw_0009_200 | dense | 0.139 | 58.5 |
 | KITTI-kitti_raw_0009_full | dense | 0.130 | 59.9 |
@@ -483,7 +487,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | dense | 0.095 | 69.0 |
 | MCD-TUHH | dense | 0.081 | 72.0 |
 
-**Stability**: 2 unique default(s) across 8 windows.
+**Stability**: 2 unique default(s) across 9 windows.
 
 ## 3. Profile Impact Summary
 
@@ -670,17 +674,17 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| balanced_local_map | 0.754 | 56.1 | 8 |
-| dense_recent_map | 0.698 | 43.0 | 8 |
-| fast_recent_map | 0.517 | 96.9 | 8 |
+| balanced_local_map | 0.719 | 56.8 | 9 |
+| dense_recent_map | 0.638 | 43.7 | 9 |
+| fast_recent_map | 0.485 | 99.2 | 9 |
 
 ### SUMA
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| default | 6.073 | 39.5 | 8 |
-| dense | 4.094 | 31.1 | 8 |
-| fast | 41.453 | 123.9 | 8 |
+| default | 5.467 | 44.0 | 9 |
+| dense | 3.658 | 31.0 | 9 |
+| fast | 37.015 | 129.5 | 9 |
 
 ### VGICP-SLAM
 
@@ -694,15 +698,15 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| balanced_local_map | 0.779 | 23.0 | 8 |
-| dense_recent_map | 0.658 | 106.5 | 8 |
-| fast_recent_map | 0.944 | 50.5 | 8 |
+| balanced_local_map | 0.817 | 22.4 | 9 |
+| dense_recent_map | 0.632 | 111.2 | 9 |
+| fast_recent_map | 0.944 | 50.8 | 9 |
 
 ### XICP
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| default | 0.197 | 67.2 | 8 |
-| dense | 0.180 | 63.5 | 8 |
-| fast | 0.361 | 99.2 | 8 |
-| no_gt_seed | 84.182 | 70.7 | 8 |
+| default | 0.205 | 69.8 | 9 |
+| dense | 0.179 | 64.1 | 9 |
+| fast | 0.340 | 102.6 | 9 |
+| no_gt_seed | 75.632 | 72.7 | 9 |

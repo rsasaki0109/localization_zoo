@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -282,6 +282,7 @@ The runner is responsible for:
 | Point-LIO on MCD KTH day-06 sequence | `ready` | `experiments/point_lio_mcd_kth_day_06_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_mcd_kth_day_06_matrix.json` |
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `experiments/point_lio_mcd_ntu_day_02_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `experiments/point_lio_mcd_tuhh_night_09_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
+| Small-GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/small_gicp_hdl_400_reference_b_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_hdl_400_reference_b_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/small_gicp_hdl_400_reference_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_hdl_400_reference_matrix.json` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/small_gicp_kitti_raw_0009_full_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/small_gicp_kitti_raw_0009_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_kitti_raw_0009_matrix.json` |
@@ -291,6 +292,7 @@ The runner is responsible for:
 | Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/small_gicp_mcd_kth_day_06_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/small_gicp_mcd_ntu_day_02_matrix.json` | `small_gicp` | `dense_recent_map` | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/small_gicp_mcd_tuhh_night_09_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
+| SuMa on the second public HDL-400 reference window | `ready` | `experiments/suma_hdl_400_reference_b_matrix.json` | `suma` | `dense` | `experiments/results/suma_hdl_400_reference_b_matrix.json` |
 | SuMa on the public HDL-400 reference window | `ready` | `experiments/suma_hdl_400_reference_matrix.json` | `suma` | `default` | `experiments/results/suma_hdl_400_reference_matrix.json` |
 | SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/suma_kitti_raw_0009_full_matrix.json` | `suma` | `dense` | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/suma_kitti_raw_0009_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_raw_0009_matrix.json` |
@@ -309,6 +311,7 @@ The runner is responsible for:
 | VGICP SLAM on MCD KTH day-06 sequence | `ready` | `experiments/vgicp_slam_mcd_kth_day_06_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json` |
 | VGICP SLAM on MCD NTU day-02 sequence | `ready` | `experiments/vgicp_slam_mcd_ntu_day_02_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json` |
 | VGICP SLAM on MCD TUHH night-09 sequence | `ready` | `experiments/vgicp_slam_mcd_tuhh_night_09_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json` |
+| Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/voxel_gicp_hdl_400_reference_b_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/voxel_gicp_hdl_400_reference_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_hdl_400_reference_matrix.json` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/voxel_gicp_kitti_raw_0009_full_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/voxel_gicp_kitti_raw_0009_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
@@ -318,6 +321,7 @@ The runner is responsible for:
 | Voxel-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/voxel_gicp_mcd_kth_day_06_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/voxel_gicp_mcd_ntu_day_02_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/voxel_gicp_mcd_tuhh_night_09_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |
+| X-ICP on the second public HDL-400 reference window | `ready` | `experiments/xicp_hdl_400_reference_b_matrix.json` | `xicp` | `fast` | `experiments/results/xicp_hdl_400_reference_b_matrix.json` |
 | X-ICP on the public HDL-400 reference window | `ready` | `experiments/xicp_hdl_400_reference_matrix.json` | `xicp` | `dense` | `experiments/results/xicp_hdl_400_reference_matrix.json` |
 | X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/xicp_kitti_raw_0009_full_matrix.json` | `xicp` | `dense` | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |
 | X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/xicp_kitti_raw_0009_matrix.json` | `xicp` | `dense` | `experiments/results/xicp_kitti_raw_0009_matrix.json` |

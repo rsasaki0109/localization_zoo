@@ -187,6 +187,7 @@ point_lio,mcd_kth_day_06_108,fast
 point_lio,mcd_ntu_day_02_108,fast
 point_lio,mcd_tuhh_night_09_108,fast
 small_gicp,hdl_400_open_ct_lio_120,fast_recent_map
+small_gicp,hdl_400_open_ct_lio_120_b,fast_recent_map
 small_gicp,kitti_raw_0009_200,balanced_local_map
 small_gicp,kitti_raw_0009_full,fast_recent_map
 small_gicp,kitti_raw_0061_200,fast_recent_map
@@ -195,6 +196,7 @@ small_gicp,mcd_kth_day_06_108,fast_recent_map
 small_gicp,mcd_ntu_day_02_108,dense_recent_map
 small_gicp,mcd_tuhh_night_09_108,fast_recent_map
 suma,hdl_400_open_ct_lio_120,default
+suma,hdl_400_open_ct_lio_120_b,dense
 suma,kitti_raw_0009_200,default
 suma,kitti_raw_0009_full,dense
 suma,kitti_raw_0061_200,dense
@@ -211,6 +213,7 @@ vgicp_slam,mcd_kth_day_06_108,fast
 vgicp_slam,mcd_ntu_day_02_108,fast
 vgicp_slam,mcd_tuhh_night_09_108,fast
 voxel_gicp,hdl_400_open_ct_lio_120,dense_recent_map
+voxel_gicp,hdl_400_open_ct_lio_120_b,dense_recent_map
 voxel_gicp,kitti_raw_0009_200,dense_recent_map
 voxel_gicp,kitti_raw_0009_full,dense_recent_map
 voxel_gicp,kitti_raw_0061_200,dense_recent_map
@@ -219,6 +222,7 @@ voxel_gicp,mcd_kth_day_06_108,dense_recent_map
 voxel_gicp,mcd_ntu_day_02_108,dense_recent_map
 voxel_gicp,mcd_tuhh_night_09_108,dense_recent_map
 xicp,hdl_400_open_ct_lio_120,dense
+xicp,hdl_400_open_ct_lio_120_b,fast
 xicp,kitti_raw_0009_200,fast
 xicp,kitti_raw_0009_full,dense
 xicp,kitti_raw_0061_200,fast

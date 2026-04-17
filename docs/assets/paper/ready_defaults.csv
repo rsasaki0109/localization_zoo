@@ -10,6 +10,7 @@ aloam,mcd_kth_day_06_108,reference-based,fast,Fast,6.100331,6.663472,experiments
 aloam,mcd_ntu_day_02_108,reference-based,dense,Dense,0.034946,2.958860,experiments/results/aloam_mcd_ntu_day_02_matrix.json
 aloam,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.373994,6.473793,experiments/results/aloam_mcd_tuhh_night_09_matrix.json
 balm2,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.826897,8.996424,experiments/results/balm2_hdl_400_reference_matrix.json
+balm2,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast,0.713627,15.867598,experiments/results/balm2_hdl_400_reference_b_matrix.json
 balm2,kitti_raw_0009_200,reference-based,fast,Fast,2.366319,12.577467,experiments/results/balm2_kitti_raw_0009_nogt_matrix.json
 balm2,kitti_raw_0009_200,reference-based,fast,Fast,2.366319,13.703275,experiments/results/balm2_kitti_raw_0009_matrix.json
 balm2,kitti_raw_0009_full,reference-based,fast,Fast,3.337729,12.655847,experiments/results/balm2_kitti_raw_0009_full_matrix.json
@@ -72,6 +73,7 @@ fast_lio_slam,mcd_kth_day_06_108,reference-based,fast,Fast,6.074937,9.424651,exp
 fast_lio_slam,mcd_ntu_day_02_108,reference-based,fast,Fast,0.027647,20.416410,experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json
 fast_lio_slam,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.331989,12.753311,experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json
 floam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.411389,64.153154,experiments/results/floam_hdl_400_reference_matrix.json
+floam,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast,0.101629,76.604241,experiments/results/floam_hdl_400_reference_b_matrix.json
 floam,kitti_raw_0009_200,reference-based,fast,Fast,3.485754,28.042056,experiments/results/floam_kitti_raw_0009_nogt_matrix.json
 floam,kitti_raw_0009_200,reference-based,fast,Fast,3.485754,24.630711,experiments/results/floam_kitti_raw_0009_matrix.json
 floam,kitti_raw_0009_full,reference-based,fast,Fast,5.452120,28.590294,experiments/results/floam_kitti_raw_0009_full_matrix.json
@@ -124,6 +126,7 @@ kiss_icp,mcd_kth_day_06_108,reference-based,fast_recent_map,Fast recent map,5.56
 kiss_icp,mcd_ntu_day_02_108,reference-based,fast_recent_map,Fast recent map,0.025871,66.681982,experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json
 kiss_icp,mcd_tuhh_night_09_108,reference-based,fast_recent_map,Fast recent map,1.302876,24.096147,experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json
 lego_loam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.225549,21.813787,experiments/results/lego_loam_hdl_400_reference_matrix.json
+lego_loam,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast,0.163190,26.097278,experiments/results/lego_loam_hdl_400_reference_b_matrix.json
 lego_loam,kitti_raw_0009_200,reference-based,fast,Fast,3.216463,9.939628,experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json
 lego_loam,kitti_raw_0009_200,reference-based,fast,Fast,3.216463,8.914729,experiments/results/lego_loam_kitti_raw_0009_matrix.json
 lego_loam,kitti_raw_0009_full,reference-based,fast,Fast,6.498303,9.472085,experiments/results/lego_loam_kitti_raw_0009_full_matrix.json

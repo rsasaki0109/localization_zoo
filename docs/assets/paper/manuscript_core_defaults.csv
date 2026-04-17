@@ -8,7 +8,7 @@ dlio,mcd_ntu_day_02_108,reference-based,kitti_default,0.016238,10.289113,experim
 dlo,mcd_ntu_day_02_108,reference-based,kitti_default,0.016238,10.157369,experiments/results/dlo_mcd_ntu_day_02_matrix.json
 fast_lio2,mcd_ntu_day_02_108,reference-based,fast,0.024772,23.695211,experiments/results/fast_lio2_mcd_ntu_day_02_matrix.json
 fast_lio_slam,mcd_ntu_day_02_108,reference-based,fast,0.027647,20.416410,experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json
-floam,mcd_ntu_day_02_108,reference-based,fast,0.151863,26.990908,experiments/results/floam_mcd_ntu_day_02_matrix.json
+floam,hdl_400_open_ct_lio_120_b,reference-based,fast,0.101629,76.604241,experiments/results/floam_hdl_400_reference_b_matrix.json
 gicp,autoware_istanbul_open_108_c,gt-backed,fast_recent_map,0.981916,4.265101,experiments/results/gicp_istanbul_window_c_matrix.json
 hdl_graph_slam,mcd_ntu_day_02_108,reference-based,dense,0.179861,6.514175,experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json
 isc_loam,mcd_ntu_day_02_108,reference-based,fast,0.064940,50.238587,experiments/results/isc_loam_mcd_ntu_day_02_matrix.json

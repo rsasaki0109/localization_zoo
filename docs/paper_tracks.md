@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-04-16T22:56:26+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-17T11:59:13+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `249` ready, `1` blocked, `1` skipped problems.
+Current coverage: `252` ready, `1` blocked, `1` skipped problems.
 
 ## Current State
 
@@ -30,6 +30,7 @@ Current coverage: `249` ready, `1` blocked, `1` skipped problems.
 | BALM2 on MCD NTU day-02 sequence | `ready` | `fast` | 0.062 | 12.7 | `dogfooding_results/mcd_ntu_day_02_108` |
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `fast` | 1.270 | 14.6 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | BALM2 on the public HDL-400 reference window | `ready` | `fast` | 0.476 | 9.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| BALM2 on the second public HDL-400 reference window | `ready` | `fast` | 0.429 | 15.9 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense` | 1.473 | 100.3 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
 | CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 68.5 | `dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `balanced_window` | 1.659 | 54.8 | `dogfooding_results/kitti_raw_0009_200` |
@@ -74,6 +75,7 @@ Current coverage: `249` ready, `1` blocked, `1` skipped problems.
 | F-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.111 | 27.0 | `dogfooding_results/mcd_ntu_day_02_108` |
 | F-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.345 | 27.6 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.193 | 64.2 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| F-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.089 | 76.6 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.452 | 28.6 | `dogfooding_results/kitti_raw_0009_full` |
 | FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.382 | 11.3 | `dogfooding_results/kitti_raw_0009_200` |
 | FAST-LIO-SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.382 | 8.8 | `dogfooding_results/kitti_raw_0009_200` |
@@ -145,6 +147,7 @@ Current coverage: `249` ready, `1` blocked, `1` skipped problems.
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.036 | 8.4 | `dogfooding_results/mcd_ntu_day_02_108` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.344 | 10.1 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.147 | 21.8 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| LeGO-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.146 | 26.1 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `dogfooding_results/kitti_raw_0009_full` |
 | LINS on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 119.861 | 105.0 | `dogfooding_results/kitti_raw_0009_200` |
 | LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.861 | 120.7 | `dogfooding_results/kitti_raw_0009_200` |
@@ -277,7 +280,7 @@ Current coverage: `249` ready, `1` blocked, `1` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 249 ready problems under one CLI and one summary JSON interface.
+- The stable benchmark contract now covers 252 ready problems under one CLI and one summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=paper_icp_only_half_threads` at 43.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

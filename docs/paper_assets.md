@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-04-16T22:57:03+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-04-17T11:59:13+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -31,6 +31,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | aloam | `mcd_ntu_day_02_108` | reference-based | `dense` | 0.035 | 3.0 | `experiments/results/aloam_mcd_ntu_day_02_matrix.json` |
 | aloam | `mcd_tuhh_night_09_108` | reference-based | `fast` | 1.374 | 6.5 | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
 | balm2 | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.827 | 9.0 | `experiments/results/balm2_hdl_400_reference_matrix.json` |
+| balm2 | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 0.714 | 15.9 | `experiments/results/balm2_hdl_400_reference_b_matrix.json` |
 | balm2 | `kitti_raw_0009_200` | reference-based | `fast` | 2.366 | 13.7 | `experiments/results/balm2_kitti_raw_0009_matrix.json` |
 | balm2 | `kitti_raw_0009_200` | reference-based | `fast` | 2.366 | 12.6 | `experiments/results/balm2_kitti_raw_0009_nogt_matrix.json` |
 | balm2 | `kitti_raw_0009_full` | reference-based | `fast` | 3.338 | 12.7 | `experiments/results/balm2_kitti_raw_0009_full_matrix.json` |
@@ -93,6 +94,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | fast_lio_slam | `mcd_ntu_day_02_108` | reference-based | `fast` | 0.028 | 20.4 | `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json` |
 | fast_lio_slam | `mcd_tuhh_night_09_108` | reference-based | `fast` | 1.332 | 12.8 | `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json` |
 | floam | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.411 | 64.2 | `experiments/results/floam_hdl_400_reference_matrix.json` |
+| floam | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 0.102 | 76.6 | `experiments/results/floam_hdl_400_reference_b_matrix.json` |
 | floam | `kitti_raw_0009_200` | reference-based | `fast` | 3.486 | 24.6 | `experiments/results/floam_kitti_raw_0009_matrix.json` |
 | floam | `kitti_raw_0009_200` | reference-based | `fast` | 3.486 | 28.0 | `experiments/results/floam_kitti_raw_0009_nogt_matrix.json` |
 | floam | `kitti_raw_0009_full` | reference-based | `fast` | 5.452 | 28.6 | `experiments/results/floam_kitti_raw_0009_full_matrix.json` |
@@ -145,6 +147,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | kiss_icp | `mcd_ntu_day_02_108` | reference-based | `fast_recent_map` | 0.026 | 66.7 | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | kiss_icp | `mcd_tuhh_night_09_108` | reference-based | `fast_recent_map` | 1.303 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
 | lego_loam | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.226 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
+| lego_loam | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 0.163 | 26.1 | `experiments/results/lego_loam_hdl_400_reference_b_matrix.json` |
 | lego_loam | `kitti_raw_0009_200` | reference-based | `fast` | 3.216 | 8.9 | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |
 | lego_loam | `kitti_raw_0009_200` | reference-based | `fast` | 3.216 | 9.9 | `experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json` |
 | lego_loam | `kitti_raw_0009_full` | reference-based | `fast` | 6.498 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |

@@ -46,7 +46,7 @@ print("generated_at", d.get("generated_at"))
 PY
 ```
 
-**2026-04-17 時点の例:** `problems` **251** 件、`ready` **249**、`blocked` **1**、`skipped` **1**（再実行で変わる可能性あり）。
+**2026-04-17 時点の例:** `problems` **254** 件、`ready` **252**、`blocked` **1**、`skipped` **1**（再実行で変わる可能性あり）。
 
 ### 1.3 テスト基盤（2026-04 強化）
 
@@ -135,8 +135,8 @@ repo 単体では完結しない。必要になるのは例えば:
 
 | 指標 | 例 |
 |------|-----|
-| `index.json` の `problems` | 251 |
-| `ready` / `blocked` / `skipped` | 249 / 1 / 1 |
+| `index.json` の `problems` | 254 |
+| `ready` / `blocked` / `skipped` | 252 / 1 / 1 |
 | CLI method family（`pcd_dogfooding`） | README・`docs/interfaces.md` と整合を取る |
 
 **27 methods** や manifest 数は時期によって変わる。**「27」と書く前に `pcd_dogfooding` の selector と manifest 一覧を grep / 集計する。**

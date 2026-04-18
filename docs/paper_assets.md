@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-04-18T09:40:25+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-04-18T23:04:28+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -58,6 +58,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | ct_lio | `hdl_400_open_ct_lio_120` | reference-based | `seed_only_fast` | 0.488 | 17.5 | `experiments/results/ct_lio_reference_profile_matrix.json` |
 | ct_lio | `hdl_400_ros1_open_ct_lio_120_time_index` | reference-based | `seed_only_fast` | 0.479 | 19.6 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | dlio | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.239 | 12.1 | `experiments/results/dlio_hdl_400_reference_matrix.json` |
+| dlio | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 0.315 | 15.0 | `experiments/results/dlio_hdl_400_reference_b_matrix.json` |
 | dlio | `kitti_raw_0009_200` | reference-based | `fast` | 2.362 | 5.3 | `experiments/results/dlio_kitti_raw_0009_matrix.json` |
 | dlio | `kitti_raw_0009_200` | reference-based | `fast` | 2.362 | 7.0 | `experiments/results/dlio_kitti_raw_0009_nogt_matrix.json` |
 | dlio | `kitti_raw_0009_full` | reference-based | `fast` | 5.026 | 7.3 | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
@@ -67,6 +68,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | dlio | `mcd_ntu_day_02_108` | reference-based | `kitti_default` | 0.016 | 10.3 | `experiments/results/dlio_mcd_ntu_day_02_matrix.json` |
 | dlio | `mcd_tuhh_night_09_108` | reference-based | `fast` | 1.344 | 13.0 | `experiments/results/dlio_mcd_tuhh_night_09_matrix.json` |
 | dlo | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 0.118 | 15.0 | `experiments/results/dlo_hdl_400_reference_matrix.json` |
+| dlo | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 0.149 | 17.9 | `experiments/results/dlo_hdl_400_reference_b_matrix.json` |
 | dlo | `kitti_raw_0009_200` | reference-based | `fast` | 2.362 | 5.9 | `experiments/results/dlo_kitti_raw_0009_matrix.json` |
 | dlo | `kitti_raw_0009_200` | reference-based | `fast` | 2.362 | 7.1 | `experiments/results/dlo_kitti_raw_0009_nogt_matrix.json` |
 | dlo | `kitti_raw_0009_full` | reference-based | `fast` | 5.026 | 7.3 | `experiments/results/dlo_kitti_raw_0009_full_matrix.json` |
@@ -157,6 +159,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | lego_loam | `mcd_ntu_day_02_108` | reference-based | `fast` | 0.079 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | lego_loam | `mcd_tuhh_night_09_108` | reference-based | `fast` | 1.401 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
 | lins | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
+| lins | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 231.572 | 81.5 | `experiments/results/lins_hdl_400_reference_b_matrix.json` |
 | lins | `kitti_raw_0009_200` | reference-based | `fast` | 120.032 | 120.7 | `experiments/results/lins_kitti_raw_0009_matrix.json` |
 | lins | `kitti_raw_0009_200` | reference-based | `fast` | 120.032 | 105.0 | `experiments/results/lins_kitti_raw_0009_nogt_matrix.json` |
 | lins | `kitti_raw_0009_full` | reference-based | `fast` | 183.686 | 123.3 | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
@@ -219,6 +222,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | ndt | `mcd_ntu_day_02_108` | reference-based | `balanced_local_map` | 0.014 | 32.7 | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | ndt | `mcd_tuhh_night_09_108` | reference-based | `fast_coarse_map` | 0.070 | 40.8 | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
 | point_lio | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 165.820 | 69.9 | `experiments/results/point_lio_hdl_400_reference_matrix.json` |
+| point_lio | `hdl_400_open_ct_lio_120_b` | reference-based | `fast` | 85.421 | 68.8 | `experiments/results/point_lio_hdl_400_reference_b_matrix.json` |
 | point_lio | `kitti_raw_0009_200` | reference-based | `fast` | 119.890 | 117.4 | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |
 | point_lio | `kitti_raw_0009_200` | reference-based | `fast` | 119.890 | 95.6 | `experiments/results/point_lio_kitti_raw_0009_nogt_matrix.json` |
 | point_lio | `kitti_raw_0009_full` | reference-based | `fast` | 183.384 | 113.1 | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |

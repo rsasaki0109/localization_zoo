@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-04-18T09:40:25+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-18T23:04:27+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `256` ready, `1` blocked, `1` skipped problems.
+Current coverage: `260` ready, `1` blocked, `1` skipped problems.
 
 ## Current State
 
@@ -57,6 +57,7 @@ Current coverage: `256` ready, `1` blocked, `1` skipped problems.
 | DLIO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.016 | 16.6 | `dogfooding_results/mcd_ntu_day_02_108` |
 | DLIO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.0 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | DLIO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.239 | 12.1 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| DLIO throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.315 | 15.0 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `dogfooding_results/kitti_raw_0009_full` |
 | DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.362 | 7.1 | `dogfooding_results/kitti_raw_0009_200` |
 | DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.9 | `dogfooding_results/kitti_raw_0009_200` |
@@ -66,6 +67,7 @@ Current coverage: `256` ready, `1` blocked, `1` skipped problems.
 | DLO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.016 | 16.6 | `dogfooding_results/mcd_ntu_day_02_108` |
 | DLO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.9 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | DLO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.101 | 15.0 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| DLO throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.117 | 17.9 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `dogfooding_results/kitti_raw_0009_full` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.883 | 28.0 | `dogfooding_results/kitti_raw_0009_200` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.883 | 24.6 | `dogfooding_results/kitti_raw_0009_200` |
@@ -158,6 +160,7 @@ Current coverage: `256` ready, `1` blocked, `1` skipped problems.
 | LINS on MCD NTU day-02 sequence | `ready` | `dense` | 0.111 | 147.2 | `dogfooding_results/mcd_ntu_day_02_108` |
 | LINS on MCD TUHH night-09 sequence | `ready` | `fast` | 1.147 | 173.4 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | LINS on the public HDL-400 reference window | `ready` | `fast` | 29.745 | 71.9 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| LINS on the second public HDL-400 reference window | `ready` | `fast` | 231.572 | 81.5 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | LIO-SAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.579 | 23.1 | `dogfooding_results/kitti_raw_0009_200` |
 | LIO-SAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.579 | 24.9 | `dogfooding_results/kitti_raw_0009_200` |
 | LIO-SAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.259 | 20.2 | `dogfooding_results/kitti_raw_0009_full` |
@@ -220,6 +223,7 @@ Current coverage: `256` ready, `1` blocked, `1` skipped problems.
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `fast` | 0.083 | 77.3 | `dogfooding_results/mcd_ntu_day_02_108` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `fast` | 1.116 | 88.7 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `fast` | 17.929 | 69.9 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| Point-LIO on the second public HDL-400 reference window | `ready` | `fast` | 85.421 | 68.8 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_local_map` | 1.624 | 76.3 | `dogfooding_results/kitti_raw_0009_200` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 0.471 | 83.3 | `dogfooding_results/kitti_raw_0009_200` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.639 | 78.1 | `dogfooding_results/kitti_raw_0061_200` |
@@ -284,7 +288,7 @@ Current coverage: `256` ready, `1` blocked, `1` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 256 ready problems under one CLI and one summary JSON interface.
+- The stable benchmark contract now covers 260 ready problems under one CLI and one summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=paper_icp_only_half_threads` at 43.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

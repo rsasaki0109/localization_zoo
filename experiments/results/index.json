@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T09:39:41+00:00",
+  "generated_at": "2026-04-18T23:01:37+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference_b",
@@ -344,6 +344,15 @@
       "current_default": "seed_only_fast"
     },
     {
+      "problem_id": "dlio_profile_tradeoff_hdl_400_reference_b",
+      "title": "DLIO throughput and accuracy trade-off on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlio_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/dlio_hdl_400_reference_b_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "dlio_profile_tradeoff_hdl_400_reference",
       "title": "DLIO throughput and accuracy trade-off on the public HDL-400 reference window",
       "status": "ready",
@@ -422,6 +431,15 @@
       "blocker": "",
       "manifest_path": "experiments/dlio_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/dlio_mcd_tuhh_night_09_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "dlo_profile_tradeoff_hdl_400_reference_b",
+      "title": "DLO throughput and accuracy trade-off on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/dlo_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/dlo_hdl_400_reference_b_matrix.json",
       "current_default": "fast"
     },
     {
@@ -1244,6 +1262,15 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "lins_hdl_400_reference_b",
+      "title": "LINS on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lins_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/lins_hdl_400_reference_b_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "lins_hdl_400_reference",
       "title": "LINS on the public HDL-400 reference window",
       "status": "ready",
@@ -1800,6 +1827,15 @@
       "manifest_path": "experiments/ndt_profile_matrix.json",
       "aggregate_path": "experiments/results/ndt_profile_matrix.json",
       "current_default": "fast_coarse_map"
+    },
+    {
+      "problem_id": "point_lio_hdl_400_reference_b",
+      "title": "Point-LIO on the second public HDL-400 reference window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/point_lio_hdl_400_reference_b_matrix.json",
+      "aggregate_path": "experiments/results/point_lio_hdl_400_reference_b_matrix.json",
+      "current_default": "fast"
     },
     {
       "problem_id": "point_lio_hdl_400_reference",

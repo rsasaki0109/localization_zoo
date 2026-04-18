@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -215,6 +215,7 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 | Point-LIO on MCD KTH day-06 sequence | `ready` | `fast` | 7.113 | 112.7 | `experiments/results/point_lio_mcd_kth_day_06_matrix.json` |
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `fast` | 0.083 | 77.3 | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `fast` | 1.116 | 88.7 | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
+| Small-GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_recent_map` | 0.155 | 117.5 | `experiments/results/small_gicp_hdl_400_reference_b_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.109 | 110.3 | `experiments/results/small_gicp_hdl_400_reference_matrix.json` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.437 | 92.4 | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 0.471 | 83.3 | `experiments/results/small_gicp_kitti_raw_0009_matrix.json` |
@@ -224,6 +225,7 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 | Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 0.806 | 107.9 | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.031 | 113.8 | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.250 | 107.2 | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
+| SuMa on the second public HDL-400 reference window | `ready` | `dense` | 0.175 | 174.4 | `experiments/results/suma_hdl_400_reference_b_matrix.json` |
 | SuMa on the public HDL-400 reference window | `ready` | `default` | 0.183 | 168.4 | `experiments/results/suma_hdl_400_reference_matrix.json` |
 | SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 5.487 | 85.5 | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.784 | 62.9 | `experiments/results/suma_kitti_raw_0009_matrix.json` |
@@ -242,6 +244,7 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 | VGICP SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 6.092 | 20.8 | `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json` |
 | VGICP SLAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.016 | 40.3 | `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json` |
 | VGICP SLAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.319 | 21.8 | `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json` |
+| Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `dense_recent_map` | 0.427 | 148.5 | `experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `dense_recent_map` | 0.268 | 141.1 | `experiments/results/voxel_gicp_hdl_400_reference_matrix.json` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense_recent_map` | 0.640 | 110.1 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense_recent_map` | 0.670 | 93.9 | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
@@ -251,6 +254,7 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 | Voxel-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `dense_recent_map` | 0.926 | 124.2 | `experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.121 | 117.2 | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `dense_recent_map` | 0.286 | 116.4 | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |
+| X-ICP on the second public HDL-400 reference window | `ready` | `fast` | 0.173 | 130.0 | `experiments/results/xicp_hdl_400_reference_b_matrix.json` |
 | X-ICP on the public HDL-400 reference window | `ready` | `dense` | 0.168 | 123.9 | `experiments/results/xicp_hdl_400_reference_matrix.json` |
 | X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 0.130 | 92.9 | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |
 | X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense` | 0.139 | 102.8 | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
@@ -12831,6 +12835,66 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
 
 
+## Small-GICP throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- **Problem ID**: `small_gicp_profile_tradeoff_hdl_400_reference_b`
+- **Question**: Which Small-GICP profile should stay as the current default on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/small_gicp_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 0.437 | 62.9 | 44.5 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 0.226 | 117.5 | 84.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 0.155 | 49.5 | 71.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 117.5 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 0.155 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Default.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_recent_map`
+
+- Intent: Fast.
+- CLI args: `--small-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/fast_recent_map/summary.json --small-gicp-fast-profile`
+- Summary: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_recent_map`
+
+- Intent: Dense.
+- CLI args: `--small-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/dense_recent_map/summary.json --small-gicp-dense-profile`
+- Summary: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window
 
 - **Problem ID**: `small_gicp_profile_tradeoff_hdl_400_reference`
@@ -13369,6 +13433,66 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## SuMa on the second public HDL-400 reference window
+
+- **Problem ID**: `suma_hdl_400_reference_b`
+- **Question**: How does SuMa perform on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 0.614 | 79.7 | 37.1 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 1.512 | 174.4 | 55.8 | 4.65 | 4.75 | Keep as active challenger |
+| Dense | accuracy-oriented | 0.175 | 30.5 | 58.7 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `dense` is the current default for this problem.
+2. `fast` is the fastest observed variant at 174.4 FPS.
+3. `dense` is the most accurate observed variant at 0.175 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods suma --summary-json experiments/results/runs/suma_hdl_400_reference_b_matrix/default/summary.json`
+- Summary: `experiments/results/runs/suma_hdl_400_reference_b_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_hdl_400_reference_b_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Use coarser surfels and a shorter history window for faster dense mapping.
+- CLI args: `--suma-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods suma --summary-json experiments/results/runs/suma_hdl_400_reference_b_matrix/fast/summary.json --suma-fast-profile`
+- Summary: `experiments/results/runs/suma_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/suma_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Use finer surfels and a longer history window for a denser dense-mapping solve.
+- CLI args: `--suma-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods suma --summary-json experiments/results/runs/suma_hdl_400_reference_b_matrix/dense/summary.json --suma-dense-profile`
+- Summary: `experiments/results/runs/suma_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/suma_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
 
 
 ## SuMa on the public HDL-400 reference window
@@ -14451,6 +14575,66 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
 
 
+## Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- **Problem ID**: `voxel_gicp_profile_tradeoff_hdl_400_reference_b`
+- **Question**: Which Voxel-GICP profile should stay as the current default on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `voxel_gicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 1.120 | 17.3 | 24.9 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 0.940 | 52.9 | 40.5 | 4.65 | 4.75 | Keep as reference variant |
+| Dense recent map | accuracy-oriented | 0.427 | 148.5 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `dense_recent_map` is the current default for this problem.
+2. `dense_recent_map` is the fastest observed variant at 148.5 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 0.427 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_recent_map`
+
+- Intent: Coarser voxels and lighter iterations.
+- CLI args: `--voxel-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/fast_recent_map/summary.json --voxel-gicp-fast-profile`
+- Summary: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_recent_map`
+
+- Intent: Finer voxels and deeper alignment.
+- CLI args: `--voxel-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/dense_recent_map/summary.json --voxel-gicp-dense-profile`
+- Summary: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window
 
 - **Problem ID**: `voxel_gicp_profile_tradeoff_hdl_400_reference`
@@ -14989,6 +15173,78 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## X-ICP on the second public HDL-400 reference window
+
+- **Problem ID**: `xicp_hdl_400_reference_b`
+- **Question**: How does X-ICP perform on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `xicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/xicp_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (GT seed) | balanced | 0.264 | 90.7 | 67.7 | 5.00 | 5.00 | Keep as reference variant |
+| Fast (GT seed) | throughput-oriented | 0.180 | 130.0 | 98.2 | 4.65 | 4.75 | Adopt as current default |
+| Dense (GT seed) | accuracy-oriented | 0.173 | 69.4 | 76.7 | 4.65 | 4.75 | Keep as reference variant |
+| No GT seed | accuracy-oriented | 7.230 | 88.5 | 35.3 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 130.0 FPS.
+3. `dense` is the most accurate observed variant at 0.173 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default with ground-truth seed initialization.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_b_matrix/default/summary.json`
+- Summary: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/default/summary.json`
+- Log: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast`
+
+- Intent: Coarser voxel map and smaller working set while keeping the GT-seeded initialization path.
+- CLI args: `--xicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_b_matrix/fast/summary.json --xicp-fast-profile`
+- Summary: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense`
+
+- Intent: Finer voxel map and larger correspondence budget while keeping the GT-seeded initialization path.
+- CLI args: `--xicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_b_matrix/dense/summary.json --xicp-dense-profile`
+- Summary: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `no_gt_seed`
+
+- Intent: Ablation without ground-truth seed to test convergence from identity.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_b_matrix/no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/no_gt_seed/summary.json`
+- Log: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
 
 
 ## X-ICP on the public HDL-400 reference window

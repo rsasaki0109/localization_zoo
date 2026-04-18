@@ -21,8 +21,8 @@ loam_livox,,,,default,,,fast,fast,fast,fast,fast,fast,fast
 mulls,,,,fast,,,fast,fast,fast,fast,fast,kitti_default,fast
 ndt,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,fast_coarse_map,balanced_local_map,fast_coarse_map
 point_lio,,,,fast,,,fast,fast,fast,fast,fast,fast,fast
-small_gicp,,,,fast_recent_map,,,balanced_local_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,dense_recent_map,fast_recent_map
-suma,,,,default,,,default,dense,dense,fast,fast,dense,default
+small_gicp,,,,fast_recent_map,fast_recent_map,,balanced_local_map,fast_recent_map,fast_recent_map,fast_recent_map,fast_recent_map,dense_recent_map,fast_recent_map
+suma,,,,default,dense,,default,dense,dense,fast,fast,dense,default
 vgicp_slam,,,,fast,,,fast,fast,fast,fast,fast,fast,fast
-voxel_gicp,,,,dense_recent_map,,,dense_recent_map,dense_recent_map,dense_recent_map,dense_recent_map,dense_recent_map,dense_recent_map,dense_recent_map
-xicp,,,,dense,,,fast,dense,fast,fast,fast,dense,dense
+voxel_gicp,,,,dense_recent_map,dense_recent_map,,dense_recent_map,dense_recent_map,dense_recent_map,dense_recent_map,dense_recent_map,dense_recent_map,dense_recent_map
+xicp,,,,dense,fast,,fast,dense,fast,fast,fast,dense,dense

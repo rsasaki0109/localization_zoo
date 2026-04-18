@@ -1,11 +1,11 @@
 # Paper Tracks
 
-_Generated at 2026-04-17T11:59:13+00:00 by `evaluation/scripts/generate_publication_docs.py`._
+_Generated at 2026-04-18T09:40:25+00:00 by `evaluation/scripts/generate_publication_docs.py`._
 
 This repository should not be pitched as "many implementations exist here".
 The paper target has to be a claim about what this experiment-driven process reveals.
 
-Current coverage: `252` ready, `1` blocked, `1` skipped problems.
+Current coverage: `256` ready, `1` blocked, `1` skipped problems.
 
 ## Current State
 
@@ -228,6 +228,7 @@ Current coverage: `252` ready, `1` blocked, `1` skipped problems.
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.031 | 113.8 | `dogfooding_results/mcd_ntu_day_02_108` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.250 | 107.2 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.109 | 110.3 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| Small-GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_recent_map` | 0.155 | 117.5 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.437 | 92.4 | `dogfooding_results/kitti_raw_0009_full` |
 | SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `default` | 2.784 | 109.4 | `dogfooding_results/kitti_raw_0009_200` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.784 | 62.9 | `dogfooding_results/kitti_raw_0009_200` |
@@ -238,6 +239,7 @@ Current coverage: `252` ready, `1` blocked, `1` skipped problems.
 | SuMa on MCD NTU day-02 sequence | `ready` | `dense` | 0.036 | 124.1 | `dogfooding_results/mcd_ntu_day_02_108` |
 | SuMa on MCD TUHH night-09 sequence | `ready` | `default` | 1.317 | 178.1 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | SuMa on the public HDL-400 reference window | `ready` | `default` | 0.183 | 168.4 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| SuMa on the second public HDL-400 reference window | `ready` | `dense` | 0.175 | 174.4 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 1.772 | 23.7 | `dogfooding_results/kitti_raw_0009_200` |
 | VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 3.948 | 22.2 | `dogfooding_results/kitti_raw_0009_full` |
 | VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.799 | 31.0 | `dogfooding_results/kitti_raw_0061_200` |
@@ -255,6 +257,7 @@ Current coverage: `252` ready, `1` blocked, `1` skipped problems.
 | Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.121 | 117.2 | `dogfooding_results/mcd_ntu_day_02_108` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `dense_recent_map` | 0.286 | 116.4 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `dense_recent_map` | 0.268 | 141.1 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `dense_recent_map` | 0.427 | 148.5 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense_recent_map` | 0.640 | 110.1 | `dogfooding_results/kitti_raw_0009_full` |
 | X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 108.748 | 81.2 | `dogfooding_results/kitti_raw_0009_200` |
 | X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense` | 0.139 | 102.8 | `dogfooding_results/kitti_raw_0009_200` |
@@ -265,6 +268,7 @@ Current coverage: `252` ready, `1` blocked, `1` skipped problems.
 | X-ICP on MCD NTU day-02 sequence | `ready` | `dense` | 0.095 | 81.8 | `dogfooding_results/mcd_ntu_day_02_108` |
 | X-ICP on MCD TUHH night-09 sequence | `ready` | `dense` | 0.081 | 100.4 | `dogfooding_results/mcd_tuhh_night_09_108` |
 | X-ICP on the public HDL-400 reference window | `ready` | `dense` | 0.168 | 123.9 | `dogfooding_results/hdl_400_open_ct_lio_120` |
+| X-ICP on the second public HDL-400 reference window | `ready` | `fast` | 0.173 | 130.0 | `dogfooding_results/hdl_400_open_ct_lio_120_b` |
 
 ## Recommendation Order
 
@@ -280,7 +284,7 @@ Current coverage: `252` ready, `1` blocked, `1` skipped problems.
 
 ### Strongest Evidence
 
-- The stable benchmark contract now covers 252 ready problems under one CLI and one summary JSON interface.
+- The stable benchmark contract now covers 256 ready problems under one CLI and one summary JSON interface.
 - Each active problem keeps at least three concrete variants alive instead of collapsing immediately to a single abstraction.
 - Current defaults already show non-trivial trade-offs, such as `LiTAMIN2=paper_icp_only_half_threads` at 43.7 FPS and `CT-LIO=seed_only_fast` at 0.488 m ATE on the public HDL-400 reference window.
 

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2546,6 +2546,18 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## Small-GICP throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- Current default: `fast_recent_map`.
+- Reference variants: `balanced_local_map`, `dense_recent_map`.
+- Aggregate result: `experiments/results/small_gicp_hdl_400_reference_b_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window
 
 - Current default: `fast_recent_map`.
@@ -2653,6 +2665,19 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## SuMa on the second public HDL-400 reference window
+
+- Current default: `dense`.
+- Active challengers: `fast`.
+- Reference variants: `default`.
+- Aggregate result: `experiments/results/suma_hdl_400_reference_b_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## SuMa on the public HDL-400 reference window
 
@@ -2873,6 +2898,18 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- Current default: `dense_recent_map`.
+- Reference variants: `balanced_local_map`, `fast_recent_map`.
+- Aggregate result: `experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window
 
 - Current default: `dense_recent_map`.
@@ -2981,6 +3018,19 @@ _Generated at 2026-04-17T11:54:18+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_recent_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## X-ICP on the second public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`, `no_gt_seed`.
+- Aggregate result: `experiments/results/xicp_hdl_400_reference_b_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_gt_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## X-ICP on the public HDL-400 reference window
 

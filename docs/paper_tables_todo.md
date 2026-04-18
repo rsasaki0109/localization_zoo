@@ -23,7 +23,7 @@
   - Status: Done (CSV exported by `export_paper_assets.py`).
 
 - [ ] **Table 5: Full Variant Results (Appendix)**
-  - Description: All variants for all **254** index problems (**252** ready + **1** blocked + **1** skipped) with ATE, FPS, decision (adopt/keep/retire), and contract type.
+  - Description: All variants for all **258** index problems (**256** ready + **1** blocked + **1** skipped) with ATE, FPS, decision (adopt/keep/retire), and contract type.
   - Data source: Per-method `*_matrix.json` files under `experiments/results/`.
   - Status: Todo -- needs aggregation script across all matrix JSONs.
 
@@ -45,7 +45,7 @@
 ## Figures
 
 - [x] **Figure 1: Pareto Front (ATE vs. FPS)**
-  - Description: Scatter plot of all **252** ready default variants (`ready_defaults.csv`). X-axis: ATE (m); Y-axis: FPS. Separate markers for GT-backed and reference-based. Re-annotate extremes after each export (current CSV spans roughly **0.005–292 m** ATE and **0.17–173** FPS).
+  - Description: Scatter plot of all **256** ready default variants (`ready_defaults.csv`). X-axis: ATE (m); Y-axis: FPS. Separate markers for GT-backed and reference-based. Re-annotate extremes after each export (current CSV spans roughly **0.005–292 m** ATE and **0.17–173** FPS).
   - Data source: `docs/assets/paper/ready_defaults_pareto.png`.
   - Status: Done (exported by `export_paper_assets.py`).
 

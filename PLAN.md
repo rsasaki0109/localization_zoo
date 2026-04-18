@@ -46,7 +46,7 @@ print("generated_at", d.get("generated_at"))
 PY
 ```
 
-**2026-04-18 時点の例:** `problems` **258** 件、`ready` **256**、`blocked` **1**、`skipped` **1**（再実行で変わる可能性あり）。
+**2026-04-19 時点の例:** `problems` **262** 件、`ready` **260**、`blocked` **1**、`skipped` **1**（再実行で変わる可能性あり）。
 
 ### 1.3 テスト基盤（2026-04 強化）
 
@@ -129,14 +129,14 @@ repo 単体では完結しない。必要になるのは例えば:
 
 ---
 
-## 5. 数で見る規模（参考・2026-04-18 時点の例）
+## 5. 数で見る規模（参考・2026-04-19 時点の例）
 
 旧 PLAN の詳細表と矛盾しないよう、**件数は §1.2 のスクリプトで取り直すこと**。
 
 | 指標 | 例 |
 |------|-----|
-| `index.json` の `problems` | 258 |
-| `ready` / `blocked` / `skipped` | 256 / 1 / 1 |
+| `index.json` の `problems` | 262 |
+| `ready` / `blocked` / `skipped` | 260 / 1 / 1 |
 | CLI method family（`pcd_dogfooding`） | README・`docs/interfaces.md` と整合を取る |
 
 **27 methods** や manifest 数は時期によって変わる。**「27」と書く前に `pcd_dogfooding` の selector と manifest 一覧を grep / 集計する。**

@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-04-18T23:01:37+00:00",
+  "manifest_path": "experiments/dlo_hdl_400_reference_b_matrix.json",
+  "problem": {
+    "id": "dlo_profile_tradeoff_hdl_400_reference_b",
+    "title": "DLO throughput and accuracy trade-off on the second public HDL-400 reference window",
+    "question": "Which DLO profile should stay as the current default on the second public HDL-400 reference window?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_b",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference_b.csv",
+      "reference_role": "public reference trajectory sliced from the HDL-400 pose trace export"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "dlo",
+    "primary_method": "DLO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_b",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference_b.csv"
+  },
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline DLO GICP keyframe odometry for KITTI-scale LiDAR.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/summary.json",
+      "summary_path": "experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/run.log",
+      "status": "OK",
+      "ate_m": 0.121773,
+      "fps": 7.954699,
+      "time_ms": 15085.42335,
+      "frames": 120,
+      "note": "Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 70.15,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser downsampling and fewer GICP iterations.",
+      "args": [
+        "--dlo-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/summary.json --dlo-fast-profile",
+      "summary_path": "experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 0.148888,
+      "fps": 17.948892,
+      "time_ms": 6685.649376,
+      "frames": 120,
+      "note": "Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 89.25,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer voxels, more map keyframes, and deeper GICP.",
+      "args": [
+        "--dlo-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/summary.json --dlo-dense-profile",
+      "summary_path": "experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 0.116886,
+      "fps": 3.94813,
+      "time_ms": 30394.133874,
+      "frames": 120,
+      "note": "Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 61.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

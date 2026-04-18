@@ -34,6 +34,7 @@ ct_icp,mcd_tuhh_night_09_108,fast_window
 ct_lio,hdl_400_open_ct_lio_120,seed_only_fast
 ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,seed_only_fast
 dlio,hdl_400_open_ct_lio_120,fast
+dlio,hdl_400_open_ct_lio_120_b,fast
 dlio,kitti_raw_0009_200,fast
 dlio,kitti_raw_0009_full,fast
 dlio,kitti_raw_0061_200,fast
@@ -42,6 +43,7 @@ dlio,mcd_kth_day_06_108,fast
 dlio,mcd_ntu_day_02_108,kitti_default
 dlio,mcd_tuhh_night_09_108,fast
 dlo,hdl_400_open_ct_lio_120,fast
+dlo,hdl_400_open_ct_lio_120_b,fast
 dlo,kitti_raw_0009_200,fast
 dlo,kitti_raw_0009_full,fast
 dlo,kitti_raw_0061_200,fast
@@ -123,6 +125,7 @@ lego_loam,mcd_kth_day_06_108,fast
 lego_loam,mcd_ntu_day_02_108,fast
 lego_loam,mcd_tuhh_night_09_108,fast
 lins,hdl_400_open_ct_lio_120,fast
+lins,hdl_400_open_ct_lio_120_b,fast
 lins,kitti_raw_0009_200,fast
 lins,kitti_raw_0009_full,fast
 lins,kitti_raw_0061_200,fast
@@ -179,6 +182,7 @@ ndt,mcd_kth_day_06_108,fast_coarse_map
 ndt,mcd_ntu_day_02_108,balanced_local_map
 ndt,mcd_tuhh_night_09_108,fast_coarse_map
 point_lio,hdl_400_open_ct_lio_120,fast
+point_lio,hdl_400_open_ct_lio_120_b,fast
 point_lio,kitti_raw_0009_200,fast
 point_lio,kitti_raw_0009_full,fast
 point_lio,kitti_raw_0061_200,fast

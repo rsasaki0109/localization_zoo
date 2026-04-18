@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -111,6 +111,7 @@ The runner is responsible for:
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` | `ct_lio` | `seed_only_fast` | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `experiments/ct_lio_public_readiness_matrix.json` | `ct_lio` | `-` | `experiments/results/ct_lio_public_readiness_matrix.json` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `experiments/ct_lio_reference_profile_matrix.json` | `ct_lio` | `seed_only_fast` | `experiments/results/ct_lio_reference_profile_matrix.json` |
+| DLIO throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/dlio_hdl_400_reference_b_matrix.json` | `dlio` | `fast` | `experiments/results/dlio_hdl_400_reference_b_matrix.json` |
 | DLIO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/dlio_hdl_400_reference_matrix.json` | `dlio` | `fast` | `experiments/results/dlio_hdl_400_reference_matrix.json` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/dlio_kitti_raw_0009_full_matrix.json` | `dlio` | `fast` | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/dlio_kitti_raw_0009_matrix.json` | `dlio` | `fast` | `experiments/results/dlio_kitti_raw_0009_matrix.json` |
@@ -120,6 +121,7 @@ The runner is responsible for:
 | DLIO throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/dlio_mcd_kth_day_06_matrix.json` | `dlio` | `fast` | `experiments/results/dlio_mcd_kth_day_06_matrix.json` |
 | DLIO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/dlio_mcd_ntu_day_02_matrix.json` | `dlio` | `kitti_default` | `experiments/results/dlio_mcd_ntu_day_02_matrix.json` |
 | DLIO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/dlio_mcd_tuhh_night_09_matrix.json` | `dlio` | `fast` | `experiments/results/dlio_mcd_tuhh_night_09_matrix.json` |
+| DLO throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `experiments/dlo_hdl_400_reference_b_matrix.json` | `dlo` | `fast` | `experiments/results/dlo_hdl_400_reference_b_matrix.json` |
 | DLO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/dlo_hdl_400_reference_matrix.json` | `dlo` | `fast` | `experiments/results/dlo_hdl_400_reference_matrix.json` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/dlo_kitti_raw_0009_full_matrix.json` | `dlo` | `fast` | `experiments/results/dlo_kitti_raw_0009_full_matrix.json` |
 | DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/dlo_kitti_raw_0009_matrix.json` | `dlo` | `fast` | `experiments/results/dlo_kitti_raw_0009_matrix.json` |
@@ -211,6 +213,7 @@ The runner is responsible for:
 | LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/lego_loam_mcd_kth_day_06_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/lego_loam_mcd_ntu_day_02_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/lego_loam_mcd_tuhh_night_09_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
+| LINS on the second public HDL-400 reference window | `ready` | `experiments/lins_hdl_400_reference_b_matrix.json` | `lins` | `fast` | `experiments/results/lins_hdl_400_reference_b_matrix.json` |
 | LINS on the public HDL-400 reference window | `ready` | `experiments/lins_hdl_400_reference_matrix.json` | `lins` | `fast` | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lins_kitti_raw_0009_full_matrix.json` | `lins` | `fast` | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
 | LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/lins_kitti_raw_0009_matrix.json` | `lins` | `fast` | `experiments/results/lins_kitti_raw_0009_matrix.json` |
@@ -273,6 +276,7 @@ The runner is responsible for:
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/ndt_mcd_ntu_day_02_matrix.json` | `ndt` | `balanced_local_map` | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ndt_mcd_tuhh_night_09_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
 | NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/ndt_profile_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_profile_matrix.json` |
+| Point-LIO on the second public HDL-400 reference window | `ready` | `experiments/point_lio_hdl_400_reference_b_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_hdl_400_reference_b_matrix.json` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `experiments/point_lio_hdl_400_reference_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_hdl_400_reference_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/point_lio_kitti_raw_0009_full_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/point_lio_kitti_raw_0009_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |

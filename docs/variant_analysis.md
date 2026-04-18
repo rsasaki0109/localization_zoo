@@ -1,6 +1,6 @@
 # Variant Analysis
 
-> Generated: 2026-04-18T09:40:25+00:00
+> Generated: 2026-04-18T23:04:27+00:00
 
 This document analyzes **why** variant performance differs across datasets and initialization modes. It complements `decisions.md` (which records **what** was chosen) with **why** the choices diverge.
 
@@ -142,6 +142,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 0.315 | 15.0 |
 | HDL-400 | fast | 0.239 | 12.1 |
 | KITTI-kitti_raw_0009_200 | fast | 2.362 | 5.3 |
 | KITTI-kitti_raw_0009_full | fast | 5.026 | 7.3 |
@@ -151,12 +152,13 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | kitti_default | 0.016 | 10.3 |
 | MCD-TUHH | fast | 1.344 | 13.0 |
 
-**Stability**: 2 unique default(s) across 8 windows.
+**Stability**: 2 unique default(s) across 9 windows.
 
 ### DLO
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 0.149 | 17.9 |
 | HDL-400 | fast | 0.118 | 15.0 |
 | KITTI-kitti_raw_0009_200 | fast | 2.362 | 5.9 |
 | KITTI-kitti_raw_0009_full | fast | 5.026 | 7.3 |
@@ -166,7 +168,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | kitti_default | 0.016 | 10.2 |
 | MCD-TUHH | fast | 1.344 | 13.9 |
 
-**Stability**: 2 unique default(s) across 8 windows.
+**Stability**: 2 unique default(s) across 9 windows.
 
 ### FAST-LIO2
 
@@ -301,6 +303,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 231.572 | 81.5 |
 | HDL-400 | fast | 29.745 | 71.9 |
 | KITTI-kitti_raw_0009_200 | fast | 120.032 | 120.7 |
 | KITTI-kitti_raw_0009_full | fast | 183.686 | 123.3 |
@@ -310,7 +313,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | dense | 0.111 | 34.9 |
 | MCD-TUHH | fast | 1.147 | 173.4 |
 
-**Stability**: 2 unique default(s) across 8 windows.
+**Stability**: 2 unique default(s) across 9 windows.
 
 ### LIO-SAM
 
@@ -399,6 +402,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 
 | Dataset | Default Variant | ATE [m] | FPS |
 |---|---|---:|---:|
+| HDL-400 | fast | 85.421 | 68.8 |
 | HDL-400 | fast | 165.820 | 69.9 |
 | KITTI-kitti_raw_0009_200 | fast | 119.890 | 117.4 |
 | KITTI-kitti_raw_0009_full | fast | 183.384 | 113.1 |
@@ -408,7 +412,7 @@ Does the same variant win across all datasets? Instability here is the core evid
 | MCD-NTU | fast | 0.083 | 77.3 |
 | MCD-TUHH | fast | 1.158 | 88.7 |
 
-**Stability**: 1 unique default(s) across 8 windows.
+**Stability**: 1 unique default(s) across 9 windows.
 
 ### SMALL-GICP
 
@@ -537,17 +541,17 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| dense | 3.134 | 2.5 | 8 |
-| fast | 2.917 | 10.5 | 8 |
-| kitti_default | 3.036 | 4.7 | 8 |
+| dense | 2.875 | 2.5 | 9 |
+| fast | 2.628 | 11.0 | 9 |
+| kitti_default | 2.783 | 4.8 | 9 |
 
 ### DLO
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| dense | 3.065 | 2.9 | 8 |
-| fast | 2.902 | 11.1 | 8 |
-| kitti_default | 2.985 | 5.0 | 8 |
+| dense | 2.737 | 3.0 | 9 |
+| fast | 2.596 | 11.8 | 9 |
+| kitti_default | 2.667 | 5.4 | 9 |
 
 ### FAST-LIO2
 
@@ -617,9 +621,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| default | 119.795 | 40.5 | 8 |
-| dense | 105.839 | 33.6 | 8 |
-| fast | 89.560 | 127.8 | 8 |
+| default | 139.913 | 41.3 | 9 |
+| dense | 124.903 | 31.8 | 9 |
+| fast | 105.339 | 122.7 | 9 |
 
 ### LIO-SAM
 
@@ -666,9 +670,9 @@ How do profile flags (fast/balanced/dense) affect ATE and FPS? Values averaged a
 
 | Variant | Avg ATE [m] | Avg FPS | N |
 |---|---:|---:|---:|
-| default | 99.415 | 5.8 | 8 |
-| dense | 88.212 | 14.4 | 8 |
-| fast | 106.515 | 95.2 | 8 |
+| default | 122.151 | 9.2 | 9 |
+| dense | 110.278 | 14.7 | 9 |
+| fast | 104.171 | 92.2 | 9 |
 
 ### SMALL-GICP
 

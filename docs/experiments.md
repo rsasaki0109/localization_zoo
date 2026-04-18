@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -44,6 +44,7 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `experiments/results/ct_lio_public_readiness_matrix.json` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.488 | 26.0 | `experiments/results/ct_lio_reference_profile_matrix.json` |
+| DLIO throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.315 | 15.0 | `experiments/results/dlio_hdl_400_reference_b_matrix.json` |
 | DLIO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.239 | 12.1 | `experiments/results/dlio_hdl_400_reference_matrix.json` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.3 | `experiments/results/dlio_kitti_raw_0009_matrix.json` |
@@ -53,6 +54,7 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 | DLIO throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.070 | 10.4 | `experiments/results/dlio_mcd_kth_day_06_matrix.json` |
 | DLIO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.016 | 16.6 | `experiments/results/dlio_mcd_ntu_day_02_matrix.json` |
 | DLIO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.0 | `experiments/results/dlio_mcd_tuhh_night_09_matrix.json` |
+| DLO throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.117 | 17.9 | `experiments/results/dlo_hdl_400_reference_b_matrix.json` |
 | DLO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.101 | 15.0 | `experiments/results/dlo_hdl_400_reference_matrix.json` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlo_kitti_raw_0009_full_matrix.json` |
 | DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.9 | `experiments/results/dlo_kitti_raw_0009_matrix.json` |
@@ -144,6 +146,7 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 | LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.072 | 9.9 | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.036 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.344 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
+| LINS on the second public HDL-400 reference window | `ready` | `fast` | 231.572 | 81.5 | `experiments/results/lins_hdl_400_reference_b_matrix.json` |
 | LINS on the public HDL-400 reference window | `ready` | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.380 | 123.3 | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
 | LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.861 | 120.7 | `experiments/results/lins_kitti_raw_0009_matrix.json` |
@@ -206,6 +209,7 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `balanced_local_map` | 0.013 | 44.9 | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_coarse_map` | 0.063 | 40.8 | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
 | NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_coarse_map` | 0.070 | 2.0 | `experiments/results/ndt_profile_matrix.json` |
+| Point-LIO on the second public HDL-400 reference window | `ready` | `fast` | 85.421 | 68.8 | `experiments/results/point_lio_hdl_400_reference_b_matrix.json` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `fast` | 17.929 | 69.9 | `experiments/results/point_lio_hdl_400_reference_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.384 | 113.1 | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.890 | 117.4 | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |
@@ -2507,6 +2511,66 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## DLIO throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- **Problem ID**: `dlio_profile_tradeoff_hdl_400_reference_b`
+- **Question**: Which DLIO profile should stay as the current default on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `dlio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/dlio_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced GICP+IMU fusion | 0.756 | 5.8 | 40.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 0.315 | 15.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 0.806 | 2.7 | 28.6 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 15.0 FPS.
+3. `fast` is the most accurate observed variant at 0.315 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Baseline DLIO-style GICP keyframe odometry with default IMU/LiDAR fusion weights.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Summary: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/kitti_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).
+
+#### `fast`
+
+- Intent: Coarser downsampling, fewer GICP iterations, lighter IMU fusion influence.
+- CLI args: `--dlio-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_b_matrix/fast/summary.json --dlio-fast-profile`
+- Summary: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).
+
+#### `dense`
+
+- Intent: Finer voxels, deeper GICP, stronger IMU term when imu.csv is present.
+- CLI args: `--dlio-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_b_matrix/dense/summary.json --dlio-dense-profile`
+- Summary: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).
+
+
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
 
 - **Problem ID**: `dlio_profile_tradeoff_hdl_400_reference`
@@ -3045,6 +3109,66 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).
+
+
+## DLO throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- **Problem ID**: `dlo_profile_tradeoff_hdl_400_reference_b`
+- **Question**: Which DLO profile should stay as the current default on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `dlo`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/dlo_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 0.122 | 8.0 | 70.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 0.149 | 17.9 | 89.2 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 0.117 | 3.9 | 61.0 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 17.9 FPS.
+3. `dense` is the most accurate observed variant at 0.117 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Baseline DLO GICP keyframe odometry for KITTI-scale LiDAR.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Summary: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Coarser downsampling and fewer GICP iterations.
+- CLI args: `--dlo-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/summary.json --dlo-fast-profile`
+- Summary: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Finer voxels, more map keyframes, and deeper GICP.
+- CLI args: `--dlo-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/summary.json --dlo-dense-profile`
+- Summary: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
 
 
 ## DLO throughput and accuracy trade-off on the public HDL-400 reference window
@@ -8419,6 +8543,66 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
 
 
+## LINS on the second public HDL-400 reference window
+
+- **Problem ID**: `lins_hdl_400_reference_b`
+- **Question**: How does LINS perform on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lins`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lins_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 300.860 | 47.8 | 67.8 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 231.572 | 81.5 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 277.412 | 17.5 | 52.5 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 81.5 FPS.
+3. `fast` is the most accurate observed variant at 231.572 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository default hyperparameters.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lins --summary-json experiments/results/runs/lins_hdl_400_reference_b_matrix/default/summary.json`
+- Summary: `experiments/results/runs/lins_hdl_400_reference_b_matrix/default/summary.json`
+- Log: `experiments/results/runs/lins_hdl_400_reference_b_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Coarsen the voxel maps and cap correspondences to favor throughput.
+- CLI args: `--lins-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lins --summary-json experiments/results/runs/lins_hdl_400_reference_b_matrix/fast/summary.json --lins-fast-profile`
+- Summary: `experiments/results/runs/lins_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/lins_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Use finer voxel maps and more correspondences for a denser iterated Kalman update.
+- CLI args: `--lins-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lins --summary-json experiments/results/runs/lins_hdl_400_reference_b_matrix/dense/summary.json --lins-dense-profile`
+- Summary: `experiments/results/runs/lins_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/lins_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+
 ## LINS on the public HDL-400 reference window
 
 - **Problem ID**: `lins_hdl_400_reference`
@@ -12293,6 +12477,66 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Point-LIO on the second public HDL-400 reference window
+
+- **Problem ID**: `point_lio_hdl_400_reference_b`
+- **Question**: How does Point-LIO perform on the second public HDL-400 reference window?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
+- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `point_lio`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/point_lio_hdl_400_reference_b_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (no IMU) | balanced | 304.043 | 36.4 | 40.5 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 85.421 | 68.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 286.804 | 16.8 | 27.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 68.8 FPS.
+3. `fast` is the most accurate observed variant at 85.421 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_b_matrix/default/summary.json`
+- Summary: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/default/summary.json`
+- Log: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+#### `fast`
+
+- Intent: Use coarser registration and a smaller local map to speed up point-level Kalman updates; remains LiDAR-only when imu.csv is absent.
+- CLI args: `--point-lio-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_b_matrix/fast/summary.json --point-lio-fast-profile`
+- Summary: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/fast/summary.json`
+- Log: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+
+#### `dense`
+
+- Intent: Use finer registration and a larger local map with more correspondences; remains LiDAR-only when imu.csv is absent.
+- CLI args: `--point-lio-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_b_matrix/dense/summary.json --point-lio-dense-profile`
+- Summary: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/dense/summary.json`
+- Log: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
 
 
 ## Point-LIO on the public HDL-400 reference window

@@ -37,6 +37,7 @@ ct_icp,mcd_tuhh_night_09_108,reference-based,fast_window,Fast window,3.552540,71
 ct_lio,hdl_400_open_ct_lio_120,reference-based,seed_only_fast,Seed-only fast,0.488244,17.477206,experiments/results/ct_lio_reference_profile_matrix.json
 ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,seed_only_fast,Seed-only fast,0.479317,19.561344,experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json
 dlio,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.239300,12.061980,experiments/results/dlio_hdl_400_reference_matrix.json
+dlio,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast,0.314731,14.964236,experiments/results/dlio_hdl_400_reference_b_matrix.json
 dlio,kitti_raw_0009_200,reference-based,fast,Fast,2.361788,7.003044,experiments/results/dlio_kitti_raw_0009_nogt_matrix.json
 dlio,kitti_raw_0009_200,reference-based,fast,Fast,2.361788,5.327275,experiments/results/dlio_kitti_raw_0009_matrix.json
 dlio,kitti_raw_0009_full,reference-based,fast,Fast,5.026012,7.305497,experiments/results/dlio_kitti_raw_0009_full_matrix.json
@@ -46,6 +47,7 @@ dlio,mcd_kth_day_06_108,reference-based,fast,Fast,6.080595,10.381655,experiments
 dlio,mcd_ntu_day_02_108,reference-based,kitti_default,KITTI default,0.016238,10.289113,experiments/results/dlio_mcd_ntu_day_02_matrix.json
 dlio,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.344414,13.003484,experiments/results/dlio_mcd_tuhh_night_09_matrix.json
 dlo,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.118363,15.009659,experiments/results/dlo_hdl_400_reference_matrix.json
+dlo,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast,0.148888,17.948892,experiments/results/dlo_hdl_400_reference_b_matrix.json
 dlo,kitti_raw_0009_200,reference-based,fast,Fast,2.361788,7.081493,experiments/results/dlo_kitti_raw_0009_nogt_matrix.json
 dlo,kitti_raw_0009_200,reference-based,fast,Fast,2.361788,5.949779,experiments/results/dlo_kitti_raw_0009_matrix.json
 dlo,kitti_raw_0009_full,reference-based,fast,Fast,5.026012,7.333610,experiments/results/dlo_kitti_raw_0009_full_matrix.json
@@ -136,6 +138,7 @@ lego_loam,mcd_kth_day_06_108,reference-based,fast,Fast,6.098881,9.923787,experim
 lego_loam,mcd_ntu_day_02_108,reference-based,fast,Fast,0.078650,8.362960,experiments/results/lego_loam_mcd_ntu_day_02_matrix.json
 lego_loam,mcd_tuhh_night_09_108,reference-based,fast,Fast,1.401108,10.053788,experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json
 lins,hdl_400_open_ct_lio_120,reference-based,fast,Fast,29.745231,71.863775,experiments/results/lins_hdl_400_reference_matrix.json
+lins,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast,231.571566,81.525384,experiments/results/lins_hdl_400_reference_b_matrix.json
 lins,kitti_raw_0009_200,reference-based,fast,Fast,120.032189,104.959144,experiments/results/lins_kitti_raw_0009_nogt_matrix.json
 lins,kitti_raw_0009_200,reference-based,fast,Fast,120.032189,120.725712,experiments/results/lins_kitti_raw_0009_matrix.json
 lins,kitti_raw_0009_full,reference-based,fast,Fast,183.686427,123.251360,experiments/results/lins_kitti_raw_0009_full_matrix.json
@@ -198,6 +201,7 @@ ndt,mcd_kth_day_06_108,reference-based,fast_coarse_map,Fast coarse map,0.207671,
 ndt,mcd_ntu_day_02_108,reference-based,balanced_local_map,Balanced local map,0.014334,32.664591,experiments/results/ndt_mcd_ntu_day_02_matrix.json
 ndt,mcd_tuhh_night_09_108,reference-based,fast_coarse_map,Fast coarse map,0.070444,40.826425,experiments/results/ndt_mcd_tuhh_night_09_matrix.json
 point_lio,hdl_400_open_ct_lio_120,reference-based,fast,Fast,165.820193,69.922756,experiments/results/point_lio_hdl_400_reference_matrix.json
+point_lio,hdl_400_open_ct_lio_120_b,reference-based,fast,Fast,85.421237,68.763524,experiments/results/point_lio_hdl_400_reference_b_matrix.json
 point_lio,kitti_raw_0009_200,reference-based,fast,Fast,119.890040,95.649174,experiments/results/point_lio_kitti_raw_0009_nogt_matrix.json
 point_lio,kitti_raw_0009_200,reference-based,fast,Fast,119.890040,117.416108,experiments/results/point_lio_kitti_raw_0009_matrix.json
 point_lio,kitti_raw_0009_full,reference-based,fast,Fast,183.383903,113.057758,experiments/results/point_lio_kitti_raw_0009_full_matrix.json

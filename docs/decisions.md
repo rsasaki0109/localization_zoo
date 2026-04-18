@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -465,6 +465,18 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 | seed_only_fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | history_smoother_dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## DLIO throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlio_hdl_400_reference_b_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
 
 - Current default: `fast`.
@@ -567,6 +579,18 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 - Current default: `fast`.
 - Reference variants: `kitti_default`, `dense`.
 - Aggregate result: `experiments/results/dlio_mcd_tuhh_night_09_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## DLO throughput and accuracy trade-off on the second public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/dlo_hdl_400_reference_b_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
@@ -1662,6 +1686,18 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LINS on the second public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/lins_hdl_400_reference_b_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LINS on the public HDL-400 reference window
 
 - Current default: `fast`.
@@ -2436,6 +2472,18 @@ _Generated at 2026-04-18T09:39:41+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_coarse_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## Point-LIO on the second public HDL-400 reference window
+
+- Current default: `fast`.
+- Reference variants: `default`, `dense`.
+- Aggregate result: `experiments/results/point_lio_hdl_400_reference_b_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## Point-LIO on the public HDL-400 reference window
 

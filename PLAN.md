@@ -1,6 +1,6 @@
 # Localization Zoo — 引き継ぎ PLAN（Copilot / Claude / 次のエージェント向け）
 
-> **最終更新: 2026-04-16**
+> **最終更新: 2026-04-20**
 >
 > この文書は、次のセッションが **短時間で repo の「いまの真実」** と **踏んではいけない罠** を掴むための handoff である。
 > 数値・ready 数・ブランチは **常に Git と `experiments/results/index.json` で再検証すること**（本文に古い数値が残ると危険）。
@@ -9,7 +9,7 @@
 
 ## 0. 最初に読む順（最短ルート）
 
-1. **本ファイルの §1（2026-04-16 スナップショット）**
+1. **本ファイルの §1（2026-04-20 スナップショット）**
 2. [`experiments/results/index.json`](experiments/results/index.json)（`problems[].status` が真実）
 3. [`evaluation/README.md`](evaluation/README.md)（評価の階層・ワンショットコマンド）
 4. [`docs/interfaces.md`](docs/interfaces.md)（`pcd_dogfooding` の selector）
@@ -17,15 +17,24 @@
 
 ---
 
-## 1. 2026-04-16 スナップショット（Claude 向け・現在の優先情報）
+## 1. 2026-04-20 スナップショット（Claude 向け・現在の優先情報）
 
 ### 1.1 Git / ブランチ
 
 | 項目 | 値（この更新時点） |
 |------|---------------------|
 | 既定の作業ブランチ | **`main`** |
-| 直近の意味のあるコミット例 | `common` のユニットテスト、`evaluation` の評価基盤スクリプト、閾値の明示化 など |
+| Git 状態 | `main...origin/main [ahead 8]`、worktree clean |
+| 直近の意味のあるコミット例 | HDL-400 B aggregate 追加、local Ceres matrix refresh、OpenCV 依存削除、paper roadmap 整合 |
 | リモート | `git@github.com:rsasaki0109/localization_zoo.git` |
+
+直近 HEAD 側の主な追加:
+
+- `002df21 docs: add LIO HDL-400 B benchmark results`
+- `562aaf5 docs: add scan-map HDL-400 B benchmark results`
+- `f58c6f1 docs: add LOAM HDL-400 B benchmark results`
+- `15039df docs: add A-LOAM HDL-400 B benchmark result`
+- `cb9c34a build: support local Ceres matrix refresh`
 
 **注意:** 旧版 PLAN には `wip/profile-expansion-refresh` や Draft PR #1 の記述が残ることがある。実際にどちらで作業するかは **`git branch -a` と GitHub 上の PR 状態** で確認すること。長期の注意事項（HDL-400 / synthetic-time の区別など）は **`main` にマージ後も有効**。
 
@@ -46,7 +55,31 @@ print("generated_at", d.get("generated_at"))
 PY
 ```
 
-**2026-04-19 時点の例:** `problems` **262** 件、`ready` **260**、`blocked` **1**、`skipped` **1**（再実行で変わる可能性あり）。
+**2026-04-20 時点の例:** `problems` **262** 件、`ready` **260**、`blocked` **1**、`skipped` **1**（再実行で変わる可能性あり）。
+
+### 1.2.1 HDL-400 B 追加状況
+
+`dogfooding_results/hdl_400_open_ct_lio_120_b` と `experiments/reference_data/hdl_400_public_reference_b.csv` を使い、HDL-400 B の aggregate を段階的に追加中。
+
+すでに追加済みの代表 batch:
+
+- A-LOAM: `aloam_hdl_400_reference_b_matrix.json`
+- LOAM 系: `balm2`, `floam`, `lego_loam`
+- scan-map 系: `small_gicp`, `voxel_gicp`, `xicp`, `suma`
+- LIO / odometry 系: `dlo`, `dlio`, `lins`, `point_lio`
+
+残り HDL-400 B aggregate（2026-04-20 時点）:
+
+```text
+fast_lio2_hdl_400_reference_b_matrix.json
+fast_lio_slam_hdl_400_reference_b_matrix.json
+hdl_graph_slam_hdl_400_reference_b_matrix.json
+isc_loam_hdl_400_reference_b_matrix.json
+lio_sam_hdl_400_reference_b_matrix.json
+loam_livox_hdl_400_reference_b_matrix.json
+mulls_hdl_400_reference_b_matrix.json
+vgicp_slam_hdl_400_reference_b_matrix.json
+```
 
 ### 1.3 テスト基盤（2026-04 強化）
 
@@ -71,14 +104,29 @@ PY
 
 ルート [`README.md`](README.md) の sanity check 付近に、上記ワンショットへのリンクがある。
 
+この環境では sudo なしで Ceres を `/tmp/loc_zoo_ceres_prefix/usr` に展開して使った。再 configure する場合の例:
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_PREFIX_PATH=/tmp/loc_zoo_ceres_prefix/usr \
+  -DCMAKE_MODULE_PATH=/tmp/loc_zoo_ceres_prefix/usr/share/glog/cmake
+```
+
+実行時は local Ceres/glog/gflags を見せる:
+
+```bash
+LD_LIBRARY_PATH=/tmp/loc_zoo_ceres_prefix/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-} \
+python3 evaluation/scripts/run_experiment_matrix.py ...
+```
+
 ### 1.5 Claude が次にやるなら（優先度の例）
 
 | 優先度 | 内容 |
 |--------|------|
-| P0 | `index.json` の `blocked` / `skipped` の理由を [`docs/decisions.md`](docs/decisions.md) または該当 aggregate と突き合わせる |
-| P1 | テスト追加時は **閾値を `test_thresholds.h` または論理名付き定数** に集約 |
-| P2 | exact **native-time** HDL-400 再現に必要な **ソースアーティファクト** を repo 外前提で整理（下記 §4） |
-| P3 | `--manifest` 部分実行後は **`refresh_study_docs.py`** を忘れない（下記 §6） |
+| P0 | HDL-400 B の残り 8 aggregate を `--merge-existing-index` 付きで埋める |
+| P1 | 各 batch 後に `generate_publication_docs.py` / `export_paper_assets.py` / `generate_paper_comparison.py` / `generate_variant_analysis.py` を再実行 |
+| P2 | `index.json` の `blocked` / `skipped` の理由を [`docs/decisions.md`](docs/decisions.md) または該当 aggregate と突き合わせる |
+| P3 | exact **native-time** HDL-400 再現に必要な **ソースアーティファクト** を repo 外前提で整理（下記 §4） |
 
 ---
 
@@ -129,7 +177,7 @@ repo 単体では完結しない。必要になるのは例えば:
 
 ---
 
-## 5. 数で見る規模（参考・2026-04-19 時点の例）
+## 5. 数で見る規模（参考・2026-04-20 時点の例）
 
 旧 PLAN の詳細表と矛盾しないよう、**件数は §1.2 のスクリプトで取り直すこと**。
 
@@ -190,17 +238,24 @@ cd build && ctest --output-on-failure
 bash ../evaluation/scripts/smoke_ci_fixture.sh
 ```
 
+local Ceres prefix を使う環境では §1.4 の `CMAKE_PREFIX_PATH` / `CMAKE_MODULE_PATH` と `LD_LIBRARY_PATH` を付ける。
+
 ### 7.2 Python スクリプトの構文チェック
 
 ```bash
-python3 -m py_compile evaluation/scripts/run_experiment_matrix.py
+python3 -m py_compile evaluation/scripts/*.py
 ```
 
 ### 7.3 ドキュメント再生成
 
 ```bash
-python3 evaluation/scripts/refresh_study_docs.py
+python3 evaluation/scripts/generate_publication_docs.py
+python3 evaluation/scripts/export_paper_assets.py
+python3 evaluation/scripts/generate_paper_comparison.py
+python3 evaluation/scripts/generate_variant_analysis.py
 ```
+
+部分 manifest 実行で repo の `experiments/results/index.json` を更新する場合は、必ず `--merge-existing-index` を付ける。
 
 ---
 
@@ -254,7 +309,7 @@ python3 evaluation/scripts/verify_environment.py
 1. **`index.json` と Git が真実** — PLAN 本文の数値は古くなる。
 2. **public ROS1 synthetic-time と native-time exact reproduction は別問題**。
 3. **`paper_tracks.md` の FPS を default と誤読しない**。
-4. **部分 `--manifest` のあと `refresh_study_docs.py`**。
+4. **部分 `--manifest` は `--merge-existing-index` 付きで実行し、paper 系 generator を回す**。
 5. **テストの合格条件は `test_thresholds.h` のような名前付き定数に寄せる**と、次のエージェントが追いやすい。
 
 ---

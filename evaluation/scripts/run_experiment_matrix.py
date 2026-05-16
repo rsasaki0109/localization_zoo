@@ -17,6 +17,36 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
+# Legacy uppercase status values (emitted by older C++ binaries and runners)
+# are mapped onto the lowercase target taxonomy defined in
+# docs/status_taxonomy.md. See that doc for the full enum and meaning.
+_LEGACY_STATUS_MAP = {
+    "OK": "ok",
+    "SKIPPED": "skipped",
+    "TIMED_OUT": "timeout_budget",
+}
+
+
+def normalize_status(value: Any) -> str:
+    """Normalize a status string to the lowercase target taxonomy.
+
+    Unknown values are passed through verbatim (lower-cased) so that
+    forward-compatible statuses like ``tracking_lost`` emitted by future
+    C++ binaries are preserved.
+    """
+    if value is None:
+        return "ok"
+    text = str(value)
+    if text in _LEGACY_STATUS_MAP:
+        return _LEGACY_STATUS_MAP[text]
+    return text.lower()
+
+
+def is_metric_valid(status: str) -> bool:
+    """Return True iff the variant produced a comparable metric."""
+    return normalize_status(status) == "ok"
+
+
 @dataclass
 class VariantResult:
     id: str
@@ -188,7 +218,7 @@ def problem_run_from_aggregate(
                 command=item.get("command", ""),
                 summary_path=item.get("summary_path", ""),
                 log_path=item.get("log_path", ""),
-                status=item.get("status", "OK"),
+                status=normalize_status(item.get("status", "ok")),
                 ate_m=item.get("ate_m"),
                 rpe_trans_pct=item.get("rpe_trans_pct"),
                 rpe_rot_deg_per_m=item.get("rpe_rot_deg_per_m"),
@@ -363,7 +393,7 @@ def variant_result_from_summary(
         ),
         summary_path=relpath(summary_path),
         log_path=relpath(log_path),
-        status=str(method_result["status"]).upper(),
+        status=normalize_status(method_result.get("status")),
         ate_m=method_result["ate_m"],
         rpe_trans_pct=method_result.get("rpe_trans_pct"),
         rpe_rot_deg_per_m=method_result.get("rpe_rot_deg_per_m"),
@@ -510,7 +540,7 @@ def run_variant(
             dataset_extra_args=dataset_extra_args,
             summary_path=summary_path,
             log_path=log_path,
-            status="TIMED_OUT",
+            status="timeout_budget",
             note=timeout_note,
             time_ms=float(exc.timeout) * 1000.0,
         )
@@ -548,7 +578,7 @@ def compute_benchmark_scores(
     valid = [
         result
         for result in results
-        if result.status == "OK"
+        if is_metric_valid(result.status)
         and (not require_ate or result.ate_m is not None)
         and (not require_fps or result.fps is not None)
     ]
@@ -566,7 +596,7 @@ def compute_benchmark_scores(
     )
     for result in results:
         if (
-            result.status != "OK"
+            not is_metric_valid(result.status)
             or (require_ate and result.ate_m is None)
             or (require_fps and result.fps is None)
         ):
@@ -585,7 +615,7 @@ def assign_decisions(results: list[VariantResult]) -> None:
     ranked = sorted(results, key=lambda item: item.benchmark_score, reverse=True)
     best_score = ranked[0].benchmark_score
     for index, result in enumerate(ranked):
-        if result.status != "OK":
+        if not is_metric_valid(result.status):
             result.decision = "Rejected for this run"
             result.decision_reason = "The variant did not produce a valid benchmark result."
             continue
@@ -629,10 +659,10 @@ def finalize_problem_outcome(
     if manifest_state != "ready":
         return manifest_state, blocker, next_step
 
-    if any(result.status == "OK" for result in results):
+    if any(is_metric_valid(result.status) for result in results):
         return "ready", blocker, next_step
 
-    if results and all(result.status in {"SKIPPED", "TIMED_OUT"} for result in results):
+    if results and all(not is_metric_valid(result.status) for result in results):
         notes = dedupe_notes(results)
         derived_blocker = (
             " ; ".join(notes)
@@ -928,7 +958,7 @@ def render_interfaces_md(
         "| `timestamp_source` | string | Timestamp source used by the evaluator. |",
         "| `methods[]` | array | Per-method results emitted by the benchmark. |",
         "| `methods[].name` | string | Human-readable method name. |",
-        "| `methods[].status` | string | `OK` or `SKIPPED`. |",
+        "| `methods[].status` | string | Per-variant status from the target taxonomy in `docs/status_taxonomy.md` (`ok`, `skipped`, `timeout_budget`, ...). Legacy uppercase values (`OK`/`SKIPPED`/`TIMED_OUT`) are still accepted at ingest and normalized to the new enum. |",
         "| `methods[].ate_m` | number or null | Absolute trajectory error in meters. |",
         "| `methods[].rpe_trans_pct` | number or null | Average 100 m relative translation error in percent. |",
         "| `methods[].rpe_rot_deg_per_m` | number or null | Average 100 m relative rotation error in degrees per meter. |",

@@ -82,6 +82,7 @@ struct MethodResult {
   double time_ms = 0.0;
   double ate = 0.0;
   bool skipped = false;
+  std::string status = "ok";
   std::string note;
 };
 
@@ -171,6 +172,7 @@ MethodResult makeSkippedResult(const std::string& name, const std::string& note)
   MethodResult result;
   result.name = name;
   result.skipped = true;
+  result.status = "skipped";
   result.note = note;
   return result;
 }
@@ -1002,7 +1004,7 @@ void writeSummaryJson(const std::string& path,
     const auto& result = results[i];
     out << "    {\n";
     out << "      \"name\": \"" << jsonEscape(result.name) << "\",\n";
-    out << "      \"status\": \"" << (result.skipped ? "SKIPPED" : "OK") << "\",\n";
+    out << "      \"status\": \"" << jsonEscape(result.status) << "\",\n";
     if (result.skipped) {
       out << "      \"ate_m\": null,\n";
       out << "      \"frames\": 0,\n";
@@ -1442,7 +1444,7 @@ int main(int argc, char** argv) {
                            ? result.poses.size() / (result.time_ms / 1000.0)
                            : 0.0;
     std::cout << std::left << std::setw(15) << result.name
-              << std::setw(10) << (result.skipped ? "SKIPPED" : "OK")
+              << std::setw(10) << result.status
               << std::setw(12) << result.poses.size();
     if (result.skipped) {
       std::cout << std::setw(12) << "-" << std::setw(12) << "-"

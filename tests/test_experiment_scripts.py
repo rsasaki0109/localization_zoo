@@ -297,7 +297,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             self.assertEqual(aggregate["status"], "skipped")
             self.assertIn("Timed out after 0.1 seconds.", aggregate["blocker"])
             self.assertEqual(len(aggregate["variants"]), 1)
-            self.assertEqual(aggregate["variants"][0]["status"], "TIMED_OUT")
+            self.assertEqual(aggregate["variants"][0]["status"], "timeout_budget")
             self.assertEqual(aggregate["variants"][0]["time_ms"], 100.0)
             self.assertIn("Timed out after 0.1 seconds.", aggregate["variants"][0]["note"])
 

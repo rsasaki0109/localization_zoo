@@ -1,23 +1,36 @@
 # Reproduction Status
 
-_Generated at 2026-04-15T13:56:41+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
+_Generated at 2026-05-17T10:17:53+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
 
 This page records what the repository can currently claim about reproducing original-paper results.
 The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.
 
+## Claim Level Legend
+
+Every tracked family carries a `claim_level` that classifies how strongly the repo's evidence supports a reproduction claim. Levels are listed from strongest to weakest.
+
+| Level | Meaning |
+|-------|---------|
+| `reproduced` | Same dataset variant, same sequence, same evaluation protocol, same sensor condition as the source paper, ideally full sequence, with metric values consistent with the paper or official leaderboard. |
+| `approximately_reproduced` | Dataset family matches but window / preprocessing / metric implementation / parameters diverge in a way that prevents one-to-one comparison. Useful for directional comparison. |
+| `indicative` | Short window, Raw-vs-Odometry mismatch, custom window, or no direct paper claim to match. Useful inside the repo benchmark, not a paper-result reproduction. |
+| `smoke` | Demonstrates that the contract works end-to-end. Not for accuracy comparison. |
+| `ported` | Inputs and outputs are wired up but no paper-comparable benchmark is targeted (e.g. concept-only baselines, custom integrations). |
+
 ## Tracked Families
 
-| Method | Repo Scope | Current Claim | Numeric Comparison | Main Blocker | Next Step |
-|--------|------------|---------------|--------------------|--------------|-----------|
-| LiTAMIN2 | Paper-oriented front-end reimplementation | Partial reproduction path | Indirect only | No repository-stored full KITTI odometry sweep with the paper's reported metric is exported today. | Add full KITTI Odometry runs for the paper-profile variants and export RPE translation [%] alongside ATE. |
-| GICP | Compact shared implementation | Concept-only comparison | Not direct | There is no single paper benchmark and hardware protocol to reproduce against. | Choose a concrete upstream GICP benchmark target, or keep GICP explicitly scoped as conceptual baseline evidence. |
-| NDT | Compact baseline | Concept-only comparison | Not direct | There is no agreed modern NDT reference setup wired into the repo as the reproduction target. | Anchor against one explicit modern NDT codebase and dataset pair if direct reproduction is required. |
-| KISS-ICP | Compact baseline | Benchmark-comparable only | Partial only | The public aggregates are windowed runs of the compact pipeline, not full-sequence reruns of the reference implementation. | Run full KITTI sequences and publish an explicit deviation sheet against the upstream KISS-ICP implementation. |
-| CT-ICP | Paper-oriented core reimplementation | Core close, evaluation still indirect | Indirect only | The repo does not yet export the paper's full KITTI evaluation protocol and metric set. | Add full KITTI Odometry CT-ICP reruns with the paper-reported metric and publish side-by-side results. |
-| CT-LIO | Custom integration | Not comparable to a single paper | Reference-based only | There is no single paper-faithful target implementation and protocol behind this path. | Either keep CT-LIO explicitly custom, or add a separate faithful-track implementation with its own benchmark protocol. |
+| Method | Claim Level | Repo Scope | Current Claim | Numeric Comparison | Main Blocker | Next Step |
+|--------|-------------|------------|---------------|--------------------|--------------|-----------|
+| LiTAMIN2 | `indicative` | Paper-oriented front-end reimplementation | Partial reproduction path | Indirect only | No repository-stored full KITTI odometry sweep with the paper's reported metric is exported today. | Add full KITTI Odometry runs for the paper-profile variants and export RPE translation [%] alongside ATE. |
+| GICP | `ported` | Compact shared implementation | Concept-only comparison | Not direct | There is no single paper benchmark and hardware protocol to reproduce against. | Choose a concrete upstream GICP benchmark target, or keep GICP explicitly scoped as conceptual baseline evidence. |
+| NDT | `ported` | Compact baseline | Concept-only comparison | Not direct | There is no agreed modern NDT reference setup wired into the repo as the reproduction target. | Anchor against one explicit modern NDT codebase and dataset pair if direct reproduction is required. |
+| KISS-ICP | `indicative` | Compact baseline | Benchmark-comparable only | Partial only | The public aggregates are windowed runs of the compact pipeline, not full-sequence reruns of the reference implementation. | Run full KITTI sequences and publish an explicit deviation sheet against the upstream KISS-ICP implementation. |
+| CT-ICP | `indicative` | Paper-oriented core reimplementation | Core close, evaluation still indirect | Indirect only | The repo does not yet export the paper's full KITTI evaluation protocol and metric set. | Add full KITTI Odometry CT-ICP reruns with the paper-reported metric and publish side-by-side results. |
+| CT-LIO | `ported` | Custom integration | Not comparable to a single paper | Reference-based only | There is no single paper-faithful target implementation and protocol behind this path. | Either keep CT-LIO explicitly custom, or add a separate faithful-track implementation with its own benchmark protocol. |
 
 ## LiTAMIN2
 
+- **Claim level**: `indicative`
 - **Paper**: Yokozuka et al., LiTAMIN2: Ultra Light LiDAR-based SLAM using Geometric Approximation Applied with KL-Divergence, ICRA 2021
 - **Method README**: `papers/litamin2/README.md`
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
@@ -31,6 +44,7 @@ The tracked subset below is intentionally conservative: if the implementation, m
 
 ## GICP
 
+- **Claim level**: `ported`
 - **Paper**: Segal et al., Generalized-ICP, RSS 2009
 - **Method README**: `papers/gicp/README.md`
 - **Reported dataset**: Custom indoor/outdoor datasets
@@ -44,6 +58,7 @@ The tracked subset below is intentionally conservative: if the implementation, m
 
 ## NDT
 
+- **Claim level**: `ported`
 - **Paper**: Biber & Strasser, The Normal Distributions Transform: A New Approach to Laser Scan Matching, IROS 2003; Magnusson, The Three-Dimensional Normal-Distributions Transform, PhD Thesis 2009
 - **Method README**: `papers/ndt/README.md`
 - **Reported dataset**: Custom 2D/3D datasets
@@ -57,6 +72,7 @@ The tracked subset below is intentionally conservative: if the implementation, m
 
 ## KISS-ICP
 
+- **Claim level**: `indicative`
 - **Paper**: Vizzo et al., KISS-ICP: In Defense of Point-to-Point ICP, RAL 2023
 - **Method README**: `papers/kiss_icp/README.md`
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
@@ -70,6 +86,7 @@ The tracked subset below is intentionally conservative: if the implementation, m
 
 ## CT-ICP
 
+- **Claim level**: `indicative`
 - **Paper**: Dellenbach et al., CT-ICP: Real-time Elastic LiDAR Odometry with Loop Closure, ICRA 2022
 - **Method README**: `papers/ct_icp/README.md`
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
@@ -83,6 +100,7 @@ The tracked subset below is intentionally conservative: if the implementation, m
 
 ## CT-LIO
 
+- **Claim level**: `ported`
 - **Paper**: Zheng et al., Continuous-Time Fixed-Lag Smoothing for LiDAR-Inertial-Odometry (CT-LIO), IROS 2023 / derived from CT-ICP + IMU integration
 - **Method README**: `papers/ct_lio/README.md`
 - **Reported dataset**: KITTI raw, NTU VIRAL, custom

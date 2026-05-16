@@ -1,8 +1,16 @@
 {
-  "schema_version": 2,
-  "description": "Paper-reported metrics plus reproduction-status metadata for selected method families. Used by generate_paper_comparison.py and generate_reproduction_status.py.",
+  "schema_version": 3,
+  "description": "Paper-reported metrics plus reproduction-status metadata for selected method families. Used by generate_paper_comparison.py and generate_reproduction_status.py. Schema v3 introduces the `claim_level` field, which classifies each entry against the localization_zoo reproduction taxonomy (reproduced / approximately_reproduced / indicative / smoke / ported).",
+  "claim_level_definitions": {
+    "reproduced": "Same dataset variant, same sequence, same evaluation protocol, same sensor condition as the source paper, ideally full sequence, with metric values consistent with the paper or official leaderboard.",
+    "approximately_reproduced": "Dataset family matches but window / preprocessing / metric implementation / parameters diverge in a way that prevents one-to-one comparison. Useful for directional comparison.",
+    "indicative": "Short window, Raw-vs-Odometry mismatch, custom window, or no direct paper claim to match. Useful inside the repo benchmark, not a paper-result reproduction.",
+    "smoke": "Demonstrates that the contract works end-to-end. Not for accuracy comparison.",
+    "ported": "Inputs and outputs are wired up but no paper-comparable benchmark is targeted (e.g. concept-only baselines, custom integrations)."
+  },
   "methods": {
     "litamin2": {
+      "claim_level": "indicative",
       "paper": "Yokozuka et al., LiTAMIN2: Ultra Light LiDAR-based SLAM using Geometric Approximation Applied with KL-Divergence, ICRA 2021",
       "method_readme": "papers/litamin2/README.md",
       "repo_scope_label": "Paper-oriented front-end reimplementation",
@@ -28,6 +36,7 @@
       "notes": "Paper reports RPE (relative pose error), not ATE. Direct comparison with repo ATE requires caution."
     },
     "gicp": {
+      "claim_level": "ported",
       "paper": "Segal et al., Generalized-ICP, RSS 2009",
       "method_readme": "papers/gicp/README.md",
       "repo_scope_label": "Compact shared implementation",
@@ -46,6 +55,7 @@
       "notes": "Original GICP paper predates KITTI. No standardized numeric benchmark reported. Comparison is with the concept, not specific numbers."
     },
     "ndt": {
+      "claim_level": "ported",
       "paper": "Biber & Strasser, The Normal Distributions Transform: A New Approach to Laser Scan Matching, IROS 2003; Magnusson, The Three-Dimensional Normal-Distributions Transform, PhD Thesis 2009",
       "method_readme": "papers/ndt/README.md",
       "repo_scope_label": "Compact baseline",
@@ -64,6 +74,7 @@
       "notes": "Original NDT papers predate KITTI. Modern NDT implementations (e.g., Autoware) use NDT on KITTI but those numbers are from different codebases."
     },
     "kiss_icp": {
+      "claim_level": "indicative",
       "paper": "Vizzo et al., KISS-ICP: In Defense of Point-to-Point ICP, RAL 2023",
       "method_readme": "papers/kiss_icp/README.md",
       "repo_scope_label": "Compact baseline",
@@ -89,6 +100,7 @@
       "notes": "KISS-ICP reports near real-time performance (~100 FPS) on KITTI. ATE values are for full sequences; our 108-frame windows will differ."
     },
     "ct_icp": {
+      "claim_level": "indicative",
       "paper": "Dellenbach et al., CT-ICP: Real-time Elastic LiDAR Odometry with Loop Closure, ICRA 2022",
       "method_readme": "papers/ct_icp/README.md",
       "repo_scope_label": "Paper-oriented core reimplementation",
@@ -114,6 +126,7 @@
       "notes": "CT-ICP reports RPE, not ATE. Continuous-time formulation. Our repo measures ATE on short windows."
     },
     "ct_lio": {
+      "claim_level": "ported",
       "paper": "Zheng et al., Continuous-Time Fixed-Lag Smoothing for LiDAR-Inertial-Odometry (CT-LIO), IROS 2023 / derived from CT-ICP + IMU integration",
       "method_readme": "papers/ct_lio/README.md",
       "repo_scope_label": "Custom integration",

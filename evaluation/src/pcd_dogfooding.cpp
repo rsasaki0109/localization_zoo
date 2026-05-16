@@ -712,6 +712,7 @@ struct MethodResult {
   double rpe_rot_deg_per_m = 0;
   bool has_rpe = false;
   bool skipped = false;
+  std::string status = "ok";
   std::string note;
 };
 
@@ -719,6 +720,7 @@ MethodResult makeSkippedResult(const std::string& name, const std::string& note)
   MethodResult res;
   res.name = name;
   res.skipped = true;
+  res.status = "skipped";
   res.note = note;
   return res;
 }
@@ -3031,7 +3033,7 @@ void writeSummaryJson(const std::string& path,
     const auto& r = results[i];
     out << "    {\n";
     out << "      \"name\": \"" << jsonEscape(r.name) << "\",\n";
-    out << "      \"status\": \"" << (r.skipped ? "SKIPPED" : "OK") << "\",\n";
+    out << "      \"status\": \"" << jsonEscape(r.status) << "\",\n";
     if (r.skipped) {
       out << "      \"ate_m\": null,\n";
       out << "      \"rpe_trans_pct\": null,\n";
@@ -5144,7 +5146,7 @@ int main(int argc, char** argv) {
   for (auto& r : results) {
     if (r.skipped) {
       std::cout << std::setw(24) << r.name
-                << std::setw(12) << "SKIPPED"
+                << std::setw(12) << r.status
                 << std::setw(12) << "-"
                 << std::setw(12) << "-"
                 << std::setw(15) << "-"
@@ -5162,7 +5164,7 @@ int main(int argc, char** argv) {
     }
     double fps = r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
     std::cout << std::setw(24) << r.name
-              << std::setw(12) << "OK"
+              << std::setw(12) << r.status
               << std::setw(12) << std::setprecision(3) << r.ate
               << std::setw(12) << r.poses.size()
               << std::setw(15) << std::setprecision(1) << r.time_ms

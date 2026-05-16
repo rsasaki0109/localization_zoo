@@ -1,6 +1,6 @@
 # Reproduction Status
 
-_Generated at 2026-05-17T10:17:53+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
+_Generated at 2026-05-17T10:52:16+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
 
 This page records what the repository can currently claim about reproducing original-paper results.
 The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.
@@ -40,7 +40,7 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 - **Numeric comparison**: Indirect only. Paper numbers and repo numbers differ in metric, evaluation window, and hardware, so the comparison is directional rather than direct.
 - **Main blocker**: No repository-stored full KITTI odometry sweep with the paper's reported metric is exported today.
 - **Next step**: Add full KITTI Odometry runs for the paper-profile variants and export RPE translation [%] alongside ATE.
-- **Notes**: Paper reports RPE (relative pose error), not ATE. Direct comparison with repo ATE requires caution.
+- **Notes**: Paper reports RPE (relative pose error) on KITTI Odometry sequences 00-10. Repo-side RPE is now exported for LiTAMIN2 on KITTI Raw 0009 (RPE 0.74 %), HDL-400 reference (1.31 %), and MulRan parkinglot full (1.26 %); these three sit inside the paper-reported KITTI range (0.40-1.42 %). MCD/MulRan-120 aggregates also carry RPE but their trajectory lengths (0.3-14 m) are too short for direct comparison with the paper's 100 m-segment definition. Direct paper-reproduction still requires full KITTI Odometry runs (pending in experiments/pending/).
 
 ## GICP
 
@@ -96,7 +96,7 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 - **Numeric comparison**: Indirect only. Metric, sequence protocol, and hardware still differ from the published study, so current numbers should not be treated as direct CT-ICP reproduction results.
 - **Main blocker**: The repo does not yet export the paper's full KITTI evaluation protocol and metric set.
 - **Next step**: Add full KITTI Odometry CT-ICP reruns with the paper-reported metric and publish side-by-side results.
-- **Notes**: CT-ICP reports RPE, not ATE. Continuous-time formulation. Our repo measures ATE on short windows.
+- **Notes**: CT-ICP reports RPE on KITTI Odometry. Repo-side RPE for CT-ICP is exported on KITTI Raw 0009 (2.20 %; above the paper-reported 0.30-0.75 % range, attributable to window differences). On MCD/HDL-400/MulRan parkinglot the trajectory lengths are too short for the 100 m-segment RPE definition, and CT-ICP additionally diverges on MulRan parkinglot (ATE 75-80 m on the full sequence) - that failure mode is unresolved and should be investigated before any cross-dataset claim is made. Direct paper-reproduction still requires full KITTI Odometry runs.
 
 ## CT-LIO
 

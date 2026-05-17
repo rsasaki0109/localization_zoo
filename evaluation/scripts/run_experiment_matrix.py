@@ -362,7 +362,15 @@ def variant_result_from_summary(
     summary_path: Path,
     log_path: Path,
 ) -> VariantResult:
-    summary = json.loads(summary_path.read_text())
+    raw_text = summary_path.read_text()
+    # pcd_dogfooding writes lowercase -nan/nan/inf which strict JSON rejects.
+    # Normalize to the JSON spec's NaN/-Infinity/Infinity literals Python's json accepts.
+    import re as _re
+    sanitized = _re.sub(r"(?<![A-Za-z0-9_\"])-nan\b", "NaN", raw_text)
+    sanitized = _re.sub(r"(?<![A-Za-z0-9_\"\-])nan\b", "NaN", sanitized)
+    sanitized = _re.sub(r"(?<![A-Za-z0-9_\"])-inf\b", "-Infinity", sanitized)
+    sanitized = _re.sub(r"(?<![A-Za-z0-9_\"\-])inf\b", "Infinity", sanitized)
+    summary = json.loads(sanitized)
     method_result = None
     for item in summary["methods"]:
         if method_name_matches(str(item["name"]), primary_method):

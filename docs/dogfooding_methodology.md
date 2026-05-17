@@ -197,6 +197,22 @@ KITTI 07 ablation (1101 frames):
 
 The refinement gate cannot be combined with velocity-model bootstrap for CT-ICP: even a single rollback contaminates the voxel map (because CT-ICP's SLERP-deskewed points get added to the map at the wrong trajectory), causing `findCorrespondences` to return empty for subsequent frames. The gate path is left in the code for future experiments but is `false` by default.
 
+#### Gated map updates do not rescue the gate
+
+A follow-up attempt skipped `reg.addPointsToMap` on rollback to prevent the suspected map contamination. The KITTI 07 result confirms map pollution is **not** the root cause:
+
+| Variant | ATE [m] | RPE [%] | FPS | Rollbacks | Verdict |
+|---|---:|---:|---:|---:|---|
+| ms_chol_best (reference) | **1.61** | **2.06** | 15.0 | - | OK |
+| gate_only + gated-map (2m/0.25rad) | NaN | NaN | 24.1 | 369 | diverges |
+| paper_arch_all + gated-map (2m/0.25) | NaN | NaN | 17.0 | 156 | diverges |
+| paper_arch_loose + gated-map (3m/0.4) | NaN | NaN | 17.0 | 155 | diverges |
+| paper_arch_tight + gated-map (1m/0.15) | NaN | NaN | 51.5 | **991 (90%)** | diverges |
+
+The rollback count under gated-map is essentially unchanged from the map-polluting version (157 → 155), so the gate is not being tripped by a corrupt map. The real failure mode is that the **velocity-model seed itself** is too coarse for KITTI 07's sharp turns: when CT-ICP's refinement legitimately diverges from the velocity-model prediction, the gate rolls back to that bad prediction, `T_prev_world` is corrupted with the velocity-model value, the next frame's velocity model degrades further, and the trajectory blows up. Tightening the gate (1m/0.15rad) just accelerates this — 991/1101 frames are rejected, the whole trajectory becomes velocity-model output, and ATE goes to NaN.
+
+To make a gate work on CT-ICP, the seed must come from CT-ICP's own continuous-time extrapolation (extending the previous frame's begin→end pose) rather than a body-frame constant-velocity prior, or the gate threshold must adapt to recent inter-frame motion. Neither is small. The gated-map code stays (it does not hurt when gate is off), but the gate itself remains `false` by default and is not recommended.
+
 Cross-sequence generalization of the `ms_chol` bundle:
 
 | Seq | Paper RPE | Baseline RPE | ms_chol RPE | Baseline ATE | ms_chol ATE |

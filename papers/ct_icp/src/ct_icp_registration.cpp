@@ -97,20 +97,34 @@ CTICPRegistration::findCorrespondences(
 
     Voxel center = pointToVoxel(world_point, params_.voxel_resolution);
 
-    // 周辺27ボクセルから近傍点を収集
-    std::vector<Eigen::Vector3d> neighbors;
-    for (int dx = -1; dx <= 1; dx++) {
-      for (int dy = -1; dy <= 1; dy++) {
-        for (int dz = -1; dz <= 1; dz++) {
-          Voxel v{center.x + dx, center.y + dy, center.z + dz};
-          auto it = voxel_map_.find(v);
-          if (it != voxel_map_.end()) {
-            for (int k = 0; k < it->second.num_points; k++) {
-              neighbors.push_back(it->second.points[k]);
+    auto gather_neighborhood = [&](int radius, std::vector<Eigen::Vector3d>& out) {
+      for (int dx = -radius; dx <= radius; dx++) {
+        for (int dy = -radius; dy <= radius; dy++) {
+          for (int dz = -radius; dz <= radius; dz++) {
+            if (std::abs(dx) < radius && std::abs(dy) < radius &&
+                std::abs(dz) < radius)
+              continue;  // すでに小半径で収集済みのシェルを除外
+            Voxel v{center.x + dx, center.y + dy, center.z + dz};
+            auto it = voxel_map_.find(v);
+            if (it != voxel_map_.end()) {
+              for (int k = 0; k < it->second.num_points; k++) {
+                out.push_back(it->second.points[k]);
+              }
             }
           }
         }
       }
+    };
+
+    std::vector<Eigen::Vector3d> neighbors;
+    // radius=0 (中心ボクセル) + radius=1 (3x3x3 シェル)
+    gather_neighborhood(0, neighbors);
+    gather_neighborhood(1, neighbors);
+
+    if (params_.multi_scale_correspondences &&
+        static_cast<int>(neighbors.size()) < params_.knn) {
+      // 27 ボクセルで knn 未満 → 5x5x5 (125 ボクセル) に拡張
+      gather_neighborhood(2, neighbors);
     }
 
     if (static_cast<int>(neighbors.size()) < params_.knn) continue;
@@ -285,7 +299,9 @@ CTICPResult CTICPRegistration::registerFrame(
 
     // 最適化
     ceres::Solver::Options options;
-    options.linear_solver_type = ceres::DENSE_QR;
+    options.linear_solver_type = params_.use_normal_cholesky_solver
+                                     ? ceres::DENSE_NORMAL_CHOLESKY
+                                     : ceres::DENSE_QR;
     options.max_num_iterations = params_.ceres_max_iterations;
     options.trust_region_strategy_type = ceres::LEVENBERG_MARQUARDT;
     options.minimizer_progress_to_stdout = false;

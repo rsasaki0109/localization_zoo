@@ -55,15 +55,35 @@ Per-variant notes in the aggregate JSON say "no GT seed" or "anchor matches firs
 
 4. **Within-method comparison is unaffected.** Comparing LiTAMIN2 profiles against each other, or CT-ICP profiles against each other, is internally consistent regardless of which policy is in use.
 
+## Empirical confirmation (2026-05-17)
+
+Pending manifests with `--no-gt-seed` were run on the two long-trajectory datasets to verify the asymmetry empirically:
+
+| Manifest | Variant | ATE [m] | RPE trans [%] | FPS |
+|----------|---------|--------:|--------------:|----:|
+| `experiments/pending/litamin2_kitti_raw_0009_full_no_gt_seed_matrix.json` | `fast_cov_no_gt_seed` | 171.4 | 84.8 | 58.5 |
+| `experiments/pending/litamin2_mulran_parkinglot_full_no_gt_seed_matrix.json` | `fast_cov_no_gt_seed` | 78.0 | 100.7 | 117.4 |
+
+For reference, the same data with Policy A (GT-seeded) gave LiTAMIN2 RPE 0.74 % / 1.26 % respectively.
+
+So when the GT prior is removed:
+
+- LiTAMIN2 on KITTI Raw 0009 full drifts to ATE 171 m / RPE 85 % (a 230x degradation).
+- LiTAMIN2 on MulRan parkinglot full drifts to ATE 78 m / RPE 101 % (an 80x degradation, matching CT-ICP's pure-odometry numbers on the same data within a few percent).
+
+This is **not** evidence that LiTAMIN2 is a poor algorithm. It is evidence that the `--no-gt-seed` code path in this tool is doing "scan-to-map with previous-pose-as-init plus a 2 m / 0.25 rad refinement-acceptance gate" - which is closer to a scan-registration probe than to standalone odometry. When the gate rejects a refinement, `T_est = T_init_guess` (the previous pose), so the trajectory stagnates and drift accumulates linearly.
+
+The repo's Policy A numbers therefore overstate what these methods do as standalone odometry, and the repo's Policy B numbers (CT-ICP and similar) understate it because they hit the same refinement-acceptance gate.
+
 ## Recommended next steps
 
 These do not need to happen all at once.
 
-- **Short term**: add `--no-gt-seed` to a curated subset of LiTAMIN2 and CT-ICP-equivalent profiles when running paper-reproduction-bound manifests, so the resulting aggregate JSON carries the "pure odometry" variant of those methods.
-- **Medium term**: introduce a parallel set of pending manifests (`experiments/pending/*_no_gt_seed_matrix.json`) that mirror the current paper-reproduction targets with `--no-gt-seed` passed in `args`. This keeps the GT-seeded results for benchmark dogfooding comparisons and surfaces a paper-comparable counterpart.
-- **Longer term**: decide whether `CT-ICP` and the other Policy B methods should grow a symmetric `--gt-seed` toggle (for dogfooding-style fair-prior measurements), so both policies are explicit and visible per-aggregate.
+- **Short term**: keep Policy A as the default for dogfooding-style benchmark comparisons (consistent and reproducible), but stop quoting Policy A long-sequence RPE as paper-comparable. The pending no-GT-seed manifests document what happens when the GT prior is removed; do not promote them to active until the methodology below is fixed.
+- **Medium term**: replace the refinement-acceptance gate's reference (`T_init_guess` = previous pose) with a velocity-model prior (`T_init_guess` = prev + (prev - prev_prev)) so the gate measures deviation from a constant-velocity prediction, not from a static pose. This is what most real odometry pipelines do and is what would make `--no-gt-seed` produce paper-comparable numbers.
+- **Longer term**: decide whether `CT-ICP` and other Policy B methods should grow a symmetric `--gt-seed` toggle (for dogfooding-style fair-prior measurements), so both policies are explicit and visible per-aggregate.
 
-Either direction is fine; the important property is that future reproduction claims should never quote numbers from Policy A methods on long sequences without naming the GT-seed asymmetry.
+Either direction is fine; the important property is that future reproduction claims should never quote numbers from Policy A methods on long sequences without naming the GT-seed asymmetry, and should not treat the current Policy B / `--no-gt-seed` numbers as standalone-odometry equivalents either.
 
 ## Cross-references
 

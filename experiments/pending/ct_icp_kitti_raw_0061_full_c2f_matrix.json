@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_c2f_kitti_raw_0061_full",
+    "title": "CT-ICP c2f on KITTI Raw 0061 (cross-dataset)",
+    "question": "Does c2f generalize from KITTI Odometry to KITTI Raw 0061 (707 frames, different route)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline",
+      "design_style": "reference",
+      "intent": "Re-baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "c2f_full",
+      "label": "ms_chol + c2f",
+      "design_style": "c2f",
+      "intent": "Cross-dataset c2f validation.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "c2f_plus_gap_c",
+      "label": "ms_chol + c2f + min_distance=0.1",
+      "design_style": "c2f+gap_c",
+      "intent": "Cross-dataset full long-residential profile.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02", "--ct-icp-min-distance-between-points", "0.1"]
+    }
+  ]
+}

@@ -504,7 +504,37 @@ Findings:
 - KITTI 02 ATE-prioritized: c2f_full + Gap C (-23% ATE / -5% RPE)
 - KITTI 00 / 05 / 08: still motion-specific, see round-9 cross-seq table
 
-**Implementation note**: `--ct-icp-cauchy-sigma` was already exposed (round-5 paper-weights work); no code change needed. The simpler permanent-sigma profile is now an additional recommended recipe for long-residential motion when both ATE and RPE matter (the c2f bundle wins on ATE alone but trades RPE).
+**Implementation note**: `--ct-icp-cauchy-sigma` was already exposed (round-5 paper-weights work); no code change needed.
+
+### Permanent sigma cross-seq disqualification (round 12, 2026-05-18)
+
+Round 11's recommendation to use permanent `--ct-icp-cauchy-sigma 1.0` as a simpler KITTI-02 recipe was provisional — it was only validated on KITTI 00/02. Round 12 ran it on KITTI 05/07/08 to test whether it generalizes:
+
+| Seq | Frames | perm sigma=1.0 ATE/RPE | dATE vs ms_chol | dRPE vs ms_chol | c2f_full dATE | c2f_full dRPE |
+|----:|-------:|-----------------------:|----------------:|----------------:|--------------:|--------------:|
+|  00 |   4541 | 20.30 / 2.17           | **+21.5%**      |  -0.4%          | +10%          | 0%            |
+|  02 |   4661 | 72.96 / 2.81           | -9.9%           | **-7.8%**       | -16%          | -10%          |
+|  05 |   2761 | 12.95 / 1.31           | -8.7%           | +2.1%           |  -4%          | +2%           |
+|  07 |   1101 |  4.17 / 2.23           | **+159.3%**     | +8.6%           | +12%          | +1%           |
+|  08 |   4071 | 35.49 / 2.18           | -0.0%           | +4.0%           |  -8%          | +1%           |
+
+c2f_full **beats permanent sigma=1.0 on 4 of 5 sequences**:
+
+- KITTI 07 (short): permanent sigma=1.0 is **+159% ATE** (4.17 m vs 1.61 m baseline) — fine-phase precision is non-negotiable on short trajectories. c2f_full keeps the regression at +12%.
+- KITTI 00 / 08: permanent sigma=1.0 is strictly worse than c2f.
+- KITTI 02: permanent sigma=1.0 is -10% ATE vs c2f_full's -16% — captures only 60% of the win.
+- KITTI 05: permanent sigma=1.0 is marginally better than c2f_full (-9% vs -4% ATE) but only by 5%pp and at +2% RPE cost.
+
+**Round 12 retracts round 11's recommendation**: permanent `--ct-icp-cauchy-sigma 1.0` is **not** a simpler alternative to c2f. It only wins on KITTI 05 by a small margin, and it catastrophically regresses on short trajectories (KITTI 07 +159%). The c2f schedule split (sigma=1.0 in coarse iters → sigma=0.5 in fine iters) is what keeps the long-traj sigma benefit while preserving short-traj precision — without the split, sigma=1.0 alone is reckless.
+
+**Final production state**:
+
+| Recipe | Recommended for | Performance |
+|---|---|---|
+| `ms_chol` (default) | All sequences (no regression) | Universal baseline |
+| `ms_chol + --ct-icp-coarse-to-fine` | KITTI 02 / 05 / 08-like long residential motion (ATE/RPE balance) | KITTI 02: -16% ATE / -10% RPE |
+| `ms_chol + --ct-icp-coarse-to-fine + --ct-icp-min-distance-between-points 0.1` | Same + ATE-prioritized | KITTI 02: -23% ATE / -5% RPE |
+| permanent `--ct-icp-cauchy-sigma 1.0` | (Not recommended) | Only KITTI 05 wins; regresses KITTI 00 / 07 / 08 |
 
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 

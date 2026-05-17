@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-05-17T21:27:29+00:00",
+  "manifest_path": "experiments/pending/litamin2_kitti_seq_02_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "litamin2_paper_comparison_kitti_seq_02_full",
+    "title": "LiTAMIN2 paper-comparable on KITTI Odometry 02 (full)",
+    "question": "Does LiTAMIN2 fast pure-odom match paper-reported RPE on KITTI Odometry 02?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_cov_no_gt_seed",
+      "label": "Fast local-map + covariance (pure odometry)",
+      "design_style": "throughput-oriented pure odometry",
+      "intent": "Direct paper-comparison: fast profile with velocity-model init.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_paper_comp_matrix/fast_cov_no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_02_full_paper_comp_matrix/fast_cov_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_02_full_paper_comp_matrix/fast_cov_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 341.188625,
+      "rpe_trans_pct": 5.075284,
+      "rpe_rot_deg_per_m": 0.015181,
+      "fps": 74.668264,
+      "time_ms": 62422.771874,
+      "frames": 4661,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_paper_comparison_kitti_seq_02_full",
+    "title": "CT-ICP paper-comparable on KITTI Odometry 02 (full)",
+    "question": "Does CT-ICP default pure-odom match paper-reported RPE on KITTI Odometry 02?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "default_pure_odometry",
+      "label": "Default (paper-comparable pure odometry)",
+      "design_style": "paper-style baseline",
+      "intent": "CT-ICP default = pure odometry. Directly paper-comparable.",
+      "args": []
+    }
+  ]
+}

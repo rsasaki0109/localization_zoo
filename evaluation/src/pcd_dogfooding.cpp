@@ -2337,10 +2337,14 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
                       double fixed_lag_accel_bias_weight_scale,
                       double fixed_lag_history_decay,
                       int fixed_lag_outer_iterations,
-                      bool fixed_lag_optimize_history) {
+                      bool fixed_lag_optimize_history,
+                      bool multi_scale_correspondences) {
   using namespace localization_zoo::ct_lio;
   MethodResult res;
   res.name = "CT-LIO";
+  if (multi_scale_correspondences) {
+    res.name += "+ms";
+  }
   if (estimate_imu_bias) {
     res.name += "+bias";
   }
@@ -2358,6 +2362,7 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
   params.planarity_threshold = 0.1;
   params.keypoint_voxel_size = 1.0;
   params.max_frames_in_map = 10;
+  params.multi_scale_correspondences = multi_scale_correspondences;
   params.estimate_imu_bias = estimate_imu_bias;
   if (fixed_lag_state_window > 1) {
     params.fixed_lag_state_window = fixed_lag_state_window;
@@ -3380,6 +3385,7 @@ int main(int argc, char** argv) {
   bool no_gt_seed = false;
   bool ct_icp_gt_seed = false;
   bool ct_lio_estimate_bias = false;
+  bool ct_lio_multi_scale = false;
   std::string summary_json_path;
   int ct_lio_fixed_lag_window = 1;
   double ct_lio_fixed_lag_velocity_weight = 0.0;
@@ -3429,6 +3435,10 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-gt-seed") {
       ct_icp_gt_seed = true;
+      continue;
+    }
+    if (arg == "--ct-lio-multi-scale") {
+      ct_lio_multi_scale = true;
       continue;
     }
     if (arg == "--ct-lio-estimate-bias") {
@@ -5426,7 +5436,8 @@ int main(int argc, char** argv) {
                    ct_lio_fixed_lag_accel_bias_scale,
                    ct_lio_fixed_lag_history_decay,
                    ct_lio_fixed_lag_outer_iterations,
-                   ct_lio_fixed_lag_smoother));
+                   ct_lio_fixed_lag_smoother,
+                   ct_lio_multi_scale));
     }
   }
 

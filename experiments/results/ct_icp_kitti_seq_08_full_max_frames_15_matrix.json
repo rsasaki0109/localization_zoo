@@ -1,0 +1,102 @@
+{
+  "generated_at": "2026-05-18T13:26:56+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_full_max_frames_15_matrix.json",
+  "problem": {
+    "id": "ct_icp_max_frames_15_kitti_seq_08_full",
+    "title": "CT-ICP max_frames=15 RPE recipe on KITTI 08",
+    "question": "Cross-seq RPE recipe check on KITTI 08.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "ms_chol_max_frames_20",
+      "label": "ms_chol max_frames=20 (current best)",
+      "design_style": "reference",
+      "intent": "Re-baseline.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_max_frames_15_matrix/ms_chol_max_frames_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_max_frames_15_matrix/ms_chol_max_frames_20/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_max_frames_15_matrix/ms_chol_max_frames_20/run.log",
+      "status": "ok",
+      "ate_m": 35.500191,
+      "rpe_trans_pct": 2.098705,
+      "rpe_rot_deg_per_m": 0.025399,
+      "fps": 21.376882,
+      "time_ms": 190439.370714,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 98.68,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "ms_chol_max_frames_15",
+      "label": "ms_chol max_frames=15",
+      "design_style": "RPE recipe",
+      "intent": "Cross-seq test.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "15",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_max_frames_15_matrix/ms_chol_max_frames_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_max_frames_15_matrix/ms_chol_max_frames_15/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_max_frames_15_matrix/ms_chol_max_frames_15/run.log",
+      "status": "ok",
+      "ate_m": 40.833521,
+      "rpe_trans_pct": 2.229923,
+      "rpe_rot_deg_per_m": 0.028422,
+      "fps": 21.958051,
+      "time_ms": 185398.970509,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 93.47,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

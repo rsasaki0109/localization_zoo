@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-05-17T20:25:11+00:00",
+  "manifest_path": "experiments/pending/gicp_kitti_raw_0009_full_no_gt_seed_matrix.json",
+  "problem": {
+    "id": "gicp_profile_tradeoff_kitti_raw_0009_full_no_gt_seed",
+    "title": "GICP pure-odometry (velocity-model, no GT seed) on KITTI Raw 0009 full",
+    "question": "Does the velocity-model fix produce paper-comparable pure-odometry numbers for GICP on KITTI Raw 0009 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "gicp",
+    "primary_method": "GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1200.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_no_gt_seed",
+      "label": "Balanced local map (no GT seed)",
+      "design_style": "balanced",
+      "intent": "Default profile measured as pure odometry with velocity-model prior.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_kitti_raw_0009_full_no_gt_seed_matrix/balanced_no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/gicp_kitti_raw_0009_full_no_gt_seed_matrix/balanced_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/gicp_kitti_raw_0009_full_no_gt_seed_matrix/balanced_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 5.108641,
+      "rpe_trans_pct": 4.830057,
+      "rpe_rot_deg_per_m": 0.025811,
+      "fps": 15.681503,
+      "time_ms": 28249.842336,
+      "frames": 443,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 76.44,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_no_gt_seed",
+      "label": "Fast recent map (no GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Fast profile with velocity-model prior.",
+      "args": [
+        "--gicp-fast-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_kitti_raw_0009_full_no_gt_seed_matrix/fast_no_gt_seed/summary.json --gicp-fast-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/gicp_kitti_raw_0009_full_no_gt_seed_matrix/fast_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/gicp_kitti_raw_0009_full_no_gt_seed_matrix/fast_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 4.821442,
+      "rpe_trans_pct": 4.701897,
+      "rpe_rot_deg_per_m": 0.025735,
+      "fps": 26.807526,
+      "time_ms": 16525.209986,
+      "frames": 443,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

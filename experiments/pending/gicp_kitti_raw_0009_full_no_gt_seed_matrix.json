@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "gicp_profile_tradeoff_kitti_raw_0009_full_no_gt_seed",
+    "title": "GICP pure-odometry (velocity-model, no GT seed) on KITTI Raw 0009 full",
+    "question": "Does the velocity-model fix produce paper-comparable pure-odometry numbers for GICP on KITTI Raw 0009 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "gicp",
+    "primary_method": "GICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_no_gt_seed",
+      "label": "Balanced local map (no GT seed)",
+      "design_style": "balanced",
+      "intent": "Default profile measured as pure odometry with velocity-model prior.",
+      "args": ["--no-gt-seed"]
+    },
+    {
+      "id": "fast_no_gt_seed",
+      "label": "Fast recent map (no GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Fast profile with velocity-model prior.",
+      "args": ["--gicp-fast-profile", "--no-gt-seed"]
+    }
+  ]
+}

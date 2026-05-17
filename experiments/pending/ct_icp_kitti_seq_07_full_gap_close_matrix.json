@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_gap_close_kitti_seq_07_full",
+    "title": "CT-ICP gap-closing on KITTI Odometry 07 (full)",
+    "question": "How much does increasing optimization budget (max_iter, ceres_iter, max_frames_in_map) close the 9x gap to paper RPE 0.30% on KITTI 07?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "baseline_default",
+      "label": "Baseline default (8616c27, RPE 2.70%)",
+      "design_style": "baseline",
+      "intent": "Reference: existing default profile (voxel 1.5, max_iter 8, ceres_iter 1).",
+      "args": []
+    },
+    {
+      "id": "dense_profile",
+      "label": "Existing --ct-icp-dense-profile",
+      "design_style": "dense built-in",
+      "intent": "Built-in dense profile (max_iter 10, ceres_iter 2, max_frames_in_map 10).",
+      "args": ["--ct-icp-dense-profile"]
+    },
+    {
+      "id": "max_iter_ceres_budget",
+      "label": "max_iter 12, ceres_iter 6, larger map",
+      "design_style": "budget-maximized",
+      "intent": "Push the optimization budget close to what the paper uses.",
+      "args": ["--ct-icp-max-iterations", "12", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "dense_plus_budget",
+      "label": "dense + ceres_iter 6 + max_frames 20",
+      "design_style": "dense-and-budget",
+      "intent": "Combine built-in dense profile with extra ceres budget and longer map memory.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "generated_at": "2026-05-17T21:46:37+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_full_gap_close_matrix.json",
+  "problem": {
+    "id": "ct_icp_gap_close_kitti_seq_07_full",
+    "title": "CT-ICP gap-closing on KITTI Odometry 07 (full)",
+    "question": "How much does increasing optimization budget (max_iter, ceres_iter, max_frames_in_map) close the 9x gap to paper RPE 0.30% on KITTI 07?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "baseline_default",
+      "label": "Baseline default (8616c27, RPE 2.70%)",
+      "design_style": "baseline",
+      "intent": "Reference: existing default profile (voxel 1.5, max_iter 8, ceres_iter 1).",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/baseline_default/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/baseline_default/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/baseline_default/run.log",
+      "status": "ok",
+      "ate_m": 6.658872,
+      "rpe_trans_pct": 2.698799,
+      "rpe_rot_deg_per_m": 0.033981,
+      "fps": 38.867864,
+      "time_ms": 28326.743127,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 66.74,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense_profile",
+      "label": "Existing --ct-icp-dense-profile",
+      "design_style": "dense built-in",
+      "intent": "Built-in dense profile (max_iter 10, ceres_iter 2, max_frames_in_map 10).",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/dense_profile/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 3.794288,
+      "rpe_trans_pct": 2.499677,
+      "rpe_rot_deg_per_m": 0.024643,
+      "fps": 20.800604,
+      "time_ms": 52931.156475,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 56.13,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "max_iter_ceres_budget",
+      "label": "max_iter 12, ceres_iter 6, larger map",
+      "design_style": "budget-maximized",
+      "intent": "Push the optimization budget close to what the paper uses.",
+      "args": [
+        "--ct-icp-max-iterations",
+        "12",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/max_iter_ceres_budget/summary.json --ct-icp-max-iterations 12 --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/max_iter_ceres_budget/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/max_iter_ceres_budget/run.log",
+      "status": "ok",
+      "ate_m": 5.427938,
+      "rpe_trans_pct": 2.470836,
+      "rpe_rot_deg_per_m": 0.031166,
+      "fps": 23.259423,
+      "time_ms": 47335.654819,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 50.45,
+      "readability_score": 3.2,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.8,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense_plus_budget",
+      "label": "dense + ceres_iter 6 + max_frames 20",
+      "design_style": "dense-and-budget",
+      "intent": "Combine built-in dense profile with extra ceres budget and longer map memory.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/dense_plus_budget/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/dense_plus_budget/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_gap_close_matrix/dense_plus_budget/run.log",
+      "status": "ok",
+      "ate_m": 2.228804,
+      "rpe_trans_pct": 2.141557,
+      "rpe_rot_deg_per_m": 0.020161,
+      "fps": 20.877848,
+      "time_ms": 52735.319137,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 76.86,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

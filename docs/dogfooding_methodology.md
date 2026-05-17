@@ -363,6 +363,63 @@ Cross-sequence generalization of the `ms_chol` bundle:
 
 `ms_chol` breaks the prior 4.58x parameter-tuning ceiling by ~3%. RPE is flat-or-better on 5/5 sequences. ATE improves on 00/07/08 but worsens on 02/05 - multi-scale picks up correspondences from farther neighborhoods, which stabilizes local RPE but allows more global drift on long sparse trajectories. **`ms_chol` is recommended for paper-comparable RPE; tune-v1 baseline remains a safer choice when global ATE matters more.**
 
+### CT-ICP coarse-to-fine 2-phase schedule: first long-trajectory both-metric improvement (2026-05-18)
+
+Round 8. After 7 dead-ends, an 8th attempt finally produced **both-metric** improvement on long trajectory. A `coarse_to_fine` toggle was added to `CTICPParams` (header: `papers/ct_icp/include/ct_icp/ct_icp_registration.h`) splitting the outer ICP loop into two phases:
+
+- **Coarse phase (iter 0..coarse_iterations-1)**: expand correspondence search to 5x5x5 voxel shell (`coarse_search_radius=2`), relax planarity to `coarse_planarity_threshold=0.02`, and scale Cauchy σ by `coarse_cauchy_sigma_mult=2.0` (σ 0.5 → 1.0).
+- **Fine phase (remaining iters)**: revert to 3x3x3, original planarity, original σ.
+
+The intuition: at start-of-scan, the SE3 seed (constant-velocity propagation) is roughest, so use a wider search & looser robust loss to escape local minima; then tighten as the alignment improves.
+
+KITTI 07 (1101 frames) sweep, varying coarse phase length and parameters:
+
+| Variant | ATE [m] | RPE [%] | FPS | dATE | dRPE |
+|---|---:|---:|---:|---:|---:|
+| `ms_chol_best` | 1.61 | 2.06 | 18.9 | (ref) | (ref) |
+| `c2f_i2_r2_m2` (light)  | 2.25 | 2.14 | 17.4 | +40% | +4% |
+| `c2f_i3_r2_m2` (default) | 1.80 | 2.07 | 15.9 | **+12%** | **+0.7%** |
+| `c2f_i5_r2_m2` (half-coarse) | 3.54 | 2.15 | 14.3 | +120% | +4% |
+| `c2f_i3_r2_m3` (σ x3) | 2.51 | 2.07 | 17.8 | +56% | +0.5% |
+| `c2f_i3_r3_m2` (r=3 / 7x7x7) | 4.08 | 2.18 | 14.3 | +153% | +6% |
+
+On short trajectory, the seed quality is already high enough that the coarse phase is pure overhead. All 5 variants regressed ATE; `c2f_i3_r2_m2` was the least-bad (+12% ATE / +0.7% RPE).
+
+KITTI 02 (4661 frames) showed the opposite picture:
+
+| Variant | ATE [m] | RPE [%] | FPS | dATE | dRPE |
+|---|---:|---:|---:|---:|---:|
+| `ms_chol_best` | 80.98 | 3.04 | 15.8 | (ref) | (ref) |
+| `c2f_i3_r2_m2` | **68.21** | **2.74** | 14.5 | **-16%** | **-10%** |
+| `c2f_i2_r2_m2` | 105.55 | 3.62 | 14.6 | +30% | +19% |
+
+**First time in 8 rounds that a single change improves both ATE and RPE on long trajectory.** Stacking with Gap C (min-distance voxel insertion) is additive on ATE:
+
+| Variant | ATE [m] | RPE [%] | FPS | dATE | dRPE |
+|---|---:|---:|---:|---:|---:|
+| `ms_chol_best` | 80.98 | 3.04 | 15.8 | (ref) | (ref) |
+| `c2f_only` (i=3) | 68.21 | 2.74 | 14.5 | -16% | -10% |
+| `gap_c_only` (min_dist=0.1) | 76.67 | 3.36 | 15.5 | -5% | +10% |
+| **`c2f + gap_c` combo** | **62.65** | 2.89 | 14.1 | **-23%** | -5% |
+
+Decision matrix for long trajectory:
+
+- **ATE-prioritized**: `c2f + gap_c` combo (-23% ATE, -5% RPE, -11% FPS)
+- **RPE-prioritized**: `c2f` alone (-16% ATE, -10% RPE, -8% FPS)
+- **Short trajectory** (KITTI 07 etc.): leave `ms_chol` alone — c2f adds overhead without benefit
+
+Coarse-to-fine is **NOT universal** and is exposed as opt-in flags rather than a default:
+
+```
+--ct-icp-coarse-to-fine                              # master toggle
+--ct-icp-coarse-iterations 3                         # default
+--ct-icp-coarse-search-radius 2                      # 5x5x5 (default)
+--ct-icp-coarse-planarity-threshold 0.02             # default
+--ct-icp-coarse-cauchy-mult 2.0                      # default
+```
+
+`ms_chol` remains the universal default. The combo flagset is a recommended long-trajectory profile.
+
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 
 After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:

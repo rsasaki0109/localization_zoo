@@ -480,6 +480,32 @@ Key learnings:
 
 Each knob has dataset-specific direction; no universal single-knob recipe exists. The full c2f bundle is irreducibly motion-profile dependent. **Production stays**: `ms_chol` as universal default, full `--ct-icp-coarse-to-fine` flagset as the long-residential (KITTI 02 / 05 / 08-like) profile.
 
+### Permanent Cauchy sigma vs schedule split (round 11, 2026-05-18)
+
+The round-9 ablation isolated `coarse_cauchy_sigma_mult=2.0` as the load-bearing knob for the KITTI 02 ATE win. Round 11 asked whether the schedule split matters at all, or whether a **permanent** Cauchy sigma=1.0 would deliver the same benefit without any coarse/fine separation.
+
+| Variant | sigma | K00 dATE | K00 dRPE | K02 dATE | K02 dRPE |
+|---|---:|---:|---:|---:|---:|
+| ms_chol baseline | 0.5 | 0% | 0% | 0% | 0% |
+| permanent sigma=0.7 | 0.7 | +14% | +1% | **+18%** | **+18%** |
+| permanent sigma=1.0 | 1.0 | **+22%** | -0.4% | **-10%** | **-8%** |
+| c2f sigma_only (phased) | 1.0 / 0.5 | **-5%** | +1% | -16% | +17% |
+| c2f_full (phased + planarity + radius) | 1.0 / 0.5 | +10% | 0% | **-16%** | **-10%** |
+
+Findings:
+
+1. **Permanent sigma=1.0 on KITTI 02**: -10% ATE / **-8% RPE**. Cleaner both-metric win than c2f_sigma_only (-16% ATE / +17% RPE), worse ATE than c2f_full but matches RPE. So **about 60% of the c2f ATE benefit and 80% of the RPE benefit on KITTI 02 comes from simply doubling sigma**; the schedule split adds the remaining margin.
+2. **Permanent sigma=1.0 on KITTI 00**: +22% ATE. The phase split is essential here — without the fine-phase sigma=0.5 (precision in the converging iters), KITTI 00 drifts. c2f_sigma_only delivers -5% ATE by keeping fine-phase precision.
+3. **Permanent sigma=0.7 is non-monotonically worst**: +18% ATE / +18% RPE on KITTI 02. The intermediate sigma loses fine-phase precision without gaining enough coarse-phase outlier tolerance.
+
+**Decision matrix update**:
+
+- KITTI 02 RPE-prioritized: **permanent `--ct-icp-cauchy-sigma 1.0`** (-10% ATE / -8% RPE, no flag combo needed)
+- KITTI 02 ATE-prioritized: c2f_full + Gap C (-23% ATE / -5% RPE)
+- KITTI 00 / 05 / 08: still motion-specific, see round-9 cross-seq table
+
+**Implementation note**: `--ct-icp-cauchy-sigma` was already exposed (round-5 paper-weights work); no code change needed. The simpler permanent-sigma profile is now an additional recommended recipe for long-residential motion when both ATE and RPE matter (the c2f bundle wins on ATE alone but trades RPE).
+
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 
 After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:

@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-05-17T21:19:38+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "ct_icp_paper_comparison_kitti_seq_07_full",
+    "title": "CT-ICP paper-comparable on KITTI Odometry 07 (full, 1101 frames)",
+    "question": "Does CT-ICP reach the paper-reported RPE 0.30% on KITTI Odometry 07 in default pure-odometry mode? How much does --ct-icp-gt-seed change it?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default_pure_odometry",
+      "label": "Default (paper-comparable pure odometry)",
+      "design_style": "paper-style baseline",
+      "intent": "CT-ICP default = pure odometry. This is the directly paper-comparable variant.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_paper_comp_matrix/default_pure_odometry/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_paper_comp_matrix/default_pure_odometry/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_paper_comp_matrix/default_pure_odometry/run.log",
+      "status": "ok",
+      "ate_m": 6.658872,
+      "rpe_trans_pct": 2.698799,
+      "rpe_rot_deg_per_m": 0.033981,
+      "fps": 37.995424,
+      "time_ms": 28977.173567,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 70.22,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "gt_seeded",
+      "label": "GT-seeded TrajectoryFrame init (Policy A reference)",
+      "design_style": "fair-prior dogfooding",
+      "intent": "Symmetric Policy A reference \u2014 non-comparable to paper, kept to quantify the GT-seed advantage.",
+      "args": [
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_paper_comp_matrix/gt_seeded/summary.json --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_paper_comp_matrix/gt_seeded/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_paper_comp_matrix/gt_seeded/run.log",
+      "status": "ok",
+      "ate_m": 2.693476,
+      "rpe_trans_pct": 3.849028,
+      "rpe_rot_deg_per_m": 0.038931,
+      "fps": 37.19597,
+      "time_ms": 29599.980691,
+      "frames": 1101,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 98.95,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

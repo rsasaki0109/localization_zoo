@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_arch_tuned_kitti_seq_05_full",
+    "title": "CT-ICP arch-tuned (all_combined) on KITTI Odometry 05 (full)",
+    "question": "Does the KITTI 07 all_combined winner (6.2x ratio) generalize to sequence 05?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "arch_tuned_all_combined",
+      "label": "dense + max_corr 4.0 + keypoint 0.5 + ceres 8 + map 30",
+      "design_style": "all-in",
+      "intent": "Apply KITTI 07 architecture winner across the paper-evaluated set.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "30", "--ct-icp-max-correspondence-distance", "4.0", "--ct-icp-keypoint-voxel-size", "0.5"]
+    }
+  ]
+}

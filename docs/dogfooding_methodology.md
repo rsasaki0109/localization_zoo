@@ -141,7 +141,39 @@ LiTAMIN2 now sits inside the paper's reported RPE range (0.40-1.42 %) on every m
 |  08 | 0.75 % | 2.63 % | 3.5x | 2.10 % | 2.8x | 2.02 % | 2.7x |
 | **Geom. mean** | | | **5.44x** | | **4.58x** | | **4.84x** |
 
-CT-ICP gap is sticky at ~4.5x even under aggressive parameter tuning. Tuned-v2 (voxel 1.0 + iter 12 + ceres 6 + map 30) wins on KITTI 07 in isolation but generalizes worse than tuned-v1 - it diverges to 8.5x on the highway-like seq 02 where finer voxels lose features. Tuned-v1 (the existing `--ct-icp-dense-profile` plus extra ceres budget and longer map memory) is the more robust default. The remaining ~4.5x gap probably needs architectural attention to the continuous-time optimization rather than more parameters - the optimization stack details (ceres options, planarity threshold weighting, motion compensation precision) likely matter more than the iteration count past this point.
+CT-ICP gap is sticky at ~4.5x even under aggressive parameter tuning. Tuned-v2 (voxel 1.0 + iter 12 + ceres 6 + map 30) wins on KITTI 07 in isolation but generalizes worse than tuned-v1 - it diverges to 8.5x on the highway-like seq 02 where finer voxels lose features. Tuned-v1 (the existing `--ct-icp-dense-profile` plus extra ceres budget and longer map memory) is the more robust default. The remaining ~4.5x gap probably needs architectural attention to the continuous-time optimization rather than more parameters.
+
+### CT-ICP architecture-level tuning attempt (2026-05-18)
+
+Two algorithm-level avenues were attempted to close past the 4.5x parameter ceiling:
+
+**1. Velocity-model initial guess for `runCTICP`.** Replaced the static `init.begin = init.end = prev.end_pose` with continuity at begin plus a body-frame velocity extrapolation at end (`init.end = prev.end * prev.begin.inverse() * prev.end`). Identical to the velocity-model fix that worked for Policy A. Result: catastrophic divergence at frame ~40 of KITTI 07 (first sharp turn). Unlike LiTAMIN2's Policy A path, CT-ICP has no refinement-acceptance gate, so a single bad extrapolation propagates and `findCorrespondences` returns empty for the rest of the trajectory. Reverted.
+
+**2. New CLI flags + architecture sweep on KITTI 07.** Exposed `--ct-icp-max-correspondence-distance` (algorithm default 100 m² = 10 m linear; paper-style is 1-2 m²) and `--ct-icp-knn` for tuning. Swept on KITTI 07:
+
+| Variant | RPE [%] | Ratio |
+|--------|--------:|------:|
+| prior_best (dense + ceres 6 + map 20) | 2.14 | 7.1x |
+| max_corr 2.0 (tight) | 2.67 | 8.9x (worse) |
+| max_corr 4.0 (moderate) | 2.03 | 6.8x |
+| keypoint 0.5 (more keypoints) | 2.25 | 7.5x |
+| planarity 0.5 (strict planar) | 2.81 | 9.4x (worse) |
+| all_combined (max_corr 4, keypoint 0.5, ceres 8, map 30) | 1.86 | **6.2x** |
+
+On KITTI 07 `all_combined` wins at 6.2x. Generalizing to 00/02/05/08:
+
+| Seq | Paper | Baseline | Tune-v1 | Tune-v2 | Arch | Best |
+|----:|------:|---------:|--------:|--------:|-----:|-----:|
+|  00 | 0.52 | 5.3x | 4.2x | 4.1x | 5.8x | tune-v1/v2 |
+|  02 | 0.58 | 5.5x | 5.8x | 8.5x | 8.1x | baseline |
+|  05 | 0.31 | 5.2x | 4.1x | 4.4x | 3.6x | arch |
+|  07 | 0.30 | 9.0x | 7.1x | 6.3x | 6.2x | arch |
+|  08 | 0.75 | 3.5x | 2.8x | 2.7x | 2.6x | arch |
+| **Geom. mean** | | **5.44x** | **4.58x** | **4.84x** | **4.88x** | |
+
+Arch tune (all_combined) wins on 05/07/08 but loses on 00/02 (long sequences with sparser features where finer voxels and tighter correspondences hurt). **Tune-v1 (`--ct-icp-dense-profile + --ct-icp-ceres-max-iterations 6 + --ct-icp-max-frames-in-map 20`) remains the most robust single-config default at 4.58x.**
+
+**Conclusion: ~4.5x is the parameter-tuning ceiling for this repo's CT-ICP.** Closing further requires algorithm-level changes - specifically: a refinement-acceptance gate analogous to LiTAMIN2's so that velocity-model bootstrap is safe; or rewriting `findCorrespondences` to handle the multi-scale neighborhood the paper uses; or matching the paper's Ceres setup more faithfully (DENSE_NORMAL_CHOLESKY vs DENSE_QR, different LM trust region defaults). These are out of scope for parameter tuning.
 
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 

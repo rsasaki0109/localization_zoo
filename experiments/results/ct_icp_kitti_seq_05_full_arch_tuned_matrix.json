@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-05-17T22:43:06+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_05_full_arch_tuned_matrix.json",
+  "problem": {
+    "id": "ct_icp_arch_tuned_kitti_seq_05_full",
+    "title": "CT-ICP arch-tuned (all_combined) on KITTI Odometry 05 (full)",
+    "question": "Does the KITTI 07 all_combined winner (6.2x ratio) generalize to sequence 05?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "arch_tuned_all_combined",
+      "label": "dense + max_corr 4.0 + keypoint 0.5 + ceres 8 + map 30",
+      "design_style": "all-in",
+      "intent": "Apply KITTI 07 architecture winner across the paper-evaluated set.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "30",
+        "--ct-icp-max-correspondence-distance",
+        "4.0",
+        "--ct-icp-keypoint-voxel-size",
+        "0.5"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_full_arch_tuned_matrix/arch_tuned_all_combined/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_05_full_arch_tuned_matrix/arch_tuned_all_combined/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_05_full_arch_tuned_matrix/arch_tuned_all_combined/run.log",
+      "status": "ok",
+      "ate_m": 9.096654,
+      "rpe_trans_pct": 1.127454,
+      "rpe_rot_deg_per_m": 0.023189,
+      "fps": 12.648746,
+      "time_ms": 218282.510983,
+      "frames": 2761,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.25,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.15,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

@@ -2095,7 +2095,8 @@ MethodResult runDLIO(const std::vector<std::string>& pcd_dirs,
 
 MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
-                      const CTICPDogfoodingOptions& options) {
+                      const CTICPDogfoodingOptions& options,
+                      bool gt_seed = false) {
   using namespace localization_zoo::ct_icp;
   MethodResult res;
   res.name = "CT-ICP";
@@ -2142,7 +2143,18 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
     }
 
     TrajectoryFrame init;
-    init.begin_pose = init.end_pose = prev.end_pose;
+    if (gt_seed && i < gt.size()) {
+      // Seed begin from previous GT end (i-1) and end from current GT (i).
+      const Eigen::Matrix4d& T_begin =
+          (i - 1 < gt.size()) ? gt[i - 1] : gt[i];
+      const Eigen::Matrix4d& T_end = gt[i];
+      init.begin_pose.trans = T_begin.block<3, 1>(0, 3);
+      init.begin_pose.quat = Eigen::Quaterniond(T_begin.block<3, 3>(0, 0));
+      init.end_pose.trans = T_end.block<3, 1>(0, 3);
+      init.end_pose.quat = Eigen::Quaterniond(T_end.block<3, 3>(0, 0));
+    } else {
+      init.begin_pose = init.end_pose = prev.end_pose;
+    }
     auto result = reg.registerFrame(timed, init, &prev);
 
     std::vector<Eigen::Vector3d> world;
@@ -2161,6 +2173,11 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = gt_seed
+      ? "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric "
+        "of the GT-seeded Policy A path for dogfooding-style fair-prior comparison."
+      : "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own "
+        "continuous-time motion prior (no GT seed).";
   return res;
 }
 
@@ -3207,7 +3224,7 @@ int main(int argc, char** argv) {
               << " [--ct-lio-fixed-lag-history-decay W]"
               << " [--ct-lio-fixed-lag-outer-iterations N]"
               << " [--ct-lio-fixed-lag-smoother]"
-              << " [--no-gt-seed]" << std::endl;
+              << " [--no-gt-seed] [--ct-icp-gt-seed]" << std::endl;
     return 1;
   }
 
@@ -3216,6 +3233,7 @@ int main(int argc, char** argv) {
   int max_frames = -1;
   bool force_ct_lio = false;
   bool no_gt_seed = false;
+  bool ct_icp_gt_seed = false;
   bool ct_lio_estimate_bias = false;
   std::string summary_json_path;
   int ct_lio_fixed_lag_window = 1;
@@ -3262,6 +3280,10 @@ int main(int argc, char** argv) {
     }
     if (arg == "--no-gt-seed") {
       no_gt_seed = true;
+      continue;
+    }
+    if (arg == "--ct-icp-gt-seed") {
+      ct_icp_gt_seed = true;
       continue;
     }
     if (arg == "--ct-lio-estimate-bias") {
@@ -4900,7 +4922,10 @@ int main(int argc, char** argv) {
   std::vector<MethodResult> results;
 
   if (no_gt_seed) {
-    std::cout << "[no-gt-seed] Scan-to-map methods will use odometry chain instead of GT initialization." << std::endl;
+    std::cout << "[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization." << std::endl;
+  }
+  if (ct_icp_gt_seed) {
+    std::cout << "[ct-icp-gt-seed] CT-ICP TrajectoryFrame init will be seeded from GT begin/end poses." << std::endl;
   }
 
   if (isMethodEnabled(selected_methods, "litamin2")) {
@@ -5092,7 +5117,7 @@ int main(int argc, char** argv) {
               << " max_iterations=" << ct_icp_options.max_iterations
               << " max_frames_in_map=" << ct_icp_options.max_frames_in_map
               << std::endl;
-    results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options));
+    results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options, ct_icp_gt_seed));
   }
 
   if (isMethodEnabled(selected_methods, "xicp")) {

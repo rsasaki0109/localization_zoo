@@ -89,13 +89,35 @@ Interpretation:
 
 The repo's Policy A numbers therefore still overstate what these methods do as standalone odometry. But the `--no-gt-seed` path now produces honest pure-odometry numbers on benign sequences (KITTI fast profile), and exposes alignment-quality limits separately from gate-stagnation artefacts.
 
+## Symmetric `--ct-icp-gt-seed` (2026-05-18)
+
+To make the asymmetry between Policy A and Policy B testable in the other direction, `runCTICP` now accepts a `gt_seed` toggle, wired to the CLI flag `--ct-icp-gt-seed`. When enabled, each CT-ICP `TrajectoryFrame` is initialized with `begin_pose = gt[i-1]` and `end_pose = gt[i]` before its continuous-time refinement, matching the spirit of how LiTAMIN2 uses `gt[i]` as the scan-to-map prior.
+
+Side-by-side measurements with the new toggle (build 2026-05-18):
+
+| Dataset | CT-ICP default (pure odometry) | CT-ICP `--ct-icp-gt-seed` | LiTAMIN2 Policy A (reference) |
+|---------|-------------------------------:|--------------------------:|-----------------------------:|
+| KITTI Raw 0009 full ATE [m] / RPE [%] | 4.67 / 5.31 | **2.68 / 4.00** | 0.74 |
+| MulRan parkinglot full ATE [m] / RPE [%] | 76.55 / 104.49 | **10.00 / 10.17** | 0.71 / 1.26 |
+
+Interpretation:
+
+- **MulRan parkinglot full: 7.6x ATE / 10.3x RPE improvement just from adding the GT prior.** This is the clearest evidence yet that the earlier LiTAMIN2-vs-CT-ICP gap on MulRan was dominated by the policy asymmetry, not by algorithmic differences. The same continuous-time optimizer that drifted 76 m with no GT prior settles at 10 m with the symmetric prior.
+- **A 10 m residual remains** on MulRan even with GT seeding. LiTAMIN2 Policy A reaches 0.71 m on the same sequence because Policy A also has a refinement-acceptance gate that *falls back to `gt[i]`* on rejection - effectively an "always-correct-to-GT" safety net that CT-ICP's continuous-time pipeline does not have. So the comparison stack is now:
+  - Pure odometry (no GT touch): ~76 m
+  - GT-seeded init only: ~10 m (about 7.6x)
+  - GT-seeded init + gate-fallback to GT: ~0.7 m (additional ~14x)
+  Each layer is honest about how much GT it relies on.
+- **KITTI Raw 0009 full** shows a smaller but still meaningful 2x ATE improvement (4.67 → 2.68 m). The driving motion on KITTI is benign enough that pure odometry already works well; GT-seeding mostly tightens the alignment.
+
 ## Recommended next steps
 
 - **Done**: replace the refinement-acceptance gate's reference (`T_init_guess` = previous pose) with a velocity-model prior. Committed 2026-05-18.
-- **Next**: decide whether `CT-ICP` and other Policy B methods should grow a symmetric `--gt-seed` toggle (for dogfooding-style fair-prior measurements), so both policies are explicit and visible per-aggregate.
-- **Open**: investigate whether the paper-profile failure on KITTI Raw 0009 is solvable by raising `--litamin2-voxel-resolution` partially (e.g. 2 m) or by a denser local map, or whether it is intrinsic to the paper-profile parameters when no GT prior exists.
+- **Done**: add symmetric `--ct-icp-gt-seed` toggle for CT-ICP. Committed 2026-05-18.
+- **Open**: decide whether the other 22 Policy B methods (ALOAM, FLOAM, LeGO-LOAM, MULLS, DLO, DLIO, FAST-LIO2, FAST-LIO-SLAM, CT-LIO, CLINS, Point-LIO, LIO-SAM, LINS, SuMa, BALM2, ISC-LOAM, LOAM-Livox, VGICP-SLAM, HDL-Graph-SLAM) need analogous toggles. CT-ICP is the most directly comparable to the Policy A methods because both are scan-to-map registration; the LIO/loop-closure methods have other priors (IMU, factor graphs) that mute the GT-seed question.
+- **Open**: investigate whether the paper-profile failure on KITTI Raw 0009 (with LiTAMIN2 `--no-gt-seed`) is solvable by raising `--litamin2-voxel-resolution` partially (e.g. 2 m) or by a denser local map, or whether it is intrinsic to the paper-profile parameters when no GT prior exists.
 
-Future reproduction claims should still not quote numbers from Policy A methods on long sequences without naming the GT-seed asymmetry. The repo now has a credible `--no-gt-seed` pathway for paper-style comparisons on benign sequences but it is not yet method-faithful for paper-tuned profiles.
+Future reproduction claims should still not quote numbers from Policy A methods on long sequences without naming the GT-seed asymmetry. The repo now has a credible `--no-gt-seed` pathway for paper-style comparisons on benign sequences and a symmetric `--ct-icp-gt-seed` pathway for fair-prior comparisons, but neither replaces a faithful upstream-implementation rerun on the paper's stated sequences.
 
 ## Cross-references
 

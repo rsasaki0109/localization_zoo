@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-17T15:58:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-17T16:05:19+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 

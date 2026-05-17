@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_map_size_mcd_tuhh_night_09",
+    "title": "CT-ICP max_frames sweep on MCD TUHH",
+    "question": "NTU showed max_frames=50 marginal additional -5%. Does TUHH respond similarly?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+      "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_frames_20",
+      "label": "ms_chol max_frames=20 (Round 25 winner)",
+      "design_style": "reference",
+      "intent": "TUHH baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "ms_chol_frames_30",
+      "label": "ms_chol max_frames=30",
+      "design_style": "medium map",
+      "intent": "Test.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "30", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "ms_chol_frames_50",
+      "label": "ms_chol max_frames=50",
+      "design_style": "big map",
+      "intent": "NTU sweet spot.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

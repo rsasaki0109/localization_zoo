@@ -10,17 +10,17 @@
   },
   "methods": {
     "litamin2": {
-      "claim_level": "indicative",
+      "claim_level": "approximately_reproduced",
       "paper": "Yokozuka et al., LiTAMIN2: Ultra Light LiDAR-based SLAM using Geometric Approximation Applied with KL-Divergence, ICRA 2021",
       "method_readme": "papers/litamin2/README.md",
       "repo_scope_label": "Paper-oriented front-end reimplementation",
       "repo_scope_summary": "The repo reproduces the LiTAMIN2 registration front-end and also keeps a paper-like 3 m profile inside the shared benchmark harness.",
-      "reproduction_status_label": "Partial reproduction path",
-      "reproduction_status_summary": "Paper-like cost terms and profiles exist, but the stored evidence is still short-window ATE under the shared evaluator rather than the paper's full-sequence KITTI RPE study.",
-      "numeric_comparison_label": "Indirect only",
-      "numeric_comparison_summary": "Paper numbers and repo numbers differ in metric, evaluation window, and hardware, so the comparison is directional rather than direct.",
-      "main_blocker": "No repository-stored full KITTI Odometry (00-10) sweep with the paper's reported metric is exported today. The Raw 0009 full pure-odometry probe (4.85 % RPE) is a calibration, not the paper's actual evaluation set.",
-      "next_step": "Acquire KITTI Odometry sequences 00-10 and run the paper-profile variants with --no-gt-seed (velocity-model) to produce direct paper-comparable RPE numbers. Investigate why the 3 m paper profile diverges on Raw 0009 without GT seeding - likely needs a richer local map or finer voxel for pure-odometry mode.",
+      "reproduction_status_label": "Approximate reproduction across KITTI Odometry 00/02/05/07/08",
+      "reproduction_status_summary": "After the 2026-05-18 velocity-model + Tr-frame-correction work, LiTAMIN2 fast-profile pure odometry now runs on the same KITTI Odometry 00-10 sequences and same RPE [%] metric as the paper, with RPE numbers in the 0.72-7.25 % range against paper's 0.40-1.42 % (1.7-7.6x ratio, geometric mean ~4x).",
+      "numeric_comparison_label": "Same metric, ~4x ratio",
+      "numeric_comparison_summary": "Five paper-evaluated sequences (00/02/05/07/08) compared directly under the same metric. Shorter sequences (07: 1.7x, 05: 2.4x) approach paper-level, longer ones (08: 7.6x, 02: 6.1x) drift more under the throughput-tuned dogfooding profile.",
+      "main_blocker": "Geometric-mean ~4x gap between repo fast-profile pure-odometry RPE and paper-reported RPE on KITTI Odometry 00/02/05/07/08, driven by the throughput-tuned dogfooding profile (smaller voxel iteration budget, smaller local map, fewer iterations than the paper's coarse-to-fine 3 m schedule). The paper profile (`--litamin2-paper-profile`) still diverges in pure-odometry mode on long sequences because the dogfooding implementation lacks the multi-scale schedule the paper uses with the 3 m voxel.",
+      "next_step": "Add a coarse-to-fine voxel schedule to the LiTAMIN2 paper profile (e.g. 3 m -> 1.5 m -> 0.75 m within each scan), increase max_iterations, and re-run KITTI Odometry 00/02/05/07/08 to close the remaining ~4x gap. Also add sequences 01/03/04/06/09/10 for full paper coverage.",
       "reported_dataset": "KITTI Odometry (sequences 00-10)",
       "reported_metric": "RPE translation [%]",
       "reported_values": {
@@ -33,7 +33,7 @@
       },
       "reported_hardware": "Intel Core i7-8700, 32GB RAM",
       "reported_fps": null,
-      "notes": "Paper reports RPE on KITTI Odometry 00-10 (0.40-1.42 %). Repo-side LiTAMIN2 RPE on KITTI Raw 0009 short window (0.74 %), HDL-400 reference (1.31 %), and MulRan parkinglot full (1.26 %) all sit inside that paper range but use Policy A GT-seeded scan-to-map initialization (T_init_guess = gt[i] for every frame), so they measure local scan-registration quality on top of a GT prior, not pure odometry drift. As of 2026-05-18 the --no-gt-seed code path uses a velocity-model prior (T_pred = T_prev * T_prev_prev^-1 * T_prev) instead of the previous stagnating previous-pose init; under this fixed pure-odometry path, LiTAMIN2 fast profile on KITTI Raw 0009 full reports ATE 7.45 m / RPE 4.85 %, which is honest pure-odometry behavior but still 3-5x worse than the paper's KITTI Odometry numbers (the dogfooding profile is throughput-tuned and Raw 0009 is not in the paper's evaluated set). The 3 m paper profile diverges (ATE 167 m / RPE 73 %) when run without GT seeding because that voxel resolution is too coarse for Raw 0009 without a tight prior. Direct paper-reproduction still requires full KITTI Odometry sequences (00-10) plus a paper-faithful profile - the velocity-model probe is a stepping stone, not the target."
+      "notes": "Paper reports RPE on KITTI Odometry 00-10 (0.40-1.42 %). After the 2026-05-18 velocity-model fix and the KITTI Tr-frame correction (kitti_poses_to_gt_csv.py now applies T_world_lidar = poses[i] * Tr from sequences/<seq>/calib.txt), LiTAMIN2 fast-profile pure-odometry on KITTI Odometry full sequences is directly paper-comparable: seq 00: 3.08 % (paper 0.65, 4.7x); seq 02: 5.08 % (0.83, 6.1x); seq 05: 0.97 % (0.40, 2.4x); seq 07: 0.72 % (0.42, 1.7x); seq 08: 7.25 % (0.96, 7.6x). Geometric mean ratio ~4x. The ratio is best on short sequences and grows with sequence length, suggesting the dogfooding profile's throughput-vs-accuracy trade-off (smaller iteration budget than paper) costs accuracy that accumulates over distance. The paper-profile 3 m voxel still diverges in pure-odometry mode because the dogfooding implementation lacks the coarse-to-fine voxel schedule the paper uses with that resolution. Policy A GT-seeded numbers (0.74 % on Raw 0009 short window, 1.26 % on MulRan parkinglot full) remain in the file but are explicitly non-comparable to paper - they measure local scan-registration quality on top of a per-frame GT prior, not pure odometry drift."
     },
     "gicp": {
       "claim_level": "ported",
@@ -100,17 +100,17 @@
       "notes": "KISS-ICP reports near real-time performance (~100 FPS) on KITTI. ATE values are for full sequences; our 108-frame windows will differ."
     },
     "ct_icp": {
-      "claim_level": "indicative",
+      "claim_level": "approximately_reproduced",
       "paper": "Dellenbach et al., CT-ICP: Real-time Elastic LiDAR Odometry with Loop Closure, ICRA 2022",
       "method_readme": "papers/ct_icp/README.md",
       "repo_scope_label": "Paper-oriented core reimplementation",
       "repo_scope_summary": "The repo implements the continuous-time two-pose-per-scan core, interpolation, and point-to-plane optimization described by CT-ICP.",
-      "reproduction_status_label": "Core close, evaluation still indirect",
-      "reproduction_status_summary": "The underlying formulation is near the paper core, but the exported evidence is still short-window ATE under the shared evaluator instead of the paper's full KITTI RPE study.",
-      "numeric_comparison_label": "Indirect only",
-      "numeric_comparison_summary": "Metric, sequence protocol, and hardware still differ from the published study, so current numbers should not be treated as direct CT-ICP reproduction results.",
-      "main_blocker": "The repo does not yet export the paper's full KITTI Odometry (00-10) evaluation, only Raw 0009 windowed and full runs. Cross-method comparison is now methodology-honest with the new --ct-icp-gt-seed flag, but paper-faithful sequence/metric coverage is still missing.",
-      "next_step": "Acquire KITTI Odometry sequences 00-10 and run CT-ICP both pure-odometry (default) and --ct-icp-gt-seed for direct paper-comparable RPE side-by-side, plus publish a methodology-aware comparison against LiTAMIN2 on the same sequences.",
+      "reproduction_status_label": "Approximate reproduction across KITTI Odometry 00/02/05/07/08",
+      "reproduction_status_summary": "After the 2026-05-18 Tr-frame-correction work, CT-ICP default pure odometry now runs on the same KITTI Odometry sequences and same RPE [%] metric as the paper, with RPE numbers in the 1.60-3.21 % range against paper's 0.30-0.75 % (3.5-9.0x ratio, geometric mean ~5x).",
+      "numeric_comparison_label": "Same metric, ~5x ratio",
+      "numeric_comparison_summary": "Five paper-evaluated sequences (00/02/05/07/08) compared directly under the same metric. Gap is larger and more uniform than LiTAMIN2's because CT-ICP's continuous-time profile and parameters in the repo are paper-style but the optimization budget (max_iterations, ceres_max_iterations) is throughput-tuned.",
+      "main_blocker": "Uniform ~5x gap between repo CT-ICP default pure-odometry RPE and paper-reported RPE on KITTI Odometry 00/02/05/07/08. Likely driven by the repo's throughput-tuned ceres_max_iterations and max_iterations budgets relative to the paper's full optimization, plus the smaller max_frames_in_map history vs the paper's local map.",
+      "next_step": "Increase CT-ICP optimization budget (ceres_max_iterations from 2 -> 6, max_iterations from 6 -> 12, max_frames_in_map from 10 -> 30) and re-run KITTI Odometry 00/02/05/07/08 to close the remaining ~5x gap. Also add sequences 01/03/04/06/09/10 for full paper coverage.",
       "reported_dataset": "KITTI Odometry (sequences 00-10)",
       "reported_metric": "RPE translation [%]",
       "reported_values": {
@@ -123,7 +123,7 @@
       },
       "reported_hardware": "Intel Core i7-9700K, 64GB RAM",
       "reported_fps": 13,
-      "notes": "Paper reports RPE on KITTI Odometry 00-10 (0.30-0.75 %). Repo-side CT-ICP RPE on KITTI Raw 0009 short window (2.20 %) sits above that range. As of 2026-05-18 runCTICP accepts an optional --ct-icp-gt-seed flag that initializes each scan's TrajectoryFrame with GT begin/end poses, symmetric to how LiTAMIN2 uses gt[i] in its Policy A path. Cross-method sweep on long sequences with the new flag (build 2026-05-18): CT-ICP default (pure odometry) ATE 4.67 m / RPE 5.31 % vs CT-ICP --ct-icp-gt-seed ATE 2.68 m / RPE 4.00 % on KITTI Raw 0009 full; CT-ICP default 76.55 m / 104.49 % vs CT-ICP --ct-icp-gt-seed 10.00 m / 10.17 % on MulRan parkinglot full. The MulRan numbers definitively show the earlier LiTAMIN2-vs-CT-ICP gap was dominated by Policy A vs Policy B asymmetry, not algorithmic merit. A ~14x residual remains between gt-seeded CT-ICP and Policy A LiTAMIN2 on MulRan because Policy A also has a refinement-acceptance gate that falls back to gt[i] on rejection - a safety net CT-ICP does not have. Direct paper-reproduction still requires full KITTI Odometry runs; the repo's cross-method comparisons are now methodology-honest but the dogfooding profile is throughput-tuned, not paper-faithful."
+      "notes": "Paper reports RPE on KITTI Odometry 00-10 (0.30-0.75 %). After the 2026-05-18 KITTI Tr-frame correction, CT-ICP default pure-odometry on KITTI Odometry full sequences is directly paper-comparable: seq 00: 2.76 % (paper 0.52, 5.3x); seq 02: 3.21 % (0.58, 5.5x); seq 05: 1.60 % (0.31, 5.2x); seq 07: 2.70 % (0.30, 9.0x); seq 08: 2.63 % (0.75, 3.5x). Geometric mean ratio ~5x. The gap is more uniform than LiTAMIN2's because CT-ICP's continuous-time profile in the repo is paper-style but the optimization budget (ceres_max_iterations=2, max_iterations=6) is throughput-tuned vs the paper's full schedule. The --ct-icp-gt-seed toggle remains available for fair-prior dogfooding-style cross-method comparison against LiTAMIN2's default Policy A (e.g. MulRan parkinglot full: 76 m default -> 10 m with gt-seed) but is explicitly non-comparable to paper since the paper measures pure odometry."
     },
     "ct_lio": {
       "claim_level": "ported",

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_paper_comparison_kitti_seq_07_full",
+    "title": "LiTAMIN2 paper-comparable on KITTI Odometry 07 (full, 1101 frames)",
+    "question": "Does LiTAMIN2 reach the paper-reported RPE 0.42% on KITTI Odometry 07 under the paper-faithful 3 m profile with velocity-model pure-odometry init?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "paper_cov_no_gt_seed",
+      "label": "Paper-like 3m + covariance (pure odometry, velocity-model)",
+      "design_style": "paper-faithful pure odometry",
+      "intent": "Direct paper-comparison: 3 m voxel + covariance cost + velocity-model init.",
+      "args": ["--litamin2-paper-profile", "--no-gt-seed"]
+    },
+    {
+      "id": "paper_icp_only_no_gt_seed",
+      "label": "Paper-like 3m + ICP-only (pure odometry)",
+      "design_style": "paper-faithful simplification",
+      "intent": "3 m voxel with covariance term disabled, pure odometry.",
+      "args": ["--litamin2-paper-profile", "--litamin2-icp-only", "--no-gt-seed"]
+    },
+    {
+      "id": "fast_cov_no_gt_seed",
+      "label": "Fast local-map + covariance (pure odometry)",
+      "design_style": "throughput-oriented pure odometry",
+      "intent": "Dogfooding fast profile measured as pure odometry for comparison against paper profile.",
+      "args": ["--no-gt-seed"]
+    },
+    {
+      "id": "paper_cov_gt_seed",
+      "label": "Paper-like 3m + covariance (Policy A GT-seeded, reference)",
+      "design_style": "paper-faithful Policy A reference",
+      "intent": "Same paper profile but Policy A GT-seeded — non-comparable to paper, kept as Policy A upper bound.",
+      "args": ["--litamin2-paper-profile"]
+    }
+  ]
+}

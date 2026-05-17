@@ -1236,6 +1236,14 @@ bool isReasonableRefinement(const Eigen::Matrix4d& refined_pose,
          poseRotationDelta(refined_pose, seed_pose) <= max_rotation_delta_rad;
 }
 
+// Constant-velocity prediction in the body frame: T_pred = T_prev * (T_prev_prev^-1 * T_prev).
+// Equivalent to applying the previous inter-frame body-frame motion once more.
+Eigen::Matrix4d velocityModelPrediction(const Eigen::Matrix4d& T_prev,
+                                        const Eigen::Matrix4d& T_prev_prev) {
+  const Eigen::Matrix4d delta_body = T_prev_prev.inverse() * T_prev;
+  return T_prev * delta_body;
+}
+
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                          const std::vector<Eigen::Matrix4d>& gt,
                          const LiTAMIN2DogfoodingOptions& options,
@@ -1253,6 +1261,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   LiTAMIN2Registration reg(params);
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];  // 初期推定にGTを使用
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1269,7 +1278,11 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     }
 
     // scan-to-map: local scan を world map に対して初期値付きで最適化
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : gt[i];
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_iterations >= 3) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1279,6 +1292,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     if (shouldRefreshTargetMap(i, options.refresh_interval)) {
@@ -1293,7 +1307,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
   if (!options.use_cov_cost) {
@@ -1318,6 +1332,7 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1334,7 +1349,11 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : gt[i];
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 128) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1344,6 +1363,7 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -1361,7 +1381,7 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
   return res;
@@ -1389,6 +1409,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1405,7 +1426,11 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : gt[i];
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 96) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1415,6 +1440,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -1432,7 +1458,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
   return res;
@@ -1459,6 +1485,7 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1475,7 +1502,11 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : gt[i];
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 96) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1485,6 +1516,7 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -1502,7 +1534,7 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
   return res;
@@ -1842,6 +1874,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1858,7 +1891,11 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : gt[i];
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.iterations >= 2) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1868,6 +1905,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -1886,7 +1924,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
   return res;
@@ -2258,6 +2296,7 @@ MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   // KdTree for NN search in map
@@ -2293,7 +2332,11 @@ MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : gt[i];
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
 
     // Transform source points to world frame using initial guess
     Eigen::Matrix3d R_init = T_init_guess.block<3, 3>(0, 0);
@@ -2364,6 +2407,7 @@ MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
     if (!accepted) {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -2381,7 +2425,7 @@ MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
   return res;

@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-05-17T15:55:45+00:00",
+  "manifest_path": "experiments/pending/litamin2_mulran_parkinglot_full_no_gt_seed_matrix.json",
+  "problem": {
+    "id": "litamin2_profile_tradeoff_mulran_parkinglot_full_no_gt_seed",
+    "title": "LiTAMIN2 pure-odometry (no GT seed) on MulRan ParkingLot (full sequence)",
+    "question": "Does LiTAMIN2 hold up on MulRan parkinglot full as standalone odometry (Policy B), or does it diverge similarly to CT-ICP once the GT prior is removed?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+    "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 900.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_cov_no_gt_seed",
+      "label": "Fast local-map + covariance (no GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Repository default local-map profile measured as pure odometry to match Policy B methods.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/fast_cov_no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/fast_cov_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/fast_cov_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 74.40253,
+      "rpe_trans_pct": 103.194774,
+      "rpe_rot_deg_per_m": 0.033785,
+      "fps": 115.365845,
+      "time_ms": 10184.990199,
+      "frames": 1175,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 77.98,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_icp_only_no_gt_seed",
+      "label": "Fast local-map + ICP-only (no GT seed)",
+      "design_style": "single-term simplification",
+      "intent": "Disable covariance-shape term and run as pure odometry.",
+      "args": [
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/fast_icp_only_no_gt_seed/summary.json --litamin2-icp-only --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/fast_icp_only_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/fast_icp_only_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 74.40253,
+      "rpe_trans_pct": 103.194774,
+      "rpe_rot_deg_per_m": 0.033785,
+      "fps": 94.094398,
+      "time_ms": 12487.459711,
+      "frames": 1175,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Covariance-shape term disabled.",
+      "benchmark_score": 72.82,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "paper_cov_no_gt_seed",
+      "label": "Paper-like 3m + covariance (no GT seed)",
+      "design_style": "paper-oriented",
+      "intent": "Paper-like 3m local map measured as pure odometry.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/paper_cov_no_gt_seed/summary.json --litamin2-paper-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/paper_cov_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/paper_cov_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 79.965156,
+      "rpe_trans_pct": 106.492449,
+      "rpe_rot_deg_per_m": 0.10265,
+      "fps": 119.659896,
+      "time_ms": 9819.49707,
+      "frames": 1175,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 75.54,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "paper_icp_only_no_gt_seed",
+      "label": "Paper-like 3m + ICP-only (no GT seed)",
+      "design_style": "paper-oriented simplification",
+      "intent": "Paper profile without covariance cost, pure odometry.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/paper_icp_only_no_gt_seed/summary.json --litamin2-paper-profile --litamin2-icp-only --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/paper_icp_only_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_full_no_gt_seed_matrix/paper_icp_only_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 79.965156,
+      "rpe_trans_pct": 106.492449,
+      "rpe_rot_deg_per_m": 0.10265,
+      "fps": 206.158676,
+      "time_ms": 5699.493337,
+      "frames": 1175,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Covariance-shape term disabled.",
+      "benchmark_score": 96.52,
+      "readability_score": 3.95,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.25,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

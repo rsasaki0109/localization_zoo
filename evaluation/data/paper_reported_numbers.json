@@ -33,7 +33,7 @@
       },
       "reported_hardware": "Intel Core i7-8700, 32GB RAM",
       "reported_fps": null,
-      "notes": "Paper reports RPE (relative pose error), not ATE. Direct comparison with repo ATE requires caution."
+      "notes": "Paper reports RPE (relative pose error) on KITTI Odometry sequences 00-10. Repo-side RPE is now exported for LiTAMIN2 on KITTI Raw 0009 (RPE 0.74 %), HDL-400 reference (1.31 %), and MulRan parkinglot full (1.26 %); these three sit inside the paper-reported KITTI range (0.40-1.42 %). MCD/MulRan-120 aggregates also carry RPE but their trajectory lengths (0.3-14 m) are too short for direct comparison with the paper's 100 m-segment definition. Direct paper-reproduction still requires full KITTI Odometry runs (pending in experiments/pending/)."
     },
     "gicp": {
       "claim_level": "ported",
@@ -123,7 +123,7 @@
       },
       "reported_hardware": "Intel Core i7-9700K, 64GB RAM",
       "reported_fps": 13,
-      "notes": "CT-ICP reports RPE, not ATE. Continuous-time formulation. Our repo measures ATE on short windows."
+      "notes": "CT-ICP reports RPE on KITTI Odometry. Repo-side RPE for CT-ICP is exported on KITTI Raw 0009 (2.20 %; above the paper-reported 0.30-0.75 % range, attributable to window differences). On MCD/HDL-400/MulRan parkinglot the trajectory lengths are too short for the 100 m-segment RPE definition, and CT-ICP additionally diverges on MulRan parkinglot (ATE 75-80 m on the full sequence) - that failure mode is unresolved and should be investigated before any cross-dataset claim is made. Direct paper-reproduction still requires full KITTI Odometry runs."
     },
     "ct_lio": {
       "claim_level": "ported",

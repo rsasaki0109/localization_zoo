@@ -113,6 +113,27 @@ Interpretation:
 - **NDT, X-ICP, LiTAMIN2 paper profile diverge**: these are not gate-stagnation cases (the velocity-model fix removed that pathology). They are alignment-quality cases: NDT's density-based objective and X-ICP's regularized cost both rely on a finer prior than velocity-model provides; LiTAMIN2's 3 m paper voxel is too coarse for Raw 0009. These divergences are honest pure-odometry behavior with the current dogfooding parameters - they tell us the *algorithms*, not the tool, struggle without a tighter prior.
 - **GICP edges out LiTAMIN2 in this regime (4.82 m vs 7.45 m ATE)**: this inverts the Policy A ranking, where LiTAMIN2 looks better because of its gate-fallback safety net. In honest pure-odometry mode, GICP and Small-GICP win on accuracy while LiTAMIN2 wins on throughput.
 
+## MulRan parkinglot full pure-odometry sweep (2026-05-18)
+
+To pin down whether MulRan parkinglot full's ~75 m drift is method-specific or sequence-specific, the velocity-model `--no-gt-seed` path was also run there for GICP, Small-GICP, and Voxel-GICP. The full picture on the same trajectory (432 m, ~430 frames):
+
+| Method / variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|------------------|--------:|--------------:|----------------:|----:|
+| Voxel-GICP `default_no_gt_seed` | **72.70** | **98.55** | 0.116 | 27.0 |
+| LiTAMIN2 `fast_cov_no_gt_seed` | 74.40 | 103.19 | 0.034 | 115.4 |
+| Small-GICP `default_no_gt_seed` | 74.79 | 101.48 | 0.049 | 65.9 |
+| GICP `balanced_no_gt_seed` | 75.57 | 103.83 | 0.038 | 15.1 |
+| GICP `fast_no_gt_seed` | 75.70 | 103.54 | 0.040 | 35.0 |
+| CT-ICP default (no GT seed) | 76.55 | 104.49 | 0.072 | 45.4 |
+| **CT-ICP `--ct-icp-gt-seed` (Policy B + symmetric prior)** | **10.00** | **10.17** | 0.155 | 51.4 |
+
+Interpretation:
+
+- **All five pure-odometry methods cluster at 72.7-76.6 m ATE / 98.6-104.5 % RPE.** The spread is ~5 % - far smaller than the spread between any pure-odometry result and the `--ct-icp-gt-seed` result (10 m). The Policy A/B asymmetry was hiding this fact: in the old methodology, LiTAMIN2 looked like a 100x outperformer of CT-ICP (1.26 % vs 104 %), but the honest comparison shows the five methods are within ~5 % of each other on the same sequence and **none of them can do pure odometry on MulRan parkinglot full** with the dogfooding profiles.
+- **The MulRan parkinglot full sequence is too hard for pure scan-to-scan / scan-to-map odometry at these profile parameters.** The "parkinglot" environment is low-feature and the motion is slow; small alignment errors accumulate without bound because there is no IMU prior, loop closure, or place-recognition correction.
+- **CT-ICP with GT-seed (10 m ATE) is now the only "clean" number on this sequence**, and it explicitly relies on a per-frame GT prior. Reporting it as a "Policy B" number would still be misleading - it is a fair-prior dogfooding measurement, not pure odometry.
+- **Within-family observation: Voxel-GICP is the marginal best at 72.7 m** here, even though it was the worst Policy A method on KITTI Raw 0009 full (41.4 m, where the other GICPs got ~5 m). The voxel grid helps on slow/structured parking-lot motion but hurts on faster urban driving. A useful internal datapoint for future profile tuning.
+
 ## Symmetric `--ct-icp-gt-seed` (2026-05-18)
 
 To make the asymmetry between Policy A and Policy B testable in the other direction, `runCTICP` now accepts a `gt_seed` toggle, wired to the CLI flag `--ct-icp-gt-seed`. When enabled, each CT-ICP `TrajectoryFrame` is initialized with `begin_pose = gt[i-1]` and `end_pose = gt[i]` before its continuous-time refinement, matching the spirit of how LiTAMIN2 uses `gt[i]` as the scan-to-map prior.

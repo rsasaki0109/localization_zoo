@@ -1,0 +1,154 @@
+{
+  "generated_at": "2026-05-17T21:46:37+00:00",
+  "manifest_path": "experiments/pending/litamin2_kitti_seq_07_full_gap_close_matrix.json",
+  "problem": {
+    "id": "litamin2_gap_close_kitti_seq_07_full",
+    "title": "LiTAMIN2 gap-closing on KITTI Odometry 07 (full)",
+    "question": "Can increasing max_iterations / decreasing voxel resolution close the 1.7x gap to paper RPE 0.42% on KITTI 07?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "baseline_fast",
+      "label": "Baseline fast (8616c27, RPE 0.72%)",
+      "design_style": "baseline",
+      "intent": "Reference point: existing fast profile pure-odometry.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/baseline_fast/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/baseline_fast/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/baseline_fast/run.log",
+      "status": "ok",
+      "ate_m": 1.856278,
+      "rpe_trans_pct": 0.724047,
+      "rpe_rot_deg_per_m": 0.009993,
+      "fps": 89.150107,
+      "time_ms": 12349.957198,
+      "frames": 1101,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 82.19,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "iter12",
+      "label": "max_iterations 12",
+      "design_style": "iteration-budget",
+      "intent": "Doubled inner-loop iterations.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/iter12/summary.json --no-gt-seed --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/iter12/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/iter12/run.log",
+      "status": "ok",
+      "ate_m": 4.158559,
+      "rpe_trans_pct": 1.067439,
+      "rpe_rot_deg_per_m": 0.010294,
+      "fps": 87.504782,
+      "time_ms": 12582.169519,
+      "frames": 1101,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 62.66,
+      "readability_score": 4.05,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.35,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "voxel1_iter12",
+      "label": "voxel 1.0 + iter 12",
+      "design_style": "finer-voxel + more-iter",
+      "intent": "Finer voxel grid and more iterations.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/voxel1_iter12/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/voxel1_iter12/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/voxel1_iter12/run.log",
+      "status": "ok",
+      "ate_m": 1.963576,
+      "rpe_trans_pct": 0.535485,
+      "rpe_rot_deg_per_m": 0.006091,
+      "fps": 79.804308,
+      "time_ms": 13796.247689,
+      "frames": 1101,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 75.26,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "voxel15_iter10",
+      "label": "voxel 1.5 + iter 10",
+      "design_style": "moderate-finer + moderate-more",
+      "intent": "Halfway between baseline and aggressive tuning.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-voxel-resolution",
+        "1.5",
+        "--litamin2-max-iterations",
+        "10"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/voxel15_iter10/summary.json --no-gt-seed --litamin2-voxel-resolution 1.5 --litamin2-max-iterations 10",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/voxel15_iter10/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_gap_close_matrix/voxel15_iter10/run.log",
+      "status": "ok",
+      "ate_m": 1.249395,
+      "rpe_trans_pct": 0.573093,
+      "rpe_rot_deg_per_m": 0.007566,
+      "fps": 91.835127,
+      "time_ms": 11988.876505,
+      "frames": 1101,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

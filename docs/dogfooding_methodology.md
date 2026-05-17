@@ -688,6 +688,22 @@ On KITTI 05 gap_c **hurts** radius_only by 13pp ATE. The min-distance dedup thro
 
 KITTI 05 stays on `radius_only` alone (-24% ATE, no gap_c).
 
+### radius_only + gap_c cross-seq: universal mild RPE at variable ATE cost (round 19, 2026-05-18)
+
+Round 18 found radius_only + gap_c is the best RPE recipe on KITTI 02 (-12% RPE). Round 19 validated this combo across the other KITTI Odometry sequences:
+
+| Seq | dATE | dRPE | Verdict |
+|----:|---:|---:|---|
+|  00 | **+16%** |  -5% | RPE wins at expensive ATE cost |
+|  02 | -13% | **-12%** | both win (round-18 finding) |
+|  05 | -10% |  -4% | small wins (radius_only alone is better at -24% ATE) |
+|  07 | **+45%** |  -3% | ATE catastrophic; small RPE win not worth it |
+|  08 |  +6% |  +1% | both lose mildly |
+
+The RPE direction is **consistent (-3% to -12%) on 4 of 5 sequences**, suggesting gap_c (min-distance voxel insertion) has a near-universal RPE-stabilizing effect when stacked with r=2 widening. However, the ATE cost varies dramatically by motion profile (-13% on KITTI 02 to +45% on KITTI 07).
+
+**Why not a production recipe**: the ATE regressions on KITTI 00 (+16%) and KITTI 07 (+45%) outweigh the small RPE gains (-3 to -5%). Even on KITTI 05, where it's mildly net positive (-10% ATE / -4% RPE), `radius_only` alone is significantly better for ATE (-24%). So radius_only + gap_c is a niche RPE-only recipe and is **not recommended** unless RPE is the sole optimization target and ~+15% ATE regression is acceptable.
+
 **Final production state**:
 
 | Recipe | Recommended for | Performance |

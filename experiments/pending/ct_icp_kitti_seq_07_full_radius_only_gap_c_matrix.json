@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_radius_only_gap_c_kitti_seq_07_full",
+    "title": "CT-ICP radius_only + gap_c on KITTI 07 (short)",
+    "question": "Short trajectory check for the new RPE recipe.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline",
+      "design_style": "reference",
+      "intent": "Re-baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "radius_only_plus_gap_c",
+      "label": "radius_only + gap_c",
+      "design_style": "radius_only + gap_c",
+      "intent": "Short-trajectory regression check.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "1.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-min-distance-between-points", "0.1"]
+    }
+  ]
+}

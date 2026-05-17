@@ -592,6 +592,35 @@ The MulRan result is particularly telling because it is also a long trajectory (
 | `+ --ct-icp-coarse-to-fine + --ct-icp-min-distance-between-points 0.1` | Same + ATE-prioritized | ATE -2 to -23%, mixed RPE |
 | `--ct-icp-coarse-to-fine` on KITTI 00, 07, KITTI Raw 0061, MulRan, MCD-like | DO NOT USE | Regressions of +2 to +12% |
 
+### Round 9 ablation correction: r=2 is the foundation, not sigma (round 16, 2026-05-18)
+
+Round 9's ablation reported that "`coarse_cauchy_sigma_mult=2.0` is the load-bearing knob" because `c2f_sigma_only` (`r=2, plan=0.06, sigma=2.0`) matched `c2f_full` ATE on KITTI 02 (-16%). However, this was confounded by an implementation clamp: when `coarse_to_fine=true`, `findCorrespondences` forced `phase_search_radius >= 2`. So "sigma_only" was actually "sigma + forced r=2".
+
+Round 16 lifted the clamp (now allows `coarse_search_radius=1` meaning "no widening") and re-ran the isolation on KITTI 02:
+
+| Variant | r | plan | sigma | KITTI 02 dATE | KITTI 02 dRPE |
+|---|---|---|---|---:|---:|
+| `ms_chol`                  | - | 0.06 | 1.0 |    0% |     0% |
+| `c2f r=1 sigma_only`       | 1 | 0.06 | 2.0 | **+18%** | **+22%** |
+| `c2f r=1 sigma+planarity`  | 1 | 0.02 | 2.0 |  +14% |   +10% |
+| `c2f r=2 (round-8 ref)`    | 2 | 0.02 | 2.0 |  -16% |   -10% |
+| `c2f r=2 radius_only`      | 2 | 0.06 | 1.0 |   -4% |    -6% |
+
+**Without the r=2 widening, the sigma schedule REGRESSES KITTI 02 by +18% ATE.** This flips the round-9 conclusion. The correct causal picture is:
+
+- **Search radius widening (r=2)** is the foundation. Alone: -4% ATE.
+- **Sigma schedule (1.0 → 0.5)** is an **amplifier** that quadruples r=2's ATE benefit (-4% → -16%) but only when r=2 is active. Alone it is harmful.
+- **Planarity relax (0.02)** is RPE-only — it adds RPE improvement on top of r=2+sigma but does nothing for ATE.
+
+So the three c2f knobs have a strict hierarchy on KITTI 02:
+1. r=2 is necessary and the foundation.
+2. sigma×2 amplifies the foundation by 4x.
+3. planarity 0.02 polishes RPE on top.
+
+Without r=2 (foundation), the upper layers (sigma, planarity) actively hurt — they admit and weight outliers that the tight 3x3x3 search wouldn't have admitted.
+
+This corrects the round-9 narrative: c2f's primary win is from **broader correspondence search in early iters**, not from **looser robust loss**. The robust loss only matters as a multiplier on the broader search. The conventional wisdom that "the schedule split protects fine-phase precision" still holds, but its primary purpose is shaped by the spatial widening it enables, not the residual tolerance per se.
+
 **Final production state**:
 
 | Recipe | Recommended for | Performance |

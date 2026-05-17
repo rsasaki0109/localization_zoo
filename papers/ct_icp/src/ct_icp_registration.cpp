@@ -102,8 +102,10 @@ CTICPRegistration::findCorrespondences(
   // 探索半径を coarse_search_radius まで拡げ、planarity を緩める。
   const bool coarse_phase =
       params_.coarse_to_fine && outer_iter < params_.coarse_iterations;
+  // coarse_search_radius=1 を許容 (round 16 ablation: pure sigma/planarity schedule)。
+  // 0 や負値は 1 にクランプ。
   const int phase_search_radius =
-      coarse_phase ? std::max(2, params_.coarse_search_radius) : 1;
+      coarse_phase ? std::max(1, params_.coarse_search_radius) : 1;
   const double phase_planarity_threshold =
       coarse_phase ? std::min(params_.planarity_threshold,
                               params_.coarse_planarity_threshold)

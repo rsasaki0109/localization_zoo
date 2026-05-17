@@ -36,6 +36,11 @@ struct CTLIOParams {
 
   int max_frames_in_map = 30;
   Eigen::Vector3d gravity = Eigen::Vector3d(0.0, 0.0, -9.81);
+
+  // CT-ICP の ms_chol で -28% ATE を出した multi-scale 探索 fallback。
+  // 3x3x3 (27 voxel) で neighbor が knn 未満のとき 5x5x5 (125 voxel) に拡張。
+  // 既定 false で従来の 3x3x3 のみ。
+  bool multi_scale_correspondences = false;
 };
 
 struct CTLIOState {

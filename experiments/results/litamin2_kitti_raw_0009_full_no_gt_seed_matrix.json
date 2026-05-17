@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-05-17T15:54:21+00:00",
+  "manifest_path": "experiments/pending/litamin2_kitti_raw_0009_full_no_gt_seed_matrix.json",
+  "problem": {
+    "id": "litamin2_profile_tradeoff_kitti_raw_0009_full_no_gt_seed",
+    "title": "LiTAMIN2 pure-odometry (no GT seed) on KITTI Raw drive 0009 (full)",
+    "question": "Does LiTAMIN2 hold up on KITTI Raw 0009 full as standalone odometry (Policy B), to match the paper-reported KITTI Odometry methodology?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 900.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_cov_no_gt_seed",
+      "label": "Fast local-map + covariance (no GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Repository default profile measured as pure odometry to match paper-style evaluation.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/fast_cov_no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/fast_cov_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/fast_cov_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 7.453848,
+      "rpe_trans_pct": 4.853472,
+      "rpe_rot_deg_per_m": 0.023523,
+      "fps": 88.161121,
+      "time_ms": 5024.890742,
+      "frames": 443,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 86.76,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "fast_icp_only_no_gt_seed",
+      "label": "Fast local-map + ICP-only (no GT seed)",
+      "design_style": "single-term simplification",
+      "intent": "Disable covariance-shape term and run as pure odometry.",
+      "args": [
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/fast_icp_only_no_gt_seed/summary.json --litamin2-icp-only --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/fast_icp_only_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/fast_icp_only_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 7.453848,
+      "rpe_trans_pct": 4.853472,
+      "rpe_rot_deg_per_m": 0.023523,
+      "fps": 87.571628,
+      "time_ms": 5058.716038,
+      "frames": 443,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Covariance-shape term disabled.",
+      "benchmark_score": 86.51,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "paper_cov_no_gt_seed",
+      "label": "Paper-like 3m + covariance (no GT seed)",
+      "design_style": "paper-oriented",
+      "intent": "Paper-like 3m local map measured as pure odometry.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/paper_cov_no_gt_seed/summary.json --litamin2-paper-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/paper_cov_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/paper_cov_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 167.166856,
+      "rpe_trans_pct": 73.739606,
+      "rpe_rot_deg_per_m": 0.052879,
+      "fps": 114.421042,
+      "time_ms": 3871.665501,
+      "frames": 443,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 49.94,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "paper_icp_only_no_gt_seed",
+      "label": "Paper-like 3m + ICP-only (no GT seed)",
+      "design_style": "paper-oriented simplification",
+      "intent": "Paper profile without covariance cost, pure odometry.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/paper_icp_only_no_gt_seed/summary.json --litamin2-paper-profile --litamin2-icp-only --no-gt-seed",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/paper_icp_only_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_no_gt_seed_matrix/paper_icp_only_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 167.166856,
+      "rpe_trans_pct": 73.739606,
+      "rpe_rot_deg_per_m": 0.052879,
+      "fps": 119.911962,
+      "time_ms": 3694.377057,
+      "frames": 443,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Covariance-shape term disabled.",
+      "benchmark_score": 52.23,
+      "readability_score": 3.95,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.25,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

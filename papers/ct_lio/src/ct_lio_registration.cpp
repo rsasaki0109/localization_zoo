@@ -402,8 +402,18 @@ std::vector<ct_icp::TimedPoint> CTLIORegistration::subsampleKeypoints(
 std::vector<CTLIORegistration::Correspondence>
 CTLIORegistration::findCorrespondences(
     const std::vector<ct_icp::TimedPoint>& keypoints,
-    const ct_icp::TrajectoryFrame& frame) const {
+    const ct_icp::TrajectoryFrame& frame,
+    int outer_iter) const {
   std::vector<Correspondence> correspondences;
+
+  const bool coarse_phase =
+      params_.coarse_to_fine && outer_iter < params_.coarse_iterations;
+  const int phase_search_radius =
+      coarse_phase ? std::max(1, params_.coarse_search_radius) : 1;
+  const double phase_planarity_threshold =
+      coarse_phase ? std::min(params_.planarity_threshold,
+                              params_.coarse_planarity_threshold)
+                   : params_.planarity_threshold;
 
   for (size_t i = 0; i < keypoints.size(); ++i) {
     Eigen::Vector3d world_point =
@@ -432,9 +442,12 @@ CTLIORegistration::findCorrespondences(
     };
     gather_shell(0);
     gather_shell(1);  // 3x3x3
-
-    if (params_.multi_scale_correspondences &&
-        static_cast<int>(neighbors.size()) < params_.knn) {
+    if (coarse_phase) {
+      for (int r = 2; r <= phase_search_radius; ++r) {
+        gather_shell(r);  // unconditional 5x5x5 (or wider) in coarse phase
+      }
+    } else if (params_.multi_scale_correspondences &&
+               static_cast<int>(neighbors.size()) < params_.knn) {
       gather_shell(2);  // 5x5x5 fallback (CT-ICP ms_chol pattern)
     }
 
@@ -476,7 +489,7 @@ CTLIORegistration::findCorrespondences(
     }
 
     double planarity = (eigenvalues(1) - eigenvalues(0)) / eigenvalues(2);
-    if (planarity < params_.planarity_threshold) {
+    if (planarity < phase_planarity_threshold) {
       continue;
     }
 
@@ -600,11 +613,13 @@ CTLIOResult CTLIORegistration::registerFrame(
     result.state.gyro_bias = bg;
     result.state.accel_bias = ba;
 
-    auto correspondences = findCorrespondences(keypoints, result.state.frame);
+    auto correspondences = findCorrespondences(keypoints, result.state.frame, iter);
     result.num_correspondences = static_cast<int>(correspondences.size());
     if (correspondences.empty()) {
       break;
     }
+    const bool ct_coarse_phase =
+        params_.coarse_to_fine && iter < params_.coarse_iterations;
 
     ceres::Problem problem;
     problem.AddParameterBlock(
@@ -623,8 +638,11 @@ CTLIOResult CTLIORegistration::registerFrame(
       problem.SetParameterBlockConstant(accel_bias);
     }
 
-    ceres::LossFunction* loss =
-        new ceres::CauchyLoss(params_.cauchy_loss_param);
+    double cauchy_sigma = params_.cauchy_loss_param;
+    if (ct_coarse_phase && params_.coarse_cauchy_sigma_mult > 0.0) {
+      cauchy_sigma *= params_.coarse_cauchy_sigma_mult;
+    }
+    ceres::LossFunction* loss = new ceres::CauchyLoss(cauchy_sigma);
     for (const auto& corr : correspondences) {
       const auto& point = keypoints[corr.point_idx];
       problem.AddResidualBlock(

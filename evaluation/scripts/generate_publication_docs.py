@@ -66,7 +66,7 @@ def summarize_problem(entry: dict[str, Any]) -> ProblemSummary:
     default_fps = None
 
     for variant in variants:
-        if variant.get("status") != "OK":
+        if variant.get("status") not in {"OK", "ok"}:
             continue
         ate = variant.get("ate_m")
         fps = variant.get("fps")

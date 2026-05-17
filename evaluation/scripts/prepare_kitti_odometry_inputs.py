@@ -99,6 +99,7 @@ def export_sequence(
     stem = artifact_stem(sequence, full=full, window_size=window_size)
     velodyne_dir = kitti_root / "sequences" / sequence / "velodyne"
     poses_file = kitti_root / "poses" / f"{sequence}.txt"
+    calib_file = kitti_root / "sequences" / sequence / "calib.txt"
     output_dir = output_root / stem
     gt_csv = reference_data_dir / f"{stem}_gt.csv"
     max_frames = -1 if full else int(window_size or -1)
@@ -120,6 +121,8 @@ def export_sequence(
         str(SCRIPT_DIR / "kitti_poses_to_gt_csv.py"),
         "--poses-file",
         str(poses_file),
+        "--calib-file",
+        str(calib_file),
         "--output",
         str(gt_csv),
         "--start-frame",

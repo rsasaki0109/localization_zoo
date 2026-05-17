@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-18T08:48:40+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-18T09:16:09+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 

@@ -561,6 +561,37 @@ Interpretation: with `max_iterations=10` outer ICP iters, `i=3` is 30% coarse ph
 
 **Implication for tuning robustness**: c2f's KITTI 02 win is fragile. Off-by-one in `coarse_iterations` either ruins the benefit (i=4) or flips it sign (i=1/2). This is consistent with the interpretation that c2f is dataset-specifically tuned to KITTI 02-like motion profiles — a different long-trajectory dataset (e.g. urban driving with different drift characteristics) would likely peak at a different `i`. Auto-tuning the coarse fraction per-dataset would close this hole but is out of scope.
 
+### c2f cross-dataset disqualification (round 15, 2026-05-18)
+
+Tested c2f beyond KITTI Odometry on **KITTI Raw 0061** (different drive route, same Velodyne) and **MulRan parkinglot** (different sensor: Aeva Aeries; different motion: parking lot maneuvers with stop-and-go).
+
+| Dataset | Frames | Motion | ms_chol ATE / RPE | c2f dATE / dRPE | c2f+gap_c dATE / dRPE |
+|---|---:|---|---|---|---|
+| KITTI 02 | 4661 | long residential | 80.98 / 3.04 | **-16% / -10%** | **-23% / -5%** |
+| KITTI 05 | 2761 | medium urban | 14.18 / 1.28 | -4% / +2% | -13% / 0% |
+| KITTI 08 | 4071 | long mixed | 35.50 / 2.10 | -8% / +1% | -2% / +1% |
+| KITTI Raw 0061 | 707 | medium driving | 3.53 / 1.36 | +2% / -4% | +2% / -7% |
+| KITTI 00 | 4541 | long structured urban | 16.70 / 2.18 | +10% / 0% | +9% / -2% |
+| KITTI 07 | 1101 | short urban | 1.61 / 2.06 | +12% / +1% | (worse) |
+| MulRan parkinglot (gt-seed) | 1177 | parking lot, Aeva | 14.36 / 13.81 | **+5% / +10%** | +3% / +14% |
+
+c2f's win is concentrated on **KITTI 02 / 05 / 08** (long driving with cumulative residential/mixed motion). It is:
+
+- **Neutral** on KITTI Raw 0061 (medium-length driving; baseline is already 3.53 m so there is little drift left to fix).
+- **Mildly negative** on KITTI 00 (long but structured urban with periodic loop closures keeping the seed accurate).
+- **Strongly negative** on KITTI 07 (short urban) and MulRan parkinglot (slow, non-driving motion with Aeva sensor).
+
+The MulRan result is particularly telling because it is also a long trajectory (1177 frames). c2f does **not** track trajectory length per se; it tracks the **drift-induced seed degradation regime**. KITTI 02's mix of long-distance turns and freeway sections produces exactly the seed degradation that c2f's coarse phase escapes. MulRan's slow parking-lot motion produces a high-quality seed at every frame, so the coarse phase's wider search only adds noise.
+
+**Production state (final, definitively):**
+
+| Recipe | Use for | Performance |
+|---|---|---|
+| `ms_chol` (default) | All datasets | No regression anywhere; universal baseline |
+| `+ --ct-icp-coarse-to-fine` | KITTI 02 / 05 / 08-like long driving with significant drift | ATE -8 to -16%, mixed RPE |
+| `+ --ct-icp-coarse-to-fine + --ct-icp-min-distance-between-points 0.1` | Same + ATE-prioritized | ATE -2 to -23%, mixed RPE |
+| `--ct-icp-coarse-to-fine` on KITTI 00, 07, KITTI Raw 0061, MulRan, MCD-like | DO NOT USE | Regressions of +2 to +12% |
+
 **Final production state**:
 
 | Recipe | Recommended for | Performance |

@@ -704,6 +704,50 @@ The RPE direction is **consistent (-3% to -12%) on 4 of 5 sequences**, suggestin
 
 **Why not a production recipe**: the ATE regressions on KITTI 00 (+16%) and KITTI 07 (+45%) outweigh the small RPE gains (-3 to -5%). Even on KITTI 05, where it's mildly net positive (-10% ATE / -4% RPE), `radius_only` alone is significantly better for ATE (-24%). So radius_only + gap_c is a niche RPE-only recipe and is **not recommended** unless RPE is the sole optimization target and ~+15% ATE regression is acceptable.
 
+### CT-ICP paper-arch sweep: final decision matrix (rounds 8-19 synthesis, 2026-05-18)
+
+Twelve rounds of investigation into CT-ICP architecture-level tuning. The exhaustive per-sequence x per-recipe ATE / RPE matrix below is the actionable summary; everything above derives the supporting evidence.
+
+**Recipes** (CLI flags on top of `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`):
+
+- `ms_chol`               : (no additional flags — the default and universal baseline)
+- `radius_only`           : `--ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 1.0 --ct-icp-coarse-planarity-threshold 0.06`
+- `c2f_full`              : `--ct-icp-coarse-to-fine` (defaults: i=3, r=2, sigma_mult=2.0, planarity=0.02)
+- `+gap_c` (suffix)       : `--ct-icp-min-distance-between-points 0.1`
+- `permanent_sigma_1.0`   : `--ct-icp-cauchy-sigma 1.0` (no c2f flags)
+
+**Per-sequence dATE / dRPE relative to ms_chol baseline (positive = regression, negative = improvement)**:
+
+| Seq | Frames | ms_chol ATE / RPE | radius_only | radius_only + gap_c | c2f_full | c2f_full + gap_c | permanent σ=1.0 |
+|----:|-------:|---:|---:|---:|---:|---:|---:|
+| 00  | 4541   | 16.70 / 2.18 |  +2% /  +1% |  +16% /  -5% | +10% /  0% |  +9% /  -2% |  **+22% / 0%** |
+| 02  | 4661   | 80.98 / 3.04 |  -4% /  -6% |  -13% / **-12%** | -16% / -10% | **-23%** /  -5% |  -10% /  -8% |
+| 05  | 2761   | 14.18 / 1.28 | **-24%** / 0% |  -10% /  -4% |  -4% /  +2% | -13% /   0% |   -9% /  +2% |
+| 07  | 1101   |  1.61 / 2.06 | **+51%** /  +8% |  +45% /  -3% | +12% /  +1% |  worse      | **+159%** /  +9% |
+| 08  | 4071   | 35.50 / 2.10 |  +6% /  +1% |   +6% /  +1% |  -8% /  +1% |  -2% /  +1% |    0% /  +4% |
+
+**Per-sequence recipe ranking** (ATE-prioritized first, then RPE-prioritized):
+
+| Seq | Best ATE recipe | Best RPE recipe |
+|-----|---|---|
+| 00 | `ms_chol` (no regression) | `radius_only + gap_c` (-5% RPE at +16% ATE cost — not recommended unless RPE-only) |
+| **02** | **`c2f_full + gap_c` (-23% ATE / -5% RPE)** | **`radius_only + gap_c` (-13% ATE / -12% RPE)** |
+| **05** | **`radius_only` alone (-24% ATE / 0% RPE)** | `radius_only` alone (-24% ATE / 0% RPE — also best RPE) |
+| 07 | `ms_chol` (every other recipe regresses) | `ms_chol` |
+| **08** | **`c2f_full` (-8% ATE / +1% RPE)** | `ms_chol` (no recipe meaningfully improves RPE without ATE cost) |
+
+**Key takeaways**:
+
+1. **`ms_chol` remains the universal default** — no recipe regresses on KITTI 00 or 07.
+2. Three opt-in profiles are recommended for specific datasets: `radius_only` (KITTI 05), `c2f_full` (KITTI 08), `c2f_full + gap_c` (KITTI 02 ATE), `radius_only + gap_c` (KITTI 02 RPE).
+3. **Each c2f knob has dataset-specific sign**:
+   - `r=2` widening is the foundation; alone is mild-to-good on long driving, catastrophic on short (KITTI 07 +51%).
+   - σ x2 amplifies r=2 on KITTI 02, damages on KITTI 05, mitigates r=2 harm on KITTI 07/08.
+   - planarity 0.02 is essential for KITTI 02 RPE, catastrophic on KITTI 00.
+   - gap_c stacks on KITTI 02, hurts on KITTI 05.
+4. **No universal-better recipe was found** — closing the 4.45x paper-RPE geom-mean gap further requires either a motion-profile auto-tuner, faithful cost-function re-derivation, IMU integration (CT-LIO), or true map-resolution coarse-to-fine. All are out of scope for this session.
+5. The investigation **corrected an attribution error in round 9** (sigma "load-bearing" → actually r=2 widening), demonstrating that implementation clamps can mislead ablation conclusions. The final picture survived `coarse_search_radius=1` clamp lifting in round 16.
+
 **Final production state**:
 
 | Recipe | Recommended for | Performance |

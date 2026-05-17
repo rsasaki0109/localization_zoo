@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-05-18T04:17:07+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_full_gap_c_matrix.json",
+  "problem": {
+    "id": "ct_icp_gap_c_kitti_seq_02_full",
+    "title": "CT-ICP Gap C (min-distance voxel insertion) on KITTI 02 (full)",
+    "question": "Does min_distance_between_points=0.1 improve long-trajectory performance where map redundancy should matter more (KITTI 02 has 4661 frames vs 07's 1101)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline",
+      "design_style": "reference",
+      "intent": "Long-trajectory reference.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_gap_c_matrix/ms_chol_best/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_gap_c_matrix/ms_chol_best/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_gap_c_matrix/ms_chol_best/run.log",
+      "status": "ok",
+      "ate_m": 80.982787,
+      "rpe_trans_pct": 3.042899,
+      "rpe_rot_deg_per_m": 0.032504,
+      "fps": 18.899753,
+      "time_ms": 246616.978822,
+      "frames": 4661,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 95.38,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "C_min_distance_010",
+      "label": "ms_chol + min_distance=0.1 (Gap C)",
+      "design_style": "C only",
+      "intent": "Voxel insertion deduplication for long trajectory.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-min-distance-between-points",
+        "0.1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_gap_c_matrix/C_min_distance_010/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-min-distance-between-points 0.1",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_gap_c_matrix/C_min_distance_010/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_gap_c_matrix/C_min_distance_010/run.log",
+      "status": "ok",
+      "ate_m": 76.673813,
+      "rpe_trans_pct": 3.354694,
+      "rpe_rot_deg_per_m": 0.033873,
+      "fps": 19.671114,
+      "time_ms": 236946.41741,
+      "frames": 4661,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.15,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.05,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

@@ -965,6 +965,17 @@ struct CTICPDogfoodingOptions {
   // from (T_prev_prev_world, T_prev_world); when true, CT-ICP's own (begin_pose,
   // end_pose) intra-scan delta is extrapolated one scan period forward.
   bool native_ct_icp_seed = false;
+
+  // Paper weight scheme (Gap B+D+E+F bundle).
+  // 個別フラグで isolation ablation 可能。
+  double power_planarity = 1.0;
+  double weight_alpha = 1.0;
+  double weight_neighborhood = 0.0;
+  double min_planarity_floor = 0.0;
+  bool flat_regularizer_weight = false;
+  // 既定 -1 で CTICPParams::cauchy_loss_param=0.5 を維持。
+  // paper 既定は 0.1。
+  double cauchy_loss_param = -1.0;
 };
 
 struct DLODofeedingOptions {
@@ -2134,6 +2145,14 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   }
   params.multi_scale_correspondences = options.multi_scale_correspondences;
   params.use_normal_cholesky_solver = options.use_normal_cholesky_solver;
+  params.power_planarity = options.power_planarity;
+  params.weight_alpha = options.weight_alpha;
+  params.weight_neighborhood = options.weight_neighborhood;
+  params.min_planarity_floor = options.min_planarity_floor;
+  params.flat_regularizer_weight = options.flat_regularizer_weight;
+  if (options.cauchy_loss_param > 0.0) {
+    params.cauchy_loss_param = options.cauchy_loss_param;
+  }
   CTICPRegistration reg(params);
 
   auto frame_to_matrix = [](const TrajectoryFrame& f) {
@@ -4557,6 +4576,49 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-native-seed") {
       ct_icp_options.native_ct_icp_seed = true;
+      continue;
+    }
+    // Paper weight scheme bundle (Gap B+D+E+F):
+    //   power_planarity=2, weight_alpha=0.9, weight_neighborhood=0.1,
+    //   min_planarity_floor=0.01, planarity_threshold=0.01 (緩く),
+    //   cauchy_loss_param=0.1, flat_regularizer_weight=true
+    if (arg == "--ct-icp-paper-weights") {
+      ct_icp_options.power_planarity = 2.0;
+      ct_icp_options.weight_alpha = 0.9;
+      ct_icp_options.weight_neighborhood = 0.1;
+      ct_icp_options.min_planarity_floor = 0.01;
+      ct_icp_options.planarity_threshold = 0.01;
+      ct_icp_options.cauchy_loss_param = 0.1;
+      ct_icp_options.flat_regularizer_weight = true;
+      continue;
+    }
+    if (arg == "--ct-icp-power-planarity") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.power_planarity = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-weight-alpha") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.weight_alpha = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-weight-neighborhood") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.weight_neighborhood = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-min-planarity-floor") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.min_planarity_floor = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-flat-regularizer") {
+      ct_icp_options.flat_regularizer_weight = true;
+      continue;
+    }
+    if (arg == "--ct-icp-cauchy-sigma") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.cauchy_loss_param = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--ct-icp-max-seed-translation-delta") {

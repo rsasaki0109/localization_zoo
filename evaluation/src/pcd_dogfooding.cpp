@@ -961,6 +961,10 @@ struct CTICPDogfoodingOptions {
   bool refinement_gate = false;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  // Seed source for the gate: when false (default), body-frame constant velocity
+  // from (T_prev_prev_world, T_prev_world); when true, CT-ICP's own (begin_pose,
+  // end_pose) intra-scan delta is extrapolated one scan period forward.
+  bool native_ct_icp_seed = false;
 };
 
 struct DLODofeedingOptions {
@@ -2138,6 +2142,12 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
     T.block<3, 1>(0, 3) = f.end_pose.trans;
     return T;
   };
+  auto pose_to_matrix = [](const auto& p) {
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<3, 3>(0, 0) = p.quat.toRotationMatrix();
+    T.block<3, 1>(0, 3) = p.trans;
+    return T;
+  };
 
   TrajectoryFrame prev;
   const Eigen::Matrix4d world_anchor =
@@ -2187,9 +2197,20 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
       init.end_pose.quat = Eigen::Quaterniond(T_end.block<3, 3>(0, 0));
       T_seed_world = T_end;
     } else if (options.refinement_gate && i >= 2) {
-      // Velocity-model bootstrap: extend prev inter-frame body-motion once more.
-      const Eigen::Matrix4d T_pred =
-          velocityModelPrediction(T_prev_world, T_prev_prev_world);
+      Eigen::Matrix4d T_pred;
+      if (options.native_ct_icp_seed) {
+        // Extrapolate from CT-ICP's own intra-scan motion: the body delta
+        // estimated during the previous scan (begin_pose -> end_pose) is
+        // re-applied for one more scan period. This adapts to the actual
+        // per-frame motion rather than a constant inter-frame velocity.
+        const Eigen::Matrix4d T_prev_begin = pose_to_matrix(prev.begin_pose);
+        const Eigen::Matrix4d T_prev_end = pose_to_matrix(prev.end_pose);
+        const Eigen::Matrix4d T_motion = T_prev_begin.inverse() * T_prev_end;
+        T_pred = T_prev_end * T_motion;
+      } else {
+        // Velocity-model bootstrap: extend prev inter-frame body-motion once more.
+        T_pred = velocityModelPrediction(T_prev_world, T_prev_prev_world);
+      }
       init.begin_pose = prev.end_pose;
       init.end_pose.trans = T_pred.block<3, 1>(0, 3);
       init.end_pose.quat = Eigen::Quaterniond(T_pred.block<3, 3>(0, 0));
@@ -2247,8 +2268,10 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
                "fair-prior comparison.";
   } else if (options.refinement_gate) {
     std::ostringstream oss;
-    oss << "Anchor matches first GT pose; subsequent frames use velocity-model "
-           "bootstrap with LiTAMIN2-style acceptance gate (trans<="
+    oss << "Anchor matches first GT pose; subsequent frames use "
+        << (options.native_ct_icp_seed ? "CT-ICP native (begin->end) "
+                                        : "velocity-model ")
+        << "bootstrap with LiTAMIN2-style acceptance gate (trans<="
         << options.max_seed_translation_delta
         << "m, rot<=" << options.max_seed_rotation_delta_rad
         << "rad). " << gated_rollbacks << " rollbacks to seed.";
@@ -4530,6 +4553,10 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-refinement-gate") {
       ct_icp_options.refinement_gate = true;
+      continue;
+    }
+    if (arg == "--ct-icp-native-seed") {
+      ct_icp_options.native_ct_icp_seed = true;
       continue;
     }
     if (arg == "--ct-icp-max-seed-translation-delta") {

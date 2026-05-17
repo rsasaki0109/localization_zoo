@@ -1,0 +1,135 @@
+{
+  "generated_at": "2026-05-18T13:59:30+00:00",
+  "manifest_path": "experiments/pending/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix.json",
+  "problem": {
+    "id": "ct_icp_map_size_mcd_tuhh_night_09",
+    "title": "CT-ICP max_frames sweep on MCD TUHH",
+    "question": "NTU showed max_frames=50 marginal additional -5%. Does TUHH respond similarly?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+      "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+    "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "ms_chol_frames_20",
+      "label": "ms_chol max_frames=20 (Round 25 winner)",
+      "design_style": "reference",
+      "intent": "TUHH baseline.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_20/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_20/run.log",
+      "status": "ok",
+      "ate_m": 1.525094,
+      "rpe_trans_pct": 98.44122,
+      "rpe_rot_deg_per_m": 21.957981,
+      "fps": 21.555332,
+      "time_ms": 5010.3613,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 98.83,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "ms_chol_frames_30",
+      "label": "ms_chol max_frames=30",
+      "design_style": "medium map",
+      "intent": "Test.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "30",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_30/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_30/run.log",
+      "status": "ok",
+      "ate_m": 1.48937,
+      "rpe_trans_pct": 100.229522,
+      "rpe_rot_deg_per_m": 22.003566,
+      "fps": 21.038837,
+      "time_ms": 5133.363532,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 98.8,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "ms_chol_frames_50",
+      "label": "ms_chol max_frames=50",
+      "design_style": "big map",
+      "intent": "NTU sweet spot.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_50/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_map_size_sweep_matrix/ms_chol_frames_50/run.log",
+      "status": "ok",
+      "ate_m": 1.492979,
+      "rpe_trans_pct": 99.372459,
+      "rpe_rot_deg_per_m": 21.936819,
+      "fps": 20.801777,
+      "time_ms": 5191.864056,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 98.13,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

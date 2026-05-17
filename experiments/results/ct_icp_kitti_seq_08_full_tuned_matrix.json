@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-05-17T21:51:19+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_full_tuned_matrix.json",
+  "problem": {
+    "id": "ct_icp_tuned_kitti_seq_08_full",
+    "title": "CT-ICP tuned (dense + ceres_iter 6 + max_frames 20) on KITTI Odometry 08 (full)",
+    "question": "Does the KITTI 07 winning tune close the gap on sequence 08?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "tuned_dense_plus_budget",
+      "label": "Tuned: dense + ceres_iter 6 + max_frames 20",
+      "design_style": "tuned for paper parity",
+      "intent": "Apply KITTI 07 gap-close winner across the paper-evaluated set.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_tuned_matrix/tuned_dense_plus_budget/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_tuned_matrix/tuned_dense_plus_budget/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_tuned_matrix/tuned_dense_plus_budget/run.log",
+      "status": "ok",
+      "ate_m": 40.611768,
+      "rpe_trans_pct": 2.09957,
+      "rpe_rot_deg_per_m": 0.02579,
+      "fps": 19.089848,
+      "time_ms": 213254.711044,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

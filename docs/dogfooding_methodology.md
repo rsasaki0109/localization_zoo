@@ -113,6 +113,36 @@ Interpretation:
 - **NDT, X-ICP, LiTAMIN2 paper profile diverge**: these are not gate-stagnation cases (the velocity-model fix removed that pathology). They are alignment-quality cases: NDT's density-based objective and X-ICP's regularized cost both rely on a finer prior than velocity-model provides; LiTAMIN2's 3 m paper voxel is too coarse for Raw 0009. These divergences are honest pure-odometry behavior with the current dogfooding parameters - they tell us the *algorithms*, not the tool, struggle without a tighter prior.
 - **GICP edges out LiTAMIN2 in this regime (4.82 m vs 7.45 m ATE)**: this inverts the Policy A ranking, where LiTAMIN2 looks better because of its gate-fallback safety net. In honest pure-odometry mode, GICP and Small-GICP win on accuracy while LiTAMIN2 wins on throughput.
 
+## Gap-closing tuning sweep (2026-05-18)
+
+Applied parameter tuning derived from KITTI 07 to the full paper-evaluated set (00/02/05/07/08).
+
+**LiTAMIN2 winning tune: `--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --no-gt-seed`**
+
+| Seq | Paper RPE | Baseline | Baseline ratio | Tuned | Tuned ratio |
+|----:|----------:|---------:|---------------:|------:|------------:|
+|  00 | 0.65 % | 3.08 % | 4.7x | **0.92 %** | **1.4x** |
+|  02 | 0.83 % | 5.08 % | 6.1x | **0.98 %** | **1.2x** |
+|  05 | 0.40 % | 0.97 % | 2.4x | 0.63 % | 1.6x |
+|  07 | 0.42 % | 0.72 % | 1.7x | 0.54 % | 1.3x |
+|  08 | 0.96 % | 7.25 % | 7.6x | **1.30 %** | **1.3x** |
+| **Geom. mean** | | | **3.91x** | | **1.35x** |
+
+LiTAMIN2 now sits inside the paper's reported RPE range (0.40-1.42 %) on every measured sequence. The remaining ~35 % overhead vs paper is consistent across long and short sequences, suggesting it is a stable per-frame accuracy ceiling tied to the specific dogfooding implementation rather than a drift integration effect. Claim level for `litamin2` advances to **`approximately_reproduced`** with paper-range numbers.
+
+**CT-ICP winning tune: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`**
+
+| Seq | Paper RPE | Baseline | Baseline ratio | Tuned-v1 (dense+budget) | Tuned-v1 ratio | Tuned-v2 (voxel 1.0) | Tuned-v2 ratio |
+|----:|----------:|---------:|---------------:|------------------------:|---------------:|---------------------:|---------------:|
+|  00 | 0.52 % | 2.76 % | 5.3x | 2.20 % | 4.2x | 2.14 % | 4.1x |
+|  02 | 0.58 % | 3.21 % | 5.5x | **3.35 %** | **5.8x** | 4.95 % | 8.5x |
+|  05 | 0.31 % | 1.60 % | 5.2x | 1.28 % | 4.1x | 1.38 % | 4.4x |
+|  07 | 0.30 % | 2.70 % | 9.0x | 2.14 % | 7.1x | 1.90 % | 6.3x |
+|  08 | 0.75 % | 2.63 % | 3.5x | 2.10 % | 2.8x | 2.02 % | 2.7x |
+| **Geom. mean** | | | **5.44x** | | **4.58x** | | **4.84x** |
+
+CT-ICP gap is sticky at ~4.5x even under aggressive parameter tuning. Tuned-v2 (voxel 1.0 + iter 12 + ceres 6 + map 30) wins on KITTI 07 in isolation but generalizes worse than tuned-v1 - it diverges to 8.5x on the highway-like seq 02 where finer voxels lose features. Tuned-v1 (the existing `--ct-icp-dense-profile` plus extra ceres budget and longer map memory) is the more robust default. The remaining ~4.5x gap probably needs architectural attention to the continuous-time optimization rather than more parameters - the optimization stack details (ceres options, planarity threshold weighting, motion compensation precision) likely matter more than the iteration count past this point.
+
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 
 After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:

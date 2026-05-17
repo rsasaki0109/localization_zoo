@@ -947,6 +947,11 @@ struct CTICPDogfoodingOptions {
   double planarity_threshold = 0.08;
   double keypoint_voxel_size = 1.25;
   int max_frames_in_map = 8;
+  // <=0 leaves the algorithm-level default of 100 m^2 unchanged. Override via
+  // --ct-icp-max-correspondence-distance for paper-style tighter outlier
+  // rejection (paper uses 1-2 m^2, i.e. 1-1.4 m linear).
+  double max_correspondence_dist = -1.0;
+  int knn = -1;  // <=0 keeps algorithm default (5).
 };
 
 struct DLODofeedingOptions {
@@ -2108,6 +2113,12 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   params.planarity_threshold = options.planarity_threshold;
   params.keypoint_voxel_size = options.keypoint_voxel_size;
   params.max_frames_in_map = options.max_frames_in_map;
+  if (options.max_correspondence_dist > 0.0) {
+    params.max_correspondence_dist = options.max_correspondence_dist;
+  }
+  if (options.knn > 0) {
+    params.knn = options.knn;
+  }
   CTICPRegistration reg(params);
 
   TrajectoryFrame prev;
@@ -4412,6 +4423,33 @@ int main(int argc, char** argv) {
       ct_icp_options.ceres_max_iterations = std::max(
           1, std::stoi(arg.substr(
                  std::string("--ct-icp-ceres-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--ct-icp-max-correspondence-distance") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-max-correspondence-distance requires a numeric value (squared meters)"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_correspondence_dist = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-correspondence-distance=", 0) == 0) {
+      ct_icp_options.max_correspondence_dist = std::stod(
+          arg.substr(std::string("--ct-icp-max-correspondence-distance=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-knn") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-knn requires an integer value" << std::endl;
+        return 1;
+      }
+      ct_icp_options.knn = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-knn=", 0) == 0) {
+      ct_icp_options.knn = std::stoi(
+          arg.substr(std::string("--ct-icp-knn=").size()));
       continue;
     }
     if (arg == "--ct-icp-planarity-threshold") {

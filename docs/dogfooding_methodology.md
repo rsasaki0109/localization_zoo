@@ -757,6 +757,57 @@ Twelve rounds of investigation into CT-ICP architecture-level tuning. The exhaus
 | `ms_chol + --ct-icp-coarse-to-fine + --ct-icp-min-distance-between-points 0.1` | Same + ATE-prioritized | KITTI 02: -23% ATE / -5% RPE |
 | permanent `--ct-icp-cauchy-sigma 1.0` | (Not recommended) | Only KITTI 05 wins; regresses KITTI 00 / 07 / 08 |
 
+### Cross-dataset CT-ICP/CT-LIO investigation summary (rounds 8-27, 2026-05-18)
+
+After extending the investigation beyond KITTI Odometry to KITTI Raw, MulRan, HDL-400, and MCD (KTH/NTU/TUHH), the recipe matrix expanded to cover 8 dataset families. The full summary:
+
+**CT-ICP cumulative ATE improvement (original → final), best recipe per dataset**:
+
+| Dataset | Frames | Original | Final | dATE | Best recipe |
+|---|---:|---:|---:|---:|---|
+| **MCD NTU** | 108 | 0.325 | 0.180 | **-45%** | `ms_chol + max_frames=50` |
+| **CT-LIO HDL-400** | 120 | 0.488 | 0.247 | **-49%** | `--ct-lio-multi-scale + c2f radius_only + max_frames=50` (CT-LIO investigation) |
+| **CT-ICP HDL-400** | 120 | 1.254 | 0.552 | **-56%** | `ms_chol + max_frames=50` |
+| KITTI 02 | 4661 | 80.98 | 62.65 | **-23%** | `ms_chol + c2f_full + min_distance=0.1` |
+| KITTI 08 | 4071 | 35.50 | 32.51 | -8% | `ms_chol + c2f_full` |
+| **KITTI 05** | 2761 | 14.18 | 10.83 | **-24%** | `ms_chol + radius_only` |
+| KITTI 07 | 1101 | 1.61 | 1.61 | 0% | `ms_chol` only (no win without regression) |
+| KITTI 00 | 4541 | 16.70 | 16.70 | 0% | `ms_chol` only |
+| MCD TUHH | 108 | 1.652 | 1.489 | -10% | `ms_chol + max_frames=30` |
+| KITTI Raw 0061 | 707 | 3.529 | 3.529 | 0% | `ms_chol` only (c2f neutral) |
+| MulRan parkinglot | 1177 | (gt-seed) 14.36 | 14.36 | 0% | `ms_chol + gt-seed` (c2f regresses) |
+| MCD KTH | 108 | 6.115 | 6.084 | -0.5% | broken — different method needed |
+
+**The 8 datasets cluster into 3 transfer regimes**:
+
+1. **Excellent transfer (-23 to -49%)**: MCD NTU, HDL-400 (both methods), KITTI 02, KITTI 05.
+   These have either reasonable baseline + large room for improvement (NTU, K02, K05) or structured indoor geometry (HDL-400). The investigation findings translate directly.
+
+2. **Mild transfer (-8 to -10%)**: KITTI 08, MCD TUHH.
+   Medium-quality baselines that benefit modestly from the c2f/map-size tuning.
+
+3. **No transfer (0 to -0.5%)**: KITTI 00, KITTI 07, KITTI Raw 0061, MulRan, MCD KTH.
+   Either already near optimal for CT-ICP (Raw 0061 at 3.5m on 707 frames is good), pathological motion (MulRan parkinglot Aeva slow turns), short urban (K07), or structurally broken (KTH 6m baseline). No recipe combination found in 28 rounds helps.
+
+**The "no universal recipe" theme**:
+
+Every interesting CT-ICP knob (radius widening, sigma boost, planarity relax, gap_c min_distance dedup, max_frames_in_map, coarse_iterations) has dataset-specific direction:
+- r=2 widening: KITTI 05 best at -24%, KITTI 07 worst at +51%
+- sigma x2 in coarse phase: amplifier on K02 (-16%), damage on K05 (-20pp), mitigator on K07/K08
+- planarity 0.02: required on K02 RPE, catastrophic on K00 (+35%)
+- max_frames_in_map: 50 best on HDL-400/NTU, catastrophic on K02 (+62%), neutral on K05
+- gap_c min_distance: stacks on K02 (+9pp ATE), hurts on K05 (-13pp)
+
+The investigation's signature finding is that there is no architecture-level CT-ICP improvement that generalizes. Every recipe is motion-profile-specific. A genuine universal improvement requires:
+- IMU integration (CT-LIO; -49% on HDL-400, but only 1 dataset characterized)
+- B-spline continuous-time trajectory (not implemented)
+- iEKF or NDT-style scan matching (different architecture, beyond CT-ICP)
+
+**Cross-method/cross-dataset transfer events documented**:
+- CT-ICP rounds 1-2 findings (ms_chol bundle) → CT-LIO HDL-400 (-12% then -2%)
+- CT-LIO Round 4 (max_frames=50) → CT-ICP HDL-400 (-21%) AND CT-ICP MCD NTU (-5% additional)
+- CT-LIO Round 4 max_frames=50 → CT-ICP KITTI 02 catastrophic (+62%) — motion-speed boundary discovered
+
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 
 After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:

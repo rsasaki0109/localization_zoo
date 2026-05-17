@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_hdl_400_new_recipes",
+    "title": "CT-ICP new recipes (ms_chol, c2f, radius_only) on HDL-400",
+    "question": "Existing CT-ICP best on HDL-400 was 1.254 m (dense_window). Do the post-investigation CT-ICP recipes (ms_chol, c2f variants) help on this short indoor LiDAR-only data?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol bundle (round 2)",
+      "design_style": "reference",
+      "intent": "Post-investigation CT-ICP best on KITTI.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "ms_chol_plus_c2f",
+      "label": "ms_chol + c2f_full",
+      "design_style": "c2f bundle",
+      "intent": "Does c2f sigma+plan help HDL-400 like it did on KITTI 02?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine"]
+    },
+    {
+      "id": "ms_chol_plus_radius_only",
+      "label": "ms_chol + radius_only",
+      "design_style": "radius_only",
+      "intent": "Round 17 KITTI 05 winner pattern.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-cauchy-mult", "1.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "ms_chol_max_frames_50",
+      "label": "ms_chol + max_frames=50 (lift the CT-LIO throttle insight)",
+      "design_style": "bigger map",
+      "intent": "Does CT-LIO Round 4's map-size insight transfer to CT-ICP?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

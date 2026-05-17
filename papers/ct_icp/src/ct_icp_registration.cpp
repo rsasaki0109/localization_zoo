@@ -20,11 +20,12 @@ Voxel pointToVoxel(const Eigen::Vector3d& point, double resolution) {
                static_cast<int>(std::floor(point.z() / resolution))};
 }
 
-void mergeFrameMap(const VoxelHashMap& frame_map, VoxelHashMap* voxel_map) {
+void mergeFrameMap(const VoxelHashMap& frame_map, VoxelHashMap* voxel_map,
+                   double min_distance_sq = 0.0) {
   for (const auto& [voxel, block] : frame_map) {
     auto& dst = (*voxel_map)[voxel];
     for (int i = 0; i < block.num_points; i++) {
-      dst.addPoint(block.points[i]);
+      dst.addPoint(block.points[i], min_distance_sq);
     }
   }
 }
@@ -43,8 +44,12 @@ VoxelHashMap CTICPRegistration::buildFrameMap(
 
 void CTICPRegistration::rebuildMapFromWindow() {
   voxel_map_.clear();
+  const double min_dist_sq = params_.min_distance_between_points *
+                             params_.min_distance_between_points;
+  // 古いフレームから新しいフレーム順に再構築すると、min-distance チェックで
+  // 新しい点が rejection されやすいので、新しいフレームから順に追加する。
   for (auto it = frame_maps_.rbegin(); it != frame_maps_.rend(); ++it) {
-    mergeFrameMap(*it, &voxel_map_);
+    mergeFrameMap(*it, &voxel_map_, min_dist_sq);
   }
 }
 
@@ -52,8 +57,10 @@ void CTICPRegistration::addPointsToMap(
     const std::vector<Eigen::Vector3d>& world_points) {
   if (world_points.empty()) return;
 
+  const double min_dist_sq = params_.min_distance_between_points *
+                             params_.min_distance_between_points;
   if (params_.max_frames_in_map <= 0) {
-    mergeFrameMap(buildFrameMap(world_points), &voxel_map_);
+    mergeFrameMap(buildFrameMap(world_points), &voxel_map_, min_dist_sq);
     return;
   }
 
@@ -129,15 +136,20 @@ CTICPRegistration::findCorrespondences(
 
     if (static_cast<int>(neighbors.size()) < params_.knn) continue;
 
-    // k最近傍を選択
+    // 距離ソート (PCA + reference 用)
     std::vector<std::pair<double, int>> dists;
     for (size_t j = 0; j < neighbors.size(); j++) {
       double d = (neighbors[j] - world_point).squaredNorm();
       dists.emplace_back(d, j);
     }
+    const int pca_n = (params_.pca_neighbor_count > 0)
+                          ? std::min(params_.pca_neighbor_count,
+                                     static_cast<int>(dists.size()))
+                          : std::min(params_.knn,
+                                     static_cast<int>(dists.size()));
+    const int sort_n = std::max(params_.knn, pca_n);
     std::partial_sort(dists.begin(),
-                      dists.begin() + std::min(params_.knn,
-                                               static_cast<int>(dists.size())),
+                      dists.begin() + std::min(sort_n, static_cast<int>(dists.size())),
                       dists.end());
 
     if (dists[params_.knn - 1].first > params_.max_correspondence_dist)
@@ -145,7 +157,7 @@ CTICPRegistration::findCorrespondences(
 
     // PCAで法線計算
     Eigen::Vector3d mean = Eigen::Vector3d::Zero();
-    int k = std::min(params_.knn, static_cast<int>(dists.size()));
+    int k = pca_n;
     for (int j = 0; j < k; j++) {
       mean += neighbors[dists[j].second];
     }
@@ -192,7 +204,13 @@ CTICPRegistration::findCorrespondences(
 
     Correspondence corr;
     corr.point_idx = i;
-    corr.reference = mean;
+    // paper: reference は最近傍点 (mean ではなく)。mean は plane 中心の近似で、
+    // 遠方では数 m もずれた点を anchor にしてしまい point-to-plane の sign が
+    // 不安定になる。closest-neighbor anchor は plane 上の単一点を使うため
+    // local geometry に sharp に hooked できる。
+    corr.reference = params_.use_closest_neighbor_reference
+                         ? neighbors[dists[0].second]
+                         : mean;
     corr.normal = normal;
     corr.weight = w;
     corrs.push_back(corr);

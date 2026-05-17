@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_pick2_kitti_seq_07_full",
+    "title": "CT-ICP Pick 2: closest-neighbor reference + min-distance voxel insertion on KITTI 07 (full)",
+    "question": "Do Gap A (closest-neighbor reference + 20-PCA) and Gap C (min_distance_between_points=0.1) close the residual gap vs ms_chol on a short trajectory?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline",
+      "design_style": "reference",
+      "intent": "Reference (knn=5, mean reference, no min-dist).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "A_closest_neighbor_only",
+      "label": "ms_chol + closest-neighbor reference + 20-PCA (Gap A)",
+      "design_style": "A only",
+      "intent": "Isolate Gap A: closest-neighbor as reference + 20-point PCA neighborhood.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-closest-neighbor-reference", "--ct-icp-pca-neighbor-count", "20", "--ct-icp-knn", "20"]
+    },
+    {
+      "id": "C_min_distance_only",
+      "label": "ms_chol + min_distance_between_points=0.1 (Gap C)",
+      "design_style": "C only",
+      "intent": "Isolate Gap C: voxel insertion deduplication. Also raises kMaxPoints 20->30.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-min-distance-between-points", "0.1"]
+    },
+    {
+      "id": "paper_mapping_bundle",
+      "label": "ms_chol + paper-mapping bundle (A+C)",
+      "design_style": "A+C bundle",
+      "intent": "Full Pick 2: closest-neighbor reference + 20-PCA + min-distance insertion.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-paper-mapping"]
+    }
+  ]
+}

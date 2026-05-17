@@ -978,6 +978,12 @@ struct CTICPDogfoodingOptions {
   double cauchy_loss_param = -1.0;
   // <=0 で N_corr 全数 (現状)。正値で sqrt(min(N_corr, cap) * β)。
   int regularizer_n_cap = 0;
+
+  // Pick 2 / Gap A: closest-neighbor reference + larger PCA neighborhood.
+  bool use_closest_neighbor_reference = false;
+  int pca_neighbor_count = 0;  // 0 で knn と同じ。paper は 20。
+  // Pick 2 / Gap C: min-distance voxel insertion. 単位 m。0 で無効。paper は 0.1。
+  double min_distance_between_points = 0.0;
 };
 
 struct DLODofeedingOptions {
@@ -2156,6 +2162,9 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
     params.cauchy_loss_param = options.cauchy_loss_param;
   }
   params.regularizer_n_cap = options.regularizer_n_cap;
+  params.use_closest_neighbor_reference = options.use_closest_neighbor_reference;
+  params.pca_neighbor_count = options.pca_neighbor_count;
+  params.min_distance_between_points = options.min_distance_between_points;
   CTICPRegistration reg(params);
 
   auto frame_to_matrix = [](const TrajectoryFrame& f) {
@@ -4622,6 +4631,30 @@ int main(int argc, char** argv) {
     if (arg == "--ct-icp-regularizer-n-cap") {
       if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
       ct_icp_options.regularizer_n_cap = std::stoi(argv[++i]);
+      continue;
+    }
+    // Pick 2 (Gap A+C): paper-aligned mapping & correspondence anchor.
+    if (arg == "--ct-icp-paper-mapping") {
+      // Bundle: closest-neighbor reference + PCA over 20 + min_distance 0.1.
+      ct_icp_options.use_closest_neighbor_reference = true;
+      ct_icp_options.pca_neighbor_count = 20;
+      ct_icp_options.min_distance_between_points = 0.1;
+      // paper の voxel insertion 前提では knn も増やす方が一貫
+      if (ct_icp_options.knn <= 0) ct_icp_options.knn = 20;
+      continue;
+    }
+    if (arg == "--ct-icp-closest-neighbor-reference") {
+      ct_icp_options.use_closest_neighbor_reference = true;
+      continue;
+    }
+    if (arg == "--ct-icp-pca-neighbor-count") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.pca_neighbor_count = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-min-distance-between-points") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.min_distance_between_points = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--ct-icp-cauchy-sigma") {

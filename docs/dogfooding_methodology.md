@@ -458,6 +458,28 @@ Universal c2f / combo barely move the paper RPE gap (4.45x → 4.41x) because th
 
 A future "dataset auto-tuner" could pick by inspecting first-N-frames velocity statistics, but that is out of scope for this session.
 
+### Coarse-to-fine knob ablation (rounds 9/10, 2026-05-18)
+
+Following the cross-seq result, an ablation isolated the 3 c2f knobs (search radius, planarity_threshold, cauchy_sigma_mult) on the two long-trajectory sequences with opposite c2f response (KITTI 00 +10% ATE vs KITTI 02 -16% ATE). All variants share `coarse_iterations=3` and implementation-forced `coarse_search_radius=2`; the isolation is across `coarse_planarity_threshold` and `coarse_cauchy_sigma_mult`.
+
+| Variant | r | plan | σ× | KITTI 00 dATE | KITTI 00 dRPE | KITTI 02 dATE | KITTI 02 dRPE | KITTI 07 dATE |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| `c2f_full`           | 2 | 0.02 | 2.0 | **+10%** | 0%   | **-16%** | **-10%** | +12% |
+| `c2f_sigma_only`     | 2 | 0.06 | 2.0 | **-5%**  | +1%  | -16%     | **+17%** | **+38%** |
+| `c2f_planarity_only` | 2 | 0.02 | 1.0 | **+35%** | 0%   | -10%     | +2%      | - |
+| `c2f_radius_only`    | 2 | 0.06 | 1.0 | +2%      | +1%  | -4%      | -6%      | - |
+| `c2f_mod_planarity`  | 2 | 0.04 | 2.0 | +19%     | -3%  | -8%      | +18%     | - |
+
+Key learnings:
+
+1. **σx2 is the load-bearing ATE knob on KITTI 02**: `c2f_sigma_only` matches `c2f_full` ATE (-16%) without planarity relax. So the residual minimisation tolerance, not the planarity selection, drives the long-residential ATE win.
+2. **planarity 0.02 is essential for the KITTI 02 RPE win**: removing planarity relax (`sigma_only`) flips RPE from -10% to **+17%** on KITTI 02. So the wider correspondence pool is what stabilises local pose.
+3. **planarity relax is the KITTI 00 killer**: `c2f_planarity_only` alone is +35% ATE on KITTI 00. The structured urban geometry of KITTI 00 has clean planes; admitting non-planar correspondences via the 0.02 floor pollutes the residual.
+4. **σx2 alone is catastrophic on short trajectory**: `c2f_sigma_only` is **+38% ATE** on KITTI 07 (worse than `c2f_full`'s +12%). So when planarity relax is removed but σ stays large, short-traj loses 38%. The σ+plan combo paradoxically mutually compensates on short data.
+5. **Moderate planarity 0.04 is not a middle ground**: regresses ATE on KITTI 00 (+19%) and regresses RPE on KITTI 02 (+18%). It is worse on both axes than either 0.02 or 0.06.
+
+Each knob has dataset-specific direction; no universal single-knob recipe exists. The full c2f bundle is irreducibly motion-profile dependent. **Production stays**: `ms_chol` as universal default, full `--ct-icp-coarse-to-fine` flagset as the long-residential (KITTI 02 / 05 / 08-like) profile.
+
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 
 After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:

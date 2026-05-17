@@ -94,8 +94,20 @@ std::vector<TimedPoint> CTICPRegistration::subsampleKeypoints(
 std::vector<CTICPRegistration::Correspondence>
 CTICPRegistration::findCorrespondences(
     const std::vector<TimedPoint>& keypoints,
-    const TrajectoryFrame& frame) const {
+    const TrajectoryFrame& frame,
+    int outer_iter) const {
   std::vector<Correspondence> corrs;
+
+  // Coarse phase 判定: 最初の coarse_iterations 回の outer iteration では
+  // 探索半径を coarse_search_radius まで拡げ、planarity を緩める。
+  const bool coarse_phase =
+      params_.coarse_to_fine && outer_iter < params_.coarse_iterations;
+  const int phase_search_radius =
+      coarse_phase ? std::max(2, params_.coarse_search_radius) : 1;
+  const double phase_planarity_threshold =
+      coarse_phase ? std::min(params_.planarity_threshold,
+                              params_.coarse_planarity_threshold)
+                   : params_.planarity_threshold;
 
   for (size_t i = 0; i < keypoints.size(); i++) {
     // 補間ポーズで変換
@@ -124,12 +136,16 @@ CTICPRegistration::findCorrespondences(
     };
 
     std::vector<Eigen::Vector3d> neighbors;
-    // radius=0 (中心ボクセル) + radius=1 (3x3x3 シェル)
+    // radius=0 (中心ボクセル) + radius=1 (3x3x3 シェル)。
+    // coarse phase では phase_search_radius まで unconditionally に拡げる。
     gather_neighborhood(0, neighbors);
     gather_neighborhood(1, neighbors);
-
-    if (params_.multi_scale_correspondences &&
-        static_cast<int>(neighbors.size()) < params_.knn) {
+    if (coarse_phase) {
+      for (int r = 2; r <= phase_search_radius; ++r) {
+        gather_neighborhood(r, neighbors);
+      }
+    } else if (params_.multi_scale_correspondences &&
+               static_cast<int>(neighbors.size()) < params_.knn) {
       // 27 ボクセルで knn 未満 → 5x5x5 (125 ボクセル) に拡張
       gather_neighborhood(2, neighbors);
     }
@@ -179,7 +195,7 @@ CTICPRegistration::findCorrespondences(
       a2D = (eigenvalues(1) - eigenvalues(0)) / eigenvalues(2);
     }
 
-    if (a2D < params_.planarity_threshold) continue;
+    if (a2D < phase_planarity_threshold) continue;
     if (a2D < params_.min_planarity_floor) continue;
 
     Eigen::Vector3d normal = solver.eigenvectors().col(0);  // 最小固有値の固有ベクトル
@@ -273,7 +289,7 @@ CTICPResult CTICPRegistration::registerFrame(
     result.frame.end_pose.trans = t_end;
 
     // 対応関係を更新
-    auto corrs = findCorrespondences(keypoints, result.frame);
+    auto corrs = findCorrespondences(keypoints, result.frame, iter);
     if (corrs.empty()) {
       std::cerr << "[CT-ICP] No correspondences at iteration " << iter
                 << std::endl;
@@ -289,8 +305,15 @@ CTICPResult CTICPRegistration::registerFrame(
     localization_zoo::SetEigenQuaternionManifold(problem, end_q);
     problem.AddParameterBlock(end_t, 3);
 
-    ceres::LossFunction* loss =
-        new ceres::CauchyLoss(params_.cauchy_loss_param);
+    // coarse phase は Cauchy σ を coarse_cauchy_sigma_mult 倍してロバスト化、
+    // outlier 受容を緩める。fine phase は通常 σ。
+    const bool ct_coarse_phase =
+        params_.coarse_to_fine && iter < params_.coarse_iterations;
+    double cauchy_sigma = params_.cauchy_loss_param;
+    if (ct_coarse_phase && params_.coarse_cauchy_sigma_mult > 0.0) {
+      cauchy_sigma *= params_.coarse_cauchy_sigma_mult;
+    }
+    ceres::LossFunction* loss = new ceres::CauchyLoss(cauchy_sigma);
 
     // 幾何残差
     double weight_scale = std::sqrt(corrs.size());

@@ -78,6 +78,17 @@ struct CTICPParams {
   // 0 で無効 (kMaxPoints 上限まで append、現状)。paper は 0.1 m。
   // VoxelBlock::addPoint に min_distance_sq として渡される。
   double min_distance_between_points = 0.0;
+
+  // Coarse-to-fine 2-phase schedule。
+  // false で従来通り (全 outer iteration で同一 params)。
+  // true で iter < coarse_iterations は coarse phase: 探索半径 +1
+  // (3x3x3 → 5x5x5)、planarity を coarse_planarity_threshold まで緩める、
+  // Cauchy σ を coarse_cauchy_sigma_mult 倍。残り iter は fine phase で現状 params。
+  bool coarse_to_fine = false;
+  int coarse_iterations = 3;
+  int coarse_search_radius = 2;
+  double coarse_planarity_threshold = 0.05;
+  double coarse_cauchy_sigma_mult = 2.0;
 };
 
 struct CTICPResult {
@@ -132,7 +143,8 @@ private:
 
   std::vector<Correspondence> findCorrespondences(
       const std::vector<TimedPoint>& keypoints,
-      const TrajectoryFrame& frame) const;
+      const TrajectoryFrame& frame,
+      int outer_iter = 0) const;
 
   CTICPParams params_;
   VoxelHashMap voxel_map_;

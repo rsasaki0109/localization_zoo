@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_c2f_gap_c_combo_kitti_seq_02_full",
+    "title": "CT-ICP coarse-to-fine + Gap C combo on KITTI 02 (full)",
+    "question": "Do coarse-to-fine (-16% ATE / -10% RPE alone) and Gap C min_distance=0.1 (-5% ATE alone) stack on long trajectory?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline",
+      "design_style": "reference",
+      "intent": "Long-trajectory reference.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "c2f_only",
+      "label": "C2F i=3 r=2 sigma x2 (alone)",
+      "design_style": "C2F only",
+      "intent": "Re-baseline c2f-alone on KITTI 02 within combined manifest.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "gap_c_only",
+      "label": "Gap C min_distance=0.1 (alone)",
+      "design_style": "Gap C only",
+      "intent": "Re-baseline Gap-C-alone for stack comparison.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-min-distance-between-points", "0.1"]
+    },
+    {
+      "id": "c2f_plus_gap_c",
+      "label": "C2F + Gap C combo",
+      "design_style": "C2F+C",
+      "intent": "Stack both long-trajectory winners.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02", "--ct-icp-min-distance-between-points", "0.1"]
+    }
+  ]
+}

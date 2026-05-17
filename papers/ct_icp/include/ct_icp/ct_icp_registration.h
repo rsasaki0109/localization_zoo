@@ -31,6 +31,14 @@ struct CTICPParams {
 
   // スライディングウィンドウ
   int max_frames_in_map = 30;  // マップに保持する最新フレーム数
+
+  // 拡張: 27 ボクセル近傍で knn 未満のときに 125 ボクセル (5x5x5) まで広げる
+  bool multi_scale_correspondences = false;
+
+  // Ceres linear solver. 既定 DENSE_QR と DENSE_NORMAL_CHOLESKY の選択肢。
+  // CT-ICP の論文公式実装は DENSE_NORMAL_CHOLESKY を採用しているため、
+  // paper 一致設定では true にする。
+  bool use_normal_cholesky_solver = false;
 };
 
 struct CTICPResult {

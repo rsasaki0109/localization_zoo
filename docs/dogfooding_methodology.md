@@ -175,6 +175,41 @@ Arch tune (all_combined) wins on 05/07/08 but loses on 00/02 (long sequences wit
 
 **Conclusion: ~4.5x is the parameter-tuning ceiling for this repo's CT-ICP.** Closing further requires algorithm-level changes - specifically: a refinement-acceptance gate analogous to LiTAMIN2's so that velocity-model bootstrap is safe; or rewriting `findCorrespondences` to handle the multi-scale neighborhood the paper uses; or matching the paper's Ceres setup more faithfully (DENSE_NORMAL_CHOLESKY vs DENSE_QR, different LM trust region defaults). These are out of scope for parameter tuning.
 
+### CT-ICP architecture-2: multi-scale + DENSE_NORMAL_CHOLESKY (2026-05-18)
+
+Algorithm-level follow-up implementing all three avenues from the previous section:
+
+1. **Multi-scale `findCorrespondences`** (`papers/ct_icp/src/ct_icp_registration.cpp`): fall back from 3×3×3 (27 voxels) to 5×5×5 (125 voxels) when the immediate neighborhood has fewer than `knn` points. Behind `CTICPParams::multi_scale_correspondences` and CLI `--ct-icp-multi-scale`.
+2. **`DENSE_NORMAL_CHOLESKY`** linear solver alternative to `DENSE_QR`, matching the official CT-ICP implementation. Behind `CTICPParams::use_normal_cholesky_solver` and CLI `--ct-icp-normal-cholesky`.
+3. **LiTAMIN2/X-ICP-style refinement gate + velocity-model bootstrap** in `runCTICP`. Behind `CTICPDogfoodingOptions::refinement_gate` and CLI `--ct-icp-refinement-gate`.
+
+KITTI 07 ablation (1101 frames):
+
+| Variant | ATE [m] | RPE [%] | FPS | Rollbacks | Verdict |
+|--------|--------:|--------:|-----:|----------:|---|
+| tune-v1 baseline | 2.23 | 2.142 | 16.4 | - | reference |
+| **multi_scale_only** | **1.52** | 2.178 | 15.3 | - | **ATE -32%** |
+| normal_cholesky_only | 2.57 | **2.096** | 15.6 | - | **RPE -2%** |
+| **ms_chol bundle** | **1.61** | **2.057** | 17.5 | - | **ATE -28%, RPE -4%, FPS +7%** |
+| gate_only (2m/0.25rad) | NaN | NaN | 22.1 | 358 | diverges |
+| paper_arch_all (gate+ms+chol) | NaN | NaN | 17.7 | 158 | diverges |
+| paper_arch_loose_gate (3m/0.4rad) | NaN | NaN | 18.2 | 157 | diverges |
+
+The refinement gate cannot be combined with velocity-model bootstrap for CT-ICP: even a single rollback contaminates the voxel map (because CT-ICP's SLERP-deskewed points get added to the map at the wrong trajectory), causing `findCorrespondences` to return empty for subsequent frames. The gate path is left in the code for future experiments but is `false` by default.
+
+Cross-sequence generalization of the `ms_chol` bundle:
+
+| Seq | Paper RPE | Baseline RPE | ms_chol RPE | Baseline ATE | ms_chol ATE |
+|----:|----------:|-------------:|------------:|-------------:|------------:|
+|  00 | 0.52 | 2.20 | **2.18** |  17.88 |  **16.70** |
+|  02 | 0.58 | 3.35 | **3.04** |  56.54 |  80.98 (worse) |
+|  05 | 0.31 | **1.28** | 1.28 |  **12.55** |  14.18 (worse) |
+|  07 | 0.30 | 2.14 | **2.06** |   2.23 |   **1.61** |
+|  08 | 0.75 | 2.10 | **2.10** |  40.61 |  **35.50** |
+| **Geom-mean gap** | | **4.58x** | **4.45x** | | |
+
+`ms_chol` breaks the prior 4.58x parameter-tuning ceiling by ~3%. RPE is flat-or-better on 5/5 sequences. ATE improves on 00/07/08 but worsens on 02/05 - multi-scale picks up correspondences from farther neighborhoods, which stabilizes local RPE but allows more global drift on long sparse trajectories. **`ms_chol` is recommended for paper-comparable RPE; tune-v1 baseline remains a safer choice when global ATE matters more.**
+
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 
 After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:

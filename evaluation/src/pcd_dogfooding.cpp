@@ -4680,7 +4680,7 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-coarse-search-radius") {
       if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
-      ct_icp_options.coarse_search_radius = std::max(2, std::stoi(argv[++i]));
+      ct_icp_options.coarse_search_radius = std::max(1, std::stoi(argv[++i]));
       continue;
     }
     if (arg == "--ct-icp-coarse-planarity-threshold") {

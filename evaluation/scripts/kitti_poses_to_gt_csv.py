@@ -19,6 +19,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--poses-file", required=True, help="KITTI poses.txt path.")
     parser.add_argument("--output", required=True, help="Output GT CSV path.")
     parser.add_argument(
+        "--calib-file",
+        default="",
+        help=(
+            "KITTI sequence calib.txt path. When provided, the Tr row (LiDAR-to-cam0 "
+            "transform) is applied so the exported pose is the LiDAR pose in the "
+            "cam0[0] world frame: T_world_lidar = poses[i] * Tr. Required for "
+            "paper-comparable pure-odometry on KITTI Odometry data; without it, the "
+            "tool's lidar-frame points are aligned against cam-frame GT poses and "
+            "ICP cannot reconcile the constant ~90 deg rotation offset under the "
+            "refinement-acceptance gate."
+        ),
+    )
+    parser.add_argument(
         "--start-frame",
         type=int,
         default=0,
@@ -31,6 +44,21 @@ def parse_args() -> argparse.Namespace:
         help="Maximum frames to export (-1 for all).",
     )
     return parser.parse_args()
+
+
+def load_calib_tr(calib_path: Path) -> np.ndarray:
+    with calib_path.open() as f:
+        for line in f:
+            if line.startswith("Tr:") or line.startswith("Tr "):
+                vals = [float(v) for v in line.split()[1:]]
+                if len(vals) != 12:
+                    raise ValueError(f"Tr row in {calib_path} has {len(vals)} floats, expected 12.")
+                Tr = np.eye(4)
+                Tr[0, :4] = vals[0:4]
+                Tr[1, :4] = vals[4:8]
+                Tr[2, :4] = vals[8:12]
+                return Tr
+    raise ValueError(f"No Tr row found in {calib_path}.")
 
 
 def rotation_matrix_to_rpy(R: np.ndarray) -> tuple[float, float, float]:
@@ -59,7 +87,7 @@ def main() -> int:
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Load all poses
+    # Load all poses (KITTI poses.txt is cam0-frame: T_world_cam0)
     all_poses = []
     with poses_path.open() as f:
         for line in f:
@@ -71,6 +99,12 @@ def main() -> int:
             T[1, :4] = vals[4:8]
             T[2, :4] = vals[8:12]
             all_poses.append(T)
+
+    # Optionally apply calib Tr to convert poses to LiDAR frame:
+    # T_world_lidar[i] = T_world_cam0[i] * Tr (where Tr = T_cam0_lidar).
+    if args.calib_file:
+        Tr = load_calib_tr(Path(args.calib_file))
+        all_poses = [T @ Tr for T in all_poses]
 
     if not all_poses:
         raise RuntimeError(f"No poses found in {poses_path}")

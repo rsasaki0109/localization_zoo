@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_paper_comparison_kitti_seq_07_full",
+    "title": "CT-ICP paper-comparable on KITTI Odometry 07 (full, 1101 frames)",
+    "question": "Does CT-ICP reach the paper-reported RPE 0.30% on KITTI Odometry 07 in default pure-odometry mode? How much does --ct-icp-gt-seed change it?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "default_pure_odometry",
+      "label": "Default (paper-comparable pure odometry)",
+      "design_style": "paper-style baseline",
+      "intent": "CT-ICP default = pure odometry. This is the directly paper-comparable variant.",
+      "args": []
+    },
+    {
+      "id": "gt_seeded",
+      "label": "GT-seeded TrajectoryFrame init (Policy A reference)",
+      "design_style": "fair-prior dogfooding",
+      "intent": "Symmetric Policy A reference — non-comparable to paper, kept to quantify the GT-seed advantage.",
+      "args": ["--ct-icp-gt-seed"]
+    }
+  ]
+}

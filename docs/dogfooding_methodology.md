@@ -544,6 +544,23 @@ Tested whether round 6's `regularizer_n_cap=60` (which stabilized the flat-regul
 
 Conclusion: the cap and c2f do not compose. c2f stays a standalone profile.
 
+### c2f coarse_iterations is a sharp single-point optimum (round 14, 2026-05-18)
+
+Round 8 chose `coarse_iterations=3` based on a coarse i=2/3/5 sweep on KITTI 07 (1101 frames, short). Round 14 swept i=1/3/4 on KITTI 02 (4661 frames, long) to characterize the optimum's shape.
+
+| `coarse_iterations` | KITTI 02 ATE [m] | dATE | RPE [%] | dRPE |
+|---:|---:|---:|---:|---:|
+| 1 | 101.29 | **+25%** | 3.40 | +12% |
+| 2 | 105.55 | **+30%** | 3.62 | +19% |
+| **3** | **68.21** | **-16%** | **2.74** | **-10%** |
+| 4 | 83.25 | +3% | 3.53 | +16% |
+
+The curve is **steeply non-monotonic**: a single negative-dATE valley at i=3 flanked by +25% / +30% penalties at i=1/2 and +3% degradation at i=4. There is no broad sweet-spot region; i=3 is essentially a single-point optimum on KITTI 02.
+
+Interpretation: with `max_iterations=10` outer ICP iters, `i=3` is 30% coarse phase, where the coarse search broadens correspondences just long enough to escape the bad-seed basin without losing too much fine-phase convergence. i=1/2 is too little to escape; i=4+ keeps the loose residuals too long and loses the fine-phase precision.
+
+**Implication for tuning robustness**: c2f's KITTI 02 win is fragile. Off-by-one in `coarse_iterations` either ruins the benefit (i=4) or flips it sign (i=1/2). This is consistent with the interpretation that c2f is dataset-specifically tuned to KITTI 02-like motion profiles — a different long-trajectory dataset (e.g. urban driving with different drift characteristics) would likely peak at a different `i`. Auto-tuning the coarse fraction per-dataset would close this hole but is out of scope.
+
 **Final production state**:
 
 | Recipe | Recommended for | Performance |

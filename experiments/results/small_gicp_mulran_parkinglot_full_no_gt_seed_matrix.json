@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-05-17T20:38:44+00:00",
+  "manifest_path": "experiments/pending/small_gicp_mulran_parkinglot_full_no_gt_seed_matrix.json",
+  "problem": {
+    "id": "small_gicp_profile_tradeoff_mulran_parkinglot_full_no_gt_seed",
+    "title": "small_gicp pure-odometry (velocity-model, no GT seed) on MulRan parkinglot full",
+    "question": "How does Small-GICP pure-odometry compare to CT-ICP (10 m ATE) and LiTAMIN2 (74 m ATE) on MulRan parkinglot full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "small_gicp",
+    "primary_method": "Small-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+    "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1200.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default_no_gt_seed",
+      "label": "Default (no GT seed)",
+      "design_style": "balanced",
+      "intent": "Default profile measured as pure odometry with velocity-model prior.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_mulran_parkinglot_full_no_gt_seed_matrix/default_no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/small_gicp_mulran_parkinglot_full_no_gt_seed_matrix/default_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_mulran_parkinglot_full_no_gt_seed_matrix/default_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 74.792371,
+      "rpe_trans_pct": 101.483116,
+      "rpe_rot_deg_per_m": 0.048922,
+      "fps": 65.928685,
+      "time_ms": 17822.287735,
+      "frames": 1175,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-05-17T22:12:22+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_full_tuned2_matrix.json",
+  "problem": {
+    "id": "ct_icp_tuned2_kitti_seq_08_full",
+    "title": "CT-ICP tuned-v2 (voxel 1.0 + iter 12 + ceres 6 + map 30) on KITTI Odometry 08 (full)",
+    "question": "Does the aggressive KITTI 07 winner (6.3x ratio) translate to sequence 08?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "tuned2_voxel10_iter12_ceres6_map30",
+      "label": "voxel 1.0 + max_iter 12 + ceres_iter 6 + max_frames 30",
+      "design_style": "tuned for paper parity v2",
+      "intent": "Apply KITTI 07 aggressive winner across the paper-evaluated set.",
+      "args": [
+        "--ct-icp-voxel-resolution",
+        "1.0",
+        "--ct-icp-max-iterations",
+        "12",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "30"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_tuned2_matrix/tuned2_voxel10_iter12_ceres6_map30/summary.json --ct-icp-voxel-resolution 1.0 --ct-icp-max-iterations 12 --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_tuned2_matrix/tuned2_voxel10_iter12_ceres6_map30/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_tuned2_matrix/tuned2_voxel10_iter12_ceres6_map30/run.log",
+      "status": "ok",
+      "ate_m": 45.576005,
+      "rpe_trans_pct": 2.023714,
+      "rpe_rot_deg_per_m": 0.025266,
+      "fps": 24.469976,
+      "time_ms": 166367.139904,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.6,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.4,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

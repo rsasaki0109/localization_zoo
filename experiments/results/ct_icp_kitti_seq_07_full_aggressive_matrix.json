@@ -1,0 +1,138 @@
+{
+  "generated_at": "2026-05-17T22:09:48+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_full_aggressive_matrix.json",
+  "problem": {
+    "id": "ct_icp_aggressive_kitti_seq_07_full",
+    "title": "CT-ICP aggressive tuning on KITTI Odometry 07 (full)",
+    "question": "Can finer voxel + larger budget close more than the 7.1x gap on CT-ICP?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "voxel08_iter15_ceres8_map30",
+      "label": "voxel 0.8 + max_iter 15 + ceres_iter 8 + map 30",
+      "design_style": "aggressive accuracy",
+      "intent": "Push everything aggressively to test ceiling.",
+      "args": [
+        "--ct-icp-voxel-resolution",
+        "0.8",
+        "--ct-icp-max-iterations",
+        "15",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "30"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel08_iter15_ceres8_map30/summary.json --ct-icp-voxel-resolution 0.8 --ct-icp-max-iterations 15 --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel08_iter15_ceres8_map30/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel08_iter15_ceres8_map30/run.log",
+      "status": "ok",
+      "ate_m": 8.505543,
+      "rpe_trans_pct": 1.99865,
+      "rpe_rot_deg_per_m": 0.023281,
+      "fps": 21.372782,
+      "time_ms": 51514.11731,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 63.48,
+      "readability_score": 2.6,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.4,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "voxel10_iter12_ceres6_map30",
+      "label": "voxel 1.0 + max_iter 12 + ceres_iter 6 + map 30",
+      "design_style": "moderate aggressive",
+      "intent": "Less extreme than 0.8 voxel.",
+      "args": [
+        "--ct-icp-voxel-resolution",
+        "1.0",
+        "--ct-icp-max-iterations",
+        "12",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "30"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel10_iter12_ceres6_map30/summary.json --ct-icp-voxel-resolution 1.0 --ct-icp-max-iterations 12 --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel10_iter12_ceres6_map30/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel10_iter12_ceres6_map30/run.log",
+      "status": "ok",
+      "ate_m": 5.642014,
+      "rpe_trans_pct": 1.89885,
+      "rpe_rot_deg_per_m": 0.023492,
+      "fps": 25.900623,
+      "time_ms": 42508.630281,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 86.74,
+      "readability_score": 2.6,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.4,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "voxel06_iter10_ceres4_map20",
+      "label": "voxel 0.6 + max_iter 10 + ceres_iter 4 + map 20",
+      "design_style": "fine voxel emphasis",
+      "intent": "Test if voxel resolution is the dominant lever.",
+      "args": [
+        "--ct-icp-voxel-resolution",
+        "0.6",
+        "--ct-icp-max-iterations",
+        "10",
+        "--ct-icp-ceres-max-iterations",
+        "4",
+        "--ct-icp-max-frames-in-map",
+        "20"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel06_iter10_ceres4_map20/summary.json --ct-icp-voxel-resolution 0.6 --ct-icp-max-iterations 10 --ct-icp-ceres-max-iterations 4 --ct-icp-max-frames-in-map 20",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel06_iter10_ceres4_map20/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_aggressive_matrix/voxel06_iter10_ceres4_map20/run.log",
+      "status": "ok",
+      "ate_m": 123.183787,
+      "rpe_trans_pct": 8.534652,
+      "rpe_rot_deg_per_m": 0.087253,
+      "fps": 35.247858,
+      "time_ms": 31235.940484,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 52.29,
+      "readability_score": 2.6,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.4,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

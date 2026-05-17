@@ -976,6 +976,8 @@ struct CTICPDogfoodingOptions {
   // 既定 -1 で CTICPParams::cauchy_loss_param=0.5 を維持。
   // paper 既定は 0.1。
   double cauchy_loss_param = -1.0;
+  // <=0 で N_corr 全数 (現状)。正値で sqrt(min(N_corr, cap) * β)。
+  int regularizer_n_cap = 0;
 };
 
 struct DLODofeedingOptions {
@@ -2153,6 +2155,7 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   if (options.cauchy_loss_param > 0.0) {
     params.cauchy_loss_param = options.cauchy_loss_param;
   }
+  params.regularizer_n_cap = options.regularizer_n_cap;
   CTICPRegistration reg(params);
 
   auto frame_to_matrix = [](const TrajectoryFrame& f) {
@@ -4614,6 +4617,11 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-flat-regularizer") {
       ct_icp_options.flat_regularizer_weight = true;
+      continue;
+    }
+    if (arg == "--ct-icp-regularizer-n-cap") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.regularizer_n_cap = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--ct-icp-cauchy-sigma") {

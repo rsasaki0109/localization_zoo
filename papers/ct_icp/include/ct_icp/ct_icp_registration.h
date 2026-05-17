@@ -65,6 +65,19 @@ struct CTICPParams {
   // この amplification が global drift を抑える load-bearing なので、cap で
   // 中間策を取る (KITTI 07: cap 小、KITTI 02: cap 大が好ましいかは未確認)。
   int regularizer_n_cap = 0;
+
+  // Paper-aligned correspondence anchoring (Gap A):
+  // 既定 false で reference = mean of knn neighbors (現状)。
+  // true で reference = closest neighbor only。
+  bool use_closest_neighbor_reference = false;
+  // PCA に使う近傍点数。0 で knn と同じ (現状互換)。paper は 20。
+  // pca_neighbor_count > knn のとき、PCA は dists ソート後の先頭 pca_neighbor_count を使う。
+  int pca_neighbor_count = 0;
+
+  // Paper-aligned voxel insertion (Gap C). 単位 m。
+  // 0 で無効 (kMaxPoints 上限まで append、現状)。paper は 0.1 m。
+  // VoxelBlock::addPoint に min_distance_sq として渡される。
+  double min_distance_between_points = 0.0;
 };
 
 struct CTICPResult {

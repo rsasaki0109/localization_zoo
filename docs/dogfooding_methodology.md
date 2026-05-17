@@ -301,6 +301,55 @@ cap=60 keeps KITTI 02 stable (ATE +14% vs flat-regularizer's +337%) but RPE stil
 
 No universal win. The cap-based regularizer behaves as expected — short trajectories prefer a smaller cap (less anchoring, more local freedom) and long trajectories prefer a larger cap (more anchoring against drift) — but no single cap value beats ms_chol on both metrics. `--ct-icp-regularizer-n-cap` stays exposed for per-dataset tuning (it is useful when KITTI-07-style short trajectories are the target) but ms_chol remains the universal CT-ICP recommendation. Pick 2 (Gap A closest-neighbor reference + Gap C min-distance insertion) from the gap analysis is the remaining untested avenue.
 
+### CT-ICP Pick 2: closest-neighbor reference + min-distance insertion (2026-05-18)
+
+Implemented Pick 2 from the gap analysis with three new flags and a bundle:
+
+- `--ct-icp-closest-neighbor-reference` (Gap A part 1): replace `corr.reference = mean` with `corr.reference = neighbors[dists[0].second]` (the closest neighbor itself).
+- `--ct-icp-pca-neighbor-count 20` (Gap A part 2): widen PCA neighborhood from knn=5 to paper's 20 points for a more stable plane normal.
+- `--ct-icp-min-distance-between-points 0.1` (Gap C): enforce min-distance during `VoxelBlock::addPoint` to deduplicate near-coincident insertions.
+- `--ct-icp-paper-mapping` bundle: A + C with knn=20.
+
+`VoxelBlock::kMaxPoints` was raised 20→30 to match the paper, then reverted to 20 after measuring that 30 alone regresses ms_chol's KITTI 07 ATE 1.61→3.15 m (+96%) — the denser per-voxel cache distorts the mean-of-knn reference and slows `frame_maps_` rebuild. Final code keeps `kMaxPoints = 20`; `min_distance_between_points` is the correct knob for controlling intra-voxel redundancy.
+
+KITTI 07 ablation (kMaxPoints=20, post-revert):
+
+| Variant | ATE [m] | RPE [%] | Verdict |
+|---|---:|---:|---|
+| ms_chol_best (reference) | **1.61** | 2.06 | - |
+| A closest-neighbor only | 14.63 | 2.22 | **+810%** diverges |
+| C min_distance=0.1 only | 1.93 | **2.03** | ATE +20%, RPE -1% (near-neutral) |
+| paper-mapping bundle (A+C) | 14.94 | 2.29 | +830% diverges |
+
+Closest-neighbor reference is **catastrophic on KITTI 07**: even with `--ct-icp-paper-mapping` providing the min-distance dedup that the Plan-agent analysis identified as a prerequisite, ATE blows up 8-9x. LiDAR's range noise lands directly on the residual anchor when the closest single neighbor is used, and CT-ICP's point-to-plane optimisation amplifies that into trajectory drift. The Plan-agent's hypothesis that "paper uses closest-neighbor as residual anchor" did not survive contact with the data; ms_chol's `mean of knn` reference is empirically far more stable for LiDAR plane anchoring.
+
+KITTI 02 cross-seq check (C only — the surviving variant):
+
+| Variant | ATE [m] | RPE [%] | FPS |
+|---|---:|---:|---:|
+| ms_chol_best | 80.98 | **3.04** | 18.9 |
+| **C min_distance=0.1** | **76.67 (-5%)** | 3.36 (+10%) | 19.7 |
+
+The first **ATE improvement** in the entire Pick-1/Pick-2 exploration: Gap C delivers -5% ATE on a 5 km KITTI 02 trajectory, where intra-voxel redundancy actually has room to matter. RPE regresses 10%, however, so the trade-off is exactly opposite to KITTI 07's (ATE +20%, RPE -1%). Geom-mean across the two seqs: ATE 12.16 vs ms_chol 11.42 (+6%), RPE 2.61 vs 2.50 (+4%). Universal win still elusive.
+
+The `--ct-icp-min-distance-between-points` flag stays exposed for KITTI-02-style long-trajectory benchmarks where ATE matters most. Gap A is **discontinued**. Pick 2 as a bundle is **discontinued**. ms_chol remains the universal CT-ICP default.
+
+### Final state of the CT-ICP architecture exploration (2026-05-18)
+
+Seven rounds of architectural improvements were attempted today on top of the tune-v1 parameter ceiling:
+
+| Round | Approach | Outcome |
+|---|---|---|
+| 1 | LiTAMIN2-style refinement gate (velocity-model bootstrap) | dead end - any rollback contaminates the voxel map via SLERP-deskew |
+| 2 | gated map updates on rollback | dead end - rollback count unchanged; map pollution was not the root cause |
+| 3 | CT-ICP-native seed (begin→end extrapolation) | dead end - seed quality improves (369→62 rollbacks) but the gate's design fundamentally conflicts with CT-ICP's optimiser |
+| 4 | gap analysis (Plan agent) | identified 6 gaps; ranked B+D+E+F as Pick 1, A+C as Pick 2 |
+| 5 | paper-weight bundle (B+D+E+F) | short-trajectory artifact - RPE -39% on KITTI 07 but ATE +337% on KITTI 02 |
+| 6 | regularizer N_corr cap sweep | non-monotonic; cap=60 stabilises long-traj but no universal win |
+| 7 | Pick 2 (closest-neighbor + min-distance) | A discontinued (+810% ATE); C delivers KITTI 02 ATE -5% / RPE +10% trade-off |
+
+The production-recommended CT-ICP configuration is **`ms_chol`** (multi-scale `findCorrespondences` + DENSE_NORMAL_CHOLESKY solver, no gate, full regularizer, mean-of-knn reference, no min-distance dedup) with the **`--ct-icp-min-distance-between-points 0.1`** flag added when the target benchmark is dominated by long-trajectory ATE. Cross-sequence paper-RPE geom-mean gap remains **4.45x** (unchanged since arch-2). Closing this further appears to require more invasive changes (e.g. a proper coarse-to-fine optimisation schedule or a faithful re-derivation of the paper's cost function), which were out of scope for this session.
+
 Cross-sequence generalization of the `ms_chol` bundle:
 
 | Seq | Paper RPE | Baseline RPE | ms_chol RPE | Baseline ATE | ms_chol ATE |

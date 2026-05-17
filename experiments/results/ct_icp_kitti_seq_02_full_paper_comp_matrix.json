@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-05-17T21:27:29+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_full_paper_comp_matrix.json",
+  "problem": {
+    "id": "ct_icp_paper_comparison_kitti_seq_02_full",
+    "title": "CT-ICP paper-comparable on KITTI Odometry 02 (full)",
+    "question": "Does CT-ICP default pure-odom match paper-reported RPE on KITTI Odometry 02?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1800.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default_pure_odometry",
+      "label": "Default (paper-comparable pure odometry)",
+      "design_style": "paper-style baseline",
+      "intent": "CT-ICP default = pure odometry. Directly paper-comparable.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_paper_comp_matrix/default_pure_odometry/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_paper_comp_matrix/default_pure_odometry/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_paper_comp_matrix/default_pure_odometry/run.log",
+      "status": "ok",
+      "ate_m": 108.88789,
+      "rpe_trans_pct": 3.207877,
+      "rpe_rot_deg_per_m": 0.038925,
+      "fps": 30.438863,
+      "time_ms": 153126.61349,
+      "frames": 4661,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

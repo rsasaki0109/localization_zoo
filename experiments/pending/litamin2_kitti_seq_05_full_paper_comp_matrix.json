@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_paper_comparison_kitti_seq_05_full",
+    "title": "LiTAMIN2 paper-comparable on KITTI Odometry 05 (full)",
+    "question": "Does LiTAMIN2 fast pure-odom match paper-reported RPE on KITTI Odometry 05?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "fast_cov_no_gt_seed",
+      "label": "Fast local-map + covariance (pure odometry)",
+      "design_style": "throughput-oriented pure odometry",
+      "intent": "Direct paper-comparison: fast profile with velocity-model init.",
+      "args": ["--no-gt-seed"]
+    }
+  ]
+}

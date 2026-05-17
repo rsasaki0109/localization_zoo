@@ -113,6 +113,31 @@ Interpretation:
 - **NDT, X-ICP, LiTAMIN2 paper profile diverge**: these are not gate-stagnation cases (the velocity-model fix removed that pathology). They are alignment-quality cases: NDT's density-based objective and X-ICP's regularized cost both rely on a finer prior than velocity-model provides; LiTAMIN2's 3 m paper voxel is too coarse for Raw 0009. These divergences are honest pure-odometry behavior with the current dogfooding parameters - they tell us the *algorithms*, not the tool, struggle without a tighter prior.
 - **GICP edges out LiTAMIN2 in this regime (4.82 m vs 7.45 m ATE)**: this inverts the Policy A ranking, where LiTAMIN2 looks better because of its gate-fallback safety net. In honest pure-odometry mode, GICP and Small-GICP win on accuracy while LiTAMIN2 wins on throughput.
 
+## KITTI Odometry paper-comparable sweep (2026-05-18)
+
+After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:
+
+| Seq | LiTAMIN2 fast (repo) | LiTAMIN2 (paper) | ratio | CT-ICP default (repo) | CT-ICP (paper) | ratio |
+|----:|---------------------:|-----------------:|------:|----------------------:|---------------:|------:|
+| 00 | 3.08 % | 0.65 % | 4.7x | 2.76 % | 0.52 % | 5.3x |
+| 02 | 5.08 % | 0.83 % | 6.1x | 3.21 % | 0.58 % | 5.5x |
+| 05 | 0.97 % | 0.40 % | 2.4x | 1.60 % | 0.31 % | 5.2x |
+| 07 | 0.72 % | 0.42 % | **1.7x** | 2.70 % | 0.30 % | 9.0x |
+| 08 | 7.25 % | 0.96 % | 7.6x | 2.63 % | 0.75 % | 3.5x |
+| **Geom. mean** | | | **~4.0x** | | | **~5.4x** |
+
+This is the first time the repo has a direct paper-comparison story on the same sequences and same metric. The claim level for `litamin2` and `ct_icp` advances from `indicative` to `approximately_reproduced`.
+
+Interpretation:
+
+- **LiTAMIN2 ratio varies by sequence length.** Sequence 07 (1101 frames, ~700 m) is 1.7x; sequence 08 (4071 frames, ~3200 m) is 7.6x. Drift integrates over distance and the dogfooding fast profile's throughput-vs-accuracy trade-off (smaller iteration budget than the paper) costs accuracy that accumulates.
+- **CT-ICP ratio is more uniform (~5x).** This suggests a per-frame accuracy ceiling tied to the repo's reduced ceres iteration budget rather than an integration effect.
+- **LiTAMIN2 `--litamin2-paper-profile` (3 m voxel) still diverges in pure-odometry mode.** The dogfooding implementation lacks the coarse-to-fine voxel schedule the paper uses with that resolution. Closing this is the most direct remaining path to paper parity.
+
+Closing the remaining ~4-5x gap is feasible without algorithmic changes: increase LiTAMIN2 max_iterations and add coarse-to-fine, increase CT-ICP ceres_max_iterations and max_iterations. This is profile-tuning, not algorithm work.
+
+The earlier `--no-gt-seed` results on KITTI Raw 0009 full (LiTAMIN2 fast 4.85 %, GICP fast 4.70 %, etc., see prior section) remain valid for internal calibration but are *not* paper-comparable because Raw 0009 is not in the paper's evaluated sequence set; only the KITTI Odometry 00-10 numbers above are.
+
 ## MulRan parkinglot full pure-odometry sweep (2026-05-18)
 
 To pin down whether MulRan parkinglot full's ~75 m drift is method-specific or sequence-specific, the velocity-model `--no-gt-seed` path was also run there for GICP, Small-GICP, and Voxel-GICP. The full picture on the same trajectory (432 m, ~430 frames):

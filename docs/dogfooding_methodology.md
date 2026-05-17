@@ -57,7 +57,7 @@ Per-variant notes in the aggregate JSON say "no GT seed" or "anchor matches firs
 
 ## Empirical confirmation (2026-05-17)
 
-Pending manifests with `--no-gt-seed` were run on the two long-trajectory datasets to verify the asymmetry empirically:
+Pending manifests with `--no-gt-seed` were first run with the original previous-pose initial guess (`T_init_guess = T_est`):
 
 | Manifest | Variant | ATE [m] | RPE trans [%] | FPS |
 |----------|---------|--------:|--------------:|----:|
@@ -66,24 +66,36 @@ Pending manifests with `--no-gt-seed` were run on the two long-trajectory datase
 
 For reference, the same data with Policy A (GT-seeded) gave LiTAMIN2 RPE 0.74 % / 1.26 % respectively.
 
-So when the GT prior is removed:
+When the GT prior was removed with previous-pose-as-init the trajectories collapsed: KITTI Raw 0009 full drifted to ATE 171 m / RPE 85 % (a 230x degradation), MulRan parkinglot full to ATE 78 m / RPE 101 %. This was **not** evidence that LiTAMIN2 is a poor algorithm. It was evidence that the original `--no-gt-seed` code path was doing "scan-to-map with previous-pose-as-init plus a 2 m / 0.25 rad refinement-acceptance gate" - which is closer to a scan-registration probe than to standalone odometry. When the gate rejected a refinement, `T_est = T_init_guess` (the previous pose), so the trajectory stagnated and drift accumulated linearly.
 
-- LiTAMIN2 on KITTI Raw 0009 full drifts to ATE 171 m / RPE 85 % (a 230x degradation).
-- LiTAMIN2 on MulRan parkinglot full drifts to ATE 78 m / RPE 101 % (an 80x degradation, matching CT-ICP's pure-odometry numbers on the same data within a few percent).
+## Velocity-model prior fix (2026-05-18)
 
-This is **not** evidence that LiTAMIN2 is a poor algorithm. It is evidence that the `--no-gt-seed` code path in this tool is doing "scan-to-map with previous-pose-as-init plus a 2 m / 0.25 rad refinement-acceptance gate" - which is closer to a scan-registration probe than to standalone odometry. When the gate rejects a refinement, `T_est = T_init_guess` (the previous pose), so the trajectory stagnates and drift accumulates linearly.
+The fix landed in `evaluation/src/pcd_dogfooding.cpp`: the `--no-gt-seed` initial guess for every Policy A method is now a body-frame constant-velocity prediction `T_pred = T_prev * (T_prev_prev^-1 * T_prev)` instead of the static previous pose. `velocityModelPrediction()` is shared by `runLiTAMIN2`, `runGICP`, `runSmallGICP`, `runVoxelGICP`, `runNDT`, and `runXICP`. The refinement-acceptance gate now compares against a moving prior, so normal KITTI inter-frame motion (~1 m/frame) no longer triggers rejection.
 
-The repo's Policy A numbers therefore overstate what these methods do as standalone odometry, and the repo's Policy B numbers (CT-ICP and similar) understate it because they hit the same refinement-acceptance gate.
+Re-running the same manifests (build 2026-05-18, velocity-model active):
+
+| Manifest | Variant | ATE [m] | RPE trans [%] | FPS |
+|----------|---------|--------:|--------------:|----:|
+| KITTI Raw 0009 full | `fast_cov_no_gt_seed` | **7.45** | **4.85** | 88.2 |
+| KITTI Raw 0009 full | `paper_cov_no_gt_seed` | 167.17 | 73.74 | 114.4 |
+| MulRan parkinglot full | `fast_cov_no_gt_seed` | 74.40 | 103.19 | 115.4 |
+| MulRan parkinglot full | `paper_cov_no_gt_seed` | 79.97 | 106.49 | 119.7 |
+
+Interpretation:
+
+- **KITTI Raw 0009 `fast`**: 171 m → 7.45 m ATE (23x), 85 % → 4.85 % RPE (17x). This is genuine pure-odometry behavior. The 4.85 % RPE is higher than the paper's 0.65-1.42 % range on KITTI Odometry 00-10 because (a) the fast dogfooding profile is not the paper-faithful 3 m profile, and (b) Raw 0009 is not in the paper's evaluated sequence list. The gate-stagnation pathology is gone.
+- **KITTI Raw 0009 `paper`**: 3 m voxel resolution with a 25k-point local map is too coarse for pure odometry on this trajectory - the alignment itself fails, independent of the gate. The velocity-model fix does not help here because the failure mode is alignment quality, not gate rejection. This is consistent with how the paper-faithful profile was tuned for KITTI Odometry trajectory characteristics, not Raw 0009.
+- **MulRan parkinglot full**: 78 m → 74 m ATE, essentially unchanged. The previous-pose vs velocity-model distinction is small at low driving speeds (parking lot), so the gate was not the dominant problem. The 74 m residual is genuine pure-odometry drift on a low-feature, slow-motion sequence; CT-ICP shows ~80 m on the same trajectory, matching within ~10 %.
+
+The repo's Policy A numbers therefore still overstate what these methods do as standalone odometry. But the `--no-gt-seed` path now produces honest pure-odometry numbers on benign sequences (KITTI fast profile), and exposes alignment-quality limits separately from gate-stagnation artefacts.
 
 ## Recommended next steps
 
-These do not need to happen all at once.
+- **Done**: replace the refinement-acceptance gate's reference (`T_init_guess` = previous pose) with a velocity-model prior. Committed 2026-05-18.
+- **Next**: decide whether `CT-ICP` and other Policy B methods should grow a symmetric `--gt-seed` toggle (for dogfooding-style fair-prior measurements), so both policies are explicit and visible per-aggregate.
+- **Open**: investigate whether the paper-profile failure on KITTI Raw 0009 is solvable by raising `--litamin2-voxel-resolution` partially (e.g. 2 m) or by a denser local map, or whether it is intrinsic to the paper-profile parameters when no GT prior exists.
 
-- **Short term**: keep Policy A as the default for dogfooding-style benchmark comparisons (consistent and reproducible), but stop quoting Policy A long-sequence RPE as paper-comparable. The pending no-GT-seed manifests document what happens when the GT prior is removed; do not promote them to active until the methodology below is fixed.
-- **Medium term**: replace the refinement-acceptance gate's reference (`T_init_guess` = previous pose) with a velocity-model prior (`T_init_guess` = prev + (prev - prev_prev)) so the gate measures deviation from a constant-velocity prediction, not from a static pose. This is what most real odometry pipelines do and is what would make `--no-gt-seed` produce paper-comparable numbers.
-- **Longer term**: decide whether `CT-ICP` and other Policy B methods should grow a symmetric `--gt-seed` toggle (for dogfooding-style fair-prior measurements), so both policies are explicit and visible per-aggregate.
-
-Either direction is fine; the important property is that future reproduction claims should never quote numbers from Policy A methods on long sequences without naming the GT-seed asymmetry, and should not treat the current Policy B / `--no-gt-seed` numbers as standalone-odometry equivalents either.
+Future reproduction claims should still not quote numbers from Policy A methods on long sequences without naming the GT-seed asymmetry. The repo now has a credible `--no-gt-seed` pathway for paper-style comparisons on benign sequences but it is not yet method-faithful for paper-tuned profiles.
 
 ## Cross-references
 

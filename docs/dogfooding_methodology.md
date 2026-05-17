@@ -527,6 +527,23 @@ c2f_full **beats permanent sigma=1.0 on 4 of 5 sequences**:
 
 **Round 12 retracts round 11's recommendation**: permanent `--ct-icp-cauchy-sigma 1.0` is **not** a simpler alternative to c2f. It only wins on KITTI 05 by a small margin, and it catastrophically regresses on short trajectories (KITTI 07 +159%). The c2f schedule split (sigma=1.0 in coarse iters → sigma=0.5 in fine iters) is what keeps the long-traj sigma benefit while preserving short-traj precision — without the split, sigma=1.0 alone is reckless.
 
+### c2f + regularizer N_corr cap: does not stack (round 13, 2026-05-18)
+
+Tested whether round 6's `regularizer_n_cap=60` (which stabilized the flat-regularizer paper-weight recipe) stacks with c2f on KITTI 02.
+
+| Variant | ATE [m] | RPE [%] | dATE | dRPE |
+|---|---:|---:|---:|---:|
+| `ms_chol_best`     | 80.98 | 3.04 |    0% |    0% |
+| `cap60_only`       | 92.51 | 4.81 | **+14%** | **+58%** |
+| `c2f_only`         | 68.21 | 2.74 | -16% | -10% |
+| `c2f + cap60`      | 78.10 | 4.11 | -4% | +35% |
+
+**cap=60 alone regresses KITTI 02** when compared to ms_chol — memory had read round 6 as a "stabilization" but the +58% RPE comparison was against the *flat-regularizer paper-weights* recipe (which was +169% RPE), not against ms_chol. Against ms_chol, cap=60 is strictly worse.
+
+**c2f + cap=60 strips most c2f benefit**: ATE drops from -16% to -4%, and RPE flips from -10% to +35%. The cap interacts badly with c2f's coarse-phase dynamics — likely because c2f's coarse iterations generate more correspondences (5x5x5 search) and the cap throttles the regularizer's response to that, decoupling the prior from the actual data weight.
+
+Conclusion: the cap and c2f do not compose. c2f stays a standalone profile.
+
 **Final production state**:
 
 | Recipe | Recommended for | Performance |

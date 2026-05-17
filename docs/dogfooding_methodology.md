@@ -621,6 +621,38 @@ Without r=2 (foundation), the upper layers (sigma, planarity) actively hurt — 
 
 This corrects the round-9 narrative: c2f's primary win is from **broader correspondence search in early iters**, not from **looser robust loss**. The robust loss only matters as a multiplier on the broader search. The conventional wisdom that "the schedule split protects fine-phase precision" still holds, but its primary purpose is shaped by the spatial widening it enables, not the residual tolerance per se.
 
+### r=2 radius_only cross-seq: per-seq sign reversal (round 17, 2026-05-18)
+
+After round 16 identified r=2 widening as the c2f foundation, round 17 ran `radius_only` (r=2, plan=0.06, sigma=1.0; no other knobs) across all 5 KITTI Odometry seqs to map its standalone behavior:
+
+| Seq | r=2 alone dATE | r=2 alone dRPE | c2f_full dATE | σ+plan effect on ATE |
+|---:|---:|---:|---:|---:|
+| 00 |  +2% |  +1% | +10% | **hurts by 8pp**        |
+| 02 |  -4% |  -6% | -16% | **amplifies by 12pp**   |
+| 05 | **-24%** |  0% |  -4% | **hurts by 20pp**       |
+| 07 | +51% |  +8% | +12% | **mitigates by 40pp**   |
+| 08 |  +6% |  +1% |  -8% | **mitigates by 15pp**   |
+
+**KITTI 05 radius_only is the best ATE result of the entire sweep** at -24% (and 0% RPE), beating c2f_full (-4%), c2f+gap_c (-13%), and even per-seq oracle estimates.
+
+The σ+plan combination's direction is dataset-specific and varies wildly:
+- **Amplifier on KITTI 02** (long residential): r=2's -4% becomes -16%.
+- **Damage on KITTI 05** (medium urban): r=2's -24% becomes -4%; net 20pp damage.
+- **Mitigator on KITTI 07/08**: turns r=2's net harm into net benefit (or smaller harm).
+
+There is no single "always-amplifier" or "always-mitigator" interpretation. The σ+plan effect depends on whether the dataset's correspondences are already well-distributed (r=2 already finds the best matches; σ+plan adds noise on top → damage) versus drift-heavy (r=2 escapes seed errors but admits some outliers; σ+plan keeps the optimizer from latching onto outliers → amplification or mitigation).
+
+**Production state now has THREE long-driving profiles**, not two:
+
+| Recipe | Use for | Best ATE |
+|---|---|---|
+| `ms_chol` (default) | All datasets, never regresses | Baseline |
+| `+ --ct-icp-coarse-to-fine --ct-icp-coarse-cauchy-mult 1.0 --ct-icp-coarse-planarity-threshold 0.06` (radius_only) | KITTI 05-like medium urban | KITTI 05: **-24% ATE** |
+| `+ --ct-icp-coarse-to-fine` (full bundle, planarity 0.02, sigma 2.0) | KITTI 02 / 08-like long driving | KITTI 02: -16% / -10% RPE; KITTI 08: -8% |
+| `+ --ct-icp-coarse-to-fine + --ct-icp-min-distance-between-points 0.1` (full + gap_c) | KITTI 02 ATE-prioritized | KITTI 02: -23% ATE |
+
+The c2f investigation closes with the unambiguous conclusion: **no universal recipe; CT-ICP needs per-dataset profile selection to close the paper-RPE gap**. A motion-profile auto-tuner would close this hole but is out of scope.
+
 **Final production state**:
 
 | Recipe | Recommended for | Performance |

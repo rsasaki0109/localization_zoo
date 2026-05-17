@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_mulran_parkinglot_full_gt_seed",
+    "title": "CT-ICP GT-seeded on MulRan ParkingLot (full sequence)",
+    "question": "When CT-ICP is given the same Policy A GT-seed prior that LiTAMIN2 uses by default, does the ATE collapse from ~80 m to LiTAMIN2-like sub-metre - confirming the asymmetry?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "default_pure_odometry",
+      "label": "Default (pure odometry, no GT seed)",
+      "design_style": "paper-style baseline",
+      "intent": "Existing Policy B behavior, kept for reference.",
+      "args": []
+    },
+    {
+      "id": "gt_seeded",
+      "label": "GT-seeded TrajectoryFrame init (symmetric of Policy A)",
+      "design_style": "fair-prior dogfooding",
+      "intent": "Match LiTAMIN2's default GT-seeded initialization so the comparison is method-vs-method, not policy-vs-policy.",
+      "args": [
+        "--ct-icp-gt-seed"
+      ]
+    }
+  ]
+}

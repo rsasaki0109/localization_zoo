@@ -31,8 +31,40 @@ def display_name(selector: str) -> str:
     return selector.upper().replace("_", "-")
 
 
+CLAIM_LEVEL_ORDER = [
+    "reproduced",
+    "approximately_reproduced",
+    "indicative",
+    "smoke",
+    "ported",
+]
+
+
+def render_claim_legend(definitions: dict[str, str]) -> list[str]:
+    if not definitions:
+        return []
+    lines = [
+        "## Claim Level Legend",
+        "",
+        "Every tracked family carries a `claim_level` that classifies how strongly the repo's evidence supports a reproduction claim. Levels are listed from strongest to weakest.",
+        "",
+        "| Level | Meaning |",
+        "|-------|---------|",
+    ]
+    seen: set[str] = set()
+    for level in CLAIM_LEVEL_ORDER:
+        if level in definitions:
+            lines.append(f"| `{level}` | {definitions[level]} |")
+            seen.add(level)
+    for level, meaning in definitions.items():
+        if level not in seen:
+            lines.append(f"| `{level}` | {meaning} |")
+    return lines
+
+
 def render_markdown(paper: dict[str, Any], generated_at: str) -> str:
     methods = paper.get("methods", {})
+    claim_definitions = paper.get("claim_level_definitions", {})
     lines = [
         "# Reproduction Status",
         "",
@@ -41,15 +73,24 @@ def render_markdown(paper: dict[str, Any], generated_at: str) -> str:
         "This page records what the repository can currently claim about reproducing original-paper results.",
         "The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.",
         "",
-        "## Tracked Families",
-        "",
-        "| Method | Repo Scope | Current Claim | Numeric Comparison | Main Blocker | Next Step |",
-        "|--------|------------|---------------|--------------------|--------------|-----------|",
     ]
+    legend = render_claim_legend(claim_definitions)
+    if legend:
+        lines.extend(legend)
+        lines.append("")
+    lines.extend(
+        [
+            "## Tracked Families",
+            "",
+            "| Method | Claim Level | Repo Scope | Current Claim | Numeric Comparison | Main Blocker | Next Step |",
+            "|--------|-------------|------------|---------------|--------------------|--------------|-----------|",
+        ]
+    )
 
     for selector, info in methods.items():
         lines.append(
-            f"| {display_name(selector)} | {info.get('repo_scope_label', '-')} | "
+            f"| {display_name(selector)} | `{info.get('claim_level', 'unspecified')}` | "
+            f"{info.get('repo_scope_label', '-')} | "
             f"{info.get('reproduction_status_label', '-')} | "
             f"{info.get('numeric_comparison_label', '-')} | "
             f"{info.get('main_blocker', '-')} | "
@@ -62,6 +103,7 @@ def render_markdown(paper: dict[str, Any], generated_at: str) -> str:
                 "",
                 f"## {display_name(selector)}",
                 "",
+                f"- **Claim level**: `{info.get('claim_level', 'unspecified')}`",
                 f"- **Paper**: {info.get('paper', 'N/A')}",
                 f"- **Method README**: `{info.get('method_readme', '')}`",
                 f"- **Reported dataset**: {info.get('reported_dataset', 'N/A')}",

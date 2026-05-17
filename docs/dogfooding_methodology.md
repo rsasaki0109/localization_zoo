@@ -89,6 +89,30 @@ Interpretation:
 
 The repo's Policy A numbers therefore still overstate what these methods do as standalone odometry. But the `--no-gt-seed` path now produces honest pure-odometry numbers on benign sequences (KITTI fast profile), and exposes alignment-quality limits separately from gate-stagnation artefacts.
 
+## Cross-method `--no-gt-seed` sweep (2026-05-18)
+
+The velocity-model fix was applied uniformly to all six Policy A methods. To verify it generalizes beyond LiTAMIN2, the full set was rerun on KITTI Raw 0009 full (443 frames, ~430 m) with `--no-gt-seed`:
+
+| Method / variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|------------------|--------:|--------------:|----------------:|----:|
+| GICP `fast_no_gt_seed` | **4.82** | **4.70** | 0.026 | 26.8 |
+| GICP `balanced_no_gt_seed` | 5.11 | 4.83 | 0.026 | 15.7 |
+| Small-GICP `default_no_gt_seed` | 5.47 | 5.15 | 0.030 | 44.0 |
+| LiTAMIN2 `fast_cov_no_gt_seed` | 7.45 | 4.85 | 0.024 | 88.2 |
+| LiTAMIN2 `fast_icp_only_no_gt_seed` | 7.45 | 4.85 | 0.024 | 87.6 |
+| Voxel-GICP `default_no_gt_seed` | 41.43 | 9.88 | 0.088 | 14.0 |
+| X-ICP `default_no_gt_seed` | 147.92 | 138.96 | 1.143 | 42.9 |
+| NDT `default_no_gt_seed` | 310.46 | 41.53 | 0.424 | 17.9 |
+| LiTAMIN2 `paper_cov_no_gt_seed` | 167.17 | 73.74 | 0.053 | 114.4 |
+| LiTAMIN2 `paper_icp_only_no_gt_seed` | 167.17 | 73.74 | 0.053 | 119.9 |
+
+Interpretation:
+
+- **Five variants converge (RPE 4-5 %)**: GICP fast/balanced, Small-GICP, LiTAMIN2 fast cov/icp-only. The velocity-model fix is working as intended for the point-to-point/plane registration family on a benign driving sequence. Paper-reported RPE for LiTAMIN2 on KITTI Odometry 00-10 is 0.40-1.42 %; the dogfooding numbers sit ~3-5x higher because the dogfooding profiles are tuned for throughput, not paper faithfulness, and Raw 0009 is not in the paper's evaluated set.
+- **Voxel-GICP partial drift (41 m / 9.9 %)**: converges but with larger drift than its non-voxel counterparts. The fixed voxel grid may be losing spatial resolution at the edges of the local map.
+- **NDT, X-ICP, LiTAMIN2 paper profile diverge**: these are not gate-stagnation cases (the velocity-model fix removed that pathology). They are alignment-quality cases: NDT's density-based objective and X-ICP's regularized cost both rely on a finer prior than velocity-model provides; LiTAMIN2's 3 m paper voxel is too coarse for Raw 0009. These divergences are honest pure-odometry behavior with the current dogfooding parameters - they tell us the *algorithms*, not the tool, struggle without a tighter prior.
+- **GICP edges out LiTAMIN2 in this regime (4.82 m vs 7.45 m ATE)**: this inverts the Policy A ranking, where LiTAMIN2 looks better because of its gate-fallback safety net. In honest pure-odometry mode, GICP and Small-GICP win on accuracy while LiTAMIN2 wins on throughput.
+
 ## Symmetric `--ct-icp-gt-seed` (2026-05-18)
 
 To make the asymmetry between Policy A and Policy B testable in the other direction, `runCTICP` now accepts a `gt_seed` toggle, wired to the CLI flag `--ct-icp-gt-seed`. When enabled, each CT-ICP `TrajectoryFrame` is initialized with `begin_pose = gt[i-1]` and `end_pose = gt[i]` before its continuous-time refinement, matching the spirit of how LiTAMIN2 uses `gt[i]` as the scan-to-map prior.

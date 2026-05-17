@@ -39,6 +39,25 @@ struct CTICPParams {
   // CT-ICP の論文公式実装は DENSE_NORMAL_CHOLESKY を採用しているため、
   // paper 一致設定では true にする。
   bool use_normal_cholesky_solver = false;
+
+  // Paper weight scheme (jedeschaud/ct_icp YAML 一致):
+  // correspondence weight = weight_alpha * a2D^power_planarity
+  //                       + weight_neighborhood * exp(-d_closest / d_max)
+  // ここで d_closest は最近傍距離 [m]、d_max は sqrt(max_correspondence_dist) [m]。
+  // weight_alpha=1.0, weight_neighborhood=0.0, power_planarity=1.0 で現状互換。
+  // paper 既定: weight_alpha=0.9, weight_neighborhood=0.1, power_planarity=2.0
+  double power_planarity = 1.0;
+  double weight_alpha = 1.0;
+  double weight_neighborhood = 0.0;
+
+  // 平面性の soft floor。a2D < min_planarity_floor のときに対応点を rejection。
+  // planarity_threshold (hard) と排他ではなく両方適用される。
+  // paper 既定: 0.01 (planarity_threshold は 0 に近づけて soft weight に任せる)。
+  double min_planarity_floor = 0.0;
+
+  // 正則化重みを sqrt(N_corr · β) ではなく sqrt(β) フラットにする。
+  // 既定 false は現状互換、true で paper 一致 (β=0.001 単独適用)。
+  bool flat_regularizer_weight = false;
 };
 
 struct CTICPResult {

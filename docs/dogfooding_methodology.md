@@ -264,6 +264,43 @@ This is the same KITTI 07 vs KITTI 02 split we saw with ms_chol's multi-scale (K
 
 The flag stays exposed (`--ct-icp-flat-regularizer` / `--ct-icp-paper-weights`) for further experimentation — e.g. an intermediate `√(N_corr/c)` factor might yield a usable trade-off — but **the paper-weight bundle is not adopted as default**. ms_chol remains the production-recommended CT-ICP configuration. Gap A (closest-neighbor reference + 20-PCA) and Gap C (min-distance voxel insertion) from the gap analysis remain untested.
 
+### CT-ICP regularizer N_corr cap sweep (2026-05-18)
+
+Follow-up to the paper-weight bundle's "F flat-regularizer wins on KITTI 07 but diverges on KITTI 02" finding: tested an intermediate weighting `sqrt(min(N_corr, cap) * β)` to find a sweet spot between the extremes. Exposed via `--ct-icp-regularizer-n-cap <int>` (default 0 = no cap = current behavior).
+
+KITTI 07 sweep (with ms_chol as cap=N_corr reference):
+
+| cap | ATE [m] | RPE [%] | ΔATE | ΔRPE |
+|----:|--------:|--------:|-----:|-----:|
+| ∞ (ms_chol) | **1.61** | 2.06 | 0% | 0% |
+| 10 | 2.20 | 1.40 | +37% | -32% |
+| **30** | 2.29 | **1.29** | +43% | **-37% (RPE best)** |
+| **60** | **2.02** | 1.52 | +26% | -26% (best balance) |
+| 120 | 3.49 | 1.78 | +117% | -13% |
+| 300 | 3.63 | 2.07 | +126% | +0% |
+
+The relationship is **non-monotonic**: cap=300 is worse than ms_chol on both ATE and RPE despite being a milder reduction than cap=120. This suggests a bistability — either the prior is strong enough to anchor the trajectory globally (ms_chol level), or it is weak enough to let local refinement dominate (cap ≤ 60); intermediate values get the worst of both.
+
+KITTI 02 cross-seq check (cap = 10, 30, 60, 120):
+
+| cap | ATE [m] | RPE [%] | ΔATE | ΔRPE |
+|----:|--------:|--------:|-----:|-----:|
+| ∞ (ms_chol) | **80.98** | **3.04** | 0% | 0% |
+| 10 | 319.31 | 8.18 | +294% | +169% |
+| 30 | 198.92 | 6.17 | +146% | +103% |
+| **60** | 92.51 | 4.81 | **+14%** | +58% |
+| 120 | 98.64 | 3.95 | +22% | +30% |
+
+cap=60 keeps KITTI 02 stable (ATE +14% vs flat-regularizer's +337%) but RPE still degrades 58%. Geom-mean across both seqs:
+
+| variant | ATE geom-mean | RPE geom-mean |
+|---|---:|---:|
+| ms_chol (∞) | **11.42** | **2.50** |
+| cap=60 | 13.67 (+20%) | 2.70 (+8%) |
+| cap=120 | 18.55 (+62%) | 2.65 (+6%) |
+
+No universal win. The cap-based regularizer behaves as expected — short trajectories prefer a smaller cap (less anchoring, more local freedom) and long trajectories prefer a larger cap (more anchoring against drift) — but no single cap value beats ms_chol on both metrics. `--ct-icp-regularizer-n-cap` stays exposed for per-dataset tuning (it is useful when KITTI-07-style short trajectories are the target) but ms_chol remains the universal CT-ICP recommendation. Pick 2 (Gap A closest-neighbor reference + Gap C min-distance insertion) from the gap analysis is the remaining untested avenue.
+
 Cross-sequence generalization of the `ms_chol` bundle:
 
 | Seq | Paper RPE | Baseline RPE | ms_chol RPE | Baseline ATE | ms_chol ATE |

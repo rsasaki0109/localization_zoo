@@ -58,6 +58,13 @@ struct CTICPParams {
   // 正則化重みを sqrt(N_corr · β) ではなく sqrt(β) フラットにする。
   // 既定 false は現状互換、true で paper 一致 (β=0.001 単独適用)。
   bool flat_regularizer_weight = false;
+
+  // 正則化重みの N_corr 上限。<=0 で無効 (N_corr 全数使用、現状互換)。
+  // 正値 cap で weight = sqrt(min(N_corr, cap) * β) になる。
+  // 短軌跡では大きな N_corr が prior を 22-30x amplify するが、長軌跡では
+  // この amplification が global drift を抑える load-bearing なので、cap で
+  // 中間策を取る (KITTI 07: cap 小、KITTI 02: cap 大が好ましいかは未確認)。
+  int regularizer_n_cap = 0;
 };
 
 struct CTICPResult {

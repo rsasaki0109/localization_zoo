@@ -278,15 +278,16 @@ Plus 108-frame variants for the same selectors. Promotion from `experiments/pend
 ### 9.1 Already partially in (do not redo from scratch)
 
 - **MulRan parkinglot**: ingested. 8 indexed manifests covering `LiTAMIN2`, `CT-ICP`, `KISS-ICP`, `GICP` × {120-frame, full}.
-- **MulRan dcc01**: 2 pending manifests in `experiments/pending/` (`*_mulran_dcc01_120_matrix.json`). Data not yet ingested.
+- **MulRan dcc01**: 4 pending manifests in `experiments/pending/` (`*_mulran_dcc01_120_matrix.json` for ct_icp/gicp/kiss_icp/litamin2). **Blocked**: raw data not local. Requires MulRan official download form (https://forms.gle/EmUybUiGc8pR3r7Q6) per `evaluation/scripts/SETUP_MULRAN_BENCHMARK.md`.
+- **Newer College**: 2 pending manifests in `experiments/pending/` (`ct_icp_newer_college_01_short_120_matrix.json`, `litamin2_newer_college_01_short_120_matrix.json`). **Blocked on two fronts**: (a) the manifests target sequence `01_short_experiment`, which is not in `/media/sasaki/aiueo/ai_coding_ws/ros2/demo_data/newer_college/` — only `math_hard` is local; (b) the local `math_hard` data is a ROS2 bag (`math_hard.bag` + `_rosbag2.db3`) with `/os_node/lidar_packets` (raw Ouster packets), not the flat PCD layout expected by `prepare_newer_college_inputs.py`. Extracting requires either downloading the flat-file release from https://ori-drs.github.io/newer-college-dataset/, or setting up ROS2 + Ouster driver to replay the bag and save PCDs.
 
 ### 9.2 Best next LiDAR target
 
-**MulRan dcc01 ingestion** to complete the MulRan coverage. Reuse the existing parkinglot ingestion approach. Friendly format, broadens public-data evidence on the LiDAR-only surface.
+**MulRan dcc01 ingestion** to complete the MulRan coverage. Reuse the existing parkinglot ingestion approach. Friendly format, broadens public-data evidence on the LiDAR-only surface. Pending the download form.
 
 ### 9.3 Best next camera-aware target
 
-**Newer College**. LiDAR + IMU + camera; lets the repo claim multimodal coverage beyond KITTI Raw.
+**Newer College**. LiDAR + IMU + camera; lets the repo claim multimodal coverage beyond KITTI Raw. Pending the flat-file download or a bag-extraction setup.
 
 ### 9.4 Future heavier option
 
@@ -294,10 +295,11 @@ Plus 108-frame variants for the same selectors. Promotion from `experiments/pend
 
 ### 9.5 Practical recommendation
 
-If the user says "do something useful without waiting for KITTI Odometry data":
+If the user says "do something useful without waiting for KITTI Odometry / MulRan dcc01 / Newer College data":
 
 - **Phase A reruns first** (LiTAMIN2/CT-ICP on local MCD + HDL-400 with RPE) — cheapest claim-level improvement.
-- **Then MulRan dcc01** — natural extension of partially-done work.
+- **Cross-method --no-gt-seed sweep** on local KITTI Raw 0009 full — already done 2026-05-18, see `docs/dogfooding_methodology.md`. Extending to other local datasets (MulRan parkinglot full, MCD KTH/NTU/TUHH) would cost almost nothing.
+- **Then MulRan dcc01** when data lands — natural extension of partially-done work.
 
 ---
 

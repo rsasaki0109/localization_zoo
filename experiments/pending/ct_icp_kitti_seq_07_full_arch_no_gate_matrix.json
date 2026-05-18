@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_arch_no_gate_kitti_seq_07_full",
+    "title": "CT-ICP multi-scale + DENSE_NORMAL_CHOLESKY (no gate) on KITTI Odometry 07 (full)",
+    "question": "Without the unstable velocity-model gate, can multi-scale + DENSE_NORMAL_CHOLESKY beat tune-v1 baseline?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "prior_best_tunev1",
+      "label": "tune-v1 baseline (reference)",
+      "design_style": "reference",
+      "intent": "Reference for delta comparison.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "ms_chol",
+      "label": "tune-v1 + multi-scale + DENSE_NORMAL_CHOLESKY",
+      "design_style": "arch-2",
+      "intent": "Architecture changes that improved KITTI 07 in isolation, bundled (gate dropped due to incompatibility with velocity-model bootstrap).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

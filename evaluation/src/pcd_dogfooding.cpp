@@ -952,6 +952,15 @@ struct CTICPDogfoodingOptions {
   // rejection (paper uses 1-2 m^2, i.e. 1-1.4 m linear).
   double max_correspondence_dist = -1.0;
   int knn = -1;  // <=0 keeps algorithm default (5).
+  // Architecture-level extensions enabled by --ct-icp-paper-arch.
+  bool multi_scale_correspondences = false;
+  bool use_normal_cholesky_solver = false;
+  // LiTAMIN2/X-ICP 風の "refinement-acceptance gate" + velocity-model bootstrap。
+  // CT-ICP は素朴な constant-velocity 外挿だと急カーブで発散するため、結果が
+  // 大きく seed から逸れた場合は予測値にロールバックして発散を抑える。
+  bool refinement_gate = false;
+  double max_seed_translation_delta = 2.0;
+  double max_seed_rotation_delta_rad = 0.25;
 };
 
 struct DLODofeedingOptions {
@@ -2119,7 +2128,16 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   if (options.knn > 0) {
     params.knn = options.knn;
   }
+  params.multi_scale_correspondences = options.multi_scale_correspondences;
+  params.use_normal_cholesky_solver = options.use_normal_cholesky_solver;
   CTICPRegistration reg(params);
+
+  auto frame_to_matrix = [](const TrajectoryFrame& f) {
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<3, 3>(0, 0) = f.end_pose.quat.toRotationMatrix();
+    T.block<3, 1>(0, 3) = f.end_pose.trans;
+    return T;
+  };
 
   TrajectoryFrame prev;
   const Eigen::Matrix4d world_anchor =
@@ -2128,7 +2146,10 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   prev.begin_pose.quat = Eigen::Quaterniond(world_anchor.block<3, 3>(0, 0));
   prev.end_pose = prev.begin_pose;
   res.poses.push_back(world_anchor);
+  Eigen::Matrix4d T_prev_world = world_anchor;
+  Eigen::Matrix4d T_prev_prev_world = world_anchor;
 
+  size_t gated_rollbacks = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto scan = limitLoadedScan(loadTimedPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -2154,6 +2175,7 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
     }
 
     TrajectoryFrame init;
+    Eigen::Matrix4d T_seed_world = T_prev_world;
     if (gt_seed && i < gt.size()) {
       // Seed begin from previous GT end (i-1) and end from current GT (i).
       const Eigen::Matrix4d& T_begin =
@@ -2163,32 +2185,75 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
       init.begin_pose.quat = Eigen::Quaterniond(T_begin.block<3, 3>(0, 0));
       init.end_pose.trans = T_end.block<3, 1>(0, 3);
       init.end_pose.quat = Eigen::Quaterniond(T_end.block<3, 3>(0, 0));
+      T_seed_world = T_end;
+    } else if (options.refinement_gate && i >= 2) {
+      // Velocity-model bootstrap: extend prev inter-frame body-motion once more.
+      const Eigen::Matrix4d T_pred =
+          velocityModelPrediction(T_prev_world, T_prev_prev_world);
+      init.begin_pose = prev.end_pose;
+      init.end_pose.trans = T_pred.block<3, 1>(0, 3);
+      init.end_pose.quat = Eigen::Quaterniond(T_pred.block<3, 3>(0, 0));
+      T_seed_world = T_pred;
     } else {
       init.begin_pose = init.end_pose = prev.end_pose;
+      T_seed_world = T_prev_world;
     }
     auto result = reg.registerFrame(timed, init, &prev);
+
+    Eigen::Matrix4d T_refined = frame_to_matrix(result.frame);
+    bool accepted = true;
+    if (options.refinement_gate && !gt_seed && i >= 2) {
+      // Reject if the refined end pose drifts unreasonably far from the
+      // velocity-model seed (e.g. correspondence collapse at sharp turns).
+      if (!isReasonableRefinement(T_refined, T_seed_world,
+                                  options.max_seed_translation_delta,
+                                  options.max_seed_rotation_delta_rad)) {
+        accepted = false;
+        ++gated_rollbacks;
+        // Fall back to the velocity-model seed and rebuild a TrajectoryFrame
+        // around it so the next frame's bootstrap stays stable.
+        TrajectoryFrame fallback;
+        fallback.begin_pose = prev.end_pose;
+        fallback.end_pose.trans = T_seed_world.block<3, 1>(0, 3);
+        fallback.end_pose.quat =
+            Eigen::Quaterniond(T_seed_world.block<3, 3>(0, 0));
+        result.frame = fallback;
+        T_refined = T_seed_world;
+      }
+    }
 
     std::vector<Eigen::Vector3d> world;
     for (auto& tp : timed)
       world.push_back(result.frame.transformPoint(tp.raw_point, tp.timestamp));
     reg.addPointsToMap(world);
 
-    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
-    T.block<3, 3>(0, 0) = result.frame.end_pose.quat.toRotationMatrix();
-    T.block<3, 1>(0, 3) = result.frame.end_pose.trans;
-    res.poses.push_back(T);
+    res.poses.push_back(T_refined);
     prev = result.frame;
+    T_prev_prev_world = T_prev_world;
+    T_prev_world = T_refined;
+    (void)accepted;
 
     if (i % 10 == 0)
       std::cerr << "\r  [CT-ICP] " << i << "/" << pcd_dirs.size();
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note = gt_seed
-      ? "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric "
-        "of the GT-seeded Policy A path for dogfooding-style fair-prior comparison."
-      : "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own "
-        "continuous-time motion prior (no GT seed).";
+  if (gt_seed) {
+    res.note = "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. "
+               "Symmetric of the GT-seeded Policy A path for dogfooding-style "
+               "fair-prior comparison.";
+  } else if (options.refinement_gate) {
+    std::ostringstream oss;
+    oss << "Anchor matches first GT pose; subsequent frames use velocity-model "
+           "bootstrap with LiTAMIN2-style acceptance gate (trans<="
+        << options.max_seed_translation_delta
+        << "m, rot<=" << options.max_seed_rotation_delta_rad
+        << "rad). " << gated_rollbacks << " rollbacks to seed.";
+    res.note = oss.str();
+  } else {
+    res.note = "Anchor matches first GT pose; subsequent frames rely on CT-ICP's "
+               "own continuous-time motion prior (no GT seed).";
+  }
   return res;
 }
 
@@ -4450,6 +4515,55 @@ int main(int argc, char** argv) {
     if (arg.rfind("--ct-icp-knn=", 0) == 0) {
       ct_icp_options.knn = std::stoi(
           arg.substr(std::string("--ct-icp-knn=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-multi-scale") {
+      ct_icp_options.multi_scale_correspondences = true;
+      continue;
+    }
+    if (arg == "--ct-icp-normal-cholesky") {
+      ct_icp_options.use_normal_cholesky_solver = true;
+      continue;
+    }
+    if (arg == "--ct-icp-refinement-gate") {
+      ct_icp_options.refinement_gate = true;
+      continue;
+    }
+    if (arg == "--ct-icp-max-seed-translation-delta") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--ct-icp-max-seed-translation-delta requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_seed_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-seed-translation-delta=", 0) == 0) {
+      ct_icp_options.max_seed_translation_delta = std::stod(arg.substr(
+          std::string("--ct-icp-max-seed-translation-delta=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-max-seed-rotation-delta-rad") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--ct-icp-max-seed-rotation-delta-rad requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_seed_rotation_delta_rad = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-seed-rotation-delta-rad=", 0) == 0) {
+      ct_icp_options.max_seed_rotation_delta_rad = std::stod(arg.substr(
+          std::string("--ct-icp-max-seed-rotation-delta-rad=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-paper-arch") {
+      // Bundle: multi-scale + normal-cholesky + refinement-gate (LiTAMIN2-style)
+      ct_icp_options.multi_scale_correspondences = true;
+      ct_icp_options.use_normal_cholesky_solver = true;
+      ct_icp_options.refinement_gate = true;
       continue;
     }
     if (arg == "--ct-icp-planarity-threshold") {

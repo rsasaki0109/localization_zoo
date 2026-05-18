@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T12:28:49+00:00",
+  "generated_at": "2026-05-19T13:08:24+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -405,6 +405,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_02_map_with_corr_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json",
       "current_default": "map_20_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_05_combo",
+      "title": "CT-ICP seq 05 full: simplified recipes from bare + map=50",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_05_combo_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_combo_matrix.json",
+      "current_default": "bare_map_50_corr_4"
     },
     {
       "problem_id": "ct_icp_kitti_seq_05_corr_dist_sweep",

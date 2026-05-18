@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T11:14:35+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T11:54:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -116,6 +116,7 @@ The runner is responsible for:
 | CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner | `ready` | `experiments/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` | `ct_icp` | `corr_8` | `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` |
 | CT-ICP map_size sweep on KITTI seq 00 full (4542 frames) | `ready` | `experiments/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` | `ct_icp` | `map_30` | `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_full_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
+| CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?) | `ready` | `experiments/ct_icp_kitti_seq_00_map_bare_matrix.json` | `ct_icp` | `bare_map_30` | `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
 | CT-ICP seq 02 full: corr_dist sweep on bare baseline | `ready` | `experiments/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` | `ct_icp` | `corr_8` | `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` |
 | CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `experiments/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` | `ct_icp` | `corr_8_reference` | `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` |

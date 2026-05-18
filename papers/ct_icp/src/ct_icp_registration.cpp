@@ -168,6 +168,7 @@ CTICPRegistration::findCorrespondences(
     }
 
     if (a2D < params_.planarity_threshold) continue;
+    if (a2D < params_.min_planarity_floor) continue;
 
     Eigen::Vector3d normal = solver.eigenvectors().col(0);  // 最小固有値の固有ベクトル
 
@@ -176,12 +177,24 @@ CTICPRegistration::findCorrespondences(
       normal = -normal;
     }
 
-    // 重み = a2D
+    // 重み: weight_alpha * a2D^power_planarity + weight_neighborhood * exp(-d_closest/d_max)
+    // 既定 (power=1, alpha=1, neighborhood=0) では w = a2D。
+    double a2D_p = (params_.power_planarity == 1.0)
+                       ? a2D
+                       : std::pow(a2D, params_.power_planarity);
+    double w = params_.weight_alpha * a2D_p;
+    if (params_.weight_neighborhood > 0.0) {
+      double d_closest = std::sqrt(dists[0].first);
+      double d_max = std::sqrt(params_.max_correspondence_dist);
+      double w_nb = (d_max > 1e-9) ? std::exp(-d_closest / d_max) : 0.0;
+      w += params_.weight_neighborhood * w_nb;
+    }
+
     Correspondence corr;
     corr.point_idx = i;
     corr.reference = mean;
     corr.normal = normal;
-    corr.weight = a2D;
+    corr.weight = w;
     corrs.push_back(corr);
   }
 
@@ -273,16 +286,22 @@ CTICPResult CTICPRegistration::registerFrame(
           loss, begin_q, begin_t, end_q, end_t);
     }
 
-    // 正則化
+    // 正則化。paper 一致では flat_regularizer_weight=true で sqrt(β) を使う
+    // (corrs.size() による 22-30x 増幅を回避し、prior の影響を意図された強度に戻す)。
+    auto reg_weight = [&](double beta) {
+      return params_.flat_regularizer_weight
+                 ? std::sqrt(beta)
+                 : std::sqrt(corrs.size() * beta);
+    };
     if (previous_frame && params_.location_consistency_weight > 0) {
-      double w = std::sqrt(corrs.size() * params_.location_consistency_weight);
+      double w = reg_weight(params_.location_consistency_weight);
       problem.AddResidualBlock(
           LocationConsistency::Create(previous_frame->end_pose.trans, w),
           nullptr, begin_t);
     }
 
     if (previous_frame && params_.orientation_consistency_weight > 0) {
-      double w = std::sqrt(corrs.size() * params_.orientation_consistency_weight);
+      double w = reg_weight(params_.orientation_consistency_weight);
       problem.AddResidualBlock(
           OrientationConsistency::Create(previous_frame->end_pose.quat, w),
           nullptr, begin_q);
@@ -291,7 +310,7 @@ CTICPResult CTICPRegistration::registerFrame(
     if (previous_frame && params_.constant_velocity_weight > 0) {
       Eigen::Vector3d prev_velocity =
           previous_frame->end_pose.trans - previous_frame->begin_pose.trans;
-      double w = std::sqrt(corrs.size() * params_.constant_velocity_weight);
+      double w = reg_weight(params_.constant_velocity_weight);
       problem.AddResidualBlock(
           ConstantVelocity::Create(prev_velocity, w), nullptr, begin_t,
           end_t);

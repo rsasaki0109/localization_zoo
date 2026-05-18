@@ -227,6 +227,43 @@ A further follow-up replaced the velocity-model bootstrap with CT-ICP's own intr
 
 This pins the root cause to the gate's *design*, not the seed: any LiTAMIN2/X-ICP-style "refined pose must stay near a predicted seed" check fundamentally conflicts with CT-ICP's value proposition, which is that the optimiser actively moves the trajectory away from the seed toward the data. The stronger the CT-ICP optimisation (multi-scale, Cholesky, more iterations), the larger the legitimate deviation, and the more the gate misfires. The gate code, native-seed flag (`--ct-icp-native-seed`), and gated-map logic all stay in the source for reproducibility, but **no gate variant is recommended for CT-ICP**. `ms_chol` (multi-scale + DENSE_NORMAL_CHOLESKY, gate off) is the production-recommended CT-ICP configuration.
 
+### CT-ICP paper-weight scheme: short-trajectory artifact (2026-05-18)
+
+Following the gap analysis in [`ct_icp_paper_gap_analysis.md`](ct_icp_paper_gap_analysis.md), we implemented Pick 1 (paper-weight bundle = B+D+E+F):
+- **B** composite weight `α·a2D^p + β·exp(-d_closest/d_max)` (paper α=0.9, β=0.1, p=2)
+- **D** Cauchy σ 0.5 → 0.1 (paper value)
+- **E** planarity hard cutoff 0.08 → soft floor 0.01
+- **F** regularizer weight `√(N_corr · β)` → flat `√β` (paper-aligned, drops the 22-30x amplification)
+
+CLI: `--ct-icp-paper-weights` bundle; individual gates exposed via `--ct-icp-power-planarity`, `--ct-icp-weight-alpha`, `--ct-icp-weight-neighborhood`, `--ct-icp-flat-regularizer`, `--ct-icp-cauchy-sigma`. `CTICPParams` extended with five fields plus an opt-in `flat_regularizer_weight` flag.
+
+#### KITTI 07 ablation (encouraging)
+
+| Variant | ATE [m] | RPE [%] | ΔRPE vs ms_chol |
+|---|---:|---:|---:|
+| ms_chol_best (reference) | **1.61** | 2.06 | - |
+| F flat-regularizer only | 2.21 | **1.26** | **-39%** |
+| D Cauchy 0.1 only | 2.14 | 1.92 | -7% |
+| E soft planarity floor only | 2.60 | 2.10 | +2% |
+| B composite weight only | 3.51 | 2.22 | +8% |
+| Paper-weights bundle (B+D+E+F) | 2.67 | **1.39** | -33% |
+
+The single biggest signal is **Gap F**: dropping the `√N_corr` factor from the regularizer weights gives -39% RPE on KITTI 07. With N_corr ≈ 500-1000 the original code multiplies the prior by 22-30x, which on a 1100-frame sequence with reasonable initial guesses overwhelms the geometric residual and locks the optimiser onto the seed. Removing it lets CT-ICP's optimisation work as intended — but ATE regresses 38% because the global consistency the over-strong prior was providing is gone.
+
+#### KITTI 02 cross-seq check (catastrophic)
+
+| Variant | ATE [m] | RPE [%] | Δ vs ms_chol |
+|---|---:|---:|---:|
+| ms_chol_best | **80.98** | **3.04** | reference |
+| F flat-regularizer only | 353.71 | 7.39 | ATE +337%, RPE +143% |
+| Paper-weights bundle | 336.31 | 9.21 | ATE +315%, RPE +203% |
+
+On KITTI 02 (4661 frames, 5067 m) the F-flat-regularizer variant **diverges**: ATE 4.3x worse, RPE 2.4x worse than ms_chol. The 22-30x amplification that hurt KITTI 07's local refinement turns out to be load-bearing for long trajectories: without it, the LocationConsistency/OrientationConsistency/ConstantVelocity priors cannot stabilise the begin-pose drift across 5 km of continuous-time integration, and the trajectory blows up.
+
+This is the same KITTI 07 vs KITTI 02 split we saw with ms_chol's multi-scale (KITTI 07 ATE -28%, KITTI 02 ATE +43%): the **short-trajectory wins do not generalise**. Pick 1's RPE-39% signal on KITTI 07 is a short-trajectory artifact, not a universal improvement.
+
+The flag stays exposed (`--ct-icp-flat-regularizer` / `--ct-icp-paper-weights`) for further experimentation — e.g. an intermediate `√(N_corr/c)` factor might yield a usable trade-off — but **the paper-weight bundle is not adopted as default**. ms_chol remains the production-recommended CT-ICP configuration. Gap A (closest-neighbor reference + 20-PCA) and Gap C (min-distance voxel insertion) from the gap analysis remain untested.
+
 Cross-sequence generalization of the `ms_chol` bundle:
 
 | Seq | Paper RPE | Baseline RPE | ms_chol RPE | Baseline ATE | ms_chol ATE |

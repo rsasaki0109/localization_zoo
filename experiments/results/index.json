@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T13:50:00+00:00",
+  "generated_at": "2026-05-19T14:37:31+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -333,6 +333,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_full_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_matrix.json",
       "current_default": "dense_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_leave_one_out",
+      "title": "CT-ICP seq 00 full: leave-one-out ablation on full recipe",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_leave_one_out_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json",
+      "current_default": "full_recipe_reference"
     },
     {
       "problem_id": "ct_icp_kitti_seq_00_map_bare",

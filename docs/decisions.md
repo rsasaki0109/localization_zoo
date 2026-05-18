@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T13:50:00+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T14:37:31+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -469,6 +469,21 @@ _Generated at 2026-05-19T13:50:00+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP seq 00 full: leave-one-out ablation on full recipe
+
+- Current default: `full_recipe_reference`.
+- Active challengers: `minus_c2f`, `minus_map_50`, `minus_corr_5`.
+- Reference variants: `minus_ms_chol`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| full_recipe_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| minus_ms_chol | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| minus_c2f | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| minus_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| minus_corr_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)
 

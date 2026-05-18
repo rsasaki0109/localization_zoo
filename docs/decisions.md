@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T01:54:35+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T02:41:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -375,6 +375,20 @@ _Generated at 2026-05-19T01:54:35+00:00 by `evaluation/scripts/run_experiment_ma
 | cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | cauchy_3_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | cauchy_4_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)
+
+- Current default: `map_30`.
+- Active challengers: `map_20_reference`, `map_50`.
+- Reference variants: `map_15`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_15 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00
 

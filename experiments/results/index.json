@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T01:54:35+00:00",
+  "generated_at": "2026-05-19T02:41:05+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -270,6 +270,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json",
       "current_default": "cauchy_2_0_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_full_map_size_sweep",
+      "title": "CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json",
+      "current_default": "map_30"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_kitti_seq_00_full",

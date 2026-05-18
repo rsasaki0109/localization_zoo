@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T07:06:42+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T07:51:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -454,6 +454,18 @@ _Generated at 2026-05-19T07:06:42+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: corr_dist sweep on bare baseline
+
+- Current default: `corr_8`.
+- Reference variants: `default_reference`, `corr_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)
 

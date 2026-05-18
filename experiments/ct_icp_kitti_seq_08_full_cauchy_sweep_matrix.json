@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_08_full_cauchy_sweep",
+    "title": "CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames)",
+    "question": "seq 00 showed ATE/RPE trade-off with cauchy peaks at opposite ends. Does seq 08 (where c2f_only with planarity=0.02 wins at 32.51 m) exhibit the same pattern?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "cauchy_2_0_reference",
+      "label": "c2f_only cauchy=2.0 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 32.51 m baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "cauchy_1_5",
+      "label": "cauchy=1.5",
+      "design_style": "softer",
+      "intent": "Less outlier tolerance — check if seq 08 prefers stricter Cauchy.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "1.5", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "cauchy_2_5",
+      "label": "cauchy=2.5",
+      "design_style": "harder",
+      "intent": "Probe whether the ATE peak shifts.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.5", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "cauchy_3_0",
+      "label": "cauchy=3.0",
+      "design_style": "harder",
+      "intent": "Probe ATE/RPE trade-off region.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "3.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "cauchy_4_0",
+      "label": "cauchy=4.0",
+      "design_style": "extreme",
+      "intent": "Far end — check if RPE keeps improving.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "4.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    }
+  ]
+}

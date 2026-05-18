@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_n_cap_sweep_kitti_seq_02_full",
+    "title": "CT-ICP regularizer N_corr cap sweep on KITTI Odometry 02 (full)",
+    "question": "Which cap value (10/30/60/120/300) keeps the long-trajectory stability of full N_corr while reclaiming some of the flat-regularizer RPE win?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline (cap=N_corr)",
+      "design_style": "reference",
+      "intent": "Reference.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "n_cap_10",
+      "label": "ms_chol + regularizer_n_cap=10 (near-flat)",
+      "design_style": "cap=10",
+      "intent": "Predicted to diverge on long traj; baseline check vs flat-regularizer ATE +337%.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "10"]
+    },
+    {
+      "id": "n_cap_30",
+      "label": "ms_chol + regularizer_n_cap=30 (KITTI 07 RPE best)",
+      "design_style": "cap=30",
+      "intent": "RPE-best on KITTI 07 (-37%). Test long-traj stability.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "30"]
+    },
+    {
+      "id": "n_cap_60",
+      "label": "ms_chol + regularizer_n_cap=60 (KITTI 07 balance)",
+      "design_style": "cap=60",
+      "intent": "Best ATE/RPE balance on KITTI 07. Most promising cross-seq candidate.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "60"]
+    },
+    {
+      "id": "n_cap_120",
+      "label": "ms_chol + regularizer_n_cap=120",
+      "design_style": "cap=120",
+      "intent": "Mid reduction; KITTI 07 ATE +117% (already poor) but check long-traj.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "120"]
+    }
+  ]
+}

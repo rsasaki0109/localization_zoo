@@ -286,12 +286,17 @@ CTICPResult CTICPRegistration::registerFrame(
           loss, begin_q, begin_t, end_q, end_t);
     }
 
-    // 正則化。paper 一致では flat_regularizer_weight=true で sqrt(β) を使う
-    // (corrs.size() による 22-30x 増幅を回避し、prior の影響を意図された強度に戻す)。
+    // 正則化重み:
+    //   flat_regularizer_weight=true → sqrt(β) (paper 一致)
+    //   regularizer_n_cap>0          → sqrt(min(N_corr, cap) * β) (中間策)
+    //   既定                          → sqrt(N_corr * β)
     auto reg_weight = [&](double beta) {
-      return params_.flat_regularizer_weight
-                 ? std::sqrt(beta)
-                 : std::sqrt(corrs.size() * beta);
+      if (params_.flat_regularizer_weight) return std::sqrt(beta);
+      int n = static_cast<int>(corrs.size());
+      if (params_.regularizer_n_cap > 0 && n > params_.regularizer_n_cap) {
+        n = params_.regularizer_n_cap;
+      }
+      return std::sqrt(static_cast<double>(n) * beta);
     };
     if (previous_frame && params_.location_consistency_weight > 0) {
       double w = reg_weight(params_.location_consistency_weight);

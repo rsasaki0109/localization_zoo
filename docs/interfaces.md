@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T10:04:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T10:46:12+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -110,6 +110,7 @@ The runner is responsible for:
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/ct_icp_kitti_raw_0009_nogt_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/ct_icp_kitti_raw_0061_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/ct_icp_kitti_raw_0061_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0061_matrix.json` |
+| CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f) | `ready` | `experiments/ct_icp_kitti_seq_00_corr_bare_matrix.json` | `ct_icp` | `bare_corr_8` | `experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json` |
 | CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames) | `ready` | `experiments/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` | `ct_icp` | `cauchy_2_0_reference` | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
 | CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner | `ready` | `experiments/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` | `ct_icp` | `iter_2` | `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` |
 | CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner | `ready` | `experiments/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` | `ct_icp` | `corr_8` | `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` |

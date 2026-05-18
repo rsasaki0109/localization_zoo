@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T10:04:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T10:46:12+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -384,6 +384,20 @@ _Generated at 2026-05-19T10:04:52+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f)
+
+- Current default: `bare_corr_8`.
+- Active challengers: `bare_corr_4`.
+- Reference variants: `bare_corr_default`, `bare_corr_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_corr_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| bare_corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| bare_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| bare_corr_4 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames)
 

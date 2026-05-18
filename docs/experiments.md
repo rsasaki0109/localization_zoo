@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T01:54:35+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T02:41:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -36,6 +36,7 @@ _Generated at 2026-05-19T01:54:35+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_window` | 6.972 | 37.6 | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_window` | 1.475 | 56.9 | `experiments/results/ct_icp_kitti_raw_0061_matrix.json` |
 | CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames) | `ready` | `cauchy_2_0_reference` | 15.927 | 19.5 | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
+| CT-ICP map_size sweep on KITTI seq 00 full (4542 frames) | `ready` | `map_30` | 15.109 | 18.9 | `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `dense_window` | 16.778 | 77.7 | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `fast_window` | 1.851 | 74.9 | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
 | CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `baseline_reference` | 56.537 | 16.8 | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
@@ -2115,6 +2116,78 @@ _Generated at 2026-05-19T01:54:35+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_4_0/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 4.0 --ct-icp-coarse-planarity-threshold 0.06`
 - Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_4_0/summary.json`
 - Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_4_0/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_map_size_sweep`
+- **Question**: c2f_sigma_only winner uses map=20 (15.93 m). HDL-400 and MCD-NTU sweet-spot is 50. Does seq 00 also benefit from a larger map?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_sigma_only map=20 (existing winner) | reference | 15.927 | 15.7 | 88.9 | 1.00 | 1.60 | Keep as active challenger |
+| map=15 | tighter map | 22.280 | 18.9 | 83.9 | 1.00 | 1.60 | Keep as reference variant |
+| map=30 | medium map | 16.541 | 18.0 | 93.3 | 1.00 | 1.60 | Adopt as current default |
+| map=50 | big map | 15.109 | 12.9 | 84.1 | 1.00 | 1.60 | Keep as active challenger |
+
+### Observations
+
+1. `map_30` is the current default for this problem.
+2. `map_15` is the fastest observed variant at 18.9 FPS.
+3. `map_50` is the most accurate observed variant at 15.109 m ATE.
+
+### Variant Notes
+
+#### `map_20_reference`
+
+- Intent: Confirm 15.93 m baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_20_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_20_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_15`
+
+- Intent: Smaller map — does seq 00 prefer fresher voxels?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_15/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_15/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_30`
+
+- Intent: MCD-TUHH sweet-spot.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_30/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_30/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_50`
+
+- Intent: HDL-400 / MCD-NTU sweet-spot.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_50/run.log`
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).

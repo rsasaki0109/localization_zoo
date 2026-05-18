@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_full_map_size_sweep",
+    "title": "CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)",
+    "question": "c2f_sigma_only winner uses map=20 (15.93 m). HDL-400 and MCD-NTU sweet-spot is 50. Does seq 00 also benefit from a larger map?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "map_20_reference",
+      "label": "c2f_sigma_only map=20 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 15.93 m baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "map_15",
+      "label": "map=15",
+      "design_style": "tighter map",
+      "intent": "Smaller map — does seq 00 prefer fresher voxels?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "15", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "map_30",
+      "label": "map=30",
+      "design_style": "medium map",
+      "intent": "MCD-TUHH sweet-spot.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "30", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "map_50",
+      "label": "map=50",
+      "design_style": "big map",
+      "intent": "HDL-400 / MCD-NTU sweet-spot.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    }
+  ]
+}

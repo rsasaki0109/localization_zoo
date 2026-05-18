@@ -653,6 +653,41 @@ There is no single "always-amplifier" or "always-mitigator" interpretation. The 
 
 The c2f investigation closes with the unambiguous conclusion: **no universal recipe; CT-ICP needs per-dataset profile selection to close the paper-RPE gap**. A motion-profile auto-tuner would close this hole but is out of scope.
 
+### radius_only + gap_c stack: motion-profile-specific (round 18, 2026-05-18)
+
+After round 17 showed radius_only is the best recipe on KITTI 05, round 18 tested whether `gap_c` (min-distance voxel insertion) stacks with radius_only on the two motion profiles where they win individually.
+
+**KITTI 02** (radius_only -4%, c2f_full -16%, c2f_full + gap_c -23%):
+
+| Recipe | dATE | dRPE |
+|---|---:|---:|
+| radius_only alone               |  -4% |  -6% |
+| **radius_only + gap_c**         | -13% | **-12%** |
+| c2f_full alone                  | -16% | -10% |
+| c2f_full + gap_c                | **-23%** |  -5% |
+
+On KITTI 02 gap_c stacks consistently on both foundations (+9pp ATE on radius_only, +7pp ATE on c2f_full). Importantly, **`radius_only + gap_c` is now the best RPE on KITTI 02** (-12%), beating c2f_full's -10% and c2f_full + gap_c's -5%. The σ+plan combination in c2f_full optimizes ATE at the cost of RPE; replacing it with pure radius widening + gap_c gives a better RPE trade.
+
+**KITTI 05** (radius_only -24%):
+
+| Recipe | dATE | dRPE |
+|---|---:|---:|
+| **radius_only alone**           | **-24%** |  0% |
+| radius_only + gap_c             | -10% |  -4% |
+| c2f_full + gap_c (round 9)      | -13% |  0% |
+
+On KITTI 05 gap_c **hurts** radius_only by 13pp ATE. The min-distance dedup throttles the densely-packed planar surface samples that KITTI 05's geometry depends on for r=2's wide-search benefit. Stay with radius_only alone on this profile.
+
+**Updated production state — KITTI 02 has THREE RPE/ATE priorities**:
+
+| Recipe | KITTI 02 ATE / RPE | When |
+|---|---|---|
+| `radius_only + gap_c`            | -13% / **-12%** | KITTI 02 RPE-prioritized |
+| `c2f_full`                       | -16% / -10%     | KITTI 02 balanced       |
+| `c2f_full + gap_c`               | **-23%** / -5%  | KITTI 02 ATE-prioritized |
+
+KITTI 05 stays on `radius_only` alone (-24% ATE, no gap_c).
+
 **Final production state**:
 
 | Recipe | Recommended for | Performance |

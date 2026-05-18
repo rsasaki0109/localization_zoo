@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-05-18T10:44:45+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_05_full_radius_only_gap_c_matrix.json",
+  "problem": {
+    "id": "ct_icp_radius_only_gap_c_kitti_seq_05_full",
+    "title": "CT-ICP radius_only + gap_c on KITTI 05",
+    "question": "Does the round-17 radius_only winner (-24% ATE) stack with gap_c min-distance dedup?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline",
+      "design_style": "reference",
+      "intent": "Re-baseline.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_full_radius_only_gap_c_matrix/ms_chol_best/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_05_full_radius_only_gap_c_matrix/ms_chol_best/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_05_full_radius_only_gap_c_matrix/ms_chol_best/run.log",
+      "status": "ok",
+      "ate_m": 14.180579,
+      "rpe_trans_pct": 1.28102,
+      "rpe_rot_deg_per_m": 0.024557,
+      "fps": 20.463548,
+      "time_ms": 134922.840553,
+      "frames": 2761,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 94.75,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "radius_only_plus_gap_c",
+      "label": "radius_only + gap_c (min_dist=0.1)",
+      "design_style": "radius_only + gap_c",
+      "intent": "Stack pure widening foundation with gap_c.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "3",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "1.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06",
+        "--ct-icp-min-distance-between-points",
+        "0.1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_full_radius_only_gap_c_matrix/radius_only_plus_gap_c/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 1.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-min-distance-between-points 0.1",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_05_full_radius_only_gap_c_matrix/radius_only_plus_gap_c/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_05_full_radius_only_gap_c_matrix/radius_only_plus_gap_c/run.log",
+      "status": "ok",
+      "ate_m": 12.690655,
+      "rpe_trans_pct": 1.233952,
+      "rpe_rot_deg_per_m": 0.024327,
+      "fps": 16.949847,
+      "time_ms": 162892.330267,
+      "frames": 2761,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 91.41,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

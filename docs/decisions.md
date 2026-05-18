@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T08:30:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T09:11:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -504,6 +504,21 @@ _Generated at 2026-05-19T08:30:24+00:00 by `evaluation/scripts/run_experiment_ma
 | map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | map_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner
+
+- Current default: `corr_4_reference`.
+- Active challengers: `corr_8`, `corr_16`, `corr_default`.
+- Reference variants: `corr_2`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_4_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_2 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_16 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner
 

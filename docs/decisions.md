@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T04:18:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T05:08:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -386,6 +386,20 @@ _Generated at 2026-05-19T04:18:47+00:00 by `evaluation/scripts/run_experiment_ma
 | cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | cauchy_3_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | cauchy_4_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner
+
+- Current default: `iter_2`.
+- Active challengers: `iter_3_reference`, `iter_1`, `iter_4`, `iter_6`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| iter_3_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_1 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_2 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| iter_4 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_6 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)
 

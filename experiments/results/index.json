@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T08:30:24+00:00",
+  "generated_at": "2026-05-19T09:11:21+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -360,6 +360,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json",
       "current_default": "map_15"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_05_corr_dist_sweep",
+      "title": "CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json",
+      "current_default": "corr_4_reference"
     },
     {
       "problem_id": "ct_icp_kitti_seq_05_map50_retrofit",

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T09:39:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T10:04:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -479,6 +479,19 @@ _Generated at 2026-05-19T09:39:52+00:00 by `evaluation/scripts/run_experiment_ma
 | default_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²)
+
+- Current default: `corr_8_reference`.
+- Reference variants: `corr_5`, `corr_6`, `corr_7`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_8_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_6 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_7 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 02 full: corr_dist + ms_chol combinations
 

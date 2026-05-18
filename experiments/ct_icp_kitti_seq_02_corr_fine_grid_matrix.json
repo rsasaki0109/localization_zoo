@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_02_corr_fine_grid",
+    "title": "CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²)",
+    "question": "seq 00 found corr=5 winner via non-smooth landscape. Does seq 02 (corr=8 winner) show the same dual-optimum pattern?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "corr_8_reference",
+      "label": "corr=8 (existing seq 02 winner)",
+      "design_style": "reference",
+      "intent": "Confirm 50.63 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "8"]
+    },
+    {
+      "id": "corr_5",
+      "label": "corr=5",
+      "design_style": "tighter",
+      "intent": "seq 00 fine grid winner — does it transfer?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "5"]
+    },
+    {
+      "id": "corr_6",
+      "label": "corr=6",
+      "design_style": "tighter",
+      "intent": "Probe valley.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "6"]
+    },
+    {
+      "id": "corr_7",
+      "label": "corr=7",
+      "design_style": "tighter",
+      "intent": "Just below the existing winner.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "7"]
+    }
+  ]
+}

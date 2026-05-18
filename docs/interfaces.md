@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T12:28:49+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T13:08:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -124,6 +124,7 @@ The runner is responsible for:
 | CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `experiments/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` | `ct_icp` | `baseline_reference` | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
 | CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | CT-ICP seq 02 full: map_size sweep on corr=8 winner | `ready` | `experiments/ct_icp_kitti_seq_02_map_with_corr_matrix.json` | `ct_icp` | `map_20_reference` | `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json` |
+| CT-ICP seq 05 full: simplified recipes from bare + map=50 | `ready` | `experiments/ct_icp_kitti_seq_05_combo_matrix.json` | `ct_icp` | `bare_map_50_corr_4` | `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json` |
 | CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner | `ready` | `experiments/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` | `ct_icp` | `corr_4_reference` | `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` |
 | CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner | `ready` | `experiments/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` | `ct_icp` | `arch_tuned_map_30` | `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` |
 | CT-ICP seq 05 full: map_size on BARE baseline | `ready` | `experiments/ct_icp_kitti_seq_05_map_bare_matrix.json` | `ct_icp` | `bare_map_50` | `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json` |

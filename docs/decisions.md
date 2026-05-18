@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-18T14:00:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-18T22:05:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -360,6 +360,31 @@ _Generated at 2026-05-18T14:00:21+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
+
+- Current default: `fast_window`.
+- Reference variants: `balanced_window`, `dense_window`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
+
+- Current default: `fast_window`.
+- Active challengers: `dense_window`.
+- Reference variants: `balanced_window`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
 

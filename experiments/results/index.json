@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T22:05:34+00:00",
+  "generated_at": "2026-05-18T22:35:08+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -263,12 +263,30 @@
       "current_default": "fast_window"
     },
     {
+      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_00_full",
+      "title": "CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_matrix.json",
+      "current_default": "dense_window"
+    },
+    {
       "problem_id": "ct_icp_profile_tradeoff_kitti_seq_00",
       "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/ct_icp_kitti_seq_00_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_matrix.json",
+      "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_07_full",
+      "title": "CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_07_full_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_full_matrix.json",
       "current_default": "fast_window"
     },
     {

@@ -574,19 +574,55 @@ CTLIOResult CTLIORegistration::registerFrame(
   }
 
   if (params_.use_bspline_trajectory) {
-    // Stage 2 B-spline path: 4 control points + begin/end pose + IMU.
-    // Lidar cost operates on the 4 CPs via cumulative cubic SE3 B-spline.
-    // IMU/velocity/bias priors operate on begin/end pose (existing residuals).
-    // Anchor residuals tie spline T(0) ≈ begin_pose and T(1) ≈ end_pose so the
-    // two pose representations stay consistent.
+    // Stage 3 B-spline path: 4 control points + begin/end pose + IMU.
+    // CP indexing: P0 at t=-1, P1 at t=0 (scan begin), P2 at t=1 (scan end),
+    // P3 at t=2 (in scan-duration units). P1 and P2 anchor the current scan.
+    // P0 and P3 carry "before" and "after" motion info to let the cubic
+    // spline express curvature.
     std::array<std::array<double, 4>, 4> cp_q;
     std::array<std::array<double, 3>, 4> cp_t;
-    for (int i = 0; i < 4; ++i) {
-      const auto& pose = (i < 2) ? result.state.frame.begin_pose
-                                 : result.state.frame.end_pose;
-      cp_q[i] = {pose.quat.x(), pose.quat.y(), pose.quat.z(), pose.quat.w()};
-      cp_t[i] = {pose.trans.x(), pose.trans.y(), pose.trans.z()};
+
+    // P1 = begin pose, P2 = end pose
+    cp_q[1] = {result.state.frame.begin_pose.quat.x(),
+               result.state.frame.begin_pose.quat.y(),
+               result.state.frame.begin_pose.quat.z(),
+               result.state.frame.begin_pose.quat.w()};
+    cp_t[1] = {result.state.frame.begin_pose.trans.x(),
+               result.state.frame.begin_pose.trans.y(),
+               result.state.frame.begin_pose.trans.z()};
+    cp_q[2] = {result.state.frame.end_pose.quat.x(),
+               result.state.frame.end_pose.quat.y(),
+               result.state.frame.end_pose.quat.z(),
+               result.state.frame.end_pose.quat.w()};
+    cp_t[2] = {result.state.frame.end_pose.trans.x(),
+               result.state.frame.end_pose.trans.y(),
+               result.state.frame.end_pose.trans.z()};
+
+    // P0 at t=-1: prefer previous frame's begin pose; fallback to backward
+    // extrap by current begin velocity over preintegration delta_t.
+    const double scan_dt = result.preintegration.delta_t > 0.0
+                               ? result.preintegration.delta_t
+                               : 0.1;
+    if (!state_history_.empty()) {
+      const auto& prev = state_history_.back().state;
+      cp_q[0] = {prev.frame.begin_pose.quat.x(), prev.frame.begin_pose.quat.y(),
+                 prev.frame.begin_pose.quat.z(),
+                 prev.frame.begin_pose.quat.w()};
+      cp_t[0] = {prev.frame.begin_pose.trans.x(),
+                 prev.frame.begin_pose.trans.y(),
+                 prev.frame.begin_pose.trans.z()};
+    } else {
+      const Eigen::Vector3d p0_t = result.state.frame.begin_pose.trans -
+                                   result.state.begin_velocity * scan_dt;
+      cp_q[0] = cp_q[1];
+      cp_t[0] = {p0_t.x(), p0_t.y(), p0_t.z()};
     }
+
+    // P3 at t=2: forward extrap by end velocity over scan_dt.
+    const Eigen::Vector3d p3_t = result.state.frame.end_pose.trans +
+                                 result.state.end_velocity * scan_dt;
+    cp_q[3] = cp_q[2];
+    cp_t[3] = {p3_t.x(), p3_t.y(), p3_t.z()};
 
     double begin_q[4] = {result.state.frame.begin_pose.quat.x(),
                          result.state.frame.begin_pose.quat.y(),

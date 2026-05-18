@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-18T22:35:08+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T00:18:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -108,6 +108,7 @@ The runner is responsible for:
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/ct_icp_kitti_raw_0009_nogt_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/ct_icp_kitti_raw_0061_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/ct_icp_kitti_raw_0061_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0061_matrix.json` |
+| CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames) | `ready` | `experiments/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` | `ct_icp` | `cauchy_2_0_reference` | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_full_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07 | `ready` | `experiments/ct_icp_kitti_seq_07_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |

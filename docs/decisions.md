@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-18T22:35:08+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T00:18:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -360,6 +360,21 @@ _Generated at 2026-05-18T22:35:08+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames)
+
+- Current default: `cauchy_2_0_reference`.
+- Active challengers: `cauchy_2_5`, `cauchy_3_0`.
+- Reference variants: `cauchy_1_5`, `cauchy_4_0`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| cauchy_2_0_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cauchy_1_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cauchy_3_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cauchy_4_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00
 

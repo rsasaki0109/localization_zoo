@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-05-18T13:50:33+00:00",
+  "manifest_path": "experiments/pending/ct_icp_mcd_ntu_day_02_ms_chol_matrix.json",
+  "problem": {
+    "id": "ct_icp_ms_chol_mcd_ntu_day_02",
+    "title": "CT-ICP ms_chol on MCD NTU day 02 (0.325 m baseline)",
+    "question": "MCD NTU has the best CT-ICP MCD baseline (0.325 m). Does ms_chol improve it?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_window_baseline",
+      "label": "Existing best (dense_window, 0.325 m)",
+      "design_style": "reference",
+      "intent": "Old CT-ICP best.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_ms_chol_matrix/dense_window_baseline/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_ms_chol_matrix/dense_window_baseline/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_ms_chol_matrix/dense_window_baseline/run.log",
+      "status": "ok",
+      "ate_m": 0.325263,
+      "rpe_trans_pct": 155.350284,
+      "rpe_rot_deg_per_m": 16.620838,
+      "fps": 25.769642,
+      "time_ms": 4190.977867,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 78.15,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "ms_chol",
+      "label": "ms_chol bundle",
+      "design_style": "ms_chol",
+      "intent": "Apply post-investigation findings.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_ms_chol_matrix/ms_chol/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_ms_chol_matrix/ms_chol/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_ms_chol_matrix/ms_chol/run.log",
+      "status": "ok",
+      "ate_m": 0.189184,
+      "rpe_trans_pct": 36.551056,
+      "rpe_rot_deg_per_m": 19.004921,
+      "fps": 26.260539,
+      "time_ms": 4112.63454,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

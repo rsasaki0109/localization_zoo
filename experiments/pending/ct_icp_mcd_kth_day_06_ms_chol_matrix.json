@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_ms_chol_mcd_kth_day_06",
+    "title": "CT-ICP ms_chol on MCD KTH day 06 (worst MCD baseline at 6.115 m)",
+    "question": "Does the post-investigation ms_chol bundle help the worst MCD CT-ICP baseline?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "dense_window_baseline",
+      "label": "Existing best (dense_window, 6.115 m)",
+      "design_style": "reference",
+      "intent": "Old CT-ICP best on MCD KTH.",
+      "args": ["--ct-icp-dense-profile"]
+    },
+    {
+      "id": "ms_chol",
+      "label": "ms_chol bundle (post-investigation)",
+      "design_style": "ms_chol",
+      "intent": "Apply CT-ICP investigation findings.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "ms_chol_max_frames_30",
+      "label": "ms_chol + max_frames=30",
+      "design_style": "indoor-like map",
+      "intent": "MCD is indoor handheld - test if HDL-400-like big map helps.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "30", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

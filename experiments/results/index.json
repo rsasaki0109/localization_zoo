@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T00:18:24+00:00",
+  "generated_at": "2026-05-19T01:06:05+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -288,6 +288,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_matrix.json",
       "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_02_full_c2f_without_ms_chol",
+      "title": "CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json",
+      "current_default": "baseline_reference"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_kitti_seq_07_full",

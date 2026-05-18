@@ -420,6 +420,44 @@ Coarse-to-fine is **NOT universal** and is exposed as opt-in flags rather than a
 
 `ms_chol` remains the universal default. The combo flagset is a recommended long-trajectory profile.
 
+### Cross-sequence generalization of coarse-to-fine (2026-05-18)
+
+After the KITTI 02 / 07 breakout, c2f and c2f+Gap C were validated on KITTI 00 / 05 / 08 to test whether the benefit tracks **trajectory length** or **motion profile**.
+
+| Seq | Frames | ms_chol ATE / RPE | c2f_only ATE / RPE (dATE / dRPE) | c2f + Gap C ATE / RPE (dATE / dRPE) |
+|----:|-------:|------------------:|---------------------------------:|------------------------------------:|
+|  00 | 4541 | 16.70 / 2.18 | 18.42 / 2.18 (**+10%** / 0%) | 18.24 / 2.13 (**+9%** / -2%) |
+|  02 | 4661 | 80.98 / 3.04 | 68.21 / 2.74 (**-16%** / **-10%**) | **62.65 / 2.89 (-23% / -5%)** |
+|  05 | 2761 | 14.18 / 1.28 | 13.65 / 1.31 (-4% / +2%) | **12.38 / 1.28 (-13% / 0%)** |
+|  07 | 1101 |  1.61 / 2.06 |  1.80 / 2.07 (**+12%** / +1%) | (skipped — c2f alone already regresses) |
+|  08 | 4071 | 35.50 / 2.10 | **32.51 / 2.12 (-8% / +1%)** | 34.76 / 2.11 (-2% / +1%) |
+
+**c2f benefit is motion-profile-specific, not trajectory-length-specific.** KITTI 00 (4541 frames) and KITTI 02 (4661 frames) are within 3% of each other in length, yet c2f helps 02 by -16% ATE and hurts 00 by +10% ATE. KITTI 05 (2761, medium length) shows the largest combo win after 02.
+
+Geom-mean across the 5 sequences:
+
+| Configuration | ATE_geom_mean | RPE_geom_mean | Paper RPE gap |
+|---|---:|---:|---:|
+| ms_chol baseline | 16.21 | 2.06 | **4.45x** |
+| c2f_only (universal) | 15.97 (-1.5%) | 2.03 | 4.41x |
+| c2f + Gap C (universal) | 15.59 (-3.8%) | 2.04 | 4.42x |
+| Selective per-seq best | 14.30 (-12%) | 2.02 | 4.39x |
+
+Universal c2f / combo barely move the paper RPE gap (4.45x → 4.41x) because the per-sequence wins are diluted by KITTI 00 / 07 regressions. A **selective per-seq best** picker (use ms_chol on 00 / 07, c2f+Gap C on 02 / 05, c2f only on 08) gives -12% geom-mean ATE.
+
+**Recommended production state**:
+
+| Trajectory profile | Recipe | Why |
+|---|---|---|
+| Default (unknown motion) | `ms_chol` | No regression on any sequence |
+| KITTI 02-like (highway / suburban long) | `--ct-icp-coarse-to-fine --ct-icp-min-distance-between-points 0.1` | ATE -23%, RPE -5% |
+| KITTI 05-like (medium urban) | same combo flagset | ATE -13%, RPE flat |
+| KITTI 08-like (long mixed) | `--ct-icp-coarse-to-fine` alone | ATE -8%, RPE flat |
+| KITTI 00-like (long urban dense loops) | `ms_chol` | c2f regresses by +10% |
+| KITTI 07-like (short urban) | `ms_chol` | c2f regresses by +12% |
+
+A future "dataset auto-tuner" could pick by inspecting first-N-frames velocity statistics, but that is out of scope for this session.
+
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
 
 After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:

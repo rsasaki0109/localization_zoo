@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T00:18:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T01:06:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -111,6 +111,7 @@ The runner is responsible for:
 | CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames) | `ready` | `experiments/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` | `ct_icp` | `cauchy_2_0_reference` | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_full_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
+| CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `experiments/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` | `ct_icp` | `baseline_reference` | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07 | `ready` | `experiments/ct_icp_kitti_seq_07_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `experiments/ct_icp_kitti_seq_07_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/ct_icp_mcd_kth_day_06_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |

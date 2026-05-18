@@ -411,19 +411,31 @@ CTLIORegistration::findCorrespondences(
     ct_icp::Voxel center = pointToVoxel(world_point, params_.voxel_resolution);
 
     std::vector<Eigen::Vector3d> neighbors;
-    for (int dx = -1; dx <= 1; ++dx) {
-      for (int dy = -1; dy <= 1; ++dy) {
-        for (int dz = -1; dz <= 1; ++dz) {
-          ct_icp::Voxel voxel{center.x + dx, center.y + dy, center.z + dz};
-          auto it = voxel_map_.find(voxel);
-          if (it == voxel_map_.end()) {
-            continue;
-          }
-          for (int k = 0; k < it->second.num_points; ++k) {
-            neighbors.push_back(it->second.points[k]);
+    auto gather_shell = [&](int radius) {
+      for (int dx = -radius; dx <= radius; ++dx) {
+        for (int dy = -radius; dy <= radius; ++dy) {
+          for (int dz = -radius; dz <= radius; ++dz) {
+            if (std::abs(dx) < radius && std::abs(dy) < radius &&
+                std::abs(dz) < radius)
+              continue;  // 小半径で収集済みのシェルを除外
+            ct_icp::Voxel voxel{center.x + dx, center.y + dy, center.z + dz};
+            auto it = voxel_map_.find(voxel);
+            if (it == voxel_map_.end()) {
+              continue;
+            }
+            for (int k = 0; k < it->second.num_points; ++k) {
+              neighbors.push_back(it->second.points[k]);
+            }
           }
         }
       }
+    };
+    gather_shell(0);
+    gather_shell(1);  // 3x3x3
+
+    if (params_.multi_scale_correspondences &&
+        static_cast<int>(neighbors.size()) < params_.knn) {
+      gather_shell(2);  // 5x5x5 fallback (CT-ICP ms_chol pattern)
     }
 
     if (static_cast<int>(neighbors.size()) < params_.knn) {

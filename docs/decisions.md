@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T10:46:12+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T11:14:35+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -544,6 +544,20 @@ _Generated at 2026-05-19T10:46:12+00:00 by `evaluation/scripts/run_experiment_ma
 | map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | map_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: map_size sweep on corr=8 winner
+
+- Current default: `map_20_reference`.
+- Active challengers: `map_15`.
+- Reference variants: `map_30`, `map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| map_20_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_15 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_30 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner
 

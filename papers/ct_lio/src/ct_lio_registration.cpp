@@ -574,8 +574,11 @@ CTLIOResult CTLIORegistration::registerFrame(
   }
 
   if (params_.use_bspline_trajectory) {
-    // Stage 1 B-spline path: 4 control points, lidar-only optimization.
-    // CP layout: P0 = P1 = begin_pose, P2 = P3 = end_pose initially.
+    // Stage 2 B-spline path: 4 control points + begin/end pose + IMU.
+    // Lidar cost operates on the 4 CPs via cumulative cubic SE3 B-spline.
+    // IMU/velocity/bias priors operate on begin/end pose (existing residuals).
+    // Anchor residuals tie spline T(0) ≈ begin_pose and T(1) ≈ end_pose so the
+    // two pose representations stay consistent.
     std::array<std::array<double, 4>, 4> cp_q;
     std::array<std::array<double, 3>, 4> cp_t;
     for (int i = 0; i < 4; ++i) {
@@ -585,25 +588,41 @@ CTLIOResult CTLIORegistration::registerFrame(
       cp_t[i] = {pose.trans.x(), pose.trans.y(), pose.trans.z()};
     }
 
-    const auto extractEndpoint = [&](double u, Eigen::Quaterniond* q_out,
-                                     Eigen::Vector3d* t_out) {
-      bspline::interpolateSe3<double>(
-          cp_q[0].data(), cp_t[0].data(), cp_q[1].data(), cp_t[1].data(),
-          cp_q[2].data(), cp_t[2].data(), cp_q[3].data(), cp_t[3].data(), u,
-          q_out, t_out);
-    };
+    double begin_q[4] = {result.state.frame.begin_pose.quat.x(),
+                         result.state.frame.begin_pose.quat.y(),
+                         result.state.frame.begin_pose.quat.z(),
+                         result.state.frame.begin_pose.quat.w()};
+    double begin_t[3] = {result.state.frame.begin_pose.trans.x(),
+                         result.state.frame.begin_pose.trans.y(),
+                         result.state.frame.begin_pose.trans.z()};
+    double end_q[4] = {result.state.frame.end_pose.quat.x(),
+                       result.state.frame.end_pose.quat.y(),
+                       result.state.frame.end_pose.quat.z(),
+                       result.state.frame.end_pose.quat.w()};
+    double end_t[3] = {result.state.frame.end_pose.trans.x(),
+                       result.state.frame.end_pose.trans.y(),
+                       result.state.frame.end_pose.trans.z()};
+    double begin_v[3] = {result.state.begin_velocity.x(),
+                         result.state.begin_velocity.y(),
+                         result.state.begin_velocity.z()};
+    double gyro_bias[3] = {result.state.gyro_bias.x(),
+                           result.state.gyro_bias.y(),
+                           result.state.gyro_bias.z()};
+    double accel_bias[3] = {result.state.accel_bias.x(),
+                            result.state.accel_bias.y(),
+                            result.state.accel_bias.z()};
+
+    constexpr double kAnchorWeight = 500.0;
 
     for (int iter = 0; iter < params_.max_iterations; ++iter) {
-      // Sync begin/end pose from spline T(0), T(1) so findCorrespondences sees
-      // the current trajectory.
-      Eigen::Quaterniond q0, q1;
-      Eigen::Vector3d tt0, tt1;
-      extractEndpoint(0.0, &q0, &tt0);
-      extractEndpoint(1.0, &q1, &tt1);
-      result.state.frame.begin_pose.quat = q0;
-      result.state.frame.begin_pose.trans = tt0;
-      result.state.frame.end_pose.quat = q1;
-      result.state.frame.end_pose.trans = tt1;
+      result.state.frame.begin_pose.quat =
+          Eigen::Quaterniond(begin_q[3], begin_q[0], begin_q[1], begin_q[2]);
+      result.state.frame.begin_pose.trans =
+          Eigen::Vector3d(begin_t[0], begin_t[1], begin_t[2]);
+      result.state.frame.end_pose.quat =
+          Eigen::Quaterniond(end_q[3], end_q[0], end_q[1], end_q[2]);
+      result.state.frame.end_pose.trans =
+          Eigen::Vector3d(end_t[0], end_t[1], end_t[2]);
 
       auto correspondences =
           findCorrespondences(keypoints, result.state.frame, iter);
@@ -611,6 +630,8 @@ CTLIOResult CTLIORegistration::registerFrame(
       if (correspondences.empty()) {
         break;
       }
+      const bool ct_coarse_phase =
+          params_.coarse_to_fine && iter < params_.coarse_iterations;
 
       ceres::Problem problem;
       for (int i = 0; i < 4; ++i) {
@@ -618,9 +639,25 @@ CTLIOResult CTLIORegistration::registerFrame(
         localization_zoo::SetEigenQuaternionManifold(problem, cp_q[i].data());
         problem.AddParameterBlock(cp_t[i].data(), 3);
       }
+      problem.AddParameterBlock(begin_q, 4);
+      localization_zoo::SetEigenQuaternionManifold(problem, begin_q);
+      problem.AddParameterBlock(begin_t, 3);
+      problem.AddParameterBlock(end_q, 4);
+      localization_zoo::SetEigenQuaternionManifold(problem, end_q);
+      problem.AddParameterBlock(end_t, 3);
+      problem.AddParameterBlock(begin_v, 3);
+      problem.AddParameterBlock(gyro_bias, 3);
+      problem.AddParameterBlock(accel_bias, 3);
+      if (!params_.estimate_imu_bias) {
+        problem.SetParameterBlockConstant(gyro_bias);
+        problem.SetParameterBlockConstant(accel_bias);
+      }
 
-      ceres::LossFunction* loss =
-          new ceres::CauchyLoss(params_.cauchy_loss_param);
+      double cauchy_sigma = params_.cauchy_loss_param;
+      if (ct_coarse_phase && params_.coarse_cauchy_sigma_mult > 0.0) {
+        cauchy_sigma *= params_.coarse_cauchy_sigma_mult;
+      }
+      ceres::LossFunction* loss = new ceres::CauchyLoss(cauchy_sigma);
       for (const auto& corr : correspondences) {
         const auto& point = keypoints[corr.point_idx];
         problem.AddResidualBlock(
@@ -630,6 +667,76 @@ CTLIOResult CTLIORegistration::registerFrame(
             loss, cp_q[0].data(), cp_t[0].data(), cp_q[1].data(),
             cp_t[1].data(), cp_q[2].data(), cp_t[2].data(), cp_q[3].data(),
             cp_t[3].data());
+      }
+
+      // Anchors: T(0) ≈ begin_pose, T(1) ≈ end_pose
+      problem.AddResidualBlock(
+          BsplineEndpointAnchorRotation::Create(0.0, kAnchorWeight), nullptr,
+          cp_q[0].data(), cp_q[1].data(), cp_q[2].data(), cp_q[3].data(),
+          begin_q);
+      problem.AddResidualBlock(
+          BsplineEndpointAnchorTranslation::Create(0.0, kAnchorWeight), nullptr,
+          cp_t[0].data(), cp_t[1].data(), cp_t[2].data(), cp_t[3].data(),
+          begin_t);
+      problem.AddResidualBlock(
+          BsplineEndpointAnchorRotation::Create(1.0, kAnchorWeight), nullptr,
+          cp_q[0].data(), cp_q[1].data(), cp_q[2].data(), cp_q[3].data(),
+          end_q);
+      problem.AddResidualBlock(
+          BsplineEndpointAnchorTranslation::Create(1.0, kAnchorWeight), nullptr,
+          cp_t[0].data(), cp_t[1].data(), cp_t[2].data(), cp_t[3].data(),
+          end_t);
+
+      if (result.preintegration.delta_t > 0.0) {
+        if (params_.imu_rotation_weight > 0.0) {
+          problem.AddResidualBlock(
+              IMURotationBiasPrior::Create(
+                  result.preintegration, initial_state.gyro_bias,
+                  params_.imu_rotation_weight),
+              nullptr, begin_q, end_q, gyro_bias);
+        }
+        if (params_.imu_translation_weight > 0.0) {
+          problem.AddResidualBlock(
+              IMUTranslationBiasPrior::Create(
+                  result.preintegration, initial_state.gyro_bias,
+                  initial_state.accel_bias, result.preintegration.delta_t,
+                  params_.gravity, params_.imu_translation_weight),
+              nullptr, begin_q, begin_t, end_t, begin_v, gyro_bias, accel_bias);
+        }
+      }
+
+      if (params_.velocity_prior_weight > 0.0) {
+        problem.AddResidualBlock(
+            VelocityPrior::Create(initial_state.begin_velocity,
+                                  params_.velocity_prior_weight),
+            nullptr, begin_v);
+      }
+      if (lagged_prior.valid && params_.fixed_lag_velocity_prior_weight > 0.0) {
+        problem.AddResidualBlock(
+            VelocityPrior::Create(lagged_prior.velocity,
+                                  params_.fixed_lag_velocity_prior_weight),
+            nullptr, begin_v);
+      }
+      const double bias_delta_t = result.preintegration.delta_t > 0.0
+                                      ? result.preintegration.delta_t
+                                      : 0.0;
+      const double gbpw =
+          params_.estimate_imu_bias
+              ? biasRandomWalkWeight(params_.gyro_bias_prior_weight, bias_delta_t)
+              : params_.gyro_bias_prior_weight;
+      const double abpw =
+          params_.estimate_imu_bias
+              ? biasRandomWalkWeight(params_.accel_bias_prior_weight, bias_delta_t)
+              : params_.accel_bias_prior_weight;
+      if (gbpw > 0.0) {
+        problem.AddResidualBlock(
+            BiasPrior::Create(initial_state.gyro_bias, gbpw), nullptr,
+            gyro_bias);
+      }
+      if (abpw > 0.0) {
+        problem.AddResidualBlock(
+            BiasPrior::Create(initial_state.accel_bias, abpw), nullptr,
+            accel_bias);
       }
 
       std::array<std::array<double, 3>, 4> prev_t = cp_t;
@@ -658,14 +765,20 @@ CTLIOResult CTLIORegistration::registerFrame(
       }
     }
 
-    Eigen::Quaterniond q_begin_final, q_end_final;
-    Eigen::Vector3d t_begin_final, t_end_final;
-    extractEndpoint(0.0, &q_begin_final, &t_begin_final);
-    extractEndpoint(1.0, &q_end_final, &t_end_final);
-    result.state.frame.begin_pose.quat = q_begin_final;
-    result.state.frame.begin_pose.trans = t_begin_final;
-    result.state.frame.end_pose.quat = q_end_final;
-    result.state.frame.end_pose.trans = t_end_final;
+    result.state.frame.begin_pose.quat =
+        Eigen::Quaterniond(begin_q[3], begin_q[0], begin_q[1], begin_q[2]);
+    result.state.frame.begin_pose.trans =
+        Eigen::Vector3d(begin_t[0], begin_t[1], begin_t[2]);
+    result.state.frame.end_pose.quat =
+        Eigen::Quaterniond(end_q[3], end_q[0], end_q[1], end_q[2]);
+    result.state.frame.end_pose.trans =
+        Eigen::Vector3d(end_t[0], end_t[1], end_t[2]);
+    result.state.begin_velocity =
+        Eigen::Vector3d(begin_v[0], begin_v[1], begin_v[2]);
+    result.state.gyro_bias =
+        Eigen::Vector3d(gyro_bias[0], gyro_bias[1], gyro_bias[2]);
+    result.state.accel_bias =
+        Eigen::Vector3d(accel_bias[0], accel_bias[1], accel_bias[2]);
 
     if (result.preintegration.delta_t > 0.0) {
       auto corrected = result.preintegration.correct(

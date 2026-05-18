@@ -2346,7 +2346,8 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
                       double coarse_cauchy_mult,
                       int max_frames_in_map,
                       int max_iterations,
-                      bool use_bspline_trajectory) {
+                      bool use_bspline_trajectory,
+                      double bspline_anchor_weight) {
   using namespace localization_zoo::ct_lio;
   MethodResult res;
   res.name = "CT-LIO";
@@ -2383,6 +2384,7 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
   params.coarse_planarity_threshold = coarse_planarity_threshold;
   params.coarse_cauchy_sigma_mult = coarse_cauchy_mult;
   params.use_bspline_trajectory = use_bspline_trajectory;
+  params.bspline_anchor_weight = bspline_anchor_weight;
   params.estimate_imu_bias = estimate_imu_bias;
   if (fixed_lag_state_window > 1) {
     params.fixed_lag_state_window = fixed_lag_state_window;
@@ -3412,6 +3414,7 @@ int main(int argc, char** argv) {
   double ct_lio_coarse_planarity_threshold = 0.02;
   double ct_lio_coarse_cauchy_mult = 2.0;
   bool ct_lio_bspline = false;
+  double ct_lio_bspline_anchor_weight = 500.0;
   int ct_lio_max_frames_in_map = 10;
   int ct_lio_max_iterations = 6;
   std::string summary_json_path;
@@ -3495,6 +3498,11 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-lio-bspline") {
       ct_lio_bspline = true;
+      continue;
+    }
+    if (arg == "--ct-lio-bspline-anchor-weight") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_bspline_anchor_weight = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--ct-lio-max-frames-in-map") {
@@ -5511,7 +5519,8 @@ int main(int argc, char** argv) {
                    ct_lio_coarse_cauchy_mult,
                    ct_lio_max_frames_in_map,
                    ct_lio_max_iterations,
-                   ct_lio_bspline));
+                   ct_lio_bspline,
+                   ct_lio_bspline_anchor_weight));
     }
   }
 

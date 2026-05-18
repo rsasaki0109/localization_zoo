@@ -2222,16 +2222,19 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
       }
     }
 
-    std::vector<Eigen::Vector3d> world;
-    for (auto& tp : timed)
-      world.push_back(result.frame.transformPoint(tp.raw_point, tp.timestamp));
-    reg.addPointsToMap(world);
+    // Skip map update on rollback: deskewing along an untrusted trajectory
+    // pollutes the voxel map and breaks subsequent correspondence search.
+    if (accepted) {
+      std::vector<Eigen::Vector3d> world;
+      for (auto& tp : timed)
+        world.push_back(result.frame.transformPoint(tp.raw_point, tp.timestamp));
+      reg.addPointsToMap(world);
+    }
 
     res.poses.push_back(T_refined);
     prev = result.frame;
     T_prev_prev_world = T_prev_world;
     T_prev_world = T_refined;
-    (void)accepted;
 
     if (i % 10 == 0)
       std::cerr << "\r  [CT-ICP] " << i << "/" << pcd_dirs.size();

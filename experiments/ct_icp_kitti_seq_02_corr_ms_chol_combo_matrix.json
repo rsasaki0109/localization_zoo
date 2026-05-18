@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_02_corr_ms_chol_combo",
+    "title": "CT-ICP seq 02 full: corr_dist + ms_chol combinations",
+    "question": "ms_chol alone hurts seq 02 (+43%). corr=8 alone helps (-10.4%). Does corr=8 + ms_chol break or improve 50.63 m?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "bare_corr_8_reference",
+      "label": "bare + corr=8 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 50.63 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "8"]
+    },
+    {
+      "id": "ms_chol_corr_8",
+      "label": "ms_chol + corr=8",
+      "design_style": "combo",
+      "intent": "Does corr=8 rescue the ms_chol regression on seq 02?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-max-correspondence-distance", "8"]
+    },
+    {
+      "id": "ms_chol_corr_5",
+      "label": "ms_chol + corr=5",
+      "design_style": "tighter combo",
+      "intent": "Probe slightly tighter — between 4 catastrophic and 8 winner.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-max-correspondence-distance", "5"]
+    }
+  ]
+}

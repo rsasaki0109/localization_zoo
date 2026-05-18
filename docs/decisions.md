@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T05:47:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T06:29:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -400,6 +400,21 @@ _Generated at 2026-05-19T05:47:38+00:00 by `evaluation/scripts/run_experiment_ma
 | iter_2 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | iter_4 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | iter_6 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner
+
+- Current default: `corr_8`.
+- Active challengers: `corr_default_reference`, `corr_16`.
+- Reference variants: `corr_4`, `corr_2`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_default_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_16 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_2 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)
 

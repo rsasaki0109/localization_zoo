@@ -213,6 +213,20 @@ The rollback count under gated-map is essentially unchanged from the map-polluti
 
 To make a gate work on CT-ICP, the seed must come from CT-ICP's own continuous-time extrapolation (extending the previous frame's begin→end pose) rather than a body-frame constant-velocity prior, or the gate threshold must adapt to recent inter-frame motion. Neither is small. The gated-map code stays (it does not hurt when gate is off), but the gate itself remains `false` by default and is not recommended.
 
+#### Native CT-ICP seed does not rescue the gate either
+
+A further follow-up replaced the velocity-model bootstrap with CT-ICP's own intra-scan delta (`T_pred = T_prev_end * (T_prev_begin^-1 * T_prev_end)`) behind `--ct-icp-native-seed`. The seed quality clearly improves — `gate_only + native-seed` cuts rollbacks 369 → 62 on KITTI 07 — but a single accepted rollback still corrupts `T_prev_world`, the next native-seed extrapolation amplifies the error, and the trajectory drifts to 1697 m ATE. Adding multi-scale + Cholesky on top makes things strictly worse: with stronger optimisation the refined pose legitimately moves further from any seed, so 986/1101 (90%) frames are rejected by even a generous gate.
+
+| Variant | ATE [m] | RPE [%] | FPS | Rollbacks |
+|---|---:|---:|---:|---:|
+| ms_chol_best (reference, no gate) | **1.61** | **2.06** | 11.5 | - |
+| native_seed_gate_only (2m/0.25) | 1697 (diverges) | 442 | 37.8 | 62 |
+| native_seed + paper-arch (2m/0.25) | NaN | NaN | 44.4 | 986 |
+| native_seed + paper-arch loose (3m/0.4) | NaN | NaN | 45.5 | 975 |
+| native_seed + paper-arch tight (1m/0.15) | NaN | NaN | 46.8 | 986 |
+
+This pins the root cause to the gate's *design*, not the seed: any LiTAMIN2/X-ICP-style "refined pose must stay near a predicted seed" check fundamentally conflicts with CT-ICP's value proposition, which is that the optimiser actively moves the trajectory away from the seed toward the data. The stronger the CT-ICP optimisation (multi-scale, Cholesky, more iterations), the larger the legitimate deviation, and the more the gate misfires. The gate code, native-seed flag (`--ct-icp-native-seed`), and gated-map logic all stay in the source for reproducibility, but **no gate variant is recommended for CT-ICP**. `ms_chol` (multi-scale + DENSE_NORMAL_CHOLESKY, gate off) is the production-recommended CT-ICP configuration.
+
 Cross-sequence generalization of the `ms_chol` bundle:
 
 | Seq | Paper RPE | Baseline RPE | ms_chol RPE | Baseline ATE | ms_chol ATE |

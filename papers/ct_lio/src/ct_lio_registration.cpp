@@ -1,6 +1,7 @@
 #include "ct_lio/ct_lio_registration.h"
 
 #include "ct_icp/cost_functions.h"
+#include "ct_lio/bspline.h"
 #include "ct_lio/cost_functions.h"
 
 #include <ceres/ceres.h>
@@ -570,6 +571,119 @@ CTLIOResult CTLIORegistration::registerFrame(
 
   for (auto& keypoint : keypoints) {
     keypoint.alpha = result.state.frame.getAlpha(keypoint.timestamp);
+  }
+
+  if (params_.use_bspline_trajectory) {
+    // Stage 1 B-spline path: 4 control points, lidar-only optimization.
+    // CP layout: P0 = P1 = begin_pose, P2 = P3 = end_pose initially.
+    std::array<std::array<double, 4>, 4> cp_q;
+    std::array<std::array<double, 3>, 4> cp_t;
+    for (int i = 0; i < 4; ++i) {
+      const auto& pose = (i < 2) ? result.state.frame.begin_pose
+                                 : result.state.frame.end_pose;
+      cp_q[i] = {pose.quat.x(), pose.quat.y(), pose.quat.z(), pose.quat.w()};
+      cp_t[i] = {pose.trans.x(), pose.trans.y(), pose.trans.z()};
+    }
+
+    const auto extractEndpoint = [&](double u, Eigen::Quaterniond* q_out,
+                                     Eigen::Vector3d* t_out) {
+      bspline::interpolateSe3<double>(
+          cp_q[0].data(), cp_t[0].data(), cp_q[1].data(), cp_t[1].data(),
+          cp_q[2].data(), cp_t[2].data(), cp_q[3].data(), cp_t[3].data(), u,
+          q_out, t_out);
+    };
+
+    for (int iter = 0; iter < params_.max_iterations; ++iter) {
+      // Sync begin/end pose from spline T(0), T(1) so findCorrespondences sees
+      // the current trajectory.
+      Eigen::Quaterniond q0, q1;
+      Eigen::Vector3d tt0, tt1;
+      extractEndpoint(0.0, &q0, &tt0);
+      extractEndpoint(1.0, &q1, &tt1);
+      result.state.frame.begin_pose.quat = q0;
+      result.state.frame.begin_pose.trans = tt0;
+      result.state.frame.end_pose.quat = q1;
+      result.state.frame.end_pose.trans = tt1;
+
+      auto correspondences =
+          findCorrespondences(keypoints, result.state.frame, iter);
+      result.num_correspondences = static_cast<int>(correspondences.size());
+      if (correspondences.empty()) {
+        break;
+      }
+
+      ceres::Problem problem;
+      for (int i = 0; i < 4; ++i) {
+        problem.AddParameterBlock(cp_q[i].data(), 4);
+        localization_zoo::SetEigenQuaternionManifold(problem, cp_q[i].data());
+        problem.AddParameterBlock(cp_t[i].data(), 3);
+      }
+
+      ceres::LossFunction* loss =
+          new ceres::CauchyLoss(params_.cauchy_loss_param);
+      for (const auto& corr : correspondences) {
+        const auto& point = keypoints[corr.point_idx];
+        problem.AddResidualBlock(
+            CTPointToPlaneBspline::Create(point.raw_point, corr.reference,
+                                          corr.normal, point.alpha,
+                                          corr.weight),
+            loss, cp_q[0].data(), cp_t[0].data(), cp_q[1].data(),
+            cp_t[1].data(), cp_q[2].data(), cp_t[2].data(), cp_q[3].data(),
+            cp_t[3].data());
+      }
+
+      std::array<std::array<double, 3>, 4> prev_t = cp_t;
+
+      ceres::Solver::Options options;
+      options.linear_solver_type = ceres::DENSE_QR;
+      options.max_num_iterations = params_.ceres_max_iterations;
+      options.trust_region_strategy_type = ceres::LEVENBERG_MARQUARDT;
+      options.minimizer_progress_to_stdout = false;
+      options.num_threads = 1;
+
+      ceres::Solver::Summary summary;
+      ceres::Solve(options, &problem, &summary);
+
+      double max_update = 0.0;
+      for (int i = 0; i < 4; ++i) {
+        const Eigen::Vector3d diff =
+            Eigen::Vector3d(cp_t[i][0], cp_t[i][1], cp_t[i][2]) -
+            Eigen::Vector3d(prev_t[i][0], prev_t[i][1], prev_t[i][2]);
+        max_update = std::max(max_update, diff.norm());
+      }
+      result.num_iterations = iter + 1;
+      if (max_update < params_.convergence_threshold) {
+        result.converged = true;
+        break;
+      }
+    }
+
+    Eigen::Quaterniond q_begin_final, q_end_final;
+    Eigen::Vector3d t_begin_final, t_end_final;
+    extractEndpoint(0.0, &q_begin_final, &t_begin_final);
+    extractEndpoint(1.0, &q_end_final, &t_end_final);
+    result.state.frame.begin_pose.quat = q_begin_final;
+    result.state.frame.begin_pose.trans = t_begin_final;
+    result.state.frame.end_pose.quat = q_end_final;
+    result.state.frame.end_pose.trans = t_end_final;
+
+    if (result.preintegration.delta_t > 0.0) {
+      auto corrected = result.preintegration.correct(
+          result.state.gyro_bias - initial_state.gyro_bias,
+          result.state.accel_bias - initial_state.accel_bias);
+      result.state.end_velocity =
+          result.state.begin_velocity + params_.gravity * corrected.delta_t +
+          result.state.frame.begin_pose.quat * corrected.delta_v;
+    } else {
+      result.state.end_velocity = result.state.begin_velocity;
+    }
+
+    rememberState(result.state, result.preintegration, initial_state.gyro_bias,
+                  initial_state.accel_bias, std::move(keypoints));
+    if (!state_history_.empty()) {
+      result.state = state_history_.back().state;
+    }
+    return result;
   }
 
   double begin_q[4] = {result.state.frame.begin_pose.quat.x(),

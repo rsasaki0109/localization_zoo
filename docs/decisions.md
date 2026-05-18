@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T03:35:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T04:18:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -437,6 +437,20 @@ _Generated at 2026-05-19T03:35:13+00:00 by `evaluation/scripts/run_experiment_ma
 | baseline_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | c2f_only_sigma | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | c2f_only_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
+
+- Current default: `map_15`.
+- Active challengers: `map_20_reference`, `map_10`.
+- Reference variants: `map_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner
 

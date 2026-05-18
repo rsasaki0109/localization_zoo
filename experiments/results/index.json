@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T09:11:21+00:00",
+  "generated_at": "2026-05-19T09:39:52+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -216,6 +216,15 @@
       "manifest_path": "experiments/ct_icp_istanbul_window_c_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_istanbul_window_c_matrix.json",
       "current_default": "balanced_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_corr_fine_grid",
+      "title": "CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m\u00b2)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_corr_fine_grid_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json",
+      "current_default": "corr_5"
     },
     {
       "problem_id": "ct_icp_kitti_map50_retrofit_seq_02",

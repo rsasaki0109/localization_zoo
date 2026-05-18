@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T05:08:05+00:00",
+  "generated_at": "2026-05-19T05:47:38+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -378,6 +378,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json",
       "current_default": "cauchy_3_0"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_full_coarse_iter_sweep",
+      "title": "CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json",
+      "current_default": "iter_6"
     },
     {
       "problem_id": "ct_icp_kitti_seq_08_map50_retrofit",

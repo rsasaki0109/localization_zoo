@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_full_coarse_iter_sweep",
+    "title": "CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner",
+    "question": "Current best (15.11 m) uses coarse_iterations=3. Untested axis — does 1/2/4/6 change ATE?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "iter_3_reference",
+      "label": "coarse_iter=3 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 15.11 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "iter_1",
+      "label": "coarse_iter=1",
+      "design_style": "fewer",
+      "intent": "Just 1 coarse iter — minimal warmup.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "1", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "iter_2",
+      "label": "coarse_iter=2",
+      "design_style": "fewer",
+      "intent": "1 less than reference.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "iter_4",
+      "label": "coarse_iter=4",
+      "design_style": "more",
+      "intent": "1 more.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "4", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "iter_6",
+      "label": "coarse_iter=6",
+      "design_style": "all-coarse",
+      "intent": "Coarse phase consumes all 6 outer iters — no fine phase.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "6", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    }
+  ]
+}

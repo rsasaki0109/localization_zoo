@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T05:08:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T05:47:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -528,6 +528,21 @@ _Generated at 2026-05-19T05:08:05+00:00 by `evaluation/scripts/run_experiment_ma
 | cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | cauchy_3_0 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cauchy_4_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner
+
+- Current default: `iter_6`.
+- Active challengers: `iter_3_reference`, `iter_1`, `iter_2`.
+- Reference variants: `iter_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| iter_3_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_1 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_2 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| iter_6 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 08 full: map=50 retrofit on c2f_only winner
 

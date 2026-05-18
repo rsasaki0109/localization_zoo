@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T12:28:49+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T13:08:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -571,6 +571,21 @@ _Generated at 2026-05-19T12:28:49+00:00 by `evaluation/scripts/run_experiment_ma
 | map_15 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | map_30 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 05 full: simplified recipes from bare + map=50
+
+- Current default: `bare_map_50_corr_4`.
+- Active challengers: `bare_map_50_reference`, `bare_map_50_iter_8`, `bare_map_50_voxel_05`.
+- Reference variants: `arch_tuned_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_map_50_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_50_corr_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| bare_map_50_iter_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_50_voxel_05 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| arch_tuned_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner
 

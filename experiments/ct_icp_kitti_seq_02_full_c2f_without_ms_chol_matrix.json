@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_02_full_c2f_without_ms_chol",
+    "title": "CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)",
+    "question": "ms_chol regresses on seq 02 (+43%). All existing c2f tests had ms_chol underneath. Does c2f-only (no ms_chol, no normal-cholesky) beat or hurt the 56.54 m baseline?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "baseline_reference",
+      "label": "dense + iter=6 + map=20 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 56.54 m baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "c2f_only_sigma",
+      "label": "+ c2f sigma_only (no ms_chol)",
+      "design_style": "c2f_only",
+      "intent": "Add c2f σ×2 but without ms_chol/normal-cholesky.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "c2f_only_full",
+      "label": "+ c2f full (radius+sigma+planarity, no ms_chol)",
+      "design_style": "c2f_only",
+      "intent": "Full c2f without ms_chol — test if planarity 0.02 still catastrophic here.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    }
+  ]
+}

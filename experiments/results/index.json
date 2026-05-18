@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T13:08:24+00:00",
+  "generated_at": "2026-05-19T13:50:00+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -477,6 +477,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_07_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_matrix.json",
       "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_c2f_alone",
+      "title": "CT-ICP seq 08 full: c2f without ms_chol \u2014 knob reduction probe",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_08_c2f_alone_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json",
+      "current_default": "c2f_only_reference"
     },
     {
       "problem_id": "ct_icp_kitti_seq_08_corr_dist_retrofit",

@@ -2338,12 +2338,20 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
                       double fixed_lag_history_decay,
                       int fixed_lag_outer_iterations,
                       bool fixed_lag_optimize_history,
-                      bool multi_scale_correspondences) {
+                      bool multi_scale_correspondences,
+                      bool coarse_to_fine,
+                      int coarse_iterations,
+                      int coarse_search_radius,
+                      double coarse_planarity_threshold,
+                      double coarse_cauchy_mult) {
   using namespace localization_zoo::ct_lio;
   MethodResult res;
   res.name = "CT-LIO";
   if (multi_scale_correspondences) {
     res.name += "+ms";
+  }
+  if (coarse_to_fine) {
+    res.name += "+c2f";
   }
   if (estimate_imu_bias) {
     res.name += "+bias";
@@ -2363,6 +2371,11 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
   params.keypoint_voxel_size = 1.0;
   params.max_frames_in_map = 10;
   params.multi_scale_correspondences = multi_scale_correspondences;
+  params.coarse_to_fine = coarse_to_fine;
+  params.coarse_iterations = coarse_iterations;
+  params.coarse_search_radius = coarse_search_radius;
+  params.coarse_planarity_threshold = coarse_planarity_threshold;
+  params.coarse_cauchy_sigma_mult = coarse_cauchy_mult;
   params.estimate_imu_bias = estimate_imu_bias;
   if (fixed_lag_state_window > 1) {
     params.fixed_lag_state_window = fixed_lag_state_window;
@@ -3386,6 +3399,11 @@ int main(int argc, char** argv) {
   bool ct_icp_gt_seed = false;
   bool ct_lio_estimate_bias = false;
   bool ct_lio_multi_scale = false;
+  bool ct_lio_coarse_to_fine = false;
+  int ct_lio_coarse_iterations = 2;
+  int ct_lio_coarse_search_radius = 2;
+  double ct_lio_coarse_planarity_threshold = 0.02;
+  double ct_lio_coarse_cauchy_mult = 2.0;
   std::string summary_json_path;
   int ct_lio_fixed_lag_window = 1;
   double ct_lio_fixed_lag_velocity_weight = 0.0;
@@ -3439,6 +3457,30 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-lio-multi-scale") {
       ct_lio_multi_scale = true;
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-to-fine") {
+      ct_lio_coarse_to_fine = true;
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-iterations") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_coarse_iterations = std::max(0, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-search-radius") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_coarse_search_radius = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-planarity-threshold") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_coarse_planarity_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-cauchy-mult") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_coarse_cauchy_mult = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--ct-lio-estimate-bias") {
@@ -5437,7 +5479,12 @@ int main(int argc, char** argv) {
                    ct_lio_fixed_lag_history_decay,
                    ct_lio_fixed_lag_outer_iterations,
                    ct_lio_fixed_lag_smoother,
-                   ct_lio_multi_scale));
+                   ct_lio_multi_scale,
+                   ct_lio_coarse_to_fine,
+                   ct_lio_coarse_iterations,
+                   ct_lio_coarse_search_radius,
+                   ct_lio_coarse_planarity_threshold,
+                   ct_lio_coarse_cauchy_mult));
     }
   }
 

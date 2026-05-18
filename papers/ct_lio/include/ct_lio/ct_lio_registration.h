@@ -41,6 +41,15 @@ struct CTLIOParams {
   // 3x3x3 (27 voxel) で neighbor が knn 未満のとき 5x5x5 (125 voxel) に拡張。
   // 既定 false で従来の 3x3x3 のみ。
   bool multi_scale_correspondences = false;
+
+  // c2f (coarse-to-fine) 2-phase schedule。CT-ICP round 8 で KITTI 02 ATE -16% を
+  // 実現したのと同じ機構。coarse phase で探索半径を coarse_search_radius まで
+  // 拡げ、planarity を緩める、Cauchy σ を coarse_cauchy_sigma_mult 倍する。
+  bool coarse_to_fine = false;
+  int coarse_iterations = 2;
+  int coarse_search_radius = 2;
+  double coarse_planarity_threshold = 0.02;
+  double coarse_cauchy_sigma_mult = 2.0;
 };
 
 struct CTLIOState {
@@ -102,7 +111,8 @@ private:
       const std::vector<ct_icp::TimedPoint>& points) const;
   std::vector<Correspondence> findCorrespondences(
       const std::vector<ct_icp::TimedPoint>& keypoints,
-      const ct_icp::TrajectoryFrame& frame) const;
+      const ct_icp::TrajectoryFrame& frame,
+      int outer_iter = 0) const;
   ct_icp::VoxelHashMap buildFrameMap(
       const std::vector<Eigen::Vector3d>& world_points) const;
   void rebuildMapFromWindow();

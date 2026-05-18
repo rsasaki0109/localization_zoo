@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T10:04:52+00:00",
+  "generated_at": "2026-05-19T10:46:12+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -279,6 +279,15 @@
       "manifest_path": "experiments/ct_icp_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_raw_0061_matrix.json",
       "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_corr_bare",
+      "title": "CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_corr_bare_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json",
+      "current_default": "bare_corr_8"
     },
     {
       "problem_id": "ct_icp_kitti_seq_00_full_cauchy_sweep",

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_corr_bare",
+    "title": "CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f)",
+    "question": "corr=5 won seq 00 atop the full ms_chol+c2f+map=50 recipe. Is the corr effect itself, or recipe-induced? Probe with bare baseline.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "bare_corr_default",
+      "label": "bare (dense + iter=6 + map=20) corr=default",
+      "design_style": "reference",
+      "intent": "Re-confirm 17.88 m baseline (no corr override).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "bare_corr_8",
+      "label": "bare + corr=8",
+      "design_style": "tighter",
+      "intent": "seq 02 winner corr setting.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "8"]
+    },
+    {
+      "id": "bare_corr_5",
+      "label": "bare + corr=5",
+      "design_style": "tighter",
+      "intent": "seq 00 fine-grid winner.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "5"]
+    },
+    {
+      "id": "bare_corr_4",
+      "label": "bare + corr=4 (paper-style)",
+      "design_style": "very tight",
+      "intent": "seq 05 winner / paper recipe.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "4"]
+    }
+  ]
+}

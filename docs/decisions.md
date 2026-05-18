@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T06:29:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T07:06:42+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -492,6 +492,18 @@ _Generated at 2026-05-19T06:29:23+00:00 by `evaluation/scripts/run_experiment_ma
 | arch_tuned_map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | arch_tuned_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner
+
+- Current default: `default_reference`.
+- Reference variants: `corr_8`, `corr_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
 
 - Current default: `fast_window`.
@@ -528,6 +540,19 @@ _Generated at 2026-05-19T06:29:23+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner
+
+- Current default: `default_reference`.
+- Active challengers: `corr_8`.
+- Reference variants: `corr_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames)
 

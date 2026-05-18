@@ -1,0 +1,102 @@
+{
+  "generated_at": "2026-05-18T12:41:33+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_full_max_frames_50_matrix.json",
+  "problem": {
+    "id": "ct_icp_max_frames_50_kitti_seq_07_full",
+    "title": "CT-ICP max_frames_in_map=50 on KITTI 07 (short trajectory check)",
+    "question": "CT-LIO Round 4 finding (max_frames 10->50 -35% ATE) transferred to CT-ICP HDL-400 (-21%). Does it also help CT-ICP KITTI 07 (short urban)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "ms_chol_max_frames_20",
+      "label": "ms_chol max_frames=20 (current best)",
+      "design_style": "reference",
+      "intent": "Current KITTI 07 baseline.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_max_frames_50_matrix/ms_chol_max_frames_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_max_frames_50_matrix/ms_chol_max_frames_20/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_max_frames_50_matrix/ms_chol_max_frames_20/run.log",
+      "status": "ok",
+      "ate_m": 1.607129,
+      "rpe_trans_pct": 2.057021,
+      "rpe_rot_deg_per_m": 0.019671,
+      "fps": 22.57412,
+      "time_ms": 48772.665062,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "ms_chol_max_frames_50",
+      "label": "ms_chol max_frames=50",
+      "design_style": "bigger map",
+      "intent": "Apply CT-LIO/HDL-400 insight.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_max_frames_50_matrix/ms_chol_max_frames_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_max_frames_50_matrix/ms_chol_max_frames_50/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_full_max_frames_50_matrix/ms_chol_max_frames_50/run.log",
+      "status": "ok",
+      "ate_m": 1.87793,
+      "rpe_trans_pct": 1.711048,
+      "rpe_rot_deg_per_m": 0.01853,
+      "fps": 20.181421,
+      "time_ms": 54555.126481,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 87.49,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

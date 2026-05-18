@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-18T22:05:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-18T22:35:08+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -35,7 +35,9 @@ _Generated at 2026-05-18T22:05:34+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_window` | 1.659 | 71.4 | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_window` | 6.972 | 37.6 | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_window` | 1.475 | 56.9 | `experiments/results/ct_icp_kitti_raw_0061_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `dense_window` | 16.778 | 77.7 | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `fast_window` | 1.851 | 74.9 | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07 | `ready` | `fast_window` | 3.794 | 74.9 | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `fast_window` | 0.390 | 77.3 | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_window` | 6.115 | 57.2 | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_window` | 0.325 | 60.0 | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
@@ -2031,6 +2033,66 @@ _Generated at 2026-05-18T22:05:34+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00
+
+- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_00_full`
+- **Question**: Which CT-ICP profile should stay as the current default on the full KITTI Odometry public dataset (sequence 00)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 21.423 | 40.9 | 65.5 | 5.00 | 5.00 | Keep as active challenger |
+| Fast window | throughput-oriented | 217.414 | 77.7 | 53.9 | 4.65 | 4.75 | Keep as reference variant |
+| Dense window | drift-oriented | 16.778 | 26.9 | 67.3 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `dense_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 77.7 FPS.
+3. `dense_window` is the most accurate observed variant at 16.778 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Keep the current repository default as the continuous-time baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fast_window`
+
+- Intent: Shrink the working set and point budget to improve FPS.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `dense_window`
+
+- Intent: Increase point density and window richness to preserve more structure.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
 
 - **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_00`
@@ -2086,6 +2148,66 @@ _Generated at 2026-05-18T22:05:34+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/summary.json --ct-icp-dense-profile`
 - Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/summary.json`
 - Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
+
+- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_07_full`
+- **Question**: Which CT-ICP profile should stay as the current default on the full KITTI Odometry public dataset (sequence 07)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 6.659 | 48.2 | 60.7 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 10.705 | 74.9 | 67.7 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 3.794 | 25.5 | 67.0 | 4.65 | 4.75 | Keep as active challenger |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 74.9 FPS.
+3. `dense_window` is the most accurate observed variant at 3.794 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Keep the current repository default as the continuous-time baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fast_window`
+
+- Intent: Shrink the working set and point budget to improve FPS.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `dense_window`
+
+- Intent: Increase point density and window richness to preserve more structure.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/dense_window/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).

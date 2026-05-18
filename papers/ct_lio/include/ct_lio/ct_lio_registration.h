@@ -50,6 +50,12 @@ struct CTLIOParams {
   int coarse_search_radius = 2;
   double coarse_planarity_threshold = 0.02;
   double coarse_cauchy_sigma_mult = 2.0;
+
+  // Stage 1 B-spline continuous-time trajectory. 4 control points (cumulative
+  // cubic SE3 B-spline per Sommer 2020). True for B-spline pose, false for the
+  // existing 2-pose SLERP interpolation. Stage 1 limitation: IMU pre-integration
+  // residuals are dropped when this flag is on — lidar-only optimization.
+  bool use_bspline_trajectory = false;
 };
 
 struct CTLIOState {

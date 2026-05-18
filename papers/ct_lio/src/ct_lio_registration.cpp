@@ -648,7 +648,7 @@ CTLIOResult CTLIORegistration::registerFrame(
                             result.state.accel_bias.y(),
                             result.state.accel_bias.z()};
 
-    constexpr double kAnchorWeight = 500.0;
+    const double kAnchorWeight = params_.bspline_anchor_weight;
 
     for (int iter = 0; iter < params_.max_iterations; ++iter) {
       result.state.frame.begin_pose.quat =

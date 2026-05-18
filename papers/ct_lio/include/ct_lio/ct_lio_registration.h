@@ -53,9 +53,11 @@ struct CTLIOParams {
 
   // Stage 1 B-spline continuous-time trajectory. 4 control points (cumulative
   // cubic SE3 B-spline per Sommer 2020). True for B-spline pose, false for the
-  // existing 2-pose SLERP interpolation. Stage 1 limitation: IMU pre-integration
-  // residuals are dropped when this flag is on — lidar-only optimization.
+  // existing 2-pose SLERP interpolation.
   bool use_bspline_trajectory = false;
+  // Anchor residual weight pulling spline T(0)/T(1) to begin/end pose blocks
+  // (which IMU pre-integration constrains). Higher = tighter coupling.
+  double bspline_anchor_weight = 500.0;
 };
 
 struct CTLIOState {

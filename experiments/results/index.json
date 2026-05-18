@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T06:29:23+00:00",
+  "generated_at": "2026-05-19T07:06:42+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -353,6 +353,15 @@
       "current_default": "arch_tuned_map_30"
     },
     {
+      "problem_id": "ct_icp_kitti_seq_07_corr_dist_retrofit",
+      "title": "CT-ICP seq 07 full: corr_dist=8 m\u00b2 retrofit on ms_chol winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json",
+      "current_default": "default_reference"
+    },
+    {
       "problem_id": "ct_icp_profile_tradeoff_kitti_seq_07_full",
       "title": "CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07",
       "status": "ready",
@@ -378,6 +387,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_07_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_matrix.json",
       "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_corr_dist_retrofit",
+      "title": "CT-ICP seq 08 full: corr_dist=8 m\u00b2 retrofit on c2f_only winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json",
+      "current_default": "default_reference"
     },
     {
       "problem_id": "ct_icp_kitti_seq_08_full_cauchy_sweep",

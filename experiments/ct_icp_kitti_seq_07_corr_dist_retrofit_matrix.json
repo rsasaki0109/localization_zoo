@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_07_corr_dist_retrofit",
+    "title": "CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner",
+    "question": "seq 00 found corr_dist=8 m² improves ATE -2.8%. Does it transfer to seq 07?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "default_reference",
+      "label": "ms_chol corr_dist=default (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 1.61 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "corr_8",
+      "label": "ms_chol + corr_dist=8 m²",
+      "design_style": "tighter",
+      "intent": "seq 00 finding retrofit.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-max-correspondence-distance", "8"]
+    },
+    {
+      "id": "corr_4",
+      "label": "ms_chol + corr_dist=4 m²",
+      "design_style": "tighter",
+      "intent": "Test seq 05's threshold here too.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-max-correspondence-distance", "4"]
+    }
+  ]
+}

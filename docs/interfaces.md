@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T02:41:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T03:35:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -103,6 +103,7 @@ The runner is responsible for:
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_b_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_c_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
+| CT-ICP seq 02 full: map=50 retrofit on bare baseline winner | `ready` | `experiments/ct_icp_kitti_map50_retrofit_matrix.json` | `ct_icp` | `baseline_map_20` | `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/ct_icp_kitti_raw_0009_full_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/ct_icp_kitti_raw_0009_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/ct_icp_kitti_raw_0009_nogt_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
@@ -113,9 +114,12 @@ The runner is responsible for:
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_full_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
 | CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `experiments/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` | `ct_icp` | `baseline_reference` | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
+| CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner | `ready` | `experiments/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` | `ct_icp` | `arch_tuned_map_30` | `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07 | `ready` | `experiments/ct_icp_kitti_seq_07_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
+| CT-ICP seq 07 full: map=50 retrofit on ms_chol winner | `ready` | `experiments/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` | `ct_icp` | `ms_chol_map_20` | `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `experiments/ct_icp_kitti_seq_07_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
 | CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames) | `ready` | `experiments/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json` | `ct_icp` | `cauchy_3_0` | `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json` |
+| CT-ICP seq 08 full: map=50 retrofit on c2f_only winner | `ready` | `experiments/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` | `ct_icp` | `c2f_only_map_20` | `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/ct_icp_mcd_kth_day_06_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/ct_icp_mcd_ntu_day_02_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ct_icp_mcd_tuhh_night_09_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |

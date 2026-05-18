@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_07_map50_retrofit",
+    "title": "CT-ICP seq 07 full: map=50 retrofit on ms_chol winner",
+    "question": "seq 07 ms_chol winner uses map=20 (1.61 m). Does map=50 retrofit help?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_map_20",
+      "label": "ms_chol map=20 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 1.61 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "ms_chol_map_50",
+      "label": "ms_chol map=50",
+      "design_style": "bigger map",
+      "intent": "seq 00 retrofit pattern.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

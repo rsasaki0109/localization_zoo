@@ -2343,7 +2343,9 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
                       int coarse_iterations,
                       int coarse_search_radius,
                       double coarse_planarity_threshold,
-                      double coarse_cauchy_mult) {
+                      double coarse_cauchy_mult,
+                      int max_frames_in_map,
+                      int max_iterations) {
   using namespace localization_zoo::ct_lio;
   MethodResult res;
   res.name = "CT-LIO";
@@ -2365,11 +2367,11 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
 
   CTLIOParams params;
   params.voxel_resolution = 1.0;
-  params.max_iterations = 6;
+  params.max_iterations = max_iterations;
   params.ceres_max_iterations = 2;
   params.planarity_threshold = 0.1;
   params.keypoint_voxel_size = 1.0;
-  params.max_frames_in_map = 10;
+  params.max_frames_in_map = max_frames_in_map;
   params.multi_scale_correspondences = multi_scale_correspondences;
   params.coarse_to_fine = coarse_to_fine;
   params.coarse_iterations = coarse_iterations;
@@ -3404,6 +3406,8 @@ int main(int argc, char** argv) {
   int ct_lio_coarse_search_radius = 2;
   double ct_lio_coarse_planarity_threshold = 0.02;
   double ct_lio_coarse_cauchy_mult = 2.0;
+  int ct_lio_max_frames_in_map = 10;
+  int ct_lio_max_iterations = 6;
   std::string summary_json_path;
   int ct_lio_fixed_lag_window = 1;
   double ct_lio_fixed_lag_velocity_weight = 0.0;
@@ -3481,6 +3485,16 @@ int main(int argc, char** argv) {
     if (arg == "--ct-lio-coarse-cauchy-mult") {
       if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
       ct_lio_coarse_cauchy_mult = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-lio-max-frames-in-map") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_max_frames_in_map = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-lio-max-iterations") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_max_iterations = std::max(1, std::stoi(argv[++i]));
       continue;
     }
     if (arg == "--ct-lio-estimate-bias") {
@@ -5484,7 +5498,9 @@ int main(int argc, char** argv) {
                    ct_lio_coarse_iterations,
                    ct_lio_coarse_search_radius,
                    ct_lio_coarse_planarity_threshold,
-                   ct_lio_coarse_cauchy_mult));
+                   ct_lio_coarse_cauchy_mult,
+                   ct_lio_max_frames_in_map,
+                   ct_lio_max_iterations));
     }
   }
 

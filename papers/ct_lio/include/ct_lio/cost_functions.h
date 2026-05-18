@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ct_lio/bspline.h"
 #include "imu_preintegration/imu_preintegration.h"
 
 #include <ceres/ceres.h>
@@ -323,6 +324,58 @@ struct OrientationDifferencePrior {
   }
 
   double weight_;
+};
+
+// CT Point-to-Plane cost using a cumulative cubic SE3 B-spline trajectory.
+// 8 parameter blocks: 4 control-point quaternions (XYZW, dim 4) and
+// 4 control-point translations (XYZ, dim 3). Residual is the signed
+// point-to-plane distance after interpolating the pose at the point's
+// alpha in [0, 1].
+struct CTPointToPlaneBspline {
+  CTPointToPlaneBspline(Eigen::Vector3d raw_point,
+                        Eigen::Vector3d reference_point,
+                        Eigen::Vector3d normal, double alpha, double weight)
+      : raw_point_(raw_point),
+        reference_point_(reference_point),
+        normal_(normal),
+        alpha_(alpha),
+        weight_(weight) {}
+
+  template <typename T>
+  bool operator()(const T* q0, const T* t0, const T* q1, const T* t1,
+                  const T* q2, const T* t2, const T* q3, const T* t3,
+                  T* residual) const {
+    const T u = T(alpha_);
+    Eigen::Quaternion<T> q_inter;
+    Eigen::Matrix<T, 3, 1> t_inter;
+    bspline::interpolateSe3<T>(q0, t0, q1, t1, q2, t2, q3, t3, u, &q_inter,
+                               &t_inter);
+
+    const Eigen::Matrix<T, 3, 1> raw{T(raw_point_.x()), T(raw_point_.y()),
+                                     T(raw_point_.z())};
+    const Eigen::Matrix<T, 3, 1> ref{T(reference_point_.x()),
+                                     T(reference_point_.y()),
+                                     T(reference_point_.z())};
+    const Eigen::Matrix<T, 3, 1> n{T(normal_.x()), T(normal_.y()),
+                                   T(normal_.z())};
+
+    const Eigen::Matrix<T, 3, 1> transformed = q_inter * raw + t_inter;
+    residual[0] = T(weight_) * n.dot(ref - transformed);
+    return true;
+  }
+
+  static ceres::CostFunction* Create(const Eigen::Vector3d& raw_point,
+                                     const Eigen::Vector3d& reference_point,
+                                     const Eigen::Vector3d& normal,
+                                     double alpha, double weight) {
+    return new ceres::AutoDiffCostFunction<
+        CTPointToPlaneBspline, 1, 4, 3, 4, 3, 4, 3, 4, 3>(
+        new CTPointToPlaneBspline(raw_point, reference_point, normal, alpha,
+                                  weight));
+  }
+
+  Eigen::Vector3d raw_point_, reference_point_, normal_;
+  double alpha_, weight_;
 };
 
 }  // namespace ct_lio

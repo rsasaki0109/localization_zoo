@@ -984,6 +984,13 @@ struct CTICPDogfoodingOptions {
   int pca_neighbor_count = 0;  // 0 で knn と同じ。paper は 20。
   // Pick 2 / Gap C: min-distance voxel insertion. 単位 m。0 で無効。paper は 0.1。
   double min_distance_between_points = 0.0;
+
+  // Coarse-to-fine 2-phase schedule.
+  bool coarse_to_fine = false;
+  int coarse_iterations = 3;
+  int coarse_search_radius = 2;
+  double coarse_planarity_threshold = 0.05;
+  double coarse_cauchy_sigma_mult = 2.0;
 };
 
 struct DLODofeedingOptions {
@@ -2165,6 +2172,11 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   params.use_closest_neighbor_reference = options.use_closest_neighbor_reference;
   params.pca_neighbor_count = options.pca_neighbor_count;
   params.min_distance_between_points = options.min_distance_between_points;
+  params.coarse_to_fine = options.coarse_to_fine;
+  params.coarse_iterations = options.coarse_iterations;
+  params.coarse_search_radius = options.coarse_search_radius;
+  params.coarse_planarity_threshold = options.coarse_planarity_threshold;
+  params.coarse_cauchy_sigma_mult = options.coarse_cauchy_sigma_mult;
   CTICPRegistration reg(params);
 
   auto frame_to_matrix = [](const TrajectoryFrame& f) {
@@ -4655,6 +4667,30 @@ int main(int argc, char** argv) {
     if (arg == "--ct-icp-min-distance-between-points") {
       if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
       ct_icp_options.min_distance_between_points = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-to-fine") {
+      ct_icp_options.coarse_to_fine = true;
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-iterations") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.coarse_iterations = std::max(0, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-search-radius") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.coarse_search_radius = std::max(2, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-planarity-threshold") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.coarse_planarity_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-cauchy-mult") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.coarse_cauchy_sigma_mult = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--ct-icp-cauchy-sigma") {

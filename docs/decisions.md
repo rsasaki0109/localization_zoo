@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T13:08:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T13:50:00+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -673,6 +673,19 @@ _Generated at 2026-05-19T13:08:24+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 08 full: c2f without ms_chol — knob reduction probe
+
+- Current default: `c2f_only_reference`.
+- Active challengers: `bare_c2f`, `ms_chol_c2f_no_cholesky`, `cholesky_c2f_no_ms`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| c2f_only_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| bare_c2f | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| ms_chol_c2f_no_cholesky | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cholesky_c2f_no_ms | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner
 

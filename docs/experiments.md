@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T18:35:58+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T19:58:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -41,6 +41,7 @@ _Generated at 2026-05-19T18:35:58+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames) | `ready` | `cauchy_2_0_reference` | 15.927 | 19.5 | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
 | CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner | `ready` | `iter_2` | 14.780 | 19.4 | `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` |
 | CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner | `ready` | `corr_8` | 14.363 | 18.0 | `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` |
+| CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified) | `ready` | `fine_sigma_0_375` | 12.694 | 14.9 | `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` |
 | CT-ICP map_size sweep on KITTI seq 00 full (4542 frames) | `ready` | `map_30` | 15.109 | 18.9 | `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `dense_window` | 16.778 | 77.7 | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP seq 00 full: leave-one-out ablation on full recipe | `ready` | `full_recipe_reference` | 13.322 | 20.6 | `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json` |
@@ -2508,6 +2509,90 @@ _Generated at 2026-05-19T18:35:58+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_2/run.log`
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_fine_cauchy_sweep`
+- **Question**: Cluster A simplified recipe (map=50 + c2f σ×2) wins seq 00 at 12.69 m using default fine σ=0.5. Does tightening or relaxing fine σ unlock further ATE improvement, or is σ=0.5 already optimal?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fine σ=0.5 (default, cluster A reference) | reference | 12.694 | 12.1 | 90.4 | 1.00 | 2.10 | Keep as active challenger |
+| fine σ=0.25 (tighter) | tighter | 13.366 | 9.9 | 80.8 | 1.00 | 1.70 | Keep as reference variant |
+| fine σ=0.375 (slightly tighter) | tighter | 13.907 | 14.2 | 93.2 | 1.00 | 1.70 | Adopt as current default |
+| fine σ=0.75 (softer) | softer | 15.484 | 14.9 | 91.0 | 1.00 | 1.70 | Keep as active challenger |
+| fine σ=1.0 (much softer) | softer | 16.386 | 14.9 | 88.7 | 1.00 | 1.70 | Keep as active challenger |
+
+### Observations
+
+1. `fine_sigma_0_375` is the current default for this problem.
+2. `fine_sigma_0_75` is the fastest observed variant at 14.9 FPS.
+3. `fine_sigma_default` is the most accurate observed variant at 12.694 m ATE.
+
+### Variant Notes
+
+#### `fine_sigma_default`
+
+- Intent: Confirm 12.69 m baseline at default fine σ.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_default/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_default/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_default/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fine_sigma_0_25`
+
+- Intent: Tighter outlier rejection in fine phase — does this reduce residual drift?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.25`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_25/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.25`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_25/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_25/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fine_sigma_0_375`
+
+- Intent: Midpoint between 0.25 and 0.5.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.375`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_375/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.375`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_375/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_375/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fine_sigma_0_75`
+
+- Intent: More tolerant fine phase — does this help long-trajectory drift?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.75`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_75/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.75`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_75/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_75/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fine_sigma_1_0`
+
+- Intent: Match coarse σ (1.0 = 0.5×2). Tests whether two phases can converge to similar tolerance.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 1.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_1_0/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 1.0`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_1_0/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_1_0/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 

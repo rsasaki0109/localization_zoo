@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T14:37:31+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T15:20:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -484,6 +484,20 @@ _Generated at 2026-05-19T14:37:31+00:00 by `evaluation/scripts/run_experiment_ma
 | minus_c2f | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | minus_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | minus_corr_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 00 full: map=50 + single partner knob isolation
+
+- Current default: `map_50_plus_c2f`.
+- Active challengers: `map_50_plus_ms_chol`.
+- Reference variants: `bare_map_50_reference`, `map_50_plus_corr_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_map_50_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| map_50_plus_ms_chol | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_50_plus_c2f | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_50_plus_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)
 

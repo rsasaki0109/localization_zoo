@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T09:39:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T10:04:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -117,6 +117,7 @@ The runner is responsible for:
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_full_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
 | CT-ICP seq 02 full: corr_dist sweep on bare baseline | `ready` | `experiments/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` | `ct_icp` | `corr_8` | `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` |
+| CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `experiments/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` | `ct_icp` | `corr_8_reference` | `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` |
 | CT-ICP seq 02 full: corr_dist + ms_chol combinations | `ready` | `experiments/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` | `ct_icp` | `bare_corr_8_reference` | `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` |
 | CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `experiments/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` | `ct_icp` | `baseline_reference` | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
 | CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |

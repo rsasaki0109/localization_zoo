@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T22:14:46+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2928,6 +2928,17 @@ _Generated at 2026-05-19T22:14:46+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory)
+
+- Current default: `cluster_t1_seeded`.
+- Reference variants: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence)
 

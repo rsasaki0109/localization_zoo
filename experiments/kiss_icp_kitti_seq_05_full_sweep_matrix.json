@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "kiss_icp_kitti_seq_05_full_sweep",
+    "title": "KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames)",
+    "question": "Does per-seq variability persist on mid-length seq 05?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "variants": [
+    {"id": "balanced_reference", "label": "balanced", "design_style": "reference", "intent": "Baseline.", "args": []},
+    {"id": "fast_profile", "label": "fast", "design_style": "throughput", "intent": "Fast.", "args": ["--kiss-fast-profile"]},
+    {"id": "dense_profile", "label": "dense", "design_style": "accuracy", "intent": "Dense.", "args": ["--kiss-dense-profile"]},
+    {"id": "t1_transfer_v05_i12", "label": "T1 v0.5+i12", "design_style": "transfer", "intent": "LiTAMIN2 T1.", "args": ["--kiss-voxel-size", "0.5", "--kiss-max-iterations", "12"]}
+  ]
+}

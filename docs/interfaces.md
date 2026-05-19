@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T23:15:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T23:40:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -264,7 +264,10 @@ The runner is responsible for:
 | KISS-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/kiss_icp_kitti_raw_0061_full_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/kiss_icp_kitti_raw_0061_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/kiss_icp_kitti_seq_00_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/kiss_icp_kitti_seq_02_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/kiss_icp_kitti_seq_05_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/kiss_icp_kitti_seq_07_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/kiss_icp_kitti_seq_08_full_sweep_matrix.json` | `kiss_icp` | `fast_profile` | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/kiss_icp_mcd_kth_day_06_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/kiss_icp_mcd_ntu_day_02_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/kiss_icp_mcd_tuhh_night_09_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
@@ -393,7 +396,10 @@ The runner is responsible for:
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/small_gicp_kitti_raw_0061_full_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_kitti_raw_0061_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/small_gicp_kitti_raw_0061_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_kitti_raw_0061_matrix.json` |
 | Small-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/small_gicp_kitti_seq_00_full_sweep_matrix.json` | `small_gicp` | `fast_profile` | `experiments/results/small_gicp_kitti_seq_00_full_sweep_matrix.json` |
+| Small-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/small_gicp_kitti_seq_02_full_sweep_matrix.json` | `small_gicp` | `fast_profile` | `experiments/results/small_gicp_kitti_seq_02_full_sweep_matrix.json` |
+| Small-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/small_gicp_kitti_seq_05_full_sweep_matrix.json` | `small_gicp` | `fast_profile` | `experiments/results/small_gicp_kitti_seq_05_full_sweep_matrix.json` |
 | Small-GICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/small_gicp_kitti_seq_07_full_sweep_matrix.json` | `small_gicp` | `fast_profile` | `experiments/results/small_gicp_kitti_seq_07_full_sweep_matrix.json` |
+| Small-GICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/small_gicp_kitti_seq_08_full_sweep_matrix.json` | `small_gicp` | `fast_profile` | `experiments/results/small_gicp_kitti_seq_08_full_sweep_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/small_gicp_mcd_kth_day_06_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/small_gicp_mcd_ntu_day_02_matrix.json` | `small_gicp` | `dense_recent_map` | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/small_gicp_mcd_tuhh_night_09_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
@@ -426,7 +432,10 @@ The runner is responsible for:
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/voxel_gicp_kitti_raw_0061_full_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/voxel_gicp_kitti_raw_0061_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0061_matrix.json` |
 | Voxel-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_00_full_sweep_matrix.json` | `voxel_gicp` | `dense_profile` | `experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json` |
+| Voxel-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_02_full_sweep_matrix.json` | `voxel_gicp` | `dense_profile` | `experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json` |
+| Voxel-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_05_full_sweep_matrix.json` | `voxel_gicp` | `dense_profile` | `experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json` |
 | Voxel-GICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_07_full_sweep_matrix.json` | `voxel_gicp` | `dense_profile` | `experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json` |
+| Voxel-GICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_08_full_sweep_matrix.json` | `voxel_gicp` | `dense_profile` | `experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/voxel_gicp_mcd_kth_day_06_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/voxel_gicp_mcd_ntu_day_02_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/voxel_gicp_mcd_tuhh_night_09_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |

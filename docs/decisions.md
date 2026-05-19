@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T21:49:22+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:55:22+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2815,6 +2815,20 @@ _Generated at 2026-05-19T21:49:22+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | tuned_voxel1_iter12 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed
+
+- Current default: `tuned_voxel2_iter12_seeded`.
+- Active challengers: `tuned_voxel0_5_iter12_seeded`.
+- Reference variants: `tuned_voxel1_iter12_seeded`, `tuned_voxel1_iter20_seeded`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| tuned_voxel1_iter12_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| tuned_voxel0_5_iter12_seeded | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| tuned_voxel2_iter12_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| tuned_voxel1_iter20_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence
 

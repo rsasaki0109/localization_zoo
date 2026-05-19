@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_raw_0009_200_recipes",
+    "title": "CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window",
+    "question": "0009_full had balanced_window winning 4.67 m, cluster A/D both regressed +14-17%. Does the 200-frame variant (balanced 1.66 m) show the same balanced-only winner pattern, or does the shorter window change the cluster?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_reference",
+      "label": "balanced_window (current best 1.66 m)",
+      "design_style": "reference",
+      "intent": "Confirm baseline.",
+      "args": []
+    },
+    {
+      "id": "cluster_a",
+      "label": "cluster A (map=50 + c2f σ×2)",
+      "design_style": "long-traj-recipe",
+      "intent": "Cluster A on 200-frame 0009.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "cluster_d_ms_chol",
+      "label": "cluster D (ms_chol)",
+      "design_style": "short-traj-recipe",
+      "intent": "ms_chol on 200-frame 0009.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

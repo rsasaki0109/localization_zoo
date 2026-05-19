@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T20:22:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:29:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -152,6 +152,7 @@ The runner is responsible for:
 | CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/ct_icp_mcd_ntu_day_02_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ct_icp_mcd_tuhh_night_09_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
 | CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window) | `ready` | `experiments/ct_icp_mulran_parkinglot_120_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mulran_parkinglot_120_matrix.json` |
+| CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full | `ready` | `experiments/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json` | `ct_icp` | `cluster_a_with_seed` | `experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json` |
 | CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence) | `ready` | `experiments/ct_icp_mulran_parkinglot_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mulran_parkinglot_full_matrix.json` |
 | CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_profile_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_profile_matrix.json` |
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `experiments/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` | `ct_lio` | `seed_only_fast` | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |

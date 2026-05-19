@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-05-19T21:55:40+00:00",
+  "manifest_path": "experiments/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json",
+  "problem": {
+    "id": "litamin2_kitti_seq_07_full_tuned_seeded",
+    "title": "LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full",
+    "question": "seq 00 cluster T1 winner: 0.731 m / 0.92% RPE. CT-ICP on seq 07 wins with cluster D (ms_chol 1.61 m). Does LiTAMIN2 cluster T1 dethrone CT-ICP cluster D on seq 07?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_seeded_reference",
+      "label": "fast + seed (baseline)",
+      "design_style": "reference",
+      "intent": "LiTAMIN2 fast baseline on seq 07.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/fast_seeded_reference/summary.json",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/fast_seeded_reference/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/fast_seeded_reference/run.log",
+      "status": "ok",
+      "ate_m": 0.83557,
+      "rpe_trans_pct": 1.039468,
+      "rpe_rot_deg_per_m": 0.011014,
+      "fps": 94.731232,
+      "time_ms": 11622.354934,
+      "frames": 1101,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 88.69,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "cluster_t1_seeded",
+      "label": "cluster T1: voxel=0.5 + iter=12 + seed",
+      "design_style": "transfer",
+      "intent": "Apply seq 00 winner to seq 07.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "0.5",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/cluster_t1_seeded/run.log",
+      "status": "ok",
+      "ate_m": 0.646534,
+      "rpe_trans_pct": 0.591077,
+      "rpe_rot_deg_per_m": 0.006834,
+      "fps": 58.293555,
+      "time_ms": 18887.16512,
+      "frames": 1101,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 80.77,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

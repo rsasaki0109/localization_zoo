@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T20:36:33+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:38:53+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -106,6 +106,7 @@ The runner is responsible for:
 | CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `experiments/ct_icp_kitti_corr_fine_grid_matrix.json` | `ct_icp` | `corr_5` | `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json` |
 | CT-ICP seq 02 full: map=50 retrofit on bare baseline winner | `ready` | `experiments/ct_icp_kitti_map50_retrofit_matrix.json` | `ct_icp` | `baseline_map_20` | `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/ct_icp_kitti_raw_0009_full_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames) | `ready` | `experiments/ct_icp_kitti_raw_0009_full_recipes_matrix.json` | `ct_icp` | `balanced_reference` | `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/ct_icp_kitti_raw_0009_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/ct_icp_kitti_raw_0009_nogt_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/ct_icp_kitti_raw_0061_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |

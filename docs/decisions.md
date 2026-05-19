@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T20:36:33+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:38:53+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -334,6 +334,18 @@ _Generated at 2026-05-19T20:36:33+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | fast_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames)
+
+- Current default: `balanced_reference`.
+- Reference variants: `cluster_a`, `cluster_d_ms_chol`.
+- Aggregate result: `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cluster_a | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_d_ms_chol | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 

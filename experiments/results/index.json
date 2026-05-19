@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T20:36:33+00:00",
+  "generated_at": "2026-05-19T20:38:53+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -243,6 +243,15 @@
       "manifest_path": "experiments/ct_icp_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_raw_0009_full_matrix.json",
       "current_default": "balanced_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_raw_0009_full_recipes",
+      "title": "CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_raw_0009_full_recipes_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json",
+      "current_default": "balanced_reference"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_kitti_raw_0009",

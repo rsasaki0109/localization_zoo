@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T21:36:54+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:46:06+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2781,6 +2781,20 @@ _Generated at 2026-05-19T21:36:54+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | fast_cov_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | fast_icp_only_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00
+
+- Current default: `fast_icp_only_half_threads`.
+- Active challengers: `fast_cov_half_threads`.
+- Reference variants: `paper_cov_half_threads`, `paper_icp_only_half_threads`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_00_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_cov_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fast_icp_only_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 

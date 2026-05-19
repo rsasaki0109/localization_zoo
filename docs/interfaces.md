@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T22:14:46+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -317,6 +317,7 @@ The runner is responsible for:
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/litamin2_mcd_ntu_day_02_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/litamin2_mcd_tuhh_night_09_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `experiments/litamin2_mulran_parkinglot_120_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_mulran_parkinglot_120_matrix.json` |
+| LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory) | `ready` | `experiments/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `experiments/litamin2_mulran_parkinglot_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mulran_parkinglot_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/litamin2_profile_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_profile_matrix.json` |
 | LOAM-Livox on the public HDL-400 reference window | `ready` | `experiments/loam_livox_hdl_400_reference_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_hdl_400_reference_matrix.json` |

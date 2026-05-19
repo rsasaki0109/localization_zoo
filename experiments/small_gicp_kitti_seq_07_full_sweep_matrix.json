@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "small_gicp_kitti_seq_07_full_sweep",
+    "title": "Small-GICP cluster discovery on KITTI Odom seq 07 full (1102 frames)",
+    "question": "Does LiTAMIN2 T1 (voxel=0.5 + iter=12) recipe pattern transfer to Small-GICP on KITTI Odom?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "small_gicp",
+    "primary_method": "Small-GICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_reference",
+      "label": "balanced (default)",
+      "design_style": "reference",
+      "intent": "Baseline.",
+      "args": []
+    },
+    {
+      "id": "fast_profile",
+      "label": "fast profile",
+      "design_style": "throughput",
+      "intent": "Fast profile.",
+      "args": ["--small-gicp-fast-profile"]
+    },
+    {
+      "id": "dense_profile",
+      "label": "dense profile",
+      "design_style": "accuracy",
+      "intent": "Dense profile.",
+      "args": ["--small-gicp-dense-profile"]
+    },
+    {
+      "id": "t1_transfer_v05_i12",
+      "label": "T1 transfer (voxel=0.5 + iter=12)",
+      "design_style": "transfer",
+      "intent": "LiTAMIN2 T1 recipe transfer.",
+      "args": ["--small-gicp-voxel-resolution", "0.5", "--small-gicp-max-iterations", "12"]
+    },
+    {
+      "id": "t1_transfer_v03_i12",
+      "label": "T1 transfer (voxel=0.3 + iter=12)",
+      "design_style": "transfer",
+      "intent": "Finer voxel variant.",
+      "args": ["--small-gicp-voxel-resolution", "0.3", "--small-gicp-max-iterations", "12"]
+    }
+  ]
+}

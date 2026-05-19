@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T22:19:34+00:00",
+  "generated_at": "2026-05-19T22:22:21+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1991,6 +1991,24 @@
       "current_default": "paper_icp_only_half_threads"
     },
     {
+      "problem_id": "litamin2_kitti_raw_0009_200_cluster_t1",
+      "title": "LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json",
+      "current_default": "cluster_t1_seeded"
+    },
+    {
+      "problem_id": "litamin2_kitti_raw_0009_full_cluster_t1",
+      "title": "LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json",
+      "current_default": "cluster_t1_seeded"
+    },
+    {
       "problem_id": "litamin2_profile_tradeoff_kitti_raw_0009_full",
       "title": "LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)",
       "status": "ready",
@@ -2016,6 +2034,24 @@
       "manifest_path": "experiments/litamin2_kitti_raw_0009_nogt_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json",
       "current_default": "paper_cov_half_threads"
+    },
+    {
+      "problem_id": "litamin2_kitti_raw_0061_200_cluster_t1",
+      "title": "LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json",
+      "current_default": "cluster_t1_seeded"
+    },
+    {
+      "problem_id": "litamin2_kitti_raw_0061_full_cluster_t1",
+      "title": "LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json",
+      "current_default": "cluster_t1_seeded"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_kitti_raw_0061_full",

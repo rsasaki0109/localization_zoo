@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-19T21:02:52+00:00",
+  "generated_at": "2026-05-19T21:05:28+00:00",
   "problems": [
     {
-      "problem_id": "ct_icp_mcd_ntu_day_02_seeded",
-      "title": "CT-ICP cluster A/D + GT seed on MCD NTU day_02 (108 frames)",
+      "problem_id": "ct_icp_mcd_tuhh_night_09_seeded",
+      "title": "CT-ICP cluster A/D + GT seed on MCD TUHH night_09 (108 frames)",
       "status": "ready",
       "blocker": "",
-      "manifest_path": "experiments/ct_icp_mcd_ntu_day_02_seeded_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_mcd_ntu_day_02_seeded_matrix.json",
+      "manifest_path": "experiments/ct_icp_mcd_tuhh_night_09_seeded_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_mcd_tuhh_night_09_seeded_matrix.json",
       "current_default": "dense_seeded_reference"
     }
   ]

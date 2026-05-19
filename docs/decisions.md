@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T16:52:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T17:26:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -795,6 +795,19 @@ _Generated at 2026-05-19T16:52:26+00:00 by `evaluation/scripts/run_experiment_ma
 | current_winner | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | simplified_seq_00_pattern | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | simplified_plus_corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base
+
+- Current default: `map_50_c2f_plus_corr_4`.
+- Active challengers: `current_winner`.
+- Reference variants: `map_50_c2f`.
+- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| current_winner | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_50_c2f | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| map_50_c2f_plus_corr_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 07 full: simplified map=50+c2f probe
 

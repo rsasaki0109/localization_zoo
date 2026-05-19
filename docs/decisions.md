@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-20T01:06:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -3484,6 +3484,21 @@ _Generated at 2026-05-20T01:06:10+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_coarse_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## NDT cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- Current default: `fast_profile`.
+- Active challengers: `t1_transfer_r05_i12`.
+- Reference variants: `balanced_reference`, `dense_profile`, `t1_transfer_r10_i12`.
+- Aggregate result: `experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| t1_transfer_r05_i12 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| t1_transfer_r10_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence
 

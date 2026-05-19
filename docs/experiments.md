@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -240,9 +240,13 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length) | `ready` | `fast_seeded_reference` | 0.751 | 17.2 | `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full | `ready` | `fast_seeded_reference` | 0.647 | 94.7 | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `fast_seeded_reference` | 0.696 | 104.9 | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames) | `ready` | `cluster_t1_seeded` | 0.192 | 33.0 | `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_icp_only_half_threads` | 0.401 | 113.0 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD NTU day_02 (108 frames) | `ready` | `cluster_t1_seeded` | 0.021 | 43.4 | `experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD TUHH night_09 (108 frames) | `ready` | `cluster_t1_seeded` | 0.132 | 39.5 | `experiments/results/litamin2_mcd_tuhh_night_09_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
+| LiTAMIN2 cluster T1 on MulRan parkinglot 120-frame | `ready` | `cluster_t1_seeded` | 0.212 | 39.0 | `experiments/results/litamin2_mulran_parkinglot_120_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_cov_half_threads` | 0.498 | 121.0 | `experiments/results/litamin2_mulran_parkinglot_120_matrix.json` |
 | LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory) | `ready` | `cluster_t1_seeded` | 0.303 | 34.4 | `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_icp_only_half_threads` | 0.711 | 118.6 | `experiments/results/litamin2_mulran_parkinglot_full_matrix.json` |
@@ -14567,6 +14571,54 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames)
+
+- **Problem ID**: `litamin2_mcd_kth_day_06_cluster_t1`
+- **Question**: MCD KTH baseline 6.115 m no-seed, CT-ICP cluster A + seed 2.40 m. Does LiTAMIN2 cluster T1 + seed dethrone?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.401 | 33.0 | 73.9 | 5.00 | 5.00 | Keep as active challenger |
+| cluster T1 + seed | transfer | 0.192 | 20.1 | 80.3 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 33.0 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.192 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `litamin2_profile_tradeoff_mcd_kth_day_06`
@@ -14637,6 +14689,54 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 cluster T1 on MCD NTU day_02 (108 frames)
+
+- **Problem ID**: `litamin2_mcd_ntu_day_02_cluster_t1`
+- **Question**: MCD NTU baseline 0.325 m no-seed (CT-ICP dense, seed hurts). LiTAMIN2 needs seed though — cluster T1 + seed transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.075 | 33.9 | 52.8 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.021 | 43.4 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 43.4 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.021 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence
@@ -14711,6 +14811,54 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
 
 
+## LiTAMIN2 cluster T1 on MCD TUHH night_09 (108 frames)
+
+- **Problem ID**: `litamin2_mcd_tuhh_night_09_cluster_t1`
+- **Question**: MCD TUHH baseline 1.65 m no-seed, CT-ICP cluster A + seed 0.83 m. LiTAMIN2 cluster T1 + seed transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mcd_tuhh_night_09_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.194 | 39.3 | 84.0 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.132 | 39.5 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 39.5 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.132 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence
 
 - **Problem ID**: `litamin2_profile_tradeoff_mcd_tuhh_night_09`
@@ -14781,6 +14929,54 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 cluster T1 on MulRan parkinglot 120-frame
+
+- **Problem ID**: `litamin2_mulran_parkinglot_120_cluster_t1`
+- **Question**: Cluster T1 wins parkinglot full at 0.303 m. Does it also win 120-frame variant where CT-ICP cluster A+seed got 2.55 m?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mulran_parkinglot_120_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 0.498 | 39.0 | 71.3 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.212 | 30.6 | 89.2 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 39.0 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.212 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer cluster T1.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
 ## LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)

@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -313,9 +313,13 @@ The runner is responsible for:
 | LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length) | `ready` | `experiments/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` | `litamin2` | `fast_seeded_reference` | `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full | `ready` | `experiments/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` | `litamin2` | `fast_seeded_reference` | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `experiments/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` | `litamin2` | `fast_seeded_reference` | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames) | `ready` | `experiments/litamin2_mcd_kth_day_06_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/litamin2_mcd_kth_day_06_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD NTU day_02 (108 frames) | `ready` | `experiments/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/litamin2_mcd_ntu_day_02_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD TUHH night_09 (108 frames) | `ready` | `experiments/litamin2_mcd_tuhh_night_09_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_mcd_tuhh_night_09_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/litamin2_mcd_tuhh_night_09_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
+| LiTAMIN2 cluster T1 on MulRan parkinglot 120-frame | `ready` | `experiments/litamin2_mulran_parkinglot_120_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_mulran_parkinglot_120_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `experiments/litamin2_mulran_parkinglot_120_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_mulran_parkinglot_120_matrix.json` |
 | LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory) | `ready` | `experiments/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `experiments/litamin2_mulran_parkinglot_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mulran_parkinglot_full_matrix.json` |

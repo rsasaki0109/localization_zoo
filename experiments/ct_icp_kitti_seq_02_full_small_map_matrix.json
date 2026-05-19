@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_02_full_small_map",
+    "title": "CT-ICP seq 02 full: small map_size sweep (5/10/15/20)",
+    "question": "seq 02 catastrophically rejects map=50 (+109%). Does it prefer SMALLER maps?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "map_20_reference",
+      "label": "baseline map=20 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 56.54 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "map_15",
+      "label": "baseline map=15",
+      "design_style": "smaller",
+      "intent": "Test if seq 02 wants tighter recency window.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "15"]
+    },
+    {
+      "id": "map_10",
+      "label": "baseline map=10",
+      "design_style": "smaller",
+      "intent": "Half the existing winner — probe seq 02 small-map regime.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "10"]
+    },
+    {
+      "id": "map_5",
+      "label": "baseline map=5",
+      "design_style": "extreme small",
+      "intent": "Extreme — likely too tight, but bounds the trend.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "5"]
+    }
+  ]
+}

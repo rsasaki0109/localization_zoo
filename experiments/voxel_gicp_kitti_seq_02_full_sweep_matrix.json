@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "voxel_gicp_kitti_seq_02_full_sweep",
+    "title": "Voxel-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames)",
+    "question": "Is dense_profile the universal winner on 4/4 seqs?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {"binary": "build/evaluation/pcd_dogfooding", "methods": "voxel_gicp", "primary_method": "Voxel-GICP"},
+  "variants": [
+    {"id": "balanced_reference", "label": "balanced", "design_style": "reference", "intent": "Baseline.", "args": []},
+    {"id": "fast_profile", "label": "fast", "design_style": "throughput", "intent": "Fast.", "args": ["--voxel-gicp-fast-profile"]},
+    {"id": "dense_profile", "label": "dense", "design_style": "accuracy", "intent": "Dense.", "args": ["--voxel-gicp-dense-profile"]},
+    {"id": "t1_transfer_v05_i12", "label": "T1 v0.5+i12", "design_style": "transfer", "intent": "LiTAMIN2 T1.", "args": ["--voxel-gicp-voxel-resolution", "0.5", "--voxel-gicp-max-iterations", "12"]}
+  ]
+}

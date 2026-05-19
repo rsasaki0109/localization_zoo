@@ -1,0 +1,145 @@
+{
+  "generated_at": "2026-05-19T23:40:45+00:00",
+  "manifest_path": "experiments/small_gicp_kitti_seq_08_full_sweep_matrix.json",
+  "problem": {
+    "id": "small_gicp_kitti_seq_08_full_sweep",
+    "title": "Small-GICP cluster discovery on KITTI Odom seq 08 full (4071 frames)",
+    "question": "Is fast_profile the universal ATE winner on 4/4 seqs?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "small_gicp",
+    "primary_method": "Small-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_reference",
+      "label": "balanced",
+      "design_style": "reference",
+      "intent": "Baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/summary.json",
+      "summary_path": "experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/run.log",
+      "status": "ok",
+      "ate_m": 1.166526,
+      "rpe_trans_pct": 1.632503,
+      "rpe_rot_deg_per_m": 0.011012,
+      "fps": 46.568364,
+      "time_ms": 87419.862109,
+      "frames": 4071,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 67.98,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_profile",
+      "label": "fast",
+      "design_style": "throughput",
+      "intent": "Fast.",
+      "args": [
+        "--small-gicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/summary.json --small-gicp-fast-profile",
+      "summary_path": "experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/run.log",
+      "status": "ok",
+      "ate_m": 0.85767,
+      "rpe_trans_pct": 1.575112,
+      "rpe_rot_deg_per_m": 0.013701,
+      "fps": 74.59494,
+      "time_ms": 54574.747622,
+      "frames": 4071,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_profile",
+      "label": "dense",
+      "design_style": "accuracy",
+      "intent": "Dense.",
+      "args": [
+        "--small-gicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/summary.json --small-gicp-dense-profile",
+      "summary_path": "experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 1.134644,
+      "rpe_trans_pct": 1.525447,
+      "rpe_rot_deg_per_m": 0.010033,
+      "fps": 36.039813,
+      "time_ms": 112958.409183,
+      "frames": 4071,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 61.95,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "t1_transfer_v05_i12",
+      "label": "T1 v0.5+i12",
+      "design_style": "transfer",
+      "intent": "LiTAMIN2 T1.",
+      "args": [
+        "--small-gicp-voxel-resolution",
+        "0.5",
+        "--small-gicp-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/summary.json --small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12",
+      "summary_path": "experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/run.log",
+      "status": "ok",
+      "ate_m": 1.173177,
+      "rpe_trans_pct": 1.662315,
+      "rpe_rot_deg_per_m": 0.011521,
+      "fps": 29.069281,
+      "time_ms": 140044.742407,
+      "frames": 4071,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 56.04,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

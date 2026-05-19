@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T16:52:26+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T17:26:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -141,6 +141,7 @@ The runner is responsible for:
 | CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner | `ready` | `experiments/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json` | `ct_icp` | `iter_6` | `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json` |
 | CT-ICP seq 08 full: map=50 retrofit on c2f_only winner | `ready` | `experiments/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` | `ct_icp` | `c2f_only_map_20` | `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` |
 | CT-ICP seq 02 full: simplified map=50+c2f probe | `ready` | `experiments/ct_icp_kitti_simplified_cross_seq_02_matrix.json` | `ct_icp` | `current_winner` | `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json` |
+| CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base | `ready` | `experiments/ct_icp_kitti_simplified_cross_seq_05_matrix.json` | `ct_icp` | `map_50_c2f_plus_corr_4` | `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json` |
 | CT-ICP seq 07 full: simplified map=50+c2f probe | `ready` | `experiments/ct_icp_kitti_simplified_cross_seq_07_matrix.json` | `ct_icp` | `current_winner` | `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json` |
 | CT-ICP seq 08 full: simplified map=50+c2f probe | `ready` | `experiments/ct_icp_kitti_simplified_cross_seq_08_matrix.json` | `ct_icp` | `simplified_seq_00_pattern` | `experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/ct_icp_mcd_kth_day_06_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |

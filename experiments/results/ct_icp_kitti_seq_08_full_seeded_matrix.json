@@ -1,0 +1,117 @@
+{
+  "generated_at": "2026-05-19T21:26:38+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_seq_08_full_seeded_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_08_full_seeded",
+    "title": "CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full",
+    "question": "seq 00 + seed shows sharpest ATE/RPE flip (ATE -61% / RPE +174%). Does seq 08 (4071 frames, similar length to seq 00) show the same long-distance seed flip pattern, or is seq 00 unique?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "cluster_a_no_seed_reference",
+      "label": "cluster A no seed (current best 27.85 m)",
+      "design_style": "reference",
+      "intent": "Confirm baseline.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/run.log",
+      "status": "ok",
+      "ate_m": 27.850333,
+      "rpe_trans_pct": 1.94929,
+      "rpe_rot_deg_per_m": 0.0246,
+      "fps": 15.210795,
+      "time_ms": 267638.876427,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 56.19,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_a_seeded",
+      "label": "cluster A + GT seed",
+      "design_style": "seeded",
+      "intent": "Does seq 08 also show ATE big-win / RPE big-loss?",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06",
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/run.log",
+      "status": "ok",
+      "ate_m": 6.02372,
+      "rpe_trans_pct": 9.132726,
+      "rpe_rot_deg_per_m": 0.113997,
+      "fps": 16.75923,
+      "time_ms": 242910.928385,
+      "frames": 4071,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 100.0,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.85,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

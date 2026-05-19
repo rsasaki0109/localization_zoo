@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T21:25:55+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:36:54+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -148,6 +148,7 @@ The runner is responsible for:
 | CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner | `ready` | `experiments/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json` | `ct_icp` | `default_reference` | `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json` |
 | CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames) | `ready` | `experiments/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json` | `ct_icp` | `cauchy_3_0` | `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json` |
 | CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner | `ready` | `experiments/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json` | `ct_icp` | `iter_6` | `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json` |
+| CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full | `ready` | `experiments/ct_icp_kitti_seq_08_full_seeded_matrix.json` | `ct_icp` | `cluster_a_seeded` | `experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json` |
 | CT-ICP seq 08 full: map=50 retrofit on c2f_only winner | `ready` | `experiments/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` | `ct_icp` | `c2f_only_map_20` | `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` |
 | CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base | `ready` | `experiments/ct_icp_kitti_seq_08_simplified_corr_matrix.json` | `ct_icp` | `default_reference` | `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json` |
 | CT-ICP seq 02 full: simplified map=50+c2f probe | `ready` | `experiments/ct_icp_kitti_simplified_cross_seq_02_matrix.json` | `ct_icp` | `current_winner` | `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json` |

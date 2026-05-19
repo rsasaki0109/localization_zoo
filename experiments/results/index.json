@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T21:25:55+00:00",
+  "generated_at": "2026-05-19T21:36:54+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -621,6 +621,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json",
       "current_default": "iter_6"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_full_seeded",
+      "title": "CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_08_full_seeded_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json",
+      "current_default": "cluster_a_seeded"
     },
     {
       "problem_id": "ct_icp_kitti_seq_08_map50_retrofit",

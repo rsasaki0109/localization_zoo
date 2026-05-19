@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-05-19T22:20:32+00:00",
+  "manifest_path": "experiments/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json",
+  "problem": {
+    "id": "litamin2_kitti_raw_0009_full_cluster_t1",
+    "title": "LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames)",
+    "question": "0009 is CT-ICP's 'own family' (balanced only winner 4.67 m). Does LiTAMIN2 cluster T1 still win or fall into a sub-cluster?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_seeded_reference",
+      "label": "fast + seed",
+      "design_style": "reference",
+      "intent": "Baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/summary.json",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/run.log",
+      "status": "ok",
+      "ate_m": 1.144528,
+      "rpe_trans_pct": 1.676459,
+      "rpe_rot_deg_per_m": 0.013643,
+      "fps": 46.272544,
+      "time_ms": 9573.711733,
+      "frames": 443,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 79.09,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_t1_seeded",
+      "label": "cluster T1 + seed",
+      "design_style": "transfer",
+      "intent": "Transfer.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "0.5",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/run.log",
+      "status": "ok",
+      "ate_m": 0.665834,
+      "rpe_trans_pct": 0.831886,
+      "rpe_rot_deg_per_m": 0.007438,
+      "fps": 40.219824,
+      "time_ms": 11014.468876,
+      "frames": 443,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 93.46,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

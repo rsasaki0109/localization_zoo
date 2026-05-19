@@ -1,0 +1,135 @@
+{
+  "generated_at": "2026-05-19T21:04:42+00:00",
+  "manifest_path": "experiments/ct_icp_mcd_kth_day_06_seeded_matrix.json",
+  "problem": {
+    "id": "ct_icp_mcd_kth_day_06_seeded",
+    "title": "CT-ICP cluster A/D + GT seed on MCD KTH day_06 (108 frames)",
+    "question": "MCD NTU + seed: +39% drift (self-anchoring scene). MulRan parkinglot + seed: -84% drift (drift-limit scene). KTH baseline is 6.12 m \u2014 is that drift-limited (seed helps) or self-anchoring (seed hurts)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+    "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_seeded_reference",
+      "label": "dense_window + GT seed",
+      "design_style": "reference",
+      "intent": "Seeded baseline. KTH no-seed was 6.115 m.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/dense_seeded_reference/summary.json --ct-icp-dense-profile --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/dense_seeded_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/dense_seeded_reference/run.log",
+      "status": "ok",
+      "ate_m": 2.778014,
+      "rpe_trans_pct": 17.675838,
+      "rpe_rot_deg_per_m": 1.581335,
+      "fps": 28.255376,
+      "time_ms": 3822.281483,
+      "frames": 108,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 93.22,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "cluster_a_seeded",
+      "label": "cluster A + GT seed",
+      "design_style": "transfer-seeded",
+      "intent": "Cluster A with seed.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06",
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_a_seeded/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_a_seeded/run.log",
+      "status": "ok",
+      "ate_m": 2.401156,
+      "rpe_trans_pct": 18.013204,
+      "rpe_rot_deg_per_m": 1.511838,
+      "fps": 15.70204,
+      "time_ms": 6878.087129,
+      "frames": 108,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 77.79,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.85,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_d_seeded",
+      "label": "cluster D (ms_chol) + GT seed",
+      "design_style": "alternative-seeded",
+      "intent": "ms_chol with seed.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_d_seeded/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_d_seeded/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_d_seeded/run.log",
+      "status": "ok",
+      "ate_m": 3.45828,
+      "rpe_trans_pct": 26.234888,
+      "rpe_rot_deg_per_m": 2.197064,
+      "fps": 24.082323,
+      "time_ms": 4484.617115,
+      "frames": 108,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 77.33,
+      "readability_score": 3.6,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.0,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

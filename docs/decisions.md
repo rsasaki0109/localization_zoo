@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T21:15:35+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:25:55+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -545,6 +545,17 @@ _Generated at 2026-05-19T21:15:35+00:00 by `evaluation/scripts/run_experiment_ma
 | radius_2_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | radius_3 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | radius_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full
+
+- Current default: `cluster_a_seeded`.
+- Reference variants: `cluster_a_no_seed_reference`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| cluster_a_no_seed_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_a_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 00 full: leave-one-out ablation on full recipe
 

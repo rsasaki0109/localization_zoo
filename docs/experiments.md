@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T17:26:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T18:00:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -67,6 +67,7 @@ _Generated at 2026-05-19T17:26:32+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames) | `ready` | `cauchy_3_0` | 32.511 | 19.2 | `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json` |
 | CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner | `ready` | `iter_6` | 32.511 | 13.6 | `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json` |
 | CT-ICP seq 08 full: map=50 retrofit on c2f_only winner | `ready` | `c2f_only_map_20` | 32.309 | 13.4 | `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` |
+| CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base | `ready` | `default_reference` | 27.850 | 15.7 | `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json` |
 | CT-ICP seq 02 full: simplified map=50+c2f probe | `ready` | `current_winner` | 50.635 | 21.8 | `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json` |
 | CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base | `ready` | `map_50_c2f_plus_corr_4` | 7.762 | 20.6 | `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json` |
 | CT-ICP seq 07 full: simplified map=50+c2f probe | `ready` | `current_winner` | 1.607 | 20.3 | `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json` |
@@ -4234,6 +4235,66 @@ _Generated at 2026-05-19T17:26:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_50/run.log`
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base
+
+- **Problem ID**: `ct_icp_kitti_seq_08_simplified_corr`
+- **Question**: seq 05 with same simplified base + corr=4 won by -11.6%. Does seq 08 benefit similarly?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| simplified (map=50 + c2f σ×2) — existing 27.85 m | reference | 27.850 | 15.7 | 100.0 | 1.00 | 2.10 | Adopt as current default |
+| + corr=4 (seq 05 pattern) | with corr | 40.458 | 12.9 | 75.4 | 1.00 | 1.70 | Keep as reference variant |
+| + corr=8 (seq 02 pattern) | with corr | 33.902 | 10.9 | 75.5 | 1.00 | 1.70 | Keep as reference variant |
+
+### Observations
+
+1. `default_reference` is the current default for this problem.
+2. `default_reference` is the fastest observed variant at 15.7 FPS.
+3. `default_reference` is the most accurate observed variant at 27.850 m ATE.
+
+### Variant Notes
+
+#### `default_reference`
+
+- Intent: Confirm 27.85 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/default_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/default_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/default_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `plus_corr_4`
+
+- Intent: Apply seq 05 partner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 4`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_4/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `plus_corr_8`
+
+- Intent: Test other corr regime.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_8/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 

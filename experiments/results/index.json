@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T11:14:35+00:00",
+  "generated_at": "2026-05-19T11:54:01+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -333,6 +333,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_full_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_matrix.json",
       "current_default": "dense_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_map_bare",
+      "title": "CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_map_bare_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json",
+      "current_default": "bare_map_30"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_kitti_seq_00",

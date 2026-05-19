@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T21:01:27+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:02:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -79,4 +79,4 @@ The runner is responsible for:
 
 | Problem | Status | Manifest | Selector | Current Default | Aggregate |
 |---------|--------|----------|----------|-----------------|-----------|
-| CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window | `ready` | `experiments/ct_icp_kitti_raw_0009_200_recipes_matrix.json` | `ct_icp` | `balanced_reference` | `experiments/results/ct_icp_kitti_raw_0009_200_recipes_matrix.json` |
+| CT-ICP cluster A/D + GT seed on MCD NTU day_02 (108 frames) | `ready` | `experiments/ct_icp_mcd_ntu_day_02_seeded_matrix.json` | `ct_icp` | `dense_seeded_reference` | `experiments/results/ct_icp_mcd_ntu_day_02_seeded_matrix.json` |

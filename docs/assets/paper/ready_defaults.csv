@@ -26,13 +26,59 @@ ct_icp,hdl_400_open_ct_lio_120_b,reference-based,fast_window,Fast window,1.21094
 ct_icp,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,dense_window,Dense window,1.254043,18.700985,experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json
 ct_icp,kitti_raw_0009_200,reference-based,fast_window,Fast window,2.728022,49.269108,experiments/results/ct_icp_kitti_raw_0009_matrix.json
 ct_icp,kitti_raw_0009_200,reference-based,balanced_window,Balanced window,1.659312,44.509873,experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json
+ct_icp,kitti_raw_0009_full,reference-based,balanced_reference,balanced_window (current best 4.67 m),4.673164,39.283142,experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json
 ct_icp,kitti_raw_0009_full,reference-based,balanced_window,Balanced window,4.673164,40.575491,experiments/results/ct_icp_kitti_raw_0009_full_matrix.json
 ct_icp,kitti_raw_0061_200,reference-based,fast_window,Fast window,1.474966,56.877472,experiments/results/ct_icp_kitti_raw_0061_matrix.json
+ct_icp,kitti_raw_0061_full,reference-based,fast_window_reference,fast_window (current best 6.97 m),6.972412,57.762810,experiments/results/ct_icp_kitti_raw_0061_full_recipes_matrix.json
 ct_icp,kitti_raw_0061_full,reference-based,fast_window,Fast window,6.972412,37.596966,experiments/results/ct_icp_kitti_raw_0061_full_matrix.json
+ct_icp,kitti_seq_00_108,reference-based,fast_window,Fast window,2.823569,74.875346,experiments/results/ct_icp_kitti_seq_00_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,cauchy_2_0_reference,c2f_sigma_only cauchy=2.0 (existing winner),15.927136,19.386781,experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,radius_2_reference,"coarse search radius=2 (5x5x5, cluster A default)",12.693924,16.193451,experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,fine_sigma_0_375,fine σ=0.375 (slightly tighter),13.906695,14.205008,experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,map_30,map=30,16.541149,17.986206,experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,iter_2,coarse_iter=2,14.780131,18.527921,experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,bare_corr_8,bare + corr=8,14.968271,22.332641,experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,default_reference,map=50 + c2f σ×2 (existing 12.69),12.693924,18.622346,experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,corr_5,corr=5,13.321868,15.454581,experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,full_recipe_reference,full recipe (existing 13.32 m),13.321868,18.669866,experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,map_50_plus_c2f,map=50 + c2f σ×2 (no ms_chol),12.693924,18.712061,experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,bare_map_30,bare map=30,15.803258,18.688678,experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,corr_8,corr_dist=8 m² (2.8 m linear),14.362790,17.458595,experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json
+ct_icp,kitti_seq_00_full,reference-based,dense_window,Dense window,16.778235,26.908344,experiments/results/ct_icp_kitti_seq_00_full_matrix.json
+ct_icp,kitti_seq_02_full,reference-based,baseline_reference,dense + iter=6 + map=20 (existing winner),56.537125,16.799990,experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json
+ct_icp,kitti_seq_02_full,reference-based,bare_corr_8_reference,bare + corr=8 (existing winner),50.634645,21.638626,experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json
+ct_icp,kitti_seq_02_full,reference-based,corr_8,baseline + corr_dist=8 m²,50.634645,16.371496,experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json
+ct_icp,kitti_seq_02_full,reference-based,corr_8_reference,corr=8 (existing seq 02 winner),50.634645,17.235108,experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json
+ct_icp,kitti_seq_02_full,reference-based,baseline_map_20,baseline (dense + iter=6 + map=20),56.537125,19.931597,experiments/results/ct_icp_kitti_map50_retrofit_matrix.json
+ct_icp,kitti_seq_02_full,reference-based,map_20_reference,corr=8 + map=20 (existing winner),50.634645,18.015199,experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json
+ct_icp,kitti_seq_02_full,reference-based,current_winner,bare + corr=8 (existing seq 02 winner),50.634645,21.797959,experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json
+ct_icp,kitti_seq_02_full,reference-based,map_15,baseline map=15,66.558481,19.086301,experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json
+ct_icp,kitti_seq_05_full,reference-based,map_50_c2f_plus_corr_4,map=50 + c2f σ×2 + corr=4 (combine both),7.762245,18.920339,experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json
+ct_icp,kitti_seq_05_full,reference-based,corr_4_reference,arch_tuned corr=4 (existing winner),9.096654,15.743063,experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json
+ct_icp,kitti_seq_05_full,reference-based,arch_tuned_map_30,arch_tuned map=30 (existing winner),9.096654,18.291419,experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json
+ct_icp,kitti_seq_05_full,reference-based,bare_map_50,bare map=50,9.336558,18.006361,experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json
+ct_icp,kitti_seq_05_full,reference-based,bare_map_50_corr_4,bare + map=50 + corr=4,8.782974,19.677123,experiments/results/ct_icp_kitti_seq_05_combo_matrix.json
+ct_icp,kitti_seq_07_108,reference-based,fast_window,Fast window,0.978124,77.324543,experiments/results/ct_icp_kitti_seq_07_matrix.json
+ct_icp,kitti_seq_07_full,reference-based,default_reference,ms_chol corr_dist=default (existing winner),1.607129,16.984437,experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json
+ct_icp,kitti_seq_07_full,reference-based,ms_chol_map_20,ms_chol map=20 (existing winner),1.607129,19.697388,experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json
+ct_icp,kitti_seq_07_full,reference-based,ms_chol_reference,ms_chol (existing 1.61 m),1.607129,14.850849,experiments/results/ct_icp_kitti_seq_07_combo_matrix.json
+ct_icp,kitti_seq_07_full,reference-based,current_winner,ms_chol (existing seq 07 winner),1.607129,20.265386,experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json
+ct_icp,kitti_seq_07_full,reference-based,fast_window,Fast window,10.704980,74.864735,experiments/results/ct_icp_kitti_seq_07_full_matrix.json
+ct_icp,kitti_seq_08_full,reference-based,cauchy_3_0,cauchy=3.0,34.397085,18.443438,experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json
+ct_icp,kitti_seq_08_full,reference-based,c2f_only_reference,c2f_only = ms_chol + c2f (existing winner),32.511038,17.873803,experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json
+ct_icp,kitti_seq_08_full,reference-based,iter_6,coarse_iter=6,35.597744,13.629574,experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json
+ct_icp,kitti_seq_08_full,reference-based,default_reference,simplified (map=50 + c2f σ×2) — existing 27.85 m,27.850333,15.737079,experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json
+ct_icp,kitti_seq_08_full,reference-based,default_reference,c2f_only corr_dist=default (existing winner),32.511038,17.354960,experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json
+ct_icp,kitti_seq_08_full,reference-based,c2f_only_map_20,c2f_only map=20 (existing winner),32.511038,13.441250,experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json
+ct_icp,kitti_seq_08_full,reference-based,simplified_seq_00_pattern,map=50 + c2f σ×2 (no ms_chol),27.850333,18.334631,experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json
+ct_icp,mcd_kth_day_06_108,reference-based,dense_reference,dense_window only (current best 6.12 m),6.114585,17.963315,experiments/results/ct_icp_mcd_kth_day_06_recipes_matrix.json
 ct_icp,mcd_kth_day_06_108,reference-based,fast_window,Fast window,6.524810,57.236695,experiments/results/ct_icp_mcd_kth_day_06_matrix.json
+ct_icp,mcd_ntu_day_02_108,reference-based,dense_reference,dense_window (current best 0.325 m),0.325263,21.876931,experiments/results/ct_icp_mcd_ntu_day_02_recipes_matrix.json
 ct_icp,mcd_ntu_day_02_108,reference-based,dense_window,Dense window,0.325263,18.615633,experiments/results/ct_icp_mcd_ntu_day_02_matrix.json
+ct_icp,mcd_tuhh_night_09_108,reference-based,dense_reference,dense_window (current best 1.65 m),1.652374,22.796122,experiments/results/ct_icp_mcd_tuhh_night_09_recipes_matrix.json
 ct_icp,mcd_tuhh_night_09_108,reference-based,fast_window,Fast window,3.552540,51.379223,experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json
 ct_icp,mulran_parkinglot_120,reference-based,fast_window,Fast window,16.474292,74.718714,experiments/results/ct_icp_mulran_parkinglot_120_matrix.json
+ct_icp,mulran_parkinglot_full,reference-based,cluster_a_with_seed,cluster A (map=50 + c2f σ×2) + GT seed,9.185784,14.577309,experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json
 ct_icp,mulran_parkinglot_full,reference-based,fast_window,Fast window,80.958211,59.749697,experiments/results/ct_icp_mulran_parkinglot_full_matrix.json
 ct_lio,hdl_400_open_ct_lio_120,reference-based,seed_only_fast,Seed-only fast,0.488244,17.477206,experiments/results/ct_lio_reference_profile_matrix.json
 ct_lio,hdl_400_ros1_open_ct_lio_120_time_index,reference-based,seed_only_fast,Seed-only fast,0.479317,19.561344,experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json

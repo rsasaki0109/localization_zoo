@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_raw_0009_full_recipes",
+    "title": "CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames)",
+    "question": "0009_full has balanced_window 4.67 m winning over dense 5.66 m and fast 5.85 m. 0061_full just became a cluster D winner. Does 0009 join cluster D, cluster A, or a new cluster?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_reference",
+      "label": "balanced_window (current best 4.67 m)",
+      "design_style": "reference",
+      "intent": "Confirm 4.67 m baseline.",
+      "args": []
+    },
+    {
+      "id": "cluster_a",
+      "label": "cluster A (map=50 + c2f σ×2)",
+      "design_style": "long-traj-recipe",
+      "intent": "Cluster A on 447-frame raw scene.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "cluster_d_ms_chol",
+      "label": "cluster D (ms_chol)",
+      "design_style": "short-traj-recipe",
+      "intent": "ms_chol on 447-frame raw scene — joins cluster D like 0061 and seq 07?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

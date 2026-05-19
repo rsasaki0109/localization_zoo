@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T20:36:33+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:38:53+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -33,6 +33,7 @@ _Generated at 2026-05-19T20:36:33+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `corr_5` | 13.322 | 17.3 | `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json` |
 | CT-ICP seq 02 full: map=50 retrofit on bare baseline winner | `ready` | `baseline_map_20` | 56.537 | 19.9 | `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `balanced_window` | 4.673 | 44.9 | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames) | `ready` | `balanced_reference` | 4.673 | 39.3 | `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_window` | 1.659 | 49.3 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_window` | 1.659 | 71.4 | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_window` | 6.972 | 37.6 | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
@@ -1952,6 +1953,66 @@ _Generated at 2026-05-19T20:36:33+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
+
+
+## CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames)
+
+- **Problem ID**: `ct_icp_kitti_raw_0009_full_recipes`
+- **Question**: 0009_full has balanced_window 4.67 m winning over dense 5.66 m and fast 5.85 m. 0061_full just became a cluster D winner. Does 0009 join cluster D, cluster A, or a new cluster?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced_window (current best 4.67 m) | reference | 4.673 | 39.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 5.479 | 18.5 | 66.2 | 1.00 | 2.10 | Keep as reference variant |
+| cluster D (ms_chol) | short-traj-recipe | 5.312 | 25.1 | 76.0 | 3.95 | 4.25 | Keep as reference variant |
+
+### Observations
+
+1. `balanced_reference` is the current default for this problem.
+2. `balanced_reference` is the fastest observed variant at 39.3 FPS.
+3. `balanced_reference` is the most accurate observed variant at 4.673 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Confirm 4.67 m baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a`
+
+- Intent: Cluster A on 447-frame raw scene.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_ms_chol`
+
+- Intent: ms_chol on 447-frame raw scene — joins cluster D like 0061 and seq 07?
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_d_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_d_ms_chol/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
 ## CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)

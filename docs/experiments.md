@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T18:00:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T18:35:58+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -58,6 +58,7 @@ _Generated at 2026-05-19T18:00:32+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner | `ready` | `corr_4_reference` | 9.097 | 18.7 | `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` |
 | CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner | `ready` | `arch_tuned_map_30` | 9.097 | 18.5 | `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` |
 | CT-ICP seq 05 full: map_size on BARE baseline | `ready` | `bare_map_50` | 9.337 | 20.0 | `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json` |
+| CT-ICP seq 07 full: ms_chol + simplified pattern combo | `ready` | `ms_chol_reference` | 1.607 | 15.8 | `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json` |
 | CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner | `ready` | `default_reference` | 1.607 | 19.8 | `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07 | `ready` | `fast_window` | 3.794 | 74.9 | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
 | CT-ICP seq 07 full: map=50 retrofit on ms_chol winner | `ready` | `ms_chol_map_20` | 1.607 | 19.7 | `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` |
@@ -3659,6 +3660,66 @@ _Generated at 2026-05-19T18:00:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_50/run.log`
 - Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 07 full: ms_chol + simplified pattern combo
+
+- **Problem ID**: `ct_icp_kitti_seq_07_combo`
+- **Question**: ms_chol alone = 1.61 m. seq 00/08 cluster A pattern = map=50 + c2f σ×2. Does the combination help on seq 07?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| ms_chol (existing 1.61 m) | reference | 1.607 | 14.9 | 97.1 | 2.75 | 3.45 | Adopt as current default |
+| ms_chol + c2f σ×2 (no map=50 change) | combo | 2.409 | 15.8 | 83.4 | 1.00 | 1.60 | Keep as reference variant |
+| ms_chol + map=50 + c2f σ×2 (full combo) | combo | 1.783 | 14.3 | 90.5 | 1.00 | 1.60 | Keep as active challenger |
+
+### Observations
+
+1. `ms_chol_reference` is the current default for this problem.
+2. `ms_chol_plus_c2f` is the fastest observed variant at 15.8 FPS.
+3. `ms_chol_reference` is the most accurate observed variant at 1.607 m ATE.
+
+### Variant Notes
+
+#### `ms_chol_reference`
+
+- Intent: Confirm seq 07 winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_reference/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `ms_chol_plus_c2f`
+
+- Intent: Add c2f without changing map_size.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_c2f/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_c2f/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_c2f/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `ms_chol_plus_simplified_a`
+
+- Intent: Full Cluster A pattern stacked on ms_chol.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_simplified_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_simplified_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_simplified_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 

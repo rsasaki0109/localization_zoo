@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T18:00:32+00:00",
+  "generated_at": "2026-05-19T18:35:58+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -468,6 +468,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_05_map_bare_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json",
       "current_default": "bare_map_50"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_07_combo",
+      "title": "CT-ICP seq 07 full: ms_chol + simplified pattern combo",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_07_combo_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_combo_matrix.json",
+      "current_default": "ms_chol_reference"
     },
     {
       "problem_id": "ct_icp_kitti_seq_07_corr_dist_retrofit",

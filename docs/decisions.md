@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T20:22:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:29:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -931,6 +931,18 @@ _Generated at 2026-05-19T20:22:34+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full
+
+- Current default: `cluster_a_with_seed`.
+- Reference variants: `cluster_a_no_seed`, `cluster_a_with_ms_chol_seed`.
+- Aggregate result: `experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| cluster_a_no_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_a_with_seed | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cluster_a_with_ms_chol_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence)
 

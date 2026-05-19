@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T20:22:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:29:15+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -79,6 +79,7 @@ _Generated at 2026-05-19T20:22:34+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_window` | 0.325 | 60.0 | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_window` | 1.652 | 51.4 | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
 | CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_window` | 15.873 | 74.7 | `experiments/results/ct_icp_mulran_parkinglot_120_matrix.json` |
+| CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full | `ready` | `cluster_a_with_seed` | 9.186 | 14.6 | `experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json` |
 | CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_window` | 74.578 | 59.7 | `experiments/results/ct_icp_mulran_parkinglot_full_matrix.json` |
 | CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_window` | 75.075 | 2.7 | `experiments/results/ct_icp_profile_matrix.json` |
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
@@ -4971,6 +4972,66 @@ _Generated at 2026-05-19T20:22:34+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
+
+
+## CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full
+
+- **Problem ID**: `ct_icp_mulran_parkinglot_full_cluster_a`
+- **Question**: KITTI seq 00/05/08 share cluster A (map=50 + c2f σ×2). Does this transfer to MulRan parkinglot, where existing best is 14.36 m WITH GT seed using ms_chol full recipe and bare without GT seed gets 74-81 m? Test cluster A both with and without GT seed.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cluster A (map=50 + c2f σ×2), no GT seed | transfer | 74.592 | 12.9 | 50.3 | 1.00 | 2.10 | Keep as reference variant |
+| cluster A (map=50 + c2f σ×2) + GT seed | transfer-seeded | 9.186 | 14.6 | 100.0 | 1.00 | 1.85 | Adopt as current default |
+| cluster A + ms_chol + GT seed | hybrid | 16.399 | 10.4 | 63.7 | 1.00 | 1.35 | Keep as reference variant |
+
+### Observations
+
+1. `cluster_a_with_seed` is the current default for this problem.
+2. `cluster_a_with_seed` is the fastest observed variant at 14.6 FPS.
+3. `cluster_a_with_seed` is the most accurate observed variant at 9.186 m ATE.
+
+### Variant Notes
+
+#### `cluster_a_no_seed`
+
+- Intent: Fair cross-dataset transfer of seq 00 winner. Hits dense_window 74.58 m baseline?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_no_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_no_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_no_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a_with_seed`
+
+- Intent: Best-case test. Beats ms_chol_gt_seed_best 14.36 m or does seq 00 recipe lose to ms_chol on this dataset?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_a_with_ms_chol_seed`
+
+- Intent: Recipes might combine. Does map=50 + c2f added to ms_chol full beat 14.36 m?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_ms_chol_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_ms_chol_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_ms_chol_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
 
 
 ## CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence)

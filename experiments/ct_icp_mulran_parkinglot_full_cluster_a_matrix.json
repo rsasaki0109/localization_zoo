@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_mulran_parkinglot_full_cluster_a",
+    "title": "CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full",
+    "question": "KITTI seq 00/05/08 share cluster A (map=50 + c2f σ×2). Does this transfer to MulRan parkinglot, where existing best is 14.36 m WITH GT seed using ms_chol full recipe and bare without GT seed gets 74-81 m? Test cluster A both with and without GT seed.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "cluster_a_no_seed",
+      "label": "cluster A (map=50 + c2f σ×2), no GT seed",
+      "design_style": "transfer",
+      "intent": "Fair cross-dataset transfer of seq 00 winner. Hits dense_window 74.58 m baseline?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "cluster_a_with_seed",
+      "label": "cluster A (map=50 + c2f σ×2) + GT seed",
+      "design_style": "transfer-seeded",
+      "intent": "Best-case test. Beats ms_chol_gt_seed_best 14.36 m or does seq 00 recipe lose to ms_chol on this dataset?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-gt-seed"]
+    },
+    {
+      "id": "cluster_a_with_ms_chol_seed",
+      "label": "cluster A + ms_chol + GT seed",
+      "design_style": "hybrid",
+      "intent": "Recipes might combine. Does map=50 + c2f added to ms_chol full beat 14.36 m?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-gt-seed"]
+    }
+  ]
+}

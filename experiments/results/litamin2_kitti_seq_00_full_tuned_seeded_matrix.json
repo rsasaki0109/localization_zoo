@@ -1,0 +1,156 @@
+{
+  "generated_at": "2026-05-19T21:49:47+00:00",
+  "manifest_path": "experiments/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json",
+  "problem": {
+    "id": "litamin2_kitti_seq_00_full_tuned_seeded",
+    "title": "LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed",
+    "question": "Tuned no-seed gave RPE 0.92% (best on seq 00) but ATE 13.46 m due to no-seed drift. fast+seed gave ATE 0.998 m but RPE 1.91%. Combining (voxel=1.0 + iter=12) + seed \u2014 does this give both <1 m ATE and <1% RPE?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "tuned_voxel1_iter12_seeded",
+      "label": "voxel=1.0 + iter=12 + GT seed",
+      "design_style": "tuned-seeded",
+      "intent": "Combine tightest known knobs with seed \u2014 does it dethrone fast+seed 0.998 m?",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/summary.json --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/run.log",
+      "status": "ok",
+      "ate_m": 1.098905,
+      "rpe_trans_pct": 1.32781,
+      "rpe_rot_deg_per_m": 0.009669,
+      "fps": 55.16171,
+      "time_ms": 82321.595599,
+      "frames": 4541,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 65.04,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "tuned_voxel0_5_iter12_seeded",
+      "label": "voxel=0.5 + iter=12 + GT seed",
+      "design_style": "tighter",
+      "intent": "Push voxel finer.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "0.5",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/run.log",
+      "status": "ok",
+      "ate_m": 0.73136,
+      "rpe_trans_pct": 0.918319,
+      "rpe_rot_deg_per_m": 0.008361,
+      "fps": 54.420132,
+      "time_ms": 83443.385177,
+      "frames": 4541,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 81.34,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "tuned_voxel2_iter12_seeded",
+      "label": "voxel=2.0 + iter=12 + GT seed",
+      "design_style": "midpoint",
+      "intent": "Test voxel midpoint between fast default (auto) and tuned 1.0.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "2.0",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/summary.json --litamin2-voxel-resolution 2.0 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/run.log",
+      "status": "ok",
+      "ate_m": 1.117129,
+      "rpe_trans_pct": 2.024361,
+      "rpe_rot_deg_per_m": 0.018026,
+      "fps": 86.826678,
+      "time_ms": 52299.594175,
+      "frames": 4541,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 82.73,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "tuned_voxel1_iter20_seeded",
+      "label": "voxel=1.0 + iter=20 + GT seed",
+      "design_style": "more-iter",
+      "intent": "More iterations on fine voxel.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "20"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/summary.json --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 20",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/run.log",
+      "status": "ok",
+      "ate_m": 1.095947,
+      "rpe_trans_pct": 1.49151,
+      "rpe_rot_deg_per_m": 0.011344,
+      "fps": 56.02359,
+      "time_ms": 81055.141032,
+      "frames": 4541,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 65.63,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

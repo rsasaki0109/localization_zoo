@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T18:00:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T18:35:58+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -667,6 +667,19 @@ _Generated at 2026-05-19T18:00:32+00:00 by `evaluation/scripts/run_experiment_ma
 | bare_map_20 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | bare_map_30 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | bare_map_50 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP seq 07 full: ms_chol + simplified pattern combo
+
+- Current default: `ms_chol_reference`.
+- Active challengers: `ms_chol_plus_simplified_a`.
+- Reference variants: `ms_chol_plus_c2f`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| ms_chol_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| ms_chol_plus_c2f | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| ms_chol_plus_simplified_a | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner
 

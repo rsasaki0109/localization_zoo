@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T07:51:23+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T08:30:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -466,6 +466,18 @@ _Generated at 2026-05-19T07:51:23+00:00 by `evaluation/scripts/run_experiment_ma
 | default_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: corr_dist + ms_chol combinations
+
+- Current default: `bare_corr_8_reference`.
+- Reference variants: `ms_chol_corr_8`, `ms_chol_corr_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_corr_8_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| ms_chol_corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| ms_chol_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)
 

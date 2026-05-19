@@ -302,6 +302,7 @@ small_gicp,kitti_raw_0009_full,reference-based,fast_recent_map,Fast recent map,0
 small_gicp,kitti_raw_0061_200,reference-based,fast_recent_map,Fast recent map,0.639192,78.130836,experiments/results/small_gicp_kitti_raw_0061_matrix.json
 small_gicp,kitti_raw_0061_full,reference-based,fast_recent_map,Fast recent map,0.958889,82.222821,experiments/results/small_gicp_kitti_raw_0061_full_matrix.json
 small_gicp,kitti_seq_00_full,reference-based,fast_profile,fast profile,0.890066,106.358587,experiments/results/small_gicp_kitti_seq_00_full_sweep_matrix.json
+small_gicp,kitti_seq_00_full,reference-based,fast_seeded_reference,fast + seed,0.890066,63.339880,experiments/results/small_gicp_kitti_seq_00_full_no_seed_matrix.json
 small_gicp,kitti_seq_02_full,reference-based,fast_profile,fast,0.908677,96.490233,experiments/results/small_gicp_kitti_seq_02_full_sweep_matrix.json
 small_gicp,kitti_seq_05_full,reference-based,fast_profile,fast,0.983601,104.547521,experiments/results/small_gicp_kitti_seq_05_full_sweep_matrix.json
 small_gicp,kitti_seq_07_full,reference-based,fast_profile,fast profile,0.681900,107.663182,experiments/results/small_gicp_kitti_seq_07_full_sweep_matrix.json
@@ -338,6 +339,7 @@ voxel_gicp,kitti_raw_0009_full,reference-based,dense_recent_map,Dense recent map
 voxel_gicp,kitti_raw_0061_200,reference-based,dense_recent_map,Dense recent map,1.041175,73.712472,experiments/results/voxel_gicp_kitti_raw_0061_matrix.json
 voxel_gicp,kitti_raw_0061_full,reference-based,dense_recent_map,Dense recent map,1.061610,75.368071,experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json
 voxel_gicp,kitti_seq_00_full,reference-based,dense_profile,dense profile,1.046692,97.874617,experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json
+voxel_gicp,kitti_seq_00_full,reference-based,dense_seeded_reference,dense + seed,1.046692,90.772453,experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json
 voxel_gicp,kitti_seq_02_full,reference-based,dense_profile,dense,0.944430,84.843596,experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json
 voxel_gicp,kitti_seq_05_full,reference-based,dense_profile,dense,1.030605,111.075202,experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json
 voxel_gicp,kitti_seq_07_full,reference-based,dense_profile,dense profile,1.026596,101.374886,experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json

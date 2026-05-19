@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_mcd_ntu_day_02_recipes",
+    "title": "CT-ICP recipe sensitivity test on MCD NTU day_02 (108 frames)",
+    "question": "MCD KTH 108 frames showed all recipes within 1% (saturated). NTU has the lowest baseline (0.325 m, dense_window) — a smaller absolute number makes recipe differences proportionally bigger. Does cluster A or D unlock meaningful change?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "dense_reference",
+      "label": "dense_window (current best 0.325 m)",
+      "design_style": "reference",
+      "intent": "Confirm 0.325 m baseline.",
+      "args": ["--ct-icp-dense-profile"]
+    },
+    {
+      "id": "cluster_a",
+      "label": "cluster A (map=50 + c2f σ×2)",
+      "design_style": "long-traj-recipe",
+      "intent": "Does cluster A help short window?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "cluster_d_ms_chol",
+      "label": "cluster D (ms_chol)",
+      "design_style": "short-traj-recipe",
+      "intent": "ms_chol on 108-frame NTU.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

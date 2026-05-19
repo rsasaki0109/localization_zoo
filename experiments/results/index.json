@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T20:38:53+00:00",
+  "generated_at": "2026-05-19T20:59:45+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -702,6 +702,15 @@
       "manifest_path": "experiments/ct_icp_mulran_parkinglot_120_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_mulran_parkinglot_120_matrix.json",
       "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_mulran_parkinglot_120_recipes",
+      "title": "CT-ICP cluster A/D transfer to MulRan parkinglot 120-frame short window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_mulran_parkinglot_120_recipes_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_mulran_parkinglot_120_recipes_matrix.json",
+      "current_default": "cluster_a_with_seed"
     },
     {
       "problem_id": "ct_icp_mulran_parkinglot_full_cluster_a",

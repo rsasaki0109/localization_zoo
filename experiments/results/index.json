@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T15:20:38+00:00",
+  "generated_at": "2026-05-19T16:03:38+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -369,6 +369,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_matrix.json",
       "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_simplified_corr",
+      "title": "CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_simplified_corr_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json",
+      "current_default": "default_reference"
     },
     {
       "problem_id": "ct_icp_kitti_seq_02_corr_dist_retrofit",

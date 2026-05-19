@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-05-19T23:15:05+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-05-20T00:57:00+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -204,7 +204,10 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | kiss_icp | `kitti_raw_0061_200` | reference-based | `fast_recent_map` | 0.679 | 28.3 | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
 | kiss_icp | `kitti_raw_0061_full` | reference-based | `fast_recent_map` | 4.623 | 11.2 | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
 | kiss_icp | `kitti_seq_00_full` | reference-based | `fast_profile` | 20.927 | 30.6 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_02_full` | reference-based | `fast_profile` | 86.812 | 32.7 | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_05_full` | reference-based | `fast_profile` | 9.420 | 23.5 | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
 | kiss_icp | `kitti_seq_07_full` | reference-based | `fast_profile` | 2.525 | 35.6 | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
+| kiss_icp | `kitti_seq_08_full` | reference-based | `fast_profile` | 19.592 | 30.8 | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
 | kiss_icp | `mcd_kth_day_06_108` | reference-based | `fast_recent_map` | 5.568 | 11.3 | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | kiss_icp | `mcd_ntu_day_02_108` | reference-based | `fast_recent_map` | 0.026 | 66.7 | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | kiss_icp | `mcd_tuhh_night_09_108` | reference-based | `fast_recent_map` | 1.303 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
@@ -320,7 +323,10 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | small_gicp | `kitti_raw_0061_200` | reference-based | `fast_recent_map` | 0.639 | 78.1 | `experiments/results/small_gicp_kitti_raw_0061_matrix.json` |
 | small_gicp | `kitti_raw_0061_full` | reference-based | `fast_recent_map` | 0.959 | 82.2 | `experiments/results/small_gicp_kitti_raw_0061_full_matrix.json` |
 | small_gicp | `kitti_seq_00_full` | reference-based | `fast_profile` | 0.890 | 106.4 | `experiments/results/small_gicp_kitti_seq_00_full_sweep_matrix.json` |
+| small_gicp | `kitti_seq_02_full` | reference-based | `fast_profile` | 0.909 | 96.5 | `experiments/results/small_gicp_kitti_seq_02_full_sweep_matrix.json` |
+| small_gicp | `kitti_seq_05_full` | reference-based | `fast_profile` | 0.984 | 104.5 | `experiments/results/small_gicp_kitti_seq_05_full_sweep_matrix.json` |
 | small_gicp | `kitti_seq_07_full` | reference-based | `fast_profile` | 0.682 | 107.7 | `experiments/results/small_gicp_kitti_seq_07_full_sweep_matrix.json` |
+| small_gicp | `kitti_seq_08_full` | reference-based | `fast_profile` | 0.858 | 74.6 | `experiments/results/small_gicp_kitti_seq_08_full_sweep_matrix.json` |
 | small_gicp | `mcd_kth_day_06_108` | reference-based | `fast_recent_map` | 0.806 | 107.9 | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | small_gicp | `mcd_ntu_day_02_108` | reference-based | `dense_recent_map` | 0.031 | 56.8 | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | small_gicp | `mcd_tuhh_night_09_108` | reference-based | `fast_recent_map` | 0.466 | 107.2 | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
@@ -353,7 +359,10 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | voxel_gicp | `kitti_raw_0061_200` | reference-based | `dense_recent_map` | 1.041 | 73.7 | `experiments/results/voxel_gicp_kitti_raw_0061_matrix.json` |
 | voxel_gicp | `kitti_raw_0061_full` | reference-based | `dense_recent_map` | 1.062 | 75.4 | `experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json` |
 | voxel_gicp | `kitti_seq_00_full` | reference-based | `dense_profile` | 1.047 | 97.9 | `experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json` |
+| voxel_gicp | `kitti_seq_02_full` | reference-based | `dense_profile` | 0.944 | 84.8 | `experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json` |
+| voxel_gicp | `kitti_seq_05_full` | reference-based | `dense_profile` | 1.031 | 111.1 | `experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json` |
 | voxel_gicp | `kitti_seq_07_full` | reference-based | `dense_profile` | 1.027 | 101.4 | `experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json` |
+| voxel_gicp | `kitti_seq_08_full` | reference-based | `dense_profile` | 0.955 | 91.1 | `experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json` |
 | voxel_gicp | `mcd_kth_day_06_108` | reference-based | `dense_recent_map` | 0.981 | 124.2 | `experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json` |
 | voxel_gicp | `mcd_ntu_day_02_108` | reference-based | `dense_recent_map` | 0.121 | 117.2 | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | voxel_gicp | `mcd_tuhh_night_09_108` | reference-based | `dense_recent_map` | 0.478 | 116.4 | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |

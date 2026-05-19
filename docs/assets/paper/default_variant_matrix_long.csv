@@ -123,7 +123,10 @@ kiss_icp,kitti_raw_0009_full,fast_recent_map
 kiss_icp,kitti_raw_0061_200,fast_recent_map
 kiss_icp,kitti_raw_0061_full,fast_recent_map
 kiss_icp,kitti_seq_00_full,fast_profile
+kiss_icp,kitti_seq_02_full,fast_profile
+kiss_icp,kitti_seq_05_full,fast_profile
 kiss_icp,kitti_seq_07_full,fast_profile
+kiss_icp,kitti_seq_08_full,fast_profile
 kiss_icp,mcd_kth_day_06_108,fast_recent_map
 kiss_icp,mcd_ntu_day_02_108,fast_recent_map
 kiss_icp,mcd_tuhh_night_09_108,fast_recent_map
@@ -218,7 +221,10 @@ small_gicp,kitti_raw_0009_full,fast_recent_map
 small_gicp,kitti_raw_0061_200,fast_recent_map
 small_gicp,kitti_raw_0061_full,fast_recent_map
 small_gicp,kitti_seq_00_full,fast_profile
+small_gicp,kitti_seq_02_full,fast_profile
+small_gicp,kitti_seq_05_full,fast_profile
 small_gicp,kitti_seq_07_full,fast_profile
+small_gicp,kitti_seq_08_full,fast_profile
 small_gicp,mcd_kth_day_06_108,fast_recent_map
 small_gicp,mcd_ntu_day_02_108,dense_recent_map
 small_gicp,mcd_tuhh_night_09_108,fast_recent_map
@@ -248,7 +254,10 @@ voxel_gicp,kitti_raw_0009_full,dense_recent_map
 voxel_gicp,kitti_raw_0061_200,dense_recent_map
 voxel_gicp,kitti_raw_0061_full,dense_recent_map
 voxel_gicp,kitti_seq_00_full,dense_profile
+voxel_gicp,kitti_seq_02_full,dense_profile
+voxel_gicp,kitti_seq_05_full,dense_profile
 voxel_gicp,kitti_seq_07_full,dense_profile
+voxel_gicp,kitti_seq_08_full,dense_profile
 voxel_gicp,mcd_kth_day_06_108,dense_recent_map
 voxel_gicp,mcd_ntu_day_02_108,dense_recent_map
 voxel_gicp,mcd_tuhh_night_09_108,dense_recent_map

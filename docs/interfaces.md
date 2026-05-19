@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T21:36:54+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:46:06+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -305,6 +305,7 @@ The runner is responsible for:
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/litamin2_kitti_raw_0009_nogt_matrix.json` | `litamin2` | `paper_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/litamin2_kitti_raw_0061_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/litamin2_kitti_raw_0061_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/litamin2_kitti_seq_00_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/litamin2_mcd_kth_day_06_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/litamin2_mcd_ntu_day_02_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/litamin2_mcd_tuhh_night_09_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T15:20:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T16:03:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -523,6 +523,20 @@ _Generated at 2026-05-19T15:20:38+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner
+
+- Current default: `default_reference`.
+- Active challengers: `plus_corr_8`.
+- Reference variants: `plus_corr_5`, `plus_corr_16`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| plus_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| plus_corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| plus_corr_16 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 02 full: corr_dist sweep on bare baseline
 

@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T15:20:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T16:03:38+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -120,6 +120,7 @@ The runner is responsible for:
 | CT-ICP seq 00 full: map=50 + single partner knob isolation | `ready` | `experiments/ct_icp_kitti_seq_00_map50_partner_matrix.json` | `ct_icp` | `map_50_plus_c2f` | `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json` |
 | CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?) | `ready` | `experiments/ct_icp_kitti_seq_00_map_bare_matrix.json` | `ct_icp` | `bare_map_30` | `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
+| CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner | `ready` | `experiments/ct_icp_kitti_seq_00_simplified_corr_matrix.json` | `ct_icp` | `default_reference` | `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json` |
 | CT-ICP seq 02 full: corr_dist sweep on bare baseline | `ready` | `experiments/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` | `ct_icp` | `corr_8` | `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` |
 | CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `experiments/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` | `ct_icp` | `corr_8_reference` | `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` |
 | CT-ICP seq 02 full: corr_dist + ms_chol combinations | `ready` | `experiments/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` | `ct_icp` | `bare_corr_8_reference` | `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` |

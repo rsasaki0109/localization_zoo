@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-05-20T01:06:10+00:00",
+  "manifest_path": "experiments/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json",
+  "problem": {
+    "id": "voxel_gicp_kitti_seq_00_full_no_seed",
+    "title": "Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames)",
+    "question": "Does voxel_gicp dense_profile maintain sub-meter ATE without GT seed?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "voxel_gicp",
+    "primary_method": "Voxel-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_seeded_reference",
+      "label": "dense + seed",
+      "design_style": "reference",
+      "intent": "Default with GT seed (winner from prior sweep).",
+      "args": [
+        "--voxel-gicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_seeded_reference/summary.json --voxel-gicp-dense-profile",
+      "summary_path": "experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_seeded_reference/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_seeded_reference/run.log",
+      "status": "ok",
+      "ate_m": 1.046692,
+      "rpe_trans_pct": 1.811419,
+      "rpe_rot_deg_per_m": 0.014741,
+      "fps": 90.772453,
+      "time_ms": 50026.190209,
+      "frames": 4541,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 97.46,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_no_seed",
+      "label": "dense no-seed",
+      "design_style": "deployment-robust",
+      "intent": "No-seed deployment realism check.",
+      "args": [
+        "--voxel-gicp-dense-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/summary.json --voxel-gicp-dense-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/run.log",
+      "status": "ok",
+      "ate_m": 87.914739,
+      "rpe_trans_pct": 2.925393,
+      "rpe_rot_deg_per_m": 0.022839,
+      "fps": 95.634776,
+      "time_ms": 47482.727346,
+      "frames": 4541,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 50.6,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "balanced_no_seed",
+      "label": "balanced no-seed",
+      "design_style": "deployment-robust",
+      "intent": "Compare default profile under no-seed.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/summary.json",
+      "log_path": "experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/run.log",
+      "status": "ok",
+      "ate_m": 259.978355,
+      "rpe_trans_pct": 8.74603,
+      "rpe_rot_deg_per_m": 0.055733,
+      "fps": 22.412368,
+      "time_ms": 202611.342239,
+      "frames": 4541,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 11.92,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

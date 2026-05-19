@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "voxel_gicp_kitti_seq_00_full_no_seed",
+    "title": "Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames)",
+    "question": "Does voxel_gicp dense_profile maintain sub-meter ATE without GT seed?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {"binary": "build/evaluation/pcd_dogfooding", "methods": "voxel_gicp", "primary_method": "Voxel-GICP"},
+  "variants": [
+    {
+      "id": "dense_seeded_reference",
+      "label": "dense + seed",
+      "design_style": "reference",
+      "intent": "Default with GT seed (winner from prior sweep).",
+      "args": ["--voxel-gicp-dense-profile"]
+    },
+    {
+      "id": "dense_no_seed",
+      "label": "dense no-seed",
+      "design_style": "deployment-robust",
+      "intent": "No-seed deployment realism check.",
+      "args": ["--voxel-gicp-dense-profile", "--no-gt-seed"]
+    },
+    {
+      "id": "balanced_no_seed",
+      "label": "balanced no-seed",
+      "design_style": "deployment-robust",
+      "intent": "Compare default profile under no-seed.",
+      "args": ["--no-gt-seed"]
+    }
+  ]
+}

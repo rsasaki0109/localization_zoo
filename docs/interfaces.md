@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-20T00:59:06+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-20T01:06:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -432,6 +432,7 @@ The runner is responsible for:
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/voxel_gicp_kitti_raw_0009_nogt_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/voxel_gicp_kitti_raw_0061_full_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/voxel_gicp_kitti_raw_0061_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0061_matrix.json` |
+| Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json` | `voxel_gicp` | `dense_seeded_reference` | `experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json` |
 | Voxel-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_00_full_sweep_matrix.json` | `voxel_gicp` | `dense_profile` | `experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json` |
 | Voxel-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_02_full_sweep_matrix.json` | `voxel_gicp` | `dense_profile` | `experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json` |
 | Voxel-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_05_full_sweep_matrix.json` | `voxel_gicp` | `dense_profile` | `experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json` |

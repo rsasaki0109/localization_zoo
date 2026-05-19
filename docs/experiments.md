@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T21:36:54+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:46:06+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -232,6 +232,7 @@ _Generated at 2026-05-19T21:36:54+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `paper_cov_half_threads` | 122.275 | 87.3 | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_icp_only_half_threads` | 0.944 | 58.1 | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_cov_half_threads` | 0.511 | 68.6 | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `fast_icp_only_half_threads` | 0.998 | 108.9 | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_icp_only_half_threads` | 0.401 | 113.0 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
@@ -14145,6 +14146,78 @@ _Generated at 2026-05-19T21:36:54+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
 - Summary: `experiments/results/runs/litamin2_kitti_raw_0061_matrix/paper_icp_only_half_threads/summary.json`
 - Log: `experiments/results/runs/litamin2_kitti_raw_0061_matrix/paper_icp_only_half_threads/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00
+
+- **Problem ID**: `litamin2_profile_tradeoff_kitti_seq_00_full`
+- **Question**: Which LiTAMIN2 profile should stay as the current default on the full KITTI Odometry public dataset (sequence 00)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_00_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast local-map + covariance | throughput-oriented | 0.998 | 104.6 | 98.0 | 5.00 | 5.00 | Keep as active challenger |
+| Fast local-map + ICP-only | single-term simplification | 0.998 | 108.9 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 1.225 | 81.0 | 77.9 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 1.225 | 100.9 | 87.1 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `fast_icp_only_half_threads` is the fastest observed variant at 108.9 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 0.998 m ATE.
+
+### Variant Notes
+
+#### `fast_cov_half_threads`
+
+- Intent: Keep the current repository default with recent/local-map pruning and covariance-aware cost.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_cov_half_threads/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_cov_half_threads/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_icp_only_half_threads`
+
+- Intent: Remove the covariance-shape term while keeping the same fast local-map profile.
+- CLI args: `--litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_icp_only_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+#### `paper_cov_half_threads`
+
+- Intent: Move closer to the paper's 3 m profile while preserving the same benchmark interface.
+- CLI args: `--litamin2-paper-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_cov_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `paper_icp_only_half_threads`
+
+- Intent: Use the paper-like 3 m profile, but isolate the first cost term by disabling covariance cost.
+- CLI args: `--litamin2-paper-profile --litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_icp_only_half_threads/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.

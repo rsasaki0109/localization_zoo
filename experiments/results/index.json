@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T19:58:14+00:00",
+  "generated_at": "2026-05-19T20:22:34+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -342,6 +342,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_full_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_matrix.json",
       "current_default": "dense_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_full_search_radius_sweep",
+      "title": "CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json",
+      "current_default": "radius_2_reference"
     },
     {
       "problem_id": "ct_icp_kitti_seq_00_leave_one_out",

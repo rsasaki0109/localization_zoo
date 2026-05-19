@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-05-17**
+> **最終更新: 2026-05-20**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -23,21 +23,30 @@
 | Item | Value |
 |------|-------|
 | Branch | `wip/profile-expansion-refresh` |
-| HEAD | `5a96dec` |
+| HEAD | `d22a172` |
 | Worktree | **clean** |
-| Indexed manifests | **282** |
-| Indexed ready | **268** |
+| Indexed manifests | **336** |
+| Indexed ready | **322** |
 | Indexed blocked | **1** |
 | Indexed skipped | **13** |
-| Pending manifests | **100** |
+| Pending manifests | **200** |
 | LiDAR families | **27** |
 | Camera-aware families | **6** |
 | Total active selectors | **33** |
 | Python tests | **14/14 pass** |
 
-### 1.2 What changed recently (2026-05-17 session)
+### 1.2 What changed recently (2026-05-18..20 session, CT-ICP focus)
 
-Foundational taxonomy layer was added without changing runtime numerics:
+CT-ICP paper-arch sweep was extended exhaustively across all locally available datasets. State delta: 282 → 336 indexed manifests (54 new), 100 → 200 pending, HEAD `5a96dec` → `d22a172`.
+
+Key CT-ICP findings (memory entries: `ct_icp_kitti_full_per_seq_best.md`, `ct_icp_cluster_a_cross_dataset_transfer.md`, `ct_icp_gt_seed_dataset_dependence.md`):
+
+- **5-cluster structure for CT-ICP recipes**: cluster A (`map=50 + c2f σ×2`) wins KITTI seq 00 (12.69 m) / 05 (7.76 m) / 08 (27.85 m). cluster B = A + corr=4 for seq 05. cluster C = `bare + corr=8` for seq 02 (50.63 m). cluster D = `ms_chol + map=20` for seq 07 (1.61 m) and KITTI Raw 0061 full (4.50 m). KITTI Raw 0009 is its own balanced-only family.
+- **Cross-dataset transfer**: cluster A + GT seed wins on MulRan parkinglot full (9.19 m, -36% vs prior best) and parkinglot 120 (2.55 m, -84%). cluster A + seed is the universal seeded winner on MCD KTH/TUHH/NTU/MulRan parkinglot — **but not on KITTI Odom seq 07** where cluster D dominates seed-independently.
+- **GT seed dataset-dependence**: seed helps drift-limited scenes (-44 to -88% on MulRan parkinglot, MCD KTH/TUHH) but hurts self-anchoring scenes (MCD NTU +39%, KITTI seq 07 neutral). On KITTI seq 00 full it produces the sharpest ATE/RPE flip yet observed: ATE -61% (12.69 → 4.91 m) but RPE +174% (2.10 → 5.76%).
+- **Knob axes exhaustively mapped** on seq 00 cluster A: cauchy_coarse_mult (2.0 winner), cauchy_fine_sigma (default 0.5 winner), coarse_search_radius (2 winner, 4 ties), coarse_iter (2 winner), map_size (50 winner), corr_dist (default 100 winner). 2-D cauchy plane has its true minimum at (fine=0.5, coarse_mult=2.0).
+
+Earlier (2026-05-17) foundational taxonomy layer (still in effect):
 
 - **Claim-level taxonomy**: `reproduced > approximately_reproduced > indicative > smoke > ported`. Bumped into [`evaluation/data/paper_reported_numbers.json`](evaluation/data/paper_reported_numbers.json) (schema v3) and rendered into [`docs/reproduction_status.md`](docs/reproduction_status.md) as a legend column.
 - **Budget profile contract**: [`docs/budget_profiles.md`](docs/budget_profiles.md) defines `smoke_200f_120s`, `practical_full_300s`, `extended_full_1800s`, `reference_full_unbounded`. Manifests reference them via `problem.budget_profile`.
@@ -51,13 +60,15 @@ Earlier session work (already in `main` history):
 - `pcd_dogfooding --summary-json` exports optional `rpe_trans_pct` / `rpe_rot_deg_per_m`.
 - KITTI Odometry preparation script `evaluation/scripts/prepare_kitti_odometry_inputs.py` generalized; `setup_kitti_benchmark.sh` is a wrapper.
 
-### 1.3 Current direction (post-GPT-pro consultation)
+### 1.3 Current direction
 
-The repo is useful as a benchmark OSS. The next leverage point is **publication-grade reproduction evidence**, not more methods or more refactoring. Priority order:
+CT-ICP has now been **exhaustively mapped** on every locally available dataset (KITTI Odom seq 00/02/05/07/08 full, KITTI Raw 0009/0061 full + 200, MulRan parkinglot full + 120, MCD KTH/NTU/TUHH 108-frame). Knob axes and seed-dependence are saturated. Further CT-ICP probes have low marginal value.
 
-- **B (main)**: KITTI Odometry full-sequence reruns for `LiTAMIN2` and `CT-ICP` with `RPE translation [%]`. Target: graduate those two families from `indicative` to `approximately_reproduced` (or `reproduced` if metrics agree). Pending manifests already exist in `experiments/pending/`; only data + run time is missing.
-- **A (parallel)**: Stay-local reruns of `LiTAMIN2` / `CT-ICP` on `MCD` and `HDL-400` with RPE exported. Lower-cost evidence that complements B and produces immediate `approximately_reproduced`-grade aggregates against local public data.
-- **C (next)**: Broaden ingestion. `MulRan parkinglot` is already partially ingested (8 indexed manifests, local data present); next steps are `MulRan dcc01` (2 pending manifests already exist) and Newer College.
+Priority order for next assistant:
+
+- **B (highest leverage)**: Repeat the cluster A/D bake-off approach for `LiTAMIN2` on KITTI Odom full sequences. LiTAMIN2 is the other family at `indicative` claim level; the same recipe-discovery method that produced CT-ICP's 5-cluster structure should extend it.
+- **A (parallel, cheap)**: Apply the GT-seed dataset-dependence finding to other LiDAR methods (`kiss_icp`, `small_gicp`, `voxel_gicp`) — does seed help/hurt the same way? Lightweight 3-variant bake-offs per (method, dataset) pair.
+- **C (broader)**: Broaden ingestion. `MulRan dcc01` (2 pending manifests already exist) and Newer College remain unblocked-but-not-yet-ingested.
 
 Do **not** spend the next turn on paper drafting, PR polishing, or speculative refactoring. The user has been explicit that this is OSS infrastructure work, not paper writing.
 
@@ -65,7 +76,7 @@ Do **not** spend the next turn on paper drafting, PR polishing, or speculative r
 
 ## 2. Worktree State
 
-Working tree is clean as of HEAD `5a96dec`. Previous handoffs warned about a dirty worktree with mass untracked multimodal work — that state has since been committed. Treat git status as authoritative.
+Working tree is clean as of HEAD `d22a172`. Previous handoffs warned about a dirty worktree with mass untracked multimodal work — that state has since been committed. Treat git status as authoritative.
 
 The branch is currently ahead of `origin/wip/profile-expansion-refresh` by some commits; verify with `git status` before pushing.
 
@@ -95,9 +106,9 @@ Each method emits:
 
 ### 3.3 Experiment layer
 
-- Manifests: `experiments/*_matrix.json` (282 active)
-- Pending manifests: `experiments/pending/*_matrix.json` (100)
-- Aggregates: `experiments/results/*.json` (282)
+- Manifests: `experiments/*_matrix.json` (336 active)
+- Pending manifests: `experiments/pending/*_matrix.json` (200)
+- Aggregates: `experiments/results/*.json` (336)
 - Family registry: [`experiments/families.json`](experiments/families.json) — used by docs, not by the runner.
 - Generated docs:
   - `docs/experiments.md`
@@ -120,6 +131,13 @@ Important: do not assume datasets mentioned in docs are locally present.
 | HDL-400 native/reference-like | `hdl_400_open_ct_lio_120` | 120 | `imu.csv`, `frame_timestamps.csv` |
 | HDL-400 synthetic time (azimuth) | `hdl_400_open_ct_lio_120_time_azimuth` | 120 | `imu.csv`, `frame_timestamps.csv` |
 | HDL-400 public ROS1 synthetic time | `hdl_400_ros1_open_ct_lio_120_time_index` | 120 | `imu.csv`, `frame_timestamps.csv` |
+| KITTI Odometry seq 00 short | `kitti_seq_00_108` | 108 | (LiDAR-only) |
+| KITTI Odometry seq 00 full | `kitti_seq_00_full` | 4542 | (LiDAR-only) |
+| KITTI Odometry seq 02 full | `kitti_seq_02_full` | 4661 | (LiDAR-only) |
+| KITTI Odometry seq 05 full | `kitti_seq_05_full` | 2761 | (LiDAR-only) |
+| KITTI Odometry seq 07 short | `kitti_seq_07_108` | 108 | (LiDAR-only) |
+| KITTI Odometry seq 07 full | `kitti_seq_07_full` | 1102 | (LiDAR-only) |
+| KITTI Odometry seq 08 full | `kitti_seq_08_full` | 4071 | (LiDAR-only) |
 | KITTI Raw 0009 short | `kitti_raw_0009_200` | 200 | full multimodal extras |
 | KITTI Raw 0009 full | `kitti_raw_0009_full` | 443 | full multimodal extras |
 | KITTI Raw 0061 short | `kitti_raw_0061_200` | 200 | full multimodal extras |
@@ -128,7 +146,7 @@ Important: do not assume datasets mentioned in docs are locally present.
 | MCD NTU day-02 | `mcd_ntu_day_02_108` | 108 | `frame_timestamps.csv` |
 | MCD TUHH night-09 | `mcd_tuhh_night_09_108` | 108 | `frame_timestamps.csv` |
 | MulRan parkinglot 120 | `mulran_parkinglot_120` | 120 | (LiDAR-only) |
-| MulRan parkinglot full | `mulran_parkinglot_full` | full | (LiDAR-only) |
+| MulRan parkinglot full | `mulran_parkinglot_full` | 1177 | (LiDAR-only) |
 
 ### 4.2 Present in `experiments/reference_data/`
 
@@ -136,15 +154,15 @@ GT CSVs for every dataset listed in 4.1. Verify by listing the directory before 
 
 ### 4.3 Not present locally right now
 
-- KITTI Odometry public `sequences/00`, `sequences/07`, `poses/00.txt`, `poses/07.txt`
+- KITTI Odometry seq 01, 03, 04, 06, 09, 10 (only 00/02/05/07/08 are dogfooded)
 - Istanbul local windows
-- MulRan dcc01 (pending manifests exist; data not yet ingested)
+- MulRan dcc01 / kaist / riverside (parkinglot only is dogfooded; dcc01 pending manifests exist)
 - Newer College, Oxford Spires
 
 This matters because:
 
-- Full KITTI Odometry reruns are **prepared in code but not yet runnable here**.
-- The next assistant must not claim those runs were executed.
+- The next assistant must not claim runs on KITTI Odom seqs outside 00/02/05/07/08 without first ingesting those seqs.
+- The 5 ingested KITTI Odom seqs have been **exhaustively probed by CT-ICP**; LiTAMIN2 and other LiDAR families have NOT yet been similarly probed.
 
 ---
 
@@ -236,10 +254,9 @@ Canonical KITTI Raw 0009 reruns with RPE exist:
 
 To move `litamin2` and `ct_icp` from `indicative` toward `approximately_reproduced`:
 
-- **Priority B** (data-bound): full KITTI Odometry `sequences/00` + `sequences/07` with paper-reported RPE `[%]`.
-- **Priority A** (no new data): rerun MCD and HDL-400 with RPE exported, publish side-by-side against paper-style numbers where appropriate.
-
-Both A and B can move the needle on the same claim level; B is closer to a direct paper comparison but blocked on data.
+- **CT-ICP**: full KITTI Odom 00/02/05/07/08 are now ingested and exhaustively probed. Per-seq best numbers (12.69 / 50.63 / 7.76 / 1.61 / 27.85 m ATE) are recipe-tuned, not paper-tuned. Direct paper-comparison requires either (a) committing to a single "paper-style" recipe and reporting per-seq deltas, or (b) reporting per-seq best with explicit recipe attribution.
+- **LiTAMIN2**: same 5-cluster recipe-discovery approach has NOT yet been applied. This is the next high-leverage probe — analog of CT-ICP's cluster A/B/C/D/balanced structure may exist for LiTAMIN2.
+- **A (parallel)**: extend RPE-aware reruns to MCD/HDL-400 for both methods.
 
 ---
 
@@ -258,14 +275,11 @@ Both A and B can move the needle on the same claim level; B is closer to a direc
 
 [`evaluation/scripts/setup_kitti_benchmark.sh`](evaluation/scripts/setup_kitti_benchmark.sh) delegates to the Python script.
 
-### 8.3 Pending full-sequence manifests
+### 8.3 Status of full-sequence manifests
 
-- [`experiments/pending/litamin2_kitti_seq_00_full_matrix.json`](experiments/pending/litamin2_kitti_seq_00_full_matrix.json)
-- [`experiments/pending/litamin2_kitti_seq_07_full_matrix.json`](experiments/pending/litamin2_kitti_seq_07_full_matrix.json)
-- [`experiments/pending/ct_icp_kitti_seq_00_full_matrix.json`](experiments/pending/ct_icp_kitti_seq_00_full_matrix.json)
-- [`experiments/pending/ct_icp_kitti_seq_07_full_matrix.json`](experiments/pending/ct_icp_kitti_seq_07_full_matrix.json)
+CT-ICP full KITTI Odom 00/02/05/07/08 manifests have been **promoted to active** (this session). Per-seq best results recorded; 5-cluster recipe structure documented in `memory/ct_icp_kitti_full_per_seq_best.md`. Cross-dataset cluster A transfer documented in `memory/ct_icp_cluster_a_cross_dataset_transfer.md`.
 
-Plus 108-frame variants for the same selectors. Promotion from `experiments/pending/` to active happens after successful runs.
+LiTAMIN2 full-sequence manifests remain in `experiments/pending/` — runnable now that KITTI Odom data is ingested. This is the **highest-leverage next probe**.
 
 ### 8.4 Regression coverage
 

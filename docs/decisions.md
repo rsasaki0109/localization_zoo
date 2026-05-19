@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2874,6 +2874,17 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_seeded_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cluster_t1_seeded | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
+## LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames)
+
+- Current default: `cluster_t1_seeded`.
+- Active challengers: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - Current default: `fast_icp_only_half_threads`.
@@ -2887,6 +2898,17 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_icp_only_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 cluster T1 on MCD NTU day_02 (108 frames)
+
+- Current default: `cluster_t1_seeded`.
+- Reference variants: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence
 
@@ -2902,6 +2924,17 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_cov_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_icp_only_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LiTAMIN2 cluster T1 on MCD TUHH night_09 (108 frames)
+
+- Current default: `cluster_t1_seeded`.
+- Reference variants: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_mcd_tuhh_night_09_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence
 
 - Current default: `fast_icp_only_half_threads`.
@@ -2914,6 +2947,17 @@ _Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_icp_only_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 cluster T1 on MulRan parkinglot 120-frame
+
+- Current default: `cluster_t1_seeded`.
+- Reference variants: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_mulran_parkinglot_120_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)
 

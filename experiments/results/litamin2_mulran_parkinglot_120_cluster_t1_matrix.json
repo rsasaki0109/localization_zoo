@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-05-19T22:18:28+00:00",
+  "manifest_path": "experiments/litamin2_mulran_parkinglot_120_cluster_t1_matrix.json",
+  "problem": {
+    "id": "litamin2_mulran_parkinglot_120_cluster_t1",
+    "title": "LiTAMIN2 cluster T1 on MulRan parkinglot 120-frame",
+    "question": "Cluster T1 wins parkinglot full at 0.303 m. Does it also win 120-frame variant where CT-ICP cluster A+seed got 2.55 m?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_120",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_120_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mulran_parkinglot_120",
+    "gt_csv": "experiments/reference_data/mulran_parkinglot_120_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_seeded_reference",
+      "label": "fast + seed (baseline)",
+      "design_style": "reference",
+      "intent": "LiTAMIN2 baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/summary.json",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/run.log",
+      "status": "ok",
+      "ate_m": 0.497612,
+      "rpe_trans_pct": 4.252611,
+      "rpe_rot_deg_per_m": 0.104025,
+      "fps": 38.995083,
+      "time_ms": 3077.311018,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 71.34,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_t1_seeded",
+      "label": "cluster T1: voxel=0.5 + iter=12 + seed",
+      "design_style": "transfer",
+      "intent": "Transfer cluster T1.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "0.5",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/run.log",
+      "status": "ok",
+      "ate_m": 0.212334,
+      "rpe_trans_pct": 2.152889,
+      "rpe_rot_deg_per_m": 0.099764,
+      "fps": 30.597922,
+      "time_ms": 3921.834974,
+      "frames": 120,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 89.23,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

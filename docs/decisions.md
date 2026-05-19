@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T21:56:53+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:01:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2830,6 +2830,28 @@ _Generated at 2026-05-19T21:56:53+00:00 by `evaluation/scripts/run_experiment_ma
 | tuned_voxel2_iter12_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | tuned_voxel1_iter20_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq)
+
+- Current default: `cluster_t1_seeded`.
+- Reference variants: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length)
+
+- Current default: `fast_seeded_reference`.
+- Reference variants: `cluster_t1_seeded`.
+- Aggregate result: `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cluster_t1_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full
 
 - Current default: `fast_seeded_reference`.
@@ -2843,14 +2865,14 @@ _Generated at 2026-05-19T21:56:53+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory)
 
-- Current default: `cluster_t1_seeded`.
-- Active challengers: `fast_seeded_reference`.
+- Current default: `fast_seeded_reference`.
+- Active challengers: `cluster_t1_seeded`.
 - Aggregate result: `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
-| fast_seeded_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_seeded_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cluster_t1_seeded | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence
 

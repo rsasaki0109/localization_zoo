@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T18:35:58+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T19:58:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -442,6 +442,21 @@ _Generated at 2026-05-19T18:35:58+00:00 by `evaluation/scripts/run_experiment_ma
 | corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | corr_2 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified)
+
+- Current default: `fine_sigma_0_375`.
+- Active challengers: `fine_sigma_default`, `fine_sigma_0_75`, `fine_sigma_1_0`.
+- Reference variants: `fine_sigma_0_25`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fine_sigma_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fine_sigma_0_25 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fine_sigma_0_375 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fine_sigma_0_75 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fine_sigma_1_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)
 

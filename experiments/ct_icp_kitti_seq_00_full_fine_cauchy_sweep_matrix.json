@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_full_fine_cauchy_sweep",
+    "title": "CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified)",
+    "question": "Cluster A simplified recipe (map=50 + c2f σ×2) wins seq 00 at 12.69 m using default fine σ=0.5. Does tightening or relaxing fine σ unlock further ATE improvement, or is σ=0.5 already optimal?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "fine_sigma_default",
+      "label": "fine σ=0.5 (default, cluster A reference)",
+      "design_style": "reference",
+      "intent": "Confirm 12.69 m baseline at default fine σ.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "fine_sigma_0_25",
+      "label": "fine σ=0.25 (tighter)",
+      "design_style": "tighter",
+      "intent": "Tighter outlier rejection in fine phase — does this reduce residual drift?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-cauchy-sigma", "0.25"]
+    },
+    {
+      "id": "fine_sigma_0_375",
+      "label": "fine σ=0.375 (slightly tighter)",
+      "design_style": "tighter",
+      "intent": "Midpoint between 0.25 and 0.5.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-cauchy-sigma", "0.375"]
+    },
+    {
+      "id": "fine_sigma_0_75",
+      "label": "fine σ=0.75 (softer)",
+      "design_style": "softer",
+      "intent": "More tolerant fine phase — does this help long-trajectory drift?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-cauchy-sigma", "0.75"]
+    },
+    {
+      "id": "fine_sigma_1_0",
+      "label": "fine σ=1.0 (much softer)",
+      "design_style": "softer",
+      "intent": "Match coarse σ (1.0 = 0.5×2). Tests whether two phases can converge to similar tolerance.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-cauchy-sigma", "1.0"]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:22:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -227,9 +227,13 @@ _Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_cov_half_threads` | 0.111 | 80.7 | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.222 | 20.9 | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `paper_icp_only_half_threads` | 0.741 | 21.2 | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames) | `ready` | `cluster_t1_seeded` | 0.633 | 45.0 | `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames) | `ready` | `cluster_t1_seeded` | 0.666 | 46.3 | `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_icp_only_half_threads` | 1.145 | 48.8 | `experiments/results/litamin2_kitti_raw_0009_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_cov_half_threads` | 1.053 | 34.2 | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `paper_cov_half_threads` | 122.275 | 87.3 | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames) | `ready` | `cluster_t1_seeded` | 0.511 | 48.1 | `experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames) | `ready` | `cluster_t1_seeded` | 0.600 | 61.4 | `experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_icp_only_half_threads` | 0.944 | 58.1 | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_cov_half_threads` | 0.511 | 68.6 | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `fast_icp_only_half_threads` | 0.998 | 108.9 | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |
@@ -13803,6 +13807,102 @@ _Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
 
 
+## LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames)
+
+- **Problem ID**: `litamin2_kitti_raw_0009_200_cluster_t1`
+- **Question**: 0009 200-frame CT-ICP best is balanced 1.66 m. LiTAMIN2 T1 transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 1.053 | 32.6 | 66.3 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.633 | 45.0 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 45.0 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.633 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames)
+
+- **Problem ID**: `litamin2_kitti_raw_0009_full_cluster_t1`
+- **Question**: 0009 is CT-ICP's 'own family' (balanced only winner 4.67 m). Does LiTAMIN2 cluster T1 still win or fall into a sub-cluster?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 1.145 | 46.3 | 79.1 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.666 | 40.2 | 93.5 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 46.3 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.666 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - **Problem ID**: `litamin2_profile_tradeoff_kitti_raw_0009_full`
@@ -14017,6 +14117,102 @@ _Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses odometry-chain scan-to-map initialization (no GT seed). Covariance-shape term disabled.
+
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames)
+
+- **Problem ID**: `litamin2_kitti_raw_0061_200_cluster_t1`
+- **Question**: 0061 200-frame CT-ICP best is cluster D 0.94 m. LiTAMIN2 T1 transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.511 | 47.4 | 99.3 | 5.00 | 5.00 | Keep as active challenger |
+| cluster T1 + seed | transfer | 0.517 | 48.1 | 99.4 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 48.1 FPS.
+3. `fast_seeded_reference` is the most accurate observed variant at 0.511 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames)
+
+- **Problem ID**: `litamin2_kitti_raw_0061_full_cluster_t1`
+- **Question**: 0061 is CT-ICP cluster D territory (ms_chol 4.50 m). LiTAMIN2 T1 transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.944 | 61.4 | 81.8 | 5.00 | 5.00 | Keep as active challenger |
+| cluster T1 + seed | transfer | 0.600 | 39.8 | 82.4 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 61.4 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.600 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
 ## LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)

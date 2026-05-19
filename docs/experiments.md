@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T22:14:46+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:17:30+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -244,6 +244,7 @@ _Generated at 2026-05-19T22:14:46+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_cov_half_threads` | 0.498 | 121.0 | `experiments/results/litamin2_mulran_parkinglot_120_matrix.json` |
+| LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory) | `ready` | `cluster_t1_seeded` | 0.303 | 34.4 | `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_icp_only_half_threads` | 0.711 | 118.6 | `experiments/results/litamin2_mulran_parkinglot_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.213 | 23.5 | `experiments/results/litamin2_profile_matrix.json` |
 | LOAM-Livox on the public HDL-400 reference window | `ready` | `default` | 0.079 | 52.0 | `experiments/results/loam_livox_hdl_400_reference_matrix.json` |
@@ -14852,6 +14853,54 @@ _Generated at 2026-05-19T22:14:46+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory)
+
+- **Problem ID**: `litamin2_mulran_parkinglot_full_cluster_t1`
+- **Question**: LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) is universal on KITTI Odom 5/5. CT-ICP cluster A + seed wins MulRan parkinglot full at 9.19 m. Does LiTAMIN2 T1 dethrone it?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 0.711 | 33.1 | 69.3 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.303 | 34.4 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 34.4 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.303 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline on parkinglot full.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer KITTI Odom universal recipe to MulRan parkinglot.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
 ## LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence)

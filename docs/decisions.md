@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-20T00:59:06+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-20T01:06:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -4279,6 +4279,18 @@ _Generated at 2026-05-20T00:59:06+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames)
+
+- Current default: `dense_seeded_reference`.
+- Reference variants: `dense_no_seed`, `balanced_no_seed`.
+- Aggregate result: `experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_seeded_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_no_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| balanced_no_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## Voxel-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames)
 

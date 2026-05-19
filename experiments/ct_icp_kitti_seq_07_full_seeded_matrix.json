@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_07_full_seeded",
+    "title": "CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D)",
+    "question": "Cluster D's true recipe needs map=20 + iter=6 alongside ms_chol (1.61 m). Does cluster A+seed (the universal MCD/MulRan winner) dethrone cluster D no-seed (1.61) on seq 07, or does seq 07 join the self-anchor family where seed hurts?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "cluster_d_full_no_seed_reference",
+      "label": "cluster D full no seed (current winner 1.61 m)",
+      "design_style": "reference",
+      "intent": "Confirm prior best with full cluster D recipe.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "cluster_d_full_seeded",
+      "label": "cluster D full + GT seed",
+      "design_style": "seeded",
+      "intent": "Does seed help or hurt the cluster D winner?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-gt-seed"]
+    },
+    {
+      "id": "cluster_a_no_seed",
+      "label": "cluster A no seed",
+      "design_style": "no-seed",
+      "intent": "cluster A no-seed baseline on seq 07.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "cluster_a_seeded",
+      "label": "cluster A + GT seed",
+      "design_style": "seeded",
+      "intent": "Cluster A+seed pattern test on seq 07.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-gt-seed"]
+    }
+  ]
+}

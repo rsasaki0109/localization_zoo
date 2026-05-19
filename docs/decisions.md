@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T19:58:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:22:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -484,6 +484,19 @@ _Generated at 2026-05-19T19:58:14+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A)
+
+- Current default: `radius_2_reference`.
+- Reference variants: `radius_1`, `radius_3`, `radius_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| radius_1 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| radius_2_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| radius_3 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| radius_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP seq 00 full: leave-one-out ablation on full recipe
 

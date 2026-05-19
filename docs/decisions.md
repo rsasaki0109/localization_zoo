@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T20:38:53+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:59:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -993,6 +993,20 @@ _Generated at 2026-05-19T20:38:53+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP cluster A/D transfer to MulRan parkinglot 120-frame short window
+
+- Current default: `cluster_a_with_seed`.
+- Active challengers: `cluster_d_with_seed`.
+- Reference variants: `dense_reference`, `cluster_a_no_seed`.
+- Aggregate result: `experiments/results/ct_icp_mulran_parkinglot_120_recipes_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| dense_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_a_no_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_a_with_seed | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cluster_d_with_seed | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full
 

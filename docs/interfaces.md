@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T20:38:53+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T20:59:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -157,6 +157,7 @@ The runner is responsible for:
 | CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ct_icp_mcd_tuhh_night_09_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
 | CT-ICP recipe sensitivity test on MCD TUHH night_09 (108 frames) | `ready` | `experiments/ct_icp_mcd_tuhh_night_09_recipes_matrix.json` | `ct_icp` | `dense_reference` | `experiments/results/ct_icp_mcd_tuhh_night_09_recipes_matrix.json` |
 | CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window) | `ready` | `experiments/ct_icp_mulran_parkinglot_120_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mulran_parkinglot_120_matrix.json` |
+| CT-ICP cluster A/D transfer to MulRan parkinglot 120-frame short window | `ready` | `experiments/ct_icp_mulran_parkinglot_120_recipes_matrix.json` | `ct_icp` | `cluster_a_with_seed` | `experiments/results/ct_icp_mulran_parkinglot_120_recipes_matrix.json` |
 | CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full | `ready` | `experiments/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json` | `ct_icp` | `cluster_a_with_seed` | `experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json` |
 | CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence) | `ready` | `experiments/ct_icp_mulran_parkinglot_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_mulran_parkinglot_full_matrix.json` |
 | CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_profile_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_profile_matrix.json` |

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T18:35:58+00:00",
+  "generated_at": "2026-05-19T19:58:14+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -315,6 +315,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json",
       "current_default": "corr_8"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_full_fine_cauchy_sweep",
+      "title": "CT-ICP fine-phase Cauchy \u03c3 sweep on KITTI seq 00 full (cluster A simplified)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json",
+      "current_default": "fine_sigma_0_375"
     },
     {
       "problem_id": "ct_icp_kitti_seq_00_full_map_size_sweep",

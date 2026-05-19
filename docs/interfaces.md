@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T18:35:58+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T19:58:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -114,6 +114,7 @@ The runner is responsible for:
 | CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames) | `ready` | `experiments/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` | `ct_icp` | `cauchy_2_0_reference` | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
 | CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner | `ready` | `experiments/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` | `ct_icp` | `iter_2` | `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` |
 | CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner | `ready` | `experiments/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` | `ct_icp` | `corr_8` | `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` |
+| CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified) | `ready` | `experiments/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` | `ct_icp` | `fine_sigma_0_375` | `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` |
 | CT-ICP map_size sweep on KITTI seq 00 full (4542 frames) | `ready` | `experiments/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` | `ct_icp` | `map_30` | `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/ct_icp_kitti_seq_00_full_matrix.json` | `ct_icp` | `dense_window` | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
 | CT-ICP seq 00 full: leave-one-out ablation on full recipe | `ready` | `experiments/ct_icp_kitti_seq_00_leave_one_out_matrix.json` | `ct_icp` | `full_recipe_reference` | `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json` |

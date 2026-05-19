@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T21:46:06+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:49:22+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -233,6 +233,8 @@ _Generated at 2026-05-19T21:46:06+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_icp_only_half_threads` | 0.944 | 58.1 | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_cov_half_threads` | 0.511 | 68.6 | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `fast_icp_only_half_threads` | 0.998 | 108.9 | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |
+| LiTAMIN2 paper-comparable on KITTI Odometry 00 (full) | `ready` | `fast_cov_no_gt_seed` | 110.484 | 98.9 | `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json` |
+| LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full) | `ready` | `tuned_voxel1_iter12` | 13.464 | 60.9 | `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_icp_only_half_threads` | 0.401 | 113.0 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
@@ -14221,6 +14223,78 @@ _Generated at 2026-05-19T21:46:06+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 paper-comparable on KITTI Odometry 00 (full)
+
+- **Problem ID**: `litamin2_paper_comparison_kitti_seq_00_full`
+- **Question**: Does LiTAMIN2 fast pure-odom match paper-reported RPE on KITTI Odometry 00?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast local-map + covariance (pure odometry) | throughput-oriented pure odometry | 110.484 | 98.9 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `fast_cov_no_gt_seed` is the current default for this problem.
+2. `fast_cov_no_gt_seed` is the fastest observed variant at 98.9 FPS.
+3. `fast_cov_no_gt_seed` is the most accurate observed variant at 110.484 m ATE.
+
+### Variant Notes
+
+#### `fast_cov_no_gt_seed`
+
+- Intent: Direct paper-comparison: fast profile with velocity-model init.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_paper_comp_matrix/fast_cov_no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_paper_comp_matrix/fast_cov_no_gt_seed/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_paper_comp_matrix/fast_cov_no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full)
+
+- **Problem ID**: `litamin2_tuned_kitti_seq_00_full`
+- **Question**: Does the KITTI 07 winning tune (voxel 1.0 + iter 12) close the gap on sequence 00?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Tuned: voxel 1.0 + iter 12 (no GT seed) | tuned for paper parity | 13.464 | 60.9 | 100.0 | 3.45 | 3.95 | Adopt as current default |
+
+### Observations
+
+1. `tuned_voxel1_iter12` is the current default for this problem.
+2. `tuned_voxel1_iter12` is the fastest observed variant at 60.9 FPS.
+3. `tuned_voxel1_iter12` is the most accurate observed variant at 13.464 m ATE.
+
+### Variant Notes
+
+#### `tuned_voxel1_iter12`
+
+- Intent: Apply KITTI 07 gap-close winner across the paper-evaluated set.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_matrix/tuned_voxel1_iter12/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_matrix/tuned_voxel1_iter12/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_matrix/tuned_voxel1_iter12/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence

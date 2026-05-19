@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T00:18:24+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T01:06:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -400,6 +400,18 @@ _Generated at 2026-05-19T00:18:24+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)
+
+- Current default: `baseline_reference`.
+- Reference variants: `c2f_only_sigma`, `c2f_only_full`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| c2f_only_sigma | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| c2f_only_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
 

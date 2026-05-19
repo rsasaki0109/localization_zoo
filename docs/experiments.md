@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T21:49:22+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:55:22+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -235,6 +235,7 @@ _Generated at 2026-05-19T21:49:22+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `fast_icp_only_half_threads` | 0.998 | 108.9 | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |
 | LiTAMIN2 paper-comparable on KITTI Odometry 00 (full) | `ready` | `fast_cov_no_gt_seed` | 110.484 | 98.9 | `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json` |
 | LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full) | `ready` | `tuned_voxel1_iter12` | 13.464 | 60.9 | `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json` |
+| LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed | `ready` | `tuned_voxel2_iter12_seeded` | 0.731 | 86.8 | `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_icp_only_half_threads` | 0.401 | 113.0 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
@@ -14295,6 +14296,78 @@ _Generated at 2026-05-19T21:49:22+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed
+
+- **Problem ID**: `litamin2_kitti_seq_00_full_tuned_seeded`
+- **Question**: Tuned no-seed gave RPE 0.92% (best on seq 00) but ATE 13.46 m due to no-seed drift. fast+seed gave ATE 0.998 m but RPE 1.91%. Combining (voxel=1.0 + iter=12) + seed — does this give both <1 m ATE and <1% RPE?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| voxel=1.0 + iter=12 + GT seed | tuned-seeded | 1.099 | 55.2 | 65.0 | 3.80 | 4.20 | Keep as reference variant |
+| voxel=0.5 + iter=12 + GT seed | tighter | 0.731 | 54.4 | 81.3 | 3.80 | 4.20 | Keep as active challenger |
+| voxel=2.0 + iter=12 + GT seed | midpoint | 1.117 | 86.8 | 82.7 | 3.80 | 4.20 | Adopt as current default |
+| voxel=1.0 + iter=20 + GT seed | more-iter | 1.096 | 56.0 | 65.6 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `tuned_voxel2_iter12_seeded` is the current default for this problem.
+2. `tuned_voxel2_iter12_seeded` is the fastest observed variant at 86.8 FPS.
+3. `tuned_voxel0_5_iter12_seeded` is the most accurate observed variant at 0.731 m ATE.
+
+### Variant Notes
+
+#### `tuned_voxel1_iter12_seeded`
+
+- Intent: Combine tightest known knobs with seed — does it dethrone fast+seed 0.998 m?
+- CLI args: `--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/summary.json --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `tuned_voxel0_5_iter12_seeded`
+
+- Intent: Push voxel finer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `tuned_voxel2_iter12_seeded`
+
+- Intent: Test voxel midpoint between fast default (auto) and tuned 1.0.
+- CLI args: `--litamin2-voxel-resolution 2.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/summary.json --litamin2-voxel-resolution 2.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `tuned_voxel1_iter20_seeded`
+
+- Intent: More iterations on fine voxel.
+- CLI args: `--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/summary.json --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 20`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence

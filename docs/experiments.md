@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T21:56:53+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:01:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -236,8 +236,10 @@ _Generated at 2026-05-19T21:56:53+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 paper-comparable on KITTI Odometry 00 (full) | `ready` | `fast_cov_no_gt_seed` | 110.484 | 98.9 | `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json` |
 | LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full) | `ready` | `tuned_voxel1_iter12` | 13.464 | 60.9 | `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json` |
 | LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed | `ready` | `tuned_voxel2_iter12_seeded` | 0.731 | 86.8 | `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq) | `ready` | `cluster_t1_seeded` | 0.728 | 68.3 | `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length) | `ready` | `fast_seeded_reference` | 0.751 | 17.2 | `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full | `ready` | `fast_seeded_reference` | 0.647 | 94.7 | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
-| LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `cluster_t1_seeded` | 0.696 | 83.9 | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `fast_seeded_reference` | 0.696 | 104.9 | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_icp_only_half_threads` | 0.401 | 113.0 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
@@ -14372,6 +14374,102 @@ _Generated at 2026-05-19T21:56:53+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq)
+
+- **Problem ID**: `litamin2_kitti_seq_02_full_tuned_seeded`
+- **Question**: seq 00/07/08 all pick cluster T1. seq 02 is CT-ICP's worst seq (50.63 m best, own cluster C). Does LiTAMIN2 cluster T1 collapse seq 02 too, or does seq 02 break LiTAMIN2's universal-recipe streak?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 1.038 | 67.1 | 84.2 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.728 | 68.3 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 68.3 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.728 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline on seq 02.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Test cluster T1 on the long winding seq 02.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length)
+
+- **Problem ID**: `litamin2_kitti_seq_05_full_tuned_seeded`
+- **Question**: seq 00/07/08 all pick cluster T1. seq 05 is mid-length where CT-ICP picked cluster B (cluster A + corr=4). Does LiTAMIN2 cluster T1 win on seq 05 too?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 0.957 | 17.2 | 89.2 | 5.00 | 5.00 | Adopt as current default |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.751 | 7.3 | 71.4 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_seeded_reference` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 17.2 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.751 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline on seq 05.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Test cluster T1 on seq 05.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full
 
 - **Problem ID**: `litamin2_kitti_seq_07_full_tuned_seeded`
@@ -14434,13 +14532,13 @@ _Generated at 2026-05-19T21:56:53+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| fast + seed (baseline) | reference | 1.130 | 83.9 | 80.8 | 5.00 | 5.00 | Keep as active challenger |
-| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.696 | 63.6 | 87.9 | 3.80 | 4.20 | Adopt as current default |
+| fast + seed (baseline) | reference | 1.130 | 104.9 | 80.8 | 5.00 | 5.00 | Adopt as current default |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.696 | 54.3 | 75.9 | 3.80 | 4.20 | Keep as active challenger |
 
 ### Observations
 
-1. `cluster_t1_seeded` is the current default for this problem.
-2. `fast_seeded_reference` is the fastest observed variant at 83.9 FPS.
+1. `fast_seeded_reference` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 104.9 FPS.
 3. `cluster_t1_seeded` is the most accurate observed variant at 0.696 m ATE.
 
 ### Variant Notes

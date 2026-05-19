@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:22:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2715,6 +2715,28 @@ _Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_cov_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_icp_only_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
+## LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames)
+
+- Current default: `cluster_t1_seeded`.
+- Reference variants: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames)
+
+- Current default: `cluster_t1_seeded`.
+- Reference variants: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `fast_icp_only_half_threads`.
@@ -2755,6 +2777,28 @@ _Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_icp_only_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | paper_cov_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_icp_only_half_threads | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames)
+
+- Current default: `cluster_t1_seeded`.
+- Active challengers: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames)
+
+- Current default: `cluster_t1_seeded`.
+- Active challengers: `fast_seeded_reference`.
+- Aggregate result: `experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast_seeded_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cluster_t1_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 

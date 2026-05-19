@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T22:19:34+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T22:22:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -300,9 +300,13 @@ The runner is responsible for:
 | LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/litamin2_hdl_400_reference_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_b_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_c_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames) | `ready` | `experiments/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames) | `ready` | `experiments/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/litamin2_kitti_raw_0009_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_raw_0009_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/litamin2_kitti_raw_0009_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/litamin2_kitti_raw_0009_nogt_matrix.json` | `litamin2` | `paper_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames) | `ready` | `experiments/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames) | `ready` | `experiments/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/litamin2_kitti_raw_0061_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/litamin2_kitti_raw_0061_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `experiments/litamin2_kitti_seq_00_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |

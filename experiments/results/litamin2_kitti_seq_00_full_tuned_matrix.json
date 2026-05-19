@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-17T21:51:19+00:00",
-  "manifest_path": "experiments/pending/litamin2_kitti_seq_00_full_tuned_matrix.json",
+  "generated_at": "2026-05-19T21:46:46+00:00",
+  "manifest_path": "experiments/litamin2_kitti_seq_00_full_tuned_matrix.json",
   "problem": {
     "id": "litamin2_tuned_kitti_seq_00_full",
     "title": "LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full)",
@@ -27,7 +27,7 @@
     "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
     "extra_args": []
   },
-  "variant_timeout_seconds": 1800.0,
+  "variant_timeout_seconds": null,
   "status": "ready",
   "blocker": "",
   "next_step": "",
@@ -51,8 +51,8 @@
       "ate_m": 13.463967,
       "rpe_trans_pct": 0.919647,
       "rpe_rot_deg_per_m": 0.008111,
-      "fps": 85.355648,
-      "time_ms": 53200.931831,
+      "fps": 60.947313,
+      "time_ms": 74506.975966,
       "frames": 4541,
       "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
       "benchmark_score": 100.0,

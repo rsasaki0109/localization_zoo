@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-19T21:55:22+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:56:53+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -309,6 +309,8 @@ The runner is responsible for:
 | LiTAMIN2 paper-comparable on KITTI Odometry 00 (full) | `ready` | `experiments/litamin2_kitti_seq_00_full_paper_comp_matrix.json` | `litamin2` | `fast_cov_no_gt_seed` | `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json` |
 | LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full) | `ready` | `experiments/litamin2_kitti_seq_00_full_tuned_matrix.json` | `litamin2` | `tuned_voxel1_iter12` | `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json` |
 | LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed | `ready` | `experiments/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` | `litamin2` | `tuned_voxel2_iter12_seeded` | `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full | `ready` | `experiments/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` | `litamin2` | `fast_seeded_reference` | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `experiments/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/litamin2_mcd_kth_day_06_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/litamin2_mcd_ntu_day_02_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/litamin2_mcd_tuhh_night_09_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T02:41:05+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T03:35:13+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -298,6 +298,17 @@ _Generated at 2026-05-19T02:41:05+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## CT-ICP seq 02 full: map=50 retrofit on bare baseline winner
+
+- Current default: `baseline_map_20`.
+- Reference variants: `baseline_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| baseline_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - Current default: `balanced_window`.
@@ -427,6 +438,17 @@ _Generated at 2026-05-19T02:41:05+00:00 by `evaluation/scripts/run_experiment_ma
 | c2f_only_sigma | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | c2f_only_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner
+
+- Current default: `arch_tuned_map_30`.
+- Active challengers: `arch_tuned_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| arch_tuned_map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| arch_tuned_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
 ## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
 
 - Current default: `fast_window`.
@@ -439,6 +461,17 @@ _Generated at 2026-05-19T02:41:05+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 07 full: map=50 retrofit on ms_chol winner
+
+- Current default: `ms_chol_map_20`.
+- Reference variants: `ms_chol_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| ms_chol_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| ms_chol_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
 
@@ -467,6 +500,17 @@ _Generated at 2026-05-19T02:41:05+00:00 by `evaluation/scripts/run_experiment_ma
 | cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | cauchy_3_0 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | cauchy_4_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 08 full: map=50 retrofit on c2f_only winner
+
+- Current default: `c2f_only_map_20`.
+- Active challengers: `c2f_only_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| c2f_only_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| c2f_only_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
 

@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-20T01:06:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -364,6 +364,7 @@ The runner is responsible for:
 | NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/ndt_kitti_raw_0009_nogt_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_kitti_raw_0009_nogt_matrix.json` |
 | NDT trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/ndt_kitti_raw_0061_full_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_kitti_raw_0061_full_matrix.json` |
 | NDT throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/ndt_kitti_raw_0061_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_kitti_raw_0061_matrix.json` |
+| NDT cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/ndt_kitti_seq_07_full_sweep_matrix.json` | `ndt` | `fast_profile` | `experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/ndt_mcd_kth_day_06_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_kth_day_06_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/ndt_mcd_ntu_day_02_matrix.json` | `ndt` | `balanced_local_map` | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ndt_mcd_tuhh_night_09_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |

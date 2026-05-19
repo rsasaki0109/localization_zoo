@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-20T01:06:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -291,6 +291,7 @@ _Generated at 2026-05-20T01:06:10+00:00 by `evaluation/scripts/run_experiment_ma
 | NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_coarse_map` | 121.733 | 25.0 | `experiments/results/ndt_kitti_raw_0009_nogt_matrix.json` |
 | NDT trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_coarse_map` | 0.247 | 23.8 | `experiments/results/ndt_kitti_raw_0061_full_matrix.json` |
 | NDT throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_coarse_map` | 0.319 | 41.2 | `experiments/results/ndt_kitti_raw_0061_matrix.json` |
+| NDT cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast_profile` | 0.076 | 43.6 | `experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_coarse_map` | 0.136 | 31.2 | `experiments/results/ndt_mcd_kth_day_06_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `balanced_local_map` | 0.013 | 44.9 | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_coarse_map` | 0.063 | 40.8 | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
@@ -17533,6 +17534,90 @@ _Generated at 2026-05-20T01:06:10+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ndt_kitti_raw_0061_matrix/dense_local_map/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## NDT cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `ndt_kitti_seq_07_full_sweep`
+- **Question**: Does NDT recipe space follow voxel_gicp dense or LiTAMIN2 T1 (voxel=0.5 + iter=12) pattern?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 0.262 | 24.8 | 43.0 | 5.00 | 5.00 | Keep as reference variant |
+| fast profile | throughput | 0.279 | 43.6 | 63.6 | 4.65 | 4.75 | Adopt as current default |
+| dense profile | accuracy | 0.281 | 15.9 | 31.9 | 4.65 | 4.75 | Keep as reference variant |
+| T1 transfer (res=0.5 + iter=12) | transfer | 0.076 | 10.4 | 61.9 | 3.80 | 4.20 | Keep as active challenger |
+| T1 variant (res=1.0 + iter=12) | transfer | 0.269 | 10.7 | 26.4 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 43.6 FPS.
+3. `t1_transfer_r05_i12` is the most accurate observed variant at 0.076 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast profile.
+- CLI args: `--ndt-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json --ndt-fast-profile`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense profile.
+- CLI args: `--ndt-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json --ndt-dense-profile`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_r05_i12`
+
+- Intent: LiTAMIN2 T1 recipe transfer.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_r10_i12`
+
+- Intent: NDT typical resolution.
+- CLI args: `--ndt-resolution 1.0 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/summary.json --ndt-resolution 1.0 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 

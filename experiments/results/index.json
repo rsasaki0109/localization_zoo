@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T14:37:31+00:00",
+  "generated_at": "2026-05-19T15:20:38+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -342,6 +342,15 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_leave_one_out_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json",
       "current_default": "full_recipe_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_map50_partner",
+      "title": "CT-ICP seq 00 full: map=50 + single partner knob isolation",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/ct_icp_kitti_seq_00_map50_partner_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json",
+      "current_default": "map_50_plus_c2f"
     },
     {
       "problem_id": "ct_icp_kitti_seq_00_map_bare",

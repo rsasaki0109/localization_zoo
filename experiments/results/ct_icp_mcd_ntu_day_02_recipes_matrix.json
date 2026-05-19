@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-05-19T20:32:05+00:00",
+  "manifest_path": "experiments/ct_icp_mcd_ntu_day_02_recipes_matrix.json",
+  "problem": {
+    "id": "ct_icp_mcd_ntu_day_02_recipes",
+    "title": "CT-ICP recipe sensitivity test on MCD NTU day_02 (108 frames)",
+    "question": "MCD KTH 108 frames showed all recipes within 1% (saturated). NTU has the lowest baseline (0.325 m, dense_window) \u2014 a smaller absolute number makes recipe differences proportionally bigger. Does cluster A or D unlock meaningful change?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_reference",
+      "label": "dense_window (current best 0.325 m)",
+      "design_style": "reference",
+      "intent": "Confirm 0.325 m baseline.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/dense_reference/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/dense_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/dense_reference/run.log",
+      "status": "ok",
+      "ate_m": 0.325263,
+      "rpe_trans_pct": 155.350284,
+      "rpe_rot_deg_per_m": 16.620838,
+      "fps": 21.876931,
+      "time_ms": 4936.707178,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 95.71,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "cluster_a",
+      "label": "cluster A (map=50 + c2f \u03c3\u00d72)",
+      "design_style": "long-traj-recipe",
+      "intent": "Does cluster A help short window?",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_a/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_a/run.log",
+      "status": "ok",
+      "ate_m": 0.372462,
+      "rpe_trans_pct": 77.562895,
+      "rpe_rot_deg_per_m": 17.819861,
+      "fps": 20.651963,
+      "time_ms": 5229.527114,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 86.81,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "cluster_d_ms_chol",
+      "label": "cluster D (ms_chol)",
+      "design_style": "short-traj-recipe",
+      "intent": "ms_chol on 108-frame NTU.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_d_ms_chol/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_d_ms_chol/run.log",
+      "status": "ok",
+      "ate_m": 0.426412,
+      "rpe_trans_pct": 125.393015,
+      "rpe_rot_deg_per_m": 18.742477,
+      "fps": 23.930749,
+      "time_ms": 4513.02211,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 88.14,
+      "readability_score": 3.95,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.25,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

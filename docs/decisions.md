@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T09:11:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T09:39:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -297,6 +297,19 @@ _Generated at 2026-05-19T09:11:21+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²)
+
+- Current default: `corr_5`.
+- Active challengers: `corr_8_reference`, `corr_6`, `corr_7`.
+- Aggregate result: `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_8_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_5 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_6 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_7 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP seq 02 full: map=50 retrofit on bare baseline winner
 

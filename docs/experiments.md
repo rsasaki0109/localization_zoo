@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T09:11:21+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T09:39:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -30,6 +30,7 @@ _Generated at 2026-05-19T09:11:21+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 54.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `balanced_window` | 6.820 | 3.1 | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `balanced_window` | 7.539 | 2.8 | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
+| CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `corr_5` | 13.322 | 17.3 | `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json` |
 | CT-ICP seq 02 full: map=50 retrofit on bare baseline winner | `ready` | `baseline_map_20` | 56.537 | 19.9 | `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `balanced_window` | 4.673 | 44.9 | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_window` | 1.659 | 49.3 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
@@ -1748,6 +1749,78 @@ _Generated at 2026-05-19T09:11:21+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
+
+
+## CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_corr_fine_grid`
+- **Question**: Sharp cliff between 4 (catastrophic) and 8 (winner). Where exactly does the optimum sit?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| corr=8 (existing winner) | reference | 14.363 | 14.2 | 87.3 | 1.00 | 1.20 | Keep as active challenger |
+| corr=5 | tighter | 13.322 | 15.5 | 94.6 | 1.00 | 1.20 | Adopt as current default |
+| corr=6 | tighter | 15.092 | 17.3 | 94.1 | 1.00 | 1.20 | Keep as active challenger |
+| corr=7 | tighter | 15.931 | 17.3 | 91.8 | 1.00 | 1.20 | Keep as active challenger |
+
+### Observations
+
+1. `corr_5` is the current default for this problem.
+2. `corr_7` is the fastest observed variant at 17.3 FPS.
+3. `corr_5` is the most accurate observed variant at 13.322 m ATE.
+
+### Variant Notes
+
+#### `corr_8_reference`
+
+- Intent: Confirm 14.36 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_8_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_8_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_8_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_5`
+
+- Intent: Just above the cliff at 4.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_5/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_6`
+
+- Intent: Midway probe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 6`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_6/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 6`
+- Summary: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_6/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_6/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_7`
+
+- Intent: Just below the existing winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 7`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_7/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 7`
+- Summary: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_7/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_7/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
 ## CT-ICP seq 02 full: map=50 retrofit on bare baseline winner

@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T23:40:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-20T00:59:06+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -322,6 +322,7 @@ _Generated at 2026-05-19T23:40:45+00:00 by `evaluation/scripts/run_experiment_ma
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_local_map` | 1.624 | 76.3 | `experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 0.959 | 82.2 | `experiments/results/small_gicp_kitti_raw_0061_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.639 | 78.1 | `experiments/results/small_gicp_kitti_raw_0061_matrix.json` |
+| Small-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames) | `ready` | `fast_seeded_reference` | 0.890 | 63.3 | `experiments/results/small_gicp_kitti_seq_00_full_no_seed_matrix.json` |
 | Small-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `fast_profile` | 0.890 | 106.4 | `experiments/results/small_gicp_kitti_seq_00_full_sweep_matrix.json` |
 | Small-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast_profile` | 0.909 | 96.5 | `experiments/results/small_gicp_kitti_seq_02_full_sweep_matrix.json` |
 | Small-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast_profile` | 0.984 | 104.5 | `experiments/results/small_gicp_kitti_seq_05_full_sweep_matrix.json` |
@@ -19088,6 +19089,78 @@ _Generated at 2026-05-19T23:40:45+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Small-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames)
+
+- **Problem ID**: `small_gicp_kitti_seq_00_full_no_seed`
+- **Question**: Does small_gicp fast_profile maintain sub-meter ATE without GT seed?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/small_gicp_kitti_seq_00_full_no_seed_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.890 | 63.3 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| fast no-seed | deployment-robust | 202.722 | 62.2 | 49.3 | 4.30 | 4.50 | Keep as reference variant |
+| balanced no-seed | deployment-robust | 584.185 | 46.3 | 36.6 | 4.65 | 4.75 | Keep as reference variant |
+| dense no-seed | deployment-robust | 141.664 | 42.6 | 33.9 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast_seeded_reference` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 63.3 FPS.
+3. `fast_seeded_reference` is the most accurate observed variant at 0.890 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Default with GT seed (winner from prior sweep).
+- CLI args: `--small-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_seeded_reference/summary.json --small-gicp-fast-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_no_seed`
+
+- Intent: No-seed deployment realism check.
+- CLI args: `--small-gicp-fast-profile --no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_no_seed/summary.json --small-gicp-fast-profile --no-gt-seed`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_no_seed/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_no_seed/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `balanced_no_seed`
+
+- Intent: Compare default profile under no-seed.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `dense_no_seed`
+
+- Intent: Compare dense under no-seed.
+- CLI args: `--small-gicp-dense-profile --no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/summary.json --small-gicp-dense-profile --no-gt-seed`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## Small-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames)

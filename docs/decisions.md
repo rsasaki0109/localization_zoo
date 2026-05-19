@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-19T11:54:01+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T12:28:49+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -597,6 +597,18 @@ _Generated at 2026-05-19T11:54:01+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | arch_tuned_map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | arch_tuned_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 05 full: map_size on BARE baseline
+
+- Current default: `bare_map_50`.
+- Active challengers: `bare_map_20`, `bare_map_30`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_map_20 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_30 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_50 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner
 

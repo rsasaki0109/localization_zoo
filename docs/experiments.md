@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-19T21:25:55+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-19T21:36:54+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -75,6 +75,7 @@ _Generated at 2026-05-19T21:25:55+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner | `ready` | `default_reference` | 32.511 | 17.4 | `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json` |
 | CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames) | `ready` | `cauchy_3_0` | 32.511 | 19.2 | `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json` |
 | CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner | `ready` | `iter_6` | 32.511 | 13.6 | `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json` |
+| CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full | `ready` | `cluster_a_seeded` | 6.024 | 16.8 | `experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json` |
 | CT-ICP seq 08 full: map=50 retrofit on c2f_only winner | `ready` | `c2f_only_map_20` | 32.309 | 13.4 | `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` |
 | CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base | `ready` | `default_reference` | 27.850 | 15.7 | `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json` |
 | CT-ICP seq 02 full: simplified map=50+c2f probe | `ready` | `current_winner` | 50.635 | 21.8 | `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json` |
@@ -4781,6 +4782,54 @@ _Generated at 2026-05-19T21:25:55+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full
+
+- **Problem ID**: `ct_icp_kitti_seq_08_full_seeded`
+- **Question**: seq 00 + seed shows sharpest ATE/RPE flip (ATE -61% / RPE +174%). Does seq 08 (4071 frames, similar length to seq 00) show the same long-distance seed flip pattern, or is seq 00 unique?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cluster A no seed (current best 27.85 m) | reference | 27.850 | 15.2 | 56.2 | 1.00 | 2.10 | Keep as reference variant |
+| cluster A + GT seed | seeded | 6.024 | 16.8 | 100.0 | 1.00 | 1.85 | Adopt as current default |
+
+### Observations
+
+1. `cluster_a_seeded` is the current default for this problem.
+2. `cluster_a_seeded` is the fastest observed variant at 16.8 FPS.
+3. `cluster_a_seeded` is the most accurate observed variant at 6.024 m ATE.
+
+### Variant Notes
+
+#### `cluster_a_no_seed_reference`
+
+- Intent: Confirm baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a_seeded`
+
+- Intent: Does seq 08 also show ATE big-win / RPE big-loss?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
 
 
 ## CT-ICP seq 08 full: map=50 retrofit on c2f_only winner

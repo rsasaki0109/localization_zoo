@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T21:46:06+00:00",
+  "generated_at": "2026-05-19T21:49:22+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2043,6 +2043,24 @@
       "manifest_path": "experiments/litamin2_kitti_seq_00_full_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_seq_00_full_matrix.json",
       "current_default": "fast_icp_only_half_threads"
+    },
+    {
+      "problem_id": "litamin2_paper_comparison_kitti_seq_00_full",
+      "title": "LiTAMIN2 paper-comparable on KITTI Odometry 00 (full)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_kitti_seq_00_full_paper_comp_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json",
+      "current_default": "fast_cov_no_gt_seed"
+    },
+    {
+      "problem_id": "litamin2_tuned_kitti_seq_00_full",
+      "title": "LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_kitti_seq_00_full_tuned_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json",
+      "current_default": "tuned_voxel1_iter12"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_mcd_kth_day_06",

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-17T21:27:29+00:00",
-  "manifest_path": "experiments/pending/litamin2_kitti_seq_00_full_paper_comp_matrix.json",
+  "generated_at": "2026-05-19T21:48:00+00:00",
+  "manifest_path": "experiments/litamin2_kitti_seq_00_full_paper_comp_matrix.json",
   "problem": {
     "id": "litamin2_paper_comparison_kitti_seq_00_full",
     "title": "LiTAMIN2 paper-comparable on KITTI Odometry 00 (full)",
@@ -27,7 +27,7 @@
     "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
     "extra_args": []
   },
-  "variant_timeout_seconds": 1800.0,
+  "variant_timeout_seconds": null,
   "status": "ready",
   "blocker": "",
   "next_step": "",
@@ -47,8 +47,8 @@
       "ate_m": 110.48392,
       "rpe_trans_pct": 3.081315,
       "rpe_rot_deg_per_m": 0.018176,
-      "fps": 68.169975,
-      "time_ms": 66612.904299,
+      "fps": 98.948385,
+      "time_ms": 45892.613708,
       "frames": 4541,
       "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
       "benchmark_score": 100.0,

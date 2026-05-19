@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-04-15T13:56:26+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-05-19T20:48:41+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -48,12 +48,58 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | ct_icp | `kitti_raw_0009_200` | reference-based | `fast_window` | 2.728 | 49.3 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | ct_icp | `kitti_raw_0009_200` | reference-based | `balanced_window` | 1.659 | 44.5 | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | ct_icp | `kitti_raw_0009_full` | reference-based | `balanced_window` | 4.673 | 40.6 | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
+| ct_icp | `kitti_raw_0009_full` | reference-based | `balanced_reference` | 4.673 | 39.3 | `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json` |
 | ct_icp | `kitti_raw_0061_200` | reference-based | `fast_window` | 1.475 | 56.9 | `experiments/results/ct_icp_kitti_raw_0061_matrix.json` |
 | ct_icp | `kitti_raw_0061_full` | reference-based | `fast_window` | 6.972 | 37.6 | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
+| ct_icp | `kitti_raw_0061_full` | reference-based | `fast_window_reference` | 6.972 | 57.8 | `experiments/results/ct_icp_kitti_raw_0061_full_recipes_matrix.json` |
+| ct_icp | `kitti_seq_00_108` | reference-based | `fast_window` | 2.824 | 74.9 | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `corr_5` | 13.322 | 15.5 | `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `bare_corr_8` | 14.968 | 22.3 | `experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `cauchy_2_0_reference` | 15.927 | 19.4 | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `iter_2` | 14.780 | 18.5 | `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `corr_8` | 14.363 | 17.5 | `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `fine_sigma_0_375` | 13.907 | 14.2 | `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `map_30` | 16.541 | 18.0 | `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `dense_window` | 16.778 | 26.9 | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `radius_2_reference` | 12.694 | 16.2 | `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `full_recipe_reference` | 13.322 | 18.7 | `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `map_50_plus_c2f` | 12.694 | 18.7 | `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `bare_map_30` | 15.803 | 18.7 | `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json` |
+| ct_icp | `kitti_seq_00_full` | reference-based | `default_reference` | 12.694 | 18.6 | `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json` |
+| ct_icp | `kitti_seq_02_full` | reference-based | `baseline_map_20` | 56.537 | 19.9 | `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json` |
+| ct_icp | `kitti_seq_02_full` | reference-based | `corr_8` | 50.635 | 16.4 | `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` |
+| ct_icp | `kitti_seq_02_full` | reference-based | `corr_8_reference` | 50.635 | 17.2 | `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` |
+| ct_icp | `kitti_seq_02_full` | reference-based | `bare_corr_8_reference` | 50.635 | 21.6 | `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` |
+| ct_icp | `kitti_seq_02_full` | reference-based | `baseline_reference` | 56.537 | 16.8 | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
+| ct_icp | `kitti_seq_02_full` | reference-based | `map_15` | 66.558 | 19.1 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
+| ct_icp | `kitti_seq_02_full` | reference-based | `map_20_reference` | 50.635 | 18.0 | `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json` |
+| ct_icp | `kitti_seq_02_full` | reference-based | `current_winner` | 50.635 | 21.8 | `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json` |
+| ct_icp | `kitti_seq_05_full` | reference-based | `bare_map_50_corr_4` | 8.783 | 19.7 | `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json` |
+| ct_icp | `kitti_seq_05_full` | reference-based | `corr_4_reference` | 9.097 | 15.7 | `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` |
+| ct_icp | `kitti_seq_05_full` | reference-based | `arch_tuned_map_30` | 9.097 | 18.3 | `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` |
+| ct_icp | `kitti_seq_05_full` | reference-based | `bare_map_50` | 9.337 | 18.0 | `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json` |
+| ct_icp | `kitti_seq_05_full` | reference-based | `map_50_c2f_plus_corr_4` | 7.762 | 18.9 | `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json` |
+| ct_icp | `kitti_seq_07_108` | reference-based | `fast_window` | 0.978 | 77.3 | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
+| ct_icp | `kitti_seq_07_full` | reference-based | `ms_chol_reference` | 1.607 | 14.9 | `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json` |
+| ct_icp | `kitti_seq_07_full` | reference-based | `default_reference` | 1.607 | 17.0 | `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json` |
+| ct_icp | `kitti_seq_07_full` | reference-based | `fast_window` | 10.705 | 74.9 | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
+| ct_icp | `kitti_seq_07_full` | reference-based | `ms_chol_map_20` | 1.607 | 19.7 | `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` |
+| ct_icp | `kitti_seq_07_full` | reference-based | `current_winner` | 1.607 | 20.3 | `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json` |
+| ct_icp | `kitti_seq_08_full` | reference-based | `c2f_only_reference` | 32.511 | 17.9 | `experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json` |
+| ct_icp | `kitti_seq_08_full` | reference-based | `default_reference` | 32.511 | 17.4 | `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json` |
+| ct_icp | `kitti_seq_08_full` | reference-based | `cauchy_3_0` | 34.397 | 18.4 | `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json` |
+| ct_icp | `kitti_seq_08_full` | reference-based | `iter_6` | 35.598 | 13.6 | `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json` |
+| ct_icp | `kitti_seq_08_full` | reference-based | `c2f_only_map_20` | 32.511 | 13.4 | `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` |
+| ct_icp | `kitti_seq_08_full` | reference-based | `default_reference` | 27.850 | 15.7 | `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json` |
+| ct_icp | `kitti_seq_08_full` | reference-based | `simplified_seq_00_pattern` | 27.850 | 18.3 | `experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json` |
 | ct_icp | `mcd_kth_day_06_108` | reference-based | `fast_window` | 6.525 | 57.2 | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
+| ct_icp | `mcd_kth_day_06_108` | reference-based | `dense_reference` | 6.115 | 18.0 | `experiments/results/ct_icp_mcd_kth_day_06_recipes_matrix.json` |
 | ct_icp | `mcd_ntu_day_02_108` | reference-based | `dense_window` | 0.325 | 18.6 | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
+| ct_icp | `mcd_ntu_day_02_108` | reference-based | `dense_reference` | 0.325 | 21.9 | `experiments/results/ct_icp_mcd_ntu_day_02_recipes_matrix.json` |
 | ct_icp | `mcd_tuhh_night_09_108` | reference-based | `fast_window` | 3.553 | 51.4 | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
+| ct_icp | `mcd_tuhh_night_09_108` | reference-based | `dense_reference` | 1.652 | 22.8 | `experiments/results/ct_icp_mcd_tuhh_night_09_recipes_matrix.json` |
 | ct_icp | `mulran_parkinglot_120` | reference-based | `fast_window` | 16.474 | 74.7 | `experiments/results/ct_icp_mulran_parkinglot_120_matrix.json` |
+| ct_icp | `mulran_parkinglot_full` | reference-based | `cluster_a_with_seed` | 9.186 | 14.6 | `experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json` |
 | ct_icp | `mulran_parkinglot_full` | reference-based | `fast_window` | 80.958 | 59.7 | `experiments/results/ct_icp_mulran_parkinglot_full_matrix.json` |
 | ct_lio | `hdl_400_open_ct_lio_120` | reference-based | `seed_only_fast` | 0.488 | 17.5 | `experiments/results/ct_lio_reference_profile_matrix.json` |
 | ct_lio | `hdl_400_ros1_open_ct_lio_120_time_index` | reference-based | `seed_only_fast` | 0.479 | 19.6 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |

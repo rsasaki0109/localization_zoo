@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T00:59:06+00:00",
+  "generated_at": "2026-05-20T01:06:10+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -3177,6 +3177,15 @@
       "manifest_path": "experiments/voxel_gicp_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/voxel_gicp_kitti_raw_0061_matrix.json",
       "current_default": "dense_recent_map"
+    },
+    {
+      "problem_id": "voxel_gicp_kitti_seq_00_full_no_seed",
+      "title": "Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json",
+      "aggregate_path": "experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json",
+      "current_default": "dense_seeded_reference"
     },
     {
       "problem_id": "voxel_gicp_kitti_seq_00_full_sweep",

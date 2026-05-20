@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -12,6 +12,11 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 3.185 | 4.8 | `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 3.654 | 6.0 | `experiments/results/aloam_kitti_raw_0061_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.459 | 6.0 | `experiments/results/aloam_kitti_raw_0061_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 9.521 | 4.9 | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast` | 50.790 | 4.5 | `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast` | 5.193 | 4.1 | `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json` |
+| A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames) | `ready` | `fast` | 2.505 | 7.3 | `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast` | 18.661 | 4.2 | `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.077 | 6.7 | `experiments/results/aloam_mcd_kth_day_06_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense` | 0.035 | 5.8 | `experiments/results/aloam_mcd_ntu_day_02_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.336 | 6.5 | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
@@ -145,6 +150,11 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.883 | 28.0 | `experiments/results/floam_kitti_raw_0009_nogt_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 3.822 | 30.7 | `experiments/results/floam_kitti_raw_0061_full_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.587 | 25.9 | `experiments/results/floam_kitti_raw_0061_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 8.556 | 12.3 | `experiments/results/floam_kitti_seq_00_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 53.822 | 12.2 | `experiments/results/floam_kitti_seq_02_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 6.039 | 12.2 | `experiments/results/floam_kitti_seq_05_full_transfer_matrix.json` |
+| F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 3.174 | 29.8 | `experiments/results/floam_kitti_seq_07_full_sweep_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 16.661 | 12.8 | `experiments/results/floam_kitti_seq_08_full_transfer_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.005 | 31.1 | `experiments/results/floam_mcd_kth_day_06_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.111 | 27.0 | `experiments/results/floam_mcd_ntu_day_02_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.345 | 27.6 | `experiments/results/floam_mcd_tuhh_night_09_matrix.json` |
@@ -207,6 +217,11 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.865 | 9.9 | `experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 5.248 | 11.1 | `experiments/results/lego_loam_kitti_raw_0061_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.458 | 9.7 | `experiments/results/lego_loam_kitti_raw_0061_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 12.378 | 3.4 | `experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 42.209 | 3.8 | `experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 5.218 | 3.7 | `experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json` |
+| LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.558 | 10.0 | `experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 19.121 | 3.2 | `experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.072 | 9.9 | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.036 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.344 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
@@ -279,6 +294,7 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.651 | 3.4 | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 10.173 | 3.3 | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.425 | 3.3 | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
+| MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.207 | 4.1 | `experiments/results/mulls_mcd_kth_day_06_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.097 | 2.3 | `experiments/results/mulls_mcd_ntu_day_02_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.206 | 3.8 | `experiments/results/mulls_mcd_tuhh_night_09_matrix.json` |
@@ -291,7 +307,11 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_coarse_map` | 121.733 | 25.0 | `experiments/results/ndt_kitti_raw_0009_nogt_matrix.json` |
 | NDT trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_coarse_map` | 0.247 | 23.8 | `experiments/results/ndt_kitti_raw_0061_full_matrix.json` |
 | NDT throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_coarse_map` | 0.319 | 41.2 | `experiments/results/ndt_kitti_raw_0061_matrix.json` |
+| NDT T1 transfer on KITTI Odom seq 00 full (4542 frames) | `ready` | `t1_transfer_r03_i12` | 0.023 | 37.5 | `experiments/results/ndt_kitti_seq_00_full_sweep_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 02 full (4661 frames) | `ready` | `t1_transfer_r05_i12` | 0.059 | 0.2 | `experiments/results/ndt_kitti_seq_02_full_t1_confirmation_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 05 full (2761 frames) | `ready` | `t1_transfer_r05_i12` | 0.059 | 0.2 | `experiments/results/ndt_kitti_seq_05_full_t1_confirmation_matrix.json` |
 | NDT cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast_profile` | 0.076 | 43.6 | `experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 08 full (4071 frames) | `ready` | `t1_transfer_r05_i12` | 0.076 | 0.3 | `experiments/results/ndt_kitti_seq_08_full_t1_confirmation_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_coarse_map` | 0.136 | 31.2 | `experiments/results/ndt_mcd_kth_day_06_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `balanced_local_map` | 0.013 | 44.9 | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_coarse_map` | 0.063 | 40.8 | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
@@ -734,6 +754,258 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_raw_0061_matrix/dense/summary.json --aloam-kitti-profile --aloam-dense-profile`
 - Summary: `experiments/results/runs/aloam_kitti_raw_0061_matrix/dense/summary.json`
 - Log: `experiments/results/runs/aloam_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `aloam_kitti_seq_00_full_transfer`
+- **Question**: Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 00 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 9.521 | 2.6 | 76.5 | 4.65 | 4.75 | Adopt as current default |
+| Fast | throughput-oriented | 19.371 | 4.9 | 74.6 | 4.30 | 4.50 | Keep as active challenger |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.9 FPS.
+3. `kitti_default` is the most accurate observed variant at 9.521 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Combined-score winner from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `aloam_kitti_seq_02_full_transfer`
+- **Question**: Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 02 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 50.790 | 2.5 | 77.8 | 4.65 | 4.75 | Keep as active challenger |
+| Fast | throughput-oriented | 74.966 | 4.5 | 83.9 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.5 FPS.
+3. `kitti_default` is the most accurate observed variant at 50.790 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Combined-score winner from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `aloam_kitti_seq_05_full_transfer`
+- **Question**: Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 05 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 5.193 | 2.3 | 77.8 | 4.65 | 4.75 | Keep as active challenger |
+| Fast | throughput-oriented | 7.789 | 4.1 | 83.3 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.1 FPS.
+3. `kitti_default` is the most accurate observed variant at 5.193 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Combined-score winner from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames)
+
+- **Problem ID**: `aloam_kitti_seq_07_full_sweep`
+- **Question**: Which A-LOAM profile family is strongest on KITTI Odom seq 07 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 2.505 | 3.3 | 72.4 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 4.031 | 7.3 | 81.1 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 4.872 | 3.2 | 47.8 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 7.3 FPS.
+3. `kitti_default` is the most accurate observed variant at 2.505 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Baseline settings for KITTI (n_scans=64).
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Reduce feature density and solver work for speed.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `dense`
+
+- Intent: Increase feature density and solver iterations for accuracy.
+- CLI args: `--aloam-kitti-profile --aloam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/summary.json --aloam-kitti-profile --aloam-dense-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `aloam_kitti_seq_08_full_transfer`
+- **Question**: Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 08 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 18.661 | 2.3 | 77.5 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 23.358 | 4.2 | 90.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.2 FPS.
+3. `kitti_default` is the most accurate observed variant at 18.661 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Combined-score winner from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
@@ -8945,6 +9217,258 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
 
 
+## F-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `floam_kitti_seq_00_full_transfer`
+- **Question**: Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 00 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 15.795 | 12.3 | 77.1 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 8.556 | 3.4 | 63.7 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 12.3 FPS.
+3. `dense` is the most accurate observed variant at 8.556 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Near-accuracy candidate from the seq 07 probe with better throughput than dense.
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `floam_kitti_seq_02_full_transfer`
+- **Question**: Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 02 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 76.320 | 12.2 | 85.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 53.822 | 3.3 | 63.6 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 12.2 FPS.
+3. `dense` is the most accurate observed variant at 53.822 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Near-accuracy candidate from the seq 07 probe with better throughput than dense.
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `floam_kitti_seq_05_full_transfer`
+- **Question**: Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 05 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 6.959 | 12.2 | 93.4 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 6.039 | 3.5 | 64.3 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 12.2 FPS.
+3. `dense` is the most accurate observed variant at 6.039 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Near-accuracy candidate from the seq 07 probe with better throughput than dense.
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `floam_kitti_seq_07_full_sweep`
+- **Question**: Which F-LOAM profile family is strongest on KITTI Odom seq 07 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 3.245 | 13.2 | 71.1 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 5.026 | 29.8 | 81.6 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 3.174 | 3.7 | 56.3 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 29.8 FPS.
+3. `dense` is the most accurate observed variant at 3.174 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Baseline F-LOAM settings for KITTI (n_scans=64).
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `fast`
+
+- Intent: Thin input and throttle mapping for speed.
+- CLI args: `--floam-kitti-profile --floam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/summary.json --floam-kitti-profile --floam-fast-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Process denser input and update mapping every frame.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `floam_kitti_seq_08_full_transfer`
+- **Question**: Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 08 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 16.661 | 12.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 17.318 | 3.2 | 60.7 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 12.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 16.661 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Near-accuracy candidate from the seq 07 probe with better throughput than dense.
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
 ## F-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `floam_profile_tradeoff_mcd_kth_day_06`
@@ -12646,6 +13170,210 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/lego_loam_kitti_raw_0061_matrix/dense/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_00_full_transfer`
+- **Question**: Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 00 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 12.378 | 3.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 3.4 FPS.
+3. `kitti_default` is the most accurate observed variant at 12.378 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_02_full_transfer`
+- **Question**: Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 02 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 42.209 | 3.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 3.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 42.209 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_05_full_transfer`
+- **Question**: Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 05 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 5.218 | 3.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 3.7 FPS.
+3. `kitti_default` is the most accurate observed variant at 5.218 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_05_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_07_full_sweep`
+- **Question**: Which LeGO-LOAM profile family is strongest on KITTI Odom seq 07 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 2.558 | 3.9 | 69.4 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 4.385 | 10.0 | 79.2 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 3.945 | 3.7 | 50.8 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 10.0 FPS.
+3. `kitti_default` is the most accurate observed variant at 2.558 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Ground-aware LeGO-LOAM baseline for HDL-64E (n_scans=64, sensor height ~KITTI).
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+#### `fast`
+
+- Intent: Coarser surf sampling and lighter odometry/mapping Ceres budgets.
+- CLI args: `--lego-loam-kitti-profile --lego-loam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/fast/summary.json --lego-loam-kitti-profile --lego-loam-fast-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/fast/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+#### `dense`
+
+- Intent: Finer features and deeper optimization passes.
+- CLI args: `--lego-loam-kitti-profile --lego-loam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/dense/summary.json --lego-loam-kitti-profile --lego-loam-dense-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/dense/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_08_full_transfer`
+- **Question**: Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 08 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 19.121 | 3.2 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 3.2 FPS.
+3. `kitti_default` is the most accurate observed variant at 19.121 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_08_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
 
 
@@ -16817,6 +17545,66 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
 
 
+## MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `mulls_kitti_seq_07_full_sweep`
+- **Question**: Which MULLS profile family is strongest on KITTI Odom seq 07 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 8.459 | 1.4 | 66.1 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 10.501 | 4.1 | 89.5 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 8.288 | 1.3 | 65.3 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.1 FPS.
+3. `dense` is the most accurate observed variant at 8.288 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: A-LOAM-style features + multi-metric scan-to-map (line/plane/point) baseline for HDL-64E.
+- CLI args: `--mulls-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --mulls-kitti-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+#### `fast`
+
+- Intent: Coarser voxels, lighter Ceres, shorter submap window, sparser point metric.
+- CLI args: `--mulls-kitti-profile --mulls-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+#### `dense`
+
+- Intent: Finer map voxels, more knn, deeper Ceres, longer history.
+- CLI args: `--mulls-kitti-profile --mulls-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
 ## MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `mulls_profile_tradeoff_mcd_kth_day_06`
@@ -17537,6 +18325,162 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## NDT T1 transfer on KITTI Odom seq 00 full (4542 frames)
+
+- **Problem ID**: `ndt_kitti_seq_00_full_sweep`
+- **Question**: NDT seq 07 で T1 transfer が 0.076 m (8.5× LiTAMIN2 T1)。long-traj でも保持されるか?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_00_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 0.252 | 24.9 | 37.7 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 0.247 | 37.5 | 54.6 | 4.65 | 4.75 | Keep as reference variant |
+| dense | accuracy | 0.259 | 17.4 | 27.5 | 4.65 | 4.75 | Keep as reference variant |
+| T1 (res=0.5+i12) | transfer | 0.071 | 10.2 | 29.6 | 3.80 | 4.20 | Keep as reference variant |
+| T1 (res=0.3+i12) | transfer | 0.023 | 11.7 | 65.5 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `t1_transfer_r03_i12` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 37.5 FPS.
+3. `t1_transfer_r03_i12` is the most accurate observed variant at 0.023 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--ndt-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json --ndt-fast-profile`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--ndt-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json --ndt-dense-profile`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_r05_i12`
+
+- Intent: LiTAMIN2 T1 recipe.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_r03_i12`
+
+- Intent: Finer voxel.
+- CLI args: `--ndt-resolution 0.3 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r03_i12/summary.json --ndt-resolution 0.3 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r03_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r03_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## NDT T1 confirmation on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `ndt_kitti_seq_02_full_t1_confirmation`
+- **Question**: Does the NDT T1 transfer recipe stay sub-10cm on long seq 02?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_02_full_t1_confirmation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| T1 transfer (res=0.5 + iter=12) | transfer | 0.059 | 0.2 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `t1_transfer_r05_i12` is the current default for this problem.
+2. `t1_transfer_r05_i12` is the fastest observed variant at 0.2 FPS.
+3. `t1_transfer_r05_i12` is the most accurate observed variant at 0.059 m ATE.
+
+### Variant Notes
+
+#### `t1_transfer_r05_i12`
+
+- Intent: Confirm the NDT T1 recipe on this full KITTI Odometry sequence.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_02_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_02_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_02_full_t1_confirmation_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## NDT T1 confirmation on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `ndt_kitti_seq_05_full_t1_confirmation`
+- **Question**: Does the NDT T1 transfer recipe stay sub-10cm on mid-length seq 05?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_05_full_t1_confirmation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| T1 transfer (res=0.5 + iter=12) | transfer | 0.059 | 0.2 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `t1_transfer_r05_i12` is the current default for this problem.
+2. `t1_transfer_r05_i12` is the fastest observed variant at 0.2 FPS.
+3. `t1_transfer_r05_i12` is the most accurate observed variant at 0.059 m ATE.
+
+### Variant Notes
+
+#### `t1_transfer_r05_i12`
+
+- Intent: Confirm the NDT T1 recipe on this full KITTI Odometry sequence.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_05_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_05_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_05_full_t1_confirmation_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## NDT cluster discovery on KITTI Odom seq 07 full (1102 frames)
 
 - **Problem ID**: `ndt_kitti_seq_07_full_sweep`
@@ -17616,6 +18560,42 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/summary.json --ndt-resolution 1.0 --ndt-max-iterations 12`
 - Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/summary.json`
 - Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## NDT T1 confirmation on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `ndt_kitti_seq_08_full_t1_confirmation`
+- **Question**: Does the NDT T1 transfer recipe stay sub-10cm on long seq 08?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_08_full_t1_confirmation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| T1 transfer (res=0.5 + iter=12) | transfer | 0.076 | 0.3 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `t1_transfer_r05_i12` is the current default for this problem.
+2. `t1_transfer_r05_i12` is the fastest observed variant at 0.3 FPS.
+3. `t1_transfer_r05_i12` is the most accurate observed variant at 0.076 m ATE.
+
+### Variant Notes
+
+#### `t1_transfer_r05_i12`
+
+- Intent: Confirm the NDT T1 recipe on this full KITTI Odometry sequence.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.

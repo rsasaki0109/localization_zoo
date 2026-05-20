@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-05-20T00:57:00+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-05-20T01:11:50+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -322,6 +322,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | small_gicp | `kitti_raw_0009_full` | reference-based | `fast_recent_map` | 0.437 | 92.4 | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
 | small_gicp | `kitti_raw_0061_200` | reference-based | `fast_recent_map` | 0.639 | 78.1 | `experiments/results/small_gicp_kitti_raw_0061_matrix.json` |
 | small_gicp | `kitti_raw_0061_full` | reference-based | `fast_recent_map` | 0.959 | 82.2 | `experiments/results/small_gicp_kitti_raw_0061_full_matrix.json` |
+| small_gicp | `kitti_seq_00_full` | reference-based | `fast_seeded_reference` | 0.890 | 63.3 | `experiments/results/small_gicp_kitti_seq_00_full_no_seed_matrix.json` |
 | small_gicp | `kitti_seq_00_full` | reference-based | `fast_profile` | 0.890 | 106.4 | `experiments/results/small_gicp_kitti_seq_00_full_sweep_matrix.json` |
 | small_gicp | `kitti_seq_02_full` | reference-based | `fast_profile` | 0.909 | 96.5 | `experiments/results/small_gicp_kitti_seq_02_full_sweep_matrix.json` |
 | small_gicp | `kitti_seq_05_full` | reference-based | `fast_profile` | 0.984 | 104.5 | `experiments/results/small_gicp_kitti_seq_05_full_sweep_matrix.json` |
@@ -358,6 +359,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | voxel_gicp | `kitti_raw_0009_full` | reference-based | `dense_recent_map` | 0.640 | 110.1 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | voxel_gicp | `kitti_raw_0061_200` | reference-based | `dense_recent_map` | 1.041 | 73.7 | `experiments/results/voxel_gicp_kitti_raw_0061_matrix.json` |
 | voxel_gicp | `kitti_raw_0061_full` | reference-based | `dense_recent_map` | 1.062 | 75.4 | `experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json` |
+| voxel_gicp | `kitti_seq_00_full` | reference-based | `dense_seeded_reference` | 1.047 | 90.8 | `experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json` |
 | voxel_gicp | `kitti_seq_00_full` | reference-based | `dense_profile` | 1.047 | 97.9 | `experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json` |
 | voxel_gicp | `kitti_seq_02_full` | reference-based | `dense_profile` | 0.944 | 84.8 | `experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json` |
 | voxel_gicp | `kitti_seq_05_full` | reference-based | `dense_profile` | 1.031 | 111.1 | `experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json` |

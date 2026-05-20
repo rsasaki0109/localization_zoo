@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-05-20T23:20:24+00:00",
+  "manifest_path": "experiments/aloam_kitti_seq_05_full_transfer_matrix.json",
+  "problem": {
+    "id": "aloam_kitti_seq_05_full_transfer",
+    "title": "A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)",
+    "question": "Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 05 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "aloam",
+    "primary_method": "A-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Accuracy candidate from the seq 07 probe.",
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile",
+      "summary_path": "experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/run.log",
+      "status": "ok",
+      "ate_m": 5.192731,
+      "rpe_trans_pct": 0.512096,
+      "rpe_rot_deg_per_m": 0.005204,
+      "fps": 2.259687,
+      "time_ms": 1221850.824136,
+      "frames": 2761,
+      "note": "Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.",
+      "benchmark_score": 77.8,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Combined-score winner from the seq 07 probe.",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile",
+      "summary_path": "experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/run.log",
+      "status": "ok",
+      "ate_m": 7.789338,
+      "rpe_trans_pct": 0.563411,
+      "rpe_rot_deg_per_m": 0.005456,
+      "fps": 4.064587,
+      "time_ms": 679281.799741,
+      "frames": 2761,
+      "note": "Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.",
+      "benchmark_score": 83.33,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

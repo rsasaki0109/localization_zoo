@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-05-20**
+> **最終更新: 2026-05-21**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,18 +24,30 @@
 |------|-------|
 | Branch | `wip/profile-expansion-refresh` |
 | HEAD | `458c81a` |
-| Worktree | **clean** |
-| Indexed manifests | **371** |
-| Indexed ready | **357** |
+| Worktree | **clean after NDT + LOAM-family KITTI Odom checkpoint commit** |
+| Indexed manifests | **392** |
+| Indexed ready | **378** |
 | Indexed blocked | **1** |
 | Indexed skipped | **13** |
 | Pending manifests | **200** |
 | LiDAR families | **27** |
 | Camera-aware families | **6** |
 | Total active selectors | **33** |
-| Python tests | **14/14 pass** |
+| Python tests | **14/14 pass** (last full run; not rerun after NDT/LOAM-family docs/artifact refresh) |
 
-### 1.2 What changed recently (2026-05-19..20 session, GICP family + seed-dependence)
+### 1.2 What changed recently (2026-05-19..21 session, GICP family + NDT/A-LOAM KITTI checks)
+
+**NDT T1 transfer confirmation** on KITTI Odom seq 02/05/08 full. `--ndt-resolution 0.5 --ndt-max-iterations 12` stayed sub-10cm on all three held-out long sequences: seq 02 = 0.0585 m ATE, seq 05 = 0.0594 m ATE, seq 08 = 0.0761 m ATE. Together with the existing seq 00 r05+i12 result (0.0707 m) and seq 07 r05+i12 result (0.0763 m), NDT now has a seeded KITTI Odom 5/5 sub-8cm T1-family recipe. The direct confirmation runs were slow on this export path (0.23-0.25 FPS), so the result is an accuracy/universality confirmation rather than a throughput recommendation.
+
+**A-LOAM KITTI Odom full transfer check**: added `aloam_kitti_seq_07_full_sweep` plus seq 00/02/05/08 transfer matrices. Seq 07 `fast` wins the combined benchmark by throughput (4.0307 m ATE, 0.691% RPE, 7.26 FPS), while `kitti_default` is the seq 07 accuracy winner (2.5052 m ATE, 0.605% RPE, 3.26 FPS). Transfer is **non-universal**: accuracy winner is `kitti_default` on all held-out seqs, with ATE 9.5206 m (00), 50.7898 m (02), 5.1927 m (05), 18.6614 m (08). `fast` is faster but less accurate on all held-out seqs: 19.3711 m (00), 74.9663 m (02), 7.7893 m (05), 23.3578 m (08). Treat A-LOAM as a drift-level baseline, not a sub-meter KITTI Odom recipe.
+
+**F-LOAM KITTI Odom seq 07 full cluster probe**: added `floam_kitti_seq_07_full_sweep`. `dense` is the accuracy/RPE winner (3.1736 m ATE, 0.590% RPE, 3.74 FPS), `kitti_default` is close in accuracy but much faster (3.2455 m, 0.789% RPE, 13.23 FPS), and `fast` wins the combined benchmark by throughput (5.0260 m, 1.262% RPE, 29.84 FPS). F-LOAM is faster than A-LOAM on this sequence but still drift-level; transfer to seq 00/02/05/08 remains unverified.
+
+**LeGO-LOAM KITTI Odom seq 07 full cluster probe**: added `lego_loam_kitti_seq_07_full_sweep`. `kitti_default` is the accuracy/RPE winner (2.5579 m ATE, 0.527% RPE, 3.89 FPS), `fast` wins the combined benchmark by throughput (4.3850 m, 0.597% RPE, 10.03 FPS), and `dense` underperformed both (3.9454 m, 0.650% RPE, 3.68 FPS). LeGO-LOAM is the strongest LOAM-family accuracy profile on seq 07 so far, slightly worse than A-LOAM `kitti_default` in ATE but better in RPE; held-out transfer remains unverified.
+
+**MULLS KITTI Odom seq 07 full cluster probe**: added `mulls_kitti_seq_07_full_sweep`. `dense` is the accuracy/RPE winner (8.2878 m ATE, 2.640% RPE, 1.27 FPS), `kitti_default` is close but slower/worse (8.4591 m, 2.720% RPE, 1.42 FPS), and `fast` wins the combined benchmark by throughput (10.5014 m, 2.994% RPE, 4.13 FPS). MULLS is the weakest LOAM-family seq 07 candidate so far and very slow on full KITTI Odom; do not spend transfer budget on it unless specifically needed as a negative baseline.
+
+**F-LOAM + LeGO-LOAM held-out transfer**: added seq 00/02/05/08 full transfer matrices for F-LOAM `kitti_default`/`dense` and LeGO-LOAM `kitti_default`. No universal LOAM-family recipe emerged. Per-seq LOAM accuracy winners are mixed: seq 00 = F-LOAM `dense` (8.5561 m ATE, 0.991% RPE, 3.37 FPS), seq 02 = LeGO-LOAM `kitti_default` (42.2088 m, 0.883% RPE, 3.79 FPS), seq 05 = A-LOAM `kitti_default` (5.1927 m, 0.512% RPE, 2.26 FPS; LeGO is nearly tied at 5.2182 m), seq 08 = F-LOAM `kitti_default` (16.6614 m, 1.566% RPE, 12.83 FPS). These improve over A-LOAM on seq 00/02/08 but remain drift-level and far from NDT/LiTAMIN2/GICP seeded winners.
 
 **GICP family recipe discovery + seed-dependence verification** across all KITTI Odom sequences. State delta: 336 → 371 indexed manifests (35 new), HEAD `d22a172` → `458c81a`.
 
@@ -90,16 +102,21 @@ Earlier session work (already in `main` history):
 - CT-ICP: 5-cluster recipe structure mapped across 13 dataset/window combinations. Knob axes + seed-dependence saturated.
 - LiTAMIN2: cluster T1 universal across 12 locally-available CT-ICP-comparable datasets (11/12 wins, 1/12 tied at noise floor).
 - KISS-ICP / small_gicp / voxel_gicp: recipe pattern on 5 KITTI Odom seqs + 7 cross-dataset scenes. Seed-dependence verified (all 3 + LiTAMIN2 require GT seed for long-traj).
+- NDT: T1 r05+i12 (`--ndt-resolution 0.5 --ndt-max-iterations 12`) confirmed on KITTI Odom 5/5 full with sub-8cm seeded ATE. Remaining gap is throughput/implementation efficiency, not recipe universality on this benchmark.
+- A-LOAM: KITTI Odom 5/5 full transfer checked. `kitti_default` is stable but drift-level; no universal sub-meter recipe.
+- F-LOAM: KITTI Odom 5/5 checked via seq 07 cluster + seq 00/02/05/08 transfer. Useful on seq 00/08, especially `dense` on seq 00 and `kitti_default` on seq 08, but non-universal and drift-level.
+- LeGO-LOAM: KITTI Odom 5/5 checked via seq 07 cluster + seq 00/02/05/08 transfer. Strongest LOAM-family result on seq 02 and near-tie on seq 05, but non-universal and drift-level.
+- MULLS: KITTI Odom seq 07 full cluster probe checked. `dense` is the seq 07 accuracy/RPE winner, but all profiles are slow and drift-heavy; deprioritize held-out transfer.
 
 **Method-level production deployment recommendation:**
-- **Seeded benchmark winners (sub-meter on KITTI Odom 5/5)**: LiTAMIN2 T1 (0.65-0.75 m), small_gicp fast (0.68-0.98 m), voxel_gicp dense (0.94-1.05 m).
+- **Seeded benchmark winners (KITTI Odom 5/5)**: NDT T1 r05+i12 (0.058-0.076 m), LiTAMIN2 T1 (0.65-0.75 m), small_gicp fast (0.68-0.98 m), voxel_gicp dense (0.94-1.05 m).
 - **No-seed deployment (production realism)**: **CT-ICP cluster A only** (12.69 m on seq 00; all others ≥87 m).
 
 Priority order for next assistant:
 
-- **A (highest leverage)**: NDT / aloam / floam / lego_loam / mulls cluster discovery. These remain at `smoke` / `indicative` claim level on KITTI Odom full and may have universal recipes hiding in profile space (analogous to LiTAMIN2 T1 or small_gicp fast). Lightweight 3-4 variant bake-offs per (method, KITTI seq) pair using the established sweep template.
-- **B (broader, blocked on external data)**: `MulRan dcc01` and Newer College ingestion. 2 pending dcc01 manifests already exist; data download required.
-- **C (cross-method universal recipe survey)**: Apply LiTAMIN2 T1 / small_gicp fast / voxel_gicp dense to remaining datasets we haven't tested them on (autoware_istanbul, hdl_400) to fully fill the cross-dataset universal-recipe matrix.
+- **A (highest leverage)**: checkpoint the NDT + LOAM-family artifact/docs refresh before more sweeps. The current dirty set is large and internally consistent.
+- **B**: resume cross-method universal recipe survey: apply LiTAMIN2 T1 / small_gicp fast / voxel_gicp dense to remaining local datasets (autoware_istanbul, hdl_400) to fill the cross-dataset matrix.
+- **C (broader, blocked on external data)**: `MulRan dcc01` and Newer College ingestion. 2 pending dcc01 manifests already exist; data download required.
 
 Do **not** spend the next turn on paper drafting, PR polishing, or speculative refactoring. The user has been explicit that this is OSS infrastructure work, not paper writing.
 
@@ -107,7 +124,7 @@ Do **not** spend the next turn on paper drafting, PR polishing, or speculative r
 
 ## 2. Worktree State
 
-Working tree is clean as of HEAD `d22a172`. Previous handoffs warned about a dirty worktree with mass untracked multimodal work — that state has since been committed. Treat git status as authoritative.
+Working tree should be clean after the NDT seq 02/05/08 confirmation artifact refresh and LOAM-family KITTI Odom full transfer/cluster sweep checkpoint commit. Previous handoffs warned about a dirty worktree with mass untracked multimodal work; that state has since been committed. Treat `git status` as authoritative.
 
 The branch is currently ahead of `origin/wip/profile-expansion-refresh` by some commits; verify with `git status` before pushing.
 

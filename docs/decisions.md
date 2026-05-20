@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -80,6 +80,62 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- Current default: `kitti_default`.
+- Active challengers: `fast`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- Current default: `fast`.
+- Active challengers: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- Current default: `fast`.
+- Active challengers: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`.
+- Aggregate result: `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
@@ -1729,6 +1785,62 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## F-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- Current default: `kitti_default`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/floam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- Current default: `kitti_default`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/floam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- Current default: `kitti_default`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/floam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/floam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- Current default: `kitti_default`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/floam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## F-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - Current default: `fast`.
@@ -2473,6 +2585,54 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- Current default: `kitti_default`.
+- Aggregate result: `experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
@@ -3336,6 +3496,18 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- Current default: `fast`.
+- Reference variants: `kitti_default`, `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - Current default: `fast`.
@@ -3485,6 +3657,38 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_coarse_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## NDT T1 transfer on KITTI Odom seq 00 full (4542 frames)
+
+- Current default: `t1_transfer_r03_i12`.
+- Reference variants: `balanced_reference`, `fast_profile`, `dense_profile`, `t1_transfer_r05_i12`.
+- Aggregate result: `experiments/results/ndt_kitti_seq_00_full_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| t1_transfer_r05_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| t1_transfer_r03_i12 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## NDT T1 confirmation on KITTI Odom seq 02 full (4661 frames)
+
+- Current default: `t1_transfer_r05_i12`.
+- Aggregate result: `experiments/results/ndt_kitti_seq_02_full_t1_confirmation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| t1_transfer_r05_i12 | Adopt as current default | Only confirmation variant for this targeted transfer check; result is sub-10cm on the full sequence. |
+
+## NDT T1 confirmation on KITTI Odom seq 05 full (2761 frames)
+
+- Current default: `t1_transfer_r05_i12`.
+- Aggregate result: `experiments/results/ndt_kitti_seq_05_full_t1_confirmation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| t1_transfer_r05_i12 | Adopt as current default | Only confirmation variant for this targeted transfer check; result is sub-10cm on the full sequence. |
+
 ## NDT cluster discovery on KITTI Odom seq 07 full (1102 frames)
 
 - Current default: `fast_profile`.
@@ -3499,6 +3703,15 @@ _Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_ma
 | dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | t1_transfer_r05_i12 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | t1_transfer_r10_i12 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## NDT T1 confirmation on KITTI Odom seq 08 full (4071 frames)
+
+- Current default: `t1_transfer_r05_i12`.
+- Aggregate result: `experiments/results/ndt_kitti_seq_08_full_t1_confirmation_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| t1_transfer_r05_i12 | Adopt as current default | Only confirmation variant for this targeted transfer check; result is sub-10cm on the full sequence. |
 
 ## NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence
 

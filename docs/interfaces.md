@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-05-20T01:14:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -85,6 +85,11 @@ The runner is responsible for:
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/aloam_kitti_raw_0009_nogt_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/aloam_kitti_raw_0061_full_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0061_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/aloam_kitti_raw_0061_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_raw_0061_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/aloam_kitti_seq_00_full_transfer_matrix.json` | `aloam` | `kitti_default` | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/aloam_kitti_seq_02_full_transfer_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/aloam_kitti_seq_05_full_transfer_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json` |
+| A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames) | `ready` | `experiments/aloam_kitti_seq_07_full_sweep_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/aloam_kitti_seq_08_full_transfer_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/aloam_mcd_kth_day_06_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_mcd_kth_day_06_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/aloam_mcd_ntu_day_02_matrix.json` | `aloam` | `dense` | `experiments/results/aloam_mcd_ntu_day_02_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/aloam_mcd_tuhh_night_09_matrix.json` | `aloam` | `fast` | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
@@ -218,6 +223,11 @@ The runner is responsible for:
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/floam_kitti_raw_0009_nogt_matrix.json` | `floam` | `fast` | `experiments/results/floam_kitti_raw_0009_nogt_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/floam_kitti_raw_0061_full_matrix.json` | `floam` | `fast` | `experiments/results/floam_kitti_raw_0061_full_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/floam_kitti_raw_0061_matrix.json` | `floam` | `fast` | `experiments/results/floam_kitti_raw_0061_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/floam_kitti_seq_00_full_transfer_matrix.json` | `floam` | `kitti_default` | `experiments/results/floam_kitti_seq_00_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/floam_kitti_seq_02_full_transfer_matrix.json` | `floam` | `kitti_default` | `experiments/results/floam_kitti_seq_02_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/floam_kitti_seq_05_full_transfer_matrix.json` | `floam` | `kitti_default` | `experiments/results/floam_kitti_seq_05_full_transfer_matrix.json` |
+| F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/floam_kitti_seq_07_full_sweep_matrix.json` | `floam` | `fast` | `experiments/results/floam_kitti_seq_07_full_sweep_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/floam_kitti_seq_08_full_transfer_matrix.json` | `floam` | `kitti_default` | `experiments/results/floam_kitti_seq_08_full_transfer_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/floam_mcd_kth_day_06_matrix.json` | `floam` | `fast` | `experiments/results/floam_mcd_kth_day_06_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/floam_mcd_ntu_day_02_matrix.json` | `floam` | `fast` | `experiments/results/floam_mcd_ntu_day_02_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/floam_mcd_tuhh_night_09_matrix.json` | `floam` | `fast` | `experiments/results/floam_mcd_tuhh_night_09_matrix.json` |
@@ -280,6 +290,11 @@ The runner is responsible for:
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/lego_loam_kitti_raw_0009_nogt_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/lego_loam_kitti_raw_0061_full_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0061_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/lego_loam_kitti_raw_0061_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0061_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/lego_loam_kitti_seq_00_full_transfer_matrix.json` | `lego_loam` | `kitti_default` | `experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/lego_loam_kitti_seq_02_full_transfer_matrix.json` | `lego_loam` | `kitti_default` | `experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/lego_loam_kitti_seq_05_full_transfer_matrix.json` | `lego_loam` | `kitti_default` | `experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json` |
+| LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/lego_loam_kitti_seq_07_full_sweep_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/lego_loam_kitti_seq_08_full_transfer_matrix.json` | `lego_loam` | `kitti_default` | `experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/lego_loam_mcd_kth_day_06_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/lego_loam_mcd_ntu_day_02_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/lego_loam_mcd_tuhh_night_09_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
@@ -352,6 +367,7 @@ The runner is responsible for:
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/mulls_kitti_raw_0009_nogt_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/mulls_kitti_raw_0061_full_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/mulls_kitti_raw_0061_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
+| MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/mulls_kitti_seq_07_full_sweep_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/mulls_mcd_kth_day_06_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_mcd_kth_day_06_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/mulls_mcd_ntu_day_02_matrix.json` | `mulls` | `kitti_default` | `experiments/results/mulls_mcd_ntu_day_02_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/mulls_mcd_tuhh_night_09_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_mcd_tuhh_night_09_matrix.json` |
@@ -364,7 +380,11 @@ The runner is responsible for:
 | NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/ndt_kitti_raw_0009_nogt_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_kitti_raw_0009_nogt_matrix.json` |
 | NDT trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/ndt_kitti_raw_0061_full_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_kitti_raw_0061_full_matrix.json` |
 | NDT throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/ndt_kitti_raw_0061_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_kitti_raw_0061_matrix.json` |
+| NDT T1 transfer on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/ndt_kitti_seq_00_full_sweep_matrix.json` | `ndt` | `t1_transfer_r03_i12` | `experiments/results/ndt_kitti_seq_00_full_sweep_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/ndt_kitti_seq_02_full_t1_confirmation_matrix.json` | `ndt` | `t1_transfer_r05_i12` | `experiments/results/ndt_kitti_seq_02_full_t1_confirmation_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/ndt_kitti_seq_05_full_t1_confirmation_matrix.json` | `ndt` | `t1_transfer_r05_i12` | `experiments/results/ndt_kitti_seq_05_full_t1_confirmation_matrix.json` |
 | NDT cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `experiments/ndt_kitti_seq_07_full_sweep_matrix.json` | `ndt` | `fast_profile` | `experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/ndt_kitti_seq_08_full_t1_confirmation_matrix.json` | `ndt` | `t1_transfer_r05_i12` | `experiments/results/ndt_kitti_seq_08_full_t1_confirmation_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/ndt_mcd_kth_day_06_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_kth_day_06_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/ndt_mcd_ntu_day_02_matrix.json` | `ndt` | `balanced_local_map` | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/ndt_mcd_tuhh_night_09_matrix.json` | `ndt` | `fast_coarse_map` | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |

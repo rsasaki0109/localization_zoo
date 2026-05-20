@@ -23,10 +23,10 @@
 | Item | Value |
 |------|-------|
 | Branch | `wip/profile-expansion-refresh` |
-| HEAD | `d22a172` |
+| HEAD | `458c81a` |
 | Worktree | **clean** |
-| Indexed manifests | **336** |
-| Indexed ready | **322** |
+| Indexed manifests | **371** |
+| Indexed ready | **357** |
 | Indexed blocked | **1** |
 | Indexed skipped | **13** |
 | Pending manifests | **200** |
@@ -35,11 +35,35 @@
 | Total active selectors | **33** |
 | Python tests | **14/14 pass** |
 
-### 1.2 What changed recently (2026-05-18..20 session, CT-ICP focus)
+### 1.2 What changed recently (2026-05-19..20 session, GICP family + seed-dependence)
 
-CT-ICP paper-arch sweep was extended exhaustively across all locally available datasets. State delta: 282 → 336 indexed manifests (54 new), 100 → 200 pending, HEAD `5a96dec` → `d22a172`.
+**GICP family recipe discovery + seed-dependence verification** across all KITTI Odom sequences. State delta: 336 → 371 indexed manifests (35 new), HEAD `d22a172` → `458c81a`.
 
-Key CT-ICP findings (memory entries: `ct_icp_kitti_full_per_seq_best.md`, `ct_icp_cluster_a_cross_dataset_transfer.md`, `ct_icp_gt_seed_dataset_dependence.md`):
+**GICP family findings** (memory entries: `gicp_family_seq_07_recipe_divergence.md`, `small_gicp_fast_kitti_universal.md`, `small_gicp_seed_dependence.md`):
+
+- **small_gicp `--small-gicp-fast-profile`** は KITTI Odom 5/5 + KITTI Raw 4/4 + MCD KTH で ATE winner = **9/10 scenes universal sub-meter** (0.68-0.98 m). LiTAMIN2 T1 と並ぶ唯一の cross-KITTI universal recipe。indoor static (MCD NTU/TUHH) のみ dense_profile に転換。
+- **voxel_gicp `--voxel-gicp-dense-profile`** は KITTI Odom 5/5 で both ATE & RPE universal winner (ATE 0.94-1.05 m, RPE 1.5-1.8%). 強い but KITTI Raw / MCD では dataset-dependent (4/9 only).
+- **KISS-ICP** は long-trajectory で catastrophic: seq 02 で 39.23 m, seq 00 で 11.98 m, seq 08 で 19.41 m。dense_profile が 4/5 で best ATE recipe も全体的に他 method 比 10-30× worse on long-traj. Local-map-only architecture が drift-bound.
+- **LiTAMIN2 T1 (voxel=0.5+iter=12) transfer は GICP family で non-universal**: KISS-ICP seq 07 のみ局所勝利、small_gicp で ATE は fast に負ける、voxel_gicp で全 seq 退行。T1 transfer は LiTAMIN2 専用 recipe.
+
+**Seed-dependence critical finding** (memory entry: `small_gicp_seed_dependence.md`):
+
+KITTI Odom seq 00 full no-seed test で 4 GICP family methods + LiTAMIN2 全てが完全発散:
+
+| method | seeded ATE | no-seed ATE | drift |
+|---|---|---|---|
+| LiTAMIN2 T1 | 0.731 | ~110 m | +15,000% |
+| small_gicp fast | 0.890 | 202.72 | +22,800% |
+| voxel_gicp dense | 1.047 | 87.91 | +8,300% |
+| **CT-ICP best (cluster A)** | 4.91 (seeded) | **12.69** | **唯一 functional** |
+
+→ **production deployment (no-seed) on KITTI Odom long-trajectory では CT-ICP が唯一の選択肢**。seeded benchmark での compositional ranking (LiTAMIN2 T1 / small_gicp fast / voxel_gicp dense / CT-ICP) が完全 reversed.
+
+**Earlier (2026-05-18..19, LiTAMIN2 saturation + CT-ICP completion):**
+
+LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + GT seed) は KITTI Odom 5/5 + MulRan 2/2 + MCD 3/3 + KITTI Raw 4/4 = **11/12 universal winner**, 1/12 tied (noise floor 0.5 m). CT-ICP 比 1.8-70× dominance on seeded benchmark.
+
+**Earlier CT-ICP findings** (memory entries: `ct_icp_kitti_full_per_seq_best.md`, `ct_icp_cluster_a_cross_dataset_transfer.md`, `ct_icp_gt_seed_dataset_dependence.md`):
 
 - **5-cluster structure for CT-ICP recipes**: cluster A (`map=50 + c2f σ×2`) wins KITTI seq 00 (12.69 m) / 05 (7.76 m) / 08 (27.85 m). cluster B = A + corr=4 for seq 05. cluster C = `bare + corr=8` for seq 02 (50.63 m). cluster D = `ms_chol + map=20` for seq 07 (1.61 m) and KITTI Raw 0061 full (4.50 m). KITTI Raw 0009 is its own balanced-only family.
 - **Cross-dataset transfer**: cluster A + GT seed wins on MulRan parkinglot full (9.19 m, -36% vs prior best) and parkinglot 120 (2.55 m, -84%). cluster A + seed is the universal seeded winner on MCD KTH/TUHH/NTU/MulRan parkinglot — **but not on KITTI Odom seq 07** where cluster D dominates seed-independently.
@@ -62,13 +86,20 @@ Earlier session work (already in `main` history):
 
 ### 1.3 Current direction
 
-CT-ICP has now been **exhaustively mapped** on every locally available dataset (KITTI Odom seq 00/02/05/07/08 full, KITTI Raw 0009/0061 full + 200, MulRan parkinglot full + 120, MCD KTH/NTU/TUHH 108-frame). Knob axes and seed-dependence are saturated. Further CT-ICP probes have low marginal value.
+**Saturated:**
+- CT-ICP: 5-cluster recipe structure mapped across 13 dataset/window combinations. Knob axes + seed-dependence saturated.
+- LiTAMIN2: cluster T1 universal across 12 locally-available CT-ICP-comparable datasets (11/12 wins, 1/12 tied at noise floor).
+- KISS-ICP / small_gicp / voxel_gicp: recipe pattern on 5 KITTI Odom seqs + 7 cross-dataset scenes. Seed-dependence verified (all 3 + LiTAMIN2 require GT seed for long-traj).
+
+**Method-level production deployment recommendation:**
+- **Seeded benchmark winners (sub-meter on KITTI Odom 5/5)**: LiTAMIN2 T1 (0.65-0.75 m), small_gicp fast (0.68-0.98 m), voxel_gicp dense (0.94-1.05 m).
+- **No-seed deployment (production realism)**: **CT-ICP cluster A only** (12.69 m on seq 00; all others ≥87 m).
 
 Priority order for next assistant:
 
-- **B (highest leverage)**: Repeat the cluster A/D bake-off approach for `LiTAMIN2` on KITTI Odom full sequences. LiTAMIN2 is the other family at `indicative` claim level; the same recipe-discovery method that produced CT-ICP's 5-cluster structure should extend it.
-- **A (parallel, cheap)**: Apply the GT-seed dataset-dependence finding to other LiDAR methods (`kiss_icp`, `small_gicp`, `voxel_gicp`) — does seed help/hurt the same way? Lightweight 3-variant bake-offs per (method, dataset) pair.
-- **C (broader)**: Broaden ingestion. `MulRan dcc01` (2 pending manifests already exist) and Newer College remain unblocked-but-not-yet-ingested.
+- **A (highest leverage)**: NDT / aloam / floam / lego_loam / mulls cluster discovery. These remain at `smoke` / `indicative` claim level on KITTI Odom full and may have universal recipes hiding in profile space (analogous to LiTAMIN2 T1 or small_gicp fast). Lightweight 3-4 variant bake-offs per (method, KITTI seq) pair using the established sweep template.
+- **B (broader, blocked on external data)**: `MulRan dcc01` and Newer College ingestion. 2 pending dcc01 manifests already exist; data download required.
+- **C (cross-method universal recipe survey)**: Apply LiTAMIN2 T1 / small_gicp fast / voxel_gicp dense to remaining datasets we haven't tested them on (autoware_istanbul, hdl_400) to fully fill the cross-dataset universal-recipe matrix.
 
 Do **not** spend the next turn on paper drafting, PR polishing, or speculative refactoring. The user has been explicit that this is OSS infrastructure work, not paper writing.
 

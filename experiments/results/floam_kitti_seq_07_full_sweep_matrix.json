@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-05-20T23:28:38+00:00",
+  "manifest_path": "experiments/floam_kitti_seq_07_full_sweep_matrix.json",
+  "problem": {
+    "id": "floam_kitti_seq_07_full_sweep",
+    "title": "F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames)",
+    "question": "Which F-LOAM profile family is strongest on KITTI Odom seq 07 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "floam",
+    "primary_method": "F-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline F-LOAM settings for KITTI (n_scans=64).",
+      "args": [
+        "--floam-kitti-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --floam-kitti-profile",
+      "summary_path": "experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/run.log",
+      "status": "ok",
+      "ate_m": 3.245471,
+      "rpe_trans_pct": 0.789325,
+      "rpe_rot_deg_per_m": 0.007144,
+      "fps": 13.234422,
+      "time_ms": 83192.14569,
+      "frames": 1101,
+      "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
+      "benchmark_score": 71.07,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Thin input and throttle mapping for speed.",
+      "args": [
+        "--floam-kitti-profile",
+        "--floam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/summary.json --floam-kitti-profile --floam-fast-profile",
+      "summary_path": "experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/run.log",
+      "status": "ok",
+      "ate_m": 5.026036,
+      "rpe_trans_pct": 1.262016,
+      "rpe_rot_deg_per_m": 0.012374,
+      "fps": 29.843591,
+      "time_ms": 36892.343021,
+      "frames": 1101,
+      "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
+      "benchmark_score": 81.57,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Process denser input and update mapping every frame.",
+      "args": [
+        "--floam-kitti-profile",
+        "--floam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile",
+      "summary_path": "experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/run.log",
+      "status": "ok",
+      "ate_m": 3.173641,
+      "rpe_trans_pct": 0.590347,
+      "rpe_rot_deg_per_m": 0.006944,
+      "fps": 3.74189,
+      "time_ms": 294236.322341,
+      "frames": 1101,
+      "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
+      "benchmark_score": 56.27,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

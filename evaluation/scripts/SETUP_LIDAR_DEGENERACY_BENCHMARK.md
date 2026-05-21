@@ -40,7 +40,9 @@ The upstream README lists Ouster packet topics, not a guaranteed ready-made
 ```bash
 python3 evaluation/scripts/prepare_lidar_degeneracy_inputs.py \
   --download \
-  --inspect
+  --inspect \
+  --download-tool parallel \
+  --download-connections 16
 ```
 
 This writes:
@@ -60,7 +62,7 @@ python3 evaluation/scripts/prepare_lidar_degeneracy_inputs.py \
 
 ### 2. Extract when PointCloud2 is available
 
-If inspection reports a PointCloud2 topic:
+If inspection reports a LiDAR PointCloud2 topic:
 
 ```bash
 python3 evaluation/scripts/prepare_lidar_degeneracy_inputs.py \
@@ -101,6 +103,15 @@ python3 evaluation/scripts/extract_ros1_lidar_imu.py \
 
 Topic names should be checked with `rosbag info`, the generated
 `*_topics.json`, or the bag metadata.
+
+Observed `fog.bag` inspection:
+
+- LiDAR is packet-only: `/os_cloud_node/lidar_packets`.
+- IMU is available: `/vectornav_node/uncomp_imu`.
+- `/radar/cloud` is `sensor_msgs/PointCloud2`, but it is radar, not LiDAR.
+
+Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
+radar-aware baseline or after adding a radar-specific adapter.
 
 ## GT-Free Degeneracy Diagnostics
 

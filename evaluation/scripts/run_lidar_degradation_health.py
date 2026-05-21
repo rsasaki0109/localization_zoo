@@ -17,6 +17,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GEOMETRY_ICP = REPO_ROOT / "evaluation" / "scripts" / "geometry_icp_odometry_demo.py"
 KISS_KEYFRAME = REPO_ROOT / "build" / "evaluation" / "kiss_keyframe_odometry"
+CT_ICP_WINDOW = REPO_ROOT / "build" / "evaluation" / "ct_icp_window_odometry"
 
 
 def parse_args() -> argparse.Namespace:
@@ -28,8 +29,13 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="Override PCD directory. Defaults to source_pcd_dir in degradation_windows_json.",
     )
-    parser.add_argument("--method", choices=["geometry_icp", "kiss_keyframe"], default="geometry_icp")
+    parser.add_argument(
+        "--method",
+        choices=["geometry_icp", "kiss_keyframe", "ct_icp"],
+        default="geometry_icp",
+    )
     parser.add_argument("--kiss-binary", type=Path, default=KISS_KEYFRAME)
+    parser.add_argument("--ct-icp-binary", type=Path, default=CT_ICP_WINDOW)
     parser.add_argument("--max-points", type=int, default=5000)
     parser.add_argument("--voxel-size", type=float, default=0.75)
     parser.add_argument("--min-range", type=float, default=0.2)
@@ -44,6 +50,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-keyframe-rmse", type=float, default=2.0)
     parser.add_argument("--min-keyframe-correspondences", type=int, default=1000)
     parser.add_argument("--kiss-min-correspondences", type=int, default=1000)
+    parser.add_argument("--ct-icp-source-voxel-size", type=float, default=0.75)
+    parser.add_argument("--ct-icp-max-source-points", type=int, default=500)
+    parser.add_argument("--ct-icp-voxel-resolution", type=float, default=1.5)
+    parser.add_argument("--ct-icp-keypoint-voxel-size", type=float, default=1.25)
+    parser.add_argument("--ct-icp-max-iterations", type=int, default=8)
+    parser.add_argument("--ct-icp-ceres-max-iterations", type=int, default=1)
+    parser.add_argument("--ct-icp-max-frames-in-map", type=int, default=8)
+    parser.add_argument("--ct-icp-planarity-threshold", type=float, default=0.08)
+    parser.add_argument("--ct-icp-max-correspondence-distance", type=float)
+    parser.add_argument("--ct-icp-multi-scale", action="store_true")
+    parser.add_argument("--ct-icp-normal-cholesky", action="store_true")
+    parser.add_argument("--ct-icp-refinement-gate", action="store_true")
+    parser.add_argument("--ct-icp-native-seed", action="store_true")
+    parser.add_argument("--ct-icp-require-convergence", action="store_true")
+    parser.add_argument("--ct-icp-max-seed-translation-delta", type=float, default=2.0)
+    parser.add_argument("--ct-icp-max-seed-rotation-delta-rad", type=float, default=0.25)
     parser.add_argument("--progress-every", type=int, default=0)
     return parser.parse_args()
 
@@ -145,6 +167,74 @@ def run_kiss_keyframe(
     return result_path
 
 
+def run_ct_icp(
+    args: argparse.Namespace,
+    sequence_pcd_dir: Path,
+    name: str,
+    row: dict[str, Any],
+    output_dir: Path,
+) -> Path:
+    result_path = (
+        output_dir
+        / "results"
+        / f"{name}_{int(row['start']):04d}_{int(row['end']):04d}_ct_icp.json"
+    )
+    result_path.parent.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        str(args.ct_icp_binary),
+        str(sequence_pcd_dir),
+        "-",
+        str(result_path),
+        str(int(row["frames"])),
+        "--start-frame",
+        str(int(row["start"])),
+        "--source-voxel-size",
+        str(args.ct_icp_source_voxel_size),
+        "--max-source-points",
+        str(args.ct_icp_max_source_points),
+        "--voxel-resolution",
+        str(args.ct_icp_voxel_resolution),
+        "--keypoint-voxel-size",
+        str(args.ct_icp_keypoint_voxel_size),
+        "--max-iterations",
+        str(args.ct_icp_max_iterations),
+        "--ceres-max-iterations",
+        str(args.ct_icp_ceres_max_iterations),
+        "--max-frames-in-map",
+        str(args.ct_icp_max_frames_in_map),
+        "--planarity-threshold",
+        str(args.ct_icp_planarity_threshold),
+        "--max-step-translation",
+        str(args.max_step_translation),
+        "--max-step-yaw-deg",
+        str(args.max_step_yaw_deg),
+        "--max-seed-translation-delta",
+        str(args.ct_icp_max_seed_translation_delta),
+        "--max-seed-rotation-delta-rad",
+        str(args.ct_icp_max_seed_rotation_delta_rad),
+    ]
+    if args.ct_icp_max_correspondence_distance is not None:
+        cmd.extend(
+            [
+                "--max-correspondence-distance",
+                str(args.ct_icp_max_correspondence_distance),
+            ]
+        )
+    if args.ct_icp_multi_scale:
+        cmd.append("--multi-scale")
+    if args.ct_icp_normal_cholesky:
+        cmd.append("--normal-cholesky")
+    if args.ct_icp_refinement_gate:
+        cmd.append("--refinement-gate")
+    if args.ct_icp_native_seed:
+        cmd.append("--native-ct-icp-seed")
+    if args.ct_icp_require_convergence:
+        cmd.append("--require-convergence")
+    print("[run] " + " ".join(cmd))
+    subprocess.run(cmd, cwd=REPO_ROOT, check=True)
+    return result_path
+
+
 def finite(values: list[float]) -> list[float]:
     return [value for value in values if math.isfinite(value)]
 
@@ -164,6 +254,16 @@ def safe_max(values: list[float]) -> float | None:
     return max(values) if values else None
 
 
+def optional_float(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        out = float(value)
+    except (TypeError, ValueError):
+        return None
+    return out if math.isfinite(out) else None
+
+
 def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> dict[str, Any]:
     payload = load_payload(result_path)
     pairs = payload.get("pairs", [])
@@ -171,9 +271,13 @@ def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> di
     pair_count = len(pairs)
     accepted = [bool(pair.get("accepted")) for pair in pairs]
     converged = [bool(pair.get("converged")) for pair in pairs]
-    scores = [float(pair.get("score", float("nan"))) for pair in pairs]
-    valid_scores = [score for score in scores if score >= 0.0 and math.isfinite(score)]
-    overlaps = [float(pair.get("overlap", 0.0)) for pair in pairs]
+    scores = [optional_float(pair.get("score")) for pair in pairs]
+    valid_scores = [score for score in scores if score is not None and score >= 0.0]
+    overlaps = [
+        overlap
+        for overlap in (optional_float(pair.get("overlap")) for pair in pairs)
+        if overlap is not None
+    ]
     used_steps = [
         math.hypot(float(pair.get("used_dx_curr_to_prev_m", 0.0)), float(pair.get("used_dy_curr_to_prev_m", 0.0)))
         for pair in pairs
@@ -181,7 +285,7 @@ def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> di
     raw_steps = [
         math.hypot(float(pair.get("dx_curr_to_prev_m", 0.0)), float(pair.get("dy_curr_to_prev_m", 0.0)))
         for pair in pairs
-        if float(pair.get("score", -1.0)) >= 0.0
+        if optional_float(pair.get("score")) is None or optional_float(pair.get("score")) >= 0.0
     ]
     yaws = [abs(float(pair.get("used_yaw_curr_to_prev_deg", 0.0))) for pair in pairs]
     nonfinite_pose_count = sum(
@@ -261,6 +365,8 @@ def main() -> int:
             result_path = run_geometry_icp(args, sequence_pcd_dir, name, row, args.output_dir)
         elif args.method == "kiss_keyframe":
             result_path = run_kiss_keyframe(args, sequence_pcd_dir, name, row, args.output_dir)
+        elif args.method == "ct_icp":
+            result_path = run_ct_icp(args, sequence_pcd_dir, name, row, args.output_dir)
         else:
             raise ValueError(f"Unsupported method: {args.method}")
         rows.append(summarize_result(name, row, result_path))
@@ -284,6 +390,22 @@ def main() -> int:
             "max_keyframe_rmse": args.max_keyframe_rmse,
             "min_keyframe_correspondences": args.min_keyframe_correspondences,
             "kiss_min_correspondences": args.kiss_min_correspondences,
+            "ct_icp_source_voxel_size": args.ct_icp_source_voxel_size,
+            "ct_icp_max_source_points": args.ct_icp_max_source_points,
+            "ct_icp_voxel_resolution": args.ct_icp_voxel_resolution,
+            "ct_icp_keypoint_voxel_size": args.ct_icp_keypoint_voxel_size,
+            "ct_icp_max_iterations": args.ct_icp_max_iterations,
+            "ct_icp_ceres_max_iterations": args.ct_icp_ceres_max_iterations,
+            "ct_icp_max_frames_in_map": args.ct_icp_max_frames_in_map,
+            "ct_icp_planarity_threshold": args.ct_icp_planarity_threshold,
+            "ct_icp_max_correspondence_distance": args.ct_icp_max_correspondence_distance,
+            "ct_icp_multi_scale": args.ct_icp_multi_scale,
+            "ct_icp_normal_cholesky": args.ct_icp_normal_cholesky,
+            "ct_icp_refinement_gate": args.ct_icp_refinement_gate,
+            "ct_icp_native_seed": args.ct_icp_native_seed,
+            "ct_icp_require_convergence": args.ct_icp_require_convergence,
+            "ct_icp_max_seed_translation_delta": args.ct_icp_max_seed_translation_delta,
+            "ct_icp_max_seed_rotation_delta_rad": args.ct_icp_max_seed_rotation_delta_rad,
         },
         "windows": rows,
     }

@@ -25,6 +25,8 @@
     "intensity_bev_max_points": 6000,
     "intensity_bev_min_step_translation": 0.25,
     "intensity_bev_zero_motion_score_margin": 0.05,
+    "intensity_bev_motion_margin_flag_rate": 0.5,
+    "intensity_bev_overlap_tail_flag_ratio": 0.5,
     "ct_icp_source_voxel_size": 0.75,
     "ct_icp_max_source_points": 500,
     "ct_icp_voxel_resolution": 1.5,
@@ -64,7 +66,7 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/baseline_0000_0029_intensity_bev.json",
       "frames": 30,
       "pairs": 29,
-      "runtime_s": 9.131374749937095,
+      "runtime_s": 8.851459107012488,
       "accepted_pairs": 29,
       "accepted_rate": 1.0,
       "converged_pairs": 29,
@@ -74,6 +76,12 @@
       "score_min": 0.5787323679037497,
       "overlap_mean": 5852.551724137931,
       "overlap_min": 5800.0,
+      "overlap_min_to_mean": 0.9910207159859536,
+      "decision_reasons": {
+        "motion_margin": 29
+      },
+      "motion_margin_rate": 1.0,
+      "best_score_rate": 0.0,
       "raw_step_mean_m": 0.25,
       "used_path_length_m": 7.25,
       "used_step_max_m": 0.25,
@@ -86,6 +94,8 @@
         "low_acceptance": false,
         "low_convergence": false,
         "low_used_path": false,
+        "motion_margin_dominant": false,
+        "overlap_tail": false,
         "nonfinite_pose": false
       }
     },
@@ -110,7 +120,7 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
       "frames": 30,
       "pairs": 29,
-      "runtime_s": 9.279038287932053,
+      "runtime_s": 8.825981242000125,
       "accepted_pairs": 29,
       "accepted_rate": 1.0,
       "converged_pairs": 29,
@@ -120,6 +130,13 @@
       "score_min": 0.7511417353869537,
       "overlap_mean": 5542.0344827586205,
       "overlap_min": 3565.0,
+      "overlap_min_to_mean": 0.6432655753209017,
+      "decision_reasons": {
+        "best_score": 25,
+        "motion_margin": 4
+      },
+      "motion_margin_rate": 0.13793103448275862,
+      "best_score_rate": 0.8620689655172413,
       "raw_step_mean_m": 0.28553808185234886,
       "used_path_length_m": 8.280604373718116,
       "used_step_max_m": 0.5590169943749475,
@@ -132,6 +149,8 @@
         "low_acceptance": false,
         "low_convergence": false,
         "low_used_path": false,
+        "motion_margin_dominant": false,
+        "overlap_tail": false,
         "nonfinite_pose": false
       }
     },
@@ -156,7 +175,7 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/point_count_tail_0115_0144_intensity_bev.json",
       "frames": 30,
       "pairs": 29,
-      "runtime_s": 9.672720678034239,
+      "runtime_s": 8.680585784954019,
       "accepted_pairs": 27,
       "accepted_rate": 0.9310344827586207,
       "converged_pairs": 27,
@@ -166,6 +185,13 @@
       "score_min": 0.687134499879548,
       "overlap_mean": 5159.689655172414,
       "overlap_min": 1209.0,
+      "overlap_min_to_mean": 0.23431641838923753,
+      "decision_reasons": {
+        "motion_margin": 15,
+        "best_score": 14
+      },
+      "motion_margin_rate": 0.5172413793103449,
+      "best_score_rate": 0.4827586206896552,
       "raw_step_mean_m": 0.5659584949999495,
       "used_path_length_m": 11.516254999302026,
       "used_step_max_m": 1.5206906325745548,
@@ -178,6 +204,8 @@
         "low_acceptance": false,
         "low_convergence": false,
         "low_used_path": false,
+        "motion_margin_dominant": true,
+        "overlap_tail": true,
         "nonfinite_pose": false
       }
     }

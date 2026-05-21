@@ -384,6 +384,16 @@ Observed `fog.bag` inspection:
   is cross-method flagged by all-method disagreement with no healthy peer, and
   tunnel `point_count_tail` / `geometry_degeneracy` are cross-method flagged by
   5.3-7.2x disagreement against the healthy-peer median.
+- Risk calibration is staged in
+  `experiments/results/lidar_degeneracy/risk_gt_calibration/`. The current
+  local NTNU extraction has no GT CSV and the downloaded bag topic audits show
+  no pose/odom/tf topics, so the GT-backed rows are intentionally empty. The
+  script can be rerun with external references via
+  `python3 evaluation/scripts/calibrate_lidar_degeneracy_risk.py --gt-csv fog_200=... --gt-csv tunnel_geom_2700_200=...`.
+  Until then, the stress-window proxy calibration separates
+  `cross_method_suspicious` (mean path/healthy 4.48) from `ok`
+  (mean path/healthy 0.88), but this remains a triage signal rather than an
+  error label.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

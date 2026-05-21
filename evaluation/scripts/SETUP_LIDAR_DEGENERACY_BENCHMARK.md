@@ -102,6 +102,16 @@ python3 evaluation/scripts/analyze_lidar_degeneracy_sequence.py \
   experiments/results/lidar_degeneracy/fog_200 \
   --max-frames 200 \
   --sample-points 20000
+
+python3 evaluation/scripts/select_lidar_degradation_windows.py \
+  experiments/results/lidar_degeneracy/fog_200/frame_degeneracy.csv \
+  experiments/results/lidar_degeneracy/fog_200/window_selection \
+  --window-size 30 \
+  --stride 5
+
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/fog_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/fog_200/odometry_health
 ```
 
 `extract_ouster_packet_lidar_imu.py` uses `/sensor_sync_node/trigger_1` by
@@ -167,6 +177,12 @@ Observed `fog.bag` inspection:
 - `/radar/cloud` is `sensor_msgs/PointCloud2`, but it is radar, not LiDAR.
 - `fog_200` direct extraction produced 200 complete LiDAR frames with a mean of
   31.6k valid points/frame and `degeneracy_score` mean 0.613 / p95 0.692.
+- `fog_200` degradation selection identified frames 170-199 as the strongest
+  obscurant window: point count drops 42.9%, intensity drops 35.7%, and range
+  p95 drops 24.9% against the initial clear-window baseline.
+- A GT-free geometry ICP health smoke shows the selected degradation matters:
+  baseline window accepted 65.5% of frame pairs, point-count tail accepted
+  13.8%, and the strongest fog window accepted 0%.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

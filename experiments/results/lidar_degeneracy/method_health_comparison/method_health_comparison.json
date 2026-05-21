@@ -1,0 +1,415 @@
+{
+  "inputs": {
+    "fog_200": {
+      "geometry_icp": "experiments/results/lidar_degeneracy/fog_200/odometry_health/odometry_health_summary.json",
+      "kiss_keyframe": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/odometry_health_summary.json",
+      "ct_icp": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/odometry_health_summary.json"
+    },
+    "tunnel_geom_2700_200": {
+      "geometry_icp": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/odometry_health_summary.json",
+      "kiss_keyframe": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/odometry_health_summary.json",
+      "ct_icp": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/odometry_health_summary.json"
+    }
+  },
+  "sequences": [
+    {
+      "sequence": "fog_200",
+      "methods": {
+        "geometry_icp": {
+          "summary_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/odometry_health_summary.json",
+          "method": "geometry_icp",
+          "sequence_pcd_dir": "dogfooding_results/lidar_degeneracy_fog_200"
+        },
+        "kiss_keyframe": {
+          "summary_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/odometry_health_summary.json",
+          "method": "kiss_keyframe",
+          "sequence_pcd_dir": "dogfooding_results/lidar_degeneracy_fog_200"
+        },
+        "ct_icp": {
+          "summary_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/odometry_health_summary.json",
+          "method": "ct_icp",
+          "sequence_pcd_dir": "dogfooding_results/lidar_degeneracy_fog_200"
+        }
+      },
+      "windows": [
+        {
+          "sequence": "fog_200",
+          "name": "baseline",
+          "start": 0,
+          "end": 29,
+          "frames": 30,
+          "obscurant_score": 0.005603434076427771,
+          "methods": {
+            "geometry_icp": {
+              "accepted_rate": 0.6551724137931034,
+              "converged_rate": null,
+              "score_mean": 0.7750346781589311,
+              "overlap_mean": 65.86206896551724,
+              "used_path_length_m": 1.275861762456349,
+              "used_step_max_m": 0.09452323869230268,
+              "keyframes": "n/a",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/baseline_0000_0029_geometry_icp.json"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 0.0,
+              "converged_rate": 0.0,
+              "score_mean": 0.8443629655172414,
+              "overlap_mean": 309.0,
+              "used_path_length_m": 0.0,
+              "used_step_max_m": 0.0,
+              "keyframes": "0/2",
+              "flags": "all_pairs_failed, low_acceptance, low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/baseline_0000_0029_kiss_keyframe.json"
+            },
+            "ct_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.13793103448275862,
+              "score_mean": null,
+              "overlap_mean": null,
+              "used_path_length_m": 1.283389541073347,
+              "used_step_max_m": 0.1264825407912096,
+              "keyframes": "n/a",
+              "flags": "low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json"
+            }
+          }
+        },
+        {
+          "sequence": "fog_200",
+          "name": "point_count_tail",
+          "start": 115,
+          "end": 144,
+          "frames": 30,
+          "obscurant_score": 0.5209874970401371,
+          "methods": {
+            "geometry_icp": {
+              "accepted_rate": 0.13793103448275862,
+              "converged_rate": null,
+              "score_mean": 0.7898912729163508,
+              "overlap_mean": 11.344827586206897,
+              "used_path_length_m": 0.3259907510529778,
+              "used_step_max_m": 0.056504874649066505,
+              "keyframes": "n/a",
+              "flags": "low_acceptance",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/point_count_tail_0115_0144_geometry_icp.json"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 0.0,
+              "converged_rate": 0.0,
+              "score_mean": 0.7948901034482758,
+              "overlap_mean": 239.44827586206895,
+              "used_path_length_m": 0.0,
+              "used_step_max_m": 0.0,
+              "keyframes": "0/2",
+              "flags": "all_pairs_failed, low_acceptance, low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/point_count_tail_0115_0144_kiss_keyframe.json"
+            },
+            "ct_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.0,
+              "score_mean": null,
+              "overlap_mean": null,
+              "used_path_length_m": 2.703449488161886,
+              "used_step_max_m": 0.3231960815387464,
+              "keyframes": "n/a",
+              "flags": "low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json"
+            }
+          }
+        },
+        {
+          "sequence": "fog_200",
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "frames": 30,
+          "obscurant_score": 0.9111439385987401,
+          "methods": {
+            "geometry_icp": {
+              "accepted_rate": 0.0,
+              "converged_rate": null,
+              "score_mean": null,
+              "overlap_mean": 0.0,
+              "used_path_length_m": 0.0,
+              "used_step_max_m": 0.0,
+              "keyframes": "n/a",
+              "flags": "all_pairs_failed, low_acceptance",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/degraded_0170_0199_geometry_icp.json"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 0.0,
+              "converged_rate": 0.0,
+              "score_mean": 0.7943503103448276,
+              "overlap_mean": 163.31034482758622,
+              "used_path_length_m": 0.0,
+              "used_step_max_m": 0.0,
+              "keyframes": "0/2",
+              "flags": "all_pairs_failed, low_acceptance, low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json"
+            },
+            "ct_icp": {
+              "accepted_rate": 0.6551724137931034,
+              "converged_rate": 0.0,
+              "score_mean": null,
+              "overlap_mean": null,
+              "used_path_length_m": 2.6547453640348087,
+              "used_step_max_m": 0.2291563984989291,
+              "keyframes": "n/a",
+              "flags": "low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "methods": {
+        "geometry_icp": {
+          "summary_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/odometry_health_summary.json",
+          "method": "geometry_icp",
+          "sequence_pcd_dir": "dogfooding_results/lidar_degeneracy_tunnel_geom_2700_200"
+        },
+        "kiss_keyframe": {
+          "summary_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/odometry_health_summary.json",
+          "method": "kiss_keyframe",
+          "sequence_pcd_dir": "dogfooding_results/lidar_degeneracy_tunnel_geom_2700_200"
+        },
+        "ct_icp": {
+          "summary_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/odometry_health_summary.json",
+          "method": "ct_icp",
+          "sequence_pcd_dir": "dogfooding_results/lidar_degeneracy_tunnel_geom_2700_200"
+        }
+      },
+      "windows": [
+        {
+          "sequence": "tunnel_geom_2700_200",
+          "name": "baseline",
+          "start": 5,
+          "end": 34,
+          "frames": 30,
+          "obscurant_score": 0.001530284341535515,
+          "methods": {
+            "geometry_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": null,
+              "score_mean": 0.7038505309055973,
+              "overlap_mean": 472.62068965517244,
+              "used_path_length_m": 1.5194460039714142,
+              "used_step_max_m": 0.19393327365224824,
+              "keyframes": "n/a",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/baseline_0005_0034_geometry_icp.json"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "score_mean": 0.7473475172413793,
+              "overlap_mean": 2255.7586206896553,
+              "used_path_length_m": 1.1857805032809408,
+              "used_step_max_m": 0.09978289872017147,
+              "keyframes": "2/2",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/baseline_0005_0034_kiss_keyframe.json"
+            },
+            "ct_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.13793103448275862,
+              "score_mean": null,
+              "overlap_mean": null,
+              "used_path_length_m": 5.1894359196055575,
+              "used_step_max_m": 0.8424195673469367,
+              "keyframes": "n/a",
+              "flags": "low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json"
+            }
+          }
+        },
+        {
+          "sequence": "tunnel_geom_2700_200",
+          "name": "point_count_tail",
+          "start": 80,
+          "end": 109,
+          "frames": 30,
+          "obscurant_score": 0.03473030865987037,
+          "methods": {
+            "geometry_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": null,
+              "score_mean": 0.706265562317072,
+              "overlap_mean": 525.0,
+              "used_path_length_m": 1.8668876874404594,
+              "used_step_max_m": 0.213427326817862,
+              "keyframes": "n/a",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/point_count_tail_0080_0109_geometry_icp.json"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "score_mean": 0.7526698620689655,
+              "overlap_mean": 2643.2413793103447,
+              "used_path_length_m": 0.9879330933301463,
+              "used_step_max_m": 0.10191118339024428,
+              "keyframes": "2/2",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/point_count_tail_0080_0109_kiss_keyframe.json"
+            },
+            "ct_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.10344827586206896,
+              "score_mean": null,
+              "overlap_mean": null,
+              "used_path_length_m": 5.412183658425958,
+              "used_step_max_m": 0.43261728243101893,
+              "keyframes": "n/a",
+              "flags": "low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json"
+            }
+          }
+        },
+        {
+          "sequence": "tunnel_geom_2700_200",
+          "name": "geometry_degeneracy",
+          "start": 90,
+          "end": 119,
+          "frames": 30,
+          "obscurant_score": 0.04458085640109688,
+          "methods": {
+            "geometry_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": null,
+              "score_mean": 0.7090228460114594,
+              "overlap_mean": 536.1379310344828,
+              "used_path_length_m": 1.766361545550214,
+              "used_step_max_m": 0.21342732681786308,
+              "keyframes": "n/a",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/geometry_degeneracy_0090_0119_geometry_icp.json"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "score_mean": 0.7553951724137931,
+              "overlap_mean": 2675.4137931034484,
+              "used_path_length_m": 0.9200721700818316,
+              "used_step_max_m": 0.10191118339024428,
+              "keyframes": "2/2",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/geometry_degeneracy_0090_0119_kiss_keyframe.json"
+            },
+            "ct_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.13793103448275862,
+              "score_mean": null,
+              "overlap_mean": null,
+              "used_path_length_m": 5.675902413181488,
+              "used_step_max_m": 0.5290155312143492,
+              "keyframes": "n/a",
+              "flags": "low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json"
+            }
+          }
+        },
+        {
+          "sequence": "tunnel_geom_2700_200",
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "frames": 30,
+          "obscurant_score": 0.2273055096004576,
+          "methods": {
+            "geometry_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": null,
+              "score_mean": 0.713715792341947,
+              "overlap_mean": 656.1724137931035,
+              "used_path_length_m": 1.1778809075110657,
+              "used_step_max_m": 0.15343182811920295,
+              "keyframes": "n/a",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/degraded_0170_0199_geometry_icp.json"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "score_mean": 0.7448887931034482,
+              "overlap_mean": 3184.137931034483,
+              "used_path_length_m": 1.0880567462959958,
+              "used_step_max_m": 0.10012422856132276,
+              "keyframes": "2/2",
+              "flags": "ok",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json"
+            },
+            "ct_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.20689655172413793,
+              "score_mean": null,
+              "overlap_mean": null,
+              "used_path_length_m": 4.161153809480603,
+              "used_step_max_m": 0.3451652444453236,
+              "keyframes": "n/a",
+              "flags": "low_convergence",
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "aggregates": {
+    "fog_200": {
+      "geometry_icp": {
+        "windows": 3,
+        "mean_acceptance": 0.26436781609195403,
+        "mean_convergence": 0.26436781609195403,
+        "failed_windows": 2,
+        "min_acceptance": 0.0,
+        "max_used_path_length_m": 1.275861762456349
+      },
+      "kiss_keyframe": {
+        "windows": 3,
+        "mean_acceptance": 0.0,
+        "mean_convergence": 0.0,
+        "failed_windows": 3,
+        "min_acceptance": 0.0,
+        "max_used_path_length_m": 0.0
+      },
+      "ct_icp": {
+        "windows": 3,
+        "mean_acceptance": 0.8850574712643677,
+        "mean_convergence": 0.04597701149425287,
+        "failed_windows": 0,
+        "min_acceptance": 0.6551724137931034,
+        "max_used_path_length_m": 2.703449488161886
+      }
+    },
+    "tunnel_geom_2700_200": {
+      "geometry_icp": {
+        "windows": 4,
+        "mean_acceptance": 1.0,
+        "mean_convergence": 1.0,
+        "failed_windows": 0,
+        "min_acceptance": 1.0,
+        "max_used_path_length_m": 1.8668876874404594
+      },
+      "kiss_keyframe": {
+        "windows": 4,
+        "mean_acceptance": 1.0,
+        "mean_convergence": 1.0,
+        "failed_windows": 0,
+        "min_acceptance": 1.0,
+        "max_used_path_length_m": 1.1857805032809408
+      },
+      "ct_icp": {
+        "windows": 4,
+        "mean_acceptance": 1.0,
+        "mean_convergence": 0.14655172413793102,
+        "failed_windows": 0,
+        "min_acceptance": 1.0,
+        "max_used_path_length_m": 5.675902413181488
+      }
+    }
+  }
+}

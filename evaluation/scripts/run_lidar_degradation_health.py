@@ -62,6 +62,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--intensity-bev-grid-radius", type=float, default=45.0)
     parser.add_argument("--intensity-bev-min-overlap", type=int, default=200)
     parser.add_argument("--intensity-bev-max-points", type=int, default=6000)
+    parser.add_argument("--intensity-bev-min-step-translation", type=float, default=0.0)
+    parser.add_argument("--intensity-bev-zero-motion-score-margin", type=float, default=0.0)
     parser.add_argument("--ct-icp-source-voxel-size", type=float, default=0.75)
     parser.add_argument("--ct-icp-max-source-points", type=int, default=500)
     parser.add_argument("--ct-icp-voxel-resolution", type=float, default=1.5)
@@ -225,6 +227,10 @@ def run_intensity_bev(
         str(args.max_step_translation),
         "--max-step-yaw-deg",
         str(args.max_step_yaw_deg),
+        "--min-step-translation",
+        str(args.intensity_bev_min_step_translation),
+        "--zero-motion-score-margin",
+        str(args.intensity_bev_zero_motion_score_margin),
         "--progress-every",
         str(args.progress_every),
     ]
@@ -487,6 +493,8 @@ def main() -> int:
             "intensity_bev_grid_radius": args.intensity_bev_grid_radius,
             "intensity_bev_min_overlap": args.intensity_bev_min_overlap,
             "intensity_bev_max_points": args.intensity_bev_max_points,
+            "intensity_bev_min_step_translation": args.intensity_bev_min_step_translation,
+            "intensity_bev_zero_motion_score_margin": args.intensity_bev_zero_motion_score_margin,
             "ct_icp_source_voxel_size": args.ct_icp_source_voxel_size,
             "ct_icp_max_source_points": args.ct_icp_max_source_points,
             "ct_icp_voxel_resolution": args.ct_icp_voxel_resolution,

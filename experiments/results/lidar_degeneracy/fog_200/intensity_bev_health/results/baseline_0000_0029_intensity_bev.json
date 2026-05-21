@@ -19,9 +19,11 @@
     "min_overlap": 200,
     "max_step_translation": 2.0,
     "max_step_yaw_deg": 20.0,
+    "min_step_translation": 0.25,
+    "zero_motion_score_margin": 0.05,
     "motion_prior": true
   },
-  "runtime_s": 8.809668455040082,
+  "runtime_s": 9.131374749937095,
   "metrics": null,
   "poses_xyyaw": [
     {
@@ -32,527 +34,556 @@
     },
     {
       "index": 1,
-      "x_m": 0.0,
+      "x_m": 0.25,
       "y_m": 0.0,
-      "yaw_deg": -1.0
+      "yaw_deg": -2.0
     },
     {
       "index": 2,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -2.5
+      "x_m": 0.49984770675477397,
+      "y_m": -0.008724874175625242,
+      "yaw_deg": -4.0
     },
     {
       "index": 3,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -3.5000000000000004
-    },
-    {
-      "index": 4,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -4.500000000000001
-    },
-    {
-      "index": 5,
-      "x_m": 0.0,
-      "y_m": 0.0,
+      "x_m": 0.7492387193197301,
+      "y_m": -0.02616399261165657,
       "yaw_deg": -6.0
     },
     {
-      "index": 6,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -7.499999999999999
+      "index": 4,
+      "x_m": 0.9978691931617985,
+      "y_m": -0.05229610842856994,
+      "yaw_deg": -8.5
     },
     {
-      "index": 7,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -9.0
-    },
-    {
-      "index": 8,
-      "x_m": 0.0,
-      "y_m": 0.0,
+      "index": 5,
+      "x_m": 1.2451231590022778,
+      "y_m": -0.0892484612109726,
       "yaw_deg": -10.499999999999998
     },
     {
+      "index": 6,
+      "x_m": 1.4909368858932663,
+      "y_m": -0.13480734258400948,
+      "yaw_deg": -13.0
+    },
+    {
+      "index": 7,
+      "x_m": 1.7345294020895752,
+      "y_m": -0.19104510616997572,
+      "yaw_deg": -14.999999999999998
+    },
+    {
+      "index": 8,
+      "x_m": 1.9760108586618423,
+      "y_m": -0.2557498674456059,
+      "yaw_deg": -17.0
+    },
+    {
       "index": 9,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -11.999999999999998
+      "x_m": 2.2150870476526014,
+      "y_m": -0.3288427936262901,
+      "yaw_deg": -18.999999999999996
     },
     {
       "index": 10,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -13.499999999999996
+      "x_m": 2.451466691552431,
+      "y_m": -0.4102348322405793,
+      "yaw_deg": -20.999999999999996
     },
     {
       "index": 11,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -14.999999999999993
+      "x_m": 2.6848617981767315,
+      "y_m": -0.49982681962690434,
+      "yaw_deg": -22.999999999999996
     },
     {
       "index": 12,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -16.499999999999993
+      "x_m": 2.9149880115398417,
+      "y_m": -0.5975096017492229,
+      "yaw_deg": -24.999999999999996
     },
     {
       "index": 13,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -17.499999999999996
+      "x_m": 3.1415649582990044,
+      "y_m": -0.7031641671843978,
+      "yaw_deg": -26.999999999999993
     },
     {
       "index": 14,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -18.499999999999993
+      "x_m": 3.3643165893460965,
+      "y_m": -0.8166617921192845,
+      "yaw_deg": -29.499999999999996
     },
     {
       "index": 15,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -19.499999999999996
+      "x_m": 3.5819055133310713,
+      "y_m": -0.9397676821451513,
+      "yaw_deg": -31.499999999999993
     },
     {
       "index": 16,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -20.999999999999993
+      "x_m": 3.7950655544195944,
+      "y_m": -1.0703923233241386,
+      "yaw_deg": -33.49999999999999
     },
     {
       "index": 17,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -22.499999999999993
+      "x_m": 4.0035370099363865,
+      "y_m": -1.2083765696521531,
+      "yaw_deg": -35.5
     },
     {
       "index": 18,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -23.499999999999993
+      "x_m": 4.207065889525467,
+      "y_m": -1.3535523085798882,
+      "yaw_deg": -37.49999999999999
     },
     {
       "index": 19,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -24.499999999999993
+      "x_m": 4.405404224598276,
+      "y_m": -1.5057426658320685,
+      "yaw_deg": -39.99999999999999
     },
     {
       "index": 20,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -25.999999999999993
+      "x_m": 4.5969153353780206,
+      "y_m": -1.6664395682537034,
+      "yaw_deg": -41.99999999999999
     },
     {
       "index": 21,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -27.499999999999993
+      "x_m": 4.782701541747369,
+      "y_m": -1.833722219843418,
+      "yaw_deg": -43.99999999999999
     },
     {
       "index": 22,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -28.499999999999993
+      "x_m": 4.962536491832032,
+      "y_m": -2.0073868124581673,
+      "yaw_deg": -45.99999999999999
     },
     {
       "index": 23,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -29.999999999999993
+      "x_m": 5.136201084446782,
+      "y_m": -2.1872217625428303,
+      "yaw_deg": -48.49999999999999
     },
     {
       "index": 24,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -31.499999999999986
+      "x_m": 5.323440014644032,
+      "y_m": -2.021566750488896,
+      "yaw_deg": -49.499999999999986
     },
     {
       "index": 25,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -32.999999999999986
+      "x_m": 5.485802026726579,
+      "y_m": -2.211668241888904,
+      "yaw_deg": -51.499999999999986
     },
     {
       "index": 26,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -34.499999999999986
+      "x_m": 5.641430685885984,
+      "y_m": -2.407320281102008,
+      "yaw_deg": -53.49999999999997
     },
     {
       "index": 27,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -35.499999999999986
+      "x_m": 5.79013638257382,
+      "y_m": -2.6082844962563123,
+      "yaw_deg": -55.49999999999998
     },
     {
       "index": 28,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -36.99999999999998
+      "x_m": 5.931737941805029,
+      "y_m": -2.814316043411816,
+      "yaw_deg": -57.49999999999997
     },
     {
       "index": 29,
-      "x_m": 0.0,
-      "y_m": 0.0,
-      "yaw_deg": -38.499999999999986
+      "x_m": 6.066062843891735,
+      "y_m": -3.0251639048650376,
+      "yaw_deg": -58.99999999999998
     }
   ],
   "pairs": [
     {
       "index": 1,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0,
-      "score": 0.6332962646068069,
-      "overlap": 5974
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.5913793518245666,
+      "overlap": 5837,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 2,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6379046203040782,
-      "overlap": 5949
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6072848579225847,
+      "overlap": 5826,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 3,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6357384600574153,
-      "overlap": 5974
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6035704110594241,
+      "overlap": 5917,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 4,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -2.5,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6344777315350206,
-      "overlap": 5962
+      "used_yaw_curr_to_prev_deg": -2.5,
+      "score": 0.6019344400254707,
+      "overlap": 5807,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 5,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6311350811770976,
-      "overlap": 5964
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.5932287932283804,
+      "overlap": 5853,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 6,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.5,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6516590541635215,
-      "overlap": 5959
+      "used_yaw_curr_to_prev_deg": -2.5,
+      "score": 0.6185166044213427,
+      "overlap": 5820,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 7,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6438655530483814,
-      "overlap": 5955
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6056444464357755,
+      "overlap": 5832,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 8,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6395942083930806,
-      "overlap": 5967
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6007450165109368,
+      "overlap": 5857,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 9,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6310584796649781,
-      "overlap": 5958
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6014023309871126,
+      "overlap": 5888,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 10,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6268559236303243,
-      "overlap": 5962
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.5931589826170844,
+      "overlap": 5839,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 11,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6305828149115459,
-      "overlap": 5968
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.5963875027631338,
+      "overlap": 5850,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 12,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6395051259192457,
-      "overlap": 5962
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6054872451004292,
+      "overlap": 5852,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 13,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6420630860228149,
-      "overlap": 5966
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.605832443124374,
+      "overlap": 5886,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 14,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -2.5,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6521759304703763,
-      "overlap": 5976
+      "used_yaw_curr_to_prev_deg": -2.5,
+      "score": 0.6116428337568224,
+      "overlap": 5800,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 15,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6539956605763486,
-      "overlap": 5975
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.612874030268412,
+      "overlap": 5861,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 16,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6423756383503192,
-      "overlap": 5966
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6020238154841866,
+      "overlap": 5854,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 17,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6625306272442862,
-      "overlap": 5967
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6224199689773726,
+      "overlap": 5855,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 18,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6573165274804578,
-      "overlap": 5960
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6101738716139457,
+      "overlap": 5817,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 19,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -2.5,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6604270950464952,
-      "overlap": 5977
+      "used_yaw_curr_to_prev_deg": -2.5,
+      "score": 0.6270880243458227,
+      "overlap": 5830,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 20,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.645125562431,
-      "overlap": 5969
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6053184048590442,
+      "overlap": 5860,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 21,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6449899240359577,
-      "overlap": 5945
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.604147376220656,
+      "overlap": 5833,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 22,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -2.0,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6489416618235597,
-      "overlap": 5976
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.6047168927668892,
+      "overlap": 5854,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 23,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -2.5,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6431364531250552,
-      "overlap": 5955
+      "used_yaw_curr_to_prev_deg": -2.5,
+      "score": 0.5959725634546914,
+      "overlap": 5870,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 24,
       "dx_curr_to_prev_m": 0.0,
-      "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "dy_curr_to_prev_m": 0.25,
+      "yaw_curr_to_prev_deg": -0.9999999999999998,
       "accepted": true,
       "used_dx_curr_to_prev_m": 0.0,
-      "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6252556102890344,
-      "overlap": 5963
+      "used_dy_curr_to_prev_m": 0.25,
+      "used_yaw_curr_to_prev_deg": -0.9999999999999998,
+      "score": 0.5787323679037497,
+      "overlap": 5925,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 25,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -1.9999999999999996,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6609276128552285,
-      "overlap": 5949
+      "used_yaw_curr_to_prev_deg": -1.9999999999999996,
+      "score": 0.6185174981544213,
+      "overlap": 5856,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 26,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -1.9999999999999996,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6505737264312371,
-      "overlap": 5961
+      "used_yaw_curr_to_prev_deg": -1.9999999999999996,
+      "score": 0.6038528897842724,
+      "overlap": 5854,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 27,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.0000000000000002,
+      "yaw_curr_to_prev_deg": -1.9999999999999996,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.0000000000000002,
-      "score": 0.6465485484813152,
-      "overlap": 5964
+      "used_yaw_curr_to_prev_deg": -1.9999999999999996,
+      "score": 0.6120125018242122,
+      "overlap": 5846,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 28,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -1.9999999999999996,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6643888098823482,
-      "overlap": 5954
+      "used_yaw_curr_to_prev_deg": -1.9999999999999996,
+      "score": 0.620867389409125,
+      "overlap": 5855,
+      "decision_reason": "motion_margin"
     },
     {
       "index": 29,
-      "dx_curr_to_prev_m": 0.0,
+      "dx_curr_to_prev_m": 0.25,
       "dy_curr_to_prev_m": 0.0,
-      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "yaw_curr_to_prev_deg": -1.4999999999999998,
       "accepted": true,
-      "used_dx_curr_to_prev_m": 0.0,
+      "used_dx_curr_to_prev_m": 0.25,
       "used_dy_curr_to_prev_m": 0.0,
-      "used_yaw_curr_to_prev_deg": -1.5000000000000002,
-      "score": 0.6557913331216585,
-      "overlap": 5964
+      "used_yaw_curr_to_prev_deg": -1.4999999999999998,
+      "score": 0.6153355212372682,
+      "overlap": 5890,
+      "decision_reason": "motion_margin"
     }
   ],
   "pcd_files": [

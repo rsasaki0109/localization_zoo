@@ -86,9 +86,32 @@ If inspection reports only packet topics such as:
 - `/os_cloud_node/imu_packets`
 - `/os_cloud_node/metadata`
 
-first replay the bag through the Ouster driver referenced by the upstream README
-to produce a PointCloud2 topic. Then run the existing extractor on that converted
-bag:
+the fastest path is to decode the packet bag directly with `ouster-sdk`:
+
+```bash
+python3 -m pip install ouster-sdk
+
+python3 evaluation/scripts/extract_ouster_packet_lidar_imu.py \
+  --bag data/lidar_degeneracy_datasets/fog.bag \
+  --output-dir dogfooding_results/lidar_degeneracy_fog_200 \
+  --max-frames 200 \
+  --skip-incomplete
+
+python3 evaluation/scripts/analyze_lidar_degeneracy_sequence.py \
+  dogfooding_results/lidar_degeneracy_fog_200 \
+  experiments/results/lidar_degeneracy/fog_200 \
+  --max-frames 200 \
+  --sample-points 20000
+```
+
+`extract_ouster_packet_lidar_imu.py` uses `/sensor_sync_node/trigger_1` by
+default for LiDAR frame timestamps, because the packet bag time and IMU header
+time are offset. This keeps `frame_timestamps.csv` on the same clock as
+`/vectornav_node/uncomp_imu`.
+
+Alternatively, replay the bag through the Ouster driver referenced by the
+upstream README to produce a PointCloud2 topic. Then run the existing extractor
+on that converted bag:
 
 ```bash
 mkdir -p ~/catkin_ouster_ws/src
@@ -142,6 +165,8 @@ Observed `fog.bag` inspection:
 - LiDAR is packet-only: `/os_cloud_node/lidar_packets`.
 - IMU is available: `/vectornav_node/uncomp_imu`.
 - `/radar/cloud` is `sensor_msgs/PointCloud2`, but it is radar, not LiDAR.
+- `fog_200` direct extraction produced 200 complete LiDAR frames with a mean of
+  31.6k valid points/frame and `degeneracy_score` mean 0.613 / p95 0.692.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

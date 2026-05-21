@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 import urllib.request
@@ -94,6 +95,12 @@ def parse_args() -> argparse.Namespace:
         help="Download missing bags from Hugging Face.",
     )
     parser.add_argument(
+        "--download-tool",
+        choices=["auto", "wget", "curl", "urllib"],
+        default="auto",
+        help="Downloader backend. auto prefers wget/curl for resumable large files.",
+    )
+    parser.add_argument(
         "--inspect",
         action="store_true",
         help="Inspect ROS1 bag topics with rosbags.",
@@ -150,12 +157,39 @@ def selected_specs(args: argparse.Namespace) -> list[SequenceSpec]:
     return [SEQUENCES[name] for name in names]
 
 
-def download_file(url: str, dst: Path) -> None:
+def select_download_tool(requested: str) -> str:
+    if requested != "auto":
+        if requested != "urllib" and shutil.which(requested) is None:
+            raise RuntimeError(f"--download-tool {requested!r} requested but not found in PATH")
+        return requested
+    for candidate in ("wget", "curl"):
+        if shutil.which(candidate):
+            return candidate
+    return "urllib"
+
+
+def download_file(url: str, dst: Path, *, tool: str) -> None:
     dst.parent.mkdir(parents=True, exist_ok=True)
-    if dst.exists():
+    selected_tool = select_download_tool(tool)
+    partial = dst.with_suffix(dst.suffix + ".part")
+    if partial.exists() and not dst.exists() and selected_tool in {"wget", "curl"}:
+        partial.rename(dst)
+        print(f"[download] resumed partial as: {dst}")
+    if dst.exists() and selected_tool == "urllib":
         print(f"[download] exists: {dst}")
         return
-    partial = dst.with_suffix(dst.suffix + ".part")
+
+    if selected_tool == "wget":
+        cmd = ["wget", "-c", "--progress=dot:giga", "-O", str(dst), url]
+        print("[download] " + " ".join(cmd))
+        subprocess.run(cmd, check=True)
+        return
+    if selected_tool == "curl":
+        cmd = ["curl", "-L", "-C", "-", "-o", str(dst), url]
+        print("[download] " + " ".join(cmd))
+        subprocess.run(cmd, check=True)
+        return
+
     print(f"[download] {url}")
     with urllib.request.urlopen(url) as response, partial.open("wb") as handle:
         total = response.headers.get("Content-Length")
@@ -320,7 +354,11 @@ def handle_sequence(args: argparse.Namespace, spec: SequenceSpec) -> None:
     output_dir = args.output_root / f"lidar_degeneracy_{spec.name}_{args.max_frames}"
 
     if args.download:
-        download_file(f"{HF_BASE}/{spec.bag_file}?download=true", bag_path)
+        download_file(
+            f"{HF_BASE}/{spec.bag_file}?download=true",
+            bag_path,
+            tool=args.download_tool,
+        )
 
     inspection: dict[str, Any] | None = None
     if args.inspect and bag_path.is_file():

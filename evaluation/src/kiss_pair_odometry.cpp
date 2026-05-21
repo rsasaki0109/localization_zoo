@@ -75,6 +75,7 @@ int indexOf(const std::vector<std::string>& cols, const std::string& name) {
 }
 
 std::vector<GTPose> loadGT(const fs::path& csv_path) {
+  if (csv_path.string() == "-" || csv_path.empty()) return {};
   std::ifstream in(csv_path);
   if (!in.is_open()) throw std::runtime_error("Failed to open GT CSV");
 
@@ -125,9 +126,11 @@ std::vector<Eigen::Vector3d> loadPcd(const fs::path& path) {
   return points;
 }
 
-std::vector<fs::path> collectPcds(const fs::path& pcd_dir, int max_frames) {
+std::vector<fs::path> collectPcds(const fs::path& pcd_dir, int start_frame,
+                                  int max_frames) {
   std::vector<fs::path> paths;
-  for (int i = 0; max_frames <= 0 || i < max_frames; ++i) {
+  for (int offset = 0; max_frames <= 0 || offset < max_frames; ++offset) {
+    const int i = start_frame + offset;
     std::ostringstream name;
     name << std::setw(8) << std::setfill('0') << i;
     fs::path path = pcd_dir / name.str() / "cloud.pcd";
@@ -283,7 +286,8 @@ void writeOutput(const fs::path& out_path, const fs::path& pcd_dir,
 int main(int argc, char** argv) {
   if (argc < 4) {
     std::cerr << "Usage: kiss_pair_odometry <pcd_dir> <gt_csv> <output_json> "
-                 "[max_frames] [--target-voxel-size X] [--source-voxel-size X] "
+                 "[max_frames] [--start-frame N] [--target-voxel-size X] "
+                 "[--source-voxel-size X] "
                  "[--max-correspondence-distance X] [--max-step-translation X] "
                  "[--max-step-yaw-deg X] [--max-iterations N]\n";
     return 1;
@@ -299,6 +303,7 @@ int main(int argc, char** argv) {
   localization_zoo::kiss_icp::KISSMatcherParams params;
   double max_step_translation = 0.3;
   double max_step_yaw_deg = 6.0;
+  int start_frame = 0;
 
   const int opt_begin = argc >= 5 && std::string(argv[4]).rfind("--", 0) != 0 ? 5 : 4;
   for (int i = opt_begin; i < argc; ++i) {
@@ -307,7 +312,9 @@ int main(int argc, char** argv) {
       if (i + 1 >= argc) throw std::runtime_error(name + " requires a value");
       return std::string(argv[++i]);
     };
-    if (arg == "--target-voxel-size") {
+    if (arg == "--start-frame") {
+      start_frame = std::max(0, std::stoi(needValue(arg)));
+    } else if (arg == "--target-voxel-size") {
       params.target_voxel_size = std::stod(needValue(arg));
     } else if (arg == "--source-voxel-size") {
       params.source_voxel_size = std::stod(needValue(arg));
@@ -326,7 +333,7 @@ int main(int argc, char** argv) {
     }
   }
 
-  const auto pcds = collectPcds(pcd_dir, max_frames);
+  const auto pcds = collectPcds(pcd_dir, start_frame, max_frames);
   if (pcds.size() < 2) throw std::runtime_error("Need at least two PCD frames");
   const auto gt = loadGT(gt_csv);
 

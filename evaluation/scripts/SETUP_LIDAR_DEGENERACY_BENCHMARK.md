@@ -114,6 +114,31 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   experiments/results/lidar_degeneracy/fog_200/odometry_health
 ```
 
+Run the same selected windows through the KISS keyframe backend after building
+`kiss_keyframe_odometry`:
+
+```bash
+cmake --build build --target kiss_pair_odometry kiss_keyframe_odometry -j2
+
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/fog_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health \
+  --method kiss_keyframe \
+  --max-step-translation 2.0 \
+  --max-step-yaw-deg 20 \
+  --kiss-min-correspondences 1000 \
+  --min-keyframe-correspondences 1000
+
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/tunnel_geom_2700_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health \
+  --method kiss_keyframe \
+  --max-step-translation 2.0 \
+  --max-step-yaw-deg 20 \
+  --kiss-min-correspondences 1000 \
+  --min-keyframe-correspondences 1000
+```
+
 `extract_ouster_packet_lidar_imu.py` uses `/sensor_sync_node/trigger_1` by
 default for LiDAR frame timestamps, because the packet bag time and IMU header
 time are offset. This keeps `frame_timestamps.csv` on the same clock as
@@ -243,6 +268,20 @@ Observed `fog.bag` inspection:
   the sampled tunnel geometry windows, so tunnel should next be tested with
   KISS/CT-ICP or map-localization failure modes rather than this lightweight
   pairwise ICP alone.
+- KISS keyframe odometry now supports GT-free window runs through `gt_csv=-` and
+  `--start-frame`. On `tunnel_geom_2700_200`, the same selected windows remain
+  healthy under KISS keyframes: baseline, degraded, point-count tail, and the
+  geometry-degeneracy window all report 100% pair convergence/acceptance and
+  2/2 accepted keyframe corrections. This keeps the tunnel result negative for
+  local LiDAR-only odometry; the next tunnel value is likely in longer
+  trajectories, map-localization false locks, or explicit degeneracy confidence,
+  not another short-window pair health smoke.
+- KISS keyframe odometry fails hard on `fog_200`: baseline, strongest fog, and
+  point-count-tail windows all report 0% convergence/acceptance and 0/2 accepted
+  keyframe corrections. The strongest fog window also lowers mean correspondence
+  overlap from 309.0 to 163.3 against the baseline. This is a backend-specific
+  degradation signal that the lightweight geometry ICP already hinted at, but it
+  is sharper because the KISS matcher never reaches the convergence gate.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -11,6 +11,7 @@
 #include "kiss_icp/kiss_icp.h"
 #include "litamin2/litamin2_registration.h"
 #include "ndt/ndt_registration.h"
+#include "scan_context/scan_context.h"
 #include "small_gicp/small_gicp_registration.h"
 #include "voxel_gicp/voxel_gicp_registration.h"
 #include "aloam/scan_registration.h"
@@ -121,6 +122,11 @@ struct LoadedScan {
   bool has_per_point_time = false;
 };
 
+struct LoadedXYZI {
+  Eigen::Vector3d point = Eigen::Vector3d::Zero();
+  float intensity = 0.0f;
+};
+
 std::string trimCsvToken(std::string token) {
   while (!token.empty() &&
          (token.back() == '\r' || token.back() == '\n' || token.back() == ' ' ||
@@ -157,10 +163,11 @@ std::vector<std::string> splitMethodList(const std::string& csv) {
 
 bool isSupportedMethod(const std::string& method) {
   return method == "litamin2" || method == "gicp" || method == "ndt" ||
-         method == "kiss_icp" || method == "small_gicp" ||
+         method == "fixed_map_ndt" || method == "kiss_icp" || method == "small_gicp" ||
          method == "voxel_gicp" || method == "aloam" || method == "floam" ||
          method == "dlo" || method == "dlio" || method == "lego_loam" ||
          method == "mulls" || method == "ct_lio" || method == "ct_icp" ||
+         method == "ct_icp_ndt" || method == "ct_icp_ndt_keyframe" ||
          method == "xicp" || method == "fast_lio2" ||
          method == "hdl_graph_slam" || method == "vgicp_slam" ||
          method == "suma" || method == "balm2" || method == "isc_loam" ||
@@ -311,6 +318,48 @@ std::vector<Eigen::Vector3d> limitPoints(const std::vector<Eigen::Vector3d>& poi
   return limited;
 }
 
+std::vector<LoadedXYZI> loadPCDXYZI(const std::string& path, double leaf = 0.5) {
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  if (pcl::io::loadPCDFile<pcl::PointXYZI>(path, *cloud) == -1) return {};
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr selected = cloud;
+  pcl::PointCloud<pcl::PointXYZI> filtered;
+  if (leaf > 1e-9) {
+    pcl::VoxelGrid<pcl::PointXYZI> vg;
+    vg.setInputCloud(cloud);
+    vg.setLeafSize(leaf, leaf, leaf);
+    vg.setDownsampleAllData(true);
+    vg.filter(filtered);
+    selected.reset(new pcl::PointCloud<pcl::PointXYZI>(filtered));
+  }
+
+  std::vector<LoadedXYZI> points;
+  points.reserve(selected->size());
+  for (const auto& p : selected->points) {
+    if (!std::isfinite(p.x) || !std::isfinite(p.y) ||
+        !std::isfinite(p.z) || !std::isfinite(p.intensity)) {
+      continue;
+    }
+    const double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+    if (r <= 1.0 || r >= 80.0) continue;
+    points.push_back({Eigen::Vector3d(p.x, p.y, p.z), p.intensity});
+  }
+  return points;
+}
+
+std::vector<LoadedXYZI> limitLoadedXYZI(const std::vector<LoadedXYZI>& points,
+                                        size_t max_points) {
+  if (points.size() <= max_points) return points;
+  std::vector<LoadedXYZI> limited;
+  limited.reserve(max_points);
+  double step = static_cast<double>(points.size()) / max_points;
+  for (size_t i = 0; i < max_points; i++) {
+    size_t idx = std::min(static_cast<size_t>(i * step), points.size() - 1);
+    limited.push_back(points[idx]);
+  }
+  return limited;
+}
+
 void normalizeRelativeTimes(std::vector<double>& relative_times) {
   if (relative_times.empty()) return;
 
@@ -408,6 +457,22 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr toPclXYZICloud(
     pt.y = static_cast<float>(p.y());
     pt.z = static_cast<float>(p.z());
     pt.intensity = 0.0f;
+    cloud->push_back(pt);
+  }
+  return cloud;
+}
+
+pcl::PointCloud<pcl::PointXYZI>::Ptr toPclXYZICloud(
+    const std::vector<LoadedXYZI>& points) {
+  auto cloud = pcl::PointCloud<pcl::PointXYZI>::Ptr(
+      new pcl::PointCloud<pcl::PointXYZI>);
+  cloud->reserve(points.size());
+  for (const auto& p : points) {
+    pcl::PointXYZI pt;
+    pt.x = static_cast<float>(p.point.x());
+    pt.y = static_cast<float>(p.point.y());
+    pt.z = static_cast<float>(p.point.z());
+    pt.intensity = p.intensity;
     cloud->push_back(pt);
   }
   return cloud;
@@ -725,6 +790,62 @@ MethodResult makeSkippedResult(const std::string& name, const std::string& note)
   return res;
 }
 
+struct SeedPerturbation {
+  double x = 0.0;
+  double y = 0.0;
+  double z = 0.0;
+  double yaw_rad = 0.0;
+
+  bool enabled() const {
+    constexpr double kEps = 1e-12;
+    return std::abs(x) > kEps || std::abs(y) > kEps ||
+           std::abs(z) > kEps || std::abs(yaw_rad) > kEps;
+  }
+};
+
+Eigen::Matrix4d seedPerturbationMatrix(const SeedPerturbation& perturb) {
+  Eigen::Matrix4d delta = Eigen::Matrix4d::Identity();
+  delta.block<3, 3>(0, 0) =
+      Eigen::AngleAxisd(perturb.yaw_rad, Eigen::Vector3d::UnitZ())
+          .toRotationMatrix();
+  delta(0, 3) = perturb.x;
+  delta(1, 3) = perturb.y;
+  delta(2, 3) = perturb.z;
+  return delta;
+}
+
+Eigen::Matrix4d applySeedPerturbation(const Eigen::Matrix4d& seed,
+                                      const SeedPerturbation& perturb) {
+  if (!perturb.enabled()) {
+    return seed;
+  }
+  return seed * seedPerturbationMatrix(perturb);
+}
+
+bool isFiniteMatrix(const Eigen::Matrix4d& T) {
+  for (int r = 0; r < T.rows(); ++r) {
+    for (int c = 0; c < T.cols(); ++c) {
+      if (!std::isfinite(T(r, c))) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+std::string seedPerturbationNote(const SeedPerturbation& perturb) {
+  if (!perturb.enabled()) {
+    return "";
+  }
+  std::ostringstream ss;
+  ss << " Seed perturbation applied in local seed frame: dx="
+     << std::fixed << std::setprecision(3) << perturb.x
+     << "m dy=" << perturb.y
+     << "m dz=" << perturb.z
+     << "m yaw=" << perturb.yaw_rad * 180.0 / M_PI << "deg.";
+  return ss.str();
+}
+
 struct LiTAMIN2DogfoodingOptions {
   double voxel_resolution = 2.0;
   int min_points_per_voxel = 1;
@@ -738,6 +859,7 @@ struct LiTAMIN2DogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  SeedPerturbation seed_perturbation;
 };
 
 struct GICPDogfoodingOptions {
@@ -751,6 +873,7 @@ struct GICPDogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  SeedPerturbation seed_perturbation;
 };
 
 struct SmallGICPDogfoodingOptions {
@@ -770,6 +893,7 @@ struct SmallGICPDogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  SeedPerturbation seed_perturbation;
 };
 
 struct VoxelGICPDogfoodingOptions {
@@ -788,6 +912,7 @@ struct VoxelGICPDogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  SeedPerturbation seed_perturbation;
 };
 
 struct ALOAMDogfoodingOptions {
@@ -925,6 +1050,7 @@ struct NDTDogfoodingOptions {
   double map_radius = 35.0;
   double max_seed_translation_delta = 1.5;
   double max_seed_rotation_delta_rad = 0.2;
+  SeedPerturbation seed_perturbation;
 };
 
 struct KISSICPDogfoodingOptions {
@@ -992,6 +1118,27 @@ struct CTICPDogfoodingOptions {
   double coarse_planarity_threshold = 0.05;
   double coarse_cauchy_sigma_mult = 2.0;
 };
+
+struct CTICPNDTHybridOptions {
+  int keyframe_interval = 5;
+  double max_correction_translation_delta = 0.5;
+  double max_correction_rotation_delta_rad = 0.35;
+  // <=0 disables score gating because NDT score scale is dataset/profile
+  // dependent in this dogfooding implementation.
+  double max_ndt_score = -1.0;
+};
+
+struct FixedMapNDTOptions {
+  int map_stride = 1;
+  std::string seed_source = "gt";  // gt, velocity, ct_icp, scan_context
+  double scan_context_distance_threshold = 0.18;
+  int scan_context_top_k = 1;
+};
+
+MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const CTICPDogfoodingOptions& options,
+                      bool gt_seed);
 
 struct DLODofeedingOptions {
   double input_voxel_size = 0.5;
@@ -1325,7 +1472,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     const Eigen::Matrix4d T_init_guess =
         no_gt_seed
             ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
-            : gt[i];
+            : applySeedPerturbation(gt[i], options.seed_perturbation);
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_iterations >= 3) &&
@@ -1354,6 +1501,9 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
       ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
+  if (!no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
   if (!options.use_cov_cost) {
     res.note += " Covariance-shape term disabled.";
   }
@@ -1396,7 +1546,7 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
     const Eigen::Matrix4d T_init_guess =
         no_gt_seed
             ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
-            : gt[i];
+            : applySeedPerturbation(gt[i], options.seed_perturbation);
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 128) &&
@@ -1428,6 +1578,9 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
       ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
+  if (!no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
   return res;
 }
 
@@ -1473,7 +1626,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
     const Eigen::Matrix4d T_init_guess =
         no_gt_seed
             ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
-            : gt[i];
+            : applySeedPerturbation(gt[i], options.seed_perturbation);
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 96) &&
@@ -1505,6 +1658,9 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
       ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
+  if (!no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
   return res;
 }
 
@@ -1549,7 +1705,7 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
     const Eigen::Matrix4d T_init_guess =
         no_gt_seed
             ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
-            : gt[i];
+            : applySeedPerturbation(gt[i], options.seed_perturbation);
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 96) &&
@@ -1581,6 +1737,9 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
       ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
+  if (!no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
   return res;
 }
 
@@ -1903,10 +2062,12 @@ MethodResult runMULLS(const std::vector<std::string>& pcd_dirs,
 MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
                     const std::vector<Eigen::Matrix4d>& gt,
                     const NDTDogfoodingOptions& options,
-                    bool no_gt_seed = false) {
+                    bool no_gt_seed = false,
+                    const std::vector<Eigen::Matrix4d>* external_seed_poses = nullptr,
+                    const std::string& external_seed_note = "") {
   using namespace localization_zoo::ndt;
   MethodResult res;
-  res.name = "NDT";
+  res.name = external_seed_poses ? "CT-ICP+NDT" : "NDT";
 
   NDTParams params;
   params.resolution = options.resolution;
@@ -1935,10 +2096,15 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess =
-        no_gt_seed
-            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
-            : gt[i];
+    Eigen::Matrix4d T_init_guess = T_est;
+    if (external_seed_poses && i < external_seed_poses->size()) {
+      T_init_guess = (*external_seed_poses)[i];
+    } else if (no_gt_seed) {
+      T_init_guess = i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est)
+                            : T_est;
+    } else {
+      T_init_guess = applySeedPerturbation(gt[i], options.seed_perturbation);
+    }
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.iterations >= 2) &&
@@ -1967,10 +2133,232 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note = no_gt_seed
-      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
-      : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
-        "in this dogfooding tool.";
+  if (external_seed_poses) {
+    res.note = external_seed_note.empty()
+        ? "Uses external pose prior as scan-to-map initial guess."
+        : external_seed_note;
+  } else {
+    res.note = no_gt_seed
+        ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
+        : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+          "in this dogfooding tool.";
+  }
+  if (!external_seed_poses && !no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
+  return res;
+}
+
+MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
+                            const std::vector<Eigen::Matrix4d>& gt,
+                            const NDTDogfoodingOptions& ndt_options,
+                            const CTICPDogfoodingOptions& ct_icp_options,
+                            const FixedMapNDTOptions& fixed_map_options) {
+  using namespace localization_zoo::ndt;
+
+  MethodResult res;
+  res.name = "FixedMap-NDT";
+  if (fixed_map_options.seed_source == "ct_icp") {
+    res.name += "+CTICP";
+  } else if (fixed_map_options.seed_source == "scan_context") {
+    res.name += "+ScanContext";
+  } else if (fixed_map_options.seed_source == "velocity") {
+    res.name += "+Vel";
+  } else {
+    res.name += "+GT";
+  }
+
+  NDTParams params;
+  params.resolution = ndt_options.resolution;
+  params.max_iterations = ndt_options.max_iterations;
+  params.step_size = ndt_options.step_size;
+  params.convergence_threshold = ndt_options.convergence_threshold;
+  params.min_points_per_cell = ndt_options.min_points_per_cell;
+  NDTRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  localization_zoo::scan_context::ScanContextParams sc_params;
+  sc_params.exclude_recent_frames = 0;
+  sc_params.distance_threshold = fixed_map_options.scan_context_distance_threshold;
+  sc_params.num_candidates = std::max(1, fixed_map_options.scan_context_top_k);
+  localization_zoo::scan_context::ScanContextManager scan_context(sc_params);
+  std::vector<Eigen::Matrix4d> scan_context_poses;
+  const int map_stride = std::max(1, fixed_map_options.map_stride);
+  for (size_t i = 0; i < pcd_dirs.size() && i < gt.size();
+       i += static_cast<size_t>(map_stride)) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         ndt_options.source_voxel_size),
+                                 ndt_options.max_source_points);
+    if (pts_local.empty()) continue;
+    addPointsToMap(map_points, pts_local, gt[i], ndt_options.map_max_points,
+                   0.0);
+    if (fixed_map_options.seed_source == "scan_context") {
+      scan_context.addScan(pts_local);
+      scan_context_poses.push_back(gt[i]);
+    }
+  }
+  reg.setTarget(map_points);
+
+  MethodResult ct_icp_prior;
+  const std::vector<Eigen::Matrix4d>* prior_poses = nullptr;
+  double prior_ate = std::numeric_limits<double>::quiet_NaN();
+  if (fixed_map_options.seed_source == "ct_icp") {
+    ct_icp_prior = runCTICP(pcd_dirs, gt, ct_icp_options, false);
+    prior_poses = &ct_icp_prior.poses;
+    prior_ate = computeATE(ct_icp_prior.poses, gt);
+  }
+
+  Eigen::Matrix4d T_est = gt.empty() ? Eigen::Matrix4d::Identity() : gt[0];
+  Eigen::Matrix4d T_prev_prev_est = T_est;
+  res.poses.push_back(T_est);
+
+  size_t accepted = 0;
+  size_t rejected = 0;
+  size_t fallback_seed = 0;
+  size_t scan_context_hits = 0;
+  size_t scan_context_candidates_evaluated = 0;
+  double scan_context_distance_sum = 0.0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         ndt_options.source_voxel_size),
+                                 ndt_options.max_source_points);
+    if (pts_local.empty()) continue;
+    if (i == 0) continue;
+
+    Eigen::Matrix4d T_seed = T_est;
+    if (fixed_map_options.seed_source == "ct_icp") {
+      if (prior_poses && i < prior_poses->size() && isFiniteMatrix((*prior_poses)[i])) {
+        T_seed = (*prior_poses)[i];
+      } else {
+        ++fallback_seed;
+      }
+    } else if (fixed_map_options.seed_source == "scan_context") {
+      const auto candidates = scan_context.detectLoopCandidates(pts_local);
+      if (candidates.empty()) {
+        ++fallback_seed;
+      } else {
+        ++scan_context_hits;
+        scan_context_distance_sum += candidates.front().distance;
+
+        const Eigen::Matrix4d T_prev_est_snapshot = T_est;
+        bool best_valid = false;
+        double best_score = std::numeric_limits<double>::infinity();
+        Eigen::Matrix4d best_pose = T_est;
+        for (const auto& candidate : candidates) {
+          if (!candidate.valid ||
+              candidate.index < 0 ||
+              candidate.index >= static_cast<int>(scan_context_poses.size())) {
+            continue;
+          }
+          Eigen::Matrix4d candidate_seed =
+              scan_context_poses[static_cast<size_t>(candidate.index)];
+          const Eigen::Matrix4d yaw_delta =
+              (Eigen::Translation3d(0.0, 0.0, 0.0) *
+               Eigen::AngleAxisd(candidate.yaw_offset_rad,
+                                 Eigen::Vector3d::UnitZ()))
+                  .matrix();
+          candidate_seed = candidate_seed * yaw_delta;
+          const auto result = reg.align(pts_local, candidate_seed);
+          ++scan_context_candidates_evaluated;
+          if ((result.converged || result.iterations >= 2) &&
+              std::isfinite(result.score) &&
+              isFiniteMatrix(result.transformation) &&
+              isReasonableRefinement(result.transformation, candidate_seed,
+                                     ndt_options.max_seed_translation_delta,
+                                     ndt_options.max_seed_rotation_delta_rad) &&
+              result.score < best_score) {
+            best_valid = true;
+            best_score = result.score;
+            best_pose = result.transformation;
+          }
+        }
+
+        if (best_valid) {
+          T_est = best_pose;
+          ++accepted;
+        } else {
+          T_est = T_prev_est_snapshot;
+          ++rejected;
+        }
+        T_prev_prev_est = T_prev_est_snapshot;
+        res.poses.push_back(T_est);
+
+        if (i % 10 == 0) {
+          std::cerr << "\r  [FixedMap-NDT] " << i << "/" << pcd_dirs.size()
+                    << " sc_candidates=" << candidates.size()
+                    << " best_score=" << std::fixed << std::setprecision(3)
+                    << best_score
+                    << " accepted=" << accepted << "/" << (accepted + rejected);
+        }
+        continue;
+      }
+    } else if (fixed_map_options.seed_source == "velocity") {
+      T_seed = i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est;
+    } else {
+      T_seed = applySeedPerturbation(gt[i], ndt_options.seed_perturbation);
+    }
+
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
+    const auto result = reg.align(pts_local, T_seed);
+    if ((result.converged || result.iterations >= 2) &&
+        isFiniteMatrix(result.transformation) &&
+        isReasonableRefinement(result.transformation, T_seed,
+                               ndt_options.max_seed_translation_delta,
+                               ndt_options.max_seed_rotation_delta_rad)) {
+      T_est = result.transformation;
+      ++accepted;
+    } else {
+      T_est = T_seed;
+      ++rejected;
+    }
+    T_prev_prev_est = T_prev_est_snapshot;
+    res.poses.push_back(T_est);
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [FixedMap-NDT] " << i << "/" << pcd_dirs.size()
+                << " score=" << std::fixed << std::setprecision(3)
+                << result.score
+                << " accepted=" << accepted << "/" << (accepted + rejected);
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count() +
+      ct_icp_prior.time_ms;
+
+  std::ostringstream note;
+  note << "Fixed-map NDT: target map built once from GT/reference poses"
+       << " (stride=" << map_stride
+       << ", map_points=" << map_points.size()
+       << "). Seed source=" << fixed_map_options.seed_source
+       << ", accepted=" << accepted << "/" << (accepted + rejected)
+       << ", rejected=" << rejected
+       << ", seed fallbacks=" << fallback_seed << ".";
+  if (fixed_map_options.seed_source == "scan_context") {
+    note << " ScanContext hits=" << scan_context_hits << "/" << (pcd_dirs.size() - 1)
+         << ", top_k=" << fixed_map_options.scan_context_top_k
+         << ", NDT candidates evaluated=" << scan_context_candidates_evaluated
+         << ", mean distance=";
+    if (scan_context_hits > 0) {
+      note << std::fixed << std::setprecision(4)
+           << (scan_context_distance_sum / scan_context_hits) << ".";
+    } else {
+      note << "n/a.";
+    }
+  }
+  if (fixed_map_options.seed_source == "ct_icp") {
+    note << " CT-ICP prior ATE=";
+    if (std::isfinite(prior_ate)) {
+      note << std::fixed << std::setprecision(3) << prior_ate << "m.";
+    } else {
+      note << "nonfinite.";
+    }
+    note << " Runtime is CT-ICP+NDT combined.";
+  } else if (fixed_map_options.seed_source == "gt") {
+    note << seedPerturbationNote(ndt_options.seed_perturbation);
+  }
+  res.note = note.str();
   return res;
 }
 
@@ -2323,6 +2711,154 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
     res.note = "Anchor matches first GT pose; subsequent frames rely on CT-ICP's "
                "own continuous-time motion prior (no GT seed).";
   }
+  return res;
+}
+
+MethodResult runCTICPNDT(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const CTICPDogfoodingOptions& ct_icp_options,
+                         const NDTDogfoodingOptions& ndt_options) {
+  MethodResult prior = runCTICP(pcd_dirs, gt, ct_icp_options, false);
+  const double prior_ate = computeATE(prior.poses, gt);
+
+  std::ostringstream note;
+  note << "Hybrid: CT-ICP no-GT odometry prior feeds NDT scan-to-map initial "
+          "guess; first frame remains anchored to GT for dogfooding alignment. "
+       << "CT-ICP prior ATE=";
+  if (std::isfinite(prior_ate)) {
+    note << std::fixed << std::setprecision(3) << prior_ate << "m";
+  } else {
+    note << "nonfinite";
+  }
+  note << ". Runtime is CT-ICP+NDT combined.";
+
+  MethodResult hybrid =
+      runNDT(pcd_dirs, gt, ndt_options, false, &prior.poses, note.str());
+  hybrid.name = "CT-ICP+NDT";
+  hybrid.time_ms += prior.time_ms;
+  return hybrid;
+}
+
+MethodResult runCTICPNDTKeyframe(
+    const std::vector<std::string>& pcd_dirs,
+    const std::vector<Eigen::Matrix4d>& gt,
+    const CTICPDogfoodingOptions& ct_icp_options,
+    const NDTDogfoodingOptions& ndt_options,
+    const CTICPNDTHybridOptions& hybrid_options) {
+  using namespace localization_zoo::ndt;
+
+  MethodResult prior = runCTICP(pcd_dirs, gt, ct_icp_options, false);
+  const double prior_ate = computeATE(prior.poses, gt);
+
+  MethodResult res;
+  res.name = "CT-ICP+NDT-KF";
+
+  NDTParams params;
+  params.resolution = ndt_options.resolution;
+  params.max_iterations = ndt_options.max_iterations;
+  params.step_size = ndt_options.step_size;
+  params.convergence_threshold = ndt_options.convergence_threshold;
+  params.min_points_per_cell = ndt_options.min_points_per_cell;
+  NDTRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  Eigen::Matrix4d T_est = gt.empty() ? Eigen::Matrix4d::Identity() : gt[0];
+  res.poses.push_back(T_est);
+
+  size_t attempted = 0;
+  size_t accepted = 0;
+  size_t rejected = 0;
+  size_t fallback_prior = 0;
+
+  const int interval = std::max(1, hybrid_options.keyframe_interval);
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         ndt_options.source_voxel_size),
+                                 ndt_options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    if (i == 0) {
+      addPointsToMap(map_points, pts_local, T_est, ndt_options.map_max_points,
+                     ndt_options.map_radius);
+      reg.setTarget(map_points);
+      continue;
+    }
+
+    Eigen::Matrix4d T_prior = T_est;
+    if (i < prior.poses.size() && isFiniteMatrix(prior.poses[i])) {
+      T_prior = prior.poses[i];
+    } else {
+      ++fallback_prior;
+    }
+
+    T_est = T_prior;
+    const bool should_correct = (i % static_cast<size_t>(interval)) == 0;
+    if (should_correct) {
+      ++attempted;
+      const auto result = reg.align(pts_local, T_prior);
+      bool score_ok = true;
+      if (hybrid_options.max_ndt_score > 0.0) {
+        score_ok = std::isfinite(result.score) &&
+                   result.score <= hybrid_options.max_ndt_score;
+      }
+      const bool accepted_correction =
+          (result.converged || result.iterations >= 2) &&
+          score_ok &&
+          isFiniteMatrix(result.transformation) &&
+          isReasonableRefinement(
+              result.transformation, T_prior,
+              hybrid_options.max_correction_translation_delta,
+              hybrid_options.max_correction_rotation_delta_rad);
+      if (accepted_correction) {
+        T_est = result.transformation;
+        ++accepted;
+      } else {
+        ++rejected;
+      }
+      if (i % 10 == 0) {
+        std::cerr << "\r  [CT-ICP+NDT-KF] " << i << "/" << pcd_dirs.size()
+                  << " score=" << std::fixed << std::setprecision(3)
+                  << result.score
+                  << " accepted=" << accepted << "/" << attempted;
+      }
+    } else if (i % 10 == 0) {
+      std::cerr << "\r  [CT-ICP+NDT-KF] " << i << "/" << pcd_dirs.size()
+                << " accepted=" << accepted << "/" << attempted;
+    }
+
+    res.poses.push_back(T_est);
+    addPointsToMap(map_points, pts_local, T_est, ndt_options.map_max_points,
+                   ndt_options.map_radius);
+    if (shouldRefreshTargetMap(i, ndt_options.refresh_interval)) {
+      reg.setTarget(map_points);
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count() +
+      prior.time_ms;
+
+  std::ostringstream note;
+  note << "Hybrid keyframe correction: CT-ICP no-GT odometry is the base "
+          "trajectory; NDT T1 correction is attempted every "
+       << interval << " frames and accepted only when correction delta is <= "
+       << hybrid_options.max_correction_translation_delta << "m / "
+       << hybrid_options.max_correction_rotation_delta_rad << "rad";
+  if (hybrid_options.max_ndt_score > 0.0) {
+    note << " and score <= " << hybrid_options.max_ndt_score;
+  }
+  note << ". accepted=" << accepted << "/" << attempted
+       << ", rejected=" << rejected
+       << ", finite-prior fallbacks=" << fallback_prior
+       << ", CT-ICP prior ATE=";
+  if (std::isfinite(prior_ate)) {
+    note << std::fixed << std::setprecision(3) << prior_ate << "m";
+  } else {
+    note << "nonfinite";
+  }
+  note << ". Runtime is CT-ICP+NDT combined.";
+  res.note = note.str();
   return res;
 }
 
@@ -2807,9 +3343,9 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    auto pts = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
     if (pts.empty()) continue;
-    pts = limitPoints(pts, options.max_input_points);
+    pts = limitLoadedXYZI(pts, options.max_input_points);
     if (pts.empty()) continue;
     const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud = toPclXYZICloud(pts);
     const auto result = pipeline.process(cloud);
@@ -2901,7 +3437,9 @@ MethodResult runIscLoam(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note = "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).";
+  res.note =
+      "Intensity scan context + LOAM with loop closure using preserved PCD "
+      "intensity fields (no GT seed; anchor matches first GT pose).";
   return res;
 }
 
@@ -3245,6 +3783,14 @@ void savePosesKITTI(const std::vector<Eigen::Matrix4d>& poses, const std::string
   }
 }
 
+void writeJsonNumberOrNull(std::ostream& out, double value) {
+  if (std::isfinite(value)) {
+    out << std::fixed << std::setprecision(6) << value;
+  } else {
+    out << "null";
+  }
+}
+
 void writeSummaryJson(const std::string& path,
                       const std::string& pcd_dir,
                       const std::string& gt_csv,
@@ -3277,22 +3823,27 @@ void writeSummaryJson(const std::string& path,
     } else {
       const double fps =
           r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
-      out << "      \"ate_m\": " << std::fixed << std::setprecision(6) << r.ate
-          << ",\n";
+      out << "      \"ate_m\": ";
+      writeJsonNumberOrNull(out, r.ate);
+      out << ",\n";
       if (r.has_rpe) {
-        out << "      \"rpe_trans_pct\": " << std::fixed << std::setprecision(6)
-            << r.rpe_trans_pct << ",\n";
-        out << "      \"rpe_rot_deg_per_m\": " << std::fixed << std::setprecision(6)
-            << r.rpe_rot_deg_per_m << ",\n";
+        out << "      \"rpe_trans_pct\": ";
+        writeJsonNumberOrNull(out, r.rpe_trans_pct);
+        out << ",\n";
+        out << "      \"rpe_rot_deg_per_m\": ";
+        writeJsonNumberOrNull(out, r.rpe_rot_deg_per_m);
+        out << ",\n";
       } else {
         out << "      \"rpe_trans_pct\": null,\n";
         out << "      \"rpe_rot_deg_per_m\": null,\n";
       }
       out << "      \"frames\": " << r.poses.size() << ",\n";
-      out << "      \"time_ms\": " << std::fixed << std::setprecision(6)
-          << r.time_ms << ",\n";
-      out << "      \"fps\": " << std::fixed << std::setprecision(6) << fps
-          << ",\n";
+      out << "      \"time_ms\": ";
+      writeJsonNumberOrNull(out, r.time_ms);
+      out << ",\n";
+      out << "      \"fps\": ";
+      writeJsonNumberOrNull(out, fps);
+      out << ",\n";
     }
     out << "      \"note\": \"" << jsonEscape(r.note) << "\"\n";
     out << "    }" << (i + 1 == results.size() ? "\n" : ",\n");
@@ -3306,7 +3857,7 @@ int main(int argc, char** argv) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
               << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,"
-              << "lego_loam,mulls,ct_lio,ct_icp,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
+              << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
               << " [--litamin2-paper-profile]"
@@ -3354,6 +3905,10 @@ int main(int argc, char** argv) {
               << " [--ndt-dense-profile]"
               << " [--ndt-resolution X]"
               << " [--ndt-max-iterations N]"
+              << " [--fixed-map-ndt-seed-source gt|velocity|ct_icp|scan_context]"
+              << " [--fixed-map-ndt-map-stride N]"
+              << " [--fixed-map-ndt-scan-context-threshold X]"
+              << " [--fixed-map-ndt-scan-context-top-k N]"
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-voxel-size X]"
@@ -3362,6 +3917,10 @@ int main(int argc, char** argv) {
               << " [--ct-icp-dense-profile]"
               << " [--ct-icp-voxel-resolution X]"
               << " [--ct-icp-max-iterations N]"
+              << " [--ct-icp-ndt-keyframe-interval N]"
+              << " [--ct-icp-ndt-max-correction-translation M]"
+              << " [--ct-icp-ndt-max-correction-rotation-rad R]"
+              << " [--ct-icp-ndt-max-score S]"
               << " [--xicp-fast-profile]"
               << " [--xicp-dense-profile]"
               << " [--fast-lio2-fast-profile]"
@@ -3396,6 +3955,8 @@ int main(int argc, char** argv) {
               << " [--ct-lio-fixed-lag-history-decay W]"
               << " [--ct-lio-fixed-lag-outer-iterations N]"
               << " [--ct-lio-fixed-lag-smoother]"
+              << " [--seed-perturb-x M] [--seed-perturb-y M]"
+              << " [--seed-perturb-z M] [--seed-perturb-yaw-deg DEG]"
               << " [--no-gt-seed] [--ct-icp-gt-seed]" << std::endl;
     return 1;
   }
@@ -3406,6 +3967,7 @@ int main(int argc, char** argv) {
   bool force_ct_lio = false;
   bool no_gt_seed = false;
   bool ct_icp_gt_seed = false;
+  SeedPerturbation seed_perturbation;
   bool ct_lio_estimate_bias = false;
   bool ct_lio_multi_scale = false;
   bool ct_lio_coarse_to_fine = false;
@@ -3434,8 +3996,10 @@ int main(int argc, char** argv) {
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
+  FixedMapNDTOptions fixed_map_ndt_options;
   KISSICPDogfoodingOptions kiss_icp_options;
   CTICPDogfoodingOptions ct_icp_options;
+  CTICPNDTHybridOptions ct_icp_ndt_options;
   DLODofeedingOptions dlo_options;
   DLIODogfoodingOptions dlio_options;
   XICPDogfoodingOptions xicp_options;
@@ -3466,6 +4030,46 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-gt-seed") {
       ct_icp_gt_seed = true;
+      continue;
+    }
+    if (arg == "--seed-perturb-x") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      seed_perturbation.x = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--seed-perturb-x=", 0) == 0) {
+      seed_perturbation.x =
+          std::stod(arg.substr(std::string("--seed-perturb-x=").size()));
+      continue;
+    }
+    if (arg == "--seed-perturb-y") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      seed_perturbation.y = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--seed-perturb-y=", 0) == 0) {
+      seed_perturbation.y =
+          std::stod(arg.substr(std::string("--seed-perturb-y=").size()));
+      continue;
+    }
+    if (arg == "--seed-perturb-z") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      seed_perturbation.z = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--seed-perturb-z=", 0) == 0) {
+      seed_perturbation.z =
+          std::stod(arg.substr(std::string("--seed-perturb-z=").size()));
+      continue;
+    }
+    if (arg == "--seed-perturb-yaw-deg") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      seed_perturbation.yaw_rad = std::stod(argv[++i]) * M_PI / 180.0;
+      continue;
+    }
+    if (arg.rfind("--seed-perturb-yaw-deg=", 0) == 0) {
+      seed_perturbation.yaw_rad = std::stod(arg.substr(
+          std::string("--seed-perturb-yaw-deg=").size())) * M_PI / 180.0;
       continue;
     }
     if (arg == "--ct-lio-multi-scale") {
@@ -4413,6 +5017,81 @@ int main(int argc, char** argv) {
           std::stod(arg.substr(std::string("--ndt-map-radius=").size()));
       continue;
     }
+    if (arg == "--fixed-map-ndt-seed-source") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-seed-source requires gt, velocity, ct_icp, or scan_context"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.seed_source = normalizeMethodId(argv[++i]);
+      if (fixed_map_ndt_options.seed_source != "gt" &&
+          fixed_map_ndt_options.seed_source != "velocity" &&
+          fixed_map_ndt_options.seed_source != "ct_icp" &&
+          fixed_map_ndt_options.seed_source != "scan_context") {
+        std::cerr << "--fixed-map-ndt-seed-source must be gt, velocity, ct_icp, or scan_context"
+                  << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-seed-source=", 0) == 0) {
+      fixed_map_ndt_options.seed_source = normalizeMethodId(
+          arg.substr(std::string("--fixed-map-ndt-seed-source=").size()));
+      if (fixed_map_ndt_options.seed_source != "gt" &&
+          fixed_map_ndt_options.seed_source != "velocity" &&
+          fixed_map_ndt_options.seed_source != "ct_icp" &&
+          fixed_map_ndt_options.seed_source != "scan_context") {
+        std::cerr << "--fixed-map-ndt-seed-source must be gt, velocity, ct_icp, or scan_context"
+                  << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-map-stride") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-map-stride requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.map_stride = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-map-stride=", 0) == 0) {
+      fixed_map_ndt_options.map_stride = std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--fixed-map-ndt-map-stride=").size())));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-threshold") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-threshold requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_distance_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-threshold=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_distance_threshold = std::stod(
+          arg.substr(std::string(
+                         "--fixed-map-ndt-scan-context-threshold=").size()));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-top-k") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-top-k requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_top_k = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-top-k=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_top_k = std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--fixed-map-ndt-scan-context-top-k=").size())));
+      continue;
+    }
     if (arg == "--kiss-fast-profile") {
       kiss_icp_options.source_voxel_size = 0.75;
       kiss_icp_options.max_source_points = 2500;
@@ -4684,6 +5363,49 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-native-seed") {
       ct_icp_options.native_ct_icp_seed = true;
+      continue;
+    }
+    if (arg == "--ct-icp-ndt-keyframe-interval") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_ndt_options.keyframe_interval = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ndt-keyframe-interval=", 0) == 0) {
+      ct_icp_ndt_options.keyframe_interval = std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--ct-icp-ndt-keyframe-interval=").size())));
+      continue;
+    }
+    if (arg == "--ct-icp-ndt-max-correction-translation") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_ndt_options.max_correction_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ndt-max-correction-translation=", 0) == 0) {
+      ct_icp_ndt_options.max_correction_translation_delta = std::stod(
+          arg.substr(std::string(
+                         "--ct-icp-ndt-max-correction-translation=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-ndt-max-correction-rotation-rad") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_ndt_options.max_correction_rotation_delta_rad = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ndt-max-correction-rotation-rad=", 0) == 0) {
+      ct_icp_ndt_options.max_correction_rotation_delta_rad = std::stod(
+          arg.substr(std::string(
+                         "--ct-icp-ndt-max-correction-rotation-rad=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-ndt-max-score") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_ndt_options.max_ndt_score = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ndt-max-score=", 0) == 0) {
+      ct_icp_ndt_options.max_ndt_score =
+          std::stod(arg.substr(std::string("--ct-icp-ndt-max-score=").size()));
       continue;
     }
     // Paper weight scheme bundle (Gap B+D+E+F):
@@ -5237,7 +5959,7 @@ int main(int argc, char** argv) {
     std::cerr
         << "No methods selected. Supported methods: litamin2, gicp, small_gicp, "
         << "voxel_gicp, ndt, kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, "
-        << "ct_lio, ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
+        << "ct_lio, ct_icp, ct_icp_ndt, ct_icp_ndt_keyframe, fixed_map_ndt, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
         << "suma, balm2, isc_loam, loam_livox, lio_sam, lins, fast_lio_slam, "
         << "point_lio, clins"
         << std::endl;
@@ -5248,13 +5970,18 @@ int main(int argc, char** argv) {
       std::cerr << "Unsupported method: " << method
                 << " (supported: litamin2, gicp, small_gicp, voxel_gicp, ndt, "
                    "kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
-                   "ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
+                   "ct_icp, ct_icp_ndt, ct_icp_ndt_keyframe, fixed_map_ndt, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
                    "suma, balm2, isc_loam, loam_livox, lio_sam, lins, "
                    "fast_lio_slam, point_lio, clins)"
                 << std::endl;
       return 1;
     }
   }
+  litamin2_options.seed_perturbation = seed_perturbation;
+  gicp_options.seed_perturbation = seed_perturbation;
+  small_gicp_options.seed_perturbation = seed_perturbation;
+  voxel_gicp_options.seed_perturbation = seed_perturbation;
+  ndt_options.seed_perturbation = seed_perturbation;
 
   auto pcd_dirs = listPCDDirs(pcd_dir);
   size_t total_pcd_frames = pcd_dirs.size();
@@ -5331,6 +6058,15 @@ int main(int argc, char** argv) {
   }
   if (ct_icp_gt_seed) {
     std::cout << "[ct-icp-gt-seed] CT-ICP TrajectoryFrame init will be seeded from GT begin/end poses." << std::endl;
+  }
+  if (seed_perturbation.enabled()) {
+    std::cout << "[seed-perturb] local-frame dx=" << std::fixed
+              << std::setprecision(3) << seed_perturbation.x
+              << "m dy=" << seed_perturbation.y
+              << "m dz=" << seed_perturbation.z
+              << "m yaw="
+              << seed_perturbation.yaw_rad * 180.0 / M_PI
+              << "deg" << std::endl;
   }
 
   if (isMethodEnabled(selected_methods, "litamin2")) {
@@ -5437,6 +6173,20 @@ int main(int argc, char** argv) {
     results.push_back(runNDT(pcd_dirs, gt, ndt_options, no_gt_seed));
   }
 
+  if (isMethodEnabled(selected_methods, "fixed_map_ndt")) {
+    std::cout << "Running FixedMap-NDT..." << std::endl;
+    std::cout << "  source_voxel_size=" << ndt_options.source_voxel_size
+              << " max_source_points=" << ndt_options.max_source_points
+              << " resolution=" << ndt_options.resolution
+              << " max_iterations=" << ndt_options.max_iterations
+              << " map_max_points=" << ndt_options.map_max_points
+              << " map_stride=" << fixed_map_ndt_options.map_stride
+              << " seed_source=" << fixed_map_ndt_options.seed_source
+              << std::endl;
+    results.push_back(runFixedMapNDT(pcd_dirs, gt, ndt_options,
+                                     ct_icp_options, fixed_map_ndt_options));
+  }
+
   if (isMethodEnabled(selected_methods, "kiss_icp")) {
     std::cout << "Running KISS-ICP..." << std::endl;
     std::cout << "  source_voxel_size=" << kiss_icp_options.source_voxel_size
@@ -5533,6 +6283,33 @@ int main(int argc, char** argv) {
               << " max_frames_in_map=" << ct_icp_options.max_frames_in_map
               << std::endl;
     results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options, ct_icp_gt_seed));
+  }
+
+  if (isMethodEnabled(selected_methods, "ct_icp_ndt")) {
+    std::cout << "Running CT-ICP+NDT..." << std::endl;
+    std::cout << "  ct_icp_voxel_resolution=" << ct_icp_options.voxel_resolution
+              << " ct_icp_max_iterations=" << ct_icp_options.max_iterations
+              << " ndt_resolution=" << ndt_options.resolution
+              << " ndt_max_iterations=" << ndt_options.max_iterations
+              << std::endl;
+    results.push_back(runCTICPNDT(pcd_dirs, gt, ct_icp_options, ndt_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "ct_icp_ndt_keyframe")) {
+    std::cout << "Running CT-ICP+NDT keyframe..." << std::endl;
+    std::cout << "  ct_icp_voxel_resolution=" << ct_icp_options.voxel_resolution
+              << " ct_icp_max_iterations=" << ct_icp_options.max_iterations
+              << " ndt_resolution=" << ndt_options.resolution
+              << " ndt_max_iterations=" << ndt_options.max_iterations
+              << " keyframe_interval="
+              << ct_icp_ndt_options.keyframe_interval
+              << " max_correction_translation="
+              << ct_icp_ndt_options.max_correction_translation_delta
+              << " max_correction_rotation_rad="
+              << ct_icp_ndt_options.max_correction_rotation_delta_rad
+              << std::endl;
+    results.push_back(runCTICPNDTKeyframe(
+        pcd_dirs, gt, ct_icp_options, ndt_options, ct_icp_ndt_options));
   }
 
   if (isMethodEnabled(selected_methods, "xicp")) {
@@ -5645,6 +6422,11 @@ int main(int argc, char** argv) {
     if (rpe.available) {
       r.rpe_trans_pct = rpe.trans_pct;
       r.rpe_rot_deg_per_m = rpe.rot_deg_per_m;
+    }
+    if (!std::isfinite(r.ate) ||
+        (r.has_rpe && (!std::isfinite(r.rpe_trans_pct) ||
+                       !std::isfinite(r.rpe_rot_deg_per_m)))) {
+      r.status = "invalid_metric";
     }
     double fps = r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
     std::cout << std::setw(24) << r.name

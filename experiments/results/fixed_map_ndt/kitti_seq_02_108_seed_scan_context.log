@@ -1,0 +1,24 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 108
+GT poses: 108
+IMU samples: 0 (imu.csv not found)
+Timestamp source: sampled GT timestamps
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 121.2 m
+Running FixedMap-NDT...
+  source_voxel_size=0.8 max_source_points=2000 resolution=0.5 max_iterations=12 map_max_points=120000 map_stride=1 seed_source=scan_context
+  [FixedMap-NDT] 10/108 score=2.369 accepted=10/10  [FixedMap-NDT] 20/108 score=2.321 accepted=20/20  [FixedMap-NDT] 30/108 score=2.060 accepted=29/30  [FixedMap-NDT] 40/108 score=1.874 accepted=39/40  [FixedMap-NDT] 50/108 score=1.617 accepted=49/50  [FixedMap-NDT] 60/108 score=1.252 accepted=59/60  [FixedMap-NDT] 70/108 score=1.250 accepted=69/70  [FixedMap-NDT] 80/108 score=1.170 accepted=78/80  [FixedMap-NDT] 90/108 score=1.235 accepted=88/90  [FixedMap-NDT] 100/108 score=1.144 accepted=98/100
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Frames      Time [ms]      FPS
+---------------------------------------------------------------------------------------
+FixedMap-NDT+ScanContextok          0.003       108         3050.9         35.4
+
+Notes:
+- FixedMap-NDT+ScanContext: Fixed-map NDT: target map built once from GT/reference poses (stride=1, map_points=120000). Seed source=scan_context, accepted=105/107, rejected=2, seed fallbacks=0. ScanContext hits=107/107, mean distance=0.0000.
+
+Results saved to dogfooding_results/

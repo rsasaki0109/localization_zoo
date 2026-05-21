@@ -1,0 +1,25 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 108
+GT poses: 108
+IMU samples: 0 (imu.csv not found)
+Timestamp source: sampled GT timestamps
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 98.9 m
+[seed-perturb] local-frame dx=0.500m dy=0.000m dz=0.000m yaw=0.000deg
+Running FixedMap-NDT...
+  source_voxel_size=0.750 max_source_points=2000 resolution=0.500 max_iterations=12 map_max_points=120000 map_stride=1 seed_source=gt
+  [FixedMap-NDT] 10/108 score=2.584 accepted=10/10  [FixedMap-NDT] 20/108 score=2.574 accepted=20/20  [FixedMap-NDT] 30/108 score=2.733 accepted=30/30  [FixedMap-NDT] 40/108 score=2.459 accepted=40/40  [FixedMap-NDT] 50/108 score=2.456 accepted=50/50  [FixedMap-NDT] 60/108 score=2.272 accepted=60/60  [FixedMap-NDT] 70/108 score=2.314 accepted=70/70  [FixedMap-NDT] 80/108 score=2.218 accepted=80/80  [FixedMap-NDT] 90/108 score=2.238 accepted=90/90  [FixedMap-NDT] 100/108 score=2.424 accepted=100/100
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Frames      Time [ms]      FPS
+---------------------------------------------------------------------------------------
+FixedMap-NDT+GT         ok          0.483       108         8071.5         13.4
+
+Notes:
+- FixedMap-NDT+GT: Fixed-map NDT: target map built once from GT/reference poses (stride=1, map_points=120000). Seed source=gt, accepted=107/107, rejected=0, seed fallbacks=0. Seed perturbation applied in local seed frame: dx=0.500m dy=0.000m dz=0.000m yaw=0.000deg.
+
+Results saved to dogfooding_results/

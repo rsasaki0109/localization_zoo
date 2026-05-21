@@ -1,0 +1,12 @@
+pcd: dogfooding_results/kitti_seq_02_108/00000000/cloud.pcd
+frame_index: None
+points_used: 124649
+face_size: 256
+gaussian_sigma: 1.0
+feature_quantile: 0.9
+features: 5198
+montage: True
+no_per_face_pngs: True
+export_features_json: True
+
+Reference: Docswell slides by Liu Yang (CUBE-LIO), Robotics Symposia.

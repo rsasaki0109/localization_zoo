@@ -38,6 +38,8 @@ public:
 
   int addScan(const std::vector<Eigen::Vector3d>& points);
   LoopCandidate detectLoop(const std::vector<Eigen::Vector3d>& points) const;
+  std::vector<LoopCandidate> detectLoopCandidates(
+      const std::vector<Eigen::Vector3d>& points) const;
   void clear();
 
   int numScans() const { return static_cast<int>(contexts_.size()); }

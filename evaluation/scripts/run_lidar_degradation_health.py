@@ -16,6 +16,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GEOMETRY_ICP = REPO_ROOT / "evaluation" / "scripts" / "geometry_icp_odometry_demo.py"
+INTENSITY_BEV = REPO_ROOT / "evaluation" / "scripts" / "intensity_bev_odometry_demo.py"
 KISS_KEYFRAME = REPO_ROOT / "build" / "evaluation" / "kiss_keyframe_odometry"
 CT_ICP_WINDOW = REPO_ROOT / "build" / "evaluation" / "ct_icp_window_odometry"
 
@@ -31,7 +32,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--method",
-        choices=["geometry_icp", "kiss_keyframe", "ct_icp"],
+        choices=["geometry_icp", "intensity_bev", "kiss_keyframe", "ct_icp"],
         default="geometry_icp",
     )
     parser.add_argument("--kiss-binary", type=Path, default=KISS_KEYFRAME)
@@ -44,12 +45,23 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--z-max", type=float, default=5.0)
     parser.add_argument("--max-step-translation", type=float, default=2.0)
     parser.add_argument("--max-step-yaw-deg", type=float, default=20.0)
+    parser.add_argument(
+        "--min-used-path-length",
+        type=float,
+        default=0.0,
+        help="Flag windows whose accepted trajectory path is shorter than this. <=0 disables.",
+    )
     parser.add_argument("--keyframe-interval", type=int, default=10)
     parser.add_argument("--max-keyframe-correction", type=float, default=1.0)
     parser.add_argument("--max-keyframe-yaw-deg", type=float, default=5.0)
     parser.add_argument("--max-keyframe-rmse", type=float, default=2.0)
     parser.add_argument("--min-keyframe-correspondences", type=int, default=1000)
     parser.add_argument("--kiss-min-correspondences", type=int, default=1000)
+    parser.add_argument("--intensity-bev-preset", choices=["default", "fast", "pyramid"], default="fast")
+    parser.add_argument("--intensity-bev-grid-resolution", type=float, default=0.5)
+    parser.add_argument("--intensity-bev-grid-radius", type=float, default=45.0)
+    parser.add_argument("--intensity-bev-min-overlap", type=int, default=200)
+    parser.add_argument("--intensity-bev-max-points", type=int, default=6000)
     parser.add_argument("--ct-icp-source-voxel-size", type=float, default=0.75)
     parser.add_argument("--ct-icp-max-source-points", type=int, default=500)
     parser.add_argument("--ct-icp-voxel-resolution", type=float, default=1.5)
@@ -167,6 +179,60 @@ def run_kiss_keyframe(
     return result_path
 
 
+def run_intensity_bev(
+    args: argparse.Namespace,
+    sequence_pcd_dir: Path,
+    name: str,
+    row: dict[str, Any],
+    output_dir: Path,
+) -> Path:
+    result_path = (
+        output_dir
+        / "results"
+        / f"{name}_{int(row['start']):04d}_{int(row['end']):04d}_intensity_bev.json"
+    )
+    result_path.parent.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        sys.executable,
+        str(INTENSITY_BEV),
+        "--sequence-pcd-dir",
+        str(sequence_pcd_dir),
+        "--output-json",
+        str(result_path),
+        "--start-frame",
+        str(int(row["start"])),
+        "--max-frames",
+        str(int(row["frames"])),
+        "--preset",
+        args.intensity_bev_preset,
+        "--min-range",
+        str(args.min_range),
+        "--max-range",
+        str(args.max_range),
+        "--z-min",
+        str(args.z_min),
+        "--z-max",
+        str(args.z_max),
+        "--max-points",
+        str(args.intensity_bev_max_points),
+        "--grid-resolution",
+        str(args.intensity_bev_grid_resolution),
+        "--grid-radius",
+        str(args.intensity_bev_grid_radius),
+        "--min-overlap",
+        str(args.intensity_bev_min_overlap),
+        "--max-step-translation",
+        str(args.max_step_translation),
+        "--max-step-yaw-deg",
+        str(args.max_step_yaw_deg),
+        "--progress-every",
+        str(args.progress_every),
+    ]
+    print("[run] " + " ".join(cmd))
+    subprocess.run(cmd, cwd=REPO_ROOT, check=True)
+    return result_path
+
+
 def run_ct_icp(
     args: argparse.Namespace,
     sequence_pcd_dir: Path,
@@ -264,13 +330,21 @@ def optional_float(value: Any) -> float | None:
     return out if math.isfinite(out) else None
 
 
-def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> dict[str, Any]:
+def summarize_result(
+    name: str,
+    window: dict[str, Any],
+    result_path: Path,
+    min_used_path_length: float = 0.0,
+) -> dict[str, Any]:
     payload = load_payload(result_path)
     pairs = payload.get("pairs", [])
     poses = payload.get("poses_xyyaw", [])
     pair_count = len(pairs)
     accepted = [bool(pair.get("accepted")) for pair in pairs]
-    converged = [bool(pair.get("converged")) for pair in pairs]
+    converged = [
+        bool(pair["converged"]) if "converged" in pair else bool(pair.get("accepted"))
+        for pair in pairs
+    ]
     scores = [optional_float(pair.get("score")) for pair in pairs]
     valid_scores = [score for score in scores if score is not None and score >= 0.0]
     overlaps = [
@@ -292,6 +366,9 @@ def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> di
         not all(math.isfinite(float(pose[key])) for key in ("x_m", "y_m", "yaw_deg"))
         for pose in poses
     )
+    used_path_length = float(sum(used_steps))
+    accepted_rate = float(sum(accepted) / pair_count) if pair_count else 0.0
+    converged_rate = float(sum(converged) / pair_count) if pair_count else 0.0
     return {
         "name": name,
         "window": window,
@@ -300,16 +377,16 @@ def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> di
         "pairs": pair_count,
         "runtime_s": float(payload["runtime_s"]) if payload.get("runtime_s") is not None else None,
         "accepted_pairs": int(sum(accepted)),
-        "accepted_rate": float(sum(accepted) / pair_count) if pair_count else 0.0,
+        "accepted_rate": accepted_rate,
         "converged_pairs": int(sum(converged)),
-        "converged_rate": float(sum(converged) / pair_count) if pair_count else 0.0,
+        "converged_rate": converged_rate,
         "failed_pairs": int(pair_count - sum(accepted)),
         "score_mean": safe_mean(valid_scores),
         "score_min": safe_min(valid_scores),
         "overlap_mean": safe_mean(overlaps),
         "overlap_min": safe_min(overlaps),
         "raw_step_mean_m": safe_mean(raw_steps),
-        "used_path_length_m": float(sum(used_steps)),
+        "used_path_length_m": used_path_length,
         "used_step_max_m": safe_max(used_steps),
         "used_abs_yaw_max_deg": safe_max(yaws),
         "nonfinite_pose_count": int(nonfinite_pose_count),
@@ -321,8 +398,13 @@ def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> di
         ),
         "health_flags": {
             "all_pairs_failed": sum(accepted) == 0 and pair_count > 0,
-            "low_acceptance": (sum(accepted) / pair_count) < 0.5 if pair_count else True,
-            "low_convergence": (sum(converged) / pair_count) < 0.5 if pair_count else True,
+            "low_acceptance": accepted_rate < 0.5 if pair_count else True,
+            "low_convergence": converged_rate < 0.5 if pair_count else True,
+            "low_used_path": (
+                min_used_path_length > 0.0
+                and accepted_rate >= 0.5
+                and used_path_length < min_used_path_length
+            ),
             "nonfinite_pose": nonfinite_pose_count > 0,
         },
     }
@@ -363,13 +445,22 @@ def main() -> int:
     for name, row in unique_selected_windows(windows_payload["selected"]):
         if args.method == "geometry_icp":
             result_path = run_geometry_icp(args, sequence_pcd_dir, name, row, args.output_dir)
+        elif args.method == "intensity_bev":
+            result_path = run_intensity_bev(args, sequence_pcd_dir, name, row, args.output_dir)
         elif args.method == "kiss_keyframe":
             result_path = run_kiss_keyframe(args, sequence_pcd_dir, name, row, args.output_dir)
         elif args.method == "ct_icp":
             result_path = run_ct_icp(args, sequence_pcd_dir, name, row, args.output_dir)
         else:
             raise ValueError(f"Unsupported method: {args.method}")
-        rows.append(summarize_result(name, row, result_path))
+        rows.append(
+            summarize_result(
+                name,
+                row,
+                result_path,
+                min_used_path_length=args.min_used_path_length,
+            )
+        )
 
     summary = {
         "degradation_windows_json": str(args.degradation_windows_json),
@@ -384,12 +475,18 @@ def main() -> int:
             "z_max": args.z_max,
             "max_step_translation": args.max_step_translation,
             "max_step_yaw_deg": args.max_step_yaw_deg,
+            "min_used_path_length": args.min_used_path_length,
             "keyframe_interval": args.keyframe_interval,
             "max_keyframe_correction": args.max_keyframe_correction,
             "max_keyframe_yaw_deg": args.max_keyframe_yaw_deg,
             "max_keyframe_rmse": args.max_keyframe_rmse,
             "min_keyframe_correspondences": args.min_keyframe_correspondences,
             "kiss_min_correspondences": args.kiss_min_correspondences,
+            "intensity_bev_preset": args.intensity_bev_preset,
+            "intensity_bev_grid_resolution": args.intensity_bev_grid_resolution,
+            "intensity_bev_grid_radius": args.intensity_bev_grid_radius,
+            "intensity_bev_min_overlap": args.intensity_bev_min_overlap,
+            "intensity_bev_max_points": args.intensity_bev_max_points,
             "ct_icp_source_voxel_size": args.ct_icp_source_voxel_size,
             "ct_icp_max_source_points": args.ct_icp_max_source_points,
             "ct_icp_voxel_resolution": args.ct_icp_voxel_resolution,

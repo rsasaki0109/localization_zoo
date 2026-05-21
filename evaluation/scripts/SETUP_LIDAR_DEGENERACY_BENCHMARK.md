@@ -23,38 +23,114 @@ Use it to test:
 
 ## Data Conversion Plan
 
-1. Download the bag files linked from the upstream README.
-2. Export LiDAR and IMU into dogfooding layout:
+The current upstream bags are published on Hugging Face:
+
+- `tunnel.bag` (~3.47 GB)
+- `fog.bag` (~1.85 GB)
+
+The upstream README lists Ouster packet topics, not a guaranteed ready-made
+`sensor_msgs/PointCloud2` topic. Treat conversion as a two-step process:
+
+1. inspect the bag and write a manifest,
+2. extract directly only if a `PointCloud2` topic is present; otherwise replay
+   `/os_cloud_node/lidar_packets` through the Ouster driver first.
+
+### 1. Download + inspect
+
+```bash
+python3 evaluation/scripts/prepare_lidar_degeneracy_inputs.py \
+  --download \
+  --inspect
+```
+
+This writes:
+
+- `data/lidar_degeneracy_datasets/tunnel.bag`
+- `data/lidar_degeneracy_datasets/fog.bag`
+- `data/lidar_degeneracy_datasets/tunnel_topics.json`
+- `data/lidar_degeneracy_datasets/fog_topics.json`
+- `data/lidar_degeneracy_datasets/*_manifest.json`
+
+For a metadata-only dry run before downloading:
+
+```bash
+python3 evaluation/scripts/prepare_lidar_degeneracy_inputs.py \
+  --manifest-only
+```
+
+### 2. Extract when PointCloud2 is available
+
+If inspection reports a PointCloud2 topic:
+
+```bash
+python3 evaluation/scripts/prepare_lidar_degeneracy_inputs.py \
+  --sequence tunnel \
+  --inspect \
+  --extract \
+  --pointcloud-topic /os_cloud_node/points \
+  --imu-topic /vectornav_node/uncomp_imu \
+  --max-frames 200 \
+  --time-mode azimuth
+```
+
+This writes `dogfooding_results/lidar_degeneracy_tunnel_200/` with
+`00000000/cloud.pcd`, `frame_timestamps.csv`, and `imu.csv`.
+
+### 3. Packet-topic fallback
+
+If inspection reports only packet topics such as:
+
+- `/os_cloud_node/lidar_packets`
+- `/os_cloud_node/imu_packets`
+- `/os_cloud_node/metadata`
+
+first replay the bag through the Ouster driver referenced by the upstream README
+to produce a PointCloud2 topic. Then run the existing extractor on that converted
+bag:
 
 ```bash
 python3 evaluation/scripts/extract_ros1_lidar_imu.py \
-  --pointcloud-bag /path/to/lidar.bag \
+  --pointcloud-bag /path/to/converted_pointcloud.bag \
   --pointcloud-topic /os_cloud_node/points \
-  --imu-bag /path/to/imu.bag \
+  --imu-bag data/lidar_degeneracy_datasets/tunnel.bag \
   --imu-topic /vectornav_node/uncomp_imu \
   --output-dir dogfooding_results/lidar_degeneracy_tunnel_200 \
   --max-frames 200 \
   --time-mode azimuth
 ```
 
-If the bags are ROS2 sqlite bags, use:
+Topic names should be checked with `rosbag info`, the generated
+`*_topics.json`, or the bag metadata.
+
+## GT-Free Degeneracy Diagnostics
+
+The upstream README does not advertise a ground-truth trajectory, so the first
+benchmark layer should be diagnostic rather than ATE-based:
 
 ```bash
-python3 evaluation/scripts/extract_ros2_lidar_imu.py \
-  --bag /path/to/rosbag2_dir \
-  --pointcloud-topic /os_cloud_node/points \
-  --imu-topic /vectornav_node/uncomp_imu \
-  --output-dir dogfooding_results/lidar_degeneracy_tunnel_200 \
-  --max-frames 200
+python3 evaluation/scripts/analyze_lidar_degeneracy_sequence.py \
+  dogfooding_results/lidar_degeneracy_tunnel_200 \
+  experiments/results/lidar_degeneracy/tunnel_200
 ```
 
-Topic names should be checked with `rosbag info`, `ros2 bag info`, or the bag
-metadata. The upstream README also mentions packet topics; if only packets are
-available, first replay them through the Ouster driver referenced upstream.
+Outputs:
+
+- `frame_degeneracy.csv`
+- `summary.json`
+- `summary.md`
+
+The key fields are:
+
+- `linearity`: high in long tunnel-like geometry.
+- `planarity`: high when points mostly occupy a plane.
+- `scattering`: low when the 3D covariance has a weak third component.
+- `degeneracy_score`: `max(linearity, planarity)`.
+- intensity summary: useful for fog / obscurant windows.
 
 ## First Benchmark Slice
 
-Start with short windows before full trajectories:
+After PCD export and degeneracy-window selection, run short windows before full
+trajectories. If you have an external reference trajectory, use it here:
 
 ```bash
 ./build/evaluation/pcd_dogfooding \
@@ -72,6 +148,10 @@ If ground truth is unavailable, still run odometry-only diagnostics and compare:
 - runtime P95/P99,
 - divergence / non-finite pose count,
 - visual inspection of projected trajectory.
+
+Do not fake GT just to get ATE. Keep the first pass as GT-free degeneracy
+diagnostics plus method health metrics; add ATE only if a trustworthy external
+pose source is available.
 
 ## Stop Line
 

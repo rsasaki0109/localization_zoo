@@ -77,6 +77,13 @@ target_link_libraries(kiss_keyframe_odometry PRIVATE
 )
 target_include_directories(kiss_keyframe_odometry PRIVATE ${PCL_INCLUDE_DIRS})
 
+add_executable(ct_icp_window_odometry src/ct_icp_window_odometry.cpp)
+target_link_libraries(ct_icp_window_odometry PRIVATE
+  ct_icp
+  ${PCL_LIBRARIES}
+)
+target_include_directories(ct_icp_window_odometry PRIVATE ${PCL_INCLUDE_DIRS})
+
 add_executable(small_gicp_pair_odometry src/small_gicp_pair_odometry.cpp)
 target_link_libraries(small_gicp_pair_odometry PRIVATE
   small_gicp

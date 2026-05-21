@@ -23,7 +23,7 @@
     "zero_motion_score_margin": 0.05,
     "motion_prior": true
   },
-  "runtime_s": 9.279038287932053,
+  "runtime_s": 8.825981242000125,
   "metrics": null,
   "poses_xyyaw": [
     {

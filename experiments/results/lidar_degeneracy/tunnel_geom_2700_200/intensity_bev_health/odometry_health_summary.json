@@ -25,6 +25,8 @@
     "intensity_bev_max_points": 6000,
     "intensity_bev_min_step_translation": 0.25,
     "intensity_bev_zero_motion_score_margin": 0.05,
+    "intensity_bev_motion_margin_flag_rate": 0.5,
+    "intensity_bev_overlap_tail_flag_ratio": 0.5,
     "ct_icp_source_voxel_size": 0.75,
     "ct_icp_max_source_points": 500,
     "ct_icp_voxel_resolution": 1.5,
@@ -66,7 +68,7 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/baseline_0005_0034_intensity_bev.json",
       "frames": 30,
       "pairs": 29,
-      "runtime_s": 9.874910500016995,
+      "runtime_s": 8.77691431203857,
       "accepted_pairs": 29,
       "accepted_rate": 1.0,
       "converged_pairs": 29,
@@ -76,6 +78,13 @@
       "score_min": 0.5229758229514984,
       "overlap_mean": 5522.310344827586,
       "overlap_min": 5213.0,
+      "overlap_min_to_mean": 0.9439889601428688,
+      "decision_reasons": {
+        "motion_margin": 19,
+        "best_score": 10
+      },
+      "motion_margin_rate": 0.6551724137931034,
+      "best_score_rate": 0.3448275862068966,
       "raw_step_mean_m": 0.274995646005273,
       "used_path_length_m": 7.974873734152918,
       "used_step_max_m": 0.3535533905932738,
@@ -88,6 +97,8 @@
         "low_acceptance": false,
         "low_convergence": false,
         "low_used_path": false,
+        "motion_margin_dominant": false,
+        "overlap_tail": false,
         "nonfinite_pose": false
       }
     },
@@ -114,7 +125,7 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
       "frames": 30,
       "pairs": 29,
-      "runtime_s": 9.789083258947358,
+      "runtime_s": 9.13244488404598,
       "accepted_pairs": 29,
       "accepted_rate": 1.0,
       "converged_pairs": 29,
@@ -124,6 +135,13 @@
       "score_min": 0.590764954898839,
       "overlap_mean": 5534.310344827586,
       "overlap_min": 5268.0,
+      "overlap_min_to_mean": 0.9518801208760398,
+      "decision_reasons": {
+        "best_score": 2,
+        "motion_margin": 27
+      },
+      "motion_margin_rate": 0.9310344827586207,
+      "best_score_rate": 0.06896551724137931,
       "raw_step_mean_m": 0.2607124197165456,
       "used_path_length_m": 7.560660171779822,
       "used_step_max_m": 0.3535533905932738,
@@ -136,6 +154,8 @@
         "low_acceptance": false,
         "low_convergence": false,
         "low_used_path": false,
+        "motion_margin_dominant": true,
+        "overlap_tail": false,
         "nonfinite_pose": false
       }
     },
@@ -162,7 +182,7 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/point_count_tail_0080_0109_intensity_bev.json",
       "frames": 30,
       "pairs": 29,
-      "runtime_s": 11.306281281984411,
+      "runtime_s": 8.66648521006573,
       "accepted_pairs": 29,
       "accepted_rate": 1.0,
       "converged_pairs": 29,
@@ -172,6 +192,13 @@
       "score_min": 0.49564287110283634,
       "overlap_mean": 5374.551724137931,
       "overlap_min": 4338.0,
+      "overlap_min_to_mean": 0.807137082804019,
+      "decision_reasons": {
+        "best_score": 15,
+        "motion_margin": 14
+      },
+      "motion_margin_rate": 0.4827586206896552,
+      "best_score_rate": 0.5172413793103449,
       "raw_step_mean_m": 0.3405225956560621,
       "used_path_length_m": 9.8751552740258,
       "used_step_max_m": 0.7071067811865476,
@@ -184,6 +211,8 @@
         "low_acceptance": false,
         "low_convergence": false,
         "low_used_path": false,
+        "motion_margin_dominant": false,
+        "overlap_tail": false,
         "nonfinite_pose": false
       }
     },
@@ -210,7 +239,7 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/geometry_degeneracy_0090_0119_intensity_bev.json",
       "frames": 30,
       "pairs": 29,
-      "runtime_s": 10.537008099956438,
+      "runtime_s": 9.032217327971011,
       "accepted_pairs": 29,
       "accepted_rate": 1.0,
       "converged_pairs": 29,
@@ -220,6 +249,13 @@
       "score_min": 0.49564287110283634,
       "overlap_mean": 5114.103448275862,
       "overlap_min": 4338.0,
+      "overlap_min_to_mean": 0.8482425206831682,
+      "decision_reasons": {
+        "best_score": 23,
+        "motion_margin": 6
+      },
+      "motion_margin_rate": 0.20689655172413793,
+      "best_score_rate": 0.7931034482758621,
       "raw_step_mean_m": 0.43592509052564504,
       "used_path_length_m": 12.641827625243703,
       "used_step_max_m": 0.7071067811865476,
@@ -232,6 +268,8 @@
         "low_acceptance": false,
         "low_convergence": false,
         "low_used_path": false,
+        "motion_margin_dominant": false,
+        "overlap_tail": false,
         "nonfinite_pose": false
       }
     }

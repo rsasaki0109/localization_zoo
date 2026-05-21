@@ -206,7 +206,12 @@ def health_state(row: dict[str, Any]) -> str:
     flags = row.get("flags", "ok")
     if "nonfinite_pose" in flags or "all_pairs_failed" in flags or accepted < 0.5:
         return "failed"
-    if "low_used_path" in flags or accepted < 0.9:
+    if (
+        "low_used_path" in flags
+        or "motion_margin_dominant" in flags
+        or "overlap_tail" in flags
+        or accepted < 0.9
+    ):
         return "suspicious"
     if "low_convergence" in flags or (
         converged_value is not None and converged_value < 0.5
@@ -534,6 +539,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "- `fog_200`: intensity BEV keeps 93.1-100% acceptance on selected windows after zero-motion score-margin preference, including the strongest fog slice.",
             "- `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.",
             "- Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.",
+            "- Intensity BEV false-confidence gates now promote dominant motion-margin decisions and sharp overlap tails to suspicious health flags on non-baseline selected windows.",
             "- Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.",
             "- Cross-method consistency compares GT-free trajectory shape against healthy-peer and all-method path medians to expose externally healthy but isolated estimates.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",

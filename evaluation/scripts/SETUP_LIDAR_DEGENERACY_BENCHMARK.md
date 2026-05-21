@@ -166,6 +166,8 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   --ct-icp-normal-cholesky \
   --max-step-translation 2.0 \
   --max-step-yaw-deg 20
+
+python3 evaluation/scripts/summarize_lidar_degeneracy_health.py
 ```
 
 `extract_ouster_packet_lidar_imu.py` uses `/sensor_sync_node/trigger_1` by
@@ -319,6 +321,12 @@ Observed `fog.bag` inspection:
   gate. This is a better gradient than KISS: CT-ICP does not collapse on all fog
   windows, but the strongest obscurant slice still creates measurable
   correction instability.
+- The combined method-health comparison is written to
+  `experiments/results/lidar_degeneracy/method_health_comparison/`. Its current
+  aggregate readout is: on `fog_200`, geometry ICP averages 26.4% acceptance,
+  KISS keyframe averages 0.0%, and CT-ICP averages 88.5%; on
+  `tunnel_geom_2700_200`, all three methods remain at 100% acceptance across the
+  selected short windows.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

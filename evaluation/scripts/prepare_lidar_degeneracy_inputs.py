@@ -17,6 +17,7 @@ then run the extractor on the generated PointCloud2 bag.
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import json
 import shutil
 import subprocess
@@ -96,9 +97,21 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--download-tool",
-        choices=["auto", "wget", "curl", "urllib"],
+        choices=["auto", "parallel", "wget", "curl", "urllib"],
         default="auto",
-        help="Downloader backend. auto prefers wget/curl for resumable large files.",
+        help="Downloader backend. auto prefers the parallel range downloader for large files.",
+    )
+    parser.add_argument(
+        "--download-connections",
+        type=int,
+        default=6,
+        help="Number of range requests for --download-tool parallel/auto.",
+    )
+    parser.add_argument(
+        "--download-chunk-mb",
+        type=int,
+        default=64,
+        help="Chunk size for --download-tool parallel/auto.",
     )
     parser.add_argument(
         "--inspect",
@@ -160,17 +173,117 @@ def selected_specs(args: argparse.Namespace) -> list[SequenceSpec]:
 def select_download_tool(requested: str) -> str:
     if requested != "auto":
         if requested != "urllib" and shutil.which(requested) is None:
+            if requested == "parallel":
+                return requested
             raise RuntimeError(f"--download-tool {requested!r} requested but not found in PATH")
         return requested
-    for candidate in ("wget", "curl"):
-        if shutil.which(candidate):
-            return candidate
-    return "urllib"
+    return "parallel"
 
 
-def download_file(url: str, dst: Path, *, tool: str) -> None:
+def resolve_download(url: str) -> tuple[str, int, bool]:
+    request = urllib.request.Request(url, headers={"Range": "bytes=0-0"})
+    with urllib.request.urlopen(request, timeout=60) as response:
+        final_url = response.geturl()
+        content_range = response.headers.get("Content-Range", "")
+        if "/" in content_range:
+            return final_url, int(content_range.rsplit("/", 1)[1]), True
+        content_length = response.headers.get("Content-Length")
+        if content_length and content_length.isdigit():
+            return final_url, int(content_length), False
+    raise RuntimeError(f"Could not resolve download size for {url}")
+
+
+def fetch_range(url: str, path: Path, start: int, end: int) -> None:
+    expected_size = end - start + 1
+    existing_size = path.stat().st_size if path.exists() else 0
+    if existing_size == expected_size:
+        return
+    if existing_size > expected_size:
+        path.unlink()
+        existing_size = 0
+    request_start = start + existing_size
+    headers = {"Range": f"bytes={request_start}-{end}"}
+    for attempt in range(1, 6):
+        try:
+            request = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(request, timeout=120) as response, path.open("ab") as handle:
+                if getattr(response, "status", None) != 206:
+                    path.unlink(missing_ok=True)
+                    raise RuntimeError(
+                        f"Server ignored Range header for bytes {request_start}-{end}: "
+                        f"HTTP {getattr(response, 'status', 'unknown')}"
+                    )
+                while True:
+                    chunk = response.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    handle.write(chunk)
+            if path.stat().st_size == expected_size:
+                return
+        except Exception:
+            if attempt == 5:
+                raise
+    raise RuntimeError(f"Failed to download byte range {start}-{end}")
+
+
+def download_file_parallel(url: str, dst: Path, *, connections: int, chunk_mb: int) -> None:
+    final_url, total_size, supports_ranges = resolve_download(url)
+    if not supports_ranges:
+        raise RuntimeError(f"Server does not support ranged downloads: {url}")
+    if dst.exists() and dst.stat().st_size == total_size:
+        print(f"[download] exists: {dst}")
+        return
+
+    prefix_size = dst.stat().st_size if dst.exists() else 0
+    if prefix_size > total_size:
+        dst.unlink()
+        prefix_size = 0
+
+    chunk_size = max(1, chunk_mb) * 1024 * 1024
+    parts_dir = dst.parent / f".{dst.name}.parts"
+    parts_dir.mkdir(parents=True, exist_ok=True)
+    ranges: list[tuple[int, int, Path]] = []
+    for start in range(prefix_size, total_size, chunk_size):
+        end = min(start + chunk_size - 1, total_size - 1)
+        ranges.append((start, end, parts_dir / f"{start:016d}-{end:016d}.part"))
+
+    print(
+        f"[download] parallel ranges={len(ranges)} connections={connections} "
+        f"resume_prefix={prefix_size / 1e6:.1f} MB total={total_size / 1e9:.2f} GB",
+        flush=True,
+    )
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, connections)) as executor:
+        futures = [executor.submit(fetch_range, final_url, part, start, end) for start, end, part in ranges]
+        for index, future in enumerate(concurrent.futures.as_completed(futures), start=1):
+            future.result()
+            if index == 1 or index == len(futures) or index % 4 == 0:
+                downloaded = prefix_size + sum(part.stat().st_size for _, _, part in ranges if part.exists())
+                print(f"[download] {dst.name}: {downloaded / 1e9:.2f} / {total_size / 1e9:.2f} GB", flush=True)
+
+    assembling = dst.with_suffix(dst.suffix + ".assembling")
+    with assembling.open("wb") as out:
+        if prefix_size:
+            with dst.open("rb") as prefix:
+                shutil.copyfileobj(prefix, out, length=1024 * 1024)
+        for start, end, part in sorted(ranges):
+            expected_size = end - start + 1
+            if part.stat().st_size != expected_size:
+                raise RuntimeError(f"Part has wrong size: {part}")
+            with part.open("rb") as handle:
+                shutil.copyfileobj(handle, out, length=1024 * 1024)
+    if assembling.stat().st_size != total_size:
+        raise RuntimeError(f"Assembled file has wrong size: {assembling}")
+    assembling.replace(dst)
+    shutil.rmtree(parts_dir)
+    print(f"[download] wrote: {dst}")
+
+
+def download_file(url: str, dst: Path, *, tool: str, connections: int, chunk_mb: int) -> None:
     dst.parent.mkdir(parents=True, exist_ok=True)
     selected_tool = select_download_tool(tool)
+    if selected_tool == "parallel":
+        download_file_parallel(url, dst, connections=connections, chunk_mb=chunk_mb)
+        return
     partial = dst.with_suffix(dst.suffix + ".part")
     if partial.exists() and not dst.exists() and selected_tool in {"wget", "curl"}:
         partial.rename(dst)
@@ -231,6 +344,14 @@ def inspect_ros1_bag(path: Path) -> dict[str, Any]:
         for item in topics
         if item["msgtype"] in {"sensor_msgs/msg/PointCloud2", "sensor_msgs/PointCloud2"}
     ]
+    lidar_pointcloud_topics = [
+        topic
+        for topic in pointcloud_topics
+        if topic != KNOWN_TOPICS["radar"] and any(token in topic.lower() for token in ("lidar", "points", "cloud"))
+    ]
+    non_lidar_pointcloud_topics = [
+        topic for topic in pointcloud_topics if topic not in set(lidar_pointcloud_topics)
+    ]
     packet_topics = [
         item["topic"]
         for item in topics
@@ -240,6 +361,8 @@ def inspect_ros1_bag(path: Path) -> dict[str, Any]:
         "bag_path": str(path),
         "topics": topics,
         "pointcloud_topics": pointcloud_topics,
+        "lidar_pointcloud_topics": lidar_pointcloud_topics,
+        "non_lidar_pointcloud_topics": non_lidar_pointcloud_topics,
         "packet_topics": packet_topics,
         "known_topics_present": {
             key: any(item["topic"] == topic for item in topics)
@@ -259,6 +382,8 @@ def write_manifest(
     max_frames: int,
 ) -> None:
     pointcloud_topics = [] if inspection is None else inspection["pointcloud_topics"]
+    lidar_pointcloud_topics = [] if inspection is None else inspection.get("lidar_pointcloud_topics", pointcloud_topics)
+    non_lidar_pointcloud_topics = [] if inspection is None else inspection.get("non_lidar_pointcloud_topics", [])
     packet_topics = [] if inspection is None else inspection["packet_topics"]
     manifest = {
         "schema_version": 1,
@@ -282,6 +407,8 @@ def write_manifest(
         "topics": {
             "known": KNOWN_TOPICS,
             "pointcloud_detected": pointcloud_topics,
+            "lidar_pointcloud_detected": lidar_pointcloud_topics,
+            "non_lidar_pointcloud_detected": non_lidar_pointcloud_topics,
             "packet_detected": packet_topics,
         },
         "extrinsics_imu_frame": EXTRINSICS_IMU_FRAME,
@@ -298,15 +425,15 @@ def write_manifest(
             ],
             "next_methods": ["kiss_icp", "ct_icp", "keyframe_correction_replay"],
         },
-        "conversion_status": conversion_status(pointcloud_topics, packet_topics),
+        "conversion_status": conversion_status(lidar_pointcloud_topics, packet_topics),
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"[manifest] {path}")
 
 
-def conversion_status(pointcloud_topics: list[str], packet_topics: list[str]) -> str:
-    if pointcloud_topics:
+def conversion_status(lidar_pointcloud_topics: list[str], packet_topics: list[str]) -> str:
+    if lidar_pointcloud_topics:
         return "ready_for_pointcloud2_extract"
     if packet_topics:
         return "requires_ouster_packet_replay_before_extract"
@@ -358,6 +485,8 @@ def handle_sequence(args: argparse.Namespace, spec: SequenceSpec) -> None:
             f"{HF_BASE}/{spec.bag_file}?download=true",
             bag_path,
             tool=args.download_tool,
+            connections=args.download_connections,
+            chunk_mb=args.download_chunk_mb,
         )
 
     inspection: dict[str, Any] | None = None
@@ -387,13 +516,18 @@ def handle_sequence(args: argparse.Namespace, spec: SequenceSpec) -> None:
         raise FileNotFoundError(f"Bag not found: {bag_path}")
     if inspection is None:
         inspection = inspect_ros1_bag(bag_path)
-    pointcloud_topics = inspection["pointcloud_topics"]
+    pointcloud_topics = inspection.get("lidar_pointcloud_topics", inspection["pointcloud_topics"])
     pointcloud_topic = args.pointcloud_topic or (pointcloud_topics[0] if pointcloud_topics else "")
     if not pointcloud_topic:
         raise RuntimeError(
-            f"{bag_path} does not expose a PointCloud2 topic. "
+            f"{bag_path} does not expose a LiDAR PointCloud2 topic. "
             "Replay /os_cloud_node/lidar_packets through an Ouster driver first, "
             "then pass the generated PointCloud2 bag to extract_ros1_lidar_imu.py."
+        )
+    if pointcloud_topic in inspection.get("non_lidar_pointcloud_topics", []):
+        raise RuntimeError(
+            f"{pointcloud_topic} is not classified as a LiDAR PointCloud2 topic. "
+            "Pass an explicit LiDAR pointcloud topic after Ouster packet replay."
         )
     extract_pointcloud(
         bag_path=bag_path,

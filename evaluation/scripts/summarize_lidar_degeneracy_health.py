@@ -80,22 +80,76 @@ def compact_counts(counts: dict[str, int]) -> str:
     return ", ".join(f"{name}:{counts[name]}" for name in sorted(counts))
 
 
-def load_pair_diagnostics(result_json: Any) -> dict[str, Any]:
-    if not result_json:
+def normalize_angle_deg(angle_deg: float) -> float:
+    return (angle_deg + 180.0) % 360.0 - 180.0
+
+
+def median(values: list[float]) -> float | None:
+    finite = sorted(value for value in values if math.isfinite(value))
+    if not finite:
+        return None
+    mid = len(finite) // 2
+    if len(finite) % 2:
+        return finite[mid]
+    return 0.5 * (finite[mid - 1] + finite[mid])
+
+
+def as_finite_float(value: Any) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    return number if math.isfinite(number) else None
+
+
+def trajectory_diagnostics(payload: dict[str, Any]) -> dict[str, Any]:
+    poses = payload.get("poses_xyyaw") or []
+    if len(poses) < 2:
         return {
-            "decision_reasons": {},
-            "motion_margin_rate": None,
-            "best_score_rate": None,
-            "pair_count": 0,
+            "pose_count": len(poses),
+            "trajectory_path_length_m": None,
+            "trajectory_net_displacement_m": None,
+            "trajectory_yaw_change_abs_deg": None,
         }
+    path_length = 0.0
+    for prev, curr in zip(poses, poses[1:]):
+        path_length += math.hypot(
+            float(curr["x_m"]) - float(prev["x_m"]),
+            float(curr["y_m"]) - float(prev["y_m"]),
+        )
+    first = poses[0]
+    last = poses[-1]
+    net_displacement = math.hypot(
+        float(last["x_m"]) - float(first["x_m"]),
+        float(last["y_m"]) - float(first["y_m"]),
+    )
+    yaw_change = abs(
+        normalize_angle_deg(float(last.get("yaw_deg", 0.0)) - float(first.get("yaw_deg", 0.0)))
+    )
+    return {
+        "pose_count": len(poses),
+        "trajectory_path_length_m": path_length,
+        "trajectory_net_displacement_m": net_displacement,
+        "trajectory_yaw_change_abs_deg": yaw_change,
+    }
+
+
+def load_result_diagnostics(result_json: Any) -> dict[str, Any]:
+    empty = {
+        "decision_reasons": {},
+        "motion_margin_rate": None,
+        "best_score_rate": None,
+        "pair_count": 0,
+        "pose_count": 0,
+        "trajectory_path_length_m": None,
+        "trajectory_net_displacement_m": None,
+        "trajectory_yaw_change_abs_deg": None,
+    }
+    if not result_json:
+        return empty
     path = Path(str(result_json))
     if not path.exists():
-        return {
-            "decision_reasons": {},
-            "motion_margin_rate": None,
-            "best_score_rate": None,
-            "pair_count": 0,
-        }
+        return empty
     payload = load_json(path)
     pairs = payload.get("pairs", [])
     counts: dict[str, int] = {}
@@ -107,12 +161,14 @@ def load_pair_diagnostics(result_json: Any) -> dict[str, Any]:
     reason_count = sum(counts.values())
     if reason_count == 0:
         return {
+            **trajectory_diagnostics(payload),
             "decision_reasons": counts,
             "motion_margin_rate": None,
             "best_score_rate": None,
             "pair_count": len(pairs),
         }
     return {
+        **trajectory_diagnostics(payload),
         "decision_reasons": counts,
         "motion_margin_rate": counts.get("motion_margin", 0) / reason_count,
         "best_score_rate": counts.get("best_score", 0) / reason_count,
@@ -188,6 +244,57 @@ def confidence_probe(row: dict[str, Any]) -> str:
     return ", ".join(notes) if notes else "none"
 
 
+def ratio(value: Any, reference: Any) -> float | None:
+    value_number = as_finite_float(value)
+    reference_number = as_finite_float(reference)
+    if value_number is None or reference_number is None or abs(reference_number) < 1e-6:
+        return None
+    return value_number / reference_number
+
+
+def add_cross_method_consistency(windows: list[dict[str, Any]]) -> None:
+    for window in windows:
+        rows = window["methods"]
+        all_paths = [
+            value
+            for row in rows.values()
+            if (value := as_finite_float(row.get("trajectory_path_length_m"))) is not None
+        ]
+        all_path_median = median(all_paths)
+        healthy_paths = [
+            value
+            for row in rows.values()
+            if row.get("health_state") == "ok"
+            if (value := as_finite_float(row.get("trajectory_path_length_m"))) is not None
+        ]
+        healthy_path_median = median(healthy_paths)
+        for row in rows.values():
+            row["all_method_path_median_m"] = all_path_median
+            row["healthy_path_median_m"] = healthy_path_median
+            row["path_vs_all_median"] = ratio(
+                row.get("trajectory_path_length_m"), all_path_median
+            )
+            row["path_vs_healthy_median"] = ratio(
+                row.get("trajectory_path_length_m"), healthy_path_median
+            )
+            row_path = as_finite_float(row.get("trajectory_path_length_m"))
+            row["healthy_peer_count"] = max(
+                len(healthy_paths) - (1 if row.get("health_state") == "ok" and row_path is not None else 0),
+                0,
+            )
+            notes = []
+            if row.get("failure_awareness") == "stress_unflagged":
+                if int(row["healthy_peer_count"]) == 0:
+                    notes.append("no_healthy_peer")
+                healthy_ratio = as_finite_float(row.get("path_vs_healthy_median"))
+                if healthy_ratio is not None and (healthy_ratio > 2.0 or healthy_ratio < 0.5):
+                    notes.append("path_disagrees_with_healthy_median")
+                all_ratio = as_finite_float(row.get("path_vs_all_median"))
+                if all_ratio is not None and (all_ratio > 3.0 or all_ratio < 0.33):
+                    notes.append("path_disagrees_with_all_method_median")
+            row["cross_method_probe"] = ", ".join(notes) if notes else "none"
+
+
 def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict[str, Any]:
     methods: dict[str, dict[str, Any]] = {}
     windows: dict[str, dict[str, Any]] = {}
@@ -232,7 +339,7 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
                 "flags": health_label(row),
                 "result_json": row.get("result_json"),
             }
-            method_row.update(load_pair_diagnostics(row.get("result_json")))
+            method_row.update(load_result_diagnostics(row.get("result_json")))
             method_row["health_state"] = health_state(method_row)
             method_row["failure_awareness"] = failure_awareness(
                 expected, method_row["health_state"]
@@ -241,13 +348,15 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
             entry["methods"][method] = {
                 **method_row,
             }
+    sorted_windows = sorted(
+        windows.values(),
+        key=lambda row: (row["start"], row["end"], row["name"]),
+    )
+    add_cross_method_consistency(sorted_windows)
     return {
         "sequence": sequence,
         "methods": methods,
-        "windows": sorted(
-            windows.values(),
-            key=lambda row: (row["start"], row["end"], row["name"]),
-        ),
+        "windows": sorted_windows,
     }
 
 
@@ -367,6 +476,35 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.extend(
         [
             "",
+            "## Cross-Method Consistency",
+            "",
+            "| Sequence | Window | Method | Path m | Net m | Yaw deg | Healthy peers | Healthy median path m | Path/healthy | All median path m | Path/all | Probe |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for sequence in payload["sequences"]:
+        for window in sequence["windows"]:
+            for method in sorted(window["methods"], key=method_sort_key):
+                row = window["methods"][method]
+                if row["failure_awareness"] != "stress_unflagged":
+                    continue
+                lines.append(
+                    f"| `{sequence['sequence']}` | `{window['name']}` "
+                    f"{window['start']}-{window['end']} | `{method}` | "
+                    f"{fmt(row['trajectory_path_length_m'])} | "
+                    f"{fmt(row['trajectory_net_displacement_m'])} | "
+                    f"{fmt(row['trajectory_yaw_change_abs_deg'])} | "
+                    f"{row['healthy_peer_count']} | "
+                    f"{fmt(row['healthy_path_median_m'])} | "
+                    f"{fmt(row['path_vs_healthy_median'])} | "
+                    f"{fmt(row['all_method_path_median_m'])} | "
+                    f"{fmt(row['path_vs_all_median'])} | "
+                    f"{row['cross_method_probe']} |"
+                )
+
+    lines.extend(
+        [
+            "",
             "## Window Detail",
             "",
             "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Failure awareness | Keyframes | Flags |",
@@ -397,6 +535,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "- `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.",
             "- Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.",
             "- Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.",
+            "- Cross-method consistency compares GT-free trajectory shape against healthy-peer and all-method path medians to expose externally healthy but isolated estimates.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",
             "- CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.",
             "",

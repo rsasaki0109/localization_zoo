@@ -42,6 +42,22 @@
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | 1.000 | 0.591 | 5268.0 | 0.931 | best_score:2, motion_margin:27 | motion_margin_dominant, needs_gt_or_cross_method_check |
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `kiss_keyframe` | 1.000 | 0.707 | 2957.0 | n/a | n/a | needs_gt_or_cross_method_check |
 
+## Cross-Method Consistency
+
+| Sequence | Window | Method | Path m | Net m | Yaw deg | Healthy peers | Healthy median path m | Path/healthy | All median path m | Path/all | Probe |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| `fog_200` | `point_count_tail` 115-144 | `intensity_bev` | 11.516 | 4.054 | 22.000 | 0 | 11.516 | 1.000 | 1.520 | 7.575 | no_healthy_peer, path_disagrees_with_all_method_median |
+| `fog_200` | `degraded` 170-199 | `intensity_bev` | 8.281 | 6.127 | 46.500 | 0 | 8.281 | 1.000 | 1.362 | 6.081 | no_healthy_peer, path_disagrees_with_all_method_median |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `geometry_icp` | 1.867 | 0.123 | 2.392 | 2 | 1.867 | 1.000 | 3.651 | 0.511 | none |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `intensity_bev` | 9.875 | 9.213 | 7.500 | 2 | 1.867 | 5.290 | 3.651 | 2.705 | path_disagrees_with_healthy_median |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `kiss_keyframe` | 1.072 | 0.398 | 0.072 | 2 | 1.867 | 0.574 | 3.651 | 0.294 | path_disagrees_with_all_method_median |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_icp` | 1.766 | 0.596 | 2.385 | 2 | 1.766 | 1.000 | 3.716 | 0.475 | none |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `intensity_bev` | 12.642 | 11.841 | 25.500 | 2 | 1.766 | 7.157 | 3.716 | 3.402 | path_disagrees_with_healthy_median, path_disagrees_with_all_method_median |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `kiss_keyframe` | 1.259 | 0.098 | 0.664 | 2 | 1.766 | 0.713 | 3.716 | 0.339 | none |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `geometry_icp` | 1.178 | 0.311 | 1.798 | 2 | 1.582 | 0.744 | 2.878 | 0.409 | none |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | 7.561 | 1.024 | 4.000 | 2 | 1.582 | 4.778 | 2.878 | 2.627 | path_disagrees_with_healthy_median |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `kiss_keyframe` | 1.582 | 1.005 | 1.184 | 2 | 1.582 | 1.000 | 2.878 | 0.550 | none |
+
 ## Window Detail
 
 | Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Failure awareness | Keyframes | Flags |
@@ -81,5 +97,6 @@
 - `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.
 - Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.
 - Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.
+- Cross-method consistency compares GT-free trajectory shape against healthy-peer and all-method path medians to expose externally healthy but isolated estimates.
 - `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.
 - CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.

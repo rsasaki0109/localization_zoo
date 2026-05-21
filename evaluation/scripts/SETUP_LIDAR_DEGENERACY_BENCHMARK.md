@@ -119,6 +119,22 @@ default for LiDAR frame timestamps, because the packet bag time and IMU header
 time are offset. This keeps `frame_timestamps.csv` on the same clock as
 `/vectornav_node/uncomp_imu`.
 
+The same direct extraction path applies to `tunnel.bag`:
+
+```bash
+python3 evaluation/scripts/extract_ouster_packet_lidar_imu.py \
+  --bag data/lidar_degeneracy_datasets/tunnel.bag \
+  --output-dir dogfooding_results/lidar_degeneracy_tunnel_200 \
+  --max-frames 200 \
+  --skip-incomplete
+
+python3 evaluation/scripts/analyze_lidar_degeneracy_sequence.py \
+  dogfooding_results/lidar_degeneracy_tunnel_200 \
+  experiments/results/lidar_degeneracy/tunnel_200 \
+  --max-frames 200 \
+  --sample-points 20000
+```
+
 Alternatively, replay the bag through the Ouster driver referenced by the
 upstream README to produce a PointCloud2 topic. Then run the existing extractor
 on that converted bag:
@@ -183,6 +199,14 @@ Observed `fog.bag` inspection:
 - A GT-free geometry ICP health smoke shows the selected degradation matters:
   baseline window accepted 65.5% of frame pairs, point-count tail accepted
   13.8%, and the strongest fog window accepted 0%.
+- `tunnel_200` direct extraction produced 200 complete LiDAR frames with a mean
+  of 44.2k valid points/frame. Its scattering mean is 0.095, much lower than
+  `fog_200` at 0.198, which captures the tunnel's lower 3D structural richness.
+  In the first 200 frames, however, the geometry ICP health smoke accepted 100%
+  of frame pairs across baseline, obscurant, point-count, intensity, and
+  geometry-degeneracy windows. Treat this as a negative first-window result:
+  tunnel geometry is visibly structured differently, but this short slice does
+  not yet break the lightweight local odometry baseline.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

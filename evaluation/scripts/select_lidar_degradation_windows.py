@@ -19,6 +19,7 @@ class FrameDiag:
     intensity_mean: float
     intensity_std: float
     range_p95_m: float
+    scattering: float
     degeneracy_score: float
 
 
@@ -48,6 +49,7 @@ def load_frames(path: Path) -> list[FrameDiag]:
                     intensity_mean=float(row["intensity_mean"]),
                     intensity_std=float(row["intensity_std"]),
                     range_p95_m=float(row["range_p95_m"]),
+                    scattering=float(row["scattering"]),
                     degeneracy_score=float(row["degeneracy_score"]),
                 )
             )
@@ -87,10 +89,12 @@ def window_stats(frames: list[FrameDiag], start: int, size: int, baseline: dict[
     intensity_std = [row.intensity_std for row in chunk]
     range_p95 = [row.range_p95_m for row in chunk]
     degeneracy = [row.degeneracy_score for row in chunk]
+    scattering = [row.scattering for row in chunk]
     point_drop = 1.0 - mean(points) / baseline["points"]
     intensity_drop = 1.0 - mean(intensity) / baseline["intensity_mean"]
     range_drop = 1.0 - mean(range_p95) / baseline["range_p95_m"]
     obscurant_score = max(0.0, point_drop) + max(0.0, intensity_drop) + 0.5 * max(0.0, range_drop)
+    geometry_score = mean(degeneracy) + max(0.0, 0.20 - mean(scattering))
     return {
         "start": chunk[0].frame,
         "end": chunk[-1].frame,
@@ -102,6 +106,8 @@ def window_stats(frames: list[FrameDiag], start: int, size: int, baseline: dict[
         "range_p95_mean_m": mean(range_p95),
         "degeneracy_score_mean": mean(degeneracy),
         "degeneracy_score_p95": percentile(degeneracy, 0.95),
+        "scattering_mean": mean(scattering),
+        "geometry_score": geometry_score,
         "point_drop_vs_baseline": point_drop,
         "intensity_drop_vs_baseline": intensity_drop,
         "range_p95_drop_vs_baseline": range_drop,
@@ -117,7 +123,7 @@ def choose_windows(windows: list[dict[str, float | int]]) -> dict[str, dict[str,
         "degraded": max(windows, key=lambda item: float(item["obscurant_score"])),
         "point_count_tail": min(windows, key=lambda item: float(item["points_mean"])),
         "intensity_tail": min(windows, key=lambda item: float(item["intensity_mean"])),
-        "geometry_degeneracy": max(windows, key=lambda item: float(item["degeneracy_score_p95"])),
+        "geometry_degeneracy": max(windows, key=lambda item: float(item["geometry_score"])),
     }
 
 
@@ -127,14 +133,15 @@ def write_markdown(path: Path, selected: dict[str, dict[str, float | int]], top_
         "",
         "Selected windows:",
         "",
-        "| Name | Start | End | Points mean | Intensity mean | Degeneracy p95 | Obscurant score |",
-        "|---|---:|---:|---:|---:|---:|---:|",
+        "| Name | Start | End | Points mean | Intensity mean | Degeneracy p95 | Scattering mean | Obscurant | Geometry |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for name, row in selected.items():
         lines.append(
             f"| `{name}` | {row['start']} | {row['end']} | "
             f"{float(row['points_mean']):.1f} | {float(row['intensity_mean']):.1f} | "
-            f"{float(row['degeneracy_score_p95']):.3f} | {float(row['obscurant_score']):.3f} |"
+            f"{float(row['degeneracy_score_p95']):.3f} | {float(row['scattering_mean']):.3f} | "
+            f"{float(row['obscurant_score']):.3f} | {float(row['geometry_score']):.3f} |"
         )
     lines.extend(
         [

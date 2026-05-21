@@ -38,6 +38,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--sequence-pcd-dir", required=True, type=Path)
     p.add_argument("--gt-csv", type=Path)
     p.add_argument("--output-json", required=True, type=Path)
+    p.add_argument("--start-frame", type=int, default=0)
     p.add_argument("--max-frames", type=int, default=60)
     p.add_argument("--min-range", type=float, default=2.0)
     p.add_argument("--max-range", type=float, default=70.0)
@@ -159,7 +160,8 @@ def main() -> int:
 
     scans: list[np.ndarray] = []
     pcd_paths: list[Path] = []
-    for i in range(args.max_frames):
+    end_frame = args.start_frame + args.max_frames
+    for i in range(args.start_frame, end_frame):
         pcd_path = args.sequence_pcd_dir / f"{i:08d}" / "cloud.pcd"
         if not pcd_path.is_file():
             break

@@ -366,12 +366,21 @@ Observed `fog.bag` inspection:
   and notes such as `motion_margin_dominant` or `overlap_tail`. This turns
   externally healthy stress windows into an explicit follow-up queue for GT or
   cross-method validation.
+- The intensity BEV health runner now promotes two GT-free false-confidence
+  probes into health flags on non-baseline selected windows: a dominant
+  motion-margin decision rate (default >=0.5) and a sharp overlap tail
+  (min/mean overlap <0.5). With the current settings, `fog_200`
+  `point_count_tail` is `suspicious` because both probes fire, and
+  `tunnel_geom_2700_200` `degraded` is `suspicious` because motion-margin
+  decisions dominate. Baseline windows stay `ok`.
 - Cross-method consistency is also reported for `stress_unflagged` rows. It
   compares each GT-free trajectory path length against healthy-peer and
-  all-method path medians. In the current tunnel stress windows, intensity BEV
-  remains accepted but travels 4.8-7.2x farther than the healthy-peer median,
-  so these windows should be treated as likely false-confidence cases until
-  checked against GT or a stronger reference.
+  all-method path medians. The remaining intensity-BEV stress-unflagged rows
+  are still suspicious by this comparison layer: `fog_200` `degraded` travels
+  6.1x farther than the all-method median, and the tunnel `point_count_tail`
+  / `geometry_degeneracy` windows travel 5.3-7.2x farther than the healthy-peer
+  median. Treat these as likely false-confidence cases until checked against GT
+  or a stronger reference.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

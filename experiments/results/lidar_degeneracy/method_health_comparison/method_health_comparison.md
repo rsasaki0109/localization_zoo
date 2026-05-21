@@ -26,6 +26,22 @@
 | `tunnel_geom_2700_200` | `kiss_keyframe` | 3 | 0 | 3 | 0 |
 | `tunnel_geom_2700_200` | `ct_icp` | 3 | 3 | 0 | 1 |
 
+## Confidence Probes
+
+| Sequence | Window | Method | Accepted | Score min | Overlap min | Motion-margin rate | Decision reasons | Probe |
+| --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
+| `fog_200` | `point_count_tail` 115-144 | `intensity_bev` | 0.931 | 0.687 | 1209.0 | 0.517 | best_score:14, motion_margin:15 | motion_margin_dominant, overlap_tail, needs_gt_or_cross_method_check |
+| `fog_200` | `degraded` 170-199 | `intensity_bev` | 1.000 | 0.751 | 3565.0 | 0.138 | best_score:25, motion_margin:4 | needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `geometry_icp` | 1.000 | 0.694 | 495.0 | n/a | n/a | needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `intensity_bev` | 1.000 | 0.496 | 4338.0 | 0.483 | best_score:15, motion_margin:14 | needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `kiss_keyframe` | 1.000 | 0.718 | 2554.0 | n/a | n/a | needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_icp` | 1.000 | 0.694 | 512.0 | n/a | n/a | needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `intensity_bev` | 1.000 | 0.496 | 4338.0 | 0.207 | best_score:23, motion_margin:6 | needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `kiss_keyframe` | 1.000 | 0.718 | 2628.0 | n/a | n/a | needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `geometry_icp` | 1.000 | 0.697 | 607.0 | n/a | n/a | needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | 1.000 | 0.591 | 5268.0 | 0.931 | best_score:2, motion_margin:27 | motion_margin_dominant, needs_gt_or_cross_method_check |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `kiss_keyframe` | 1.000 | 0.707 | 2957.0 | n/a | n/a | needs_gt_or_cross_method_check |
+
 ## Window Detail
 
 | Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Failure awareness | Keyframes | Flags |
@@ -64,5 +80,6 @@
 - `fog_200`: intensity BEV keeps 93.1-100% acceptance on selected windows after zero-motion score-margin preference, including the strongest fog slice.
 - `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.
 - Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.
+- Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.
 - `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.
 - CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.

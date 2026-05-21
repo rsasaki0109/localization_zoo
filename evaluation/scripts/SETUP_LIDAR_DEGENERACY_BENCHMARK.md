@@ -135,6 +135,34 @@ python3 evaluation/scripts/analyze_lidar_degeneracy_sequence.py \
   --sample-points 20000
 ```
 
+For full-bag tunnel scouting without exporting every scan, use `--frame-stride`:
+
+```bash
+python3 evaluation/scripts/extract_ouster_packet_lidar_imu.py \
+  --bag data/lidar_degeneracy_datasets/tunnel.bag \
+  --output-dir dogfooding_results/lidar_degeneracy_tunnel_stride5 \
+  --max-frames -1 \
+  --frame-stride 5 \
+  --skip-incomplete
+
+python3 evaluation/scripts/analyze_lidar_degeneracy_sequence.py \
+  dogfooding_results/lidar_degeneracy_tunnel_stride5 \
+  experiments/results/lidar_degeneracy/tunnel_stride5 \
+  --sample-points 20000
+```
+
+The stride-5 scan found the strongest linearity near source scan index 2795, so
+a high-density follow-up window starts at 2700:
+
+```bash
+python3 evaluation/scripts/extract_ouster_packet_lidar_imu.py \
+  --bag data/lidar_degeneracy_datasets/tunnel.bag \
+  --output-dir dogfooding_results/lidar_degeneracy_tunnel_geom_2700_200 \
+  --start-frame 2700 \
+  --max-frames 200 \
+  --skip-incomplete
+```
+
 Alternatively, replay the bag through the Ouster driver referenced by the
 upstream README to produce a PointCloud2 topic. Then run the existing extractor
 on that converted bag:
@@ -207,6 +235,14 @@ Observed `fog.bag` inspection:
   geometry-degeneracy windows. Treat this as a negative first-window result:
   tunnel geometry is visibly structured differently, but this short slice does
   not yet break the lightweight local odometry baseline.
+- `tunnel_stride5` covers the full bag at 5-frame stride and raises the
+  degeneracy_score p95 to 0.755, with max 0.773 near source scan index 2795.
+  The dense follow-up `tunnel_geom_2700_200` raises degeneracy_score mean/p95 to
+  0.719/0.769, but the geometry ICP health smoke still accepts 100% of selected
+  windows. This is a stronger negative result: local 2D ICP remains healthy on
+  the sampled tunnel geometry windows, so tunnel should next be tested with
+  KISS/CT-ICP or map-localization failure modes rather than this lightweight
+  pairwise ICP alone.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

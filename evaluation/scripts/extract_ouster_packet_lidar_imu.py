@@ -54,6 +54,12 @@ def parse_args() -> argparse.Namespace:
         help="First decoded LiDAR scan index to export after optional incomplete-frame filtering.",
     )
     parser.add_argument(
+        "--frame-stride",
+        type=int,
+        default=1,
+        help="Export every Nth decoded LiDAR scan after --start-frame. Useful for full-bag scouting.",
+    )
+    parser.add_argument(
         "--max-frames",
         type=int,
         default=200,
@@ -146,6 +152,7 @@ def export_lidar(
     bag_path: Path,
     output_dir: Path,
     start_frame: int,
+    frame_stride: int,
     max_frames: int,
     skip_incomplete: bool,
     soft_id_check: bool,
@@ -164,15 +171,20 @@ def export_lidar(
     timestamps_path = output_dir / "frame_timestamps.csv"
     written = 0
     considered = 0
+    if frame_stride <= 0:
+        raise ValueError("frame_stride must be positive")
 
     with timestamps_path.open("w", newline="") as csv_file:
         writer = csv.writer(csv_file)
-        writer.writerow(["frame_idx", "timestamp", "points", "source_frame_id", "complete"])
+        writer.writerow(["frame_idx", "timestamp", "points", "source_frame_id", "complete", "source_scan_index"])
         for scan_set in source:
             scan = scan_set[0]
             if skip_incomplete and not scan.complete():
                 continue
             if considered < start_frame:
+                considered += 1
+                continue
+            if (considered - start_frame) % frame_stride != 0:
                 considered += 1
                 continue
             if max_frames >= 0 and written >= max_frames:
@@ -189,6 +201,7 @@ def export_lidar(
                     len(points),
                     int(scan.frame_id),
                     bool(scan.complete()),
+                    int(considered),
                 ]
             )
             written += 1
@@ -273,6 +286,7 @@ def main() -> int:
         bag_path=bag_path,
         output_dir=output_dir,
         start_frame=args.start_frame,
+        frame_stride=args.frame_stride,
         max_frames=args.max_frames,
         skip_incomplete=args.skip_incomplete,
         soft_id_check=args.soft_id_check,

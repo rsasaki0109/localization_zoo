@@ -355,6 +355,12 @@ Observed `fog.bag` inspection:
   intensity BEV averages 97.7%, KISS keyframe averages 0.0%, and CT-ICP averages
   88.5%; on `tunnel_geom_2700_200`, all four methods remain at 100% acceptance
   across the selected short windows.
+- The comparison now includes a GT-free failure-awareness layer. Selected
+  windows are labeled as nominal or stress, each method row is mapped to
+  `ok`/`suspicious`/`degraded`/`failed`, and the aggregate table reports
+  `stress_flagged`, `stress_unflagged`, and `false_alarms`. Because this layer
+  has no ground truth, `stress_unflagged` means the method stayed externally
+  healthy on a stress window; it does not prove the estimate is correct.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

@@ -79,6 +79,52 @@ def method_sort_key(method: str) -> tuple[int, str]:
     return (order.get(method, 99), method)
 
 
+def expected_stress(sequence: str, window_name: str, obscurant_score: float) -> str:
+    if window_name == "baseline":
+        return "nominal"
+    if "fog" in sequence and obscurant_score >= 0.5:
+        return "obscurant_stress"
+    if "point_count" in window_name:
+        return "point_count_stress"
+    if "geometry" in window_name:
+        return "geometry_stress"
+    if obscurant_score >= 0.2:
+        return "degradation_stress"
+    return "stress"
+
+
+def is_stress_label(label: str) -> bool:
+    return label != "nominal"
+
+
+def health_state(row: dict[str, Any]) -> str:
+    accepted = float(row.get("accepted_rate") or 0.0)
+    converged = row.get("converged_rate")
+    converged_value = None if converged is None else float(converged)
+    flags = row.get("flags", "ok")
+    if "nonfinite_pose" in flags or "all_pairs_failed" in flags or accepted < 0.5:
+        return "failed"
+    if "low_used_path" in flags or accepted < 0.9:
+        return "suspicious"
+    if "low_convergence" in flags or (
+        converged_value is not None and converged_value < 0.5
+    ):
+        return "degraded"
+    return "ok"
+
+
+def failure_awareness(expected: str, state: str) -> str:
+    stress = is_stress_label(expected)
+    abnormal = state != "ok"
+    if stress and abnormal:
+        return "stress_flagged"
+    if stress and not abnormal:
+        return "stress_unflagged"
+    if not stress and abnormal:
+        return "false_alarm"
+    return "nominal_ok"
+
+
 def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict[str, Any]:
     methods: dict[str, dict[str, Any]] = {}
     windows: dict[str, dict[str, Any]] = {}
@@ -104,7 +150,13 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
                     "methods": {},
                 },
             )
-            entry["methods"][method] = {
+            expected = expected_stress(
+                sequence,
+                row["name"],
+                float(row["window"].get("obscurant_score", 0.0)),
+            )
+            entry["expected_stress"] = expected
+            method_row = {
                 "accepted_rate": row.get("accepted_rate"),
                 "converged_rate": row.get("converged_rate"),
                 "score_mean": row.get("score_mean"),
@@ -114,6 +166,13 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
                 "keyframes": keyframe_text(row),
                 "flags": health_label(row),
                 "result_json": row.get("result_json"),
+            }
+            method_row["health_state"] = health_state(method_row)
+            method_row["failure_awareness"] = failure_awareness(
+                expected, method_row["health_state"]
+            )
+            entry["methods"][method] = {
+                **method_row,
             }
     return {
         "sequence": sequence,
@@ -137,6 +196,10 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                     "mean_convergence": 0.0,
                     "failed_windows": 0,
                     "risk_windows": 0,
+                    "stress_windows": 0,
+                    "stress_flagged": 0,
+                    "stress_unflagged": 0,
+                    "false_alarms": 0,
                     "min_acceptance": 1.0,
                     "max_used_path_length_m": 0.0,
                 },
@@ -149,6 +212,16 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
             stats["mean_convergence"] += converged_value
             stats["failed_windows"] += 1 if accepted < 0.5 else 0
             stats["risk_windows"] += 1 if row.get("flags") != "ok" else 0
+            expected = window["expected_stress"]
+            awareness = row.get("failure_awareness")
+            if is_stress_label(expected):
+                stats["stress_windows"] += 1
+            if awareness == "stress_flagged":
+                stats["stress_flagged"] += 1
+            elif awareness == "stress_unflagged":
+                stats["stress_unflagged"] += 1
+            elif awareness == "false_alarm":
+                stats["false_alarms"] += 1
             stats["min_acceptance"] = min(stats["min_acceptance"], accepted)
             stats["max_used_path_length_m"] = max(
                 stats["max_used_path_length_m"],
@@ -184,10 +257,29 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.extend(
         [
             "",
+            "## Failure Awareness",
+            "",
+            "| Sequence | Method | Stress windows | Stress flagged | Stress unflagged | False alarms |",
+            "| --- | --- | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for sequence in payload["sequences"]:
+        aggregates = payload["aggregates"][sequence["sequence"]]
+        for method in sorted(aggregates, key=method_sort_key):
+            row = aggregates[method]
+            lines.append(
+                f"| `{sequence['sequence']}` | `{method}` | "
+                f"{row['stress_windows']} | {row['stress_flagged']} | "
+                f"{row['stress_unflagged']} | {row['false_alarms']} |"
+            )
+
+    lines.extend(
+        [
+            "",
             "## Window Detail",
             "",
-            "| Sequence | Window | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | Keyframes | Flags |",
-            "| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
+            "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Failure awareness | Keyframes | Flags |",
+            "| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |",
         ]
     )
     for sequence in payload["sequences"]:
@@ -196,11 +288,12 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 row = window["methods"][method]
                 lines.append(
                     f"| `{sequence['sequence']}` | `{window['name']}` "
-                    f"{window['start']}-{window['end']} | {window['frames']} | "
-                    f"{fmt(window['obscurant_score'])} | `{method}` | "
+                    f"{window['start']}-{window['end']} | `{window['expected_stress']}` | "
+                    f"{window['frames']} | {fmt(window['obscurant_score'])} | `{method}` | "
                     f"{fmt(row['accepted_rate'])} | {fmt(row['converged_rate'])} | "
                     f"{fmt(row['score_mean'])} | {fmt(row['overlap_mean'], 1)} | "
                     f"{fmt(row['used_path_length_m'])} | {fmt(row['used_step_max_m'])} | "
+                    f"`{row['health_state']}` | `{row['failure_awareness']}` | "
                     f"{row['keyframes']} | {row['flags']} |"
                 )
 
@@ -211,6 +304,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "- `fog_200`: intensity BEV keeps 93.1-100% acceptance on selected windows after zero-motion score-margin preference, including the strongest fog slice.",
             "- `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.",
+            "- Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",
             "- CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.",
             "",

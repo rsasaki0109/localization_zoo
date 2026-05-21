@@ -2,16 +2,16 @@
 
 ## Method Aggregate
 
-| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Max used path m |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `fog_200` | `geometry_icp` | 3 | 0.264 | 0.000 | 0.264 | 2 | 1.276 |
-| `fog_200` | `intensity_bev` | 3 | 1.000 | 1.000 | 1.000 | 0 | 6.927 |
-| `fog_200` | `kiss_keyframe` | 3 | 0.000 | 0.000 | 0.000 | 3 | 0.000 |
-| `fog_200` | `ct_icp` | 3 | 0.885 | 0.655 | 0.046 | 0 | 2.703 |
-| `tunnel_geom_2700_200` | `geometry_icp` | 4 | 1.000 | 1.000 | 1.000 | 0 | 1.867 |
-| `tunnel_geom_2700_200` | `intensity_bev` | 4 | 1.000 | 1.000 | 1.000 | 0 | 10.522 |
-| `tunnel_geom_2700_200` | `kiss_keyframe` | 4 | 1.000 | 1.000 | 1.000 | 0 | 1.186 |
-| `tunnel_geom_2700_200` | `ct_icp` | 4 | 1.000 | 1.000 | 0.147 | 0 | 5.676 |
+| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Risk windows | Max used path m |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `fog_200` | `geometry_icp` | 3 | 0.264 | 0.000 | 0.264 | 2 | 2 | 1.276 |
+| `fog_200` | `intensity_bev` | 3 | 1.000 | 1.000 | 1.000 | 0 | 1 | 6.927 |
+| `fog_200` | `kiss_keyframe` | 3 | 0.000 | 0.000 | 0.000 | 3 | 3 | 0.000 |
+| `fog_200` | `ct_icp` | 3 | 0.885 | 0.655 | 0.046 | 0 | 3 | 2.703 |
+| `tunnel_geom_2700_200` | `geometry_icp` | 4 | 1.000 | 1.000 | 1.000 | 0 | 0 | 1.867 |
+| `tunnel_geom_2700_200` | `intensity_bev` | 4 | 1.000 | 1.000 | 1.000 | 0 | 0 | 10.522 |
+| `tunnel_geom_2700_200` | `kiss_keyframe` | 4 | 1.000 | 1.000 | 1.000 | 0 | 0 | 1.186 |
+| `tunnel_geom_2700_200` | `ct_icp` | 4 | 1.000 | 1.000 | 0.147 | 0 | 4 | 5.676 |
 
 ## Window Detail
 

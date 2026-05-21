@@ -16,6 +16,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GEOMETRY_ICP = REPO_ROOT / "evaluation" / "scripts" / "geometry_icp_odometry_demo.py"
+KISS_KEYFRAME = REPO_ROOT / "build" / "evaluation" / "kiss_keyframe_odometry"
 
 
 def parse_args() -> argparse.Namespace:
@@ -27,7 +28,8 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="Override PCD directory. Defaults to source_pcd_dir in degradation_windows_json.",
     )
-    parser.add_argument("--method", choices=["geometry_icp"], default="geometry_icp")
+    parser.add_argument("--method", choices=["geometry_icp", "kiss_keyframe"], default="geometry_icp")
+    parser.add_argument("--kiss-binary", type=Path, default=KISS_KEYFRAME)
     parser.add_argument("--max-points", type=int, default=5000)
     parser.add_argument("--voxel-size", type=float, default=0.75)
     parser.add_argument("--min-range", type=float, default=0.2)
@@ -36,6 +38,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--z-max", type=float, default=5.0)
     parser.add_argument("--max-step-translation", type=float, default=2.0)
     parser.add_argument("--max-step-yaw-deg", type=float, default=20.0)
+    parser.add_argument("--keyframe-interval", type=int, default=10)
+    parser.add_argument("--max-keyframe-correction", type=float, default=1.0)
+    parser.add_argument("--max-keyframe-yaw-deg", type=float, default=5.0)
+    parser.add_argument("--max-keyframe-rmse", type=float, default=2.0)
+    parser.add_argument("--min-keyframe-correspondences", type=int, default=1000)
+    parser.add_argument("--kiss-min-correspondences", type=int, default=1000)
     parser.add_argument("--progress-every", type=int, default=0)
     return parser.parse_args()
 
@@ -94,6 +102,49 @@ def run_geometry_icp(args: argparse.Namespace, sequence_pcd_dir: Path, name: str
     return result_path
 
 
+def run_kiss_keyframe(
+    args: argparse.Namespace,
+    sequence_pcd_dir: Path,
+    name: str,
+    row: dict[str, Any],
+    output_dir: Path,
+) -> Path:
+    result_path = (
+        output_dir
+        / "results"
+        / f"{name}_{int(row['start']):04d}_{int(row['end']):04d}_kiss_keyframe.json"
+    )
+    result_path.parent.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        str(args.kiss_binary),
+        str(sequence_pcd_dir),
+        "-",
+        str(result_path),
+        str(int(row["frames"])),
+        "--start-frame",
+        str(int(row["start"])),
+        "--keyframe-interval",
+        str(args.keyframe_interval),
+        "--max-step-translation",
+        str(args.max_step_translation),
+        "--max-step-yaw-deg",
+        str(args.max_step_yaw_deg),
+        "--max-keyframe-correction",
+        str(args.max_keyframe_correction),
+        "--max-keyframe-yaw-deg",
+        str(args.max_keyframe_yaw_deg),
+        "--max-keyframe-rmse",
+        str(args.max_keyframe_rmse),
+        "--min-keyframe-correspondences",
+        str(args.min_keyframe_correspondences),
+        "--min-correspondences",
+        str(args.kiss_min_correspondences),
+    ]
+    print("[run] " + " ".join(cmd))
+    subprocess.run(cmd, cwd=REPO_ROOT, check=True)
+    return result_path
+
+
 def finite(values: list[float]) -> list[float]:
     return [value for value in values if math.isfinite(value)]
 
@@ -119,6 +170,7 @@ def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> di
     poses = payload.get("poses_xyyaw", [])
     pair_count = len(pairs)
     accepted = [bool(pair.get("accepted")) for pair in pairs]
+    converged = [bool(pair.get("converged")) for pair in pairs]
     scores = [float(pair.get("score", float("nan"))) for pair in pairs]
     valid_scores = [score for score in scores if score >= 0.0 and math.isfinite(score)]
     overlaps = [float(pair.get("overlap", 0.0)) for pair in pairs]
@@ -142,9 +194,11 @@ def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> di
         "result_json": str(result_path),
         "frames": int(payload["frames"]),
         "pairs": pair_count,
-        "runtime_s": float(payload["runtime_s"]),
+        "runtime_s": float(payload["runtime_s"]) if payload.get("runtime_s") is not None else None,
         "accepted_pairs": int(sum(accepted)),
         "accepted_rate": float(sum(accepted) / pair_count) if pair_count else 0.0,
+        "converged_pairs": int(sum(converged)),
+        "converged_rate": float(sum(converged) / pair_count) if pair_count else 0.0,
         "failed_pairs": int(pair_count - sum(accepted)),
         "score_mean": safe_mean(valid_scores),
         "score_min": safe_min(valid_scores),
@@ -155,9 +209,16 @@ def summarize_result(name: str, window: dict[str, Any], result_path: Path) -> di
         "used_step_max_m": safe_max(used_steps),
         "used_abs_yaw_max_deg": safe_max(yaws),
         "nonfinite_pose_count": int(nonfinite_pose_count),
+        "keyframe_attempted": int(
+            sum(1 for pair in pairs if pair.get("keyframe_attempted"))
+        ),
+        "keyframe_accepted": int(
+            sum(1 for pair in pairs if pair.get("keyframe_accepted"))
+        ),
         "health_flags": {
             "all_pairs_failed": sum(accepted) == 0 and pair_count > 0,
             "low_acceptance": (sum(accepted) / pair_count) < 0.5 if pair_count else True,
+            "low_convergence": (sum(converged) / pair_count) < 0.5 if pair_count else True,
             "nonfinite_pose": nonfinite_pose_count > 0,
         },
     }
@@ -167,26 +228,24 @@ def write_markdown(path: Path, rows: list[dict[str, Any]]) -> None:
     lines = [
         "# LiDAR Degradation Odometry Health",
         "",
-        "| Window | Frames | Obscurant | Accepted | Score mean | Overlap mean | Used path m | Flags |",
-        "|---|---:|---:|---:|---:|---:|---:|---|",
+        "| Window | Frames | Obscurant | Accepted | Converged | Score mean | Overlap mean | Used path m | Keyframes | Flags |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---|",
     ]
     for row in rows:
         flags = [name for name, value in row["health_flags"].items() if value]
         score_mean = row["score_mean"]
         overlap_mean = row["overlap_mean"]
+        score_text = f"{score_mean:.3f}" if score_mean is not None else "n/a"
+        overlap_text = f"{overlap_mean:.1f}" if overlap_mean is not None else "n/a"
         lines.append(
             f"| `{row['name']}` {row['window']['start']}-{row['window']['end']} | "
             f"{row['frames']} | {float(row['window']['obscurant_score']):.3f} | "
-            f"{row['accepted_rate']:.3f} | "
-            f"{score_mean:.3f} | " if score_mean is not None else
-            f"| `{row['name']}` {row['window']['start']}-{row['window']['end']} | "
-            f"{row['frames']} | {float(row['window']['obscurant_score']):.3f} | "
-            f"{row['accepted_rate']:.3f} | n/a | "
+            f"{row['accepted_rate']:.3f} | {row['converged_rate']:.3f} | "
+            f"{score_text} | {overlap_text} | "
+            f"{row['used_path_length_m']:.3f} | "
+            f"{row['keyframe_accepted']}/{row['keyframe_attempted']} | "
+            f"{', '.join(flags) if flags else 'ok'} |"
         )
-        lines[-1] += (
-            f"{overlap_mean:.1f} | " if overlap_mean is not None else "n/a | "
-        )
-        lines[-1] += f"{row['used_path_length_m']:.3f} | {', '.join(flags) if flags else 'ok'} |"
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -198,7 +257,12 @@ def main() -> int:
 
     rows: list[dict[str, Any]] = []
     for name, row in unique_selected_windows(windows_payload["selected"]):
-        result_path = run_geometry_icp(args, sequence_pcd_dir, name, row, args.output_dir)
+        if args.method == "geometry_icp":
+            result_path = run_geometry_icp(args, sequence_pcd_dir, name, row, args.output_dir)
+        elif args.method == "kiss_keyframe":
+            result_path = run_kiss_keyframe(args, sequence_pcd_dir, name, row, args.output_dir)
+        else:
+            raise ValueError(f"Unsupported method: {args.method}")
         rows.append(summarize_result(name, row, result_path))
 
     summary = {
@@ -214,6 +278,12 @@ def main() -> int:
             "z_max": args.z_max,
             "max_step_translation": args.max_step_translation,
             "max_step_yaw_deg": args.max_step_yaw_deg,
+            "keyframe_interval": args.keyframe_interval,
+            "max_keyframe_correction": args.max_keyframe_correction,
+            "max_keyframe_yaw_deg": args.max_keyframe_yaw_deg,
+            "max_keyframe_rmse": args.max_keyframe_rmse,
+            "min_keyframe_correspondences": args.min_keyframe_correspondences,
+            "kiss_min_correspondences": args.kiss_min_correspondences,
         },
         "windows": rows,
     }

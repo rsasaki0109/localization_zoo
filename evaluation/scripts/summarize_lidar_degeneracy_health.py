@@ -15,6 +15,7 @@ DEFAULT_INPUTS = (
         "fog_200",
         (
             ("geometry_icp", "experiments/results/lidar_degeneracy/fog_200/odometry_health/odometry_health_summary.json"),
+            ("intensity_bev", "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/odometry_health_summary.json"),
             ("kiss_keyframe", "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/odometry_health_summary.json"),
             ("ct_icp", "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/odometry_health_summary.json"),
         ),
@@ -23,6 +24,7 @@ DEFAULT_INPUTS = (
         "tunnel_geom_2700_200",
         (
             ("geometry_icp", "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/odometry_health_summary.json"),
+            ("intensity_bev", "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/odometry_health_summary.json"),
             ("kiss_keyframe", "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/odometry_health_summary.json"),
             ("ct_icp", "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/odometry_health_summary.json"),
         ),
@@ -73,7 +75,7 @@ def keyframe_text(row: dict[str, Any]) -> str:
 
 
 def method_sort_key(method: str) -> tuple[int, str]:
-    order = {"geometry_icp": 0, "kiss_keyframe": 1, "ct_icp": 2}
+    order = {"geometry_icp": 0, "intensity_bev": 1, "kiss_keyframe": 2, "ct_icp": 3}
     return (order.get(method, 99), method)
 
 
@@ -205,8 +207,9 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Readout",
             "",
+            "- `fog_200`: intensity BEV keeps 100% acceptance on all selected windows, including the strongest fog slice, but the clear baseline is flagged as low-used-path and should be treated as a possible zero-motion false lock.",
             "- `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.",
-            "- `tunnel_geom_2700_200`: all three short-window odometry checks stay accepted, so this slice is not yet a local-odometry failure case.",
+            "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",
             "- CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.",
             "",
         ]

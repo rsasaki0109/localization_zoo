@@ -52,6 +52,7 @@ def parse_args() -> argparse.Namespace:
         help="Use fast for quick smoke sweeps; pyramid adds coarse-to-fine search.",
     )
     p.add_argument("--max-frames", type=int, default=60)
+    p.add_argument("--start-frame", type=int, default=0)
     p.add_argument("--min-range", type=float, default=2.0)
     p.add_argument("--max-range", type=float, default=70.0)
     p.add_argument("--z-min", type=float, default=-3.0)
@@ -404,8 +405,9 @@ def main() -> int:
 
     scans: list[Scan] = []
     pcd_paths: list[Path] = []
-    for i in range(args.max_frames):
-        pcd_path = args.sequence_pcd_dir / f"{i:08d}" / "cloud.pcd"
+    for offset in range(args.max_frames):
+        frame_index = args.start_frame + offset
+        pcd_path = args.sequence_pcd_dir / f"{frame_index:08d}" / "cloud.pcd"
         if not pcd_path.is_file():
             break
         scans.append(preprocess_scan(read_binary_pcd_xyz_intensity(pcd_path), args))

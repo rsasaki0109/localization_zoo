@@ -1,0 +1,75 @@
+{
+  "diagnostics": [
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_02_start0000_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_02_start0030_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_05_start0000_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_05_start0030_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_08_start0000_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_08_start0030_30.json"
+  ],
+  "method_names": [
+    "kiss",
+    "small_gicp"
+  ],
+  "feature_names": [
+    "bias",
+    "cubemap_score",
+    "geometry_score",
+    "log_overlap",
+    "motion_norm",
+    "abs_yaw_deg",
+    "shared_residual_score",
+    "shared_residual_rmse",
+    "shared_inlier_ratio",
+    "shared_stability_score",
+    "shared_stability_mean_delta",
+    "shared_stability_min_delta"
+  ],
+  "ridge": 0.001,
+  "feature_set": "shared_no_method",
+  "held_out_seq": "kitti_seq_02_start0030",
+  "full_model": {
+    "weights": [
+      -0.05556983978132274,
+      0.0,
+      0.00811645883337893,
+      -0.013111521492178247,
+      -0.0020118167015219252,
+      -0.006551539728237796,
+      0.0059717673270715055,
+      0.012275524838960642,
+      -0.01018875017387571,
+      0.028286838850906455,
+      -0.017575591917273516,
+      0.016738453317962587
+    ],
+    "feature_mean": [
+      0.0,
+      -1.0,
+      0.6555876758620692,
+      7.587555871331907,
+      0.7665781069547399,
+      0.25743633448275866,
+      0.8604375239075461,
+      0.2229923127584168,
+      0.9507264883826718,
+      0.15335912791042972,
+      0.015679144156565076,
+      0.003937352958846469
+    ],
+    "feature_scale": [
+      1.0,
+      1.0,
+      0.06667366999295458,
+      1.363751104178617,
+      0.4621091841725038,
+      0.5894291658574203,
+      0.013859167064230932,
+      0.014216406157404897,
+      0.009899311213026145,
+      0.052945681640361626,
+      0.004235132328114487,
+      0.007048594885147936
+    ]
+  }
+}

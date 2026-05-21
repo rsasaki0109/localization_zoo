@@ -1,0 +1,24 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 108
+GT poses: 108
+IMU samples: 0 (imu.csv not found)
+Timestamp source: sampled GT timestamps
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 98.9 m
+Running FixedMap-NDT...
+  source_voxel_size=0.8 max_source_points=2000 resolution=0.5 max_iterations=12 map_max_points=120000 map_stride=1 seed_source=gt
+  [FixedMap-NDT] 10/108 score=2.311 accepted=10/10  [FixedMap-NDT] 20/108 score=2.276 accepted=20/20  [FixedMap-NDT] 30/108 score=2.184 accepted=30/30  [FixedMap-NDT] 40/108 score=1.947 accepted=39/40  [FixedMap-NDT] 50/108 score=1.607 accepted=49/50  [FixedMap-NDT] 60/108 score=1.340 accepted=59/60  [FixedMap-NDT] 70/108 score=1.325 accepted=69/70  [FixedMap-NDT] 80/108 score=1.248 accepted=79/80  [FixedMap-NDT] 90/108 score=1.292 accepted=89/90  [FixedMap-NDT] 100/108 score=1.215 accepted=99/100
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Frames      Time [ms]      FPS
+---------------------------------------------------------------------------------------
+FixedMap-NDT+GT         ok          0.003       108         3072.2         35.2
+
+Notes:
+- FixedMap-NDT+GT: Fixed-map NDT: target map built once from GT/reference poses (stride=1, map_points=120000). Seed source=gt, accepted=106/107, rejected=1, seed fallbacks=0.
+
+Results saved to dogfooding_results/

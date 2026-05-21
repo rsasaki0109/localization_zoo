@@ -1,0 +1,20 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_05_108",
+  "gt_csv": "experiments/reference_data/kitti_seq_05_108_gt.csv",
+  "num_frames": 108,
+  "trajectory_length_m": 98.914374,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "CT-ICP+NDT-KF",
+      "status": "ok",
+      "ate_m": 0.552665,
+      "rpe_trans_pct": 1.284727,
+      "rpe_rot_deg_per_m": 0.030337,
+      "frames": 108,
+      "time_ms": 10457.966675,
+      "fps": 10.327055,
+      "note": "Hybrid keyframe correction: CT-ICP no-GT odometry is the base trajectory; NDT T1 correction is attempted every 1 frames and accepted only when correction delta is <= 0.5m / 0.35rad. accepted=102/107, rejected=5, finite-prior fallbacks=0, CT-ICP prior ATE=0.583m. Runtime is CT-ICP+NDT combined."
+    }
+  ]
+}

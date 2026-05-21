@@ -1,0 +1,143 @@
+{
+  "diagnostics": [
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_02_30.json",
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_05_30.json",
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_08_30.json"
+  ],
+  "method_names": [
+    "kiss",
+    "small_gicp"
+  ],
+  "feature_names": [
+    "bias",
+    "cubemap_score",
+    "motion_norm",
+    "abs_yaw_deg"
+  ],
+  "ridge": 0.001,
+  "feature_set": "motion_cubemap",
+  "leave_one_sequence_out": [
+    {
+      "seq": "kitti_seq_02",
+      "selector_hits": 15,
+      "selector_total": 29,
+      "selected_counts": {
+        "small_gicp": 10,
+        "kiss": 19
+      },
+      "metrics": {
+        "ate_xy_m": 0.39692656156039674,
+        "step_length_rmse_m": 0.052292813888090844,
+        "step_length_rmse_pct_of_mean_step": 3.6135385082560334,
+        "gt_path_length_m": 41.96694180205441
+      },
+      "mean_margin": 0.006145347825115803,
+      "weights": [
+        -0.05310528131996244,
+        -0.004420293570860017,
+        0.001485073557828286,
+        -0.01134857267515148
+      ],
+      "feature_mean": [
+        0.0,
+        0.3745185200376077,
+        0.5915054270578539,
+        0.07669589655172412
+      ],
+      "feature_scale": [
+        1.0,
+        0.04177479909423502,
+        0.21334100355065905,
+        0.05292434984865747
+      ]
+    },
+    {
+      "seq": "kitti_seq_05",
+      "selector_hits": 17,
+      "selector_total": 29,
+      "selected_counts": {
+        "small_gicp": 13,
+        "kiss": 16
+      },
+      "metrics": {
+        "ate_xy_m": 0.47741995220851646,
+        "step_length_rmse_m": 0.03915039106571611,
+        "step_length_rmse_pct_of_mean_step": 5.655237226973604,
+        "gt_path_length_m": 20.076281424419662
+      },
+      "mean_margin": 0.004226155684095075,
+      "weights": [
+        -0.05938703280800186,
+        0.008751122874148053,
+        0.01451914627944401,
+        -0.007173751989236862
+      ],
+      "feature_mean": [
+        0.0,
+        0.3787468729284159,
+        0.9618584240624547,
+        0.07741071551724138
+      ],
+      "feature_scale": [
+        1.0,
+        0.037408294579871555,
+        0.517416978468281,
+        0.05423426231935161
+      ]
+    },
+    {
+      "seq": "kitti_seq_08",
+      "selector_hits": 18,
+      "selector_total": 29,
+      "selected_counts": {
+        "small_gicp": 14,
+        "kiss": 15
+      },
+      "metrics": {
+        "ate_xy_m": 0.6478146673182308,
+        "step_length_rmse_m": 0.07402741494576606,
+        "step_length_rmse_pct_of_mean_step": 17.330767725441387,
+        "gt_path_length_m": 12.387189462332607
+      },
+      "mean_margin": 0.008528540073924092,
+      "weights": [
+        -0.04140293800090807,
+        -0.0003476783016754266,
+        -0.0054106871965311455,
+        -0.01101251816946729
+      ],
+      "feature_mean": [
+        0.0,
+        0.35202042818283485,
+        1.0791365750559792,
+        0.05508668103448277
+      ],
+      "feature_scale": [
+        1.0,
+        0.030650567752954265,
+        0.3789803277291018,
+        0.03558575496250865
+      ]
+    }
+  ],
+  "full_model": {
+    "weights": [
+      -0.051298417376290775,
+      -0.003144644042300586,
+      0.0004068837734443281,
+      -0.011663389366559078
+    ],
+    "feature_mean": [
+      0.0,
+      0.3684286070496195,
+      0.8775001420587628,
+      0.06973109770114945
+    ],
+    "feature_scale": [
+      1.0,
+      0.03871586079368416,
+      0.44212643367850196,
+      0.049432215759954864
+    ]
+  }
+}

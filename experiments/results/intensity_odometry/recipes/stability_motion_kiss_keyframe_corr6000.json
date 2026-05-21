@@ -1,0 +1,27 @@
+{
+  "recipe_id": "stability_motion_kiss_keyframe_corr6000",
+  "local_motion_prior": {
+    "policy": "preferred_with_stability_motion_consistency",
+    "source": "selected_prior_stability_motion_0p0025",
+    "preferred_name": "small_gicp",
+    "score_margin": 0.0025,
+    "motion_consistency_margin": 0.04,
+    "motion_consistency_max_prev_step_m": 0.30
+  },
+  "keyframe_correction": {
+    "source": "kiss_keyframe_odometry",
+    "keyframe_interval": 10
+  },
+  "keyframe_correction_gate": {
+    "max_keyframe_correction_m": 0.5,
+    "max_keyframe_yaw_deg": 5.0,
+    "max_keyframe_rmse_m": 1.2,
+    "min_keyframe_correspondences": 6000
+  },
+  "validated_on": {
+    "benchmark": "experiments/results/intensity_odometry/window_benchmark_60",
+    "mean_ate_xy_m": 0.6053278197694033,
+    "max_ate_xy_m": 1.0586727442288806,
+    "regression_count_vs_stability_motion": 0
+  }
+}

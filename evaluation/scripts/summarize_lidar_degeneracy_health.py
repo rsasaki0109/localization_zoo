@@ -209,7 +209,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Readout",
             "",
-            "- `fog_200`: intensity BEV keeps 100% acceptance on all selected windows, including the strongest fog slice, but the clear baseline is flagged as low-used-path and should be treated as a possible zero-motion false lock.",
+            "- `fog_200`: intensity BEV keeps 93.1-100% acceptance on selected windows after zero-motion score-margin preference, including the strongest fog slice.",
             "- `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",
             "- CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.",

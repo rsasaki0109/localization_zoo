@@ -136,6 +136,7 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                     "mean_acceptance": 0.0,
                     "mean_convergence": 0.0,
                     "failed_windows": 0,
+                    "risk_windows": 0,
                     "min_acceptance": 1.0,
                     "max_used_path_length_m": 0.0,
                 },
@@ -147,6 +148,7 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
             stats["mean_acceptance"] += accepted
             stats["mean_convergence"] += converged_value
             stats["failed_windows"] += 1 if accepted < 0.5 else 0
+            stats["risk_windows"] += 1 if row.get("flags") != "ok" else 0
             stats["min_acceptance"] = min(stats["min_acceptance"], accepted)
             stats["max_used_path_length_m"] = max(
                 stats["max_used_path_length_m"],
@@ -165,8 +167,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         "",
         "## Method Aggregate",
         "",
-        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Max used path m |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Risk windows | Max used path m |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for sequence in payload["sequences"]:
         aggregates = payload["aggregates"][sequence["sequence"]]
@@ -176,7 +178,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 f"| `{sequence['sequence']}` | `{method}` | {row['windows']} | "
                 f"{fmt(row['mean_acceptance'])} | {fmt(row['min_acceptance'])} | "
                 f"{fmt(row['mean_convergence'])} | {row['failed_windows']} | "
-                f"{fmt(row['max_used_path_length_m'])} |"
+                f"{row['risk_windows']} | {fmt(row['max_used_path_length_m'])} |"
             )
 
     lines.extend(

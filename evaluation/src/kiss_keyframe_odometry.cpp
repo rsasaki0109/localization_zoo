@@ -87,6 +87,7 @@ int indexOf(const std::vector<std::string>& cols, const std::string& name) {
 }
 
 std::vector<GTPose> loadGT(const fs::path& csv_path) {
+  if (csv_path.string() == "-" || csv_path.empty()) return {};
   std::ifstream in(csv_path);
   if (!in.is_open()) throw std::runtime_error("Failed to open GT CSV");
 
@@ -137,9 +138,11 @@ std::vector<Eigen::Vector3d> loadPcd(const fs::path& path) {
   return points;
 }
 
-std::vector<fs::path> collectPcds(const fs::path& pcd_dir, int max_frames) {
+std::vector<fs::path> collectPcds(const fs::path& pcd_dir, int start_frame,
+                                  int max_frames) {
   std::vector<fs::path> paths;
-  for (int i = 0; max_frames <= 0 || i < max_frames; ++i) {
+  for (int offset = 0; max_frames <= 0 || offset < max_frames; ++offset) {
+    const int i = start_frame + offset;
     std::ostringstream name;
     name << std::setw(8) << std::setfill('0') << i;
     fs::path path = pcd_dir / name.str() / "cloud.pcd";
@@ -366,6 +369,7 @@ int main(int argc, char** argv) {
   if (argc < 4) {
     std::cerr << "Usage: kiss_keyframe_odometry <pcd_dir> <gt_csv> "
                  "<output_json> [max_frames] [--keyframe-interval N] "
+                 "[--start-frame N] "
                  "[--max-keyframe-correction X] [--max-keyframe-yaw-deg X] "
                  "[--max-keyframe-rmse X] [--min-keyframe-correspondences N] "
                  "[--target-voxel-size X] "
@@ -384,6 +388,7 @@ int main(int argc, char** argv) {
 
   localization_zoo::kiss_icp::KISSMatcherParams params;
   int keyframe_interval = 10;
+  int start_frame = 0;
   double max_step_translation = 0.3;
   double max_step_yaw_deg = 6.0;
   double max_keyframe_correction = 1.0;
@@ -401,6 +406,8 @@ int main(int argc, char** argv) {
     };
     if (arg == "--keyframe-interval") {
       keyframe_interval = std::max(2, std::stoi(needValue(arg)));
+    } else if (arg == "--start-frame") {
+      start_frame = std::max(0, std::stoi(needValue(arg)));
     } else if (arg == "--max-keyframe-correction") {
       max_keyframe_correction = std::stod(needValue(arg));
     } else if (arg == "--max-keyframe-yaw-deg") {
@@ -428,7 +435,7 @@ int main(int argc, char** argv) {
     }
   }
 
-  const auto pcds = collectPcds(pcd_dir, max_frames);
+  const auto pcds = collectPcds(pcd_dir, start_frame, max_frames);
   if (pcds.size() < 2) throw std::runtime_error("Need at least two PCD frames");
   const auto gt = loadGT(gt_csv);
 

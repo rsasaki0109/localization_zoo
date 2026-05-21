@@ -1,0 +1,81 @@
+{
+  "diagnostics": [
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_02_start0000_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_02_start0030_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_02_start0060_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_02_start0090_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_05_start0000_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_05_start0030_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_05_start0060_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_05_start0090_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_08_start0000_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_08_start0030_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_08_start0060_60.json",
+    "experiments/results/intensity_odometry/window_benchmark_60/results/selector_diagnostics_kitti_seq_08_start0090_60.json"
+  ],
+  "method_names": [
+    "kiss",
+    "small_gicp"
+  ],
+  "feature_names": [
+    "bias",
+    "cubemap_score",
+    "geometry_score",
+    "log_overlap",
+    "motion_norm",
+    "abs_yaw_deg",
+    "shared_residual_score",
+    "shared_residual_rmse",
+    "shared_inlier_ratio",
+    "shared_stability_score",
+    "shared_stability_mean_delta",
+    "shared_stability_min_delta"
+  ],
+  "ridge": 0.001,
+  "feature_set": "shared_no_method",
+  "held_out_seq": "kitti_seq_08_start0000_60",
+  "full_model": {
+    "weights": [
+      -0.06649367202361701,
+      0.0,
+      0.03424342085110993,
+      -0.033224452325561704,
+      0.0018700369233433344,
+      -0.0023894455693297756,
+      0.005772379371878361,
+      0.0022075988575945816,
+      -0.007480789995838321,
+      -0.07402085089750648,
+      0.08258462616500481,
+      0.0060729839739544315
+    ],
+    "feature_mean": [
+      0.0,
+      -1.0,
+      0.645305868258862,
+      7.548062884513914,
+      0.92394618308815,
+      0.729775787365177,
+      0.8560555128918209,
+      0.2353360208198215,
+      0.9509187201898034,
+      0.1221544503556787,
+      0.012789472854601277,
+      0.0012398787201630432
+    ],
+    "feature_scale": [
+      1.0,
+      1.0,
+      0.07254349961620175,
+      1.3218658752581773,
+      0.30775140492988934,
+      1.009113716090809,
+      0.019502353884834196,
+      0.019619415236620318,
+      0.014143043894325514,
+      0.06558788219239962,
+      0.005732202004453949,
+      0.005784996915530742
+    ]
+  }
+}

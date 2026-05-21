@@ -1,0 +1,10 @@
+gain=0.030 trans=0.60 yaw=0.5 accepted=3 ATE=0.394 step=0.121
+gain=0.030 trans=0.60 yaw=1.0 accepted=3 ATE=0.394 step=0.121
+gain=0.030 trans=0.60 yaw=2.0 accepted=3 ATE=0.394 step=0.121
+gain=0.030 trans=0.80 yaw=0.5 accepted=3 ATE=0.394 step=0.121
+gain=0.030 trans=0.80 yaw=1.0 accepted=3 ATE=0.394 step=0.121
+gain=0.030 trans=0.80 yaw=2.0 accepted=3 ATE=0.394 step=0.121
+gain=0.020 trans=0.60 yaw=0.5 accepted=4 ATE=0.507 step=0.153
+gain=0.020 trans=0.60 yaw=1.0 accepted=4 ATE=0.507 step=0.153
+gain=0.020 trans=0.80 yaw=0.5 accepted=4 ATE=0.507 step=0.153
+gain=0.020 trans=0.80 yaw=1.0 accepted=4 ATE=0.507 step=0.153

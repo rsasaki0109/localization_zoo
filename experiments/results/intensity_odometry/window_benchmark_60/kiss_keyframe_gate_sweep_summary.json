@@ -1,0 +1,68 @@
+{
+  "benchmark_dir": "experiments/results/intensity_odometry/window_benchmark_60",
+  "baseline": {
+    "kiss": {
+      "policy": "kiss",
+      "title": "KISS",
+      "mean_ate_xy_m": 1.0714143333333332,
+      "median_ate_xy_m": 1.097275,
+      "mean_step_rmse_m": 0.07298416666666667,
+      "max_ate_xy_m": 2.246338,
+      "window_wins": 0
+    },
+    "stability_motion": {
+      "policy": "stability_motion",
+      "title": "Stability motion 0.0025",
+      "mean_ate_xy_m": 0.8000756555517344,
+      "median_ate_xy_m": 0.7761516002459803,
+      "mean_step_rmse_m": 0.05975214073656472,
+      "max_ate_xy_m": 1.5817760272010666,
+      "window_wins": 1
+    }
+  },
+  "best_mean_gate_m": 0.7,
+  "best_tail_gate_m": 0.5,
+  "recommended_product_gate_m": 0.5,
+  "gates": [
+    {
+      "gate_m": 0.3,
+      "summary_json": "experiments/results/intensity_odometry/window_benchmark_60/kiss_keyframe_i10_c0p3/kiss_keyframe_summary.json",
+      "mean_ate_xy_m": 0.8878101666666667,
+      "median_ate_xy_m": 0.783681,
+      "max_ate_xy_m": 1.779821,
+      "mean_step_length_rmse_m": 0.07926408333333333,
+      "improved_vs_stability_motion_count": 5,
+      "improved_vs_kiss_pair_count": 10
+    },
+    {
+      "gate_m": 0.5,
+      "summary_json": "experiments/results/intensity_odometry/window_benchmark_60/kiss_keyframe_i10_c0p5/kiss_keyframe_summary.json",
+      "mean_ate_xy_m": 0.7844456666666667,
+      "median_ate_xy_m": 0.7489905,
+      "max_ate_xy_m": 1.294524,
+      "mean_step_length_rmse_m": 0.08889641666666667,
+      "improved_vs_stability_motion_count": 8,
+      "improved_vs_kiss_pair_count": 10
+    },
+    {
+      "gate_m": 0.7,
+      "summary_json": "experiments/results/intensity_odometry/window_benchmark_60/kiss_keyframe_i10_c0p7/kiss_keyframe_summary.json",
+      "mean_ate_xy_m": 0.720297,
+      "median_ate_xy_m": 0.519837,
+      "max_ate_xy_m": 1.53707,
+      "mean_step_length_rmse_m": 0.10873891666666667,
+      "improved_vs_stability_motion_count": 7,
+      "improved_vs_kiss_pair_count": 11
+    },
+    {
+      "gate_m": 1.0,
+      "summary_json": "experiments/results/intensity_odometry/window_benchmark_60/kiss_keyframe_i10/kiss_keyframe_summary.json",
+      "mean_ate_xy_m": 0.73124225,
+      "median_ate_xy_m": 0.40269299999999997,
+      "max_ate_xy_m": 1.53707,
+      "mean_step_length_rmse_m": 0.12113975,
+      "improved_vs_stability_motion_count": 6,
+      "improved_vs_kiss_pair_count": 10
+    }
+  ]
+}

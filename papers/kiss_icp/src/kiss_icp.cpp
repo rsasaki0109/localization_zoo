@@ -36,6 +36,107 @@ std::vector<Eigen::Vector3d> transformPoints(
 }  // namespace
 
 // ============================================================
+// KISS Pair Matcher
+// ============================================================
+
+KISSMatcher::KISSMatcher(const KISSMatcherParams& params)
+    : params_(params),
+      target_map_(params.target_voxel_size, params.max_points_per_voxel) {}
+
+std::vector<Eigen::Vector3d> KISSMatcher::preprocess(
+    const std::vector<Eigen::Vector3d>& points, double voxel_size) const {
+  std::unordered_map<Eigen::Vector3i, Eigen::Vector3d, VoxelHash> grid;
+  for (const auto& p : points) {
+    const double r = p.norm();
+    if (r < params_.min_range || r > params_.max_range) continue;
+    Eigen::Vector3i key(static_cast<int>(std::floor(p.x() / voxel_size)),
+                        static_cast<int>(std::floor(p.y() / voxel_size)),
+                        static_cast<int>(std::floor(p.z() / voxel_size)));
+    grid.emplace(key, p);
+  }
+
+  std::vector<Eigen::Vector3d> out;
+  out.reserve(grid.size());
+  for (const auto& kv : grid) out.push_back(kv.second);
+  return out;
+}
+
+void KISSMatcher::setTarget(const std::vector<Eigen::Vector3d>& target) {
+  target_map_.clear();
+  target_map_.addPoints(preprocess(target, params_.target_voxel_size));
+}
+
+KISSMatcherResult KISSMatcher::align(
+    const std::vector<Eigen::Vector3d>& source,
+    const Eigen::Matrix4d& initial_guess) const {
+  KISSMatcherResult result;
+  result.transform = initial_guess;
+
+  const auto source_points = preprocess(source, params_.source_voxel_size);
+  if (source_points.empty() || target_map_.size() == 0) return result;
+
+  for (int iter = 0; iter < params_.max_icp_iterations; ++iter) {
+    const auto src_transformed = transformPoints(source_points, result.transform);
+    const auto correspondences = target_map_.getCorrespondences(
+        src_transformed, params_.max_correspondence_distance);
+
+    Eigen::Matrix<double, 6, 6> JtJ = Eigen::Matrix<double, 6, 6>::Zero();
+    Eigen::Matrix<double, 6, 1> Jtb = Eigen::Matrix<double, 6, 1>::Zero();
+    double squared_error_sum = 0.0;
+    int valid_correspondences = 0;
+
+    for (size_t i = 0; i < source_points.size(); ++i) {
+      if (!correspondences[i].found) continue;
+
+      const Eigen::Vector3d residual =
+          src_transformed[i] - correspondences[i].point;
+      const double r_norm = residual.norm();
+      if (r_norm > params_.max_correspondence_distance) continue;
+
+      const double sigma = params_.max_correspondence_distance;
+      const double weight = std::exp(-0.5 * (r_norm / sigma) * (r_norm / sigma));
+
+      Eigen::Matrix<double, 3, 6> J;
+      J.block<3, 3>(0, 0) = -skew(src_transformed[i]);
+      J.block<3, 3>(0, 3) = Eigen::Matrix3d::Identity();
+
+      JtJ += weight * J.transpose() * J;
+      Jtb += weight * J.transpose() * residual;
+      squared_error_sum += residual.squaredNorm();
+      ++valid_correspondences;
+    }
+
+    result.iterations = iter + 1;
+    result.num_correspondences = valid_correspondences;
+    result.rmse = valid_correspondences > 0
+                      ? std::sqrt(squared_error_sum / valid_correspondences)
+                      : std::numeric_limits<double>::infinity();
+
+    if (valid_correspondences < params_.min_correspondences) break;
+
+    const Eigen::Matrix<double, 6, 1> delta = JtJ.ldlt().solve(-Jtb);
+    if (!delta.allFinite()) break;
+
+    Eigen::Matrix4d dT = Eigen::Matrix4d::Identity();
+    dT.block<3, 3>(0, 0) = expSO3(delta.head<3>());
+    dT.block<3, 1>(0, 3) = delta.tail<3>();
+    result.transform = dT * result.transform;
+
+    if (delta.norm() < params_.convergence_criterion) {
+      result.converged = true;
+      break;
+    }
+  }
+
+  if (!result.converged) {
+    result.converged =
+        result.num_correspondences >= params_.min_correspondences &&
+        result.transform.array().isFinite().all();
+  }
+  return result;
+}
+
+// ============================================================
 // VoxelHashMap
 // ============================================================
 

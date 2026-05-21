@@ -82,9 +82,15 @@ int ScanContextManager::addScan(const std::vector<Eigen::Vector3d>& points) {
 
 LoopCandidate ScanContextManager::detectLoop(
     const std::vector<Eigen::Vector3d>& points) const {
-  LoopCandidate result;
+  const auto candidates = detectLoopCandidates(points);
+  return candidates.empty() ? LoopCandidate{} : candidates.front();
+}
+
+std::vector<LoopCandidate> ScanContextManager::detectLoopCandidates(
+    const std::vector<Eigen::Vector3d>& points) const {
+  std::vector<LoopCandidate> results;
   if (contexts_.empty()) {
-    return result;
+    return results;
   }
 
   const Eigen::MatrixXd query_descriptor = makeScanContext(points);
@@ -94,7 +100,7 @@ LoopCandidate ScanContextManager::detectLoop(
   const int searchable_size = std::max(
       0, static_cast<int>(contexts_.size()) - params_.exclude_recent_frames);
   if (searchable_size <= 0) {
-    return result;
+    return results;
   }
 
   std::vector<std::pair<double, int>> ring_key_distances;
@@ -110,30 +116,31 @@ LoopCandidate ScanContextManager::detectLoop(
                     ring_key_distances.begin() + candidate_count,
                     ring_key_distances.end());
 
-  double best_distance = std::numeric_limits<double>::infinity();
-  int best_shift = 0;
-  int best_index = -1;
+  results.reserve(candidate_count);
   for (int i = 0; i < candidate_count; ++i) {
     int shift = 0;
+    const int context_index = ring_key_distances[i].second;
     const double distance = compareDescriptors(
         query_descriptor, query_sector_key,
-        contexts_[ring_key_distances[i].second], &shift);
-    if (distance < best_distance) {
-      best_distance = distance;
-      best_shift = shift;
-      best_index = ring_key_distances[i].second;
+        contexts_[context_index], &shift);
+    if (params_.distance_threshold <= 0.0 ||
+        distance < params_.distance_threshold) {
+      LoopCandidate candidate;
+      candidate.valid = true;
+      candidate.index = context_index;
+      candidate.distance = distance;
+      candidate.yaw_shift = shift;
+      candidate.yaw_offset_rad =
+          static_cast<double>(shift) * kTwoPi / params_.num_sectors;
+      results.push_back(candidate);
     }
   }
 
-  if (best_index >= 0 && best_distance < params_.distance_threshold) {
-    result.valid = true;
-    result.index = best_index;
-    result.distance = best_distance;
-    result.yaw_shift = best_shift;
-    result.yaw_offset_rad =
-        static_cast<double>(best_shift) * kTwoPi / params_.num_sectors;
-  }
-  return result;
+  std::sort(results.begin(), results.end(),
+            [](const LoopCandidate& lhs, const LoopCandidate& rhs) {
+              return lhs.distance < rhs.distance;
+            });
+  return results;
 }
 
 void ScanContextManager::clear() { contexts_.clear(); }

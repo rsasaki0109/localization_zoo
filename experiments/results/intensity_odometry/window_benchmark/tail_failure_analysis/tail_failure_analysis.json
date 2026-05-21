@@ -1,0 +1,2449 @@
+{
+  "benchmark_dir": "experiments/results/intensity_odometry/window_benchmark",
+  "windows_analyzed": [
+    "kitti_seq_08_start0030_30",
+    "kitti_seq_08_start0090_30"
+  ],
+  "windows": [
+    {
+      "window": "kitti_seq_08_start0030_30",
+      "gt_csv": "experiments/results/intensity_odometry/window_benchmark/windows/kitti_seq_08_start0030_30/gt.csv",
+      "diagnostic_json": "experiments/results/intensity_odometry/window_benchmark/results/selector_diagnostics_kitti_seq_08_start0030_30.json",
+      "best_ate_policy": "stability_motion_0p0025",
+      "best_max_frame_policy": "stability_motion_0p0025",
+      "policies": [
+        {
+          "policy": "kiss",
+          "title": "KISS",
+          "metrics": {
+            "ate_xy_m": 0.439447,
+            "step_length_rmse_m": 0.07253
+          },
+          "mean_frame_error_m": 0.33421104556646863,
+          "max_frame_error_m": 0.9265429661482519,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.6896551724137931,
+          "pair_hits": 20,
+          "pair_total": 29,
+          "selected_counts": {
+            "kiss": 29
+          },
+          "oracle_counts": {
+            "kiss": 20,
+            "small_gicp": 9
+          },
+          "mean_pair_regret_m": 0.012158264067528146,
+          "positive_pair_regret_count": 9,
+          "positive_pair_regret_sum_m": 0.3525896579583162,
+          "max_pair_regret_m": 0.08880985575434963,
+          "top_misses": [
+            {
+              "index": 23,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.1751299028182447,
+              "oracle_error_m": 0.08632004706389507,
+              "regret_m": 0.08880985575434963,
+              "policy_values": {},
+              "gt_step_m": 0.21756549130573055,
+              "kiss_stability_mean_delta_m": 0.00962904797095289,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.1751299028182447,
+              "small_gicp_stability_mean_delta_m": 0.011902451864730821,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.08632004706389507
+            },
+            {
+              "index": 22,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.19266585557409213,
+              "oracle_error_m": 0.12142644178132818,
+              "regret_m": 0.07123941379276395,
+              "policy_values": {},
+              "gt_step_m": 0.19705503722336842,
+              "kiss_stability_mean_delta_m": 0.007901814472014915,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.19266585557409213,
+              "small_gicp_stability_mean_delta_m": 0.011701585282356786,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.12142644178132818
+            },
+            {
+              "index": 21,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.151096836281168,
+              "oracle_error_m": 0.09968596338569342,
+              "regret_m": 0.051410872895474566,
+              "policy_values": {},
+              "gt_step_m": 0.15874679332555172,
+              "kiss_stability_mean_delta_m": 0.014170539319907456,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.151096836281168,
+              "small_gicp_stability_mean_delta_m": 0.014721787317518857,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09968596338569342
+            },
+            {
+              "index": 20,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.15321565885106708,
+              "oracle_error_m": 0.10840159696020252,
+              "regret_m": 0.044814061890864565,
+              "policy_values": {},
+              "gt_step_m": 0.15702290103069869,
+              "kiss_stability_mean_delta_m": 0.010404369617615566,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.15321565885106708,
+              "small_gicp_stability_mean_delta_m": 0.01347728900795262,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.10840159696020252
+            },
+            {
+              "index": 26,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.08887998415086981,
+              "oracle_error_m": 0.06265312128982145,
+              "regret_m": 0.02622686286104836,
+              "policy_values": {},
+              "gt_step_m": 0.27083889485699864,
+              "kiss_stability_mean_delta_m": 0.012872462069764818,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.08887998415086981,
+              "small_gicp_stability_mean_delta_m": 0.014652691413714695,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06265312128982145
+            },
+            {
+              "index": 29,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.046134387699692456,
+              "oracle_error_m": 0.019964156930593984,
+              "regret_m": 0.02617023076909847,
+              "policy_values": {},
+              "gt_step_m": 0.30113016596653225,
+              "kiss_stability_mean_delta_m": 0.011958664743090527,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.046134387699692456,
+              "small_gicp_stability_mean_delta_m": 0.013215862698984693,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.019964156930593984
+            },
+            {
+              "index": 16,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.0680674956296286,
+              "oracle_error_m": 0.043187839688323015,
+              "regret_m": 0.02487965594130559,
+              "policy_values": {},
+              "gt_step_m": 0.09271984254585484,
+              "kiss_stability_mean_delta_m": 0.016913406680916697,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0680674956296286,
+              "small_gicp_stability_mean_delta_m": 0.01559152019430291,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.043187839688323015
+            },
+            {
+              "index": 19,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.12429963726158157,
+              "oracle_error_m": 0.11190254112750797,
+              "regret_m": 0.012397096134073596,
+              "policy_values": {},
+              "gt_step_m": 0.11669199203540576,
+              "kiss_stability_mean_delta_m": 0.017291280213678113,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.12429963726158157,
+              "small_gicp_stability_mean_delta_m": 0.01795718670058535,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.11190254112750797
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/kitti_seq_08_start0030_30_kiss_pair_gate2.json"
+        },
+        {
+          "policy": "small_gicp",
+          "title": "SmallGICP",
+          "metrics": {
+            "ate_xy_m": 1.26997,
+            "step_length_rmse_m": 0.077179
+          },
+          "mean_frame_error_m": 1.0862809511858607,
+          "max_frame_error_m": 2.1279624029867295,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.3103448275862069,
+          "pair_hits": 9,
+          "pair_total": 29,
+          "selected_counts": {
+            "small_gicp": 29
+          },
+          "oracle_counts": {
+            "kiss": 20,
+            "small_gicp": 9
+          },
+          "mean_pair_regret_m": 0.03299956597571267,
+          "positive_pair_regret_count": 20,
+          "positive_pair_regret_sum_m": 0.9569874132956674,
+          "max_pair_regret_m": 0.15511184354380383,
+          "top_misses": [
+            {
+              "index": 28,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.17757518216010695,
+              "oracle_error_m": 0.022463338616303126,
+              "regret_m": 0.15511184354380383,
+              "policy_values": {},
+              "gt_step_m": 0.30620556012989436,
+              "kiss_stability_mean_delta_m": 0.015328678076610211,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.022463338616303126,
+              "small_gicp_stability_mean_delta_m": 0.007228466085095052,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.17757518216010695
+            },
+            {
+              "index": 2,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.11432833509935499,
+              "oracle_error_m": 0.021774008222424524,
+              "regret_m": 0.09255432687693047,
+              "policy_values": {},
+              "gt_step_m": 0.02241172738729662,
+              "kiss_stability_mean_delta_m": 0.02073080758965033,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.021774008222424524,
+              "small_gicp_stability_mean_delta_m": 0.01196912895625079,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.11432833509935499
+            },
+            {
+              "index": 3,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.10864993485163256,
+              "oracle_error_m": 0.01914175521199216,
+              "regret_m": 0.0895081796396404,
+              "policy_values": {},
+              "gt_step_m": 0.03761485215695728,
+              "kiss_stability_mean_delta_m": 0.020592287630579256,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.01914175521199216,
+              "small_gicp_stability_mean_delta_m": 0.015067801833783699,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.10864993485163256
+            },
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09345713534288716,
+              "oracle_error_m": 0.008837012344912337,
+              "regret_m": 0.08462012299797482,
+              "policy_values": {},
+              "gt_step_m": 0.07447730743943884,
+              "kiss_stability_mean_delta_m": 0.018238661984399194,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.008837012344912337,
+              "small_gicp_stability_mean_delta_m": 0.019673217620905997,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09345713534288716
+            },
+            {
+              "index": 8,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09173946024818008,
+              "oracle_error_m": 0.016473787802054128,
+              "regret_m": 0.07526567244612595,
+              "policy_values": {},
+              "gt_step_m": 0.02845578836454757,
+              "kiss_stability_mean_delta_m": 0.019765912240778272,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016473787802054128,
+              "small_gicp_stability_mean_delta_m": 0.01877827777495039,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09173946024818008
+            },
+            {
+              "index": 4,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.0865522570411612,
+              "oracle_error_m": 0.015237264179037128,
+              "regret_m": 0.07131499286212407,
+              "policy_values": {},
+              "gt_step_m": 0.021145645021937276,
+              "kiss_stability_mean_delta_m": 0.016541556829537615,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.015237264179037128,
+              "small_gicp_stability_mean_delta_m": 0.014739579618246497,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.0865522570411612
+            },
+            {
+              "index": 12,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09112847057480045,
+              "oracle_error_m": 0.026193785764693518,
+              "regret_m": 0.06493468481010693,
+              "policy_values": {},
+              "gt_step_m": 0.03143764136149342,
+              "kiss_stability_mean_delta_m": 0.02368494961656166,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.026193785764693518,
+              "small_gicp_stability_mean_delta_m": 0.01930077134424037,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09112847057480045
+            },
+            {
+              "index": 13,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.08107333776443296,
+              "oracle_error_m": 0.029356418467073916,
+              "regret_m": 0.05171691929735904,
+              "policy_values": {},
+              "gt_step_m": 0.03233159756462014,
+              "kiss_stability_mean_delta_m": 0.015259067652890495,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029356418467073916,
+              "small_gicp_stability_mean_delta_m": 0.014637495210515342,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.08107333776443296
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/kitti_seq_08_start0030_30_small_gicp_v0.75_c512.json"
+        },
+        {
+          "policy": "stability_delta",
+          "title": "Stability delta",
+          "metrics": {
+            "ate_xy_m": 0.4509447933281894,
+            "step_length_rmse_m": 0.058344265145131226,
+            "step_length_rmse_pct_of_mean_step": 49.93134343896272,
+            "gt_path_length_m": 3.388620398882572
+          },
+          "mean_frame_error_m": 0.3387414114326874,
+          "max_frame_error_m": 0.9238191914923716,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.7586206896551724,
+          "pair_hits": 22,
+          "pair_total": 29,
+          "selected_counts": {
+            "kiss": 17,
+            "small_gicp": 12
+          },
+          "oracle_counts": {
+            "kiss": 20,
+            "small_gicp": 9
+          },
+          "mean_pair_regret_m": 0.007957729868556238,
+          "positive_pair_regret_count": 7,
+          "positive_pair_regret_sum_m": 0.2307741661881309,
+          "max_pair_regret_m": 0.08462012299797482,
+          "top_misses": [
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09345713534288716,
+              "oracle_error_m": 0.008837012344912337,
+              "regret_m": 0.08462012299797482,
+              "policy_values": {
+                "kiss": 0.018238661984399194,
+                "small_gicp": 0.019673217620905997
+              },
+              "gt_step_m": 0.07447730743943884,
+              "kiss_stability_mean_delta_m": 0.018238661984399194,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.008837012344912337,
+              "small_gicp_stability_mean_delta_m": 0.019673217620905997,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09345713534288716
+            },
+            {
+              "index": 10,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06888040079345066,
+              "oracle_error_m": 0.0228229493351881,
+              "regret_m": 0.04605745145826256,
+              "policy_values": {
+                "kiss": 0.01583294608846807,
+                "small_gicp": 0.017787279363945495
+              },
+              "gt_step_m": 0.05344346797839993,
+              "kiss_stability_mean_delta_m": 0.01583294608846807,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0228229493351881,
+              "small_gicp_stability_mean_delta_m": 0.017787279363945495,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06888040079345066
+            },
+            {
+              "index": 24,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06113773593985133,
+              "oracle_error_m": 0.016188532358858376,
+              "regret_m": 0.044949203580992955,
+              "policy_values": {
+                "kiss": 0.013575083638082618,
+                "small_gicp": 0.013871000099345157
+              },
+              "gt_step_m": 0.21588672374080753,
+              "kiss_stability_mean_delta_m": 0.013575083638082618,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016188532358858376,
+              "small_gicp_stability_mean_delta_m": 0.013871000099345157,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06113773593985133
+            },
+            {
+              "index": 16,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.0680674956296286,
+              "oracle_error_m": 0.043187839688323015,
+              "regret_m": 0.02487965594130559,
+              "policy_values": {
+                "kiss": 0.016913406680916697,
+                "small_gicp": 0.01559152019430291
+              },
+              "gt_step_m": 0.09271984254585484,
+              "kiss_stability_mean_delta_m": 0.016913406680916697,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0680674956296286,
+              "small_gicp_stability_mean_delta_m": 0.01559152019430291,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.043187839688323015
+            },
+            {
+              "index": 15,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07653402676375148,
+              "oracle_error_m": 0.057711655265107915,
+              "regret_m": 0.01882237149864357,
+              "policy_values": {
+                "kiss": 0.008308384476958931,
+                "small_gicp": 0.00854514709004818
+              },
+              "gt_step_m": 0.06314307865468594,
+              "kiss_stability_mean_delta_m": 0.008308384476958931,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.057711655265107915,
+              "small_gicp_stability_mean_delta_m": 0.00854514709004818,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07653402676375148
+            },
+            {
+              "index": 6,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.04411754340855765,
+              "oracle_error_m": 0.037475935489220145,
+              "regret_m": 0.006641607919337503,
+              "policy_values": {
+                "kiss": 0.009966421716185205,
+                "small_gicp": 0.008510742449407341
+              },
+              "gt_step_m": 0.04890242086780395,
+              "kiss_stability_mean_delta_m": 0.009966421716185205,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.04411754340855765,
+              "small_gicp_stability_mean_delta_m": 0.008510742449407341,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.037475935489220145
+            },
+            {
+              "index": 25,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07006472770800204,
+              "oracle_error_m": 0.06526097491638815,
+              "regret_m": 0.004803752791613894,
+              "policy_values": {
+                "kiss": 0.011979517609123217,
+                "small_gicp": 0.012893920469271986
+              },
+              "gt_step_m": 0.25328153825514776,
+              "kiss_stability_mean_delta_m": 0.011979517609123217,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.06526097491638815,
+              "small_gicp_stability_mean_delta_m": 0.012893920469271986,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07006472770800204
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_stability_delta_kitti_seq_08_start0030_30.json"
+        },
+        {
+          "policy": "stability_margin_0p0010",
+          "title": "Stability margin 0.001",
+          "metrics": {
+            "ate_xy_m": 0.6586289274762784,
+            "step_length_rmse_m": 0.06529761622538335,
+            "step_length_rmse_pct_of_mean_step": 55.88205958863256,
+            "gt_path_length_m": 3.388620398882572
+          },
+          "mean_frame_error_m": 0.49369785247017833,
+          "max_frame_error_m": 1.276988223098777,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.5517241379310345,
+          "pair_hits": 16,
+          "pair_total": 29,
+          "selected_counts": {
+            "kiss": 11,
+            "small_gicp": 18
+          },
+          "oracle_counts": {
+            "kiss": 20,
+            "small_gicp": 9
+          },
+          "mean_pair_regret_m": 0.015344963521364243,
+          "positive_pair_regret_count": 13,
+          "positive_pair_regret_sum_m": 0.44500394211956307,
+          "max_pair_regret_m": 0.08462012299797482,
+          "top_misses": [
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09345713534288716,
+              "oracle_error_m": 0.008837012344912337,
+              "regret_m": 0.08462012299797482,
+              "policy_values": {
+                "kiss": -0.0014345556365068027,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.07447730743943884,
+              "kiss_stability_mean_delta_m": 0.018238661984399194,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.008837012344912337,
+              "small_gicp_stability_mean_delta_m": 0.019673217620905997,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09345713534288716
+            },
+            {
+              "index": 8,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09173946024818008,
+              "oracle_error_m": 0.016473787802054128,
+              "regret_m": 0.07526567244612595,
+              "policy_values": {
+                "kiss": 0.0009876344658278809,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.02845578836454757,
+              "kiss_stability_mean_delta_m": 0.019765912240778272,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016473787802054128,
+              "small_gicp_stability_mean_delta_m": 0.01877827777495039,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09173946024818008
+            },
+            {
+              "index": 13,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.08107333776443296,
+              "oracle_error_m": 0.029356418467073916,
+              "regret_m": 0.05171691929735904,
+              "policy_values": {
+                "kiss": 0.0006215724423751529,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.03233159756462014,
+              "kiss_stability_mean_delta_m": 0.015259067652890495,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029356418467073916,
+              "small_gicp_stability_mean_delta_m": 0.014637495210515342,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.08107333776443296
+            },
+            {
+              "index": 9,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06599475093990699,
+              "oracle_error_m": 0.017775212777295473,
+              "regret_m": 0.048219538162611514,
+              "policy_values": {
+                "kiss": 0.0007811812527497818,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.04743694421591269,
+              "kiss_stability_mean_delta_m": 0.01704543291651945,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.017775212777295473,
+              "small_gicp_stability_mean_delta_m": 0.016264251663769668,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06599475093990699
+            },
+            {
+              "index": 10,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06888040079345066,
+              "oracle_error_m": 0.0228229493351881,
+              "regret_m": 0.04605745145826256,
+              "policy_values": {
+                "kiss": -0.0019543332754774247,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.05344346797839993,
+              "kiss_stability_mean_delta_m": 0.01583294608846807,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0228229493351881,
+              "small_gicp_stability_mean_delta_m": 0.017787279363945495,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06888040079345066
+            },
+            {
+              "index": 24,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06113773593985133,
+              "oracle_error_m": 0.016188532358858376,
+              "regret_m": 0.044949203580992955,
+              "policy_values": {
+                "kiss": -0.0002959164612625388,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.21588672374080753,
+              "kiss_stability_mean_delta_m": 0.013575083638082618,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016188532358858376,
+              "small_gicp_stability_mean_delta_m": 0.013871000099345157,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06113773593985133
+            },
+            {
+              "index": 16,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.0680674956296286,
+              "oracle_error_m": 0.043187839688323015,
+              "regret_m": 0.02487965594130559,
+              "policy_values": {
+                "kiss": 0.001321886486613787,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.09271984254585484,
+              "kiss_stability_mean_delta_m": 0.016913406680916697,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0680674956296286,
+              "small_gicp_stability_mean_delta_m": 0.01559152019430291,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.043187839688323015
+            },
+            {
+              "index": 15,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07653402676375148,
+              "oracle_error_m": 0.057711655265107915,
+              "regret_m": 0.01882237149864357,
+              "policy_values": {
+                "kiss": -0.00023676261308924924,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.06314307865468594,
+              "kiss_stability_mean_delta_m": 0.008308384476958931,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.057711655265107915,
+              "small_gicp_stability_mean_delta_m": 0.00854514709004818,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07653402676375148
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_stability_margin_0p0010_kitti_seq_08_start0030_30.json"
+        },
+        {
+          "policy": "stability_margin_0p0025",
+          "title": "Stability margin 0.0025",
+          "metrics": {
+            "ate_xy_m": 0.9066489132525868,
+            "step_length_rmse_m": 0.06835581255000406,
+            "step_length_rmse_pct_of_mean_step": 58.499280846087245,
+            "gt_path_length_m": 3.388620398882572
+          },
+          "mean_frame_error_m": 0.7165482171278995,
+          "max_frame_error_m": 1.6395711319347208,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.5172413793103449,
+          "pair_hits": 15,
+          "pair_total": 29,
+          "selected_counts": {
+            "small_gicp": 23,
+            "kiss": 6
+          },
+          "oracle_counts": {
+            "kiss": 20,
+            "small_gicp": 9
+          },
+          "mean_pair_regret_m": 0.018221698774678483,
+          "positive_pair_regret_count": 14,
+          "positive_pair_regret_sum_m": 0.5284292644656762,
+          "max_pair_regret_m": 0.08462012299797482,
+          "top_misses": [
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09345713534288716,
+              "oracle_error_m": 0.008837012344912337,
+              "regret_m": 0.08462012299797482,
+              "policy_values": {
+                "kiss": -0.0014345556365068027,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.07447730743943884,
+              "kiss_stability_mean_delta_m": 0.018238661984399194,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.008837012344912337,
+              "small_gicp_stability_mean_delta_m": 0.019673217620905997,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09345713534288716
+            },
+            {
+              "index": 8,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09173946024818008,
+              "oracle_error_m": 0.016473787802054128,
+              "regret_m": 0.07526567244612595,
+              "policy_values": {
+                "kiss": 0.0009876344658278809,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.02845578836454757,
+              "kiss_stability_mean_delta_m": 0.019765912240778272,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016473787802054128,
+              "small_gicp_stability_mean_delta_m": 0.01877827777495039,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09173946024818008
+            },
+            {
+              "index": 4,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.0865522570411612,
+              "oracle_error_m": 0.015237264179037128,
+              "regret_m": 0.07131499286212407,
+              "policy_values": {
+                "kiss": 0.001801977211291118,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.021145645021937276,
+              "kiss_stability_mean_delta_m": 0.016541556829537615,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.015237264179037128,
+              "small_gicp_stability_mean_delta_m": 0.014739579618246497,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.0865522570411612
+            },
+            {
+              "index": 13,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.08107333776443296,
+              "oracle_error_m": 0.029356418467073916,
+              "regret_m": 0.05171691929735904,
+              "policy_values": {
+                "kiss": 0.0006215724423751529,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.03233159756462014,
+              "kiss_stability_mean_delta_m": 0.015259067652890495,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029356418467073916,
+              "small_gicp_stability_mean_delta_m": 0.014637495210515342,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.08107333776443296
+            },
+            {
+              "index": 9,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06599475093990699,
+              "oracle_error_m": 0.017775212777295473,
+              "regret_m": 0.048219538162611514,
+              "policy_values": {
+                "kiss": 0.0007811812527497818,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.04743694421591269,
+              "kiss_stability_mean_delta_m": 0.01704543291651945,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.017775212777295473,
+              "small_gicp_stability_mean_delta_m": 0.016264251663769668,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06599475093990699
+            },
+            {
+              "index": 10,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06888040079345066,
+              "oracle_error_m": 0.0228229493351881,
+              "regret_m": 0.04605745145826256,
+              "policy_values": {
+                "kiss": -0.0019543332754774247,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.05344346797839993,
+              "kiss_stability_mean_delta_m": 0.01583294608846807,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0228229493351881,
+              "small_gicp_stability_mean_delta_m": 0.017787279363945495,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06888040079345066
+            },
+            {
+              "index": 24,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06113773593985133,
+              "oracle_error_m": 0.016188532358858376,
+              "regret_m": 0.044949203580992955,
+              "policy_values": {
+                "kiss": -0.0002959164612625388,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.21588672374080753,
+              "kiss_stability_mean_delta_m": 0.013575083638082618,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016188532358858376,
+              "small_gicp_stability_mean_delta_m": 0.013871000099345157,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06113773593985133
+            },
+            {
+              "index": 11,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.04750920090614288,
+              "oracle_error_m": 0.019395909351494815,
+              "regret_m": 0.028113291554648062,
+              "policy_values": {
+                "kiss": 0.0015821062273919315,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.052722520550503485,
+              "kiss_stability_mean_delta_m": 0.019032498606513768,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.019395909351494815,
+              "small_gicp_stability_mean_delta_m": 0.017450392379121837,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.04750920090614288
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_stability_margin_0p0025_kitti_seq_08_start0030_30.json"
+        },
+        {
+          "policy": "stability_motion_0p0025",
+          "title": "Stability motion 0.0025",
+          "metrics": {
+            "ate_xy_m": 0.3649114372027795,
+            "step_length_rmse_m": 0.05412205729832913,
+            "step_length_rmse_pct_of_mean_step": 46.317954710097204,
+            "gt_path_length_m": 3.388620398882572
+          },
+          "mean_frame_error_m": 0.27768668834479077,
+          "max_frame_error_m": 0.7732491039141985,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.7586206896551724,
+          "pair_hits": 22,
+          "pair_total": 29,
+          "selected_counts": {
+            "small_gicp": 12,
+            "kiss": 17
+          },
+          "oracle_counts": {
+            "kiss": 20,
+            "small_gicp": 9
+          },
+          "mean_pair_regret_m": 0.004193933546249808,
+          "positive_pair_regret_count": 7,
+          "positive_pair_regret_sum_m": 0.12162407284124443,
+          "max_pair_regret_m": 0.044949203580992955,
+          "top_misses": [
+            {
+              "index": 24,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06113773593985133,
+              "oracle_error_m": 0.016188532358858376,
+              "regret_m": 0.044949203580992955,
+              "policy_values": {
+                "kiss": -0.0002959164612625388,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.21588672374080753,
+              "kiss_stability_mean_delta_m": 0.013575083638082618,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016188532358858376,
+              "small_gicp_stability_mean_delta_m": 0.013871000099345157,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06113773593985133
+            },
+            {
+              "index": 16,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.0680674956296286,
+              "oracle_error_m": 0.043187839688323015,
+              "regret_m": 0.02487965594130559,
+              "policy_values": {
+                "kiss": 0.001321886486613787,
+                "small_gicp": 0.0,
+                "motion_consistency_distance_kiss": 0.03393321418610386,
+                "motion_consistency_distance_small_gicp": 0.1024646115739478
+              },
+              "gt_step_m": 0.09271984254585484,
+              "kiss_stability_mean_delta_m": 0.016913406680916697,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0680674956296286,
+              "small_gicp_stability_mean_delta_m": 0.01559152019430291,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.043187839688323015
+            },
+            {
+              "index": 1,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.04757985394858881,
+              "oracle_error_m": 0.03206155215860488,
+              "regret_m": 0.01551830178998393,
+              "policy_values": {
+                "kiss": 0.0010267747440693142,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.06014457396731348,
+              "kiss_stability_mean_delta_m": 0.021717701934534022,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.03206155215860488,
+              "small_gicp_stability_mean_delta_m": 0.020690927190464708,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.04757985394858881
+            },
+            {
+              "index": 27,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07580851991892762,
+              "oracle_error_m": 0.062456173467202544,
+              "regret_m": 0.013352346451725075,
+              "policy_values": {
+                "kiss": 0.0006713750370021133,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.2714772973281853,
+              "kiss_stability_mean_delta_m": 0.009675358622013228,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.062456173467202544,
+              "small_gicp_stability_mean_delta_m": 0.009003983585011114,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07580851991892762
+            },
+            {
+              "index": 18,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09033908584847766,
+              "oracle_error_m": 0.07885988148219218,
+              "regret_m": 0.011479204366285481,
+              "policy_values": {
+                "kiss": 0.0005095425836961313,
+                "small_gicp": 0.0,
+                "motion_consistency_distance_kiss": 0.10437300580130862,
+                "motion_consistency_distance_small_gicp": 0.1176886332744161
+              },
+              "gt_step_m": 0.10829300348886188,
+              "kiss_stability_mean_delta_m": 0.014556831752171437,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07885988148219218,
+              "small_gicp_stability_mean_delta_m": 0.014047289168475306,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09033908584847766
+            },
+            {
+              "index": 6,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.04411754340855765,
+              "oracle_error_m": 0.037475935489220145,
+              "regret_m": 0.006641607919337503,
+              "policy_values": {
+                "kiss": 0.0014556792667778633,
+                "small_gicp": 0.0,
+                "motion_consistency_distance_kiss": 0.007931105156281818,
+                "motion_consistency_distance_small_gicp": 0.06992906691784181
+              },
+              "gt_step_m": 0.04890242086780395,
+              "kiss_stability_mean_delta_m": 0.009966421716185205,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.04411754340855765,
+              "small_gicp_stability_mean_delta_m": 0.008510742449407341,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.037475935489220145
+            },
+            {
+              "index": 25,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07006472770800204,
+              "oracle_error_m": 0.06526097491638815,
+              "regret_m": 0.004803752791613894,
+              "policy_values": {
+                "kiss": -0.0009144028601487681,
+                "small_gicp": 0.0,
+                "motion_consistency_distance_kiss": 0.049532635918149985,
+                "motion_consistency_distance_small_gicp": 0.052381188722670315
+              },
+              "gt_step_m": 0.25328153825514776,
+              "kiss_stability_mean_delta_m": 0.011979517609123217,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.06526097491638815,
+              "small_gicp_stability_mean_delta_m": 0.012893920469271986,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07006472770800204
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_stability_motion_0p0025_kitti_seq_08_start0030_30.json"
+        },
+        {
+          "policy": "calibrated_full",
+          "title": "Calibrated full",
+          "metrics": {
+            "ate_xy_m": 0.7861895776757202,
+            "step_length_rmse_m": 0.06650805317162023,
+            "step_length_rmse_pct_of_mean_step": 56.91795819363549,
+            "gt_path_length_m": 3.388620398882572
+          },
+          "mean_frame_error_m": 0.6038515056792689,
+          "max_frame_error_m": 1.4659685227505184,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.5517241379310345,
+          "pair_hits": 16,
+          "pair_total": 29,
+          "selected_counts": {
+            "small_gicp": 20,
+            "kiss": 9
+          },
+          "oracle_counts": {
+            "kiss": 20,
+            "small_gicp": 9
+          },
+          "mean_pair_regret_m": 0.016454833612180815,
+          "positive_pair_regret_count": 13,
+          "positive_pair_regret_sum_m": 0.47719017475324366,
+          "max_pair_regret_m": 0.08462012299797482,
+          "top_misses": [
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09345713534288716,
+              "oracle_error_m": 0.008837012344912337,
+              "regret_m": 0.08462012299797482,
+              "policy_values": {
+                "kiss": -0.10723621666187466,
+                "small_gicp": -0.0851885389635073
+              },
+              "gt_step_m": 0.07447730743943884,
+              "kiss_stability_mean_delta_m": 0.018238661984399194,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.008837012344912337,
+              "small_gicp_stability_mean_delta_m": 0.019673217620905997,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09345713534288716
+            },
+            {
+              "index": 8,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09173946024818008,
+              "oracle_error_m": 0.016473787802054128,
+              "regret_m": 0.07526567244612595,
+              "policy_values": {
+                "kiss": -0.08177074503660497,
+                "small_gicp": -0.07367941221698515
+              },
+              "gt_step_m": 0.02845578836454757,
+              "kiss_stability_mean_delta_m": 0.019765912240778272,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016473787802054128,
+              "small_gicp_stability_mean_delta_m": 0.01877827777495039,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09173946024818008
+            },
+            {
+              "index": 13,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.08107333776443296,
+              "oracle_error_m": 0.029356418467073916,
+              "regret_m": 0.05171691929735904,
+              "policy_values": {
+                "kiss": -0.10023685374116506,
+                "small_gicp": -0.07489103096092596
+              },
+              "gt_step_m": 0.03233159756462014,
+              "kiss_stability_mean_delta_m": 0.015259067652890495,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029356418467073916,
+              "small_gicp_stability_mean_delta_m": 0.014637495210515342,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.08107333776443296
+            },
+            {
+              "index": 9,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06599475093990699,
+              "oracle_error_m": 0.017775212777295473,
+              "regret_m": 0.048219538162611514,
+              "policy_values": {
+                "kiss": -0.0994477917644356,
+                "small_gicp": -0.0798017967215004
+              },
+              "gt_step_m": 0.04743694421591269,
+              "kiss_stability_mean_delta_m": 0.01704543291651945,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.017775212777295473,
+              "small_gicp_stability_mean_delta_m": 0.016264251663769668,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06599475093990699
+            },
+            {
+              "index": 10,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06888040079345066,
+              "oracle_error_m": 0.0228229493351881,
+              "regret_m": 0.04605745145826256,
+              "policy_values": {
+                "kiss": -0.11022329352004065,
+                "small_gicp": -0.08478561684249919
+              },
+              "gt_step_m": 0.05344346797839993,
+              "kiss_stability_mean_delta_m": 0.01583294608846807,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0228229493351881,
+              "small_gicp_stability_mean_delta_m": 0.017787279363945495,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06888040079345066
+            },
+            {
+              "index": 24,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.06113773593985133,
+              "oracle_error_m": 0.016188532358858376,
+              "regret_m": 0.044949203580992955,
+              "policy_values": {
+                "kiss": -0.12947729487624737,
+                "small_gicp": -0.10628817199390746
+              },
+              "gt_step_m": 0.21588672374080753,
+              "kiss_stability_mean_delta_m": 0.013575083638082618,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.016188532358858376,
+              "small_gicp_stability_mean_delta_m": 0.013871000099345157,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06113773593985133
+            },
+            {
+              "index": 11,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.04750920090614288,
+              "oracle_error_m": 0.019395909351494815,
+              "regret_m": 0.028113291554648062,
+              "policy_values": {
+                "kiss": -0.08437341020365788,
+                "small_gicp": -0.07949820530579021
+              },
+              "gt_step_m": 0.052722520550503485,
+              "kiss_stability_mean_delta_m": 0.019032498606513768,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.019395909351494815,
+              "small_gicp_stability_mean_delta_m": 0.017450392379121837,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.04750920090614288
+            },
+            {
+              "index": 16,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.0680674956296286,
+              "oracle_error_m": 0.043187839688323015,
+              "regret_m": 0.02487965594130559,
+              "policy_values": {
+                "kiss": -0.11870198819286451,
+                "small_gicp": -0.12636929733078253
+              },
+              "gt_step_m": 0.09271984254585484,
+              "kiss_stability_mean_delta_m": 0.016913406680916697,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0680674956296286,
+              "small_gicp_stability_mean_delta_m": 0.01559152019430291,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.043187839688323015
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_calibrated_full_kitti_seq_08_start0030_30.json"
+        }
+      ]
+    },
+    {
+      "window": "kitti_seq_08_start0090_30",
+      "gt_csv": "experiments/results/intensity_odometry/window_benchmark/windows/kitti_seq_08_start0090_30/gt.csv",
+      "diagnostic_json": "experiments/results/intensity_odometry/window_benchmark/results/selector_diagnostics_kitti_seq_08_start0090_30.json",
+      "best_ate_policy": "stability_margin_0p0025",
+      "best_max_frame_policy": "stability_margin_0p0025",
+      "policies": [
+        {
+          "policy": "kiss",
+          "title": "KISS",
+          "metrics": {
+            "ate_xy_m": 1.110586,
+            "step_length_rmse_m": 0.069282
+          },
+          "mean_frame_error_m": 0.9458588734237271,
+          "max_frame_error_m": 1.6345952710704679,
+          "max_frame_index": 26,
+          "pair_hit_rate": 0.27586206896551724,
+          "pair_hits": 8,
+          "pair_total": 29,
+          "selected_counts": {
+            "kiss": 29
+          },
+          "oracle_counts": {
+            "small_gicp": 21,
+            "kiss": 8
+          },
+          "mean_pair_regret_m": 0.021767229560310526,
+          "positive_pair_regret_count": 21,
+          "positive_pair_regret_sum_m": 0.6312496572490052,
+          "max_pair_regret_m": 0.06916910328572216,
+          "top_misses": [
+            {
+              "index": 27,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.0831724261241341,
+              "oracle_error_m": 0.014003322838411936,
+              "regret_m": 0.06916910328572216,
+              "policy_values": {},
+              "gt_step_m": 1.1236111189186333,
+              "kiss_stability_mean_delta_m": 0.011945633106856235,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0831724261241341,
+              "small_gicp_stability_mean_delta_m": 0.01457374455384363,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.014003322838411936
+            },
+            {
+              "index": 10,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.1155799466072646,
+              "oracle_error_m": 0.052048824009525034,
+              "regret_m": 0.06353112259773958,
+              "policy_values": {},
+              "gt_step_m": 1.119061442155917,
+              "kiss_stability_mean_delta_m": 0.010889836668942105,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.1155799466072646,
+              "small_gicp_stability_mean_delta_m": 0.010364505975688075,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.052048824009525034
+            },
+            {
+              "index": 21,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.0812066821525304,
+              "oracle_error_m": 0.023335152482712816,
+              "regret_m": 0.05787152966981758,
+              "policy_values": {},
+              "gt_step_m": 1.1061672085139909,
+              "kiss_stability_mean_delta_m": 0.01466532494275929,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.0812066821525304,
+              "small_gicp_stability_mean_delta_m": 0.015713029387778247,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.023335152482712816
+            },
+            {
+              "index": 18,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.05965492487588322,
+              "oracle_error_m": 0.010631780610902796,
+              "regret_m": 0.049023144264980424,
+              "policy_values": {},
+              "gt_step_m": 1.1172925404741456,
+              "kiss_stability_mean_delta_m": 0.011797817101131952,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.05965492487588322,
+              "small_gicp_stability_mean_delta_m": 0.013918813434959437,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.010631780610902796
+            },
+            {
+              "index": 29,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.07351631048704822,
+              "oracle_error_m": 0.025191851433882244,
+              "regret_m": 0.04832445905316598,
+              "policy_values": {},
+              "gt_step_m": 1.1187843516605411,
+              "kiss_stability_mean_delta_m": 0.014129763097021348,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07351631048704822,
+              "small_gicp_stability_mean_delta_m": 0.014507250671067319,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.025191851433882244
+            },
+            {
+              "index": 12,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.09186565617622132,
+              "oracle_error_m": 0.04412067919952171,
+              "regret_m": 0.04774497697669961,
+              "policy_values": {},
+              "gt_step_m": 1.0881747406093758,
+              "kiss_stability_mean_delta_m": 0.010986403146371747,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.09186565617622132,
+              "small_gicp_stability_mean_delta_m": 0.009868098290779876,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.04412067919952171
+            },
+            {
+              "index": 20,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.08029326217077595,
+              "oracle_error_m": 0.03332009428107671,
+              "regret_m": 0.04697316788969924,
+              "policy_values": {},
+              "gt_step_m": 1.1110549031187413,
+              "kiss_stability_mean_delta_m": 0.01042503347941886,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.08029326217077595,
+              "small_gicp_stability_mean_delta_m": 0.014492003357678215,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.03332009428107671
+            },
+            {
+              "index": 15,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.10857186802985724,
+              "oracle_error_m": 0.06713540785285113,
+              "regret_m": 0.04143646017700611,
+              "policy_values": {},
+              "gt_step_m": 1.136700213756722,
+              "kiss_stability_mean_delta_m": 0.006926433085692636,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.10857186802985724,
+              "small_gicp_stability_mean_delta_m": 0.008376090264001936,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06713540785285113
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/kitti_seq_08_start0090_30_kiss_pair_gate2.json"
+        },
+        {
+          "policy": "small_gicp",
+          "title": "SmallGICP",
+          "metrics": {
+            "ate_xy_m": 0.67888,
+            "step_length_rmse_m": 0.051622
+          },
+          "mean_frame_error_m": 0.5779693889399051,
+          "max_frame_error_m": 1.0986485611343104,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.7241379310344828,
+          "pair_hits": 21,
+          "pair_total": 29,
+          "selected_counts": {
+            "small_gicp": 29
+          },
+          "oracle_counts": {
+            "small_gicp": 21,
+            "kiss": 8
+          },
+          "mean_pair_regret_m": 0.005679251946871879,
+          "positive_pair_regret_count": 8,
+          "positive_pair_regret_sum_m": 0.1646983064592845,
+          "max_pair_regret_m": 0.07061336248130143,
+          "top_misses": [
+            {
+              "index": 19,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09848086780235749,
+              "oracle_error_m": 0.027867505321056057,
+              "regret_m": 0.07061336248130143,
+              "policy_values": {},
+              "gt_step_m": 1.1326148971228827,
+              "kiss_stability_mean_delta_m": 0.011096460720202025,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.027867505321056057,
+              "small_gicp_stability_mean_delta_m": 0.011704191655467334,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09848086780235749
+            },
+            {
+              "index": 23,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07071595988590205,
+              "oracle_error_m": 0.029302850286268653,
+              "regret_m": 0.0414131095996334,
+              "policy_values": {},
+              "gt_step_m": 1.1081320366985015,
+              "kiss_stability_mean_delta_m": 0.013980702024187665,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029302850286268653,
+              "small_gicp_stability_mean_delta_m": 0.015658616447606563,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07071595988590205
+            },
+            {
+              "index": 2,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.052468905339928984,
+              "oracle_error_m": 0.025678665172350453,
+              "regret_m": 0.02679024016757853,
+              "policy_values": {},
+              "gt_step_m": 0.9473211738098951,
+              "kiss_stability_mean_delta_m": 0.010227688937695647,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.025678665172350453,
+              "small_gicp_stability_mean_delta_m": 0.009643633626475074,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.052468905339928984
+            },
+            {
+              "index": 25,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.042336518549545545,
+              "oracle_error_m": 0.02666518847032018,
+              "regret_m": 0.015671330079225363,
+              "policy_values": {},
+              "gt_step_m": 1.1145934191889884,
+              "kiss_stability_mean_delta_m": 0.009963561575906693,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.02666518847032018,
+              "small_gicp_stability_mean_delta_m": 0.009822888507020261,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.042336518549545545
+            },
+            {
+              "index": 3,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07940373856224842,
+              "oracle_error_m": 0.07411191713188454,
+              "regret_m": 0.005291821430363872,
+              "policy_values": {},
+              "gt_step_m": 0.9681743102045733,
+              "kiss_stability_mean_delta_m": 0.010584790552117676,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07411191713188454,
+              "small_gicp_stability_mean_delta_m": 0.010312273216139709,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07940373856224842
+            },
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.10515280559018284,
+              "oracle_error_m": 0.1026543045430875,
+              "regret_m": 0.0024985010470953417,
+              "policy_values": {},
+              "gt_step_m": 1.1367527444525258,
+              "kiss_stability_mean_delta_m": 0.00898854655160068,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.1026543045430875,
+              "small_gicp_stability_mean_delta_m": 0.009772735184106375,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.10515280559018284
+            },
+            {
+              "index": 9,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.05780378091994426,
+              "oracle_error_m": 0.056179875435969945,
+              "regret_m": 0.0016239054839743139,
+              "policy_values": {},
+              "gt_step_m": 1.0376275388194907,
+              "kiss_stability_mean_delta_m": 0.009519854362553398,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.056179875435969945,
+              "small_gicp_stability_mean_delta_m": 0.00917186449197479,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.05780378091994426
+            },
+            {
+              "index": 4,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.048159935509928836,
+              "oracle_error_m": 0.047363899339816586,
+              "regret_m": 0.0007960361701122506,
+              "policy_values": {},
+              "gt_step_m": 0.9916386866401489,
+              "kiss_stability_mean_delta_m": 0.010007159021996934,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.047363899339816586,
+              "small_gicp_stability_mean_delta_m": 0.010883716698061522,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.048159935509928836
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/kitti_seq_08_start0090_30_small_gicp_v0.75_c512.json"
+        },
+        {
+          "policy": "stability_delta",
+          "title": "Stability delta",
+          "metrics": {
+            "ate_xy_m": 0.8420337076042693,
+            "step_length_rmse_m": 0.06004586277464987,
+            "step_length_rmse_pct_of_mean_step": 5.555490308931839,
+            "gt_path_length_m": 31.344308488221518
+          },
+          "mean_frame_error_m": 0.7097878411922146,
+          "max_frame_error_m": 1.301800142399242,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.6206896551724138,
+          "pair_hits": 18,
+          "pair_total": 29,
+          "selected_counts": {
+            "kiss": 11,
+            "small_gicp": 18
+          },
+          "oracle_counts": {
+            "small_gicp": 21,
+            "kiss": 8
+          },
+          "mean_pair_regret_m": 0.010770416550485848,
+          "positive_pair_regret_count": 11,
+          "positive_pair_regret_sum_m": 0.3123420799640896,
+          "max_pair_regret_m": 0.07061336248130143,
+          "top_misses": [
+            {
+              "index": 19,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09848086780235749,
+              "oracle_error_m": 0.027867505321056057,
+              "regret_m": 0.07061336248130143,
+              "policy_values": {
+                "kiss": 0.011096460720202025,
+                "small_gicp": 0.011704191655467334
+              },
+              "gt_step_m": 1.1326148971228827,
+              "kiss_stability_mean_delta_m": 0.011096460720202025,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.027867505321056057,
+              "small_gicp_stability_mean_delta_m": 0.011704191655467334,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09848086780235749
+            },
+            {
+              "index": 10,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.1155799466072646,
+              "oracle_error_m": 0.052048824009525034,
+              "regret_m": 0.06353112259773958,
+              "policy_values": {
+                "kiss": 0.010889836668942105,
+                "small_gicp": 0.010364505975688075
+              },
+              "gt_step_m": 1.119061442155917,
+              "kiss_stability_mean_delta_m": 0.010889836668942105,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.1155799466072646,
+              "small_gicp_stability_mean_delta_m": 0.010364505975688075,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.052048824009525034
+            },
+            {
+              "index": 12,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.09186565617622132,
+              "oracle_error_m": 0.04412067919952171,
+              "regret_m": 0.04774497697669961,
+              "policy_values": {
+                "kiss": 0.010986403146371747,
+                "small_gicp": 0.009868098290779876
+              },
+              "gt_step_m": 1.0881747406093758,
+              "kiss_stability_mean_delta_m": 0.010986403146371747,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.09186565617622132,
+              "small_gicp_stability_mean_delta_m": 0.009868098290779876,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.04412067919952171
+            },
+            {
+              "index": 23,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07071595988590205,
+              "oracle_error_m": 0.029302850286268653,
+              "regret_m": 0.0414131095996334,
+              "policy_values": {
+                "kiss": 0.013980702024187665,
+                "small_gicp": 0.015658616447606563
+              },
+              "gt_step_m": 1.1081320366985015,
+              "kiss_stability_mean_delta_m": 0.013980702024187665,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029302850286268653,
+              "small_gicp_stability_mean_delta_m": 0.015658616447606563,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07071595988590205
+            },
+            {
+              "index": 13,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.11875320463736215,
+              "oracle_error_m": 0.07843472280232797,
+              "regret_m": 0.040318481835034184,
+              "policy_values": {
+                "kiss": 0.012030200499835343,
+                "small_gicp": 0.012024692745318135
+              },
+              "gt_step_m": 1.1145495015852394,
+              "kiss_stability_mean_delta_m": 0.012030200499835343,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.11875320463736215,
+              "small_gicp_stability_mean_delta_m": 0.012024692745318135,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07843472280232797
+            },
+            {
+              "index": 8,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.07561145577632807,
+              "oracle_error_m": 0.054257582509200715,
+              "regret_m": 0.02135387326712735,
+              "policy_values": {
+                "kiss": 0.013531433875424168,
+                "small_gicp": 0.011812866180233165
+              },
+              "gt_step_m": 1.0367025657533804,
+              "kiss_stability_mean_delta_m": 0.013531433875424168,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07561145577632807,
+              "small_gicp_stability_mean_delta_m": 0.011812866180233165,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.054257582509200715
+            },
+            {
+              "index": 22,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.061223941483024805,
+              "oracle_error_m": 0.04758832672917069,
+              "regret_m": 0.013635614753854115,
+              "policy_values": {
+                "kiss": 0.015335723960044923,
+                "small_gicp": 0.014901076809302546
+              },
+              "gt_step_m": 1.1079096856086716,
+              "kiss_stability_mean_delta_m": 0.015335723960044923,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.061223941483024805,
+              "small_gicp_stability_mean_delta_m": 0.014901076809302546,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.04758832672917069
+            },
+            {
+              "index": 26,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.06603360275872301,
+              "oracle_error_m": 0.05903264480276023,
+              "regret_m": 0.007000957955962783,
+              "policy_values": {
+                "kiss": 0.012562508123517451,
+                "small_gicp": 0.012271623033021579
+              },
+              "gt_step_m": 1.120442914273292,
+              "kiss_stability_mean_delta_m": 0.012562508123517451,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.06603360275872301,
+              "small_gicp_stability_mean_delta_m": 0.012271623033021579,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.05903264480276023
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_stability_delta_kitti_seq_08_start0090_30.json"
+        },
+        {
+          "policy": "stability_margin_0p0010",
+          "title": "Stability margin 0.001",
+          "metrics": {
+            "ate_xy_m": 0.7703543683344519,
+            "step_length_rmse_m": 0.05325622603061874,
+            "step_length_rmse_pct_of_mean_step": 4.927307793273875,
+            "gt_path_length_m": 31.344308488221518
+          },
+          "mean_frame_error_m": 0.6582742523577729,
+          "max_frame_error_m": 1.2036421623149416,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.6551724137931034,
+          "pair_hits": 19,
+          "pair_total": 29,
+          "selected_counts": {
+            "small_gicp": 27,
+            "kiss": 2
+          },
+          "oracle_counts": {
+            "small_gicp": 21,
+            "kiss": 8
+          },
+          "mean_pair_regret_m": 0.008061970920796947,
+          "positive_pair_regret_count": 10,
+          "positive_pair_regret_sum_m": 0.23379715670311146,
+          "max_pair_regret_m": 0.07061336248130143,
+          "top_misses": [
+            {
+              "index": 19,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09848086780235749,
+              "oracle_error_m": 0.027867505321056057,
+              "regret_m": 0.07061336248130143,
+              "policy_values": {
+                "kiss": -0.0006077309352653087,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1326148971228827,
+              "kiss_stability_mean_delta_m": 0.011096460720202025,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.027867505321056057,
+              "small_gicp_stability_mean_delta_m": 0.011704191655467334,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09848086780235749
+            },
+            {
+              "index": 12,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.09186565617622132,
+              "oracle_error_m": 0.04412067919952171,
+              "regret_m": 0.04774497697669961,
+              "policy_values": {
+                "kiss": 0.0011183048555918704,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.0881747406093758,
+              "kiss_stability_mean_delta_m": 0.010986403146371747,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.09186565617622132,
+              "small_gicp_stability_mean_delta_m": 0.009868098290779876,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.04412067919952171
+            },
+            {
+              "index": 23,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07071595988590205,
+              "oracle_error_m": 0.029302850286268653,
+              "regret_m": 0.0414131095996334,
+              "policy_values": {
+                "kiss": -0.001677914423418898,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1081320366985015,
+              "kiss_stability_mean_delta_m": 0.013980702024187665,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029302850286268653,
+              "small_gicp_stability_mean_delta_m": 0.015658616447606563,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07071595988590205
+            },
+            {
+              "index": 2,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.052468905339928984,
+              "oracle_error_m": 0.025678665172350453,
+              "regret_m": 0.02679024016757853,
+              "policy_values": {
+                "kiss": 0.0005840553112205736,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.9473211738098951,
+              "kiss_stability_mean_delta_m": 0.010227688937695647,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.025678665172350453,
+              "small_gicp_stability_mean_delta_m": 0.009643633626475074,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.052468905339928984
+            },
+            {
+              "index": 8,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.07561145577632807,
+              "oracle_error_m": 0.054257582509200715,
+              "regret_m": 0.02135387326712735,
+              "policy_values": {
+                "kiss": 0.0017185676951910027,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.0367025657533804,
+              "kiss_stability_mean_delta_m": 0.013531433875424168,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07561145577632807,
+              "small_gicp_stability_mean_delta_m": 0.011812866180233165,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.054257582509200715
+            },
+            {
+              "index": 25,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.042336518549545545,
+              "oracle_error_m": 0.02666518847032018,
+              "regret_m": 0.015671330079225363,
+              "policy_values": {
+                "kiss": 0.00014067306888643216,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1145934191889884,
+              "kiss_stability_mean_delta_m": 0.009963561575906693,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.02666518847032018,
+              "small_gicp_stability_mean_delta_m": 0.009822888507020261,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.042336518549545545
+            },
+            {
+              "index": 3,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07940373856224842,
+              "oracle_error_m": 0.07411191713188454,
+              "regret_m": 0.005291821430363872,
+              "policy_values": {
+                "kiss": 0.00027251733597796757,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.9681743102045733,
+              "kiss_stability_mean_delta_m": 0.010584790552117676,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07411191713188454,
+              "small_gicp_stability_mean_delta_m": 0.010312273216139709,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07940373856224842
+            },
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.10515280559018284,
+              "oracle_error_m": 0.1026543045430875,
+              "regret_m": 0.0024985010470953417,
+              "policy_values": {
+                "kiss": -0.0007841886325056953,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1367527444525258,
+              "kiss_stability_mean_delta_m": 0.00898854655160068,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.1026543045430875,
+              "small_gicp_stability_mean_delta_m": 0.009772735184106375,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.10515280559018284
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_stability_margin_0p0010_kitti_seq_08_start0090_30.json"
+        },
+        {
+          "policy": "stability_margin_0p0025",
+          "title": "Stability margin 0.0025",
+          "metrics": {
+            "ate_xy_m": 0.6762177325506648,
+            "step_length_rmse_m": 0.051627277134980304,
+            "step_length_rmse_pct_of_mean_step": 4.776596164107559,
+            "gt_path_length_m": 31.344308488221518
+          },
+          "mean_frame_error_m": 0.5757565153458587,
+          "max_frame_error_m": 1.092241753031596,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.7241379310344828,
+          "pair_hits": 21,
+          "pair_total": 29,
+          "selected_counts": {
+            "small_gicp": 29
+          },
+          "oracle_counts": {
+            "small_gicp": 21,
+            "kiss": 8
+          },
+          "mean_pair_regret_m": 0.005679251946871879,
+          "positive_pair_regret_count": 8,
+          "positive_pair_regret_sum_m": 0.1646983064592845,
+          "max_pair_regret_m": 0.07061336248130143,
+          "top_misses": [
+            {
+              "index": 19,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09848086780235749,
+              "oracle_error_m": 0.027867505321056057,
+              "regret_m": 0.07061336248130143,
+              "policy_values": {
+                "kiss": -0.0006077309352653087,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1326148971228827,
+              "kiss_stability_mean_delta_m": 0.011096460720202025,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.027867505321056057,
+              "small_gicp_stability_mean_delta_m": 0.011704191655467334,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09848086780235749
+            },
+            {
+              "index": 23,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07071595988590205,
+              "oracle_error_m": 0.029302850286268653,
+              "regret_m": 0.0414131095996334,
+              "policy_values": {
+                "kiss": -0.001677914423418898,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1081320366985015,
+              "kiss_stability_mean_delta_m": 0.013980702024187665,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029302850286268653,
+              "small_gicp_stability_mean_delta_m": 0.015658616447606563,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07071595988590205
+            },
+            {
+              "index": 2,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.052468905339928984,
+              "oracle_error_m": 0.025678665172350453,
+              "regret_m": 0.02679024016757853,
+              "policy_values": {
+                "kiss": 0.0005840553112205736,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.9473211738098951,
+              "kiss_stability_mean_delta_m": 0.010227688937695647,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.025678665172350453,
+              "small_gicp_stability_mean_delta_m": 0.009643633626475074,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.052468905339928984
+            },
+            {
+              "index": 25,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.042336518549545545,
+              "oracle_error_m": 0.02666518847032018,
+              "regret_m": 0.015671330079225363,
+              "policy_values": {
+                "kiss": 0.00014067306888643216,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1145934191889884,
+              "kiss_stability_mean_delta_m": 0.009963561575906693,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.02666518847032018,
+              "small_gicp_stability_mean_delta_m": 0.009822888507020261,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.042336518549545545
+            },
+            {
+              "index": 3,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07940373856224842,
+              "oracle_error_m": 0.07411191713188454,
+              "regret_m": 0.005291821430363872,
+              "policy_values": {
+                "kiss": 0.00027251733597796757,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.9681743102045733,
+              "kiss_stability_mean_delta_m": 0.010584790552117676,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07411191713188454,
+              "small_gicp_stability_mean_delta_m": 0.010312273216139709,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07940373856224842
+            },
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.10515280559018284,
+              "oracle_error_m": 0.1026543045430875,
+              "regret_m": 0.0024985010470953417,
+              "policy_values": {
+                "kiss": -0.0007841886325056953,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1367527444525258,
+              "kiss_stability_mean_delta_m": 0.00898854655160068,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.1026543045430875,
+              "small_gicp_stability_mean_delta_m": 0.009772735184106375,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.10515280559018284
+            },
+            {
+              "index": 9,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.05780378091994426,
+              "oracle_error_m": 0.056179875435969945,
+              "regret_m": 0.0016239054839743139,
+              "policy_values": {
+                "kiss": 0.0003479898705786074,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.0376275388194907,
+              "kiss_stability_mean_delta_m": 0.009519854362553398,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.056179875435969945,
+              "small_gicp_stability_mean_delta_m": 0.00917186449197479,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.05780378091994426
+            },
+            {
+              "index": 4,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.048159935509928836,
+              "oracle_error_m": 0.047363899339816586,
+              "regret_m": 0.0007960361701122506,
+              "policy_values": {
+                "kiss": -0.000876557676064588,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.9916386866401489,
+              "kiss_stability_mean_delta_m": 0.010007159021996934,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.047363899339816586,
+              "small_gicp_stability_mean_delta_m": 0.010883716698061522,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.048159935509928836
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_stability_margin_0p0025_kitti_seq_08_start0090_30.json"
+        },
+        {
+          "policy": "stability_motion_0p0025",
+          "title": "Stability motion 0.0025",
+          "metrics": {
+            "ate_xy_m": 0.6762177325506648,
+            "step_length_rmse_m": 0.051627277134980304,
+            "step_length_rmse_pct_of_mean_step": 4.776596164107559,
+            "gt_path_length_m": 31.344308488221518
+          },
+          "mean_frame_error_m": 0.5757565153458587,
+          "max_frame_error_m": 1.092241753031596,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.7241379310344828,
+          "pair_hits": 21,
+          "pair_total": 29,
+          "selected_counts": {
+            "small_gicp": 29
+          },
+          "oracle_counts": {
+            "small_gicp": 21,
+            "kiss": 8
+          },
+          "mean_pair_regret_m": 0.005679251946871879,
+          "positive_pair_regret_count": 8,
+          "positive_pair_regret_sum_m": 0.1646983064592845,
+          "max_pair_regret_m": 0.07061336248130143,
+          "top_misses": [
+            {
+              "index": 19,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09848086780235749,
+              "oracle_error_m": 0.027867505321056057,
+              "regret_m": 0.07061336248130143,
+              "policy_values": {
+                "kiss": -0.0006077309352653087,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1326148971228827,
+              "kiss_stability_mean_delta_m": 0.011096460720202025,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.027867505321056057,
+              "small_gicp_stability_mean_delta_m": 0.011704191655467334,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09848086780235749
+            },
+            {
+              "index": 23,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07071595988590205,
+              "oracle_error_m": 0.029302850286268653,
+              "regret_m": 0.0414131095996334,
+              "policy_values": {
+                "kiss": -0.001677914423418898,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1081320366985015,
+              "kiss_stability_mean_delta_m": 0.013980702024187665,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029302850286268653,
+              "small_gicp_stability_mean_delta_m": 0.015658616447606563,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07071595988590205
+            },
+            {
+              "index": 2,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.052468905339928984,
+              "oracle_error_m": 0.025678665172350453,
+              "regret_m": 0.02679024016757853,
+              "policy_values": {
+                "kiss": 0.0005840553112205736,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.9473211738098951,
+              "kiss_stability_mean_delta_m": 0.010227688937695647,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.025678665172350453,
+              "small_gicp_stability_mean_delta_m": 0.009643633626475074,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.052468905339928984
+            },
+            {
+              "index": 25,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.042336518549545545,
+              "oracle_error_m": 0.02666518847032018,
+              "regret_m": 0.015671330079225363,
+              "policy_values": {
+                "kiss": 0.00014067306888643216,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1145934191889884,
+              "kiss_stability_mean_delta_m": 0.009963561575906693,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.02666518847032018,
+              "small_gicp_stability_mean_delta_m": 0.009822888507020261,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.042336518549545545
+            },
+            {
+              "index": 3,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07940373856224842,
+              "oracle_error_m": 0.07411191713188454,
+              "regret_m": 0.005291821430363872,
+              "policy_values": {
+                "kiss": 0.00027251733597796757,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.9681743102045733,
+              "kiss_stability_mean_delta_m": 0.010584790552117676,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07411191713188454,
+              "small_gicp_stability_mean_delta_m": 0.010312273216139709,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07940373856224842
+            },
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.10515280559018284,
+              "oracle_error_m": 0.1026543045430875,
+              "regret_m": 0.0024985010470953417,
+              "policy_values": {
+                "kiss": -0.0007841886325056953,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.1367527444525258,
+              "kiss_stability_mean_delta_m": 0.00898854655160068,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.1026543045430875,
+              "small_gicp_stability_mean_delta_m": 0.009772735184106375,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.10515280559018284
+            },
+            {
+              "index": 9,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.05780378091994426,
+              "oracle_error_m": 0.056179875435969945,
+              "regret_m": 0.0016239054839743139,
+              "policy_values": {
+                "kiss": 0.0003479898705786074,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 1.0376275388194907,
+              "kiss_stability_mean_delta_m": 0.009519854362553398,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.056179875435969945,
+              "small_gicp_stability_mean_delta_m": 0.00917186449197479,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.05780378091994426
+            },
+            {
+              "index": 4,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.048159935509928836,
+              "oracle_error_m": 0.047363899339816586,
+              "regret_m": 0.0007960361701122506,
+              "policy_values": {
+                "kiss": -0.000876557676064588,
+                "small_gicp": 0.0
+              },
+              "gt_step_m": 0.9916386866401489,
+              "kiss_stability_mean_delta_m": 0.010007159021996934,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.047363899339816586,
+              "small_gicp_stability_mean_delta_m": 0.010883716698061522,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.048159935509928836
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_stability_motion_0p0025_kitti_seq_08_start0090_30.json"
+        },
+        {
+          "policy": "calibrated_full",
+          "title": "Calibrated full",
+          "metrics": {
+            "ate_xy_m": 0.7549017447975126,
+            "step_length_rmse_m": 0.051516701650748425,
+            "step_length_rmse_pct_of_mean_step": 4.766365633598553,
+            "gt_path_length_m": 31.344308488221518
+          },
+          "mean_frame_error_m": 0.6518583847307298,
+          "max_frame_error_m": 1.1661843207781075,
+          "max_frame_index": 29,
+          "pair_hit_rate": 0.7241379310344828,
+          "pair_hits": 21,
+          "pair_total": 29,
+          "selected_counts": {
+            "kiss": 4,
+            "small_gicp": 25
+          },
+          "oracle_counts": {
+            "small_gicp": 21,
+            "kiss": 8
+          },
+          "mean_pair_regret_m": 0.004339571834286034,
+          "positive_pair_regret_count": 8,
+          "positive_pair_regret_sum_m": 0.12584758319429498,
+          "max_pair_regret_m": 0.07061336248130143,
+          "top_misses": [
+            {
+              "index": 19,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.09848086780235749,
+              "oracle_error_m": 0.027867505321056057,
+              "regret_m": 0.07061336248130143,
+              "policy_values": {
+                "kiss": -0.12763510710328121,
+                "small_gicp": -0.11495735387679348
+              },
+              "gt_step_m": 1.1326148971228827,
+              "kiss_stability_mean_delta_m": 0.011096460720202025,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.027867505321056057,
+              "small_gicp_stability_mean_delta_m": 0.011704191655467334,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.09848086780235749
+            },
+            {
+              "index": 23,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07071595988590205,
+              "oracle_error_m": 0.029302850286268653,
+              "regret_m": 0.0414131095996334,
+              "policy_values": {
+                "kiss": -0.10875724444911453,
+                "small_gicp": -0.07985082257036066
+              },
+              "gt_step_m": 1.1081320366985015,
+              "kiss_stability_mean_delta_m": 0.013980702024187665,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.029302850286268653,
+              "small_gicp_stability_mean_delta_m": 0.015658616447606563,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07071595988590205
+            },
+            {
+              "index": 3,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.07940373856224842,
+              "oracle_error_m": 0.07411191713188454,
+              "regret_m": 0.005291821430363872,
+              "policy_values": {
+                "kiss": -0.12407981988804345,
+                "small_gicp": -0.11767771794300054
+              },
+              "gt_step_m": 0.9681743102045733,
+              "kiss_stability_mean_delta_m": 0.010584790552117676,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.07411191713188454,
+              "small_gicp_stability_mean_delta_m": 0.010312273216139709,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.07940373856224842
+            },
+            {
+              "index": 1,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.03839789156940394,
+              "oracle_error_m": 0.034961848289874385,
+              "regret_m": 0.003436043279529552,
+              "policy_values": {
+                "kiss": -0.10915235406280857,
+                "small_gicp": -0.10934581581928995
+              },
+              "gt_step_m": 0.924294184163953,
+              "kiss_stability_mean_delta_m": 0.011279194025346209,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.03839789156940394,
+              "small_gicp_stability_mean_delta_m": 0.010882622131642067,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.034961848289874385
+            },
+            {
+              "index": 17,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.10515280559018284,
+              "oracle_error_m": 0.1026543045430875,
+              "regret_m": 0.0024985010470953417,
+              "policy_values": {
+                "kiss": -0.13985015373858511,
+                "small_gicp": -0.12210444799315444
+              },
+              "gt_step_m": 1.1367527444525258,
+              "kiss_stability_mean_delta_m": 0.00898854655160068,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.1026543045430875,
+              "small_gicp_stability_mean_delta_m": 0.009772735184106375,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.10515280559018284
+            },
+            {
+              "index": 9,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.05780378091994426,
+              "oracle_error_m": 0.056179875435969945,
+              "regret_m": 0.0016239054839743139,
+              "policy_values": {
+                "kiss": -0.1262694836970435,
+                "small_gicp": -0.12016212163544102
+              },
+              "gt_step_m": 1.0376275388194907,
+              "kiss_stability_mean_delta_m": 0.009519854362553398,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.056179875435969945,
+              "small_gicp_stability_mean_delta_m": 0.00917186449197479,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.05780378091994426
+            },
+            {
+              "index": 4,
+              "selected": "small_gicp",
+              "oracle": "kiss",
+              "selected_error_m": 0.048159935509928836,
+              "oracle_error_m": 0.047363899339816586,
+              "regret_m": 0.0007960361701122506,
+              "policy_values": {
+                "kiss": -0.1287604301427726,
+                "small_gicp": -0.12039340298649953
+              },
+              "gt_step_m": 0.9916386866401489,
+              "kiss_stability_mean_delta_m": 0.010007159021996934,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.047363899339816586,
+              "small_gicp_stability_mean_delta_m": 0.010883716698061522,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.048159935509928836
+            },
+            {
+              "index": 5,
+              "selected": "kiss",
+              "oracle": "small_gicp",
+              "selected_error_m": 0.062253141529379906,
+              "oracle_error_m": 0.06207833782709509,
+              "regret_m": 0.0001748037022848148,
+              "policy_values": {
+                "kiss": -0.13253272348050177,
+                "small_gicp": -0.14440552782852295
+              },
+              "gt_step_m": 1.0251829941214103,
+              "kiss_stability_mean_delta_m": 0.009432358130551653,
+              "kiss_cubemap_score": null,
+              "kiss_translation_error_m": 0.062253141529379906,
+              "small_gicp_stability_mean_delta_m": 0.009905925155278437,
+              "small_gicp_cubemap_score": null,
+              "small_gicp_translation_error_m": 0.06207833782709509
+            }
+          ],
+          "path": "experiments/results/intensity_odometry/window_benchmark/results/selected_prior_calibrated_full_kitti_seq_08_start0090_30.json"
+        }
+      ]
+    }
+  ]
+}

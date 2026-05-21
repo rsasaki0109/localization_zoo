@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-05-20T22:16:21+00:00",
+  "manifest_path": "experiments/aloam_kitti_seq_07_full_sweep_matrix.json",
+  "problem": {
+    "id": "aloam_kitti_seq_07_full_sweep",
+    "title": "A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames)",
+    "question": "Which A-LOAM profile family is strongest on KITTI Odom seq 07 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "aloam",
+    "primary_method": "A-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline settings for KITTI (n_scans=64).",
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --aloam-kitti-profile",
+      "summary_path": "experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/run.log",
+      "status": "ok",
+      "ate_m": 2.505243,
+      "rpe_trans_pct": 0.605313,
+      "rpe_rot_deg_per_m": 0.00582,
+      "fps": 3.257684,
+      "time_ms": 337970.183035,
+      "frames": 1101,
+      "note": "Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.",
+      "benchmark_score": 72.42,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce feature density and solver work for speed.",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile",
+      "summary_path": "experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/run.log",
+      "status": "ok",
+      "ate_m": 4.030692,
+      "rpe_trans_pct": 0.691061,
+      "rpe_rot_deg_per_m": 0.006763,
+      "fps": 7.26473,
+      "time_ms": 151554.160405,
+      "frames": 1101,
+      "note": "Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.",
+      "benchmark_score": 81.08,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase feature density and solver iterations for accuracy.",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/summary.json --aloam-kitti-profile --aloam-dense-profile",
+      "summary_path": "experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/run.log",
+      "status": "ok",
+      "ate_m": 4.872202,
+      "rpe_trans_pct": 0.621638,
+      "rpe_rot_deg_per_m": 0.007326,
+      "fps": 3.213323,
+      "time_ms": 342635.928287,
+      "frames": 1101,
+      "note": "Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.",
+      "benchmark_score": 47.83,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-05-21T01:06:03+00:00",
+  "manifest_path": "experiments/lego_loam_kitti_seq_00_full_transfer_matrix.json",
+  "problem": {
+    "id": "lego_loam_kitti_seq_00_full_transfer",
+    "title": "LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)",
+    "question": "Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 00 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lego_loam",
+    "primary_method": "LeGO-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Seq 07 accuracy/RPE winner.",
+      "args": [
+        "--lego-loam-kitti-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile",
+      "summary_path": "experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/run.log",
+      "status": "ok",
+      "ate_m": 12.378148,
+      "rpe_trans_pct": 0.842687,
+      "rpe_rot_deg_per_m": 0.008058,
+      "fps": 3.392297,
+      "time_ms": 1338620.893171,
+      "frames": 4541,
+      "note": "Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

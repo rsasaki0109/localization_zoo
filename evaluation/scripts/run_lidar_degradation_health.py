@@ -64,6 +64,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--intensity-bev-max-points", type=int, default=6000)
     parser.add_argument("--intensity-bev-min-step-translation", type=float, default=0.0)
     parser.add_argument("--intensity-bev-zero-motion-score-margin", type=float, default=0.0)
+    parser.add_argument(
+        "--intensity-bev-motion-margin-flag-rate",
+        type=float,
+        default=0.5,
+        help=(
+            "Flag non-baseline intensity BEV windows when this fraction of pair "
+            "decisions used the motion-margin fallback."
+        ),
+    )
+    parser.add_argument(
+        "--intensity-bev-overlap-tail-flag-ratio",
+        type=float,
+        default=0.5,
+        help=(
+            "Flag non-baseline intensity BEV windows when min overlap divided "
+            "by mean overlap falls below this ratio."
+        ),
+    )
     parser.add_argument("--ct-icp-source-voxel-size", type=float, default=0.75)
     parser.add_argument("--ct-icp-max-source-points", type=int, default=500)
     parser.add_argument("--ct-icp-voxel-resolution", type=float, default=1.5)
@@ -336,11 +354,37 @@ def optional_float(value: Any) -> float | None:
     return out if math.isfinite(out) else None
 
 
+def reason_counts(pairs: list[dict[str, Any]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for pair in pairs:
+        if "decision_reason" not in pair:
+            continue
+        reason = str(pair.get("decision_reason") or "n/a")
+        counts[reason] = counts.get(reason, 0) + 1
+    return counts
+
+
+def ratio_or_none(numerator: float | None, denominator: float | None) -> float | None:
+    if numerator is None or denominator is None or denominator <= 0.0:
+        return None
+    return numerator / denominator
+
+
+def is_stress_window(name: str, window: dict[str, Any]) -> bool:
+    if name != "baseline":
+        return True
+    obscurant_score = optional_float(window.get("obscurant_score"))
+    return obscurant_score is not None and obscurant_score >= 0.2
+
+
 def summarize_result(
     name: str,
     window: dict[str, Any],
     result_path: Path,
+    method: str,
     min_used_path_length: float = 0.0,
+    intensity_bev_motion_margin_flag_rate: float = 0.5,
+    intensity_bev_overlap_tail_flag_ratio: float = 0.5,
 ) -> dict[str, Any]:
     payload = load_payload(result_path)
     pairs = payload.get("pairs", [])
@@ -358,6 +402,18 @@ def summarize_result(
         for overlap in (optional_float(pair.get("overlap")) for pair in pairs)
         if overlap is not None
     ]
+    decision_reasons = reason_counts(pairs)
+    decision_count = sum(decision_reasons.values())
+    motion_margin_rate = (
+        decision_reasons.get("motion_margin", 0) / decision_count
+        if decision_count
+        else None
+    )
+    best_score_rate = (
+        decision_reasons.get("best_score", 0) / decision_count
+        if decision_count
+        else None
+    )
     used_steps = [
         math.hypot(float(pair.get("used_dx_curr_to_prev_m", 0.0)), float(pair.get("used_dy_curr_to_prev_m", 0.0)))
         for pair in pairs
@@ -375,6 +431,20 @@ def summarize_result(
     used_path_length = float(sum(used_steps))
     accepted_rate = float(sum(accepted) / pair_count) if pair_count else 0.0
     converged_rate = float(sum(converged) / pair_count) if pair_count else 0.0
+    overlap_mean = safe_mean(overlaps)
+    overlap_min = safe_min(overlaps)
+    overlap_min_to_mean = ratio_or_none(overlap_min, overlap_mean)
+    apply_intensity_confidence_flags = method == "intensity_bev" and is_stress_window(name, window)
+    motion_margin_dominant = (
+        apply_intensity_confidence_flags
+        and motion_margin_rate is not None
+        and motion_margin_rate >= intensity_bev_motion_margin_flag_rate
+    )
+    overlap_tail = (
+        apply_intensity_confidence_flags
+        and overlap_min_to_mean is not None
+        and overlap_min_to_mean < intensity_bev_overlap_tail_flag_ratio
+    )
     return {
         "name": name,
         "window": window,
@@ -389,8 +459,12 @@ def summarize_result(
         "failed_pairs": int(pair_count - sum(accepted)),
         "score_mean": safe_mean(valid_scores),
         "score_min": safe_min(valid_scores),
-        "overlap_mean": safe_mean(overlaps),
-        "overlap_min": safe_min(overlaps),
+        "overlap_mean": overlap_mean,
+        "overlap_min": overlap_min,
+        "overlap_min_to_mean": overlap_min_to_mean,
+        "decision_reasons": decision_reasons,
+        "motion_margin_rate": motion_margin_rate,
+        "best_score_rate": best_score_rate,
         "raw_step_mean_m": safe_mean(raw_steps),
         "used_path_length_m": used_path_length,
         "used_step_max_m": safe_max(used_steps),
@@ -411,6 +485,8 @@ def summarize_result(
                 and accepted_rate >= 0.5
                 and used_path_length < min_used_path_length
             ),
+            "motion_margin_dominant": motion_margin_dominant,
+            "overlap_tail": overlap_tail,
             "nonfinite_pose": nonfinite_pose_count > 0,
         },
     }
@@ -464,7 +540,10 @@ def main() -> int:
                 name,
                 row,
                 result_path,
+                method=args.method,
                 min_used_path_length=args.min_used_path_length,
+                intensity_bev_motion_margin_flag_rate=args.intensity_bev_motion_margin_flag_rate,
+                intensity_bev_overlap_tail_flag_ratio=args.intensity_bev_overlap_tail_flag_ratio,
             )
         )
 
@@ -495,6 +574,8 @@ def main() -> int:
             "intensity_bev_max_points": args.intensity_bev_max_points,
             "intensity_bev_min_step_translation": args.intensity_bev_min_step_translation,
             "intensity_bev_zero_motion_score_margin": args.intensity_bev_zero_motion_score_margin,
+            "intensity_bev_motion_margin_flag_rate": args.intensity_bev_motion_margin_flag_rate,
+            "intensity_bev_overlap_tail_flag_ratio": args.intensity_bev_overlap_tail_flag_ratio,
             "ct_icp_source_voxel_size": args.ct_icp_source_voxel_size,
             "ct_icp_max_source_points": args.ct_icp_max_source_points,
             "ct_icp_voxel_resolution": args.ct_icp_voxel_resolution,

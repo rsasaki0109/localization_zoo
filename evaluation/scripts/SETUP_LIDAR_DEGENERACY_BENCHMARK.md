@@ -427,6 +427,11 @@ Observed `fog.bag` inspection:
   validates required policy fields, representative reason decisions, unknown
   reason fallback to `watch`, and agreement between the method-health and
   calibration scripts.
+- The failure-aware report layer has a single lightweight check entrypoint:
+  `python3 evaluation/scripts/run_lidar_degeneracy_checks.py`. Add
+  `--regenerate-reports` when you also want to refresh
+  `method_health_comparison` and `risk_gt_calibration` from the current
+  committed inputs.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

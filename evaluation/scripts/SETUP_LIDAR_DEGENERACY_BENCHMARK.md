@@ -355,7 +355,8 @@ Observed `fog.bag` inspection:
   intensity BEV averages 97.7%, KISS keyframe averages 0.0%, and CT-ICP averages
   88.5%; on `tunnel_geom_2700_200`, all four methods remain at 100% acceptance
   across the selected short windows. The aggregate now separates local risk,
-  cross-method risk, and total risk.
+  cross-method risk, total risk, and `pass`/`watch`/`investigate`/`fail`
+  triage-policy counts.
 - The comparison now includes a GT-free failure-awareness layer. Selected
   windows are labeled as nominal or stress, each method row is mapped to
   `ok`/`suspicious`/`degraded`/`failed`, and the failure-awareness table reports
@@ -406,10 +407,15 @@ Observed `fog.bag` inspection:
   `nonfinite_pose`), `investigate` for strong false-confidence signals
   (`motion_margin_dominant`, `overlap_tail`, `cross_method_suspicious`,
   `path_disagrees_with_healthy_median`), `watch` for medium signals
-  (`low_convergence`, all-method-only disagreement, no-healthy-peer context),
+  (`low_convergence`, `partial_acceptance`, all-method-only disagreement,
+  no-healthy-peer context),
   and `pass` for `ok_no_risk`. On the current stress windows this yields
   5 `investigate` rows, all intensity BEV; 4 `fail` rows; 6 `watch` rows; and
   5 `pass` rows.
+- The same policy is now integrated into the main method-health comparison:
+  each window row includes `Policy` and `Policy reasons`, and each method
+  aggregate includes policy counts. The calibration report remains the place
+  for GT/proxy validation; the method-health comparison is the daily dashboard.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

@@ -89,6 +89,13 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def display_path(path: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
 def strict_gate_config(policy: dict[str, Any]) -> dict[str, Any]:
     enforcement = policy.get("enforcement")
     if not isinstance(enforcement, dict):
@@ -206,7 +213,7 @@ def report_summary(
 ) -> dict[str, Any]:
     counts = Counter(str(record.get("policy_decision") or "missing") for record in records)
     return {
-        "path": str(path),
+        "path": display_path(path),
         "policy_version": report_policy_version(payload),
         "total_rows": sum(counts.values()),
         "counts": serializable_counts(counts, decisions),
@@ -312,7 +319,7 @@ def write_policy_gate_report(
     output_dir.mkdir(parents=True, exist_ok=True)
     payload = {
         "policy": {
-            "path": str(policy_path),
+            "path": display_path(policy_path),
             "policy_version": policy.get("policy_version"),
             "strict_gate": gate,
         },

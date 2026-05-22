@@ -416,6 +416,12 @@ Observed `fog.bag` inspection:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place
   for GT/proxy validation; the method-health comparison is the daily dashboard.
+- The triage policy is versioned in
+  `evaluation/config/lidar_degeneracy_triage_policy.json` as
+  `lidar_degeneracy_triage_v1`. Both the method-health comparison and risk
+  calibration reports load this file and stamp the policy path/version into
+  their JSON and Markdown outputs, so future GT-backed precision/recall checks
+  can be tied to the exact policy definition.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

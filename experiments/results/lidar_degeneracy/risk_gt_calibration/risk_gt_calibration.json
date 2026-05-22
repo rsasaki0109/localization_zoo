@@ -924,13 +924,16 @@
     }
   },
   "policy": {
+    "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
+    "schema_version": 1,
+    "policy_version": "lidar_degeneracy_triage_v1",
     "decision_order": {
       "pass": 0,
       "watch": 1,
       "investigate": 2,
       "fail": 3
     },
-    "by_reason": {
+    "reason_decisions": {
       "ok_no_risk": "pass",
       "low_convergence": "watch",
       "low_used_path": "watch",

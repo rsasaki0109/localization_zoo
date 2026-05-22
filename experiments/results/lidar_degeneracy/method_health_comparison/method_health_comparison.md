@@ -1,5 +1,7 @@
 # LiDAR Degeneracy Method Health Comparison
 
+Policy: `lidar_degeneracy_triage_v1` (`evaluation/config/lidar_degeneracy_triage_policy.json`)
+
 ## Method Aggregate
 
 | Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |

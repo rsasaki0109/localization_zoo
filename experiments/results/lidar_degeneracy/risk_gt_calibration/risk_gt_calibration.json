@@ -42,7 +42,9 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/baseline_0000_0029_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "fog_200",
@@ -70,7 +72,9 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/baseline_0000_0029_intensity_bev.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "fog_200",
@@ -100,7 +104,9 @@
         "all_pairs_failed",
         "low_acceptance",
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "fail",
+      "policy_reasons": "all_pairs_failed:fail, low_acceptance:fail, low_convergence:watch"
     },
     {
       "sequence": "fog_200",
@@ -128,7 +134,9 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "watch",
+      "policy_reasons": "low_convergence:watch"
     },
     {
       "sequence": "fog_200",
@@ -156,7 +164,9 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/point_count_tail_0115_0144_geometry_icp.json",
       "risk_reasons": [
         "low_acceptance"
-      ]
+      ],
+      "policy_decision": "fail",
+      "policy_reasons": "low_acceptance:fail"
     },
     {
       "sequence": "fog_200",
@@ -185,7 +195,9 @@
       "risk_reasons": [
         "motion_margin_dominant",
         "overlap_tail"
-      ]
+      ],
+      "policy_decision": "investigate",
+      "policy_reasons": "motion_margin_dominant:investigate, overlap_tail:investigate"
     },
     {
       "sequence": "fog_200",
@@ -215,7 +227,9 @@
         "all_pairs_failed",
         "low_acceptance",
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "fail",
+      "policy_reasons": "all_pairs_failed:fail, low_acceptance:fail, low_convergence:watch"
     },
     {
       "sequence": "fog_200",
@@ -243,7 +257,9 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "watch",
+      "policy_reasons": "low_convergence:watch"
     },
     {
       "sequence": "fog_200",
@@ -272,7 +288,9 @@
       "risk_reasons": [
         "all_pairs_failed",
         "low_acceptance"
-      ]
+      ],
+      "policy_decision": "fail",
+      "policy_reasons": "all_pairs_failed:fail, low_acceptance:fail"
     },
     {
       "sequence": "fog_200",
@@ -302,7 +320,9 @@
         "cross_method_suspicious",
         "no_healthy_peer",
         "path_disagrees_with_all_method_median"
-      ]
+      ],
+      "policy_decision": "investigate",
+      "policy_reasons": "cross_method_suspicious:investigate, no_healthy_peer:watch, path_disagrees_with_all_method_median:watch"
     },
     {
       "sequence": "fog_200",
@@ -332,7 +352,9 @@
         "all_pairs_failed",
         "low_acceptance",
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "fail",
+      "policy_reasons": "all_pairs_failed:fail, low_acceptance:fail, low_convergence:watch"
     },
     {
       "sequence": "fog_200",
@@ -360,7 +382,9 @@
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "watch",
+      "policy_reasons": "low_convergence:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -388,7 +412,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/baseline_0005_0034_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -416,7 +442,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/baseline_0005_0034_intensity_bev.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -444,7 +472,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/baseline_0005_0034_kiss_keyframe.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -472,7 +502,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "watch",
+      "policy_reasons": "low_convergence:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -500,7 +532,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/point_count_tail_0080_0109_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -529,7 +563,9 @@
       "risk_reasons": [
         "cross_method_suspicious",
         "path_disagrees_with_healthy_median"
-      ]
+      ],
+      "policy_decision": "investigate",
+      "policy_reasons": "cross_method_suspicious:investigate, path_disagrees_with_healthy_median:investigate"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -557,7 +593,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/point_count_tail_0080_0109_kiss_keyframe.json",
       "risk_reasons": [
         "path_disagrees_with_all_method_median"
-      ]
+      ],
+      "policy_decision": "watch",
+      "policy_reasons": "path_disagrees_with_all_method_median:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -585,7 +623,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "watch",
+      "policy_reasons": "low_convergence:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -613,7 +653,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/geometry_degeneracy_0090_0119_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -643,7 +685,9 @@
         "cross_method_suspicious",
         "path_disagrees_with_all_method_median",
         "path_disagrees_with_healthy_median"
-      ]
+      ],
+      "policy_decision": "investigate",
+      "policy_reasons": "cross_method_suspicious:investigate, path_disagrees_with_all_method_median:watch, path_disagrees_with_healthy_median:investigate"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -671,7 +715,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/geometry_degeneracy_0090_0119_kiss_keyframe.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -699,7 +745,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "watch",
+      "policy_reasons": "low_convergence:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -727,7 +775,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/degraded_0170_0199_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -755,7 +805,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
       "risk_reasons": [
         "motion_margin_dominant"
-      ]
+      ],
+      "policy_decision": "investigate",
+      "policy_reasons": "motion_margin_dominant:investigate"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -783,7 +835,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json",
       "risk_reasons": [
         "ok_no_risk"
-      ]
+      ],
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -811,7 +865,9 @@
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
-      ]
+      ],
+      "policy_decision": "watch",
+      "policy_reasons": "low_convergence:watch"
     }
   ],
   "proxy_bucket_stats_stress": {
@@ -866,9 +922,123 @@
       "max_path_vs_all": 6.0808949979718365
     }
   },
+  "policy": {
+    "decision_order": {
+      "pass": 0,
+      "watch": 1,
+      "investigate": 2,
+      "fail": 3
+    },
+    "by_reason": {
+      "ok_no_risk": "pass",
+      "low_convergence": "watch",
+      "low_used_path": "watch",
+      "no_healthy_peer": "watch",
+      "path_disagrees_with_all_method_median": "watch",
+      "cross_method_suspicious": "investigate",
+      "motion_margin_dominant": "investigate",
+      "overlap_tail": "investigate",
+      "path_disagrees_with_healthy_median": "investigate",
+      "all_pairs_failed": "fail",
+      "low_acceptance": "fail",
+      "nonfinite_pose": "fail"
+    }
+  },
+  "policy_stats_stress": {
+    "pass": {
+      "rows": 5,
+      "methods": [
+        "geometry_icp",
+        "kiss_keyframe"
+      ],
+      "mean_path_vs_healthy": 0.9425661893369425,
+      "mean_path_vs_all": 0.45691375096380504,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0
+    },
+    "watch": {
+      "rows": 6,
+      "methods": [
+        "ct_icp",
+        "kiss_keyframe"
+      ],
+      "mean_path_vs_healthy": 2.0092282811817883,
+      "mean_path_vs_all": 1.4237904686989078,
+      "mean_acceptance": 0.9425287356321839,
+      "mean_convergence": 0.2413793103448276
+    },
+    "investigate": {
+      "rows": 5,
+      "methods": [
+        "intensity_bev"
+      ],
+      "mean_path_vs_healthy": 4.731241574712359,
+      "mean_path_vs_all": 4.477960324440321,
+      "mean_acceptance": 0.9862068965517242,
+      "mean_convergence": 0.9862068965517242
+    },
+    "fail": {
+      "rows": 4,
+      "methods": [
+        "geometry_icp",
+        "kiss_keyframe"
+      ],
+      "mean_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.05360617063323741,
+      "mean_acceptance": 0.034482758620689655,
+      "mean_convergence": 0.0
+    }
+  },
+  "policy_stats_all": {
+    "pass": {
+      "rows": 10,
+      "methods": [
+        "geometry_icp",
+        "intensity_bev",
+        "kiss_keyframe"
+      ],
+      "mean_path_vs_healthy": 1.2968817824437695,
+      "mean_path_vs_all": 1.2137379760742066,
+      "mean_acceptance": 0.9655172413793103,
+      "mean_convergence": 1.0
+    },
+    "watch": {
+      "rows": 8,
+      "methods": [
+        "ct_icp",
+        "kiss_keyframe"
+      ],
+      "mean_path_vs_healthy": 1.9479088756424636,
+      "mean_path_vs_all": 1.3869104069282316,
+      "mean_acceptance": 0.9568965517241379,
+      "mean_convergence": 0.21551724137931033
+    },
+    "investigate": {
+      "rows": 5,
+      "methods": [
+        "intensity_bev"
+      ],
+      "mean_path_vs_healthy": 4.731241574712359,
+      "mean_path_vs_all": 4.477960324440321,
+      "mean_acceptance": 0.9862068965517242,
+      "mean_convergence": 0.9862068965517242
+    },
+    "fail": {
+      "rows": 5,
+      "methods": [
+        "geometry_icp",
+        "kiss_keyframe"
+      ],
+      "mean_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.04288493650658993,
+      "mean_acceptance": 0.027586206896551724,
+      "mean_convergence": 0.0
+    }
+  },
   "reason_drilldown_stress": {
     "low_acceptance": {
       "rows": 4,
+      "policy_decision": "fail",
       "methods": [
         "geometry_icp",
         "kiss_keyframe"
@@ -886,6 +1056,7 @@
     },
     "motion_margin_dominant": {
       "rows": 2,
+      "policy_decision": "investigate",
       "methods": [
         "intensity_bev"
       ],
@@ -902,6 +1073,7 @@
     },
     "overlap_tail": {
       "rows": 1,
+      "policy_decision": "investigate",
       "methods": [
         "intensity_bev"
       ],
@@ -918,6 +1090,7 @@
     },
     "all_pairs_failed": {
       "rows": 3,
+      "policy_decision": "fail",
       "methods": [
         "geometry_icp",
         "kiss_keyframe"
@@ -935,6 +1108,7 @@
     },
     "low_convergence": {
       "rows": 7,
+      "policy_decision": "watch",
       "methods": [
         "ct_icp",
         "kiss_keyframe"
@@ -952,6 +1126,7 @@
     },
     "cross_method_suspicious": {
       "rows": 3,
+      "policy_decision": "investigate",
       "methods": [
         "intensity_bev"
       ],
@@ -968,6 +1143,7 @@
     },
     "no_healthy_peer": {
       "rows": 1,
+      "policy_decision": "watch",
       "methods": [
         "intensity_bev"
       ],
@@ -984,6 +1160,7 @@
     },
     "path_disagrees_with_all_method_median": {
       "rows": 3,
+      "policy_decision": "watch",
       "methods": [
         "intensity_bev",
         "kiss_keyframe"
@@ -1002,6 +1179,7 @@
     },
     "ok_no_risk": {
       "rows": 5,
+      "policy_decision": "pass",
       "methods": [
         "geometry_icp",
         "kiss_keyframe"
@@ -1019,6 +1197,7 @@
     },
     "path_disagrees_with_healthy_median": {
       "rows": 2,
+      "policy_decision": "investigate",
       "methods": [
         "intensity_bev"
       ],
@@ -1037,6 +1216,7 @@
   "reason_drilldown_all": {
     "ok_no_risk": {
       "rows": 10,
+      "policy_decision": "pass",
       "methods": [
         "geometry_icp",
         "intensity_bev",
@@ -1056,6 +1236,7 @@
     },
     "all_pairs_failed": {
       "rows": 4,
+      "policy_decision": "fail",
       "methods": [
         "geometry_icp",
         "kiss_keyframe"
@@ -1073,6 +1254,7 @@
     },
     "low_acceptance": {
       "rows": 5,
+      "policy_decision": "fail",
       "methods": [
         "geometry_icp",
         "kiss_keyframe"
@@ -1090,6 +1272,7 @@
     },
     "low_convergence": {
       "rows": 10,
+      "policy_decision": "watch",
       "methods": [
         "ct_icp",
         "kiss_keyframe"
@@ -1107,6 +1290,7 @@
     },
     "motion_margin_dominant": {
       "rows": 2,
+      "policy_decision": "investigate",
       "methods": [
         "intensity_bev"
       ],
@@ -1123,6 +1307,7 @@
     },
     "overlap_tail": {
       "rows": 1,
+      "policy_decision": "investigate",
       "methods": [
         "intensity_bev"
       ],
@@ -1139,6 +1324,7 @@
     },
     "cross_method_suspicious": {
       "rows": 3,
+      "policy_decision": "investigate",
       "methods": [
         "intensity_bev"
       ],
@@ -1155,6 +1341,7 @@
     },
     "no_healthy_peer": {
       "rows": 1,
+      "policy_decision": "watch",
       "methods": [
         "intensity_bev"
       ],
@@ -1171,6 +1358,7 @@
     },
     "path_disagrees_with_all_method_median": {
       "rows": 3,
+      "policy_decision": "watch",
       "methods": [
         "intensity_bev",
         "kiss_keyframe"
@@ -1189,6 +1377,7 @@
     },
     "path_disagrees_with_healthy_median": {
       "rows": 2,
+      "policy_decision": "investigate",
       "methods": [
         "intensity_bev"
       ],

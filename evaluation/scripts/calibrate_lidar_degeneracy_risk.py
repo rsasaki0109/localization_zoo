@@ -33,6 +33,26 @@ DEFAULT_TOPIC_AUDITS = {
     "fog_200": REPO_ROOT / "data" / "lidar_degeneracy_datasets" / "fog_topics.json",
     "tunnel_geom_2700_200": REPO_ROOT / "data" / "lidar_degeneracy_datasets" / "tunnel_topics.json",
 }
+POLICY_DECISION_ORDER = {
+    "pass": 0,
+    "watch": 1,
+    "investigate": 2,
+    "fail": 3,
+}
+POLICY_BY_REASON = {
+    "ok_no_risk": "pass",
+    "low_convergence": "watch",
+    "low_used_path": "watch",
+    "no_healthy_peer": "watch",
+    "path_disagrees_with_all_method_median": "watch",
+    "cross_method_suspicious": "investigate",
+    "motion_margin_dominant": "investigate",
+    "overlap_tail": "investigate",
+    "path_disagrees_with_healthy_median": "investigate",
+    "all_pairs_failed": "fail",
+    "low_acceptance": "fail",
+    "nonfinite_pose": "fail",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -210,6 +230,22 @@ def risk_reasons(record: dict[str, Any]) -> list[str]:
     return sorted(dict.fromkeys(reasons))
 
 
+def policy_decision(reasons: list[str]) -> str:
+    decision = "pass"
+    for reason in reasons:
+        candidate = POLICY_BY_REASON.get(reason, "watch")
+        if POLICY_DECISION_ORDER[candidate] > POLICY_DECISION_ORDER[decision]:
+            decision = candidate
+    return decision
+
+
+def policy_reason_summary(reasons: list[str]) -> str:
+    parts = []
+    for reason in reasons:
+        parts.append(f"{reason}:{POLICY_BY_REASON.get(reason, 'watch')}")
+    return ", ".join(parts)
+
+
 def append_proxy_stats(records: list[dict[str, Any]], *, stress_only: bool) -> dict[str, dict[str, Any]]:
     if stress_only:
         records = [record for record in records if record.get("is_stress")]
@@ -252,6 +288,54 @@ def append_proxy_stats(records: list[dict[str, Any]], *, stress_only: bool) -> d
     return buckets
 
 
+def policy_stats(records: list[dict[str, Any]], *, stress_only: bool) -> dict[str, dict[str, Any]]:
+    if stress_only:
+        records = [record for record in records if record.get("is_stress")]
+    out: dict[str, dict[str, Any]] = {}
+    for decision in POLICY_DECISION_ORDER:
+        out[decision] = {
+            "rows": 0,
+            "methods": [],
+            "mean_path_vs_healthy": None,
+            "mean_path_vs_all": None,
+            "mean_acceptance": None,
+            "mean_convergence": None,
+        }
+    for decision in POLICY_DECISION_ORDER:
+        rows = [record for record in records if record.get("policy_decision") == decision]
+        out[decision]["rows"] = len(rows)
+        out[decision]["methods"] = sorted({str(row["method"]) for row in rows})
+        out[decision]["mean_path_vs_healthy"] = finite_mean(
+            [
+                float(row["path_vs_healthy_median"])
+                for row in rows
+                if row.get("path_vs_healthy_median") is not None
+            ]
+        )
+        out[decision]["mean_path_vs_all"] = finite_mean(
+            [
+                float(row["path_vs_all_median"])
+                for row in rows
+                if row.get("path_vs_all_median") is not None
+            ]
+        )
+        out[decision]["mean_acceptance"] = finite_mean(
+            [
+                float(row["accepted_rate"])
+                for row in rows
+                if row.get("accepted_rate") is not None
+            ]
+        )
+        out[decision]["mean_convergence"] = finite_mean(
+            [
+                float(row["converged_rate"])
+                for row in rows
+                if row.get("converged_rate") is not None
+            ]
+        )
+    return out
+
+
 def reason_drilldown(records: list[dict[str, Any]], *, stress_only: bool) -> dict[str, dict[str, Any]]:
     if stress_only:
         records = [record for record in records if record.get("is_stress")]
@@ -289,6 +373,7 @@ def reason_drilldown(records: list[dict[str, Any]], *, stress_only: bool) -> dic
         ]
         out[reason] = {
             "rows": len(rows),
+            "policy_decision": policy_decision([reason]),
             "methods": sorted({str(row["method"]) for row in rows}),
             "risk_buckets": sorted({str(row["risk_bucket"]) for row in rows}),
             "mean_acceptance": finite_mean(accepted),
@@ -348,6 +433,8 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
                     "result_json": row.get("result_json"),
                 }
                 record["risk_reasons"] = risk_reasons(record)
+                record["policy_decision"] = policy_decision(record["risk_reasons"])
+                record["policy_reasons"] = policy_reason_summary(record["risk_reasons"])
                 records.append(record)
                 if sequence_name not in gt_cache:
                     continue
@@ -372,6 +459,12 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
         "proxy_records": records,
         "proxy_bucket_stats_stress": append_proxy_stats(records, stress_only=True),
         "proxy_bucket_stats_all": append_proxy_stats(records, stress_only=False),
+        "policy": {
+            "decision_order": POLICY_DECISION_ORDER,
+            "by_reason": POLICY_BY_REASON,
+        },
+        "policy_stats_stress": policy_stats(records, stress_only=True),
+        "policy_stats_all": policy_stats(records, stress_only=False),
         "reason_drilldown_stress": reason_drilldown(records, stress_only=True),
         "reason_drilldown_all": reason_drilldown(records, stress_only=False),
     }
@@ -441,12 +534,32 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.extend(
         [
             "",
+            "## Policy Decisions",
+            "",
+            "Stress-window rows only.",
+            "",
+            "| Decision | Rows | Methods | Mean accepted | Mean converged | Mean path/healthy | Mean path/all |",
+            "| --- | ---: | --- | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for decision in POLICY_DECISION_ORDER:
+        row = payload["policy_stats_stress"][decision]
+        lines.append(
+            f"| `{decision}` | {row['rows']} | "
+            f"{', '.join(f'`{method}`' for method in row['methods']) if row['methods'] else 'n/a'} | "
+            f"{fmt(row['mean_acceptance'])} | {fmt(row['mean_convergence'])} | "
+            f"{fmt(row['mean_path_vs_healthy'])} | {fmt(row['mean_path_vs_all'])} |"
+        )
+
+    lines.extend(
+        [
+            "",
             "## Reason Drilldown",
             "",
             "Stress-window rows only. Rows with multiple active signals appear under each reason.",
             "",
-            "| Reason | Rows | Methods | Risk buckets | Mean accepted | Mean converged | Mean path m | Mean path/healthy | Max path/healthy | Mean path/all | Max path/all |",
-            "| --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            "| Reason | Policy | Rows | Methods | Risk buckets | Mean accepted | Mean converged | Mean path m | Mean path/healthy | Max path/healthy | Mean path/all | Max path/all |",
+            "| --- | --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for reason, row in sorted(
@@ -458,7 +571,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         ),
     ):
         lines.append(
-            f"| `{reason}` | {row['rows']} | "
+            f"| `{reason}` | `{row['policy_decision']}` | {row['rows']} | "
             f"{', '.join(f'`{method}`' for method in row['methods'])} | "
             f"{', '.join(f'`{bucket}`' for bucket in row['risk_buckets'])} | "
             f"{fmt(row['mean_acceptance'])} | {fmt(row['mean_convergence'])} | "
@@ -470,10 +583,42 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.extend(
         [
             "",
+            "## Policy Detail",
+            "",
+            "Stress-window rows only.",
+            "",
+            "| Sequence | Window | Method | Decision | Risk bucket | Accepted | Converged | Path/healthy | Path/all | Reasons |",
+            "| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    stress_records = [
+        record for record in payload["proxy_records"] if record.get("is_stress")
+    ]
+    for record in sorted(
+        stress_records,
+        key=lambda row: (
+            -POLICY_DECISION_ORDER[str(row["policy_decision"])],
+            str(row["sequence"]),
+            int(row["start"]),
+            str(row["method"]),
+        ),
+    ):
+        lines.append(
+            f"| `{record['sequence']}` | `{record['window']}` {record['start']}-{record['end']} | "
+            f"`{record['method']}` | `{record['policy_decision']}` | "
+            f"`{record['risk_bucket']}` | {fmt(record['accepted_rate'])} | "
+            f"{fmt(record['converged_rate'])} | {fmt(record['path_vs_healthy_median'])} | "
+            f"{fmt(record['path_vs_all_median'])} | {', '.join(f'`{reason}`' for reason in record['risk_reasons'])} |"
+        )
+
+    lines.extend(
+        [
+            "",
             "## Readout",
             "",
             "- GT calibration is currently blocked by missing public pose/odom/tf for the local NTNU LiDAR degeneracy extraction.",
             "- The comparison remains GT-free for now: local risk and cross-method risk should be treated as triage signals, not error labels.",
+            "- Policy decisions are pre-GT triage labels: `fail` for hard local failure, `investigate` for strong false-confidence signals, `watch` for medium risk, and `pass` for rows with no active risk reason.",
             "- Reason drilldown separates local failure signals from cross-method disagreement so the strongest triage signals can be checked first when GT arrives.",
             "- The script is ready to rerun with external GT via `--gt-csv fog_200=... --gt-csv tunnel_geom_2700_200=...`.",
             "",

@@ -1,0 +1,184 @@
+{
+  "benchmark_dir": "experiments/results/intensity_odometry/window_benchmark_60",
+  "anchor_dir_name": "kiss_keyframe_i10_c0p5_relog",
+  "parameters": {
+    "max_keyframe_correction": 0.5,
+    "max_keyframe_yaw_deg": 5.0,
+    "max_keyframe_rmse": 1.2,
+    "min_keyframe_correspondences": 80
+  },
+  "aggregate": {
+    "keyframe_corrected_prior_ate_xy_m": {
+      "mean": 0.6264699831935793,
+      "median": 0.5168555221119322,
+      "max": 1.0586727442288806
+    },
+    "keyframe_corrected_prior_step_length_rmse_m": {
+      "mean": 0.08391776448199299,
+      "median": 0.08254699260509005,
+      "max": 0.12969166654951533
+    },
+    "stability_motion_ate_xy_m": {
+      "mean": 0.8000756555517344,
+      "median": 0.7761516002459803,
+      "max": 1.5817760272010666
+    },
+    "improved_vs_stability_motion_count": 9
+  },
+  "windows": [
+    {
+      "window": "kitti_seq_02_start0000_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_02_start0000_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.568993572144837,
+      "step_length_rmse_m": 0.08273363644012882,
+      "stability_motion_ate_xy_m": 0.7559137903731192,
+      "delta_vs_stability_motion_m": -0.1869202182282822,
+      "correction_counts": {
+        "not_attempted": 54,
+        "accepted": 4,
+        "anchor_rejected": 1
+      }
+    },
+    {
+      "window": "kitti_seq_02_start0030_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_02_start0030_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.424865683614627,
+      "step_length_rmse_m": 0.11720441516121823,
+      "stability_motion_ate_xy_m": 0.7963894101188412,
+      "delta_vs_stability_motion_m": -0.3715237265042142,
+      "correction_counts": {
+        "not_attempted": 54,
+        "accepted": 5
+      }
+    },
+    {
+      "window": "kitti_seq_02_start0060_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_02_start0060_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.9577089381980065,
+      "step_length_rmse_m": 0.12969166654951533,
+      "stability_motion_ate_xy_m": 1.173177833304102,
+      "delta_vs_stability_motion_m": -0.21546889510609557,
+      "correction_counts": {
+        "not_attempted": 54,
+        "accepted": 4,
+        "anchor_rejected": 1
+      }
+    },
+    {
+      "window": "kitti_seq_02_start0090_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_02_start0090_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.4261502494911502,
+      "step_length_rmse_m": 0.0991650097387277,
+      "stability_motion_ate_xy_m": 0.4418270765224506,
+      "delta_vs_stability_motion_m": -0.01567682703130041,
+      "correction_counts": {
+        "not_attempted": 54,
+        "accepted": 3,
+        "anchor_rejected": 2
+      }
+    },
+    {
+      "window": "kitti_seq_05_start0000_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_05_start0000_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.29401089104692124,
+      "step_length_rmse_m": 0.05550978731339218,
+      "stability_motion_ate_xy_m": 0.17012059824974404,
+      "delta_vs_stability_motion_m": 0.1238902927971772,
+      "correction_counts": {
+        "not_attempted": 54,
+        "anchor_rejected": 2,
+        "accepted": 3
+      }
+    },
+    {
+      "window": "kitti_seq_05_start0030_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_05_start0030_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.4227903965970233,
+      "step_length_rmse_m": 0.08251505551283142,
+      "stability_motion_ate_xy_m": 0.30225265699133186,
+      "delta_vs_stability_motion_m": 0.12053773960569142,
+      "correction_counts": {
+        "not_attempted": 54,
+        "anchor_rejected": 1,
+        "accepted": 4
+      }
+    },
+    {
+      "window": "kitti_seq_05_start0060_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_05_start0060_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.3175237797149354,
+      "step_length_rmse_m": 0.08865495041219587,
+      "stability_motion_ate_xy_m": 0.48777104957251843,
+      "delta_vs_stability_motion_m": -0.17024726985758304,
+      "correction_counts": {
+        "not_attempted": 54,
+        "accepted": 4,
+        "anchor_rejected": 1
+      }
+    },
+    {
+      "window": "kitti_seq_05_start0090_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_05_start0090_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.4647174720790274,
+      "step_length_rmse_m": 0.07001001532304427,
+      "stability_motion_ate_xy_m": 0.2850348913958881,
+      "delta_vs_stability_motion_m": 0.1796825806831393,
+      "correction_counts": {
+        "not_attempted": 54,
+        "anchor_rejected": 2,
+        "accepted": 3
+      }
+    },
+    {
+      "window": "kitti_seq_08_start0000_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_08_start0000_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.9657547398485181,
+      "step_length_rmse_m": 0.06741153197774846,
+      "stability_motion_ate_xy_m": 1.1608189820530506,
+      "delta_vs_stability_motion_m": -0.19506424220453245,
+      "correction_counts": {
+        "not_attempted": 54,
+        "accepted": 1,
+        "anchor_rejected": 4
+      }
+    },
+    {
+      "window": "kitti_seq_08_start0030_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_08_start0030_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.9884021386378898,
+      "step_length_rmse_m": 0.05830514693342553,
+      "stability_motion_ate_xy_m": 1.136623645652697,
+      "delta_vs_stability_motion_m": -0.14822150701480719,
+      "correction_counts": {
+        "not_attempted": 54,
+        "anchor_rejected": 2,
+        "accepted": 3
+      }
+    },
+    {
+      "window": "kitti_seq_08_start0060_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_08_start0060_60_stability_motion_keyframe.json",
+      "ate_xy_m": 1.0586727442288806,
+      "step_length_rmse_m": 0.08257892969734867,
+      "stability_motion_ate_xy_m": 1.3092019051860035,
+      "delta_vs_stability_motion_m": -0.25052916095712296,
+      "correction_counts": {
+        "not_attempted": 54,
+        "accepted": 5
+      }
+    },
+    {
+      "window": "kitti_seq_08_start0090_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/stability_motion_keyframe_c0p5/results/kitti_seq_08_start0090_60_stability_motion_keyframe.json",
+      "ate_xy_m": 0.6280491927211349,
+      "step_length_rmse_m": 0.07323302872433944,
+      "stability_motion_ate_xy_m": 1.5817760272010666,
+      "delta_vs_stability_motion_m": -0.9537268344799317,
+      "correction_counts": {
+        "not_attempted": 54,
+        "accepted": 4,
+        "anchor_rejected": 1
+      }
+    }
+  ]
+}

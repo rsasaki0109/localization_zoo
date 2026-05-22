@@ -1,0 +1,72 @@
+{
+  "diagnostics": [
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_02_30.json",
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_05_30.json",
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_08_30.json"
+  ],
+  "method_names": [
+    "kiss",
+    "small_gicp"
+  ],
+  "feature_names": [
+    "bias",
+    "cubemap_score",
+    "geometry_score",
+    "log_overlap",
+    "motion_norm",
+    "abs_yaw_deg",
+    "shared_residual_score",
+    "shared_residual_rmse",
+    "shared_inlier_ratio",
+    "shared_stability_score",
+    "shared_stability_mean_delta",
+    "shared_stability_min_delta"
+  ],
+  "ridge": 0.001,
+  "feature_set": "shared_no_method",
+  "held_out_seq": "kitti_seq_08",
+  "full_model": {
+    "weights": [
+      -0.041402938000907864,
+      0.0017773686066939064,
+      0.010631003720470359,
+      -0.015089237915444819,
+      -0.004762932697138708,
+      -0.009726602482610917,
+      -0.014145500360911206,
+      0.008538594440807887,
+      0.003887405438365125,
+      -0.002314690084272689,
+      0.01272601068467132,
+      0.013561953810176351
+    ],
+    "feature_mean": [
+      0.0,
+      0.35202042818283485,
+      0.6495117155172415,
+      7.5576465411850995,
+      1.0791365750559792,
+      0.05508668103448277,
+      0.8631003208252088,
+      0.22173589528274676,
+      0.9523628673969745,
+      0.16615203296864411,
+      0.016725450985331715,
+      0.00811814736940515
+    ],
+    "feature_scale": [
+      1.0,
+      0.030650567752954265,
+      0.07108988343333829,
+      1.3217787148056725,
+      0.3789803277291018,
+      0.03558575496250865,
+      0.017391459403962025,
+      0.012722190132558117,
+      0.01290390660941784,
+      0.056041826369210436,
+      0.004347163770381553,
+      0.0048518186145005806
+    ]
+  }
+}

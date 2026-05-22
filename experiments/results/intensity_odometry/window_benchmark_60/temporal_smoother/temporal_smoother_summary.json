@@ -1,0 +1,319 @@
+{
+  "benchmark_dir": "experiments/results/intensity_odometry/window_benchmark_60",
+  "input_template": "selected_prior_stability_motion_0p0025_{window}.json",
+  "baseline": {
+    "mean_ate_xy_m": 0.8000756555517344,
+    "median_ate_xy_m": 0.7761516002459803,
+    "max_ate_xy_m": 1.5817760272010666
+  },
+  "best_config": {
+    "mean_ate_xy_m": 0.7997105890884492,
+    "median_ate_xy_m": 0.7748549433876469,
+    "max_ate_xy_m": 1.5814398637959148,
+    "mean_step_length_rmse_m": 0.050846942812881345,
+    "best_window_count": 4,
+    "config": "lamT0p25_lamY0",
+    "lambda_translation": 0.25,
+    "lambda_yaw": 0.0
+  },
+  "configs": [
+    {
+      "mean_ate_xy_m": 0.7997105890884492,
+      "median_ate_xy_m": 0.7748549433876469,
+      "max_ate_xy_m": 1.5814398637959148,
+      "mean_step_length_rmse_m": 0.050846942812881345,
+      "best_window_count": 4,
+      "config": "lamT0p25_lamY0",
+      "lambda_translation": 0.25,
+      "lambda_yaw": 0.0
+    },
+    {
+      "mean_ate_xy_m": 0.8001391550101037,
+      "median_ate_xy_m": 0.7754278569001805,
+      "max_ate_xy_m": 1.581184743888005,
+      "mean_step_length_rmse_m": 0.0464245363675446,
+      "best_window_count": 0,
+      "config": "lamT0p5_lamY0",
+      "lambda_translation": 0.5,
+      "lambda_yaw": 0.0
+    },
+    {
+      "mean_ate_xy_m": 0.801081969252627,
+      "median_ate_xy_m": 0.7795208911752678,
+      "max_ate_xy_m": 1.581721067017534,
+      "mean_step_length_rmse_m": 0.05084694281288132,
+      "best_window_count": 0,
+      "config": "lamT0p25_lamY0p25",
+      "lambda_translation": 0.25,
+      "lambda_yaw": 0.25
+    },
+    {
+      "mean_ate_xy_m": 0.8015120693822037,
+      "median_ate_xy_m": 0.7801162082520546,
+      "max_ate_xy_m": 1.5814717847074666,
+      "mean_step_length_rmse_m": 0.046424536367544594,
+      "best_window_count": 0,
+      "config": "lamT0p5_lamY0p25",
+      "lambda_translation": 0.5,
+      "lambda_yaw": 0.25
+    },
+    {
+      "mean_ate_xy_m": 0.8024693897556094,
+      "median_ate_xy_m": 0.7841990602656059,
+      "max_ate_xy_m": 1.5821160813999777,
+      "mean_step_length_rmse_m": 0.05084694281288128,
+      "best_window_count": 0,
+      "config": "lamT0p25_lamY0p5",
+      "lambda_translation": 0.25,
+      "lambda_yaw": 0.5
+    },
+    {
+      "mean_ate_xy_m": 0.8029010628385967,
+      "median_ate_xy_m": 0.7848094015881637,
+      "max_ate_xy_m": 1.5818673560049454,
+      "mean_step_length_rmse_m": 0.04642453636754455,
+      "best_window_count": 0,
+      "config": "lamT0p5_lamY0p5",
+      "lambda_translation": 0.5,
+      "lambda_yaw": 0.5
+    },
+    {
+      "mean_ate_xy_m": 0.8052835547490194,
+      "median_ate_xy_m": 0.7935745334456841,
+      "max_ate_xy_m": 1.5830842250592272,
+      "mean_step_length_rmse_m": 0.050846942812881255,
+      "best_window_count": 3,
+      "config": "lamT0p25_lamY1",
+      "lambda_translation": 0.25,
+      "lambda_yaw": 1.0
+    },
+    {
+      "mean_ate_xy_m": 0.8057187863199952,
+      "median_ate_xy_m": 0.7942085981552958,
+      "max_ate_xy_m": 1.5828344591078845,
+      "mean_step_length_rmse_m": 0.04642453636754466,
+      "best_window_count": 0,
+      "config": "lamT0p5_lamY1",
+      "lambda_translation": 0.5,
+      "lambda_yaw": 1.0
+    },
+    {
+      "mean_ate_xy_m": 0.8105921628173461,
+      "median_ate_xy_m": 0.7936282074745997,
+      "max_ate_xy_m": 1.5806883799377764,
+      "mean_step_length_rmse_m": 0.042810040322233185,
+      "best_window_count": 0,
+      "config": "lamT1_lamY0",
+      "lambda_translation": 1.0,
+      "lambda_yaw": 0.0
+    },
+    {
+      "mean_ate_xy_m": 0.8119736222484434,
+      "median_ate_xy_m": 0.7983466913081703,
+      "max_ate_xy_m": 1.5809773661911424,
+      "mean_step_length_rmse_m": 0.042810040322233234,
+      "best_window_count": 0,
+      "config": "lamT1_lamY0p25",
+      "lambda_translation": 1.0,
+      "lambda_yaw": 0.25
+    },
+    {
+      "mean_ate_xy_m": 0.8133709227566308,
+      "median_ate_xy_m": 0.8030634589070258,
+      "max_ate_xy_m": 1.5813713549534503,
+      "mean_step_length_rmse_m": 0.042810040322233206,
+      "best_window_count": 0,
+      "config": "lamT1_lamY0p5",
+      "lambda_translation": 1.0,
+      "lambda_yaw": 0.5
+    },
+    {
+      "mean_ate_xy_m": 0.8162050755673611,
+      "median_ate_xy_m": 0.8125028999774553,
+      "max_ate_xy_m": 1.582334944332185,
+      "mean_step_length_rmse_m": 0.04281004032223317,
+      "best_window_count": 0,
+      "config": "lamT1_lamY1",
+      "lambda_translation": 1.0,
+      "lambda_yaw": 1.0
+    },
+    {
+      "mean_ate_xy_m": 0.8169393823277155,
+      "median_ate_xy_m": 0.8056893231471804,
+      "max_ate_xy_m": 1.5796330376337022,
+      "mean_step_length_rmse_m": 0.040227544680818954,
+      "best_window_count": 1,
+      "config": "lamT2_lamY0",
+      "lambda_translation": 2.0,
+      "lambda_yaw": 0.0
+    },
+    {
+      "mean_ate_xy_m": 0.818326465506881,
+      "median_ate_xy_m": 0.8104399951485892,
+      "max_ate_xy_m": 1.5799193495840558,
+      "mean_step_length_rmse_m": 0.0402275446808189,
+      "best_window_count": 0,
+      "config": "lamT2_lamY0p25",
+      "lambda_translation": 2.0,
+      "lambda_yaw": 0.25
+    },
+    {
+      "mean_ate_xy_m": 0.8197295407131718,
+      "median_ate_xy_m": 0.8151858208679541,
+      "max_ate_xy_m": 1.5803094636976696,
+      "mean_step_length_rmse_m": 0.04022754468081899,
+      "best_window_count": 0,
+      "config": "lamT2_lamY0p5",
+      "lambda_translation": 2.0,
+      "lambda_yaw": 0.5
+    },
+    {
+      "mean_ate_xy_m": 0.8225757295603453,
+      "median_ate_xy_m": 0.8246789035998958,
+      "max_ate_xy_m": 1.5812671840117585,
+      "mean_step_length_rmse_m": 0.04022754468081892,
+      "best_window_count": 0,
+      "config": "lamT2_lamY1",
+      "lambda_translation": 2.0,
+      "lambda_yaw": 1.0
+    },
+    {
+      "mean_ate_xy_m": 0.8227835125117547,
+      "median_ate_xy_m": 0.8175895182303728,
+      "max_ate_xy_m": 1.577353341934494,
+      "mean_step_length_rmse_m": 0.03869808166888979,
+      "best_window_count": 3,
+      "config": "lamT4_lamY0",
+      "lambda_translation": 4.0,
+      "lambda_yaw": 0.0
+    },
+    {
+      "mean_ate_xy_m": 0.8241767310741116,
+      "median_ate_xy_m": 0.8223644882798231,
+      "max_ate_xy_m": 1.577633733554154,
+      "mean_step_length_rmse_m": 0.03869808166888983,
+      "best_window_count": 0,
+      "config": "lamT4_lamY0p25",
+      "lambda_translation": 4.0,
+      "lambda_yaw": 0.25
+    },
+    {
+      "mean_ate_xy_m": 0.8255865510760203,
+      "median_ate_xy_m": 0.8271329502978961,
+      "max_ate_xy_m": 1.5780186813878196,
+      "mean_step_length_rmse_m": 0.03869808166888983,
+      "best_window_count": 1,
+      "config": "lamT4_lamY0p5",
+      "lambda_translation": 4.0,
+      "lambda_yaw": 0.5
+    },
+    {
+      "mean_ate_xy_m": 0.8284476568646799,
+      "median_ate_xy_m": 0.8366683369683827,
+      "max_ate_xy_m": 1.5789697667106715,
+      "mean_step_length_rmse_m": 0.038698081668889835,
+      "best_window_count": 0,
+      "config": "lamT4_lamY1",
+      "lambda_translation": 4.0,
+      "lambda_yaw": 1.0
+    }
+  ],
+  "windows": [
+    {
+      "window": "kitti_seq_02_start0000_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_02_start0000_60.json",
+      "ate_xy_m": 0.7540052819653598,
+      "step_length_rmse_m": 0.04265202772422473,
+      "baseline_stability_motion_ate_xy_m": 0.7559137903731192,
+      "ate_delta_vs_baseline_m": -0.0019085084077594683
+    },
+    {
+      "window": "kitti_seq_02_start0030_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_02_start0030_60.json",
+      "ate_xy_m": 0.7957046048099341,
+      "step_length_rmse_m": 0.08034160970874436,
+      "baseline_stability_motion_ate_xy_m": 0.7963894101188412,
+      "ate_delta_vs_baseline_m": -0.0006848053089071326
+    },
+    {
+      "window": "kitti_seq_02_start0060_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_02_start0060_60.json",
+      "ate_xy_m": 1.1715179984230257,
+      "step_length_rmse_m": 0.09786090411676379,
+      "baseline_stability_motion_ate_xy_m": 1.173177833304102,
+      "ate_delta_vs_baseline_m": -0.0016598348810763497
+    },
+    {
+      "window": "kitti_seq_02_start0090_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_02_start0090_60.json",
+      "ate_xy_m": 0.43928279322110314,
+      "step_length_rmse_m": 0.07354912468502534,
+      "baseline_stability_motion_ate_xy_m": 0.4418270765224506,
+      "ate_delta_vs_baseline_m": -0.002544283301347483
+    },
+    {
+      "window": "kitti_seq_05_start0000_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_05_start0000_60.json",
+      "ate_xy_m": 0.17102168221223715,
+      "step_length_rmse_m": 0.023173597954014177,
+      "baseline_stability_motion_ate_xy_m": 0.17012059824974404,
+      "ate_delta_vs_baseline_m": 0.00090108396249311
+    },
+    {
+      "window": "kitti_seq_05_start0030_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_05_start0030_60.json",
+      "ate_xy_m": 0.30079891304182577,
+      "step_length_rmse_m": 0.03387955784479164,
+      "baseline_stability_motion_ate_xy_m": 0.30225265699133186,
+      "ate_delta_vs_baseline_m": -0.0014537439495060922
+    },
+    {
+      "window": "kitti_seq_05_start0060_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_05_start0060_60.json",
+      "ate_xy_m": 0.48480220429358645,
+      "step_length_rmse_m": 0.03880663866964092,
+      "baseline_stability_motion_ate_xy_m": 0.48777104957251843,
+      "ate_delta_vs_baseline_m": -0.0029688452789319864
+    },
+    {
+      "window": "kitti_seq_05_start0090_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_05_start0090_60.json",
+      "ate_xy_m": 0.28507481095099546,
+      "step_length_rmse_m": 0.03406078577924293,
+      "baseline_stability_motion_ate_xy_m": 0.2850348913958881,
+      "ate_delta_vs_baseline_m": 3.991955510734835e-05
+    },
+    {
+      "window": "kitti_seq_08_start0000_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_08_start0000_60.json",
+      "ate_xy_m": 1.1610197772421302,
+      "step_length_rmse_m": 0.060053047739826435,
+      "baseline_stability_motion_ate_xy_m": 1.1608189820530506,
+      "ate_delta_vs_baseline_m": 0.0002007951890796722
+    },
+    {
+      "window": "kitti_seq_08_start0030_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_08_start0030_60.json",
+      "ate_xy_m": 1.139923764403656,
+      "step_length_rmse_m": 0.04714130039870671,
+      "baseline_stability_motion_ate_xy_m": 1.136623645652697,
+      "ate_delta_vs_baseline_m": 0.0033001187509589247
+    },
+    {
+      "window": "kitti_seq_08_start0060_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_08_start0060_60.json",
+      "ate_xy_m": 1.311935374701621,
+      "step_length_rmse_m": 0.04346101233508669,
+      "baseline_stability_motion_ate_xy_m": 1.3092019051860035,
+      "ate_delta_vs_baseline_m": 0.0027334695156173705
+    },
+    {
+      "window": "kitti_seq_08_start0090_60",
+      "path": "experiments/results/intensity_odometry/window_benchmark_60/temporal_smoother/results/temporal_smooth_lamT0p25_lamY0_kitti_seq_08_start0090_60.json",
+      "ate_xy_m": 1.5814398637959148,
+      "step_length_rmse_m": 0.03518370679850841,
+      "baseline_stability_motion_ate_xy_m": 1.5817760272010666,
+      "ate_delta_vs_baseline_m": -0.0003361634051517459
+    }
+  ]
+}

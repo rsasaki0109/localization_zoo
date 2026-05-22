@@ -454,6 +454,7 @@
         "mean_acceptance": 0.26436781609195403,
         "mean_convergence": 0.26436781609195403,
         "failed_windows": 2,
+        "risk_windows": 2,
         "min_acceptance": 0.0,
         "max_used_path_length_m": 1.275861762456349
       },
@@ -462,6 +463,7 @@
         "mean_acceptance": 1.0,
         "mean_convergence": 1.0,
         "failed_windows": 0,
+        "risk_windows": 1,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 6.927050983124842
       },
@@ -470,6 +472,7 @@
         "mean_acceptance": 0.0,
         "mean_convergence": 0.0,
         "failed_windows": 3,
+        "risk_windows": 3,
         "min_acceptance": 0.0,
         "max_used_path_length_m": 0.0
       },
@@ -478,6 +481,7 @@
         "mean_acceptance": 0.8850574712643677,
         "mean_convergence": 0.04597701149425287,
         "failed_windows": 0,
+        "risk_windows": 3,
         "min_acceptance": 0.6551724137931034,
         "max_used_path_length_m": 2.703449488161886
       }
@@ -488,6 +492,7 @@
         "mean_acceptance": 1.0,
         "mean_convergence": 1.0,
         "failed_windows": 0,
+        "risk_windows": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 1.8668876874404594
       },
@@ -496,6 +501,7 @@
         "mean_acceptance": 1.0,
         "mean_convergence": 1.0,
         "failed_windows": 0,
+        "risk_windows": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 10.522150459088937
       },
@@ -504,6 +510,7 @@
         "mean_acceptance": 1.0,
         "mean_convergence": 1.0,
         "failed_windows": 0,
+        "risk_windows": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 1.1857805032809408
       },
@@ -512,6 +519,7 @@
         "mean_acceptance": 1.0,
         "mean_convergence": 0.14655172413793102,
         "failed_windows": 0,
+        "risk_windows": 4,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 5.675902413181488
       }

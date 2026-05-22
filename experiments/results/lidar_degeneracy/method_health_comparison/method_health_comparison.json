@@ -79,7 +79,11 @@
               "cross_method_suspicious": false,
               "risk_state": "suspicious",
               "risk_flags": "ok",
-              "risk_failure_awareness": "false_alarm"
+              "risk_failure_awareness": "false_alarm",
+              "policy_reasons": [
+                "partial_acceptance"
+              ],
+              "policy_decision": "watch"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -115,7 +119,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "nominal_ok"
+              "risk_failure_awareness": "nominal_ok",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "kiss_keyframe": {
               "accepted_rate": 0.0,
@@ -149,7 +157,13 @@
               "cross_method_suspicious": false,
               "risk_state": "failed",
               "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
-              "risk_failure_awareness": "false_alarm"
+              "risk_failure_awareness": "false_alarm",
+              "policy_reasons": [
+                "all_pairs_failed",
+                "low_acceptance",
+                "low_convergence"
+              ],
+              "policy_decision": "fail"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -183,7 +197,11 @@
               "cross_method_suspicious": false,
               "risk_state": "degraded",
               "risk_flags": "low_convergence",
-              "risk_failure_awareness": "false_alarm"
+              "risk_failure_awareness": "false_alarm",
+              "policy_reasons": [
+                "low_convergence"
+              ],
+              "policy_decision": "watch"
             }
           },
           "expected_stress": "nominal"
@@ -228,7 +246,11 @@
               "cross_method_suspicious": false,
               "risk_state": "failed",
               "risk_flags": "low_acceptance",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "low_acceptance"
+              ],
+              "policy_decision": "fail"
             },
             "intensity_bev": {
               "accepted_rate": 0.9310344827586207,
@@ -265,7 +287,12 @@
               "cross_method_suspicious": false,
               "risk_state": "suspicious",
               "risk_flags": "motion_margin_dominant, overlap_tail",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "motion_margin_dominant",
+                "overlap_tail"
+              ],
+              "policy_decision": "investigate"
             },
             "kiss_keyframe": {
               "accepted_rate": 0.0,
@@ -299,7 +326,13 @@
               "cross_method_suspicious": false,
               "risk_state": "failed",
               "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "all_pairs_failed",
+                "low_acceptance",
+                "low_convergence"
+              ],
+              "policy_decision": "fail"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -333,7 +366,11 @@
               "cross_method_suspicious": false,
               "risk_state": "degraded",
               "risk_flags": "low_convergence",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "low_convergence"
+              ],
+              "policy_decision": "watch"
             }
           },
           "expected_stress": "obscurant_stress"
@@ -378,7 +415,12 @@
               "cross_method_suspicious": false,
               "risk_state": "failed",
               "risk_flags": "all_pairs_failed, low_acceptance",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "all_pairs_failed",
+                "low_acceptance"
+              ],
+              "policy_decision": "fail"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -415,7 +457,13 @@
               "cross_method_suspicious": true,
               "risk_state": "cross_method_suspicious",
               "risk_flags": "cross_method_suspicious",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "cross_method_suspicious",
+                "no_healthy_peer",
+                "path_disagrees_with_all_method_median"
+              ],
+              "policy_decision": "investigate"
             },
             "kiss_keyframe": {
               "accepted_rate": 0.0,
@@ -449,7 +497,13 @@
               "cross_method_suspicious": false,
               "risk_state": "failed",
               "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "all_pairs_failed",
+                "low_acceptance",
+                "low_convergence"
+              ],
+              "policy_decision": "fail"
             },
             "ct_icp": {
               "accepted_rate": 0.6551724137931034,
@@ -483,7 +537,12 @@
               "cross_method_suspicious": false,
               "risk_state": "suspicious",
               "risk_flags": "low_convergence",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "low_convergence",
+                "partial_acceptance"
+              ],
+              "policy_decision": "watch"
             }
           },
           "expected_stress": "obscurant_stress"
@@ -555,7 +614,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "nominal_ok"
+              "risk_failure_awareness": "nominal_ok",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -592,7 +655,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "nominal_ok"
+              "risk_failure_awareness": "nominal_ok",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -626,7 +693,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "nominal_ok"
+              "risk_failure_awareness": "nominal_ok",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -660,7 +731,11 @@
               "cross_method_suspicious": false,
               "risk_state": "degraded",
               "risk_flags": "low_convergence",
-              "risk_failure_awareness": "false_alarm"
+              "risk_failure_awareness": "false_alarm",
+              "policy_reasons": [
+                "low_convergence"
+              ],
+              "policy_decision": "watch"
             }
           },
           "expected_stress": "nominal"
@@ -705,7 +780,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "stress_unflagged"
+              "risk_failure_awareness": "stress_unflagged",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -742,7 +821,12 @@
               "cross_method_suspicious": true,
               "risk_state": "cross_method_suspicious",
               "risk_flags": "cross_method_suspicious",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "cross_method_suspicious",
+                "path_disagrees_with_healthy_median"
+              ],
+              "policy_decision": "investigate"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -776,7 +860,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "stress_unflagged"
+              "risk_failure_awareness": "stress_unflagged",
+              "policy_reasons": [
+                "path_disagrees_with_all_method_median"
+              ],
+              "policy_decision": "watch"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -810,7 +898,11 @@
               "cross_method_suspicious": false,
               "risk_state": "degraded",
               "risk_flags": "low_convergence",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "low_convergence"
+              ],
+              "policy_decision": "watch"
             }
           },
           "expected_stress": "point_count_stress"
@@ -855,7 +947,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "stress_unflagged"
+              "risk_failure_awareness": "stress_unflagged",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -892,7 +988,13 @@
               "cross_method_suspicious": true,
               "risk_state": "cross_method_suspicious",
               "risk_flags": "cross_method_suspicious",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "cross_method_suspicious",
+                "path_disagrees_with_all_method_median",
+                "path_disagrees_with_healthy_median"
+              ],
+              "policy_decision": "investigate"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -926,7 +1028,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "stress_unflagged"
+              "risk_failure_awareness": "stress_unflagged",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -960,7 +1066,11 @@
               "cross_method_suspicious": false,
               "risk_state": "degraded",
               "risk_flags": "low_convergence",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "low_convergence"
+              ],
+              "policy_decision": "watch"
             }
           },
           "expected_stress": "geometry_stress"
@@ -1005,7 +1115,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "stress_unflagged"
+              "risk_failure_awareness": "stress_unflagged",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -1042,7 +1156,11 @@
               "cross_method_suspicious": false,
               "risk_state": "suspicious",
               "risk_flags": "motion_margin_dominant",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "motion_margin_dominant"
+              ],
+              "policy_decision": "investigate"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -1076,7 +1194,11 @@
               "cross_method_suspicious": false,
               "risk_state": "ok",
               "risk_flags": "ok",
-              "risk_failure_awareness": "stress_unflagged"
+              "risk_failure_awareness": "stress_unflagged",
+              "policy_reasons": [
+                "ok_no_risk"
+              ],
+              "policy_decision": "pass"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -1110,7 +1232,11 @@
               "cross_method_suspicious": false,
               "risk_state": "degraded",
               "risk_flags": "low_convergence",
-              "risk_failure_awareness": "stress_flagged"
+              "risk_failure_awareness": "stress_flagged",
+              "policy_reasons": [
+                "low_convergence"
+              ],
+              "policy_decision": "watch"
             }
           },
           "expected_stress": "degradation_stress"
@@ -1134,6 +1260,10 @@
         "stress_unflagged": 0,
         "residual_stress_unflagged": 0,
         "false_alarms": 1,
+        "policy_pass": 0,
+        "policy_watch": 1,
+        "policy_investigate": 0,
+        "policy_fail": 2,
         "min_acceptance": 0.0,
         "max_used_path_length_m": 1.275861762456349
       },
@@ -1151,6 +1281,10 @@
         "stress_unflagged": 1,
         "residual_stress_unflagged": 0,
         "false_alarms": 0,
+        "policy_pass": 1,
+        "policy_watch": 0,
+        "policy_investigate": 2,
+        "policy_fail": 0,
         "min_acceptance": 0.9310344827586207,
         "max_used_path_length_m": 11.516254999302026
       },
@@ -1168,6 +1302,10 @@
         "stress_unflagged": 0,
         "residual_stress_unflagged": 0,
         "false_alarms": 1,
+        "policy_pass": 0,
+        "policy_watch": 0,
+        "policy_investigate": 0,
+        "policy_fail": 3,
         "min_acceptance": 0.0,
         "max_used_path_length_m": 0.0
       },
@@ -1185,6 +1323,10 @@
         "stress_unflagged": 0,
         "residual_stress_unflagged": 0,
         "false_alarms": 1,
+        "policy_pass": 0,
+        "policy_watch": 3,
+        "policy_investigate": 0,
+        "policy_fail": 0,
         "min_acceptance": 0.6551724137931034,
         "max_used_path_length_m": 2.703449488161886
       }
@@ -1204,6 +1346,10 @@
         "stress_unflagged": 3,
         "residual_stress_unflagged": 3,
         "false_alarms": 0,
+        "policy_pass": 4,
+        "policy_watch": 0,
+        "policy_investigate": 0,
+        "policy_fail": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 1.8668876874404594
       },
@@ -1221,6 +1367,10 @@
         "stress_unflagged": 2,
         "residual_stress_unflagged": 0,
         "false_alarms": 0,
+        "policy_pass": 1,
+        "policy_watch": 0,
+        "policy_investigate": 3,
+        "policy_fail": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 12.641827625243703
       },
@@ -1238,6 +1388,10 @@
         "stress_unflagged": 3,
         "residual_stress_unflagged": 3,
         "false_alarms": 0,
+        "policy_pass": 3,
+        "policy_watch": 1,
+        "policy_investigate": 0,
+        "policy_fail": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 1.1857805032809408
       },
@@ -1255,6 +1409,10 @@
         "stress_unflagged": 0,
         "residual_stress_unflagged": 0,
         "false_alarms": 1,
+        "policy_pass": 0,
+        "policy_watch": 4,
+        "policy_investigate": 0,
+        "policy_fail": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 5.675902413181488
       }

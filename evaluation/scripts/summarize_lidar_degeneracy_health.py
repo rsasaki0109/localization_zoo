@@ -30,6 +30,27 @@ DEFAULT_INPUTS = (
         ),
     ),
 )
+POLICY_DECISION_ORDER = {
+    "pass": 0,
+    "watch": 1,
+    "investigate": 2,
+    "fail": 3,
+}
+POLICY_BY_REASON = {
+    "ok_no_risk": "pass",
+    "low_convergence": "watch",
+    "low_used_path": "watch",
+    "no_healthy_peer": "watch",
+    "partial_acceptance": "watch",
+    "path_disagrees_with_all_method_median": "watch",
+    "cross_method_suspicious": "investigate",
+    "motion_margin_dominant": "investigate",
+    "overlap_tail": "investigate",
+    "path_disagrees_with_healthy_median": "investigate",
+    "all_pairs_failed": "fail",
+    "low_acceptance": "fail",
+    "nonfinite_pose": "fail",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -78,6 +99,13 @@ def compact_counts(counts: dict[str, int]) -> str:
     if not counts:
         return "n/a"
     return ", ".join(f"{name}:{counts[name]}" for name in sorted(counts))
+
+
+def split_csv_flags(value: Any) -> list[str]:
+    text = str(value or "ok")
+    if text == "ok" or text == "none":
+        return []
+    return [part.strip() for part in text.split(",") if part.strip()]
 
 
 def normalize_angle_deg(angle_deg: float) -> float:
@@ -319,6 +347,33 @@ def append_flag(flags: str, flag: str) -> str:
     return ", ".join(active)
 
 
+def policy_reasons(row: dict[str, Any]) -> list[str]:
+    reasons: list[str] = []
+    reasons.extend(split_csv_flags(row.get("flags")))
+    accepted = as_finite_float(row.get("accepted_rate"))
+    if accepted is not None and 0.5 <= accepted < 0.9:
+        reasons.append("partial_acceptance")
+    if row.get("cross_method_suspicious"):
+        reasons.append("cross_method_suspicious")
+    reasons.extend(
+        reason
+        for reason in split_csv_flags(row.get("cross_method_probe"))
+        if reason.startswith("path_disagrees") or reason == "no_healthy_peer"
+    )
+    if not reasons:
+        reasons.append("ok_no_risk")
+    return sorted(dict.fromkeys(reasons))
+
+
+def policy_decision(reasons: list[str]) -> str:
+    decision = "pass"
+    for reason in reasons:
+        candidate = POLICY_BY_REASON.get(reason, "watch")
+        if POLICY_DECISION_ORDER[candidate] > POLICY_DECISION_ORDER[decision]:
+            decision = candidate
+    return decision
+
+
 def add_cross_method_risk(windows: list[dict[str, Any]]) -> None:
     for window in windows:
         expected = window["expected_stress"]
@@ -332,6 +387,8 @@ def add_cross_method_risk(windows: list[dict[str, Any]]) -> None:
                 row["risk_state"] = row.get("health_state")
                 row["risk_flags"] = row.get("flags")
             row["risk_failure_awareness"] = failure_awareness(expected, row["risk_state"])
+            row["policy_reasons"] = policy_reasons(row)
+            row["policy_decision"] = policy_decision(row["policy_reasons"])
 
 
 def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict[str, Any]:
@@ -420,6 +477,10 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                     "stress_unflagged": 0,
                     "residual_stress_unflagged": 0,
                     "false_alarms": 0,
+                    "policy_pass": 0,
+                    "policy_watch": 0,
+                    "policy_investigate": 0,
+                    "policy_fail": 0,
                     "min_acceptance": 1.0,
                     "max_used_path_length_m": 0.0,
                 },
@@ -436,6 +497,7 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
             stats["local_risk_windows"] += 1 if local_risk else 0
             stats["cross_method_suspicious_windows"] += 1 if cross_method_suspicious else 0
             stats["risk_windows"] += 1 if local_risk or cross_method_suspicious else 0
+            stats[f"policy_{row['policy_decision']}"] += 1
             expected = window["expected_stress"]
             awareness = row.get("failure_awareness")
             if is_stress_label(expected):
@@ -468,8 +530,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         "",
         "## Method Aggregate",
         "",
-        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Local risk | Cross-method risk | Total risk | Max used path m |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for sequence in payload["sequences"]:
         aggregates = payload["aggregates"][sequence["sequence"]]
@@ -481,7 +543,10 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 f"{fmt(row['mean_convergence'])} | {row['failed_windows']} | "
                 f"{row['local_risk_windows']} | "
                 f"{row['cross_method_suspicious_windows']} | "
-                f"{row['risk_windows']} | {fmt(row['max_used_path_length_m'])} |"
+                f"{row['risk_windows']} | "
+                f"{row['policy_pass']} | {row['policy_watch']} | "
+                f"{row['policy_investigate']} | {row['policy_fail']} | "
+                f"{fmt(row['max_used_path_length_m'])} |"
             )
 
     lines.extend(
@@ -563,8 +628,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Window Detail",
             "",
-            "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Risk state | Failure awareness | Risk awareness | Keyframes | Flags | Risk flags |",
-            "| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- | --- |",
+            "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Risk state | Policy | Failure awareness | Risk awareness | Keyframes | Flags | Risk flags | Policy reasons |",
+            "| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for sequence in payload["sequences"]:
@@ -579,8 +644,10 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                     f"{fmt(row['score_mean'])} | {fmt(row['overlap_mean'], 1)} | "
                     f"{fmt(row['used_path_length_m'])} | {fmt(row['used_step_max_m'])} | "
                     f"`{row['health_state']}` | `{row['risk_state']}` | "
+                    f"`{row['policy_decision']}` | "
                     f"`{row['failure_awareness']}` | `{row['risk_failure_awareness']}` | "
-                    f"{row['keyframes']} | {row['flags']} | {row['risk_flags']} |"
+                    f"{row['keyframes']} | {row['flags']} | {row['risk_flags']} | "
+                    f"{', '.join(row['policy_reasons'])} |"
                 )
 
     lines.extend(
@@ -594,6 +661,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "- Intensity BEV false-confidence gates now promote dominant motion-margin decisions and sharp overlap tails to suspicious health flags on non-baseline selected windows.",
             "- Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.",
             "- Cross-method consistency now contributes to total risk when a stress-unflagged trajectory disagrees with healthy-peer or all-method path medians.",
+            "- Policy decisions are GT-free triage labels: `fail` for hard local failure, `investigate` for strong false-confidence signals, `watch` for medium-risk rows, and `pass` for no active risk reason.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",
             "- CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.",
             "",

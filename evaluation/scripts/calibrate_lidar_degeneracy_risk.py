@@ -44,6 +44,7 @@ POLICY_BY_REASON = {
     "low_convergence": "watch",
     "low_used_path": "watch",
     "no_healthy_peer": "watch",
+    "partial_acceptance": "watch",
     "path_disagrees_with_all_method_median": "watch",
     "cross_method_suspicious": "investigate",
     "motion_margin_dominant": "investigate",
@@ -218,6 +219,9 @@ def risk_bucket(row: dict[str, Any]) -> str:
 def risk_reasons(record: dict[str, Any]) -> list[str]:
     reasons: list[str] = []
     reasons.extend(split_csv_flags(record.get("flags")))
+    accepted = record.get("accepted_rate")
+    if accepted is not None and 0.5 <= float(accepted) < 0.9:
+        reasons.append("partial_acceptance")
     if record.get("cross_method_suspicious"):
         reasons.append("cross_method_suspicious")
     reasons.extend(

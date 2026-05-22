@@ -91,12 +91,45 @@ to produce a PointCloud2 topic. Then run the existing extractor on that converte
 bag:
 
 ```bash
+mkdir -p ~/catkin_ouster_ws/src
+cd ~/catkin_ouster_ws/src
+git clone -b dev/sensor_sync_replay --recurse-submodules \
+  https://github.com/ntnu-arl/ouster-ros.git
+cd ~/catkin_ouster_ws
+source /opt/ros/noetic/setup.bash
+catkin_make --cmake-args -DCMAKE_BUILD_TYPE=Release
+```
+
+Generate and validate the replay script:
+
+```bash
+python3 evaluation/scripts/replay_ouster_packets.py \
+  --sequence fog \
+  --ros-setup /opt/ros/noetic/setup.bash \
+  --ouster-workspace ~/catkin_ouster_ws
+```
+
+Run the conversion when ROS1 and `ouster_ros` are sourced:
+
+```bash
+python3 evaluation/scripts/replay_ouster_packets.py \
+  --sequence fog \
+  --ros-setup /opt/ros/noetic/setup.bash \
+  --ouster-workspace ~/catkin_ouster_ws \
+  --run
+```
+
+The helper records the decoded `/ouster/points` topic into
+`data/lidar_degeneracy_datasets/fog_ouster_points.bag` and prints the follow-up
+extract command.
+
+```bash
 python3 evaluation/scripts/extract_ros1_lidar_imu.py \
-  --pointcloud-bag /path/to/converted_pointcloud.bag \
-  --pointcloud-topic /os_cloud_node/points \
-  --imu-bag data/lidar_degeneracy_datasets/tunnel.bag \
+  --pointcloud-bag data/lidar_degeneracy_datasets/fog_ouster_points.bag \
+  --pointcloud-topic /ouster/points \
+  --imu-bag data/lidar_degeneracy_datasets/fog.bag \
   --imu-topic /vectornav_node/uncomp_imu \
-  --output-dir dogfooding_results/lidar_degeneracy_tunnel_200 \
+  --output-dir dogfooding_results/lidar_degeneracy_fog_200 \
   --max-frames 200 \
   --time-mode azimuth
 ```

@@ -74,6 +74,52 @@ def keyframe_text(row: dict[str, Any]) -> str:
     return f"{int(accepted)}/{int(attempted)}"
 
 
+def compact_counts(counts: dict[str, int]) -> str:
+    if not counts:
+        return "n/a"
+    return ", ".join(f"{name}:{counts[name]}" for name in sorted(counts))
+
+
+def load_pair_diagnostics(result_json: Any) -> dict[str, Any]:
+    if not result_json:
+        return {
+            "decision_reasons": {},
+            "motion_margin_rate": None,
+            "best_score_rate": None,
+            "pair_count": 0,
+        }
+    path = Path(str(result_json))
+    if not path.exists():
+        return {
+            "decision_reasons": {},
+            "motion_margin_rate": None,
+            "best_score_rate": None,
+            "pair_count": 0,
+        }
+    payload = load_json(path)
+    pairs = payload.get("pairs", [])
+    counts: dict[str, int] = {}
+    for pair in pairs:
+        if "decision_reason" not in pair:
+            continue
+        reason = str(pair.get("decision_reason") or "n/a")
+        counts[reason] = counts.get(reason, 0) + 1
+    reason_count = sum(counts.values())
+    if reason_count == 0:
+        return {
+            "decision_reasons": counts,
+            "motion_margin_rate": None,
+            "best_score_rate": None,
+            "pair_count": len(pairs),
+        }
+    return {
+        "decision_reasons": counts,
+        "motion_margin_rate": counts.get("motion_margin", 0) / reason_count,
+        "best_score_rate": counts.get("best_score", 0) / reason_count,
+        "pair_count": len(pairs),
+    }
+
+
 def method_sort_key(method: str) -> tuple[int, str]:
     order = {"geometry_icp": 0, "intensity_bev": 1, "kiss_keyframe": 2, "ct_icp": 3}
     return (order.get(method, 99), method)
@@ -125,6 +171,23 @@ def failure_awareness(expected: str, state: str) -> str:
     return "nominal_ok"
 
 
+def confidence_probe(row: dict[str, Any]) -> str:
+    notes = []
+    motion_margin_rate = row.get("motion_margin_rate")
+    if motion_margin_rate is not None and float(motion_margin_rate) >= 0.5:
+        notes.append("motion_margin_dominant")
+    overlap_mean = row.get("overlap_mean")
+    overlap_min = row.get("overlap_min")
+    if overlap_mean is not None and overlap_min is not None:
+        mean = float(overlap_mean)
+        minimum = float(overlap_min)
+        if mean > 0.0 and minimum / mean < 0.5:
+            notes.append("overlap_tail")
+    if row.get("failure_awareness") == "stress_unflagged":
+        notes.append("needs_gt_or_cross_method_check")
+    return ", ".join(notes) if notes else "none"
+
+
 def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict[str, Any]:
     methods: dict[str, dict[str, Any]] = {}
     windows: dict[str, dict[str, Any]] = {}
@@ -160,17 +223,21 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
                 "accepted_rate": row.get("accepted_rate"),
                 "converged_rate": row.get("converged_rate"),
                 "score_mean": row.get("score_mean"),
+                "score_min": row.get("score_min"),
                 "overlap_mean": row.get("overlap_mean"),
+                "overlap_min": row.get("overlap_min"),
                 "used_path_length_m": row.get("used_path_length_m"),
                 "used_step_max_m": row.get("used_step_max_m"),
                 "keyframes": keyframe_text(row),
                 "flags": health_label(row),
                 "result_json": row.get("result_json"),
             }
+            method_row.update(load_pair_diagnostics(row.get("result_json")))
             method_row["health_state"] = health_state(method_row)
             method_row["failure_awareness"] = failure_awareness(
                 expected, method_row["health_state"]
             )
+            method_row["confidence_probe"] = confidence_probe(method_row)
             entry["methods"][method] = {
                 **method_row,
             }
@@ -276,6 +343,30 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.extend(
         [
             "",
+            "## Confidence Probes",
+            "",
+            "| Sequence | Window | Method | Accepted | Score min | Overlap min | Motion-margin rate | Decision reasons | Probe |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    for sequence in payload["sequences"]:
+        for window in sequence["windows"]:
+            for method in sorted(window["methods"], key=method_sort_key):
+                row = window["methods"][method]
+                if row["failure_awareness"] != "stress_unflagged":
+                    continue
+                lines.append(
+                    f"| `{sequence['sequence']}` | `{window['name']}` "
+                    f"{window['start']}-{window['end']} | `{method}` | "
+                    f"{fmt(row['accepted_rate'])} | {fmt(row['score_min'])} | "
+                    f"{fmt(row['overlap_min'], 1)} | {fmt(row['motion_margin_rate'])} | "
+                    f"{compact_counts(row['decision_reasons'])} | "
+                    f"{row['confidence_probe']} |"
+                )
+
+    lines.extend(
+        [
+            "",
             "## Window Detail",
             "",
             "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Failure awareness | Keyframes | Flags |",
@@ -305,6 +396,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "- `fog_200`: intensity BEV keeps 93.1-100% acceptance on selected windows after zero-motion score-margin preference, including the strongest fog slice.",
             "- `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.",
             "- Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.",
+            "- Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",
             "- CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.",
             "",

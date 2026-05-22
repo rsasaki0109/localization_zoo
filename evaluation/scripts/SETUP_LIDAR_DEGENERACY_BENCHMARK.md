@@ -361,6 +361,11 @@ Observed `fog.bag` inspection:
   `stress_flagged`, `stress_unflagged`, and `false_alarms`. Because this layer
   has no ground truth, `stress_unflagged` means the method stayed externally
   healthy on a stress window; it does not prove the estimate is correct.
+- The same report includes confidence probes for `stress_unflagged` rows:
+  minimum score, minimum overlap, intensity-BEV decision reason distribution,
+  and notes such as `motion_margin_dominant` or `overlap_tail`. This turns
+  externally healthy stress windows into an explicit follow-up queue for GT or
+  cross-method validation.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

@@ -432,6 +432,8 @@ Observed `fog.bag` inspection:
   `--regenerate-reports` when you also want to refresh
   `method_health_comparison` and `risk_gt_calibration` from the current
   committed inputs.
+- The check entrypoint is also wired into the repo script tests:
+  `python3 -m pytest tests/test_experiment_scripts.py -k lidar_degeneracy_check_runner_smoke`.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

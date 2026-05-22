@@ -436,6 +436,12 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             self.assertEqual(defaults["litamin2"][0]["rpe_rot_deg_per_m"], 0.012345)
             self.assertEqual(defaults["litamin2"][0]["fps"], 15.0)
 
+    def test_lidar_degeneracy_check_runner_smoke(self) -> None:
+        completed = run_script("evaluation/scripts/run_lidar_degeneracy_checks.py")
+
+        self.assertEqual(completed.returncode, 0, msg=completed.stdout)
+        self.assertIn("[ok] lidar degeneracy checks passed", completed.stdout)
+
 
 class RunMultimodalStudyScriptTests(unittest.TestCase):
     @classmethod
@@ -679,6 +685,9 @@ class PrepareKittiOdometryInputsTests(unittest.TestCase):
                     ]
                 )
                 + "\n"
+            )
+            (kitti_root / "sequences" / "00" / "calib.txt").write_text(
+                "Tr: 1 0 0 0 0 1 0 0 0 0 1 0\n"
             )
 
             completed = run_script(

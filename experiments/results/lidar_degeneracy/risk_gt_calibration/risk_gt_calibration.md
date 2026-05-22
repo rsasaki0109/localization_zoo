@@ -1,5 +1,7 @@
 # LiDAR Degeneracy Risk GT Calibration
 
+Policy: `lidar_degeneracy_triage_v1` (`evaluation/config/lidar_degeneracy_triage_policy.json`)
+
 ## GT Availability
 
 | Sequence | GT CSV | Exists | Pose-like bag topics |

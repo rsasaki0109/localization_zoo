@@ -401,6 +401,15 @@ Observed `fog.bag` inspection:
   `cross_method_suspicious` overall (mean path/healthy 4.48). In contrast,
   `ok_no_risk` rows average path/healthy 0.94. This is still GT-free, but it
   gives a concrete priority order for GT or stronger-reference checks.
+- The calibration report also materializes a pre-GT triage policy:
+  `fail` for hard local failures (`all_pairs_failed`, `low_acceptance`,
+  `nonfinite_pose`), `investigate` for strong false-confidence signals
+  (`motion_margin_dominant`, `overlap_tail`, `cross_method_suspicious`,
+  `path_disagrees_with_healthy_median`), `watch` for medium signals
+  (`low_convergence`, all-method-only disagreement, no-healthy-peer context),
+  and `pass` for `ok_no_risk`. On the current stress windows this yields
+  5 `investigate` rows, all intensity BEV; 4 `fail` rows; 6 `watch` rows; and
+  5 `pass` rows.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

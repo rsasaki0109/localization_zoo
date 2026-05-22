@@ -422,6 +422,11 @@ Observed `fog.bag` inspection:
   calibration reports load this file and stamp the policy path/version into
   their JSON and Markdown outputs, so future GT-backed precision/recall checks
   can be tied to the exact policy definition.
+- The policy contract has a lightweight regression check:
+  `python3 evaluation/scripts/test_lidar_degeneracy_triage_policy.py`. It
+  validates required policy fields, representative reason decisions, unknown
+  reason fallback to `watch`, and agreement between the method-health and
+  calibration scripts.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

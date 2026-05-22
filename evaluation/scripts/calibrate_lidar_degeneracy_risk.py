@@ -14,6 +14,7 @@ import numpy as np
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_POLICY_PATH = REPO_ROOT / "evaluation" / "config" / "lidar_degeneracy_triage_policy.json"
 DEFAULT_COMPARISON = (
     REPO_ROOT
     / "experiments"
@@ -33,26 +34,31 @@ DEFAULT_TOPIC_AUDITS = {
     "fog_200": REPO_ROOT / "data" / "lidar_degeneracy_datasets" / "fog_topics.json",
     "tunnel_geom_2700_200": REPO_ROOT / "data" / "lidar_degeneracy_datasets" / "tunnel_topics.json",
 }
+
+
+def load_policy(path: Path = DEFAULT_POLICY_PATH) -> dict[str, Any]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    decisions = payload.get("decision_order", {})
+    reasons = payload.get("reason_decisions", {})
+    default = payload.get("default_decision_for_unknown_reason", "watch")
+    if not decisions or not reasons:
+        raise RuntimeError(f"{path}: policy requires decision_order and reason_decisions")
+    if default not in decisions:
+        raise RuntimeError(f"{path}: default decision {default!r} missing from decision_order")
+    unknown = sorted(set(reasons.values()) - set(decisions))
+    if unknown:
+        raise RuntimeError(f"{path}: unknown reason decisions: {unknown}")
+    return payload
+
+
+POLICY = load_policy()
+POLICY_VERSION = str(POLICY["policy_version"])
+POLICY_DEFAULT_DECISION = str(POLICY.get("default_decision_for_unknown_reason", "watch"))
 POLICY_DECISION_ORDER = {
-    "pass": 0,
-    "watch": 1,
-    "investigate": 2,
-    "fail": 3,
+    str(name): int(rank) for name, rank in POLICY["decision_order"].items()
 }
 POLICY_BY_REASON = {
-    "ok_no_risk": "pass",
-    "low_convergence": "watch",
-    "low_used_path": "watch",
-    "no_healthy_peer": "watch",
-    "partial_acceptance": "watch",
-    "path_disagrees_with_all_method_median": "watch",
-    "cross_method_suspicious": "investigate",
-    "motion_margin_dominant": "investigate",
-    "overlap_tail": "investigate",
-    "path_disagrees_with_healthy_median": "investigate",
-    "all_pairs_failed": "fail",
-    "low_acceptance": "fail",
-    "nonfinite_pose": "fail",
+    str(reason): str(decision) for reason, decision in POLICY["reason_decisions"].items()
 }
 
 
@@ -237,7 +243,7 @@ def risk_reasons(record: dict[str, Any]) -> list[str]:
 def policy_decision(reasons: list[str]) -> str:
     decision = "pass"
     for reason in reasons:
-        candidate = POLICY_BY_REASON.get(reason, "watch")
+        candidate = POLICY_BY_REASON.get(reason, POLICY_DEFAULT_DECISION)
         if POLICY_DECISION_ORDER[candidate] > POLICY_DECISION_ORDER[decision]:
             decision = candidate
     return decision
@@ -246,7 +252,7 @@ def policy_decision(reasons: list[str]) -> str:
 def policy_reason_summary(reasons: list[str]) -> str:
     parts = []
     for reason in reasons:
-        parts.append(f"{reason}:{POLICY_BY_REASON.get(reason, 'watch')}")
+        parts.append(f"{reason}:{POLICY_BY_REASON.get(reason, POLICY_DEFAULT_DECISION)}")
     return ", ".join(parts)
 
 
@@ -464,8 +470,11 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
         "proxy_bucket_stats_stress": append_proxy_stats(records, stress_only=True),
         "proxy_bucket_stats_all": append_proxy_stats(records, stress_only=False),
         "policy": {
+            "path": str(DEFAULT_POLICY_PATH.relative_to(REPO_ROOT)),
+            "schema_version": POLICY.get("schema_version"),
+            "policy_version": POLICY_VERSION,
             "decision_order": POLICY_DECISION_ORDER,
-            "by_reason": POLICY_BY_REASON,
+            "reason_decisions": POLICY_BY_REASON,
         },
         "policy_stats_stress": policy_stats(records, stress_only=True),
         "policy_stats_all": policy_stats(records, stress_only=False),
@@ -477,6 +486,9 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
 def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines = [
         "# LiDAR Degeneracy Risk GT Calibration",
+        "",
+        f"Policy: `{payload['policy']['policy_version']}` "
+        f"(`{payload['policy']['path']}`)",
         "",
         "## GT Availability",
         "",

@@ -46,15 +46,29 @@ def main() -> int:
         "default_decision_for_unknown_reason",
         "decision_order",
         "reason_decisions",
+        "enforcement",
     ):
         if key not in policy:
             raise AssertionError(f"policy missing required key: {key}")
 
     decisions = policy["decision_order"]
     reason_decisions = policy["reason_decisions"]
+    strict_gate = policy["enforcement"].get("strict_gate", {})
     assert_equal(policy["policy_version"], "lidar_degeneracy_triage_v1", "policy_version")
     assert_equal(policy["default_decision_for_unknown_reason"], "watch", "default decision")
     assert_equal(decisions, {"pass": 0, "watch": 1, "investigate": 2, "fail": 3}, "decision order")
+    assert_equal(policy["enforcement"].get("schema_version"), 1, "enforcement schema")
+    assert_equal(strict_gate.get("max_fail_rows"), 0, "strict gate max_fail_rows")
+    assert_equal(
+        strict_gate.get("max_investigate_rows"),
+        0,
+        "strict gate max_investigate_rows",
+    )
+    assert_equal(
+        strict_gate.get("require_policy_version_match"),
+        True,
+        "strict gate policy version match",
+    )
 
     for reason, expected in EXPECTED_REASON_DECISIONS.items():
         assert_equal(reason_decisions.get(reason), expected, f"reason {reason}")

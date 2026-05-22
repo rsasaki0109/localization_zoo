@@ -23,5 +23,14 @@
     "all_pairs_failed": "fail",
     "low_acceptance": "fail",
     "nonfinite_pose": "fail"
+  },
+  "enforcement": {
+    "schema_version": 1,
+    "strict_gate": {
+      "description": "Fail strict checks when report rows contain hard-fail or false-confidence policy decisions.",
+      "max_fail_rows": 0,
+      "max_investigate_rows": 0,
+      "require_policy_version_match": true
+    }
   }
 }

@@ -354,13 +354,15 @@ Observed `fog.bag` inspection:
   aggregate readout is: on `fog_200`, geometry ICP averages 26.4% acceptance,
   intensity BEV averages 97.7%, KISS keyframe averages 0.0%, and CT-ICP averages
   88.5%; on `tunnel_geom_2700_200`, all four methods remain at 100% acceptance
-  across the selected short windows.
+  across the selected short windows. The aggregate now separates local risk,
+  cross-method risk, and total risk.
 - The comparison now includes a GT-free failure-awareness layer. Selected
   windows are labeled as nominal or stress, each method row is mapped to
-  `ok`/`suspicious`/`degraded`/`failed`, and the aggregate table reports
-  `stress_flagged`, `stress_unflagged`, and `false_alarms`. Because this layer
-  has no ground truth, `stress_unflagged` means the method stayed externally
-  healthy on a stress window; it does not prove the estimate is correct.
+  `ok`/`suspicious`/`degraded`/`failed`, and the failure-awareness table reports
+  local flagged, cross-method flagged, residual unflagged, and false alarms.
+  Because this layer has no ground truth, residual unflagged means the method
+  stayed externally healthy on a stress window and did not trip the current
+  cross-method risk gate; it does not prove the estimate is correct.
 - The same report includes confidence probes for `stress_unflagged` rows:
   minimum score, minimum overlap, intensity-BEV decision reason distribution,
   and notes such as `motion_margin_dominant` or `overlap_tail`. This turns
@@ -375,12 +377,13 @@ Observed `fog.bag` inspection:
   decisions dominate. Baseline windows stay `ok`.
 - Cross-method consistency is also reported for `stress_unflagged` rows. It
   compares each GT-free trajectory path length against healthy-peer and
-  all-method path medians. The remaining intensity-BEV stress-unflagged rows
-  are still suspicious by this comparison layer: `fog_200` `degraded` travels
-  6.1x farther than the all-method median, and the tunnel `point_count_tail`
-  / `geometry_degeneracy` windows travel 5.3-7.2x farther than the healthy-peer
-  median. Treat these as likely false-confidence cases until checked against GT
-  or a stronger reference.
+  all-method path medians. It now promotes a row to `cross_method_suspicious`
+  when it disagrees with the healthy-peer median, or when there is no healthy
+  peer and it disagrees with the all-method median. With the current settings,
+  intensity BEV has no residual stress-unflagged rows: `fog_200` `degraded`
+  is cross-method flagged by all-method disagreement with no healthy peer, and
+  tunnel `point_count_tail` / `geometry_degeneracy` are cross-method flagged by
+  5.3-7.2x disagreement against the healthy-peer median.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

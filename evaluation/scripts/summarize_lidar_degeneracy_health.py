@@ -300,6 +300,40 @@ def add_cross_method_consistency(windows: list[dict[str, Any]]) -> None:
             row["cross_method_probe"] = ", ".join(notes) if notes else "none"
 
 
+def is_cross_method_suspicious(row: dict[str, Any]) -> bool:
+    probe = str(row.get("cross_method_probe") or "none")
+    if "path_disagrees_with_healthy_median" in probe:
+        return True
+    return (
+        "no_healthy_peer" in probe
+        and "path_disagrees_with_all_method_median" in probe
+    )
+
+
+def append_flag(flags: str, flag: str) -> str:
+    if flags == "ok":
+        return flag
+    active = [part.strip() for part in flags.split(",") if part.strip()]
+    if flag not in active:
+        active.append(flag)
+    return ", ".join(active)
+
+
+def add_cross_method_risk(windows: list[dict[str, Any]]) -> None:
+    for window in windows:
+        expected = window["expected_stress"]
+        for row in window["methods"].values():
+            cross_method_suspicious = is_cross_method_suspicious(row)
+            row["cross_method_suspicious"] = cross_method_suspicious
+            if row.get("health_state") == "ok" and cross_method_suspicious:
+                row["risk_state"] = "cross_method_suspicious"
+                row["risk_flags"] = append_flag(str(row.get("flags") or "ok"), "cross_method_suspicious")
+            else:
+                row["risk_state"] = row.get("health_state")
+                row["risk_flags"] = row.get("flags")
+            row["risk_failure_awareness"] = failure_awareness(expected, row["risk_state"])
+
+
 def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict[str, Any]:
     methods: dict[str, dict[str, Any]] = {}
     windows: dict[str, dict[str, Any]] = {}
@@ -358,6 +392,7 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
         key=lambda row: (row["start"], row["end"], row["name"]),
     )
     add_cross_method_consistency(sorted_windows)
+    add_cross_method_risk(sorted_windows)
     return {
         "sequence": sequence,
         "methods": methods,
@@ -376,10 +411,14 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                     "mean_acceptance": 0.0,
                     "mean_convergence": 0.0,
                     "failed_windows": 0,
+                    "local_risk_windows": 0,
+                    "cross_method_suspicious_windows": 0,
                     "risk_windows": 0,
                     "stress_windows": 0,
                     "stress_flagged": 0,
+                    "cross_method_flagged": 0,
                     "stress_unflagged": 0,
+                    "residual_stress_unflagged": 0,
                     "false_alarms": 0,
                     "min_acceptance": 1.0,
                     "max_used_path_length_m": 0.0,
@@ -392,7 +431,11 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
             stats["mean_acceptance"] += accepted
             stats["mean_convergence"] += converged_value
             stats["failed_windows"] += 1 if accepted < 0.5 else 0
-            stats["risk_windows"] += 1 if row.get("flags") != "ok" else 0
+            local_risk = row.get("flags") != "ok"
+            cross_method_suspicious = bool(row.get("cross_method_suspicious"))
+            stats["local_risk_windows"] += 1 if local_risk else 0
+            stats["cross_method_suspicious_windows"] += 1 if cross_method_suspicious else 0
+            stats["risk_windows"] += 1 if local_risk or cross_method_suspicious else 0
             expected = window["expected_stress"]
             awareness = row.get("failure_awareness")
             if is_stress_label(expected):
@@ -401,6 +444,10 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                 stats["stress_flagged"] += 1
             elif awareness == "stress_unflagged":
                 stats["stress_unflagged"] += 1
+                if cross_method_suspicious:
+                    stats["cross_method_flagged"] += 1
+                else:
+                    stats["residual_stress_unflagged"] += 1
             elif awareness == "false_alarm":
                 stats["false_alarms"] += 1
             stats["min_acceptance"] = min(stats["min_acceptance"], accepted)
@@ -421,8 +468,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         "",
         "## Method Aggregate",
         "",
-        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Risk windows | Max used path m |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Local risk | Cross-method risk | Total risk | Max used path m |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for sequence in payload["sequences"]:
         aggregates = payload["aggregates"][sequence["sequence"]]
@@ -432,6 +479,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 f"| `{sequence['sequence']}` | `{method}` | {row['windows']} | "
                 f"{fmt(row['mean_acceptance'])} | {fmt(row['min_acceptance'])} | "
                 f"{fmt(row['mean_convergence'])} | {row['failed_windows']} | "
+                f"{row['local_risk_windows']} | "
+                f"{row['cross_method_suspicious_windows']} | "
                 f"{row['risk_windows']} | {fmt(row['max_used_path_length_m'])} |"
             )
 
@@ -440,8 +489,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Failure Awareness",
             "",
-            "| Sequence | Method | Stress windows | Stress flagged | Stress unflagged | False alarms |",
-            "| --- | --- | ---: | ---: | ---: | ---: |",
+            "| Sequence | Method | Stress windows | Local flagged | Cross-method flagged | Residual unflagged | False alarms |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for sequence in payload["sequences"]:
@@ -451,7 +500,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             lines.append(
                 f"| `{sequence['sequence']}` | `{method}` | "
                 f"{row['stress_windows']} | {row['stress_flagged']} | "
-                f"{row['stress_unflagged']} | {row['false_alarms']} |"
+                f"{row['cross_method_flagged']} | "
+                f"{row['residual_stress_unflagged']} | {row['false_alarms']} |"
             )
 
     lines.extend(
@@ -483,8 +533,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Cross-Method Consistency",
             "",
-            "| Sequence | Window | Method | Path m | Net m | Yaw deg | Healthy peers | Healthy median path m | Path/healthy | All median path m | Path/all | Probe |",
-            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+            "| Sequence | Window | Method | Path m | Net m | Yaw deg | Healthy peers | Healthy median path m | Path/healthy | All median path m | Path/all | Cross risk | Probe |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
         ]
     )
     for sequence in payload["sequences"]:
@@ -504,6 +554,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                     f"{fmt(row['path_vs_healthy_median'])} | "
                     f"{fmt(row['all_method_path_median_m'])} | "
                     f"{fmt(row['path_vs_all_median'])} | "
+                    f"{'yes' if row['cross_method_suspicious'] else 'no'} | "
                     f"{row['cross_method_probe']} |"
                 )
 
@@ -512,8 +563,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Window Detail",
             "",
-            "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Failure awareness | Keyframes | Flags |",
-            "| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |",
+            "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Risk state | Failure awareness | Risk awareness | Keyframes | Flags | Risk flags |",
+            "| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for sequence in payload["sequences"]:
@@ -527,8 +578,9 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                     f"{fmt(row['accepted_rate'])} | {fmt(row['converged_rate'])} | "
                     f"{fmt(row['score_mean'])} | {fmt(row['overlap_mean'], 1)} | "
                     f"{fmt(row['used_path_length_m'])} | {fmt(row['used_step_max_m'])} | "
-                    f"`{row['health_state']}` | `{row['failure_awareness']}` | "
-                    f"{row['keyframes']} | {row['flags']} |"
+                    f"`{row['health_state']}` | `{row['risk_state']}` | "
+                    f"`{row['failure_awareness']}` | `{row['risk_failure_awareness']}` | "
+                    f"{row['keyframes']} | {row['flags']} | {row['risk_flags']} |"
                 )
 
     lines.extend(
@@ -541,7 +593,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "- Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.",
             "- Intensity BEV false-confidence gates now promote dominant motion-margin decisions and sharp overlap tails to suspicious health flags on non-baseline selected windows.",
             "- Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.",
-            "- Cross-method consistency compares GT-free trajectory shape against healthy-peer and all-method path medians to expose externally healthy but isolated estimates.",
+            "- Cross-method consistency now contributes to total risk when a stress-unflagged trajectory disagrees with healthy-peer or all-method path medians.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",
             "- CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.",
             "",

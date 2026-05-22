@@ -139,6 +139,35 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   --min-keyframe-correspondences 1000
 ```
 
+For CT-ICP, use the dedicated window runner. It reports the internal CT-ICP
+convergence bit separately from the accepted gate, because the dogfooding
+pipeline has historically used the refined transform even when the internal
+stopping threshold did not fire:
+
+```bash
+cmake --build build --target ct_icp_window_odometry -j2
+
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/fog_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/fog_200/ct_icp_health \
+  --method ct_icp \
+  --ct-icp-refinement-gate \
+  --ct-icp-multi-scale \
+  --ct-icp-normal-cholesky \
+  --max-step-translation 2.0 \
+  --max-step-yaw-deg 20
+
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/tunnel_geom_2700_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health \
+  --method ct_icp \
+  --ct-icp-refinement-gate \
+  --ct-icp-multi-scale \
+  --ct-icp-normal-cholesky \
+  --max-step-translation 2.0 \
+  --max-step-yaw-deg 20
+```
+
 `extract_ouster_packet_lidar_imu.py` uses `/sensor_sync_node/trigger_1` by
 default for LiDAR frame timestamps, because the packet bag time and IMU header
 time are offset. This keeps `frame_timestamps.csv` on the same clock as
@@ -282,6 +311,14 @@ Observed `fog.bag` inspection:
   overlap from 309.0 to 163.3 against the baseline. This is a backend-specific
   degradation signal that the lightweight geometry ICP already hinted at, but it
   is sharper because the KISS matcher never reaches the convergence gate.
+- CT-ICP window odometry gives a useful contrast. On `tunnel_geom_2700_200`, all
+  selected windows pass the step/refinement health gate at 100% acceptance, even
+  though the internal convergence bit remains low (10.3-20.7%). On `fog_200`,
+  baseline and point-count-tail windows stay at 100% acceptance, while the
+  strongest fog window drops to 65.5% because 10/29 pairs fail the refinement
+  gate. This is a better gradient than KISS: CT-ICP does not collapse on all fog
+  windows, but the strongest obscurant slice still creates measurable
+  correction instability.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

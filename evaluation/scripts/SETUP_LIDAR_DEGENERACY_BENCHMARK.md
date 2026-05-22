@@ -441,6 +441,10 @@ Observed `fog.bag` inspection:
   when `method_health_comparison.json` or `risk_gt_calibration.json` has more
   `fail` or `investigate` rows than allowed. This is intentionally stricter
   than the daily dashboard path.
+- Add `--policy-gate-output-dir experiments/results/lidar_degeneracy/policy_gate`
+  to write `policy_gate_report.json` and `policy_gate_report.md` with report
+  counts, violations, and the top `fail`/`investigate` rows by
+  sequence/window/method/reason.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

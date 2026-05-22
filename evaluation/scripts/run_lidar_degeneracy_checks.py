@@ -69,6 +69,12 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_RISK_CALIBRATION_JSON,
         help="risk_gt_calibration.json to enforce when --enforce-policy is set.",
     )
+    parser.add_argument(
+        "--policy-gate-output-dir",
+        type=Path,
+        default=None,
+        help="Optional directory for policy_gate_report.json and .md from --enforce-policy.",
+    )
     return parser.parse_args()
 
 
@@ -116,19 +122,33 @@ def ordered_policy_decisions(policy: dict[str, Any]) -> list[str]:
     ]
 
 
+def normalize_policy_reasons(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value if str(item)]
+    if isinstance(value, str):
+        parts = [part.strip() for part in value.split(",") if part.strip()]
+        return [part.split(":", 1)[0].strip() for part in parts]
+    return []
+
+
 def method_health_policy_records(payload: dict[str, Any]) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for sequence in payload.get("sequences", []):
         sequence_name = str(sequence.get("sequence", "unknown_sequence"))
         for window in sequence.get("windows", []):
             window_name = str(window.get("name", "unknown_window"))
+            start = window.get("start")
+            end = window.get("end")
             for method, row in window.get("methods", {}).items():
                 records.append(
                     {
                         "sequence": sequence_name,
                         "window": window_name,
+                        "start": start,
+                        "end": end,
                         "method": str(method),
                         "policy_decision": str(row.get("policy_decision") or "missing"),
+                        "policy_reasons": normalize_policy_reasons(row.get("policy_reasons")),
                     }
                 )
     return records
@@ -141,8 +161,13 @@ def risk_calibration_policy_records(payload: dict[str, Any]) -> list[dict[str, A
             {
                 "sequence": str(row.get("sequence", "unknown_sequence")),
                 "window": str(row.get("window", "unknown_window")),
+                "start": row.get("start"),
+                "end": row.get("end"),
                 "method": str(row.get("method", "unknown_method")),
                 "policy_decision": str(row.get("policy_decision") or "missing"),
+                "policy_reasons": normalize_policy_reasons(
+                    row.get("risk_reasons") or row.get("policy_reasons")
+                ),
             }
         )
     return records
@@ -162,6 +187,30 @@ def format_counts(counts: Counter[str], decisions: list[str]) -> str:
     for decision in sorted(set(counts) - known):
         parts.append(f"{decision}={counts[decision]}")
     return " ".join(parts)
+
+
+def serializable_counts(counts: Counter[str], decisions: list[str]) -> dict[str, int]:
+    out = {decision: int(counts.get(decision, 0)) for decision in decisions}
+    for decision in sorted(set(counts) - set(decisions)):
+        out[decision] = int(counts[decision])
+    return out
+
+
+def report_summary(
+    *,
+    name: str,
+    path: Path,
+    payload: dict[str, Any],
+    records: list[dict[str, Any]],
+    decisions: list[str],
+) -> dict[str, Any]:
+    counts = Counter(str(record.get("policy_decision") or "missing") for record in records)
+    return {
+        "path": str(path),
+        "policy_version": report_policy_version(payload),
+        "total_rows": sum(counts.values()),
+        "counts": serializable_counts(counts, decisions),
+    }
 
 
 def evaluate_report(
@@ -204,11 +253,128 @@ def evaluate_report(
     return violations
 
 
+def policy_gate_offenders(
+    records_by_report: dict[str, list[dict[str, Any]]],
+    decisions: list[str],
+) -> list[dict[str, Any]]:
+    known = set(decisions)
+    offenders: list[dict[str, Any]] = []
+    for report, records in records_by_report.items():
+        for record in records:
+            decision = str(record.get("policy_decision") or "missing")
+            if decision in {"fail", "investigate"} or decision not in known:
+                offenders.append({"report": report, **record})
+
+    rank = {decision: idx for idx, decision in enumerate(decisions)}
+    unknown_rank = len(rank)
+    offenders.sort(
+        key=lambda row: (
+            -rank.get(str(row.get("policy_decision")), unknown_rank),
+            str(row.get("report")),
+            str(row.get("sequence")),
+            str(row.get("window")),
+            str(row.get("method")),
+        )
+    )
+    return offenders
+
+
+def offender_line(record: dict[str, Any]) -> str:
+    reasons = record.get("policy_reasons") or []
+    reason_text = ",".join(str(reason) for reason in reasons) if reasons else "n/a"
+    frame_range = ""
+    if record.get("start") is not None and record.get("end") is not None:
+        frame_range = f"[{record['start']},{record['end']}) "
+    return (
+        f"{record['report']} {record['sequence']} {frame_range}{record['window']} "
+        f"{record['method']} decision={record['policy_decision']} reasons={reason_text}"
+    )
+
+
+def print_top_offenders(offenders: list[dict[str, Any]], *, limit: int = 10) -> None:
+    if not offenders:
+        return
+    print(f"[gate] top offenders (showing {min(limit, len(offenders))}/{len(offenders)}):")
+    for record in offenders[:limit]:
+        print(f"  - {offender_line(record)}")
+
+
+def write_policy_gate_report(
+    *,
+    output_dir: Path,
+    policy_path: Path,
+    policy: dict[str, Any],
+    gate: dict[str, Any],
+    reports: dict[str, dict[str, Any]],
+    violations: list[str],
+    offenders: list[dict[str, Any]],
+) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "policy": {
+            "path": str(policy_path),
+            "policy_version": policy.get("policy_version"),
+            "strict_gate": gate,
+        },
+        "reports": reports,
+        "violations": violations,
+        "offender_count": len(offenders),
+        "offenders": offenders,
+    }
+    output_json = output_dir / "policy_gate_report.json"
+    output_md = output_dir / "policy_gate_report.md"
+    output_json.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+    lines = [
+        "# LiDAR Degeneracy Policy Gate",
+        "",
+        f"Policy: `{policy.get('policy_version')}`",
+        "",
+        "## Reports",
+        "",
+        "| Report | Total | Pass | Watch | Investigate | Fail |",
+        "| --- | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for name, summary in reports.items():
+        counts = summary["counts"]
+        lines.append(
+            f"| `{name}` | {summary['total_rows']} | {counts.get('pass', 0)} | "
+            f"{counts.get('watch', 0)} | {counts.get('investigate', 0)} | "
+            f"{counts.get('fail', 0)} |"
+        )
+    lines.extend(["", "## Violations", ""])
+    if violations:
+        lines.extend(f"- {violation}" for violation in violations)
+    else:
+        lines.append("- none")
+    lines.extend(
+        [
+            "",
+            "## Top Offenders",
+            "",
+            "| Report | Sequence | Window | Method | Decision | Reasons |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for record in offenders[:50]:
+        reasons = record.get("policy_reasons") or []
+        reason_text = ", ".join(str(reason) for reason in reasons) if reasons else "n/a"
+        lines.append(
+            f"| `{record['report']}` | `{record['sequence']}` | `{record['window']}` | "
+            f"`{record['method']}` | `{record['policy_decision']}` | {reason_text} |"
+        )
+    if not offenders:
+        lines.append("| n/a | n/a | n/a | n/a | n/a | n/a |")
+    output_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"[gate] wrote {output_json} and {output_md}")
+
+
 def enforce_policy_gate(
     *,
     policy_path: Path,
     method_health_json: Path,
     risk_calibration_json: Path,
+    output_dir: Path | None,
 ) -> int:
     policy = load_json(policy_path)
     gate = strict_gate_config(policy)
@@ -227,9 +393,19 @@ def enforce_policy_gate(
     ]
 
     violations: list[str] = []
+    records_by_report: dict[str, list[dict[str, Any]]] = {}
+    report_summaries: dict[str, dict[str, Any]] = {}
     for name, path, record_loader in reports:
         payload = load_json(path)
         records = record_loader(payload)
+        records_by_report[name] = records
+        report_summaries[name] = report_summary(
+            name=name,
+            path=path,
+            payload=payload,
+            records=records,
+            decisions=decisions,
+        )
         violations.extend(
             evaluate_report(
                 name=name,
@@ -242,10 +418,23 @@ def enforce_policy_gate(
             )
         )
 
+    offenders = policy_gate_offenders(records_by_report, decisions)
+    if output_dir is not None:
+        write_policy_gate_report(
+            output_dir=output_dir,
+            policy_path=policy_path,
+            policy=policy,
+            gate=gate,
+            reports=report_summaries,
+            violations=violations,
+            offenders=offenders,
+        )
+
     if violations:
         print("[fail] lidar degeneracy policy gate failed")
         for violation in violations:
             print(f"  - {violation}")
+        print_top_offenders(offenders)
         return 1
     print("[ok] lidar degeneracy policy gate passed")
     return 0
@@ -264,8 +453,9 @@ def main() -> int:
                 policy_path=args.policy_json,
                 method_health_json=args.method_health_json,
                 risk_calibration_json=args.risk_calibration_json,
+                output_dir=args.policy_gate_output_dir,
             )
-        except (FileNotFoundError, json.JSONDecodeError, RuntimeError, ValueError) as exc:
+        except (FileNotFoundError, json.JSONDecodeError, OSError, RuntimeError, ValueError) as exc:
             print(f"[fail] {exc}", file=sys.stderr)
             return 1
         if gate_status != 0:

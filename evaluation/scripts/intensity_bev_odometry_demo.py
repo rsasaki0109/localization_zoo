@@ -38,6 +38,7 @@ class Candidate:
     yaw: float
     score: float
     overlap: int
+    decision_reason: str = "best_score"
 
 
 def parse_args() -> argparse.Namespace:
@@ -85,6 +86,24 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=0.0,
         help="Reject pairwise estimates above this absolute yaw. <=0 disables.",
+    )
+    p.add_argument(
+        "--min-step-translation",
+        type=float,
+        default=0.0,
+        help=(
+            "Treat candidates below this translation norm as zero-motion for "
+            "score-margin preference. <=0 disables."
+        ),
+    )
+    p.add_argument(
+        "--zero-motion-score-margin",
+        type=float,
+        default=0.0,
+        help=(
+            "When the best candidate is near zero-motion, prefer the best moving "
+            "candidate if its score is within this margin. <=0 disables."
+        ),
     )
     p.add_argument(
         "--motion-prior",
@@ -298,6 +317,37 @@ def values_around(center: float, window: float, step: float) -> np.ndarray:
     return vals
 
 
+def candidate_step(cand: Candidate) -> float:
+    return math.hypot(cand.dx, cand.dy)
+
+
+def is_moving_candidate(cand: Candidate, min_step_translation: float) -> bool:
+    return min_step_translation > 0.0 and candidate_step(cand) >= min_step_translation
+
+
+def maybe_prefer_motion(
+    best: Candidate,
+    best_motion: Candidate,
+    args: argparse.Namespace,
+) -> Candidate:
+    if args.min_step_translation <= 0.0 or args.zero_motion_score_margin <= 0.0:
+        return best
+    if best.score < 0.0 or best_motion.score < 0.0:
+        return best
+    if is_moving_candidate(best, args.min_step_translation):
+        return best
+    if best_motion.score + args.zero_motion_score_margin < best.score:
+        return best
+    return Candidate(
+        best_motion.dx,
+        best_motion.dy,
+        best_motion.yaw,
+        best_motion.score,
+        best_motion.overlap,
+        "motion_margin",
+    )
+
+
 def estimate_relative(
     prev: Scan,
     curr: Scan,
@@ -315,6 +365,7 @@ def estimate_relative(
         grid_resolution = args.grid_resolution * scale
         ref_img = rasterize_bev(prev, args, grid_resolution)
         level_best = Candidate(best.dx, best.dy, best.yaw, -1.0, 0)
+        level_best_motion = Candidate(best.dx, best.dy, best.yaw, -1.0, 0)
         scale_root = math.sqrt(float(scale))
         x_window = args.x_window * scale_root
         y_window = args.y_window * scale_root
@@ -326,11 +377,20 @@ def estimate_relative(
 
         levels = max(1, args.refine_levels)
         for _ in range(levels):
+            def consider(scored: Candidate) -> None:
+                nonlocal level_best, level_best_motion
+                if scored.score > level_best.score:
+                    level_best = scored
+                if (
+                    is_moving_candidate(scored, args.min_step_translation)
+                    and scored.score > level_best_motion.score
+                ):
+                    level_best_motion = scored
+
             anchor_scored = score_candidate(
                 ref_img, curr, anchor, args, grid_resolution, min_overlap
             )
-            if anchor_scored.score > level_best.score:
-                level_best = anchor_scored
+            consider(anchor_scored)
             for yaw in values_around(level_best.yaw, yaw_window, yaw_step):
                 for dx in values_around(level_best.dx, x_window, x_step):
                     for dy in values_around(level_best.dy, y_window, y_step):
@@ -342,14 +402,14 @@ def estimate_relative(
                             grid_resolution,
                             min_overlap,
                         )
-                        if scored.score > level_best.score:
-                            level_best = scored
+                        consider(scored)
             x_window = max(x_step, x_window * 0.5)
             y_window = max(y_step, y_window * 0.5)
             yaw_window = max(yaw_step, yaw_window * 0.5)
             x_step *= 0.5
             y_step *= 0.5
             yaw_step *= 0.5
+        level_best = maybe_prefer_motion(level_best, level_best_motion, args)
         if level_best.score >= 0.0:
             best = level_best
     return best
@@ -450,6 +510,7 @@ def main() -> int:
             "used_yaw_curr_to_prev_deg": math.degrees(pose_cand.yaw),
             "score": cand.score,
             "overlap": cand.overlap,
+            "decision_reason": cand.decision_reason,
         })
         if args.progress_every > 0 and i % args.progress_every == 0:
             print(
@@ -480,6 +541,8 @@ def main() -> int:
             "min_overlap": args.min_overlap,
             "max_step_translation": args.max_step_translation,
             "max_step_yaw_deg": args.max_step_yaw_deg,
+            "min_step_translation": args.min_step_translation,
+            "zero_motion_score_margin": args.zero_motion_score_margin,
             "motion_prior": args.motion_prior,
         },
         "runtime_s": time.perf_counter() - started_at,

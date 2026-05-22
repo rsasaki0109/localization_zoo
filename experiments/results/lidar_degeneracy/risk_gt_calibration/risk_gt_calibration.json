@@ -24,16 +24,25 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "geometry_icp",
+      "accepted_rate": 0.6551724137931034,
+      "converged_rate": null,
       "health_state": "suspicious",
       "risk_state": "suspicious",
       "risk_bucket": "local_risk",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "overlap_tail",
       "failure_awareness": "false_alarm",
       "risk_failure_awareness": "false_alarm",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.2758617624563486,
       "path_vs_healthy_median": 0.1759809327525997,
       "path_vs_all_median": 0.9940617412118857,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/baseline_0000_0029_geometry_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/baseline_0000_0029_geometry_icp.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -43,16 +52,25 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "intensity_bev",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "motion_margin_dominant",
       "failure_awareness": "nominal_ok",
       "risk_failure_awareness": "nominal_ok",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 7.250000000000004,
       "path_vs_healthy_median": 1.0,
       "path_vs_all_median": 5.648690035126552,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/baseline_0000_0029_intensity_bev.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/baseline_0000_0029_intensity_bev.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -62,16 +80,27 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "kiss_keyframe",
+      "accepted_rate": 0.0,
+      "converged_rate": 0.0,
       "health_state": "failed",
       "risk_state": "failed",
       "risk_bucket": "local_risk",
+      "flags": "all_pairs_failed, low_acceptance, low_convergence",
+      "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "false_alarm",
       "risk_failure_awareness": "false_alarm",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 0.0,
       "path_vs_healthy_median": 0.0,
       "path_vs_all_median": 0.0,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/baseline_0000_0029_kiss_keyframe.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/baseline_0000_0029_kiss_keyframe.json",
+      "risk_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -81,16 +110,25 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "ct_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": 0.13793103448275862,
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
+      "flags": "low_convergence",
+      "risk_flags": "low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "false_alarm",
       "risk_failure_awareness": "false_alarm",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.2911050758426756,
       "path_vs_healthy_median": 0.17808345873692066,
       "path_vs_all_median": 1.0059382587881143,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json",
+      "risk_reasons": [
+        "low_convergence"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -100,16 +138,25 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "geometry_icp",
+      "accepted_rate": 0.13793103448275862,
+      "converged_rate": null,
       "health_state": "failed",
       "risk_state": "failed",
       "risk_bucket": "local_risk",
+      "flags": "low_acceptance",
+      "risk_flags": "low_acceptance",
+      "cross_method_probe": "none",
+      "confidence_probe": "overlap_tail",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 0.3259907510529777,
       "path_vs_healthy_median": null,
       "path_vs_all_median": 0.21442468253294963,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/point_count_tail_0115_0144_geometry_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/point_count_tail_0115_0144_geometry_icp.json",
+      "risk_reasons": [
+        "low_acceptance"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -119,16 +166,26 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "intensity_bev",
+      "accepted_rate": 0.9310344827586207,
+      "converged_rate": 0.9310344827586207,
       "health_state": "suspicious",
       "risk_state": "suspicious",
       "risk_bucket": "local_risk",
+      "flags": "motion_margin_dominant, overlap_tail",
+      "risk_flags": "motion_margin_dominant, overlap_tail",
+      "cross_method_probe": "none",
+      "confidence_probe": "motion_margin_dominant, overlap_tail",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 11.516254999302024,
       "path_vs_healthy_median": null,
       "path_vs_all_median": 7.574967431491719,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/point_count_tail_0115_0144_intensity_bev.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/point_count_tail_0115_0144_intensity_bev.json",
+      "risk_reasons": [
+        "motion_margin_dominant",
+        "overlap_tail"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -138,16 +195,27 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "kiss_keyframe",
+      "accepted_rate": 0.0,
+      "converged_rate": 0.0,
       "health_state": "failed",
       "risk_state": "failed",
       "risk_bucket": "local_risk",
+      "flags": "all_pairs_failed, low_acceptance, low_convergence",
+      "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 0.0,
       "path_vs_healthy_median": null,
       "path_vs_all_median": 0.0,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/point_count_tail_0115_0144_kiss_keyframe.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/point_count_tail_0115_0144_kiss_keyframe.json",
+      "risk_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -157,16 +225,25 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "ct_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": 0.0,
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
+      "flags": "low_convergence",
+      "risk_flags": "low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 2.7146177013147597,
       "path_vs_healthy_median": null,
       "path_vs_all_median": 1.7855753174670503,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
+      "risk_reasons": [
+        "low_convergence"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -176,16 +253,26 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "geometry_icp",
+      "accepted_rate": 0.0,
+      "converged_rate": null,
       "health_state": "failed",
       "risk_state": "failed",
       "risk_bucket": "local_risk",
+      "flags": "all_pairs_failed, low_acceptance",
+      "risk_flags": "all_pairs_failed, low_acceptance",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 0.0,
       "path_vs_healthy_median": 0.0,
       "path_vs_all_median": 0.0,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/degraded_0170_0199_geometry_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/degraded_0170_0199_geometry_icp.json",
+      "risk_reasons": [
+        "all_pairs_failed",
+        "low_acceptance"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -195,16 +282,27 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "intensity_bev",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "cross_method_suspicious",
       "risk_bucket": "cross_method_suspicious",
+      "flags": "ok",
+      "risk_flags": "cross_method_suspicious",
+      "cross_method_probe": "no_healthy_peer, path_disagrees_with_all_method_median",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": true,
       "trajectory_path_length_m": 8.280604373718116,
       "path_vs_healthy_median": 1.0,
       "path_vs_all_median": 6.0808949979718365,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
+      "risk_reasons": [
+        "cross_method_suspicious",
+        "no_healthy_peer",
+        "path_disagrees_with_all_method_median"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -214,16 +312,27 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "kiss_keyframe",
+      "accepted_rate": 0.0,
+      "converged_rate": 0.0,
       "health_state": "failed",
       "risk_state": "failed",
       "risk_bucket": "local_risk",
+      "flags": "all_pairs_failed, low_acceptance, low_convergence",
+      "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 0.0,
       "path_vs_healthy_median": 0.0,
       "path_vs_all_median": 0.0,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json",
+      "risk_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
     },
     {
       "sequence": "fog_200",
@@ -233,16 +342,25 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "ct_icp",
+      "accepted_rate": 0.6551724137931034,
+      "converged_rate": 0.0,
       "health_state": "suspicious",
       "risk_state": "suspicious",
       "risk_bucket": "local_risk",
+      "flags": "low_convergence",
+      "risk_flags": "low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 2.723482111261566,
       "path_vs_healthy_median": 0.32889895330655455,
       "path_vs_all_median": 2.0,
-      "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
+      "risk_reasons": [
+        "low_convergence"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -252,16 +370,25 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "geometry_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": null,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "nominal_ok",
       "risk_failure_awareness": "nominal_ok",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.5194460039714142,
       "path_vs_healthy_median": 1.0,
       "path_vs_all_median": 0.4533978155557083,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/baseline_0005_0034_geometry_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/baseline_0005_0034_geometry_icp.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -271,16 +398,25 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "intensity_bev",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "motion_margin_dominant",
       "failure_awareness": "nominal_ok",
       "risk_failure_awareness": "nominal_ok",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 7.974873734152919,
       "path_vs_healthy_median": 5.248540397821832,
       "path_vs_all_median": 2.3796767512283066,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/baseline_0005_0034_intensity_bev.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/baseline_0005_0034_intensity_bev.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -290,16 +426,25 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "kiss_keyframe",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "nominal_ok",
       "risk_failure_awareness": "nominal_ok",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.2633670031003552,
       "path_vs_healthy_median": 0.8314655471785514,
       "path_vs_all_median": 0.3769846628005869,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/baseline_0005_0034_kiss_keyframe.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/baseline_0005_0034_kiss_keyframe.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -309,16 +454,25 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "ct_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": 0.13793103448275862,
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
+      "flags": "low_convergence",
+      "risk_flags": "low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "false_alarm",
       "risk_failure_awareness": "false_alarm",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 5.183038886076417,
       "path_vs_healthy_median": 3.411137264851386,
       "path_vs_all_median": 1.5466021844442919,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json",
+      "risk_reasons": [
+        "low_convergence"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -328,16 +482,25 @@
       "expected_stress": "point_count_stress",
       "is_stress": true,
       "method": "geometry_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": null,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.8668876874404596,
       "path_vs_healthy_median": 1.0,
       "path_vs_all_median": 0.511341372357854,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/point_count_tail_0080_0109_geometry_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/point_count_tail_0080_0109_geometry_icp.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -347,16 +510,26 @@
       "expected_stress": "point_count_stress",
       "is_stress": true,
       "method": "intensity_bev",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "cross_method_suspicious",
       "risk_bucket": "cross_method_suspicious",
+      "flags": "ok",
+      "risk_flags": "cross_method_suspicious",
+      "cross_method_probe": "path_disagrees_with_healthy_median",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": true,
       "trajectory_path_length_m": 9.875155274025802,
       "path_vs_healthy_median": 5.289635440022018,
       "path_vs_all_median": 2.7048094451735993,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/point_count_tail_0080_0109_intensity_bev.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/point_count_tail_0080_0109_intensity_bev.json",
+      "risk_reasons": [
+        "cross_method_suspicious",
+        "path_disagrees_with_healthy_median"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -366,16 +539,25 @@
       "expected_stress": "point_count_stress",
       "is_stress": true,
       "method": "kiss_keyframe",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "path_disagrees_with_all_method_median",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.07205835830414,
       "path_vs_healthy_median": 0.574248984294258,
       "path_vs_all_median": 0.2936372637041296,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/point_count_tail_0080_0109_kiss_keyframe.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/point_count_tail_0080_0109_kiss_keyframe.json",
+      "risk_reasons": [
+        "path_disagrees_with_all_method_median"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -385,16 +567,25 @@
       "expected_stress": "point_count_stress",
       "is_stress": true,
       "method": "ct_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": 0.10344827586206896,
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
+      "flags": "low_convergence",
+      "risk_flags": "low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 5.43503540488444,
       "path_vs_healthy_median": 2.9112814024372202,
       "path_vs_all_median": 1.488658627642146,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json",
+      "risk_reasons": [
+        "low_convergence"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -404,16 +595,25 @@
       "expected_stress": "geometry_stress",
       "is_stress": true,
       "method": "geometry_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": null,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.766361545550214,
       "path_vs_healthy_median": 1.0,
       "path_vs_all_median": 0.4753902315084424,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/geometry_degeneracy_0090_0119_geometry_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/geometry_degeneracy_0090_0119_geometry_icp.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -423,16 +623,27 @@
       "expected_stress": "geometry_stress",
       "is_stress": true,
       "method": "intensity_bev",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "cross_method_suspicious",
       "risk_bucket": "cross_method_suspicious",
+      "flags": "ok",
+      "risk_flags": "cross_method_suspicious",
+      "cross_method_probe": "path_disagrees_with_healthy_median, path_disagrees_with_all_method_median",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": true,
       "trajectory_path_length_m": 12.64182762524371,
       "path_vs_healthy_median": 7.156987569781947,
       "path_vs_all_median": 3.4023619777016845,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/geometry_degeneracy_0090_0119_intensity_bev.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/geometry_degeneracy_0090_0119_intensity_bev.json",
+      "risk_reasons": [
+        "cross_method_suspicious",
+        "path_disagrees_with_all_method_median",
+        "path_disagrees_with_healthy_median"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -442,16 +653,25 @@
       "expected_stress": "geometry_stress",
       "is_stress": true,
       "method": "kiss_keyframe",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.2591171727020307,
       "path_vs_healthy_median": 0.7128309466847124,
       "path_vs_all_median": 0.33887286877082756,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/geometry_degeneracy_0090_0119_kiss_keyframe.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/geometry_degeneracy_0090_0119_kiss_keyframe.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -461,16 +681,25 @@
       "expected_stress": "geometry_stress",
       "is_stress": true,
       "method": "ct_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": 0.13793103448275862,
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
+      "flags": "low_convergence",
+      "risk_flags": "low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 5.664845191472717,
       "path_vs_healthy_median": 3.2070700393945355,
       "path_vs_all_median": 1.5246097684915576,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json",
+      "risk_reasons": [
+        "low_convergence"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -480,16 +709,25 @@
       "expected_stress": "degradation_stress",
       "is_stress": true,
       "method": "geometry_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": null,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.1778809075110652,
       "path_vs_healthy_median": 0.8534752016818925,
       "path_vs_all_median": 0.4092261170704649,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/degraded_0170_0199_geometry_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/degraded_0170_0199_geometry_icp.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -499,16 +737,25 @@
       "expected_stress": "degradation_stress",
       "is_stress": true,
       "method": "intensity_bev",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "suspicious",
       "risk_state": "suspicious",
       "risk_bucket": "local_risk",
+      "flags": "motion_margin_dominant",
+      "risk_flags": "motion_margin_dominant",
+      "cross_method_probe": "none",
+      "confidence_probe": "motion_margin_dominant",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 7.560660171779822,
       "path_vs_healthy_median": 5.4783432890454735,
       "path_vs_all_median": 2.626767769862765,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
+      "risk_reasons": [
+        "motion_margin_dominant"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -518,16 +765,25 @@
       "expected_stress": "degradation_stress",
       "is_stress": true,
       "method": "kiss_keyframe",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "ok",
       "risk_state": "ok",
       "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "none",
+      "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.582318580862787,
       "path_vs_healthy_median": 1.1465247983181073,
       "path_vs_all_median": 0.5497381651114366,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json",
+      "risk_reasons": [
+        "ok_no_risk"
+      ]
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -537,16 +793,25 @@
       "expected_stress": "degradation_stress",
       "is_stress": true,
       "method": "ct_icp",
+      "accepted_rate": 1.0,
+      "converged_rate": 0.20689655172413793,
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
+      "flags": "low_convergence",
+      "risk_flags": "low_convergence",
+      "cross_method_probe": "none",
+      "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 4.174307686997068,
       "path_vs_healthy_median": 3.0246420264763723,
       "path_vs_all_median": 1.4502618348885634,
-      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json"
+      "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
+      "risk_reasons": [
+        "low_convergence"
+      ]
     }
   ],
   "proxy_bucket_stats_stress": {
@@ -599,6 +864,344 @@
       "mean_path_m": 10.26586242432921,
       "max_path_vs_healthy": 7.156987569781947,
       "max_path_vs_all": 6.0808949979718365
+    }
+  },
+  "reason_drilldown_stress": {
+    "low_acceptance": {
+      "rows": 4,
+      "methods": [
+        "geometry_icp",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.034482758620689655,
+      "mean_convergence": 0.0,
+      "mean_path_m": 0.08149768776324443,
+      "mean_path_vs_healthy": 0.0,
+      "max_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.05360617063323741,
+      "max_path_vs_all": 0.21442468253294963
+    },
+    "motion_margin_dominant": {
+      "rows": 2,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.9655172413793103,
+      "mean_convergence": 0.9655172413793103,
+      "mean_path_m": 9.538457585540923,
+      "mean_path_vs_healthy": 5.4783432890454735,
+      "max_path_vs_healthy": 5.4783432890454735,
+      "mean_path_vs_all": 5.100867600677242,
+      "max_path_vs_all": 7.574967431491719
+    },
+    "overlap_tail": {
+      "rows": 1,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.9310344827586207,
+      "mean_convergence": 0.9310344827586207,
+      "mean_path_m": 11.516254999302024,
+      "mean_path_vs_healthy": null,
+      "max_path_vs_healthy": null,
+      "mean_path_vs_all": 7.574967431491719,
+      "max_path_vs_all": 7.574967431491719
+    },
+    "all_pairs_failed": {
+      "rows": 3,
+      "methods": [
+        "geometry_icp",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.0,
+      "mean_convergence": 0.0,
+      "mean_path_m": 0.0,
+      "mean_path_vs_healthy": 0.0,
+      "max_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.0,
+      "max_path_vs_all": 0.0
+    },
+    "low_convergence": {
+      "rows": 7,
+      "methods": [
+        "ct_icp",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.6650246305418719,
+      "mean_convergence": 0.06403940886699508,
+      "mean_path_m": 2.95889829941865,
+      "mean_path_vs_healthy": 1.8943784843229365,
+      "max_path_vs_healthy": 3.2070700393945355,
+      "mean_path_vs_all": 1.1784436497841884,
+      "max_path_vs_all": 2.0
+    },
+    "cross_method_suspicious": {
+      "rows": 3,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 10.26586242432921,
+      "mean_path_vs_healthy": 4.482207669934655,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 4.06268880694904,
+      "max_path_vs_all": 6.0808949979718365
+    },
+    "no_healthy_peer": {
+      "rows": 1,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 8.280604373718116,
+      "mean_path_vs_healthy": 1.0,
+      "max_path_vs_healthy": 1.0,
+      "mean_path_vs_all": 6.0808949979718365,
+      "max_path_vs_all": 6.0808949979718365
+    },
+    "path_disagrees_with_all_method_median": {
+      "rows": 3,
+      "methods": [
+        "intensity_bev",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious",
+        "ok"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 7.331496785755323,
+      "mean_path_vs_healthy": 2.9104121846920683,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 3.258964746459217,
+      "max_path_vs_all": 6.0808949979718365
+    },
+    "ok_no_risk": {
+      "rows": 5,
+      "methods": [
+        "geometry_icp",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "ok"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 1.5305131788133113,
+      "mean_path_vs_healthy": 0.9425661893369425,
+      "max_path_vs_healthy": 1.1465247983181073,
+      "mean_path_vs_all": 0.45691375096380504,
+      "max_path_vs_all": 0.5497381651114366
+    },
+    "path_disagrees_with_healthy_median": {
+      "rows": 2,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 11.258491449634757,
+      "mean_path_vs_healthy": 6.223311504901982,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 3.053585711437642,
+      "max_path_vs_all": 3.4023619777016845
+    }
+  },
+  "reason_drilldown_all": {
+    "ok_no_risk": {
+      "rows": 10,
+      "methods": [
+        "geometry_icp",
+        "intensity_bev",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "local_risk",
+        "ok"
+      ],
+      "mean_acceptance": 0.9655172413793103,
+      "mean_convergence": 1.0,
+      "mean_path_m": 2.6936114397747595,
+      "mean_path_vs_healthy": 1.2968817824437695,
+      "max_path_vs_healthy": 5.248540397821832,
+      "mean_path_vs_all": 1.2137379760742066,
+      "max_path_vs_all": 5.648690035126552
+    },
+    "all_pairs_failed": {
+      "rows": 4,
+      "methods": [
+        "geometry_icp",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.0,
+      "mean_convergence": 0.0,
+      "mean_path_m": 0.0,
+      "mean_path_vs_healthy": 0.0,
+      "max_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.0,
+      "max_path_vs_all": 0.0
+    },
+    "low_acceptance": {
+      "rows": 5,
+      "methods": [
+        "geometry_icp",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.027586206896551724,
+      "mean_convergence": 0.0,
+      "mean_path_m": 0.06519815021059554,
+      "mean_path_vs_healthy": 0.0,
+      "max_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.04288493650658993,
+      "max_path_vs_all": 0.21442468253294963
+    },
+    "low_convergence": {
+      "rows": 10,
+      "methods": [
+        "ct_icp",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.6655172413793103,
+      "mean_convergence": 0.07241379310344827,
+      "mean_path_m": 2.7186432057849648,
+      "mean_path_vs_healthy": 1.6326391431503737,
+      "max_path_vs_healthy": 3.411137264851386,
+      "mean_path_vs_all": 1.0801645991721724,
+      "max_path_vs_all": 2.0
+    },
+    "motion_margin_dominant": {
+      "rows": 2,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.9655172413793103,
+      "mean_convergence": 0.9655172413793103,
+      "mean_path_m": 9.538457585540923,
+      "mean_path_vs_healthy": 5.4783432890454735,
+      "max_path_vs_healthy": 5.4783432890454735,
+      "mean_path_vs_all": 5.100867600677242,
+      "max_path_vs_all": 7.574967431491719
+    },
+    "overlap_tail": {
+      "rows": 1,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.9310344827586207,
+      "mean_convergence": 0.9310344827586207,
+      "mean_path_m": 11.516254999302024,
+      "mean_path_vs_healthy": null,
+      "max_path_vs_healthy": null,
+      "mean_path_vs_all": 7.574967431491719,
+      "max_path_vs_all": 7.574967431491719
+    },
+    "cross_method_suspicious": {
+      "rows": 3,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 10.26586242432921,
+      "mean_path_vs_healthy": 4.482207669934655,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 4.06268880694904,
+      "max_path_vs_all": 6.0808949979718365
+    },
+    "no_healthy_peer": {
+      "rows": 1,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 8.280604373718116,
+      "mean_path_vs_healthy": 1.0,
+      "max_path_vs_healthy": 1.0,
+      "mean_path_vs_all": 6.0808949979718365,
+      "max_path_vs_all": 6.0808949979718365
+    },
+    "path_disagrees_with_all_method_median": {
+      "rows": 3,
+      "methods": [
+        "intensity_bev",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious",
+        "ok"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 7.331496785755323,
+      "mean_path_vs_healthy": 2.9104121846920683,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 3.258964746459217,
+      "max_path_vs_all": 6.0808949979718365
+    },
+    "path_disagrees_with_healthy_median": {
+      "rows": 2,
+      "methods": [
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 11.258491449634757,
+      "mean_path_vs_healthy": 6.223311504901982,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 3.053585711437642,
+      "max_path_vs_all": 3.4023619777016845
     }
   }
 }

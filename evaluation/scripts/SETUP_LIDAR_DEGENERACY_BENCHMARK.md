@@ -394,6 +394,13 @@ Observed `fog.bag` inspection:
   `cross_method_suspicious` (mean path/healthy 4.48) from `ok`
   (mean path/healthy 0.88), but this remains a triage signal rather than an
   error label.
+- The same calibration report now includes a stress-window reason drilldown.
+  Current strongest proxy signals are `path_disagrees_with_healthy_median`
+  (mean path/healthy 6.22, intensity BEV only), `motion_margin_dominant`
+  (mean path/healthy 5.48, intensity BEV only), and
+  `cross_method_suspicious` overall (mean path/healthy 4.48). In contrast,
+  `ok_no_risk` rows average path/healthy 0.94. This is still GT-free, but it
+  gives a concrete priority order for GT or stronger-reference checks.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

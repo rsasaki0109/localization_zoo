@@ -561,6 +561,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertIn("decision=fail reasons=low_acceptance", completed.stdout)
         self.assertEqual(gate_report["offender_count"], 2)
         self.assertEqual(
+            gate_report["policy"]["path"],
+            "evaluation/config/lidar_degeneracy_triage_policy.json",
+        )
+        self.assertEqual(
             gate_report["reports"]["method_health_comparison"]["counts"]["fail"],
             1,
         )

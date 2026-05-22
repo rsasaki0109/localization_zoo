@@ -110,6 +110,18 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         method_health_json = tmp / "method_health_comparison.json"
         risk_calibration_json = tmp / "risk_gt_calibration.json"
         policy = {"policy_version": "lidar_degeneracy_triage_v1"}
+        method_reasons = {
+            "pass": ["ok_no_risk"],
+            "watch": ["low_convergence"],
+            "investigate": ["motion_margin_dominant"],
+            "fail": ["low_acceptance"],
+        }.get(method_decision, ["unknown_reason"])
+        risk_reasons = {
+            "pass": ["ok_no_risk"],
+            "watch": ["low_convergence"],
+            "investigate": ["path_disagrees_with_healthy_median"],
+            "fail": ["nonfinite_pose"],
+        }.get(risk_decision, ["unknown_reason"])
         method_health_json.write_text(
             json.dumps(
                 {
@@ -125,6 +137,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
                                     "methods": {
                                         "demo_method": {
                                             "policy_decision": method_decision,
+                                            "policy_reasons": method_reasons,
                                         }
                                     },
                                 }
@@ -146,6 +159,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
                             "window": "demo_window",
                             "method": "demo_method",
                             "policy_decision": risk_decision,
+                            "risk_reasons": risk_reasons,
                         }
                     ],
                 },
@@ -519,6 +533,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
     def test_lidar_degeneracy_check_runner_policy_gate_fails_bad_reports(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
+            gate_output_dir = Path(tmpdir) / "gate_report"
             method_health_json, risk_calibration_json = self.write_lidar_gate_reports(
                 Path(tmpdir),
                 method_decision="fail",
@@ -532,12 +547,26 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
                 str(method_health_json),
                 "--risk-calibration-json",
                 str(risk_calibration_json),
+                "--policy-gate-output-dir",
+                str(gate_output_dir),
             )
+            gate_report = json.loads((gate_output_dir / "policy_gate_report.json").read_text())
+            gate_markdown = (gate_output_dir / "policy_gate_report.md").read_text()
 
         self.assertEqual(completed.returncode, 1, msg=completed.stdout)
         self.assertIn("[fail] lidar degeneracy policy gate failed", completed.stdout)
         self.assertIn("method_health_comparison: fail rows 1 > 0", completed.stdout)
         self.assertIn("risk_gt_calibration: investigate rows 1 > 0", completed.stdout)
+        self.assertIn("[gate] top offenders", completed.stdout)
+        self.assertIn("decision=fail reasons=low_acceptance", completed.stdout)
+        self.assertEqual(gate_report["offender_count"], 2)
+        self.assertEqual(
+            gate_report["reports"]["method_health_comparison"]["counts"]["fail"],
+            1,
+        )
+        self.assertEqual(gate_report["offenders"][0]["policy_decision"], "fail")
+        self.assertEqual(gate_report["offenders"][0]["policy_reasons"], ["low_acceptance"])
+        self.assertIn("| `method_health_comparison` | `demo_sequence` |", gate_markdown)
 
 
 class RunMultimodalStudyScriptTests(unittest.TestCase):

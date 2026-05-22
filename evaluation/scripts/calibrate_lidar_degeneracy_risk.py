@@ -180,12 +180,34 @@ def finite_mean(values: list[float]) -> float | None:
     return float(np.mean(finite)) if finite else None
 
 
+def split_csv_flags(value: Any) -> list[str]:
+    text = str(value or "ok")
+    if text == "ok" or text == "none":
+        return []
+    return [part.strip() for part in text.split(",") if part.strip()]
+
+
 def risk_bucket(row: dict[str, Any]) -> str:
     if row.get("risk_state") == "cross_method_suspicious":
         return "cross_method_suspicious"
     if row.get("health_state") != "ok":
         return "local_risk"
     return "ok"
+
+
+def risk_reasons(record: dict[str, Any]) -> list[str]:
+    reasons: list[str] = []
+    reasons.extend(split_csv_flags(record.get("flags")))
+    if record.get("cross_method_suspicious"):
+        reasons.append("cross_method_suspicious")
+    reasons.extend(
+        reason
+        for reason in split_csv_flags(record.get("cross_method_probe"))
+        if reason.startswith("path_disagrees") or reason == "no_healthy_peer"
+    )
+    if not reasons:
+        reasons.append("ok_no_risk")
+    return sorted(dict.fromkeys(reasons))
 
 
 def append_proxy_stats(records: list[dict[str, Any]], *, stress_only: bool) -> dict[str, dict[str, Any]]:
@@ -230,6 +252,56 @@ def append_proxy_stats(records: list[dict[str, Any]], *, stress_only: bool) -> d
     return buckets
 
 
+def reason_drilldown(records: list[dict[str, Any]], *, stress_only: bool) -> dict[str, dict[str, Any]]:
+    if stress_only:
+        records = [record for record in records if record.get("is_stress")]
+    by_reason: dict[str, list[dict[str, Any]]] = {}
+    for record in records:
+        for reason in record["risk_reasons"]:
+            by_reason.setdefault(reason, []).append(record)
+
+    out: dict[str, dict[str, Any]] = {}
+    for reason, rows in by_reason.items():
+        accepted = [
+            float(row["accepted_rate"])
+            for row in rows
+            if row.get("accepted_rate") is not None
+        ]
+        converged = [
+            float(row["converged_rate"])
+            for row in rows
+            if row.get("converged_rate") is not None
+        ]
+        paths = [
+            float(row["trajectory_path_length_m"])
+            for row in rows
+            if row.get("trajectory_path_length_m") is not None
+        ]
+        healthy_ratios = [
+            float(row["path_vs_healthy_median"])
+            for row in rows
+            if row.get("path_vs_healthy_median") is not None
+        ]
+        all_ratios = [
+            float(row["path_vs_all_median"])
+            for row in rows
+            if row.get("path_vs_all_median") is not None
+        ]
+        out[reason] = {
+            "rows": len(rows),
+            "methods": sorted({str(row["method"]) for row in rows}),
+            "risk_buckets": sorted({str(row["risk_bucket"]) for row in rows}),
+            "mean_acceptance": finite_mean(accepted),
+            "mean_convergence": finite_mean(converged),
+            "mean_path_m": finite_mean(paths),
+            "mean_path_vs_healthy": finite_mean(healthy_ratios),
+            "max_path_vs_healthy": max(healthy_ratios) if healthy_ratios else None,
+            "mean_path_vs_all": finite_mean(all_ratios),
+            "max_path_vs_all": max(all_ratios) if all_ratios else None,
+        }
+    return out
+
+
 def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> dict[str, Any]:
     gt_cache: dict[str, np.ndarray] = {}
     records: list[dict[str, Any]] = []
@@ -258,9 +330,15 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
                     "expected_stress": window.get("expected_stress"),
                     "is_stress": window.get("expected_stress") != "nominal",
                     "method": method,
+                    "accepted_rate": row.get("accepted_rate"),
+                    "converged_rate": row.get("converged_rate"),
                     "health_state": row.get("health_state"),
                     "risk_state": row.get("risk_state"),
                     "risk_bucket": risk_bucket(row),
+                    "flags": row.get("flags"),
+                    "risk_flags": row.get("risk_flags"),
+                    "cross_method_probe": row.get("cross_method_probe"),
+                    "confidence_probe": row.get("confidence_probe"),
                     "failure_awareness": row.get("failure_awareness"),
                     "risk_failure_awareness": row.get("risk_failure_awareness"),
                     "cross_method_suspicious": bool(row.get("cross_method_suspicious")),
@@ -269,6 +347,7 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
                     "path_vs_all_median": row.get("path_vs_all_median"),
                     "result_json": row.get("result_json"),
                 }
+                record["risk_reasons"] = risk_reasons(record)
                 records.append(record)
                 if sequence_name not in gt_cache:
                     continue
@@ -293,6 +372,8 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
         "proxy_records": records,
         "proxy_bucket_stats_stress": append_proxy_stats(records, stress_only=True),
         "proxy_bucket_stats_all": append_proxy_stats(records, stress_only=False),
+        "reason_drilldown_stress": reason_drilldown(records, stress_only=True),
+        "reason_drilldown_all": reason_drilldown(records, stress_only=False),
     }
 
 
@@ -360,10 +441,40 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.extend(
         [
             "",
+            "## Reason Drilldown",
+            "",
+            "Stress-window rows only. Rows with multiple active signals appear under each reason.",
+            "",
+            "| Reason | Rows | Methods | Risk buckets | Mean accepted | Mean converged | Mean path m | Mean path/healthy | Max path/healthy | Mean path/all | Max path/all |",
+            "| --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for reason, row in sorted(
+        payload["reason_drilldown_stress"].items(),
+        key=lambda item: (
+            -float(item[1]["mean_path_vs_healthy"] or 0.0),
+            -float(item[1]["mean_path_vs_all"] or 0.0),
+            item[0],
+        ),
+    ):
+        lines.append(
+            f"| `{reason}` | {row['rows']} | "
+            f"{', '.join(f'`{method}`' for method in row['methods'])} | "
+            f"{', '.join(f'`{bucket}`' for bucket in row['risk_buckets'])} | "
+            f"{fmt(row['mean_acceptance'])} | {fmt(row['mean_convergence'])} | "
+            f"{fmt(row['mean_path_m'])} | {fmt(row['mean_path_vs_healthy'])} | "
+            f"{fmt(row['max_path_vs_healthy'])} | {fmt(row['mean_path_vs_all'])} | "
+            f"{fmt(row['max_path_vs_all'])} |"
+        )
+
+    lines.extend(
+        [
+            "",
             "## Readout",
             "",
             "- GT calibration is currently blocked by missing public pose/odom/tf for the local NTNU LiDAR degeneracy extraction.",
             "- The comparison remains GT-free for now: local risk and cross-method risk should be treated as triage signals, not error labels.",
+            "- Reason drilldown separates local failure signals from cross-method disagreement so the strongest triage signals can be checked first when GT arrives.",
             "- The script is ready to rerun with external GT via `--gt-csv fog_200=... --gt-csv tunnel_geom_2700_200=...`.",
             "",
         ]

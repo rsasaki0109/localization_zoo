@@ -1,0 +1,310 @@
+{
+  "policy": {
+    "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
+    "policy_version": "lidar_degeneracy_triage_v1",
+    "strict_gate": {
+      "max_fail_rows": 0,
+      "max_investigate_rows": 0,
+      "require_policy_version_match": true
+    }
+  },
+  "reports": {
+    "method_health_comparison": {
+      "path": "experiments/results/lidar_degeneracy/method_health_comparison/method_health_comparison.json",
+      "policy_version": "lidar_degeneracy_triage_v1",
+      "total_rows": 28,
+      "counts": {
+        "pass": 9,
+        "watch": 9,
+        "investigate": 5,
+        "fail": 5
+      }
+    },
+    "risk_gt_calibration": {
+      "path": "experiments/results/lidar_degeneracy/risk_gt_calibration/risk_gt_calibration.json",
+      "policy_version": "lidar_degeneracy_triage_v1",
+      "total_rows": 28,
+      "counts": {
+        "pass": 9,
+        "watch": 9,
+        "investigate": 5,
+        "fail": 5
+      }
+    }
+  },
+  "violations": [
+    "method_health_comparison: fail rows 5 > 0",
+    "method_health_comparison: investigate rows 5 > 0",
+    "risk_gt_calibration: fail rows 5 > 0",
+    "risk_gt_calibration: investigate rows 5 > 0"
+  ],
+  "offender_count": 20,
+  "offenders": [
+    {
+      "report": "method_health_comparison",
+      "sequence": "fog_200",
+      "window": "baseline",
+      "start": 0,
+      "end": 29,
+      "method": "kiss_keyframe",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "fog_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "method": "geometry_icp",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "all_pairs_failed",
+        "low_acceptance"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "fog_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "method": "kiss_keyframe",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "fog_200",
+      "window": "point_count_tail",
+      "start": 115,
+      "end": 144,
+      "method": "geometry_icp",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "low_acceptance"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "fog_200",
+      "window": "point_count_tail",
+      "start": 115,
+      "end": 144,
+      "method": "kiss_keyframe",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "fog_200",
+      "window": "baseline",
+      "start": 0,
+      "end": 29,
+      "method": "kiss_keyframe",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "fog_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "method": "geometry_icp",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "all_pairs_failed",
+        "low_acceptance"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "fog_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "method": "kiss_keyframe",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "fog_200",
+      "window": "point_count_tail",
+      "start": 115,
+      "end": 144,
+      "method": "geometry_icp",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "low_acceptance"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "fog_200",
+      "window": "point_count_tail",
+      "start": 115,
+      "end": 144,
+      "method": "kiss_keyframe",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "all_pairs_failed",
+        "low_acceptance",
+        "low_convergence"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "fog_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "cross_method_suspicious",
+        "no_healthy_peer",
+        "path_disagrees_with_all_method_median"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "fog_200",
+      "window": "point_count_tail",
+      "start": 115,
+      "end": 144,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "motion_margin_dominant",
+        "overlap_tail"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "tunnel_geom_2700_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "motion_margin_dominant"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "tunnel_geom_2700_200",
+      "window": "geometry_degeneracy",
+      "start": 90,
+      "end": 119,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "cross_method_suspicious",
+        "path_disagrees_with_all_method_median",
+        "path_disagrees_with_healthy_median"
+      ]
+    },
+    {
+      "report": "method_health_comparison",
+      "sequence": "tunnel_geom_2700_200",
+      "window": "point_count_tail",
+      "start": 80,
+      "end": 109,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "cross_method_suspicious",
+        "path_disagrees_with_healthy_median"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "fog_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "cross_method_suspicious",
+        "no_healthy_peer",
+        "path_disagrees_with_all_method_median"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "fog_200",
+      "window": "point_count_tail",
+      "start": 115,
+      "end": 144,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "motion_margin_dominant",
+        "overlap_tail"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "tunnel_geom_2700_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "motion_margin_dominant"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "tunnel_geom_2700_200",
+      "window": "geometry_degeneracy",
+      "start": 90,
+      "end": 119,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "cross_method_suspicious",
+        "path_disagrees_with_all_method_median",
+        "path_disagrees_with_healthy_median"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "tunnel_geom_2700_200",
+      "window": "point_count_tail",
+      "start": 80,
+      "end": 109,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "cross_method_suspicious",
+        "path_disagrees_with_healthy_median"
+      ]
+    }
+  ]
+}

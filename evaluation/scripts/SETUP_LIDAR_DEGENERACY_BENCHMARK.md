@@ -167,6 +167,24 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   --max-step-translation 2.0 \
   --max-step-yaw-deg 20
 
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/fog_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/fog_200/intensity_bev_health \
+  --method intensity_bev \
+  --intensity-bev-preset default \
+  --min-used-path-length 0.25 \
+  --max-step-translation 2.0 \
+  --max-step-yaw-deg 20
+
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/tunnel_geom_2700_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health \
+  --method intensity_bev \
+  --intensity-bev-preset default \
+  --min-used-path-length 0.25 \
+  --max-step-translation 2.0 \
+  --max-step-yaw-deg 20
+
 python3 evaluation/scripts/summarize_lidar_degeneracy_health.py
 ```
 
@@ -321,12 +339,17 @@ Observed `fog.bag` inspection:
   gate. This is a better gradient than KISS: CT-ICP does not collapse on all fog
   windows, but the strongest obscurant slice still creates measurable
   correction instability.
+- Intensity BEV odometry is now in the same health contract. It accepts 100% of
+  the selected fog and tunnel windows with the default search preset. This is
+  encouraging for obscurant robustness, but not yet a product win: the clear fog
+  baseline is flagged as `low_used_path`, showing a zero-motion false-lock mode
+  that needs a motion prior, temporal regularization, or GT/IMU validation.
 - The combined method-health comparison is written to
   `experiments/results/lidar_degeneracy/method_health_comparison/`. Its current
   aggregate readout is: on `fog_200`, geometry ICP averages 26.4% acceptance,
-  KISS keyframe averages 0.0%, and CT-ICP averages 88.5%; on
-  `tunnel_geom_2700_200`, all three methods remain at 100% acceptance across the
-  selected short windows.
+  intensity BEV averages 100.0%, KISS keyframe averages 0.0%, and CT-ICP
+  averages 88.5%; on `tunnel_geom_2700_200`, all four methods remain at 100%
+  acceptance across the selected short windows.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

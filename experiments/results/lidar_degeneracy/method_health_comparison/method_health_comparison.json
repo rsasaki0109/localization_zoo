@@ -56,7 +56,9 @@
               "used_step_max_m": 0.09452323869230268,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/baseline_0000_0029_geometry_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/baseline_0000_0029_geometry_icp.json",
+              "health_state": "suspicious",
+              "failure_awareness": "false_alarm"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -67,7 +69,9 @@
               "used_step_max_m": 0.25,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/baseline_0000_0029_intensity_bev.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/baseline_0000_0029_intensity_bev.json",
+              "health_state": "ok",
+              "failure_awareness": "nominal_ok"
             },
             "kiss_keyframe": {
               "accepted_rate": 0.0,
@@ -78,7 +82,9 @@
               "used_step_max_m": 0.0,
               "keyframes": "0/2",
               "flags": "all_pairs_failed, low_acceptance, low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/baseline_0000_0029_kiss_keyframe.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/baseline_0000_0029_kiss_keyframe.json",
+              "health_state": "failed",
+              "failure_awareness": "false_alarm"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -89,9 +95,12 @@
               "used_step_max_m": 0.1264825407912096,
               "keyframes": "n/a",
               "flags": "low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json",
+              "health_state": "degraded",
+              "failure_awareness": "false_alarm"
             }
-          }
+          },
+          "expected_stress": "nominal"
         },
         {
           "sequence": "fog_200",
@@ -110,7 +119,9 @@
               "used_step_max_m": 0.056504874649066505,
               "keyframes": "n/a",
               "flags": "low_acceptance",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/point_count_tail_0115_0144_geometry_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/point_count_tail_0115_0144_geometry_icp.json",
+              "health_state": "failed",
+              "failure_awareness": "stress_flagged"
             },
             "intensity_bev": {
               "accepted_rate": 0.9310344827586207,
@@ -121,7 +132,9 @@
               "used_step_max_m": 1.5206906325745548,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/point_count_tail_0115_0144_intensity_bev.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/point_count_tail_0115_0144_intensity_bev.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "kiss_keyframe": {
               "accepted_rate": 0.0,
@@ -132,7 +145,9 @@
               "used_step_max_m": 0.0,
               "keyframes": "0/2",
               "flags": "all_pairs_failed, low_acceptance, low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/point_count_tail_0115_0144_kiss_keyframe.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/point_count_tail_0115_0144_kiss_keyframe.json",
+              "health_state": "failed",
+              "failure_awareness": "stress_flagged"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -143,9 +158,12 @@
               "used_step_max_m": 0.3231960815387464,
               "keyframes": "n/a",
               "flags": "low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
+              "health_state": "degraded",
+              "failure_awareness": "stress_flagged"
             }
-          }
+          },
+          "expected_stress": "obscurant_stress"
         },
         {
           "sequence": "fog_200",
@@ -164,7 +182,9 @@
               "used_step_max_m": 0.0,
               "keyframes": "n/a",
               "flags": "all_pairs_failed, low_acceptance",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/degraded_0170_0199_geometry_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/degraded_0170_0199_geometry_icp.json",
+              "health_state": "failed",
+              "failure_awareness": "stress_flagged"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -175,7 +195,9 @@
               "used_step_max_m": 0.5590169943749475,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "kiss_keyframe": {
               "accepted_rate": 0.0,
@@ -186,7 +208,9 @@
               "used_step_max_m": 0.0,
               "keyframes": "0/2",
               "flags": "all_pairs_failed, low_acceptance, low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json",
+              "health_state": "failed",
+              "failure_awareness": "stress_flagged"
             },
             "ct_icp": {
               "accepted_rate": 0.6551724137931034,
@@ -197,9 +221,12 @@
               "used_step_max_m": 0.2291563984989291,
               "keyframes": "n/a",
               "flags": "low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
+              "health_state": "suspicious",
+              "failure_awareness": "stress_flagged"
             }
-          }
+          },
+          "expected_stress": "obscurant_stress"
         }
       ]
     },
@@ -245,7 +272,9 @@
               "used_step_max_m": 0.19393327365224824,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/baseline_0005_0034_geometry_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/baseline_0005_0034_geometry_icp.json",
+              "health_state": "ok",
+              "failure_awareness": "nominal_ok"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -256,7 +285,9 @@
               "used_step_max_m": 0.3535533905932738,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/baseline_0005_0034_intensity_bev.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/baseline_0005_0034_intensity_bev.json",
+              "health_state": "ok",
+              "failure_awareness": "nominal_ok"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -267,7 +298,9 @@
               "used_step_max_m": 0.09978289872017147,
               "keyframes": "2/2",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/baseline_0005_0034_kiss_keyframe.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/baseline_0005_0034_kiss_keyframe.json",
+              "health_state": "ok",
+              "failure_awareness": "nominal_ok"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -278,9 +311,12 @@
               "used_step_max_m": 0.8424195673469367,
               "keyframes": "n/a",
               "flags": "low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json",
+              "health_state": "degraded",
+              "failure_awareness": "false_alarm"
             }
-          }
+          },
+          "expected_stress": "nominal"
         },
         {
           "sequence": "tunnel_geom_2700_200",
@@ -299,7 +335,9 @@
               "used_step_max_m": 0.213427326817862,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/point_count_tail_0080_0109_geometry_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/point_count_tail_0080_0109_geometry_icp.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -310,7 +348,9 @@
               "used_step_max_m": 0.7071067811865476,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/point_count_tail_0080_0109_intensity_bev.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/point_count_tail_0080_0109_intensity_bev.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -321,7 +361,9 @@
               "used_step_max_m": 0.10191118339024428,
               "keyframes": "2/2",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/point_count_tail_0080_0109_kiss_keyframe.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/point_count_tail_0080_0109_kiss_keyframe.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -332,9 +374,12 @@
               "used_step_max_m": 0.43261728243101893,
               "keyframes": "n/a",
               "flags": "low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json",
+              "health_state": "degraded",
+              "failure_awareness": "stress_flagged"
             }
-          }
+          },
+          "expected_stress": "point_count_stress"
         },
         {
           "sequence": "tunnel_geom_2700_200",
@@ -353,7 +398,9 @@
               "used_step_max_m": 0.21342732681786308,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/geometry_degeneracy_0090_0119_geometry_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/geometry_degeneracy_0090_0119_geometry_icp.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -364,7 +411,9 @@
               "used_step_max_m": 0.7071067811865476,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/geometry_degeneracy_0090_0119_intensity_bev.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/geometry_degeneracy_0090_0119_intensity_bev.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -375,7 +424,9 @@
               "used_step_max_m": 0.10191118339024428,
               "keyframes": "2/2",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/geometry_degeneracy_0090_0119_kiss_keyframe.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/geometry_degeneracy_0090_0119_kiss_keyframe.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -386,9 +437,12 @@
               "used_step_max_m": 0.5290155312143492,
               "keyframes": "n/a",
               "flags": "low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json",
+              "health_state": "degraded",
+              "failure_awareness": "stress_flagged"
             }
-          }
+          },
+          "expected_stress": "geometry_stress"
         },
         {
           "sequence": "tunnel_geom_2700_200",
@@ -407,7 +461,9 @@
               "used_step_max_m": 0.15343182811920295,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/degraded_0170_0199_geometry_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/degraded_0170_0199_geometry_icp.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "intensity_bev": {
               "accepted_rate": 1.0,
@@ -418,7 +474,9 @@
               "used_step_max_m": 0.3535533905932738,
               "keyframes": "n/a",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -429,7 +487,9 @@
               "used_step_max_m": 0.10012422856132276,
               "keyframes": "2/2",
               "flags": "ok",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json",
+              "health_state": "ok",
+              "failure_awareness": "stress_unflagged"
             },
             "ct_icp": {
               "accepted_rate": 1.0,
@@ -440,9 +500,12 @@
               "used_step_max_m": 0.3451652444453236,
               "keyframes": "n/a",
               "flags": "low_convergence",
-              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json"
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
+              "health_state": "degraded",
+              "failure_awareness": "stress_flagged"
             }
-          }
+          },
+          "expected_stress": "degradation_stress"
         }
       ]
     }
@@ -455,6 +518,10 @@
         "mean_convergence": 0.26436781609195403,
         "failed_windows": 2,
         "risk_windows": 2,
+        "stress_windows": 2,
+        "stress_flagged": 2,
+        "stress_unflagged": 0,
+        "false_alarms": 1,
         "min_acceptance": 0.0,
         "max_used_path_length_m": 1.275861762456349
       },
@@ -464,6 +531,10 @@
         "mean_convergence": 0.9770114942528735,
         "failed_windows": 0,
         "risk_windows": 0,
+        "stress_windows": 2,
+        "stress_flagged": 0,
+        "stress_unflagged": 2,
+        "false_alarms": 0,
         "min_acceptance": 0.9310344827586207,
         "max_used_path_length_m": 11.516254999302026
       },
@@ -473,6 +544,10 @@
         "mean_convergence": 0.0,
         "failed_windows": 3,
         "risk_windows": 3,
+        "stress_windows": 2,
+        "stress_flagged": 2,
+        "stress_unflagged": 0,
+        "false_alarms": 1,
         "min_acceptance": 0.0,
         "max_used_path_length_m": 0.0
       },
@@ -482,6 +557,10 @@
         "mean_convergence": 0.04597701149425287,
         "failed_windows": 0,
         "risk_windows": 3,
+        "stress_windows": 2,
+        "stress_flagged": 2,
+        "stress_unflagged": 0,
+        "false_alarms": 1,
         "min_acceptance": 0.6551724137931034,
         "max_used_path_length_m": 2.703449488161886
       }
@@ -493,6 +572,10 @@
         "mean_convergence": 1.0,
         "failed_windows": 0,
         "risk_windows": 0,
+        "stress_windows": 3,
+        "stress_flagged": 0,
+        "stress_unflagged": 3,
+        "false_alarms": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 1.8668876874404594
       },
@@ -502,6 +585,10 @@
         "mean_convergence": 1.0,
         "failed_windows": 0,
         "risk_windows": 0,
+        "stress_windows": 3,
+        "stress_flagged": 0,
+        "stress_unflagged": 3,
+        "false_alarms": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 12.641827625243703
       },
@@ -511,6 +598,10 @@
         "mean_convergence": 1.0,
         "failed_windows": 0,
         "risk_windows": 0,
+        "stress_windows": 3,
+        "stress_flagged": 0,
+        "stress_unflagged": 3,
+        "false_alarms": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 1.1857805032809408
       },
@@ -520,6 +611,10 @@
         "mean_convergence": 0.14655172413793102,
         "failed_windows": 0,
         "risk_windows": 4,
+        "stress_windows": 3,
+        "stress_flagged": 3,
+        "stress_unflagged": 0,
+        "false_alarms": 1,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 5.675902413181488
       }

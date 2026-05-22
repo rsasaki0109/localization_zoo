@@ -47,6 +47,7 @@ Stress-window rows only. Rows with multiple active signals appear under each rea
 | `low_convergence` | `watch` | 7 | `ct_icp`, `kiss_keyframe` | `local_risk` | 0.665 | 0.064 | 2.959 | 1.894 | 3.207 | 1.178 | 2.000 |
 | `no_healthy_peer` | `watch` | 1 | `intensity_bev` | `cross_method_suspicious` | 1.000 | 1.000 | 8.281 | 1.000 | 1.000 | 6.081 | 6.081 |
 | `ok_no_risk` | `pass` | 5 | `geometry_icp`, `kiss_keyframe` | `ok` | 1.000 | 1.000 | 1.531 | 0.943 | 1.147 | 0.457 | 0.550 |
+| `partial_acceptance` | `watch` | 1 | `ct_icp` | `local_risk` | 0.655 | 0.000 | 2.723 | 0.329 | 0.329 | 2.000 | 2.000 |
 | `overlap_tail` | `investigate` | 1 | `intensity_bev` | `local_risk` | 0.931 | 0.931 | 11.516 | n/a | n/a | 7.575 | 7.575 |
 | `low_acceptance` | `fail` | 4 | `geometry_icp`, `kiss_keyframe` | `local_risk` | 0.034 | 0.000 | 0.081 | 0.000 | 0.000 | 0.054 | 0.214 |
 | `all_pairs_failed` | `fail` | 3 | `geometry_icp`, `kiss_keyframe` | `local_risk` | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
@@ -67,7 +68,7 @@ Stress-window rows only.
 | `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `intensity_bev` | `investigate` | `cross_method_suspicious` | 1.000 | 1.000 | 7.157 | 3.402 | `cross_method_suspicious`, `path_disagrees_with_all_method_median`, `path_disagrees_with_healthy_median` |
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | `investigate` | `local_risk` | 1.000 | 1.000 | 5.478 | 2.627 | `motion_margin_dominant` |
 | `fog_200` | `point_count_tail` 115-144 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.000 | n/a | 1.786 | `low_convergence` |
-| `fog_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 0.655 | 0.000 | 0.329 | 2.000 | `low_convergence` |
+| `fog_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 0.655 | 0.000 | 0.329 | 2.000 | `low_convergence`, `partial_acceptance` |
 | `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.103 | 2.911 | 1.489 | `low_convergence` |
 | `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `kiss_keyframe` | `watch` | `ok` | 1.000 | 1.000 | 0.574 | 0.294 | `path_disagrees_with_all_method_median` |
 | `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.138 | 3.207 | 1.525 | `low_convergence` |

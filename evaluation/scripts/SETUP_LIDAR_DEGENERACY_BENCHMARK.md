@@ -455,6 +455,15 @@ Observed `fog.bag` inspection:
   `fallback_to_prior` stays `path_high` or becomes worse, the guard is doing
   the right thing by not trusting CT-ICP, but a stronger production fallback
   source is still required.
+- `compare_ct_icp_fallback_sources.py` compares that self-velocity prior
+  against already-computed external peer trajectories under the same GT-free
+  path-reference contract. A fallback source is eligible only when its source
+  health/risk state is `ok`, acceptance is high, and the path ratio is
+  reference-consistent. On the current selected windows, geometry ICP is the
+  selected fallback source for all CT-ICP guarded rows, while self velocity is
+  reference-consistent on only a minority of rows. Treat this as evidence that
+  a production fallback should be an independent odometry/source-health path,
+  not just CT-ICP's own velocity extrapolation.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place

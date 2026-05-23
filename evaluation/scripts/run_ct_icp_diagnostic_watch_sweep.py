@@ -285,6 +285,7 @@ def aggregate_rows(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             for row in variant_rows
             for blocker in row.get("watch_clear_blockers", [])
         )
+        actions = Counter(str(row.get("watch_action") or "n/a") for row in variant_rows)
         first = variant_rows[0]
         aggregates[variant] = {
             "rows": len(variant_rows),
@@ -300,6 +301,7 @@ def aggregate_rows(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             "mean_path_vs_healthy": mean([row.get("path_vs_healthy_median") for row in variant_rows]),
             "mean_path_vs_all": mean([row.get("path_vs_all_median") for row in variant_rows]),
             "clear_candidates": sum(1 for row in variant_rows if row.get("watch_clear_candidate")),
+            "action_counts": dict(sorted(actions.items())),
             "blocker_counts": dict(sorted(blockers.items())),
         }
     return aggregates
@@ -313,13 +315,16 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         "",
         "## Variants",
         "",
-        "| Variant | max iter | ceres iter | planarity | Rows | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Clear | Blockers |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+        "| Variant | max iter | ceres iter | planarity | Rows | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Clear | Actions | Blockers |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
     ]
     for variant in [variant["name"] for variant in VARIANTS]:
         row = payload["aggregates"][variant]
         blockers = ", ".join(
             f"{name}:{count}" for name, count in row["blocker_counts"].items()
+        ) or "none"
+        actions = ", ".join(
+            f"{name}:{count}" for name, count in row["action_counts"].items()
         ) or "none"
         lines.append(
             f"| `{variant}` | {row['ct_icp_max_iterations']} | "
@@ -328,7 +333,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             f"{fmt(row['mean_accepted_rate'])} | {fmt(row['mean_converged_rate'])} | "
             f"{fmt(row['mean_refinement_gate_rate'])} | {fmt(row['mean_iterations'])} | "
             f"{fmt(row['mean_path_vs_healthy'])} | {fmt(row['mean_path_vs_all'])} | "
-            f"{row['clear_candidates']} | {blockers} |"
+            f"{row['clear_candidates']} | {actions} | {blockers} |"
         )
 
     lines.extend(
@@ -336,13 +341,14 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Rows",
             "",
-            "| Variant | Sequence | Window | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Clear? | Blockers |",
-            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
+            "| Variant | Sequence | Window | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Clear? | Action | Blockers |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
         ]
     )
     for row in payload["rows"]:
         blockers = ", ".join(row.get("watch_clear_blockers", [])) or "none"
         clear = "yes" if row.get("watch_clear_candidate") else "no"
+        action = row.get("watch_action") or "n/a"
         lines.append(
             f"| `{row['variant']}` | `{row['sequence']}` | "
             f"`{row['window']}` {row['start']}-{row['end']} | "
@@ -350,7 +356,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             f"{fmt(row['ct_icp_refinement_gate_rate'])} | "
             f"{fmt(row['ct_icp_iterations_mean'])} | "
             f"{fmt(row['path_vs_healthy_median'])} | "
-            f"{fmt(row['path_vs_all_median'])} | {clear} | {blockers} |"
+            f"{fmt(row['path_vs_all_median'])} | {clear} | `{action}` | {blockers} |"
         )
 
     lines.extend(
@@ -361,6 +367,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "- This sweep only probes the diagnostic-watch CT-ICP windows; it does not change the main policy gate.",
             "- `iterations_pinned` means the mean CT-ICP iteration count remains within 0.5 of the configured max iterations.",
             "- A row can be a clear candidate only when acceptance, refinement-gate rate, iteration headroom, and path-ratio checks all pass.",
+            "- `fallback_required` means CT-ICP is accepted but its trajectory path disagrees with the healthy/all-method path reference enough that a production component should reject, downweight, or fall back instead of silently trusting it.",
             "",
         ]
     )

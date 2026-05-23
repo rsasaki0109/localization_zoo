@@ -244,6 +244,7 @@
               "watch_clear_blockers": [
                 "iterations_pinned"
               ],
+              "watch_action": "optimizer_retry",
               "cross_method_suspicious": false,
               "risk_state": "diagnostic_watch",
               "risk_flags": "ct_icp_internal_convergence_low",
@@ -435,6 +436,7 @@
                 "iterations_pinned",
                 "path_vs_healthy_high"
               ],
+              "watch_action": "fallback_required",
               "cross_method_suspicious": false,
               "risk_state": "diagnostic_watch",
               "risk_flags": "ct_icp_internal_convergence_low",
@@ -836,6 +838,7 @@
                 "iterations_pinned",
                 "path_vs_healthy_high"
               ],
+              "watch_action": "fallback_required",
               "cross_method_suspicious": false,
               "risk_state": "diagnostic_watch",
               "risk_flags": "ct_icp_internal_convergence_low",
@@ -1024,6 +1027,7 @@
                 "path_vs_healthy_high",
                 "path_vs_all_high"
               ],
+              "watch_action": "fallback_required",
               "cross_method_suspicious": false,
               "risk_state": "diagnostic_watch",
               "risk_flags": "ct_icp_internal_convergence_low",
@@ -1211,6 +1215,7 @@
                 "path_vs_healthy_high",
                 "path_vs_all_high"
               ],
+              "watch_action": "fallback_required",
               "cross_method_suspicious": false,
               "risk_state": "diagnostic_watch",
               "risk_flags": "ct_icp_internal_convergence_low",
@@ -1399,6 +1404,7 @@
                 "path_vs_healthy_high",
                 "path_vs_all_high"
               ],
+              "watch_action": "fallback_required",
               "cross_method_suspicious": false,
               "risk_state": "diagnostic_watch",
               "risk_flags": "ct_icp_internal_convergence_low",

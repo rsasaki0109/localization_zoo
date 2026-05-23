@@ -66,6 +66,8 @@ WATCH_CLEAR_PATH_HEALTHY_MIN = 0.5
 WATCH_CLEAR_PATH_HEALTHY_MAX = 2.0
 WATCH_CLEAR_PATH_ALL_MIN = 0.33
 WATCH_CLEAR_PATH_ALL_MAX = 3.0
+WATCH_REJECT_BLOCKERS = {"accepted_below_one", "refinement_gate_below_one"}
+WATCH_ITERATION_BLOCKERS = {"iterations_unknown", "iterations_pinned"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -424,6 +426,7 @@ def ct_icp_watch_clear_status(row: dict[str, Any]) -> dict[str, Any]:
         return {
             "watch_clear_candidate": None,
             "watch_clear_blockers": blockers,
+            "watch_action": None,
         }
 
     accepted = as_finite_float(row.get("accepted_rate"))
@@ -460,7 +463,26 @@ def ct_icp_watch_clear_status(row: dict[str, Any]) -> dict[str, Any]:
     return {
         "watch_clear_candidate": not blockers,
         "watch_clear_blockers": blockers,
+        "watch_action": ct_icp_watch_action(blockers),
     }
+
+
+def ct_icp_watch_action(blockers: list[str]) -> str:
+    active = set(blockers)
+    if not active:
+        return "clear_candidate"
+    if active.intersection(WATCH_REJECT_BLOCKERS):
+        return "reject_or_retry"
+    if any(
+        blocker.startswith("path_vs_") and not blocker.endswith("_missing")
+        for blocker in active
+    ):
+        return "fallback_required"
+    if active.intersection(WATCH_ITERATION_BLOCKERS):
+        return "optimizer_retry"
+    if any(blocker.endswith("_missing") for blocker in active):
+        return "reference_missing"
+    return "investigate"
 
 
 def add_cross_method_risk(windows: list[dict[str, Any]]) -> None:
@@ -766,8 +788,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Diagnostic Watch Rows",
             "",
-            "| Sequence | Window | Expected | Method | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Clear? | Blockers | Policy reasons |",
-            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
+            "| Sequence | Window | Expected | Method | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Clear? | Action | Blockers | Policy reasons |",
+            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |",
         ]
     )
     diagnostic_rows = 0
@@ -780,6 +802,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 diagnostic_rows += 1
                 clear = row.get("watch_clear_candidate")
                 clear_text = "yes" if clear is True else "no" if clear is False else "n/a"
+                action = row.get("watch_action") or "n/a"
                 blockers = row.get("watch_clear_blockers") or []
                 blocker_text = ", ".join(str(blocker) for blocker in blockers) if blockers else "none"
                 lines.append(
@@ -791,11 +814,11 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                     f"{fmt(row['ct_icp_iterations_mean'])} | "
                     f"{fmt(row['path_vs_healthy_median'])} | "
                     f"{fmt(row['path_vs_all_median'])} | "
-                    f"{clear_text} | {blocker_text} | "
+                    f"{clear_text} | `{action}` | {blocker_text} | "
                     f"{', '.join(row['policy_reasons'])} |"
                 )
     if diagnostic_rows == 0:
-        lines.append("| n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |")
+        lines.append("| n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |")
 
     lines.extend(
         [

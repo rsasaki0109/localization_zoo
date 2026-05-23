@@ -127,6 +127,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_build_ct_icp_guarded_composite_module",
             "evaluation/scripts/build_ct_icp_guarded_composite.py",
         )
+        cls.fixed_map_ndt_failure_module = load_script_module(
+            "test_summarize_fixed_map_ndt_failure_modes_module",
+            "evaluation/scripts/summarize_fixed_map_ndt_failure_modes.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -979,6 +983,62 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(out["summary"]["path_status"], "reference_consistent")
         self.assertAlmostEqual(out["summary"]["path_length_m"], 2.0)
         self.assertEqual(out["pairs"][0]["composite_source"], "geometry_icp")
+
+    def test_fixed_map_ndt_failure_audit_flags_silent_bad_accepts(self) -> None:
+        audit = self.fixed_map_ndt_failure_module
+        row = {
+            "status": "ok",
+            "seed_source": "ct_icp",
+            "source_class": "ct_icp_prior",
+            "ate_m": 8.3,
+            "rpe_trans_pct": 2.3,
+            "fps": 12.0,
+            "accepted_rate": 0.91,
+        }
+
+        decision = audit.classify_row(row)
+
+        self.assertEqual(decision["policy_decision"], "fail")
+        self.assertIn("accepted_bad_localization", decision["policy_reasons"])
+
+    def test_fixed_map_ndt_failure_audit_distinguishes_detectable_rejects(self) -> None:
+        audit = self.fixed_map_ndt_failure_module
+        row = {
+            "status": "ok",
+            "seed_source": "velocity",
+            "source_class": "dead_reckoning_prior",
+            "ate_m": 55.0,
+            "rpe_trans_pct": 90.0,
+            "fps": 12.0,
+            "accepted_rate": 0.0,
+        }
+
+        decision = audit.classify_row(row)
+
+        self.assertEqual(decision["policy_decision"], "investigate")
+        self.assertEqual(decision["policy_reasons"], ["rejected_bad_seed_detectable"])
+
+    def test_fixed_map_ndt_failure_audit_parses_scan_context_note(self) -> None:
+        audit = self.fixed_map_ndt_failure_module
+        note = (
+            "Fixed-map NDT: target map built once from GT/reference poses "
+            "(stride=5, map_points=44000). Seed source=scan_context, "
+            "accepted=98/107, rejected=9, seed fallbacks=66. "
+            "ScanContext hits=41/107, top_k=10, "
+            "NDT candidates evaluated=41, mean distance=0.0756."
+        )
+
+        metadata = audit.metadata_from_note(note)
+
+        self.assertEqual(metadata["map_stride"], 5)
+        self.assertEqual(metadata["map_points"], 44000)
+        self.assertEqual(metadata["accepted"], 98)
+        self.assertEqual(metadata["attempted"], 107)
+        self.assertAlmostEqual(metadata["accepted_rate"], 98 / 107)
+        self.assertEqual(metadata["scan_context_hits"], 41)
+        self.assertEqual(metadata["scan_context_attempts"], 107)
+        self.assertEqual(metadata["ndt_candidate_evals"], 41)
+        self.assertAlmostEqual(metadata["scan_context_mean_distance"], 0.0756)
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {

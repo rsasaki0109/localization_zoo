@@ -35,6 +35,7 @@ COMPILE_TARGETS = [
     SCRIPTS / "run_lidar_degeneracy_checks.py",
     SCRIPTS / "summarize_lidar_degeneracy_health.py",
     SCRIPTS / "calibrate_lidar_degeneracy_risk.py",
+    SCRIPTS / "generate_lidar_degeneracy_action_plan.py",
     SCRIPTS / "test_lidar_degeneracy_triage_policy.py",
 ]
 

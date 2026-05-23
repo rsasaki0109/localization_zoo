@@ -419,7 +419,9 @@ Observed `fog.bag` inspection:
   `low_convergence` when the refinement gate accepts the update stream and
   `require_convergence=false`. Treat this as a diagnostic watch signal: the
   local update is usable under the configured gate, but the internal optimizer
-  convergence rate still deserves runtime and calibration follow-up.
+  convergence rate still deserves runtime and calibration follow-up. When this
+  is the only active CT-ICP signal, the comparison reports `diagnostic_watch`
+  instead of counting it as product local risk or a nominal false alarm.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place

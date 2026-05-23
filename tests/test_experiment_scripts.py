@@ -107,6 +107,14 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_run_lidar_degradation_health_module",
             "evaluation/scripts/run_lidar_degradation_health.py",
         )
+        cls.lidar_summary_module = load_script_module(
+            "test_summarize_lidar_degeneracy_health_module",
+            "evaluation/scripts/summarize_lidar_degeneracy_health.py",
+        )
+        cls.lidar_risk_module = load_script_module(
+            "test_calibrate_lidar_degeneracy_risk_module",
+            "evaluation/scripts/calibrate_lidar_degeneracy_risk.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -626,7 +634,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(classify("low_acceptance"), "local_matcher_failure")
         self.assertEqual(classify("all_pairs_failed"), "local_matcher_failure")
-        self.assertEqual(classify("ct_icp_internal_convergence_low"), "local_matcher_failure")
+        self.assertEqual(classify("ct_icp_internal_convergence_low"), "diagnostic_watch")
         self.assertEqual(classify("low_motion_margin_dominant"), "false_confidence_risk")
         self.assertEqual(classify("motion_margin_dominant"), "false_confidence_risk")
         self.assertEqual(classify("overlap_tail"), "false_confidence_risk")
@@ -636,6 +644,43 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         )
         self.assertEqual(classify("nonfinite_pose"), "hard_numerical_failure")
         self.assertEqual(classify("future_reason"), "unclassified_policy_reason")
+
+    def test_lidar_degeneracy_ct_icp_diagnostic_watch_is_not_product_failure(self) -> None:
+        summarize = self.lidar_summary_module
+        calibrate = self.lidar_risk_module
+        diagnostic_row = {
+            "accepted_rate": 1.0,
+            "converged_rate": 0.1,
+            "flags": "ct_icp_internal_convergence_low",
+        }
+
+        self.assertEqual(summarize.health_state(diagnostic_row), "diagnostic_watch")
+        self.assertEqual(
+            summarize.failure_awareness("nominal", "diagnostic_watch"),
+            "diagnostic_watch",
+        )
+        self.assertFalse(
+            summarize.product_local_risk(
+                {**diagnostic_row, "health_state": "diagnostic_watch"}
+            )
+        )
+        self.assertEqual(
+            calibrate.risk_bucket(
+                {
+                    **diagnostic_row,
+                    "health_state": "diagnostic_watch",
+                    "risk_state": "diagnostic_watch",
+                }
+            ),
+            "diagnostic_watch",
+        )
+
+        partial_acceptance_row = {
+            "accepted_rate": 0.655,
+            "converged_rate": 0.0,
+            "flags": "ct_icp_internal_convergence_low",
+        }
+        self.assertEqual(summarize.health_state(partial_acceptance_row), "suspicious")
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {

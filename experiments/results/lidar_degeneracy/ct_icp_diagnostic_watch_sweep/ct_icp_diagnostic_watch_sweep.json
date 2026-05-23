@@ -101,6 +101,10 @@
       "mean_path_vs_healthy": 2.926204740852564,
       "mean_path_vs_all": 2.6193115509523595,
       "clear_candidates": 0,
+      "action_counts": {
+        "fallback_required": 5,
+        "optimizer_retry": 1
+      },
       "blocker_counts": {
         "iterations_pinned": 6,
         "path_vs_all_high": 3,
@@ -119,6 +123,11 @@
       "mean_path_vs_healthy": 2.9883445135410405,
       "mean_path_vs_all": 2.598291309604106,
       "clear_candidates": 0,
+      "action_counts": {
+        "fallback_required": 4,
+        "optimizer_retry": 1,
+        "reject_or_retry": 1
+      },
       "blocker_counts": {
         "accepted_below_one": 1,
         "iterations_pinned": 6,
@@ -139,6 +148,10 @@
       "mean_path_vs_healthy": 3.0475639894828848,
       "mean_path_vs_all": 2.7457725454035233,
       "clear_candidates": 1,
+      "action_counts": {
+        "clear_candidate": 1,
+        "fallback_required": 5
+      },
       "blocker_counts": {
         "iterations_pinned": 2,
         "path_vs_all_high": 4,
@@ -157,6 +170,10 @@
       "mean_path_vs_healthy": 3.0183822406816643,
       "mean_path_vs_all": 2.6697327589113304,
       "clear_candidates": 0,
+      "action_counts": {
+        "fallback_required": 5,
+        "optimizer_retry": 1
+      },
       "blocker_counts": {
         "iterations_pinned": 6,
         "path_vs_all_high": 3,
@@ -198,7 +215,8 @@
       "watch_clear_candidate": false,
       "watch_clear_blockers": [
         "iterations_pinned"
-      ]
+      ],
+      "watch_action": "optimizer_retry"
     },
     {
       "variant": "current",
@@ -234,7 +252,8 @@
       "watch_clear_blockers": [
         "iterations_pinned",
         "path_vs_healthy_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "current",
@@ -270,7 +289,8 @@
       "watch_clear_blockers": [
         "iterations_pinned",
         "path_vs_healthy_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "current",
@@ -307,7 +327,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "current",
@@ -344,7 +365,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "current",
@@ -381,7 +403,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_iter",
@@ -414,7 +437,8 @@
         "nonfinite_pose": false
       },
       "watch_clear_candidate": true,
-      "watch_clear_blockers": []
+      "watch_clear_blockers": [],
+      "watch_action": "clear_candidate"
     },
     {
       "variant": "more_iter",
@@ -451,7 +475,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_iter",
@@ -487,7 +512,8 @@
       "watch_clear_blockers": [
         "iterations_pinned",
         "path_vs_healthy_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_iter",
@@ -523,7 +549,8 @@
       "watch_clear_blockers": [
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_iter",
@@ -559,7 +586,8 @@
       "watch_clear_blockers": [
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_iter",
@@ -595,7 +623,8 @@
       "watch_clear_blockers": [
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_ceres",
@@ -630,7 +659,8 @@
       "watch_clear_candidate": false,
       "watch_clear_blockers": [
         "iterations_pinned"
-      ]
+      ],
+      "watch_action": "optimizer_retry"
     },
     {
       "variant": "more_ceres",
@@ -667,7 +697,8 @@
         "accepted_below_one",
         "refinement_gate_below_one",
         "iterations_pinned"
-      ]
+      ],
+      "watch_action": "reject_or_retry"
     },
     {
       "variant": "more_ceres",
@@ -703,7 +734,8 @@
       "watch_clear_blockers": [
         "iterations_pinned",
         "path_vs_healthy_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_ceres",
@@ -740,7 +772,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_ceres",
@@ -777,7 +810,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "more_ceres",
@@ -814,7 +848,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "relaxed_planarity",
@@ -849,7 +884,8 @@
       "watch_clear_candidate": false,
       "watch_clear_blockers": [
         "iterations_pinned"
-      ]
+      ],
+      "watch_action": "optimizer_retry"
     },
     {
       "variant": "relaxed_planarity",
@@ -885,7 +921,8 @@
       "watch_clear_blockers": [
         "iterations_pinned",
         "path_vs_healthy_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "relaxed_planarity",
@@ -921,7 +958,8 @@
       "watch_clear_blockers": [
         "iterations_pinned",
         "path_vs_healthy_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "relaxed_planarity",
@@ -958,7 +996,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "relaxed_planarity",
@@ -995,7 +1034,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     },
     {
       "variant": "relaxed_planarity",
@@ -1032,7 +1072,8 @@
         "iterations_pinned",
         "path_vs_healthy_high",
         "path_vs_all_high"
-      ]
+      ],
+      "watch_action": "fallback_required"
     }
   ]
 }

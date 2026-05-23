@@ -252,7 +252,12 @@
               "policy_reasons": [
                 "ct_icp_internal_convergence_low"
               ],
-              "policy_decision": "watch"
+              "policy_decision": "watch",
+              "ct_icp_guard_decision": "retry_optimizer",
+              "ct_icp_guard_reasons": [
+                "iterations_pinned"
+              ],
+              "ct_icp_guard_uses_refined": false
             }
           },
           "expected_stress": "nominal"
@@ -444,7 +449,12 @@
               "policy_reasons": [
                 "ct_icp_internal_convergence_low"
               ],
-              "policy_decision": "watch"
+              "policy_decision": "watch",
+              "ct_icp_guard_decision": "fallback_to_prior",
+              "ct_icp_guard_reasons": [
+                "path_reference_disagreement"
+              ],
+              "ct_icp_guard_uses_refined": false
             }
           },
           "expected_stress": "obscurant_stress"
@@ -631,7 +641,12 @@
                 "ct_icp_internal_convergence_low",
                 "partial_acceptance"
               ],
-              "policy_decision": "watch"
+              "policy_decision": "watch",
+              "ct_icp_guard_decision": "reject_or_retry",
+              "ct_icp_guard_reasons": [
+                "partial_acceptance"
+              ],
+              "ct_icp_guard_uses_refined": false
             }
           },
           "expected_stress": "obscurant_stress"
@@ -846,7 +861,12 @@
               "policy_reasons": [
                 "ct_icp_internal_convergence_low"
               ],
-              "policy_decision": "watch"
+              "policy_decision": "watch",
+              "ct_icp_guard_decision": "fallback_to_prior",
+              "ct_icp_guard_reasons": [
+                "path_reference_disagreement"
+              ],
+              "ct_icp_guard_uses_refined": false
             }
           },
           "expected_stress": "nominal"
@@ -1035,7 +1055,12 @@
               "policy_reasons": [
                 "ct_icp_internal_convergence_low"
               ],
-              "policy_decision": "watch"
+              "policy_decision": "watch",
+              "ct_icp_guard_decision": "fallback_to_prior",
+              "ct_icp_guard_reasons": [
+                "path_reference_disagreement"
+              ],
+              "ct_icp_guard_uses_refined": false
             }
           },
           "expected_stress": "point_count_stress"
@@ -1223,7 +1248,12 @@
               "policy_reasons": [
                 "ct_icp_internal_convergence_low"
               ],
-              "policy_decision": "watch"
+              "policy_decision": "watch",
+              "ct_icp_guard_decision": "fallback_to_prior",
+              "ct_icp_guard_reasons": [
+                "path_reference_disagreement"
+              ],
+              "ct_icp_guard_uses_refined": false
             }
           },
           "expected_stress": "geometry_stress"
@@ -1412,7 +1442,12 @@
               "policy_reasons": [
                 "ct_icp_internal_convergence_low"
               ],
-              "policy_decision": "watch"
+              "policy_decision": "watch",
+              "ct_icp_guard_decision": "fallback_to_prior",
+              "ct_icp_guard_reasons": [
+                "path_reference_disagreement"
+              ],
+              "ct_icp_guard_uses_refined": false
             }
           },
           "expected_stress": "degradation_stress"

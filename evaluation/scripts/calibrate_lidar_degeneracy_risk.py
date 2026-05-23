@@ -444,6 +444,9 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
                     "path_vs_all_median": row.get("path_vs_all_median"),
                     "result_json": row.get("result_json"),
                 }
+                if "watch_clear_candidate" in row:
+                    record["watch_clear_candidate"] = row.get("watch_clear_candidate")
+                    record["watch_clear_blockers"] = row.get("watch_clear_blockers")
                 record["risk_reasons"] = risk_reasons(record)
                 record["policy_decision"] = policy_decision(record["risk_reasons"])
                 record["policy_reasons"] = policy_reason_summary(record["risk_reasons"])

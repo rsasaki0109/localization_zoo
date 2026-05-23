@@ -16,7 +16,7 @@
   "policy": {
     "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
     "schema_version": 1,
-    "policy_version": "lidar_degeneracy_triage_v1",
+    "policy_version": "lidar_degeneracy_triage_v2",
     "decision_order": {
       "pass": 0,
       "watch": 1,
@@ -31,8 +31,8 @@
       "partial_acceptance": "watch",
       "path_disagrees_with_all_method_median": "watch",
       "cross_method_suspicious": "investigate",
-      "motion_margin_dominant": "investigate",
-      "overlap_tail": "investigate",
+      "motion_margin_dominant": "watch",
+      "overlap_tail": "watch",
       "path_disagrees_with_healthy_median": "investigate",
       "all_pairs_failed": "fail",
       "low_acceptance": "fail",
@@ -322,7 +322,7 @@
                 "motion_margin_dominant",
                 "overlap_tail"
               ],
-              "policy_decision": "investigate"
+              "policy_decision": "watch"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -1193,7 +1193,7 @@
               "policy_reasons": [
                 "motion_margin_dominant"
               ],
-              "policy_decision": "investigate"
+              "policy_decision": "watch"
             },
             "kiss_keyframe": {
               "accepted_rate": 1.0,
@@ -1315,8 +1315,8 @@
         "residual_stress_unflagged": 0,
         "false_alarms": 0,
         "policy_pass": 1,
-        "policy_watch": 0,
-        "policy_investigate": 2,
+        "policy_watch": 1,
+        "policy_investigate": 1,
         "policy_fail": 0,
         "min_acceptance": 0.9310344827586207,
         "max_used_path_length_m": 11.516254999302026
@@ -1401,8 +1401,8 @@
         "residual_stress_unflagged": 0,
         "false_alarms": 0,
         "policy_pass": 1,
-        "policy_watch": 0,
-        "policy_investigate": 3,
+        "policy_watch": 1,
+        "policy_investigate": 2,
         "policy_fail": 0,
         "min_acceptance": 1.0,
         "max_used_path_length_m": 12.641827625243703

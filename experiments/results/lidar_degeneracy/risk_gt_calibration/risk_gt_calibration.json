@@ -194,8 +194,8 @@
         "motion_margin_dominant",
         "overlap_tail"
       ],
-      "policy_decision": "investigate",
-      "policy_reasons": "motion_margin_dominant:investigate, overlap_tail:investigate"
+      "policy_decision": "watch",
+      "policy_reasons": "motion_margin_dominant:watch, overlap_tail:watch"
     },
     {
       "sequence": "fog_200",
@@ -802,8 +802,8 @@
       "risk_reasons": [
         "motion_margin_dominant"
       ],
-      "policy_decision": "investigate",
-      "policy_reasons": "motion_margin_dominant:investigate"
+      "policy_decision": "watch",
+      "policy_reasons": "motion_margin_dominant:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -921,7 +921,7 @@
   "policy": {
     "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
     "schema_version": 1,
-    "policy_version": "lidar_degeneracy_triage_v1",
+    "policy_version": "lidar_degeneracy_triage_v2",
     "decision_order": {
       "pass": 0,
       "watch": 1,
@@ -936,8 +936,8 @@
       "partial_acceptance": "watch",
       "path_disagrees_with_all_method_median": "watch",
       "cross_method_suspicious": "investigate",
-      "motion_margin_dominant": "investigate",
-      "overlap_tail": "investigate",
+      "motion_margin_dominant": "watch",
+      "overlap_tail": "watch",
       "path_disagrees_with_healthy_median": "investigate",
       "all_pairs_failed": "fail",
       "low_acceptance": "fail",
@@ -957,26 +957,27 @@
       "mean_convergence": 1.0
     },
     "watch": {
-      "rows": 6,
+      "rows": 8,
       "methods": [
         "ct_icp",
+        "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 2.4023269329148627,
-      "mean_path_vs_all": 1.241775401524605,
-      "mean_acceptance": 0.9425287356321839,
-      "mean_convergence": 0.2413793103448276
+      "mean_path_vs_healthy": 3.9508414817636437,
+      "mean_path_vs_all": 1.9887325006996108,
+      "mean_acceptance": 0.9482758620689655,
+      "mean_convergence": 0.4224137931034483
     },
     "investigate": {
-      "rows": 6,
+      "rows": 4,
       "methods": [
         "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 5.993687900913326,
-      "mean_path_vs_all": 3.1457193739132965,
-      "mean_acceptance": 0.9885057471264368,
-      "mean_convergence": 0.9885057471264368
+      "mean_path_vs_healthy": 4.692339287214994,
+      "mean_path_vs_all": 2.6037771617576304,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0
     },
     "fail": {
       "rows": 0,
@@ -1001,26 +1002,27 @@
       "mean_convergence": 1.0
     },
     "watch": {
-      "rows": 8,
+      "rows": 10,
       "methods": [
         "ct_icp",
+        "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 2.3465515840384694,
-      "mean_path_vs_all": 1.2462748455366954,
-      "mean_acceptance": 0.9568965517241379,
-      "mean_convergence": 0.21551724137931033
+      "mean_path_vs_healthy": 3.5965182928927732,
+      "mean_path_vs_all": 1.8429406360742824,
+      "mean_acceptance": 0.9586206896551724,
+      "mean_convergence": 0.3655172413793103
     },
     "investigate": {
-      "rows": 6,
+      "rows": 4,
       "methods": [
         "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 5.993687900913326,
-      "mean_path_vs_all": 3.1457193739132965,
-      "mean_acceptance": 0.9885057471264368,
-      "mean_convergence": 0.9885057471264368
+      "mean_path_vs_healthy": 4.692339287214994,
+      "mean_path_vs_all": 2.6037771617576304,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0
     },
     "fail": {
       "rows": 0,
@@ -1052,7 +1054,7 @@
     },
     "motion_margin_dominant": {
       "rows": 2,
-      "policy_decision": "investigate",
+      "policy_decision": "watch",
       "methods": [
         "intensity_bev"
       ],
@@ -1069,7 +1071,7 @@
     },
     "overlap_tail": {
       "rows": 1,
-      "policy_decision": "investigate",
+      "policy_decision": "watch",
       "methods": [
         "intensity_bev"
       ],
@@ -1213,7 +1215,7 @@
     },
     "motion_margin_dominant": {
       "rows": 2,
-      "policy_decision": "investigate",
+      "policy_decision": "watch",
       "methods": [
         "intensity_bev"
       ],
@@ -1230,7 +1232,7 @@
     },
     "overlap_tail": {
       "rows": 1,
-      "policy_decision": "investigate",
+      "policy_decision": "watch",
       "methods": [
         "intensity_bev"
       ],

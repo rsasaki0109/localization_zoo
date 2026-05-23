@@ -2,7 +2,7 @@
   "source_gate_report": "experiments/results/lidar_degeneracy/policy_gate/policy_gate_report.json",
   "policy": {
     "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
-    "policy_version": "lidar_degeneracy_triage_v1",
+    "policy_version": "lidar_degeneracy_triage_v2",
     "strict_gate": {
       "max_fail_rows": 0,
       "max_investigate_rows": 0,
@@ -10,106 +10,19 @@
     }
   },
   "summary": {
-    "action_items": 3,
-    "offender_rows": 12,
+    "action_items": 2,
+    "offender_rows": 8,
     "category_rows": {
-      "cross_method_disagreement": 8,
-      "false_confidence_risk": 4
+      "cross_method_disagreement": 8
     },
     "method_rows": {
-      "intensity_bev": 10,
+      "intensity_bev": 6,
       "kiss_keyframe": 2
     }
   },
   "action_items": [
     {
       "priority": 1,
-      "policy_decision": "investigate",
-      "category": "false_confidence_risk",
-      "method": "intensity_bev",
-      "title": "Calibrate false-confidence health signals",
-      "component": "failure awareness",
-      "recommended_action": "Tighten motion-margin and overlap-tail checks so confident-looking trajectories are downgraded when degeneracy evidence is strong.",
-      "offender_rows": 4,
-      "reports": {
-        "method_health_comparison": 2,
-        "risk_gt_calibration": 2
-      },
-      "reasons": {
-        "motion_margin_dominant": 4,
-        "overlap_tail": 2
-      },
-      "windows": [
-        {
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "rows": 2
-        },
-        {
-          "sequence": "tunnel_geom_2700_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "rows": 2
-        }
-      ],
-      "evidence": [
-        {
-          "report": "method_health_comparison",
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "method": "intensity_bev",
-          "policy_decision": "investigate",
-          "policy_reasons": [
-            "motion_margin_dominant",
-            "overlap_tail"
-          ]
-        },
-        {
-          "report": "method_health_comparison",
-          "sequence": "tunnel_geom_2700_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "method": "intensity_bev",
-          "policy_decision": "investigate",
-          "policy_reasons": [
-            "motion_margin_dominant"
-          ]
-        },
-        {
-          "report": "risk_gt_calibration",
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "method": "intensity_bev",
-          "policy_decision": "investigate",
-          "policy_reasons": [
-            "motion_margin_dominant",
-            "overlap_tail"
-          ]
-        },
-        {
-          "report": "risk_gt_calibration",
-          "sequence": "tunnel_geom_2700_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "method": "intensity_bev",
-          "policy_decision": "investigate",
-          "policy_reasons": [
-            "motion_margin_dominant"
-          ]
-        }
-      ]
-    },
-    {
-      "priority": 2,
       "policy_decision": "investigate",
       "category": "cross_method_disagreement",
       "method": "intensity_bev",
@@ -235,7 +148,7 @@
       ]
     },
     {
-      "priority": 3,
+      "priority": 2,
       "policy_decision": "investigate",
       "category": "cross_method_disagreement",
       "method": "kiss_keyframe",

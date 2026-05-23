@@ -422,6 +422,13 @@ Observed `fog.bag` inspection:
   convergence rate still deserves runtime and calibration follow-up. When this
   is the only active CT-ICP signal, the comparison reports `diagnostic_watch`
   instead of counting it as product local risk or a nominal false alarm.
+- The method-health comparison exposes CT-ICP refinement-gate rate and mean
+  optimizer iterations in both the aggregate table and the diagnostic-watch
+  rows. A candidate watch-clear condition should require accepted rate 1.0,
+  refinement-gate rate 1.0, mean iterations not pinned to the configured max,
+  and no extreme path disagreement against healthy peers or all methods. Until
+  those checks are calibrated with GT or a stronger reference, keep
+  `ct_icp_internal_convergence_low` as policy `watch`.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place

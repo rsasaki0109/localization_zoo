@@ -4,16 +4,16 @@ Policy: `lidar_degeneracy_triage_v4` (`evaluation/config/lidar_degeneracy_triage
 
 ## Method Aggregate
 
-| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Diagnostic watch | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `fog_200` | `geometry_icp` | 3 | 1.000 | 1.000 | 1.000 | 0 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 0 | 1.407 |
-| `fog_200` | `intensity_bev` | 3 | 1.000 | 1.000 | 1.000 | 0 | 0 | 2 | 0 | 2 | 1 | 2 | 0 | 0 | 7.250 |
-| `fog_200` | `kiss_keyframe` | 3 | 1.000 | 1.000 | 1.000 | 0 | 0 | 0 | 0 | 0 | 2 | 1 | 0 | 0 | 0.743 |
-| `fog_200` | `ct_icp` | 3 | 0.885 | 0.655 | 0.046 | 0 | 2 | 1 | 0 | 1 | 0 | 3 | 0 | 0 | 2.703 |
-| `tunnel_geom_2700_200` | `geometry_icp` | 4 | 1.000 | 1.000 | 1.000 | 0 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 0 | 1.867 |
-| `tunnel_geom_2700_200` | `intensity_bev` | 4 | 1.000 | 1.000 | 1.000 | 0 | 0 | 3 | 0 | 3 | 1 | 3 | 0 | 0 | 7.975 |
-| `tunnel_geom_2700_200` | `kiss_keyframe` | 4 | 1.000 | 1.000 | 1.000 | 0 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 0 | 1.186 |
-| `tunnel_geom_2700_200` | `ct_icp` | 4 | 1.000 | 1.000 | 0.147 | 0 | 4 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 5.676 |
+| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | CT gate | CT iter | Failed windows | Diagnostic watch | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `fog_200` | `geometry_icp` | 3 | 1.000 | 1.000 | 1.000 | n/a | n/a | 0 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 0 | 1.407 |
+| `fog_200` | `intensity_bev` | 3 | 1.000 | 1.000 | 1.000 | n/a | n/a | 0 | 0 | 2 | 0 | 2 | 1 | 2 | 0 | 0 | 7.250 |
+| `fog_200` | `kiss_keyframe` | 3 | 1.000 | 1.000 | 1.000 | n/a | n/a | 0 | 0 | 0 | 0 | 0 | 2 | 1 | 0 | 0 | 0.743 |
+| `fog_200` | `ct_icp` | 3 | 0.885 | 0.655 | 0.046 | 0.885 | 7.920 | 0 | 2 | 1 | 0 | 1 | 0 | 3 | 0 | 0 | 2.703 |
+| `tunnel_geom_2700_200` | `geometry_icp` | 4 | 1.000 | 1.000 | 1.000 | n/a | n/a | 0 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 0 | 1.867 |
+| `tunnel_geom_2700_200` | `intensity_bev` | 4 | 1.000 | 1.000 | 1.000 | n/a | n/a | 0 | 0 | 3 | 0 | 3 | 1 | 3 | 0 | 0 | 7.975 |
+| `tunnel_geom_2700_200` | `kiss_keyframe` | 4 | 1.000 | 1.000 | 1.000 | n/a | n/a | 0 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 0 | 1.186 |
+| `tunnel_geom_2700_200` | `ct_icp` | 4 | 1.000 | 1.000 | 0.147 | 1.000 | 7.793 | 0 | 4 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 5.676 |
 
 ## Failure Awareness
 
@@ -58,38 +58,49 @@ Policy: `lidar_degeneracy_triage_v4` (`evaluation/config/lidar_degeneracy_triage
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `geometry_icp` | 1.178 | 0.311 | 1.798 | 1 | 1.380 | 0.853 | 1.380 | 0.853 | no | none |
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `kiss_keyframe` | 1.582 | 1.005 | 1.184 | 1 | 1.380 | 1.147 | 1.380 | 1.147 | no | none |
 
+## Diagnostic Watch Rows
+
+| Sequence | Window | Expected | Method | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Policy reasons |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| `fog_200` | `baseline` 0-29 | `nominal` | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.759 | 0.947 | 0.973 | ct_icp_internal_convergence_low |
+| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | `ct_icp` | 1.000 | 0.000 | 1.000 | 8.000 | 2.761 | 2.761 | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | `ct_icp` | 1.000 | 0.138 | 1.000 | 8.000 | 3.411 | 1.547 | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | `ct_icp` | 1.000 | 0.103 | 1.000 | 7.793 | 3.699 | 3.699 | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.724 | 3.745 | 3.745 | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | `ct_icp` | 1.000 | 0.207 | 1.000 | 7.655 | 3.025 | 3.025 | ct_icp_internal_convergence_low |
+
 ## Window Detail
 
-| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Risk state | Policy | Failure awareness | Risk awareness | Keyframes | Flags | Risk flags | Policy reasons |
-| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `geometry_icp` | 1.000 | 1.000 | 0.777 | 82.0 | 1.363 | 0.099 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | n/a | ok | ok | ok_no_risk |
-| `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `intensity_bev` | 1.000 | 1.000 | 0.606 | 5852.6 | 7.250 | 0.250 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | n/a | ok | ok | ok_no_risk |
-| `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `kiss_keyframe` | 1.000 | 1.000 | 0.845 | 309.0 | 0.369 | 0.024 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | 0/2 | ok | ok | ok_no_risk |
-| `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `ct_icp` | 1.000 | 0.138 | n/a | n/a | 1.283 | 0.126 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
-| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `geometry_icp` | 1.000 | 1.000 | 0.791 | 73.4 | 1.234 | 0.091 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
-| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `intensity_bev` | 1.000 | 1.000 | 0.740 | 5971.3 | 0.000 | 0.000 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_used_path, low_motion_margin_dominant | low_used_path, low_motion_margin_dominant | low_motion_margin_dominant, low_used_path |
-| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `kiss_keyframe` | 1.000 | 1.000 | 0.802 | 239.4 | 0.743 | 0.083 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 0/2 | ok | ok | ok_no_risk |
-| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `ct_icp` | 1.000 | 0.000 | n/a | n/a | 2.703 | 0.323 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
-| `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `geometry_icp` | 1.000 | 1.000 | 0.813 | 59.3 | 1.407 | 0.122 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
-| `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `intensity_bev` | 1.000 | 1.000 | 0.797 | 5695.7 | 4.177 | 0.559 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_motion_margin_dominant | low_motion_margin_dominant | low_motion_margin_dominant |
-| `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `kiss_keyframe` | 1.000 | 1.000 | 0.797 | 163.3 | 0.620 | 0.050 | `ok` | `ok` | `watch` | `stress_unflagged` | `stress_unflagged` | 0/2 | ok | ok | path_disagrees_with_all_method_median |
-| `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `ct_icp` | 0.655 | 0.000 | n/a | n/a | 2.655 | 0.229 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low, partial_acceptance |
-| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | 30 | 0.002 | `geometry_icp` | 1.000 | n/a | 0.704 | 472.6 | 1.519 | 0.194 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | n/a | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | 30 | 0.002 | `intensity_bev` | 1.000 | 1.000 | 0.535 | 5522.3 | 7.975 | 0.354 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | n/a | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | 30 | 0.002 | `kiss_keyframe` | 1.000 | 1.000 | 0.747 | 2255.8 | 1.186 | 0.100 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | 2/2 | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | 30 | 0.002 | `ct_icp` | 1.000 | 0.138 | n/a | n/a | 5.189 | 0.842 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | 30 | 0.035 | `geometry_icp` | 1.000 | n/a | 0.706 | 525.0 | 1.867 | 0.213 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | 30 | 0.035 | `intensity_bev` | 1.000 | 1.000 | 0.538 | 5675.9 | 0.000 | 0.000 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_used_path, low_motion_margin_dominant | low_used_path, low_motion_margin_dominant | low_motion_margin_dominant, low_used_path |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | 30 | 0.035 | `kiss_keyframe` | 1.000 | 1.000 | 0.753 | 2643.2 | 0.988 | 0.102 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 2/2 | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | 30 | 0.035 | `ct_icp` | 1.000 | 0.103 | n/a | n/a | 5.412 | 0.433 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `geometry_icp` | 1.000 | n/a | 0.709 | 536.1 | 1.766 | 0.213 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `intensity_bev` | 1.000 | 1.000 | 0.515 | 5641.0 | 0.750 | 0.250 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_motion_margin_dominant | low_motion_margin_dominant | low_motion_margin_dominant |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `kiss_keyframe` | 1.000 | 1.000 | 0.755 | 2675.4 | 0.920 | 0.102 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 2/2 | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `ct_icp` | 1.000 | 0.138 | n/a | n/a | 5.676 | 0.529 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `geometry_icp` | 1.000 | n/a | 0.714 | 656.2 | 1.178 | 0.153 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `intensity_bev` | 1.000 | 1.000 | 0.654 | 5632.7 | 0.000 | 0.000 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_used_path, low_motion_margin_dominant | low_used_path, low_motion_margin_dominant | low_motion_margin_dominant, low_used_path |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `kiss_keyframe` | 1.000 | 1.000 | 0.745 | 3184.1 | 1.088 | 0.100 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 2/2 | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `ct_icp` | 1.000 | 0.207 | n/a | n/a | 4.161 | 0.345 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
+| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | CT gate | CT iter | Score | Overlap | Used path m | Max step m | State | Risk state | Policy | Failure awareness | Risk awareness | Keyframes | Flags | Risk flags | Policy reasons |
+| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `geometry_icp` | 1.000 | 1.000 | n/a | n/a | 0.777 | 82.0 | 1.363 | 0.099 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | n/a | ok | ok | ok_no_risk |
+| `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `intensity_bev` | 1.000 | 1.000 | n/a | n/a | 0.606 | 5852.6 | 7.250 | 0.250 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | n/a | ok | ok | ok_no_risk |
+| `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `kiss_keyframe` | 1.000 | 1.000 | n/a | n/a | 0.845 | 309.0 | 0.369 | 0.024 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | 0/2 | ok | ok | ok_no_risk |
+| `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.759 | n/a | n/a | 1.283 | 0.126 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
+| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `geometry_icp` | 1.000 | 1.000 | n/a | n/a | 0.791 | 73.4 | 1.234 | 0.091 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
+| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `intensity_bev` | 1.000 | 1.000 | n/a | n/a | 0.740 | 5971.3 | 0.000 | 0.000 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_used_path, low_motion_margin_dominant | low_used_path, low_motion_margin_dominant | low_motion_margin_dominant, low_used_path |
+| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `kiss_keyframe` | 1.000 | 1.000 | n/a | n/a | 0.802 | 239.4 | 0.743 | 0.083 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 0/2 | ok | ok | ok_no_risk |
+| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `ct_icp` | 1.000 | 0.000 | 1.000 | 8.000 | n/a | n/a | 2.703 | 0.323 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
+| `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `geometry_icp` | 1.000 | 1.000 | n/a | n/a | 0.813 | 59.3 | 1.407 | 0.122 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
+| `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `intensity_bev` | 1.000 | 1.000 | n/a | n/a | 0.797 | 5695.7 | 4.177 | 0.559 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_motion_margin_dominant | low_motion_margin_dominant | low_motion_margin_dominant |
+| `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `kiss_keyframe` | 1.000 | 1.000 | n/a | n/a | 0.797 | 163.3 | 0.620 | 0.050 | `ok` | `ok` | `watch` | `stress_unflagged` | `stress_unflagged` | 0/2 | ok | ok | path_disagrees_with_all_method_median |
+| `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `ct_icp` | 0.655 | 0.000 | 0.655 | 8.000 | n/a | n/a | 2.655 | 0.229 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low, partial_acceptance |
+| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | 30 | 0.002 | `geometry_icp` | 1.000 | n/a | n/a | n/a | 0.704 | 472.6 | 1.519 | 0.194 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | n/a | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | 30 | 0.002 | `intensity_bev` | 1.000 | 1.000 | n/a | n/a | 0.535 | 5522.3 | 7.975 | 0.354 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | n/a | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | 30 | 0.002 | `kiss_keyframe` | 1.000 | 1.000 | n/a | n/a | 0.747 | 2255.8 | 1.186 | 0.100 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | 2/2 | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | 30 | 0.002 | `ct_icp` | 1.000 | 0.138 | 1.000 | 8.000 | n/a | n/a | 5.189 | 0.842 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | 30 | 0.035 | `geometry_icp` | 1.000 | n/a | n/a | n/a | 0.706 | 525.0 | 1.867 | 0.213 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | 30 | 0.035 | `intensity_bev` | 1.000 | 1.000 | n/a | n/a | 0.538 | 5675.9 | 0.000 | 0.000 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_used_path, low_motion_margin_dominant | low_used_path, low_motion_margin_dominant | low_motion_margin_dominant, low_used_path |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | 30 | 0.035 | `kiss_keyframe` | 1.000 | 1.000 | n/a | n/a | 0.753 | 2643.2 | 0.988 | 0.102 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 2/2 | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | 30 | 0.035 | `ct_icp` | 1.000 | 0.103 | 1.000 | 7.793 | n/a | n/a | 5.412 | 0.433 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `geometry_icp` | 1.000 | n/a | n/a | n/a | 0.709 | 536.1 | 1.766 | 0.213 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `intensity_bev` | 1.000 | 1.000 | n/a | n/a | 0.515 | 5641.0 | 0.750 | 0.250 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_motion_margin_dominant | low_motion_margin_dominant | low_motion_margin_dominant |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `kiss_keyframe` | 1.000 | 1.000 | n/a | n/a | 0.755 | 2675.4 | 0.920 | 0.102 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 2/2 | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.724 | n/a | n/a | 5.676 | 0.529 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `geometry_icp` | 1.000 | n/a | n/a | n/a | 0.714 | 656.2 | 1.178 | 0.153 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `intensity_bev` | 1.000 | 1.000 | n/a | n/a | 0.654 | 5632.7 | 0.000 | 0.000 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_used_path, low_motion_margin_dominant | low_used_path, low_motion_margin_dominant | low_motion_margin_dominant, low_used_path |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `kiss_keyframe` | 1.000 | 1.000 | n/a | n/a | 0.745 | 3184.1 | 1.088 | 0.100 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 2/2 | ok | ok | ok_no_risk |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `ct_icp` | 1.000 | 0.207 | 1.000 | 7.655 | n/a | n/a | 4.161 | 0.345 | `diagnostic_watch` | `diagnostic_watch` | `watch` | `diagnostic_watch` | `diagnostic_watch` | n/a | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low | ct_icp_internal_convergence_low |
 
 ## Readout
 

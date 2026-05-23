@@ -83,6 +83,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--intensity-bev-max-points", type=int, default=6000)
     parser.add_argument("--intensity-bev-min-step-translation", type=float, default=0.0)
     parser.add_argument("--intensity-bev-zero-motion-score-margin", type=float, default=0.0)
+    parser.add_argument("--intensity-bev-low-motion-score-margin", type=float, default=0.0)
+    parser.add_argument(
+        "--intensity-bev-low-motion-stress-only",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help=(
+            "Apply low-motion score-margin regularization only to selected stress "
+            "windows. This keeps nominal baseline windows from being turned into "
+            "zero-motion false alarms."
+        ),
+    )
     parser.add_argument(
         "--intensity-bev-motion-margin-flag-rate",
         type=float,
@@ -90,6 +101,15 @@ def parse_args() -> argparse.Namespace:
         help=(
             "Flag non-baseline intensity BEV windows when this fraction of pair "
             "decisions used the motion-margin fallback."
+        ),
+    )
+    parser.add_argument(
+        "--intensity-bev-low-motion-margin-flag-rate",
+        type=float,
+        default=0.5,
+        help=(
+            "Flag non-baseline intensity BEV windows when this fraction of pair "
+            "decisions used the low-motion score-margin regularizer."
         ),
     )
     parser.add_argument(
@@ -233,6 +253,9 @@ def run_intensity_bev(
         / f"{name}_{int(row['start']):04d}_{int(row['end']):04d}_intensity_bev.json"
     )
     result_path.parent.mkdir(parents=True, exist_ok=True)
+    low_motion_score_margin = args.intensity_bev_low_motion_score_margin
+    if args.intensity_bev_low_motion_stress_only and not is_stress_window(name, row):
+        low_motion_score_margin = 0.0
     cmd = [
         sys.executable,
         str(INTENSITY_BEV),
@@ -270,6 +293,8 @@ def run_intensity_bev(
         str(args.intensity_bev_min_step_translation),
         "--zero-motion-score-margin",
         str(args.intensity_bev_zero_motion_score_margin),
+        "--low-motion-score-margin",
+        str(low_motion_score_margin),
         "--progress-every",
         str(args.progress_every),
     ]
@@ -405,6 +430,7 @@ def summarize_result(
     method: str,
     min_used_path_length: float = 0.0,
     intensity_bev_motion_margin_flag_rate: float = 0.5,
+    intensity_bev_low_motion_margin_flag_rate: float = 0.5,
     intensity_bev_overlap_tail_flag_ratio: float = 0.5,
 ) -> dict[str, Any]:
     payload = load_payload(result_path)
@@ -427,6 +453,11 @@ def summarize_result(
     decision_count = sum(decision_reasons.values())
     motion_margin_rate = (
         decision_reasons.get("motion_margin", 0) / decision_count
+        if decision_count
+        else None
+    )
+    low_motion_margin_rate = (
+        decision_reasons.get("low_motion_margin", 0) / decision_count
         if decision_count
         else None
     )
@@ -461,6 +492,11 @@ def summarize_result(
         and motion_margin_rate is not None
         and motion_margin_rate >= intensity_bev_motion_margin_flag_rate
     )
+    low_motion_margin_dominant = (
+        apply_intensity_confidence_flags
+        and low_motion_margin_rate is not None
+        and low_motion_margin_rate >= intensity_bev_low_motion_margin_flag_rate
+    )
     overlap_tail = (
         apply_intensity_confidence_flags
         and overlap_min_to_mean is not None
@@ -485,6 +521,7 @@ def summarize_result(
         "overlap_min_to_mean": overlap_min_to_mean,
         "decision_reasons": decision_reasons,
         "motion_margin_rate": motion_margin_rate,
+        "low_motion_margin_rate": low_motion_margin_rate,
         "best_score_rate": best_score_rate,
         "raw_step_mean_m": safe_mean(raw_steps),
         "used_path_length_m": used_path_length,
@@ -507,6 +544,7 @@ def summarize_result(
                 and used_path_length < min_used_path_length
             ),
             "motion_margin_dominant": motion_margin_dominant,
+            "low_motion_margin_dominant": low_motion_margin_dominant,
             "overlap_tail": overlap_tail,
             "nonfinite_pose": nonfinite_pose_count > 0,
         },
@@ -564,6 +602,7 @@ def main() -> int:
                 method=args.method,
                 min_used_path_length=args.min_used_path_length,
                 intensity_bev_motion_margin_flag_rate=args.intensity_bev_motion_margin_flag_rate,
+                intensity_bev_low_motion_margin_flag_rate=args.intensity_bev_low_motion_margin_flag_rate,
                 intensity_bev_overlap_tail_flag_ratio=args.intensity_bev_overlap_tail_flag_ratio,
             )
         )
@@ -596,7 +635,10 @@ def main() -> int:
             "intensity_bev_max_points": args.intensity_bev_max_points,
             "intensity_bev_min_step_translation": args.intensity_bev_min_step_translation,
             "intensity_bev_zero_motion_score_margin": args.intensity_bev_zero_motion_score_margin,
+            "intensity_bev_low_motion_score_margin": args.intensity_bev_low_motion_score_margin,
+            "intensity_bev_low_motion_stress_only": args.intensity_bev_low_motion_stress_only,
             "intensity_bev_motion_margin_flag_rate": args.intensity_bev_motion_margin_flag_rate,
+            "intensity_bev_low_motion_margin_flag_rate": args.intensity_bev_low_motion_margin_flag_rate,
             "intensity_bev_overlap_tail_flag_ratio": args.intensity_bev_overlap_tail_flag_ratio,
             "ct_icp_source_voxel_size": args.ct_icp_source_voxel_size,
             "ct_icp_max_source_points": args.ct_icp_max_source_points,

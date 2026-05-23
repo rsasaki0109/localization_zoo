@@ -217,6 +217,8 @@ def split_csv_flags(value: Any) -> list[str]:
 def risk_bucket(row: dict[str, Any]) -> str:
     if row.get("risk_state") == "cross_method_suspicious":
         return "cross_method_suspicious"
+    if row.get("risk_state") == "diagnostic_watch" or row.get("health_state") == "diagnostic_watch":
+        return "diagnostic_watch"
     if row.get("health_state") != "ok":
         return "local_risk"
     return "ok"
@@ -633,7 +635,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "## Readout",
             "",
             "- GT calibration is currently blocked by missing public pose/odom/tf for the local NTNU LiDAR degeneracy extraction.",
-            "- The comparison remains GT-free for now: local risk and cross-method risk should be treated as triage signals, not error labels.",
+            "- The comparison remains GT-free for now: local risk, diagnostic watch, and cross-method risk should be treated as triage signals, not error labels.",
             "- Policy decisions are pre-GT triage labels: `fail` for hard local failure, `investigate` for unresolved cross-method disagreement, `watch` for calibrated local confidence downgrades and medium risk, and `pass` for rows with no active risk reason.",
             "- Reason drilldown separates local failure signals from cross-method disagreement so the strongest triage signals can be checked first when GT arrives.",
             "- The script is ready to rerun with external GT via `--gt-csv fog_200=... --gt-csv tunnel_geom_2700_200=...`.",

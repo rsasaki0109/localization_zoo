@@ -135,6 +135,11 @@
         "iterations_pinned"
       ],
       "watch_action": "optimizer_retry",
+      "ct_icp_guard_decision": "retry_optimizer",
+      "ct_icp_guard_reasons": [
+        "iterations_pinned"
+      ],
+      "ct_icp_guard_uses_refined": false,
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -262,6 +267,11 @@
         "path_vs_healthy_high"
       ],
       "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false,
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -382,6 +392,11 @@
       "path_vs_healthy_median": 2.6912391898454264,
       "path_vs_all_median": 1.3186591228714204,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
+      "ct_icp_guard_decision": "reject_or_retry",
+      "ct_icp_guard_reasons": [
+        "partial_acceptance"
+      ],
+      "ct_icp_guard_uses_refined": false,
       "risk_reasons": [
         "ct_icp_internal_convergence_low",
         "partial_acceptance"
@@ -509,6 +524,11 @@
         "path_vs_healthy_high"
       ],
       "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false,
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -637,6 +657,11 @@
         "path_vs_all_high"
       ],
       "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false,
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -764,6 +789,11 @@
         "path_vs_all_high"
       ],
       "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false,
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -892,6 +922,11 @@
         "path_vs_all_high"
       ],
       "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false,
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],

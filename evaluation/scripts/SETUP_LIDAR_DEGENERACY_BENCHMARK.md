@@ -439,6 +439,14 @@ Observed `fog.bag` inspection:
   `accepted_below_one`, `refinement_gate_below_one`, `iterations_pinned`, and
   path-ratio blockers such as `path_vs_healthy_high` or
   `path_vs_all_high`.
+- CT-ICP rows also expose a GT-free production-guard recommendation:
+  `ct_icp_guard_decision`, `ct_icp_guard_reasons`, and
+  `ct_icp_guard_uses_refined`. The decision keeps healthy or watch-cleared
+  rows as `use_refined`, routes pinned diagnostic rows to `retry_optimizer`,
+  routes path-reference disagreements to `fallback_to_prior`, and routes
+  partial acceptance or hard local failures to `reject_or_retry`. This is an
+  offline guard contract for the benchmark dashboard; production wiring still
+  needs a live prior/fallback source.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place

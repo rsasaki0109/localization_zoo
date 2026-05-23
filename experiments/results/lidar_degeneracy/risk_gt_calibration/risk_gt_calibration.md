@@ -53,28 +53,28 @@ Stress-window rows only. Rows with multiple active signals appear under each rea
 
 Stress-window rows only.
 
-| Sequence | Window | Method | Decision | Risk bucket | Watch action | Accepted | Converged | Path/healthy | Path/all | Reasons |
-| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `fog_200` | `point_count_tail` 115-144 | `ct_icp` | `watch` | `diagnostic_watch` | `fallback_required` | 1.000 | 0.000 | 2.761 | 2.761 | `ct_icp_internal_convergence_low` |
-| `fog_200` | `point_count_tail` 115-144 | `intensity_bev` | `watch` | `local_risk` | `n/a` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
-| `fog_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | `n/a` | 0.655 | 0.000 | 2.691 | 1.319 | `ct_icp_internal_convergence_low`, `partial_acceptance` |
-| `fog_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | `n/a` | 1.000 | 1.000 | 4.128 | 2.022 | `low_motion_margin_dominant` |
-| `fog_200` | `degraded` 170-199 | `kiss_keyframe` | `watch` | `ok` | `n/a` | 1.000 | 1.000 | 0.609 | 0.299 | `path_disagrees_with_all_method_median` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `ct_icp` | `watch` | `diagnostic_watch` | `fallback_required` | 1.000 | 0.103 | 3.699 | 3.699 | `ct_icp_internal_convergence_low` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `intensity_bev` | `watch` | `local_risk` | `n/a` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `ct_icp` | `watch` | `diagnostic_watch` | `fallback_required` | 1.000 | 0.138 | 3.745 | 3.745 | `ct_icp_internal_convergence_low` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `intensity_bev` | `watch` | `local_risk` | `n/a` | 1.000 | 1.000 | 0.496 | 0.496 | `low_motion_margin_dominant` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `ct_icp` | `watch` | `diagnostic_watch` | `fallback_required` | 1.000 | 0.207 | 3.025 | 3.025 | `ct_icp_internal_convergence_low` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | `n/a` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
-| `fog_200` | `point_count_tail` 115-144 | `geometry_icp` | `pass` | `ok` | `n/a` | 1.000 | 1.000 | 1.256 | 1.256 | `ok_no_risk` |
-| `fog_200` | `point_count_tail` 115-144 | `kiss_keyframe` | `pass` | `ok` | `n/a` | 1.000 | 1.000 | 0.744 | 0.744 | `ok_no_risk` |
-| `fog_200` | `degraded` 170-199 | `geometry_icp` | `pass` | `ok` | `n/a` | 1.000 | 1.000 | 1.391 | 0.681 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `geometry_icp` | `pass` | `ok` | `n/a` | 1.000 | n/a | 1.270 | 1.270 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `kiss_keyframe` | `pass` | `ok` | `n/a` | 1.000 | 1.000 | 0.730 | 0.730 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_icp` | `pass` | `ok` | `n/a` | 1.000 | n/a | 1.168 | 1.168 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `kiss_keyframe` | `pass` | `ok` | `n/a` | 1.000 | 1.000 | 0.832 | 0.832 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `geometry_icp` | `pass` | `ok` | `n/a` | 1.000 | n/a | 0.853 | 0.853 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `kiss_keyframe` | `pass` | `ok` | `n/a` | 1.000 | 1.000 | 1.147 | 1.147 | `ok_no_risk` |
+| Sequence | Window | Method | Decision | Risk bucket | Watch action | Guard decision | Accepted | Converged | Path/healthy | Path/all | Reasons |
+| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
+| `fog_200` | `point_count_tail` 115-144 | `ct_icp` | `watch` | `diagnostic_watch` | `fallback_required` | `fallback_to_prior` | 1.000 | 0.000 | 2.761 | 2.761 | `ct_icp_internal_convergence_low` |
+| `fog_200` | `point_count_tail` 115-144 | `intensity_bev` | `watch` | `local_risk` | `n/a` | `n/a` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
+| `fog_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | `n/a` | `reject_or_retry` | 0.655 | 0.000 | 2.691 | 1.319 | `ct_icp_internal_convergence_low`, `partial_acceptance` |
+| `fog_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | `n/a` | `n/a` | 1.000 | 1.000 | 4.128 | 2.022 | `low_motion_margin_dominant` |
+| `fog_200` | `degraded` 170-199 | `kiss_keyframe` | `watch` | `ok` | `n/a` | `n/a` | 1.000 | 1.000 | 0.609 | 0.299 | `path_disagrees_with_all_method_median` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `ct_icp` | `watch` | `diagnostic_watch` | `fallback_required` | `fallback_to_prior` | 1.000 | 0.103 | 3.699 | 3.699 | `ct_icp_internal_convergence_low` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `intensity_bev` | `watch` | `local_risk` | `n/a` | `n/a` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `ct_icp` | `watch` | `diagnostic_watch` | `fallback_required` | `fallback_to_prior` | 1.000 | 0.138 | 3.745 | 3.745 | `ct_icp_internal_convergence_low` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `intensity_bev` | `watch` | `local_risk` | `n/a` | `n/a` | 1.000 | 1.000 | 0.496 | 0.496 | `low_motion_margin_dominant` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `ct_icp` | `watch` | `diagnostic_watch` | `fallback_required` | `fallback_to_prior` | 1.000 | 0.207 | 3.025 | 3.025 | `ct_icp_internal_convergence_low` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | `n/a` | `n/a` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
+| `fog_200` | `point_count_tail` 115-144 | `geometry_icp` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | 1.000 | 1.256 | 1.256 | `ok_no_risk` |
+| `fog_200` | `point_count_tail` 115-144 | `kiss_keyframe` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | 1.000 | 0.744 | 0.744 | `ok_no_risk` |
+| `fog_200` | `degraded` 170-199 | `geometry_icp` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | 1.000 | 1.391 | 0.681 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `geometry_icp` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | n/a | 1.270 | 1.270 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `kiss_keyframe` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | 1.000 | 0.730 | 0.730 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_icp` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | n/a | 1.168 | 1.168 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `kiss_keyframe` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | 1.000 | 0.832 | 0.832 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `geometry_icp` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | n/a | 0.853 | 0.853 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `kiss_keyframe` | `pass` | `ok` | `n/a` | `n/a` | 1.000 | 1.000 | 1.147 | 1.147 | `ok_no_risk` |
 
 ## Readout
 

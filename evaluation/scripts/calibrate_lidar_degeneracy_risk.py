@@ -448,6 +448,10 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
                     record["watch_clear_candidate"] = row.get("watch_clear_candidate")
                     record["watch_clear_blockers"] = row.get("watch_clear_blockers")
                     record["watch_action"] = row.get("watch_action")
+                if "ct_icp_guard_decision" in row:
+                    record["ct_icp_guard_decision"] = row.get("ct_icp_guard_decision")
+                    record["ct_icp_guard_reasons"] = row.get("ct_icp_guard_reasons")
+                    record["ct_icp_guard_uses_refined"] = row.get("ct_icp_guard_uses_refined")
                 record["risk_reasons"] = risk_reasons(record)
                 record["policy_decision"] = policy_decision(record["risk_reasons"])
                 record["policy_reasons"] = policy_reason_summary(record["risk_reasons"])
@@ -609,8 +613,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "Stress-window rows only.",
             "",
-            "| Sequence | Window | Method | Decision | Risk bucket | Watch action | Accepted | Converged | Path/healthy | Path/all | Reasons |",
-            "| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
+            "| Sequence | Window | Method | Decision | Risk bucket | Watch action | Guard decision | Accepted | Converged | Path/healthy | Path/all | Reasons |",
+            "| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
         ]
     )
     stress_records = [
@@ -629,6 +633,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             f"| `{record['sequence']}` | `{record['window']}` {record['start']}-{record['end']} | "
             f"`{record['method']}` | `{record['policy_decision']}` | "
             f"`{record['risk_bucket']}` | `{record.get('watch_action') or 'n/a'}` | "
+            f"`{record.get('ct_icp_guard_decision') or 'n/a'}` | "
             f"{fmt(record['accepted_rate'])} | "
             f"{fmt(record['converged_rate'])} | {fmt(record['path_vs_healthy_median'])} | "
             f"{fmt(record['path_vs_all_median'])} | {', '.join(f'`{reason}`' for reason in record['risk_reasons'])} |"

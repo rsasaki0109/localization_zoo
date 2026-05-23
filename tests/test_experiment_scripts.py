@@ -738,6 +738,39 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             }
         )
         self.assertEqual(reference_missing_status["watch_action"], "reference_missing")
+        self.assertEqual(
+            summarize.ct_icp_production_guard(
+                {
+                    **diagnostic_row,
+                    "health_state": "diagnostic_watch",
+                    "risk_state": "diagnostic_watch",
+                    "watch_action": "fallback_required",
+                }
+            )["ct_icp_guard_decision"],
+            "fallback_to_prior",
+        )
+        self.assertEqual(
+            summarize.ct_icp_production_guard(
+                {
+                    "accepted_rate": 1.0,
+                    "health_state": "ok",
+                    "risk_state": "ok",
+                    "flags": "ok",
+                }
+            )["ct_icp_guard_decision"],
+            "use_refined",
+        )
+        self.assertEqual(
+            summarize.ct_icp_production_guard(
+                {
+                    "accepted_rate": 0.8,
+                    "health_state": "suspicious",
+                    "risk_state": "suspicious",
+                    "flags": "ct_icp_internal_convergence_low",
+                }
+            )["ct_icp_guard_decision"],
+            "reject_or_retry",
+        )
 
         partial_acceptance_row = {
             "accepted_rate": 0.655,

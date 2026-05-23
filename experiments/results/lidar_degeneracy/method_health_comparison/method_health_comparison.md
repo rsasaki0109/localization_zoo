@@ -69,6 +69,20 @@ Policy: `lidar_degeneracy_triage_v4` (`evaluation/config/lidar_degeneracy_triage
 | `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.724 | 3.745 | 3.745 | no | `fallback_required` | iterations_pinned, path_vs_healthy_high, path_vs_all_high | ct_icp_internal_convergence_low |
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | `ct_icp` | 1.000 | 0.207 | 1.000 | 7.655 | 3.025 | 3.025 | no | `fallback_required` | iterations_pinned, path_vs_healthy_high, path_vs_all_high | ct_icp_internal_convergence_low |
 
+## CT-ICP Production Guard
+
+Guard counts: `fallback_to_prior`:5, `reject_or_retry`:1, `retry_optimizer`:1
+
+| Sequence | Window | Expected | State | Risk state | Accepted | Watch action | Guard decision | Uses refined? | Guard reasons |
+| --- | --- | --- | --- | --- | ---: | --- | --- | --- | --- |
+| `fog_200` | `baseline` 0-29 | `nominal` | `diagnostic_watch` | `diagnostic_watch` | 1.000 | `optimizer_retry` | `retry_optimizer` | no | iterations_pinned |
+| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | `diagnostic_watch` | `diagnostic_watch` | 1.000 | `fallback_required` | `fallback_to_prior` | no | path_reference_disagreement |
+| `fog_200` | `degraded` 170-199 | `obscurant_stress` | `suspicious` | `suspicious` | 0.655 | `n/a` | `reject_or_retry` | no | partial_acceptance |
+| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | `diagnostic_watch` | `diagnostic_watch` | 1.000 | `fallback_required` | `fallback_to_prior` | no | path_reference_disagreement |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | `diagnostic_watch` | `diagnostic_watch` | 1.000 | `fallback_required` | `fallback_to_prior` | no | path_reference_disagreement |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | `diagnostic_watch` | `diagnostic_watch` | 1.000 | `fallback_required` | `fallback_to_prior` | no | path_reference_disagreement |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | `diagnostic_watch` | `diagnostic_watch` | 1.000 | `fallback_required` | `fallback_to_prior` | no | path_reference_disagreement |
+
 ## Window Detail
 
 | Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | CT gate | CT iter | Score | Overlap | Used path m | Max step m | State | Risk state | Policy | Failure awareness | Risk awareness | Keyframes | Flags | Risk flags | Policy reasons |

@@ -105,6 +105,10 @@
         "fallback_required": 5,
         "optimizer_retry": 1
       },
+      "guard_decision_counts": {
+        "fallback_to_prior": 5,
+        "retry_optimizer": 1
+      },
       "blocker_counts": {
         "iterations_pinned": 6,
         "path_vs_all_high": 3,
@@ -127,6 +131,11 @@
         "fallback_required": 4,
         "optimizer_retry": 1,
         "reject_or_retry": 1
+      },
+      "guard_decision_counts": {
+        "fallback_to_prior": 4,
+        "reject_or_retry": 1,
+        "retry_optimizer": 1
       },
       "blocker_counts": {
         "accepted_below_one": 1,
@@ -152,6 +161,10 @@
         "clear_candidate": 1,
         "fallback_required": 5
       },
+      "guard_decision_counts": {
+        "fallback_to_prior": 5,
+        "use_refined": 1
+      },
       "blocker_counts": {
         "iterations_pinned": 2,
         "path_vs_all_high": 4,
@@ -173,6 +186,10 @@
       "action_counts": {
         "fallback_required": 5,
         "optimizer_retry": 1
+      },
+      "guard_decision_counts": {
+        "fallback_to_prior": 5,
+        "retry_optimizer": 1
       },
       "blocker_counts": {
         "iterations_pinned": 6,
@@ -216,7 +233,12 @@
       "watch_clear_blockers": [
         "iterations_pinned"
       ],
-      "watch_action": "optimizer_retry"
+      "watch_action": "optimizer_retry",
+      "ct_icp_guard_decision": "retry_optimizer",
+      "ct_icp_guard_reasons": [
+        "iterations_pinned"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "current",
@@ -253,7 +275,12 @@
         "iterations_pinned",
         "path_vs_healthy_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "current",
@@ -290,7 +317,12 @@
         "iterations_pinned",
         "path_vs_healthy_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "current",
@@ -328,7 +360,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "current",
@@ -366,7 +403,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "current",
@@ -404,7 +446,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_iter",
@@ -438,7 +485,12 @@
       },
       "watch_clear_candidate": true,
       "watch_clear_blockers": [],
-      "watch_action": "clear_candidate"
+      "watch_action": "clear_candidate",
+      "ct_icp_guard_decision": "use_refined",
+      "ct_icp_guard_reasons": [
+        "watch_clear_candidate"
+      ],
+      "ct_icp_guard_uses_refined": true
     },
     {
       "variant": "more_iter",
@@ -476,7 +528,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_iter",
@@ -513,7 +570,12 @@
         "iterations_pinned",
         "path_vs_healthy_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_iter",
@@ -550,7 +612,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_iter",
@@ -587,7 +654,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_iter",
@@ -624,7 +696,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_ceres",
@@ -660,7 +737,12 @@
       "watch_clear_blockers": [
         "iterations_pinned"
       ],
-      "watch_action": "optimizer_retry"
+      "watch_action": "optimizer_retry",
+      "ct_icp_guard_decision": "retry_optimizer",
+      "ct_icp_guard_reasons": [
+        "iterations_pinned"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_ceres",
@@ -698,7 +780,12 @@
         "refinement_gate_below_one",
         "iterations_pinned"
       ],
-      "watch_action": "reject_or_retry"
+      "watch_action": "reject_or_retry",
+      "ct_icp_guard_decision": "reject_or_retry",
+      "ct_icp_guard_reasons": [
+        "watch_reject_blocker"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_ceres",
@@ -735,7 +822,12 @@
         "iterations_pinned",
         "path_vs_healthy_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_ceres",
@@ -773,7 +865,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_ceres",
@@ -811,7 +908,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "more_ceres",
@@ -849,7 +951,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "relaxed_planarity",
@@ -885,7 +992,12 @@
       "watch_clear_blockers": [
         "iterations_pinned"
       ],
-      "watch_action": "optimizer_retry"
+      "watch_action": "optimizer_retry",
+      "ct_icp_guard_decision": "retry_optimizer",
+      "ct_icp_guard_reasons": [
+        "iterations_pinned"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "relaxed_planarity",
@@ -922,7 +1034,12 @@
         "iterations_pinned",
         "path_vs_healthy_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "relaxed_planarity",
@@ -959,7 +1076,12 @@
         "iterations_pinned",
         "path_vs_healthy_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "relaxed_planarity",
@@ -997,7 +1119,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "relaxed_planarity",
@@ -1035,7 +1162,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     },
     {
       "variant": "relaxed_planarity",
@@ -1073,7 +1205,12 @@
         "path_vs_healthy_high",
         "path_vs_all_high"
       ],
-      "watch_action": "fallback_required"
+      "watch_action": "fallback_required",
+      "ct_icp_guard_decision": "fallback_to_prior",
+      "ct_icp_guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "ct_icp_guard_uses_refined": false
     }
   ]
 }

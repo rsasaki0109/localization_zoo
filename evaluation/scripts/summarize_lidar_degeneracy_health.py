@@ -68,6 +68,11 @@ WATCH_CLEAR_PATH_ALL_MIN = 0.33
 WATCH_CLEAR_PATH_ALL_MAX = 3.0
 WATCH_REJECT_BLOCKERS = {"accepted_below_one", "refinement_gate_below_one"}
 WATCH_ITERATION_BLOCKERS = {"iterations_unknown", "iterations_pinned"}
+CT_ICP_GUARD_USE_REFINED = "use_refined"
+CT_ICP_GUARD_RETRY_OPTIMIZER = "retry_optimizer"
+CT_ICP_GUARD_FALLBACK_TO_PRIOR = "fallback_to_prior"
+CT_ICP_GUARD_REJECT_OR_RETRY = "reject_or_retry"
+CT_ICP_GUARD_HOLD_REFERENCE = "hold_reference"
 
 
 def parse_args() -> argparse.Namespace:
@@ -485,6 +490,111 @@ def ct_icp_watch_action(blockers: list[str]) -> str:
     return "investigate"
 
 
+def ct_icp_production_guard(row: dict[str, Any]) -> dict[str, Any]:
+    reasons: list[str] = []
+    accepted = as_finite_float(row.get("accepted_rate"))
+    health = str(row.get("health_state") or "unknown")
+    risk = str(row.get("risk_state") or health)
+    flags = flag_set(row.get("flags"))
+    watch_action = row.get("watch_action")
+
+    if accepted is None:
+        reasons.append("acceptance_unknown")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_HOLD_REFERENCE,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+
+    if health == "failed" or flags.intersection({"all_pairs_failed", "nonfinite_pose"}):
+        reasons.append("local_failure")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_REJECT_OR_RETRY,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+
+    if accepted < 0.9:
+        reasons.append("partial_acceptance")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_REJECT_OR_RETRY,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+
+    if watch_action == "clear_candidate":
+        reasons.append("watch_clear_candidate")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_USE_REFINED,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": True,
+        }
+    if watch_action == "optimizer_retry":
+        reasons.append("iterations_pinned")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_RETRY_OPTIMIZER,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+    if watch_action == "fallback_required":
+        reasons.append("path_reference_disagreement")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_FALLBACK_TO_PRIOR,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+    if watch_action == "reject_or_retry":
+        reasons.append("watch_reject_blocker")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_REJECT_OR_RETRY,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+    if watch_action == "reference_missing":
+        reasons.append("path_reference_missing")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_HOLD_REFERENCE,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+
+    if risk == "cross_method_suspicious":
+        reasons.append("cross_method_suspicious")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_FALLBACK_TO_PRIOR,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+    if health == "suspicious":
+        reasons.append("suspicious_health")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_REJECT_OR_RETRY,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+    if health == "degraded":
+        reasons.append("degraded_health")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_RETRY_OPTIMIZER,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+    if health == "diagnostic_watch":
+        reasons.append("diagnostic_watch")
+        return {
+            "ct_icp_guard_decision": CT_ICP_GUARD_RETRY_OPTIMIZER,
+            "ct_icp_guard_reasons": reasons,
+            "ct_icp_guard_uses_refined": False,
+        }
+
+    reasons.append("healthy")
+    return {
+        "ct_icp_guard_decision": CT_ICP_GUARD_USE_REFINED,
+        "ct_icp_guard_reasons": reasons,
+        "ct_icp_guard_uses_refined": True,
+    }
+
+
 def add_cross_method_risk(windows: list[dict[str, Any]]) -> None:
     for window in windows:
         expected = window["expected_stress"]
@@ -508,6 +618,13 @@ def add_ct_icp_watch_clear_status(windows: list[dict[str, Any]]) -> None:
             status = ct_icp_watch_clear_status(row)
             if status["watch_clear_candidate"] is not None:
                 row.update(status)
+
+
+def add_ct_icp_production_guard(windows: list[dict[str, Any]]) -> None:
+    for window in windows:
+        row = window["methods"].get("ct_icp")
+        if row is not None:
+            row.update(ct_icp_production_guard(row))
 
 
 def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict[str, Any]:
@@ -574,6 +691,7 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
     add_cross_method_consistency(sorted_windows)
     add_ct_icp_watch_clear_status(sorted_windows)
     add_cross_method_risk(sorted_windows)
+    add_ct_icp_production_guard(sorted_windows)
     return {
         "sequence": sequence,
         "methods": methods,
@@ -819,6 +937,50 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 )
     if diagnostic_rows == 0:
         lines.append("| n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |")
+
+    guard_counts: dict[str, int] = {}
+    for sequence in payload["sequences"]:
+        for window in sequence["windows"]:
+            row = window["methods"].get("ct_icp")
+            if not row:
+                continue
+            decision = str(row.get("ct_icp_guard_decision") or "n/a")
+            guard_counts[decision] = guard_counts.get(decision, 0) + 1
+    guard_count_text = ", ".join(
+        f"`{decision}`:{guard_counts[decision]}" for decision in sorted(guard_counts)
+    ) or "n/a"
+
+    lines.extend(
+        [
+            "",
+            "## CT-ICP Production Guard",
+            "",
+            f"Guard counts: {guard_count_text}",
+            "",
+            "| Sequence | Window | Expected | State | Risk state | Accepted | Watch action | Guard decision | Uses refined? | Guard reasons |",
+            "| --- | --- | --- | --- | --- | ---: | --- | --- | --- | --- |",
+        ]
+    )
+    guard_rows = 0
+    for sequence in payload["sequences"]:
+        for window in sequence["windows"]:
+            row = window["methods"].get("ct_icp")
+            if not row:
+                continue
+            guard_rows += 1
+            reasons = row.get("ct_icp_guard_reasons") or []
+            reason_text = ", ".join(str(reason) for reason in reasons) if reasons else "none"
+            lines.append(
+                f"| `{sequence['sequence']}` | `{window['name']}` "
+                f"{window['start']}-{window['end']} | `{window['expected_stress']}` | "
+                f"`{row['health_state']}` | `{row['risk_state']}` | "
+                f"{fmt(row['accepted_rate'])} | `{row.get('watch_action') or 'n/a'}` | "
+                f"`{row.get('ct_icp_guard_decision') or 'n/a'}` | "
+                f"{'yes' if row.get('ct_icp_guard_uses_refined') else 'no'} | "
+                f"{reason_text} |"
+            )
+    if guard_rows == 0:
+        lines.append("| n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |")
 
     lines.extend(
         [

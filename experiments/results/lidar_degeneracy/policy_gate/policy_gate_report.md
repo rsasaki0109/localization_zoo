@@ -1,6 +1,6 @@
 # LiDAR Degeneracy Policy Gate
 
-Policy: `lidar_degeneracy_triage_v3`
+Policy: `lidar_degeneracy_triage_v4`
 
 ## Reports
 

@@ -252,7 +252,7 @@ def health_state(row: dict[str, Any]) -> str:
         or accepted < 0.9
     ):
         return "suspicious"
-    if "low_convergence" in flags or (
+    if "low_convergence" in flags or "ct_icp_internal_convergence_low" in flags or (
         converged_value is not None and converged_value < 0.5
     ):
         return "degraded"
@@ -443,6 +443,8 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
                 "score_min": row.get("score_min"),
                 "overlap_mean": row.get("overlap_mean"),
                 "overlap_min": row.get("overlap_min"),
+                "ct_icp_refinement_gate_rate": row.get("ct_icp_refinement_gate_rate"),
+                "ct_icp_iterations_mean": row.get("ct_icp_iterations_mean"),
                 "used_path_length_m": row.get("used_path_length_m"),
                 "used_step_max_m": row.get("used_step_max_m"),
                 "keyframes": keyframe_text(row),

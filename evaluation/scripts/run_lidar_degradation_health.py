@@ -435,6 +435,7 @@ def summarize_result(
 ) -> dict[str, Any]:
     payload = load_payload(result_path)
     pairs = payload.get("pairs", [])
+    parameters = payload.get("parameters") or {}
     poses = payload.get("poses_xyyaw", [])
     pair_count = len(pairs)
     accepted = [bool(pair.get("accepted")) for pair in pairs]
@@ -476,6 +477,14 @@ def summarize_result(
         if optional_float(pair.get("score")) is None or optional_float(pair.get("score")) >= 0.0
     ]
     yaws = [abs(float(pair.get("used_yaw_curr_to_prev_deg", 0.0))) for pair in pairs]
+    ct_icp_refinement_gates = [
+        bool(pair["refinement_gate"]) for pair in pairs if "refinement_gate" in pair
+    ]
+    ct_icp_iterations = [
+        float(pair["iterations"])
+        for pair in pairs
+        if optional_float(pair.get("iterations")) is not None
+    ]
     nonfinite_pose_count = sum(
         not all(math.isfinite(float(pose[key])) for key in ("x_m", "y_m", "yaw_deg"))
         for pose in poses
@@ -502,6 +511,20 @@ def summarize_result(
         and overlap_min_to_mean is not None
         and overlap_min_to_mean < intensity_bev_overlap_tail_flag_ratio
     )
+    ct_icp_internal_convergence_low = (
+        method == "ct_icp"
+        and pair_count > 0
+        and converged_rate < 0.5
+        and accepted_rate >= 0.5
+        and bool(parameters.get("refinement_gate"))
+        and not bool(parameters.get("require_convergence"))
+    )
+    low_convergence = (
+        converged_rate < 0.5
+        and not ct_icp_internal_convergence_low
+        if pair_count
+        else True
+    )
     return {
         "name": name,
         "window": window,
@@ -523,6 +546,12 @@ def summarize_result(
         "motion_margin_rate": motion_margin_rate,
         "low_motion_margin_rate": low_motion_margin_rate,
         "best_score_rate": best_score_rate,
+        "ct_icp_refinement_gate_rate": (
+            float(sum(ct_icp_refinement_gates) / len(ct_icp_refinement_gates))
+            if ct_icp_refinement_gates
+            else None
+        ),
+        "ct_icp_iterations_mean": safe_mean(ct_icp_iterations),
         "raw_step_mean_m": safe_mean(raw_steps),
         "used_path_length_m": used_path_length,
         "used_step_max_m": safe_max(used_steps),
@@ -537,7 +566,8 @@ def summarize_result(
         "health_flags": {
             "all_pairs_failed": sum(accepted) == 0 and pair_count > 0,
             "low_acceptance": accepted_rate < 0.5 if pair_count else True,
-            "low_convergence": converged_rate < 0.5 if pair_count else True,
+            "low_convergence": low_convergence,
+            "ct_icp_internal_convergence_low": ct_icp_internal_convergence_low,
             "low_used_path": (
                 min_used_path_length > 0.0
                 and accepted_rate >= 0.5

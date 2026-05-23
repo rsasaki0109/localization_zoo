@@ -39,7 +39,8 @@ CATEGORY_PRIORITY = {
     "local_matcher_failure": 1,
     "false_confidence_risk": 2,
     "cross_method_disagreement": 3,
-    "unclassified_policy_reason": 4,
+    "diagnostic_watch": 4,
+    "unclassified_policy_reason": 5,
 }
 
 ACTION_TEMPLATES = {
@@ -75,6 +76,14 @@ ACTION_TEMPLATES = {
             "ratios, and require a second signal before accepting the pose stream."
         ),
     },
+    "diagnostic_watch": {
+        "title": "Track diagnostic-only watch signals",
+        "component": "localization diagnostics",
+        "action": (
+            "Keep the row on the watch list, but do not treat it as a product-health "
+            "failure unless an acceptance, numerical, or cross-method signal also appears."
+        ),
+    },
     "unclassified_policy_reason": {
         "title": "Classify unknown policy reasons",
         "component": "triage policy",
@@ -87,7 +96,7 @@ ACTION_TEMPLATES = {
 
 REASON_CATEGORIES = {
     "all_pairs_failed": "local_matcher_failure",
-    "ct_icp_internal_convergence_low": "local_matcher_failure",
+    "ct_icp_internal_convergence_low": "diagnostic_watch",
     "low_acceptance": "local_matcher_failure",
     "low_convergence": "local_matcher_failure",
     "low_motion_margin_dominant": "false_confidence_risk",

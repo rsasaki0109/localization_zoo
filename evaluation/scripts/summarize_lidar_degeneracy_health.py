@@ -58,6 +58,7 @@ POLICY_DECISION_ORDER = {
 POLICY_BY_REASON = {
     str(reason): str(decision) for reason, decision in POLICY["reason_decisions"].items()
 }
+DIAGNOSTIC_WATCH_FLAGS = {"ct_icp_internal_convergence_low"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -113,6 +114,14 @@ def split_csv_flags(value: Any) -> list[str]:
     if text == "ok" or text == "none":
         return []
     return [part.strip() for part in text.split(",") if part.strip()]
+
+
+def flag_set(value: Any) -> set[str]:
+    return set(split_csv_flags(value))
+
+
+def diagnostic_watch_only(value: Any) -> bool:
+    return flag_set(value) == DIAGNOSTIC_WATCH_FLAGS
 
 
 def normalize_angle_deg(angle_deg: float) -> float:
@@ -242,17 +251,24 @@ def health_state(row: dict[str, Any]) -> str:
     converged = row.get("converged_rate")
     converged_value = None if converged is None else float(converged)
     flags = row.get("flags", "ok")
-    if "nonfinite_pose" in flags or "all_pairs_failed" in flags or accepted < 0.5:
+    active_flags = flag_set(flags)
+    if active_flags.intersection({"nonfinite_pose", "all_pairs_failed"}) or accepted < 0.5:
         return "failed"
     if (
-        "low_used_path" in flags
-        or "motion_margin_dominant" in flags
-        or "low_motion_margin_dominant" in flags
-        or "overlap_tail" in flags
+        active_flags.intersection(
+            {
+                "low_used_path",
+                "motion_margin_dominant",
+                "low_motion_margin_dominant",
+                "overlap_tail",
+            }
+        )
         or accepted < 0.9
     ):
         return "suspicious"
-    if "low_convergence" in flags or "ct_icp_internal_convergence_low" in flags or (
+    if diagnostic_watch_only(flags):
+        return "diagnostic_watch"
+    if "low_convergence" in active_flags or (
         converged_value is not None and converged_value < 0.5
     ):
         return "degraded"
@@ -260,6 +276,8 @@ def health_state(row: dict[str, Any]) -> str:
 
 
 def failure_awareness(expected: str, state: str) -> str:
+    if state == "diagnostic_watch":
+        return "diagnostic_watch"
     stress = is_stress_label(expected)
     abnormal = state != "ok"
     if stress and abnormal:
@@ -388,6 +406,11 @@ def policy_decision(reasons: list[str]) -> str:
     return decision
 
 
+def product_local_risk(row: dict[str, Any]) -> bool:
+    flags = str(row.get("flags") or "ok")
+    return flags != "ok" and row.get("health_state") != "diagnostic_watch"
+
+
 def add_cross_method_risk(windows: list[dict[str, Any]]) -> None:
     for window in windows:
         expected = window["expected_stress"]
@@ -484,6 +507,7 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                     "mean_acceptance": 0.0,
                     "mean_convergence": 0.0,
                     "failed_windows": 0,
+                    "diagnostic_watch_windows": 0,
                     "local_risk_windows": 0,
                     "cross_method_suspicious_windows": 0,
                     "risk_windows": 0,
@@ -493,6 +517,7 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                     "stress_unflagged": 0,
                     "residual_stress_unflagged": 0,
                     "false_alarms": 0,
+                    "diagnostic_watch": 0,
                     "policy_pass": 0,
                     "policy_watch": 0,
                     "policy_investigate": 0,
@@ -508,8 +533,10 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
             stats["mean_acceptance"] += accepted
             stats["mean_convergence"] += converged_value
             stats["failed_windows"] += 1 if accepted < 0.5 else 0
-            local_risk = row.get("flags") != "ok"
+            diagnostic_watch = row.get("health_state") == "diagnostic_watch"
+            local_risk = product_local_risk(row)
             cross_method_suspicious = bool(row.get("cross_method_suspicious"))
+            stats["diagnostic_watch_windows"] += 1 if diagnostic_watch else 0
             stats["local_risk_windows"] += 1 if local_risk else 0
             stats["cross_method_suspicious_windows"] += 1 if cross_method_suspicious else 0
             stats["risk_windows"] += 1 if local_risk or cross_method_suspicious else 0
@@ -528,6 +555,8 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                     stats["residual_stress_unflagged"] += 1
             elif awareness == "false_alarm":
                 stats["false_alarms"] += 1
+            elif awareness == "diagnostic_watch":
+                stats["diagnostic_watch"] += 1
             stats["min_acceptance"] = min(stats["min_acceptance"], accepted)
             stats["max_used_path_length_m"] = max(
                 stats["max_used_path_length_m"],
@@ -549,8 +578,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         "",
         "## Method Aggregate",
         "",
-        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Diagnostic watch | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for sequence in payload["sequences"]:
         aggregates = payload["aggregates"][sequence["sequence"]]
@@ -560,6 +589,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 f"| `{sequence['sequence']}` | `{method}` | {row['windows']} | "
                 f"{fmt(row['mean_acceptance'])} | {fmt(row['min_acceptance'])} | "
                 f"{fmt(row['mean_convergence'])} | {row['failed_windows']} | "
+                f"{row['diagnostic_watch_windows']} | "
                 f"{row['local_risk_windows']} | "
                 f"{row['cross_method_suspicious_windows']} | "
                 f"{row['risk_windows']} | "
@@ -573,8 +603,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Failure Awareness",
             "",
-            "| Sequence | Method | Stress windows | Local flagged | Cross-method flagged | Residual unflagged | False alarms |",
-            "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
+            "| Sequence | Method | Stress windows | Local flagged | Cross-method flagged | Residual unflagged | False alarms | Diagnostic watch |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for sequence in payload["sequences"]:
@@ -585,7 +615,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 f"| `{sequence['sequence']}` | `{method}` | "
                 f"{row['stress_windows']} | {row['stress_flagged']} | "
                 f"{row['cross_method_flagged']} | "
-                f"{row['residual_stress_unflagged']} | {row['false_alarms']} |"
+                f"{row['residual_stress_unflagged']} | {row['false_alarms']} | "
+                f"{row['diagnostic_watch']} |"
             )
 
     lines.extend(
@@ -682,7 +713,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "- Cross-method consistency now contributes to total risk when a stress-unflagged trajectory disagrees with healthy-peer or all-method path medians.",
             "- Policy decisions are GT-free triage labels: `fail` for hard local failure, `investigate` for unresolved cross-method disagreement, `watch` for calibrated local confidence downgrades and medium-risk rows, and `pass` for no active risk reason.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",
-            "- CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.",
+            "- CT-ICP internal convergence watch is reported as `diagnostic_watch` when it is the only active signal; accepted refinements with no product-health downgrade no longer count as false alarms.",
             "",
         ]
     )

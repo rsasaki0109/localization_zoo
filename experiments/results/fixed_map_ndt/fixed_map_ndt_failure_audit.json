@@ -1,4 +1,8 @@
 {
+  "policy": {
+    "policy_version": "lidar_degeneracy_triage_v4",
+    "audit_version": "fixed_map_ndt_failure_audit_v1"
+  },
   "input_dir": "experiments/results/fixed_map_ndt",
   "thresholds": {
     "product_ate_m": 1.0,

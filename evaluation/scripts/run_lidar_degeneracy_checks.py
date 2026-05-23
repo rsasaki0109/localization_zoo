@@ -31,11 +31,19 @@ DEFAULT_RISK_CALIBRATION_JSON = (
     / "risk_gt_calibration"
     / "risk_gt_calibration.json"
 )
+DEFAULT_FIXED_MAP_NDT_AUDIT_JSON = (
+    REPO_ROOT
+    / "experiments"
+    / "results"
+    / "fixed_map_ndt"
+    / "fixed_map_ndt_failure_audit.json"
+)
 COMPILE_TARGETS = [
     SCRIPTS / "run_lidar_degeneracy_checks.py",
     SCRIPTS / "summarize_lidar_degeneracy_health.py",
     SCRIPTS / "calibrate_lidar_degeneracy_risk.py",
     SCRIPTS / "generate_lidar_degeneracy_action_plan.py",
+    SCRIPTS / "summarize_fixed_map_ndt_failure_modes.py",
     SCRIPTS / "test_lidar_degeneracy_triage_policy.py",
 ]
 
@@ -46,6 +54,11 @@ def parse_args() -> argparse.Namespace:
         "--regenerate-reports",
         action="store_true",
         help="Also rerun the method-health and risk-calibration report generators.",
+    )
+    parser.add_argument(
+        "--regenerate-fixed-map-ndt-audit",
+        action="store_true",
+        help="Also rerun the fixed-map NDT failure audit generator.",
     )
     parser.add_argument(
         "--enforce-policy",
@@ -69,6 +82,17 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_RISK_CALIBRATION_JSON,
         help="risk_gt_calibration.json to enforce when --enforce-policy is set.",
+    )
+    parser.add_argument(
+        "--fixed-map-ndt-audit-json",
+        type=Path,
+        default=DEFAULT_FIXED_MAP_NDT_AUDIT_JSON,
+        help="fixed_map_ndt_failure_audit.json to enforce when --include-fixed-map-ndt-audit is set.",
+    )
+    parser.add_argument(
+        "--include-fixed-map-ndt-audit",
+        action="store_true",
+        help="Include fixed-map NDT failure audit rows in --enforce-policy.",
     )
     parser.add_argument(
         "--policy-gate-output-dir",
@@ -176,6 +200,26 @@ def risk_calibration_policy_records(payload: dict[str, Any]) -> list[dict[str, A
                 "policy_reasons": normalize_policy_reasons(
                     row.get("risk_reasons") or row.get("policy_reasons")
                 ),
+            }
+        )
+    return records
+
+
+def fixed_map_ndt_audit_policy_records(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for row in payload.get("rows", []):
+        sequence = str(row.get("sequence", "unknown_sequence"))
+        variant = str(row.get("variant", "unknown_variant"))
+        seed_source = str(row.get("seed_source", row.get("method", "unknown_seed")))
+        records.append(
+            {
+                "sequence": f"kitti_seq_{sequence}",
+                "window": variant,
+                "start": None,
+                "end": row.get("frames"),
+                "method": f"fixed_map_ndt:{seed_source}",
+                "policy_decision": str(row.get("policy_decision") or "missing"),
+                "policy_reasons": normalize_policy_reasons(row.get("policy_reasons")),
             }
         )
     return records
@@ -382,6 +426,7 @@ def enforce_policy_gate(
     policy_path: Path,
     method_health_json: Path,
     risk_calibration_json: Path,
+    fixed_map_ndt_audit_json: Path | None,
     output_dir: Path | None,
 ) -> int:
     policy = load_json(policy_path)
@@ -399,6 +444,14 @@ def enforce_policy_gate(
             risk_calibration_policy_records,
         ),
     ]
+    if fixed_map_ndt_audit_json is not None:
+        reports.append(
+            (
+                "fixed_map_ndt_failure_audit",
+                fixed_map_ndt_audit_json,
+                fixed_map_ndt_audit_policy_records,
+            )
+        )
 
     violations: list[str] = []
     records_by_report: dict[str, list[dict[str, Any]]] = {}
@@ -455,12 +508,19 @@ def main() -> int:
     if args.regenerate_reports:
         run([sys.executable, str(SCRIPTS / "summarize_lidar_degeneracy_health.py")])
         run([sys.executable, str(SCRIPTS / "calibrate_lidar_degeneracy_risk.py")])
+    if args.regenerate_fixed_map_ndt_audit:
+        run([sys.executable, str(SCRIPTS / "summarize_fixed_map_ndt_failure_modes.py")])
     if args.enforce_policy:
         try:
             gate_status = enforce_policy_gate(
                 policy_path=args.policy_json,
                 method_health_json=args.method_health_json,
                 risk_calibration_json=args.risk_calibration_json,
+                fixed_map_ndt_audit_json=(
+                    args.fixed_map_ndt_audit_json
+                    if args.include_fixed_map_ndt_audit
+                    else None
+                ),
                 output_dir=args.policy_gate_output_dir,
             )
         except (FileNotFoundError, json.JSONDecodeError, OSError, RuntimeError, ValueError) as exc:

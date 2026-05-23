@@ -99,6 +99,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_generate_reproduction_status_module",
             "evaluation/scripts/generate_reproduction_status.py",
         )
+        cls.lidar_action_plan_module = load_script_module(
+            "test_generate_lidar_degeneracy_action_plan_module",
+            "evaluation/scripts/generate_lidar_degeneracy_action_plan.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -571,6 +575,110 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(gate_report["offenders"][0]["policy_decision"], "fail")
         self.assertEqual(gate_report["offenders"][0]["policy_reasons"], ["low_acceptance"])
         self.assertIn("| `method_health_comparison` | `demo_sequence` |", gate_markdown)
+
+    def test_lidar_degeneracy_action_plan_classifies_reason_templates(self) -> None:
+        classify = self.lidar_action_plan_module.classify_reason
+
+        self.assertEqual(classify("low_acceptance"), "local_matcher_failure")
+        self.assertEqual(classify("all_pairs_failed"), "local_matcher_failure")
+        self.assertEqual(classify("motion_margin_dominant"), "false_confidence_risk")
+        self.assertEqual(classify("overlap_tail"), "false_confidence_risk")
+        self.assertEqual(
+            classify("path_disagrees_with_healthy_median"),
+            "cross_method_disagreement",
+        )
+        self.assertEqual(classify("nonfinite_pose"), "hard_numerical_failure")
+        self.assertEqual(classify("future_reason"), "unclassified_policy_reason")
+
+    def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
+        gate_report = {
+            "policy": {"policy_version": "lidar_degeneracy_triage_v1"},
+            "offender_count": 3,
+            "offenders": [
+                {
+                    "report": "method_health_comparison",
+                    "sequence": "demo_sequence",
+                    "window": "false_confidence",
+                    "start": 20,
+                    "end": 30,
+                    "method": "intensity_bev",
+                    "policy_decision": "investigate",
+                    "policy_reasons": ["motion_margin_dominant"],
+                },
+                {
+                    "report": "method_health_comparison",
+                    "sequence": "demo_sequence",
+                    "window": "local_fail",
+                    "start": 0,
+                    "end": 10,
+                    "method": "geometry_icp",
+                    "policy_decision": "fail",
+                    "policy_reasons": ["low_acceptance"],
+                },
+                {
+                    "report": "risk_gt_calibration",
+                    "sequence": "demo_sequence",
+                    "window": "local_fail",
+                    "start": 0,
+                    "end": 10,
+                    "method": "geometry_icp",
+                    "policy_decision": "fail",
+                    "policy_reasons": ["low_acceptance"],
+                },
+            ],
+        }
+
+        plan = self.lidar_action_plan_module.build_action_plan(gate_report)
+
+        self.assertEqual(plan["summary"]["action_items"], 2)
+        self.assertEqual(plan["action_items"][0]["policy_decision"], "fail")
+        self.assertEqual(plan["action_items"][0]["category"], "local_matcher_failure")
+        self.assertEqual(plan["action_items"][0]["method"], "geometry_icp")
+        self.assertEqual(plan["action_items"][0]["offender_rows"], 2)
+        self.assertEqual(plan["action_items"][1]["category"], "false_confidence_risk")
+
+    def test_generate_lidar_degeneracy_action_plan_writes_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp = Path(tmpdir)
+            gate_report_path = tmp / "policy_gate_report.json"
+            output_dir = tmp / "action_plan"
+            gate_report_path.write_text(
+                json.dumps(
+                    {
+                        "policy": {"policy_version": "lidar_degeneracy_triage_v1"},
+                        "offender_count": 1,
+                        "offenders": [
+                            {
+                                "report": "method_health_comparison",
+                                "sequence": "demo_sequence",
+                                "window": "demo_window",
+                                "start": 0,
+                                "end": 10,
+                                "method": "kiss_keyframe",
+                                "policy_decision": "fail",
+                                "policy_reasons": ["all_pairs_failed", "low_acceptance"],
+                            }
+                        ],
+                    },
+                    indent=2,
+                )
+                + "\n"
+            )
+
+            completed = run_script(
+                "evaluation/scripts/generate_lidar_degeneracy_action_plan.py",
+                "--gate-report",
+                str(gate_report_path),
+                "--output-dir",
+                str(output_dir),
+            )
+            action_plan = json.loads((output_dir / "policy_gate_action_plan.json").read_text())
+            markdown = (output_dir / "policy_gate_action_plan.md").read_text()
+
+        self.assertEqual(completed.returncode, 0, msg=completed.stdout)
+        self.assertEqual(action_plan["action_items"][0]["category"], "local_matcher_failure")
+        self.assertEqual(action_plan["action_items"][0]["method"], "kiss_keyframe")
+        self.assertIn("Repair local matcher acceptance", markdown)
 
 
 class RunMultimodalStudyScriptTests(unittest.TestCase):

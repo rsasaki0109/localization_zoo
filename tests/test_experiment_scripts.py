@@ -687,6 +687,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         )
         self.assertFalse(clear_status["watch_clear_candidate"])
         self.assertEqual(clear_status["watch_clear_blockers"], ["iterations_pinned"])
+        self.assertEqual(clear_status["watch_action"], "optimizer_retry")
         clear_candidate = summarize.ct_icp_watch_clear_status(
             {
                 **diagnostic_row,
@@ -700,6 +701,43 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         )
         self.assertTrue(clear_candidate["watch_clear_candidate"])
         self.assertEqual(clear_candidate["watch_clear_blockers"], [])
+        self.assertEqual(clear_candidate["watch_action"], "clear_candidate")
+        fallback_status = summarize.ct_icp_watch_clear_status(
+            {
+                **diagnostic_row,
+                "health_state": "diagnostic_watch",
+                "ct_icp_refinement_gate_rate": 1.0,
+                "ct_icp_iterations_mean": 6.5,
+                "ct_icp_max_iterations": 8,
+                "path_vs_healthy_median": 3.0,
+                "path_vs_all_median": 3.5,
+            }
+        )
+        self.assertEqual(fallback_status["watch_action"], "fallback_required")
+        reject_status = summarize.ct_icp_watch_clear_status(
+            {
+                **diagnostic_row,
+                "health_state": "diagnostic_watch",
+                "ct_icp_refinement_gate_rate": 0.95,
+                "ct_icp_iterations_mean": 6.5,
+                "ct_icp_max_iterations": 8,
+                "path_vs_healthy_median": 1.0,
+                "path_vs_all_median": 1.0,
+            }
+        )
+        self.assertEqual(reject_status["watch_action"], "reject_or_retry")
+        reference_missing_status = summarize.ct_icp_watch_clear_status(
+            {
+                **diagnostic_row,
+                "health_state": "diagnostic_watch",
+                "ct_icp_refinement_gate_rate": 1.0,
+                "ct_icp_iterations_mean": 6.5,
+                "ct_icp_max_iterations": 8,
+                "path_vs_healthy_median": None,
+                "path_vs_all_median": None,
+            }
+        )
+        self.assertEqual(reference_missing_status["watch_action"], "reference_missing")
 
         partial_acceptance_row = {
             "accepted_rate": 0.655,

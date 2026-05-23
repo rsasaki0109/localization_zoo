@@ -18,7 +18,8 @@ EXPECTED_REASON_DECISIONS = {
     "ok_no_risk": "pass",
     "low_convergence": "watch",
     "partial_acceptance": "watch",
-    "motion_margin_dominant": "investigate",
+    "motion_margin_dominant": "watch",
+    "overlap_tail": "watch",
     "path_disagrees_with_healthy_median": "investigate",
     "low_acceptance": "fail",
 }
@@ -54,7 +55,7 @@ def main() -> int:
     decisions = policy["decision_order"]
     reason_decisions = policy["reason_decisions"]
     strict_gate = policy["enforcement"].get("strict_gate", {})
-    assert_equal(policy["policy_version"], "lidar_degeneracy_triage_v1", "policy_version")
+    assert_equal(policy["policy_version"], "lidar_degeneracy_triage_v2", "policy_version")
     assert_equal(policy["default_decision_for_unknown_reason"], "watch", "default decision")
     assert_equal(decisions, {"pass": 0, "watch": 1, "investigate": 2, "fail": 3}, "decision order")
     assert_equal(policy["enforcement"].get("schema_version"), 1, "enforcement schema")

@@ -1,17 +1,17 @@
 # LiDAR Degeneracy Method Health Comparison
 
-Policy: `lidar_degeneracy_triage_v1` (`evaluation/config/lidar_degeneracy_triage_policy.json`)
+Policy: `lidar_degeneracy_triage_v2` (`evaluation/config/lidar_degeneracy_triage_policy.json`)
 
 ## Method Aggregate
 
 | Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | `fog_200` | `geometry_icp` | 3 | 1.000 | 1.000 | 1.000 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 0 | 1.407 |
-| `fog_200` | `intensity_bev` | 3 | 0.977 | 0.931 | 0.977 | 0 | 1 | 1 | 2 | 1 | 0 | 2 | 0 | 11.516 |
+| `fog_200` | `intensity_bev` | 3 | 0.977 | 0.931 | 0.977 | 0 | 1 | 1 | 2 | 1 | 1 | 1 | 0 | 11.516 |
 | `fog_200` | `kiss_keyframe` | 3 | 1.000 | 1.000 | 1.000 | 0 | 0 | 1 | 1 | 2 | 0 | 1 | 0 | 0.743 |
 | `fog_200` | `ct_icp` | 3 | 0.885 | 0.655 | 0.046 | 0 | 3 | 0 | 3 | 0 | 3 | 0 | 0 | 2.703 |
 | `tunnel_geom_2700_200` | `geometry_icp` | 4 | 1.000 | 1.000 | 1.000 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 0 | 1.867 |
-| `tunnel_geom_2700_200` | `intensity_bev` | 4 | 1.000 | 1.000 | 1.000 | 0 | 1 | 2 | 3 | 1 | 0 | 3 | 0 | 12.642 |
+| `tunnel_geom_2700_200` | `intensity_bev` | 4 | 1.000 | 1.000 | 1.000 | 0 | 1 | 2 | 3 | 1 | 1 | 2 | 0 | 12.642 |
 | `tunnel_geom_2700_200` | `kiss_keyframe` | 4 | 1.000 | 1.000 | 1.000 | 0 | 0 | 0 | 0 | 3 | 1 | 0 | 0 | 1.186 |
 | `tunnel_geom_2700_200` | `ct_icp` | 4 | 1.000 | 1.000 | 0.147 | 0 | 4 | 0 | 4 | 0 | 4 | 0 | 0 | 5.676 |
 
@@ -73,7 +73,7 @@ Policy: `lidar_degeneracy_triage_v1` (`evaluation/config/lidar_degeneracy_triage
 | `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `kiss_keyframe` | 1.000 | 1.000 | 0.845 | 309.0 | 0.369 | 0.024 | `ok` | `ok` | `pass` | `nominal_ok` | `nominal_ok` | 0/2 | ok | ok | ok_no_risk |
 | `fog_200` | `baseline` 0-29 | `nominal` | 30 | 0.006 | `ct_icp` | 1.000 | 0.138 | n/a | n/a | 1.283 | 0.126 | `degraded` | `degraded` | `watch` | `false_alarm` | `false_alarm` | n/a | low_convergence | low_convergence | low_convergence |
 | `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `geometry_icp` | 1.000 | 1.000 | 0.791 | 73.4 | 1.234 | 0.091 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
-| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `intensity_bev` | 0.931 | 0.931 | 0.743 | 5159.7 | 11.516 | 1.521 | `suspicious` | `suspicious` | `investigate` | `stress_flagged` | `stress_flagged` | n/a | motion_margin_dominant, overlap_tail | motion_margin_dominant, overlap_tail | motion_margin_dominant, overlap_tail |
+| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `intensity_bev` | 0.931 | 0.931 | 0.743 | 5159.7 | 11.516 | 1.521 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | motion_margin_dominant, overlap_tail | motion_margin_dominant, overlap_tail | motion_margin_dominant, overlap_tail |
 | `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `kiss_keyframe` | 1.000 | 1.000 | 0.802 | 239.4 | 0.743 | 0.083 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 0/2 | ok | ok | ok_no_risk |
 | `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | 30 | 0.521 | `ct_icp` | 1.000 | 0.000 | n/a | n/a | 2.703 | 0.323 | `degraded` | `degraded` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_convergence | low_convergence | low_convergence |
 | `fog_200` | `degraded` 170-199 | `obscurant_stress` | 30 | 0.911 | `geometry_icp` | 1.000 | 1.000 | 0.813 | 59.3 | 1.407 | 0.122 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
@@ -93,18 +93,18 @@ Policy: `lidar_degeneracy_triage_v1` (`evaluation/config/lidar_degeneracy_triage
 | `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `kiss_keyframe` | 1.000 | 1.000 | 0.755 | 2675.4 | 0.920 | 0.102 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 2/2 | ok | ok | ok_no_risk |
 | `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | 30 | 0.045 | `ct_icp` | 1.000 | 0.138 | n/a | n/a | 5.676 | 0.529 | `degraded` | `degraded` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_convergence | low_convergence | low_convergence |
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `geometry_icp` | 1.000 | n/a | 0.714 | 656.2 | 1.178 | 0.153 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | n/a | ok | ok | ok_no_risk |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `intensity_bev` | 1.000 | 1.000 | 0.648 | 5534.3 | 7.561 | 0.354 | `suspicious` | `suspicious` | `investigate` | `stress_flagged` | `stress_flagged` | n/a | motion_margin_dominant | motion_margin_dominant | motion_margin_dominant |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `intensity_bev` | 1.000 | 1.000 | 0.648 | 5534.3 | 7.561 | 0.354 | `suspicious` | `suspicious` | `watch` | `stress_flagged` | `stress_flagged` | n/a | motion_margin_dominant | motion_margin_dominant | motion_margin_dominant |
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `kiss_keyframe` | 1.000 | 1.000 | 0.745 | 3184.1 | 1.088 | 0.100 | `ok` | `ok` | `pass` | `stress_unflagged` | `stress_unflagged` | 2/2 | ok | ok | ok_no_risk |
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | 30 | 0.227 | `ct_icp` | 1.000 | 0.207 | n/a | n/a | 4.161 | 0.345 | `degraded` | `degraded` | `watch` | `stress_flagged` | `stress_flagged` | n/a | low_convergence | low_convergence | low_convergence |
 
 ## Readout
 
 - `fog_200`: intensity BEV keeps 93.1-100% acceptance on selected windows after zero-motion score-margin preference, including the strongest fog slice.
-- `fog_200`: KISS keyframe rejects every selected window, geometry ICP collapses on the strongest fog window, and CT-ICP keeps baseline/tail healthy but drops on strongest fog.
+- `fog_200`: geometry ICP and KISS keyframe now accept every selected short window after the fog/crop correspondence gates were relaxed; CT-ICP keeps baseline/tail accepted but drops on strongest fog.
 - Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.
 - Intensity BEV false-confidence gates now promote dominant motion-margin decisions and sharp overlap tails to suspicious health flags on non-baseline selected windows.
 - Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.
 - Cross-method consistency now contributes to total risk when a stress-unflagged trajectory disagrees with healthy-peer or all-method path medians.
-- Policy decisions are GT-free triage labels: `fail` for hard local failure, `investigate` for strong false-confidence signals, `watch` for medium-risk rows, and `pass` for no active risk reason.
+- Policy decisions are GT-free triage labels: `fail` for hard local failure, `investigate` for unresolved cross-method disagreement, `watch` for calibrated local confidence downgrades and medium-risk rows, and `pass` for no active risk reason.
 - `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.
 - CT-ICP convergence is reported separately from acceptance because this repo's CT-ICP dogfooding path uses gate-accepted refinements even when the internal stopping bit is low.

@@ -1,28 +1,20 @@
 # LiDAR Degeneracy Policy Gate
 
-Policy: `lidar_degeneracy_triage_v2`
+Policy: `lidar_degeneracy_triage_v3`
 
 ## Reports
 
 | Report | Total | Pass | Watch | Investigate | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `method_health_comparison` | 28 | 14 | 10 | 4 | 0 |
-| `risk_gt_calibration` | 28 | 14 | 10 | 4 | 0 |
+| `method_health_comparison` | 28 | 15 | 13 | 0 | 0 |
+| `risk_gt_calibration` | 28 | 15 | 13 | 0 | 0 |
 
 ## Violations
 
-- method_health_comparison: investigate rows 4 > 0
-- risk_gt_calibration: investigate rows 4 > 0
+- none
 
 ## Top Offenders
 
 | Report | Sequence | Window | Method | Decision | Reasons |
 | --- | --- | --- | --- | --- | --- |
-| `method_health_comparison` | `fog_200` | `degraded` | `intensity_bev` | `investigate` | cross_method_suspicious, path_disagrees_with_all_method_median, path_disagrees_with_healthy_median |
-| `method_health_comparison` | `fog_200` | `degraded` | `kiss_keyframe` | `investigate` | cross_method_suspicious, path_disagrees_with_all_method_median, path_disagrees_with_healthy_median |
-| `method_health_comparison` | `tunnel_geom_2700_200` | `geometry_degeneracy` | `intensity_bev` | `investigate` | cross_method_suspicious, path_disagrees_with_all_method_median, path_disagrees_with_healthy_median |
-| `method_health_comparison` | `tunnel_geom_2700_200` | `point_count_tail` | `intensity_bev` | `investigate` | cross_method_suspicious, path_disagrees_with_healthy_median |
-| `risk_gt_calibration` | `fog_200` | `degraded` | `intensity_bev` | `investigate` | cross_method_suspicious, path_disagrees_with_all_method_median, path_disagrees_with_healthy_median |
-| `risk_gt_calibration` | `fog_200` | `degraded` | `kiss_keyframe` | `investigate` | cross_method_suspicious, path_disagrees_with_all_method_median, path_disagrees_with_healthy_median |
-| `risk_gt_calibration` | `tunnel_geom_2700_200` | `geometry_degeneracy` | `intensity_bev` | `investigate` | cross_method_suspicious, path_disagrees_with_all_method_median, path_disagrees_with_healthy_median |
-| `risk_gt_calibration` | `tunnel_geom_2700_200` | `point_count_tail` | `intensity_bev` | `investigate` | cross_method_suspicious, path_disagrees_with_healthy_median |
+| n/a | n/a | n/a | n/a | n/a | n/a |

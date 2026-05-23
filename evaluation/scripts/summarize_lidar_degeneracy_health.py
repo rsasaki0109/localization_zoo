@@ -173,6 +173,7 @@ def load_result_diagnostics(result_json: Any) -> dict[str, Any]:
     empty = {
         "decision_reasons": {},
         "motion_margin_rate": None,
+        "low_motion_margin_rate": None,
         "best_score_rate": None,
         "pair_count": 0,
         "pose_count": 0,
@@ -199,6 +200,7 @@ def load_result_diagnostics(result_json: Any) -> dict[str, Any]:
             **trajectory_diagnostics(payload),
             "decision_reasons": counts,
             "motion_margin_rate": None,
+            "low_motion_margin_rate": None,
             "best_score_rate": None,
             "pair_count": len(pairs),
         }
@@ -206,6 +208,7 @@ def load_result_diagnostics(result_json: Any) -> dict[str, Any]:
         **trajectory_diagnostics(payload),
         "decision_reasons": counts,
         "motion_margin_rate": counts.get("motion_margin", 0) / reason_count,
+        "low_motion_margin_rate": counts.get("low_motion_margin", 0) / reason_count,
         "best_score_rate": counts.get("best_score", 0) / reason_count,
         "pair_count": len(pairs),
     }
@@ -244,6 +247,7 @@ def health_state(row: dict[str, Any]) -> str:
     if (
         "low_used_path" in flags
         or "motion_margin_dominant" in flags
+        or "low_motion_margin_dominant" in flags
         or "overlap_tail" in flags
         or accepted < 0.9
     ):
@@ -272,6 +276,9 @@ def confidence_probe(row: dict[str, Any]) -> str:
     motion_margin_rate = row.get("motion_margin_rate")
     if motion_margin_rate is not None and float(motion_margin_rate) >= 0.5:
         notes.append("motion_margin_dominant")
+    low_motion_margin_rate = row.get("low_motion_margin_rate")
+    if low_motion_margin_rate is not None and float(low_motion_margin_rate) >= 0.5:
+        notes.append("low_motion_margin_dominant")
     overlap_mean = row.get("overlap_mean")
     overlap_min = row.get("overlap_min")
     if overlap_mean is not None and overlap_min is not None:
@@ -665,11 +672,11 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Readout",
             "",
-            "- `fog_200`: intensity BEV keeps 93.1-100% acceptance on selected windows after zero-motion score-margin preference, including the strongest fog slice.",
+            "- `fog_200`: intensity BEV keeps 100% acceptance on selected windows, while the stress-only low-motion regularizer downgrades ambiguous stress trajectories instead of letting weak score gains accumulate into accepted drift.",
             "- `fog_200`: geometry ICP and KISS keyframe now accept every selected short window after the fog/crop correspondence gates were relaxed; CT-ICP keeps baseline/tail accepted but drops on strongest fog.",
             "- Failure-awareness columns are heuristic because this dataset layer has no GT: `stress_unflagged` means a stress window stayed externally healthy, not necessarily that the estimate is wrong.",
-            "- Intensity BEV false-confidence gates now promote dominant motion-margin decisions and sharp overlap tails to suspicious health flags on non-baseline selected windows.",
-            "- Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when motion-margin decisions dominate or overlap has a sharp tail.",
+            "- Intensity BEV false-confidence gates now promote dominant motion-margin decisions, dominant low-motion regularization, and sharp overlap tails to suspicious health flags on non-baseline selected windows.",
+            "- Confidence probes expose stress-unflagged windows that need a GT or cross-method check, especially when score-margin decisions dominate or overlap has a sharp tail.",
             "- Cross-method consistency now contributes to total risk when a stress-unflagged trajectory disagrees with healthy-peer or all-method path medians.",
             "- Policy decisions are GT-free triage labels: `fail` for hard local failure, `investigate` for unresolved cross-method disagreement, `watch` for calibrated local confidence downgrades and medium-risk rows, and `pass` for no active risk reason.",
             "- `tunnel_geom_2700_200`: the short-window checks stay accepted, so this slice is not yet a local-odometry failure case.",

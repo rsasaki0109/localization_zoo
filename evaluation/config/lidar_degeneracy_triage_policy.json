@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy_version": "lidar_degeneracy_triage_v2",
+  "policy_version": "lidar_degeneracy_triage_v3",
   "description": "GT-free triage policy for LiDAR degeneracy health reports.",
   "default_decision_for_unknown_reason": "watch",
   "decision_order": {
@@ -12,6 +12,7 @@
   "reason_decisions": {
     "ok_no_risk": "pass",
     "low_convergence": "watch",
+    "low_motion_margin_dominant": "watch",
     "low_used_path": "watch",
     "no_healthy_peer": "watch",
     "partial_acceptance": "watch",

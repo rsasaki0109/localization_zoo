@@ -1377,7 +1377,9 @@
         "policy_investigate": 0,
         "policy_fail": 0,
         "min_acceptance": 1.0,
-        "max_used_path_length_m": 1.4072019510927758
+        "max_used_path_length_m": 1.4072019510927758,
+        "ct_icp_refinement_gate_rate_mean": null,
+        "ct_icp_iterations_mean": null
       },
       "intensity_bev": {
         "windows": 3,
@@ -1400,7 +1402,9 @@
         "policy_investigate": 0,
         "policy_fail": 0,
         "min_acceptance": 1.0,
-        "max_used_path_length_m": 7.25
+        "max_used_path_length_m": 7.25,
+        "ct_icp_refinement_gate_rate_mean": null,
+        "ct_icp_iterations_mean": null
       },
       "kiss_keyframe": {
         "windows": 3,
@@ -1423,7 +1427,9 @@
         "policy_investigate": 0,
         "policy_fail": 0,
         "min_acceptance": 1.0,
-        "max_used_path_length_m": 0.742776325671809
+        "max_used_path_length_m": 0.742776325671809,
+        "ct_icp_refinement_gate_rate_mean": null,
+        "ct_icp_iterations_mean": null
       },
       "ct_icp": {
         "windows": 3,
@@ -1446,7 +1452,9 @@
         "policy_investigate": 0,
         "policy_fail": 0,
         "min_acceptance": 0.6551724137931034,
-        "max_used_path_length_m": 2.703449488161886
+        "max_used_path_length_m": 2.703449488161886,
+        "ct_icp_refinement_gate_rate_mean": 0.8850574712643677,
+        "ct_icp_iterations_mean": 7.919540229885058
       }
     },
     "tunnel_geom_2700_200": {
@@ -1471,7 +1479,9 @@
         "policy_investigate": 0,
         "policy_fail": 0,
         "min_acceptance": 1.0,
-        "max_used_path_length_m": 1.8668876874404594
+        "max_used_path_length_m": 1.8668876874404594,
+        "ct_icp_refinement_gate_rate_mean": null,
+        "ct_icp_iterations_mean": null
       },
       "intensity_bev": {
         "windows": 4,
@@ -1494,7 +1504,9 @@
         "policy_investigate": 0,
         "policy_fail": 0,
         "min_acceptance": 1.0,
-        "max_used_path_length_m": 7.974873734152918
+        "max_used_path_length_m": 7.974873734152918,
+        "ct_icp_refinement_gate_rate_mean": null,
+        "ct_icp_iterations_mean": null
       },
       "kiss_keyframe": {
         "windows": 4,
@@ -1517,7 +1529,9 @@
         "policy_investigate": 0,
         "policy_fail": 0,
         "min_acceptance": 1.0,
-        "max_used_path_length_m": 1.1857805032809408
+        "max_used_path_length_m": 1.1857805032809408,
+        "ct_icp_refinement_gate_rate_mean": null,
+        "ct_icp_iterations_mean": null
       },
       "ct_icp": {
         "windows": 4,
@@ -1540,7 +1554,9 @@
         "policy_investigate": 0,
         "policy_fail": 0,
         "min_acceptance": 1.0,
-        "max_used_path_length_m": 5.675902413181488
+        "max_used_path_length_m": 5.675902413181488,
+        "ct_icp_refinement_gate_rate_mean": 1.0,
+        "ct_icp_iterations_mean": 7.793103448275862
       }
     }
   }

@@ -49,6 +49,7 @@ struct PairLog {
   int correspondences = 0;
   int iterations = 0;
   double rmse = std::numeric_limits<double>::infinity();
+  std::string decision_reason = "n/a";
   bool keyframe_attempted = false;
   bool keyframe_anchor_accepted = false;
   bool keyframe_accepted = false;
@@ -161,6 +162,23 @@ bool passesGate(const Eigen::Matrix4d& T, double max_translation,
   if (T.block<3, 1>(0, 3).norm() > max_translation) return false;
   if (std::abs(yawDeg(T)) > max_yaw_deg) return false;
   return T.array().isFinite().all();
+}
+
+std::string localDecisionReason(
+    const localization_zoo::kiss_icp::KISSMatcherResult& result,
+    double max_translation, double max_yaw_deg, int min_correspondences) {
+  if (result.num_correspondences < min_correspondences) {
+    return "correspondence_gate";
+  }
+  if (!result.converged) return "not_converged";
+  if (!result.transform.array().isFinite().all()) return "nonfinite_transform";
+  if (result.transform.block<3, 1>(0, 3).norm() > max_translation) {
+    return "step_translation_gate";
+  }
+  if (std::abs(yawDeg(result.transform)) > max_yaw_deg) {
+    return "step_yaw_gate";
+  }
+  return "accepted";
 }
 
 std::string keyframeDecisionReason(
@@ -313,6 +331,7 @@ void writeOutput(const fs::path& out_path, const fs::path& pcd_dir,
     out << "      \"overlap\": " << p.correspondences << ",\n";
     out << "      \"converged\": " << (p.converged ? "true" : "false")
         << ",\n";
+    out << "      \"decision_reason\": \"" << p.decision_reason << "\",\n";
     out << "      \"iterations\": " << p.iterations << ",\n";
     out << "      \"rmse_m\": ";
     writeJsonNumber(out, p.rmse);
@@ -464,6 +483,9 @@ int main(int argc, char** argv) {
     log.accepted = local_result.converged &&
                    passesGate(local_result.transform, max_step_translation,
                               max_step_yaw_deg);
+    log.decision_reason =
+        localDecisionReason(local_result, max_step_translation,
+                            max_step_yaw_deg, params.min_correspondences);
 
     if (log.accepted) {
       log.used = local_result.transform;

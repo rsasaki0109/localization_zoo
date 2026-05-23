@@ -126,7 +126,7 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   --method kiss_keyframe \
   --max-step-translation 2.0 \
   --max-step-yaw-deg 20 \
-  --kiss-min-correspondences 1000 \
+  --kiss-min-correspondences 80 \
   --min-keyframe-correspondences 1000
 
 python3 evaluation/scripts/run_lidar_degradation_health.py \
@@ -135,7 +135,7 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   --method kiss_keyframe \
   --max-step-translation 2.0 \
   --max-step-yaw-deg 20 \
-  --kiss-min-correspondences 1000 \
+  --kiss-min-correspondences 80 \
   --min-keyframe-correspondences 1000
 ```
 

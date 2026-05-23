@@ -11,149 +11,21 @@
   },
   "summary": {
     "action_items": 4,
-    "offender_rows": 20,
+    "offender_rows": 14,
     "category_rows": {
       "cross_method_disagreement": 6,
       "false_confidence_risk": 4,
-      "local_matcher_failure": 10
+      "local_matcher_failure": 4
     },
     "method_rows": {
       "geometry_icp": 4,
-      "intensity_bev": 10,
-      "kiss_keyframe": 6
+      "intensity_bev": 8,
+      "kiss_keyframe": 2
     }
   },
   "action_items": [
     {
       "priority": 1,
-      "policy_decision": "fail",
-      "category": "local_matcher_failure",
-      "method": "kiss_keyframe",
-      "title": "Repair local matcher acceptance and convergence",
-      "component": "local registration",
-      "recommended_action": "Inspect per-pair registration decisions, overlap, and acceptance gates; add fallback or retry behavior before relaxing the strict gate.",
-      "offender_rows": 6,
-      "reports": {
-        "method_health_comparison": 3,
-        "risk_gt_calibration": 3
-      },
-      "reasons": {
-        "all_pairs_failed": 6,
-        "low_acceptance": 6,
-        "low_convergence": 6
-      },
-      "windows": [
-        {
-          "sequence": "fog_200",
-          "window": "baseline",
-          "start": 0,
-          "end": 29,
-          "rows": 2
-        },
-        {
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "rows": 2
-        },
-        {
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "rows": 2
-        }
-      ],
-      "evidence": [
-        {
-          "report": "method_health_comparison",
-          "sequence": "fog_200",
-          "window": "baseline",
-          "start": 0,
-          "end": 29,
-          "method": "kiss_keyframe",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "all_pairs_failed",
-            "low_acceptance",
-            "low_convergence"
-          ]
-        },
-        {
-          "report": "method_health_comparison",
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "method": "kiss_keyframe",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "all_pairs_failed",
-            "low_acceptance",
-            "low_convergence"
-          ]
-        },
-        {
-          "report": "method_health_comparison",
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "method": "kiss_keyframe",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "all_pairs_failed",
-            "low_acceptance",
-            "low_convergence"
-          ]
-        },
-        {
-          "report": "risk_gt_calibration",
-          "sequence": "fog_200",
-          "window": "baseline",
-          "start": 0,
-          "end": 29,
-          "method": "kiss_keyframe",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "all_pairs_failed",
-            "low_acceptance",
-            "low_convergence"
-          ]
-        },
-        {
-          "report": "risk_gt_calibration",
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "method": "kiss_keyframe",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "all_pairs_failed",
-            "low_acceptance",
-            "low_convergence"
-          ]
-        },
-        {
-          "report": "risk_gt_calibration",
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "method": "kiss_keyframe",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "all_pairs_failed",
-            "low_acceptance",
-            "low_convergence"
-          ]
-        }
-      ]
-    },
-    {
-      "priority": 2,
       "policy_decision": "fail",
       "category": "local_matcher_failure",
       "method": "geometry_icp",
@@ -239,7 +111,7 @@
       ]
     },
     {
-      "priority": 3,
+      "priority": 2,
       "policy_decision": "investigate",
       "category": "false_confidence_risk",
       "method": "intensity_bev",
@@ -325,32 +197,24 @@
       ]
     },
     {
-      "priority": 4,
+      "priority": 3,
       "policy_decision": "investigate",
       "category": "cross_method_disagreement",
       "method": "intensity_bev",
       "title": "Investigate cross-method trajectory disagreement",
       "component": "cross-method validation",
       "recommended_action": "Compare the suspect method against healthy peers, inspect path-length ratios, and require a second signal before accepting the pose stream.",
-      "offender_rows": 6,
+      "offender_rows": 4,
       "reports": {
-        "method_health_comparison": 3,
-        "risk_gt_calibration": 3
+        "method_health_comparison": 2,
+        "risk_gt_calibration": 2
       },
       "reasons": {
-        "cross_method_suspicious": 6,
-        "path_disagrees_with_all_method_median": 4,
+        "cross_method_suspicious": 4,
         "path_disagrees_with_healthy_median": 4,
-        "no_healthy_peer": 2
+        "path_disagrees_with_all_method_median": 2
       },
       "windows": [
-        {
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "rows": 2
-        },
         {
           "sequence": "tunnel_geom_2700_200",
           "window": "point_count_tail",
@@ -369,20 +233,6 @@
       "evidence": [
         {
           "report": "method_health_comparison",
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "method": "intensity_bev",
-          "policy_decision": "investigate",
-          "policy_reasons": [
-            "cross_method_suspicious",
-            "no_healthy_peer",
-            "path_disagrees_with_all_method_median"
-          ]
-        },
-        {
-          "report": "method_health_comparison",
           "sequence": "tunnel_geom_2700_200",
           "window": "geometry_degeneracy",
           "start": 90,
@@ -410,20 +260,6 @@
         },
         {
           "report": "risk_gt_calibration",
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "method": "intensity_bev",
-          "policy_decision": "investigate",
-          "policy_reasons": [
-            "cross_method_suspicious",
-            "no_healthy_peer",
-            "path_disagrees_with_all_method_median"
-          ]
-        },
-        {
-          "report": "risk_gt_calibration",
           "sequence": "tunnel_geom_2700_200",
           "window": "geometry_degeneracy",
           "start": 90,
@@ -443,6 +279,61 @@
           "start": 80,
           "end": 109,
           "method": "intensity_bev",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "cross_method_suspicious",
+            "path_disagrees_with_healthy_median"
+          ]
+        }
+      ]
+    },
+    {
+      "priority": 4,
+      "policy_decision": "investigate",
+      "category": "cross_method_disagreement",
+      "method": "kiss_keyframe",
+      "title": "Investigate cross-method trajectory disagreement",
+      "component": "cross-method validation",
+      "recommended_action": "Compare the suspect method against healthy peers, inspect path-length ratios, and require a second signal before accepting the pose stream.",
+      "offender_rows": 2,
+      "reports": {
+        "method_health_comparison": 1,
+        "risk_gt_calibration": 1
+      },
+      "reasons": {
+        "cross_method_suspicious": 2,
+        "path_disagrees_with_healthy_median": 2
+      },
+      "windows": [
+        {
+          "sequence": "fog_200",
+          "window": "degraded",
+          "start": 170,
+          "end": 199,
+          "rows": 2
+        }
+      ],
+      "evidence": [
+        {
+          "report": "method_health_comparison",
+          "sequence": "fog_200",
+          "window": "degraded",
+          "start": 170,
+          "end": 199,
+          "method": "kiss_keyframe",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "cross_method_suspicious",
+            "path_disagrees_with_healthy_median"
+          ]
+        },
+        {
+          "report": "risk_gt_calibration",
+          "sequence": "fog_200",
+          "window": "degraded",
+          "start": 170,
+          "end": 199,
+          "method": "kiss_keyframe",
           "policy_decision": "investigate",
           "policy_reasons": [
             "cross_method_suspicious",

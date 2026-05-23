@@ -464,6 +464,14 @@ Observed `fog.bag` inspection:
   reference-consistent on only a minority of rows. Treat this as evidence that
   a production fallback should be an independent odometry/source-health path,
   not just CT-ICP's own velocity extrapolation.
+- `build_ct_icp_guarded_composite.py` materializes the current guard contract:
+  use CT-ICP refined steps only for `use_refined`, otherwise use the selected
+  fallback source from the bakeoff, with self-velocity only as a missing-pair
+  backup. On the current selected windows the composite uses geometry ICP for
+  every pair and becomes reference-consistent on all rows. That validates the
+  wiring contract, but the 100% fallback rate also means this slice is still a
+  fallback-system validation, not evidence that CT-ICP refined output should be
+  trusted without a stronger guard or GT-backed check.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place

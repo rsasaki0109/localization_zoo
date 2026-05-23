@@ -103,6 +103,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_generate_lidar_degeneracy_action_plan_module",
             "evaluation/scripts/generate_lidar_degeneracy_action_plan.py",
         )
+        cls.lidar_checks_module = load_script_module(
+            "test_run_lidar_degeneracy_checks_module",
+            "evaluation/scripts/run_lidar_degeneracy_checks.py",
+        )
         cls.lidar_health_module = load_script_module(
             "test_run_lidar_degradation_health_module",
             "evaluation/scripts/run_lidar_degradation_health.py",
@@ -644,6 +648,81 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(gate_report["offenders"][0]["policy_decision"], "fail")
         self.assertEqual(gate_report["offenders"][0]["policy_reasons"], ["low_acceptance"])
         self.assertIn("| `method_health_comparison` | `demo_sequence` |", gate_markdown)
+
+    def test_lidar_degeneracy_check_runner_can_include_fixed_map_ndt_audit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp = Path(tmpdir)
+            gate_output_dir = tmp / "gate_report"
+            method_health_json, risk_calibration_json = self.write_lidar_gate_reports(
+                tmp,
+                method_decision="pass",
+                risk_decision="watch",
+            )
+            fixed_map_audit_json = tmp / "fixed_map_ndt_failure_audit.json"
+            fixed_map_audit_json.write_text(
+                json.dumps(
+                    {
+                        "policy": {"policy_version": "lidar_degeneracy_triage_v4"},
+                        "rows": [
+                            {
+                                "sequence": "02",
+                                "variant": "seed_ct_icp",
+                                "seed_source": "ct_icp",
+                                "frames": 108,
+                                "policy_decision": "fail",
+                                "policy_reasons": ["accepted_bad_localization"],
+                            }
+                        ],
+                    }
+                )
+                + "\n"
+            )
+
+            completed = run_script(
+                "evaluation/scripts/run_lidar_degeneracy_checks.py",
+                "--enforce-policy",
+                "--method-health-json",
+                str(method_health_json),
+                "--risk-calibration-json",
+                str(risk_calibration_json),
+                "--include-fixed-map-ndt-audit",
+                "--fixed-map-ndt-audit-json",
+                str(fixed_map_audit_json),
+                "--policy-gate-output-dir",
+                str(gate_output_dir),
+            )
+            gate_report = json.loads((gate_output_dir / "policy_gate_report.json").read_text())
+
+        self.assertEqual(completed.returncode, 1, msg=completed.stdout)
+        self.assertIn("fixed_map_ndt_failure_audit: fail rows 1 > 0", completed.stdout)
+        self.assertEqual(
+            gate_report["reports"]["fixed_map_ndt_failure_audit"]["counts"]["fail"],
+            1,
+        )
+        self.assertEqual(gate_report["offenders"][0]["report"], "fixed_map_ndt_failure_audit")
+        self.assertEqual(gate_report["offenders"][0]["method"], "fixed_map_ndt:ct_icp")
+
+    def test_fixed_map_ndt_audit_policy_records_normalize_rows(self) -> None:
+        records = self.lidar_checks_module.fixed_map_ndt_audit_policy_records(
+            {
+                "rows": [
+                    {
+                        "sequence": "08",
+                        "variant": "seed_scan_context_stride_5",
+                        "seed_source": "scan_context",
+                        "frames": 108,
+                        "policy_decision": "watch",
+                        "policy_reasons": ["global_initializer_near_basin"],
+                    }
+                ]
+            }
+        )
+
+        self.assertEqual(records[0]["sequence"], "kitti_seq_08")
+        self.assertEqual(records[0]["window"], "seed_scan_context_stride_5")
+        self.assertEqual(records[0]["end"], 108)
+        self.assertEqual(records[0]["method"], "fixed_map_ndt:scan_context")
+        self.assertEqual(records[0]["policy_reasons"], ["global_initializer_near_basin"])
 
     def test_lidar_degeneracy_action_plan_classifies_reason_templates(self) -> None:
         classify = self.lidar_action_plan_module.classify_reason

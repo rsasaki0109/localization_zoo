@@ -119,8 +119,8 @@
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
-      "flags": "low_convergence",
-      "risk_flags": "low_convergence",
+      "flags": "ct_icp_internal_convergence_low",
+      "risk_flags": "ct_icp_internal_convergence_low",
       "cross_method_probe": "none",
       "confidence_probe": "none",
       "failure_awareness": "false_alarm",
@@ -131,10 +131,10 @@
       "path_vs_all_median": 0.9729441707016421,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json",
       "risk_reasons": [
-        "low_convergence"
+        "ct_icp_internal_convergence_low"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "low_convergence:watch"
+      "policy_reasons": "ct_icp_internal_convergence_low:watch"
     },
     {
       "sequence": "fog_200",
@@ -240,8 +240,8 @@
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
-      "flags": "low_convergence",
-      "risk_flags": "low_convergence",
+      "flags": "ct_icp_internal_convergence_low",
+      "risk_flags": "ct_icp_internal_convergence_low",
       "cross_method_probe": "none",
       "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
@@ -252,10 +252,10 @@
       "path_vs_all_median": 2.7613309021781873,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
       "risk_reasons": [
-        "low_convergence"
+        "ct_icp_internal_convergence_low"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "low_convergence:watch"
+      "policy_reasons": "ct_icp_internal_convergence_low:watch"
     },
     {
       "sequence": "fog_200",
@@ -360,8 +360,8 @@
       "health_state": "suspicious",
       "risk_state": "suspicious",
       "risk_bucket": "local_risk",
-      "flags": "low_convergence",
-      "risk_flags": "low_convergence",
+      "flags": "ct_icp_internal_convergence_low",
+      "risk_flags": "ct_icp_internal_convergence_low",
       "cross_method_probe": "none",
       "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
@@ -372,11 +372,11 @@
       "path_vs_all_median": 1.3186591228714204,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "risk_reasons": [
-        "low_convergence",
+        "ct_icp_internal_convergence_low",
         "partial_acceptance"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "low_convergence:watch, partial_acceptance:watch"
+      "policy_reasons": "ct_icp_internal_convergence_low:watch, partial_acceptance:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -481,8 +481,8 @@
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
-      "flags": "low_convergence",
-      "risk_flags": "low_convergence",
+      "flags": "ct_icp_internal_convergence_low",
+      "risk_flags": "ct_icp_internal_convergence_low",
       "cross_method_probe": "none",
       "confidence_probe": "none",
       "failure_awareness": "false_alarm",
@@ -493,10 +493,10 @@
       "path_vs_all_median": 1.5466021844442919,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json",
       "risk_reasons": [
-        "low_convergence"
+        "ct_icp_internal_convergence_low"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "low_convergence:watch"
+      "policy_reasons": "ct_icp_internal_convergence_low:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -602,8 +602,8 @@
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
-      "flags": "low_convergence",
-      "risk_flags": "low_convergence",
+      "flags": "ct_icp_internal_convergence_low",
+      "risk_flags": "ct_icp_internal_convergence_low",
       "cross_method_probe": "none",
       "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
@@ -614,10 +614,10 @@
       "path_vs_all_median": 3.6986289100162373,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json",
       "risk_reasons": [
-        "low_convergence"
+        "ct_icp_internal_convergence_low"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "low_convergence:watch"
+      "policy_reasons": "ct_icp_internal_convergence_low:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -722,8 +722,8 @@
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
-      "flags": "low_convergence",
-      "risk_flags": "low_convergence",
+      "flags": "ct_icp_internal_convergence_low",
+      "risk_flags": "ct_icp_internal_convergence_low",
       "cross_method_probe": "none",
       "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
@@ -734,10 +734,10 @@
       "path_vs_all_median": 3.744759569649314,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json",
       "risk_reasons": [
-        "low_convergence"
+        "ct_icp_internal_convergence_low"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "low_convergence:watch"
+      "policy_reasons": "ct_icp_internal_convergence_low:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -843,8 +843,8 @@
       "health_state": "degraded",
       "risk_state": "degraded",
       "risk_bucket": "local_risk",
-      "flags": "low_convergence",
-      "risk_flags": "low_convergence",
+      "flags": "ct_icp_internal_convergence_low",
+      "risk_flags": "ct_icp_internal_convergence_low",
       "cross_method_probe": "none",
       "confidence_probe": "none",
       "failure_awareness": "stress_flagged",
@@ -855,10 +855,10 @@
       "path_vs_all_median": 3.0246420264763723,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "risk_reasons": [
-        "low_convergence"
+        "ct_icp_internal_convergence_low"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "low_convergence:watch"
+      "policy_reasons": "ct_icp_internal_convergence_low:watch"
     }
   ],
   "proxy_bucket_stats_stress": {
@@ -900,7 +900,7 @@
   "policy": {
     "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
     "schema_version": 1,
-    "policy_version": "lidar_degeneracy_triage_v3",
+    "policy_version": "lidar_degeneracy_triage_v4",
     "decision_order": {
       "pass": 0,
       "watch": 1,
@@ -908,6 +908,7 @@
       "fail": 3
     },
     "reason_decisions": {
+      "ct_icp_internal_convergence_low": "watch",
       "ok_no_risk": "pass",
       "low_convergence": "watch",
       "low_motion_margin_dominant": "watch",
@@ -1060,7 +1061,7 @@
       "mean_path_vs_all": 0.0,
       "max_path_vs_all": 0.0
     },
-    "low_convergence": {
+    "ct_icp_internal_convergence_low": {
       "rows": 5,
       "policy_decision": "watch",
       "methods": [
@@ -1132,7 +1133,7 @@
       "mean_path_vs_all": 1.2439618855473071,
       "max_path_vs_all": 5.463416858603101
     },
-    "low_convergence": {
+    "ct_icp_internal_convergence_low": {
       "rows": 7,
       "policy_decision": "watch",
       "methods": [

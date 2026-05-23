@@ -1,7 +1,7 @@
 # LiDAR Degeneracy Policy Gate Action Plan
 
 Source: `experiments/results/lidar_degeneracy/policy_gate/policy_gate_report.json`
-Policy: `lidar_degeneracy_triage_v3`
+Policy: `lidar_degeneracy_triage_v4`
 
 ## Summary
 

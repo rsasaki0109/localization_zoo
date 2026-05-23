@@ -15,6 +15,7 @@ SCRIPT_DIR = REPO_ROOT / "evaluation" / "scripts"
 
 
 EXPECTED_REASON_DECISIONS = {
+    "ct_icp_internal_convergence_low": "watch",
     "ok_no_risk": "pass",
     "low_convergence": "watch",
     "low_motion_margin_dominant": "watch",
@@ -56,7 +57,7 @@ def main() -> int:
     decisions = policy["decision_order"]
     reason_decisions = policy["reason_decisions"]
     strict_gate = policy["enforcement"].get("strict_gate", {})
-    assert_equal(policy["policy_version"], "lidar_degeneracy_triage_v3", "policy_version")
+    assert_equal(policy["policy_version"], "lidar_degeneracy_triage_v4", "policy_version")
     assert_equal(policy["default_decision_for_unknown_reason"], "watch", "default decision")
     assert_equal(decisions, {"pass": 0, "watch": 1, "investigate": 2, "fail": 3}, "decision order")
     assert_equal(policy["enforcement"].get("schema_version"), 1, "enforcement schema")

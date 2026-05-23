@@ -106,6 +106,17 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     p.add_argument(
+        "--low-motion-score-margin",
+        type=float,
+        default=0.0,
+        help=(
+            "Prefer the lowest-translation candidate when its score is within "
+            "this margin of the best candidate. This regularizes low-parallax "
+            "degenerate windows where tiny reflectance-score gains can otherwise "
+            "accumulate into large drift. <=0 disables."
+        ),
+    )
+    p.add_argument(
         "--motion-prior",
         action=argparse.BooleanOptionalAction,
         default=True,
@@ -348,6 +359,40 @@ def maybe_prefer_motion(
     )
 
 
+def maybe_prefer_low_motion(
+    best: Candidate,
+    candidates: list[Candidate],
+    args: argparse.Namespace,
+) -> Candidate:
+    if args.low_motion_score_margin <= 0.0 or best.score < 0.0:
+        return best
+    near_best = [
+        cand
+        for cand in candidates
+        if cand.score >= 0.0 and best.score - cand.score <= args.low_motion_score_margin
+    ]
+    if not near_best:
+        return best
+
+    low_motion = min(
+        near_best,
+        key=lambda cand: (candidate_step(cand), abs(cand.yaw), -cand.score),
+    )
+    if (
+        candidate_step(low_motion) >= candidate_step(best)
+        and abs(low_motion.yaw) >= abs(best.yaw)
+    ):
+        return best
+    return Candidate(
+        low_motion.dx,
+        low_motion.dy,
+        low_motion.yaw,
+        low_motion.score,
+        low_motion.overlap,
+        "low_motion_margin",
+    )
+
+
 def estimate_relative(
     prev: Scan,
     curr: Scan,
@@ -366,6 +411,7 @@ def estimate_relative(
         ref_img = rasterize_bev(prev, args, grid_resolution)
         level_best = Candidate(best.dx, best.dy, best.yaw, -1.0, 0)
         level_best_motion = Candidate(best.dx, best.dy, best.yaw, -1.0, 0)
+        level_candidates: list[Candidate] = []
         scale_root = math.sqrt(float(scale))
         x_window = args.x_window * scale_root
         y_window = args.y_window * scale_root
@@ -379,6 +425,8 @@ def estimate_relative(
         for _ in range(levels):
             def consider(scored: Candidate) -> None:
                 nonlocal level_best, level_best_motion
+                if scored.score >= 0.0:
+                    level_candidates.append(scored)
                 if scored.score > level_best.score:
                     level_best = scored
                 if (
@@ -410,6 +458,7 @@ def estimate_relative(
             y_step *= 0.5
             yaw_step *= 0.5
         level_best = maybe_prefer_motion(level_best, level_best_motion, args)
+        level_best = maybe_prefer_low_motion(level_best, level_candidates, args)
         if level_best.score >= 0.0:
             best = level_best
     return best
@@ -543,6 +592,7 @@ def main() -> int:
             "max_step_yaw_deg": args.max_step_yaw_deg,
             "min_step_translation": args.min_step_translation,
             "zero_motion_score_margin": args.zero_motion_score_margin,
+            "low_motion_score_margin": args.low_motion_score_margin,
             "motion_prior": args.motion_prior,
         },
         "runtime_s": time.perf_counter() - started_at,

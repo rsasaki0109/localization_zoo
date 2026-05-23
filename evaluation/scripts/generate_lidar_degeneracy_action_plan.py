@@ -89,6 +89,7 @@ REASON_CATEGORIES = {
     "all_pairs_failed": "local_matcher_failure",
     "low_acceptance": "local_matcher_failure",
     "low_convergence": "local_matcher_failure",
+    "low_motion_margin_dominant": "false_confidence_risk",
     "low_used_path": "local_matcher_failure",
     "partial_acceptance": "local_matcher_failure",
     "motion_margin_dominant": "false_confidence_risk",

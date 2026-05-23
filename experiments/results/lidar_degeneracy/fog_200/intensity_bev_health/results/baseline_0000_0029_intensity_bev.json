@@ -21,9 +21,10 @@
     "max_step_yaw_deg": 20.0,
     "min_step_translation": 0.25,
     "zero_motion_score_margin": 0.05,
+    "low_motion_score_margin": 0.0,
     "motion_prior": true
   },
-  "runtime_s": 8.851459107012488,
+  "runtime_s": 8.701727685052902,
   "metrics": null,
   "poses_xyyaw": [
     {

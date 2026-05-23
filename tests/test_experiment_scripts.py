@@ -117,7 +117,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
     ) -> tuple[Path, Path]:
         method_health_json = tmp / "method_health_comparison.json"
         risk_calibration_json = tmp / "risk_gt_calibration.json"
-        policy = {"policy_version": "lidar_degeneracy_triage_v2"}
+        policy = {"policy_version": "lidar_degeneracy_triage_v3"}
         method_reasons = {
             "pass": ["ok_no_risk"],
             "watch": ["low_convergence"],
@@ -546,6 +546,20 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(args.geometry_min_correspondences, 40)
 
+    def test_lidar_degradation_health_keeps_low_motion_regularizer_disabled_by_default(self) -> None:
+        argv = [
+            "run_lidar_degradation_health.py",
+            "windows.json",
+            "out",
+            "--method",
+            "intensity_bev",
+        ]
+        with mock.patch.object(sys, "argv", argv):
+            args = self.lidar_health_module.parse_args()
+
+        self.assertEqual(args.intensity_bev_low_motion_score_margin, 0.0)
+        self.assertFalse(args.intensity_bev_low_motion_stress_only)
+
     def test_lidar_degeneracy_check_runner_policy_gate_passes_clean_reports(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             method_health_json, risk_calibration_json = self.write_lidar_gate_reports(
@@ -612,6 +626,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(classify("low_acceptance"), "local_matcher_failure")
         self.assertEqual(classify("all_pairs_failed"), "local_matcher_failure")
+        self.assertEqual(classify("low_motion_margin_dominant"), "false_confidence_risk")
         self.assertEqual(classify("motion_margin_dominant"), "false_confidence_risk")
         self.assertEqual(classify("overlap_tail"), "false_confidence_risk")
         self.assertEqual(
@@ -623,7 +638,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {
-            "policy": {"policy_version": "lidar_degeneracy_triage_v2"},
+            "policy": {"policy_version": "lidar_degeneracy_triage_v3"},
             "offender_count": 3,
             "offenders": [
                 {
@@ -676,7 +691,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             gate_report_path.write_text(
                 json.dumps(
                     {
-                        "policy": {"policy_version": "lidar_degeneracy_triage_v2"},
+                        "policy": {"policy_version": "lidar_degeneracy_triage_v3"},
                         "offender_count": 1,
                         "offenders": [
                             {

@@ -158,7 +158,7 @@
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.234417468086054,
       "path_vs_healthy_median": 1.2556593509147482,
-      "path_vs_all_median": 0.6251742084501881,
+      "path_vs_all_median": 1.2556593509147482,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/point_count_tail_0115_0144_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
@@ -174,28 +174,28 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "intensity_bev",
-      "accepted_rate": 0.9310344827586207,
-      "converged_rate": 0.9310344827586207,
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
       "health_state": "suspicious",
       "risk_state": "suspicious",
       "risk_bucket": "local_risk",
-      "flags": "motion_margin_dominant, overlap_tail",
-      "risk_flags": "motion_margin_dominant, overlap_tail",
+      "flags": "low_used_path, low_motion_margin_dominant",
+      "risk_flags": "low_used_path, low_motion_margin_dominant",
       "cross_method_probe": "none",
-      "confidence_probe": "motion_margin_dominant, overlap_tail",
+      "confidence_probe": "low_motion_margin_dominant",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
-      "trajectory_path_length_m": 11.516254999302024,
-      "path_vs_healthy_median": 11.7144269675745,
-      "path_vs_all_median": 5.832439826586494,
+      "trajectory_path_length_m": 0.0,
+      "path_vs_healthy_median": 0.0,
+      "path_vs_all_median": 0.0,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/point_count_tail_0115_0144_intensity_bev.json",
       "risk_reasons": [
-        "motion_margin_dominant",
-        "overlap_tail"
+        "low_motion_margin_dominant",
+        "low_used_path"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "motion_margin_dominant:watch, overlap_tail:watch"
+      "policy_reasons": "low_motion_margin_dominant:watch, low_used_path:watch"
     },
     {
       "sequence": "fog_200",
@@ -219,7 +219,7 @@
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 0.731748701403753,
       "path_vs_healthy_median": 0.7443406490852518,
-      "path_vs_all_median": 0.3705961937608072,
+      "path_vs_all_median": 0.7443406490852518,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/point_count_tail_0115_0144_kiss_keyframe.json",
       "risk_reasons": [
         "ok_no_risk"
@@ -249,7 +249,7 @@
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 2.7146177013147597,
       "path_vs_healthy_median": 2.7613309021781873,
-      "path_vs_all_median": 1.3748257915498119,
+      "path_vs_all_median": 2.7613309021781873,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
@@ -278,7 +278,7 @@
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.4072019510927758,
-      "path_vs_healthy_median": 1.0,
+      "path_vs_healthy_median": 1.3905422852414346,
       "path_vs_all_median": 0.6813408771285796,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/degraded_0170_0199_geometry_icp.json",
       "risk_reasons": [
@@ -297,27 +297,25 @@
       "method": "intensity_bev",
       "accepted_rate": 1.0,
       "converged_rate": 1.0,
-      "health_state": "ok",
-      "risk_state": "cross_method_suspicious",
-      "risk_bucket": "cross_method_suspicious",
-      "flags": "ok",
-      "risk_flags": "cross_method_suspicious",
-      "cross_method_probe": "path_disagrees_with_healthy_median, path_disagrees_with_all_method_median",
-      "confidence_probe": "needs_gt_or_cross_method_check",
-      "failure_awareness": "stress_unflagged",
+      "health_state": "suspicious",
+      "risk_state": "suspicious",
+      "risk_bucket": "local_risk",
+      "flags": "low_motion_margin_dominant",
+      "risk_flags": "low_motion_margin_dominant",
+      "cross_method_probe": "none",
+      "confidence_probe": "low_motion_margin_dominant",
+      "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
-      "cross_method_suspicious": true,
-      "trajectory_path_length_m": 8.280604373718116,
-      "path_vs_healthy_median": 5.884446342110126,
-      "path_vs_all_median": 4.009313832149375,
+      "cross_method_suspicious": false,
+      "trajectory_path_length_m": 4.177050983124842,
+      "path_vs_healthy_median": 4.127599464407976,
+      "path_vs_all_median": 2.022449996209138,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
       "risk_reasons": [
-        "cross_method_suspicious",
-        "path_disagrees_with_all_method_median",
-        "path_disagrees_with_healthy_median"
+        "low_motion_margin_dominant"
       ],
-      "policy_decision": "investigate",
-      "policy_reasons": "cross_method_suspicious:investigate, path_disagrees_with_all_method_median:watch, path_disagrees_with_healthy_median:investigate"
+      "policy_decision": "watch",
+      "policy_reasons": "low_motion_margin_dominant:watch"
     },
     {
       "sequence": "fog_200",
@@ -330,26 +328,24 @@
       "accepted_rate": 1.0,
       "converged_rate": 1.0,
       "health_state": "ok",
-      "risk_state": "cross_method_suspicious",
-      "risk_bucket": "cross_method_suspicious",
+      "risk_state": "ok",
+      "risk_bucket": "ok",
       "flags": "ok",
-      "risk_flags": "cross_method_suspicious",
-      "cross_method_probe": "path_disagrees_with_healthy_median, path_disagrees_with_all_method_median",
+      "risk_flags": "ok",
+      "cross_method_probe": "path_disagrees_with_all_method_median",
       "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
-      "risk_failure_awareness": "stress_flagged",
-      "cross_method_suspicious": true,
+      "risk_failure_awareness": "stress_unflagged",
+      "cross_method_suspicious": false,
       "trajectory_path_length_m": 0.616759443002404,
-      "path_vs_healthy_median": 0.4382877969458852,
+      "path_vs_healthy_median": 0.6094577147585651,
       "path_vs_all_median": 0.29862339200586224,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json",
       "risk_reasons": [
-        "cross_method_suspicious",
-        "path_disagrees_with_all_method_median",
-        "path_disagrees_with_healthy_median"
+        "path_disagrees_with_all_method_median"
       ],
-      "policy_decision": "investigate",
-      "policy_reasons": "cross_method_suspicious:investigate, path_disagrees_with_all_method_median:watch, path_disagrees_with_healthy_median:investigate"
+      "policy_decision": "watch",
+      "policy_reasons": "path_disagrees_with_all_method_median:watch"
     },
     {
       "sequence": "fog_200",
@@ -372,7 +368,7 @@
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 2.723482111261566,
-      "path_vs_healthy_median": 1.9353882427086038,
+      "path_vs_healthy_median": 2.6912391898454264,
       "path_vs_all_median": 1.3186591228714204,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "risk_reasons": [
@@ -523,8 +519,8 @@
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.8668876874404596,
-      "path_vs_healthy_median": 1.0,
-      "path_vs_all_median": 0.511341372357854,
+      "path_vs_healthy_median": 1.2704470639354473,
+      "path_vs_all_median": 1.2704470639354473,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/point_count_tail_0080_0109_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
@@ -542,26 +538,26 @@
       "method": "intensity_bev",
       "accepted_rate": 1.0,
       "converged_rate": 1.0,
-      "health_state": "ok",
-      "risk_state": "cross_method_suspicious",
-      "risk_bucket": "cross_method_suspicious",
-      "flags": "ok",
-      "risk_flags": "cross_method_suspicious",
-      "cross_method_probe": "path_disagrees_with_healthy_median",
-      "confidence_probe": "needs_gt_or_cross_method_check",
-      "failure_awareness": "stress_unflagged",
+      "health_state": "suspicious",
+      "risk_state": "suspicious",
+      "risk_bucket": "local_risk",
+      "flags": "low_used_path, low_motion_margin_dominant",
+      "risk_flags": "low_used_path, low_motion_margin_dominant",
+      "cross_method_probe": "none",
+      "confidence_probe": "low_motion_margin_dominant",
+      "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
-      "cross_method_suspicious": true,
-      "trajectory_path_length_m": 9.875155274025802,
-      "path_vs_healthy_median": 5.289635440022018,
-      "path_vs_all_median": 2.7048094451735993,
+      "cross_method_suspicious": false,
+      "trajectory_path_length_m": 0.0,
+      "path_vs_healthy_median": 0.0,
+      "path_vs_all_median": 0.0,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/point_count_tail_0080_0109_intensity_bev.json",
       "risk_reasons": [
-        "cross_method_suspicious",
-        "path_disagrees_with_healthy_median"
+        "low_motion_margin_dominant",
+        "low_used_path"
       ],
-      "policy_decision": "investigate",
-      "policy_reasons": "cross_method_suspicious:investigate, path_disagrees_with_healthy_median:investigate"
+      "policy_decision": "watch",
+      "policy_reasons": "low_motion_margin_dominant:watch, low_used_path:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -578,20 +574,20 @@
       "risk_bucket": "ok",
       "flags": "ok",
       "risk_flags": "ok",
-      "cross_method_probe": "path_disagrees_with_all_method_median",
+      "cross_method_probe": "none",
       "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.07205835830414,
-      "path_vs_healthy_median": 0.574248984294258,
-      "path_vs_all_median": 0.2936372637041296,
+      "path_vs_healthy_median": 0.7295529360645527,
+      "path_vs_all_median": 0.7295529360645527,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/point_count_tail_0080_0109_kiss_keyframe.json",
       "risk_reasons": [
-        "path_disagrees_with_all_method_median"
+        "ok_no_risk"
       ],
-      "policy_decision": "watch",
-      "policy_reasons": "path_disagrees_with_all_method_median:watch"
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -614,8 +610,8 @@
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 5.43503540488444,
-      "path_vs_healthy_median": 2.9112814024372202,
-      "path_vs_all_median": 1.488658627642146,
+      "path_vs_healthy_median": 3.6986289100162373,
+      "path_vs_all_median": 3.6986289100162373,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
@@ -644,8 +640,8 @@
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.766361545550214,
-      "path_vs_healthy_median": 1.0,
-      "path_vs_all_median": 0.4753902315084424,
+      "path_vs_healthy_median": 1.1676575577240245,
+      "path_vs_all_median": 1.1676575577240245,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/geometry_degeneracy_0090_0119_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
@@ -663,27 +659,25 @@
       "method": "intensity_bev",
       "accepted_rate": 1.0,
       "converged_rate": 1.0,
-      "health_state": "ok",
-      "risk_state": "cross_method_suspicious",
-      "risk_bucket": "cross_method_suspicious",
-      "flags": "ok",
-      "risk_flags": "cross_method_suspicious",
-      "cross_method_probe": "path_disagrees_with_healthy_median, path_disagrees_with_all_method_median",
-      "confidence_probe": "needs_gt_or_cross_method_check",
-      "failure_awareness": "stress_unflagged",
+      "health_state": "suspicious",
+      "risk_state": "suspicious",
+      "risk_bucket": "local_risk",
+      "flags": "low_motion_margin_dominant",
+      "risk_flags": "low_motion_margin_dominant",
+      "cross_method_probe": "none",
+      "confidence_probe": "low_motion_margin_dominant",
+      "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
-      "cross_method_suspicious": true,
-      "trajectory_path_length_m": 12.64182762524371,
-      "path_vs_healthy_median": 7.156987569781947,
-      "path_vs_all_median": 3.4023619777016845,
+      "cross_method_suspicious": false,
+      "trajectory_path_length_m": 0.75,
+      "path_vs_healthy_median": 0.49578930796991966,
+      "path_vs_all_median": 0.49578930796991966,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/geometry_degeneracy_0090_0119_intensity_bev.json",
       "risk_reasons": [
-        "cross_method_suspicious",
-        "path_disagrees_with_all_method_median",
-        "path_disagrees_with_healthy_median"
+        "low_motion_margin_dominant"
       ],
-      "policy_decision": "investigate",
-      "policy_reasons": "cross_method_suspicious:investigate, path_disagrees_with_all_method_median:watch, path_disagrees_with_healthy_median:investigate"
+      "policy_decision": "watch",
+      "policy_reasons": "low_motion_margin_dominant:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -706,8 +700,8 @@
       "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.2591171727020307,
-      "path_vs_healthy_median": 0.7128309466847124,
-      "path_vs_all_median": 0.33887286877082756,
+      "path_vs_healthy_median": 0.8323424422759754,
+      "path_vs_all_median": 0.8323424422759754,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/geometry_degeneracy_0090_0119_kiss_keyframe.json",
       "risk_reasons": [
         "ok_no_risk"
@@ -736,8 +730,8 @@
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 5.664845191472717,
-      "path_vs_healthy_median": 3.2070700393945355,
-      "path_vs_all_median": 1.5246097684915576,
+      "path_vs_healthy_median": 3.744759569649314,
+      "path_vs_all_median": 3.744759569649314,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
@@ -767,7 +761,7 @@
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.1778809075110652,
       "path_vs_healthy_median": 0.8534752016818925,
-      "path_vs_all_median": 0.4092261170704649,
+      "path_vs_all_median": 0.8534752016818925,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/odometry_health/results/degraded_0170_0199_geometry_icp.json",
       "risk_reasons": [
         "ok_no_risk"
@@ -788,22 +782,23 @@
       "health_state": "suspicious",
       "risk_state": "suspicious",
       "risk_bucket": "local_risk",
-      "flags": "motion_margin_dominant",
-      "risk_flags": "motion_margin_dominant",
+      "flags": "low_used_path, low_motion_margin_dominant",
+      "risk_flags": "low_used_path, low_motion_margin_dominant",
       "cross_method_probe": "none",
-      "confidence_probe": "motion_margin_dominant",
+      "confidence_probe": "low_motion_margin_dominant",
       "failure_awareness": "stress_flagged",
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
-      "trajectory_path_length_m": 7.560660171779822,
-      "path_vs_healthy_median": 5.4783432890454735,
-      "path_vs_all_median": 2.626767769862765,
+      "trajectory_path_length_m": 0.0,
+      "path_vs_healthy_median": 0.0,
+      "path_vs_all_median": 0.0,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
       "risk_reasons": [
-        "motion_margin_dominant"
+        "low_motion_margin_dominant",
+        "low_used_path"
       ],
       "policy_decision": "watch",
-      "policy_reasons": "motion_margin_dominant:watch"
+      "policy_reasons": "low_motion_margin_dominant:watch, low_used_path:watch"
     },
     {
       "sequence": "tunnel_geom_2700_200",
@@ -827,7 +822,7 @@
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.582318580862787,
       "path_vs_healthy_median": 1.1465247983181073,
-      "path_vs_all_median": 0.5497381651114366,
+      "path_vs_all_median": 1.1465247983181073,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json",
       "risk_reasons": [
         "ok_no_risk"
@@ -857,7 +852,7 @@
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 4.174307686997068,
       "path_vs_healthy_median": 3.0246420264763723,
-      "path_vs_all_median": 1.4502618348885634,
+      "path_vs_all_median": 3.0246420264763723,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
@@ -868,60 +863,44 @@
   ],
   "proxy_bucket_stats_stress": {
     "ok": {
-      "windows": 9,
-      "mean_path_vs_healthy": 0.9207866589976634,
-      "mean_path_vs_all": 0.47281303309585887,
-      "mean_path_m": 1.3442213747725864,
-      "max_path_vs_healthy": 1.2556593509147482,
-      "max_path_vs_all": 0.6813408771285796
+      "windows": 10,
+      "mean_path_vs_healthy": 1.0,
+      "mean_path_vs_all": 0.8979964269134442,
+      "mean_path_m": 1.2714751815955683,
+      "max_path_vs_healthy": 1.3905422852414346,
+      "max_path_vs_all": 1.2704470639354473
     },
     "local_risk": {
-      "windows": 7,
-      "mean_path_vs_healthy": 4.4332118385449855,
-      "mean_path_vs_all": 2.2308889631275366,
-      "mean_path_m": 5.684171895287485,
-      "max_path_vs_healthy": 11.7144269675745,
-      "max_path_vs_all": 5.832439826586494
-    },
-    "cross_method_suspicious": {
-      "windows": 4,
-      "mean_path_vs_healthy": 4.692339287214994,
-      "mean_path_vs_all": 2.6037771617576304,
-      "mean_path_m": 7.853586678997508,
-      "max_path_vs_healthy": 7.156987569781947,
-      "max_path_vs_all": 4.009313832149375
+      "windows": 10,
+      "mean_path_vs_healthy": 2.0543989370543434,
+      "mean_path_vs_all": 1.7066259835370587,
+      "mean_path_m": 2.563933907905539,
+      "max_path_vs_healthy": 4.127599464407976,
+      "max_path_vs_all": 3.744759569649314
     }
   },
   "proxy_bucket_stats_all": {
     "ok": {
-      "windows": 15,
-      "mean_path_vs_healthy": 1.463788216209909,
-      "mean_path_vs_all": 0.9488936469295838,
-      "mean_path_m": 2.1224606184305785,
+      "windows": 16,
+      "mean_path_vs_healthy": 1.4793589570106038,
+      "mean_path_vs_all": 1.1848782297009668,
+      "mean_path_m": 2.028354294966318,
       "max_path_vs_healthy": 5.319493549182697,
       "max_path_vs_all": 5.463416858603101
     },
     "local_risk": {
-      "windows": 9,
-      "mean_path_vs_healthy": 3.932325993848164,
-      "mean_path_vs_all": 2.015085455226522,
-      "mean_path_m": 5.140371914325722,
-      "max_path_vs_healthy": 11.7144269675745,
-      "max_path_vs_all": 5.832439826586494
-    },
-    "cross_method_suspicious": {
-      "windows": 4,
-      "mean_path_vs_healthy": 4.692339287214994,
-      "mean_path_vs_all": 2.6037771617576304,
-      "mean_path_m": 7.853586678997508,
-      "max_path_vs_healthy": 7.156987569781947,
-      "max_path_vs_all": 4.009313832149375
+      "windows": 12,
+      "mean_path_vs_healthy": 2.0752033704468342,
+      "mean_path_vs_all": 1.6321505158763767,
+      "mean_path_m": 2.676123586747874,
+      "max_path_vs_healthy": 4.127599464407976,
+      "max_path_vs_all": 3.744759569649314
     }
   },
   "policy": {
     "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
     "schema_version": 1,
-    "policy_version": "lidar_degeneracy_triage_v2",
+    "policy_version": "lidar_degeneracy_triage_v3",
     "decision_order": {
       "pass": 0,
       "watch": 1,
@@ -931,6 +910,7 @@
     "reason_decisions": {
       "ok_no_risk": "pass",
       "low_convergence": "watch",
+      "low_motion_margin_dominant": "watch",
       "low_used_path": "watch",
       "no_healthy_peer": "watch",
       "partial_acceptance": "watch",
@@ -946,38 +926,35 @@
   },
   "policy_stats_stress": {
     "pass": {
-      "rows": 8,
+      "rows": 9,
       "methods": [
         "geometry_icp",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 0.964103868335589,
-      "mean_path_vs_all": 0.4952100042698251,
+      "mean_path_vs_healthy": 1.0433935872490483,
+      "mean_path_vs_all": 0.9645934307920645,
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0
     },
     "watch": {
-      "rows": 8,
+      "rows": 11,
       "methods": [
         "ct_icp",
         "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 3.9508414817636437,
-      "mean_path_vs_all": 1.9887325006996108,
-      "mean_acceptance": 0.9482758620689655,
-      "mean_convergence": 0.4224137931034483
+      "mean_path_vs_healthy": 1.9230406441183634,
+      "mean_path_vs_all": 1.578625747943314,
+      "mean_acceptance": 0.9686520376175548,
+      "mean_convergence": 0.5862068965517242
     },
     "investigate": {
-      "rows": 4,
-      "methods": [
-        "intensity_bev",
-        "kiss_keyframe"
-      ],
-      "mean_path_vs_healthy": 4.692339287214994,
-      "mean_path_vs_all": 2.6037771617576304,
-      "mean_acceptance": 1.0,
-      "mean_convergence": 1.0
+      "rows": 0,
+      "methods": [],
+      "mean_path_vs_healthy": null,
+      "mean_path_vs_all": null,
+      "mean_acceptance": null,
+      "mean_convergence": null
     },
     "fail": {
       "rows": 0,
@@ -990,39 +967,36 @@
   },
   "policy_stats_all": {
     "pass": {
-      "rows": 14,
+      "rows": 15,
       "methods": [
         "geometry_icp",
         "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 1.5273267327753126,
-      "mean_path_vs_all": 0.9956976743028305,
+      "mean_path_vs_healthy": 1.53735237316074,
+      "mean_path_vs_all": 1.2439618855473071,
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0
     },
     "watch": {
-      "rows": 10,
+      "rows": 13,
       "methods": [
         "ct_icp",
         "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 3.5965182928927732,
-      "mean_path_vs_all": 1.8429406360742824,
-      "mean_acceptance": 0.9586206896551724,
-      "mean_convergence": 0.3655172413793103
+      "mean_path_vs_healthy": 1.9624537046246595,
+      "mean_path_vs_all": 1.5295715063478759,
+      "mean_acceptance": 0.9734748010610079,
+      "mean_convergence": 0.517241379310345
     },
     "investigate": {
-      "rows": 4,
-      "methods": [
-        "intensity_bev",
-        "kiss_keyframe"
-      ],
-      "mean_path_vs_healthy": 4.692339287214994,
-      "mean_path_vs_all": 2.6037771617576304,
-      "mean_acceptance": 1.0,
-      "mean_convergence": 1.0
+      "rows": 0,
+      "methods": [],
+      "mean_path_vs_healthy": null,
+      "mean_path_vs_all": null,
+      "mean_acceptance": null,
+      "mean_convergence": null
     },
     "fail": {
       "rows": 0,
@@ -1035,7 +1009,7 @@
   },
   "reason_drilldown_stress": {
     "ok_no_risk": {
-      "rows": 8,
+      "rows": 9,
       "policy_decision": "pass",
       "methods": [
         "geometry_icp",
@@ -1046,14 +1020,14 @@
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 1.3782417518311423,
-      "mean_path_vs_healthy": 0.964103868335589,
-      "max_path_vs_healthy": 1.2556593509147482,
-      "mean_path_vs_all": 0.4952100042698251,
-      "max_path_vs_all": 0.6813408771285796
+      "mean_path_m": 1.3442213747725864,
+      "mean_path_vs_healthy": 1.0433935872490483,
+      "max_path_vs_healthy": 1.3905422852414346,
+      "mean_path_vs_all": 0.9645934307920645,
+      "max_path_vs_all": 1.2704470639354473
     },
-    "motion_margin_dominant": {
-      "rows": 2,
+    "low_motion_margin_dominant": {
+      "rows": 5,
       "policy_decision": "watch",
       "methods": [
         "intensity_bev"
@@ -1061,16 +1035,16 @@
       "risk_buckets": [
         "local_risk"
       ],
-      "mean_acceptance": 0.9655172413793103,
-      "mean_convergence": 0.9655172413793103,
-      "mean_path_m": 9.538457585540923,
-      "mean_path_vs_healthy": 8.596385128309986,
-      "max_path_vs_healthy": 11.7144269675745,
-      "mean_path_vs_all": 4.2296037982246295,
-      "max_path_vs_all": 5.832439826586494
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 0.9854101966249684,
+      "mean_path_vs_healthy": 0.9246777544755792,
+      "max_path_vs_healthy": 4.127599464407976,
+      "mean_path_vs_all": 0.5036478608358115,
+      "max_path_vs_all": 2.022449996209138
     },
-    "overlap_tail": {
-      "rows": 1,
+    "low_used_path": {
+      "rows": 3,
       "policy_decision": "watch",
       "methods": [
         "intensity_bev"
@@ -1078,13 +1052,13 @@
       "risk_buckets": [
         "local_risk"
       ],
-      "mean_acceptance": 0.9310344827586207,
-      "mean_convergence": 0.9310344827586207,
-      "mean_path_m": 11.516254999302024,
-      "mean_path_vs_healthy": 11.7144269675745,
-      "max_path_vs_healthy": 11.7144269675745,
-      "mean_path_vs_all": 5.832439826586494,
-      "max_path_vs_all": 5.832439826586494
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 0.0,
+      "mean_path_vs_healthy": 0.0,
+      "max_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.0,
+      "max_path_vs_all": 0.0
     },
     "low_convergence": {
       "rows": 5,
@@ -1098,65 +1072,27 @@
       "mean_acceptance": 0.9310344827586207,
       "mean_convergence": 0.0896551724137931,
       "mean_path_m": 4.14245761918611,
-      "mean_path_vs_healthy": 2.7679425226389838,
-      "max_path_vs_healthy": 3.2070700393945355,
-      "mean_path_vs_all": 1.4314030290886997,
-      "max_path_vs_all": 1.5246097684915576
-    },
-    "cross_method_suspicious": {
-      "rows": 4,
-      "policy_decision": "investigate",
-      "methods": [
-        "intensity_bev",
-        "kiss_keyframe"
-      ],
-      "risk_buckets": [
-        "cross_method_suspicious"
-      ],
-      "mean_acceptance": 1.0,
-      "mean_convergence": 1.0,
-      "mean_path_m": 7.853586678997508,
-      "mean_path_vs_healthy": 4.692339287214994,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 2.6037771617576304,
-      "max_path_vs_all": 4.009313832149375
+      "mean_path_vs_healthy": 3.184120119633108,
+      "max_path_vs_healthy": 3.744759569649314,
+      "mean_path_vs_all": 2.9096041062383065,
+      "max_path_vs_all": 3.744759569649314
     },
     "path_disagrees_with_all_method_median": {
-      "rows": 4,
+      "rows": 1,
       "policy_decision": "watch",
       "methods": [
-        "intensity_bev",
         "kiss_keyframe"
       ],
       "risk_buckets": [
-        "cross_method_suspicious",
         "ok"
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 5.652812450067093,
-      "mean_path_vs_healthy": 3.513492673283054,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 2.000984116390263,
-      "max_path_vs_all": 4.009313832149375
-    },
-    "path_disagrees_with_healthy_median": {
-      "rows": 4,
-      "policy_decision": "investigate",
-      "methods": [
-        "intensity_bev",
-        "kiss_keyframe"
-      ],
-      "risk_buckets": [
-        "cross_method_suspicious"
-      ],
-      "mean_acceptance": 1.0,
-      "mean_convergence": 1.0,
-      "mean_path_m": 7.853586678997508,
-      "mean_path_vs_healthy": 4.692339287214994,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 2.6037771617576304,
-      "max_path_vs_all": 4.009313832149375
+      "mean_path_m": 0.616759443002404,
+      "mean_path_vs_healthy": 0.6094577147585651,
+      "max_path_vs_healthy": 0.6094577147585651,
+      "mean_path_vs_all": 0.29862339200586224,
+      "max_path_vs_all": 0.29862339200586224
     },
     "partial_acceptance": {
       "rows": 1,
@@ -1170,15 +1106,15 @@
       "mean_acceptance": 0.6551724137931034,
       "mean_convergence": 0.0,
       "mean_path_m": 2.723482111261566,
-      "mean_path_vs_healthy": 1.9353882427086038,
-      "max_path_vs_healthy": 1.9353882427086038,
+      "mean_path_vs_healthy": 2.6912391898454264,
+      "max_path_vs_healthy": 2.6912391898454264,
       "mean_path_vs_all": 1.3186591228714204,
       "max_path_vs_all": 1.3186591228714204
     }
   },
   "reason_drilldown_all": {
     "ok_no_risk": {
-      "rows": 14,
+      "rows": 15,
       "policy_decision": "pass",
       "methods": [
         "geometry_icp",
@@ -1190,10 +1126,10 @@
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 2.1974893512967526,
-      "mean_path_vs_healthy": 1.5273267327753126,
+      "mean_path_m": 2.1224606184305785,
+      "mean_path_vs_healthy": 1.53735237316074,
       "max_path_vs_healthy": 5.319493549182697,
-      "mean_path_vs_all": 0.9956976743028305,
+      "mean_path_vs_all": 1.2439618855473071,
       "max_path_vs_all": 5.463416858603101
     },
     "low_convergence": {
@@ -1208,99 +1144,61 @@
       "mean_acceptance": 0.9507389162561576,
       "mean_convergence": 0.10344827586206895,
       "mean_path_m": 3.883776008264235,
-      "mean_path_vs_healthy": 2.599737669716214,
-      "max_path_vs_healthy": 3.411137264851386,
-      "mean_path_vs_all": 1.3823659286556331,
-      "max_path_vs_all": 1.5466021844442919
+      "mean_path_vs_healthy": 2.8970073818548734,
+      "max_path_vs_healthy": 3.744759569649314,
+      "mean_path_vs_all": 2.4382238409053523,
+      "max_path_vs_all": 3.744759569649314
     },
-    "motion_margin_dominant": {
-      "rows": 2,
+    "low_motion_margin_dominant": {
+      "rows": 5,
       "policy_decision": "watch",
       "methods": [
         "intensity_bev"
       ],
       "risk_buckets": [
         "local_risk"
-      ],
-      "mean_acceptance": 0.9655172413793103,
-      "mean_convergence": 0.9655172413793103,
-      "mean_path_m": 9.538457585540923,
-      "mean_path_vs_healthy": 8.596385128309986,
-      "max_path_vs_healthy": 11.7144269675745,
-      "mean_path_vs_all": 4.2296037982246295,
-      "max_path_vs_all": 5.832439826586494
-    },
-    "overlap_tail": {
-      "rows": 1,
-      "policy_decision": "watch",
-      "methods": [
-        "intensity_bev"
-      ],
-      "risk_buckets": [
-        "local_risk"
-      ],
-      "mean_acceptance": 0.9310344827586207,
-      "mean_convergence": 0.9310344827586207,
-      "mean_path_m": 11.516254999302024,
-      "mean_path_vs_healthy": 11.7144269675745,
-      "max_path_vs_healthy": 11.7144269675745,
-      "mean_path_vs_all": 5.832439826586494,
-      "max_path_vs_all": 5.832439826586494
-    },
-    "cross_method_suspicious": {
-      "rows": 4,
-      "policy_decision": "investigate",
-      "methods": [
-        "intensity_bev",
-        "kiss_keyframe"
-      ],
-      "risk_buckets": [
-        "cross_method_suspicious"
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 7.853586678997508,
-      "mean_path_vs_healthy": 4.692339287214994,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 2.6037771617576304,
-      "max_path_vs_all": 4.009313832149375
+      "mean_path_m": 0.9854101966249684,
+      "mean_path_vs_healthy": 0.9246777544755792,
+      "max_path_vs_healthy": 4.127599464407976,
+      "mean_path_vs_all": 0.5036478608358115,
+      "max_path_vs_all": 2.022449996209138
     },
-    "path_disagrees_with_all_method_median": {
-      "rows": 4,
+    "low_used_path": {
+      "rows": 3,
       "policy_decision": "watch",
       "methods": [
-        "intensity_bev",
+        "intensity_bev"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 0.0,
+      "mean_path_vs_healthy": 0.0,
+      "max_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.0,
+      "max_path_vs_all": 0.0
+    },
+    "path_disagrees_with_all_method_median": {
+      "rows": 1,
+      "policy_decision": "watch",
+      "methods": [
         "kiss_keyframe"
       ],
       "risk_buckets": [
-        "cross_method_suspicious",
         "ok"
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 5.652812450067093,
-      "mean_path_vs_healthy": 3.513492673283054,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 2.000984116390263,
-      "max_path_vs_all": 4.009313832149375
-    },
-    "path_disagrees_with_healthy_median": {
-      "rows": 4,
-      "policy_decision": "investigate",
-      "methods": [
-        "intensity_bev",
-        "kiss_keyframe"
-      ],
-      "risk_buckets": [
-        "cross_method_suspicious"
-      ],
-      "mean_acceptance": 1.0,
-      "mean_convergence": 1.0,
-      "mean_path_m": 7.853586678997508,
-      "mean_path_vs_healthy": 4.692339287214994,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 2.6037771617576304,
-      "max_path_vs_all": 4.009313832149375
+      "mean_path_m": 0.616759443002404,
+      "mean_path_vs_healthy": 0.6094577147585651,
+      "max_path_vs_healthy": 0.6094577147585651,
+      "mean_path_vs_all": 0.29862339200586224,
+      "max_path_vs_all": 0.29862339200586224
     },
     "partial_acceptance": {
       "rows": 1,
@@ -1314,8 +1212,8 @@
       "mean_acceptance": 0.6551724137931034,
       "mean_convergence": 0.0,
       "mean_path_m": 2.723482111261566,
-      "mean_path_vs_healthy": 1.9353882427086038,
-      "max_path_vs_healthy": 1.9353882427086038,
+      "mean_path_vs_healthy": 2.6912391898454264,
+      "max_path_vs_healthy": 2.6912391898454264,
       "mean_path_vs_all": 1.3186591228714204,
       "max_path_vs_all": 1.3186591228714204
     }

@@ -119,6 +119,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_simulate_ct_icp_guarded_trajectory_module",
             "evaluation/scripts/simulate_ct_icp_guarded_trajectory.py",
         )
+        cls.ct_icp_fallback_module = load_script_module(
+            "test_compare_ct_icp_fallback_sources_module",
+            "evaluation/scripts/compare_ct_icp_fallback_sources.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -838,6 +842,66 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         )
         self.assertEqual(out["pairs"][0]["guard_source"], "velocity_bootstrap")
         self.assertEqual(out["pairs"][1]["guard_source"], "velocity_prior")
+
+    def test_ct_icp_fallback_bakeoff_selects_eligible_peer(self) -> None:
+        fallback = self.ct_icp_fallback_module
+        candidates = [
+            fallback.mark_candidate_eligibility(
+                {
+                    "source": "ct_icp_original",
+                    "source_kind": "ct_icp_refined",
+                    "health_state": "diagnostic_watch",
+                    "risk_state": "diagnostic_watch",
+                    "accepted_rate": 1.0,
+                    "path_status": "path_high",
+                    "reference_error": 1.0,
+                }
+            ),
+            fallback.mark_candidate_eligibility(
+                {
+                    "source": "self_velocity",
+                    "source_kind": "internal_prior",
+                    "health_state": "diagnostic_watch",
+                    "risk_state": "diagnostic_watch",
+                    "accepted_rate": 1.0,
+                    "path_status": "path_high",
+                    "reference_error": 0.8,
+                }
+            ),
+            fallback.mark_candidate_eligibility(
+                {
+                    "source": "geometry_icp",
+                    "source_kind": "external_peer",
+                    "health_state": "ok",
+                    "risk_state": "ok",
+                    "accepted_rate": 1.0,
+                    "path_status": "reference_consistent",
+                    "reference_error": 0.2,
+                }
+            ),
+            fallback.mark_candidate_eligibility(
+                {
+                    "source": "intensity_bev",
+                    "source_kind": "external_peer",
+                    "health_state": "suspicious",
+                    "risk_state": "suspicious",
+                    "accepted_rate": 1.0,
+                    "path_status": "reference_consistent",
+                    "reference_error": 0.1,
+                }
+            ),
+        ]
+
+        selected = fallback.select_best_candidate(candidates)
+
+        self.assertIsNotNone(selected)
+        self.assertEqual(selected["source"], "geometry_icp")
+        self.assertFalse(candidates[0]["eligible"])
+        self.assertIn("guard_rejects_refined", candidates[0]["eligibility_blockers"])
+        self.assertFalse(candidates[1]["eligible"])
+        self.assertIn("path_not_reference_consistent", candidates[1]["eligibility_blockers"])
+        self.assertFalse(candidates[3]["eligible"])
+        self.assertIn("source_health_not_ok", candidates[3]["eligibility_blockers"])
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {

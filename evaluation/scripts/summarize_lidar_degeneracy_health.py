@@ -506,6 +506,10 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
                     "windows": 0,
                     "mean_acceptance": 0.0,
                     "mean_convergence": 0.0,
+                    "_ct_icp_refinement_gate_rate_sum": 0.0,
+                    "_ct_icp_refinement_gate_rate_count": 0,
+                    "_ct_icp_iterations_sum": 0.0,
+                    "_ct_icp_iterations_count": 0,
                     "failed_windows": 0,
                     "diagnostic_watch_windows": 0,
                     "local_risk_windows": 0,
@@ -532,6 +536,14 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
             stats["windows"] += 1
             stats["mean_acceptance"] += accepted
             stats["mean_convergence"] += converged_value
+            ct_icp_refinement_gate_rate = as_finite_float(row.get("ct_icp_refinement_gate_rate"))
+            if ct_icp_refinement_gate_rate is not None:
+                stats["_ct_icp_refinement_gate_rate_sum"] += ct_icp_refinement_gate_rate
+                stats["_ct_icp_refinement_gate_rate_count"] += 1
+            ct_icp_iterations_mean = as_finite_float(row.get("ct_icp_iterations_mean"))
+            if ct_icp_iterations_mean is not None:
+                stats["_ct_icp_iterations_sum"] += ct_icp_iterations_mean
+                stats["_ct_icp_iterations_count"] += 1
             stats["failed_windows"] += 1 if accepted < 0.5 else 0
             diagnostic_watch = row.get("health_state") == "diagnostic_watch"
             local_risk = product_local_risk(row)
@@ -566,6 +578,16 @@ def summarize_sequence(sequence_payload: dict[str, Any]) -> dict[str, Any]:
         n = max(int(stats["windows"]), 1)
         stats["mean_acceptance"] /= n
         stats["mean_convergence"] /= n
+        ct_gate_count = int(stats.pop("_ct_icp_refinement_gate_rate_count"))
+        ct_gate_sum = float(stats.pop("_ct_icp_refinement_gate_rate_sum"))
+        stats["ct_icp_refinement_gate_rate_mean"] = (
+            ct_gate_sum / ct_gate_count if ct_gate_count else None
+        )
+        ct_iterations_count = int(stats.pop("_ct_icp_iterations_count"))
+        ct_iterations_sum = float(stats.pop("_ct_icp_iterations_sum"))
+        stats["ct_icp_iterations_mean"] = (
+            ct_iterations_sum / ct_iterations_count if ct_iterations_count else None
+        )
     return method_stats
 
 
@@ -578,8 +600,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         "",
         "## Method Aggregate",
         "",
-        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | Failed windows | Diagnostic watch | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Sequence | Method | Windows | Mean accepted | Min accepted | Mean converged | CT gate | CT iter | Failed windows | Diagnostic watch | Local risk | Cross-method risk | Total risk | Pass | Watch | Investigate | Fail | Max used path m |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for sequence in payload["sequences"]:
         aggregates = payload["aggregates"][sequence["sequence"]]
@@ -588,7 +610,10 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             lines.append(
                 f"| `{sequence['sequence']}` | `{method}` | {row['windows']} | "
                 f"{fmt(row['mean_acceptance'])} | {fmt(row['min_acceptance'])} | "
-                f"{fmt(row['mean_convergence'])} | {row['failed_windows']} | "
+                f"{fmt(row['mean_convergence'])} | "
+                f"{fmt(row['ct_icp_refinement_gate_rate_mean'])} | "
+                f"{fmt(row['ct_icp_iterations_mean'])} | "
+                f"{row['failed_windows']} | "
                 f"{row['diagnostic_watch_windows']} | "
                 f"{row['local_risk_windows']} | "
                 f"{row['cross_method_suspicious_windows']} | "
@@ -676,10 +701,41 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     lines.extend(
         [
             "",
+            "## Diagnostic Watch Rows",
+            "",
+            "| Sequence | Window | Expected | Method | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Policy reasons |",
+            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    diagnostic_rows = 0
+    for sequence in payload["sequences"]:
+        for window in sequence["windows"]:
+            for method in sorted(window["methods"], key=method_sort_key):
+                row = window["methods"][method]
+                if row["health_state"] != "diagnostic_watch":
+                    continue
+                diagnostic_rows += 1
+                lines.append(
+                    f"| `{sequence['sequence']}` | `{window['name']}` "
+                    f"{window['start']}-{window['end']} | `{window['expected_stress']}` | "
+                    f"`{method}` | {fmt(row['accepted_rate'])} | "
+                    f"{fmt(row['converged_rate'])} | "
+                    f"{fmt(row['ct_icp_refinement_gate_rate'])} | "
+                    f"{fmt(row['ct_icp_iterations_mean'])} | "
+                    f"{fmt(row['path_vs_healthy_median'])} | "
+                    f"{fmt(row['path_vs_all_median'])} | "
+                    f"{', '.join(row['policy_reasons'])} |"
+                )
+    if diagnostic_rows == 0:
+        lines.append("| n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |")
+
+    lines.extend(
+        [
+            "",
             "## Window Detail",
             "",
-            "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | Score | Overlap | Used path m | Max step m | State | Risk state | Policy | Failure awareness | Risk awareness | Keyframes | Flags | Risk flags | Policy reasons |",
-            "| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| Sequence | Window | Expected | Frames | Obscurant | Method | Accepted | Converged | CT gate | CT iter | Score | Overlap | Used path m | Max step m | State | Risk state | Policy | Failure awareness | Risk awareness | Keyframes | Flags | Risk flags | Policy reasons |",
+            "| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for sequence in payload["sequences"]:
@@ -691,6 +747,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                     f"{window['start']}-{window['end']} | `{window['expected_stress']}` | "
                     f"{window['frames']} | {fmt(window['obscurant_score'])} | `{method}` | "
                     f"{fmt(row['accepted_rate'])} | {fmt(row['converged_rate'])} | "
+                    f"{fmt(row['ct_icp_refinement_gate_rate'])} | "
+                    f"{fmt(row['ct_icp_iterations_mean'])} | "
                     f"{fmt(row['score_mean'])} | {fmt(row['overlap_mean'], 1)} | "
                     f"{fmt(row['used_path_length_m'])} | {fmt(row['used_step_max_m'])} | "
                     f"`{row['health_state']}` | `{row['risk_state']}` | "

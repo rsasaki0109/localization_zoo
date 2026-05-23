@@ -14,10 +14,10 @@
       "policy_version": "lidar_degeneracy_triage_v1",
       "total_rows": 28,
       "counts": {
-        "pass": 10,
-        "watch": 11,
-        "investigate": 5,
-        "fail": 2
+        "pass": 14,
+        "watch": 8,
+        "investigate": 6,
+        "fail": 0
       }
     },
     "risk_gt_calibration": {
@@ -25,20 +25,18 @@
       "policy_version": "lidar_degeneracy_triage_v1",
       "total_rows": 28,
       "counts": {
-        "pass": 10,
-        "watch": 11,
-        "investigate": 5,
-        "fail": 2
+        "pass": 14,
+        "watch": 8,
+        "investigate": 6,
+        "fail": 0
       }
     }
   },
   "violations": [
-    "method_health_comparison: fail rows 2 > 0",
-    "method_health_comparison: investigate rows 5 > 0",
-    "risk_gt_calibration: fail rows 2 > 0",
-    "risk_gt_calibration: investigate rows 5 > 0"
+    "method_health_comparison: investigate rows 6 > 0",
+    "risk_gt_calibration: investigate rows 6 > 0"
   ],
-  "offender_count": 14,
+  "offender_count": 12,
   "offenders": [
     {
       "report": "method_health_comparison",
@@ -46,48 +44,12 @@
       "window": "degraded",
       "start": 170,
       "end": 199,
-      "method": "geometry_icp",
-      "policy_decision": "fail",
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
       "policy_reasons": [
-        "all_pairs_failed",
-        "low_acceptance"
-      ]
-    },
-    {
-      "report": "method_health_comparison",
-      "sequence": "fog_200",
-      "window": "point_count_tail",
-      "start": 115,
-      "end": 144,
-      "method": "geometry_icp",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "low_acceptance"
-      ]
-    },
-    {
-      "report": "risk_gt_calibration",
-      "sequence": "fog_200",
-      "window": "degraded",
-      "start": 170,
-      "end": 199,
-      "method": "geometry_icp",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "all_pairs_failed",
-        "low_acceptance"
-      ]
-    },
-    {
-      "report": "risk_gt_calibration",
-      "sequence": "fog_200",
-      "window": "point_count_tail",
-      "start": 115,
-      "end": 144,
-      "method": "geometry_icp",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "low_acceptance"
+        "cross_method_suspicious",
+        "path_disagrees_with_all_method_median",
+        "path_disagrees_with_healthy_median"
       ]
     },
     {
@@ -100,6 +62,7 @@
       "policy_decision": "investigate",
       "policy_reasons": [
         "cross_method_suspicious",
+        "path_disagrees_with_all_method_median",
         "path_disagrees_with_healthy_median"
       ]
     },
@@ -161,10 +124,25 @@
       "window": "degraded",
       "start": 170,
       "end": 199,
+      "method": "intensity_bev",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "cross_method_suspicious",
+        "path_disagrees_with_all_method_median",
+        "path_disagrees_with_healthy_median"
+      ]
+    },
+    {
+      "report": "risk_gt_calibration",
+      "sequence": "fog_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
       "method": "kiss_keyframe",
       "policy_decision": "investigate",
       "policy_reasons": [
         "cross_method_suspicious",
+        "path_disagrees_with_all_method_median",
         "path_disagrees_with_healthy_median"
       ]
     },

@@ -533,6 +533,19 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(args.kiss_min_correspondences, 80)
         self.assertEqual(args.min_keyframe_correspondences, 1000)
 
+    def test_lidar_degradation_health_uses_geometry_correspondence_default(self) -> None:
+        argv = [
+            "run_lidar_degradation_health.py",
+            "windows.json",
+            "out",
+            "--method",
+            "geometry_icp",
+        ]
+        with mock.patch.object(sys, "argv", argv):
+            args = self.lidar_health_module.parse_args()
+
+        self.assertEqual(args.geometry_min_correspondences, 40)
+
     def test_lidar_degeneracy_check_runner_policy_gate_passes_clean_reports(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             method_health_json, risk_calibration_json = self.write_lidar_gate_reports(

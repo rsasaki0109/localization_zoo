@@ -59,6 +59,13 @@ POLICY_BY_REASON = {
     str(reason): str(decision) for reason, decision in POLICY["reason_decisions"].items()
 }
 DIAGNOSTIC_WATCH_FLAGS = {"ct_icp_internal_convergence_low"}
+WATCH_CLEAR_ACCEPTANCE_MIN = 0.999
+WATCH_CLEAR_GATE_MIN = 0.999
+WATCH_CLEAR_ITERATION_MARGIN = 0.5
+WATCH_CLEAR_PATH_HEALTHY_MIN = 0.5
+WATCH_CLEAR_PATH_HEALTHY_MAX = 2.0
+WATCH_CLEAR_PATH_ALL_MIN = 0.33
+WATCH_CLEAR_PATH_ALL_MAX = 3.0
 
 
 def parse_args() -> argparse.Namespace:
@@ -411,6 +418,51 @@ def product_local_risk(row: dict[str, Any]) -> bool:
     return flags != "ok" and row.get("health_state") != "diagnostic_watch"
 
 
+def ct_icp_watch_clear_status(row: dict[str, Any]) -> dict[str, Any]:
+    blockers: list[str] = []
+    if row.get("health_state") != "diagnostic_watch":
+        return {
+            "watch_clear_candidate": None,
+            "watch_clear_blockers": blockers,
+        }
+
+    accepted = as_finite_float(row.get("accepted_rate"))
+    if accepted is None or accepted < WATCH_CLEAR_ACCEPTANCE_MIN:
+        blockers.append("accepted_below_one")
+
+    refinement_gate = as_finite_float(row.get("ct_icp_refinement_gate_rate"))
+    if refinement_gate is None or refinement_gate < WATCH_CLEAR_GATE_MIN:
+        blockers.append("refinement_gate_below_one")
+
+    iterations = as_finite_float(row.get("ct_icp_iterations_mean"))
+    max_iterations = as_finite_float(row.get("ct_icp_max_iterations"))
+    if iterations is None or max_iterations is None:
+        blockers.append("iterations_unknown")
+    elif iterations >= max_iterations - WATCH_CLEAR_ITERATION_MARGIN:
+        blockers.append("iterations_pinned")
+
+    path_vs_healthy = as_finite_float(row.get("path_vs_healthy_median"))
+    if path_vs_healthy is None:
+        blockers.append("path_vs_healthy_missing")
+    elif path_vs_healthy > WATCH_CLEAR_PATH_HEALTHY_MAX:
+        blockers.append("path_vs_healthy_high")
+    elif path_vs_healthy < WATCH_CLEAR_PATH_HEALTHY_MIN:
+        blockers.append("path_vs_healthy_low")
+
+    path_vs_all = as_finite_float(row.get("path_vs_all_median"))
+    if path_vs_all is None:
+        blockers.append("path_vs_all_missing")
+    elif path_vs_all > WATCH_CLEAR_PATH_ALL_MAX:
+        blockers.append("path_vs_all_high")
+    elif path_vs_all < WATCH_CLEAR_PATH_ALL_MIN:
+        blockers.append("path_vs_all_low")
+
+    return {
+        "watch_clear_candidate": not blockers,
+        "watch_clear_blockers": blockers,
+    }
+
+
 def add_cross_method_risk(windows: list[dict[str, Any]]) -> None:
     for window in windows:
         expected = window["expected_stress"]
@@ -428,12 +480,21 @@ def add_cross_method_risk(windows: list[dict[str, Any]]) -> None:
             row["policy_decision"] = policy_decision(row["policy_reasons"])
 
 
+def add_ct_icp_watch_clear_status(windows: list[dict[str, Any]]) -> None:
+    for window in windows:
+        for row in window["methods"].values():
+            status = ct_icp_watch_clear_status(row)
+            if status["watch_clear_candidate"] is not None:
+                row.update(status)
+
+
 def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict[str, Any]:
     methods: dict[str, dict[str, Any]] = {}
     windows: dict[str, dict[str, Any]] = {}
     for method, summary_path_str in inputs:
         summary_path = Path(summary_path_str)
         payload = load_json(summary_path)
+        parameters = payload.get("parameters") or {}
         methods[method] = {
             "summary_json": str(summary_path),
             "method": payload.get("method", method),
@@ -466,6 +527,7 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
                 "score_min": row.get("score_min"),
                 "overlap_mean": row.get("overlap_mean"),
                 "overlap_min": row.get("overlap_min"),
+                "ct_icp_max_iterations": parameters.get("ct_icp_max_iterations"),
                 "ct_icp_refinement_gate_rate": row.get("ct_icp_refinement_gate_rate"),
                 "ct_icp_iterations_mean": row.get("ct_icp_iterations_mean"),
                 "used_path_length_m": row.get("used_path_length_m"),
@@ -488,6 +550,7 @@ def flatten_sequence(sequence: str, inputs: tuple[tuple[str, str], ...]) -> dict
         key=lambda row: (row["start"], row["end"], row["name"]),
     )
     add_cross_method_consistency(sorted_windows)
+    add_ct_icp_watch_clear_status(sorted_windows)
     add_cross_method_risk(sorted_windows)
     return {
         "sequence": sequence,
@@ -703,8 +766,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "## Diagnostic Watch Rows",
             "",
-            "| Sequence | Window | Expected | Method | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Policy reasons |",
-            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+            "| Sequence | Window | Expected | Method | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Clear? | Blockers | Policy reasons |",
+            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
         ]
     )
     diagnostic_rows = 0
@@ -715,6 +778,10 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                 if row["health_state"] != "diagnostic_watch":
                     continue
                 diagnostic_rows += 1
+                clear = row.get("watch_clear_candidate")
+                clear_text = "yes" if clear is True else "no" if clear is False else "n/a"
+                blockers = row.get("watch_clear_blockers") or []
+                blocker_text = ", ".join(str(blocker) for blocker in blockers) if blockers else "none"
                 lines.append(
                     f"| `{sequence['sequence']}` | `{window['name']}` "
                     f"{window['start']}-{window['end']} | `{window['expected_stress']}` | "
@@ -724,10 +791,11 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
                     f"{fmt(row['ct_icp_iterations_mean'])} | "
                     f"{fmt(row['path_vs_healthy_median'])} | "
                     f"{fmt(row['path_vs_all_median'])} | "
+                    f"{clear_text} | {blocker_text} | "
                     f"{', '.join(row['policy_reasons'])} |"
                 )
     if diagnostic_rows == 0:
-        lines.append("| n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |")
+        lines.append("| n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |")
 
     lines.extend(
         [

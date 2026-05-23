@@ -60,14 +60,14 @@ Policy: `lidar_degeneracy_triage_v4` (`evaluation/config/lidar_degeneracy_triage
 
 ## Diagnostic Watch Rows
 
-| Sequence | Window | Expected | Method | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Policy reasons |
-| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| `fog_200` | `baseline` 0-29 | `nominal` | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.759 | 0.947 | 0.973 | ct_icp_internal_convergence_low |
-| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | `ct_icp` | 1.000 | 0.000 | 1.000 | 8.000 | 2.761 | 2.761 | ct_icp_internal_convergence_low |
-| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | `ct_icp` | 1.000 | 0.138 | 1.000 | 8.000 | 3.411 | 1.547 | ct_icp_internal_convergence_low |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | `ct_icp` | 1.000 | 0.103 | 1.000 | 7.793 | 3.699 | 3.699 | ct_icp_internal_convergence_low |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.724 | 3.745 | 3.745 | ct_icp_internal_convergence_low |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | `ct_icp` | 1.000 | 0.207 | 1.000 | 7.655 | 3.025 | 3.025 | ct_icp_internal_convergence_low |
+| Sequence | Window | Expected | Method | Accepted | Converged | CT gate | CT iter | Path/healthy | Path/all | Clear? | Blockers | Policy reasons |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
+| `fog_200` | `baseline` 0-29 | `nominal` | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.759 | 0.947 | 0.973 | no | iterations_pinned | ct_icp_internal_convergence_low |
+| `fog_200` | `point_count_tail` 115-144 | `obscurant_stress` | `ct_icp` | 1.000 | 0.000 | 1.000 | 8.000 | 2.761 | 2.761 | no | iterations_pinned, path_vs_healthy_high | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `baseline` 5-34 | `nominal` | `ct_icp` | 1.000 | 0.138 | 1.000 | 8.000 | 3.411 | 1.547 | no | iterations_pinned, path_vs_healthy_high | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `point_count_stress` | `ct_icp` | 1.000 | 0.103 | 1.000 | 7.793 | 3.699 | 3.699 | no | iterations_pinned, path_vs_healthy_high, path_vs_all_high | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_stress` | `ct_icp` | 1.000 | 0.138 | 1.000 | 7.724 | 3.745 | 3.745 | no | iterations_pinned, path_vs_healthy_high, path_vs_all_high | ct_icp_internal_convergence_low |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `degradation_stress` | `ct_icp` | 1.000 | 0.207 | 1.000 | 7.655 | 3.025 | 3.025 | no | iterations_pinned, path_vs_healthy_high, path_vs_all_high | ct_icp_internal_convergence_low |
 
 ## Window Detail
 

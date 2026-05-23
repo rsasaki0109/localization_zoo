@@ -130,6 +130,10 @@
       "path_vs_healthy_median": 0.9473138099671925,
       "path_vs_all_median": 0.9729441707016421,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json",
+      "watch_clear_candidate": false,
+      "watch_clear_blockers": [
+        "iterations_pinned"
+      ],
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -251,6 +255,11 @@
       "path_vs_healthy_median": 2.7613309021781873,
       "path_vs_all_median": 2.7613309021781873,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
+      "watch_clear_candidate": false,
+      "watch_clear_blockers": [
+        "iterations_pinned",
+        "path_vs_healthy_high"
+      ],
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -492,6 +501,11 @@
       "path_vs_healthy_median": 3.411137264851386,
       "path_vs_all_median": 1.5466021844442919,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json",
+      "watch_clear_candidate": false,
+      "watch_clear_blockers": [
+        "iterations_pinned",
+        "path_vs_healthy_high"
+      ],
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -613,6 +627,12 @@
       "path_vs_healthy_median": 3.6986289100162373,
       "path_vs_all_median": 3.6986289100162373,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json",
+      "watch_clear_candidate": false,
+      "watch_clear_blockers": [
+        "iterations_pinned",
+        "path_vs_healthy_high",
+        "path_vs_all_high"
+      ],
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -733,6 +753,12 @@
       "path_vs_healthy_median": 3.744759569649314,
       "path_vs_all_median": 3.744759569649314,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json",
+      "watch_clear_candidate": false,
+      "watch_clear_blockers": [
+        "iterations_pinned",
+        "path_vs_healthy_high",
+        "path_vs_all_high"
+      ],
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],
@@ -854,6 +880,12 @@
       "path_vs_healthy_median": 3.0246420264763723,
       "path_vs_all_median": 3.0246420264763723,
       "result_json": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
+      "watch_clear_candidate": false,
+      "watch_clear_blockers": [
+        "iterations_pinned",
+        "path_vs_healthy_high",
+        "path_vs_all_high"
+      ],
       "risk_reasons": [
         "ct_icp_internal_convergence_low"
       ],

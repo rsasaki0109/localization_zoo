@@ -674,6 +674,32 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             ),
             "diagnostic_watch",
         )
+        clear_status = summarize.ct_icp_watch_clear_status(
+            {
+                **diagnostic_row,
+                "health_state": "diagnostic_watch",
+                "ct_icp_refinement_gate_rate": 1.0,
+                "ct_icp_iterations_mean": 7.9,
+                "ct_icp_max_iterations": 8,
+                "path_vs_healthy_median": 1.0,
+                "path_vs_all_median": 1.0,
+            }
+        )
+        self.assertFalse(clear_status["watch_clear_candidate"])
+        self.assertEqual(clear_status["watch_clear_blockers"], ["iterations_pinned"])
+        clear_candidate = summarize.ct_icp_watch_clear_status(
+            {
+                **diagnostic_row,
+                "health_state": "diagnostic_watch",
+                "ct_icp_refinement_gate_rate": 1.0,
+                "ct_icp_iterations_mean": 6.5,
+                "ct_icp_max_iterations": 8,
+                "path_vs_healthy_median": 1.0,
+                "path_vs_all_median": 1.0,
+            }
+        )
+        self.assertTrue(clear_candidate["watch_clear_candidate"])
+        self.assertEqual(clear_candidate["watch_clear_blockers"], [])
 
         partial_acceptance_row = {
             "accepted_rate": 0.655,

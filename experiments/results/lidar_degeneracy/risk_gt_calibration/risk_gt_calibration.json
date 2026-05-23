@@ -37,7 +37,7 @@
       "risk_failure_awareness": "false_alarm",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.2758617624563486,
-      "path_vs_healthy_median": 0.1759809327525997,
+      "path_vs_healthy_median": 0.33494576759719097,
       "path_vs_all_median": 0.9940617412118857,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/baseline_0000_0029_geometry_icp.json",
       "risk_reasons": [
@@ -67,7 +67,7 @@
       "risk_failure_awareness": "nominal_ok",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 7.250000000000004,
-      "path_vs_healthy_median": 1.0,
+      "path_vs_healthy_median": 1.9033071501448953,
       "path_vs_all_median": 5.648690035126552,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/baseline_0000_0029_intensity_bev.json",
       "risk_reasons": [
@@ -84,29 +84,27 @@
       "expected_stress": "nominal",
       "is_stress": false,
       "method": "kiss_keyframe",
-      "accepted_rate": 0.0,
-      "converged_rate": 0.0,
-      "health_state": "failed",
-      "risk_state": "failed",
-      "risk_bucket": "local_risk",
-      "flags": "all_pairs_failed, low_acceptance, low_convergence",
-      "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
+      "health_state": "ok",
+      "risk_state": "ok",
+      "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
       "cross_method_probe": "none",
       "confidence_probe": "none",
-      "failure_awareness": "false_alarm",
-      "risk_failure_awareness": "false_alarm",
+      "failure_awareness": "nominal_ok",
+      "risk_failure_awareness": "nominal_ok",
       "cross_method_suspicious": false,
-      "trajectory_path_length_m": 0.0,
-      "path_vs_healthy_median": 0.0,
-      "path_vs_all_median": 0.0,
+      "trajectory_path_length_m": 0.36831846157680975,
+      "path_vs_healthy_median": 0.09669284985510475,
+      "path_vs_all_median": 0.2869678377464918,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/baseline_0000_0029_kiss_keyframe.json",
       "risk_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
+        "ok_no_risk"
       ],
-      "policy_decision": "fail",
-      "policy_reasons": "all_pairs_failed:fail, low_acceptance:fail, low_convergence:watch"
+      "policy_decision": "pass",
+      "policy_reasons": "ok_no_risk:pass"
     },
     {
       "sequence": "fog_200",
@@ -129,7 +127,7 @@
       "risk_failure_awareness": "false_alarm",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 1.2911050758426756,
-      "path_vs_healthy_median": 0.17808345873692066,
+      "path_vs_healthy_median": 0.33894752033651454,
       "path_vs_all_median": 1.0059382587881143,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json",
       "risk_reasons": [
@@ -159,8 +157,8 @@
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 0.3259907510529777,
-      "path_vs_healthy_median": null,
-      "path_vs_all_median": 0.21442468253294963,
+      "path_vs_healthy_median": 0.44549549651077214,
+      "path_vs_all_median": 0.18917939241505743,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/odometry_health/results/point_count_tail_0115_0144_geometry_icp.json",
       "risk_reasons": [
         "low_acceptance"
@@ -189,8 +187,8 @@
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 11.516254999302024,
-      "path_vs_healthy_median": null,
-      "path_vs_all_median": 7.574967431491719,
+      "path_vs_healthy_median": 15.737991713835324,
+      "path_vs_all_median": 6.683128636710212,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/point_count_tail_0115_0144_intensity_bev.json",
       "risk_reasons": [
         "motion_margin_dominant",
@@ -207,29 +205,27 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "kiss_keyframe",
-      "accepted_rate": 0.0,
-      "converged_rate": 0.0,
-      "health_state": "failed",
-      "risk_state": "failed",
-      "risk_bucket": "local_risk",
-      "flags": "all_pairs_failed, low_acceptance, low_convergence",
-      "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
-      "cross_method_probe": "none",
-      "confidence_probe": "none",
-      "failure_awareness": "stress_flagged",
-      "risk_failure_awareness": "stress_flagged",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
+      "health_state": "ok",
+      "risk_state": "ok",
+      "risk_bucket": "ok",
+      "flags": "ok",
+      "risk_flags": "ok",
+      "cross_method_probe": "no_healthy_peer",
+      "confidence_probe": "needs_gt_or_cross_method_check",
+      "failure_awareness": "stress_unflagged",
+      "risk_failure_awareness": "stress_unflagged",
       "cross_method_suspicious": false,
-      "trajectory_path_length_m": 0.0,
-      "path_vs_healthy_median": null,
-      "path_vs_all_median": 0.0,
+      "trajectory_path_length_m": 0.731748701403753,
+      "path_vs_healthy_median": 1.0,
+      "path_vs_all_median": 0.4246493935331691,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/point_count_tail_0115_0144_kiss_keyframe.json",
       "risk_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
+        "no_healthy_peer"
       ],
-      "policy_decision": "fail",
-      "policy_reasons": "all_pairs_failed:fail, low_acceptance:fail, low_convergence:watch"
+      "policy_decision": "watch",
+      "policy_reasons": "no_healthy_peer:watch"
     },
     {
       "sequence": "fog_200",
@@ -252,8 +248,8 @@
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 2.7146177013147597,
-      "path_vs_healthy_median": null,
-      "path_vs_all_median": 1.7855753174670503,
+      "path_vs_healthy_median": 3.709767705917567,
+      "path_vs_all_median": 1.575350606466831,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
       "risk_reasons": [
         "low_convergence"
@@ -303,26 +299,24 @@
       "accepted_rate": 1.0,
       "converged_rate": 1.0,
       "health_state": "ok",
-      "risk_state": "cross_method_suspicious",
-      "risk_bucket": "cross_method_suspicious",
+      "risk_state": "ok",
+      "risk_bucket": "ok",
       "flags": "ok",
-      "risk_flags": "cross_method_suspicious",
-      "cross_method_probe": "no_healthy_peer, path_disagrees_with_all_method_median",
+      "risk_flags": "ok",
+      "cross_method_probe": "path_disagrees_with_all_method_median",
       "confidence_probe": "needs_gt_or_cross_method_check",
       "failure_awareness": "stress_unflagged",
-      "risk_failure_awareness": "stress_flagged",
-      "cross_method_suspicious": true,
+      "risk_failure_awareness": "stress_unflagged",
+      "cross_method_suspicious": false,
       "trajectory_path_length_m": 8.280604373718116,
-      "path_vs_healthy_median": 1.0,
-      "path_vs_all_median": 6.0808949979718365,
+      "path_vs_healthy_median": 1.861361307527214,
+      "path_vs_all_median": 4.958087155791202,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/intensity_bev_health/results/degraded_0170_0199_intensity_bev.json",
       "risk_reasons": [
-        "cross_method_suspicious",
-        "no_healthy_peer",
         "path_disagrees_with_all_method_median"
       ],
-      "policy_decision": "investigate",
-      "policy_reasons": "cross_method_suspicious:investigate, no_healthy_peer:watch, path_disagrees_with_all_method_median:watch"
+      "policy_decision": "watch",
+      "policy_reasons": "path_disagrees_with_all_method_median:watch"
     },
     {
       "sequence": "fog_200",
@@ -332,29 +326,28 @@
       "expected_stress": "obscurant_stress",
       "is_stress": true,
       "method": "kiss_keyframe",
-      "accepted_rate": 0.0,
-      "converged_rate": 0.0,
-      "health_state": "failed",
-      "risk_state": "failed",
-      "risk_bucket": "local_risk",
-      "flags": "all_pairs_failed, low_acceptance, low_convergence",
-      "risk_flags": "all_pairs_failed, low_acceptance, low_convergence",
-      "cross_method_probe": "none",
-      "confidence_probe": "none",
-      "failure_awareness": "stress_flagged",
+      "accepted_rate": 1.0,
+      "converged_rate": 1.0,
+      "health_state": "ok",
+      "risk_state": "cross_method_suspicious",
+      "risk_bucket": "cross_method_suspicious",
+      "flags": "ok",
+      "risk_flags": "cross_method_suspicious",
+      "cross_method_probe": "path_disagrees_with_healthy_median",
+      "confidence_probe": "needs_gt_or_cross_method_check",
+      "failure_awareness": "stress_unflagged",
       "risk_failure_awareness": "stress_flagged",
-      "cross_method_suspicious": false,
-      "trajectory_path_length_m": 0.0,
-      "path_vs_healthy_median": 0.0,
-      "path_vs_all_median": 0.0,
+      "cross_method_suspicious": true,
+      "trajectory_path_length_m": 0.616759443002404,
+      "path_vs_healthy_median": 0.13863869247278582,
+      "path_vs_all_median": 0.36929032405760154,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/kiss_keyframe_health/results/degraded_0170_0199_kiss_keyframe.json",
       "risk_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
+        "cross_method_suspicious",
+        "path_disagrees_with_healthy_median"
       ],
-      "policy_decision": "fail",
-      "policy_reasons": "all_pairs_failed:fail, low_acceptance:fail, low_convergence:watch"
+      "policy_decision": "investigate",
+      "policy_reasons": "cross_method_suspicious:investigate, path_disagrees_with_healthy_median:investigate"
     },
     {
       "sequence": "fog_200",
@@ -377,8 +370,8 @@
       "risk_failure_awareness": "stress_flagged",
       "cross_method_suspicious": false,
       "trajectory_path_length_m": 2.723482111261566,
-      "path_vs_healthy_median": 0.32889895330655455,
-      "path_vs_all_median": 2.0,
+      "path_vs_healthy_median": 0.6121997857710204,
+      "path_vs_all_median": 1.6307096759423985,
       "result_json": "experiments/results/lidar_degeneracy/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "risk_reasons": [
         "low_convergence",
@@ -873,54 +866,54 @@
   ],
   "proxy_bucket_stats_stress": {
     "local_risk": {
-      "windows": 11,
-      "mean_path_vs_healthy": 2.1357479586657364,
-      "mean_path_vs_all": 1.6968423120342502,
-      "mean_path_m": 3.646835819824125,
-      "max_path_vs_healthy": 5.4783432890454735,
-      "max_path_vs_all": 7.574967431491719
+      "windows": 9,
+      "mean_path_vs_healthy": 3.9029768288209206,
+      "mean_path_vs_all": 1.907629590268837,
+      "mean_path_m": 4.457243779785042,
+      "max_path_vs_healthy": 15.737991713835324,
+      "max_path_vs_all": 6.683128636710212
+    },
+    "ok": {
+      "windows": 8,
+      "mean_path_vs_healthy": 1.018555154813273,
+      "mean_path_vs_all": 0.9951178209809408,
+      "mean_path_m": 2.217122165936571,
+      "max_path_vs_healthy": 1.861361307527214,
+      "max_path_vs_all": 4.958087155791202
     },
     "cross_method_suspicious": {
       "windows": 3,
-      "mean_path_vs_healthy": 4.482207669934655,
-      "mean_path_vs_all": 4.06268880694904,
-      "mean_path_m": 10.26586242432921,
+      "mean_path_vs_healthy": 4.19508723409225,
+      "mean_path_vs_all": 2.158820582310962,
+      "mean_path_m": 7.711247447423972,
       "max_path_vs_healthy": 7.156987569781947,
-      "max_path_vs_all": 6.0808949979718365
-    },
-    "ok": {
-      "windows": 6,
-      "mean_path_vs_healthy": 0.8811799884964949,
-      "mean_path_vs_all": 0.42970100308719256,
-      "mean_path_m": 1.4541040420617826,
-      "max_path_vs_healthy": 1.1465247983181073,
-      "max_path_vs_all": 0.5497381651114366
+      "max_path_vs_all": 3.4023619777016845
     }
   },
   "proxy_bucket_stats_all": {
     "local_risk": {
-      "windows": 15,
-      "mean_path_vs_healthy": 1.7014033970000961,
-      "mean_path_vs_all": 1.4807911744547364,
-      "mean_path_m": 3.191013316162721,
-      "max_path_vs_healthy": 5.4783432890454735,
-      "max_path_vs_all": 7.574967431491719
+      "windows": 12,
+      "mean_path_vs_healthy": 3.2676518343477814,
+      "mean_path_vs_all": 1.7262723747386521,
+      "mean_path_m": 3.9887666452034014,
+      "max_path_vs_healthy": 15.737991713835324,
+      "max_path_vs_all": 6.683128636710212
     },
     "ok": {
-      "windows": 10,
-      "mean_path_vs_healthy": 1.3367085875979354,
-      "mean_path_vs_all": 1.143695528323431,
-      "mean_path_m": 2.673231099359539,
+      "windows": 13,
+      "mean_path_vs_healthy": 1.325265167962044,
+      "mean_path_vs_all": 1.315896897715782,
+      "mean_path_m": 2.7779217330995443,
       "max_path_vs_healthy": 5.248540397821832,
       "max_path_vs_all": 5.648690035126552
     },
     "cross_method_suspicious": {
       "windows": 3,
-      "mean_path_vs_healthy": 4.482207669934655,
-      "mean_path_vs_all": 4.06268880694904,
-      "mean_path_m": 10.26586242432921,
+      "mean_path_vs_healthy": 4.19508723409225,
+      "mean_path_vs_all": 2.158820582310962,
+      "mean_path_m": 7.711247447423972,
       "max_path_vs_healthy": 7.156987569781947,
-      "max_path_vs_all": 6.0808949979718365
+      "max_path_vs_all": 3.4023619777016845
     }
   },
   "policy": {
@@ -962,103 +955,104 @@
       "mean_convergence": 1.0
     },
     "watch": {
-      "rows": 6,
+      "rows": 8,
       "methods": [
         "ct_icp",
+        "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 2.0092282811817883,
-      "mean_path_vs_all": 1.4237904686989078,
-      "mean_acceptance": 0.9425287356321839,
-      "mean_convergence": 0.2413793103448276
+      "mean_path_vs_healthy": 2.1125714064772736,
+      "mean_path_vs_all": 1.6682455408074994,
+      "mean_acceptance": 0.9568965517241379,
+      "mean_convergence": 0.43103448275862066
     },
     "investigate": {
       "rows": 5,
       "methods": [
-        "intensity_bev"
+        "intensity_bev",
+        "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 4.731241574712359,
-      "mean_path_vs_all": 4.477960324440321,
+      "mean_path_vs_healthy": 6.76031934103151,
+      "mean_path_vs_all": 3.157271630701172,
       "mean_acceptance": 0.9862068965517242,
       "mean_convergence": 0.9862068965517242
     },
     "fail": {
-      "rows": 4,
+      "rows": 2,
       "methods": [
-        "geometry_icp",
-        "kiss_keyframe"
+        "geometry_icp"
       ],
-      "mean_path_vs_healthy": 0.0,
-      "mean_path_vs_all": 0.05360617063323741,
-      "mean_acceptance": 0.034482758620689655,
-      "mean_convergence": 0.0
+      "mean_path_vs_healthy": 0.22274774825538607,
+      "mean_path_vs_all": 0.09458969620752872,
+      "mean_acceptance": 0.06896551724137931,
+      "mean_convergence": null
     }
   },
   "policy_stats_all": {
     "pass": {
-      "rows": 9,
+      "rows": 10,
       "methods": [
         "geometry_icp",
         "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 1.421426321298344,
-      "mean_path_vs_all": 1.2381464466144643,
+      "mean_path_vs_healthy": 1.3792836891685094,
+      "mean_path_vs_all": 1.143028585727667,
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0
     },
     "watch": {
-      "rows": 9,
+      "rows": 11,
       "methods": [
         "ct_icp",
         "geometry_icp",
+        "intensity_bev",
         "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 1.7264178827812309,
-      "mean_path_vs_all": 1.3432605551819712,
-      "mean_acceptance": 0.9233716475095785,
-      "mean_convergence": 0.21551724137931033
+      "mean_path_vs_healthy": 1.9077819822366615,
+      "mean_path_vs_all": 1.5356878646276626,
+      "mean_acceptance": 0.9373040752351097,
+      "mean_convergence": 0.37241379310344824
     },
     "investigate": {
       "rows": 5,
       "methods": [
-        "intensity_bev"
+        "intensity_bev",
+        "kiss_keyframe"
       ],
-      "mean_path_vs_healthy": 4.731241574712359,
-      "mean_path_vs_all": 4.477960324440321,
+      "mean_path_vs_healthy": 6.76031934103151,
+      "mean_path_vs_all": 3.157271630701172,
       "mean_acceptance": 0.9862068965517242,
       "mean_convergence": 0.9862068965517242
     },
     "fail": {
-      "rows": 5,
+      "rows": 2,
       "methods": [
-        "geometry_icp",
-        "kiss_keyframe"
+        "geometry_icp"
       ],
-      "mean_path_vs_healthy": 0.0,
-      "mean_path_vs_all": 0.04288493650658993,
-      "mean_acceptance": 0.027586206896551724,
-      "mean_convergence": 0.0
+      "mean_path_vs_healthy": 0.22274774825538607,
+      "mean_path_vs_all": 0.09458969620752872,
+      "mean_acceptance": 0.06896551724137931,
+      "mean_convergence": null
     }
   },
   "reason_drilldown_stress": {
     "low_acceptance": {
-      "rows": 4,
+      "rows": 2,
       "policy_decision": "fail",
       "methods": [
-        "geometry_icp",
-        "kiss_keyframe"
+        "geometry_icp"
       ],
       "risk_buckets": [
         "local_risk"
       ],
-      "mean_acceptance": 0.034482758620689655,
-      "mean_convergence": 0.0,
-      "mean_path_m": 0.08149768776324443,
-      "mean_path_vs_healthy": 0.0,
-      "max_path_vs_healthy": 0.0,
-      "mean_path_vs_all": 0.05360617063323741,
-      "max_path_vs_all": 0.21442468253294963
+      "mean_acceptance": 0.06896551724137931,
+      "mean_convergence": null,
+      "mean_path_m": 0.16299537552648885,
+      "mean_path_vs_healthy": 0.22274774825538607,
+      "max_path_vs_healthy": 0.44549549651077214,
+      "mean_path_vs_all": 0.09458969620752872,
+      "max_path_vs_all": 0.18917939241505743
     },
     "motion_margin_dominant": {
       "rows": 2,
@@ -1072,10 +1066,10 @@
       "mean_acceptance": 0.9655172413793103,
       "mean_convergence": 0.9655172413793103,
       "mean_path_m": 9.538457585540923,
-      "mean_path_vs_healthy": 5.4783432890454735,
-      "max_path_vs_healthy": 5.4783432890454735,
-      "mean_path_vs_all": 5.100867600677242,
-      "max_path_vs_all": 7.574967431491719
+      "mean_path_vs_healthy": 10.608167501440398,
+      "max_path_vs_healthy": 15.737991713835324,
+      "mean_path_vs_all": 4.654948203286488,
+      "max_path_vs_all": 6.683128636710212
     },
     "overlap_tail": {
       "rows": 1,
@@ -1089,80 +1083,61 @@
       "mean_acceptance": 0.9310344827586207,
       "mean_convergence": 0.9310344827586207,
       "mean_path_m": 11.516254999302024,
-      "mean_path_vs_healthy": null,
-      "max_path_vs_healthy": null,
-      "mean_path_vs_all": 7.574967431491719,
-      "max_path_vs_all": 7.574967431491719
-    },
-    "all_pairs_failed": {
-      "rows": 3,
-      "policy_decision": "fail",
-      "methods": [
-        "geometry_icp",
-        "kiss_keyframe"
-      ],
-      "risk_buckets": [
-        "local_risk"
-      ],
-      "mean_acceptance": 0.0,
-      "mean_convergence": 0.0,
-      "mean_path_m": 0.0,
-      "mean_path_vs_healthy": 0.0,
-      "max_path_vs_healthy": 0.0,
-      "mean_path_vs_all": 0.0,
-      "max_path_vs_all": 0.0
-    },
-    "low_convergence": {
-      "rows": 7,
-      "policy_decision": "watch",
-      "methods": [
-        "ct_icp",
-        "kiss_keyframe"
-      ],
-      "risk_buckets": [
-        "local_risk"
-      ],
-      "mean_acceptance": 0.6650246305418719,
-      "mean_convergence": 0.06403940886699508,
-      "mean_path_m": 2.95889829941865,
-      "mean_path_vs_healthy": 1.8943784843229365,
-      "max_path_vs_healthy": 3.2070700393945355,
-      "mean_path_vs_all": 1.1784436497841884,
-      "max_path_vs_all": 2.0
-    },
-    "cross_method_suspicious": {
-      "rows": 3,
-      "policy_decision": "investigate",
-      "methods": [
-        "intensity_bev"
-      ],
-      "risk_buckets": [
-        "cross_method_suspicious"
-      ],
-      "mean_acceptance": 1.0,
-      "mean_convergence": 1.0,
-      "mean_path_m": 10.26586242432921,
-      "mean_path_vs_healthy": 4.482207669934655,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 4.06268880694904,
-      "max_path_vs_all": 6.0808949979718365
+      "mean_path_vs_healthy": 15.737991713835324,
+      "max_path_vs_healthy": 15.737991713835324,
+      "mean_path_vs_all": 6.683128636710212,
+      "max_path_vs_all": 6.683128636710212
     },
     "no_healthy_peer": {
       "rows": 1,
       "policy_decision": "watch",
       "methods": [
-        "intensity_bev"
+        "kiss_keyframe"
       ],
       "risk_buckets": [
-        "cross_method_suspicious"
+        "ok"
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 8.280604373718116,
+      "mean_path_m": 0.731748701403753,
       "mean_path_vs_healthy": 1.0,
       "max_path_vs_healthy": 1.0,
-      "mean_path_vs_all": 6.0808949979718365,
-      "max_path_vs_all": 6.0808949979718365
+      "mean_path_vs_all": 0.4246493935331691,
+      "max_path_vs_all": 0.4246493935331691
+    },
+    "low_convergence": {
+      "rows": 5,
+      "policy_decision": "watch",
+      "methods": [
+        "ct_icp"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.9310344827586207,
+      "mean_convergence": 0.0896551724137931,
+      "mean_path_m": 4.14245761918611,
+      "mean_path_vs_healthy": 2.6929921919993434,
+      "max_path_vs_healthy": 3.709767705917567,
+      "mean_path_vs_all": 1.5339181026862991,
+      "max_path_vs_all": 1.6307096759423985
+    },
+    "all_pairs_failed": {
+      "rows": 1,
+      "policy_decision": "fail",
+      "methods": [
+        "geometry_icp"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.0,
+      "mean_convergence": null,
+      "mean_path_m": 0.0,
+      "mean_path_vs_healthy": 0.0,
+      "max_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.0,
+      "max_path_vs_all": 0.0
     },
     "path_disagrees_with_all_method_median": {
       "rows": 3,
@@ -1178,10 +1153,46 @@
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
       "mean_path_m": 7.331496785755323,
-      "mean_path_vs_healthy": 2.9104121846920683,
+      "mean_path_vs_healthy": 3.197532620534473,
       "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 3.258964746459217,
-      "max_path_vs_all": 6.0808949979718365
+      "mean_path_vs_all": 2.8846954657323387,
+      "max_path_vs_all": 4.958087155791202
+    },
+    "cross_method_suspicious": {
+      "rows": 3,
+      "policy_decision": "investigate",
+      "methods": [
+        "intensity_bev",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 7.711247447423972,
+      "mean_path_vs_healthy": 4.19508723409225,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 2.158820582310962,
+      "max_path_vs_all": 3.4023619777016845
+    },
+    "path_disagrees_with_healthy_median": {
+      "rows": 3,
+      "policy_decision": "investigate",
+      "methods": [
+        "intensity_bev",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 7.711247447423972,
+      "mean_path_vs_healthy": 4.19508723409225,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 2.158820582310962,
+      "max_path_vs_all": 3.4023619777016845
     },
     "partial_acceptance": {
       "rows": 1,
@@ -1195,10 +1206,10 @@
       "mean_acceptance": 0.6551724137931034,
       "mean_convergence": 0.0,
       "mean_path_m": 2.723482111261566,
-      "mean_path_vs_healthy": 0.32889895330655455,
-      "max_path_vs_healthy": 0.32889895330655455,
-      "mean_path_vs_all": 2.0,
-      "max_path_vs_all": 2.0
+      "mean_path_vs_healthy": 0.6121997857710204,
+      "max_path_vs_healthy": 0.6121997857710204,
+      "mean_path_vs_all": 1.6307096759423985,
+      "max_path_vs_all": 1.6307096759423985
     },
     "ok_no_risk": {
       "rows": 5,
@@ -1217,23 +1228,6 @@
       "max_path_vs_healthy": 1.1465247983181073,
       "mean_path_vs_all": 0.45691375096380504,
       "max_path_vs_all": 0.5497381651114366
-    },
-    "path_disagrees_with_healthy_median": {
-      "rows": 2,
-      "policy_decision": "investigate",
-      "methods": [
-        "intensity_bev"
-      ],
-      "risk_buckets": [
-        "cross_method_suspicious"
-      ],
-      "mean_acceptance": 1.0,
-      "mean_convergence": 1.0,
-      "mean_path_m": 11.258491449634757,
-      "mean_path_vs_healthy": 6.223311504901982,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 3.053585711437642,
-      "max_path_vs_all": 3.4023619777016845
     }
   },
   "reason_drilldown_all": {
@@ -1250,13 +1244,13 @@
       "mean_acceptance": 0.6551724137931034,
       "mean_convergence": 0.0,
       "mean_path_m": 1.9996719368589573,
-      "mean_path_vs_healthy": 0.2524399430295771,
-      "max_path_vs_healthy": 0.32889895330655455,
-      "mean_path_vs_all": 1.497030870605943,
-      "max_path_vs_all": 2.0
+      "mean_path_vs_healthy": 0.4735727766841057,
+      "max_path_vs_healthy": 0.6121997857710204,
+      "mean_path_vs_all": 1.3123857085771422,
+      "max_path_vs_all": 1.6307096759423985
     },
     "ok_no_risk": {
-      "rows": 9,
+      "rows": 10,
       "policy_decision": "pass",
       "methods": [
         "geometry_icp",
@@ -1268,65 +1262,45 @@
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 2.8511391816990277,
-      "mean_path_vs_healthy": 1.421426321298344,
+      "mean_path_m": 2.6028571096868056,
+      "mean_path_vs_healthy": 1.3792836891685094,
       "max_path_vs_healthy": 5.248540397821832,
-      "mean_path_vs_all": 1.2381464466144643,
+      "mean_path_vs_all": 1.143028585727667,
       "max_path_vs_all": 5.648690035126552
     },
-    "all_pairs_failed": {
-      "rows": 4,
-      "policy_decision": "fail",
-      "methods": [
-        "geometry_icp",
-        "kiss_keyframe"
-      ],
-      "risk_buckets": [
-        "local_risk"
-      ],
-      "mean_acceptance": 0.0,
-      "mean_convergence": 0.0,
-      "mean_path_m": 0.0,
-      "mean_path_vs_healthy": 0.0,
-      "max_path_vs_healthy": 0.0,
-      "mean_path_vs_all": 0.0,
-      "max_path_vs_all": 0.0
-    },
-    "low_acceptance": {
-      "rows": 5,
-      "policy_decision": "fail",
-      "methods": [
-        "geometry_icp",
-        "kiss_keyframe"
-      ],
-      "risk_buckets": [
-        "local_risk"
-      ],
-      "mean_acceptance": 0.027586206896551724,
-      "mean_convergence": 0.0,
-      "mean_path_m": 0.06519815021059554,
-      "mean_path_vs_healthy": 0.0,
-      "max_path_vs_healthy": 0.0,
-      "mean_path_vs_all": 0.04288493650658993,
-      "max_path_vs_all": 0.21442468253294963
-    },
     "low_convergence": {
-      "rows": 10,
+      "rows": 7,
       "policy_decision": "watch",
       "methods": [
-        "ct_icp",
-        "kiss_keyframe"
+        "ct_icp"
       ],
       "risk_buckets": [
         "local_risk"
       ],
-      "mean_acceptance": 0.6655172413793103,
-      "mean_convergence": 0.07241379310344827,
-      "mean_path_m": 2.7186432057849648,
-      "mean_path_vs_healthy": 1.6326391431503737,
-      "max_path_vs_healthy": 3.411137264851386,
-      "mean_path_vs_all": 1.0801645991721724,
-      "max_path_vs_all": 2.0
+      "mean_acceptance": 0.9507389162561576,
+      "mean_convergence": 0.10344827586206895,
+      "mean_path_m": 3.883776008264235,
+      "mean_path_vs_healthy": 2.459292249312088,
+      "max_path_vs_healthy": 3.709767705917567,
+      "mean_path_vs_all": 1.4603044223805577,
+      "max_path_vs_all": 1.6307096759423985
+    },
+    "low_acceptance": {
+      "rows": 2,
+      "policy_decision": "fail",
+      "methods": [
+        "geometry_icp"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.06896551724137931,
+      "mean_convergence": null,
+      "mean_path_m": 0.16299537552648885,
+      "mean_path_vs_healthy": 0.22274774825538607,
+      "max_path_vs_healthy": 0.44549549651077214,
+      "mean_path_vs_all": 0.09458969620752872,
+      "max_path_vs_all": 0.18917939241505743
     },
     "motion_margin_dominant": {
       "rows": 2,
@@ -1340,10 +1314,10 @@
       "mean_acceptance": 0.9655172413793103,
       "mean_convergence": 0.9655172413793103,
       "mean_path_m": 9.538457585540923,
-      "mean_path_vs_healthy": 5.4783432890454735,
-      "max_path_vs_healthy": 5.4783432890454735,
-      "mean_path_vs_all": 5.100867600677242,
-      "max_path_vs_all": 7.574967431491719
+      "mean_path_vs_healthy": 10.608167501440398,
+      "max_path_vs_healthy": 15.737991713835324,
+      "mean_path_vs_all": 4.654948203286488,
+      "max_path_vs_all": 6.683128636710212
     },
     "overlap_tail": {
       "rows": 1,
@@ -1357,44 +1331,44 @@
       "mean_acceptance": 0.9310344827586207,
       "mean_convergence": 0.9310344827586207,
       "mean_path_m": 11.516254999302024,
-      "mean_path_vs_healthy": null,
-      "max_path_vs_healthy": null,
-      "mean_path_vs_all": 7.574967431491719,
-      "max_path_vs_all": 7.574967431491719
-    },
-    "cross_method_suspicious": {
-      "rows": 3,
-      "policy_decision": "investigate",
-      "methods": [
-        "intensity_bev"
-      ],
-      "risk_buckets": [
-        "cross_method_suspicious"
-      ],
-      "mean_acceptance": 1.0,
-      "mean_convergence": 1.0,
-      "mean_path_m": 10.26586242432921,
-      "mean_path_vs_healthy": 4.482207669934655,
-      "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 4.06268880694904,
-      "max_path_vs_all": 6.0808949979718365
+      "mean_path_vs_healthy": 15.737991713835324,
+      "max_path_vs_healthy": 15.737991713835324,
+      "mean_path_vs_all": 6.683128636710212,
+      "max_path_vs_all": 6.683128636710212
     },
     "no_healthy_peer": {
       "rows": 1,
       "policy_decision": "watch",
       "methods": [
-        "intensity_bev"
+        "kiss_keyframe"
       ],
       "risk_buckets": [
-        "cross_method_suspicious"
+        "ok"
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 8.280604373718116,
+      "mean_path_m": 0.731748701403753,
       "mean_path_vs_healthy": 1.0,
       "max_path_vs_healthy": 1.0,
-      "mean_path_vs_all": 6.0808949979718365,
-      "max_path_vs_all": 6.0808949979718365
+      "mean_path_vs_all": 0.4246493935331691,
+      "max_path_vs_all": 0.4246493935331691
+    },
+    "all_pairs_failed": {
+      "rows": 1,
+      "policy_decision": "fail",
+      "methods": [
+        "geometry_icp"
+      ],
+      "risk_buckets": [
+        "local_risk"
+      ],
+      "mean_acceptance": 0.0,
+      "mean_convergence": null,
+      "mean_path_m": 0.0,
+      "mean_path_vs_healthy": 0.0,
+      "max_path_vs_healthy": 0.0,
+      "mean_path_vs_all": 0.0,
+      "max_path_vs_all": 0.0
     },
     "path_disagrees_with_all_method_median": {
       "rows": 3,
@@ -1410,26 +1384,45 @@
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
       "mean_path_m": 7.331496785755323,
-      "mean_path_vs_healthy": 2.9104121846920683,
+      "mean_path_vs_healthy": 3.197532620534473,
       "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 3.258964746459217,
-      "max_path_vs_all": 6.0808949979718365
+      "mean_path_vs_all": 2.8846954657323387,
+      "max_path_vs_all": 4.958087155791202
     },
-    "path_disagrees_with_healthy_median": {
-      "rows": 2,
+    "cross_method_suspicious": {
+      "rows": 3,
       "policy_decision": "investigate",
       "methods": [
-        "intensity_bev"
+        "intensity_bev",
+        "kiss_keyframe"
       ],
       "risk_buckets": [
         "cross_method_suspicious"
       ],
       "mean_acceptance": 1.0,
       "mean_convergence": 1.0,
-      "mean_path_m": 11.258491449634757,
-      "mean_path_vs_healthy": 6.223311504901982,
+      "mean_path_m": 7.711247447423972,
+      "mean_path_vs_healthy": 4.19508723409225,
       "max_path_vs_healthy": 7.156987569781947,
-      "mean_path_vs_all": 3.053585711437642,
+      "mean_path_vs_all": 2.158820582310962,
+      "max_path_vs_all": 3.4023619777016845
+    },
+    "path_disagrees_with_healthy_median": {
+      "rows": 3,
+      "policy_decision": "investigate",
+      "methods": [
+        "intensity_bev",
+        "kiss_keyframe"
+      ],
+      "risk_buckets": [
+        "cross_method_suspicious"
+      ],
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "mean_path_m": 7.711247447423972,
+      "mean_path_vs_healthy": 4.19508723409225,
+      "max_path_vs_healthy": 7.156987569781947,
+      "mean_path_vs_all": 2.158820582310962,
       "max_path_vs_all": 3.4023619777016845
     }
   }

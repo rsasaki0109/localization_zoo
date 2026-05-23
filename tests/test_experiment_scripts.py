@@ -103,6 +103,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_generate_lidar_degeneracy_action_plan_module",
             "evaluation/scripts/generate_lidar_degeneracy_action_plan.py",
         )
+        cls.lidar_health_module = load_script_module(
+            "test_run_lidar_degradation_health_module",
+            "evaluation/scripts/run_lidar_degradation_health.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -514,6 +518,20 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(completed.returncode, 0, msg=completed.stdout)
         self.assertIn("[ok] lidar degeneracy checks passed", completed.stdout)
+
+    def test_lidar_degradation_health_uses_matcher_correspondence_default(self) -> None:
+        argv = [
+            "run_lidar_degradation_health.py",
+            "windows.json",
+            "out",
+            "--method",
+            "kiss_keyframe",
+        ]
+        with mock.patch.object(sys, "argv", argv):
+            args = self.lidar_health_module.parse_args()
+
+        self.assertEqual(args.kiss_min_correspondences, 80)
+        self.assertEqual(args.min_keyframe_correspondences, 1000)
 
     def test_lidar_degeneracy_check_runner_policy_gate_passes_clean_reports(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

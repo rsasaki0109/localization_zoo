@@ -501,6 +501,14 @@ Observed `fog.bag` inspection:
   when `method_health_comparison.json` or `risk_gt_calibration.json` has more
   `fail` or `investigate` rows than allowed. This is intentionally stricter
   than the daily dashboard path.
+- Fixed-map NDT seed audits can be attached to the same strict gate with
+  `--include-fixed-map-ndt-audit`. Keep this flag explicit: the current
+  fixed-map audit intentionally contains known blockers, including CT-ICP seed
+  rows that accept bad GT error and unfiltered Scan Context top-K rows where
+  NDT score selects bad global hypotheses. Use
+  `--regenerate-fixed-map-ndt-audit` to refresh
+  `experiments/results/fixed_map_ndt/fixed_map_ndt_failure_audit.json` before
+  attaching it to the gate.
 - Add `--policy-gate-output-dir experiments/results/lidar_degeneracy/policy_gate`
   to write `policy_gate_report.json` and `policy_gate_report.md` with report
   counts, violations, and the top `fail`/`investigate` rows by

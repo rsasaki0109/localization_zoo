@@ -352,12 +352,12 @@ Observed `fog.bag` inspection:
   zero-motion winner.
 - The combined method-health comparison is written to
   `experiments/results/lidar_degeneracy/method_health_comparison/`. Its current
-  aggregate readout is: on `fog_200`, geometry ICP averages 26.4% acceptance,
-  intensity BEV averages 97.7%, KISS keyframe averages 0.0%, and CT-ICP averages
-  88.5%; on `tunnel_geom_2700_200`, all four methods remain at 100% acceptance
-  across the selected short windows. The aggregate now separates local risk,
-  cross-method risk, total risk, and `pass`/`watch`/`investigate`/`fail`
-  triage-policy counts.
+  aggregate readout is: on `fog_200`, geometry ICP and KISS keyframe now average
+  100% acceptance after their fog/crop correspondence gates were relaxed,
+  intensity BEV averages 97.7%, and CT-ICP averages 88.5%; on
+  `tunnel_geom_2700_200`, all four methods remain at 100% acceptance across the
+  selected short windows. The aggregate now separates local risk, cross-method
+  risk, total risk, and `pass`/`watch`/`investigate`/`fail` triage-policy counts.
 - The comparison now includes a GT-free failure-awareness layer. Selected
   windows are labeled as nominal or stress, each method row is mapped to
   `ok`/`suspicious`/`degraded`/`failed`, and the failure-awareness table reports
@@ -405,21 +405,20 @@ Observed `fog.bag` inspection:
   gives a concrete priority order for GT or stronger-reference checks.
 - The calibration report also materializes a pre-GT triage policy:
   `fail` for hard local failures (`all_pairs_failed`, `low_acceptance`,
-  `nonfinite_pose`), `investigate` for strong false-confidence signals
-  (`motion_margin_dominant`, `overlap_tail`, `cross_method_suspicious`,
-  `path_disagrees_with_healthy_median`), `watch` for medium signals
-  (`low_convergence`, `partial_acceptance`, all-method-only disagreement,
-  no-healthy-peer context),
+  `nonfinite_pose`), `investigate` for unresolved cross-method disagreement
+  (`cross_method_suspicious`, `path_disagrees_with_healthy_median`), `watch` for
+  calibrated local confidence downgrades and medium signals
+  (`motion_margin_dominant`, `overlap_tail`, `low_convergence`,
+  `partial_acceptance`, all-method-only disagreement, no-healthy-peer context),
   and `pass` for `ok_no_risk`. On the current stress windows this yields
-  5 `investigate` rows, all intensity BEV; 4 `fail` rows; 6 `watch` rows; and
-  5 `pass` rows.
+  4 `investigate` rows, 0 `fail` rows, 8 `watch` rows, and 8 `pass` rows.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place
   for GT/proxy validation; the method-health comparison is the daily dashboard.
 - The triage policy is versioned in
   `evaluation/config/lidar_degeneracy_triage_policy.json` as
-  `lidar_degeneracy_triage_v1`. Both the method-health comparison and risk
+  `lidar_degeneracy_triage_v2`. Both the method-health comparison and risk
   calibration reports load this file and stamp the policy path/version into
   their JSON and Markdown outputs, so future GT-backed precision/recall checks
   can be tied to the exact policy definition.

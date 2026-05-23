@@ -430,10 +430,15 @@ Observed `fog.bag` inspection:
   those checks are calibrated with GT or a stronger reference, keep
   `ct_icp_internal_convergence_low` as policy `watch`.
 - The diagnostic-watch rows also include machine-readable
-  `watch_clear_candidate` and `watch_clear_blockers` fields. Current blockers
-  include `accepted_below_one`, `refinement_gate_below_one`,
-  `iterations_pinned`, and path-ratio blockers such as
-  `path_vs_healthy_high` or `path_vs_all_high`.
+  `watch_clear_candidate`, `watch_action`, and `watch_clear_blockers` fields.
+  `watch_action` separates `clear_candidate` rows from `optimizer_retry`
+  rows, `reject_or_retry` rows where acceptance/refinement-gate checks fail,
+  `fallback_required` rows where the accepted CT-ICP trajectory disagrees
+  with healthy or all-method path references, and `reference_missing` rows
+  where a path-ratio reference is unavailable. Current blockers include
+  `accepted_below_one`, `refinement_gate_below_one`, `iterations_pinned`, and
+  path-ratio blockers such as `path_vs_healthy_high` or
+  `path_vs_all_high`.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place

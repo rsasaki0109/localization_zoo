@@ -1,7 +1,7 @@
 {
   "policy": {
     "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
-    "policy_version": "lidar_degeneracy_triage_v1",
+    "policy_version": "lidar_degeneracy_triage_v2",
     "strict_gate": {
       "max_fail_rows": 0,
       "max_investigate_rows": 0,
@@ -11,32 +11,32 @@
   "reports": {
     "method_health_comparison": {
       "path": "experiments/results/lidar_degeneracy/method_health_comparison/method_health_comparison.json",
-      "policy_version": "lidar_degeneracy_triage_v1",
+      "policy_version": "lidar_degeneracy_triage_v2",
       "total_rows": 28,
       "counts": {
         "pass": 14,
-        "watch": 8,
-        "investigate": 6,
+        "watch": 10,
+        "investigate": 4,
         "fail": 0
       }
     },
     "risk_gt_calibration": {
       "path": "experiments/results/lidar_degeneracy/risk_gt_calibration/risk_gt_calibration.json",
-      "policy_version": "lidar_degeneracy_triage_v1",
+      "policy_version": "lidar_degeneracy_triage_v2",
       "total_rows": 28,
       "counts": {
         "pass": 14,
-        "watch": 8,
-        "investigate": 6,
+        "watch": 10,
+        "investigate": 4,
         "fail": 0
       }
     }
   },
   "violations": [
-    "method_health_comparison: investigate rows 6 > 0",
-    "risk_gt_calibration: investigate rows 6 > 0"
+    "method_health_comparison: investigate rows 4 > 0",
+    "risk_gt_calibration: investigate rows 4 > 0"
   ],
-  "offender_count": 12,
+  "offender_count": 8,
   "offenders": [
     {
       "report": "method_health_comparison",
@@ -64,31 +64,6 @@
         "cross_method_suspicious",
         "path_disagrees_with_all_method_median",
         "path_disagrees_with_healthy_median"
-      ]
-    },
-    {
-      "report": "method_health_comparison",
-      "sequence": "fog_200",
-      "window": "point_count_tail",
-      "start": 115,
-      "end": 144,
-      "method": "intensity_bev",
-      "policy_decision": "investigate",
-      "policy_reasons": [
-        "motion_margin_dominant",
-        "overlap_tail"
-      ]
-    },
-    {
-      "report": "method_health_comparison",
-      "sequence": "tunnel_geom_2700_200",
-      "window": "degraded",
-      "start": 170,
-      "end": 199,
-      "method": "intensity_bev",
-      "policy_decision": "investigate",
-      "policy_reasons": [
-        "motion_margin_dominant"
       ]
     },
     {
@@ -144,31 +119,6 @@
         "cross_method_suspicious",
         "path_disagrees_with_all_method_median",
         "path_disagrees_with_healthy_median"
-      ]
-    },
-    {
-      "report": "risk_gt_calibration",
-      "sequence": "fog_200",
-      "window": "point_count_tail",
-      "start": 115,
-      "end": 144,
-      "method": "intensity_bev",
-      "policy_decision": "investigate",
-      "policy_reasons": [
-        "motion_margin_dominant",
-        "overlap_tail"
-      ]
-    },
-    {
-      "report": "risk_gt_calibration",
-      "sequence": "tunnel_geom_2700_200",
-      "window": "degraded",
-      "start": 170,
-      "end": 199,
-      "method": "intensity_bev",
-      "policy_decision": "investigate",
-      "policy_reasons": [
-        "motion_margin_dominant"
       ]
     },
     {

@@ -1,6 +1,6 @@
 # LiDAR Degeneracy Risk GT Calibration
 
-Policy: `lidar_degeneracy_triage_v3` (`evaluation/config/lidar_degeneracy_triage_policy.json`)
+Policy: `lidar_degeneracy_triage_v4` (`evaluation/config/lidar_degeneracy_triage_policy.json`)
 
 ## GT Availability
 
@@ -41,7 +41,7 @@ Stress-window rows only. Rows with multiple active signals appear under each rea
 
 | Reason | Policy | Rows | Methods | Risk buckets | Mean accepted | Mean converged | Mean path m | Mean path/healthy | Max path/healthy | Mean path/all | Max path/all |
 | --- | --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `low_convergence` | `watch` | 5 | `ct_icp` | `local_risk` | 0.931 | 0.090 | 4.142 | 3.184 | 3.745 | 2.910 | 3.745 |
+| `ct_icp_internal_convergence_low` | `watch` | 5 | `ct_icp` | `local_risk` | 0.931 | 0.090 | 4.142 | 3.184 | 3.745 | 2.910 | 3.745 |
 | `partial_acceptance` | `watch` | 1 | `ct_icp` | `local_risk` | 0.655 | 0.000 | 2.723 | 2.691 | 2.691 | 1.319 | 1.319 |
 | `ok_no_risk` | `pass` | 9 | `geometry_icp`, `kiss_keyframe` | `ok` | 1.000 | 1.000 | 1.344 | 1.043 | 1.391 | 0.965 | 1.270 |
 | `low_motion_margin_dominant` | `watch` | 5 | `intensity_bev` | `local_risk` | 1.000 | 1.000 | 0.985 | 0.925 | 4.128 | 0.504 | 2.022 |
@@ -54,16 +54,16 @@ Stress-window rows only.
 
 | Sequence | Window | Method | Decision | Risk bucket | Accepted | Converged | Path/healthy | Path/all | Reasons |
 | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `fog_200` | `point_count_tail` 115-144 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.000 | 2.761 | 2.761 | `low_convergence` |
+| `fog_200` | `point_count_tail` 115-144 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.000 | 2.761 | 2.761 | `ct_icp_internal_convergence_low` |
 | `fog_200` | `point_count_tail` 115-144 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
-| `fog_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 0.655 | 0.000 | 2.691 | 1.319 | `low_convergence`, `partial_acceptance` |
+| `fog_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 0.655 | 0.000 | 2.691 | 1.319 | `ct_icp_internal_convergence_low`, `partial_acceptance` |
 | `fog_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 4.128 | 2.022 | `low_motion_margin_dominant` |
 | `fog_200` | `degraded` 170-199 | `kiss_keyframe` | `watch` | `ok` | 1.000 | 1.000 | 0.609 | 0.299 | `path_disagrees_with_all_method_median` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.103 | 3.699 | 3.699 | `low_convergence` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.103 | 3.699 | 3.699 | `ct_icp_internal_convergence_low` |
 | `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.138 | 3.745 | 3.745 | `low_convergence` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.138 | 3.745 | 3.745 | `ct_icp_internal_convergence_low` |
 | `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 0.496 | 0.496 | `low_motion_margin_dominant` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.207 | 3.025 | 3.025 | `low_convergence` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.207 | 3.025 | 3.025 | `ct_icp_internal_convergence_low` |
 | `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
 | `fog_200` | `point_count_tail` 115-144 | `geometry_icp` | `pass` | `ok` | 1.000 | 1.000 | 1.256 | 1.256 | `ok_no_risk` |
 | `fog_200` | `point_count_tail` 115-144 | `kiss_keyframe` | `pass` | `ok` | 1.000 | 1.000 | 0.744 | 0.744 | `ok_no_risk` |

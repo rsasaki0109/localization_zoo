@@ -411,16 +411,22 @@ Observed `fog.bag` inspection:
   (`cross_method_suspicious`, `path_disagrees_with_healthy_median`), `watch` for
   calibrated local confidence downgrades and medium signals
   (`motion_margin_dominant`, `low_motion_margin_dominant`, `overlap_tail`, `low_convergence`,
-  `partial_acceptance`, all-method-only disagreement, no-healthy-peer context),
+  `ct_icp_internal_convergence_low`, `partial_acceptance`, all-method-only
+  disagreement, no-healthy-peer context),
   and `pass` for `ok_no_risk`. On the current stress windows this yields
-  0 `investigate` rows, 0 `fail` rows, 11 `watch` rows, and 9 `pass` rows.
+  0 `investigate` rows, 0 `fail` rows, 13 `watch` rows, and 15 `pass` rows.
+- CT-ICP reports `ct_icp_internal_convergence_low` instead of generic
+  `low_convergence` when the refinement gate accepts the update stream and
+  `require_convergence=false`. Treat this as a diagnostic watch signal: the
+  local update is usable under the configured gate, but the internal optimizer
+  convergence rate still deserves runtime and calibration follow-up.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place
   for GT/proxy validation; the method-health comparison is the daily dashboard.
 - The triage policy is versioned in
   `evaluation/config/lidar_degeneracy_triage_policy.json` as
-  `lidar_degeneracy_triage_v3`. Both the method-health comparison and risk
+  `lidar_degeneracy_triage_v4`. Both the method-health comparison and risk
   calibration reports load this file and stamp the policy path/version into
   their JSON and Markdown outputs, so future GT-backed precision/recall checks
   can be tied to the exact policy definition.

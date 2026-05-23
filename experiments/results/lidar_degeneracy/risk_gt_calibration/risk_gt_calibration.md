@@ -1,6 +1,6 @@
 # LiDAR Degeneracy Risk GT Calibration
 
-Policy: `lidar_degeneracy_triage_v2` (`evaluation/config/lidar_degeneracy_triage_policy.json`)
+Policy: `lidar_degeneracy_triage_v3` (`evaluation/config/lidar_degeneracy_triage_policy.json`)
 
 ## GT Availability
 
@@ -21,9 +21,8 @@ Stress-window rows only.
 
 | Risk bucket | Windows | Mean path m | Mean path/healthy | Max path/healthy | Mean path/all | Max path/all |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `cross_method_suspicious` | 4 | 7.854 | 4.692 | 7.157 | 2.604 | 4.009 |
-| `local_risk` | 7 | 5.684 | 4.433 | 11.714 | 2.231 | 5.832 |
-| `ok` | 9 | 1.344 | 0.921 | 1.256 | 0.473 | 0.681 |
+| `local_risk` | 10 | 2.564 | 2.054 | 4.128 | 1.707 | 3.745 |
+| `ok` | 10 | 1.271 | 1.000 | 1.391 | 0.898 | 1.270 |
 
 ## Policy Decisions
 
@@ -31,9 +30,9 @@ Stress-window rows only.
 
 | Decision | Rows | Methods | Mean accepted | Mean converged | Mean path/healthy | Mean path/all |
 | --- | ---: | --- | ---: | ---: | ---: | ---: |
-| `pass` | 8 | `geometry_icp`, `kiss_keyframe` | 1.000 | 1.000 | 0.964 | 0.495 |
-| `watch` | 8 | `ct_icp`, `intensity_bev`, `kiss_keyframe` | 0.948 | 0.422 | 3.951 | 1.989 |
-| `investigate` | 4 | `intensity_bev`, `kiss_keyframe` | 1.000 | 1.000 | 4.692 | 2.604 |
+| `pass` | 9 | `geometry_icp`, `kiss_keyframe` | 1.000 | 1.000 | 1.043 | 0.965 |
+| `watch` | 11 | `ct_icp`, `intensity_bev`, `kiss_keyframe` | 0.969 | 0.586 | 1.923 | 1.579 |
+| `investigate` | 0 | n/a | n/a | n/a | n/a | n/a |
 | `fail` | 0 | n/a | n/a | n/a | n/a | n/a |
 
 ## Reason Drilldown
@@ -42,14 +41,12 @@ Stress-window rows only. Rows with multiple active signals appear under each rea
 
 | Reason | Policy | Rows | Methods | Risk buckets | Mean accepted | Mean converged | Mean path m | Mean path/healthy | Max path/healthy | Mean path/all | Max path/all |
 | --- | --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `overlap_tail` | `watch` | 1 | `intensity_bev` | `local_risk` | 0.931 | 0.931 | 11.516 | 11.714 | 11.714 | 5.832 | 5.832 |
-| `motion_margin_dominant` | `watch` | 2 | `intensity_bev` | `local_risk` | 0.966 | 0.966 | 9.538 | 8.596 | 11.714 | 4.230 | 5.832 |
-| `cross_method_suspicious` | `investigate` | 4 | `intensity_bev`, `kiss_keyframe` | `cross_method_suspicious` | 1.000 | 1.000 | 7.854 | 4.692 | 7.157 | 2.604 | 4.009 |
-| `path_disagrees_with_healthy_median` | `investigate` | 4 | `intensity_bev`, `kiss_keyframe` | `cross_method_suspicious` | 1.000 | 1.000 | 7.854 | 4.692 | 7.157 | 2.604 | 4.009 |
-| `path_disagrees_with_all_method_median` | `watch` | 4 | `intensity_bev`, `kiss_keyframe` | `cross_method_suspicious`, `ok` | 1.000 | 1.000 | 5.653 | 3.513 | 7.157 | 2.001 | 4.009 |
-| `low_convergence` | `watch` | 5 | `ct_icp` | `local_risk` | 0.931 | 0.090 | 4.142 | 2.768 | 3.207 | 1.431 | 1.525 |
-| `partial_acceptance` | `watch` | 1 | `ct_icp` | `local_risk` | 0.655 | 0.000 | 2.723 | 1.935 | 1.935 | 1.319 | 1.319 |
-| `ok_no_risk` | `pass` | 8 | `geometry_icp`, `kiss_keyframe` | `ok` | 1.000 | 1.000 | 1.378 | 0.964 | 1.256 | 0.495 | 0.681 |
+| `low_convergence` | `watch` | 5 | `ct_icp` | `local_risk` | 0.931 | 0.090 | 4.142 | 3.184 | 3.745 | 2.910 | 3.745 |
+| `partial_acceptance` | `watch` | 1 | `ct_icp` | `local_risk` | 0.655 | 0.000 | 2.723 | 2.691 | 2.691 | 1.319 | 1.319 |
+| `ok_no_risk` | `pass` | 9 | `geometry_icp`, `kiss_keyframe` | `ok` | 1.000 | 1.000 | 1.344 | 1.043 | 1.391 | 0.965 | 1.270 |
+| `low_motion_margin_dominant` | `watch` | 5 | `intensity_bev` | `local_risk` | 1.000 | 1.000 | 0.985 | 0.925 | 4.128 | 0.504 | 2.022 |
+| `path_disagrees_with_all_method_median` | `watch` | 1 | `kiss_keyframe` | `ok` | 1.000 | 1.000 | 0.617 | 0.609 | 0.609 | 0.299 | 0.299 |
+| `low_used_path` | `watch` | 3 | `intensity_bev` | `local_risk` | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 
 ## Policy Detail
 
@@ -57,26 +54,26 @@ Stress-window rows only.
 
 | Sequence | Window | Method | Decision | Risk bucket | Accepted | Converged | Path/healthy | Path/all | Reasons |
 | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `fog_200` | `degraded` 170-199 | `intensity_bev` | `investigate` | `cross_method_suspicious` | 1.000 | 1.000 | 5.884 | 4.009 | `cross_method_suspicious`, `path_disagrees_with_all_method_median`, `path_disagrees_with_healthy_median` |
-| `fog_200` | `degraded` 170-199 | `kiss_keyframe` | `investigate` | `cross_method_suspicious` | 1.000 | 1.000 | 0.438 | 0.299 | `cross_method_suspicious`, `path_disagrees_with_all_method_median`, `path_disagrees_with_healthy_median` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `intensity_bev` | `investigate` | `cross_method_suspicious` | 1.000 | 1.000 | 5.290 | 2.705 | `cross_method_suspicious`, `path_disagrees_with_healthy_median` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `intensity_bev` | `investigate` | `cross_method_suspicious` | 1.000 | 1.000 | 7.157 | 3.402 | `cross_method_suspicious`, `path_disagrees_with_all_method_median`, `path_disagrees_with_healthy_median` |
-| `fog_200` | `point_count_tail` 115-144 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.000 | 2.761 | 1.375 | `low_convergence` |
-| `fog_200` | `point_count_tail` 115-144 | `intensity_bev` | `watch` | `local_risk` | 0.931 | 0.931 | 11.714 | 5.832 | `motion_margin_dominant`, `overlap_tail` |
-| `fog_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 0.655 | 0.000 | 1.935 | 1.319 | `low_convergence`, `partial_acceptance` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.103 | 2.911 | 1.489 | `low_convergence` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `kiss_keyframe` | `watch` | `ok` | 1.000 | 1.000 | 0.574 | 0.294 | `path_disagrees_with_all_method_median` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.138 | 3.207 | 1.525 | `low_convergence` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.207 | 3.025 | 1.450 | `low_convergence` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 5.478 | 2.627 | `motion_margin_dominant` |
-| `fog_200` | `point_count_tail` 115-144 | `geometry_icp` | `pass` | `ok` | 1.000 | 1.000 | 1.256 | 0.625 | `ok_no_risk` |
-| `fog_200` | `point_count_tail` 115-144 | `kiss_keyframe` | `pass` | `ok` | 1.000 | 1.000 | 0.744 | 0.371 | `ok_no_risk` |
-| `fog_200` | `degraded` 170-199 | `geometry_icp` | `pass` | `ok` | 1.000 | 1.000 | 1.000 | 0.681 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `geometry_icp` | `pass` | `ok` | 1.000 | n/a | 1.000 | 0.511 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_icp` | `pass` | `ok` | 1.000 | n/a | 1.000 | 0.475 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `kiss_keyframe` | `pass` | `ok` | 1.000 | 1.000 | 0.713 | 0.339 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `geometry_icp` | `pass` | `ok` | 1.000 | n/a | 0.853 | 0.409 | `ok_no_risk` |
-| `tunnel_geom_2700_200` | `degraded` 170-199 | `kiss_keyframe` | `pass` | `ok` | 1.000 | 1.000 | 1.147 | 0.550 | `ok_no_risk` |
+| `fog_200` | `point_count_tail` 115-144 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.000 | 2.761 | 2.761 | `low_convergence` |
+| `fog_200` | `point_count_tail` 115-144 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
+| `fog_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 0.655 | 0.000 | 2.691 | 1.319 | `low_convergence`, `partial_acceptance` |
+| `fog_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 4.128 | 2.022 | `low_motion_margin_dominant` |
+| `fog_200` | `degraded` 170-199 | `kiss_keyframe` | `watch` | `ok` | 1.000 | 1.000 | 0.609 | 0.299 | `path_disagrees_with_all_method_median` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.103 | 3.699 | 3.699 | `low_convergence` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.138 | 3.745 | 3.745 | `low_convergence` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 0.496 | 0.496 | `low_motion_margin_dominant` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `ct_icp` | `watch` | `local_risk` | 1.000 | 0.207 | 3.025 | 3.025 | `low_convergence` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `intensity_bev` | `watch` | `local_risk` | 1.000 | 1.000 | 0.000 | 0.000 | `low_motion_margin_dominant`, `low_used_path` |
+| `fog_200` | `point_count_tail` 115-144 | `geometry_icp` | `pass` | `ok` | 1.000 | 1.000 | 1.256 | 1.256 | `ok_no_risk` |
+| `fog_200` | `point_count_tail` 115-144 | `kiss_keyframe` | `pass` | `ok` | 1.000 | 1.000 | 0.744 | 0.744 | `ok_no_risk` |
+| `fog_200` | `degraded` 170-199 | `geometry_icp` | `pass` | `ok` | 1.000 | 1.000 | 1.391 | 0.681 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `geometry_icp` | `pass` | `ok` | 1.000 | n/a | 1.270 | 1.270 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `point_count_tail` 80-109 | `kiss_keyframe` | `pass` | `ok` | 1.000 | 1.000 | 0.730 | 0.730 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `geometry_icp` | `pass` | `ok` | 1.000 | n/a | 1.168 | 1.168 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `geometry_degeneracy` 90-119 | `kiss_keyframe` | `pass` | `ok` | 1.000 | 1.000 | 0.832 | 0.832 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `geometry_icp` | `pass` | `ok` | 1.000 | n/a | 0.853 | 0.853 | `ok_no_risk` |
+| `tunnel_geom_2700_200` | `degraded` 170-199 | `kiss_keyframe` | `pass` | `ok` | 1.000 | 1.000 | 1.147 | 1.147 | `ok_no_risk` |
 
 ## Readout
 

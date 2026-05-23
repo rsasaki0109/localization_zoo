@@ -175,6 +175,8 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   --intensity-bev-preset default \
   --intensity-bev-min-step-translation 0.25 \
   --intensity-bev-zero-motion-score-margin 0.05 \
+  --intensity-bev-low-motion-score-margin 0.02 \
+  --intensity-bev-low-motion-stress-only \
   --min-used-path-length 0.25 \
   --max-step-translation 2.0 \
   --max-step-yaw-deg 20
@@ -186,6 +188,8 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   --intensity-bev-preset default \
   --intensity-bev-min-step-translation 0.25 \
   --intensity-bev-zero-motion-score-margin 0.05 \
+  --intensity-bev-low-motion-score-margin 0.02 \
+  --intensity-bev-low-motion-stress-only \
   --min-used-path-length 0.25 \
   --max-step-translation 2.0 \
   --max-step-yaw-deg 20
@@ -345,16 +349,17 @@ Observed `fog.bag` inspection:
   windows, but the strongest obscurant slice still creates measurable
   correction instability.
 - Intensity BEV odometry is now in the same health contract. It accepts 100% of
-  the selected tunnel windows and 93.1-100% of the selected fog windows with the
-  default search preset plus zero-motion score-margin preference. The earlier
-  clear-fog zero-motion false lock is removed by preferring a >=0.25 m motion
-  candidate when it is within 0.05 normalized-correlation score of the
-  zero-motion winner.
+  the selected tunnel and fog windows with the default search preset plus
+  score-margin preferences. The earlier clear-fog zero-motion false lock is
+  removed by preferring a >=0.25 m motion candidate when it is within 0.05
+  normalized-correlation score of the zero-motion winner, while stress windows
+  get a 0.02 low-motion regularizer so ambiguous reflectance matches are
+  downgraded instead of accumulating into accepted drift.
 - The combined method-health comparison is written to
   `experiments/results/lidar_degeneracy/method_health_comparison/`. Its current
   aggregate readout is: on `fog_200`, geometry ICP and KISS keyframe now average
   100% acceptance after their fog/crop correspondence gates were relaxed,
-  intensity BEV averages 97.7%, and CT-ICP averages 88.5%; on
+  intensity BEV averages 100%, and CT-ICP averages 88.5%; on
   `tunnel_geom_2700_200`, all four methods remain at 100% acceptance across the
   selected short windows. The aggregate now separates local risk, cross-method
   risk, total risk, and `pass`/`watch`/`investigate`/`fail` triage-policy counts.
@@ -371,54 +376,51 @@ Observed `fog.bag` inspection:
   externally healthy stress windows into an explicit follow-up queue for GT or
   cross-method validation.
 - The intensity BEV health runner now promotes two GT-free false-confidence
-  probes into health flags on non-baseline selected windows: a dominant
-  motion-margin decision rate (default >=0.5) and a sharp overlap tail
-  (min/mean overlap <0.5). With the current settings, `fog_200`
-  `point_count_tail` is `suspicious` because both probes fire, and
-  `tunnel_geom_2700_200` `degraded` is `suspicious` because motion-margin
-  decisions dominate. Baseline windows stay `ok`.
+  probes into health flags on non-baseline selected windows: dominant
+  score-margin decisions (`motion_margin` or `low_motion_margin`, default
+  >=0.5) and a sharp overlap tail (min/mean overlap <0.5). With the current
+  settings, the stress-only low-motion regularizer downgrades ambiguous
+  intensity BEV stress windows instead of letting weak reflectance-score gains
+  accumulate into large accepted drift. Baseline windows stay `ok`.
 - Cross-method consistency is also reported for `stress_unflagged` rows. It
   compares each GT-free trajectory path length against healthy-peer and
   all-method path medians. It now promotes a row to `cross_method_suspicious`
   when it disagrees with the healthy-peer median, or when there is no healthy
   peer and it disagrees with the all-method median. With the current settings,
-  intensity BEV has no residual stress-unflagged rows: `fog_200` `degraded`
-  is cross-method flagged by all-method disagreement with no healthy peer, and
-  tunnel `point_count_tail` / `geometry_degeneracy` are cross-method flagged by
-  5.3-7.2x disagreement against the healthy-peer median.
+  intensity BEV has no residual stress-unflagged rows after the stress-only
+  low-motion regularizer; ambiguous intensity rows are locally downgraded
+  before they reach the cross-method acceptance path.
 - Risk calibration is staged in
   `experiments/results/lidar_degeneracy/risk_gt_calibration/`. The current
   local NTNU extraction has no GT CSV and the downloaded bag topic audits show
   no pose/odom/tf topics, so the GT-backed rows are intentionally empty. The
   script can be rerun with external references via
   `python3 evaluation/scripts/calibrate_lidar_degeneracy_risk.py --gt-csv fog_200=... --gt-csv tunnel_geom_2700_200=...`.
-  Until then, the stress-window proxy calibration separates
-  `cross_method_suspicious` (mean path/healthy 4.48) from `ok`
-  (mean path/healthy 0.88), but this remains a triage signal rather than an
-  error label.
+  Until then, the stress-window proxy calibration separates `local_risk`
+  (mean path/healthy 2.05) from `ok` (mean path/healthy 1.00), but this remains
+  a triage signal rather than an error label.
 - The same calibration report now includes a stress-window reason drilldown.
-  Current strongest proxy signals are `path_disagrees_with_healthy_median`
-  (mean path/healthy 6.22, intensity BEV only), `motion_margin_dominant`
-  (mean path/healthy 5.48, intensity BEV only), and
-  `cross_method_suspicious` overall (mean path/healthy 4.48). In contrast,
-  `ok_no_risk` rows average path/healthy 0.94. This is still GT-free, but it
+  Current strongest proxy signals include `low_motion_margin_dominant` and
+  `low_used_path` on intensity BEV stress windows, plus all-method-only path
+  disagreement on the remaining KISS fog row. In contrast, `ok_no_risk` rows
+  stay near the healthy-peer path median. This is still GT-free, but it
   gives a concrete priority order for GT or stronger-reference checks.
 - The calibration report also materializes a pre-GT triage policy:
   `fail` for hard local failures (`all_pairs_failed`, `low_acceptance`,
   `nonfinite_pose`), `investigate` for unresolved cross-method disagreement
   (`cross_method_suspicious`, `path_disagrees_with_healthy_median`), `watch` for
   calibrated local confidence downgrades and medium signals
-  (`motion_margin_dominant`, `overlap_tail`, `low_convergence`,
+  (`motion_margin_dominant`, `low_motion_margin_dominant`, `overlap_tail`, `low_convergence`,
   `partial_acceptance`, all-method-only disagreement, no-healthy-peer context),
   and `pass` for `ok_no_risk`. On the current stress windows this yields
-  4 `investigate` rows, 0 `fail` rows, 8 `watch` rows, and 8 `pass` rows.
+  0 `investigate` rows, 0 `fail` rows, 11 `watch` rows, and 9 `pass` rows.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place
   for GT/proxy validation; the method-health comparison is the daily dashboard.
 - The triage policy is versioned in
   `evaluation/config/lidar_degeneracy_triage_policy.json` as
-  `lidar_degeneracy_triage_v2`. Both the method-health comparison and risk
+  `lidar_degeneracy_triage_v3`. Both the method-health comparison and risk
   calibration reports load this file and stamp the policy path/version into
   their JSON and Markdown outputs, so future GT-backed precision/recall checks
   can be tied to the exact policy definition.

@@ -434,6 +434,13 @@ Observed `fog.bag` inspection:
   committed inputs.
 - The check entrypoint is also wired into the repo script tests:
   `python3 -m pytest tests/test_experiment_scripts.py -k lidar_degeneracy_check_runner_smoke`.
+- Use `python3 evaluation/scripts/run_lidar_degeneracy_checks.py --enforce-policy`
+  for a strict gate. The gate reads the versioned
+  `enforcement.strict_gate` budget in
+  `evaluation/config/lidar_degeneracy_triage_policy.json` and returns non-zero
+  when `method_health_comparison.json` or `risk_gt_calibration.json` has more
+  `fail` or `investigate` rows than allowed. This is intentionally stricter
+  than the daily dashboard path.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

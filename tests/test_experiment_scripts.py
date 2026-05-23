@@ -100,6 +100,61 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "evaluation/scripts/generate_reproduction_status.py",
         )
 
+    @staticmethod
+    def write_lidar_gate_reports(
+        tmp: Path,
+        *,
+        method_decision: str,
+        risk_decision: str,
+    ) -> tuple[Path, Path]:
+        method_health_json = tmp / "method_health_comparison.json"
+        risk_calibration_json = tmp / "risk_gt_calibration.json"
+        policy = {"policy_version": "lidar_degeneracy_triage_v1"}
+        method_health_json.write_text(
+            json.dumps(
+                {
+                    "policy": policy,
+                    "sequences": [
+                        {
+                            "sequence": "demo_sequence",
+                            "windows": [
+                                {
+                                    "name": "demo_window",
+                                    "start": 0,
+                                    "end": 10,
+                                    "methods": {
+                                        "demo_method": {
+                                            "policy_decision": method_decision,
+                                        }
+                                    },
+                                }
+                            ],
+                        }
+                    ],
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+        risk_calibration_json.write_text(
+            json.dumps(
+                {
+                    "policy": policy,
+                    "proxy_records": [
+                        {
+                            "sequence": "demo_sequence",
+                            "window": "demo_window",
+                            "method": "demo_method",
+                            "policy_decision": risk_decision,
+                        }
+                    ],
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+        return method_health_json, risk_calibration_json
+
     def test_reuse_aggregates_rebuilds_docs_without_local_data(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp = Path(tmpdir)
@@ -441,6 +496,48 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(completed.returncode, 0, msg=completed.stdout)
         self.assertIn("[ok] lidar degeneracy checks passed", completed.stdout)
+
+    def test_lidar_degeneracy_check_runner_policy_gate_passes_clean_reports(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            method_health_json, risk_calibration_json = self.write_lidar_gate_reports(
+                Path(tmpdir),
+                method_decision="pass",
+                risk_decision="watch",
+            )
+
+            completed = run_script(
+                "evaluation/scripts/run_lidar_degeneracy_checks.py",
+                "--enforce-policy",
+                "--method-health-json",
+                str(method_health_json),
+                "--risk-calibration-json",
+                str(risk_calibration_json),
+            )
+
+        self.assertEqual(completed.returncode, 0, msg=completed.stdout)
+        self.assertIn("[ok] lidar degeneracy policy gate passed", completed.stdout)
+
+    def test_lidar_degeneracy_check_runner_policy_gate_fails_bad_reports(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            method_health_json, risk_calibration_json = self.write_lidar_gate_reports(
+                Path(tmpdir),
+                method_decision="fail",
+                risk_decision="investigate",
+            )
+
+            completed = run_script(
+                "evaluation/scripts/run_lidar_degeneracy_checks.py",
+                "--enforce-policy",
+                "--method-health-json",
+                str(method_health_json),
+                "--risk-calibration-json",
+                str(risk_calibration_json),
+            )
+
+        self.assertEqual(completed.returncode, 1, msg=completed.stdout)
+        self.assertIn("[fail] lidar degeneracy policy gate failed", completed.stdout)
+        self.assertIn("method_health_comparison: fail rows 1 > 0", completed.stdout)
+        self.assertIn("risk_gt_calibration: investigate rows 1 > 0", completed.stdout)
 
 
 class RunMultimodalStudyScriptTests(unittest.TestCase):

@@ -3,7 +3,7 @@
   "gt_csv": "-",
   "frames": 30,
   "method": "ct_icp_window_odometry",
-  "runtime_s": 0.656485,
+  "runtime_s": 0.565802,
   "parameters": {
     "start_frame": 80,
     "voxel_resolution": 1.500000,

@@ -117,7 +117,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
     ) -> tuple[Path, Path]:
         method_health_json = tmp / "method_health_comparison.json"
         risk_calibration_json = tmp / "risk_gt_calibration.json"
-        policy = {"policy_version": "lidar_degeneracy_triage_v3"}
+        policy = {"policy_version": "lidar_degeneracy_triage_v4"}
         method_reasons = {
             "pass": ["ok_no_risk"],
             "watch": ["low_convergence"],
@@ -626,6 +626,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(classify("low_acceptance"), "local_matcher_failure")
         self.assertEqual(classify("all_pairs_failed"), "local_matcher_failure")
+        self.assertEqual(classify("ct_icp_internal_convergence_low"), "local_matcher_failure")
         self.assertEqual(classify("low_motion_margin_dominant"), "false_confidence_risk")
         self.assertEqual(classify("motion_margin_dominant"), "false_confidence_risk")
         self.assertEqual(classify("overlap_tail"), "false_confidence_risk")
@@ -638,7 +639,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {
-            "policy": {"policy_version": "lidar_degeneracy_triage_v3"},
+            "policy": {"policy_version": "lidar_degeneracy_triage_v4"},
             "offender_count": 3,
             "offenders": [
                 {
@@ -691,7 +692,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             gate_report_path.write_text(
                 json.dumps(
                     {
-                        "policy": {"policy_version": "lidar_degeneracy_triage_v3"},
+                        "policy": {"policy_version": "lidar_degeneracy_triage_v4"},
                         "offender_count": 1,
                         "offenders": [
                             {

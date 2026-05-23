@@ -87,6 +87,7 @@ ACTION_TEMPLATES = {
 
 REASON_CATEGORIES = {
     "all_pairs_failed": "local_matcher_failure",
+    "ct_icp_internal_convergence_low": "local_matcher_failure",
     "low_acceptance": "local_matcher_failure",
     "low_convergence": "local_matcher_failure",
     "low_motion_margin_dominant": "false_confidence_risk",

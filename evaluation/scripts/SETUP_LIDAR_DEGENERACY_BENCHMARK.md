@@ -445,6 +445,10 @@ Observed `fog.bag` inspection:
   to write `policy_gate_report.json` and `policy_gate_report.md` with report
   counts, violations, and the top `fail`/`investigate` rows by
   sequence/window/method/reason.
+- Convert the gate report into a repair backlog with
+  `python3 evaluation/scripts/generate_lidar_degeneracy_action_plan.py`. This
+  writes `policy_gate_action_plan.json` and `policy_gate_action_plan.md`, grouping
+  offenders by policy decision, reason category, and method.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

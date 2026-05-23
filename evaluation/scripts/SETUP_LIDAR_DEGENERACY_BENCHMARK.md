@@ -447,6 +447,14 @@ Observed `fog.bag` inspection:
   partial acceptance or hard local failures to `reject_or_retry`. This is an
   offline guard contract for the benchmark dashboard; production wiring still
   needs a live prior/fallback source.
+- `simulate_ct_icp_guarded_trajectory.py` turns those guard decisions into an
+  offline guarded trajectory using a bounded constant-velocity prior when
+  refined CT-ICP should not be trusted. The report includes guarded path
+  length, path/reference status, velocity-prior pair rate, hold rate, and step
+  continuity. Treat it as a fallback-source sanity check: if
+  `fallback_to_prior` stays `path_high` or becomes worse, the guard is doing
+  the right thing by not trusting CT-ICP, but a stronger production fallback
+  source is still required.
 - The same policy is now integrated into the main method-health comparison:
   each window row includes `Policy` and `Policy reasons`, and each method
   aggregate includes policy counts. The calibration report remains the place

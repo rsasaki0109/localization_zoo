@@ -115,6 +115,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_calibrate_lidar_degeneracy_risk_module",
             "evaluation/scripts/calibrate_lidar_degeneracy_risk.py",
         )
+        cls.ct_icp_guarded_module = load_script_module(
+            "test_simulate_ct_icp_guarded_trajectory_module",
+            "evaluation/scripts/simulate_ct_icp_guarded_trajectory.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -778,6 +782,62 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "flags": "ct_icp_internal_convergence_low",
         }
         self.assertEqual(summarize.health_state(partial_acceptance_row), "suspicious")
+
+    def test_ct_icp_guarded_trajectory_uses_velocity_prior(self) -> None:
+        guarded = self.ct_icp_guarded_module
+        payload = {
+            "method": "ct_icp_window_odometry",
+            "parameters": {"max_step_translation": 1.0, "max_step_yaw_deg": 10.0},
+            "pairs": [
+                {
+                    "index": 1,
+                    "accepted": True,
+                    "dx_curr_to_prev_m": 0.2,
+                    "dy_curr_to_prev_m": 0.0,
+                    "yaw_curr_to_prev_deg": 2.0,
+                    "used_dx_curr_to_prev_m": 0.2,
+                    "used_dy_curr_to_prev_m": 0.0,
+                    "used_yaw_curr_to_prev_deg": 2.0,
+                },
+                {
+                    "index": 2,
+                    "accepted": True,
+                    "dx_curr_to_prev_m": 2.0,
+                    "dy_curr_to_prev_m": 0.0,
+                    "yaw_curr_to_prev_deg": 30.0,
+                    "used_dx_curr_to_prev_m": 2.0,
+                    "used_dy_curr_to_prev_m": 0.0,
+                    "used_yaw_curr_to_prev_deg": 30.0,
+                },
+                {
+                    "index": 3,
+                    "accepted": True,
+                    "dx_curr_to_prev_m": 0.1,
+                    "dy_curr_to_prev_m": 0.0,
+                    "yaw_curr_to_prev_deg": 1.0,
+                    "used_dx_curr_to_prev_m": 0.1,
+                    "used_dy_curr_to_prev_m": 0.0,
+                    "used_yaw_curr_to_prev_deg": 1.0,
+                },
+            ],
+        }
+
+        out = guarded.simulate_guarded_payload(
+            result_payload=payload,
+            guard_decision="fallback_to_prior",
+            source_result_json=Path("demo.json"),
+        )
+
+        self.assertEqual(out["summary"]["velocity_prior_pairs"], 3)
+        self.assertEqual(out["summary"]["prior_bootstrap_pairs"], 1)
+        self.assertEqual(out["summary"]["hold_pairs"], 0)
+        self.assertAlmostEqual(out["summary"]["guarded_path_length_m"], 0.6)
+        self.assertLess(
+            out["summary"]["guarded_step_delta_max_m"],
+            out["summary"]["original_step_delta_max_m"],
+        )
+        self.assertEqual(out["pairs"][0]["guard_source"], "velocity_bootstrap")
+        self.assertEqual(out["pairs"][1]["guard_source"], "velocity_prior")
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {

@@ -517,6 +517,11 @@ Observed `fog.bag` inspection:
   `python3 evaluation/scripts/generate_lidar_degeneracy_action_plan.py`. This
   writes `policy_gate_action_plan.json` and `policy_gate_action_plan.md`, grouping
   offenders by policy decision, reason category, and method.
+- For the fixed-map NDT audit, generate the gate/action backlog under
+  `experiments/results/fixed_map_ndt/policy_gate/`. The action plan separates
+  wrong-pose acceptance, unsafe global hypothesis selection, detectable bad
+  seeds, and map-localization accuracy gaps so the next repair target is not
+  hidden inside a single ATE table.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

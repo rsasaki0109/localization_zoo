@@ -720,6 +720,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(records[0]["sequence"], "kitti_seq_08")
         self.assertEqual(records[0]["window"], "seed_scan_context_stride_5")
+        self.assertEqual(records[0]["start"], 0)
         self.assertEqual(records[0]["end"], 108)
         self.assertEqual(records[0]["method"], "fixed_map_ndt:scan_context")
         self.assertEqual(records[0]["policy_reasons"], ["global_initializer_near_basin"])
@@ -738,7 +739,56 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "cross_method_disagreement",
         )
         self.assertEqual(classify("nonfinite_pose"), "hard_numerical_failure")
+        self.assertEqual(classify("accepted_bad_localization"), "wrong_pose_acceptance")
+        self.assertEqual(classify("unfiltered_ndt_score_trap"), "global_hypothesis_selection")
+        self.assertEqual(classify("rejected_bad_seed_detectable"), "detectable_bad_seed")
+        self.assertEqual(classify("bad_localization"), "map_localization_gap")
         self.assertEqual(classify("future_reason"), "unclassified_policy_reason")
+
+    def test_lidar_degeneracy_action_plan_groups_fixed_map_ndt_reasons(self) -> None:
+        gate_report = {
+            "policy": {"policy_version": "lidar_degeneracy_triage_v4"},
+            "offender_count": 2,
+            "offenders": [
+                {
+                    "report": "fixed_map_ndt_failure_audit",
+                    "sequence": "kitti_seq_02",
+                    "window": "seed_ct_icp",
+                    "start": None,
+                    "end": 108,
+                    "method": "fixed_map_ndt:ct_icp",
+                    "policy_decision": "fail",
+                    "policy_reasons": ["accepted_bad_localization"],
+                },
+                {
+                    "report": "fixed_map_ndt_failure_audit",
+                    "sequence": "kitti_seq_02",
+                    "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+                    "start": None,
+                    "end": 108,
+                    "method": "fixed_map_ndt:scan_context",
+                    "policy_decision": "fail",
+                    "policy_reasons": [
+                        "accepted_bad_localization",
+                        "unfiltered_ndt_score_trap",
+                    ],
+                },
+            ],
+        }
+
+        plan = self.lidar_action_plan_module.build_action_plan(gate_report)
+
+        categories = [item["category"] for item in plan["action_items"]]
+        self.assertEqual(categories[0], "wrong_pose_acceptance")
+        self.assertIn("global_hypothesis_selection", categories)
+        scan_context_items = [
+            item
+            for item in plan["action_items"]
+            if item["method"] == "fixed_map_ndt:scan_context"
+        ]
+        self.assertEqual(len(scan_context_items), 2)
+        self.assertEqual(plan["summary"]["category_rows"]["wrong_pose_acceptance"], 2)
+        self.assertEqual(plan["summary"]["category_rows"]["global_hypothesis_selection"], 1)
 
     def test_lidar_degeneracy_ct_icp_diagnostic_watch_is_not_product_failure(self) -> None:
         summarize = self.lidar_summary_module

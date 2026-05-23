@@ -211,12 +211,13 @@ def fixed_map_ndt_audit_policy_records(payload: dict[str, Any]) -> list[dict[str
         sequence = str(row.get("sequence", "unknown_sequence"))
         variant = str(row.get("variant", "unknown_variant"))
         seed_source = str(row.get("seed_source", row.get("method", "unknown_seed")))
+        frames = row.get("frames")
         records.append(
             {
                 "sequence": f"kitti_seq_{sequence}",
                 "window": variant,
-                "start": None,
-                "end": row.get("frames"),
+                "start": 0 if frames is not None else None,
+                "end": frames,
                 "method": f"fixed_map_ndt:{seed_source}",
                 "policy_decision": str(row.get("policy_decision") or "missing"),
                 "policy_reasons": normalize_policy_reasons(row.get("policy_reasons")),

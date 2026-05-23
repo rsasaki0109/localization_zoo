@@ -36,11 +36,15 @@ DECISION_PRIORITY = {
 
 CATEGORY_PRIORITY = {
     "hard_numerical_failure": 0,
-    "local_matcher_failure": 1,
-    "false_confidence_risk": 2,
-    "cross_method_disagreement": 3,
-    "diagnostic_watch": 4,
-    "unclassified_policy_reason": 5,
+    "wrong_pose_acceptance": 1,
+    "global_hypothesis_selection": 2,
+    "local_matcher_failure": 3,
+    "detectable_bad_seed": 4,
+    "map_localization_gap": 5,
+    "false_confidence_risk": 6,
+    "cross_method_disagreement": 7,
+    "diagnostic_watch": 8,
+    "unclassified_policy_reason": 9,
 }
 
 ACTION_TEMPLATES = {
@@ -58,6 +62,38 @@ ACTION_TEMPLATES = {
         "action": (
             "Inspect per-pair registration decisions, overlap, and acceptance gates; "
             "add fallback or retry behavior before relaxing the strict gate."
+        ),
+    },
+    "wrong_pose_acceptance": {
+        "title": "Block accepted wrong-pose localization",
+        "component": "localization safety gate",
+        "action": (
+            "Treat high-acceptance/high-error rows as publish-blocking failures; add "
+            "a second verifier before accepting these seed sources."
+        ),
+    },
+    "global_hypothesis_selection": {
+        "title": "Replace unsafe global hypothesis selection",
+        "component": "global initializer",
+        "action": (
+            "Stop relying on NDT score alone for unfiltered global candidates; add "
+            "a calibrated geometric verifier or sequential prior before retrying top-K."
+        ),
+    },
+    "detectable_bad_seed": {
+        "title": "Handle rejected bad seeds explicitly",
+        "component": "seed fallback",
+        "action": (
+            "Keep these rows out of pose publication, then add a recovery path that "
+            "switches to relocalization or returns unknown instead of dead reckoning."
+        ),
+    },
+    "map_localization_gap": {
+        "title": "Close map-localization accuracy gap",
+        "component": "map localization backend",
+        "action": (
+            "Compare seed quality, NDT basin limits, and fixed-map acceptance scores; "
+            "use the result to decide whether the initializer or backend needs work."
         ),
     },
     "false_confidence_risk": {
@@ -109,6 +145,11 @@ REASON_CATEGORIES = {
     "path_disagrees_with_all_method_median": "cross_method_disagreement",
     "path_disagrees_with_healthy_median": "cross_method_disagreement",
     "nonfinite_pose": "hard_numerical_failure",
+    "accepted_bad_localization": "wrong_pose_acceptance",
+    "unfiltered_ndt_score_trap": "global_hypothesis_selection",
+    "rejected_bad_seed_detectable": "detectable_bad_seed",
+    "bad_localization": "map_localization_gap",
+    "global_initializer_near_basin": "map_localization_gap",
 }
 
 

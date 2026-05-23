@@ -56,7 +56,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-keyframe-yaw-deg", type=float, default=5.0)
     parser.add_argument("--max-keyframe-rmse", type=float, default=2.0)
     parser.add_argument("--min-keyframe-correspondences", type=int, default=1000)
-    parser.add_argument("--kiss-min-correspondences", type=int, default=1000)
+    parser.add_argument(
+        "--kiss-min-correspondences",
+        type=int,
+        default=80,
+        help=(
+            "Minimum local pair correspondences for KISS convergence. Keep this near "
+            "the matcher default; fog/cropped degeneracy windows can have only a few "
+            "hundred correspondences even when the pair alignment is usable."
+        ),
+    )
     parser.add_argument("--intensity-bev-preset", choices=["default", "fast", "pyramid"], default="fast")
     parser.add_argument("--intensity-bev-grid-resolution", type=float, default=0.5)
     parser.add_argument("--intensity-bev-grid-radius", type=float, default=45.0)

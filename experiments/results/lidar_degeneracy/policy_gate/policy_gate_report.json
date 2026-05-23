@@ -14,10 +14,10 @@
       "policy_version": "lidar_degeneracy_triage_v1",
       "total_rows": 28,
       "counts": {
-        "pass": 9,
-        "watch": 9,
+        "pass": 10,
+        "watch": 11,
         "investigate": 5,
-        "fail": 5
+        "fail": 2
       }
     },
     "risk_gt_calibration": {
@@ -25,38 +25,24 @@
       "policy_version": "lidar_degeneracy_triage_v1",
       "total_rows": 28,
       "counts": {
-        "pass": 9,
-        "watch": 9,
+        "pass": 10,
+        "watch": 11,
         "investigate": 5,
-        "fail": 5
+        "fail": 2
       }
     }
   },
   "violations": [
-    "method_health_comparison: fail rows 5 > 0",
+    "method_health_comparison: fail rows 2 > 0",
     "method_health_comparison: investigate rows 5 > 0",
-    "risk_gt_calibration: fail rows 5 > 0",
+    "risk_gt_calibration: fail rows 2 > 0",
     "risk_gt_calibration: investigate rows 5 > 0"
   ],
-  "offender_count": 20,
+  "offender_count": 14,
   "offenders": [
     {
       "report": "method_health_comparison",
       "sequence": "fog_200",
-      "window": "baseline",
-      "start": 0,
-      "end": 29,
-      "method": "kiss_keyframe",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
-      ]
-    },
-    {
-      "report": "method_health_comparison",
-      "sequence": "fog_200",
       "window": "degraded",
       "start": 170,
       "end": 199,
@@ -70,20 +56,6 @@
     {
       "report": "method_health_comparison",
       "sequence": "fog_200",
-      "window": "degraded",
-      "start": 170,
-      "end": 199,
-      "method": "kiss_keyframe",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
-      ]
-    },
-    {
-      "report": "method_health_comparison",
-      "sequence": "fog_200",
       "window": "point_count_tail",
       "start": 115,
       "end": 144,
@@ -91,34 +63,6 @@
       "policy_decision": "fail",
       "policy_reasons": [
         "low_acceptance"
-      ]
-    },
-    {
-      "report": "method_health_comparison",
-      "sequence": "fog_200",
-      "window": "point_count_tail",
-      "start": 115,
-      "end": 144,
-      "method": "kiss_keyframe",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
-      ]
-    },
-    {
-      "report": "risk_gt_calibration",
-      "sequence": "fog_200",
-      "window": "baseline",
-      "start": 0,
-      "end": 29,
-      "method": "kiss_keyframe",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
       ]
     },
     {
@@ -137,20 +81,6 @@
     {
       "report": "risk_gt_calibration",
       "sequence": "fog_200",
-      "window": "degraded",
-      "start": 170,
-      "end": 199,
-      "method": "kiss_keyframe",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
-      ]
-    },
-    {
-      "report": "risk_gt_calibration",
-      "sequence": "fog_200",
       "window": "point_count_tail",
       "start": 115,
       "end": 144,
@@ -161,31 +91,16 @@
       ]
     },
     {
-      "report": "risk_gt_calibration",
-      "sequence": "fog_200",
-      "window": "point_count_tail",
-      "start": 115,
-      "end": 144,
-      "method": "kiss_keyframe",
-      "policy_decision": "fail",
-      "policy_reasons": [
-        "all_pairs_failed",
-        "low_acceptance",
-        "low_convergence"
-      ]
-    },
-    {
       "report": "method_health_comparison",
       "sequence": "fog_200",
       "window": "degraded",
       "start": 170,
       "end": 199,
-      "method": "intensity_bev",
+      "method": "kiss_keyframe",
       "policy_decision": "investigate",
       "policy_reasons": [
         "cross_method_suspicious",
-        "no_healthy_peer",
-        "path_disagrees_with_all_method_median"
+        "path_disagrees_with_healthy_median"
       ]
     },
     {
@@ -246,12 +161,11 @@
       "window": "degraded",
       "start": 170,
       "end": 199,
-      "method": "intensity_bev",
+      "method": "kiss_keyframe",
       "policy_decision": "investigate",
       "policy_reasons": [
         "cross_method_suspicious",
-        "no_healthy_peer",
-        "path_disagrees_with_all_method_median"
+        "path_disagrees_with_healthy_median"
       ]
     },
     {

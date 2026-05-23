@@ -10,108 +10,20 @@
     }
   },
   "summary": {
-    "action_items": 4,
-    "offender_rows": 14,
+    "action_items": 3,
+    "offender_rows": 12,
     "category_rows": {
-      "cross_method_disagreement": 6,
-      "false_confidence_risk": 4,
-      "local_matcher_failure": 4
+      "cross_method_disagreement": 8,
+      "false_confidence_risk": 4
     },
     "method_rows": {
-      "geometry_icp": 4,
-      "intensity_bev": 8,
+      "intensity_bev": 10,
       "kiss_keyframe": 2
     }
   },
   "action_items": [
     {
       "priority": 1,
-      "policy_decision": "fail",
-      "category": "local_matcher_failure",
-      "method": "geometry_icp",
-      "title": "Repair local matcher acceptance and convergence",
-      "component": "local registration",
-      "recommended_action": "Inspect per-pair registration decisions, overlap, and acceptance gates; add fallback or retry behavior before relaxing the strict gate.",
-      "offender_rows": 4,
-      "reports": {
-        "method_health_comparison": 2,
-        "risk_gt_calibration": 2
-      },
-      "reasons": {
-        "low_acceptance": 4,
-        "all_pairs_failed": 2
-      },
-      "windows": [
-        {
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "rows": 2
-        },
-        {
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "rows": 2
-        }
-      ],
-      "evidence": [
-        {
-          "report": "method_health_comparison",
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "method": "geometry_icp",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "all_pairs_failed",
-            "low_acceptance"
-          ]
-        },
-        {
-          "report": "method_health_comparison",
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "method": "geometry_icp",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "low_acceptance"
-          ]
-        },
-        {
-          "report": "risk_gt_calibration",
-          "sequence": "fog_200",
-          "window": "degraded",
-          "start": 170,
-          "end": 199,
-          "method": "geometry_icp",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "all_pairs_failed",
-            "low_acceptance"
-          ]
-        },
-        {
-          "report": "risk_gt_calibration",
-          "sequence": "fog_200",
-          "window": "point_count_tail",
-          "start": 115,
-          "end": 144,
-          "method": "geometry_icp",
-          "policy_decision": "fail",
-          "policy_reasons": [
-            "low_acceptance"
-          ]
-        }
-      ]
-    },
-    {
-      "priority": 2,
       "policy_decision": "investigate",
       "category": "false_confidence_risk",
       "method": "intensity_bev",
@@ -197,24 +109,31 @@
       ]
     },
     {
-      "priority": 3,
+      "priority": 2,
       "policy_decision": "investigate",
       "category": "cross_method_disagreement",
       "method": "intensity_bev",
       "title": "Investigate cross-method trajectory disagreement",
       "component": "cross-method validation",
       "recommended_action": "Compare the suspect method against healthy peers, inspect path-length ratios, and require a second signal before accepting the pose stream.",
-      "offender_rows": 4,
+      "offender_rows": 6,
       "reports": {
-        "method_health_comparison": 2,
-        "risk_gt_calibration": 2
+        "method_health_comparison": 3,
+        "risk_gt_calibration": 3
       },
       "reasons": {
-        "cross_method_suspicious": 4,
-        "path_disagrees_with_healthy_median": 4,
-        "path_disagrees_with_all_method_median": 2
+        "cross_method_suspicious": 6,
+        "path_disagrees_with_healthy_median": 6,
+        "path_disagrees_with_all_method_median": 4
       },
       "windows": [
+        {
+          "sequence": "fog_200",
+          "window": "degraded",
+          "start": 170,
+          "end": 199,
+          "rows": 2
+        },
         {
           "sequence": "tunnel_geom_2700_200",
           "window": "point_count_tail",
@@ -231,6 +150,20 @@
         }
       ],
       "evidence": [
+        {
+          "report": "method_health_comparison",
+          "sequence": "fog_200",
+          "window": "degraded",
+          "start": 170,
+          "end": 199,
+          "method": "intensity_bev",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "cross_method_suspicious",
+            "path_disagrees_with_all_method_median",
+            "path_disagrees_with_healthy_median"
+          ]
+        },
         {
           "report": "method_health_comparison",
           "sequence": "tunnel_geom_2700_200",
@@ -255,6 +188,20 @@
           "policy_decision": "investigate",
           "policy_reasons": [
             "cross_method_suspicious",
+            "path_disagrees_with_healthy_median"
+          ]
+        },
+        {
+          "report": "risk_gt_calibration",
+          "sequence": "fog_200",
+          "window": "degraded",
+          "start": 170,
+          "end": 199,
+          "method": "intensity_bev",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "cross_method_suspicious",
+            "path_disagrees_with_all_method_median",
             "path_disagrees_with_healthy_median"
           ]
         },
@@ -288,7 +235,7 @@
       ]
     },
     {
-      "priority": 4,
+      "priority": 3,
       "policy_decision": "investigate",
       "category": "cross_method_disagreement",
       "method": "kiss_keyframe",
@@ -302,6 +249,7 @@
       },
       "reasons": {
         "cross_method_suspicious": 2,
+        "path_disagrees_with_all_method_median": 2,
         "path_disagrees_with_healthy_median": 2
       },
       "windows": [
@@ -324,6 +272,7 @@
           "policy_decision": "investigate",
           "policy_reasons": [
             "cross_method_suspicious",
+            "path_disagrees_with_all_method_median",
             "path_disagrees_with_healthy_median"
           ]
         },
@@ -337,6 +286,7 @@
           "policy_decision": "investigate",
           "policy_reasons": [
             "cross_method_suspicious",
+            "path_disagrees_with_all_method_median",
             "path_disagrees_with_healthy_median"
           ]
         }

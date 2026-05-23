@@ -46,6 +46,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-step-translation", type=float, default=2.0)
     parser.add_argument("--max-step-yaw-deg", type=float, default=20.0)
     parser.add_argument(
+        "--geometry-min-correspondences",
+        type=int,
+        default=40,
+        help=(
+            "Minimum 2D geometry ICP correspondences. Fog/cropped windows keep "
+            "fewer XY voxels than KITTI-style windows, so the generic demo default "
+            "is too strict for degeneracy health checks."
+        ),
+    )
+    parser.add_argument(
         "--min-used-path-length",
         type=float,
         default=0.0,
@@ -157,6 +167,8 @@ def run_geometry_icp(args: argparse.Namespace, sequence_pcd_dir: Path, name: str
         str(args.max_step_translation),
         "--max-step-yaw-deg",
         str(args.max_step_yaw_deg),
+        "--min-correspondences",
+        str(args.geometry_min_correspondences),
         "--progress-every",
         str(args.progress_every),
     ]
@@ -569,6 +581,7 @@ def main() -> int:
             "z_max": args.z_max,
             "max_step_translation": args.max_step_translation,
             "max_step_yaw_deg": args.max_step_yaw_deg,
+            "geometry_min_correspondences": args.geometry_min_correspondences,
             "min_used_path_length": args.min_used_path_length,
             "keyframe_interval": args.keyframe_interval,
             "max_keyframe_correction": args.max_keyframe_correction,

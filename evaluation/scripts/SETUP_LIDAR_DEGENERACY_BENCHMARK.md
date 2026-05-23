@@ -111,7 +111,8 @@ python3 evaluation/scripts/select_lidar_degradation_windows.py \
 
 python3 evaluation/scripts/run_lidar_degradation_health.py \
   experiments/results/lidar_degeneracy/fog_200/window_selection/degradation_windows.json \
-  experiments/results/lidar_degeneracy/fog_200/odometry_health
+  experiments/results/lidar_degeneracy/fog_200/odometry_health \
+  --geometry-min-correspondences 40
 ```
 
 Run the same selected windows through the KISS keyframe backend after building

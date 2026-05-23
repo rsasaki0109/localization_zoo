@@ -123,6 +123,18 @@ def passes_motion_gate(cand: Candidate, args: argparse.Namespace) -> bool:
     return True
 
 
+def decision_reason(cand: Candidate, args: argparse.Namespace) -> str:
+    if cand.overlap < args.min_correspondences:
+        return "correspondence_gate"
+    if cand.score < 0.0:
+        return "invalid_score"
+    if math.hypot(cand.dx, cand.dy) > args.max_step_translation:
+        return "step_translation_gate"
+    if abs(math.degrees(cand.yaw)) > args.max_step_yaw_deg:
+        return "step_yaw_gate"
+    return "accepted"
+
+
 def run_pair_icp(prev_xy: np.ndarray, curr_xy: np.ndarray, prior: Candidate | None, args: argparse.Namespace) -> Candidate:
     if prev_xy.shape[0] < args.min_correspondences or curr_xy.shape[0] < args.min_correspondences:
         return Candidate(0.0, 0.0, 0.0, -1.0, 0)
@@ -194,6 +206,7 @@ def main() -> int:
             "dy_curr_to_prev_m": cand.dy,
             "yaw_curr_to_prev_deg": math.degrees(cand.yaw),
             "accepted": accepted,
+            "decision_reason": decision_reason(cand, args),
             "used_dx_curr_to_prev_m": pose_cand.dx,
             "used_dy_curr_to_prev_m": pose_cand.dy,
             "used_yaw_curr_to_prev_deg": math.degrees(pose_cand.yaw),

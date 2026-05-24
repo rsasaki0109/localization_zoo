@@ -139,6 +139,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_build_fixed_map_ndt_publish_guard_module",
             "evaluation/scripts/build_fixed_map_ndt_publish_guard.py",
         )
+        cls.fixed_map_global_verifier_module = load_script_module(
+            "test_calibrate_fixed_map_global_hypothesis_verifier_module",
+            "evaluation/scripts/calibrate_fixed_map_global_hypothesis_verifier.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -1221,6 +1225,120 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(guard["publish_decision"], "lab_only")
         self.assertFalse(guard["allow_pose_publish"])
         self.assertEqual(guard["required_gate"], "non_oracle_runtime_initializer")
+
+    def test_fixed_map_global_verifier_rejects_unfiltered_score_trap(self) -> None:
+        verifier = self.fixed_map_global_verifier_module
+        row = {
+            "seed_source": "scan_context",
+            "source_class": "global_initializer",
+            "scan_context_unfiltered": True,
+            "scan_context_mean_distance": 0.18,
+            "scan_context_hit_rate": 1.0,
+            "ndt_candidate_evals": 535,
+            "attempted": 107,
+            "accepted_rate": 1.0,
+            "policy_reasons": [
+                "accepted_bad_localization",
+                "unfiltered_ndt_score_trap",
+            ],
+        }
+
+        decision = verifier.verify_row(row)
+
+        self.assertEqual(decision["verifier_decision"], "reject_score_trap")
+        self.assertFalse(decision["allow_global_hypothesis_refinement"])
+        self.assertFalse(decision["allow_pose_publish"])
+        self.assertEqual(
+            decision["required_next_gate"], "filtered_retrieval_or_geometric_verifier"
+        )
+
+    def test_fixed_map_global_verifier_accepts_supported_filtered_retrieval(self) -> None:
+        verifier = self.fixed_map_global_verifier_module
+        row = {
+            "seed_source": "scan_context",
+            "source_class": "global_initializer",
+            "scan_context_unfiltered": False,
+            "scan_context_mean_distance": 0.075,
+            "scan_context_hit_rate": 0.38,
+            "ndt_candidate_evals": 41,
+            "attempted": 107,
+            "accepted_rate": 0.91,
+            "policy_reasons": ["global_initializer_near_basin"],
+        }
+
+        decision = verifier.verify_row(row)
+
+        self.assertEqual(decision["verifier_decision"], "accept_for_refinement")
+        self.assertTrue(decision["allow_global_hypothesis_refinement"])
+        self.assertFalse(decision["allow_pose_publish"])
+        self.assertEqual(
+            decision["required_next_gate"], "map_consistency_or_sequence_verifier"
+        )
+
+    def test_fixed_map_global_verifier_holds_low_retrieval_support(self) -> None:
+        verifier = self.fixed_map_global_verifier_module
+        row = {
+            "seed_source": "scan_context",
+            "source_class": "global_initializer",
+            "scan_context_unfiltered": False,
+            "scan_context_mean_distance": 0.083,
+            "scan_context_hit_rate": 0.19,
+            "ndt_candidate_evals": 21,
+            "attempted": 107,
+            "accepted_rate": 0.91,
+            "policy_reasons": ["accepted_bad_localization"],
+        }
+
+        decision = verifier.verify_row(row)
+
+        self.assertEqual(decision["verifier_decision"], "hold_for_sequence_prior")
+        self.assertFalse(decision["allow_global_hypothesis_refinement"])
+        self.assertEqual(decision["required_next_gate"], "sequential_place_prior")
+
+    def test_fixed_map_global_verifier_aggregate_blocks_score_traps(self) -> None:
+        verifier = self.fixed_map_global_verifier_module
+        rows = [
+            verifier.verifier_row(
+                {
+                    "sequence": "02",
+                    "variant": "filtered",
+                    "seed_source": "scan_context",
+                    "source_class": "global_initializer",
+                    "scan_context_unfiltered": False,
+                    "scan_context_mean_distance": 0.075,
+                    "scan_context_hit_rate": 0.38,
+                    "ndt_candidate_evals": 41,
+                    "attempted": 107,
+                    "accepted_rate": 0.91,
+                    "policy_reasons": ["global_initializer_near_basin"],
+                }
+            ),
+            verifier.verifier_row(
+                {
+                    "sequence": "02",
+                    "variant": "unfiltered",
+                    "seed_source": "scan_context",
+                    "source_class": "global_initializer",
+                    "scan_context_unfiltered": True,
+                    "scan_context_mean_distance": 0.18,
+                    "scan_context_hit_rate": 1.0,
+                    "ndt_candidate_evals": 535,
+                    "attempted": 107,
+                    "accepted_rate": 1.0,
+                    "policy_reasons": [
+                        "accepted_bad_localization",
+                        "unfiltered_ndt_score_trap",
+                    ],
+                }
+            ),
+        ]
+
+        aggregate = verifier.aggregate(rows)
+
+        self.assertEqual(aggregate["accepted_for_refinement"], 1)
+        self.assertEqual(aggregate["unsafe_accepted"], 0)
+        self.assertEqual(aggregate["score_traps_blocked"], 1)
+        self.assertEqual(aggregate["near_basin_retained"], 1)
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {

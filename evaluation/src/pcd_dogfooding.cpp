@@ -1134,6 +1134,8 @@ struct FixedMapNDTOptions {
   double scan_context_distance_threshold = 0.18;
   int scan_context_top_k = 1;
   std::string trace_json_path;
+  int publish_min_stable_frames = 5;
+  int publish_max_hold_frames = 3;
 };
 
 struct FixedMapNDTTraceFrame {
@@ -1162,10 +1164,32 @@ struct FixedMapNDTTraceFrame {
   double correction_rotation_delta_rad = std::numeric_limits<double>::quiet_NaN();
   double final_step_m = std::numeric_limits<double>::quiet_NaN();
   double gt_step_m = std::numeric_limits<double>::quiet_NaN();
+  std::string publish_action = "not_evaluated";
+  std::string publish_state = "not_evaluated";
+  std::string publish_gate_reason;
+  std::string gt_safety_state = "not_evaluated";
+  bool allow_pose_publish = false;
+  bool has_pose_output = false;
+  bool runtime_refinement_candidate = false;
+  bool gt_wrong_pose = false;
+  bool gt_recovery_transition = false;
+  bool gt_unsafe_transition = false;
+  int runtime_refinement_streak = 0;
+  int publish_hold_age_frames = 0;
+  double published_translation_error_m = std::numeric_limits<double>::quiet_NaN();
   Eigen::Matrix4d seed_pose = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d refined_pose = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d final_pose = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d gt_pose = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d published_pose = Eigen::Matrix4d::Identity();
+};
+
+struct FixedMapNDTPublishPolicyState {
+  int runtime_refinement_streak = 0;
+  int hold_streak = 0;
+  bool has_last_published_pose = false;
+  size_t last_published_frame = 0;
+  Eigen::Matrix4d last_published_pose = Eigen::Matrix4d::Identity();
 };
 
 MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
@@ -1508,6 +1532,159 @@ void finalizeFixedMapNDTTraceFrame(FixedMapNDTTraceFrame& frame,
   }
 }
 
+bool fixedMapNDTTraceHasWrongPose(const FixedMapNDTTraceFrame& frame) {
+  return !std::isfinite(frame.final_translation_error_m) ||
+         frame.final_translation_error_m > 1.0;
+}
+
+double finiteRatio(double numerator, double denominator) {
+  if (!std::isfinite(numerator) || !std::isfinite(denominator) ||
+      denominator <= 1e-9) {
+    return std::numeric_limits<double>::quiet_NaN();
+  }
+  return numerator / denominator;
+}
+
+void annotateFixedMapNDTGTSafety(FixedMapNDTTraceFrame& frame,
+                                 const FixedMapNDTTraceFrame* previous_frame) {
+  frame.gt_wrong_pose = fixedMapNDTTraceHasWrongPose(frame);
+  const double step_ratio = finiteRatio(frame.final_step_m, frame.gt_step_m);
+  const double previous_error =
+      previous_frame ? previous_frame->final_translation_error_m
+                     : std::numeric_limits<double>::quiet_NaN();
+  const double transition_error_delta =
+      (std::isfinite(previous_error) &&
+       std::isfinite(frame.final_translation_error_m))
+          ? previous_error - frame.final_translation_error_m
+          : std::numeric_limits<double>::quiet_NaN();
+  const bool is_jump = std::isfinite(step_ratio) && step_ratio > 3.0;
+  frame.gt_recovery_transition =
+      is_jump && std::isfinite(transition_error_delta) &&
+      transition_error_delta >= 1.0 &&
+      std::isfinite(frame.final_translation_error_m) &&
+      frame.final_translation_error_m <= 1.0;
+  frame.gt_unsafe_transition =
+      is_jump && !frame.gt_recovery_transition &&
+      (!std::isfinite(frame.final_translation_error_m) ||
+       frame.final_translation_error_m > 1.0 ||
+       (std::isfinite(transition_error_delta) &&
+        transition_error_delta < 0.0));
+
+  if (frame.gt_unsafe_transition) {
+    frame.gt_safety_state = "unsafe_transition";
+  } else if (frame.gt_recovery_transition) {
+    frame.gt_safety_state = "recovery_transition";
+  } else if (frame.gt_wrong_pose) {
+    frame.gt_safety_state = "wrong_pose";
+  } else {
+    frame.gt_safety_state = "inside_publish_envelope";
+  }
+}
+
+bool fixedMapNDTRuntimeRefinementCandidate(const FixedMapNDTTraceFrame& frame) {
+  return frame.accepted && !frame.seed_fallback &&
+         isFiniteMatrix(frame.final_pose) && std::isfinite(frame.ndt_score) &&
+         (frame.ndt_converged || frame.ndt_iterations >= 2);
+}
+
+void returnUnknownFixedMapNDTPublish(FixedMapNDTTraceFrame& frame,
+                                     FixedMapNDTPublishPolicyState& state,
+                                     const std::string& publish_state,
+                                     const std::string& reason) {
+  frame.publish_action = "return_unknown";
+  frame.publish_state = publish_state;
+  frame.publish_gate_reason = reason;
+  frame.allow_pose_publish = false;
+  frame.has_pose_output = false;
+  frame.publish_hold_age_frames = 0;
+  state.hold_streak = 0;
+}
+
+void annotateFixedMapNDTPublishPolicy(
+    FixedMapNDTTraceFrame& frame,
+    const FixedMapNDTOptions& options,
+    FixedMapNDTPublishPolicyState& state,
+    const FixedMapNDTTraceFrame* previous_frame) {
+  annotateFixedMapNDTGTSafety(frame, previous_frame);
+  frame.runtime_refinement_candidate =
+      fixedMapNDTRuntimeRefinementCandidate(frame);
+
+  if (frame.decision == "anchor") {
+    state.runtime_refinement_streak = 0;
+    returnUnknownFixedMapNDTPublish(
+        frame, state, "anchor_frame",
+        "initial anchor is not a runtime publish proof");
+    return;
+  }
+
+  if (options.seed_source == "gt") {
+    state.runtime_refinement_streak = 0;
+    returnUnknownFixedMapNDTPublish(
+        frame, state, "lab_only_oracle_seed",
+        "GT seed validates the localizer but is not deployable");
+    return;
+  }
+
+  if (!frame.runtime_refinement_candidate) {
+    state.runtime_refinement_streak = 0;
+    const std::string publish_state =
+        frame.seed_fallback ? "seed_fallback_unknown"
+                            : "refinement_rejected_unknown";
+    const std::string reason =
+        frame.seed_fallback
+            ? "seed fallback has no fixed-map verification"
+            : "NDT refinement was not accepted by runtime gates";
+    if (state.has_last_published_pose &&
+        state.hold_streak < std::max(0, options.publish_max_hold_frames)) {
+      ++state.hold_streak;
+      frame.publish_action = "hold_last_pose";
+      frame.publish_state = publish_state;
+      frame.publish_gate_reason = reason;
+      frame.allow_pose_publish = true;
+      frame.has_pose_output = true;
+      frame.publish_hold_age_frames =
+          static_cast<int>(frame.frame_index - state.last_published_frame);
+      frame.published_pose = state.last_published_pose;
+      frame.published_translation_error_m =
+          poseTranslationDelta(frame.published_pose, frame.gt_pose);
+    } else {
+      returnUnknownFixedMapNDTPublish(frame, state, publish_state, reason);
+    }
+    return;
+  }
+
+  ++state.runtime_refinement_streak;
+  frame.runtime_refinement_streak = state.runtime_refinement_streak;
+  if (options.seed_source == "scan_context") {
+    returnUnknownFixedMapNDTPublish(
+        frame, state, "awaiting_external_sequence_verifier",
+        "global Scan Context hypotheses require a sequence verifier before pose publish");
+    return;
+  }
+
+  if (state.runtime_refinement_streak <
+      std::max(1, options.publish_min_stable_frames)) {
+    returnUnknownFixedMapNDTPublish(
+        frame, state, "warming_up_stable_refinement",
+        "runtime refinement streak is shorter than the publish threshold");
+    return;
+  }
+
+  state.hold_streak = 0;
+  state.has_last_published_pose = true;
+  state.last_published_frame = frame.frame_index;
+  state.last_published_pose = frame.final_pose;
+  frame.publish_action = "publish_pose";
+  frame.publish_state = "runtime_stable_refinement";
+  frame.publish_gate_reason =
+      "accepted runtime refinement passed the stable publish threshold";
+  frame.allow_pose_publish = true;
+  frame.has_pose_output = true;
+  frame.publish_hold_age_frames = 0;
+  frame.published_pose = frame.final_pose;
+  frame.published_translation_error_m = frame.final_translation_error_m;
+}
+
 void writeFixedMapNDTTraceJson(const std::string& path,
                                const FixedMapNDTOptions& options,
                                size_t num_frames,
@@ -1543,7 +1720,7 @@ void writeFixedMapNDTTraceJson(const std::string& path,
 
   std::ofstream out(path);
   out << "{\n";
-  out << "  \"trace_version\": \"fixed_map_ndt_trace_v1\",\n";
+  out << "  \"trace_version\": \"fixed_map_ndt_trace_v2\",\n";
   out << "  \"seed_source\": \"" << jsonEscape(options.seed_source) << "\",\n";
   out << "  \"map_stride\": " << std::max(1, options.map_stride) << ",\n";
   out << "  \"scan_context_distance_threshold\": ";
@@ -1551,6 +1728,18 @@ void writeFixedMapNDTTraceJson(const std::string& path,
   out << ",\n";
   out << "  \"scan_context_top_k\": "
       << std::max(1, options.scan_context_top_k) << ",\n";
+  out << "  \"publish_policy\": {\n";
+  out << "    \"policy_version\": \"fixed_map_ndt_runtime_publish_policy_v1\",\n";
+  out << "    \"gt_safety_label_version\": \"fixed_map_ndt_trace_gt_safety_v1\",\n";
+  out << "    \"publish_error_m\": 1.000000000,\n";
+  out << "    \"jump_step_ratio\": 3.000000000,\n";
+  out << "    \"recovery_error_drop_m\": 1.000000000,\n";
+  out << "    \"min_stable_frames\": "
+      << std::max(1, options.publish_min_stable_frames) << ",\n";
+  out << "    \"max_hold_frames\": "
+      << std::max(0, options.publish_max_hold_frames) << ",\n";
+  out << "    \"scan_context_publish_requires_external_sequence_verifier\": true\n";
+  out << "  },\n";
   out << "  \"num_frames\": " << num_frames << ",\n";
   out << "  \"map_points\": " << map_points << ",\n";
   out << "  \"frames\": [\n";
@@ -1591,6 +1780,39 @@ void writeFixedMapNDTTraceJson(const std::string& path,
     out << "      \"ndt_converged\": ";
     write_bool(out, frame.ndt_converged);
     out << ",\n";
+    out << "      \"publish_action\": \""
+        << jsonEscape(frame.publish_action) << "\",\n";
+    out << "      \"publish_state\": \""
+        << jsonEscape(frame.publish_state) << "\",\n";
+    out << "      \"publish_gate_reason\": \""
+        << jsonEscape(frame.publish_gate_reason) << "\",\n";
+    out << "      \"allow_pose_publish\": ";
+    write_bool(out, frame.allow_pose_publish);
+    out << ",\n";
+    out << "      \"has_pose_output\": ";
+    write_bool(out, frame.has_pose_output);
+    out << ",\n";
+    out << "      \"runtime_refinement_candidate\": ";
+    write_bool(out, frame.runtime_refinement_candidate);
+    out << ",\n";
+    out << "      \"runtime_refinement_streak\": "
+        << frame.runtime_refinement_streak << ",\n";
+    out << "      \"publish_hold_age_frames\": "
+        << frame.publish_hold_age_frames << ",\n";
+    out << "      \"gt_safety_state\": \""
+        << jsonEscape(frame.gt_safety_state) << "\",\n";
+    out << "      \"gt_wrong_pose\": ";
+    write_bool(out, frame.gt_wrong_pose);
+    out << ",\n";
+    out << "      \"gt_recovery_transition\": ";
+    write_bool(out, frame.gt_recovery_transition);
+    out << ",\n";
+    out << "      \"gt_unsafe_transition\": ";
+    write_bool(out, frame.gt_unsafe_transition);
+    out << ",\n";
+    out << "      \"published_translation_error_m\": ";
+    write_number(out, frame.published_translation_error_m);
+    out << ",\n";
     out << "      \"seed_translation_error_m\": ";
     write_number(out, frame.seed_translation_error_m);
     out << ",\n";
@@ -1629,6 +1851,13 @@ void writeFixedMapNDTTraceJson(const std::string& path,
     out << ",\n";
     out << "      \"final_pose\": ";
     write_pose(out, frame.final_pose);
+    out << ",\n";
+    out << "      \"published_pose\": ";
+    if (frame.has_pose_output) {
+      write_pose(out, frame.published_pose);
+    } else {
+      out << "null";
+    }
     out << ",\n";
     out << "      \"gt_pose\": ";
     write_pose(out, frame.gt_pose);
@@ -2424,15 +2653,43 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
   Eigen::Matrix4d T_prev_prev_est = T_est;
   res.poses.push_back(T_est);
   std::vector<FixedMapNDTTraceFrame> trace_frames;
+  FixedMapNDTPublishPolicyState publish_policy_state;
+  FixedMapNDTTraceFrame previous_policy_frame;
+  bool has_previous_policy_frame = false;
+  size_t publish_pose_outputs = 0;
+  size_t publish_unknown_outputs = 0;
+  size_t publish_hold_outputs = 0;
+  size_t gt_wrong_pose_suppressed = 0;
+  size_t gt_unsafe_transition_suppressed = 0;
+  auto update_publish_counters = [&](const FixedMapNDTTraceFrame& frame) {
+    if (frame.publish_action == "publish_pose") {
+      ++publish_pose_outputs;
+    } else if (frame.publish_action == "hold_last_pose") {
+      ++publish_hold_outputs;
+    } else if (frame.publish_action == "return_unknown") {
+      ++publish_unknown_outputs;
+    }
+    if (!frame.has_pose_output && frame.gt_wrong_pose) {
+      ++gt_wrong_pose_suppressed;
+    }
+    if (!frame.has_pose_output && frame.gt_unsafe_transition) {
+      ++gt_unsafe_transition_suppressed;
+    }
+  };
+  FixedMapNDTTraceFrame frame0;
+  frame0.frame_index = 0;
+  frame0.decision = "anchor";
+  frame0.seed_source = fixed_map_options.seed_source;
+  frame0.seed_pose = T_est;
+  frame0.refined_pose = T_est;
+  frame0.final_pose = T_est;
+  finalizeFixedMapNDTTraceFrame(frame0, gt, nullptr);
+  annotateFixedMapNDTPublishPolicy(
+      frame0, fixed_map_options, publish_policy_state, nullptr);
+  update_publish_counters(frame0);
+  previous_policy_frame = frame0;
+  has_previous_policy_frame = true;
   if (!fixed_map_options.trace_json_path.empty()) {
-    FixedMapNDTTraceFrame frame0;
-    frame0.frame_index = 0;
-    frame0.decision = "anchor";
-    frame0.seed_source = fixed_map_options.seed_source;
-    frame0.seed_pose = T_est;
-    frame0.refined_pose = T_est;
-    frame0.final_pose = T_est;
-    finalizeFixedMapNDTTraceFrame(frame0, gt, nullptr);
     trace_frames.push_back(frame0);
   }
 
@@ -2542,6 +2799,12 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
         }
         trace.final_pose = T_est;
         finalizeFixedMapNDTTraceFrame(trace, gt, &T_prev_est_snapshot);
+        annotateFixedMapNDTPublishPolicy(
+            trace, fixed_map_options, publish_policy_state,
+            has_previous_policy_frame ? &previous_policy_frame : nullptr);
+        update_publish_counters(trace);
+        previous_policy_frame = trace;
+        has_previous_policy_frame = true;
         T_prev_prev_est = T_prev_est_snapshot;
         res.poses.push_back(T_est);
         if (!fixed_map_options.trace_json_path.empty()) {
@@ -2586,6 +2849,12 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
     }
     trace.final_pose = T_est;
     finalizeFixedMapNDTTraceFrame(trace, gt, &T_prev_est_snapshot);
+    annotateFixedMapNDTPublishPolicy(
+        trace, fixed_map_options, publish_policy_state,
+        has_previous_policy_frame ? &previous_policy_frame : nullptr);
+    update_publish_counters(trace);
+    previous_policy_frame = trace;
+    has_previous_policy_frame = true;
     T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
     if (!fixed_map_options.trace_json_path.empty()) {
@@ -2611,7 +2880,14 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
        << "). Seed source=" << fixed_map_options.seed_source
        << ", accepted=" << accepted << "/" << (accepted + rejected)
        << ", rejected=" << rejected
-       << ", seed fallbacks=" << fallback_seed << ".";
+       << ", seed fallbacks=" << fallback_seed
+       << ". Runtime publish policy outputs="
+       << publish_pose_outputs
+       << ", holds=" << publish_hold_outputs
+       << ", unknown=" << publish_unknown_outputs
+       << ", GT-wrong suppressed=" << gt_wrong_pose_suppressed
+       << ", GT-unsafe transitions suppressed="
+       << gt_unsafe_transition_suppressed << ".";
   if (fixed_map_options.seed_source == "scan_context") {
     note << " ScanContext hits=" << scan_context_hits << "/" << (pcd_dirs.size() - 1)
          << ", top_k=" << fixed_map_options.scan_context_top_k
@@ -4193,6 +4469,8 @@ int main(int argc, char** argv) {
               << " [--fixed-map-ndt-scan-context-threshold X]"
               << " [--fixed-map-ndt-scan-context-top-k N]"
               << " [--fixed-map-ndt-trace-json path]"
+              << " [--fixed-map-ndt-publish-min-stable-frames N]"
+              << " [--fixed-map-ndt-publish-max-hold-frames N]"
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-voxel-size X]"
@@ -5390,6 +5668,38 @@ int main(int argc, char** argv) {
           arg.substr(std::string("--fixed-map-ndt-trace-json=").size());
       continue;
     }
+    if (arg == "--fixed-map-ndt-publish-min-stable-frames") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-publish-min-stable-frames requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.publish_min_stable_frames =
+          std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-publish-min-stable-frames=", 0) == 0) {
+      fixed_map_ndt_options.publish_min_stable_frames =
+          std::max(1, std::stoi(arg.substr(
+                          std::string("--fixed-map-ndt-publish-min-stable-frames=").size())));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-publish-max-hold-frames") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-publish-max-hold-frames requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.publish_max_hold_frames =
+          std::max(0, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-publish-max-hold-frames=", 0) == 0) {
+      fixed_map_ndt_options.publish_max_hold_frames =
+          std::max(0, std::stoi(arg.substr(
+                          std::string("--fixed-map-ndt-publish-max-hold-frames=").size())));
+      continue;
+    }
     if (arg == "--kiss-fast-profile") {
       kiss_icp_options.source_voxel_size = 0.75;
       kiss_icp_options.max_source_points = 2500;
@@ -6480,6 +6790,10 @@ int main(int argc, char** argv) {
               << " map_max_points=" << ndt_options.map_max_points
               << " map_stride=" << fixed_map_ndt_options.map_stride
               << " seed_source=" << fixed_map_ndt_options.seed_source
+              << " publish_min_stable_frames="
+              << fixed_map_ndt_options.publish_min_stable_frames
+              << " publish_max_hold_frames="
+              << fixed_map_ndt_options.publish_max_hold_frames
               << " trace_json="
               << (fixed_map_ndt_options.trace_json_path.empty()
                       ? "off"

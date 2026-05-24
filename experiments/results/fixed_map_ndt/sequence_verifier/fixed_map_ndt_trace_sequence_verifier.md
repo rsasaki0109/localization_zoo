@@ -6,7 +6,7 @@ Trace glob: `experiments/results/fixed_map_ndt/traces/*_trace.json`
 
 | Traces | Frames | Publishable traces | Return-unknown frames | Accepted wrong-pose frames | Recovery jumps | Unsafe jumps | Max final error [m] | Max step ratio |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 108 | 0 | 71 | 65 | 19 | 2 | 6.081 | 5.166 |
+| 1 | 108 | 0 | 69 | 71 | 15 | 6 | 6.081 | 5.149 |
 
 Trace decisions: block_publish:1
 
@@ -14,7 +14,7 @@ Trace decisions: block_publish:1
 
 | Trace | Decision | State | Publishable frames | Unknown frames | Accepted wrong | Fallback streaks | Stable inlier intervals | Max stable run | Max error [m] | Max step ratio |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- | ---: | ---: | ---: |
-| `kitti_seq_02_108_seed_scan_context_stride_5_topk_5` | `block_publish` | `unsafe_transition` | 0 | 71 | 65 | 1-4 (4), 6-9 (4), 11-14 (4), +12 more | 56-56 (1), 61-61 (1), 66-66 (1), +8 more | 2 | 6.081 | 5.166 |
+| `kitti_seq_02_108_seed_scan_context_stride_5_topk_5` | `block_publish` | `unsafe_transition` | 0 | 69 | 71 | 2-4 (3), 6-9 (4), 11-14 (4), +14 more | 30-30 (1), 40-40 (1), 45-45 (1), +11 more | 2 | 6.081 | 5.149 |
 
 ## Readout
 

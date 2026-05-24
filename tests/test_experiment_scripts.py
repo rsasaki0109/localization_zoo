@@ -147,6 +147,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_verify_fixed_map_ndt_trace_sequence_module",
             "evaluation/scripts/verify_fixed_map_ndt_trace_sequence.py",
         )
+        cls.fixed_map_publish_policy_replay_module = load_script_module(
+            "test_replay_fixed_map_ndt_publish_policy_module",
+            "evaluation/scripts/replay_fixed_map_ndt_publish_policy.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -1455,6 +1459,93 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             report["metrics"]["max_stable_inlier_run"],
             verifier.MIN_STABLE_PUBLISH_FRAMES,
         )
+
+    def test_fixed_map_publish_policy_replay_suppresses_current_trace(self) -> None:
+        replay = self.fixed_map_publish_policy_replay_module
+        trace_path = (
+            REPO_ROOT
+            / "experiments/results/fixed_map_ndt/traces"
+            / "kitti_seq_02_108_seed_scan_context_stride_5_topk_5_trace.json"
+        )
+
+        report = replay.replay_trace(
+            json.loads(trace_path.read_text(encoding="utf-8")),
+            trace_path,
+        )
+
+        self.assertEqual(report["sequence_decision"], "fail_closed_all_unknown")
+        self.assertEqual(report["sequence_verifier_decision"], "block_publish")
+        self.assertEqual(report["gated_pose_frames"], 0)
+        self.assertEqual(report["gated_wrong_pose_frames"], 0)
+        self.assertGreater(report["raw_wrong_pose_frames"], 0)
+        self.assertEqual(
+            report["suppressed_wrong_pose_frames"],
+            report["raw_wrong_pose_frames"],
+        )
+        self.assertGreater(report["suppressed_unsafe_jump_frames"], 0)
+
+    def test_fixed_map_publish_policy_replay_holds_last_safe_pose(self) -> None:
+        replay = self.fixed_map_publish_policy_replay_module
+
+        def pose(x: float) -> list[float]:
+            return [
+                1.0, 0.0, 0.0, x,
+                0.0, 1.0, 0.0, 0.0,
+                0.0, 0.0, 1.0, 0.0,
+                0.0, 0.0, 0.0, 1.0,
+            ]
+
+        frame_rows = [
+            {
+                "frame_index": 1,
+                "raw_decision": "accepted",
+                "publish_decision": "publish_candidate",
+                "allow_pose_publish": True,
+                "safety_state": "stable_inlier_sequence",
+                "final_error_m": 0.1,
+                "is_unsafe_jump": False,
+            },
+            {
+                "frame_index": 2,
+                "raw_decision": "accepted",
+                "publish_decision": "hold_recovery_frame",
+                "allow_pose_publish": False,
+                "safety_state": "recovery_jump",
+                "final_error_m": 0.2,
+                "is_unsafe_jump": False,
+            },
+            {
+                "frame_index": 3,
+                "raw_decision": "accepted",
+                "publish_decision": "return_unknown",
+                "allow_pose_publish": False,
+                "safety_state": "accepted_wrong_pose",
+                "final_error_m": 4.0,
+                "is_unsafe_jump": False,
+            },
+        ]
+        raw_frames = [
+            {"frame_index": 1, "final_pose": pose(1.0), "gt_pose": pose(1.1)},
+            {"frame_index": 2, "final_pose": pose(2.0), "gt_pose": pose(1.2)},
+            {"frame_index": 3, "final_pose": pose(7.0), "gt_pose": pose(3.0)},
+        ]
+
+        report = replay.replay_policy_rows(
+            trace_id="unit_trace",
+            frame_rows=frame_rows,
+            raw_frames=raw_frames,
+            max_hold_frames=1,
+        )
+
+        self.assertEqual(report["sequence_decision"], "fail_closed_suppressed")
+        self.assertEqual(report["gated_publish_frames"], 1)
+        self.assertEqual(report["gated_hold_frames"], 1)
+        self.assertEqual(report["gated_unknown_frames"], 1)
+        self.assertEqual(report["gated_wrong_pose_frames"], 0)
+        self.assertEqual(report["suppressed_wrong_pose_frames"], 1)
+        self.assertAlmostEqual(report["max_held_error_m"], 0.2)
+        self.assertEqual(report["timeline"][1]["replay_action"], "hold_last_pose")
+        self.assertEqual(report["timeline"][2]["replay_action"], "return_unknown")
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {

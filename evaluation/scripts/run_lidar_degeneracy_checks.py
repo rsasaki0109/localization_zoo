@@ -47,6 +47,7 @@ COMPILE_TARGETS = [
     SCRIPTS / "build_fixed_map_ndt_publish_guard.py",
     SCRIPTS / "calibrate_fixed_map_global_hypothesis_verifier.py",
     SCRIPTS / "verify_fixed_map_ndt_trace_sequence.py",
+    SCRIPTS / "replay_fixed_map_ndt_publish_policy.py",
     SCRIPTS / "test_lidar_degeneracy_triage_policy.py",
 ]
 
@@ -77,6 +78,11 @@ def parse_args() -> argparse.Namespace:
         "--regenerate-fixed-map-trace-sequence-verifier",
         action="store_true",
         help="Also rerun the fixed-map NDT trace sequence verifier.",
+    )
+    parser.add_argument(
+        "--regenerate-fixed-map-ndt-publish-policy-replay",
+        action="store_true",
+        help="Also rerun the fixed-map NDT failure-aware publish policy replay.",
     )
     parser.add_argument(
         "--enforce-policy",
@@ -540,6 +546,8 @@ def main() -> int:
         )
     if args.regenerate_fixed_map_trace_sequence_verifier:
         run([sys.executable, str(SCRIPTS / "verify_fixed_map_ndt_trace_sequence.py")])
+    if args.regenerate_fixed_map_ndt_publish_policy_replay:
+        run([sys.executable, str(SCRIPTS / "replay_fixed_map_ndt_publish_policy.py")])
     if args.enforce_policy:
         try:
             gate_status = enforce_policy_gate(

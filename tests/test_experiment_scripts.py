@@ -1363,6 +1363,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             trace["publish_policy"]["policy_version"],
             "fixed_map_ndt_runtime_publish_policy_v1",
         )
+        self.assertEqual(
+            trace["publish_policy"]["scan_context_relock_min_confirmations"],
+            2,
+        )
         self.assertEqual(len(frames), 108)
         self.assertEqual(sum(1 for frame in frames if frame["accepted"]), 103)
         self.assertEqual(sum(1 for frame in frames if frame["seed_fallback"]), 68)
@@ -1373,11 +1377,39 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         )
         self.assertEqual(
             sum(1 for frame in frames if frame["allow_pose_publish"]),
-            0,
+            20,
         )
         self.assertEqual(
             sum(1 for frame in frames if frame["publish_action"] == "return_unknown"),
-            108,
+            88,
+        )
+        self.assertEqual(
+            sum(1 for frame in frames if frame["publish_action"] == "publish_pose"),
+            20,
+        )
+        self.assertEqual(
+            sum(1 for frame in frames if frame["relock_candidate"]),
+            21,
+        )
+        self.assertEqual(
+            max(frame["relock_streak"] for frame in frames),
+            21,
+        )
+        self.assertEqual(
+            sum(
+                1
+                for frame in frames
+                if frame["has_pose_output"] and frame["gt_wrong_pose"]
+            ),
+            0,
+        )
+        self.assertEqual(
+            sum(
+                1
+                for frame in frames
+                if frame["has_pose_output"] and frame["gt_unsafe_transition"]
+            ),
+            0,
         )
         self.assertEqual(
             sum(1 for frame in frames if frame["gt_wrong_pose"]),
@@ -1405,6 +1437,14 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(len(first_refinement["final_pose"]), 16)
         self.assertIsNone(first_refinement["published_pose"])
         self.assertEqual(len(first_refinement["gt_pose"]), 16)
+        first_published = next(
+            frame for frame in frames if frame["publish_action"] == "publish_pose"
+        )
+        self.assertEqual(first_published["frame_index"], 10)
+        self.assertEqual(first_published["publish_state"], "scan_context_relock_verified")
+        self.assertEqual(first_published["relock_streak"], 2)
+        self.assertEqual(len(first_published["published_pose"]), 16)
+        self.assertLess(first_published["published_translation_error_m"], 0.01)
         self.assertGreater(
             max(
                 frame["final_translation_error_m"]
@@ -1502,8 +1542,13 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(report["sequence_decision"], "fail_closed_all_unknown")
         self.assertEqual(report["sequence_verifier_decision"], "block_publish")
         self.assertTrue(report["embedded_policy_summary"]["available"])
-        self.assertEqual(report["embedded_policy_summary"]["pose_output_frames"], 0)
-        self.assertEqual(report["embedded_policy_summary"]["unknown_frames"], 108)
+        self.assertEqual(report["embedded_policy_summary"]["pose_output_frames"], 20)
+        self.assertEqual(report["embedded_policy_summary"]["unknown_frames"], 88)
+        self.assertEqual(report["embedded_policy_summary"]["wrong_pose_output_frames"], 0)
+        self.assertEqual(
+            report["embedded_policy_summary"]["unsafe_transition_output_frames"],
+            0,
+        )
         self.assertEqual(
             report["embedded_policy_summary"]["suppressed_wrong_pose_frames"],
             report["raw_wrong_pose_frames"],

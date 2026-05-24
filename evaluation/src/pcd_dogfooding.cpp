@@ -1136,6 +1136,10 @@ struct FixedMapNDTOptions {
   std::string trace_json_path;
   int publish_min_stable_frames = 5;
   int publish_max_hold_frames = 3;
+  int scan_context_relock_min_confirmations = 2;
+  double scan_context_relock_max_distance = 0.05;
+  double scan_context_relock_max_ndt_score = 1.2;
+  double scan_context_relock_max_score_delta = 0.25;
 };
 
 struct FixedMapNDTTraceFrame {
@@ -1171,12 +1175,18 @@ struct FixedMapNDTTraceFrame {
   bool allow_pose_publish = false;
   bool has_pose_output = false;
   bool runtime_refinement_candidate = false;
+  bool relock_candidate = false;
+  bool relock_sequence_compatible = false;
   bool gt_wrong_pose = false;
   bool gt_recovery_transition = false;
   bool gt_unsafe_transition = false;
   int runtime_refinement_streak = 0;
+  int relock_streak = 0;
+  int relock_candidate_index_delta = 0;
+  int relock_frame_gap = 0;
   int publish_hold_age_frames = 0;
   double published_translation_error_m = std::numeric_limits<double>::quiet_NaN();
+  std::string relock_rejected_reason;
   Eigen::Matrix4d seed_pose = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d refined_pose = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d final_pose = Eigen::Matrix4d::Identity();
@@ -1190,6 +1200,12 @@ struct FixedMapNDTPublishPolicyState {
   bool has_last_published_pose = false;
   size_t last_published_frame = 0;
   Eigen::Matrix4d last_published_pose = Eigen::Matrix4d::Identity();
+  int scan_context_relock_streak = 0;
+  bool has_last_scan_context_relock = false;
+  size_t last_scan_context_relock_frame = 0;
+  int last_scan_context_relock_candidate_index = -1;
+  double last_scan_context_relock_score =
+      std::numeric_limits<double>::quiet_NaN();
 };
 
 MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
@@ -1587,6 +1603,88 @@ bool fixedMapNDTRuntimeRefinementCandidate(const FixedMapNDTTraceFrame& frame) {
          (frame.ndt_converged || frame.ndt_iterations >= 2);
 }
 
+bool fixedMapNDTScanContextRelockCandidate(
+    FixedMapNDTTraceFrame& frame,
+    const FixedMapNDTOptions& options) {
+  frame.relock_candidate = false;
+  if (options.seed_source != "scan_context") {
+    frame.relock_rejected_reason = "not_scan_context_seed";
+    return false;
+  }
+  if (!frame.runtime_refinement_candidate) {
+    frame.relock_rejected_reason = "not_runtime_refinement_candidate";
+    return false;
+  }
+  if (frame.selected_candidate_index < 0) {
+    frame.relock_rejected_reason = "missing_selected_global_candidate";
+    return false;
+  }
+  if (!std::isfinite(frame.selected_candidate_distance) ||
+      frame.selected_candidate_distance >
+          options.scan_context_relock_max_distance) {
+    frame.relock_rejected_reason = "scan_context_distance_too_large";
+    return false;
+  }
+  if (!std::isfinite(frame.ndt_score) ||
+      frame.ndt_score > options.scan_context_relock_max_ndt_score) {
+    frame.relock_rejected_reason = "ndt_score_too_large_for_relock";
+    return false;
+  }
+  frame.relock_candidate = true;
+  frame.relock_rejected_reason.clear();
+  return true;
+}
+
+void updateFixedMapNDTScanContextRelockState(
+    FixedMapNDTTraceFrame& frame,
+    const FixedMapNDTOptions& options,
+    FixedMapNDTPublishPolicyState& state) {
+  if (!fixedMapNDTScanContextRelockCandidate(frame, options)) {
+    frame.relock_streak = state.scan_context_relock_streak;
+    return;
+  }
+
+  bool compatible = true;
+  if (state.has_last_scan_context_relock) {
+    const int index_delta =
+        frame.selected_candidate_index -
+        state.last_scan_context_relock_candidate_index;
+    const int frame_gap =
+        static_cast<int>(frame.frame_index -
+                         state.last_scan_context_relock_frame);
+    const int expected_frame_gap =
+        index_delta * std::max(1, options.map_stride);
+    const int tolerance = std::max(1, std::max(1, options.map_stride) / 2);
+    const double score_delta =
+        std::isfinite(state.last_scan_context_relock_score)
+            ? std::abs(frame.ndt_score - state.last_scan_context_relock_score)
+            : 0.0;
+    frame.relock_candidate_index_delta = index_delta;
+    frame.relock_frame_gap = frame_gap;
+    compatible =
+        index_delta > 0 &&
+        std::abs(frame_gap - expected_frame_gap) <= tolerance &&
+        score_delta <= options.scan_context_relock_max_score_delta;
+  }
+
+  frame.relock_sequence_compatible = compatible;
+  if (compatible) {
+    state.scan_context_relock_streak =
+        state.has_last_scan_context_relock
+            ? state.scan_context_relock_streak + 1
+            : 1;
+  } else {
+    state.scan_context_relock_streak = 1;
+    frame.relock_rejected_reason = "relock_sequence_incompatible_reset";
+  }
+  state.has_last_scan_context_relock = true;
+  state.last_scan_context_relock_frame = frame.frame_index;
+  state.last_scan_context_relock_candidate_index =
+      frame.selected_candidate_index;
+  state.last_scan_context_relock_score = frame.ndt_score;
+  frame.relock_streak = state.scan_context_relock_streak;
+}
+
 void returnUnknownFixedMapNDTPublish(FixedMapNDTTraceFrame& frame,
                                      FixedMapNDTPublishPolicyState& state,
                                      const std::string& publish_state,
@@ -1634,7 +1732,8 @@ void annotateFixedMapNDTPublishPolicy(
         frame.seed_fallback
             ? "seed fallback has no fixed-map verification"
             : "NDT refinement was not accepted by runtime gates";
-    if (state.has_last_published_pose &&
+    if (options.seed_source != "scan_context" &&
+        state.has_last_published_pose &&
         state.hold_streak < std::max(0, options.publish_max_hold_frames)) {
       ++state.hold_streak;
       frame.publish_action = "hold_last_pose";
@@ -1656,9 +1755,37 @@ void annotateFixedMapNDTPublishPolicy(
   ++state.runtime_refinement_streak;
   frame.runtime_refinement_streak = state.runtime_refinement_streak;
   if (options.seed_source == "scan_context") {
-    returnUnknownFixedMapNDTPublish(
-        frame, state, "awaiting_external_sequence_verifier",
-        "global Scan Context hypotheses require a sequence verifier before pose publish");
+    updateFixedMapNDTScanContextRelockState(frame, options, state);
+    if (!frame.relock_candidate) {
+      returnUnknownFixedMapNDTPublish(
+          frame, state, "relock_candidate_rejected",
+          frame.relock_rejected_reason.empty()
+              ? "Scan Context candidate failed relock gates"
+              : frame.relock_rejected_reason);
+      return;
+    }
+    if (!frame.relock_sequence_compatible ||
+        frame.relock_streak <
+            std::max(1, options.scan_context_relock_min_confirmations)) {
+      returnUnknownFixedMapNDTPublish(
+          frame, state, "warming_up_relock_sequence",
+          "Scan Context relock needs another sequence-compatible confirmation");
+      return;
+    }
+
+    state.hold_streak = 0;
+    state.has_last_published_pose = true;
+    state.last_published_frame = frame.frame_index;
+    state.last_published_pose = frame.final_pose;
+    frame.publish_action = "publish_pose";
+    frame.publish_state = "scan_context_relock_verified";
+    frame.publish_gate_reason =
+        "Scan Context descriptor, NDT score, and relock sequence are consistent";
+    frame.allow_pose_publish = true;
+    frame.has_pose_output = true;
+    frame.publish_hold_age_frames = 0;
+    frame.published_pose = frame.final_pose;
+    frame.published_translation_error_m = frame.final_translation_error_m;
     return;
   }
 
@@ -1738,7 +1865,18 @@ void writeFixedMapNDTTraceJson(const std::string& path,
       << std::max(1, options.publish_min_stable_frames) << ",\n";
   out << "    \"max_hold_frames\": "
       << std::max(0, options.publish_max_hold_frames) << ",\n";
-  out << "    \"scan_context_publish_requires_external_sequence_verifier\": true\n";
+  out << "    \"scan_context_relock_min_confirmations\": "
+      << std::max(1, options.scan_context_relock_min_confirmations) << ",\n";
+  out << "    \"scan_context_relock_max_distance\": ";
+  write_number(out, options.scan_context_relock_max_distance);
+  out << ",\n";
+  out << "    \"scan_context_relock_max_ndt_score\": ";
+  write_number(out, options.scan_context_relock_max_ndt_score);
+  out << ",\n";
+  out << "    \"scan_context_relock_max_score_delta\": ";
+  write_number(out, options.scan_context_relock_max_score_delta);
+  out << ",\n";
+  out << "    \"scan_context_publish_requires_relock_sequence_verifier\": true\n";
   out << "  },\n";
   out << "  \"num_frames\": " << num_frames << ",\n";
   out << "  \"map_points\": " << map_points << ",\n";
@@ -1795,8 +1933,22 @@ void writeFixedMapNDTTraceJson(const std::string& path,
     out << "      \"runtime_refinement_candidate\": ";
     write_bool(out, frame.runtime_refinement_candidate);
     out << ",\n";
+    out << "      \"relock_candidate\": ";
+    write_bool(out, frame.relock_candidate);
+    out << ",\n";
+    out << "      \"relock_sequence_compatible\": ";
+    write_bool(out, frame.relock_sequence_compatible);
+    out << ",\n";
     out << "      \"runtime_refinement_streak\": "
         << frame.runtime_refinement_streak << ",\n";
+    out << "      \"relock_streak\": "
+        << frame.relock_streak << ",\n";
+    out << "      \"relock_candidate_index_delta\": "
+        << frame.relock_candidate_index_delta << ",\n";
+    out << "      \"relock_frame_gap\": "
+        << frame.relock_frame_gap << ",\n";
+    out << "      \"relock_rejected_reason\": \""
+        << jsonEscape(frame.relock_rejected_reason) << "\",\n";
     out << "      \"publish_hold_age_frames\": "
         << frame.publish_hold_age_frames << ",\n";
     out << "      \"gt_safety_state\": \""
@@ -4471,6 +4623,10 @@ int main(int argc, char** argv) {
               << " [--fixed-map-ndt-trace-json path]"
               << " [--fixed-map-ndt-publish-min-stable-frames N]"
               << " [--fixed-map-ndt-publish-max-hold-frames N]"
+              << " [--fixed-map-ndt-scan-context-relock-min-confirmations N]"
+              << " [--fixed-map-ndt-scan-context-relock-max-distance X]"
+              << " [--fixed-map-ndt-scan-context-relock-max-ndt-score X]"
+              << " [--fixed-map-ndt-scan-context-relock-max-score-delta X]"
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-voxel-size X]"
@@ -5700,6 +5856,70 @@ int main(int argc, char** argv) {
                           std::string("--fixed-map-ndt-publish-max-hold-frames=").size())));
       continue;
     }
+    if (arg == "--fixed-map-ndt-scan-context-relock-min-confirmations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-relock-min-confirmations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_relock_min_confirmations =
+          std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-relock-min-confirmations=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_relock_min_confirmations =
+          std::max(1, std::stoi(arg.substr(
+                          std::string("--fixed-map-ndt-scan-context-relock-min-confirmations=").size())));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-relock-max-distance") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-relock-max-distance requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_relock_max_distance =
+          std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-relock-max-distance=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_relock_max_distance =
+          std::stod(arg.substr(
+              std::string("--fixed-map-ndt-scan-context-relock-max-distance=").size()));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-relock-max-ndt-score") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-relock-max-ndt-score requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_relock_max_ndt_score =
+          std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-relock-max-ndt-score=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_relock_max_ndt_score =
+          std::stod(arg.substr(
+              std::string("--fixed-map-ndt-scan-context-relock-max-ndt-score=").size()));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-relock-max-score-delta") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-relock-max-score-delta requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_relock_max_score_delta =
+          std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-relock-max-score-delta=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_relock_max_score_delta =
+          std::stod(arg.substr(
+              std::string("--fixed-map-ndt-scan-context-relock-max-score-delta=").size()));
+      continue;
+    }
     if (arg == "--kiss-fast-profile") {
       kiss_icp_options.source_voxel_size = 0.75;
       kiss_icp_options.max_source_points = 2500;
@@ -6794,6 +7014,12 @@ int main(int argc, char** argv) {
               << fixed_map_ndt_options.publish_min_stable_frames
               << " publish_max_hold_frames="
               << fixed_map_ndt_options.publish_max_hold_frames
+              << " sc_relock_min_confirmations="
+              << fixed_map_ndt_options.scan_context_relock_min_confirmations
+              << " sc_relock_max_distance=" << std::fixed << std::setprecision(3)
+              << fixed_map_ndt_options.scan_context_relock_max_distance
+              << " sc_relock_max_ndt_score="
+              << fixed_map_ndt_options.scan_context_relock_max_ndt_score
               << " trace_json="
               << (fixed_map_ndt_options.trace_json_path.empty()
                       ? "off"

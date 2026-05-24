@@ -539,9 +539,11 @@ Observed `fog.bag` inspection:
   GT errors, NDT acceptance, Scan Context candidate counts, and step deltas.
   Trace v2 also embeds the GT-free runtime publish action
   (`publish_pose`, `hold_last_pose`, or `return_unknown`) plus GT-backed safety
-  labels for evaluation. Use this trace as the input for a real
-  sequence/map-consistency verifier instead of deriving publish behavior from
-  run-level ATE alone.
+  labels for evaluation. For Scan Context seeds, the runtime policy only
+  publishes after a descriptor-distance, NDT-score, and map-index relock
+  sequence verifier confirms the candidate; between sparse relock frames it
+  returns unknown instead of holding stale poses. Use this trace instead of
+  deriving publish behavior from run-level ATE alone.
 - Run `python3 evaluation/scripts/verify_fixed_map_ndt_trace_sequence.py`, or
   add `--regenerate-fixed-map-trace-sequence-verifier` to the lightweight check
   runner, to convert fixed-map NDT traces into sequence-level publish decisions.

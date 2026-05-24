@@ -25,6 +25,7 @@ BAD_ATE_M = 5.0
 BAD_RPE_TRANS_PCT = 10.0
 
 DECISION_ORDER = ("pass", "watch", "investigate", "fail")
+POLICY_VERSION = "lidar_degeneracy_triage_v4"
 
 
 def parse_args() -> argparse.Namespace:
@@ -485,6 +486,10 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
 def build_payload(input_dir: Path) -> dict[str, Any]:
     rows = discover_rows(input_dir)
     return {
+        "policy": {
+            "policy_version": POLICY_VERSION,
+            "audit_version": "fixed_map_ndt_failure_audit_v1",
+        },
         "input_dir": display_path(input_dir),
         "thresholds": {
             "product_ate_m": PRODUCT_ATE_M,

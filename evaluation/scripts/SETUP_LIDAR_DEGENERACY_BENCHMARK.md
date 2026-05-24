@@ -528,6 +528,12 @@ Observed `fog.bag` inspection:
   This converts GT-backed audit rows into an `allow_pose_publish` contract:
   accepted wrong poses block publish, detectable bad seeds return unknown, and
   oracle/smoke rows stay out of the deployable publish path.
+- Calibrate the Scan Context global-hypothesis verifier with
+  `python3 evaluation/scripts/calibrate_fixed_map_global_hypothesis_verifier.py`,
+  or add `--regenerate-fixed-map-global-verifier` to the lightweight check
+  runner. This gate uses runtime-available retrieval features to decide whether
+  a global hypothesis may enter local NDT refinement; it never directly allows
+  pose publish.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

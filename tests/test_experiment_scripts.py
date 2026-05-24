@@ -135,6 +135,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_summarize_fixed_map_ndt_failure_modes_module",
             "evaluation/scripts/summarize_fixed_map_ndt_failure_modes.py",
         )
+        cls.fixed_map_ndt_publish_guard_module = load_script_module(
+            "test_build_fixed_map_ndt_publish_guard_module",
+            "evaluation/scripts/build_fixed_map_ndt_publish_guard.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -1168,6 +1172,55 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(metadata["scan_context_attempts"], 107)
         self.assertEqual(metadata["ndt_candidate_evals"], 41)
         self.assertAlmostEqual(metadata["scan_context_mean_distance"], 0.0756)
+
+    def test_fixed_map_ndt_publish_guard_blocks_wrong_pose_acceptance(self) -> None:
+        guard = self.fixed_map_ndt_publish_guard_module.publish_guard(
+            {
+                "policy_decision": "fail",
+                "policy_reasons": ["accepted_bad_localization"],
+                "seed_source": "ct_icp",
+                "source_class": "ct_icp_prior",
+            }
+        )
+
+        self.assertEqual(guard["publish_decision"], "block_publish")
+        self.assertFalse(guard["allow_pose_publish"])
+        self.assertEqual(guard["safety_state"], "accepted_wrong_pose")
+        self.assertEqual(guard["required_gate"], "second_pose_verifier")
+
+    def test_fixed_map_ndt_publish_guard_marks_score_trap(self) -> None:
+        guard = self.fixed_map_ndt_publish_guard_module.publish_guard(
+            {
+                "policy_decision": "fail",
+                "policy_reasons": [
+                    "accepted_bad_localization",
+                    "unfiltered_ndt_score_trap",
+                ],
+                "seed_source": "scan_context",
+                "source_class": "global_initializer",
+            }
+        )
+
+        self.assertEqual(guard["publish_decision"], "block_publish")
+        self.assertFalse(guard["allow_pose_publish"])
+        self.assertEqual(guard["safety_state"], "global_candidate_score_trap")
+        self.assertEqual(
+            guard["required_gate"], "calibrated_global_hypothesis_verifier"
+        )
+
+    def test_fixed_map_ndt_publish_guard_keeps_oracle_rows_lab_only(self) -> None:
+        guard = self.fixed_map_ndt_publish_guard_module.publish_guard(
+            {
+                "policy_decision": "pass",
+                "policy_reasons": ["ok_no_risk"],
+                "seed_source": "gt",
+                "source_class": "oracle_seed",
+            }
+        )
+
+        self.assertEqual(guard["publish_decision"], "lab_only")
+        self.assertFalse(guard["allow_pose_publish"])
+        self.assertEqual(guard["required_gate"], "non_oracle_runtime_initializer")
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {

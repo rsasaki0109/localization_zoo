@@ -544,6 +544,11 @@ Observed `fog.bag` inspection:
   runner, to convert fixed-map NDT traces into sequence-level publish decisions.
   The verifier separates recovery jumps from unsafe jumps and requires a stable
   inlier run before any frame becomes publishable.
+- Run `python3 evaluation/scripts/replay_fixed_map_ndt_publish_policy.py`, or
+  add `--regenerate-fixed-map-ndt-publish-policy-replay` to the lightweight
+  check runner, to compare raw fixed-map NDT pose publish against the
+  failure-aware gate. The replay reports suppressed wrong-pose frames, unknown
+  frames, held-pose frames, and any gated wrong-pose outputs.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

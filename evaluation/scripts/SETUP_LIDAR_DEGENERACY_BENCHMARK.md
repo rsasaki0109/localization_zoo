@@ -534,6 +534,11 @@ Observed `fog.bag` inspection:
   runner. This gate uses runtime-available retrieval features to decide whether
   a global hypothesis may enter local NDT refinement; it never directly allows
   pose publish.
+- Add `--fixed-map-ndt-trace-json <path>` to a `pcd_dogfooding
+  --methods fixed_map_ndt` run to export per-frame seed/refined/final poses,
+  GT errors, NDT acceptance, Scan Context candidate counts, and step deltas.
+  Use this trace as the input for a real sequence/map-consistency verifier
+  instead of deriving publish behavior from run-level ATE alone.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

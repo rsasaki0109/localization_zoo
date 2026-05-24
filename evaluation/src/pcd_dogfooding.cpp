@@ -1133,6 +1133,39 @@ struct FixedMapNDTOptions {
   std::string seed_source = "gt";  // gt, velocity, ct_icp, scan_context
   double scan_context_distance_threshold = 0.18;
   int scan_context_top_k = 1;
+  std::string trace_json_path;
+};
+
+struct FixedMapNDTTraceFrame {
+  size_t frame_index = 0;
+  std::string decision = "unprocessed";
+  std::string seed_source;
+  bool accepted = false;
+  bool seed_fallback = false;
+  bool scan_context_hit = false;
+  int scan_context_candidate_count = 0;
+  int scan_context_candidates_evaluated = 0;
+  int selected_candidate_index = -1;
+  double scan_context_front_distance = std::numeric_limits<double>::quiet_NaN();
+  double selected_candidate_distance = std::numeric_limits<double>::quiet_NaN();
+  double selected_candidate_yaw_offset_rad = std::numeric_limits<double>::quiet_NaN();
+  double ndt_score = std::numeric_limits<double>::quiet_NaN();
+  int ndt_iterations = 0;
+  bool ndt_converged = false;
+  double seed_translation_error_m = std::numeric_limits<double>::quiet_NaN();
+  double seed_rotation_error_rad = std::numeric_limits<double>::quiet_NaN();
+  double refined_translation_error_m = std::numeric_limits<double>::quiet_NaN();
+  double refined_rotation_error_rad = std::numeric_limits<double>::quiet_NaN();
+  double final_translation_error_m = std::numeric_limits<double>::quiet_NaN();
+  double final_rotation_error_rad = std::numeric_limits<double>::quiet_NaN();
+  double correction_translation_delta_m = std::numeric_limits<double>::quiet_NaN();
+  double correction_rotation_delta_rad = std::numeric_limits<double>::quiet_NaN();
+  double final_step_m = std::numeric_limits<double>::quiet_NaN();
+  double gt_step_m = std::numeric_limits<double>::quiet_NaN();
+  Eigen::Matrix4d seed_pose = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d refined_pose = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d final_pose = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d gt_pose = Eigen::Matrix4d::Identity();
 };
 
 MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
@@ -1425,6 +1458,185 @@ bool isReasonableRefinement(const Eigen::Matrix4d& refined_pose,
                             double max_rotation_delta_rad) {
   return poseTranslationDelta(refined_pose, seed_pose) <= max_translation_delta &&
          poseRotationDelta(refined_pose, seed_pose) <= max_rotation_delta_rad;
+}
+
+double poseTranslationErrorToGT(const Eigen::Matrix4d& pose,
+                                const std::vector<Eigen::Matrix4d>& gt,
+                                size_t frame_index) {
+  if (frame_index >= gt.size() || !isFiniteMatrix(pose)) {
+    return std::numeric_limits<double>::quiet_NaN();
+  }
+  return poseTranslationDelta(pose, gt[frame_index]);
+}
+
+double poseRotationErrorToGT(const Eigen::Matrix4d& pose,
+                             const std::vector<Eigen::Matrix4d>& gt,
+                             size_t frame_index) {
+  if (frame_index >= gt.size() || !isFiniteMatrix(pose)) {
+    return std::numeric_limits<double>::quiet_NaN();
+  }
+  return poseRotationDelta(pose, gt[frame_index]);
+}
+
+void finalizeFixedMapNDTTraceFrame(FixedMapNDTTraceFrame& frame,
+                                   const std::vector<Eigen::Matrix4d>& gt,
+                                   const Eigen::Matrix4d* previous_final_pose) {
+  const size_t i = frame.frame_index;
+  if (i < gt.size()) {
+    frame.gt_pose = gt[i];
+  }
+  frame.seed_translation_error_m =
+      poseTranslationErrorToGT(frame.seed_pose, gt, i);
+  frame.seed_rotation_error_rad = poseRotationErrorToGT(frame.seed_pose, gt, i);
+  frame.refined_translation_error_m =
+      poseTranslationErrorToGT(frame.refined_pose, gt, i);
+  frame.refined_rotation_error_rad =
+      poseRotationErrorToGT(frame.refined_pose, gt, i);
+  frame.final_translation_error_m =
+      poseTranslationErrorToGT(frame.final_pose, gt, i);
+  frame.final_rotation_error_rad =
+      poseRotationErrorToGT(frame.final_pose, gt, i);
+  frame.correction_translation_delta_m =
+      poseTranslationDelta(frame.final_pose, frame.seed_pose);
+  frame.correction_rotation_delta_rad =
+      poseRotationDelta(frame.final_pose, frame.seed_pose);
+  if (previous_final_pose != nullptr) {
+    frame.final_step_m = poseTranslationDelta(frame.final_pose, *previous_final_pose);
+  }
+  if (i > 0 && i < gt.size()) {
+    frame.gt_step_m = poseTranslationDelta(gt[i], gt[i - 1]);
+  }
+}
+
+void writeFixedMapNDTTraceJson(const std::string& path,
+                               const FixedMapNDTOptions& options,
+                               size_t num_frames,
+                               size_t map_points,
+                               const std::vector<FixedMapNDTTraceFrame>& frames) {
+  if (path.empty()) return;
+  const fs::path out_path(path);
+  if (!out_path.parent_path().empty()) {
+    fs::create_directories(out_path.parent_path());
+  }
+
+  auto write_number = [](std::ostream& out, double value) {
+    if (std::isfinite(value)) {
+      out << std::fixed << std::setprecision(9) << value;
+    } else {
+      out << "null";
+    }
+  };
+  auto write_bool = [](std::ostream& out, bool value) {
+    out << (value ? "true" : "false");
+  };
+  auto write_pose = [&write_number](std::ostream& out,
+                                    const Eigen::Matrix4d& pose) {
+    out << "[";
+    for (int r = 0; r < 4; r++) {
+      for (int c = 0; c < 4; c++) {
+        if (r != 0 || c != 0) out << ", ";
+        write_number(out, pose(r, c));
+      }
+    }
+    out << "]";
+  };
+
+  std::ofstream out(path);
+  out << "{\n";
+  out << "  \"trace_version\": \"fixed_map_ndt_trace_v1\",\n";
+  out << "  \"seed_source\": \"" << jsonEscape(options.seed_source) << "\",\n";
+  out << "  \"map_stride\": " << std::max(1, options.map_stride) << ",\n";
+  out << "  \"scan_context_distance_threshold\": ";
+  write_number(out, options.scan_context_distance_threshold);
+  out << ",\n";
+  out << "  \"scan_context_top_k\": "
+      << std::max(1, options.scan_context_top_k) << ",\n";
+  out << "  \"num_frames\": " << num_frames << ",\n";
+  out << "  \"map_points\": " << map_points << ",\n";
+  out << "  \"frames\": [\n";
+  for (size_t i = 0; i < frames.size(); i++) {
+    const auto& frame = frames[i];
+    out << "    {\n";
+    out << "      \"frame_index\": " << frame.frame_index << ",\n";
+    out << "      \"decision\": \"" << jsonEscape(frame.decision) << "\",\n";
+    out << "      \"seed_source\": \"" << jsonEscape(frame.seed_source) << "\",\n";
+    out << "      \"accepted\": ";
+    write_bool(out, frame.accepted);
+    out << ",\n";
+    out << "      \"seed_fallback\": ";
+    write_bool(out, frame.seed_fallback);
+    out << ",\n";
+    out << "      \"scan_context_hit\": ";
+    write_bool(out, frame.scan_context_hit);
+    out << ",\n";
+    out << "      \"scan_context_candidate_count\": "
+        << frame.scan_context_candidate_count << ",\n";
+    out << "      \"scan_context_candidates_evaluated\": "
+        << frame.scan_context_candidates_evaluated << ",\n";
+    out << "      \"selected_candidate_index\": "
+        << frame.selected_candidate_index << ",\n";
+    out << "      \"scan_context_front_distance\": ";
+    write_number(out, frame.scan_context_front_distance);
+    out << ",\n";
+    out << "      \"selected_candidate_distance\": ";
+    write_number(out, frame.selected_candidate_distance);
+    out << ",\n";
+    out << "      \"selected_candidate_yaw_offset_rad\": ";
+    write_number(out, frame.selected_candidate_yaw_offset_rad);
+    out << ",\n";
+    out << "      \"ndt_score\": ";
+    write_number(out, frame.ndt_score);
+    out << ",\n";
+    out << "      \"ndt_iterations\": " << frame.ndt_iterations << ",\n";
+    out << "      \"ndt_converged\": ";
+    write_bool(out, frame.ndt_converged);
+    out << ",\n";
+    out << "      \"seed_translation_error_m\": ";
+    write_number(out, frame.seed_translation_error_m);
+    out << ",\n";
+    out << "      \"seed_rotation_error_rad\": ";
+    write_number(out, frame.seed_rotation_error_rad);
+    out << ",\n";
+    out << "      \"refined_translation_error_m\": ";
+    write_number(out, frame.refined_translation_error_m);
+    out << ",\n";
+    out << "      \"refined_rotation_error_rad\": ";
+    write_number(out, frame.refined_rotation_error_rad);
+    out << ",\n";
+    out << "      \"final_translation_error_m\": ";
+    write_number(out, frame.final_translation_error_m);
+    out << ",\n";
+    out << "      \"final_rotation_error_rad\": ";
+    write_number(out, frame.final_rotation_error_rad);
+    out << ",\n";
+    out << "      \"correction_translation_delta_m\": ";
+    write_number(out, frame.correction_translation_delta_m);
+    out << ",\n";
+    out << "      \"correction_rotation_delta_rad\": ";
+    write_number(out, frame.correction_rotation_delta_rad);
+    out << ",\n";
+    out << "      \"final_step_m\": ";
+    write_number(out, frame.final_step_m);
+    out << ",\n";
+    out << "      \"gt_step_m\": ";
+    write_number(out, frame.gt_step_m);
+    out << ",\n";
+    out << "      \"seed_pose\": ";
+    write_pose(out, frame.seed_pose);
+    out << ",\n";
+    out << "      \"refined_pose\": ";
+    write_pose(out, frame.refined_pose);
+    out << ",\n";
+    out << "      \"final_pose\": ";
+    write_pose(out, frame.final_pose);
+    out << ",\n";
+    out << "      \"gt_pose\": ";
+    write_pose(out, frame.gt_pose);
+    out << "\n";
+    out << "    }" << (i + 1 == frames.size() ? "\n" : ",\n");
+  }
+  out << "  ]\n";
+  out << "}\n";
 }
 
 // Constant-velocity prediction in the body frame: T_pred = T_prev * (T_prev_prev^-1 * T_prev).
@@ -2211,6 +2423,18 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
   Eigen::Matrix4d T_est = gt.empty() ? Eigen::Matrix4d::Identity() : gt[0];
   Eigen::Matrix4d T_prev_prev_est = T_est;
   res.poses.push_back(T_est);
+  std::vector<FixedMapNDTTraceFrame> trace_frames;
+  if (!fixed_map_options.trace_json_path.empty()) {
+    FixedMapNDTTraceFrame frame0;
+    frame0.frame_index = 0;
+    frame0.decision = "anchor";
+    frame0.seed_source = fixed_map_options.seed_source;
+    frame0.seed_pose = T_est;
+    frame0.refined_pose = T_est;
+    frame0.final_pose = T_est;
+    finalizeFixedMapNDTTraceFrame(frame0, gt, nullptr);
+    trace_frames.push_back(frame0);
+  }
 
   size_t accepted = 0;
   size_t rejected = 0;
@@ -2226,25 +2450,41 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
     if (pts_local.empty()) continue;
     if (i == 0) continue;
 
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
+    FixedMapNDTTraceFrame trace;
+    trace.frame_index = i;
+    trace.seed_source = fixed_map_options.seed_source;
+    trace.seed_pose = T_est;
+    trace.refined_pose = T_est;
+    trace.final_pose = T_est;
+
     Eigen::Matrix4d T_seed = T_est;
     if (fixed_map_options.seed_source == "ct_icp") {
       if (prior_poses && i < prior_poses->size() && isFiniteMatrix((*prior_poses)[i])) {
         T_seed = (*prior_poses)[i];
       } else {
         ++fallback_seed;
+        trace.seed_fallback = true;
       }
     } else if (fixed_map_options.seed_source == "scan_context") {
       const auto candidates = scan_context.detectLoopCandidates(pts_local);
+      trace.scan_context_candidate_count = static_cast<int>(candidates.size());
       if (candidates.empty()) {
         ++fallback_seed;
+        trace.seed_fallback = true;
       } else {
         ++scan_context_hits;
+        trace.scan_context_hit = true;
+        trace.scan_context_front_distance = candidates.front().distance;
         scan_context_distance_sum += candidates.front().distance;
 
-        const Eigen::Matrix4d T_prev_est_snapshot = T_est;
         bool best_valid = false;
         double best_score = std::numeric_limits<double>::infinity();
         Eigen::Matrix4d best_pose = T_est;
+        Eigen::Matrix4d best_seed_pose = T_est;
+        Eigen::Matrix4d best_refined_pose = T_est;
+        int best_iterations = 0;
+        bool best_converged = false;
         for (const auto& candidate : candidates) {
           if (!candidate.valid ||
               candidate.index < 0 ||
@@ -2261,6 +2501,7 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
           candidate_seed = candidate_seed * yaw_delta;
           const auto result = reg.align(pts_local, candidate_seed);
           ++scan_context_candidates_evaluated;
+          ++trace.scan_context_candidates_evaluated;
           if ((result.converged || result.iterations >= 2) &&
               std::isfinite(result.score) &&
               isFiniteMatrix(result.transformation) &&
@@ -2271,18 +2512,41 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
             best_valid = true;
             best_score = result.score;
             best_pose = result.transformation;
+            best_seed_pose = candidate_seed;
+            best_refined_pose = result.transformation;
+            best_iterations = result.iterations;
+            best_converged = result.converged;
+            trace.selected_candidate_index = candidate.index;
+            trace.selected_candidate_distance = candidate.distance;
+            trace.selected_candidate_yaw_offset_rad = candidate.yaw_offset_rad;
           }
         }
 
+        trace.ndt_score = best_score;
+        trace.ndt_iterations = best_iterations;
+        trace.ndt_converged = best_converged;
+        trace.seed_pose = best_seed_pose;
+        trace.refined_pose = best_refined_pose;
         if (best_valid) {
           T_est = best_pose;
           ++accepted;
+          trace.accepted = true;
+          trace.decision = "accepted";
         } else {
           T_est = T_prev_est_snapshot;
           ++rejected;
+          trace.accepted = false;
+          trace.decision = trace.scan_context_candidates_evaluated > 0
+                               ? "rejected"
+                               : "no_valid_scan_context_candidate";
         }
+        trace.final_pose = T_est;
+        finalizeFixedMapNDTTraceFrame(trace, gt, &T_prev_est_snapshot);
         T_prev_prev_est = T_prev_est_snapshot;
         res.poses.push_back(T_est);
+        if (!fixed_map_options.trace_json_path.empty()) {
+          trace_frames.push_back(trace);
+        }
 
         if (i % 10 == 0) {
           std::cerr << "\r  [FixedMap-NDT] " << i << "/" << pcd_dirs.size()
@@ -2299,8 +2563,12 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
       T_seed = applySeedPerturbation(gt[i], ndt_options.seed_perturbation);
     }
 
-    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
+    trace.seed_pose = T_seed;
     const auto result = reg.align(pts_local, T_seed);
+    trace.refined_pose = result.transformation;
+    trace.ndt_score = result.score;
+    trace.ndt_iterations = result.iterations;
+    trace.ndt_converged = result.converged;
     if ((result.converged || result.iterations >= 2) &&
         isFiniteMatrix(result.transformation) &&
         isReasonableRefinement(result.transformation, T_seed,
@@ -2308,12 +2576,21 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
                                ndt_options.max_seed_rotation_delta_rad)) {
       T_est = result.transformation;
       ++accepted;
+      trace.accepted = true;
+      trace.decision = "accepted";
     } else {
       T_est = T_seed;
       ++rejected;
+      trace.accepted = false;
+      trace.decision = "rejected_to_seed";
     }
+    trace.final_pose = T_est;
+    finalizeFixedMapNDTTraceFrame(trace, gt, &T_prev_est_snapshot);
     T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
+    if (!fixed_map_options.trace_json_path.empty()) {
+      trace_frames.push_back(trace);
+    }
 
     if (i % 10 == 0) {
       std::cerr << "\r  [FixedMap-NDT] " << i << "/" << pcd_dirs.size()
@@ -2357,6 +2634,12 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
     note << " Runtime is CT-ICP+NDT combined.";
   } else if (fixed_map_options.seed_source == "gt") {
     note << seedPerturbationNote(ndt_options.seed_perturbation);
+  }
+  if (!fixed_map_options.trace_json_path.empty()) {
+    writeFixedMapNDTTraceJson(fixed_map_options.trace_json_path,
+                              fixed_map_options, pcd_dirs.size(),
+                              map_points.size(), trace_frames);
+    note << " Per-frame trace=" << fixed_map_options.trace_json_path << ".";
   }
   res.note = note.str();
   return res;
@@ -3909,6 +4192,7 @@ int main(int argc, char** argv) {
               << " [--fixed-map-ndt-map-stride N]"
               << " [--fixed-map-ndt-scan-context-threshold X]"
               << " [--fixed-map-ndt-scan-context-top-k N]"
+              << " [--fixed-map-ndt-trace-json path]"
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-voxel-size X]"
@@ -5092,6 +5376,20 @@ int main(int argc, char** argv) {
                  std::string("--fixed-map-ndt-scan-context-top-k=").size())));
       continue;
     }
+    if (arg == "--fixed-map-ndt-trace-json") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-trace-json requires a path"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.trace_json_path = argv[++i];
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-trace-json=", 0) == 0) {
+      fixed_map_ndt_options.trace_json_path =
+          arg.substr(std::string("--fixed-map-ndt-trace-json=").size());
+      continue;
+    }
     if (arg == "--kiss-fast-profile") {
       kiss_icp_options.source_voxel_size = 0.75;
       kiss_icp_options.max_source_points = 2500;
@@ -6182,6 +6480,10 @@ int main(int argc, char** argv) {
               << " map_max_points=" << ndt_options.map_max_points
               << " map_stride=" << fixed_map_ndt_options.map_stride
               << " seed_source=" << fixed_map_ndt_options.seed_source
+              << " trace_json="
+              << (fixed_map_ndt_options.trace_json_path.empty()
+                      ? "off"
+                      : fixed_map_ndt_options.trace_json_path)
               << std::endl;
     results.push_back(runFixedMapNDT(pcd_dirs, gt, ndt_options,
                                      ct_icp_options, fixed_map_ndt_options));

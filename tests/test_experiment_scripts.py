@@ -1340,6 +1340,46 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertEqual(aggregate["score_traps_blocked"], 1)
         self.assertEqual(aggregate["near_basin_retained"], 1)
 
+    def test_fixed_map_ndt_trace_artifact_exposes_frame_contract(self) -> None:
+        trace_path = (
+            REPO_ROOT
+            / "experiments/results/fixed_map_ndt/traces"
+            / "kitti_seq_02_108_seed_scan_context_stride_5_topk_5_trace.json"
+        )
+        trace = json.loads(trace_path.read_text(encoding="utf-8"))
+        frames = trace["frames"]
+
+        self.assertEqual(trace["trace_version"], "fixed_map_ndt_trace_v1")
+        self.assertEqual(trace["seed_source"], "scan_context")
+        self.assertEqual(len(frames), 108)
+        self.assertEqual(sum(1 for frame in frames if frame["accepted"]), 98)
+        self.assertEqual(sum(1 for frame in frames if frame["seed_fallback"]), 66)
+        self.assertEqual(sum(1 for frame in frames if frame["scan_context_hit"]), 41)
+        self.assertEqual(
+            sum(frame["scan_context_candidates_evaluated"] for frame in frames),
+            41,
+        )
+
+        first_refinement = frames[1]
+        self.assertIn(first_refinement["decision"], {"accepted", "rejected_to_seed"})
+        self.assertIn("seed_translation_error_m", first_refinement)
+        self.assertIn("final_translation_error_m", first_refinement)
+        self.assertIn("correction_translation_delta_m", first_refinement)
+        self.assertIn("final_step_m", first_refinement)
+        self.assertIn("gt_step_m", first_refinement)
+        self.assertEqual(len(first_refinement["seed_pose"]), 16)
+        self.assertEqual(len(first_refinement["refined_pose"]), 16)
+        self.assertEqual(len(first_refinement["final_pose"]), 16)
+        self.assertEqual(len(first_refinement["gt_pose"]), 16)
+        self.assertGreater(
+            max(
+                frame["final_translation_error_m"]
+                for frame in frames
+                if frame["final_translation_error_m"] is not None
+            ),
+            5.0,
+        )
+
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {
             "policy": {"policy_version": "lidar_degeneracy_triage_v4"},

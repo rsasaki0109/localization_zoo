@@ -45,6 +45,7 @@ COMPILE_TARGETS = [
     SCRIPTS / "generate_lidar_degeneracy_action_plan.py",
     SCRIPTS / "summarize_fixed_map_ndt_failure_modes.py",
     SCRIPTS / "build_fixed_map_ndt_publish_guard.py",
+    SCRIPTS / "calibrate_fixed_map_global_hypothesis_verifier.py",
     SCRIPTS / "test_lidar_degeneracy_triage_policy.py",
 ]
 
@@ -65,6 +66,11 @@ def parse_args() -> argparse.Namespace:
         "--regenerate-fixed-map-ndt-publish-guard",
         action="store_true",
         help="Also rerun the fixed-map NDT publish guard generator.",
+    )
+    parser.add_argument(
+        "--regenerate-fixed-map-global-verifier",
+        action="store_true",
+        help="Also rerun the fixed-map Scan Context global hypothesis verifier calibration.",
     )
     parser.add_argument(
         "--enforce-policy",
@@ -519,6 +525,13 @@ def main() -> int:
         run([sys.executable, str(SCRIPTS / "summarize_fixed_map_ndt_failure_modes.py")])
     if args.regenerate_fixed_map_ndt_publish_guard:
         run([sys.executable, str(SCRIPTS / "build_fixed_map_ndt_publish_guard.py")])
+    if args.regenerate_fixed_map_global_verifier:
+        run(
+            [
+                sys.executable,
+                str(SCRIPTS / "calibrate_fixed_map_global_hypothesis_verifier.py"),
+            ]
+        )
     if args.enforce_policy:
         try:
             gate_status = enforce_policy_gate(

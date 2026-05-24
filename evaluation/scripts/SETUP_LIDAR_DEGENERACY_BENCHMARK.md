@@ -522,6 +522,12 @@ Observed `fog.bag` inspection:
   wrong-pose acceptance, unsafe global hypothesis selection, detectable bad
   seeds, and map-localization accuracy gaps so the next repair target is not
   hidden inside a single ATE table.
+- Generate `experiments/results/fixed_map_ndt/fixed_map_ndt_publish_guard.json`
+  with `python3 evaluation/scripts/build_fixed_map_ndt_publish_guard.py`, or add
+  `--regenerate-fixed-map-ndt-publish-guard` to the lightweight check runner.
+  This converts GT-backed audit rows into an `allow_pose_publish` contract:
+  accepted wrong poses block publish, detectable bad seeds return unknown, and
+  oracle/smoke rows stay out of the deployable publish path.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

@@ -1357,27 +1357,53 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         trace = json.loads(trace_path.read_text(encoding="utf-8"))
         frames = trace["frames"]
 
-        self.assertEqual(trace["trace_version"], "fixed_map_ndt_trace_v1")
+        self.assertEqual(trace["trace_version"], "fixed_map_ndt_trace_v2")
         self.assertEqual(trace["seed_source"], "scan_context")
+        self.assertEqual(
+            trace["publish_policy"]["policy_version"],
+            "fixed_map_ndt_runtime_publish_policy_v1",
+        )
         self.assertEqual(len(frames), 108)
-        self.assertEqual(sum(1 for frame in frames if frame["accepted"]), 98)
-        self.assertEqual(sum(1 for frame in frames if frame["seed_fallback"]), 66)
-        self.assertEqual(sum(1 for frame in frames if frame["scan_context_hit"]), 41)
+        self.assertEqual(sum(1 for frame in frames if frame["accepted"]), 103)
+        self.assertEqual(sum(1 for frame in frames if frame["seed_fallback"]), 68)
+        self.assertEqual(sum(1 for frame in frames if frame["scan_context_hit"]), 39)
         self.assertEqual(
             sum(frame["scan_context_candidates_evaluated"] for frame in frames),
-            41,
+            39,
+        )
+        self.assertEqual(
+            sum(1 for frame in frames if frame["allow_pose_publish"]),
+            0,
+        )
+        self.assertEqual(
+            sum(1 for frame in frames if frame["publish_action"] == "return_unknown"),
+            108,
+        )
+        self.assertEqual(
+            sum(1 for frame in frames if frame["gt_wrong_pose"]),
+            75,
+        )
+        self.assertEqual(
+            sum(1 for frame in frames if frame["gt_unsafe_transition"]),
+            6,
         )
 
         first_refinement = frames[1]
-        self.assertIn(first_refinement["decision"], {"accepted", "rejected_to_seed"})
+        self.assertIn(
+            first_refinement["decision"],
+            {"accepted", "rejected", "rejected_to_seed"},
+        )
         self.assertIn("seed_translation_error_m", first_refinement)
         self.assertIn("final_translation_error_m", first_refinement)
         self.assertIn("correction_translation_delta_m", first_refinement)
         self.assertIn("final_step_m", first_refinement)
         self.assertIn("gt_step_m", first_refinement)
+        self.assertIn("publish_state", first_refinement)
+        self.assertIn("gt_safety_state", first_refinement)
         self.assertEqual(len(first_refinement["seed_pose"]), 16)
         self.assertEqual(len(first_refinement["refined_pose"]), 16)
         self.assertEqual(len(first_refinement["final_pose"]), 16)
+        self.assertIsNone(first_refinement["published_pose"])
         self.assertEqual(len(first_refinement["gt_pose"]), 16)
         self.assertGreater(
             max(
@@ -1451,7 +1477,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(report["sequence_decision"], "block_publish")
         self.assertFalse(report["allow_pose_publish"])
-        self.assertEqual(report["frame_counts"]["accepted"], 98)
+        self.assertEqual(report["frame_counts"]["accepted"], 103)
         self.assertGreater(report["frame_counts"]["accepted_wrong_pose"], 0)
         self.assertGreater(report["frame_counts"]["recovery_jump"], 0)
         self.assertGreater(report["frame_counts"]["unsafe_jump"], 0)
@@ -1475,6 +1501,13 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
 
         self.assertEqual(report["sequence_decision"], "fail_closed_all_unknown")
         self.assertEqual(report["sequence_verifier_decision"], "block_publish")
+        self.assertTrue(report["embedded_policy_summary"]["available"])
+        self.assertEqual(report["embedded_policy_summary"]["pose_output_frames"], 0)
+        self.assertEqual(report["embedded_policy_summary"]["unknown_frames"], 108)
+        self.assertEqual(
+            report["embedded_policy_summary"]["suppressed_wrong_pose_frames"],
+            report["raw_wrong_pose_frames"],
+        )
         self.assertEqual(report["gated_pose_frames"], 0)
         self.assertEqual(report["gated_wrong_pose_frames"], 0)
         self.assertGreater(report["raw_wrong_pose_frames"], 0)

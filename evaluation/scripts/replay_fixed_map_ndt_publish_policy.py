@@ -135,6 +135,48 @@ def max_streak(actions: list[str], accepted: set[str]) -> int:
     return best
 
 
+def embedded_policy_summary(raw_frames: list[dict[str, Any]]) -> dict[str, Any]:
+    action_counts = Counter(
+        str(frame.get("publish_action") or "missing") for frame in raw_frames
+    )
+    pose_output_frames = [
+        frame for frame in raw_frames if bool(frame.get("has_pose_output"))
+    ]
+    wrong_output_frames = [
+        frame for frame in pose_output_frames if bool(frame.get("gt_wrong_pose"))
+    ]
+    unsafe_output_frames = [
+        frame for frame in pose_output_frames if bool(frame.get("gt_unsafe_transition"))
+    ]
+    suppressed_wrong = [
+        frame
+        for frame in raw_frames
+        if bool(frame.get("gt_wrong_pose")) and not bool(frame.get("has_pose_output"))
+    ]
+    suppressed_unsafe = [
+        frame
+        for frame in raw_frames
+        if bool(frame.get("gt_unsafe_transition"))
+        and not bool(frame.get("has_pose_output"))
+    ]
+    published_errors = [
+        as_float(frame.get("published_translation_error_m"))
+        for frame in pose_output_frames
+    ]
+    return {
+        "available": any("publish_action" in frame for frame in raw_frames),
+        "action_counts": dict(sorted(action_counts.items())),
+        "pose_output_frames": len(pose_output_frames),
+        "wrong_pose_output_frames": len(wrong_output_frames),
+        "unsafe_transition_output_frames": len(unsafe_output_frames),
+        "unknown_frames": action_counts.get("return_unknown", 0),
+        "hold_frames": action_counts.get("hold_last_pose", 0),
+        "suppressed_wrong_pose_frames": len(suppressed_wrong),
+        "suppressed_unsafe_transition_frames": len(suppressed_unsafe),
+        "max_published_error_m": finite_max(published_errors),
+    }
+
+
 def replay_policy_rows(
     *,
     trace_id: str,
@@ -295,11 +337,12 @@ def replay_trace(
     *,
     max_hold_frames: int = MAX_HOLD_FRAMES,
 ) -> dict[str, Any]:
+    raw_frames = list(trace.get("frames") or [])
     verifier_report = SEQUENCE_VERIFIER.annotate_trace(trace, path)
     replay = replay_policy_rows(
         trace_id=verifier_report["trace_id"],
         frame_rows=list(verifier_report["frame_rows"]),
-        raw_frames=list(trace.get("frames") or []),
+        raw_frames=raw_frames,
         max_hold_frames=max_hold_frames,
     )
     return {
@@ -308,6 +351,8 @@ def replay_trace(
         "seed_source": trace.get("seed_source"),
         "map_stride": trace.get("map_stride"),
         "scan_context_top_k": trace.get("scan_context_top_k"),
+        "embedded_publish_policy": trace.get("publish_policy") or {},
+        "embedded_policy_summary": embedded_policy_summary(raw_frames),
         "sequence_verifier_decision": verifier_report["sequence_decision"],
         "sequence_verifier_state": verifier_report["sequence_state"],
         **replay,
@@ -346,6 +391,26 @@ def aggregate(trace_reports: list[dict[str, Any]]) -> dict[str, Any]:
         ),
         "suppressed_unsafe_jump_frames": sum(
             int(report["suppressed_unsafe_jump_frames"]) for report in trace_reports
+        ),
+        "embedded_pose_output_frames": sum(
+            int(report["embedded_policy_summary"]["pose_output_frames"])
+            for report in trace_reports
+        ),
+        "embedded_wrong_pose_output_frames": sum(
+            int(report["embedded_policy_summary"]["wrong_pose_output_frames"])
+            for report in trace_reports
+        ),
+        "embedded_unknown_frames": sum(
+            int(report["embedded_policy_summary"]["unknown_frames"])
+            for report in trace_reports
+        ),
+        "embedded_suppressed_wrong_pose_frames": sum(
+            int(report["embedded_policy_summary"]["suppressed_wrong_pose_frames"])
+            for report in trace_reports
+        ),
+        "embedded_suppressed_unsafe_transition_frames": sum(
+            int(report["embedded_policy_summary"]["suppressed_unsafe_transition_frames"])
+            for report in trace_reports
         ),
         "max_published_error_m": finite_max(
             [as_float(report["max_published_error_m"]) for report in trace_reports]
@@ -410,12 +475,20 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         f"{aggregate_row['suppressed_unsafe_jump_frames']} | "
         f"{fmt(aggregate_row['max_published_error_m'])} |",
         "",
+        "| Embedded runtime outputs | Embedded wrong outputs | Embedded unknown | Embedded suppressed wrong | Embedded suppressed unsafe |",
+        "| ---: | ---: | ---: | ---: | ---: |",
+        f"| {aggregate_row['embedded_pose_output_frames']} | "
+        f"{aggregate_row['embedded_wrong_pose_output_frames']} | "
+        f"{aggregate_row['embedded_unknown_frames']} | "
+        f"{aggregate_row['embedded_suppressed_wrong_pose_frames']} | "
+        f"{aggregate_row['embedded_suppressed_unsafe_transition_frames']} |",
+        "",
         f"Replay decisions: {decisions or 'none'}",
         "",
         "## Trace Reports",
         "",
-        "| Trace | Replay decision | Verifier decision | Raw wrong | Raw unsafe | Gated outputs | Gated wrong | Unknown | Block | Suppressed wrong | First publish | Max published error [m] | Max unknown streak |",
-        "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Trace | Replay decision | Verifier decision | Raw wrong | Raw unsafe | Gated outputs | Gated wrong | Unknown | Block | Suppressed wrong | Embedded outputs | Embedded unknown | First publish | Max published error [m] | Max unknown streak |",
+        "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for report in payload["traces"]:
         first_publish = (
@@ -433,6 +506,8 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             f"{report['gated_unknown_frames']} | "
             f"{report['gated_block_frames']} | "
             f"{report['suppressed_wrong_pose_frames']} | "
+            f"{report['embedded_policy_summary']['pose_output_frames']} | "
+            f"{report['embedded_policy_summary']['unknown_frames']} | "
             f"{first_publish} | "
             f"{fmt(report['max_published_error_m'])} | "
             f"{report['max_unknown_streak']} |"
@@ -445,6 +520,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             "",
             "- Raw fixed-map NDT is treated as publishing every frame's `final_pose`.",
             "- Gated replay publishes only sequence-verifier publish candidates, can briefly hold the last safe pose, and otherwise returns unknown or blocks publish.",
+            "- Embedded runtime outputs are the GT-free publish actions written by `pcd_dogfooding` itself.",
             "- `suppressed_wrong_pose_frames` measures false-pose suppression; `gated_wrong_pose_frames` must stay zero before this policy can be considered publish-safe.",
             "- A `fail_closed_all_unknown` replay is safe but unavailable: the next engineering target is recovery/relocalization, not threshold relaxation.",
             "",

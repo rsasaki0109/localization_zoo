@@ -123,6 +123,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_compare_ct_icp_fallback_sources_module",
             "evaluation/scripts/compare_ct_icp_fallback_sources.py",
         )
+        cls.ct_icp_composite_module = load_script_module(
+            "test_build_ct_icp_guarded_composite_module",
+            "evaluation/scripts/build_ct_icp_guarded_composite.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -902,6 +906,79 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
         self.assertIn("path_not_reference_consistent", candidates[1]["eligibility_blockers"])
         self.assertFalse(candidates[3]["eligible"])
         self.assertIn("source_health_not_ok", candidates[3]["eligibility_blockers"])
+
+    def test_ct_icp_guarded_composite_uses_selected_fallback(self) -> None:
+        composite = self.ct_icp_composite_module
+        guarded = self.ct_icp_guarded_module
+        ct_payload = {
+            "method": "ct_icp_window_odometry",
+            "pairs": [
+                {
+                    "index": 1,
+                    "used_dx_curr_to_prev_m": 5.0,
+                    "used_dy_curr_to_prev_m": 0.0,
+                    "used_yaw_curr_to_prev_deg": 0.0,
+                },
+                {
+                    "index": 2,
+                    "used_dx_curr_to_prev_m": 5.0,
+                    "used_dy_curr_to_prev_m": 0.0,
+                    "used_yaw_curr_to_prev_deg": 0.0,
+                },
+            ],
+        }
+        self_velocity_payload = {
+            "pairs": [
+                {
+                    "index": 1,
+                    "guarded_dx_curr_to_prev_m": 0.5,
+                    "guarded_dy_curr_to_prev_m": 0.0,
+                    "guarded_yaw_curr_to_prev_deg": 0.0,
+                },
+                {
+                    "index": 2,
+                    "guarded_dx_curr_to_prev_m": 0.5,
+                    "guarded_dy_curr_to_prev_m": 0.0,
+                    "guarded_yaw_curr_to_prev_deg": 0.0,
+                },
+            ],
+        }
+        selected_payload = {
+            "pairs": [
+                {
+                    "index": 1,
+                    "used_dx_curr_to_prev_m": 1.0,
+                    "used_dy_curr_to_prev_m": 0.0,
+                    "used_yaw_curr_to_prev_deg": 0.0,
+                },
+                {
+                    "index": 2,
+                    "used_dx_curr_to_prev_m": 1.0,
+                    "used_dy_curr_to_prev_m": 0.0,
+                    "used_yaw_curr_to_prev_deg": 0.0,
+                },
+            ],
+        }
+
+        out = composite.build_composite_payload(
+            guarded_module=guarded,
+            ct_payload=ct_payload,
+            self_velocity_payload=self_velocity_payload,
+            selected_source="geometry_icp",
+            selected_payload=selected_payload,
+            guard_decision="fallback_to_prior",
+            healthy_path_median=2.0,
+            all_path_median=2.0,
+            source_result_json=Path("ct.json"),
+            selected_result_json=Path("geometry.json"),
+        )
+
+        self.assertEqual(out["summary"]["source_pair_counts"], {"geometry_icp": 2})
+        self.assertEqual(out["summary"]["fallback_pair_rate"], 1.0)
+        self.assertEqual(out["summary"]["missing_selected_pairs"], 0)
+        self.assertEqual(out["summary"]["path_status"], "reference_consistent")
+        self.assertAlmostEqual(out["summary"]["path_length_m"], 2.0)
+        self.assertEqual(out["pairs"][0]["composite_source"], "geometry_icp")
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:
         gate_report = {

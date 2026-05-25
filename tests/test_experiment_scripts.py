@@ -143,6 +143,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_calibrate_fixed_map_global_hypothesis_verifier_module",
             "evaluation/scripts/calibrate_fixed_map_global_hypothesis_verifier.py",
         )
+        cls.fixed_map_trace_sequence_module = load_script_module(
+            "test_verify_fixed_map_ndt_trace_sequence_module",
+            "evaluation/scripts/verify_fixed_map_ndt_trace_sequence.py",
+        )
 
     @staticmethod
     def write_lidar_gate_reports(
@@ -1378,6 +1382,78 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
                 if frame["final_translation_error_m"] is not None
             ),
             5.0,
+        )
+
+    def test_fixed_map_trace_sequence_verifier_splits_recovery_jumps(self) -> None:
+        verifier = self.fixed_map_trace_sequence_module
+        previous = {
+            "frame_index": 4,
+            "final_translation_error_m": 6.0,
+        }
+        recovery = {
+            "frame_index": 5,
+            "decision": "accepted",
+            "accepted": True,
+            "final_translation_error_m": 0.1,
+            "seed_translation_error_m": 0.0,
+            "final_step_m": 7.5,
+            "gt_step_m": 1.5,
+        }
+        unsafe = {
+            "frame_index": 6,
+            "decision": "accepted",
+            "accepted": True,
+            "final_translation_error_m": 4.0,
+            "seed_translation_error_m": 0.0,
+            "final_step_m": 7.5,
+            "gt_step_m": 1.5,
+        }
+
+        recovery_diag = verifier.frame_diagnostics(recovery, previous)
+        unsafe_diag = verifier.frame_diagnostics(unsafe, recovery)
+
+        self.assertTrue(recovery_diag["is_recovery_jump"])
+        self.assertFalse(recovery_diag["is_unsafe_jump"])
+        self.assertFalse(unsafe_diag["is_recovery_jump"])
+        self.assertTrue(unsafe_diag["is_unsafe_jump"])
+
+    def test_fixed_map_trace_sequence_verifier_requires_stable_run(self) -> None:
+        verifier = self.fixed_map_trace_sequence_module
+        rows = [
+            {"frame_index": 0, "final_error_m": 0.0, "is_recovery_jump": False, "raw_decision": "anchor"},
+            {"frame_index": 1, "final_error_m": 0.5, "is_recovery_jump": True, "raw_decision": "accepted"},
+            {"frame_index": 2, "final_error_m": 0.5, "is_recovery_jump": False, "raw_decision": "accepted"},
+            {"frame_index": 3, "final_error_m": 0.5, "is_recovery_jump": False, "raw_decision": "accepted"},
+            {"frame_index": 4, "final_error_m": 1.2, "is_recovery_jump": False, "raw_decision": "accepted"},
+        ]
+
+        intervals = verifier.stable_inlier_intervals(rows)
+
+        self.assertEqual(intervals, [{"start": 2, "end": 3, "length": 2}])
+        self.assertLess(intervals[0]["length"], verifier.MIN_STABLE_PUBLISH_FRAMES)
+
+    def test_fixed_map_trace_sequence_verifier_blocks_current_trace_publish(self) -> None:
+        verifier = self.fixed_map_trace_sequence_module
+        trace_path = (
+            REPO_ROOT
+            / "experiments/results/fixed_map_ndt/traces"
+            / "kitti_seq_02_108_seed_scan_context_stride_5_topk_5_trace.json"
+        )
+
+        report = verifier.annotate_trace(
+            json.loads(trace_path.read_text(encoding="utf-8")),
+            trace_path,
+        )
+
+        self.assertEqual(report["sequence_decision"], "block_publish")
+        self.assertFalse(report["allow_pose_publish"])
+        self.assertEqual(report["frame_counts"]["accepted"], 98)
+        self.assertGreater(report["frame_counts"]["accepted_wrong_pose"], 0)
+        self.assertGreater(report["frame_counts"]["recovery_jump"], 0)
+        self.assertGreater(report["frame_counts"]["unsafe_jump"], 0)
+        self.assertLess(
+            report["metrics"]["max_stable_inlier_run"],
+            verifier.MIN_STABLE_PUBLISH_FRAMES,
         )
 
     def test_lidar_degeneracy_action_plan_prioritizes_failures(self) -> None:

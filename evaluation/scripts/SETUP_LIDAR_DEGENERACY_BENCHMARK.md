@@ -539,6 +539,11 @@ Observed `fog.bag` inspection:
   GT errors, NDT acceptance, Scan Context candidate counts, and step deltas.
   Use this trace as the input for a real sequence/map-consistency verifier
   instead of deriving publish behavior from run-level ATE alone.
+- Run `python3 evaluation/scripts/verify_fixed_map_ndt_trace_sequence.py`, or
+  add `--regenerate-fixed-map-trace-sequence-verifier` to the lightweight check
+  runner, to convert fixed-map NDT traces into sequence-level publish decisions.
+  The verifier separates recovery jumps from unsafe jumps and requires a stable
+  inlier run before any frame becomes publishable.
 
 Do not use `/radar/cloud` as the LiDAR odometry input. Use it only for a
 radar-aware baseline or after adding a radar-specific adapter.

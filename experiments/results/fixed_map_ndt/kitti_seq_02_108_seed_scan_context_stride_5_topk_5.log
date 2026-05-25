@@ -8,7 +8,7 @@ Timestamp source: sampled GT timestamps
 Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
 Trajectory length: 121.2 m
 Running FixedMap-NDT...
-  source_voxel_size=0.8 max_source_points=2000 resolution=0.5 max_iterations=12 map_max_points=120000 map_stride=5 seed_source=scan_context publish_min_stable_frames=5 publish_max_hold_frames=3 trace_json=experiments/results/fixed_map_ndt/traces/kitti_seq_02_108_seed_scan_context_stride_5_topk_5_trace.json
+  source_voxel_size=0.8 max_source_points=2000 resolution=0.5 max_iterations=12 map_max_points=120000 map_stride=5 seed_source=scan_context publish_min_stable_frames=5 publish_max_hold_frames=3 sc_relock_min_confirmations=2 sc_relock_max_distance=0.050 sc_relock_max_ndt_score=1.200 trace_json=experiments/results/fixed_map_ndt/traces/kitti_seq_02_108_seed_scan_context_stride_5_topk_5_trace.json
   [FixedMap-NDT] 10/108 sc_candidates=1 best_score=0.729 accepted=6/10  [FixedMap-NDT] 20/108 sc_candidates=1 best_score=0.812 accepted=16/20  [FixedMap-NDT] 30/108 sc_candidates=1 best_score=0.797 accepted=26/30  [FixedMap-NDT] 40/108 sc_candidates=1 best_score=0.788 accepted=36/40  [FixedMap-NDT] 50/108 sc_candidates=1 best_score=0.812 accepted=46/50  [FixedMap-NDT] 60/108 sc_candidates=1 best_score=0.809 accepted=56/60  [FixedMap-NDT] 70/108 sc_candidates=1 best_score=0.803 accepted=66/70  [FixedMap-NDT] 80/108 sc_candidates=1 best_score=0.818 accepted=76/80  [FixedMap-NDT] 90/108 sc_candidates=1 best_score=0.783 accepted=86/90  [FixedMap-NDT] 100/108 sc_candidates=1 best_score=0.730 accepted=96/100
 
 ========================================
@@ -16,9 +16,9 @@ Running FixedMap-NDT...
 ========================================
 Method                  Status      ATE [m]     Frames      Time [ms]      FPS
 ---------------------------------------------------------------------------------------
-FixedMap-NDT+ScanContextok          2.541       108         6000.0         18.0
+FixedMap-NDT+ScanContextok          2.541       108         7704.9         14.0
 
 Notes:
-- FixedMap-NDT+ScanContext: Fixed-map NDT: target map built once from GT/reference poses (stride=5, map_points=44000). Seed source=scan_context, accepted=103/107, rejected=4, seed fallbacks=68. Runtime publish policy outputs=0, holds=0, unknown=108, GT-wrong suppressed=75, GT-unsafe transitions suppressed=6. ScanContext hits=39/107, top_k=5, NDT candidates evaluated=39, mean distance=0.0689. Per-frame trace=experiments/results/fixed_map_ndt/traces/kitti_seq_02_108_seed_scan_context_stride_5_topk_5_trace.json.
+- FixedMap-NDT+ScanContext: Fixed-map NDT: target map built once from GT/reference poses (stride=5, map_points=44000). Seed source=scan_context, accepted=103/107, rejected=4, seed fallbacks=68. Runtime publish policy outputs=20, holds=0, unknown=88, GT-wrong suppressed=75, GT-unsafe transitions suppressed=6. ScanContext hits=39/107, top_k=5, NDT candidates evaluated=39, mean distance=0.0689. Per-frame trace=experiments/results/fixed_map_ndt/traces/kitti_seq_02_108_seed_scan_context_stride_5_topk_5_trace.json.
 
 Results saved to dogfooding_results/

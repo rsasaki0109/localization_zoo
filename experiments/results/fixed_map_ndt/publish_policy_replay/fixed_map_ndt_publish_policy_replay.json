@@ -24,9 +24,11 @@
     "gated_block_frames": 6,
     "suppressed_wrong_pose_frames": 75,
     "suppressed_unsafe_jump_frames": 6,
-    "embedded_pose_output_frames": 0,
+    "embedded_pose_output_frames": 20,
     "embedded_wrong_pose_output_frames": 0,
-    "embedded_unknown_frames": 108,
+    "embedded_unknown_frames": 88,
+    "embedded_relock_candidate_frames": 21,
+    "embedded_max_relock_streak": 21,
     "embedded_suppressed_wrong_pose_frames": 75,
     "embedded_suppressed_unsafe_transition_frames": 6,
     "max_published_error_m": null,
@@ -47,21 +49,30 @@
         "recovery_error_drop_m": 1.0,
         "min_stable_frames": 5,
         "max_hold_frames": 3,
-        "scan_context_publish_requires_external_sequence_verifier": true
+        "scan_context_relock_min_confirmations": 2,
+        "scan_context_relock_max_distance": 0.05,
+        "scan_context_relock_max_ndt_score": 1.2,
+        "scan_context_relock_max_score_delta": 0.25,
+        "scan_context_publish_requires_relock_sequence_verifier": true
       },
       "embedded_policy_summary": {
         "available": true,
         "action_counts": {
-          "return_unknown": 108
+          "publish_pose": 20,
+          "return_unknown": 88
         },
-        "pose_output_frames": 0,
+        "pose_output_frames": 20,
+        "publish_pose_frames": 20,
+        "first_publish_frame": 10,
         "wrong_pose_output_frames": 0,
         "unsafe_transition_output_frames": 0,
-        "unknown_frames": 108,
+        "unknown_frames": 88,
         "hold_frames": 0,
+        "relock_candidate_frames": 21,
+        "max_relock_streak": 21,
         "suppressed_wrong_pose_frames": 75,
         "suppressed_unsafe_transition_frames": 6,
-        "max_published_error_m": null
+        "max_published_error_m": 0.000677822
       },
       "sequence_verifier_decision": "block_publish",
       "sequence_verifier_state": "unsafe_transition",

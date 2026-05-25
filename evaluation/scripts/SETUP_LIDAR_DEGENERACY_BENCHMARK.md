@@ -537,8 +537,11 @@ Observed `fog.bag` inspection:
 - Add `--fixed-map-ndt-trace-json <path>` to a `pcd_dogfooding
   --methods fixed_map_ndt` run to export per-frame seed/refined/final poses,
   GT errors, NDT acceptance, Scan Context candidate counts, and step deltas.
-  Use this trace as the input for a real sequence/map-consistency verifier
-  instead of deriving publish behavior from run-level ATE alone.
+  Trace v2 also embeds the GT-free runtime publish action
+  (`publish_pose`, `hold_last_pose`, or `return_unknown`) plus GT-backed safety
+  labels for evaluation. Use this trace as the input for a real
+  sequence/map-consistency verifier instead of deriving publish behavior from
+  run-level ATE alone.
 - Run `python3 evaluation/scripts/verify_fixed_map_ndt_trace_sequence.py`, or
   add `--regenerate-fixed-map-trace-sequence-verifier` to the lightweight check
   runner, to convert fixed-map NDT traces into sequence-level publish decisions.

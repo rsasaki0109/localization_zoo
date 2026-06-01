@@ -82,6 +82,23 @@ pre-merge dirty-worktree state.
   → 49 pass; one-command demo (broad) + `validate_showcase.py --require-demo` valid.
   The demo all-OK profiles were intentionally **not** changed (genz_icp/rko_lio
   are available via `--methods` but not in the default broad/full sets).
+- **NCLT dataset ingested (no-form, S3 direct).** `evaluation/scripts/prepare_nclt_inputs.py`
+  + `SETUP_NCLT_BENCHMARK.md` convert NCLT (UMich, Velodyne+MS25 IMU+6-DoF GT) into the
+  standard `dogfooding_results/nclt_*` (cloud.pcd + frame_timestamps.csv + imu.csv) and
+  `experiments/reference_data/nclt_*_gt.csv`. Smallest session `2013-01-10` (velodyne 2.9 GB)
+  ingested at 120- and 600-frame windows. Raw download lives outside the repo in
+  `nclt_raw/`; the PCD trees are gitignored, only GT CSVs are committed.
+  - Active manifests `rko_lio_nclt_2013_01_10` (gyro-bias-gain sweep) and
+    `genz_icp_nclt_2013_01_10`, run through `run_experiment_matrix.py --merge-existing-index`
+    and merged into `index.json` + generated docs.
+  - **Finding (memory `nclt_dataset_ingested.md`):** on NCLT the **raw IMU rotation prior
+    (gyro_bias_gain 0) is best** (RKO-LIO ATE 0.141 @120, 0.385 @600 — beating FAST-LIO2's
+    0.469 @600, 2nd only to GT-seeded NDT). Optimal bias gain is **dataset-dependent** —
+    HDL-400 wants 0.3 (high IMU bias), NCLT wants 0 (low-bias MS25); no universal default.
+    KISS-ICP (no IMU) drifts to 7.2 m @600. NCLT is where the inertial prior clearly pays off.
+  - **Bug fixed:** `variant_result_from_dict` in `run_experiment_matrix.py` (main-side helper
+    pulled in by the merge) omitted the branch's required `rpe_trans_pct` / `rpe_rot_deg_per_m`
+    fields, breaking the `--merge-existing-index` path. Now fixed.
 
 ### 0.1 Current Git State
 

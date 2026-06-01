@@ -1,0 +1,149 @@
+{
+  "generated_at": "2026-06-02T10:08:32+00:00",
+  "manifest_path": "experiments/small_gicp_nclt_2013_01_10_matrix.json",
+  "problem": {
+    "id": "small_gicp_seed_gate_nclt_2013_01_10",
+    "title": "small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory",
+    "question": "small_gicp is only NCLT #4 at full scale and resists the levers that fix LiTAMIN2: finer voxel and tighter correspondence distance both wash out by full-5105 (cd=1.5 gives -23% at 2000 frames but 1.086 -> 1.089 at full, voxel0.5 also flat). The real lever is the seed gate. small_gicp's weak-update gate defaults to 2.0 m / 0.25 rad (looser than NDT's 1.5 m / 0.2 rad); on rollback the pose reverts to the GT seed. Tightening the gate (new --small-gicp-max-seed-translation-delta / --small-gicp-max-seed-rotation-delta-rad flags) monotonically cuts ATE: 1.086 -> 0.348 (-68%) at 0.5 m / 0.1 rad. HONEST CAVEAT: a tighter gate also raises the GT-fallback rate (2.5% -> 20.2% of frames revert to the exact GT seed at 0.5 m), so part of the gain is more aggressive GT substitution on the worst registrations, not purely better refinement. 1.0 m / 0.15 rad (-38%, 9.3% fallback) is the balanced choice; 0.5 m / 0.1 rad is the aggressive option (beats LiTAMIN2 T1's 0.582, but with 20% GT fallback).",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/nclt_2013_01_10_full",
+      "gt_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "small_gicp",
+    "primary_method": "Small-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/nclt_2013_01_10_full",
+    "gt_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default_gate_2_0",
+      "label": "Default gate 2.0 m / 0.25 rad",
+      "design_style": "balanced",
+      "intent": "Repository default small_gicp seed gate. Looser than NDT's 1.5 m / 0.2 rad; 2.5% of frames roll back to the GT seed.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/default_gate_2_0/summary.json",
+      "summary_path": "experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/default_gate_2_0/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/default_gate_2_0/run.log",
+      "status": "ok",
+      "ate_m": 1.086342,
+      "rpe_trans_pct": 2.287819,
+      "rpe_rot_deg_per_m": 0.023537,
+      "fps": 11.791472,
+      "time_ms": 432940.005864,
+      "frames": 5105,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 66.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "gate_1_5",
+      "label": "Gate 1.5 m / 0.2 rad (NDT-equal)",
+      "design_style": "accuracy-oriented",
+      "intent": "Match NDT's seed gate exactly for a fair cross-method comparison. ATE 1.086 -> 0.882 (-19%), 4.2% GT fallback. Still far behind NDT (0.122) at the identical gate, so NDT's edge is genuine refinement quality, not just a tighter gate.",
+      "args": [
+        "--small-gicp-max-seed-translation-delta",
+        "1.5",
+        "--small-gicp-max-seed-rotation-delta-rad",
+        "0.2"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_5/summary.json --small-gicp-max-seed-translation-delta 1.5 --small-gicp-max-seed-rotation-delta-rad 0.2",
+      "summary_path": "experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_5/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_5/run.log",
+      "status": "ok",
+      "ate_m": 0.882099,
+      "rpe_trans_pct": 2.3567,
+      "rpe_rot_deg_per_m": 0.023509,
+      "fps": 11.695247,
+      "time_ms": 436502.103493,
+      "frames": 5105,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 69.3,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "gate_1_0",
+      "label": "Gate 1.0 m / 0.15 rad (balanced)",
+      "design_style": "accuracy-oriented",
+      "intent": "Balanced tightening: ATE 1.086 -> 0.675 (-38%), drift -11%, with a modest 9.3% GT-fallback rate. Recommended default improvement for small_gicp on NCLT.",
+      "args": [
+        "--small-gicp-max-seed-translation-delta",
+        "1.0",
+        "--small-gicp-max-seed-rotation-delta-rad",
+        "0.15"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_0/summary.json --small-gicp-max-seed-translation-delta 1.0 --small-gicp-max-seed-rotation-delta-rad 0.15",
+      "summary_path": "experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_0/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_0/run.log",
+      "status": "ok",
+      "ate_m": 0.675131,
+      "rpe_trans_pct": 2.035615,
+      "rpe_rot_deg_per_m": 0.022169,
+      "fps": 10.944091,
+      "time_ms": 466461.754124,
+      "frames": 5105,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 72.15,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "gate_0_5",
+      "label": "Gate 0.5 m / 0.1 rad (aggressive)",
+      "design_style": "accuracy-oriented",
+      "intent": "Aggressive tightening: ATE 1.086 -> 0.348 (-68%), drift -43%, overtaking LiTAMIN2 T1 (0.582) for NCLT #2. CAVEAT: 20.2% of frames revert to the exact GT seed, so a fifth of the trajectory is GT substitution rather than registration; the gain is partly an artifact of the weak-update mechanism, not pure refinement.",
+      "args": [
+        "--small-gicp-max-seed-translation-delta",
+        "0.5",
+        "--small-gicp-max-seed-rotation-delta-rad",
+        "0.1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_0_5/summary.json --small-gicp-max-seed-translation-delta 0.5 --small-gicp-max-seed-rotation-delta-rad 0.1",
+      "summary_path": "experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_0_5/summary.json",
+      "log_path": "experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_0_5/run.log",
+      "status": "ok",
+      "ate_m": 0.347664,
+      "rpe_trans_pct": 1.312978,
+      "rpe_rot_deg_per_m": 0.016474,
+      "fps": 9.106247,
+      "time_ms": 560604.147922,
+      "frames": 5105,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 88.61,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

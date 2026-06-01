@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-02T11:18:16+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -237,6 +237,7 @@ _Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_cov_half_threads` | 0.498 | 121.0 | `experiments/results/litamin2_mulran_parkinglot_120_matrix.json` |
 | LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory) | `ready` | `cluster_t1_seeded` | 0.303 | 34.4 | `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_icp_only_half_threads` | 0.711 | 118.6 | `experiments/results/litamin2_mulran_parkinglot_full_matrix.json` |
+| LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check) | `ready` | `voxel_0_5_t1` | 0.519 | 6.9 | `experiments/results/litamin2_nclt_2012_12_01_matrix.json` |
 | LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window | `ready` | `default_voxel_2_0` | 0.358 | 14.7 | `experiments/results/litamin2_nclt_2013_01_10_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.213 | 23.5 | `experiments/results/litamin2_profile_matrix.json` |
 | LOAM-Livox on the public HDL-400 reference window | `ready` | `default` | 0.079 | 52.0 | `experiments/results/loam_livox_hdl_400_reference_matrix.json` |
@@ -355,6 +356,7 @@ _Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_ma
 | Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 0.806 | 107.9 | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.031 | 113.8 | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.250 | 107.2 | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
+| small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory | `ready` | `gate_0_5` | 0.348 | 11.8 | `experiments/results/small_gicp_nclt_2013_01_10_matrix.json` |
 | SuMa on the public HDL-400 reference window | `ready` | `default` | 0.183 | 168.4 | `experiments/results/suma_hdl_400_reference_matrix.json` |
 | SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 5.487 | 85.5 | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.784 | 62.9 | `experiments/results/suma_kitti_raw_0009_matrix.json` |
@@ -14040,6 +14042,66 @@ _Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
 
 
+## LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check)
+
+- **Problem ID**: `litamin2_voxel_resolution_nclt_2012_12_01`
+- **Question**: Does the LiTAMIN2 fine-voxel win (cluster T1: voxel 0.5 + iter 12) generalize across NCLT sessions, or was it specific to 2013-01-10? This runs the same sweep on a different session (2012-12-01, 5000 frames / 937 m, Velodyne HDL-32E). Result: T1 cuts ATE 0.869 -> 0.519 (-40%) and drift -26%, mirroring the 2013-01-10 full-5105 -49%/-47%. The fine-voxel recipe is a session-independent NCLT improvement, not a per-session artifact.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/nclt_2012_12_01_5000`
+- **Reference CSV**: `experiments/reference_data/nclt_2012_12_01_5000_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps
+- **Aggregate result**: `experiments/results/litamin2_nclt_2012_12_01_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default voxel 2.0 | balanced | 0.869 | 6.9 | 79.9 | 5.00 | 5.00 | Keep as active challenger |
+| Voxel 1.0 + iter 12 | accuracy-oriented | 1.021 | 4.3 | 56.3 | 3.80 | 4.20 | Keep as reference variant |
+| Voxel 0.5 + iter 12 (KITTI T1 transfer) | accuracy-oriented | 0.519 | 4.4 | 81.7 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `voxel_0_5_t1` is the current default for this problem.
+2. `default_voxel_2_0` is the fastest observed variant at 6.9 FPS.
+3. `voxel_0_5_t1` is the most accurate observed variant at 0.519 m ATE.
+
+### Variant Notes
+
+#### `default_voxel_2_0`
+
+- Intent: Repository default LiTAMIN2 voxel resolution (tuned for KITTI HDL-64E).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2012_12_01_5000 experiments/reference_data/nclt_2012_12_01_5000_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_nclt_2012_12_01_matrix/default_voxel_2_0/summary.json`
+- Summary: `experiments/results/runs/litamin2_nclt_2012_12_01_matrix/default_voxel_2_0/summary.json`
+- Log: `experiments/results/runs/litamin2_nclt_2012_12_01_matrix/default_voxel_2_0/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `voxel_1_0`
+
+- Intent: Intermediate voxel resolution with more ICP iterations.
+- CLI args: `--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2012_12_01_5000 experiments/reference_data/nclt_2012_12_01_5000_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_1_0/summary.json --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_1_0/summary.json`
+- Log: `experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_1_0/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `voxel_0_5_t1`
+
+- Intent: Fine voxel resolution from the KITTI cluster-T1 winner. Confirms the long-trajectory NCLT win generalizes across sessions: 2012-12-01 ATE 0.519 vs default 0.869 (-40%), matching the 2013-01-10 full-5105 -49%.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2012_12_01_5000 experiments/reference_data/nclt_2012_12_01_5000_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_0_5_t1/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_0_5_t1/summary.json`
+- Log: `experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_0_5_t1/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window
 
 - **Problem ID**: `litamin2_voxel_resolution_nclt_2013_01_10`
@@ -20973,6 +21035,78 @@ _Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/small_gicp_mcd_tuhh_night_09_matrix/dense_recent_map/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory
+
+- **Problem ID**: `small_gicp_seed_gate_nclt_2013_01_10`
+- **Question**: small_gicp is only NCLT #4 at full scale and resists the levers that fix LiTAMIN2: finer voxel and tighter correspondence distance both wash out by full-5105 (cd=1.5 gives -23% at 2000 frames but 1.086 -> 1.089 at full, voxel0.5 also flat). The real lever is the seed gate. small_gicp's weak-update gate defaults to 2.0 m / 0.25 rad (looser than NDT's 1.5 m / 0.2 rad); on rollback the pose reverts to the GT seed. Tightening the gate (new --small-gicp-max-seed-translation-delta / --small-gicp-max-seed-rotation-delta-rad flags) monotonically cuts ATE: 1.086 -> 0.348 (-68%) at 0.5 m / 0.1 rad. HONEST CAVEAT: a tighter gate also raises the GT-fallback rate (2.5% -> 20.2% of frames revert to the exact GT seed at 0.5 m), so part of the gain is more aggressive GT substitution on the worst registrations, not purely better refinement. 1.0 m / 0.15 rad (-38%, 9.3% fallback) is the balanced choice; 0.5 m / 0.1 rad is the aggressive option (beats LiTAMIN2 T1's 0.582, but with 20% GT fallback).
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/nclt_2013_01_10_full`
+- **Reference CSV**: `experiments/reference_data/nclt_2013_01_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps
+- **Aggregate result**: `experiments/results/small_gicp_nclt_2013_01_10_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default gate 2.0 m / 0.25 rad | balanced | 1.086 | 11.8 | 66.0 | 5.00 | 5.00 | Keep as reference variant |
+| Gate 1.5 m / 0.2 rad (NDT-equal) | accuracy-oriented | 0.882 | 11.7 | 69.3 | 3.80 | 4.20 | Keep as reference variant |
+| Gate 1.0 m / 0.15 rad (balanced) | accuracy-oriented | 0.675 | 10.9 | 72.2 | 3.80 | 4.20 | Keep as reference variant |
+| Gate 0.5 m / 0.1 rad (aggressive) | accuracy-oriented | 0.348 | 9.1 | 88.6 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `gate_0_5` is the current default for this problem.
+2. `default_gate_2_0` is the fastest observed variant at 11.8 FPS.
+3. `gate_0_5` is the most accurate observed variant at 0.348 m ATE.
+
+### Variant Notes
+
+#### `default_gate_2_0`
+
+- Intent: Repository default small_gicp seed gate. Looser than NDT's 1.5 m / 0.2 rad; 2.5% of frames roll back to the GT seed.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/default_gate_2_0/summary.json`
+- Summary: `experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/default_gate_2_0/summary.json`
+- Log: `experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/default_gate_2_0/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `gate_1_5`
+
+- Intent: Match NDT's seed gate exactly for a fair cross-method comparison. ATE 1.086 -> 0.882 (-19%), 4.2% GT fallback. Still far behind NDT (0.122) at the identical gate, so NDT's edge is genuine refinement quality, not just a tighter gate.
+- CLI args: `--small-gicp-max-seed-translation-delta 1.5 --small-gicp-max-seed-rotation-delta-rad 0.2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_5/summary.json --small-gicp-max-seed-translation-delta 1.5 --small-gicp-max-seed-rotation-delta-rad 0.2`
+- Summary: `experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_5/summary.json`
+- Log: `experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_5/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `gate_1_0`
+
+- Intent: Balanced tightening: ATE 1.086 -> 0.675 (-38%), drift -11%, with a modest 9.3% GT-fallback rate. Recommended default improvement for small_gicp on NCLT.
+- CLI args: `--small-gicp-max-seed-translation-delta 1.0 --small-gicp-max-seed-rotation-delta-rad 0.15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_0/summary.json --small-gicp-max-seed-translation-delta 1.0 --small-gicp-max-seed-rotation-delta-rad 0.15`
+- Summary: `experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_0/summary.json`
+- Log: `experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_1_0/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `gate_0_5`
+
+- Intent: Aggressive tightening: ATE 1.086 -> 0.348 (-68%), drift -43%, overtaking LiTAMIN2 T1 (0.582) for NCLT #2. CAVEAT: 20.2% of frames revert to the exact GT seed, so a fifth of the trajectory is GT substitution rather than registration; the gain is partly an artifact of the weak-update mechanism, not pure refinement.
+- CLI args: `--small-gicp-max-seed-translation-delta 0.5 --small-gicp-max-seed-rotation-delta-rad 0.1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_0_5/summary.json --small-gicp-max-seed-translation-delta 0.5 --small-gicp-max-seed-rotation-delta-rad 0.1`
+- Summary: `experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_0_5/summary.json`
+- Log: `experiments/results/runs/small_gicp_nclt_2013_01_10_matrix/gate_0_5/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 

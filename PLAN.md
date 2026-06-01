@@ -1,18 +1,401 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-05-21**
+> **最終更新: 2026-06-02**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
 > 最初に本ファイルを読み、その次に:
-> 1. [`experiments/results/index.json`](experiments/results/index.json)
-> 2. [`docs/status_taxonomy.md`](docs/status_taxonomy.md)
-> 3. [`docs/budget_profiles.md`](docs/budget_profiles.md)
-> 4. [`experiments/families.json`](experiments/families.json)
-> 5. [`docs/reproduction_status.md`](docs/reproduction_status.md)
-> 6. [`evaluation/data/paper_reported_numbers.json`](evaluation/data/paper_reported_numbers.json)
-> 7. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
-> 8. [`evaluation/scripts/run_experiment_matrix.py`](evaluation/scripts/run_experiment_matrix.py)
+> 1. [`README.md`](README.md)
+> 2. [`docs/index.html`](docs/index.html)
+> 3. [`docs/methods.json`](docs/methods.json)
+> 4. [`evaluation/scripts/demo_localization_zoo.sh`](evaluation/scripts/demo_localization_zoo.sh)
+> 5. [`evaluation/scripts/generate_demo_report.py`](evaluation/scripts/generate_demo_report.py)
+> 6. [`evaluation/scripts/validate_demo_artifacts.py`](evaluation/scripts/validate_demo_artifacts.py)
+> 7. [`evaluation/scripts/validate_showcase.py`](evaluation/scripts/validate_showcase.py)
+> 8. [`experiments/results/index.json`](experiments/results/index.json)
+> 9. [`docs/status_taxonomy.md`](docs/status_taxonomy.md)
+> 10. [`docs/budget_profiles.md`](docs/budget_profiles.md)
+> 11. [`experiments/families.json`](experiments/families.json)
+> 12. [`docs/reproduction_status.md`](docs/reproduction_status.md)
+> 13. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
+> 14. [`evaluation/src/multimodal_dogfooding.cpp`](evaluation/src/multimodal_dogfooding.cpp)
+
+---
+
+## 0. Latest Handoff: OSS Showcase / Star Growth Push (2026-06-02)
+
+This section is the authoritative current handoff. Older sections below still
+matter for benchmark history, recipe provenance, and paper-grade claims, but
+they describe the May 2026 research state. The active June 2026 direction is
+different: make the repository easier to understand, easier to try, and harder
+to accidentally regress.
+
+The user's current theme has been:
+
+- "omosiroi kihatu wo siyou. star wo huyasitai."
+- "motto syuhouwo huyasou! ittai kensyou dekiruyouni siyou!"
+- "ittan plan md wo naganga to kousin."
+
+Interpretation: this repo should look and feel like a strong OSS project, not
+only a private research scratchpad. First-clone users should immediately see a
+usable method explorer, a runnable demo, a generated report, and CI-backed proof
+that many methods can be validated together.
+
+### 0.1 Current Git State
+
+| Item | Value |
+|------|-------|
+| Branch | `wip/profile-expansion-refresh` |
+| HEAD at update time | `947912d` |
+| Worktree | Dirty by design; current showcase/demo changes are not committed yet |
+| Local instruction | Prefix shell commands with `rtk` when operating as Codex |
+| Main current artifact | One-command demo + GitHub Pages showcase + validators |
+| Current generated demo output | Ignored under `experiments/results/runs/demo_localization_zoo/` |
+
+Current dirty/untracked files at the time of this PLAN update:
+
+- Modified:
+  - `.github/workflows/ci.yml`
+  - `README.md`
+  - `docs/assets/site.css`
+  - `docs/index.html`
+  - `tests/test_experiment_scripts.py`
+- Untracked:
+  - `docs/assets/explorer_preview.png`
+  - `docs/methods.json`
+  - `evaluation/scripts/demo_localization_zoo.sh`
+  - `evaluation/scripts/generate_demo_report.py`
+  - `evaluation/scripts/validate_demo_artifacts.py`
+  - `evaluation/scripts/validate_showcase.py`
+
+The generated demo run artifacts are intentionally not tracked. They are
+produced by the demo script and uploaded by CI as an artifact:
+
+- `experiments/results/runs/demo_localization_zoo/report.html`
+- `experiments/results/runs/demo_localization_zoo/manifest.json`
+- `experiments/results/runs/demo_localization_zoo/synthetic_benchmark.log`
+- `experiments/results/runs/demo_localization_zoo/lidar_fixture_summary.json`
+- `experiments/results/runs/demo_localization_zoo/multimodal_fixture_summary.json`
+- trajectory text outputs under `benchmark_results/` and `dogfooding_results/`
+
+### 0.2 What Was Just Built
+
+The repo now has a public-facing showcase layer in addition to the older
+research benchmark layer.
+
+#### GitHub Pages Explorer
+
+[`docs/index.html`](docs/index.html) has been turned into a richer interactive
+front page:
+
+- Loads latest benchmark data from `docs/benchmarks/latest/results.json`.
+- Loads method metadata from the new `docs/methods.json` instead of hardcoded
+  JavaScript arrays.
+- Renders a method explorer covering every `papers/*` directory.
+- Shows starter tracks for different user intents.
+- Shows a benchmark scatter/leaderboard for the committed latest snapshot.
+- Includes OpenGraph/Twitter metadata for link previews.
+- Points users toward the one-command local demo.
+
+[`docs/assets/site.css`](docs/assets/site.css) was redesigned for the explorer:
+
+- More dashboard-like and scan-friendly.
+- Responsive layout for desktop/mobile.
+- No giant marketing-only hero; the page is meant to be useful immediately.
+
+[`docs/assets/explorer_preview.png`](docs/assets/explorer_preview.png) is a new
+preview image referenced from the README and validated as a PNG by the showcase
+validator.
+
+#### Method Catalog
+
+[`docs/methods.json`](docs/methods.json) is new:
+
+- `schema_version: 1`
+- 39 method entries, one for each `papers/*` directory.
+- Required fields per method:
+  - `name`
+  - `family`
+  - `scope`
+  - `signals`
+  - `href`
+  - `summary`
+  - `tags`
+- 4 starter tracks:
+  - quick start / first run
+  - accuracy oriented
+  - fusion / multimodal
+  - degeneracy / robustness
+
+The method catalog is now test-covered. If a new paper directory is added
+without a catalog entry, the Python tests fail.
+
+#### One-command Demo
+
+[`evaluation/scripts/demo_localization_zoo.sh`](evaluation/scripts/demo_localization_zoo.sh)
+is new and is now the first-run path for users. It:
+
+- Builds the C++ targets unless `--skip-build` is provided.
+- Runs `synthetic_benchmark`.
+- Runs the committed three-frame MCD fixture through selected LiDAR methods.
+- Runs the same fixture through selected multimodal methods.
+- Writes logs, summary JSON, trajectories, `report.html`, and `manifest.json`.
+- Calls the demo artifact validator at the end, so the command proves its own
+  output contract.
+
+The demo now has method profiles:
+
+| Profile | LiDAR methods | Multimodal methods | Intended use |
+|---------|---------------|--------------------|--------------|
+| `quick` | 4 | 2 | Fast old-style local loop |
+| `broad` | 24 | 6 | Default; best first-clone OSS proof |
+| `full` | 25 | 6 | Adds LiDAR FAST-LIO2 fixture validation |
+
+Current LiDAR `quick`:
+
+```text
+litamin2,gicp,ndt,kiss_icp
+```
+
+Current LiDAR `broad`:
+
+```text
+litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,xicp,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio
+```
+
+Current LiDAR `full`:
+
+```text
+litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,xicp,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,fast_lio2
+```
+
+Note: `full` is not literally every LiDAR selector in `pcd_dogfooding`. It is
+the largest all-OK set for the committed MCD fixture without requiring IMU-only
+methods that skip when `imu.csv` is absent. `ct_lio` and `clins` currently skip
+on this fixture because there is no synchronized IMU CSV. Do not include them
+in the default all-OK profile unless the fixture gains IMU data or the validator
+learns about expected skips.
+
+Current multimodal `quick`:
+
+```text
+okvis,fast_livo2
+```
+
+Current multimodal `broad` / `full`:
+
+```text
+vins_fusion,okvis,orb_slam3,lvi_sam,fast_livo2,r2live
+```
+
+Useful invocations:
+
+```bash
+bash evaluation/scripts/demo_localization_zoo.sh
+bash evaluation/scripts/demo_localization_zoo.sh --skip-build
+bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile quick
+bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile broad
+bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile full
+bash evaluation/scripts/demo_localization_zoo.sh --skip-build --methods litamin2,gicp --multimodal-methods okvis
+```
+
+As Codex in this workspace, remember to run those through `rtk`, e.g.
+`rtk bash evaluation/scripts/demo_localization_zoo.sh --skip-build`.
+
+#### Demo Report and Manifest
+
+[`evaluation/scripts/generate_demo_report.py`](evaluation/scripts/generate_demo_report.py)
+is new:
+
+- Standard-library-only report generator.
+- Parses synthetic benchmark logs.
+- Reads LiDAR and multimodal summary JSON.
+- Reads trajectory text files.
+- Produces self-contained `report.html` with inline CSS/SVG.
+- Produces `manifest.json` with:
+  - schema version
+  - command
+  - profile
+  - requested LiDAR method list
+  - requested multimodal method list
+  - actual method counts and statuses
+  - artifact paths
+
+The manifest is not just a pretty output. It is now the contract between the
+demo script, validator, CI artifact upload, README claims, and showcase tests.
+
+#### Validators
+
+[`evaluation/scripts/validate_demo_artifacts.py`](evaluation/scripts/validate_demo_artifacts.py)
+is new:
+
+- Validates `manifest.json`.
+- Validates `report.html` required snippets.
+- Validates synthetic/LiDAR/multimodal summary artifacts.
+- Requires every selected method to have `status == ok`.
+- Validates exact method-set match by normalized method name.
+- Can read expected method lists from CLI or from the manifest.
+- Supports `--skip-multimodal`.
+
+Important behavior: if someone silently shrinks the default profile from 24
+LiDAR methods to 4, the validator catches it when expected methods are provided
+or when manifest-vs-summary diverges.
+
+[`evaluation/scripts/validate_showcase.py`](evaluation/scripts/validate_showcase.py)
+is new:
+
+- Validates README links and required snippets.
+- Validates the preview PNG signature.
+- Validates `docs/index.html` snippets and repo link.
+- Validates `docs/methods.json` coverage against `papers/*`.
+- Validates starter-track references.
+- Validates the latest benchmark snapshot and trajectory plot.
+- Optionally validates generated demo artifacts with `--require-demo`.
+
+#### CI Integration
+
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) now includes:
+
+- One-command demo report generation after existing smoke checks.
+- Showcase validation with `--require-demo`.
+- Upload of `experiments/results/runs/demo_localization_zoo/` as the
+  `localization-zoo-demo-report` artifact.
+
+The CI path intentionally demonstrates the same thing a new user sees locally:
+build, run a real committed fixture, generate a report, validate it, and keep
+the report downloadable.
+
+### 0.3 Validation Already Run
+
+The following commands passed during the 2026-06-02 update:
+
+```bash
+rtk bash -n evaluation/scripts/demo_localization_zoo.sh
+rtk python3 -m py_compile evaluation/scripts/generate_demo_report.py evaluation/scripts/validate_demo_artifacts.py evaluation/scripts/validate_showcase.py
+rtk python3 evaluation/scripts/validate_showcase.py --skip-demo
+rtk bash evaluation/scripts/demo_localization_zoo.sh --skip-build
+rtk bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile full
+rtk python3 evaluation/scripts/validate_showcase.py --require-demo --demo-dir experiments/results/runs/demo_localization_zoo
+rtk python3 -m unittest discover -s tests -p 'test_*.py' -v
+rtk proxy git diff --check -- README.md docs/index.html evaluation/scripts/demo_localization_zoo.sh evaluation/scripts/generate_demo_report.py evaluation/scripts/validate_demo_artifacts.py evaluation/scripts/validate_showcase.py tests/test_experiment_scripts.py
+```
+
+Observed validation result:
+
+- `broad` demo: LiDAR 24 / multimodal 6 all OK.
+- `full` demo: LiDAR 25 / multimodal 6 all OK.
+- Showcase validation: OK.
+- Python tests: 49 tests OK.
+- Whitespace check: OK.
+
+Because `full` was the last demo run before this PLAN update, the ignored local
+`experiments/results/runs/demo_localization_zoo/manifest.json` currently records
+`profile: full`, `lidar_fixture.method_count: 25`, and
+`multimodal_fixture.method_count: 6`.
+
+### 0.4 Test Coverage Added
+
+[`tests/test_experiment_scripts.py`](tests/test_experiment_scripts.py) now
+includes three new showcase/demo-focused groups:
+
+- `MethodCatalogTests`
+  - `docs/methods.json` schema is version 1.
+  - Catalog has unique method names and hrefs.
+  - Catalog hrefs exactly cover all `papers/*` directories.
+  - Required fields are present.
+  - Each referenced method README exists.
+  - Starter tracks reference known methods.
+- `ShowcaseContractTests`
+  - Runs `validate_showcase.py --skip-demo`.
+- `DemoReportScriptTests`
+  - Builds a minimal fake demo directory.
+  - Runs `generate_demo_report.py`.
+  - Checks report snippets.
+  - Checks manifest profile and requested method lists.
+  - Runs `validate_demo_artifacts.py`.
+  - Verifies an expected-method mismatch fails.
+
+### 0.5 Current Product Story
+
+The README and Pages story should now be:
+
+1. This repo contains many localization/SLAM method ports.
+2. Users can browse the catalog on GitHub Pages.
+3. Users can run a one-command demo after clone.
+4. The demo validates a committed real-data MCD fixture, not just synthetic data.
+5. The default path compares many methods together.
+6. CI runs that same path and uploads the HTML report.
+
+This is intentionally a stronger OSS adoption story than "read a long paper
+doc and manually pick scripts."
+
+### 0.6 Rules for Future Claims
+
+Keep these distinctions sharp:
+
+- The committed MCD fixture is a smoke/demo fixture. It proves integration and
+  output contracts, not paper-grade accuracy.
+- The `broad` and `full` profiles are all-OK fixture profiles, not a statement
+  that every method is production-ready.
+- The demo report is reproducible from the repo because the fixture is
+  committed.
+- Full dataset benchmark claims still come from `experiments/results/*.json`,
+  `docs/reproduction_status.md`, and the older benchmark matrix.
+- Do not claim exact original-paper reproduction unless the taxonomy/docs say
+  so.
+- Do not include methods that skip on the fixture in default all-OK profiles
+  unless the validator is changed to support expected skips with explicit
+  reasons.
+
+### 0.7 Immediate Next Work
+
+Recommended order:
+
+1. **Review the new untracked files as if preparing a commit.**
+   - Confirm no generated demo outputs are accidentally staged.
+   - Confirm `docs/assets/explorer_preview.png` is intentionally tracked.
+   - Confirm `docs/methods.json` names/summaries read well enough for public
+     Pages.
+
+2. **Run one final local verification before commit.**
+   - `rtk bash evaluation/scripts/demo_localization_zoo.sh --skip-build`
+   - `rtk python3 evaluation/scripts/validate_showcase.py --require-demo --demo-dir experiments/results/runs/demo_localization_zoo`
+   - `rtk python3 -m unittest discover -s tests -p 'test_*.py' -v`
+   - `rtk proxy git diff --check -- README.md docs/index.html evaluation/scripts/demo_localization_zoo.sh evaluation/scripts/generate_demo_report.py evaluation/scripts/validate_demo_artifacts.py evaluation/scripts/validate_showcase.py tests/test_experiment_scripts.py PLAN.md`
+
+3. **Commit the showcase/demo expansion.**
+   - Suggested commit scope: README, docs page/assets, method catalog, demo
+     scripts, validators, CI, tests, PLAN.
+   - Suggested commit message:
+     `Add showcase explorer and broad demo validation`
+
+4. **Then consider one star-growth follow-up, not all at once.**
+   - Add README badges for CI / Pages / license.
+   - Add a compact "What runs in 60 seconds?" section.
+   - Add a GIF or screenshot from `report.html`.
+   - Add issue templates for "method request" and "dataset request".
+   - Add a `CONTRIBUTING.md` focused on adding a method to `papers/*` and
+     `docs/methods.json`.
+
+5. **If expanding validation again, prefer expected-skip semantics before adding
+   IMU-only selectors.**
+   - Current fixture lacks `imu.csv`.
+   - `ct_lio` and `clins` skip correctly on this data.
+   - A robust next step would let the manifest encode expected skips with
+     reason text, but this is a different contract from the current all-OK demo.
+
+### 0.8 Do Not Do Next
+
+Avoid these unless the user explicitly asks:
+
+- Do not start a new paper-writing pass.
+- Do not rerun large KITTI/MulRan full-sequence sweeps just to improve the
+  README.
+- Do not add more untracked generated artifacts.
+- Do not collapse the old benchmark/reproduction docs into the new showcase
+  page; the showcase should point into them, not replace them.
+- Do not loosen validators to make demos pass. If a method is not OK, either
+  remove it from an all-OK profile or add an explicit expected-skip contract.
 
 ---
 

@@ -81,6 +81,189 @@ def run_script(*args: str) -> subprocess.CompletedProcess[str]:
     )
 
 
+class MethodCatalogTests(unittest.TestCase):
+    def test_docs_method_catalog_covers_paper_directories(self) -> None:
+        catalog_path = REPO_ROOT / "docs/methods.json"
+        catalog = json.loads(catalog_path.read_text())
+        self.assertEqual(catalog["schema_version"], 1)
+
+        methods = catalog["methods"]
+        names = [method["name"] for method in methods]
+        self.assertEqual(len(names), len(set(names)))
+
+        hrefs = [method["href"] for method in methods]
+        self.assertEqual(len(hrefs), len(set(hrefs)))
+
+        paper_dirs = {
+            f"papers/{path.name}"
+            for path in (REPO_ROOT / "papers").iterdir()
+            if path.is_dir()
+        }
+        self.assertEqual(set(hrefs), paper_dirs)
+
+        required_fields = {"name", "family", "scope", "signals", "href", "summary", "tags"}
+        for method in methods:
+            self.assertTrue(required_fields <= method.keys(), method)
+            self.assertTrue(method["name"])
+            self.assertTrue(method["family"])
+            self.assertTrue(method["scope"])
+            self.assertIsInstance(method["signals"], list)
+            self.assertGreater(len(method["signals"]), 0)
+            self.assertTrue((REPO_ROOT / method["href"] / "README.md").exists())
+            self.assertTrue(method["summary"])
+            self.assertIsInstance(method["tags"], list)
+
+        track_refs = {
+            method_name
+            for track in catalog["starter_tracks"]
+            for method_name in track["methods"]
+        }
+        self.assertLessEqual(track_refs, set(names))
+
+
+class ShowcaseContractTests(unittest.TestCase):
+    def test_showcase_validator_passes_static_contract(self) -> None:
+        result = run_script("evaluation/scripts/validate_showcase.py", "--skip-demo")
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("showcase valid", result.stdout)
+
+
+class DemoReportScriptTests(unittest.TestCase):
+    def test_generate_demo_report_from_minimal_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp = Path(tmpdir)
+            (tmp / "benchmark_results").mkdir()
+            (tmp / "dogfooding_results").mkdir()
+
+            synthetic_log = textwrap.dedent(
+                """
+                ========================================
+                  RESULTS
+                ========================================
+                Method         ATE [m]     Frames      Time [ms]      FPS
+                ------------------------------------------------------------------
+                LiTAMIN2       1.250       2           10.0           200.0
+                CT-ICP         0.125       2           50.0           40.0
+                """
+            )
+            (tmp / "synthetic_benchmark.log").write_text(synthetic_log)
+
+            pose_text = "\n".join(
+                [
+                    "1 0 0 0 0 1 0 0 0 0 1 0",
+                    "1 0 0 1 0 1 0 0 0 0 1 0",
+                ]
+            ) + "\n"
+            for directory in (tmp / "benchmark_results", tmp / "dogfooding_results"):
+                (directory / "gt.txt").write_text(pose_text)
+                (directory / "LiTAMIN2.txt").write_text(pose_text)
+                (directory / "CT_ICP.txt").write_text(pose_text)
+
+            (tmp / "lidar_fixture_summary.json").write_text(
+                json.dumps(
+                    {
+                        "num_frames": 2,
+                        "trajectory_length_m": 1.0,
+                        "timestamp_source": "frame_timestamps.csv",
+                        "methods": [
+                            {
+                                "name": "LiTAMIN2",
+                                "status": "ok",
+                                "ate_m": 1.25,
+                                "frames": 2,
+                                "time_ms": 10.0,
+                                "fps": 200.0,
+                                "note": "demo",
+                            },
+                            {
+                                "name": "CT-ICP",
+                                "status": "ok",
+                                "ate_m": 0.125,
+                                "frames": 2,
+                                "time_ms": 50.0,
+                                "fps": 40.0,
+                                "note": "",
+                            },
+                        ],
+                    },
+                    indent=2,
+                )
+                + "\n"
+            )
+            (tmp / "multimodal_fixture_summary.json").write_text(
+                json.dumps(
+                    {
+                        "num_frames": 2,
+                        "num_landmarks": 3,
+                        "num_observations": 6,
+                        "methods": [
+                            {
+                                "name": "OKVIS",
+                                "status": "ok",
+                                "ate_m": 0.5,
+                                "frames": 2,
+                                "time_ms": 1.0,
+                                "fps": 2000.0,
+                                "note": "demo",
+                            }
+                        ],
+                    },
+                    indent=2,
+                )
+                + "\n"
+            )
+
+            output = tmp / "report.html"
+            result = run_script(
+                "evaluation/scripts/generate_demo_report.py",
+                "--demo-dir",
+                str(tmp),
+                "--output",
+                str(output),
+                "--command",
+                "bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile broad",
+                "--profile",
+                "broad",
+                "--lidar-methods",
+                "litamin2,ct_icp",
+                "--multimodal-methods",
+                "okvis",
+            )
+
+            self.assertEqual(result.returncode, 0, result.stdout)
+            report = output.read_text()
+            self.assertIn("Demo Report", report)
+            self.assertIn("Synthetic trajectory overlay", report)
+            self.assertIn("Committed MCD LiDAR Smoke", report)
+            self.assertIn("OKVIS", report)
+
+            manifest = json.loads((tmp / "manifest.json").read_text())
+            self.assertEqual(manifest["schema_version"], 1)
+            self.assertEqual(manifest["status"], "ok")
+            self.assertEqual(manifest["run"]["profile"], "broad")
+            self.assertEqual(manifest["run"]["lidar_methods"], ["litamin2", "ct_icp"])
+            self.assertEqual(manifest["run"]["multimodal_methods"], ["okvis"])
+            self.assertEqual(manifest["lidar_fixture"]["method_count"], 2)
+            self.assertEqual(manifest["multimodal_fixture"]["method_count"], 1)
+
+            validation = run_script(
+                "evaluation/scripts/validate_demo_artifacts.py",
+                "--demo-dir",
+                str(tmp),
+            )
+            self.assertEqual(validation.returncode, 0, validation.stdout)
+
+            mismatch = run_script(
+                "evaluation/scripts/validate_demo_artifacts.py",
+                "--demo-dir",
+                str(tmp),
+                "--expected-lidar-methods",
+                "litamin2,gicp",
+            )
+            self.assertNotEqual(mismatch.returncode, 0, mismatch.stdout)
+            self.assertIn("method set mismatch", mismatch.stdout)
+
+
 class RunExperimentMatrixScriptTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:

@@ -41,6 +41,48 @@ only a private research scratchpad. First-clone users should immediately see a
 usable method explorer, a runnable demo, a generated report, and CI-backed proof
 that many methods can be validated together.
 
+### 0.0 Update — Showcase merged + 2 new methods (2026-06-02, later session)
+
+This subsection supersedes 0.1–0.7 where they conflict; those describe the
+pre-merge dirty-worktree state.
+
+- **Showcase merged to `main`.** PR #2 (`wip/profile-expansion-refresh` → `main`)
+  was merged (merge commit `4ddb7c3`). The merge brought in `main`'s 14 commits
+  (HDL-400 B benchmark docs, `run_local_evaluation_suite.sh` / `eval_local_suite`
+  CMake target, Ceres/OpenCV build tweaks, KISS-ICP empty-frame + common golden
+  tests). Conflicts were resolved keeping the branch's newer research/showcase
+  state for data/docs and merging both sides for source (`run_experiment_matrix.py`
+  kept the lower-case `is_metric_valid` taxonomy + new `--merge-existing-index`;
+  the duplicate `problem_run_from_aggregate` was disambiguated into
+  `problem_run_from_aggregate` (manifest form) and `problem_run_from_aggregate_file`
+  (aggregate-only form)).
+- **Method count 33 → 35.** Two new from-scratch LiDAR ports were added:
+  - `papers/genz_icp/` — GenZ-ICP style degeneracy-robust odometry (adaptive
+    point-to-plane / point-to-point hybrid, normal+planarity estimation on the
+    KISS-style voxel map). Selector `genz_icp`, profiles `--genz-fast-profile` /
+    `--genz-dense-profile` / `--genz-planarity-threshold`. `test_genz_icp`.
+  - `papers/rko_lio/` — RKO-LIO style scan-to-map odometry with an IMU gyro
+    rotation prior (via `imu_preintegration`), constant-velocity fallback when no
+    `imu.csv`. Selector `rko_lio`. `test_rko_lio`. Always runs (does not skip);
+    note text records whether the IMU prior was used.
+  - Both have `docs/methods.json` entries (catalog now 41 entries = 41 `papers/*`).
+- **Drift column.** `pcd_dogfooding` results table now prints `Drift[m/100m]`
+  (the existing KITTI-style `rpe_trans_pct`, previously only in summary JSON;
+  shows `-` for trajectories shorter than the RPE segment).
+- **GenZ-ICP KITTI Odom 108-window finding** (memory
+  `genz_icp_vs_kiss_kitti_windows.md`): GenZ-ICP beats KISS-ICP on drift in 3/5
+  windows (00/02/07) but is not universal (loses on 05), is slower, and does not
+  rescue the seq 08 no-seed divergence (~33 m/100m, like KISS). NDT (GT-seeded)
+  remains the overall window winner. RKO-LIO full benchmark intentionally **not
+  yet run** (user deferred).
+- **Commits on branch after the merge:** `dd69400` (GenZ-ICP), `e1ecc6a` (drift
+  column), `3645d67` (RKO-LIO). Branch pushed to origin.
+- **Verification:** `cmake --build build --target pcd_dogfooding multimodal_dogfooding`
+  clean; `ctest -R "genz_icp|rko_lio"` pass; `python3 -m unittest discover -s tests`
+  → 49 pass; one-command demo (broad) + `validate_showcase.py --require-demo` valid.
+  The demo all-OK profiles were intentionally **not** changed (genz_icp/rko_lio
+  are available via `--methods` but not in the default broad/full sets).
+
 ### 0.1 Current Git State
 
 | Item | Value |
@@ -599,9 +641,11 @@ This matters because:
 
 ## 5. Indexed Method Surface
 
-### 5.1 LiDAR-only families (27)
+### 5.1 LiDAR-only families (29)
 
-`aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `floam`, `gicp`, `hdl_graph_slam`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `mulls`, `ndt`, `point_lio`, `small_gicp`, `suma`, `vgicp_slam`, `voxel_gicp`, `xicp`
+`aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `floam`, `genz_icp`, `gicp`, `hdl_graph_slam`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `mulls`, `ndt`, `point_lio`, `rko_lio`, `small_gicp`, `suma`, `vgicp_slam`, `voxel_gicp`, `xicp`
+
+(`genz_icp`, `rko_lio` added 2026-06-02 later session — see §0.0.)
 
 ### 5.2 Camera-aware families (6)
 

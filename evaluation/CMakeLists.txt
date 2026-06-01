@@ -38,6 +38,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   scan_context
   kiss_icp
   genz_icp
+  rko_lio
   aloam
   floam
   dlo

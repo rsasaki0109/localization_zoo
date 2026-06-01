@@ -45,7 +45,7 @@ def main():
     gt_poses = load_poses(args.gt)
     gt_xy = np.array([T[:3, 3] for T in gt_poses])
 
-    fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+    fig, axes = plt.subplots(1, 2, figsize=(14, 6), constrained_layout=True)
 
     # 軌跡プロット
     ax = axes[0]
@@ -66,8 +66,11 @@ def main():
     ax.set_xlabel('X [m]')
     ax.set_ylabel('Y [m]')
     ax.set_title('Trajectory Comparison')
-    ax.legend()
-    ax.set_aspect('equal')
+    # Keep equal scaling so the path keeps its true shape, but place the legend
+    # outside the axes: a near-linear trajectory collapses the axes to a thin
+    # strip under equal aspect, which would otherwise overlap an in-axes legend.
+    ax.legend(loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=9)
+    ax.set_aspect('equal', adjustable='datalim')
     ax.grid(True, alpha=0.3)
 
     # ATE棒グラフ
@@ -82,7 +85,6 @@ def main():
         ax2.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.1,
                  f'{ate:.2f}m', ha='center', va='bottom', fontsize=10)
 
-    plt.tight_layout()
     plt.savefig(args.output, dpi=150)
     print(f'Saved to {args.output}')
 

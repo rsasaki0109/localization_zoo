@@ -100,6 +100,51 @@ pre-merge dirty-worktree state.
     pulled in by the merge) omitted the branch's required `rpe_trans_pct` / `rpe_rot_deg_per_m`
     fields, breaking the `--merge-existing-index` path. Now fixed.
 
+### 0.0b Update — NCLT cross-method + full-trajectory benchmark + LiTAMIN2 improvement (2026-06-02, later session)
+
+- **Full NCLT tree generated.** `prepare_nclt_inputs.py --max-frames -1` produced
+  `dogfooding_results/nclt_2013_01_10_full` (**5105 GT-matched frames**) + committed
+  `experiments/reference_data/nclt_2013_01_10_full_gt.csv`. Passing `max_frames` to
+  `pcd_dogfooding` lets any prefix window be evaluated off the full tree (2000-frame
+  windows are the practical tuning size — they reproduce the long-trajectory drift while
+  staying fast).
+- **Mechanism clarified.** In this dogfooding tool, GT-seeded methods (NDT, LiTAMIN2,
+  GICP-family) use a **per-frame** seed: `T_init_guess = applySeedPerturbation(gt[i], …)`,
+  then accept the refinement only if it stays within the gate (NDT 1.5 m/0.2 rad,
+  others 2.0 m/0.25 rad), else roll back to `gt[i]` (weak-update fallback). So their ATE is
+  the per-frame *registration residual* from GT, not accumulated odometry drift. RKO-LIO /
+  FAST-LIO2 / KISS-ICP only seed the **first** pose → they are odometry and drift over the
+  full trajectory (a different category from the per-frame-seeded registration methods).
+- **600-frame horizontal comparison (11 methods).** Winner NDT 0.198, then LiTAMIN2 0.380 ≈
+  RKO-LIO(gain0) 0.385, FAST-LIO2 0.469, small_gicp 1.024; no-seed odometry blows up
+  (KISS 7.25, CT-ICP 13.6, GenZ 26.0, Point-LIO 122).
+- **Full 5105-frame benchmark — scale-dependent reversal (key finding).**
+
+  | method (full 5105) | seed | ATE [m] | drift [m/100m] |
+  |---|---|---|---|
+  | NDT | GT | **0.122** | 0.460 |
+  | **LiTAMIN2 voxel0.5/iter12** | GT | **0.582** | 1.315 |
+  | small_gicp voxel0.5 | GT | 1.040 | 2.786 |
+  | small_gicp default | GT | 1.086 | 2.288 |
+  | LiTAMIN2 default (voxel2.0) | GT | 1.149 | 2.492 |
+  | RKO-LIO (gain0) | init | 7.334 | 2.077 |
+  | RKO-LIO (gain0.3) | init | 24.43 | 4.568 |
+  | FAST-LIO2 | – | 16.126 | 3.330 |
+  | KISS-ICP | – | 60.629 | 15.134 |
+
+  NDT actually *improves* at full scale (0.198 → 0.122) thanks to its tighter gate + GT
+  reanchoring. The 600-frame near-ties (LiTAMIN2/RKO-LIO ≈ NDT) do **not** hold at full.
+- **Improvement delivered: LiTAMIN2 voxel 2.0 → 0.5 (+ iter 12).** NCLT's HDL-32E scans are
+  sparser than KITTI's HDL-64E, so the default voxel 2.0 is too coarse. Transferring the
+  KITTI cluster-T1 recipe (voxel 0.5 + iter 12) cuts **full ATE 1.149 → 0.582 (−49 %)** and
+  drift 2.492 → 1.315 (−47 %), moving LiTAMIN2 to a clear #2 behind NDT. voxel 1.0 does *not*
+  help (1.044 @2000) — fineness is the lever. Captured as the reproducible manifest
+  `experiments/litamin2_nclt_2013_01_10_matrix.json` (voxel sweep, merged into `index.json`).
+- **Negative results recorded honestly:** small_gicp does *not* benefit from the voxel-0.5
+  lever (full 1.086 → 1.040 ATE but drift worsens 2.288 → 2.786); RKO-LIO gyro-bias gain 0.3
+  is *worse* than gain 0 at full (24.4 vs 7.3) — bias correction over-integrates on the long
+  trajectory. Optimal gain is both dataset- and scale-dependent; no universal default.
+
 ### 0.1 Current Git State
 
 | Item | Value |

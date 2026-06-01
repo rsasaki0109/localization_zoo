@@ -107,6 +107,21 @@
       ]
     },
     {
+      "name": "GenZ-ICP",
+      "family": "Registration",
+      "scope": "Degeneracy-robust baseline",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/genz_icp",
+      "summary": "GenZ-ICP style odometry blending point-to-plane and point-to-point with adaptive weighting for degeneracy robustness.",
+      "tags": [
+        "odometry",
+        "degeneracy-robust",
+        "adaptive"
+      ]
+    },
+    {
       "name": "A-LOAM",
       "family": "Registration",
       "scope": "Paper reimplementation",

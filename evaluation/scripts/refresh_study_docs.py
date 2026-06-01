@@ -50,7 +50,8 @@ def main() -> None:
     run(["python3", "evaluation/scripts/generate_paper_comparison.py"])
     run(["python3", "evaluation/scripts/generate_reproduction_status.py"])
     run(["python3", "evaluation/scripts/generate_variant_analysis.py"])
-    print("[done] refreshed experiment, publication, comparison, and analysis docs")
+    run(["python3", "evaluation/scripts/generate_leaderboard.py"])
+    print("[done] refreshed experiment, publication, comparison, analysis docs, and README leaderboard")
 
 
 if __name__ == "__main__":

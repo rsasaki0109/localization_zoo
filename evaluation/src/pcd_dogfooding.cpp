@@ -783,6 +783,10 @@ struct MethodResult {
   bool skipped = false;
   std::string status = "ok";
   std::string note;
+  // Fraction of GT-seeded frames whose registration was rejected by the
+  // weak-update gate and rolled back to the seed pose. <0 means N/A (the
+  // method ran without a per-frame GT seed). Quantifies GT dependence.
+  double seed_fallback_rate_pct = -1.0;
 };
 
 MethodResult makeSkippedResult(const std::string& name, const std::string& note) {
@@ -2279,10 +2283,10 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   if (!no_gt_seed && seeded_frames > 0) {
+    res.seed_fallback_rate_pct = 100.0 *
+        static_cast<double>(seed_fallbacks) / static_cast<double>(seeded_frames);
     std::cerr << "  [Small-GICP] seed fallbacks=" << seed_fallbacks << "/"
-              << seeded_frames << " ("
-              << (100.0 * static_cast<double>(seed_fallbacks) /
-                  static_cast<double>(seeded_frames))
+              << seeded_frames << " (" << res.seed_fallback_rate_pct
               << "% rolled back to GT seed)" << std::endl;
   }
   res.time_ms =
@@ -2715,6 +2719,8 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
+  size_t seed_fallbacks = 0;
+  size_t seeded_frames = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -2730,6 +2736,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
     }
 
     Eigen::Matrix4d T_init_guess = T_est;
+    const bool gt_seeded_frame = !external_seed_poses && !no_gt_seed;
     if (external_seed_poses && i < external_seed_poses->size()) {
       T_init_guess = (*external_seed_poses)[i];
     } else if (no_gt_seed) {
@@ -2740,6 +2747,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
     }
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
+    if (gt_seeded_frame) ++seeded_frames;
     if ((result.converged || result.iterations >= 2) &&
         isReasonableRefinement(result.transformation, T_init_guess,
                                options.max_seed_translation_delta,
@@ -2747,6 +2755,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
+      if (gt_seeded_frame) ++seed_fallbacks;
     }
     T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
@@ -2764,6 +2773,13 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
     }
   }
   std::cerr << std::endl;
+  if (seeded_frames > 0) {
+    res.seed_fallback_rate_pct = 100.0 *
+        static_cast<double>(seed_fallbacks) / static_cast<double>(seeded_frames);
+    std::cerr << "  [NDT] seed fallbacks=" << seed_fallbacks << "/"
+              << seeded_frames << " (" << res.seed_fallback_rate_pct
+              << "% rolled back to GT seed)" << std::endl;
+  }
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   if (external_seed_poses) {
@@ -4671,6 +4687,7 @@ void writeSummaryJson(const std::string& path,
       out << "      \"frames\": 0,\n";
       out << "      \"time_ms\": null,\n";
       out << "      \"fps\": null,\n";
+      out << "      \"seed_fallback_rate_pct\": null,\n";
     } else {
       const double fps =
           r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
@@ -4694,6 +4711,13 @@ void writeSummaryJson(const std::string& path,
       out << ",\n";
       out << "      \"fps\": ";
       writeJsonNumberOrNull(out, fps);
+      out << ",\n";
+      out << "      \"seed_fallback_rate_pct\": ";
+      if (r.seed_fallback_rate_pct >= 0.0) {
+        writeJsonNumberOrNull(out, r.seed_fallback_rate_pct);
+      } else {
+        out << "null";
+      }
       out << ",\n";
     }
     out << "      \"note\": \"" << jsonEscape(r.note) << "\"\n";

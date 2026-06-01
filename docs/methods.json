@@ -107,6 +107,37 @@
       ]
     },
     {
+      "name": "GenZ-ICP",
+      "family": "Registration",
+      "scope": "Degeneracy-robust baseline",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/genz_icp",
+      "summary": "GenZ-ICP style odometry blending point-to-plane and point-to-point with adaptive weighting for degeneracy robustness.",
+      "tags": [
+        "odometry",
+        "degeneracy-robust",
+        "adaptive"
+      ]
+    },
+    {
+      "name": "RKO-LIO",
+      "family": "LIO",
+      "scope": "Inertial-prior baseline",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/rko_lio",
+      "summary": "RKO-LIO style scan-to-map odometry using an IMU gyro rotation prior, with constant-velocity fallback when no IMU is present.",
+      "tags": [
+        "odometry",
+        "imu",
+        "robust"
+      ]
+    },
+    {
       "name": "A-LOAM",
       "family": "Registration",
       "scope": "Paper reimplementation",

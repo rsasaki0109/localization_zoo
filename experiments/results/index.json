@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T04:04:32+00:00",
+  "generated_at": "2026-06-02T11:18:16+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -263,24 +263,6 @@
       "current_default": "balanced_window"
     },
     {
-      "problem_id": "ct_icp_kitti_seq_00_corr_fine_grid",
-      "title": "CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m\u00b2)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_corr_fine_grid_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json",
-      "current_default": "corr_5"
-    },
-    {
-      "problem_id": "ct_icp_kitti_map50_retrofit_seq_02",
-      "title": "CT-ICP seq 02 full: map=50 retrofit on bare baseline winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_map50_retrofit_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_map50_retrofit_matrix.json",
-      "current_default": "baseline_map_20"
-    },
-    {
       "problem_id": "ct_icp_kitti_raw_0009_200_recipes",
       "title": "CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window",
       "status": "ready",
@@ -362,42 +344,6 @@
       "current_default": "fast_window"
     },
     {
-      "problem_id": "ct_icp_kitti_seq_00_corr_bare",
-      "title": "CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_corr_bare_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json",
-      "current_default": "bare_corr_8"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_00_full_cauchy_sweep",
-      "title": "CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json",
-      "current_default": "cauchy_2_0_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_00_full_coarse_iter_sweep",
-      "title": "CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json",
-      "current_default": "iter_2"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_00_full_corr_dist_sweep",
-      "title": "CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json",
-      "current_default": "corr_8"
-    },
-    {
       "problem_id": "ct_icp_kitti_seq_00_full_fine_cauchy_sweep",
       "title": "CT-ICP fine-phase Cauchy \u03c3 sweep on KITTI seq 00 full (cluster A simplified)",
       "status": "ready",
@@ -405,24 +351,6 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json",
       "current_default": "fine_sigma_0_375"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_00_full_map_size_sweep",
-      "title": "CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json",
-      "current_default": "map_30"
-    },
-    {
-      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_00_full",
-      "title": "CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_full_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_matrix.json",
-      "current_default": "dense_window"
     },
     {
       "problem_id": "ct_icp_kitti_seq_00_full_search_radius_sweep",
@@ -443,168 +371,6 @@
       "current_default": "cluster_a_seeded"
     },
     {
-      "problem_id": "ct_icp_kitti_seq_00_leave_one_out",
-      "title": "CT-ICP seq 00 full: leave-one-out ablation on full recipe",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_leave_one_out_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json",
-      "current_default": "full_recipe_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_00_map50_partner",
-      "title": "CT-ICP seq 00 full: map=50 + single partner knob isolation",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_map50_partner_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json",
-      "current_default": "map_50_plus_c2f"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_00_map_bare",
-      "title": "CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_map_bare_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json",
-      "current_default": "bare_map_30"
-    },
-    {
-      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_00",
-      "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_matrix.json",
-      "current_default": "fast_window"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_00_simplified_corr",
-      "title": "CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_simplified_corr_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json",
-      "current_default": "default_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_02_corr_dist_retrofit",
-      "title": "CT-ICP seq 02 full: corr_dist sweep on bare baseline",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json",
-      "current_default": "corr_8"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_02_corr_fine_grid",
-      "title": "CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m\u00b2)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json",
-      "current_default": "corr_8_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_02_corr_ms_chol_combo",
-      "title": "CT-ICP seq 02 full: corr_dist + ms_chol combinations",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json",
-      "current_default": "bare_corr_8_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_02_full_c2f_without_ms_chol",
-      "title": "CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json",
-      "current_default": "baseline_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_02_full_small_map",
-      "title": "CT-ICP seq 02 full: small map_size sweep (5/10/15/20)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json",
-      "current_default": "map_15"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_02_map_with_corr",
-      "title": "CT-ICP seq 02 full: map_size sweep on corr=8 winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_02_map_with_corr_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json",
-      "current_default": "map_20_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_05_combo",
-      "title": "CT-ICP seq 05 full: simplified recipes from bare + map=50",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_05_combo_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_combo_matrix.json",
-      "current_default": "bare_map_50_corr_4"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_05_corr_dist_sweep",
-      "title": "CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json",
-      "current_default": "corr_4_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_05_map50_retrofit",
-      "title": "CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_05_map50_retrofit_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json",
-      "current_default": "arch_tuned_map_30"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_05_map_bare",
-      "title": "CT-ICP seq 05 full: map_size on BARE baseline",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_05_map_bare_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json",
-      "current_default": "bare_map_50"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_07_combo",
-      "title": "CT-ICP seq 07 full: ms_chol + simplified pattern combo",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_07_combo_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_combo_matrix.json",
-      "current_default": "ms_chol_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_07_corr_dist_retrofit",
-      "title": "CT-ICP seq 07 full: corr_dist=8 m\u00b2 retrofit on ms_chol winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json",
-      "current_default": "default_reference"
-    },
-    {
-      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_07_full",
-      "title": "CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_07_full_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_full_matrix.json",
-      "current_default": "fast_window"
-    },
-    {
       "problem_id": "ct_icp_kitti_seq_07_full_seeded",
       "title": "CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D)",
       "status": "ready",
@@ -614,60 +380,6 @@
       "current_default": "cluster_d_full_no_seed_reference"
     },
     {
-      "problem_id": "ct_icp_kitti_seq_07_map50_retrofit",
-      "title": "CT-ICP seq 07 full: map=50 retrofit on ms_chol winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_07_map50_retrofit_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json",
-      "current_default": "ms_chol_map_20"
-    },
-    {
-      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_07",
-      "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_07_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_matrix.json",
-      "current_default": "fast_window"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_08_c2f_alone",
-      "title": "CT-ICP seq 08 full: c2f without ms_chol \u2014 knob reduction probe",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_08_c2f_alone_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json",
-      "current_default": "c2f_only_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_08_corr_dist_retrofit",
-      "title": "CT-ICP seq 08 full: corr_dist=8 m\u00b2 retrofit on c2f_only winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json",
-      "current_default": "default_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_08_full_cauchy_sweep",
-      "title": "CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json",
-      "current_default": "cauchy_3_0"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_08_full_coarse_iter_sweep",
-      "title": "CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json",
-      "current_default": "iter_6"
-    },
-    {
       "problem_id": "ct_icp_kitti_seq_08_full_seeded",
       "title": "CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full",
       "status": "ready",
@@ -675,60 +387,6 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_08_full_seeded_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json",
       "current_default": "cluster_a_seeded"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_08_map50_retrofit",
-      "title": "CT-ICP seq 08 full: map=50 retrofit on c2f_only winner",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_08_map50_retrofit_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json",
-      "current_default": "c2f_only_map_20"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_08_simplified_corr",
-      "title": "CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_08_simplified_corr_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json",
-      "current_default": "default_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_simplified_cross_seq_02",
-      "title": "CT-ICP seq 02 full: simplified map=50+c2f probe",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_simplified_cross_seq_02_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json",
-      "current_default": "current_winner"
-    },
-    {
-      "problem_id": "ct_icp_kitti_simplified_cross_seq_05",
-      "title": "CT-ICP seq 05 full: c2f \u03c3\u00d72 vs corr=4 on map=50 base",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_simplified_cross_seq_05_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json",
-      "current_default": "map_50_c2f_plus_corr_4"
-    },
-    {
-      "problem_id": "ct_icp_kitti_simplified_cross_seq_07",
-      "title": "CT-ICP seq 07 full: simplified map=50+c2f probe",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_simplified_cross_seq_07_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json",
-      "current_default": "current_winner"
-    },
-    {
-      "problem_id": "ct_icp_kitti_simplified_cross_seq_08",
-      "title": "CT-ICP seq 08 full: simplified map=50+c2f probe",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_simplified_cross_seq_08_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json",
-      "current_default": "simplified_seq_00_pattern"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_mcd_kth_day_06",
@@ -1368,6 +1026,15 @@
       "manifest_path": "experiments/floam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/floam_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "genz_icp_profile_nclt_2013_01_10",
+      "title": "GenZ-ICP profile trade-off on the NCLT 2013-01-10 window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/genz_icp_nclt_2013_01_10_matrix.json",
+      "aggregate_path": "experiments/results/genz_icp_nclt_2013_01_10_matrix.json",
+      "current_default": "default"
     },
     {
       "problem_id": "gicp_profile_tradeoff_hdl_400_reference_b",
@@ -2414,6 +2081,24 @@
       "current_default": "fast_icp_only_half_threads"
     },
     {
+      "problem_id": "litamin2_voxel_resolution_nclt_2012_12_01",
+      "title": "LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_nclt_2012_12_01_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_nclt_2012_12_01_matrix.json",
+      "current_default": "voxel_0_5_t1"
+    },
+    {
+      "problem_id": "litamin2_voxel_resolution_nclt_2013_01_10",
+      "title": "LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_nclt_2013_01_10_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_nclt_2013_01_10_matrix.json",
+      "current_default": "default_voxel_2_0"
+    },
+    {
       "problem_id": "litamin2_profile_tradeoff",
       "title": "LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence",
       "status": "ready",
@@ -2864,6 +2549,348 @@
       "current_default": null
     },
     {
+      "problem_id": "ct_icp_kitti_seq_00_corr_fine_grid",
+      "title": "CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m\u00b2)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_corr_fine_grid_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json",
+      "current_default": "corr_5"
+    },
+    {
+      "problem_id": "ct_icp_kitti_map50_retrofit_seq_02",
+      "title": "CT-ICP seq 02 full: map=50 retrofit on bare baseline winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_map50_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_map50_retrofit_matrix.json",
+      "current_default": "baseline_map_20"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_corr_bare",
+      "title": "CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_corr_bare_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json",
+      "current_default": "bare_corr_8"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_full_cauchy_sweep",
+      "title": "CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json",
+      "current_default": "cauchy_2_0_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_full_coarse_iter_sweep",
+      "title": "CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json",
+      "current_default": "iter_2"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_full_corr_dist_sweep",
+      "title": "CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json",
+      "current_default": "corr_8"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_full_map_size_sweep",
+      "title": "CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json",
+      "current_default": "map_30"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_00_full",
+      "title": "CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_full_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_full_matrix.json",
+      "current_default": "dense_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_leave_one_out",
+      "title": "CT-ICP seq 00 full: leave-one-out ablation on full recipe",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_leave_one_out_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json",
+      "current_default": "full_recipe_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_map50_partner",
+      "title": "CT-ICP seq 00 full: map=50 + single partner knob isolation",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_map50_partner_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json",
+      "current_default": "map_50_plus_c2f"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_map_bare",
+      "title": "CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_map_bare_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json",
+      "current_default": "bare_map_30"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_00",
+      "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_matrix.json",
+      "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_00_simplified_corr",
+      "title": "CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_simplified_corr_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json",
+      "current_default": "default_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_02_corr_dist_retrofit",
+      "title": "CT-ICP seq 02 full: corr_dist sweep on bare baseline",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json",
+      "current_default": "corr_8"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_02_corr_fine_grid",
+      "title": "CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m\u00b2)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json",
+      "current_default": "corr_8_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_02_corr_ms_chol_combo",
+      "title": "CT-ICP seq 02 full: corr_dist + ms_chol combinations",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json",
+      "current_default": "bare_corr_8_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_02_full_c2f_without_ms_chol",
+      "title": "CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json",
+      "current_default": "baseline_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_02_full_small_map",
+      "title": "CT-ICP seq 02 full: small map_size sweep (5/10/15/20)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_full_small_map_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json",
+      "current_default": "map_15"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_02_map_with_corr",
+      "title": "CT-ICP seq 02 full: map_size sweep on corr=8 winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_map_with_corr_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json",
+      "current_default": "map_20_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_05_combo",
+      "title": "CT-ICP seq 05 full: simplified recipes from bare + map=50",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_05_combo_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_combo_matrix.json",
+      "current_default": "bare_map_50_corr_4"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_05_corr_dist_sweep",
+      "title": "CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json",
+      "current_default": "corr_4_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_05_map50_retrofit",
+      "title": "CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_05_map50_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json",
+      "current_default": "arch_tuned_map_30"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_05_map_bare",
+      "title": "CT-ICP seq 05 full: map_size on BARE baseline",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_05_map_bare_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json",
+      "current_default": "bare_map_50"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_07_combo",
+      "title": "CT-ICP seq 07 full: ms_chol + simplified pattern combo",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_combo_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_combo_matrix.json",
+      "current_default": "ms_chol_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_07_corr_dist_retrofit",
+      "title": "CT-ICP seq 07 full: corr_dist=8 m\u00b2 retrofit on ms_chol winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json",
+      "current_default": "default_reference"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_07_full",
+      "title": "CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_full_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_full_matrix.json",
+      "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_07_map50_retrofit",
+      "title": "CT-ICP seq 07 full: map=50 retrofit on ms_chol winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_map50_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json",
+      "current_default": "ms_chol_map_20"
+    },
+    {
+      "problem_id": "ct_icp_profile_tradeoff_kitti_seq_07",
+      "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_matrix.json",
+      "current_default": "fast_window"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_c2f_alone",
+      "title": "CT-ICP seq 08 full: c2f without ms_chol \u2014 knob reduction probe",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_c2f_alone_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json",
+      "current_default": "c2f_only_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_corr_dist_retrofit",
+      "title": "CT-ICP seq 08 full: corr_dist=8 m\u00b2 retrofit on c2f_only winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json",
+      "current_default": "default_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_full_cauchy_sweep",
+      "title": "CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json",
+      "current_default": "cauchy_3_0"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_full_coarse_iter_sweep",
+      "title": "CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json",
+      "current_default": "iter_6"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_map50_retrofit",
+      "title": "CT-ICP seq 08 full: map=50 retrofit on c2f_only winner",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_map50_retrofit_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json",
+      "current_default": "c2f_only_map_20"
+    },
+    {
+      "problem_id": "ct_icp_kitti_seq_08_simplified_corr",
+      "title": "CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_simplified_corr_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json",
+      "current_default": "default_reference"
+    },
+    {
+      "problem_id": "ct_icp_kitti_simplified_cross_seq_02",
+      "title": "CT-ICP seq 02 full: simplified map=50+c2f probe",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_simplified_cross_seq_02_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json",
+      "current_default": "current_winner"
+    },
+    {
+      "problem_id": "ct_icp_kitti_simplified_cross_seq_05",
+      "title": "CT-ICP seq 05 full: c2f \u03c3\u00d72 vs corr=4 on map=50 base",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_simplified_cross_seq_05_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json",
+      "current_default": "map_50_c2f_plus_corr_4"
+    },
+    {
+      "problem_id": "ct_icp_kitti_simplified_cross_seq_07",
+      "title": "CT-ICP seq 07 full: simplified map=50+c2f probe",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_simplified_cross_seq_07_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json",
+      "current_default": "current_winner"
+    },
+    {
+      "problem_id": "ct_icp_kitti_simplified_cross_seq_08",
+      "title": "CT-ICP seq 08 full: simplified map=50+c2f probe",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/ct_icp_kitti_simplified_cross_seq_08_matrix.json",
+      "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json",
+      "current_default": "simplified_seq_00_pattern"
+    },
+    {
       "problem_id": "point_lio_hdl_400_reference",
       "title": "Point-LIO on the public HDL-400 reference window",
       "status": "ready",
@@ -2979,6 +3006,15 @@
       "manifest_path": "experiments/r2live_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/r2live_kitti_raw_0061_matrix.json",
       "current_default": null
+    },
+    {
+      "problem_id": "rko_lio_gyro_bias_gain_nclt_2013_01_10",
+      "title": "RKO-LIO gyro-bias feedback gain on the NCLT 2013-01-10 window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/rko_lio_nclt_2013_01_10_matrix.json",
+      "aggregate_path": "experiments/results/rko_lio_nclt_2013_01_10_matrix.json",
+      "current_default": "no_bias_feedback"
     },
     {
       "problem_id": "small_gicp_profile_tradeoff_hdl_400_reference",
@@ -3114,6 +3150,15 @@
       "manifest_path": "experiments/small_gicp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "small_gicp_seed_gate_nclt_2013_01_10",
+      "title": "small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_nclt_2013_01_10_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_nclt_2013_01_10_matrix.json",
+      "current_default": "gate_0_5"
     },
     {
       "problem_id": "suma_hdl_400_reference",

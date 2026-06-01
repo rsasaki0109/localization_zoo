@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "problem": {
+        "id": "litamin2_voxel_resolution_nclt_2013_01_10",
+        "title": "LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window",
+        "question": "What voxel resolution should LiTAMIN2 use on NCLT? On this short 600-frame window the KITTI default voxel 2.0 is already fine; the fine-voxel (0.5) win is a LONG-trajectory effect (see PLAN.md 0.0b: full-5105 ATE 1.149 -> 0.582, -49%). This sweep documents the short-window crossover.",
+        "dataset": {
+            "pcd_dir": "dogfooding_results/nclt_2013_01_10_600",
+            "gt_csv": "experiments/reference_data/nclt_2013_01_10_600_gt.csv"
+        },
+        "same_metrics": [
+            "ate_m",
+            "rpe_trans_pct",
+            "fps"
+        ]
+    },
+    "stable_interface": {
+        "binary": "build/evaluation/pcd_dogfooding",
+        "methods": "litamin2",
+        "primary_method": "LiTAMIN2"
+    },
+    "variants": [
+        {
+            "id": "default_voxel_2_0",
+            "label": "Default voxel 2.0",
+            "design_style": "balanced",
+            "intent": "Repository default LiTAMIN2 voxel resolution (tuned for KITTI HDL-64E).",
+            "args": []
+        },
+        {
+            "id": "voxel_1_0",
+            "label": "Voxel 1.0 + iter 12",
+            "design_style": "accuracy-oriented",
+            "intent": "Intermediate voxel resolution with more ICP iterations.",
+            "args": [
+                "--litamin2-voxel-resolution",
+                "1.0",
+                "--litamin2-max-iterations",
+                "12"
+            ]
+        },
+        {
+            "id": "voxel_0_5_t1",
+            "label": "Voxel 0.5 + iter 12 (KITTI T1 transfer)",
+            "design_style": "accuracy-oriented",
+            "intent": "Fine voxel resolution from the KITTI cluster-T1 winner. Slightly worse here at 600 frames, but the clear winner at scale: full-5105 ATE 0.582 vs default 1.149 (-49%), 2000-frame 0.544 vs 0.999.",
+            "args": [
+                "--litamin2-voxel-resolution",
+                "0.5",
+                "--litamin2-max-iterations",
+                "12"
+            ]
+        }
+    ]
+}

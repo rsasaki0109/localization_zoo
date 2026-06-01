@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "problem": {
+        "id": "rko_lio_gyro_bias_gain_nclt_2013_01_10",
+        "title": "RKO-LIO gyro-bias feedback gain on the NCLT 2013-01-10 window",
+        "question": "How strong should the online gyro-bias feedback be for RKO-LIO's IMU rotation prior on NCLT?",
+        "dataset": {
+            "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+            "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv"
+        },
+        "same_metrics": [
+            "ate_m",
+            "rpe_trans_pct",
+            "fps"
+        ]
+    },
+    "stable_interface": {
+        "binary": "build/evaluation/pcd_dogfooding",
+        "methods": "rko_lio",
+        "primary_method": "RKO-LIO"
+    },
+    "variants": [
+        {
+            "id": "no_bias_feedback",
+            "label": "Raw gyro prior (gain 0)",
+            "design_style": "ablation",
+            "intent": "Use the raw-gyro rotation prior with no online bias correction.",
+            "args": [
+                "--rko-lio-gyro-bias-gain",
+                "0.0"
+            ]
+        },
+        {
+            "id": "bias_gain_010",
+            "label": "Bias feedback gain 0.1",
+            "design_style": "conservative",
+            "intent": "Weak online gyro-bias correction.",
+            "args": [
+                "--rko-lio-gyro-bias-gain",
+                "0.1"
+            ]
+        },
+        {
+            "id": "bias_gain_030_default",
+            "label": "Bias feedback gain 0.3 (default)",
+            "design_style": "balanced",
+            "intent": "Repository default; gyro-bias feedback that lets the IMU prior beat pure-LiDAR ICP on NCLT.",
+            "args": [
+                "--rko-lio-gyro-bias-gain",
+                "0.3"
+            ]
+        },
+        {
+            "id": "bias_gain_060",
+            "label": "Bias feedback gain 0.6",
+            "design_style": "aggressive",
+            "intent": "Strong correction; checks for over-correction / noise chasing.",
+            "args": [
+                "--rko-lio-gyro-bias-gain",
+                "0.6"
+            ]
+        }
+    ]
+}

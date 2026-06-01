@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "problem": {
+        "id": "litamin2_voxel_resolution_nclt_2012_12_01",
+        "title": "LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check)",
+        "question": "Does the LiTAMIN2 fine-voxel win (cluster T1: voxel 0.5 + iter 12) generalize across NCLT sessions, or was it specific to 2013-01-10? This runs the same sweep on a different session (2012-12-01, 5000 frames / 937 m, Velodyne HDL-32E). Result: T1 cuts ATE 0.869 -> 0.519 (-40%) and drift -26%, mirroring the 2013-01-10 full-5105 -49%/-47%. The fine-voxel recipe is a session-independent NCLT improvement, not a per-session artifact.",
+        "dataset": {
+            "pcd_dir": "dogfooding_results/nclt_2012_12_01_5000",
+            "gt_csv": "experiments/reference_data/nclt_2012_12_01_5000_gt.csv"
+        },
+        "same_metrics": [
+            "ate_m",
+            "rpe_trans_pct",
+            "fps"
+        ]
+    },
+    "stable_interface": {
+        "binary": "build/evaluation/pcd_dogfooding",
+        "methods": "litamin2",
+        "primary_method": "LiTAMIN2"
+    },
+    "variants": [
+        {
+            "id": "default_voxel_2_0",
+            "label": "Default voxel 2.0",
+            "design_style": "balanced",
+            "intent": "Repository default LiTAMIN2 voxel resolution (tuned for KITTI HDL-64E).",
+            "args": []
+        },
+        {
+            "id": "voxel_1_0",
+            "label": "Voxel 1.0 + iter 12",
+            "design_style": "accuracy-oriented",
+            "intent": "Intermediate voxel resolution with more ICP iterations.",
+            "args": [
+                "--litamin2-voxel-resolution",
+                "1.0",
+                "--litamin2-max-iterations",
+                "12"
+            ]
+        },
+        {
+            "id": "voxel_0_5_t1",
+            "label": "Voxel 0.5 + iter 12 (KITTI T1 transfer)",
+            "design_style": "accuracy-oriented",
+            "intent": "Fine voxel resolution from the KITTI cluster-T1 winner. Confirms the long-trajectory NCLT win generalizes across sessions: 2012-12-01 ATE 0.519 vs default 0.869 (-40%), matching the 2013-01-10 full-5105 -49%.",
+            "args": [
+                "--litamin2-voxel-resolution",
+                "0.5",
+                "--litamin2-max-iterations",
+                "12"
+            ]
+        }
+    ]
+}

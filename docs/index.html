@@ -3,21 +3,66 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Localization Zoo Benchmarks</title>
+    <title>Localization Zoo Explorer</title>
+    <meta name="description" content="Interactive benchmark dashboard and method explorer for C++ localization paper implementations.">
+    <meta property="og:title" content="Localization Zoo Explorer">
+    <meta property="og:description" content="Choose, compare, and reproduce LiDAR, LIO, VIO, and degeneracy-aware localization methods.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://rsasaki0109.github.io/localization_zoo/assets/explorer_preview.png">
+    <meta property="og:url" content="https://rsasaki0109.github.io/localization_zoo/">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="./assets/site.css">
   </head>
   <body>
+    <header class="topbar">
+      <a class="brand" href="https://github.com/rsasaki0109/localization_zoo">Localization Zoo</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#benchmark">Benchmark</a>
+        <a href="#methods">Methods</a>
+        <a href="#quickstart">Quick Start</a>
+        <a href="https://github.com/rsasaki0109/localization_zoo">GitHub</a>
+      </nav>
+    </header>
+
     <main class="page">
-      <section class="hero">
-        <p class="eyebrow">Localization Zoo</p>
-        <h1>Benchmark Reports</h1>
-        <p class="lede">
-          Reproducible benchmark snapshots for real LiDAR dogfooding runs.
-          The page is generated from repository artifacts and published through GitHub Pages.
-        </p>
+      <section class="intro-grid">
+        <div class="intro-copy">
+          <p class="eyebrow">Localization research, mapped</p>
+          <h1>Choose, compare, and reproduce localization methods.</h1>
+          <p class="lede">
+            C++ localization paper implementations, derived variants, and compact baselines
+            behind a shared benchmark surface.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/rsasaki0109/localization_zoo">Star on GitHub</a>
+            <a class="button secondary" href="#methods">Explore Methods</a>
+          </div>
+          <div class="summary-strip" id="catalog-stats">
+            <div>
+              <span>Methods</span>
+              <strong id="method-count">-</strong>
+            </div>
+            <div>
+              <span>Families</span>
+              <strong id="family-count">-</strong>
+            </div>
+            <div>
+              <span>CI Fixture</span>
+              <strong>3 frames</strong>
+            </div>
+          </div>
+        </div>
+
+        <figure class="trajectory-preview">
+          <img id="hero-trajectory" alt="Latest benchmark trajectory overlay">
+          <figcaption>
+            <span id="hero-dataset">Latest benchmark snapshot</span>
+            <strong id="hero-best">Loading...</strong>
+          </figcaption>
+        </figure>
       </section>
 
-      <section class="panel" id="summary">
+      <section class="panel" id="benchmark">
         <div class="panel-head">
           <div>
             <p class="eyebrow">Latest Run</p>
@@ -25,39 +70,33 @@
           </div>
           <p class="stamp" id="generated-at"></p>
         </div>
+
         <div class="metrics" id="dataset-metrics"></div>
         <p class="command" id="command"></p>
-      </section>
 
-      <section class="grid">
-        <article class="panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Trajectory</p>
-              <h2>Method Overlay</h2>
+        <div class="benchmark-grid">
+          <article class="tool-panel">
+            <div class="tool-head">
+              <div>
+                <p class="eyebrow">Accuracy vs Throughput</p>
+                <h3>Benchmark Map</h3>
+              </div>
+              <span class="axis-note">ATE uses log scale</span>
             </div>
-          </div>
-          <img id="trajectory-plot" class="plot" alt="Trajectory plot">
-        </article>
+            <div class="scatter" id="scatter"></div>
+          </article>
 
-        <article class="panel">
-          <div class="panel-head">
-            <div>
-              <p class="eyebrow">Leaderboard</p>
-              <h2>ATE Ranking</h2>
+          <article class="tool-panel">
+            <div class="tool-head">
+              <div>
+                <p class="eyebrow">Leaderboard</p>
+                <h3>ATE Ranking</h3>
+              </div>
             </div>
-          </div>
-          <div id="leaderboard" class="leaderboard"></div>
-        </article>
-      </section>
-
-      <section class="panel">
-        <div class="panel-head">
-          <div>
-            <p class="eyebrow">Details</p>
-            <h2>Method Table</h2>
-          </div>
+            <div id="leaderboard" class="leaderboard"></div>
+          </article>
         </div>
+
         <div class="table-wrap">
           <table>
             <thead>
@@ -75,83 +114,375 @@
           </table>
         </div>
       </section>
+
+      <section class="panel" id="methods">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Method Explorer</p>
+            <h2>Find the right starting point</h2>
+          </div>
+          <label class="search-box">
+            <span>Search</span>
+            <input id="method-search" type="search" autocomplete="off" placeholder="kiss, lio, graph, degeneracy">
+          </label>
+        </div>
+
+        <div class="filter-grid">
+          <div class="filter-group" aria-label="Family filter">
+            <span>Family</span>
+            <div class="segmented" id="family-filters"></div>
+          </div>
+          <div class="filter-group" aria-label="Signal filter">
+            <span>Signal</span>
+            <div class="segmented" id="signal-filters"></div>
+          </div>
+        </div>
+
+        <div class="starter-layout">
+          <article class="tool-panel starter">
+            <div class="tool-head">
+              <div>
+                <p class="eyebrow">Starter Stack</p>
+                <h3 id="track-title">Quick Smoke</h3>
+              </div>
+            </div>
+            <div class="track-buttons" id="track-buttons"></div>
+            <p id="track-note" class="muted"></p>
+            <ol id="track-list" class="track-list"></ol>
+          </article>
+
+          <div class="method-grid" id="method-grid"></div>
+        </div>
+      </section>
+
+      <section class="panel compact" id="quickstart">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Quick Start</p>
+            <h2>Clone, build, smoke test</h2>
+          </div>
+        </div>
+        <div class="code-grid">
+          <pre><code>sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev</code></pre>
+          <pre><code>bash evaluation/scripts/demo_localization_zoo.sh
+xdg-open experiments/results/runs/demo_localization_zoo/report.html</code></pre>
+          <pre><code>bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile quick
+bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile full
+bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
+        </div>
+      </section>
     </main>
 
     <script>
       const dataPath = "./benchmarks/latest/results.json";
+      const repoBase = "https://github.com/rsasaki0109/localization_zoo";
+
+      const catalogPath = "./methods.json";
+      let catalog = [];
+      let tracks = [];
+
+      const state = {
+        family: "All",
+        signal: "All",
+        track: "quick",
+        query: ""
+      };
 
       function fmt(value, digits = 2) {
-        if (value === null || value === undefined || Number.isNaN(value)) {
+        if (value === null || value === undefined || Number.isNaN(Number(value))) {
           return "-";
         }
         return Number(value).toFixed(digits);
       }
 
+      function clear(node) {
+        while (node.firstChild) {
+          node.removeChild(node.firstChild);
+        }
+      }
+
+      function el(tag, className, text) {
+        const node = document.createElement(tag);
+        if (className) {
+          node.className = className;
+        }
+        if (text !== undefined) {
+          node.textContent = text;
+        }
+        return node;
+      }
+
       function addMetric(label, value) {
-        const item = document.createElement("div");
-        item.className = "metric";
-        item.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+        const item = el("div", "metric");
+        item.appendChild(el("span", "", label));
+        item.appendChild(el("strong", "", value));
         return item;
       }
 
-      function render(data) {
+      function findMethod(name) {
+        return catalog.find((method) => method.name === name);
+      }
+
+      function methodHref(method) {
+        return `${repoBase}/tree/main/${method.href}`;
+      }
+
+      function renderFilterButtons(targetId, values, stateKey) {
+        const target = document.getElementById(targetId);
+        clear(target);
+        values.forEach((value) => {
+          const button = el("button", "chip-button", value);
+          button.type = "button";
+          button.dataset.value = value;
+          if (state[stateKey] === value) {
+            button.classList.add("active");
+          }
+          button.addEventListener("click", () => {
+            state[stateKey] = value;
+            renderFilterButtons(targetId, values, stateKey);
+            renderMethods();
+          });
+          target.appendChild(button);
+        });
+      }
+
+      function renderTracks() {
+        const target = document.getElementById("track-buttons");
+        clear(target);
+        tracks.forEach((track) => {
+          const button = el("button", "chip-button", track.label);
+          button.type = "button";
+          if (state.track === track.id) {
+            button.classList.add("active");
+          }
+          button.addEventListener("click", () => {
+            state.track = track.id;
+            renderTracks();
+            renderTrackList();
+          });
+          target.appendChild(button);
+        });
+      }
+
+      function renderTrackList() {
+        const active = tracks.find((track) => track.id === state.track) || tracks[0];
+        document.getElementById("track-title").textContent = active.title;
+        document.getElementById("track-note").textContent = active.note;
+        const list = document.getElementById("track-list");
+        clear(list);
+        active.methods.forEach((name) => {
+          const method = findMethod(name);
+          const item = el("li");
+          if (method) {
+            const link = el("a", "", method.name);
+            link.href = methodHref(method);
+            link.textContent = method.name;
+            item.appendChild(link);
+            item.appendChild(el("span", "", method.summary));
+          } else {
+            item.textContent = name;
+          }
+          list.appendChild(item);
+        });
+      }
+
+      function renderMethods() {
+        const grid = document.getElementById("method-grid");
+        clear(grid);
+        const query = state.query.trim().toLowerCase();
+        const methods = catalog.filter((method) => {
+          const familyMatch = state.family === "All" || method.family === state.family;
+          const signalMatch = state.signal === "All" || method.signals.includes(state.signal);
+          const queryText = `${method.name} ${method.family} ${method.scope} ${method.summary} ${method.tags.join(" ")}`.toLowerCase();
+          const queryMatch = !query || queryText.includes(query);
+          return familyMatch && signalMatch && queryMatch;
+        });
+
+        if (methods.length === 0) {
+          grid.appendChild(el("p", "empty", "No matching methods."));
+          return;
+        }
+
+        methods.forEach((method) => {
+          const card = el("article", "method-card");
+          const head = el("div", "method-card-head");
+          const link = el("a", "", method.name);
+          link.href = methodHref(method);
+          head.appendChild(link);
+          head.appendChild(el("span", "scope", method.scope));
+          card.appendChild(head);
+          card.appendChild(el("p", "", method.summary));
+
+          const tags = el("div", "tag-row");
+          Array.from(new Set([method.family, ...method.signals, ...method.tags.slice(0, 2)])).forEach((tag) => {
+            tags.appendChild(el("span", "tag", tag));
+          });
+          card.appendChild(tags);
+          grid.appendChild(card);
+        });
+      }
+
+      function renderCatalog() {
+        const families = ["All", ...Array.from(new Set(catalog.map((method) => method.family)))];
+        const signals = ["All", "LiDAR", "IMU", "Camera", "Degeneracy"];
+        document.getElementById("method-count").textContent = catalog.length;
+        document.getElementById("family-count").textContent = families.length - 1;
+        renderFilterButtons("family-filters", families, "family");
+        renderFilterButtons("signal-filters", signals, "signal");
+        renderTracks();
+        renderTrackList();
+        renderMethods();
+
+        document.getElementById("method-search").addEventListener("input", (event) => {
+          state.query = event.target.value;
+          renderMethods();
+        });
+      }
+
+      function renderCatalogError(error) {
+        document.getElementById("method-count").textContent = "-";
+        document.getElementById("family-count").textContent = "-";
+        const grid = document.getElementById("method-grid");
+        clear(grid);
+        grid.appendChild(el("p", "empty", `Method catalog unavailable: ${error.message}`));
+      }
+
+      function renderScatter(methods) {
+        const scatter = document.getElementById("scatter");
+        clear(scatter);
+        const ok = methods.filter((method) => method.status === "ok" && method.ate_m !== null && method.fps);
+        if (ok.length === 0) {
+          scatter.appendChild(el("p", "empty", "No FPS and ATE pairs in this snapshot."));
+          return;
+        }
+
+        const maxFps = Math.max(...ok.map((method) => Number(method.fps)), 1);
+        const logs = ok.map((method) => Math.log10(Math.max(Number(method.ate_m), 0.001)));
+        const minLog = Math.min(...logs);
+        const maxLog = Math.max(...logs);
+        const spread = Math.max(maxLog - minLog, 0.001);
+
+        const plot = el("div", "scatter-plot");
+        plot.appendChild(el("span", "axis-label x-axis", "FPS"));
+        plot.appendChild(el("span", "axis-label y-axis", "ATE"));
+
+        ok.forEach((method) => {
+          const point = el("a", "point");
+          const x = 10 + (Number(method.fps) / maxFps) * 78;
+          const y = 10 + ((Math.log10(Math.max(Number(method.ate_m), 0.001)) - minLog) / spread) * 74;
+          point.href = `${repoBase}/search?q=${encodeURIComponent(method.name)}&type=code`;
+          point.style.left = `${x}%`;
+          point.style.top = `${y}%`;
+          point.title = `${method.name}: ${fmt(method.ate_m, 3)} m, ${fmt(method.fps, 1)} FPS`;
+          point.appendChild(el("span", "dot"));
+          point.appendChild(el("span", "point-label", method.name));
+          plot.appendChild(point);
+        });
+
+        scatter.appendChild(plot);
+      }
+
+      function renderBenchmark(data) {
         document.getElementById("title").textContent = data.dataset.name;
         document.getElementById("generated-at").textContent =
           `Generated ${new Date(data.generated_at).toLocaleString()}`;
+        document.getElementById("hero-dataset").textContent = data.dataset.name;
+
         const metrics = document.getElementById("dataset-metrics");
+        clear(metrics);
         metrics.appendChild(addMetric("Frames", data.dataset.frames));
         metrics.appendChild(addMetric("Trajectory", `${fmt(data.dataset.trajectory_length_m, 1)} m`));
         metrics.appendChild(addMetric("Timestamp Source", data.dataset.timestamp_source || "-"));
+
+        const ok = data.methods.filter((method) => method.status === "ok");
+        const best = ok
+          .slice()
+          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
+        const fastest = ok
+          .filter((method) => method.fps)
+          .slice()
+          .sort((a, b) => Number(b.fps) - Number(a.fps))[0];
+
+        if (best) {
+          metrics.appendChild(addMetric("Best ATE", `${best.name} ${fmt(best.ate_m, 3)} m`));
+          document.getElementById("hero-best").textContent = `${best.name} leads at ${fmt(best.ate_m, 3)} m ATE`;
+        }
+        if (fastest) {
+          metrics.appendChild(addMetric("Fastest", `${fastest.name} ${fmt(fastest.fps, 1)} FPS`));
+        }
+
         document.getElementById("command").textContent = data.command || "";
-        const plot = document.getElementById("trajectory-plot");
-        if (data.artifacts.trajectory_plot) {
+        const plot = document.getElementById("hero-trajectory");
+        if (data.artifacts && data.artifacts.trajectory_plot) {
           plot.src = `./benchmarks/latest/${data.artifacts.trajectory_plot}`;
         } else {
+          plot.removeAttribute("src");
           plot.alt = "No repository-hosted trajectory plot published yet";
-          plot.style.display = "none";
         }
 
         const leaderboard = document.getElementById("leaderboard");
-        const ranked = data.methods
-          .filter((method) => method.status === "ok")
+        clear(leaderboard);
+        const ranked = ok
+          .slice()
+          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))
           .slice(0, 8);
         if (ranked.length === 0) {
-          const empty = document.createElement("p");
-          empty.textContent = "No benchmark report is stored in this repository yet.";
-          leaderboard.appendChild(empty);
+          leaderboard.appendChild(el("p", "empty", "No benchmark report is stored in this repository yet."));
         } else {
           ranked.forEach((method, index) => {
-            const row = document.createElement("div");
-            row.className = "leaderboard-row";
-            row.innerHTML =
-              `<span class="rank">${index + 1}</span>` +
-              `<span class="method">${method.name}</span>` +
-              `<span class="ate">${fmt(method.ate_m, 3)} m</span>`;
+            const row = el("div", "leaderboard-row");
+            row.appendChild(el("span", "rank", String(index + 1)));
+            row.appendChild(el("span", "method", method.name));
+            row.appendChild(el("span", "ate", `${fmt(method.ate_m, 3)} m`));
             leaderboard.appendChild(row);
           });
         }
 
+        renderScatter(data.methods);
+
         const body = document.getElementById("results-body");
+        clear(body);
         if (data.methods.length === 0) {
           const row = document.createElement("tr");
-          row.innerHTML =
-            "<td colspan='7'>No benchmark report is stored in this repository yet.</td>";
+          const cell = document.createElement("td");
+          cell.colSpan = 7;
+          cell.textContent = "No benchmark report is stored in this repository yet.";
+          row.appendChild(cell);
           body.appendChild(row);
         } else {
           data.methods.forEach((method) => {
             const row = document.createElement("tr");
-            row.innerHTML =
-              `<td>${method.name}</td>` +
-              `<td>${method.status.toUpperCase()}</td>` +
-              `<td>${fmt(method.ate_m, 3)}</td>` +
-              `<td>${method.frames || "-"}</td>` +
-              `<td>${fmt(method.time_ms, 1)}</td>` +
-              `<td>${fmt(method.fps, 1)}</td>` +
-              `<td>${method.note || ""}</td>`;
+            [
+              method.name,
+              method.status.toUpperCase(),
+              fmt(method.ate_m, 3),
+              method.frames || "-",
+              fmt(method.time_ms, 1),
+              fmt(method.fps, 1),
+              method.note || ""
+            ].forEach((value) => {
+              const cell = document.createElement("td");
+              cell.textContent = value;
+              row.appendChild(cell);
+            });
             body.appendChild(row);
           });
         }
       }
+
+      fetch(catalogPath)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Missing ${catalogPath}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          catalog = data.methods || [];
+          tracks = data.starter_tracks || [];
+          renderCatalog();
+        })
+        .catch(renderCatalogError);
 
       fetch(dataPath)
         .then((response) => {
@@ -160,9 +491,10 @@
           }
           return response.json();
         })
-        .then(render)
+        .then(renderBenchmark)
         .catch((error) => {
           document.getElementById("title").textContent = "No benchmark report yet";
+          document.getElementById("hero-best").textContent = "Benchmark artifact not found";
           document.getElementById("command").textContent = error.message;
         });
     </script>

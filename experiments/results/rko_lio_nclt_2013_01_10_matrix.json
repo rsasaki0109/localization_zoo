@@ -1,0 +1,146 @@
+{
+  "generated_at": "2026-06-02T03:34:33+00:00",
+  "manifest_path": "experiments/rko_lio_nclt_2013_01_10_matrix.json",
+  "problem": {
+    "id": "rko_lio_gyro_bias_gain_nclt_2013_01_10",
+    "title": "RKO-LIO gyro-bias feedback gain on the NCLT 2013-01-10 window",
+    "question": "How strong should the online gyro-bias feedback be for RKO-LIO's IMU rotation prior on NCLT?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+      "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "rko_lio",
+    "primary_method": "RKO-LIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+    "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "no_bias_feedback",
+      "label": "Raw gyro prior (gain 0)",
+      "design_style": "ablation",
+      "intent": "Use the raw-gyro rotation prior with no online bias correction.",
+      "args": [
+        "--rko-lio-gyro-bias-gain",
+        "0.0"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods rko_lio --summary-json experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/no_bias_feedback/summary.json --rko-lio-gyro-bias-gain 0.0",
+      "summary_path": "experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/no_bias_feedback/summary.json",
+      "log_path": "experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/no_bias_feedback/run.log",
+      "status": "ok",
+      "ate_m": 0.14074,
+      "rpe_trans_pct": 3.387071,
+      "rpe_rot_deg_per_m": 0.184145,
+      "fps": 6.926127,
+      "time_ms": 17325.700092,
+      "frames": 120,
+      "note": "Scan-to-map odometry with IMU rotation prior (GT-seeded init; IMU gyro preintegration used as ICP rotation guess).",
+      "benchmark_score": 92.82,
+      "readability_score": 4.4,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.6,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "bias_gain_010",
+      "label": "Bias feedback gain 0.1",
+      "design_style": "conservative",
+      "intent": "Weak online gyro-bias correction.",
+      "args": [
+        "--rko-lio-gyro-bias-gain",
+        "0.1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods rko_lio --summary-json experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_010/summary.json --rko-lio-gyro-bias-gain 0.1",
+      "summary_path": "experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_010/summary.json",
+      "log_path": "experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_010/run.log",
+      "status": "ok",
+      "ate_m": 0.549775,
+      "rpe_trans_pct": 18.281702,
+      "rpe_rot_deg_per_m": 0.452128,
+      "fps": 6.832194,
+      "time_ms": 17563.9048,
+      "frames": 120,
+      "note": "Scan-to-map odometry with IMU rotation prior (GT-seeded init; IMU gyro preintegration used as ICP rotation guess).",
+      "benchmark_score": 55.04,
+      "readability_score": 4.4,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.6,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "bias_gain_030_default",
+      "label": "Bias feedback gain 0.3 (default)",
+      "design_style": "balanced",
+      "intent": "Repository default; gyro-bias feedback that lets the IMU prior beat pure-LiDAR ICP on NCLT.",
+      "args": [
+        "--rko-lio-gyro-bias-gain",
+        "0.3"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods rko_lio --summary-json experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_030_default/summary.json --rko-lio-gyro-bias-gain 0.3",
+      "summary_path": "experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_030_default/summary.json",
+      "log_path": "experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_030_default/run.log",
+      "status": "ok",
+      "ate_m": 0.814698,
+      "rpe_trans_pct": 35.608208,
+      "rpe_rot_deg_per_m": 0.327026,
+      "fps": 8.087209,
+      "time_ms": 14838.245766,
+      "frames": 120,
+      "note": "Scan-to-map odometry with IMU rotation prior (GT-seeded init; IMU gyro preintegration used as ICP rotation guess).",
+      "benchmark_score": 58.64,
+      "readability_score": 4.4,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.6,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "bias_gain_060",
+      "label": "Bias feedback gain 0.6",
+      "design_style": "aggressive",
+      "intent": "Strong correction; checks for over-correction / noise chasing.",
+      "args": [
+        "--rko-lio-gyro-bias-gain",
+        "0.6"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods rko_lio --summary-json experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_060/summary.json --rko-lio-gyro-bias-gain 0.6",
+      "summary_path": "experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_060/summary.json",
+      "log_path": "experiments/results/runs/rko_lio_nclt_2013_01_10_matrix/bias_gain_060/run.log",
+      "status": "ok",
+      "ate_m": 1.919694,
+      "rpe_trans_pct": 49.130769,
+      "rpe_rot_deg_per_m": 0.987615,
+      "fps": 7.637699,
+      "time_ms": 15711.538865,
+      "frames": 120,
+      "note": "Scan-to-map odometry with IMU rotation prior (GT-seeded init; IMU gyro preintegration used as ICP rotation guess).",
+      "benchmark_score": 50.89,
+      "readability_score": 4.4,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.6,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

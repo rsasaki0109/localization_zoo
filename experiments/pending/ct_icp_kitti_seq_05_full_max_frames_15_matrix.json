@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_max_frames_15_kitti_seq_05_full",
+    "title": "CT-ICP max_frames=15 RPE recipe on KITTI 05",
+    "question": "Round 22 found max_frames=15 gives -11% RPE on KITTI 02 at minor ATE cost. Does the RPE benefit transfer to KITTI 05?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_max_frames_20",
+      "label": "ms_chol max_frames=20 (current best)",
+      "design_style": "reference",
+      "intent": "Re-baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "ms_chol_max_frames_15",
+      "label": "ms_chol max_frames=15 (round 22 RPE recipe)",
+      "design_style": "RPE recipe",
+      "intent": "Cross-seq test.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "15", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

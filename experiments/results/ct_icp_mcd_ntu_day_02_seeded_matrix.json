@@ -1,0 +1,135 @@
+{
+  "generated_at": "2026-05-19T21:02:52+00:00",
+  "manifest_path": "experiments/ct_icp_mcd_ntu_day_02_seeded_matrix.json",
+  "problem": {
+    "id": "ct_icp_mcd_ntu_day_02_seeded",
+    "title": "CT-ICP cluster A/D + GT seed on MCD NTU day_02 (108 frames)",
+    "question": "MCD NTU day_02 without seed: dense 0.325 m wins ATE, cluster A halves RPE. MulRan parkinglot 120 + seed shows cluster A -84%. Does adding GT seed to MCD NTU reveal a similar cluster A dominance?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_seeded_reference",
+      "label": "dense_window + GT seed",
+      "design_style": "reference",
+      "intent": "Seeded baseline.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/dense_seeded_reference/summary.json --ct-icp-dense-profile --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/dense_seeded_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/dense_seeded_reference/run.log",
+      "status": "ok",
+      "ate_m": 0.450979,
+      "rpe_trans_pct": 133.295832,
+      "rpe_rot_deg_per_m": 18.851173,
+      "fps": 28.37213,
+      "time_ms": 3806.552445,
+      "frames": 108,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 97.08,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "cluster_a_seeded",
+      "label": "cluster A + GT seed",
+      "design_style": "transfer-seeded",
+      "intent": "Cluster A with seed (mirror of MulRan parkinglot 120 -84% pattern).",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06",
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_a_seeded/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_a_seeded/run.log",
+      "status": "ok",
+      "ate_m": 0.431521,
+      "rpe_trans_pct": 69.285337,
+      "rpe_rot_deg_per_m": 17.759276,
+      "fps": 21.149737,
+      "time_ms": 5106.446597,
+      "frames": 108,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 86.47,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.85,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_d_seeded",
+      "label": "cluster D (ms_chol) + GT seed",
+      "design_style": "alternative-seeded",
+      "intent": "ms_chol with seed.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_d_seeded/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_d_seeded/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_d_seeded/run.log",
+      "status": "ok",
+      "ate_m": 0.424624,
+      "rpe_trans_pct": 114.023214,
+      "rpe_rot_deg_per_m": 17.339945,
+      "fps": 25.284455,
+      "time_ms": 4271.399166,
+      "frames": 108,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 94.56,
+      "readability_score": 3.6,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.0,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

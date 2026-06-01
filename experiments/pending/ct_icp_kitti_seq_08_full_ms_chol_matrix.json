@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_ms_chol_kitti_seq_08_full",
+    "title": "CT-ICP multi-scale + DENSE_NORMAL_CHOLESKY on KITTI Odometry 08 (full)",
+    "question": "Does ms_chol generalize beyond KITTI 07?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "tune-v1 baseline",
+      "design_style": "reference",
+      "intent": "Reference for delta comparison.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "ms_chol",
+      "label": "tune-v1 + multi-scale + DENSE_NORMAL_CHOLESKY",
+      "design_style": "arch-2",
+      "intent": "Architecture bundle that improved KITTI 07 (ATE -28%, RPE -4%). Test generalization.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-05-18T13:51:08+00:00",
+  "manifest_path": "experiments/pending/ct_icp_mcd_tuhh_night_09_ms_chol_matrix.json",
+  "problem": {
+    "id": "ct_icp_ms_chol_mcd_tuhh_night_09",
+    "title": "CT-ICP ms_chol on MCD TUHH night 09 (1.652 m baseline)",
+    "question": "Does ms_chol help on the medium MCD baseline?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+      "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+    "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_window_baseline",
+      "label": "Existing best (dense_window, 1.652 m)",
+      "design_style": "reference",
+      "intent": "Old CT-ICP best.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_ms_chol_matrix/dense_window_baseline/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_ms_chol_matrix/dense_window_baseline/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_ms_chol_matrix/dense_window_baseline/run.log",
+      "status": "ok",
+      "ate_m": 1.652374,
+      "rpe_trans_pct": 97.867765,
+      "rpe_rot_deg_per_m": 21.936664,
+      "fps": 25.521931,
+      "time_ms": 4231.654788,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 96.15,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "ms_chol",
+      "label": "ms_chol bundle",
+      "design_style": "ms_chol",
+      "intent": "Apply post-investigation findings.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_ms_chol_matrix/ms_chol/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_ms_chol_matrix/ms_chol/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_ms_chol_matrix/ms_chol/run.log",
+      "status": "ok",
+      "ate_m": 1.525094,
+      "rpe_trans_pct": 98.44122,
+      "rpe_rot_deg_per_m": 21.957981,
+      "fps": 21.510937,
+      "time_ms": 5020.701749,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 92.14,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

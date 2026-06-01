@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_map_bare",
+    "title": "CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)",
+    "question": "map=50 won seq 00 in full recipe context. Is it the recipe interaction or intrinsic to seq 00? Test on bare baseline.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "bare_map_20",
+      "label": "bare map=20 (default)",
+      "design_style": "reference",
+      "intent": "Bare seq 00 baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "bare_map_30",
+      "label": "bare map=30",
+      "design_style": "medium",
+      "intent": "Mid probe.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "30"]
+    },
+    {
+      "id": "bare_map_50",
+      "label": "bare map=50",
+      "design_style": "big map",
+      "intent": "Is the recipe winner intrinsic to seq 00?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50"]
+    }
+  ]
+}

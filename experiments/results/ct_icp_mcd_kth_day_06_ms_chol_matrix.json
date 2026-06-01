@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-05-18T13:46:02+00:00",
+  "manifest_path": "experiments/pending/ct_icp_mcd_kth_day_06_ms_chol_matrix.json",
+  "problem": {
+    "id": "ct_icp_ms_chol_mcd_kth_day_06",
+    "title": "CT-ICP ms_chol on MCD KTH day 06 (worst MCD baseline at 6.115 m)",
+    "question": "Does the post-investigation ms_chol bundle help the worst MCD CT-ICP baseline?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+    "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_window_baseline",
+      "label": "Existing best (dense_window, 6.115 m)",
+      "design_style": "reference",
+      "intent": "Old CT-ICP best on MCD KTH.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/dense_window_baseline/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/dense_window_baseline/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/dense_window_baseline/run.log",
+      "status": "ok",
+      "ate_m": 6.114585,
+      "rpe_trans_pct": 29.891287,
+      "rpe_rot_deg_per_m": 2.381092,
+      "fps": 24.962879,
+      "time_ms": 4326.424041,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 99.75,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "ms_chol",
+      "label": "ms_chol bundle (post-investigation)",
+      "design_style": "ms_chol",
+      "intent": "Apply CT-ICP investigation findings.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/ms_chol/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/ms_chol/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/ms_chol/run.log",
+      "status": "ok",
+      "ate_m": 6.084426,
+      "rpe_trans_pct": 28.851601,
+      "rpe_rot_deg_per_m": 2.389766,
+      "fps": 22.351516,
+      "time_ms": 4831.887015,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 94.77,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "ms_chol_max_frames_30",
+      "label": "ms_chol + max_frames=30",
+      "design_style": "indoor-like map",
+      "intent": "MCD is indoor handheld - test if HDL-400-like big map helps.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "30",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/ms_chol_max_frames_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/ms_chol_max_frames_30/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_kth_day_06_ms_chol_matrix/ms_chol_max_frames_30/run.log",
+      "status": "ok",
+      "ate_m": 6.111245,
+      "rpe_trans_pct": 29.267807,
+      "rpe_rot_deg_per_m": 2.378367,
+      "fps": 21.677053,
+      "time_ms": 4982.227131,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 93.2,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -11,6 +11,7 @@
 #include "kiss_icp/kiss_icp.h"
 #include "litamin2/litamin2_registration.h"
 #include "ndt/ndt_registration.h"
+#include "scan_context/scan_context.h"
 #include "small_gicp/small_gicp_registration.h"
 #include "voxel_gicp/voxel_gicp_registration.h"
 #include "aloam/scan_registration.h"
@@ -121,6 +122,11 @@ struct LoadedScan {
   bool has_per_point_time = false;
 };
 
+struct LoadedXYZI {
+  Eigen::Vector3d point = Eigen::Vector3d::Zero();
+  float intensity = 0.0f;
+};
+
 std::string trimCsvToken(std::string token) {
   while (!token.empty() &&
          (token.back() == '\r' || token.back() == '\n' || token.back() == ' ' ||
@@ -157,10 +163,11 @@ std::vector<std::string> splitMethodList(const std::string& csv) {
 
 bool isSupportedMethod(const std::string& method) {
   return method == "litamin2" || method == "gicp" || method == "ndt" ||
-         method == "kiss_icp" || method == "small_gicp" ||
+         method == "fixed_map_ndt" || method == "kiss_icp" || method == "small_gicp" ||
          method == "voxel_gicp" || method == "aloam" || method == "floam" ||
          method == "dlo" || method == "dlio" || method == "lego_loam" ||
          method == "mulls" || method == "ct_lio" || method == "ct_icp" ||
+         method == "ct_icp_ndt" || method == "ct_icp_ndt_keyframe" ||
          method == "xicp" || method == "fast_lio2" ||
          method == "hdl_graph_slam" || method == "vgicp_slam" ||
          method == "suma" || method == "balm2" || method == "isc_loam" ||
@@ -311,6 +318,48 @@ std::vector<Eigen::Vector3d> limitPoints(const std::vector<Eigen::Vector3d>& poi
   return limited;
 }
 
+std::vector<LoadedXYZI> loadPCDXYZI(const std::string& path, double leaf = 0.5) {
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  if (pcl::io::loadPCDFile<pcl::PointXYZI>(path, *cloud) == -1) return {};
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr selected = cloud;
+  pcl::PointCloud<pcl::PointXYZI> filtered;
+  if (leaf > 1e-9) {
+    pcl::VoxelGrid<pcl::PointXYZI> vg;
+    vg.setInputCloud(cloud);
+    vg.setLeafSize(leaf, leaf, leaf);
+    vg.setDownsampleAllData(true);
+    vg.filter(filtered);
+    selected.reset(new pcl::PointCloud<pcl::PointXYZI>(filtered));
+  }
+
+  std::vector<LoadedXYZI> points;
+  points.reserve(selected->size());
+  for (const auto& p : selected->points) {
+    if (!std::isfinite(p.x) || !std::isfinite(p.y) ||
+        !std::isfinite(p.z) || !std::isfinite(p.intensity)) {
+      continue;
+    }
+    const double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+    if (r <= 1.0 || r >= 80.0) continue;
+    points.push_back({Eigen::Vector3d(p.x, p.y, p.z), p.intensity});
+  }
+  return points;
+}
+
+std::vector<LoadedXYZI> limitLoadedXYZI(const std::vector<LoadedXYZI>& points,
+                                        size_t max_points) {
+  if (points.size() <= max_points) return points;
+  std::vector<LoadedXYZI> limited;
+  limited.reserve(max_points);
+  double step = static_cast<double>(points.size()) / max_points;
+  for (size_t i = 0; i < max_points; i++) {
+    size_t idx = std::min(static_cast<size_t>(i * step), points.size() - 1);
+    limited.push_back(points[idx]);
+  }
+  return limited;
+}
+
 void normalizeRelativeTimes(std::vector<double>& relative_times) {
   if (relative_times.empty()) return;
 
@@ -408,6 +457,22 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr toPclXYZICloud(
     pt.y = static_cast<float>(p.y());
     pt.z = static_cast<float>(p.z());
     pt.intensity = 0.0f;
+    cloud->push_back(pt);
+  }
+  return cloud;
+}
+
+pcl::PointCloud<pcl::PointXYZI>::Ptr toPclXYZICloud(
+    const std::vector<LoadedXYZI>& points) {
+  auto cloud = pcl::PointCloud<pcl::PointXYZI>::Ptr(
+      new pcl::PointCloud<pcl::PointXYZI>);
+  cloud->reserve(points.size());
+  for (const auto& p : points) {
+    pcl::PointXYZI pt;
+    pt.x = static_cast<float>(p.point.x());
+    pt.y = static_cast<float>(p.point.y());
+    pt.z = static_cast<float>(p.point.z());
+    pt.intensity = p.intensity;
     cloud->push_back(pt);
   }
   return cloud;
@@ -571,6 +636,69 @@ double computeATE(const std::vector<Eigen::Matrix4d>& est,
   return std::sqrt(sum / n);
 }
 
+struct RPEMetrics {
+  bool available = false;
+  double trans_pct = 0.0;
+  double rot_deg_per_m = 0.0;
+};
+
+// KITTI-style benchmarks use 100 m segments when the trajectory is long enough.
+// For short public windows (e.g. MCD ~15 m), scale the segment length down so RPE
+// is still defined without changing behavior on sequences >= 100 m.
+double rpeSegmentLengthM(double trajectory_length_m) {
+  if (trajectory_length_m <= 0.0) return 0.0;
+  constexpr double kKitBench = 100.0;
+  if (trajectory_length_m >= kKitBench) return kKitBench;
+  const double half = 0.5 * trajectory_length_m;
+  constexpr double kMinSeg = 3.0;
+  double seg = std::max(half, kMinSeg);
+  seg = std::min(seg, trajectory_length_m * 0.95);
+  return seg;
+}
+
+RPEMetrics computeRPE(const std::vector<Eigen::Matrix4d>& est,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      double segment_length_m = 100.0) {
+  const int n = std::min(est.size(), gt.size());
+  if (n < 2 || segment_length_m <= 0.0) return {};
+
+  std::vector<double> trans_errs;
+  std::vector<double> rot_errs;
+  for (int i = 0; i < n; i++) {
+    double dist = 0.0;
+    int j = i + 1;
+    while (j < n) {
+      dist += (gt[j].block<3, 1>(0, 3) - gt[j - 1].block<3, 1>(0, 3)).norm();
+      if (dist >= segment_length_m) break;
+      ++j;
+    }
+    if (j >= n || dist <= 1e-9) break;
+
+    const Eigen::Matrix4d dT_est = est[i].inverse() * est[j];
+    const Eigen::Matrix4d dT_gt = gt[i].inverse() * gt[j];
+    const Eigen::Matrix4d T_err = dT_gt.inverse() * dT_est;
+
+    const double t_err = T_err.block<3, 1>(0, 3).norm();
+    const Eigen::Matrix3d R_err = T_err.block<3, 3>(0, 0);
+    const double trace_term =
+        std::clamp((R_err.trace() - 1.0) / 2.0, -1.0, 1.0);
+    const double r_err_rad = std::acos(trace_term);
+
+    trans_errs.push_back(t_err / dist * 100.0);
+    rot_errs.push_back(r_err_rad / dist * 180.0 / M_PI);
+  }
+
+  if (trans_errs.empty()) return {};
+
+  RPEMetrics metrics;
+  metrics.available = true;
+  for (double value : trans_errs) metrics.trans_pct += value;
+  for (double value : rot_errs) metrics.rot_deg_per_m += value;
+  metrics.trans_pct /= trans_errs.size();
+  metrics.rot_deg_per_m /= rot_errs.size();
+  return metrics;
+}
+
 int frameToGTIndex(size_t frame_idx, size_t total_pcd_frames, size_t num_gt_poses) {
   if (num_gt_poses == 0) return 0;
   if (num_gt_poses == total_pcd_frames) {
@@ -645,7 +773,11 @@ struct MethodResult {
   std::vector<Eigen::Matrix4d> poses;
   double time_ms = 0;
   double ate = 0;
+  double rpe_trans_pct = 0;
+  double rpe_rot_deg_per_m = 0;
+  bool has_rpe = false;
   bool skipped = false;
+  std::string status = "ok";
   std::string note;
 };
 
@@ -653,8 +785,65 @@ MethodResult makeSkippedResult(const std::string& name, const std::string& note)
   MethodResult res;
   res.name = name;
   res.skipped = true;
+  res.status = "skipped";
   res.note = note;
   return res;
+}
+
+struct SeedPerturbation {
+  double x = 0.0;
+  double y = 0.0;
+  double z = 0.0;
+  double yaw_rad = 0.0;
+
+  bool enabled() const {
+    constexpr double kEps = 1e-12;
+    return std::abs(x) > kEps || std::abs(y) > kEps ||
+           std::abs(z) > kEps || std::abs(yaw_rad) > kEps;
+  }
+};
+
+Eigen::Matrix4d seedPerturbationMatrix(const SeedPerturbation& perturb) {
+  Eigen::Matrix4d delta = Eigen::Matrix4d::Identity();
+  delta.block<3, 3>(0, 0) =
+      Eigen::AngleAxisd(perturb.yaw_rad, Eigen::Vector3d::UnitZ())
+          .toRotationMatrix();
+  delta(0, 3) = perturb.x;
+  delta(1, 3) = perturb.y;
+  delta(2, 3) = perturb.z;
+  return delta;
+}
+
+Eigen::Matrix4d applySeedPerturbation(const Eigen::Matrix4d& seed,
+                                      const SeedPerturbation& perturb) {
+  if (!perturb.enabled()) {
+    return seed;
+  }
+  return seed * seedPerturbationMatrix(perturb);
+}
+
+bool isFiniteMatrix(const Eigen::Matrix4d& T) {
+  for (int r = 0; r < T.rows(); ++r) {
+    for (int c = 0; c < T.cols(); ++c) {
+      if (!std::isfinite(T(r, c))) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+std::string seedPerturbationNote(const SeedPerturbation& perturb) {
+  if (!perturb.enabled()) {
+    return "";
+  }
+  std::ostringstream ss;
+  ss << " Seed perturbation applied in local seed frame: dx="
+     << std::fixed << std::setprecision(3) << perturb.x
+     << "m dy=" << perturb.y
+     << "m dz=" << perturb.z
+     << "m yaw=" << perturb.yaw_rad * 180.0 / M_PI << "deg.";
+  return ss.str();
 }
 
 struct LiTAMIN2DogfoodingOptions {
@@ -670,6 +859,7 @@ struct LiTAMIN2DogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  SeedPerturbation seed_perturbation;
 };
 
 struct GICPDogfoodingOptions {
@@ -683,6 +873,7 @@ struct GICPDogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  SeedPerturbation seed_perturbation;
 };
 
 struct SmallGICPDogfoodingOptions {
@@ -702,6 +893,7 @@ struct SmallGICPDogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  SeedPerturbation seed_perturbation;
 };
 
 struct VoxelGICPDogfoodingOptions {
@@ -720,6 +912,7 @@ struct VoxelGICPDogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  SeedPerturbation seed_perturbation;
 };
 
 struct ALOAMDogfoodingOptions {
@@ -857,6 +1050,7 @@ struct NDTDogfoodingOptions {
   double map_radius = 35.0;
   double max_seed_translation_delta = 1.5;
   double max_seed_rotation_delta_rad = 0.2;
+  SeedPerturbation seed_perturbation;
 };
 
 struct KISSICPDogfoodingOptions {
@@ -879,7 +1073,145 @@ struct CTICPDogfoodingOptions {
   double planarity_threshold = 0.08;
   double keypoint_voxel_size = 1.25;
   int max_frames_in_map = 8;
+  // <=0 leaves the algorithm-level default of 100 m^2 unchanged. Override via
+  // --ct-icp-max-correspondence-distance for paper-style tighter outlier
+  // rejection (paper uses 1-2 m^2, i.e. 1-1.4 m linear).
+  double max_correspondence_dist = -1.0;
+  int knn = -1;  // <=0 keeps algorithm default (5).
+  // Architecture-level extensions enabled by --ct-icp-paper-arch.
+  bool multi_scale_correspondences = false;
+  bool use_normal_cholesky_solver = false;
+  // LiTAMIN2/X-ICP 風の "refinement-acceptance gate" + velocity-model bootstrap。
+  // CT-ICP は素朴な constant-velocity 外挿だと急カーブで発散するため、結果が
+  // 大きく seed から逸れた場合は予測値にロールバックして発散を抑える。
+  bool refinement_gate = false;
+  double max_seed_translation_delta = 2.0;
+  double max_seed_rotation_delta_rad = 0.25;
+  // Seed source for the gate: when false (default), body-frame constant velocity
+  // from (T_prev_prev_world, T_prev_world); when true, CT-ICP's own (begin_pose,
+  // end_pose) intra-scan delta is extrapolated one scan period forward.
+  bool native_ct_icp_seed = false;
+
+  // Paper weight scheme (Gap B+D+E+F bundle).
+  // 個別フラグで isolation ablation 可能。
+  double power_planarity = 1.0;
+  double weight_alpha = 1.0;
+  double weight_neighborhood = 0.0;
+  double min_planarity_floor = 0.0;
+  bool flat_regularizer_weight = false;
+  // 既定 -1 で CTICPParams::cauchy_loss_param=0.5 を維持。
+  // paper 既定は 0.1。
+  double cauchy_loss_param = -1.0;
+  // <=0 で N_corr 全数 (現状)。正値で sqrt(min(N_corr, cap) * β)。
+  int regularizer_n_cap = 0;
+
+  // Pick 2 / Gap A: closest-neighbor reference + larger PCA neighborhood.
+  bool use_closest_neighbor_reference = false;
+  int pca_neighbor_count = 0;  // 0 で knn と同じ。paper は 20。
+  // Pick 2 / Gap C: min-distance voxel insertion. 単位 m。0 で無効。paper は 0.1。
+  double min_distance_between_points = 0.0;
+
+  // Coarse-to-fine 2-phase schedule.
+  bool coarse_to_fine = false;
+  int coarse_iterations = 3;
+  int coarse_search_radius = 2;
+  double coarse_planarity_threshold = 0.05;
+  double coarse_cauchy_sigma_mult = 2.0;
 };
+
+struct CTICPNDTHybridOptions {
+  int keyframe_interval = 5;
+  double max_correction_translation_delta = 0.5;
+  double max_correction_rotation_delta_rad = 0.35;
+  // <=0 disables score gating because NDT score scale is dataset/profile
+  // dependent in this dogfooding implementation.
+  double max_ndt_score = -1.0;
+};
+
+struct FixedMapNDTOptions {
+  int map_stride = 1;
+  std::string seed_source = "gt";  // gt, velocity, ct_icp, scan_context
+  double scan_context_distance_threshold = 0.18;
+  int scan_context_top_k = 1;
+  std::string trace_json_path;
+  int publish_min_stable_frames = 5;
+  int publish_max_hold_frames = 3;
+  int scan_context_relock_min_confirmations = 2;
+  double scan_context_relock_max_distance = 0.05;
+  double scan_context_relock_max_ndt_score = 1.2;
+  double scan_context_relock_max_score_delta = 0.25;
+};
+
+struct FixedMapNDTTraceFrame {
+  size_t frame_index = 0;
+  std::string decision = "unprocessed";
+  std::string seed_source;
+  bool accepted = false;
+  bool seed_fallback = false;
+  bool scan_context_hit = false;
+  int scan_context_candidate_count = 0;
+  int scan_context_candidates_evaluated = 0;
+  int selected_candidate_index = -1;
+  double scan_context_front_distance = std::numeric_limits<double>::quiet_NaN();
+  double selected_candidate_distance = std::numeric_limits<double>::quiet_NaN();
+  double selected_candidate_yaw_offset_rad = std::numeric_limits<double>::quiet_NaN();
+  double ndt_score = std::numeric_limits<double>::quiet_NaN();
+  int ndt_iterations = 0;
+  bool ndt_converged = false;
+  double seed_translation_error_m = std::numeric_limits<double>::quiet_NaN();
+  double seed_rotation_error_rad = std::numeric_limits<double>::quiet_NaN();
+  double refined_translation_error_m = std::numeric_limits<double>::quiet_NaN();
+  double refined_rotation_error_rad = std::numeric_limits<double>::quiet_NaN();
+  double final_translation_error_m = std::numeric_limits<double>::quiet_NaN();
+  double final_rotation_error_rad = std::numeric_limits<double>::quiet_NaN();
+  double correction_translation_delta_m = std::numeric_limits<double>::quiet_NaN();
+  double correction_rotation_delta_rad = std::numeric_limits<double>::quiet_NaN();
+  double final_step_m = std::numeric_limits<double>::quiet_NaN();
+  double gt_step_m = std::numeric_limits<double>::quiet_NaN();
+  std::string publish_action = "not_evaluated";
+  std::string publish_state = "not_evaluated";
+  std::string publish_gate_reason;
+  std::string gt_safety_state = "not_evaluated";
+  bool allow_pose_publish = false;
+  bool has_pose_output = false;
+  bool runtime_refinement_candidate = false;
+  bool relock_candidate = false;
+  bool relock_sequence_compatible = false;
+  bool gt_wrong_pose = false;
+  bool gt_recovery_transition = false;
+  bool gt_unsafe_transition = false;
+  int runtime_refinement_streak = 0;
+  int relock_streak = 0;
+  int relock_candidate_index_delta = 0;
+  int relock_frame_gap = 0;
+  int publish_hold_age_frames = 0;
+  double published_translation_error_m = std::numeric_limits<double>::quiet_NaN();
+  std::string relock_rejected_reason;
+  Eigen::Matrix4d seed_pose = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d refined_pose = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d final_pose = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d gt_pose = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d published_pose = Eigen::Matrix4d::Identity();
+};
+
+struct FixedMapNDTPublishPolicyState {
+  int runtime_refinement_streak = 0;
+  int hold_streak = 0;
+  bool has_last_published_pose = false;
+  size_t last_published_frame = 0;
+  Eigen::Matrix4d last_published_pose = Eigen::Matrix4d::Identity();
+  int scan_context_relock_streak = 0;
+  bool has_last_scan_context_relock = false;
+  size_t last_scan_context_relock_frame = 0;
+  int last_scan_context_relock_candidate_index = -1;
+  double last_scan_context_relock_score =
+      std::numeric_limits<double>::quiet_NaN();
+};
+
+MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const CTICPDogfoodingOptions& options,
+                      bool gt_seed);
 
 struct DLODofeedingOptions {
   double input_voxel_size = 0.5;
@@ -1168,6 +1500,534 @@ bool isReasonableRefinement(const Eigen::Matrix4d& refined_pose,
          poseRotationDelta(refined_pose, seed_pose) <= max_rotation_delta_rad;
 }
 
+double poseTranslationErrorToGT(const Eigen::Matrix4d& pose,
+                                const std::vector<Eigen::Matrix4d>& gt,
+                                size_t frame_index) {
+  if (frame_index >= gt.size() || !isFiniteMatrix(pose)) {
+    return std::numeric_limits<double>::quiet_NaN();
+  }
+  return poseTranslationDelta(pose, gt[frame_index]);
+}
+
+double poseRotationErrorToGT(const Eigen::Matrix4d& pose,
+                             const std::vector<Eigen::Matrix4d>& gt,
+                             size_t frame_index) {
+  if (frame_index >= gt.size() || !isFiniteMatrix(pose)) {
+    return std::numeric_limits<double>::quiet_NaN();
+  }
+  return poseRotationDelta(pose, gt[frame_index]);
+}
+
+void finalizeFixedMapNDTTraceFrame(FixedMapNDTTraceFrame& frame,
+                                   const std::vector<Eigen::Matrix4d>& gt,
+                                   const Eigen::Matrix4d* previous_final_pose) {
+  const size_t i = frame.frame_index;
+  if (i < gt.size()) {
+    frame.gt_pose = gt[i];
+  }
+  frame.seed_translation_error_m =
+      poseTranslationErrorToGT(frame.seed_pose, gt, i);
+  frame.seed_rotation_error_rad = poseRotationErrorToGT(frame.seed_pose, gt, i);
+  frame.refined_translation_error_m =
+      poseTranslationErrorToGT(frame.refined_pose, gt, i);
+  frame.refined_rotation_error_rad =
+      poseRotationErrorToGT(frame.refined_pose, gt, i);
+  frame.final_translation_error_m =
+      poseTranslationErrorToGT(frame.final_pose, gt, i);
+  frame.final_rotation_error_rad =
+      poseRotationErrorToGT(frame.final_pose, gt, i);
+  frame.correction_translation_delta_m =
+      poseTranslationDelta(frame.final_pose, frame.seed_pose);
+  frame.correction_rotation_delta_rad =
+      poseRotationDelta(frame.final_pose, frame.seed_pose);
+  if (previous_final_pose != nullptr) {
+    frame.final_step_m = poseTranslationDelta(frame.final_pose, *previous_final_pose);
+  }
+  if (i > 0 && i < gt.size()) {
+    frame.gt_step_m = poseTranslationDelta(gt[i], gt[i - 1]);
+  }
+}
+
+bool fixedMapNDTTraceHasWrongPose(const FixedMapNDTTraceFrame& frame) {
+  return !std::isfinite(frame.final_translation_error_m) ||
+         frame.final_translation_error_m > 1.0;
+}
+
+double finiteRatio(double numerator, double denominator) {
+  if (!std::isfinite(numerator) || !std::isfinite(denominator) ||
+      denominator <= 1e-9) {
+    return std::numeric_limits<double>::quiet_NaN();
+  }
+  return numerator / denominator;
+}
+
+void annotateFixedMapNDTGTSafety(FixedMapNDTTraceFrame& frame,
+                                 const FixedMapNDTTraceFrame* previous_frame) {
+  frame.gt_wrong_pose = fixedMapNDTTraceHasWrongPose(frame);
+  const double step_ratio = finiteRatio(frame.final_step_m, frame.gt_step_m);
+  const double previous_error =
+      previous_frame ? previous_frame->final_translation_error_m
+                     : std::numeric_limits<double>::quiet_NaN();
+  const double transition_error_delta =
+      (std::isfinite(previous_error) &&
+       std::isfinite(frame.final_translation_error_m))
+          ? previous_error - frame.final_translation_error_m
+          : std::numeric_limits<double>::quiet_NaN();
+  const bool is_jump = std::isfinite(step_ratio) && step_ratio > 3.0;
+  frame.gt_recovery_transition =
+      is_jump && std::isfinite(transition_error_delta) &&
+      transition_error_delta >= 1.0 &&
+      std::isfinite(frame.final_translation_error_m) &&
+      frame.final_translation_error_m <= 1.0;
+  frame.gt_unsafe_transition =
+      is_jump && !frame.gt_recovery_transition &&
+      (!std::isfinite(frame.final_translation_error_m) ||
+       frame.final_translation_error_m > 1.0 ||
+       (std::isfinite(transition_error_delta) &&
+        transition_error_delta < 0.0));
+
+  if (frame.gt_unsafe_transition) {
+    frame.gt_safety_state = "unsafe_transition";
+  } else if (frame.gt_recovery_transition) {
+    frame.gt_safety_state = "recovery_transition";
+  } else if (frame.gt_wrong_pose) {
+    frame.gt_safety_state = "wrong_pose";
+  } else {
+    frame.gt_safety_state = "inside_publish_envelope";
+  }
+}
+
+bool fixedMapNDTRuntimeRefinementCandidate(const FixedMapNDTTraceFrame& frame) {
+  return frame.accepted && !frame.seed_fallback &&
+         isFiniteMatrix(frame.final_pose) && std::isfinite(frame.ndt_score) &&
+         (frame.ndt_converged || frame.ndt_iterations >= 2);
+}
+
+bool fixedMapNDTScanContextRelockCandidate(
+    FixedMapNDTTraceFrame& frame,
+    const FixedMapNDTOptions& options) {
+  frame.relock_candidate = false;
+  if (options.seed_source != "scan_context") {
+    frame.relock_rejected_reason = "not_scan_context_seed";
+    return false;
+  }
+  if (!frame.runtime_refinement_candidate) {
+    frame.relock_rejected_reason = "not_runtime_refinement_candidate";
+    return false;
+  }
+  if (frame.selected_candidate_index < 0) {
+    frame.relock_rejected_reason = "missing_selected_global_candidate";
+    return false;
+  }
+  if (!std::isfinite(frame.selected_candidate_distance) ||
+      frame.selected_candidate_distance >
+          options.scan_context_relock_max_distance) {
+    frame.relock_rejected_reason = "scan_context_distance_too_large";
+    return false;
+  }
+  if (!std::isfinite(frame.ndt_score) ||
+      frame.ndt_score > options.scan_context_relock_max_ndt_score) {
+    frame.relock_rejected_reason = "ndt_score_too_large_for_relock";
+    return false;
+  }
+  frame.relock_candidate = true;
+  frame.relock_rejected_reason.clear();
+  return true;
+}
+
+void updateFixedMapNDTScanContextRelockState(
+    FixedMapNDTTraceFrame& frame,
+    const FixedMapNDTOptions& options,
+    FixedMapNDTPublishPolicyState& state) {
+  if (!fixedMapNDTScanContextRelockCandidate(frame, options)) {
+    frame.relock_streak = state.scan_context_relock_streak;
+    return;
+  }
+
+  bool compatible = true;
+  if (state.has_last_scan_context_relock) {
+    const int index_delta =
+        frame.selected_candidate_index -
+        state.last_scan_context_relock_candidate_index;
+    const int frame_gap =
+        static_cast<int>(frame.frame_index -
+                         state.last_scan_context_relock_frame);
+    const int expected_frame_gap =
+        index_delta * std::max(1, options.map_stride);
+    const int tolerance = std::max(1, std::max(1, options.map_stride) / 2);
+    const double score_delta =
+        std::isfinite(state.last_scan_context_relock_score)
+            ? std::abs(frame.ndt_score - state.last_scan_context_relock_score)
+            : 0.0;
+    frame.relock_candidate_index_delta = index_delta;
+    frame.relock_frame_gap = frame_gap;
+    compatible =
+        index_delta > 0 &&
+        std::abs(frame_gap - expected_frame_gap) <= tolerance &&
+        score_delta <= options.scan_context_relock_max_score_delta;
+  }
+
+  frame.relock_sequence_compatible = compatible;
+  if (compatible) {
+    state.scan_context_relock_streak =
+        state.has_last_scan_context_relock
+            ? state.scan_context_relock_streak + 1
+            : 1;
+  } else {
+    state.scan_context_relock_streak = 1;
+    frame.relock_rejected_reason = "relock_sequence_incompatible_reset";
+  }
+  state.has_last_scan_context_relock = true;
+  state.last_scan_context_relock_frame = frame.frame_index;
+  state.last_scan_context_relock_candidate_index =
+      frame.selected_candidate_index;
+  state.last_scan_context_relock_score = frame.ndt_score;
+  frame.relock_streak = state.scan_context_relock_streak;
+}
+
+void returnUnknownFixedMapNDTPublish(FixedMapNDTTraceFrame& frame,
+                                     FixedMapNDTPublishPolicyState& state,
+                                     const std::string& publish_state,
+                                     const std::string& reason) {
+  frame.publish_action = "return_unknown";
+  frame.publish_state = publish_state;
+  frame.publish_gate_reason = reason;
+  frame.allow_pose_publish = false;
+  frame.has_pose_output = false;
+  frame.publish_hold_age_frames = 0;
+  state.hold_streak = 0;
+}
+
+void annotateFixedMapNDTPublishPolicy(
+    FixedMapNDTTraceFrame& frame,
+    const FixedMapNDTOptions& options,
+    FixedMapNDTPublishPolicyState& state,
+    const FixedMapNDTTraceFrame* previous_frame) {
+  annotateFixedMapNDTGTSafety(frame, previous_frame);
+  frame.runtime_refinement_candidate =
+      fixedMapNDTRuntimeRefinementCandidate(frame);
+
+  if (frame.decision == "anchor") {
+    state.runtime_refinement_streak = 0;
+    returnUnknownFixedMapNDTPublish(
+        frame, state, "anchor_frame",
+        "initial anchor is not a runtime publish proof");
+    return;
+  }
+
+  if (options.seed_source == "gt") {
+    state.runtime_refinement_streak = 0;
+    returnUnknownFixedMapNDTPublish(
+        frame, state, "lab_only_oracle_seed",
+        "GT seed validates the localizer but is not deployable");
+    return;
+  }
+
+  if (!frame.runtime_refinement_candidate) {
+    state.runtime_refinement_streak = 0;
+    const std::string publish_state =
+        frame.seed_fallback ? "seed_fallback_unknown"
+                            : "refinement_rejected_unknown";
+    const std::string reason =
+        frame.seed_fallback
+            ? "seed fallback has no fixed-map verification"
+            : "NDT refinement was not accepted by runtime gates";
+    if (options.seed_source != "scan_context" &&
+        state.has_last_published_pose &&
+        state.hold_streak < std::max(0, options.publish_max_hold_frames)) {
+      ++state.hold_streak;
+      frame.publish_action = "hold_last_pose";
+      frame.publish_state = publish_state;
+      frame.publish_gate_reason = reason;
+      frame.allow_pose_publish = true;
+      frame.has_pose_output = true;
+      frame.publish_hold_age_frames =
+          static_cast<int>(frame.frame_index - state.last_published_frame);
+      frame.published_pose = state.last_published_pose;
+      frame.published_translation_error_m =
+          poseTranslationDelta(frame.published_pose, frame.gt_pose);
+    } else {
+      returnUnknownFixedMapNDTPublish(frame, state, publish_state, reason);
+    }
+    return;
+  }
+
+  ++state.runtime_refinement_streak;
+  frame.runtime_refinement_streak = state.runtime_refinement_streak;
+  if (options.seed_source == "scan_context") {
+    updateFixedMapNDTScanContextRelockState(frame, options, state);
+    if (!frame.relock_candidate) {
+      returnUnknownFixedMapNDTPublish(
+          frame, state, "relock_candidate_rejected",
+          frame.relock_rejected_reason.empty()
+              ? "Scan Context candidate failed relock gates"
+              : frame.relock_rejected_reason);
+      return;
+    }
+    if (!frame.relock_sequence_compatible ||
+        frame.relock_streak <
+            std::max(1, options.scan_context_relock_min_confirmations)) {
+      returnUnknownFixedMapNDTPublish(
+          frame, state, "warming_up_relock_sequence",
+          "Scan Context relock needs another sequence-compatible confirmation");
+      return;
+    }
+
+    state.hold_streak = 0;
+    state.has_last_published_pose = true;
+    state.last_published_frame = frame.frame_index;
+    state.last_published_pose = frame.final_pose;
+    frame.publish_action = "publish_pose";
+    frame.publish_state = "scan_context_relock_verified";
+    frame.publish_gate_reason =
+        "Scan Context descriptor, NDT score, and relock sequence are consistent";
+    frame.allow_pose_publish = true;
+    frame.has_pose_output = true;
+    frame.publish_hold_age_frames = 0;
+    frame.published_pose = frame.final_pose;
+    frame.published_translation_error_m = frame.final_translation_error_m;
+    return;
+  }
+
+  if (state.runtime_refinement_streak <
+      std::max(1, options.publish_min_stable_frames)) {
+    returnUnknownFixedMapNDTPublish(
+        frame, state, "warming_up_stable_refinement",
+        "runtime refinement streak is shorter than the publish threshold");
+    return;
+  }
+
+  state.hold_streak = 0;
+  state.has_last_published_pose = true;
+  state.last_published_frame = frame.frame_index;
+  state.last_published_pose = frame.final_pose;
+  frame.publish_action = "publish_pose";
+  frame.publish_state = "runtime_stable_refinement";
+  frame.publish_gate_reason =
+      "accepted runtime refinement passed the stable publish threshold";
+  frame.allow_pose_publish = true;
+  frame.has_pose_output = true;
+  frame.publish_hold_age_frames = 0;
+  frame.published_pose = frame.final_pose;
+  frame.published_translation_error_m = frame.final_translation_error_m;
+}
+
+void writeFixedMapNDTTraceJson(const std::string& path,
+                               const FixedMapNDTOptions& options,
+                               size_t num_frames,
+                               size_t map_points,
+                               const std::vector<FixedMapNDTTraceFrame>& frames) {
+  if (path.empty()) return;
+  const fs::path out_path(path);
+  if (!out_path.parent_path().empty()) {
+    fs::create_directories(out_path.parent_path());
+  }
+
+  auto write_number = [](std::ostream& out, double value) {
+    if (std::isfinite(value)) {
+      out << std::fixed << std::setprecision(9) << value;
+    } else {
+      out << "null";
+    }
+  };
+  auto write_bool = [](std::ostream& out, bool value) {
+    out << (value ? "true" : "false");
+  };
+  auto write_pose = [&write_number](std::ostream& out,
+                                    const Eigen::Matrix4d& pose) {
+    out << "[";
+    for (int r = 0; r < 4; r++) {
+      for (int c = 0; c < 4; c++) {
+        if (r != 0 || c != 0) out << ", ";
+        write_number(out, pose(r, c));
+      }
+    }
+    out << "]";
+  };
+
+  std::ofstream out(path);
+  out << "{\n";
+  out << "  \"trace_version\": \"fixed_map_ndt_trace_v2\",\n";
+  out << "  \"seed_source\": \"" << jsonEscape(options.seed_source) << "\",\n";
+  out << "  \"map_stride\": " << std::max(1, options.map_stride) << ",\n";
+  out << "  \"scan_context_distance_threshold\": ";
+  write_number(out, options.scan_context_distance_threshold);
+  out << ",\n";
+  out << "  \"scan_context_top_k\": "
+      << std::max(1, options.scan_context_top_k) << ",\n";
+  out << "  \"publish_policy\": {\n";
+  out << "    \"policy_version\": \"fixed_map_ndt_runtime_publish_policy_v1\",\n";
+  out << "    \"gt_safety_label_version\": \"fixed_map_ndt_trace_gt_safety_v1\",\n";
+  out << "    \"publish_error_m\": 1.000000000,\n";
+  out << "    \"jump_step_ratio\": 3.000000000,\n";
+  out << "    \"recovery_error_drop_m\": 1.000000000,\n";
+  out << "    \"min_stable_frames\": "
+      << std::max(1, options.publish_min_stable_frames) << ",\n";
+  out << "    \"max_hold_frames\": "
+      << std::max(0, options.publish_max_hold_frames) << ",\n";
+  out << "    \"scan_context_relock_min_confirmations\": "
+      << std::max(1, options.scan_context_relock_min_confirmations) << ",\n";
+  out << "    \"scan_context_relock_max_distance\": ";
+  write_number(out, options.scan_context_relock_max_distance);
+  out << ",\n";
+  out << "    \"scan_context_relock_max_ndt_score\": ";
+  write_number(out, options.scan_context_relock_max_ndt_score);
+  out << ",\n";
+  out << "    \"scan_context_relock_max_score_delta\": ";
+  write_number(out, options.scan_context_relock_max_score_delta);
+  out << ",\n";
+  out << "    \"scan_context_publish_requires_relock_sequence_verifier\": true\n";
+  out << "  },\n";
+  out << "  \"num_frames\": " << num_frames << ",\n";
+  out << "  \"map_points\": " << map_points << ",\n";
+  out << "  \"frames\": [\n";
+  for (size_t i = 0; i < frames.size(); i++) {
+    const auto& frame = frames[i];
+    out << "    {\n";
+    out << "      \"frame_index\": " << frame.frame_index << ",\n";
+    out << "      \"decision\": \"" << jsonEscape(frame.decision) << "\",\n";
+    out << "      \"seed_source\": \"" << jsonEscape(frame.seed_source) << "\",\n";
+    out << "      \"accepted\": ";
+    write_bool(out, frame.accepted);
+    out << ",\n";
+    out << "      \"seed_fallback\": ";
+    write_bool(out, frame.seed_fallback);
+    out << ",\n";
+    out << "      \"scan_context_hit\": ";
+    write_bool(out, frame.scan_context_hit);
+    out << ",\n";
+    out << "      \"scan_context_candidate_count\": "
+        << frame.scan_context_candidate_count << ",\n";
+    out << "      \"scan_context_candidates_evaluated\": "
+        << frame.scan_context_candidates_evaluated << ",\n";
+    out << "      \"selected_candidate_index\": "
+        << frame.selected_candidate_index << ",\n";
+    out << "      \"scan_context_front_distance\": ";
+    write_number(out, frame.scan_context_front_distance);
+    out << ",\n";
+    out << "      \"selected_candidate_distance\": ";
+    write_number(out, frame.selected_candidate_distance);
+    out << ",\n";
+    out << "      \"selected_candidate_yaw_offset_rad\": ";
+    write_number(out, frame.selected_candidate_yaw_offset_rad);
+    out << ",\n";
+    out << "      \"ndt_score\": ";
+    write_number(out, frame.ndt_score);
+    out << ",\n";
+    out << "      \"ndt_iterations\": " << frame.ndt_iterations << ",\n";
+    out << "      \"ndt_converged\": ";
+    write_bool(out, frame.ndt_converged);
+    out << ",\n";
+    out << "      \"publish_action\": \""
+        << jsonEscape(frame.publish_action) << "\",\n";
+    out << "      \"publish_state\": \""
+        << jsonEscape(frame.publish_state) << "\",\n";
+    out << "      \"publish_gate_reason\": \""
+        << jsonEscape(frame.publish_gate_reason) << "\",\n";
+    out << "      \"allow_pose_publish\": ";
+    write_bool(out, frame.allow_pose_publish);
+    out << ",\n";
+    out << "      \"has_pose_output\": ";
+    write_bool(out, frame.has_pose_output);
+    out << ",\n";
+    out << "      \"runtime_refinement_candidate\": ";
+    write_bool(out, frame.runtime_refinement_candidate);
+    out << ",\n";
+    out << "      \"relock_candidate\": ";
+    write_bool(out, frame.relock_candidate);
+    out << ",\n";
+    out << "      \"relock_sequence_compatible\": ";
+    write_bool(out, frame.relock_sequence_compatible);
+    out << ",\n";
+    out << "      \"runtime_refinement_streak\": "
+        << frame.runtime_refinement_streak << ",\n";
+    out << "      \"relock_streak\": "
+        << frame.relock_streak << ",\n";
+    out << "      \"relock_candidate_index_delta\": "
+        << frame.relock_candidate_index_delta << ",\n";
+    out << "      \"relock_frame_gap\": "
+        << frame.relock_frame_gap << ",\n";
+    out << "      \"relock_rejected_reason\": \""
+        << jsonEscape(frame.relock_rejected_reason) << "\",\n";
+    out << "      \"publish_hold_age_frames\": "
+        << frame.publish_hold_age_frames << ",\n";
+    out << "      \"gt_safety_state\": \""
+        << jsonEscape(frame.gt_safety_state) << "\",\n";
+    out << "      \"gt_wrong_pose\": ";
+    write_bool(out, frame.gt_wrong_pose);
+    out << ",\n";
+    out << "      \"gt_recovery_transition\": ";
+    write_bool(out, frame.gt_recovery_transition);
+    out << ",\n";
+    out << "      \"gt_unsafe_transition\": ";
+    write_bool(out, frame.gt_unsafe_transition);
+    out << ",\n";
+    out << "      \"published_translation_error_m\": ";
+    write_number(out, frame.published_translation_error_m);
+    out << ",\n";
+    out << "      \"seed_translation_error_m\": ";
+    write_number(out, frame.seed_translation_error_m);
+    out << ",\n";
+    out << "      \"seed_rotation_error_rad\": ";
+    write_number(out, frame.seed_rotation_error_rad);
+    out << ",\n";
+    out << "      \"refined_translation_error_m\": ";
+    write_number(out, frame.refined_translation_error_m);
+    out << ",\n";
+    out << "      \"refined_rotation_error_rad\": ";
+    write_number(out, frame.refined_rotation_error_rad);
+    out << ",\n";
+    out << "      \"final_translation_error_m\": ";
+    write_number(out, frame.final_translation_error_m);
+    out << ",\n";
+    out << "      \"final_rotation_error_rad\": ";
+    write_number(out, frame.final_rotation_error_rad);
+    out << ",\n";
+    out << "      \"correction_translation_delta_m\": ";
+    write_number(out, frame.correction_translation_delta_m);
+    out << ",\n";
+    out << "      \"correction_rotation_delta_rad\": ";
+    write_number(out, frame.correction_rotation_delta_rad);
+    out << ",\n";
+    out << "      \"final_step_m\": ";
+    write_number(out, frame.final_step_m);
+    out << ",\n";
+    out << "      \"gt_step_m\": ";
+    write_number(out, frame.gt_step_m);
+    out << ",\n";
+    out << "      \"seed_pose\": ";
+    write_pose(out, frame.seed_pose);
+    out << ",\n";
+    out << "      \"refined_pose\": ";
+    write_pose(out, frame.refined_pose);
+    out << ",\n";
+    out << "      \"final_pose\": ";
+    write_pose(out, frame.final_pose);
+    out << ",\n";
+    out << "      \"published_pose\": ";
+    if (frame.has_pose_output) {
+      write_pose(out, frame.published_pose);
+    } else {
+      out << "null";
+    }
+    out << ",\n";
+    out << "      \"gt_pose\": ";
+    write_pose(out, frame.gt_pose);
+    out << "\n";
+    out << "    }" << (i + 1 == frames.size() ? "\n" : ",\n");
+  }
+  out << "  ]\n";
+  out << "}\n";
+}
+
+// Constant-velocity prediction in the body frame: T_pred = T_prev * (T_prev_prev^-1 * T_prev).
+// Equivalent to applying the previous inter-frame body-frame motion once more.
+Eigen::Matrix4d velocityModelPrediction(const Eigen::Matrix4d& T_prev,
+                                        const Eigen::Matrix4d& T_prev_prev) {
+  const Eigen::Matrix4d delta_body = T_prev_prev.inverse() * T_prev;
+  return T_prev * delta_body;
+}
+
 MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
                          const std::vector<Eigen::Matrix4d>& gt,
                          const LiTAMIN2DogfoodingOptions& options,
@@ -1185,6 +2045,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   LiTAMIN2Registration reg(params);
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];  // 初期推定にGTを使用
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1201,7 +2062,11 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     }
 
     // scan-to-map: local scan を world map に対して初期値付きで最適化
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : applySeedPerturbation(gt[i], options.seed_perturbation);
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_iterations >= 3) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1211,6 +2076,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     if (shouldRefreshTargetMap(i, options.refresh_interval)) {
@@ -1225,9 +2091,12 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
+  if (!no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
   if (!options.use_cov_cost) {
     res.note += " Covariance-shape term disabled.";
   }
@@ -1250,6 +2119,7 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1266,7 +2136,11 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : applySeedPerturbation(gt[i], options.seed_perturbation);
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 128) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1276,6 +2150,7 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -1293,9 +2168,12 @@ MethodResult runGICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
+  if (!no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
   return res;
 }
 
@@ -1321,6 +2199,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1337,7 +2216,11 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : applySeedPerturbation(gt[i], options.seed_perturbation);
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 96) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1347,6 +2230,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -1364,9 +2248,12 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
+  if (!no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
   return res;
 }
 
@@ -1391,6 +2278,7 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1407,7 +2295,11 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : applySeedPerturbation(gt[i], options.seed_perturbation);
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.num_correspondences >= 96) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1417,6 +2309,7 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -1434,9 +2327,12 @@ MethodResult runVoxelGICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
+  if (!no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
   return res;
 }
 
@@ -1759,10 +2655,12 @@ MethodResult runMULLS(const std::vector<std::string>& pcd_dirs,
 MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
                     const std::vector<Eigen::Matrix4d>& gt,
                     const NDTDogfoodingOptions& options,
-                    bool no_gt_seed = false) {
+                    bool no_gt_seed = false,
+                    const std::vector<Eigen::Matrix4d>* external_seed_poses = nullptr,
+                    const std::string& external_seed_note = "") {
   using namespace localization_zoo::ndt;
   MethodResult res;
-  res.name = "NDT";
+  res.name = external_seed_poses ? "CT-ICP+NDT" : "NDT";
 
   NDTParams params;
   params.resolution = options.resolution;
@@ -1774,6 +2672,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   auto t0 = Clock::now();
@@ -1790,7 +2689,16 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    Eigen::Matrix4d T_init_guess = T_est;
+    if (external_seed_poses && i < external_seed_poses->size()) {
+      T_init_guess = (*external_seed_poses)[i];
+    } else if (no_gt_seed) {
+      T_init_guess = i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est)
+                            : T_est;
+    } else {
+      T_init_guess = applySeedPerturbation(gt[i], options.seed_perturbation);
+    }
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
     if ((result.converged || result.iterations >= 2) &&
         isReasonableRefinement(result.transformation, T_init_guess,
@@ -1800,6 +2708,7 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
     } else {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -1817,10 +2726,350 @@ MethodResult runNDT(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
-      : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
-        "in this dogfooding tool.";
+  if (external_seed_poses) {
+    res.note = external_seed_note.empty()
+        ? "Uses external pose prior as scan-to-map initial guess."
+        : external_seed_note;
+  } else {
+    res.note = no_gt_seed
+        ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
+        : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
+          "in this dogfooding tool.";
+  }
+  if (!external_seed_poses && !no_gt_seed) {
+    res.note += seedPerturbationNote(options.seed_perturbation);
+  }
+  return res;
+}
+
+MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
+                            const std::vector<Eigen::Matrix4d>& gt,
+                            const NDTDogfoodingOptions& ndt_options,
+                            const CTICPDogfoodingOptions& ct_icp_options,
+                            const FixedMapNDTOptions& fixed_map_options) {
+  using namespace localization_zoo::ndt;
+
+  MethodResult res;
+  res.name = "FixedMap-NDT";
+  if (fixed_map_options.seed_source == "ct_icp") {
+    res.name += "+CTICP";
+  } else if (fixed_map_options.seed_source == "scan_context") {
+    res.name += "+ScanContext";
+  } else if (fixed_map_options.seed_source == "velocity") {
+    res.name += "+Vel";
+  } else {
+    res.name += "+GT";
+  }
+
+  NDTParams params;
+  params.resolution = ndt_options.resolution;
+  params.max_iterations = ndt_options.max_iterations;
+  params.step_size = ndt_options.step_size;
+  params.convergence_threshold = ndt_options.convergence_threshold;
+  params.min_points_per_cell = ndt_options.min_points_per_cell;
+  NDTRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  localization_zoo::scan_context::ScanContextParams sc_params;
+  sc_params.exclude_recent_frames = 0;
+  sc_params.distance_threshold = fixed_map_options.scan_context_distance_threshold;
+  sc_params.num_candidates = std::max(1, fixed_map_options.scan_context_top_k);
+  localization_zoo::scan_context::ScanContextManager scan_context(sc_params);
+  std::vector<Eigen::Matrix4d> scan_context_poses;
+  const int map_stride = std::max(1, fixed_map_options.map_stride);
+  for (size_t i = 0; i < pcd_dirs.size() && i < gt.size();
+       i += static_cast<size_t>(map_stride)) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         ndt_options.source_voxel_size),
+                                 ndt_options.max_source_points);
+    if (pts_local.empty()) continue;
+    addPointsToMap(map_points, pts_local, gt[i], ndt_options.map_max_points,
+                   0.0);
+    if (fixed_map_options.seed_source == "scan_context") {
+      scan_context.addScan(pts_local);
+      scan_context_poses.push_back(gt[i]);
+    }
+  }
+  reg.setTarget(map_points);
+
+  MethodResult ct_icp_prior;
+  const std::vector<Eigen::Matrix4d>* prior_poses = nullptr;
+  double prior_ate = std::numeric_limits<double>::quiet_NaN();
+  if (fixed_map_options.seed_source == "ct_icp") {
+    ct_icp_prior = runCTICP(pcd_dirs, gt, ct_icp_options, false);
+    prior_poses = &ct_icp_prior.poses;
+    prior_ate = computeATE(ct_icp_prior.poses, gt);
+  }
+
+  Eigen::Matrix4d T_est = gt.empty() ? Eigen::Matrix4d::Identity() : gt[0];
+  Eigen::Matrix4d T_prev_prev_est = T_est;
+  res.poses.push_back(T_est);
+  std::vector<FixedMapNDTTraceFrame> trace_frames;
+  FixedMapNDTPublishPolicyState publish_policy_state;
+  FixedMapNDTTraceFrame previous_policy_frame;
+  bool has_previous_policy_frame = false;
+  size_t publish_pose_outputs = 0;
+  size_t publish_unknown_outputs = 0;
+  size_t publish_hold_outputs = 0;
+  size_t gt_wrong_pose_suppressed = 0;
+  size_t gt_unsafe_transition_suppressed = 0;
+  auto update_publish_counters = [&](const FixedMapNDTTraceFrame& frame) {
+    if (frame.publish_action == "publish_pose") {
+      ++publish_pose_outputs;
+    } else if (frame.publish_action == "hold_last_pose") {
+      ++publish_hold_outputs;
+    } else if (frame.publish_action == "return_unknown") {
+      ++publish_unknown_outputs;
+    }
+    if (!frame.has_pose_output && frame.gt_wrong_pose) {
+      ++gt_wrong_pose_suppressed;
+    }
+    if (!frame.has_pose_output && frame.gt_unsafe_transition) {
+      ++gt_unsafe_transition_suppressed;
+    }
+  };
+  FixedMapNDTTraceFrame frame0;
+  frame0.frame_index = 0;
+  frame0.decision = "anchor";
+  frame0.seed_source = fixed_map_options.seed_source;
+  frame0.seed_pose = T_est;
+  frame0.refined_pose = T_est;
+  frame0.final_pose = T_est;
+  finalizeFixedMapNDTTraceFrame(frame0, gt, nullptr);
+  annotateFixedMapNDTPublishPolicy(
+      frame0, fixed_map_options, publish_policy_state, nullptr);
+  update_publish_counters(frame0);
+  previous_policy_frame = frame0;
+  has_previous_policy_frame = true;
+  if (!fixed_map_options.trace_json_path.empty()) {
+    trace_frames.push_back(frame0);
+  }
+
+  size_t accepted = 0;
+  size_t rejected = 0;
+  size_t fallback_seed = 0;
+  size_t scan_context_hits = 0;
+  size_t scan_context_candidates_evaluated = 0;
+  double scan_context_distance_sum = 0.0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         ndt_options.source_voxel_size),
+                                 ndt_options.max_source_points);
+    if (pts_local.empty()) continue;
+    if (i == 0) continue;
+
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
+    FixedMapNDTTraceFrame trace;
+    trace.frame_index = i;
+    trace.seed_source = fixed_map_options.seed_source;
+    trace.seed_pose = T_est;
+    trace.refined_pose = T_est;
+    trace.final_pose = T_est;
+
+    Eigen::Matrix4d T_seed = T_est;
+    if (fixed_map_options.seed_source == "ct_icp") {
+      if (prior_poses && i < prior_poses->size() && isFiniteMatrix((*prior_poses)[i])) {
+        T_seed = (*prior_poses)[i];
+      } else {
+        ++fallback_seed;
+        trace.seed_fallback = true;
+      }
+    } else if (fixed_map_options.seed_source == "scan_context") {
+      const auto candidates = scan_context.detectLoopCandidates(pts_local);
+      trace.scan_context_candidate_count = static_cast<int>(candidates.size());
+      if (candidates.empty()) {
+        ++fallback_seed;
+        trace.seed_fallback = true;
+      } else {
+        ++scan_context_hits;
+        trace.scan_context_hit = true;
+        trace.scan_context_front_distance = candidates.front().distance;
+        scan_context_distance_sum += candidates.front().distance;
+
+        bool best_valid = false;
+        double best_score = std::numeric_limits<double>::infinity();
+        Eigen::Matrix4d best_pose = T_est;
+        Eigen::Matrix4d best_seed_pose = T_est;
+        Eigen::Matrix4d best_refined_pose = T_est;
+        int best_iterations = 0;
+        bool best_converged = false;
+        for (const auto& candidate : candidates) {
+          if (!candidate.valid ||
+              candidate.index < 0 ||
+              candidate.index >= static_cast<int>(scan_context_poses.size())) {
+            continue;
+          }
+          Eigen::Matrix4d candidate_seed =
+              scan_context_poses[static_cast<size_t>(candidate.index)];
+          const Eigen::Matrix4d yaw_delta =
+              (Eigen::Translation3d(0.0, 0.0, 0.0) *
+               Eigen::AngleAxisd(candidate.yaw_offset_rad,
+                                 Eigen::Vector3d::UnitZ()))
+                  .matrix();
+          candidate_seed = candidate_seed * yaw_delta;
+          const auto result = reg.align(pts_local, candidate_seed);
+          ++scan_context_candidates_evaluated;
+          ++trace.scan_context_candidates_evaluated;
+          if ((result.converged || result.iterations >= 2) &&
+              std::isfinite(result.score) &&
+              isFiniteMatrix(result.transformation) &&
+              isReasonableRefinement(result.transformation, candidate_seed,
+                                     ndt_options.max_seed_translation_delta,
+                                     ndt_options.max_seed_rotation_delta_rad) &&
+              result.score < best_score) {
+            best_valid = true;
+            best_score = result.score;
+            best_pose = result.transformation;
+            best_seed_pose = candidate_seed;
+            best_refined_pose = result.transformation;
+            best_iterations = result.iterations;
+            best_converged = result.converged;
+            trace.selected_candidate_index = candidate.index;
+            trace.selected_candidate_distance = candidate.distance;
+            trace.selected_candidate_yaw_offset_rad = candidate.yaw_offset_rad;
+          }
+        }
+
+        trace.ndt_score = best_score;
+        trace.ndt_iterations = best_iterations;
+        trace.ndt_converged = best_converged;
+        trace.seed_pose = best_seed_pose;
+        trace.refined_pose = best_refined_pose;
+        if (best_valid) {
+          T_est = best_pose;
+          ++accepted;
+          trace.accepted = true;
+          trace.decision = "accepted";
+        } else {
+          T_est = T_prev_est_snapshot;
+          ++rejected;
+          trace.accepted = false;
+          trace.decision = trace.scan_context_candidates_evaluated > 0
+                               ? "rejected"
+                               : "no_valid_scan_context_candidate";
+        }
+        trace.final_pose = T_est;
+        finalizeFixedMapNDTTraceFrame(trace, gt, &T_prev_est_snapshot);
+        annotateFixedMapNDTPublishPolicy(
+            trace, fixed_map_options, publish_policy_state,
+            has_previous_policy_frame ? &previous_policy_frame : nullptr);
+        update_publish_counters(trace);
+        previous_policy_frame = trace;
+        has_previous_policy_frame = true;
+        T_prev_prev_est = T_prev_est_snapshot;
+        res.poses.push_back(T_est);
+        if (!fixed_map_options.trace_json_path.empty()) {
+          trace_frames.push_back(trace);
+        }
+
+        if (i % 10 == 0) {
+          std::cerr << "\r  [FixedMap-NDT] " << i << "/" << pcd_dirs.size()
+                    << " sc_candidates=" << candidates.size()
+                    << " best_score=" << std::fixed << std::setprecision(3)
+                    << best_score
+                    << " accepted=" << accepted << "/" << (accepted + rejected);
+        }
+        continue;
+      }
+    } else if (fixed_map_options.seed_source == "velocity") {
+      T_seed = i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est;
+    } else {
+      T_seed = applySeedPerturbation(gt[i], ndt_options.seed_perturbation);
+    }
+
+    trace.seed_pose = T_seed;
+    const auto result = reg.align(pts_local, T_seed);
+    trace.refined_pose = result.transformation;
+    trace.ndt_score = result.score;
+    trace.ndt_iterations = result.iterations;
+    trace.ndt_converged = result.converged;
+    if ((result.converged || result.iterations >= 2) &&
+        isFiniteMatrix(result.transformation) &&
+        isReasonableRefinement(result.transformation, T_seed,
+                               ndt_options.max_seed_translation_delta,
+                               ndt_options.max_seed_rotation_delta_rad)) {
+      T_est = result.transformation;
+      ++accepted;
+      trace.accepted = true;
+      trace.decision = "accepted";
+    } else {
+      T_est = T_seed;
+      ++rejected;
+      trace.accepted = false;
+      trace.decision = "rejected_to_seed";
+    }
+    trace.final_pose = T_est;
+    finalizeFixedMapNDTTraceFrame(trace, gt, &T_prev_est_snapshot);
+    annotateFixedMapNDTPublishPolicy(
+        trace, fixed_map_options, publish_policy_state,
+        has_previous_policy_frame ? &previous_policy_frame : nullptr);
+    update_publish_counters(trace);
+    previous_policy_frame = trace;
+    has_previous_policy_frame = true;
+    T_prev_prev_est = T_prev_est_snapshot;
+    res.poses.push_back(T_est);
+    if (!fixed_map_options.trace_json_path.empty()) {
+      trace_frames.push_back(trace);
+    }
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [FixedMap-NDT] " << i << "/" << pcd_dirs.size()
+                << " score=" << std::fixed << std::setprecision(3)
+                << result.score
+                << " accepted=" << accepted << "/" << (accepted + rejected);
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count() +
+      ct_icp_prior.time_ms;
+
+  std::ostringstream note;
+  note << "Fixed-map NDT: target map built once from GT/reference poses"
+       << " (stride=" << map_stride
+       << ", map_points=" << map_points.size()
+       << "). Seed source=" << fixed_map_options.seed_source
+       << ", accepted=" << accepted << "/" << (accepted + rejected)
+       << ", rejected=" << rejected
+       << ", seed fallbacks=" << fallback_seed
+       << ". Runtime publish policy outputs="
+       << publish_pose_outputs
+       << ", holds=" << publish_hold_outputs
+       << ", unknown=" << publish_unknown_outputs
+       << ", GT-wrong suppressed=" << gt_wrong_pose_suppressed
+       << ", GT-unsafe transitions suppressed="
+       << gt_unsafe_transition_suppressed << ".";
+  if (fixed_map_options.seed_source == "scan_context") {
+    note << " ScanContext hits=" << scan_context_hits << "/" << (pcd_dirs.size() - 1)
+         << ", top_k=" << fixed_map_options.scan_context_top_k
+         << ", NDT candidates evaluated=" << scan_context_candidates_evaluated
+         << ", mean distance=";
+    if (scan_context_hits > 0) {
+      note << std::fixed << std::setprecision(4)
+           << (scan_context_distance_sum / scan_context_hits) << ".";
+    } else {
+      note << "n/a.";
+    }
+  }
+  if (fixed_map_options.seed_source == "ct_icp") {
+    note << " CT-ICP prior ATE=";
+    if (std::isfinite(prior_ate)) {
+      note << std::fixed << std::setprecision(3) << prior_ate << "m.";
+    } else {
+      note << "nonfinite.";
+    }
+    note << " Runtime is CT-ICP+NDT combined.";
+  } else if (fixed_map_options.seed_source == "gt") {
+    note << seedPerturbationNote(ndt_options.seed_perturbation);
+  }
+  if (!fixed_map_options.trace_json_path.empty()) {
+    writeFixedMapNDTTraceJson(fixed_map_options.trace_json_path,
+                              fixed_map_options, pcd_dirs.size(),
+                              map_points.size(), trace_frames);
+    note << " Per-frame trace=" << fixed_map_options.trace_json_path << ".";
+  }
+  res.note = note.str();
   return res;
 }
 
@@ -1989,7 +3238,8 @@ MethodResult runDLIO(const std::vector<std::string>& pcd_dirs,
 
 MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
-                      const CTICPDogfoodingOptions& options) {
+                      const CTICPDogfoodingOptions& options,
+                      bool gt_seed = false) {
   using namespace localization_zoo::ct_icp;
   MethodResult res;
   res.name = "CT-ICP";
@@ -2001,7 +3251,45 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   params.planarity_threshold = options.planarity_threshold;
   params.keypoint_voxel_size = options.keypoint_voxel_size;
   params.max_frames_in_map = options.max_frames_in_map;
+  if (options.max_correspondence_dist > 0.0) {
+    params.max_correspondence_dist = options.max_correspondence_dist;
+  }
+  if (options.knn > 0) {
+    params.knn = options.knn;
+  }
+  params.multi_scale_correspondences = options.multi_scale_correspondences;
+  params.use_normal_cholesky_solver = options.use_normal_cholesky_solver;
+  params.power_planarity = options.power_planarity;
+  params.weight_alpha = options.weight_alpha;
+  params.weight_neighborhood = options.weight_neighborhood;
+  params.min_planarity_floor = options.min_planarity_floor;
+  params.flat_regularizer_weight = options.flat_regularizer_weight;
+  if (options.cauchy_loss_param > 0.0) {
+    params.cauchy_loss_param = options.cauchy_loss_param;
+  }
+  params.regularizer_n_cap = options.regularizer_n_cap;
+  params.use_closest_neighbor_reference = options.use_closest_neighbor_reference;
+  params.pca_neighbor_count = options.pca_neighbor_count;
+  params.min_distance_between_points = options.min_distance_between_points;
+  params.coarse_to_fine = options.coarse_to_fine;
+  params.coarse_iterations = options.coarse_iterations;
+  params.coarse_search_radius = options.coarse_search_radius;
+  params.coarse_planarity_threshold = options.coarse_planarity_threshold;
+  params.coarse_cauchy_sigma_mult = options.coarse_cauchy_sigma_mult;
   CTICPRegistration reg(params);
+
+  auto frame_to_matrix = [](const TrajectoryFrame& f) {
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<3, 3>(0, 0) = f.end_pose.quat.toRotationMatrix();
+    T.block<3, 1>(0, 3) = f.end_pose.trans;
+    return T;
+  };
+  auto pose_to_matrix = [](const auto& p) {
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<3, 3>(0, 0) = p.quat.toRotationMatrix();
+    T.block<3, 1>(0, 3) = p.trans;
+    return T;
+  };
 
   TrajectoryFrame prev;
   const Eigen::Matrix4d world_anchor =
@@ -2010,7 +3298,10 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   prev.begin_pose.quat = Eigen::Quaterniond(world_anchor.block<3, 3>(0, 0));
   prev.end_pose = prev.begin_pose;
   res.poses.push_back(world_anchor);
+  Eigen::Matrix4d T_prev_world = world_anchor;
+  Eigen::Matrix4d T_prev_prev_world = world_anchor;
 
+  size_t gated_rollbacks = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto scan = limitLoadedScan(loadTimedPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -2036,25 +3327,249 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
     }
 
     TrajectoryFrame init;
-    init.begin_pose = init.end_pose = prev.end_pose;
+    Eigen::Matrix4d T_seed_world = T_prev_world;
+    if (gt_seed && i < gt.size()) {
+      // Seed begin from previous GT end (i-1) and end from current GT (i).
+      const Eigen::Matrix4d& T_begin =
+          (i - 1 < gt.size()) ? gt[i - 1] : gt[i];
+      const Eigen::Matrix4d& T_end = gt[i];
+      init.begin_pose.trans = T_begin.block<3, 1>(0, 3);
+      init.begin_pose.quat = Eigen::Quaterniond(T_begin.block<3, 3>(0, 0));
+      init.end_pose.trans = T_end.block<3, 1>(0, 3);
+      init.end_pose.quat = Eigen::Quaterniond(T_end.block<3, 3>(0, 0));
+      T_seed_world = T_end;
+    } else if (options.refinement_gate && i >= 2) {
+      Eigen::Matrix4d T_pred;
+      if (options.native_ct_icp_seed) {
+        // Extrapolate from CT-ICP's own intra-scan motion: the body delta
+        // estimated during the previous scan (begin_pose -> end_pose) is
+        // re-applied for one more scan period. This adapts to the actual
+        // per-frame motion rather than a constant inter-frame velocity.
+        const Eigen::Matrix4d T_prev_begin = pose_to_matrix(prev.begin_pose);
+        const Eigen::Matrix4d T_prev_end = pose_to_matrix(prev.end_pose);
+        const Eigen::Matrix4d T_motion = T_prev_begin.inverse() * T_prev_end;
+        T_pred = T_prev_end * T_motion;
+      } else {
+        // Velocity-model bootstrap: extend prev inter-frame body-motion once more.
+        T_pred = velocityModelPrediction(T_prev_world, T_prev_prev_world);
+      }
+      init.begin_pose = prev.end_pose;
+      init.end_pose.trans = T_pred.block<3, 1>(0, 3);
+      init.end_pose.quat = Eigen::Quaterniond(T_pred.block<3, 3>(0, 0));
+      T_seed_world = T_pred;
+    } else {
+      init.begin_pose = init.end_pose = prev.end_pose;
+      T_seed_world = T_prev_world;
+    }
     auto result = reg.registerFrame(timed, init, &prev);
 
-    std::vector<Eigen::Vector3d> world;
-    for (auto& tp : timed)
-      world.push_back(result.frame.transformPoint(tp.raw_point, tp.timestamp));
-    reg.addPointsToMap(world);
+    Eigen::Matrix4d T_refined = frame_to_matrix(result.frame);
+    bool accepted = true;
+    if (options.refinement_gate && !gt_seed && i >= 2) {
+      // Reject if the refined end pose drifts unreasonably far from the
+      // velocity-model seed (e.g. correspondence collapse at sharp turns).
+      if (!isReasonableRefinement(T_refined, T_seed_world,
+                                  options.max_seed_translation_delta,
+                                  options.max_seed_rotation_delta_rad)) {
+        accepted = false;
+        ++gated_rollbacks;
+        // Fall back to the velocity-model seed and rebuild a TrajectoryFrame
+        // around it so the next frame's bootstrap stays stable.
+        TrajectoryFrame fallback;
+        fallback.begin_pose = prev.end_pose;
+        fallback.end_pose.trans = T_seed_world.block<3, 1>(0, 3);
+        fallback.end_pose.quat =
+            Eigen::Quaterniond(T_seed_world.block<3, 3>(0, 0));
+        result.frame = fallback;
+        T_refined = T_seed_world;
+      }
+    }
 
-    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
-    T.block<3, 3>(0, 0) = result.frame.end_pose.quat.toRotationMatrix();
-    T.block<3, 1>(0, 3) = result.frame.end_pose.trans;
-    res.poses.push_back(T);
+    // Skip map update on rollback: deskewing along an untrusted trajectory
+    // pollutes the voxel map and breaks subsequent correspondence search.
+    if (accepted) {
+      std::vector<Eigen::Vector3d> world;
+      for (auto& tp : timed)
+        world.push_back(result.frame.transformPoint(tp.raw_point, tp.timestamp));
+      reg.addPointsToMap(world);
+    }
+
+    res.poses.push_back(T_refined);
     prev = result.frame;
+    T_prev_prev_world = T_prev_world;
+    T_prev_world = T_refined;
 
     if (i % 10 == 0)
       std::cerr << "\r  [CT-ICP] " << i << "/" << pcd_dirs.size();
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  if (gt_seed) {
+    res.note = "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. "
+               "Symmetric of the GT-seeded Policy A path for dogfooding-style "
+               "fair-prior comparison.";
+  } else if (options.refinement_gate) {
+    std::ostringstream oss;
+    oss << "Anchor matches first GT pose; subsequent frames use "
+        << (options.native_ct_icp_seed ? "CT-ICP native (begin->end) "
+                                        : "velocity-model ")
+        << "bootstrap with LiTAMIN2-style acceptance gate (trans<="
+        << options.max_seed_translation_delta
+        << "m, rot<=" << options.max_seed_rotation_delta_rad
+        << "rad). " << gated_rollbacks << " rollbacks to seed.";
+    res.note = oss.str();
+  } else {
+    res.note = "Anchor matches first GT pose; subsequent frames rely on CT-ICP's "
+               "own continuous-time motion prior (no GT seed).";
+  }
+  return res;
+}
+
+MethodResult runCTICPNDT(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const CTICPDogfoodingOptions& ct_icp_options,
+                         const NDTDogfoodingOptions& ndt_options) {
+  MethodResult prior = runCTICP(pcd_dirs, gt, ct_icp_options, false);
+  const double prior_ate = computeATE(prior.poses, gt);
+
+  std::ostringstream note;
+  note << "Hybrid: CT-ICP no-GT odometry prior feeds NDT scan-to-map initial "
+          "guess; first frame remains anchored to GT for dogfooding alignment. "
+       << "CT-ICP prior ATE=";
+  if (std::isfinite(prior_ate)) {
+    note << std::fixed << std::setprecision(3) << prior_ate << "m";
+  } else {
+    note << "nonfinite";
+  }
+  note << ". Runtime is CT-ICP+NDT combined.";
+
+  MethodResult hybrid =
+      runNDT(pcd_dirs, gt, ndt_options, false, &prior.poses, note.str());
+  hybrid.name = "CT-ICP+NDT";
+  hybrid.time_ms += prior.time_ms;
+  return hybrid;
+}
+
+MethodResult runCTICPNDTKeyframe(
+    const std::vector<std::string>& pcd_dirs,
+    const std::vector<Eigen::Matrix4d>& gt,
+    const CTICPDogfoodingOptions& ct_icp_options,
+    const NDTDogfoodingOptions& ndt_options,
+    const CTICPNDTHybridOptions& hybrid_options) {
+  using namespace localization_zoo::ndt;
+
+  MethodResult prior = runCTICP(pcd_dirs, gt, ct_icp_options, false);
+  const double prior_ate = computeATE(prior.poses, gt);
+
+  MethodResult res;
+  res.name = "CT-ICP+NDT-KF";
+
+  NDTParams params;
+  params.resolution = ndt_options.resolution;
+  params.max_iterations = ndt_options.max_iterations;
+  params.step_size = ndt_options.step_size;
+  params.convergence_threshold = ndt_options.convergence_threshold;
+  params.min_points_per_cell = ndt_options.min_points_per_cell;
+  NDTRegistration reg(params);
+
+  std::vector<Eigen::Vector3d> map_points;
+  Eigen::Matrix4d T_est = gt.empty() ? Eigen::Matrix4d::Identity() : gt[0];
+  res.poses.push_back(T_est);
+
+  size_t attempted = 0;
+  size_t accepted = 0;
+  size_t rejected = 0;
+  size_t fallback_prior = 0;
+
+  const int interval = std::max(1, hybrid_options.keyframe_interval);
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         ndt_options.source_voxel_size),
+                                 ndt_options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    if (i == 0) {
+      addPointsToMap(map_points, pts_local, T_est, ndt_options.map_max_points,
+                     ndt_options.map_radius);
+      reg.setTarget(map_points);
+      continue;
+    }
+
+    Eigen::Matrix4d T_prior = T_est;
+    if (i < prior.poses.size() && isFiniteMatrix(prior.poses[i])) {
+      T_prior = prior.poses[i];
+    } else {
+      ++fallback_prior;
+    }
+
+    T_est = T_prior;
+    const bool should_correct = (i % static_cast<size_t>(interval)) == 0;
+    if (should_correct) {
+      ++attempted;
+      const auto result = reg.align(pts_local, T_prior);
+      bool score_ok = true;
+      if (hybrid_options.max_ndt_score > 0.0) {
+        score_ok = std::isfinite(result.score) &&
+                   result.score <= hybrid_options.max_ndt_score;
+      }
+      const bool accepted_correction =
+          (result.converged || result.iterations >= 2) &&
+          score_ok &&
+          isFiniteMatrix(result.transformation) &&
+          isReasonableRefinement(
+              result.transformation, T_prior,
+              hybrid_options.max_correction_translation_delta,
+              hybrid_options.max_correction_rotation_delta_rad);
+      if (accepted_correction) {
+        T_est = result.transformation;
+        ++accepted;
+      } else {
+        ++rejected;
+      }
+      if (i % 10 == 0) {
+        std::cerr << "\r  [CT-ICP+NDT-KF] " << i << "/" << pcd_dirs.size()
+                  << " score=" << std::fixed << std::setprecision(3)
+                  << result.score
+                  << " accepted=" << accepted << "/" << attempted;
+      }
+    } else if (i % 10 == 0) {
+      std::cerr << "\r  [CT-ICP+NDT-KF] " << i << "/" << pcd_dirs.size()
+                << " accepted=" << accepted << "/" << attempted;
+    }
+
+    res.poses.push_back(T_est);
+    addPointsToMap(map_points, pts_local, T_est, ndt_options.map_max_points,
+                   ndt_options.map_radius);
+    if (shouldRefreshTargetMap(i, ndt_options.refresh_interval)) {
+      reg.setTarget(map_points);
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count() +
+      prior.time_ms;
+
+  std::ostringstream note;
+  note << "Hybrid keyframe correction: CT-ICP no-GT odometry is the base "
+          "trajectory; NDT T1 correction is attempted every "
+       << interval << " frames and accepted only when correction delta is <= "
+       << hybrid_options.max_correction_translation_delta << "m / "
+       << hybrid_options.max_correction_rotation_delta_rad << "rad";
+  if (hybrid_options.max_ndt_score > 0.0) {
+    note << " and score <= " << hybrid_options.max_ndt_score;
+  }
+  note << ". accepted=" << accepted << "/" << attempted
+       << ", rejected=" << rejected
+       << ", finite-prior fallbacks=" << fallback_prior
+       << ", CT-ICP prior ATE=";
+  if (std::isfinite(prior_ate)) {
+    note << std::fixed << std::setprecision(3) << prior_ate << "m";
+  } else {
+    note << "nonfinite";
+  }
+  note << ". Runtime is CT-ICP+NDT combined.";
+  res.note = note.str();
   return res;
 }
 
@@ -2069,10 +3584,29 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
                       double fixed_lag_accel_bias_weight_scale,
                       double fixed_lag_history_decay,
                       int fixed_lag_outer_iterations,
-                      bool fixed_lag_optimize_history) {
+                      bool fixed_lag_optimize_history,
+                      bool multi_scale_correspondences,
+                      bool coarse_to_fine,
+                      int coarse_iterations,
+                      int coarse_search_radius,
+                      double coarse_planarity_threshold,
+                      double coarse_cauchy_mult,
+                      int max_frames_in_map,
+                      int max_iterations,
+                      bool use_bspline_trajectory,
+                      double bspline_anchor_weight) {
   using namespace localization_zoo::ct_lio;
   MethodResult res;
   res.name = "CT-LIO";
+  if (multi_scale_correspondences) {
+    res.name += "+ms";
+  }
+  if (coarse_to_fine) {
+    res.name += "+c2f";
+  }
+  if (use_bspline_trajectory) {
+    res.name += "+bspline";
+  }
   if (estimate_imu_bias) {
     res.name += "+bias";
   }
@@ -2085,11 +3619,19 @@ MethodResult runCTLIO(const std::vector<std::string>& pcd_dirs,
 
   CTLIOParams params;
   params.voxel_resolution = 1.0;
-  params.max_iterations = 6;
+  params.max_iterations = max_iterations;
   params.ceres_max_iterations = 2;
   params.planarity_threshold = 0.1;
   params.keypoint_voxel_size = 1.0;
-  params.max_frames_in_map = 10;
+  params.max_frames_in_map = max_frames_in_map;
+  params.multi_scale_correspondences = multi_scale_correspondences;
+  params.coarse_to_fine = coarse_to_fine;
+  params.coarse_iterations = coarse_iterations;
+  params.coarse_search_radius = coarse_search_radius;
+  params.coarse_planarity_threshold = coarse_planarity_threshold;
+  params.coarse_cauchy_sigma_mult = coarse_cauchy_mult;
+  params.use_bspline_trajectory = use_bspline_trajectory;
+  params.bspline_anchor_weight = bspline_anchor_weight;
   params.estimate_imu_bias = estimate_imu_bias;
   if (fixed_lag_state_window > 1) {
     params.fixed_lag_state_window = fixed_lag_state_window;
@@ -2190,6 +3732,7 @@ MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
 
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];
+  Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
   // KdTree for NN search in map
@@ -2225,7 +3768,11 @@ MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
       continue;
     }
 
-    const Eigen::Matrix4d T_init_guess = no_gt_seed ? T_est : gt[i];
+    const Eigen::Matrix4d T_init_guess =
+        no_gt_seed
+            ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
+            : gt[i];
+    const Eigen::Matrix4d T_prev_est_snapshot = T_est;
 
     // Transform source points to world frame using initial guess
     Eigen::Matrix3d R_init = T_init_guess.block<3, 3>(0, 0);
@@ -2296,6 +3843,7 @@ MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
     if (!accepted) {
       T_est = T_init_guess;
     }
+    T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
     addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
@@ -2313,7 +3861,7 @@ MethodResult runXICP(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
-      ? "Uses odometry-chain scan-to-map initialization (no GT seed)."
+      ? "Uses velocity-model prediction as scan-to-map initial guess (no GT seed)."
       : "Uses GT-seeded scan-to-map initialization with weak-update fallback "
         "in this dogfooding tool.";
   return res;
@@ -2506,9 +4054,9 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts = loadPCD(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
+    auto pts = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", options.input_voxel_size);
     if (pts.empty()) continue;
-    pts = limitPoints(pts, options.max_input_points);
+    pts = limitLoadedXYZI(pts, options.max_input_points);
     if (pts.empty()) continue;
     const pcl::PointCloud<pcl::PointXYZI>::ConstPtr cloud = toPclXYZICloud(pts);
     const auto result = pipeline.process(cloud);
@@ -2600,7 +4148,9 @@ MethodResult runIscLoam(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note = "Intensity scan context + LOAM with loop closure (no GT seed; anchor matches first GT pose).";
+  res.note =
+      "Intensity scan context + LOAM with loop closure using preserved PCD "
+      "intensity fields (no GT seed; anchor matches first GT pose).";
   return res;
 }
 
@@ -2944,6 +4494,14 @@ void savePosesKITTI(const std::vector<Eigen::Matrix4d>& poses, const std::string
   }
 }
 
+void writeJsonNumberOrNull(std::ostream& out, double value) {
+  if (std::isfinite(value)) {
+    out << std::fixed << std::setprecision(6) << value;
+  } else {
+    out << "null";
+  }
+}
+
 void writeSummaryJson(const std::string& path,
                       const std::string& pcd_dir,
                       const std::string& gt_csv,
@@ -2965,22 +4523,38 @@ void writeSummaryJson(const std::string& path,
     const auto& r = results[i];
     out << "    {\n";
     out << "      \"name\": \"" << jsonEscape(r.name) << "\",\n";
-    out << "      \"status\": \"" << (r.skipped ? "SKIPPED" : "OK") << "\",\n";
+    out << "      \"status\": \"" << jsonEscape(r.status) << "\",\n";
     if (r.skipped) {
       out << "      \"ate_m\": null,\n";
+      out << "      \"rpe_trans_pct\": null,\n";
+      out << "      \"rpe_rot_deg_per_m\": null,\n";
       out << "      \"frames\": 0,\n";
       out << "      \"time_ms\": null,\n";
       out << "      \"fps\": null,\n";
     } else {
       const double fps =
           r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
-      out << "      \"ate_m\": " << std::fixed << std::setprecision(6) << r.ate
-          << ",\n";
+      out << "      \"ate_m\": ";
+      writeJsonNumberOrNull(out, r.ate);
+      out << ",\n";
+      if (r.has_rpe) {
+        out << "      \"rpe_trans_pct\": ";
+        writeJsonNumberOrNull(out, r.rpe_trans_pct);
+        out << ",\n";
+        out << "      \"rpe_rot_deg_per_m\": ";
+        writeJsonNumberOrNull(out, r.rpe_rot_deg_per_m);
+        out << ",\n";
+      } else {
+        out << "      \"rpe_trans_pct\": null,\n";
+        out << "      \"rpe_rot_deg_per_m\": null,\n";
+      }
       out << "      \"frames\": " << r.poses.size() << ",\n";
-      out << "      \"time_ms\": " << std::fixed << std::setprecision(6)
-          << r.time_ms << ",\n";
-      out << "      \"fps\": " << std::fixed << std::setprecision(6) << fps
-          << ",\n";
+      out << "      \"time_ms\": ";
+      writeJsonNumberOrNull(out, r.time_ms);
+      out << ",\n";
+      out << "      \"fps\": ";
+      writeJsonNumberOrNull(out, fps);
+      out << ",\n";
     }
     out << "      \"note\": \"" << jsonEscape(r.note) << "\"\n";
     out << "    }" << (i + 1 == results.size() ? "\n" : ",\n");
@@ -2994,7 +4568,7 @@ int main(int argc, char** argv) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
               << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,"
-              << "lego_loam,mulls,ct_lio,ct_icp,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
+              << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
               << " [--litamin2-paper-profile]"
@@ -3042,6 +4616,17 @@ int main(int argc, char** argv) {
               << " [--ndt-dense-profile]"
               << " [--ndt-resolution X]"
               << " [--ndt-max-iterations N]"
+              << " [--fixed-map-ndt-seed-source gt|velocity|ct_icp|scan_context]"
+              << " [--fixed-map-ndt-map-stride N]"
+              << " [--fixed-map-ndt-scan-context-threshold X]"
+              << " [--fixed-map-ndt-scan-context-top-k N]"
+              << " [--fixed-map-ndt-trace-json path]"
+              << " [--fixed-map-ndt-publish-min-stable-frames N]"
+              << " [--fixed-map-ndt-publish-max-hold-frames N]"
+              << " [--fixed-map-ndt-scan-context-relock-min-confirmations N]"
+              << " [--fixed-map-ndt-scan-context-relock-max-distance X]"
+              << " [--fixed-map-ndt-scan-context-relock-max-ndt-score X]"
+              << " [--fixed-map-ndt-scan-context-relock-max-score-delta X]"
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-voxel-size X]"
@@ -3050,6 +4635,10 @@ int main(int argc, char** argv) {
               << " [--ct-icp-dense-profile]"
               << " [--ct-icp-voxel-resolution X]"
               << " [--ct-icp-max-iterations N]"
+              << " [--ct-icp-ndt-keyframe-interval N]"
+              << " [--ct-icp-ndt-max-correction-translation M]"
+              << " [--ct-icp-ndt-max-correction-rotation-rad R]"
+              << " [--ct-icp-ndt-max-score S]"
               << " [--xicp-fast-profile]"
               << " [--xicp-dense-profile]"
               << " [--fast-lio2-fast-profile]"
@@ -3084,7 +4673,9 @@ int main(int argc, char** argv) {
               << " [--ct-lio-fixed-lag-history-decay W]"
               << " [--ct-lio-fixed-lag-outer-iterations N]"
               << " [--ct-lio-fixed-lag-smoother]"
-              << " [--no-gt-seed]" << std::endl;
+              << " [--seed-perturb-x M] [--seed-perturb-y M]"
+              << " [--seed-perturb-z M] [--seed-perturb-yaw-deg DEG]"
+              << " [--no-gt-seed] [--ct-icp-gt-seed]" << std::endl;
     return 1;
   }
 
@@ -3093,7 +4684,19 @@ int main(int argc, char** argv) {
   int max_frames = -1;
   bool force_ct_lio = false;
   bool no_gt_seed = false;
+  bool ct_icp_gt_seed = false;
+  SeedPerturbation seed_perturbation;
   bool ct_lio_estimate_bias = false;
+  bool ct_lio_multi_scale = false;
+  bool ct_lio_coarse_to_fine = false;
+  int ct_lio_coarse_iterations = 2;
+  int ct_lio_coarse_search_radius = 2;
+  double ct_lio_coarse_planarity_threshold = 0.02;
+  double ct_lio_coarse_cauchy_mult = 2.0;
+  bool ct_lio_bspline = false;
+  double ct_lio_bspline_anchor_weight = 500.0;
+  int ct_lio_max_frames_in_map = 10;
+  int ct_lio_max_iterations = 6;
   std::string summary_json_path;
   int ct_lio_fixed_lag_window = 1;
   double ct_lio_fixed_lag_velocity_weight = 0.0;
@@ -3111,8 +4714,10 @@ int main(int argc, char** argv) {
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
+  FixedMapNDTOptions fixed_map_ndt_options;
   KISSICPDogfoodingOptions kiss_icp_options;
   CTICPDogfoodingOptions ct_icp_options;
+  CTICPNDTHybridOptions ct_icp_ndt_options;
   DLODofeedingOptions dlo_options;
   DLIODogfoodingOptions dlio_options;
   XICPDogfoodingOptions xicp_options;
@@ -3139,6 +4744,97 @@ int main(int argc, char** argv) {
     }
     if (arg == "--no-gt-seed") {
       no_gt_seed = true;
+      continue;
+    }
+    if (arg == "--ct-icp-gt-seed") {
+      ct_icp_gt_seed = true;
+      continue;
+    }
+    if (arg == "--seed-perturb-x") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      seed_perturbation.x = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--seed-perturb-x=", 0) == 0) {
+      seed_perturbation.x =
+          std::stod(arg.substr(std::string("--seed-perturb-x=").size()));
+      continue;
+    }
+    if (arg == "--seed-perturb-y") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      seed_perturbation.y = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--seed-perturb-y=", 0) == 0) {
+      seed_perturbation.y =
+          std::stod(arg.substr(std::string("--seed-perturb-y=").size()));
+      continue;
+    }
+    if (arg == "--seed-perturb-z") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      seed_perturbation.z = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--seed-perturb-z=", 0) == 0) {
+      seed_perturbation.z =
+          std::stod(arg.substr(std::string("--seed-perturb-z=").size()));
+      continue;
+    }
+    if (arg == "--seed-perturb-yaw-deg") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      seed_perturbation.yaw_rad = std::stod(argv[++i]) * M_PI / 180.0;
+      continue;
+    }
+    if (arg.rfind("--seed-perturb-yaw-deg=", 0) == 0) {
+      seed_perturbation.yaw_rad = std::stod(arg.substr(
+          std::string("--seed-perturb-yaw-deg=").size())) * M_PI / 180.0;
+      continue;
+    }
+    if (arg == "--ct-lio-multi-scale") {
+      ct_lio_multi_scale = true;
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-to-fine") {
+      ct_lio_coarse_to_fine = true;
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-iterations") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_coarse_iterations = std::max(0, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-search-radius") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_coarse_search_radius = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-planarity-threshold") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_coarse_planarity_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-lio-coarse-cauchy-mult") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_coarse_cauchy_mult = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-lio-bspline") {
+      ct_lio_bspline = true;
+      continue;
+    }
+    if (arg == "--ct-lio-bspline-anchor-weight") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_bspline_anchor_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-lio-max-frames-in-map") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_max_frames_in_map = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-lio-max-iterations") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_lio_max_iterations = std::max(1, std::stoi(argv[++i]));
       continue;
     }
     if (arg == "--ct-lio-estimate-bias") {
@@ -4039,6 +5735,191 @@ int main(int argc, char** argv) {
           std::stod(arg.substr(std::string("--ndt-map-radius=").size()));
       continue;
     }
+    if (arg == "--fixed-map-ndt-seed-source") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-seed-source requires gt, velocity, ct_icp, or scan_context"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.seed_source = normalizeMethodId(argv[++i]);
+      if (fixed_map_ndt_options.seed_source != "gt" &&
+          fixed_map_ndt_options.seed_source != "velocity" &&
+          fixed_map_ndt_options.seed_source != "ct_icp" &&
+          fixed_map_ndt_options.seed_source != "scan_context") {
+        std::cerr << "--fixed-map-ndt-seed-source must be gt, velocity, ct_icp, or scan_context"
+                  << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-seed-source=", 0) == 0) {
+      fixed_map_ndt_options.seed_source = normalizeMethodId(
+          arg.substr(std::string("--fixed-map-ndt-seed-source=").size()));
+      if (fixed_map_ndt_options.seed_source != "gt" &&
+          fixed_map_ndt_options.seed_source != "velocity" &&
+          fixed_map_ndt_options.seed_source != "ct_icp" &&
+          fixed_map_ndt_options.seed_source != "scan_context") {
+        std::cerr << "--fixed-map-ndt-seed-source must be gt, velocity, ct_icp, or scan_context"
+                  << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-map-stride") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-map-stride requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.map_stride = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-map-stride=", 0) == 0) {
+      fixed_map_ndt_options.map_stride = std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--fixed-map-ndt-map-stride=").size())));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-threshold") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-threshold requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_distance_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-threshold=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_distance_threshold = std::stod(
+          arg.substr(std::string(
+                         "--fixed-map-ndt-scan-context-threshold=").size()));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-top-k") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-top-k requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_top_k = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-top-k=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_top_k = std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--fixed-map-ndt-scan-context-top-k=").size())));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-trace-json") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-trace-json requires a path"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.trace_json_path = argv[++i];
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-trace-json=", 0) == 0) {
+      fixed_map_ndt_options.trace_json_path =
+          arg.substr(std::string("--fixed-map-ndt-trace-json=").size());
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-publish-min-stable-frames") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-publish-min-stable-frames requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.publish_min_stable_frames =
+          std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-publish-min-stable-frames=", 0) == 0) {
+      fixed_map_ndt_options.publish_min_stable_frames =
+          std::max(1, std::stoi(arg.substr(
+                          std::string("--fixed-map-ndt-publish-min-stable-frames=").size())));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-publish-max-hold-frames") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-publish-max-hold-frames requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.publish_max_hold_frames =
+          std::max(0, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-publish-max-hold-frames=", 0) == 0) {
+      fixed_map_ndt_options.publish_max_hold_frames =
+          std::max(0, std::stoi(arg.substr(
+                          std::string("--fixed-map-ndt-publish-max-hold-frames=").size())));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-relock-min-confirmations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-relock-min-confirmations requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_relock_min_confirmations =
+          std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-relock-min-confirmations=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_relock_min_confirmations =
+          std::max(1, std::stoi(arg.substr(
+                          std::string("--fixed-map-ndt-scan-context-relock-min-confirmations=").size())));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-relock-max-distance") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-relock-max-distance requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_relock_max_distance =
+          std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-relock-max-distance=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_relock_max_distance =
+          std::stod(arg.substr(
+              std::string("--fixed-map-ndt-scan-context-relock-max-distance=").size()));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-relock-max-ndt-score") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-relock-max-ndt-score requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_relock_max_ndt_score =
+          std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-relock-max-ndt-score=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_relock_max_ndt_score =
+          std::stod(arg.substr(
+              std::string("--fixed-map-ndt-scan-context-relock-max-ndt-score=").size()));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-scan-context-relock-max-score-delta") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-scan-context-relock-max-score-delta requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.scan_context_relock_max_score_delta =
+          std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-scan-context-relock-max-score-delta=", 0) == 0) {
+      fixed_map_ndt_options.scan_context_relock_max_score_delta =
+          std::stod(arg.substr(
+              std::string("--fixed-map-ndt-scan-context-relock-max-score-delta=").size()));
+      continue;
+    }
     if (arg == "--kiss-fast-profile") {
       kiss_icp_options.source_voxel_size = 0.75;
       kiss_icp_options.max_source_points = 2500;
@@ -4267,6 +6148,225 @@ int main(int argc, char** argv) {
       ct_icp_options.ceres_max_iterations = std::max(
           1, std::stoi(arg.substr(
                  std::string("--ct-icp-ceres-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--ct-icp-max-correspondence-distance") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-max-correspondence-distance requires a numeric value (squared meters)"
+                  << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_correspondence_dist = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-correspondence-distance=", 0) == 0) {
+      ct_icp_options.max_correspondence_dist = std::stod(
+          arg.substr(std::string("--ct-icp-max-correspondence-distance=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-knn") {
+      if (i + 1 >= argc) {
+        std::cerr << "--ct-icp-knn requires an integer value" << std::endl;
+        return 1;
+      }
+      ct_icp_options.knn = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-knn=", 0) == 0) {
+      ct_icp_options.knn = std::stoi(
+          arg.substr(std::string("--ct-icp-knn=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-multi-scale") {
+      ct_icp_options.multi_scale_correspondences = true;
+      continue;
+    }
+    if (arg == "--ct-icp-normal-cholesky") {
+      ct_icp_options.use_normal_cholesky_solver = true;
+      continue;
+    }
+    if (arg == "--ct-icp-refinement-gate") {
+      ct_icp_options.refinement_gate = true;
+      continue;
+    }
+    if (arg == "--ct-icp-native-seed") {
+      ct_icp_options.native_ct_icp_seed = true;
+      continue;
+    }
+    if (arg == "--ct-icp-ndt-keyframe-interval") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_ndt_options.keyframe_interval = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ndt-keyframe-interval=", 0) == 0) {
+      ct_icp_ndt_options.keyframe_interval = std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--ct-icp-ndt-keyframe-interval=").size())));
+      continue;
+    }
+    if (arg == "--ct-icp-ndt-max-correction-translation") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_ndt_options.max_correction_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ndt-max-correction-translation=", 0) == 0) {
+      ct_icp_ndt_options.max_correction_translation_delta = std::stod(
+          arg.substr(std::string(
+                         "--ct-icp-ndt-max-correction-translation=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-ndt-max-correction-rotation-rad") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_ndt_options.max_correction_rotation_delta_rad = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ndt-max-correction-rotation-rad=", 0) == 0) {
+      ct_icp_ndt_options.max_correction_rotation_delta_rad = std::stod(
+          arg.substr(std::string(
+                         "--ct-icp-ndt-max-correction-rotation-rad=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-ndt-max-score") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_ndt_options.max_ndt_score = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-ndt-max-score=", 0) == 0) {
+      ct_icp_ndt_options.max_ndt_score =
+          std::stod(arg.substr(std::string("--ct-icp-ndt-max-score=").size()));
+      continue;
+    }
+    // Paper weight scheme bundle (Gap B+D+E+F):
+    //   power_planarity=2, weight_alpha=0.9, weight_neighborhood=0.1,
+    //   min_planarity_floor=0.01, planarity_threshold=0.01 (緩く),
+    //   cauchy_loss_param=0.1, flat_regularizer_weight=true
+    if (arg == "--ct-icp-paper-weights") {
+      ct_icp_options.power_planarity = 2.0;
+      ct_icp_options.weight_alpha = 0.9;
+      ct_icp_options.weight_neighborhood = 0.1;
+      ct_icp_options.min_planarity_floor = 0.01;
+      ct_icp_options.planarity_threshold = 0.01;
+      ct_icp_options.cauchy_loss_param = 0.1;
+      ct_icp_options.flat_regularizer_weight = true;
+      continue;
+    }
+    if (arg == "--ct-icp-power-planarity") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.power_planarity = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-weight-alpha") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.weight_alpha = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-weight-neighborhood") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.weight_neighborhood = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-min-planarity-floor") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.min_planarity_floor = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-flat-regularizer") {
+      ct_icp_options.flat_regularizer_weight = true;
+      continue;
+    }
+    if (arg == "--ct-icp-regularizer-n-cap") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.regularizer_n_cap = std::stoi(argv[++i]);
+      continue;
+    }
+    // Pick 2 (Gap A+C): paper-aligned mapping & correspondence anchor.
+    if (arg == "--ct-icp-paper-mapping") {
+      // Bundle: closest-neighbor reference + PCA over 20 + min_distance 0.1.
+      ct_icp_options.use_closest_neighbor_reference = true;
+      ct_icp_options.pca_neighbor_count = 20;
+      ct_icp_options.min_distance_between_points = 0.1;
+      // paper の voxel insertion 前提では knn も増やす方が一貫
+      if (ct_icp_options.knn <= 0) ct_icp_options.knn = 20;
+      continue;
+    }
+    if (arg == "--ct-icp-closest-neighbor-reference") {
+      ct_icp_options.use_closest_neighbor_reference = true;
+      continue;
+    }
+    if (arg == "--ct-icp-pca-neighbor-count") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.pca_neighbor_count = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-min-distance-between-points") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.min_distance_between_points = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-to-fine") {
+      ct_icp_options.coarse_to_fine = true;
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-iterations") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.coarse_iterations = std::max(0, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-search-radius") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.coarse_search_radius = std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-planarity-threshold") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.coarse_planarity_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-coarse-cauchy-mult") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.coarse_cauchy_sigma_mult = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-cauchy-sigma") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.cauchy_loss_param = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-max-seed-translation-delta") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--ct-icp-max-seed-translation-delta requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_seed_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-seed-translation-delta=", 0) == 0) {
+      ct_icp_options.max_seed_translation_delta = std::stod(arg.substr(
+          std::string("--ct-icp-max-seed-translation-delta=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-max-seed-rotation-delta-rad") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--ct-icp-max-seed-rotation-delta-rad requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      ct_icp_options.max_seed_rotation_delta_rad = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--ct-icp-max-seed-rotation-delta-rad=", 0) == 0) {
+      ct_icp_options.max_seed_rotation_delta_rad = std::stod(arg.substr(
+          std::string("--ct-icp-max-seed-rotation-delta-rad=").size()));
+      continue;
+    }
+    if (arg == "--ct-icp-paper-arch") {
+      // Bundle: multi-scale + normal-cholesky + refinement-gate (LiTAMIN2-style)
+      ct_icp_options.multi_scale_correspondences = true;
+      ct_icp_options.use_normal_cholesky_solver = true;
+      ct_icp_options.refinement_gate = true;
       continue;
     }
     if (arg == "--ct-icp-planarity-threshold") {
@@ -4687,7 +6787,7 @@ int main(int argc, char** argv) {
     std::cerr
         << "No methods selected. Supported methods: litamin2, gicp, small_gicp, "
         << "voxel_gicp, ndt, kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, "
-        << "ct_lio, ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
+        << "ct_lio, ct_icp, ct_icp_ndt, ct_icp_ndt_keyframe, fixed_map_ndt, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
         << "suma, balm2, isc_loam, loam_livox, lio_sam, lins, fast_lio_slam, "
         << "point_lio, clins"
         << std::endl;
@@ -4698,13 +6798,18 @@ int main(int argc, char** argv) {
       std::cerr << "Unsupported method: " << method
                 << " (supported: litamin2, gicp, small_gicp, voxel_gicp, ndt, "
                    "kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
-                   "ct_icp, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
+                   "ct_icp, ct_icp_ndt, ct_icp_ndt_keyframe, fixed_map_ndt, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
                    "suma, balm2, isc_loam, loam_livox, lio_sam, lins, "
                    "fast_lio_slam, point_lio, clins)"
                 << std::endl;
       return 1;
     }
   }
+  litamin2_options.seed_perturbation = seed_perturbation;
+  gicp_options.seed_perturbation = seed_perturbation;
+  small_gicp_options.seed_perturbation = seed_perturbation;
+  voxel_gicp_options.seed_perturbation = seed_perturbation;
+  ndt_options.seed_perturbation = seed_perturbation;
 
   auto pcd_dirs = listPCDDirs(pcd_dir);
   size_t total_pcd_frames = pcd_dirs.size();
@@ -4777,7 +6882,19 @@ int main(int argc, char** argv) {
   std::vector<MethodResult> results;
 
   if (no_gt_seed) {
-    std::cout << "[no-gt-seed] Scan-to-map methods will use odometry chain instead of GT initialization." << std::endl;
+    std::cout << "[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization." << std::endl;
+  }
+  if (ct_icp_gt_seed) {
+    std::cout << "[ct-icp-gt-seed] CT-ICP TrajectoryFrame init will be seeded from GT begin/end poses." << std::endl;
+  }
+  if (seed_perturbation.enabled()) {
+    std::cout << "[seed-perturb] local-frame dx=" << std::fixed
+              << std::setprecision(3) << seed_perturbation.x
+              << "m dy=" << seed_perturbation.y
+              << "m dz=" << seed_perturbation.z
+              << "m yaw="
+              << seed_perturbation.yaw_rad * 180.0 / M_PI
+              << "deg" << std::endl;
   }
 
   if (isMethodEnabled(selected_methods, "litamin2")) {
@@ -4884,6 +7001,34 @@ int main(int argc, char** argv) {
     results.push_back(runNDT(pcd_dirs, gt, ndt_options, no_gt_seed));
   }
 
+  if (isMethodEnabled(selected_methods, "fixed_map_ndt")) {
+    std::cout << "Running FixedMap-NDT..." << std::endl;
+    std::cout << "  source_voxel_size=" << ndt_options.source_voxel_size
+              << " max_source_points=" << ndt_options.max_source_points
+              << " resolution=" << ndt_options.resolution
+              << " max_iterations=" << ndt_options.max_iterations
+              << " map_max_points=" << ndt_options.map_max_points
+              << " map_stride=" << fixed_map_ndt_options.map_stride
+              << " seed_source=" << fixed_map_ndt_options.seed_source
+              << " publish_min_stable_frames="
+              << fixed_map_ndt_options.publish_min_stable_frames
+              << " publish_max_hold_frames="
+              << fixed_map_ndt_options.publish_max_hold_frames
+              << " sc_relock_min_confirmations="
+              << fixed_map_ndt_options.scan_context_relock_min_confirmations
+              << " sc_relock_max_distance=" << std::fixed << std::setprecision(3)
+              << fixed_map_ndt_options.scan_context_relock_max_distance
+              << " sc_relock_max_ndt_score="
+              << fixed_map_ndt_options.scan_context_relock_max_ndt_score
+              << " trace_json="
+              << (fixed_map_ndt_options.trace_json_path.empty()
+                      ? "off"
+                      : fixed_map_ndt_options.trace_json_path)
+              << std::endl;
+    results.push_back(runFixedMapNDT(pcd_dirs, gt, ndt_options,
+                                     ct_icp_options, fixed_map_ndt_options));
+  }
+
   if (isMethodEnabled(selected_methods, "kiss_icp")) {
     std::cout << "Running KISS-ICP..." << std::endl;
     std::cout << "  source_voxel_size=" << kiss_icp_options.source_voxel_size
@@ -4957,7 +7102,17 @@ int main(int argc, char** argv) {
                    ct_lio_fixed_lag_accel_bias_scale,
                    ct_lio_fixed_lag_history_decay,
                    ct_lio_fixed_lag_outer_iterations,
-                   ct_lio_fixed_lag_smoother));
+                   ct_lio_fixed_lag_smoother,
+                   ct_lio_multi_scale,
+                   ct_lio_coarse_to_fine,
+                   ct_lio_coarse_iterations,
+                   ct_lio_coarse_search_radius,
+                   ct_lio_coarse_planarity_threshold,
+                   ct_lio_coarse_cauchy_mult,
+                   ct_lio_max_frames_in_map,
+                   ct_lio_max_iterations,
+                   ct_lio_bspline,
+                   ct_lio_bspline_anchor_weight));
     }
   }
 
@@ -4969,7 +7124,34 @@ int main(int argc, char** argv) {
               << " max_iterations=" << ct_icp_options.max_iterations
               << " max_frames_in_map=" << ct_icp_options.max_frames_in_map
               << std::endl;
-    results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options));
+    results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options, ct_icp_gt_seed));
+  }
+
+  if (isMethodEnabled(selected_methods, "ct_icp_ndt")) {
+    std::cout << "Running CT-ICP+NDT..." << std::endl;
+    std::cout << "  ct_icp_voxel_resolution=" << ct_icp_options.voxel_resolution
+              << " ct_icp_max_iterations=" << ct_icp_options.max_iterations
+              << " ndt_resolution=" << ndt_options.resolution
+              << " ndt_max_iterations=" << ndt_options.max_iterations
+              << std::endl;
+    results.push_back(runCTICPNDT(pcd_dirs, gt, ct_icp_options, ndt_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "ct_icp_ndt_keyframe")) {
+    std::cout << "Running CT-ICP+NDT keyframe..." << std::endl;
+    std::cout << "  ct_icp_voxel_resolution=" << ct_icp_options.voxel_resolution
+              << " ct_icp_max_iterations=" << ct_icp_options.max_iterations
+              << " ndt_resolution=" << ndt_options.resolution
+              << " ndt_max_iterations=" << ndt_options.max_iterations
+              << " keyframe_interval="
+              << ct_icp_ndt_options.keyframe_interval
+              << " max_correction_translation="
+              << ct_icp_ndt_options.max_correction_translation_delta
+              << " max_correction_rotation_rad="
+              << ct_icp_ndt_options.max_correction_rotation_delta_rad
+              << std::endl;
+    results.push_back(runCTICPNDTKeyframe(
+        pcd_dirs, gt, ct_icp_options, ndt_options, ct_icp_ndt_options));
   }
 
   if (isMethodEnabled(selected_methods, "xicp")) {
@@ -5067,7 +7249,7 @@ int main(int argc, char** argv) {
   for (auto& r : results) {
     if (r.skipped) {
       std::cout << std::setw(24) << r.name
-                << std::setw(12) << "SKIPPED"
+                << std::setw(12) << r.status
                 << std::setw(12) << "-"
                 << std::setw(12) << "-"
                 << std::setw(15) << "-"
@@ -5077,9 +7259,20 @@ int main(int argc, char** argv) {
     }
 
     r.ate = computeATE(r.poses, gt);
+    const RPEMetrics rpe = computeRPE(r.poses, gt, rpeSegmentLengthM(dist));
+    r.has_rpe = rpe.available;
+    if (rpe.available) {
+      r.rpe_trans_pct = rpe.trans_pct;
+      r.rpe_rot_deg_per_m = rpe.rot_deg_per_m;
+    }
+    if (!std::isfinite(r.ate) ||
+        (r.has_rpe && (!std::isfinite(r.rpe_trans_pct) ||
+                       !std::isfinite(r.rpe_rot_deg_per_m)))) {
+      r.status = "invalid_metric";
+    }
     double fps = r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
     std::cout << std::setw(24) << r.name
-              << std::setw(12) << "OK"
+              << std::setw(12) << r.status
               << std::setw(12) << std::setprecision(3) << r.ate
               << std::setw(12) << r.poses.size()
               << std::setw(15) << std::setprecision(1) << r.time_ms

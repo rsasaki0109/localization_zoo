@@ -1,0 +1,809 @@
+{
+  "comparison_json": "experiments/results/lidar_degeneracy/method_health_comparison/method_health_comparison.json",
+  "output_dir": "experiments/results/lidar_degeneracy/ct_icp_fallback_bakeoff",
+  "rows": [
+    {
+      "sequence": "fog_200",
+      "window": "baseline",
+      "start": 0,
+      "end": 29,
+      "expected_stress": "nominal",
+      "guard_decision": "retry_optimizer",
+      "guard_reasons": [
+        "iterations_pinned"
+      ],
+      "healthy_path_median_m": 1.362911700703898,
+      "all_method_path_median_m": 1.3270083882732868,
+      "selected_source": "geometry_icp",
+      "selected_reference_error": 2.2204460492503128e-16,
+      "selected_improves_original": true,
+      "selected_improves_self_velocity": true,
+      "candidates": [
+        {
+          "source": "ct_icp_original",
+          "source_kind": "ct_icp_refined",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.2911050758426756,
+          "path_vs_healthy": 0.9473138099671925,
+          "path_vs_all": 0.9729441707016421,
+          "path_status": "reference_consistent",
+          "reference_error": 0.05412486796644477,
+          "step_delta_max_m": null,
+          "yaw_delta_max_deg": null,
+          "eligible": false,
+          "eligibility_blockers": [
+            "guard_rejects_refined"
+          ]
+        },
+        {
+          "source": "self_velocity",
+          "source_kind": "internal_prior",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 2.5475655214508235,
+          "path_vs_healthy": 1.869208049307297,
+          "path_vs_all": 1.9197810232124717,
+          "path_status": "reference_consistent",
+          "reference_error": 0.6255148381195276,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "velocity_prior_pair_rate": 1.0,
+          "hold_pair_rate": 0.0,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "geometry_icp",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.3629117007038982,
+          "path_vs_healthy": 1.0000000000000002,
+          "path_vs_all": 1.027055829298358,
+          "path_status": "reference_consistent",
+          "reference_error": 2.2204460492503128e-16,
+          "step_delta_max_m": 0.13289367811881755,
+          "yaw_delta_max_deg": 0.9442853852591497,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "kiss_keyframe",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.3686771039215081,
+          "path_vs_healthy": 0.27050696221266485,
+          "path_vs_all": 0.2778257524063081,
+          "path_status": "path_collapse",
+          "reference_error": 1.3074574427175285,
+          "step_delta_max_m": 0.04261216559857056,
+          "yaw_delta_max_deg": 0.30400399999999195,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "intensity_bev",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 7.25,
+          "path_vs_healthy": 5.3194935491826945,
+          "path_vs_all": 5.463416858603098,
+          "path_status": "path_high",
+          "reference_error": 1.6713781012999314,
+          "step_delta_max_m": 0.3535533905932738,
+          "yaw_delta_max_deg": 1.5,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "fog_200",
+      "window": "point_count_tail",
+      "start": 115,
+      "end": 144,
+      "expected_stress": "obscurant_stress",
+      "guard_decision": "fallback_to_prior",
+      "guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "healthy_path_median_m": 0.9830830847449035,
+      "all_method_path_median_m": 0.9830830847449035,
+      "selected_source": "geometry_icp",
+      "selected_reference_error": 0.2276608138353464,
+      "selected_improves_original": true,
+      "selected_improves_self_velocity": true,
+      "candidates": [
+        {
+          "source": "ct_icp_original",
+          "source_kind": "ct_icp_refined",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 2.7146177013147597,
+          "path_vs_healthy": 2.7613309021781873,
+          "path_vs_all": 2.7613309021781873,
+          "path_status": "path_high",
+          "reference_error": 1.0157127744368541,
+          "step_delta_max_m": null,
+          "yaw_delta_max_deg": null,
+          "eligible": false,
+          "eligibility_blockers": [
+            "guard_rejects_refined",
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "self_velocity",
+          "source_kind": "internal_prior",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 2.0649021573043123,
+          "path_vs_healthy": 2.1004350388554656,
+          "path_vs_all": 2.1004350388554656,
+          "path_status": "path_high",
+          "reference_error": 0.7421444846341714,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "velocity_prior_pair_rate": 1.0,
+          "hold_pair_rate": 0.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "geometry_icp",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.2344174680860542,
+          "path_vs_healthy": 1.2556593509147485,
+          "path_vs_all": 1.2556593509147485,
+          "path_status": "reference_consistent",
+          "reference_error": 0.2276608138353464,
+          "step_delta_max_m": 0.12238344792639827,
+          "yaw_delta_max_deg": 2.4982399953733534,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "kiss_keyframe",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.742776325671809,
+          "path_vs_healthy": 0.7555580369532543,
+          "path_vs_all": 0.7555580369532543,
+          "path_status": "reference_consistent",
+          "reference_error": 0.2802986809567148,
+          "step_delta_max_m": 0.07395047003231285,
+          "yaw_delta_max_deg": 1.3450750000000085,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "intensity_bev",
+          "source_kind": "external_peer",
+          "health_state": "suspicious",
+          "risk_state": "suspicious",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.0,
+          "path_vs_healthy": 0.0,
+          "path_vs_all": 0.0,
+          "path_status": "path_collapse",
+          "reference_error": null,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 2.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "source_health_not_ok",
+            "source_risk_not_ok",
+            "path_not_reference_consistent",
+            "reference_error_missing"
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "fog_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "expected_stress": "obscurant_stress",
+      "guard_decision": "reject_or_retry",
+      "guard_reasons": [
+        "partial_acceptance"
+      ],
+      "healthy_path_median_m": 1.01198069704759,
+      "all_method_path_median_m": 2.065342031177171,
+      "selected_source": "geometry_icp",
+      "selected_reference_error": 0.32969380432762396,
+      "selected_improves_original": true,
+      "selected_improves_self_velocity": true,
+      "candidates": [
+        {
+          "source": "ct_icp_original",
+          "source_kind": "ct_icp_refined",
+          "health_state": "suspicious",
+          "risk_state": "suspicious",
+          "accepted_rate": 0.6551724137931034,
+          "path_length_m": 2.723482111261566,
+          "path_vs_healthy": 2.6912391898454264,
+          "path_vs_all": 1.3186591228714204,
+          "path_status": "path_high",
+          "reference_error": 0.9900017529100782,
+          "step_delta_max_m": null,
+          "yaw_delta_max_deg": null,
+          "eligible": false,
+          "eligibility_blockers": [
+            "guard_rejects_refined",
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "self_velocity",
+          "source_kind": "internal_prior",
+          "health_state": "suspicious",
+          "risk_state": "suspicious",
+          "accepted_rate": 0.6551724137931034,
+          "path_length_m": 2.8293009321903173,
+          "path_vs_healthy": 2.7958052366459962,
+          "path_vs_all": 1.3698946176860194,
+          "path_status": "path_high",
+          "reference_error": 1.0281201640934103,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "velocity_prior_pair_rate": 1.0,
+          "hold_pair_rate": 0.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "geometry_icp",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.4072019510927758,
+          "path_vs_healthy": 1.3905422852414346,
+          "path_vs_all": 0.6813408771285796,
+          "path_status": "reference_consistent",
+          "reference_error": 0.32969380432762396,
+          "step_delta_max_m": 0.1567401761190555,
+          "yaw_delta_max_deg": 2.0961657261007645,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "kiss_keyframe",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.6201664168230638,
+          "path_vs_healthy": 0.6128243538956549,
+          "path_vs_all": 0.300272985036571,
+          "path_status": "path_collapse",
+          "reference_error": 0.48967691934862184,
+          "step_delta_max_m": 0.061385674069769726,
+          "yaw_delta_max_deg": 1.0483700000000056,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "intensity_bev",
+          "source_kind": "external_peer",
+          "health_state": "suspicious",
+          "risk_state": "suspicious",
+          "accepted_rate": 1.0,
+          "path_length_m": 4.177050983124842,
+          "path_vs_healthy": 4.127599464407976,
+          "path_vs_all": 2.022449996209138,
+          "path_status": "path_high",
+          "reference_error": 1.4176959945007104,
+          "step_delta_max_m": 0.5590169943749475,
+          "yaw_delta_max_deg": 0.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "source_health_not_ok",
+            "source_risk_not_ok",
+            "path_not_reference_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "window": "baseline",
+      "start": 5,
+      "end": 34,
+      "expected_stress": "nominal",
+      "guard_decision": "fallback_to_prior",
+      "guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "healthy_path_median_m": 1.5194460039714142,
+      "all_method_path_median_m": 3.3512424450239156,
+      "selected_source": "geometry_icp",
+      "selected_reference_error": 0.0,
+      "selected_improves_original": true,
+      "selected_improves_self_velocity": true,
+      "candidates": [
+        {
+          "source": "ct_icp_original",
+          "source_kind": "ct_icp_refined",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 5.183038886076417,
+          "path_vs_healthy": 3.411137264851386,
+          "path_vs_all": 1.5466021844442919,
+          "path_status": "path_high",
+          "reference_error": 1.2270457444478151,
+          "step_delta_max_m": null,
+          "yaw_delta_max_deg": null,
+          "eligible": false,
+          "eligibility_blockers": [
+            "guard_rejects_refined",
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "self_velocity",
+          "source_kind": "internal_prior",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 24.43016745306117,
+          "path_vs_healthy": 16.078338676864742,
+          "path_vs_all": 7.289883633855332,
+          "path_status": "path_high",
+          "reference_error": 2.7774729422979663,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "velocity_prior_pair_rate": 1.0,
+          "hold_pair_rate": 0.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "geometry_icp",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.5194460039714142,
+          "path_vs_healthy": 1.0,
+          "path_vs_all": 0.4533978155557083,
+          "path_status": "reference_consistent",
+          "reference_error": 0.0,
+          "step_delta_max_m": 0.22287090702300663,
+          "yaw_delta_max_deg": 1.3261295186663062,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "kiss_keyframe",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.1857805032809408,
+          "path_vs_healthy": 0.780403186544067,
+          "path_vs_all": 0.3538331000317939,
+          "path_status": "reference_consistent",
+          "reference_error": 0.2479445870225692,
+          "step_delta_max_m": 0.12687793507541018,
+          "yaw_delta_max_deg": 0.21517800000000875,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "intensity_bev",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 7.974873734152918,
+          "path_vs_healthy": 5.248540397821831,
+          "path_vs_all": 2.3796767512283066,
+          "path_status": "path_high",
+          "reference_error": 1.6579500184864486,
+          "step_delta_max_m": 0.5590169943749475,
+          "yaw_delta_max_deg": 2.5,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "window": "point_count_tail",
+      "start": 80,
+      "end": 109,
+      "expected_stress": "point_count_stress",
+      "guard_decision": "fallback_to_prior",
+      "guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "healthy_path_median_m": 1.4694730228722999,
+      "all_method_path_median_m": 1.4694730228722999,
+      "selected_source": "geometry_icp",
+      "selected_reference_error": 0.23936885737321092,
+      "selected_improves_original": true,
+      "selected_improves_self_velocity": true,
+      "candidates": [
+        {
+          "source": "ct_icp_original",
+          "source_kind": "ct_icp_refined",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 5.43503540488444,
+          "path_vs_healthy": 3.6986289100162373,
+          "path_vs_all": 3.6986289100162373,
+          "path_status": "path_high",
+          "reference_error": 1.307962186113578,
+          "step_delta_max_m": null,
+          "yaw_delta_max_deg": null,
+          "eligible": false,
+          "eligibility_blockers": [
+            "guard_rejects_refined",
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "self_velocity",
+          "source_kind": "internal_prior",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 7.153279036459917,
+          "path_vs_healthy": 4.867921305882695,
+          "path_vs_all": 4.867921305882695,
+          "path_status": "path_high",
+          "reference_error": 1.5826670093994426,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "velocity_prior_pair_rate": 1.0,
+          "hold_pair_rate": 0.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "geometry_icp",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.8668876874404594,
+          "path_vs_healthy": 1.270447063935447,
+          "path_vs_all": 1.270447063935447,
+          "path_status": "reference_consistent",
+          "reference_error": 0.23936885737321092,
+          "step_delta_max_m": 0.26214270203713663,
+          "yaw_delta_max_deg": 1.3253961150569467,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "kiss_keyframe",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.9879330933301463,
+          "path_vs_healthy": 0.6723043417286332,
+          "path_vs_all": 0.6723043417286332,
+          "path_status": "reference_consistent",
+          "reference_error": 0.39704415150534067,
+          "step_delta_max_m": 0.0966724616682538,
+          "yaw_delta_max_deg": 0.1303010000000029,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "intensity_bev",
+          "source_kind": "external_peer",
+          "health_state": "suspicious",
+          "risk_state": "suspicious",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.0,
+          "path_vs_healthy": 0.0,
+          "path_vs_all": 0.0,
+          "path_status": "path_collapse",
+          "reference_error": null,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "source_health_not_ok",
+            "source_risk_not_ok",
+            "path_not_reference_consistent",
+            "reference_error_missing"
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "window": "geometry_degeneracy",
+      "start": 90,
+      "end": 119,
+      "expected_stress": "geometry_stress",
+      "guard_decision": "fallback_to_prior",
+      "guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "healthy_path_median_m": 1.5127393591261225,
+      "all_method_path_median_m": 1.5127393591261225,
+      "selected_source": "geometry_icp",
+      "selected_reference_error": 0.15499965453824346,
+      "selected_improves_original": true,
+      "selected_improves_self_velocity": true,
+      "candidates": [
+        {
+          "source": "ct_icp_original",
+          "source_kind": "ct_icp_refined",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 5.664845191472717,
+          "path_vs_healthy": 3.744759569649314,
+          "path_vs_all": 3.744759569649314,
+          "path_status": "path_high",
+          "reference_error": 1.3203574145475876,
+          "step_delta_max_m": null,
+          "yaw_delta_max_deg": null,
+          "eligible": false,
+          "eligibility_blockers": [
+            "guard_rejects_refined",
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "self_velocity",
+          "source_kind": "internal_prior",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.9687159260924367,
+          "path_vs_healthy": 1.3014244087823048,
+          "path_vs_all": 1.3014244087823048,
+          "path_status": "reference_consistent",
+          "reference_error": 0.2634593636907066,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "velocity_prior_pair_rate": 1.0,
+          "hold_pair_rate": 0.0,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "geometry_icp",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.766361545550214,
+          "path_vs_healthy": 1.1676575577240245,
+          "path_vs_all": 1.1676575577240245,
+          "path_status": "reference_consistent",
+          "reference_error": 0.15499965453824346,
+          "step_delta_max_m": 0.2621427020371384,
+          "yaw_delta_max_deg": 1.0541601882977147,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "kiss_keyframe",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.9200721700818316,
+          "path_vs_healthy": 0.6082159259830047,
+          "path_vs_all": 0.6082159259830047,
+          "path_status": "reference_consistent",
+          "reference_error": 0.49722531864434155,
+          "step_delta_max_m": 0.0966724616682538,
+          "yaw_delta_max_deg": 0.1303010000000029,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "intensity_bev",
+          "source_kind": "external_peer",
+          "health_state": "suspicious",
+          "risk_state": "suspicious",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.75,
+          "path_vs_healthy": 0.49578930796991966,
+          "path_vs_all": 0.49578930796991966,
+          "path_status": "path_collapse",
+          "reference_error": 0.7016042248214864,
+          "step_delta_max_m": 0.25,
+          "yaw_delta_max_deg": 0.5,
+          "eligible": false,
+          "eligibility_blockers": [
+            "source_health_not_ok",
+            "source_risk_not_ok",
+            "path_not_reference_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "window": "degraded",
+      "start": 170,
+      "end": 199,
+      "expected_stress": "degradation_stress",
+      "guard_decision": "fallback_to_prior",
+      "guard_reasons": [
+        "path_reference_disagreement"
+      ],
+      "healthy_path_median_m": 1.3800997441869263,
+      "all_method_path_median_m": 1.3800997441869263,
+      "selected_source": "geometry_icp",
+      "selected_reference_error": 0.15843879202399783,
+      "selected_improves_original": true,
+      "selected_improves_self_velocity": true,
+      "candidates": [
+        {
+          "source": "ct_icp_original",
+          "source_kind": "ct_icp_refined",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 4.174307686997068,
+          "path_vs_healthy": 3.0246420264763723,
+          "path_vs_all": 3.0246420264763723,
+          "path_status": "path_high",
+          "reference_error": 1.106792746125351,
+          "step_delta_max_m": null,
+          "yaw_delta_max_deg": null,
+          "eligible": false,
+          "eligibility_blockers": [
+            "guard_rejects_refined",
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "self_velocity",
+          "source_kind": "internal_prior",
+          "health_state": "diagnostic_watch",
+          "risk_state": "diagnostic_watch",
+          "accepted_rate": 1.0,
+          "path_length_m": 4.546149348072497,
+          "path_vs_healthy": 3.2940730314755773,
+          "path_vs_all": 3.2940730314755773,
+          "path_status": "path_high",
+          "reference_error": 1.1921248025708695,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "velocity_prior_pair_rate": 1.0,
+          "hold_pair_rate": 0.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "path_not_reference_consistent"
+          ]
+        },
+        {
+          "source": "geometry_icp",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.1778809075110657,
+          "path_vs_healthy": 0.8534752016818928,
+          "path_vs_all": 0.8534752016818928,
+          "path_status": "reference_consistent",
+          "reference_error": 0.15843879202399783,
+          "step_delta_max_m": 0.1343091946560898,
+          "yaw_delta_max_deg": 0.9073316413590362,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "kiss_keyframe",
+          "source_kind": "external_peer",
+          "health_state": "ok",
+          "risk_state": "ok",
+          "accepted_rate": 1.0,
+          "path_length_m": 1.0880567462959958,
+          "path_vs_healthy": 0.7883899340456837,
+          "path_vs_all": 0.7883899340456837,
+          "path_status": "reference_consistent",
+          "reference_error": 0.2377624713577776,
+          "step_delta_max_m": 0.10645614828651279,
+          "yaw_delta_max_deg": 0.18736300000000483,
+          "eligible": true,
+          "eligibility_blockers": []
+        },
+        {
+          "source": "intensity_bev",
+          "source_kind": "external_peer",
+          "health_state": "suspicious",
+          "risk_state": "suspicious",
+          "accepted_rate": 1.0,
+          "path_length_m": 0.0,
+          "path_vs_healthy": 0.0,
+          "path_vs_all": 0.0,
+          "path_status": "path_collapse",
+          "reference_error": null,
+          "step_delta_max_m": 0.0,
+          "yaw_delta_max_deg": 0.0,
+          "eligible": false,
+          "eligibility_blockers": [
+            "source_health_not_ok",
+            "source_risk_not_ok",
+            "path_not_reference_consistent",
+            "reference_error_missing"
+          ]
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "rows": 7,
+    "source_counts": {
+      "ct_icp_original": {
+        "rows": 7,
+        "eligible": 0,
+        "reference_consistent": 1
+      },
+      "geometry_icp": {
+        "rows": 7,
+        "eligible": 7,
+        "reference_consistent": 7
+      },
+      "intensity_bev": {
+        "rows": 7,
+        "eligible": 0,
+        "reference_consistent": 0
+      },
+      "kiss_keyframe": {
+        "rows": 7,
+        "eligible": 5,
+        "reference_consistent": 5
+      },
+      "self_velocity": {
+        "rows": 7,
+        "eligible": 2,
+        "reference_consistent": 2
+      }
+    },
+    "selected_source_counts": {
+      "geometry_icp": 7
+    },
+    "selected_improves_original": 7,
+    "selected_improves_self_velocity": 7
+  }
+}

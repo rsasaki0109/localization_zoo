@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-05-18T22:03:24+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_matrix.json",
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_kitti_seq_07",
+    "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07",
+    "question": "Which CT-ICP profile should stay as the current default on the KITTI Odometry public dataset (sequence 07)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_108",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_108",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Keep the current repository default as the continuous-time baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/run.log",
+      "status": "ok",
+      "ate_m": 1.049623,
+      "rpe_trans_pct": 1.095401,
+      "rpe_rot_deg_per_m": 0.091041,
+      "fps": 40.813894,
+      "time_ms": 2646.157725,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 44.98,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Shrink the working set and point budget to improve FPS.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/summary.json --ct-icp-fast-profile",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/run.log",
+      "status": "ok",
+      "ate_m": 0.978124,
+      "rpe_trans_pct": 1.359028,
+      "rpe_rot_deg_per_m": 0.082217,
+      "fps": 77.324543,
+      "time_ms": 1396.710478,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 69.95,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "drift-oriented",
+      "intent": "Increase point density and window richness to preserve more structure.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/run.log",
+      "status": "ok",
+      "ate_m": 0.39019,
+      "rpe_trans_pct": 1.493555,
+      "rpe_rot_deg_per_m": 0.037971,
+      "fps": 26.30587,
+      "time_ms": 4105.547564,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 67.01,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

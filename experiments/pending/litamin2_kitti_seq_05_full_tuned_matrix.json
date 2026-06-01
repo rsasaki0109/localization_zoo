@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_tuned_kitti_seq_05_full",
+    "title": "LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 05 (full)",
+    "question": "Does the KITTI 07 winning tune (voxel 1.0 + iter 12) close the gap on sequence 05?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "tuned_voxel1_iter12",
+      "label": "Tuned: voxel 1.0 + iter 12 (no GT seed)",
+      "design_style": "tuned for paper parity",
+      "intent": "Apply KITTI 07 gap-close winner across the paper-evaluated set.",
+      "args": ["--no-gt-seed", "--litamin2-voxel-resolution", "1.0", "--litamin2-max-iterations", "12"]
+    }
+  ]
+}

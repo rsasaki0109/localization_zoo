@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_profile_tradeoff_mulran_parkinglot_full_no_gt_seed",
+    "title": "LiTAMIN2 pure-odometry (no GT seed) on MulRan ParkingLot (full sequence)",
+    "question": "Does LiTAMIN2 hold up on MulRan parkinglot full as standalone odometry (Policy B), or does it diverge similarly to CT-ICP once the GT prior is removed?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "fast_cov_no_gt_seed",
+      "label": "Fast local-map + covariance (no GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Repository default local-map profile measured as pure odometry to match Policy B methods.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "fast_icp_only_no_gt_seed",
+      "label": "Fast local-map + ICP-only (no GT seed)",
+      "design_style": "single-term simplification",
+      "intent": "Disable covariance-shape term and run as pure odometry.",
+      "args": [
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "paper_cov_no_gt_seed",
+      "label": "Paper-like 3m + covariance (no GT seed)",
+      "design_style": "paper-oriented",
+      "intent": "Paper-like 3m local map measured as pure odometry.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "paper_icp_only_no_gt_seed",
+      "label": "Paper-like 3m + ICP-only (no GT seed)",
+      "design_style": "paper-oriented simplification",
+      "intent": "Paper profile without covariance cost, pure odometry.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only",
+        "--no-gt-seed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_lio_map_sweet_spot_hdl_400",
+    "title": "CT-LIO map size sweet spot on HDL-400",
+    "question": "max_frames=40 gave -6% over 30. What's the true peak?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "variants": [
+    {
+      "id": "max_frames_40",
+      "label": "max_frames=40 (Round 5 best)",
+      "design_style": "reference",
+      "intent": "Current best.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "40"]
+    },
+    {
+      "id": "max_frames_50",
+      "label": "max_frames=50",
+      "design_style": "bigger map",
+      "intent": "Sweet spot test.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "50"]
+    },
+    {
+      "id": "max_frames_60",
+      "label": "max_frames=60",
+      "design_style": "even bigger map",
+      "intent": "Half the trajectory.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "60"]
+    },
+    {
+      "id": "max_frames_80",
+      "label": "max_frames=80 (2/3 of traj)",
+      "design_style": "near-full memory",
+      "intent": "Overkill check.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "80"]
+    }
+  ]
+}

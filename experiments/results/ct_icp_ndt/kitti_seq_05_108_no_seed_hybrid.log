@@ -1,0 +1,36 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 108
+GT poses: 108
+IMU samples: 0 (imu.csv not found)
+Timestamp source: sampled GT timestamps
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 98.9 m
+[no-gt-seed] Scan-to-map methods will use velocity-model prediction instead of GT initialization.
+Running NDT...
+  source_voxel_size=0.8 max_source_points=2000 resolution=0.5 max_iterations=12 map_max_points=22000
+  [NDT] 10/108 score=1.809  [NDT] 20/108 score=3.163  [NDT] 30/108 score=2.545  [NDT] 40/108 score=0.133  [NDT] 50/108 score=0.000  [NDT] 60/108 score=2.250  [NDT] 70/108 score=1.824  [NDT] 80/108 score=1.439  [NDT] 90/108 score=2.644  [NDT] 100/108 score=2.397
+Running CT-ICP...
+  source_voxel_size=0.6 max_source_points=700 voxel_resolution=1.2 max_iterations=10 max_frames_in_map=10
+  [CT-ICP] 10/108  [CT-ICP] 20/108  [CT-ICP] 30/108  [CT-ICP] 40/108  [CT-ICP] 50/108  [CT-ICP] 60/108  [CT-ICP] 70/108  [CT-ICP] 80/108  [CT-ICP] 90/108  [CT-ICP] 100/108
+Running CT-ICP+NDT...
+  ct_icp_voxel_resolution=1.2 ct_icp_max_iterations=10 ndt_resolution=0.5 ndt_max_iterations=12
+  [CT-ICP] 10/108  [CT-ICP] 20/108  [CT-ICP] 30/108  [CT-ICP] 40/108  [CT-ICP] 50/108  [CT-ICP] 60/108  [CT-ICP] 70/108  [CT-ICP] 80/108  [CT-ICP] 90/108  [CT-ICP] 100/108
+  [NDT] 10/108 score=2.549  [NDT] 20/108 score=2.752  [NDT] 30/108 score=2.582  [NDT] 40/108 score=2.465  [NDT] 50/108 score=2.398  [NDT] 60/108 score=2.585  [NDT] 70/108 score=2.591  [NDT] 80/108 score=2.798  [NDT] 90/108 score=2.406  [NDT] 100/108 score=2.622
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Frames      Time [ms]      FPS
+---------------------------------------------------------------------------------------
+NDT                     ok          50.914      108         4291.7         25.2
+CT-ICP                  ok          0.583       108         3991.3         27.1
+CT-ICP+NDT              ok          0.553       108         10354.9        10.4
+
+Notes:
+- NDT: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+- CT-ICP: Anchor matches first GT pose; subsequent frames use velocity-model bootstrap with LiTAMIN2-style acceptance gate (trans<=2m, rot<=0.25rad). 0 rollbacks to seed.
+- CT-ICP+NDT: Hybrid: CT-ICP no-GT odometry prior feeds NDT scan-to-map initial guess; first frame remains anchored to GT for dogfooding alignment. CT-ICP prior ATE=0.583m. Runtime is CT-ICP+NDT combined.
+
+Results saved to dogfooding_results/

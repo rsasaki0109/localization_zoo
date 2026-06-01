@@ -41,6 +41,30 @@ jobs:
           chmod +x evaluation/scripts/smoke_ci_fixture.sh
           bash evaluation/scripts/smoke_ci_fixture.sh
 
+      - name: Multimodal smoke (committed 3-frame MCD fixture + visual CSVs)
+        run: |
+          chmod +x evaluation/scripts/smoke_multimodal_fixture.sh
+          bash evaluation/scripts/smoke_multimodal_fixture.sh
+
+      - name: One-command demo report
+        run: |
+          bash evaluation/scripts/demo_localization_zoo.sh --skip-build
+          python3 evaluation/scripts/validate_showcase.py \
+            --require-demo \
+            --demo-dir experiments/results/runs/demo_localization_zoo
+
+      - name: Upload demo report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: localization-zoo-demo-report
+          path: experiments/results/runs/demo_localization_zoo/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Python script regressions
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+
   ros2-colcon-build:
     runs-on: ubuntu-22.04
     container:

@@ -99,14 +99,29 @@ struct VoxelHash {
 
 /// ボクセルブロック (ボクセル内の点群を保持)
 struct VoxelBlock {
+  // 20 を維持。paper は 30 だが、KITTI 07 実測で 30 にすると ms_chol baseline が
+  // 1.61 -> 3.15m (+96%) と悪化することを確認 (2026-05-18)。点群密度が上がると
+  // mean-of-knn reference が distort される副作用が大きい。Gap C
+  // (min_distance_between_points) の方が voxel 内 redundancy を制御する適切な
+  // mechanism。
   static constexpr int kMaxPoints = 20;
   Eigen::Vector3d points[kMaxPoints];
   int num_points = 0;
 
-  void addPoint(const Eigen::Vector3d& point) {
+  // min_distance_sq > 0 で min-distance enforcement。同 voxel 内に既に
+  // 距離未満の点があれば追加せず false を返す。0 だと従来通り (kMaxPoints 上限のみ)。
+  // paper は 0.1 m (= min_distance_sq = 0.01)。
+  bool addPoint(const Eigen::Vector3d& point, double min_distance_sq = 0.0) {
+    if (min_distance_sq > 0.0) {
+      for (int i = 0; i < num_points; ++i) {
+        if ((points[i] - point).squaredNorm() < min_distance_sq) return false;
+      }
+    }
     if (num_points < kMaxPoints) {
       points[num_points++] = point;
+      return true;
     }
+    return false;
   }
 };
 

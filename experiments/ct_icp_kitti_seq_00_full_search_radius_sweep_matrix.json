@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_full_search_radius_sweep",
+    "title": "CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A)",
+    "question": "Cluster A simplified recipe uses coarse_search_radius=2 (5x5x5 voxel neighborhood). Does narrower (1=3x3x3) or wider (3=7x7x7, 4=9x9x9) improve drift, or is 2 already optimal?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "radius_1",
+      "label": "coarse search radius=1 (3x3x3, same as fine)",
+      "design_style": "narrower",
+      "intent": "Coarse phase has no spatial expansion advantage over fine phase.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "1", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "radius_2_reference",
+      "label": "coarse search radius=2 (5x5x5, cluster A default)",
+      "design_style": "reference",
+      "intent": "Confirm 12.69 m baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "radius_3",
+      "label": "coarse search radius=3 (7x7x7)",
+      "design_style": "wider",
+      "intent": "Wider coarse search captures more candidates, may help sparse regions.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "3", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "radius_4",
+      "label": "coarse search radius=4 (9x9x9)",
+      "design_style": "wider",
+      "intent": "Extreme widening — does it add noise or stabilize further?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "4", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "policy_version": "lidar_degeneracy_triage_v4",
+  "description": "GT-free triage policy for LiDAR degeneracy health reports.",
+  "default_decision_for_unknown_reason": "watch",
+  "decision_order": {
+    "pass": 0,
+    "watch": 1,
+    "investigate": 2,
+    "fail": 3
+  },
+  "reason_decisions": {
+    "ct_icp_internal_convergence_low": "watch",
+    "ok_no_risk": "pass",
+    "low_convergence": "watch",
+    "low_motion_margin_dominant": "watch",
+    "low_used_path": "watch",
+    "no_healthy_peer": "watch",
+    "partial_acceptance": "watch",
+    "path_disagrees_with_all_method_median": "watch",
+    "cross_method_suspicious": "investigate",
+    "motion_margin_dominant": "watch",
+    "overlap_tail": "watch",
+    "path_disagrees_with_healthy_median": "investigate",
+    "all_pairs_failed": "fail",
+    "low_acceptance": "fail",
+    "nonfinite_pose": "fail"
+  },
+  "enforcement": {
+    "schema_version": 1,
+    "strict_gate": {
+      "description": "Fail strict checks when report rows contain hard-fail or unresolved investigate policy decisions.",
+      "max_fail_rows": 0,
+      "max_investigate_rows": 0,
+      "require_policy_version_match": true
+    }
+  }
+}

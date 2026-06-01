@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-13T12:38:34+00:00",
+  "generated_at": "2026-04-15T11:15:07+00:00",
   "manifest_path": "experiments/ct_icp_hdl_400_reference_matrix.json",
   "problem": {
     "id": "ct_icp_profile_tradeoff_hdl_400_reference",
@@ -24,8 +24,10 @@
   },
   "dataset": {
     "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
-    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+    "extra_args": []
   },
+  "variant_timeout_seconds": null,
   "status": "ready",
   "blocker": "",
   "next_step": "",
@@ -41,17 +43,19 @@
       "log_path": "experiments/results/runs/ct_icp_hdl_400_reference_matrix/balanced_window/run.log",
       "status": "OK",
       "ate_m": 1.667679,
-      "fps": 22.586038,
-      "time_ms": 5313.016787,
+      "rpe_trans_pct": 10.947426,
+      "rpe_rot_deg_per_m": 0.802182,
+      "fps": 38.697069,
+      "time_ms": 3101.01008,
       "frames": 120,
       "note": "",
-      "benchmark_score": 52.99,
+      "benchmark_score": 72.71,
       "readability_score": 5.0,
       "readability_note": "Uses the default CLI surface only.",
       "extensibility_score": 5.0,
       "extensibility_note": "No extra profile knobs beyond the stable core contract.",
-      "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
     },
     {
       "id": "fast_window",
@@ -66,8 +70,10 @@
       "log_path": "experiments/results/runs/ct_icp_hdl_400_reference_matrix/fast_window/run.log",
       "status": "OK",
       "ate_m": 2.582133,
-      "fps": 72.91254,
-      "time_ms": 1645.807422,
+      "rpe_trans_pct": 20.008269,
+      "rpe_rot_deg_per_m": 0.745586,
+      "fps": 54.942143,
+      "time_ms": 2184.115771,
       "frames": 120,
       "note": "",
       "benchmark_score": 74.22,
@@ -91,17 +97,19 @@
       "log_path": "experiments/results/runs/ct_icp_hdl_400_reference_matrix/dense_window/run.log",
       "status": "OK",
       "ate_m": 1.250647,
-      "fps": 19.510828,
-      "time_ms": 6150.430803,
+      "rpe_trans_pct": 6.524276,
+      "rpe_rot_deg_per_m": 0.523655,
+      "fps": 18.731262,
+      "time_ms": 6406.402159,
       "frames": 120,
       "note": "",
-      "benchmark_score": 63.38,
+      "benchmark_score": 67.05,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
     }
   ]
 }

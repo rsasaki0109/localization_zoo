@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-05-19T11:40:37+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_map_bare_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_map_bare",
+    "title": "CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)",
+    "question": "map=50 won seq 00 in full recipe context. Is it the recipe interaction or intrinsic to seq 00? Test on bare baseline.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "bare_map_20",
+      "label": "bare map=20 (default)",
+      "design_style": "reference",
+      "intent": "Bare seq 00 baseline.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_20/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_20/run.log",
+      "status": "ok",
+      "ate_m": 17.883148,
+      "rpe_trans_pct": 2.202128,
+      "rpe_rot_deg_per_m": 0.027421,
+      "fps": 20.227746,
+      "time_ms": 224493.62218,
+      "frames": 4541,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 94.18,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "bare_map_30",
+      "label": "bare map=30",
+      "design_style": "medium",
+      "intent": "Mid probe.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "30"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_30/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_30/run.log",
+      "status": "ok",
+      "ate_m": 15.803258,
+      "rpe_trans_pct": 2.078373,
+      "rpe_rot_deg_per_m": 0.026035,
+      "fps": 18.688678,
+      "time_ms": 242981.343779,
+      "frames": 4541,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 96.2,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "bare_map_50",
+      "label": "bare map=50",
+      "design_style": "big map",
+      "intent": "Is the recipe winner intrinsic to seq 00?",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_50/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_50/run.log",
+      "status": "ok",
+      "ate_m": 61.590492,
+      "rpe_trans_pct": 2.438822,
+      "rpe_rot_deg_per_m": 0.030537,
+      "fps": 15.902888,
+      "time_ms": 285545.613283,
+      "frames": 4541,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 52.14,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

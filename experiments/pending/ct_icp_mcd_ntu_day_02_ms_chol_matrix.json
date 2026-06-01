@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_ms_chol_mcd_ntu_day_02",
+    "title": "CT-ICP ms_chol on MCD NTU day 02 (0.325 m baseline)",
+    "question": "MCD NTU has the best CT-ICP MCD baseline (0.325 m). Does ms_chol improve it?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "dense_window_baseline",
+      "label": "Existing best (dense_window, 0.325 m)",
+      "design_style": "reference",
+      "intent": "Old CT-ICP best.",
+      "args": ["--ct-icp-dense-profile"]
+    },
+    {
+      "id": "ms_chol",
+      "label": "ms_chol bundle",
+      "design_style": "ms_chol",
+      "intent": "Apply post-investigation findings.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

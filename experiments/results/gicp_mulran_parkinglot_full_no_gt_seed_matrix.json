@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-05-17T20:38:44+00:00",
+  "manifest_path": "experiments/pending/gicp_mulran_parkinglot_full_no_gt_seed_matrix.json",
+  "problem": {
+    "id": "gicp_profile_tradeoff_mulran_parkinglot_full_no_gt_seed",
+    "title": "GICP pure-odometry (velocity-model, no GT seed) on MulRan parkinglot full",
+    "question": "How does GICP pure-odometry compare to CT-ICP (10 m ATE) and LiTAMIN2 (74 m ATE) on MulRan parkinglot full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "gicp",
+    "primary_method": "GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+    "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1200.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_no_gt_seed",
+      "label": "Balanced local map (no GT seed)",
+      "design_style": "balanced",
+      "intent": "Default profile measured as pure odometry with velocity-model prior.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_no_gt_seed_matrix/balanced_no_gt_seed/summary.json --no-gt-seed",
+      "summary_path": "experiments/results/runs/gicp_mulran_parkinglot_full_no_gt_seed_matrix/balanced_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/gicp_mulran_parkinglot_full_no_gt_seed_matrix/balanced_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 75.566292,
+      "rpe_trans_pct": 103.830014,
+      "rpe_rot_deg_per_m": 0.038324,
+      "fps": 15.077798,
+      "time_ms": 77929.150303,
+      "frames": 1175,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 71.53,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_no_gt_seed",
+      "label": "Fast recent map (no GT seed)",
+      "design_style": "throughput-oriented",
+      "intent": "Fast profile with velocity-model prior.",
+      "args": [
+        "--gicp-fast-profile",
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_no_gt_seed_matrix/fast_no_gt_seed/summary.json --gicp-fast-profile --no-gt-seed",
+      "summary_path": "experiments/results/runs/gicp_mulran_parkinglot_full_no_gt_seed_matrix/fast_no_gt_seed/summary.json",
+      "log_path": "experiments/results/runs/gicp_mulran_parkinglot_full_no_gt_seed_matrix/fast_no_gt_seed/run.log",
+      "status": "ok",
+      "ate_m": 75.695994,
+      "rpe_trans_pct": 103.542987,
+      "rpe_rot_deg_per_m": 0.040043,
+      "fps": 35.010007,
+      "time_ms": 33561.832535,
+      "frames": 1175,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed).",
+      "benchmark_score": 99.91,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

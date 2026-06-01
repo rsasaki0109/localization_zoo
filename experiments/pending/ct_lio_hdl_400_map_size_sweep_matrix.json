@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_lio_map_size_sweep_hdl_400",
+    "title": "CT-LIO max_frames_in_map / max_iterations sweep on HDL-400",
+    "question": "CT-ICP found max_frames_in_map 10 -> 20 yields -28% ATE. Does the same hold for CT-LIO?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "variants": [
+    {
+      "id": "round2_winner",
+      "label": "Round 2 winner (max_frames=10, max_iter=6)",
+      "design_style": "reference",
+      "intent": "Current best.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1"]
+    },
+    {
+      "id": "max_frames_20",
+      "label": "max_frames_in_map=20",
+      "design_style": "bigger map",
+      "intent": "CT-ICP's ms_chol-equivalent map size.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "20"]
+    },
+    {
+      "id": "max_frames_30",
+      "label": "max_frames_in_map=30",
+      "design_style": "even bigger map",
+      "intent": "Match CTLIOParams default of 30.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "30"]
+    },
+    {
+      "id": "max_iter_10",
+      "label": "max_iterations=10 (CT-ICP dense default)",
+      "design_style": "more ICP iters",
+      "intent": "More convergence room.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-iterations", "10"]
+    }
+  ]
+}

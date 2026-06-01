@@ -1,0 +1,109 @@
+{
+  "generated_at": "2026-05-19T16:30:10+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_simplified_cross_seq_07_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_simplified_cross_seq_07",
+    "title": "CT-ICP seq 07 full: simplified map=50+c2f probe",
+    "question": "Does seq 00 minimal pattern beat seq 07's 1.61 m ms_chol winner?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "current_winner",
+      "label": "ms_chol (existing seq 07 winner)",
+      "design_style": "reference",
+      "intent": "Confirm 1.61 m.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/current_winner/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/current_winner/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/current_winner/run.log",
+      "status": "ok",
+      "ate_m": 1.607129,
+      "rpe_trans_pct": 2.057021,
+      "rpe_rot_deg_per_m": 0.019671,
+      "fps": 20.265386,
+      "time_ms": 54329.090458,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "simplified_seq_00_pattern",
+      "label": "map=50 + c2f \u03c3\u00d72 (no ms_chol)",
+      "design_style": "probe",
+      "intent": "Apply seq 00 minimal pattern.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/simplified_seq_00_pattern/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/simplified_seq_00_pattern/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/simplified_seq_00_pattern/run.log",
+      "status": "ok",
+      "ate_m": 4.815541,
+      "rpe_trans_pct": 1.801971,
+      "rpe_rot_deg_per_m": 0.017984,
+      "fps": 18.9501,
+      "time_ms": 58099.957674,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 63.44,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

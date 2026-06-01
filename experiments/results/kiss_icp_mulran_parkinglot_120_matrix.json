@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-04-15T12:32:58+00:00",
+  "manifest_path": "experiments/kiss_icp_mulran_parkinglot_120_matrix.json",
+  "problem": {
+    "id": "kiss_icp_profile_tradeoff_mulran_parkinglot_120",
+    "title": "KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)",
+    "question": "Which KISS-ICP configuration should stay as the default on a MulRan Ouster window after data prep?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_120",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_120_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mulran_parkinglot_120",
+    "gt_csv": "experiments/reference_data/mulran_parkinglot_120_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Repository default trade-off.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 15.653636,
+      "rpe_trans_pct": 225.107294,
+      "rpe_rot_deg_per_m": 0.099167,
+      "fps": 12.742041,
+      "time_ms": 9417.643445,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 73.33,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Faster profile.",
+      "args": [
+        "--kiss-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json --kiss-fast-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 15.640868,
+      "rpe_trans_pct": 224.646504,
+      "rpe_rot_deg_per_m": 0.103093,
+      "fps": 27.259361,
+      "time_ms": 4402.157444,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Denser map profile.",
+      "args": [
+        "--kiss-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json --kiss-dense-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 15.640853,
+      "rpe_trans_pct": 225.109738,
+      "rpe_rot_deg_per_m": 0.097264,
+      "fps": 9.210484,
+      "time_ms": 13028.630882,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 66.89,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

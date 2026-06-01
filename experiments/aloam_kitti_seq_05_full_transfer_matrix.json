@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "aloam_kitti_seq_05_full_transfer",
+    "title": "A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)",
+    "question": "Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 05 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "aloam",
+    "primary_method": "A-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Accuracy candidate from the seq 07 probe.",
+      "args": [
+        "--aloam-kitti-profile"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Combined-score winner from the seq 07 probe.",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-fast-profile"
+      ]
+    }
+  ]
+}

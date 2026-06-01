@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_mcd_ntu_day_02_seeded",
+    "title": "CT-ICP cluster A/D + GT seed on MCD NTU day_02 (108 frames)",
+    "question": "MCD NTU day_02 without seed: dense 0.325 m wins ATE, cluster A halves RPE. MulRan parkinglot 120 + seed shows cluster A -84%. Does adding GT seed to MCD NTU reveal a similar cluster A dominance?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "dense_seeded_reference",
+      "label": "dense_window + GT seed",
+      "design_style": "reference",
+      "intent": "Seeded baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-gt-seed"]
+    },
+    {
+      "id": "cluster_a_seeded",
+      "label": "cluster A + GT seed",
+      "design_style": "transfer-seeded",
+      "intent": "Cluster A with seed (mirror of MulRan parkinglot 120 -84% pattern).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-gt-seed"]
+    },
+    {
+      "id": "cluster_d_seeded",
+      "label": "cluster D (ms_chol) + GT seed",
+      "design_style": "alternative-seeded",
+      "intent": "ms_chol with seed.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-gt-seed"]
+    }
+  ]
+}

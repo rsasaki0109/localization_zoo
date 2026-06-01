@@ -68,7 +68,7 @@ def main() -> int:
 
     # Build artifacts (evaluation stack)
     eval_dir = REPO_ROOT / "build" / "evaluation"
-    for name in ("pcd_dogfooding", "synthetic_benchmark"):
+    for name in ("pcd_dogfooding", "multimodal_dogfooding", "synthetic_benchmark"):
         path = eval_dir / name
         all_ok &= check(f"build/evaluation/{name}", path.exists(), str(path))
 
@@ -101,6 +101,17 @@ def main() -> int:
     for script in [
         "run_experiment_matrix.py",
         "refresh_study_docs.py",
+        "generate_reproduction_status.py",
+        "run_multimodal_study.py",
+        "prepare_kitti_multimodal_inputs.py",
+        "prepare_kitti_odometry_inputs.py",
+        "prepare_mulran_inputs.py",
+        "mulran_global_pose_to_gt_csv.py",
+        "mulran_pose_io.py",
+        "prepare_newer_college_inputs.py",
+        "newer_college_pose_io.py",
+        "smoke_ci_fixture.sh",
+        "smoke_multimodal_fixture.sh",
         "kitti_bin_to_pcd_dir.py",
         "kitti_poses_to_gt_csv.py",
     ]:

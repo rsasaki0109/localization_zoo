@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_mulran_parkinglot_120_recipes",
+    "title": "CT-ICP cluster A/D transfer to MulRan parkinglot 120-frame short window",
+    "question": "Parkinglot full had cluster A+seed = 9.19 m (-36% vs ms_chol+seed). Does cluster A also win on the 120-frame short window where current best is dense_window 15.87 m? Does GT seed change the picture?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_120",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_120_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "dense_reference",
+      "label": "dense_window (current best 15.87 m)",
+      "design_style": "reference",
+      "intent": "Confirm baseline.",
+      "args": ["--ct-icp-dense-profile"]
+    },
+    {
+      "id": "cluster_a_no_seed",
+      "label": "cluster A, no GT seed",
+      "design_style": "transfer",
+      "intent": "Does cluster A unlock parkinglot 120 without seed?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "cluster_a_with_seed",
+      "label": "cluster A + GT seed",
+      "design_style": "transfer-seeded",
+      "intent": "Cluster A with seed (mirror of full-window winner).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-gt-seed"]
+    },
+    {
+      "id": "cluster_d_with_seed",
+      "label": "cluster D (ms_chol) + GT seed",
+      "design_style": "alternative-seeded",
+      "intent": "Compare ms_chol family on 120-frame parkinglot.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-gt-seed"]
+    }
+  ]
+}

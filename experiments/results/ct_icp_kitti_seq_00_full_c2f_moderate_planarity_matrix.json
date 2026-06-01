@@ -1,0 +1,111 @@
+{
+  "generated_at": "2026-05-18T07:41:35+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_full_c2f_moderate_planarity_matrix.json",
+  "problem": {
+    "id": "ct_icp_c2f_moderate_planarity_kitti_seq_00_full",
+    "title": "CT-ICP c2f moderate planarity (0.04) on KITTI 00 (full)",
+    "question": "Does planarity_threshold=0.04 (between baseline 0.06 and aggressive 0.02) avoid the KITTI 00 +35% catastrophe?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline",
+      "design_style": "reference",
+      "intent": "Re-baseline.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_c2f_moderate_planarity_matrix/ms_chol_best/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_00_full_c2f_moderate_planarity_matrix/ms_chol_best/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_00_full_c2f_moderate_planarity_matrix/ms_chol_best/run.log",
+      "status": "ok",
+      "ate_m": 16.703886,
+      "rpe_trans_pct": 2.181933,
+      "rpe_rot_deg_per_m": 0.02819,
+      "fps": 20.652078,
+      "time_ms": 219881.020068,
+      "frames": 4541,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "c2f_mod_planarity_04",
+      "label": "C2F r=2 plan=0.04 sigma x2",
+      "design_style": "C2F moderate",
+      "intent": "Moderate planarity 0.04 to avoid the 0.02 catastrophe on structured urban.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "3",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.04"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_c2f_moderate_planarity_matrix/c2f_mod_planarity_04/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.04",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_00_full_c2f_moderate_planarity_matrix/c2f_mod_planarity_04/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_00_full_c2f_moderate_planarity_matrix/c2f_mod_planarity_04/run.log",
+      "status": "ok",
+      "ate_m": 19.90934,
+      "rpe_trans_pct": 2.108774,
+      "rpe_rot_deg_per_m": 0.027596,
+      "fps": 18.751559,
+      "time_ms": 242166.537195,
+      "frames": 4541,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 87.35,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.6,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

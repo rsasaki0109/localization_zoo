@@ -69,6 +69,11 @@ struct RKOLIOParams {
   double convergence_criterion = 0.001;
   double local_map_radius = 0.0;
   int map_cleanup_interval = 0;
+  /// gyro バイアスのオンライン補正ゲイン (0 で補正なし)。
+  /// IMU 先験回転と ICP 解の差分から gyro バイアスを推定し、生 gyro の
+  /// バイアスが誤った回転先験を生むのを抑える。
+  double gyro_bias_gain = 0.3;
+  double max_gyro_bias = 0.5;  ///< 推定 gyro バイアスのノルム上限 [rad/s]
 };
 
 struct RKOLIOResult {
@@ -113,6 +118,7 @@ private:
   VoxelHashMap local_map_;
   Eigen::Matrix4d pose_ = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d last_delta_ = Eigen::Matrix4d::Identity();
+  Eigen::Vector3d gyro_bias_ = Eigen::Vector3d::Zero();  ///< 推定 gyro バイアス [rad/s]
 
   std::vector<double> model_errors_;
   int frame_count_ = 0;

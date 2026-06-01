@@ -1,0 +1,75 @@
+{
+  "diagnostics": [
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_02_start0000_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_02_start0030_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_05_start0000_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_05_start0030_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_08_start0000_30.json",
+    "experiments/results/intensity_odometry/window_benchmark_smoke2/results/selector_diagnostics_kitti_seq_08_start0030_30.json"
+  ],
+  "method_names": [
+    "kiss",
+    "small_gicp"
+  ],
+  "feature_names": [
+    "bias",
+    "cubemap_score",
+    "geometry_score",
+    "log_overlap",
+    "motion_norm",
+    "abs_yaw_deg",
+    "shared_residual_score",
+    "shared_residual_rmse",
+    "shared_inlier_ratio",
+    "shared_stability_score",
+    "shared_stability_mean_delta",
+    "shared_stability_min_delta"
+  ],
+  "ridge": 0.001,
+  "feature_set": "shared_no_method",
+  "held_out_seq": "kitti_seq_08_start0000",
+  "full_model": {
+    "weights": [
+      -0.05435194577030401,
+      0.0,
+      0.007061545572441589,
+      -0.005634060356317187,
+      -0.0051620953354955266,
+      -0.01093844144802861,
+      0.02576825009158579,
+      0.027222261871094475,
+      -0.022284304282335767,
+      -0.005597209450022245,
+      0.011652314931205918,
+      0.01653297016009034
+    ],
+    "feature_mean": [
+      0.0,
+      -1.0,
+      0.6499919206896555,
+      7.575180753605692,
+      0.8924269501512608,
+      0.46211774482758633,
+      0.858599130226114,
+      0.2282214806207787,
+      0.9510483433267983,
+      0.14204879650223345,
+      0.014627657457699226,
+      0.0033799110191529026
+    ],
+    "feature_scale": [
+      1.0,
+      1.0,
+      0.07133924121231511,
+      1.3493554495366429,
+      0.4412626236672615,
+      0.7205132019854754,
+      0.015200716457477613,
+      0.018940042446647463,
+      0.009920399828272294,
+      0.06276340752712099,
+      0.005263392503061173,
+      0.006568189463213859
+    ]
+  }
+}

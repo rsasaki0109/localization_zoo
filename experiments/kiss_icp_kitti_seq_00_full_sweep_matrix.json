@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "kiss_icp_kitti_seq_00_full_sweep",
+    "title": "KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames)",
+    "question": "Long-trajectory probe for KISS-ICP recipe family on KITTI Odom seq 00.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_reference",
+      "label": "balanced (default)",
+      "design_style": "reference",
+      "intent": "Baseline.",
+      "args": []
+    },
+    {
+      "id": "fast_profile",
+      "label": "fast profile",
+      "design_style": "throughput",
+      "intent": "Fast profile.",
+      "args": ["--kiss-fast-profile"]
+    },
+    {
+      "id": "dense_profile",
+      "label": "dense profile",
+      "design_style": "accuracy",
+      "intent": "Dense profile.",
+      "args": ["--kiss-dense-profile"]
+    },
+    {
+      "id": "t1_transfer_v05_i12",
+      "label": "T1 transfer (voxel=0.5 + iter=12)",
+      "design_style": "transfer",
+      "intent": "LiTAMIN2 T1 recipe transfer.",
+      "args": ["--kiss-voxel-size", "0.5", "--kiss-max-iterations", "12"]
+    }
+  ]
+}

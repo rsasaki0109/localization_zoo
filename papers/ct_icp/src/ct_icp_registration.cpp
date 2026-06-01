@@ -20,11 +20,12 @@ Voxel pointToVoxel(const Eigen::Vector3d& point, double resolution) {
                static_cast<int>(std::floor(point.z() / resolution))};
 }
 
-void mergeFrameMap(const VoxelHashMap& frame_map, VoxelHashMap* voxel_map) {
+void mergeFrameMap(const VoxelHashMap& frame_map, VoxelHashMap* voxel_map,
+                   double min_distance_sq = 0.0) {
   for (const auto& [voxel, block] : frame_map) {
     auto& dst = (*voxel_map)[voxel];
     for (int i = 0; i < block.num_points; i++) {
-      dst.addPoint(block.points[i]);
+      dst.addPoint(block.points[i], min_distance_sq);
     }
   }
 }
@@ -43,8 +44,12 @@ VoxelHashMap CTICPRegistration::buildFrameMap(
 
 void CTICPRegistration::rebuildMapFromWindow() {
   voxel_map_.clear();
+  const double min_dist_sq = params_.min_distance_between_points *
+                             params_.min_distance_between_points;
+  // 古いフレームから新しいフレーム順に再構築すると、min-distance チェックで
+  // 新しい点が rejection されやすいので、新しいフレームから順に追加する。
   for (auto it = frame_maps_.rbegin(); it != frame_maps_.rend(); ++it) {
-    mergeFrameMap(*it, &voxel_map_);
+    mergeFrameMap(*it, &voxel_map_, min_dist_sq);
   }
 }
 
@@ -52,8 +57,10 @@ void CTICPRegistration::addPointsToMap(
     const std::vector<Eigen::Vector3d>& world_points) {
   if (world_points.empty()) return;
 
+  const double min_dist_sq = params_.min_distance_between_points *
+                             params_.min_distance_between_points;
   if (params_.max_frames_in_map <= 0) {
-    mergeFrameMap(buildFrameMap(world_points), &voxel_map_);
+    mergeFrameMap(buildFrameMap(world_points), &voxel_map_, min_dist_sq);
     return;
   }
 
@@ -87,8 +94,22 @@ std::vector<TimedPoint> CTICPRegistration::subsampleKeypoints(
 std::vector<CTICPRegistration::Correspondence>
 CTICPRegistration::findCorrespondences(
     const std::vector<TimedPoint>& keypoints,
-    const TrajectoryFrame& frame) const {
+    const TrajectoryFrame& frame,
+    int outer_iter) const {
   std::vector<Correspondence> corrs;
+
+  // Coarse phase 判定: 最初の coarse_iterations 回の outer iteration では
+  // 探索半径を coarse_search_radius まで拡げ、planarity を緩める。
+  const bool coarse_phase =
+      params_.coarse_to_fine && outer_iter < params_.coarse_iterations;
+  // coarse_search_radius=1 を許容 (round 16 ablation: pure sigma/planarity schedule)。
+  // 0 や負値は 1 にクランプ。
+  const int phase_search_radius =
+      coarse_phase ? std::max(1, params_.coarse_search_radius) : 1;
+  const double phase_planarity_threshold =
+      coarse_phase ? std::min(params_.planarity_threshold,
+                              params_.coarse_planarity_threshold)
+                   : params_.planarity_threshold;
 
   for (size_t i = 0; i < keypoints.size(); i++) {
     // 補間ポーズで変換
@@ -97,33 +118,56 @@ CTICPRegistration::findCorrespondences(
 
     Voxel center = pointToVoxel(world_point, params_.voxel_resolution);
 
-    // 周辺27ボクセルから近傍点を収集
-    std::vector<Eigen::Vector3d> neighbors;
-    for (int dx = -1; dx <= 1; dx++) {
-      for (int dy = -1; dy <= 1; dy++) {
-        for (int dz = -1; dz <= 1; dz++) {
-          Voxel v{center.x + dx, center.y + dy, center.z + dz};
-          auto it = voxel_map_.find(v);
-          if (it != voxel_map_.end()) {
-            for (int k = 0; k < it->second.num_points; k++) {
-              neighbors.push_back(it->second.points[k]);
+    auto gather_neighborhood = [&](int radius, std::vector<Eigen::Vector3d>& out) {
+      for (int dx = -radius; dx <= radius; dx++) {
+        for (int dy = -radius; dy <= radius; dy++) {
+          for (int dz = -radius; dz <= radius; dz++) {
+            if (std::abs(dx) < radius && std::abs(dy) < radius &&
+                std::abs(dz) < radius)
+              continue;  // すでに小半径で収集済みのシェルを除外
+            Voxel v{center.x + dx, center.y + dy, center.z + dz};
+            auto it = voxel_map_.find(v);
+            if (it != voxel_map_.end()) {
+              for (int k = 0; k < it->second.num_points; k++) {
+                out.push_back(it->second.points[k]);
+              }
             }
           }
         }
       }
+    };
+
+    std::vector<Eigen::Vector3d> neighbors;
+    // radius=0 (中心ボクセル) + radius=1 (3x3x3 シェル)。
+    // coarse phase では phase_search_radius まで unconditionally に拡げる。
+    gather_neighborhood(0, neighbors);
+    gather_neighborhood(1, neighbors);
+    if (coarse_phase) {
+      for (int r = 2; r <= phase_search_radius; ++r) {
+        gather_neighborhood(r, neighbors);
+      }
+    } else if (params_.multi_scale_correspondences &&
+               static_cast<int>(neighbors.size()) < params_.knn) {
+      // 27 ボクセルで knn 未満 → 5x5x5 (125 ボクセル) に拡張
+      gather_neighborhood(2, neighbors);
     }
 
     if (static_cast<int>(neighbors.size()) < params_.knn) continue;
 
-    // k最近傍を選択
+    // 距離ソート (PCA + reference 用)
     std::vector<std::pair<double, int>> dists;
     for (size_t j = 0; j < neighbors.size(); j++) {
       double d = (neighbors[j] - world_point).squaredNorm();
       dists.emplace_back(d, j);
     }
+    const int pca_n = (params_.pca_neighbor_count > 0)
+                          ? std::min(params_.pca_neighbor_count,
+                                     static_cast<int>(dists.size()))
+                          : std::min(params_.knn,
+                                     static_cast<int>(dists.size()));
+    const int sort_n = std::max(params_.knn, pca_n);
     std::partial_sort(dists.begin(),
-                      dists.begin() + std::min(params_.knn,
-                                               static_cast<int>(dists.size())),
+                      dists.begin() + std::min(sort_n, static_cast<int>(dists.size())),
                       dists.end());
 
     if (dists[params_.knn - 1].first > params_.max_correspondence_dist)
@@ -131,7 +175,7 @@ CTICPRegistration::findCorrespondences(
 
     // PCAで法線計算
     Eigen::Vector3d mean = Eigen::Vector3d::Zero();
-    int k = std::min(params_.knn, static_cast<int>(dists.size()));
+    int k = pca_n;
     for (int j = 0; j < k; j++) {
       mean += neighbors[dists[j].second];
     }
@@ -153,7 +197,8 @@ CTICPRegistration::findCorrespondences(
       a2D = (eigenvalues(1) - eigenvalues(0)) / eigenvalues(2);
     }
 
-    if (a2D < params_.planarity_threshold) continue;
+    if (a2D < phase_planarity_threshold) continue;
+    if (a2D < params_.min_planarity_floor) continue;
 
     Eigen::Vector3d normal = solver.eigenvectors().col(0);  // 最小固有値の固有ベクトル
 
@@ -162,12 +207,30 @@ CTICPRegistration::findCorrespondences(
       normal = -normal;
     }
 
-    // 重み = a2D
+    // 重み: weight_alpha * a2D^power_planarity + weight_neighborhood * exp(-d_closest/d_max)
+    // 既定 (power=1, alpha=1, neighborhood=0) では w = a2D。
+    double a2D_p = (params_.power_planarity == 1.0)
+                       ? a2D
+                       : std::pow(a2D, params_.power_planarity);
+    double w = params_.weight_alpha * a2D_p;
+    if (params_.weight_neighborhood > 0.0) {
+      double d_closest = std::sqrt(dists[0].first);
+      double d_max = std::sqrt(params_.max_correspondence_dist);
+      double w_nb = (d_max > 1e-9) ? std::exp(-d_closest / d_max) : 0.0;
+      w += params_.weight_neighborhood * w_nb;
+    }
+
     Correspondence corr;
     corr.point_idx = i;
-    corr.reference = mean;
+    // paper: reference は最近傍点 (mean ではなく)。mean は plane 中心の近似で、
+    // 遠方では数 m もずれた点を anchor にしてしまい point-to-plane の sign が
+    // 不安定になる。closest-neighbor anchor は plane 上の単一点を使うため
+    // local geometry に sharp に hooked できる。
+    corr.reference = params_.use_closest_neighbor_reference
+                         ? neighbors[dists[0].second]
+                         : mean;
     corr.normal = normal;
-    corr.weight = a2D;
+    corr.weight = w;
     corrs.push_back(corr);
   }
 
@@ -228,7 +291,7 @@ CTICPResult CTICPRegistration::registerFrame(
     result.frame.end_pose.trans = t_end;
 
     // 対応関係を更新
-    auto corrs = findCorrespondences(keypoints, result.frame);
+    auto corrs = findCorrespondences(keypoints, result.frame, iter);
     if (corrs.empty()) {
       std::cerr << "[CT-ICP] No correspondences at iteration " << iter
                 << std::endl;
@@ -244,8 +307,15 @@ CTICPResult CTICPRegistration::registerFrame(
     localization_zoo::SetEigenQuaternionManifold(problem, end_q);
     problem.AddParameterBlock(end_t, 3);
 
-    ceres::LossFunction* loss =
-        new ceres::CauchyLoss(params_.cauchy_loss_param);
+    // coarse phase は Cauchy σ を coarse_cauchy_sigma_mult 倍してロバスト化、
+    // outlier 受容を緩める。fine phase は通常 σ。
+    const bool ct_coarse_phase =
+        params_.coarse_to_fine && iter < params_.coarse_iterations;
+    double cauchy_sigma = params_.cauchy_loss_param;
+    if (ct_coarse_phase && params_.coarse_cauchy_sigma_mult > 0.0) {
+      cauchy_sigma *= params_.coarse_cauchy_sigma_mult;
+    }
+    ceres::LossFunction* loss = new ceres::CauchyLoss(cauchy_sigma);
 
     // 幾何残差
     double weight_scale = std::sqrt(corrs.size());
@@ -259,16 +329,27 @@ CTICPResult CTICPRegistration::registerFrame(
           loss, begin_q, begin_t, end_q, end_t);
     }
 
-    // 正則化
+    // 正則化重み:
+    //   flat_regularizer_weight=true → sqrt(β) (paper 一致)
+    //   regularizer_n_cap>0          → sqrt(min(N_corr, cap) * β) (中間策)
+    //   既定                          → sqrt(N_corr * β)
+    auto reg_weight = [&](double beta) {
+      if (params_.flat_regularizer_weight) return std::sqrt(beta);
+      int n = static_cast<int>(corrs.size());
+      if (params_.regularizer_n_cap > 0 && n > params_.regularizer_n_cap) {
+        n = params_.regularizer_n_cap;
+      }
+      return std::sqrt(static_cast<double>(n) * beta);
+    };
     if (previous_frame && params_.location_consistency_weight > 0) {
-      double w = std::sqrt(corrs.size() * params_.location_consistency_weight);
+      double w = reg_weight(params_.location_consistency_weight);
       problem.AddResidualBlock(
           LocationConsistency::Create(previous_frame->end_pose.trans, w),
           nullptr, begin_t);
     }
 
     if (previous_frame && params_.orientation_consistency_weight > 0) {
-      double w = std::sqrt(corrs.size() * params_.orientation_consistency_weight);
+      double w = reg_weight(params_.orientation_consistency_weight);
       problem.AddResidualBlock(
           OrientationConsistency::Create(previous_frame->end_pose.quat, w),
           nullptr, begin_q);
@@ -277,7 +358,7 @@ CTICPResult CTICPRegistration::registerFrame(
     if (previous_frame && params_.constant_velocity_weight > 0) {
       Eigen::Vector3d prev_velocity =
           previous_frame->end_pose.trans - previous_frame->begin_pose.trans;
-      double w = std::sqrt(corrs.size() * params_.constant_velocity_weight);
+      double w = reg_weight(params_.constant_velocity_weight);
       problem.AddResidualBlock(
           ConstantVelocity::Create(prev_velocity, w), nullptr, begin_t,
           end_t);
@@ -285,7 +366,9 @@ CTICPResult CTICPRegistration::registerFrame(
 
     // 最適化
     ceres::Solver::Options options;
-    options.linear_solver_type = ceres::DENSE_QR;
+    options.linear_solver_type = params_.use_normal_cholesky_solver
+                                     ? ceres::DENSE_NORMAL_CHOLESKY
+                                     : ceres::DENSE_QR;
     options.max_num_iterations = params_.ceres_max_iterations;
     options.trust_region_strategy_type = ceres::LEVENBERG_MARQUARDT;
     options.minimizer_progress_to_stdout = false;

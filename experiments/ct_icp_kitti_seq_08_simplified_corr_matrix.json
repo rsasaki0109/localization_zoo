@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_08_simplified_corr",
+    "title": "CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base",
+    "question": "seq 05 with same simplified base + corr=4 won by -11.6%. Does seq 08 benefit similarly?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "default_reference",
+      "label": "simplified (map=50 + c2f σ×2) — existing 27.85 m",
+      "design_style": "reference",
+      "intent": "Confirm 27.85 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "plus_corr_4",
+      "label": "+ corr=4 (seq 05 pattern)",
+      "design_style": "with corr",
+      "intent": "Apply seq 05 partner.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-max-correspondence-distance", "4"]
+    },
+    {
+      "id": "plus_corr_8",
+      "label": "+ corr=8 (seq 02 pattern)",
+      "design_style": "with corr",
+      "intent": "Test other corr regime.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-max-correspondence-distance", "8"]
+    }
+  ]
+}

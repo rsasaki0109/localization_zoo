@@ -1,0 +1,340 @@
+{
+  "policy": {
+    "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
+    "policy_version": "lidar_degeneracy_triage_v4",
+    "strict_gate": {
+      "max_fail_rows": 0,
+      "max_investigate_rows": 0,
+      "require_policy_version_match": true
+    }
+  },
+  "reports": {
+    "method_health_comparison": {
+      "path": "experiments/results/lidar_degeneracy/method_health_comparison/method_health_comparison.json",
+      "policy_version": "lidar_degeneracy_triage_v4",
+      "total_rows": 28,
+      "counts": {
+        "pass": 15,
+        "watch": 13,
+        "investigate": 0,
+        "fail": 0
+      }
+    },
+    "risk_gt_calibration": {
+      "path": "experiments/results/lidar_degeneracy/risk_gt_calibration/risk_gt_calibration.json",
+      "policy_version": "lidar_degeneracy_triage_v4",
+      "total_rows": 28,
+      "counts": {
+        "pass": 15,
+        "watch": 13,
+        "investigate": 0,
+        "fail": 0
+      }
+    },
+    "fixed_map_ndt_failure_audit": {
+      "path": "experiments/results/fixed_map_ndt/fixed_map_ndt_failure_audit.json",
+      "policy_version": "lidar_degeneracy_triage_v4",
+      "total_rows": 51,
+      "counts": {
+        "pass": 12,
+        "watch": 16,
+        "investigate": 8,
+        "fail": 15
+      }
+    }
+  },
+  "violations": [
+    "fixed_map_ndt_failure_audit: fail rows 15 > 0",
+    "fixed_map_ndt_failure_audit: investigate rows 8 > 0"
+  ],
+  "offender_count": 23,
+  "offenders": [
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_ct_icp",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:ct_icp",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_scan_context_stride_10",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_scan_context_stride_10_topk_10",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_scan_context_stride_10_topk_5",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_05",
+      "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_05",
+      "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_05",
+      "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_05",
+      "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "fail",
+      "policy_reasons": [
+        "accepted_bad_localization",
+        "unfiltered_ndt_score_trap"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_02",
+      "window": "seed_velocity",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:velocity",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "rejected_bad_seed_detectable"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_05",
+      "window": "seed_velocity",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:velocity",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "rejected_bad_seed_detectable"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_ct_icp",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:ct_icp",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "rejected_bad_seed_detectable"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_scan_context_stride_10",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "bad_localization"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_scan_context_stride_10_topk_10",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "bad_localization"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_scan_context_stride_10_topk_5",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "bad_localization"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:scan_context",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "bad_localization"
+      ]
+    },
+    {
+      "report": "fixed_map_ndt_failure_audit",
+      "sequence": "kitti_seq_08",
+      "window": "seed_velocity",
+      "start": 0,
+      "end": 108,
+      "method": "fixed_map_ndt:velocity",
+      "policy_decision": "investigate",
+      "policy_reasons": [
+        "rejected_bad_seed_detectable"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ndt_kitti_seq_00_full_sweep",
+    "title": "NDT T1 transfer on KITTI Odom seq 00 full (4542 frames)",
+    "question": "NDT seq 07 で T1 transfer が 0.076 m (8.5× LiTAMIN2 T1)。long-traj でも保持されるか?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {"binary": "build/evaluation/pcd_dogfooding", "methods": "ndt", "primary_method": "NDT"},
+  "variants": [
+    {"id": "balanced_reference", "label": "balanced", "design_style": "reference", "intent": "Baseline.", "args": []},
+    {"id": "fast_profile", "label": "fast", "design_style": "throughput", "intent": "Fast.", "args": ["--ndt-fast-profile"]},
+    {"id": "dense_profile", "label": "dense", "design_style": "accuracy", "intent": "Dense.", "args": ["--ndt-dense-profile"]},
+    {"id": "t1_transfer_r05_i12", "label": "T1 (res=0.5+i12)", "design_style": "transfer", "intent": "LiTAMIN2 T1 recipe.", "args": ["--ndt-resolution", "0.5", "--ndt-max-iterations", "12"]},
+    {"id": "t1_transfer_r03_i12", "label": "T1 (res=0.3+i12)", "design_style": "transfer", "intent": "Finer voxel.", "args": ["--ndt-resolution", "0.3", "--ndt-max-iterations", "12"]}
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-05-19T03:08:36+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_05_map50_retrofit_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_05_map50_retrofit",
+    "title": "CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner",
+    "question": "seq 05 winner arch_tuned uses map=30 (9.10 m). Does map=50 help on the seq 00 pattern?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "arch_tuned_map_30",
+      "label": "arch_tuned map=30 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 9.10 m.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "30",
+        "--ct-icp-max-correspondence-distance",
+        "4.0",
+        "--ct-icp-keypoint-voxel-size",
+        "0.5"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_30/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_30/run.log",
+      "status": "ok",
+      "ate_m": 9.096654,
+      "rpe_trans_pct": 1.127454,
+      "rpe_rot_deg_per_m": 0.023189,
+      "fps": 18.291419,
+      "time_ms": 150945.096611,
+      "frames": 2761,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 99.39,
+      "readability_score": 2.25,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.15,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "arch_tuned_map_50",
+      "label": "arch_tuned map=50",
+      "design_style": "bigger map",
+      "intent": "seq 00 retrofit pattern.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-max-correspondence-distance",
+        "4.0",
+        "--ct-icp-keypoint-voxel-size",
+        "0.5"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_50/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_50/run.log",
+      "status": "ok",
+      "ate_m": 10.864152,
+      "rpe_trans_pct": 1.194035,
+      "rpe_rot_deg_per_m": 0.02366,
+      "fps": 18.515678,
+      "time_ms": 149116.869041,
+      "frames": 2761,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 91.87,
+      "readability_score": 2.25,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.15,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

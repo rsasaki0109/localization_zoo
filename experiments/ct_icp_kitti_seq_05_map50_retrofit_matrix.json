@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_05_map50_retrofit",
+    "title": "CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner",
+    "question": "seq 05 winner arch_tuned uses map=30 (9.10 m). Does map=50 help on the seq 00 pattern?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "arch_tuned_map_30",
+      "label": "arch_tuned map=30 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 9.10 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "30", "--ct-icp-max-correspondence-distance", "4.0", "--ct-icp-keypoint-voxel-size", "0.5"]
+    },
+    {
+      "id": "arch_tuned_map_50",
+      "label": "arch_tuned map=50",
+      "design_style": "bigger map",
+      "intent": "seq 00 retrofit pattern.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "50", "--ct-icp-max-correspondence-distance", "4.0", "--ct-icp-keypoint-voxel-size", "0.5"]
+    }
+  ]
+}

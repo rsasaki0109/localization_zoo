@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_lio_timestamp_modes_hdl_400",
+    "title": "CT-LIO Round 2 winner across HDL-400 timestamp synthesis modes",
+    "question": "Does ms + radius_only deliver consistent improvement across default, time_azimuth, and ros1_synthtime variants?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_time_azimuth",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "variants": [
+    {
+      "id": "seed_only_fast",
+      "label": "Seed-only fast (baseline)",
+      "design_style": "reference",
+      "intent": "Baseline on time_azimuth variant.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1"]
+    },
+    {
+      "id": "ms_plus_radius_only",
+      "label": "Round 2 winner (ms + radius_only)",
+      "design_style": "round 2 winner",
+      "intent": "Test on time_azimuth.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1"]
+    }
+  ]
+}

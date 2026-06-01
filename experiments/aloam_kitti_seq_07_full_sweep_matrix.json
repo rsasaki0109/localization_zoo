@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "aloam_kitti_seq_07_full_sweep",
+    "title": "A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames)",
+    "question": "Which A-LOAM profile family is strongest on KITTI Odom seq 07 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "aloam",
+    "primary_method": "A-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Baseline settings for KITTI (n_scans=64).",
+      "args": [
+        "--aloam-kitti-profile"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Reduce feature density and solver work for speed.",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Increase feature density and solver iterations for accuracy.",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-dense-profile"
+      ]
+    }
+  ]
+}

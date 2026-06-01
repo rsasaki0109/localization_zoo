@@ -1,0 +1,473 @@
+{
+  "sequence_pcd_dir": "dogfooding_results/kitti_seq_08_108",
+  "gt_csv": "experiments/reference_data/kitti_seq_08_108_gt.csv",
+  "frames": 30,
+  "method": "intensity_bev_direct_odometry",
+  "parameters": {
+    "grid_resolution": 0.35,
+    "grid_radius": 45.0,
+    "max_points": 16000,
+    "x_window": 3.0,
+    "y_window": 1.5,
+    "yaw_window_deg": 4.0,
+    "x_step": 0.5,
+    "y_step": 0.5,
+    "yaw_step_deg": 1.0,
+    "refine_levels": 2,
+    "min_overlap": 400
+  },
+  "metrics": {
+    "ate_xy_m": 4.626358337713749,
+    "step_length_rmse_m": 0.20390771570144367,
+    "step_length_rmse_pct_of_mean_step": 109.05428298403316,
+    "gt_path_length_m": 5.422367277594816
+  },
+  "poses_xyyaw": [
+    {
+      "index": 0,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 1,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 1.5000000000000002
+    },
+    {
+      "index": 2,
+      "x_m": -0.24112283257914868,
+      "y_m": -0.2585725809303992,
+      "yaw_deg": 2.0000000000000004
+    },
+    {
+      "index": 3,
+      "x_m": -0.24112283257914868,
+      "y_m": -0.2585725809303992,
+      "yaw_deg": 1.5000000000000004
+    },
+    {
+      "index": 4,
+      "x_m": -0.24112283257914868,
+      "y_m": -0.2585725809303992,
+      "yaw_deg": 1.0000000000000004
+    },
+    {
+      "index": 5,
+      "x_m": -0.9910086039464421,
+      "y_m": -0.2716618857583618,
+      "yaw_deg": 1.0000000000000004
+    },
+    {
+      "index": 6,
+      "x_m": -1.240856310701216,
+      "y_m": -0.28038675993398704,
+      "yaw_deg": 2.0000000000000004
+    },
+    {
+      "index": 7,
+      "x_m": -1.4906183660966805,
+      "y_m": -0.29129160677532107,
+      "yaw_deg": 2.5000000000000004
+    },
+    {
+      "index": 8,
+      "x_m": -1.4906183660966805,
+      "y_m": -0.29129160677532107,
+      "yaw_deg": 4.5
+    },
+    {
+      "index": 9,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 5.500000000000001
+    },
+    {
+      "index": 10,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 6.000000000000001
+    },
+    {
+      "index": 11,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 8.5
+    },
+    {
+      "index": 12,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 9.000000000000002
+    },
+    {
+      "index": 13,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 10.5
+    },
+    {
+      "index": 14,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 10.5
+    },
+    {
+      "index": 15,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 11.000000000000002
+    },
+    {
+      "index": 16,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 11.000000000000002
+    },
+    {
+      "index": 17,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 13.0
+    },
+    {
+      "index": 18,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 15.000000000000002
+    },
+    {
+      "index": 19,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 16.5
+    },
+    {
+      "index": 20,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 17.500000000000004
+    },
+    {
+      "index": 21,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 17.500000000000004
+    },
+    {
+      "index": 22,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 17.500000000000004
+    },
+    {
+      "index": 23,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 17.500000000000004
+    },
+    {
+      "index": 24,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 17.500000000000004
+    },
+    {
+      "index": 25,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 17.500000000000004
+    },
+    {
+      "index": 26,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 18.500000000000004
+    },
+    {
+      "index": 27,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 18.500000000000004
+    },
+    {
+      "index": 28,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 18.500000000000004
+    },
+    {
+      "index": 29,
+      "x_m": -1.7394674156884753,
+      "y_m": -0.3152530449053771,
+      "yaw_deg": 18.500000000000004
+    }
+  ],
+  "pairs": [
+    {
+      "index": 1,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "score": 0.4022955125388663,
+      "overlap": 10715
+    },
+    {
+      "index": 2,
+      "dx_curr_to_prev_m": 0.25,
+      "dy_curr_to_prev_m": 0.25,
+      "yaw_curr_to_prev_deg": -0.5,
+      "score": 0.40474785086744,
+      "overlap": 10775
+    },
+    {
+      "index": 3,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.5,
+      "score": 0.4207004782299716,
+      "overlap": 10844
+    },
+    {
+      "index": 4,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.5,
+      "score": 0.44141507496200233,
+      "overlap": 10762
+    },
+    {
+      "index": 5,
+      "dx_curr_to_prev_m": 0.75,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.419033251450038,
+      "overlap": 11341
+    },
+    {
+      "index": 6,
+      "dx_curr_to_prev_m": 0.25,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -1.0,
+      "score": 0.43000938367043817,
+      "overlap": 10825
+    },
+    {
+      "index": 7,
+      "dx_curr_to_prev_m": 0.25,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -0.5,
+      "score": 0.39863616026624715,
+      "overlap": 11107
+    },
+    {
+      "index": 8,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -2.0,
+      "score": 0.40397752603206266,
+      "overlap": 10404
+    },
+    {
+      "index": 9,
+      "dx_curr_to_prev_m": 0.25,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -1.0,
+      "score": 0.40879810537578853,
+      "overlap": 10900
+    },
+    {
+      "index": 10,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -0.5,
+      "score": 0.42463107729061766,
+      "overlap": 10505
+    },
+    {
+      "index": 11,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -2.5,
+      "score": 0.4323029811932641,
+      "overlap": 10392
+    },
+    {
+      "index": 12,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -0.5,
+      "score": 0.4284096125181009,
+      "overlap": 10409
+    },
+    {
+      "index": 13,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "score": 0.4318324616343126,
+      "overlap": 10206
+    },
+    {
+      "index": 14,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4370551177138338,
+      "overlap": 10621
+    },
+    {
+      "index": 15,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -0.5,
+      "score": 0.43313181651875615,
+      "overlap": 10323
+    },
+    {
+      "index": 16,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.42931881786301973,
+      "overlap": 11142
+    },
+    {
+      "index": 17,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -2.0,
+      "score": 0.43427859898226484,
+      "overlap": 10275
+    },
+    {
+      "index": 18,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -2.0,
+      "score": 0.43206256725374614,
+      "overlap": 10302
+    },
+    {
+      "index": 19,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -1.5000000000000002,
+      "score": 0.44117225206739863,
+      "overlap": 10873
+    },
+    {
+      "index": 20,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -1.0,
+      "score": 0.4490345297607272,
+      "overlap": 10534
+    },
+    {
+      "index": 21,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4586877165278112,
+      "overlap": 10932
+    },
+    {
+      "index": 22,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4489242261346399,
+      "overlap": 11110
+    },
+    {
+      "index": 23,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4589008729869139,
+      "overlap": 11735
+    },
+    {
+      "index": 24,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4425770218840414,
+      "overlap": 12117
+    },
+    {
+      "index": 25,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.456991527752804,
+      "overlap": 11691
+    },
+    {
+      "index": 26,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": -1.0,
+      "score": 0.46527532395635846,
+      "overlap": 11072
+    },
+    {
+      "index": 27,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.43789922486062,
+      "overlap": 11443
+    },
+    {
+      "index": 28,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4522658517847584,
+      "overlap": 11590
+    },
+    {
+      "index": 29,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.45752712913091065,
+      "overlap": 11602
+    }
+  ],
+  "pcd_files": [
+    "dogfooding_results/kitti_seq_08_108/00000000/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000001/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000002/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000003/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000004/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000005/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000006/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000007/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000008/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000009/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000010/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000011/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000012/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000013/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000014/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000015/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000016/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000017/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000018/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000019/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000020/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000021/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000022/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000023/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000024/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000025/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000026/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000027/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000028/cloud.pcd",
+    "dogfooding_results/kitti_seq_08_108/00000029/cloud.pcd"
+  ]
+}

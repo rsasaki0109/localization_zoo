@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_mulran_parkinglot_full",
+    "title": "CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence)",
+    "question": "Which CT-ICP profile should stay as the default on a full MulRan Ouster sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Continuous-time baseline profile.",
+      "args": []
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Faster CT-ICP profile.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ]
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "accuracy-oriented",
+      "intent": "Denser map / point budget.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ]
+    }
+  ]
+}

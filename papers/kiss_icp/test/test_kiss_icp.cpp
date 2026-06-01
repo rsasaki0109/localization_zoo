@@ -33,6 +33,38 @@ TEST(KISSICP, VoxelHashMap) {
   EXPECT_LT(map.size(), pts.size());
 }
 
+TEST(KISSICP, PairMatcher) {
+  std::mt19937 rng(42);
+  auto scene = makeScene(rng);
+
+  const Eigen::Matrix3d R =
+      Eigen::AngleAxisd(0.03, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  const Eigen::Vector3d t(0.8, -0.2, 0.0);
+
+  std::vector<Eigen::Vector3d> target;
+  std::vector<Eigen::Vector3d> source;
+  for (const auto& p : scene) {
+    if (p.norm() > 3 && p.norm() < 30) target.push_back(p);
+    const Eigen::Vector3d ps = R.transpose() * (p - t);
+    if (ps.norm() > 3 && ps.norm() < 30) source.push_back(ps);
+  }
+
+  KISSMatcherParams params;
+  params.target_voxel_size = 0.5;
+  params.source_voxel_size = 0.5;
+  params.max_correspondence_distance = 1.5;
+  params.max_icp_iterations = 40;
+  params.min_correspondences = 50;
+  KISSMatcher matcher(params);
+  matcher.setTarget(target);
+
+  const auto result = matcher.align(source);
+  EXPECT_TRUE(result.converged);
+  EXPECT_GT(result.num_correspondences, 50);
+  EXPECT_LT((result.transform.block<3, 1>(0, 3) - t).norm(), 0.15);
+  EXPECT_LT((result.transform.block<3, 3>(0, 0) - R).norm(), 0.15);
+}
+
 TEST(KISSICP, MultiFrame) {
   std::mt19937 rng(42);
   KISSICPParams params;

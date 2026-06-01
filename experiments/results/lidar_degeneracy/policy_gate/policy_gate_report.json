@@ -1,0 +1,38 @@
+{
+  "policy": {
+    "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
+    "policy_version": "lidar_degeneracy_triage_v4",
+    "strict_gate": {
+      "max_fail_rows": 0,
+      "max_investigate_rows": 0,
+      "require_policy_version_match": true
+    }
+  },
+  "reports": {
+    "method_health_comparison": {
+      "path": "experiments/results/lidar_degeneracy/method_health_comparison/method_health_comparison.json",
+      "policy_version": "lidar_degeneracy_triage_v4",
+      "total_rows": 28,
+      "counts": {
+        "pass": 15,
+        "watch": 13,
+        "investigate": 0,
+        "fail": 0
+      }
+    },
+    "risk_gt_calibration": {
+      "path": "experiments/results/lidar_degeneracy/risk_gt_calibration/risk_gt_calibration.json",
+      "policy_version": "lidar_degeneracy_triage_v4",
+      "total_rows": 28,
+      "counts": {
+        "pass": 15,
+        "watch": 13,
+        "investigate": 0,
+        "fail": 0
+      }
+    }
+  },
+  "violations": [],
+  "offender_count": 0,
+  "offenders": []
+}

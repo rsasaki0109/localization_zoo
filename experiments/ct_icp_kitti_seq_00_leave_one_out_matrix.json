@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_leave_one_out",
+    "title": "CT-ICP seq 00 full: leave-one-out ablation on full recipe",
+    "question": "Sequential addition order influenced contribution measurement. Leave-one-out from final 13.32 m recipe reveals each knob's contribution in synergy.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "full_recipe_reference",
+      "label": "full recipe (existing 13.32 m)",
+      "design_style": "reference",
+      "intent": "Confirm 13.32 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-max-correspondence-distance", "5"]
+    },
+    {
+      "id": "minus_ms_chol",
+      "label": "full minus ms_chol (no multi-scale, no cholesky)",
+      "design_style": "leave-one-out",
+      "intent": "Isolate ms_chol's contribution in synergy.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-max-correspondence-distance", "5"]
+    },
+    {
+      "id": "minus_c2f",
+      "label": "full minus c2f",
+      "design_style": "leave-one-out",
+      "intent": "Isolate c2f's contribution.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-max-correspondence-distance", "5"]
+    },
+    {
+      "id": "minus_map_50",
+      "label": "full minus map=50 (revert to 20)",
+      "design_style": "leave-one-out",
+      "intent": "Isolate map=50's contribution.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-max-correspondence-distance", "5"]
+    },
+    {
+      "id": "minus_corr_5",
+      "label": "full minus corr=5 (revert to default 100)",
+      "design_style": "leave-one-out",
+      "intent": "Isolate corr=5's contribution.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    }
+  ]
+}

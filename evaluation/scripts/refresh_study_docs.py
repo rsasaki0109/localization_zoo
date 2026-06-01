@@ -40,6 +40,7 @@ def main() -> None:
     runner_cmd = ["python3", "evaluation/scripts/run_experiment_matrix.py"]
     if not args.rerun:
         runner_cmd.append("--reuse-existing")
+        runner_cmd.append("--reuse-aggregates")
     for manifest in args.manifest:
         runner_cmd.extend(["--manifest", manifest])
 
@@ -47,6 +48,7 @@ def main() -> None:
     run(["python3", "evaluation/scripts/generate_publication_docs.py"])
     run(["python3", "evaluation/scripts/export_paper_assets.py"])
     run(["python3", "evaluation/scripts/generate_paper_comparison.py"])
+    run(["python3", "evaluation/scripts/generate_reproduction_status.py"])
     run(["python3", "evaluation/scripts/generate_variant_analysis.py"])
     print("[done] refreshed experiment, publication, comparison, and analysis docs")
 

@@ -195,7 +195,7 @@ def main() -> int:
             continue
 
         for v in agg.get("variants", []):
-            if v.get("status") != "OK":
+            if v.get("status") not in {"OK", "ok"}:
                 continue
             vid = v.get("id", "")
             all_variants.setdefault(selector, {}).setdefault(vid, []).append({

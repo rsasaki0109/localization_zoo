@@ -1,0 +1,160 @@
+{
+  "generated_at": "2026-05-19T04:01:37+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_02_full_small_map_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_02_full_small_map",
+    "title": "CT-ICP seq 02 full: small map_size sweep (5/10/15/20)",
+    "question": "seq 02 catastrophically rejects map=50 (+109%). Does it prefer SMALLER maps?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "map_20_reference",
+      "label": "baseline map=20 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 56.54 m.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/run.log",
+      "status": "ok",
+      "ate_m": 56.537125,
+      "rpe_trans_pct": 3.348163,
+      "rpe_rot_deg_per_m": 0.032189,
+      "fps": 14.189514,
+      "time_ms": 328482.013443,
+      "frames": 4661,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 79.82,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "map_15",
+      "label": "baseline map=15",
+      "design_style": "smaller",
+      "intent": "Test if seq 02 wants tighter recency window.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "15"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/run.log",
+      "status": "ok",
+      "ate_m": 66.558481,
+      "rpe_trans_pct": 2.642258,
+      "rpe_rot_deg_per_m": 0.032795,
+      "fps": 19.086301,
+      "time_ms": 244206.55849,
+      "frames": 4661,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 82.58,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "map_10",
+      "label": "baseline map=10",
+      "design_style": "smaller",
+      "intent": "Half the existing winner \u2014 probe seq 02 small-map regime.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "10"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/run.log",
+      "status": "ok",
+      "ate_m": 74.454876,
+      "rpe_trans_pct": 2.730848,
+      "rpe_rot_deg_per_m": 0.036019,
+      "fps": 20.671798,
+      "time_ms": 225476.275254,
+      "frames": 4661,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 81.41,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "map_5",
+      "label": "baseline map=5",
+      "design_style": "extreme small",
+      "intent": "Extreme \u2014 likely too tight, but bounds the trend.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "5"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/run.log",
+      "status": "ok",
+      "ate_m": 121.785949,
+      "rpe_trans_pct": 3.387938,
+      "rpe_rot_deg_per_m": 0.045805,
+      "fps": 23.792777,
+      "time_ms": 195899.792158,
+      "frames": 4661,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 73.21,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

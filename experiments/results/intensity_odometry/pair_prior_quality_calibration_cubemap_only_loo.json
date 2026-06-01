@@ -1,0 +1,117 @@
+{
+  "diagnostics": [
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_02_30.json",
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_05_30.json",
+    "experiments/results/intensity_odometry/selector_diagnostics_kitti_seq_08_30.json"
+  ],
+  "method_names": [
+    "kiss",
+    "small_gicp"
+  ],
+  "feature_names": [
+    "bias",
+    "cubemap_score"
+  ],
+  "ridge": 0.001,
+  "feature_set": "cubemap_only",
+  "leave_one_sequence_out": [
+    {
+      "seq": "kitti_seq_02",
+      "selector_hits": 8,
+      "selector_total": 29,
+      "selected_counts": {
+        "small_gicp": 15,
+        "kiss": 14
+      },
+      "metrics": {
+        "ate_xy_m": 0.3507851293823681,
+        "step_length_rmse_m": 0.059044567301175854,
+        "step_length_rmse_pct_of_mean_step": 4.080098234964259,
+        "gt_path_length_m": 41.96694180205441
+      },
+      "mean_margin": 0.0029065290475997455,
+      "weights": [
+        -0.05310528131996242,
+        -0.011228837031996132
+      ],
+      "feature_mean": [
+        0.0,
+        0.3745185200376077
+      ],
+      "feature_scale": [
+        1.0,
+        0.04177479909423502
+      ]
+    },
+    {
+      "seq": "kitti_seq_05",
+      "selector_hits": 13,
+      "selector_total": 29,
+      "selected_counts": {
+        "kiss": 14,
+        "small_gicp": 15
+      },
+      "metrics": {
+        "ate_xy_m": 0.49552501871807775,
+        "step_length_rmse_m": 0.04004064051601825,
+        "step_length_rmse_pct_of_mean_step": 5.783832924119787,
+        "gt_path_length_m": 20.076281424419662
+      },
+      "mean_margin": 0.0019361014042587816,
+      "weights": [
+        -0.059387032808001824,
+        -0.004730087344460031
+      ],
+      "feature_mean": [
+        0.0,
+        0.3787468729284159
+      ],
+      "feature_scale": [
+        1.0,
+        0.037408294579871555
+      ]
+    },
+    {
+      "seq": "kitti_seq_08",
+      "selector_hits": 12,
+      "selector_total": 29,
+      "selected_counts": {
+        "kiss": 13,
+        "small_gicp": 16
+      },
+      "metrics": {
+        "ate_xy_m": 0.8172055515866099,
+        "step_length_rmse_m": 0.08225244475183839,
+        "step_length_rmse_pct_of_mean_step": 19.25635274294205,
+        "gt_path_length_m": 12.387189462332607
+      },
+      "mean_margin": 0.001600765021053005,
+      "weights": [
+        -0.04140293800090806,
+        -0.003699309995496197
+      ],
+      "feature_mean": [
+        0.0,
+        0.35202042818283485
+      ],
+      "feature_scale": [
+        1.0,
+        0.030650567752954265
+      ]
+    }
+  ],
+  "full_model": {
+    "weights": [
+      -0.051298417376290796,
+      -0.008749596618553901
+    ],
+    "feature_mean": [
+      0.0,
+      0.3684286070496195
+    ],
+    "feature_scale": [
+      1.0,
+      0.03871586079368416
+    ]
+  }
+}

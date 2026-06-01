@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ndt_kitti_seq_07_full_sweep",
+    "title": "NDT cluster discovery on KITTI Odom seq 07 full (1102 frames)",
+    "question": "Does NDT recipe space follow voxel_gicp dense or LiTAMIN2 T1 (voxel=0.5 + iter=12) pattern?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {"binary": "build/evaluation/pcd_dogfooding", "methods": "ndt", "primary_method": "NDT"},
+  "variants": [
+    {"id": "balanced_reference", "label": "balanced (default)", "design_style": "reference", "intent": "Baseline.", "args": []},
+    {"id": "fast_profile", "label": "fast profile", "design_style": "throughput", "intent": "Fast profile.", "args": ["--ndt-fast-profile"]},
+    {"id": "dense_profile", "label": "dense profile", "design_style": "accuracy", "intent": "Dense profile.", "args": ["--ndt-dense-profile"]},
+    {"id": "t1_transfer_r05_i12", "label": "T1 transfer (res=0.5 + iter=12)", "design_style": "transfer", "intent": "LiTAMIN2 T1 recipe transfer.", "args": ["--ndt-resolution", "0.5", "--ndt-max-iterations", "12"]},
+    {"id": "t1_transfer_r10_i12", "label": "T1 variant (res=1.0 + iter=12)", "design_style": "transfer", "intent": "NDT typical resolution.", "args": ["--ndt-resolution", "1.0", "--ndt-max-iterations", "12"]}
+  ]
+}

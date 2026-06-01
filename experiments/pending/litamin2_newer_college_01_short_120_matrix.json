@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "litamin2_profile_tradeoff_newer_college_01_short_120",
+    "title": "LiTAMIN2 throughput and accuracy trade-off on Newer College 01 short (120-frame window)",
+    "question": "Which LiTAMIN2 profile should stay as the default on a Newer College Ouster window after data prep?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/newer_college_01_short_experiment_120",
+      "gt_csv": "experiments/reference_data/newer_college_01_short_experiment_120_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "variants": [
+    {
+      "id": "fast_cov_half_threads",
+      "label": "Fast local-map + covariance",
+      "design_style": "throughput-oriented",
+      "intent": "Repository default local-map profile with covariance cost.",
+      "args": []
+    },
+    {
+      "id": "fast_icp_only_half_threads",
+      "label": "Fast local-map + ICP-only",
+      "design_style": "single-term simplification",
+      "intent": "Disable covariance-shape term.",
+      "args": [
+        "--litamin2-icp-only"
+      ]
+    },
+    {
+      "id": "paper_cov_half_threads",
+      "label": "Paper-like 3m + covariance",
+      "design_style": "paper-oriented",
+      "intent": "Paper-like 3m local map.",
+      "args": [
+        "--litamin2-paper-profile"
+      ]
+    },
+    {
+      "id": "paper_icp_only_half_threads",
+      "label": "Paper-like 3m + ICP-only",
+      "design_style": "paper-oriented simplification",
+      "intent": "Paper profile without covariance cost.",
+      "args": [
+        "--litamin2-paper-profile",
+        "--litamin2-icp-only"
+      ]
+    }
+  ]
+}

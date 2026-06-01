@@ -36,25 +36,10 @@ python3 evaluation/scripts/extract_ros1_lidar_imu.py \
 
 この synthetic time で **non-CT 系はほぼ再現**できますが、`ct_lio` / `ct_icp` の stored reference aggregate までは一致しません。stored CT reference を正確に再現したい場合は、元の `hdl_400_ros2` 抽出窓のような **native per-point `time` 付き点群**が必要です。
 
-### HDL-400 ROS2 native-time B window
+## KITTI Raw / Odometry
 
-`experiments/*_hdl_400_reference_b_matrix.json` が参照する B window は、native per-point `time` を持つ ROS2 bag から以下の範囲を抽出する契約です。
-
-```bash
-python3 evaluation/scripts/extract_ros2_lidar_imu.py \
-  --bag /path/to/hdl_400_ros2 \
-  --pointcloud-topic /velodyne_points \
-  --imu-topic /gpsimu_driver/imu_data \
-  --output-dir dogfooding_results/hdl_400_open_ct_lio_120_b \
-  --start-frame 360 \
-  --max-frames 120
-```
-
-この window は `experiments/reference_data/hdl_400_public_reference_b.csv` と timestamp が対応します。先頭フレームは `1509348833.091089964`、末尾フレームは `1509348845.001411915` です。
-
-## KITTI Raw（フル PCD + IMU）
-
-- `evaluation/scripts/setup_kitti_benchmark.sh` … **Odometry** velodyne（Raw の OXTS なし）
+- `evaluation/scripts/prepare_kitti_odometry_inputs.py` … **Odometry** velodyne + poses から `kitti_seq_<seq>_<window>` と `kitti_seq_<seq>_full` を生成
+- `evaluation/scripts/setup_kitti_benchmark.sh` … 上の薄い wrapper。既定では `00/07` の `108-frame` 窓を作り、`--include-full` もそのまま渡せる
 - `evaluation/scripts/VERIFY_KITTI_IMU_DLIO.md` … **Raw *sync*** から GT + PCD + `imu.csv` を作る例（**KITTI 以外でも**同じ `imu.csv` 契約なら `PCD_DIR` / `GT_CSV` を差し替えて `smoke_dlio_imu_when_ready.sh` 可）
 
 ## 手元ですぐ試せる最小データ

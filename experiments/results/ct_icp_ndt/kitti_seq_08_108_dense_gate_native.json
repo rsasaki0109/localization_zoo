@@ -1,0 +1,20 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_08_108",
+  "gt_csv": "experiments/reference_data/kitti_seq_08_108_gt.csv",
+  "num_frames": 108,
+  "trajectory_length_m": 58.563773,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "CT-ICP+NDT",
+      "status": "ok",
+      "ate_m": 15.882008,
+      "rpe_trans_pct": 105.361202,
+      "rpe_rot_deg_per_m": 3.938722,
+      "frames": 108,
+      "time_ms": 2484.610951,
+      "fps": 43.467570,
+      "note": "Hybrid: CT-ICP no-GT odometry prior feeds NDT scan-to-map initial guess; first frame remains anchored to GT for dogfooding alignment. CT-ICP prior ATE=15.881m. Runtime is CT-ICP+NDT combined."
+    }
+  ]
+}

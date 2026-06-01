@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-05-21T13:14:22.356335+00:00",
+  "run_id": "ndt_t1_kitti_seq_05_108_x_fine",
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_108",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_108_gt.csv",
+    "max_frames": 108
+  },
+  "settings": {
+    "methods": "ndt",
+    "profile": "ndt_t1",
+    "success_ate_threshold_m": 0.5,
+    "x_values_m": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "y_values_m": [
+      0.0
+    ],
+    "z_values_m": [
+      0.0
+    ],
+    "yaw_values_deg": [
+      0.0
+    ],
+    "extra_args": []
+  },
+  "method_summaries": {
+    "NDT": {
+      "runs": 5,
+      "successes": 2,
+      "best_ate_m": 0.065936,
+      "worst_success_ate_m": 0.258392,
+      "max_success_abs_x_m": 0.25,
+      "max_success_abs_yaw_deg": 0.0
+    }
+  },
+  "runs": [
+    {
+      "id": "xp0p000_yp0p000_zp0p000_yawp0p000",
+      "perturbation": {
+        "x_m": 0.0,
+        "y_m": 0.0,
+        "z_m": 0.0,
+        "yaw_deg": 0.0
+      },
+      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_05_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_05_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 0.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p000_yp0p000_zp0p000_yawp0p000/summary.json",
+      "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p000_yp0p000_zp0p000_yawp0p000/summary.json",
+      "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p000_yp0p000_zp0p000_yawp0p000/run.log",
+      "methods": [
+        {
+          "name": "NDT",
+          "status": "ok",
+          "ate_m": 0.065936,
+          "rpe_trans_pct": 0.356234,
+          "rpe_rot_deg_per_m": 0.004539,
+          "frames": 108,
+          "time_ms": 7089.679279,
+          "fps": 15.233411,
+          "success": true,
+          "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool."
+        }
+      ]
+    },
+    {
+      "id": "xp0p250_yp0p000_zp0p000_yawp0p000",
+      "perturbation": {
+        "x_m": 0.25,
+        "y_m": 0.0,
+        "z_m": 0.0,
+        "yaw_deg": 0.0
+      },
+      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_05_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_05_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.25 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 0.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p250_yp0p000_zp0p000_yawp0p000/summary.json",
+      "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p250_yp0p000_zp0p000_yawp0p000/summary.json",
+      "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p250_yp0p000_zp0p000_yawp0p000/run.log",
+      "methods": [
+        {
+          "name": "NDT",
+          "status": "ok",
+          "ate_m": 0.258392,
+          "rpe_trans_pct": 0.338011,
+          "rpe_rot_deg_per_m": 0.003407,
+          "frames": 108,
+          "time_ms": 7107.211855,
+          "fps": 15.195832,
+          "success": true,
+          "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Seed perturbation applied in local seed frame: dx=0.250m dy=0.000m dz=0.000m yaw=0.000deg."
+        }
+      ]
+    },
+    {
+      "id": "xp0p500_yp0p000_zp0p000_yawp0p000",
+      "perturbation": {
+        "x_m": 0.5,
+        "y_m": 0.0,
+        "z_m": 0.0,
+        "yaw_deg": 0.0
+      },
+      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_05_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_05_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.5 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 0.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p500_yp0p000_zp0p000_yawp0p000/summary.json",
+      "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p500_yp0p000_zp0p000_yawp0p000/summary.json",
+      "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p500_yp0p000_zp0p000_yawp0p000/run.log",
+      "methods": [
+        {
+          "name": "NDT",
+          "status": "ok",
+          "ate_m": 0.510136,
+          "rpe_trans_pct": 0.395935,
+          "rpe_rot_deg_per_m": 0.004139,
+          "frames": 108,
+          "time_ms": 7380.883838,
+          "fps": 14.632394,
+          "success": false,
+          "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Seed perturbation applied in local seed frame: dx=0.500m dy=0.000m dz=0.000m yaw=0.000deg."
+        }
+      ]
+    },
+    {
+      "id": "xp0p750_yp0p000_zp0p000_yawp0p000",
+      "perturbation": {
+        "x_m": 0.75,
+        "y_m": 0.0,
+        "z_m": 0.0,
+        "yaw_deg": 0.0
+      },
+      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_05_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_05_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.75 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 0.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p750_yp0p000_zp0p000_yawp0p000/summary.json",
+      "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p750_yp0p000_zp0p000_yawp0p000/summary.json",
+      "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp0p750_yp0p000_zp0p000_yawp0p000/run.log",
+      "methods": [
+        {
+          "name": "NDT",
+          "status": "ok",
+          "ate_m": 0.749267,
+          "rpe_trans_pct": 0.367916,
+          "rpe_rot_deg_per_m": 0.003654,
+          "frames": 108,
+          "time_ms": 7276.865279,
+          "fps": 14.841556,
+          "success": false,
+          "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Seed perturbation applied in local seed frame: dx=0.750m dy=0.000m dz=0.000m yaw=0.000deg."
+        }
+      ]
+    },
+    {
+      "id": "xp1p000_yp0p000_zp0p000_yawp0p000",
+      "perturbation": {
+        "x_m": 1.0,
+        "y_m": 0.0,
+        "z_m": 0.0,
+        "yaw_deg": 0.0
+      },
+      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_05_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_05_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 1.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 0.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp1p000_yp0p000_zp0p000_yawp0p000/summary.json",
+      "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp1p000_yp0p000_zp0p000_yawp0p000/summary.json",
+      "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_05_108_x_fine/xp1p000_yp0p000_zp0p000_yawp0p000/run.log",
+      "methods": [
+        {
+          "name": "NDT",
+          "status": "ok",
+          "ate_m": 0.998189,
+          "rpe_trans_pct": 0.400198,
+          "rpe_rot_deg_per_m": 0.003316,
+          "frames": 108,
+          "time_ms": 7091.926966,
+          "fps": 15.228583,
+          "success": false,
+          "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Seed perturbation applied in local seed frame: dx=1.000m dy=0.000m dz=0.000m yaw=0.000deg."
+        }
+      ]
+    }
+  ]
+}

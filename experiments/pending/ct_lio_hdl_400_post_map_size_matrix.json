@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_lio_post_map_size_hdl_400",
+    "title": "CT-LIO post-Round-4 follow-ups on HDL-400",
+    "question": "With map=30, do c2f_full sigma+plan amplifier and IMU bias estimation now help (they didn't with map=10)?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "variants": [
+    {
+      "id": "round4_winner",
+      "label": "Round 4 winner (max_frames=30, radius_only)",
+      "design_style": "reference",
+      "intent": "Current best.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "30"]
+    },
+    {
+      "id": "max_frames_40",
+      "label": "max_frames=40",
+      "design_style": "even bigger map",
+      "intent": "Diminishing returns check.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "40"]
+    },
+    {
+      "id": "c2f_full_with_map30",
+      "label": "c2f_full bundle (sigma x2 + plan 0.02) at map=30",
+      "design_style": "sigma+plan amplifier",
+      "intent": "Did the amplifier become useful with more correspondences?",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "2.0", "--ct-lio-coarse-planarity-threshold", "0.02", "--ct-lio-max-frames-in-map", "30"]
+    },
+    {
+      "id": "bias_estimation_with_map30",
+      "label": "IMU bias estimation at map=30",
+      "design_style": "bias estimation revisit",
+      "intent": "Did bias estimation become useful with denser map?",
+      "args": ["--ct-lio-estimate-bias", "--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "30"]
+    }
+  ]
+}

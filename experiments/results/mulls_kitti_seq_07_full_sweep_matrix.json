@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-05-21T00:25:09+00:00",
+  "manifest_path": "experiments/mulls_kitti_seq_07_full_sweep_matrix.json",
+  "problem": {
+    "id": "mulls_kitti_seq_07_full_sweep",
+    "title": "MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)",
+    "question": "Which MULLS profile family is strongest on KITTI Odom seq 07 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "mulls",
+    "primary_method": "MULLS"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "A-LOAM-style features + multi-metric scan-to-map (line/plane/point) baseline for HDL-64E.",
+      "args": [
+        "--mulls-kitti-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --mulls-kitti-profile",
+      "summary_path": "experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/run.log",
+      "status": "ok",
+      "ate_m": 8.459055,
+      "rpe_trans_pct": 2.719867,
+      "rpe_rot_deg_per_m": 0.025603,
+      "fps": 1.416256,
+      "time_ms": 776695.907866,
+      "frames": 1100,
+      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
+      "benchmark_score": 66.12,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser voxels, lighter Ceres, shorter submap window, sparser point metric.",
+      "args": [
+        "--mulls-kitti-profile",
+        "--mulls-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile",
+      "summary_path": "experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/run.log",
+      "status": "ok",
+      "ate_m": 10.501416,
+      "rpe_trans_pct": 2.993834,
+      "rpe_rot_deg_per_m": 0.028779,
+      "fps": 4.132687,
+      "time_ms": 266170.63924,
+      "frames": 1100,
+      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
+      "benchmark_score": 89.46,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer map voxels, more knn, deeper Ceres, longer history.",
+      "args": [
+        "--mulls-kitti-profile",
+        "--mulls-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile",
+      "summary_path": "experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/run.log",
+      "status": "ok",
+      "ate_m": 8.287763,
+      "rpe_trans_pct": 2.640504,
+      "rpe_rot_deg_per_m": 0.025613,
+      "fps": 1.268089,
+      "time_ms": 867446.703679,
+      "frames": 1100,
+      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
+      "benchmark_score": 65.34,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

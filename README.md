@@ -33,31 +33,11 @@ This repository collects paper-oriented C++ implementations behind a unified API
 - **Degeneracy-aware methods**: Includes RELEAD and X-ICP for constrained environments
 
 <!-- LEADERBOARD:START -->
-## Leaderboard
+## Leaderboard — odometry, RPE [drift %/100 m], lower is better
 
-KITTI Odometry full sequences. Two groups that **can't share an axis**, each
-ranked by its honest metric. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_zoo/).
-
-### GT-seeded localization — ATE [m], lower is better
-
-GT pose is the initial guess every frame, so ATE measures seed adherence, not tracking.
-
-| Method | Seq 00 | Seq 02 | Seq 05 | Seq 07 | Seq 08 |
-|---|---:|---:|---:|---:|---:|
-|  | _4542 fr_ | _4661 fr_ | _2761 fr_ | _1101 fr_ | _4071 fr_ |
-| NDT | **0.023** | **0.059** | **0.059** | **0.076** | **0.076** |
-| LiTAMIN2 | 0.731 | 0.728 | 0.751 | 0.647 | 0.696 |
-| Small-GICP | 0.890 | 0.909 | 0.984 | 0.682 | 0.858 |
-| Voxel-GICP | 1.047 | 0.944 | 1.031 | 0.950 | 0.955 |
-
-> ⚠️ **NDT's score is the GT guess, not registration.** Seq 07 seeded **0.076 m
-> / 0.20% RPE**, but `--no-gt-seed` → **125.6 m / 87.4% RPE**. Not the rollback
-> gate (fallback only 1.8%): the coarse-voxel solve barely moves off the
-> already-correct guess.
-
-### Odometry (no GT seed) — RPE [drift %/100 m], lower is better
-
-No seed, so ATE (in parens) is unbounded drift; RPE is the fair metric.
+KITTI Odometry full sequences, ranked by relative pose error (the
+seed-independent local-accuracy metric). ATE in parens is unbounded drift over
+the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_zoo/).
 
 | Method | Seq 00 | Seq 02 | Seq 05 | Seq 07 | Seq 08 |
 |---|---:|---:|---:|---:|---:|
@@ -72,6 +52,13 @@ No seed, so ATE (in parens) is unbounded drift; RPE is the fair metric.
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
 LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
 broken port._
+
+> **No GT-seeded methods here.** NDT / LiTAMIN2 / GICP use the ground-truth pose
+> as the per-frame initial guess, so their ATE is seed adherence, not tracking —
+> and the ranking even inverts: NDT's 0.02 m comes from *not* registering
+> (`--no-gt-seed` → 87% RPE, the worst tracker), while GICP's larger ATE is real
+> registration. They need a GT prior and aren't standalone odometry, so they are
+> not ranked.
 <!-- LEADERBOARD:END -->
 
 ## Scope Note

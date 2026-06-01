@@ -122,6 +122,22 @@
       ]
     },
     {
+      "name": "RKO-LIO",
+      "family": "LIO",
+      "scope": "Inertial-prior baseline",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/rko_lio",
+      "summary": "RKO-LIO style scan-to-map odometry using an IMU gyro rotation prior, with constant-velocity fallback when no IMU is present.",
+      "tags": [
+        "odometry",
+        "imu",
+        "robust"
+      ]
+    },
+    {
       "name": "A-LOAM",
       "family": "Registration",
       "scope": "Paper reimplementation",

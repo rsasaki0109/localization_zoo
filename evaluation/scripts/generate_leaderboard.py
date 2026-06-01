@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
-"""Generate the method x dataset ATE leaderboard injected into README.md.
+"""Generate the two-tier method leaderboard injected into README.md.
 
-Scans every aggregate under experiments/results/, collects the best (minimum)
-ATE per (method, dataset) cell across all tuned variants and manifests, then
-renders a compact markdown leaderboard over the five canonical KITTI Odometry
-full sequences (the densest, most recognizable cross-method coverage). The
-per-column winner is bolded.
+A single ATE ranking is misleading on this benchmark, because methods fall into
+two non-comparable groups:
 
-The table is written between the LEADERBOARD markers in README.md so it can be
-regenerated as the benchmark grows:
+  * GT-seeded localization (NDT, LiTAMIN2, GICP family) re-anchor to the ground
+    truth every frame with a weak-update fallback, so their ATE is the per-frame
+    registration residual and is bounded by the seed. NDT in particular leans
+    almost entirely on the seed: with --no-gt-seed it diverges (KITTI Raw 0009
+    full: 310 m ATE / 41.5% RPE), yet seeded it reports a physically impossible
+    0.07% RPE -- i.e. it is essentially emitting the GT pose. Ranking these by
+    ATE rewards GT substitution, not registration quality.
 
-    <!-- LEADERBOARD:START -->
-    ...generated table...
-    <!-- LEADERBOARD:END -->
+  * Odometry (KISS-ICP, the LOAM family, CT-ICP, ...) run with no GT seed, so
+    their ATE accumulates unbounded drift over the sequence. Their honest
+    quality metric is RPE (relative drift %/100 m), which is seed-independent.
+
+So this renders TWO tables over the five canonical KITTI Odometry full
+sequences: GT-seeded localization ranked by ATE, and odometry ranked by RPE.
+Each cell is the best result across all tuned variants for that method.
 
 Usage:
     python3 evaluation/scripts/generate_leaderboard.py            # rewrite README
@@ -35,9 +41,8 @@ README_PATH = REPO_ROOT / "README.md"
 START_MARKER = "<!-- LEADERBOARD:START -->"
 END_MARKER = "<!-- LEADERBOARD:END -->"
 
-# Leaderboard columns: the five canonical KITTI Odometry full sequences. These
-# have the broadest, densest multi-method coverage (9-10 methods each) and are
-# the most widely recognized LiDAR odometry benchmark.
+# Leaderboard columns: the five canonical KITTI Odometry full sequences (the
+# broadest, densest multi-method coverage and the most recognized benchmark).
 COLUMNS = [
     ("dogfooding_results/kitti_seq_00_full", "Seq 00", "4542 fr"),
     ("dogfooding_results/kitti_seq_02_full", "Seq 02", "4661 fr"),
@@ -46,34 +51,27 @@ COLUMNS = [
     ("dogfooding_results/kitti_seq_08_full", "Seq 08", "4071 fr"),
 ]
 
-# Methods initialized from odometry only (no per-frame GT seed). Their ATE
-# accumulates drift over the trajectory, unlike GT-seeded scan-to-map methods
-# whose ATE is the per-frame registration residual from ground truth. The
-# distinction is material, so it is flagged rather than hidden.
-ODOMETRY_ONLY = {
-    "CT-ICP", "KISS-ICP", "GenZ-ICP", "FAST-LIO2", "Point-LIO", "DLIO", "DLO",
-    "RKO-LIO", "A-LOAM", "F-LOAM", "LeGO-LOAM", "MULLS", "SuMa", "LOAM-Livox",
-    "LINS", "LIO-SAM", "ISC-LOAM", "FAST-LIO-SLAM", "HDL-Graph-SLAM", "BALM2",
-    "VGICP-SLAM", "CT-LIO", "CLINS", "X-ICP",
-}
+# GT-seeded scan-to-map methods: ATE is the per-frame residual from the seed.
+SEEDED = ["NDT", "LiTAMIN2", "GICP", "Small-GICP", "Voxel-GICP"]
 
-
-def _dataset_key(agg: dict) -> str:
-    ds = agg.get("dataset") or {}
-    key = ds.get("pcd_dir")
-    if key:
-        return key
-    return (agg.get("problem", {}).get("dataset", {}) or {}).get("pcd_dir", "")
+# Odometry methods: no per-frame GT seed, so ATE accumulates drift; RPE is the
+# fair, seed-independent quality metric.
+ODOMETRY = [
+    "KISS-ICP", "GenZ-ICP", "A-LOAM", "F-LOAM", "LeGO-LOAM", "SuMa",
+    "LOAM-Livox", "MULLS", "CT-ICP", "CT-LIO", "FAST-LIO2", "Point-LIO",
+    "DLIO", "DLO", "LINS", "LIO-SAM", "ISC-LOAM", "FAST-LIO-SLAM",
+    "HDL-Graph-SLAM", "BALM2", "VGICP-SLAM", "RKO-LIO", "X-ICP", "CLINS",
+]
 
 
 def collect_cells() -> dict:
-    """Return {(method, dataset_dir): best_ate_m} across all aggregates on disk.
+    """{(method, dataset): {'ate', 'ate_rpe', 'rpe', 'rpe_ate'}} over all aggregates.
 
-    Each cell is the minimum ATE across every tuned variant and every manifest
-    for that (method, dataset) pair, i.e. the best result the repository can
-    currently produce for that method on that dataset.
+    Per (method, dataset): the best-ATE variant (and its paired RPE) and,
+    separately, the best-RPE variant (and its paired ATE). Different tables rank
+    by different metrics, so both are kept.
     """
-    cells: dict[tuple[str, str], float] = {}
+    cells: dict[tuple[str, str], dict] = {}
     for path in glob.glob(str(RESULTS_DIR / "*.json")):
         if Path(path).name == "index.json":
             continue
@@ -84,39 +82,46 @@ def collect_cells() -> dict:
         if not isinstance(agg, dict) or "variants" not in agg:
             continue
         method = agg.get("stable_interface", {}).get("primary_method")
-        dataset = _dataset_key(agg)
+        dataset = (agg.get("dataset") or {}).get("pcd_dir") \
+            or (agg.get("problem", {}).get("dataset", {}) or {}).get("pcd_dir")
         if not method or not dataset:
             continue
         for variant in agg.get("variants", []):
             if variant.get("status") != "ok":
                 continue
             ate = variant.get("ate_m")
-            if ate is None or not isinstance(ate, (int, float)) or not math.isfinite(ate):
-                continue
-            key = (method, dataset)
-            if key not in cells or ate < cells[key]:
-                cells[key] = float(ate)
+            rpe = variant.get("rpe_trans_pct")
+            cell = cells.setdefault((method, dataset),
+                                    {"ate": None, "ate_rpe": None,
+                                     "rpe": None, "rpe_ate": None})
+            if isinstance(ate, (int, float)) and math.isfinite(ate):
+                if cell["ate"] is None or ate < cell["ate"]:
+                    cell["ate"], cell["ate_rpe"] = float(ate), rpe
+            if isinstance(rpe, (int, float)) and math.isfinite(rpe):
+                if cell["rpe"] is None or rpe < cell["rpe"]:
+                    cell["rpe"], cell["rpe_ate"] = float(rpe), ate
     return cells
 
 
-def build_table(cells: dict) -> str:
+def _table(cells, methods, metric):
+    """Render one markdown table. metric is 'ate' or 'rpe' (the ranking key)."""
     col_dirs = [c[0] for c in COLUMNS]
-    methods = sorted({m for (m, d) in cells if d in col_dirs})
+    present = [m for m in methods
+               if any((m, d) in cells and cells[(m, d)][metric] is not None
+                      for d in col_dirs)]
 
-    # Per-column winner (minimum ATE) for bolding.
-    col_min: dict[str, float] = {}
+    def vals(m):
+        return [cells[(m, d)][metric] for d in col_dirs
+                if (m, d) in cells and cells[(m, d)][metric] is not None]
+
+    present.sort(key=lambda m: (sum(vals(m)) / len(vals(m))) if vals(m) else math.inf)
+
+    col_min = {}
     for d in col_dirs:
-        vals = [cells[(m, d)] for m in methods if (m, d) in cells]
-        if vals:
-            col_min[d] = min(vals)
-
-    # Sort rows by mean ATE over present cells (lower first); accuracy leaders
-    # rise to the top, sparse/odometry rows settle below.
-    def mean_ate(m: str) -> float:
-        present = [cells[(m, d)] for d in col_dirs if (m, d) in cells]
-        return sum(present) / len(present) if present else float("inf")
-
-    methods.sort(key=mean_ate)
+        v = [cells[(m, d)][metric] for m in present
+             if (m, d) in cells and cells[(m, d)][metric] is not None]
+        if v:
+            col_min[d] = min(v)
 
     head = ["Method"] + [c[1] for c in COLUMNS]
     sub = [""] + [f"_{c[2]}_" for c in COLUMNS]
@@ -125,46 +130,70 @@ def build_table(cells: dict) -> str:
         "|" + "|".join(["---"] + ["---:" for _ in COLUMNS]) + "|",
         "| " + " | ".join(sub) + " |",
     ]
-
-    for m in methods:
-        label = f"{m} †" if m in ODOMETRY_ONLY else f"**{m}**"
-        row = [label]
+    for m in present:
+        row = [m]
         for d in col_dirs:
-            if (m, d) not in cells:
+            cell = cells.get((m, d))
+            val = cell[metric] if cell else None
+            if val is None:
                 row.append("–")
                 continue
-            ate = cells[(m, d)]
-            txt = f"{ate:.3f}"
-            if col_min.get(d) is not None and abs(ate - col_min[d]) < 1e-9:
-                txt = f"**{txt}**"
+            if metric == "ate":
+                txt = f"{val:.3f}"
+            else:  # rpe: show drift% with ATE drift context
+                ate_ctx = cell["rpe_ate"]
+                txt = f"{val:.2f}%"
+                if isinstance(ate_ctx, (int, float)) and math.isfinite(ate_ctx):
+                    txt += f" <sub>({ate_ctx:.0f} m)</sub>"
+            if col_min.get(d) is not None and abs(val - col_min[d]) < 1e-9:
+                # bold only the leading numeric token to keep <sub> intact
+                lead, _, rest = txt.partition(" ")
+                txt = f"**{lead}**" + (f" {rest}" if rest else "")
             row.append(txt)
         lines.append("| " + " | ".join(row) + " |")
-
-    note = (
-        "\n_ATE in metres on KITTI Odometry ground truth; lower is better. "
-        "**Bold** = best on that sequence. Each cell is the best ATE across all "
-        "tuned variants for that method (see [`docs/experiments.md`](docs/experiments.md)). "
-        "† = odometry-only (no per-frame GT seed), so its ATE accumulates drift; "
-        "non-† rows use GT-seeded scan-to-map init with weak-update fallback, "
-        "where ATE is the per-frame registration residual from ground truth — "
-        "the two groups are not directly comparable. "
-        "Regenerated by `evaluation/scripts/generate_leaderboard.py`._"
-    )
-    return "\n".join(lines) + "\n" + note
+    return "\n".join(lines)
 
 
 def render_block(cells: dict) -> str:
-    table = build_table(cells)
-    return (
-        f"{START_MARKER}\n"
-        "## Leaderboard\n\n"
-        "Best ATE per method on the five canonical KITTI Odometry full "
-        "sequences. Other benchmarks (KITTI Raw, NCLT, MCD, MulRan, HDL-400) "
-        "and the full method × dataset matrix are browsable in the "
-        "[**interactive explorer**](https://rsasaki0109.github.io/localization_zoo/).\n\n"
-        f"{table}\n"
-        f"{END_MARKER}"
-    )
+    seeded_table = _table(cells, SEEDED, "ate")
+    odom_table = _table(cells, ODOMETRY, "rpe")
+    explorer = "https://rsasaki0109.github.io/localization_zoo/"
+    return f"""{START_MARKER}
+## Leaderboard
+
+Results on the five canonical KITTI Odometry full sequences. Methods split into
+two groups that **cannot be compared on the same axis**, so each is ranked by
+its honest metric. Other benchmarks and the full method × dataset matrix are in
+the [**interactive explorer**]({explorer}).
+
+### GT-seeded localization — ATE [m], lower is better
+
+These re-anchor to ground truth every frame (weak-update fallback), so ATE is
+the per-frame registration residual, not standalone tracking.
+
+{seeded_table}
+
+> ⚠️ **NDT's numbers are a GT-substitution artifact, not registration quality.**
+> NDT has essentially no standalone tracking: with `--no-gt-seed` it diverges
+> (KITTI Raw 0009 full: **310 m ATE / 41.5% RPE**). Seeded, it reports a
+> physically impossible **0.07% RPE** — i.e. it is emitting the GT pose each
+> frame. A tighter seed gate lowers ATE by substituting GT more often, not by
+> registering better. Treat the seeded ATE column as "how tightly the method
+> stays pinned to the seed," not as an odometry ranking.
+
+### Odometry (no GT seed) — RPE [drift %/100 m], lower is better
+
+No per-frame seed, so ATE (shown in parentheses) accumulates unbounded drift
+over the sequence; RPE is the seed-independent local-accuracy metric.
+
+{odom_table}
+
+_Each cell is the best result across all tuned variants for that method (see
+[`docs/experiments.md`](docs/experiments.md)). The KISS-ICP / LOAM family reach
+~0.5–1.4% drift — competitive odometry — and their large ATE is honest drift
+accumulation, not a broken port. Regenerated by
+`evaluation/scripts/generate_leaderboard.py`._
+{END_MARKER}"""
 
 
 def inject(readme: str, block: str) -> str:
@@ -172,7 +201,6 @@ def inject(readme: str, block: str) -> str:
         pre = readme.split(START_MARKER)[0]
         post = readme.split(END_MARKER, 1)[1]
         return pre + block + post
-    # First-time insertion: after "## Why Localization Zoo?", before "## Scope Note".
     anchor = "\n## Scope Note\n"
     if anchor not in readme:
         raise SystemExit("Could not find insertion anchor ('## Scope Note') in README.md")

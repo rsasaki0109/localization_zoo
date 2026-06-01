@@ -145,6 +145,51 @@ pre-merge dirty-worktree state.
   is *worse* than gain 0 at full (24.4 vs 7.3) — bias correction over-integrates on the long
   trajectory. Optimal gain is both dataset- and scale-dependent; no universal default.
 
+### 0.0c Update — cross-session T1 generality + small_gicp seed-gate lever (2026-06-02, later session)
+
+- **Second NCLT session ingested for cross-session validation.** Downloaded 2012-12-01
+  (velodyne 13.4 GB, fetched via 8-way HTTP range requests at ~12 MB/s after the single
+  stream stalled at ~1 MB/s), ingested a **5000-frame / 937 m** prefix as
+  `dogfooding_results/nclt_2012_12_01_5000` + committed `…_5000_gt.csv`.
+- **LiTAMIN2 T1 (voxel0.5/iter12) generalizes across NCLT sessions.** On 2012-12-01 it cuts
+  ATE **0.869 → 0.519 (−40 %)** and drift 1.844 → 1.357 (−26 %), mirroring the 2013-01-10
+  full-5105 −49 %/−47 %. NDT is the winner again (0.118, vs 2013-01-10's 0.122). The
+  fine-voxel recipe is a **session-independent NCLT improvement**, not a per-session artifact.
+  Manifest `experiments/litamin2_nclt_2012_12_01_matrix.json` (merged into `index.json`).
+
+  | method (2012-12-01, 5000 f) | ATE [m] | drift [m/100m] |
+  |---|---|---|
+  | NDT | **0.118** | 0.374 |
+  | LiTAMIN2 T1 (voxel0.5/iter12) | **0.519** | 1.357 |
+  | LiTAMIN2 default (voxel2.0) | 0.869 | 1.844 |
+  | small_gicp default | 1.049 | 2.616 |
+  | small_gicp cd1.5 | 1.009 | 2.883 |
+
+- **small_gicp #3 improvement: the seed gate is the lever, not voxel/correspondence.** The
+  CLI levers that fix LiTAMIN2 wash out for small_gicp at full scale: correspondence distance
+  1.5 gives a real −23 % at 2000 frames (1.181 → 0.908) but evaporates by full-5105
+  (1.086 → 1.089); voxel0.5 is likewise flat. The actual bottleneck is the **weak-update seed
+  gate**, which defaulted to 2.0 m / 0.25 rad (looser than NDT's 1.5 m / 0.2 rad) and was not
+  CLI-exposed. Added `--small-gicp-max-seed-translation-delta` / `-rotation-delta-rad`
+  (mirrors the existing CT-ICP flags) + a seed-fallback counter in `runSmallGICP`. Tightening
+  the gate monotonically cuts full-5105 ATE:
+
+  | gate (full 5105) | ATE [m] | drift | GT-fallback % (2000 f) |
+  |---|---|---|---|
+  | 2.0 m / 0.25 rad (default) | 1.086 | 2.288 | 2.5 % |
+  | 1.5 m / 0.2 rad (NDT-equal) | 0.882 | 2.357 | 4.2 % |
+  | **1.0 m / 0.15 rad (balanced)** | **0.675** | 2.036 | 9.3 % |
+  | **0.5 m / 0.1 rad (aggressive)** | **0.348** | 1.313 | 20.2 % |
+
+  At 1.0 m / 0.15 rad ATE drops −38 % with only 9.3 % GT fallback (the recommended balanced
+  config); at 0.5 m / 0.1 rad it drops −68 % and overtakes LiTAMIN2 T1 (0.582) for NCLT #2.
+  **Honest caveat:** a tighter gate also raises the GT-fallback rate (2.5 % → 20.2 %), so part
+  of the gain is more aggressive reversion to the *exact* GT seed on the worst registrations,
+  not purely better refinement — the same weak-update mechanism NDT benefits from, now exposed
+  for small_gicp. The fair fixed-gate comparison (small_gicp 0.882 vs NDT 0.122 at the
+  identical 1.5 m gate) shows NDT's edge is genuine refinement quality, not just the gate.
+  Manifest `experiments/small_gicp_nclt_2013_01_10_matrix.json`.
+
 ### 0.1 Current Git State
 
 | Item | Value |

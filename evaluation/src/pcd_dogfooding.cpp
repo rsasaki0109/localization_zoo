@@ -2231,6 +2231,8 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
   Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
+  size_t seed_fallbacks = 0;
+  size_t seeded_frames = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -2251,6 +2253,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
             : applySeedPerturbation(gt[i], options.seed_perturbation);
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
+    ++seeded_frames;
     if ((result.converged || result.num_correspondences >= 96) &&
         isReasonableRefinement(result.transformation, T_init_guess,
                                options.max_seed_translation_delta,
@@ -2258,6 +2261,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
+      ++seed_fallbacks;
     }
     T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
@@ -2274,6 +2278,13 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
     }
   }
   std::cerr << std::endl;
+  if (!no_gt_seed && seeded_frames > 0) {
+    std::cerr << "  [Small-GICP] seed fallbacks=" << seed_fallbacks << "/"
+              << seeded_frames << " ("
+              << (100.0 * static_cast<double>(seed_fallbacks) /
+                  static_cast<double>(seeded_frames))
+              << "% rolled back to GT seed)" << std::endl;
+  }
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
@@ -4741,6 +4752,8 @@ int main(int argc, char** argv) {
               << " [--small-gicp-max-correspondence-distance X]"
               << " [--small-gicp-max-correspondences N]"
               << " [--small-gicp-max-iterations N]"
+              << " [--small-gicp-max-seed-translation-delta M]"
+              << " [--small-gicp-max-seed-rotation-delta-rad R]"
               << " [--ndt-fast-profile]"
               << " [--ndt-dense-profile]"
               << " [--ndt-resolution X]"
@@ -5599,6 +5612,36 @@ int main(int argc, char** argv) {
     if (arg.rfind("--small-gicp-max-iterations=", 0) == 0) {
       small_gicp_options.max_iterations = std::max(
           1, std::stoi(arg.substr(std::string("--small-gicp-max-iterations=").size())));
+      continue;
+    }
+    if (arg == "--small-gicp-max-seed-translation-delta") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--small-gicp-max-seed-translation-delta requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      small_gicp_options.max_seed_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--small-gicp-max-seed-translation-delta=", 0) == 0) {
+      small_gicp_options.max_seed_translation_delta = std::stod(arg.substr(
+          std::string("--small-gicp-max-seed-translation-delta=").size()));
+      continue;
+    }
+    if (arg == "--small-gicp-max-seed-rotation-delta-rad") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--small-gicp-max-seed-rotation-delta-rad requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      small_gicp_options.max_seed_rotation_delta_rad = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--small-gicp-max-seed-rotation-delta-rad=", 0) == 0) {
+      small_gicp_options.max_seed_rotation_delta_rad = std::stod(arg.substr(
+          std::string("--small-gicp-max-seed-rotation-delta-rad=").size()));
       continue;
     }
     if (arg == "--small-gicp-map-max-points") {

@@ -38,7 +38,8 @@ for method_name in ("OKVIS", "FAST-LIVO2"):
     if method_name not in methods:
         raise SystemExit(f"missing method in summary: {method_name}")
     item = methods[method_name]
-    if item["status"] != "OK":
+    # multimodal_dogfooding emits the lower-case status taxonomy ("ok"/"skipped").
+    if item["status"].lower() != "ok":
         raise SystemExit(f"{method_name} status={item['status']} note={item['note']}")
     if item["frames"] != 3:
         raise SystemExit(f"{method_name} expected 3 frames, got {item['frames']}")

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-02T11:18:16+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -354,30 +354,6 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
-## CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²)
-
-- Current default: `corr_5`.
-- Active challengers: `corr_8_reference`, `corr_6`, `corr_7`.
-- Aggregate result: `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| corr_8_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| corr_5 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| corr_6 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| corr_7 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 02 full: map=50 retrofit on bare baseline winner
-
-- Current default: `baseline_map_20`.
-- Reference variants: `baseline_map_50`.
-- Aggregate result: `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| baseline_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| baseline_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
 ## CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window
 
 - Current default: `balanced_reference`.
@@ -489,64 +465,6 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
-## CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f)
-
-- Current default: `bare_corr_8`.
-- Active challengers: `bare_corr_4`.
-- Reference variants: `bare_corr_default`, `bare_corr_5`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| bare_corr_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| bare_corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| bare_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| bare_corr_4 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames)
-
-- Current default: `cauchy_2_0_reference`.
-- Active challengers: `cauchy_2_5`, `cauchy_3_0`.
-- Reference variants: `cauchy_1_5`, `cauchy_4_0`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| cauchy_2_0_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| cauchy_1_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| cauchy_3_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| cauchy_4_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner
-
-- Current default: `iter_2`.
-- Active challengers: `iter_3_reference`, `iter_1`, `iter_4`, `iter_6`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| iter_3_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| iter_1 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| iter_2 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| iter_4 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| iter_6 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner
-
-- Current default: `corr_8`.
-- Active challengers: `corr_default_reference`, `corr_16`.
-- Reference variants: `corr_4`, `corr_2`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| corr_default_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| corr_16 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| corr_2 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
 ## CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified)
 
 - Current default: `fine_sigma_0_375`.
@@ -561,33 +479,6 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 | fine_sigma_0_375 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | fine_sigma_0_75 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | fine_sigma_1_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)
-
-- Current default: `map_30`.
-- Active challengers: `map_20_reference`, `map_50`.
-- Reference variants: `map_15`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_15 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00
-
-- Current default: `dense_window`.
-- Active challengers: `balanced_window`.
-- Reference variants: `fast_window`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| balanced_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| dense_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A)
 
@@ -613,242 +504,6 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 | cluster_a_no_seed_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
-## CT-ICP seq 00 full: leave-one-out ablation on full recipe
-
-- Current default: `full_recipe_reference`.
-- Active challengers: `minus_c2f`, `minus_map_50`, `minus_corr_5`.
-- Reference variants: `minus_ms_chol`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| full_recipe_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| minus_ms_chol | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| minus_c2f | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| minus_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| minus_corr_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 00 full: map=50 + single partner knob isolation
-
-- Current default: `map_50_plus_c2f`.
-- Active challengers: `map_50_plus_ms_chol`.
-- Reference variants: `bare_map_50_reference`, `map_50_plus_corr_5`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| bare_map_50_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| map_50_plus_ms_chol | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_50_plus_c2f | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| map_50_plus_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)
-
-- Current default: `bare_map_30`.
-- Active challengers: `bare_map_20`.
-- Reference variants: `bare_map_50`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| bare_map_20 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| bare_map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| bare_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
-
-- Current default: `fast_window`.
-- Reference variants: `balanced_window`, `dense_window`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner
-
-- Current default: `default_reference`.
-- Active challengers: `plus_corr_8`.
-- Reference variants: `plus_corr_5`, `plus_corr_16`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| plus_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| plus_corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| plus_corr_16 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 02 full: corr_dist sweep on bare baseline
-
-- Current default: `corr_8`.
-- Reference variants: `default_reference`, `corr_4`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| default_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²)
-
-- Current default: `corr_8_reference`.
-- Reference variants: `corr_5`, `corr_6`, `corr_7`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| corr_8_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| corr_6 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| corr_7 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 02 full: corr_dist + ms_chol combinations
-
-- Current default: `bare_corr_8_reference`.
-- Reference variants: `ms_chol_corr_8`, `ms_chol_corr_5`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| bare_corr_8_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| ms_chol_corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| ms_chol_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)
-
-- Current default: `baseline_reference`.
-- Reference variants: `c2f_only_sigma`, `c2f_only_full`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| baseline_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| c2f_only_sigma | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| c2f_only_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
-
-- Current default: `map_15`.
-- Active challengers: `map_20_reference`, `map_10`.
-- Reference variants: `map_5`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 02 full: map_size sweep on corr=8 winner
-
-- Current default: `map_20_reference`.
-- Active challengers: `map_15`.
-- Reference variants: `map_30`, `map_50`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| map_20_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| map_15 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_30 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 05 full: simplified recipes from bare + map=50
-
-- Current default: `bare_map_50_corr_4`.
-- Active challengers: `bare_map_50_reference`, `bare_map_50_iter_8`, `bare_map_50_voxel_05`.
-- Reference variants: `arch_tuned_map_50`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| bare_map_50_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| bare_map_50_corr_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| bare_map_50_iter_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| bare_map_50_voxel_05 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| arch_tuned_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner
-
-- Current default: `corr_4_reference`.
-- Active challengers: `corr_8`, `corr_16`, `corr_default`.
-- Reference variants: `corr_2`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| corr_4_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| corr_2 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| corr_16 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| corr_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner
-
-- Current default: `arch_tuned_map_30`.
-- Active challengers: `arch_tuned_map_50`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| arch_tuned_map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| arch_tuned_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 05 full: map_size on BARE baseline
-
-- Current default: `bare_map_50`.
-- Active challengers: `bare_map_20`, `bare_map_30`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| bare_map_20 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| bare_map_30 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| bare_map_50 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-
-## CT-ICP seq 07 full: ms_chol + simplified pattern combo
-
-- Current default: `ms_chol_reference`.
-- Active challengers: `ms_chol_plus_simplified_a`.
-- Reference variants: `ms_chol_plus_c2f`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| ms_chol_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| ms_chol_plus_c2f | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| ms_chol_plus_simplified_a | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner
-
-- Current default: `default_reference`.
-- Reference variants: `corr_8`, `corr_4`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
-
-- Current default: `fast_window`.
-- Active challengers: `dense_window`.
-- Reference variants: `balanced_window`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_full_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
 ## CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D)
 
 - Current default: `cluster_d_full_no_seed_reference`.
@@ -863,86 +518,6 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 | cluster_a_no_seed | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
-## CT-ICP seq 07 full: map=50 retrofit on ms_chol winner
-
-- Current default: `ms_chol_map_20`.
-- Reference variants: `ms_chol_map_50`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| ms_chol_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| ms_chol_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
-
-- Current default: `fast_window`.
-- Active challengers: `dense_window`.
-- Reference variants: `balanced_window`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 08 full: c2f without ms_chol — knob reduction probe
-
-- Current default: `c2f_only_reference`.
-- Active challengers: `bare_c2f`, `ms_chol_c2f_no_cholesky`, `cholesky_c2f_no_ms`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| c2f_only_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| bare_c2f | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| ms_chol_c2f_no_cholesky | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| cholesky_c2f_no_ms | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner
-
-- Current default: `default_reference`.
-- Active challengers: `corr_8`.
-- Reference variants: `corr_4`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames)
-
-- Current default: `cauchy_3_0`.
-- Active challengers: `cauchy_2_5`, `cauchy_4_0`.
-- Reference variants: `cauchy_2_0_reference`, `cauchy_1_5`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| cauchy_2_0_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| cauchy_1_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| cauchy_3_0 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| cauchy_4_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner
-
-- Current default: `iter_6`.
-- Active challengers: `iter_3_reference`, `iter_1`, `iter_2`.
-- Reference variants: `iter_4`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| iter_3_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| iter_1 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| iter_2 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| iter_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| iter_6 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-
 ## CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full
 
 - Current default: `cluster_a_seeded`.
@@ -953,76 +528,6 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|----------|-----|
 | cluster_a_no_seed_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | cluster_a_seeded | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-
-## CT-ICP seq 08 full: map=50 retrofit on c2f_only winner
-
-- Current default: `c2f_only_map_20`.
-- Active challengers: `c2f_only_map_50`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| c2f_only_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| c2f_only_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base
-
-- Current default: `default_reference`.
-- Reference variants: `plus_corr_4`, `plus_corr_8`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| plus_corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| plus_corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 02 full: simplified map=50+c2f probe
-
-- Current default: `current_winner`.
-- Reference variants: `simplified_seq_00_pattern`, `simplified_plus_corr_8`.
-- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| current_winner | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| simplified_seq_00_pattern | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| simplified_plus_corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base
-
-- Current default: `map_50_c2f_plus_corr_4`.
-- Active challengers: `current_winner`.
-- Reference variants: `map_50_c2f`.
-- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| current_winner | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_50_c2f | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| map_50_c2f_plus_corr_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-
-## CT-ICP seq 07 full: simplified map=50+c2f probe
-
-- Current default: `current_winner`.
-- Reference variants: `simplified_seq_00_pattern`.
-- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| current_winner | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| simplified_seq_00_pattern | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-
-## CT-ICP seq 08 full: simplified map=50+c2f probe
-
-- Current default: `simplified_seq_00_pattern`.
-- Active challengers: `current_winner`.
-- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| current_winner | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| simplified_seq_00_pattern | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
@@ -1876,6 +1381,18 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## GenZ-ICP profile trade-off on the NCLT 2013-01-10 window
+
+- Current default: `default`.
+- Reference variants: `fast_profile`, `dense_profile`.
+- Aggregate result: `experiments/results/genz_icp_nclt_2013_01_10_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| fast_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## GICP throughput and accuracy trade-off on the second public HDL-400 reference window
 
@@ -3269,6 +2786,32 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check)
+
+- Current default: `voxel_0_5_t1`.
+- Active challengers: `default_voxel_2_0`.
+- Reference variants: `voxel_1_0`.
+- Aggregate result: `experiments/results/litamin2_nclt_2012_12_01_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_voxel_2_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| voxel_1_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| voxel_0_5_t1 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window
+
+- Current default: `default_voxel_2_0`.
+- Active challengers: `voxel_1_0`.
+- Reference variants: `voxel_0_5_t1`.
+- Aggregate result: `experiments/results/litamin2_nclt_2013_01_10_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_voxel_2_0 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| voxel_1_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| voxel_0_5_t1 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence
 
 - Current default: `fast_icp_only_half_threads`.
@@ -3841,6 +3384,501 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Next step: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 - Aggregate result: `experiments/results/orb_slam3_kitti_raw_0061_matrix.json`
 
+## CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²)
+
+- Current default: `corr_5`.
+- Active challengers: `corr_8_reference`, `corr_6`, `corr_7`.
+- Aggregate result: `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_8_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_5 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_6 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_7 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 02 full: map=50 retrofit on bare baseline winner
+
+- Current default: `baseline_map_20`.
+- Reference variants: `baseline_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| baseline_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f)
+
+- Current default: `bare_corr_8`.
+- Active challengers: `bare_corr_4`.
+- Reference variants: `bare_corr_default`, `bare_corr_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_corr_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| bare_corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| bare_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| bare_corr_4 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames)
+
+- Current default: `cauchy_2_0_reference`.
+- Active challengers: `cauchy_2_5`, `cauchy_3_0`.
+- Reference variants: `cauchy_1_5`, `cauchy_4_0`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| cauchy_2_0_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cauchy_1_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cauchy_3_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cauchy_4_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner
+
+- Current default: `iter_2`.
+- Active challengers: `iter_3_reference`, `iter_1`, `iter_4`, `iter_6`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| iter_3_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_1 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_2 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| iter_4 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_6 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner
+
+- Current default: `corr_8`.
+- Active challengers: `corr_default_reference`, `corr_16`.
+- Reference variants: `corr_4`, `corr_2`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_default_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_16 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_2 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)
+
+- Current default: `map_30`.
+- Active challengers: `map_20_reference`, `map_50`.
+- Reference variants: `map_15`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_15 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00
+
+- Current default: `dense_window`.
+- Active challengers: `balanced_window`.
+- Reference variants: `fast_window`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| fast_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP seq 00 full: leave-one-out ablation on full recipe
+
+- Current default: `full_recipe_reference`.
+- Active challengers: `minus_c2f`, `minus_map_50`, `minus_corr_5`.
+- Reference variants: `minus_ms_chol`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| full_recipe_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| minus_ms_chol | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| minus_c2f | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| minus_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| minus_corr_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 00 full: map=50 + single partner knob isolation
+
+- Current default: `map_50_plus_c2f`.
+- Active challengers: `map_50_plus_ms_chol`.
+- Reference variants: `bare_map_50_reference`, `map_50_plus_corr_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_map_50_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| map_50_plus_ms_chol | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_50_plus_c2f | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_50_plus_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)
+
+- Current default: `bare_map_30`.
+- Active challengers: `bare_map_20`.
+- Reference variants: `bare_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_map_20 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| bare_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
+
+- Current default: `fast_window`.
+- Reference variants: `balanced_window`, `dense_window`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner
+
+- Current default: `default_reference`.
+- Active challengers: `plus_corr_8`.
+- Reference variants: `plus_corr_5`, `plus_corr_16`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| plus_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| plus_corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| plus_corr_16 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: corr_dist sweep on bare baseline
+
+- Current default: `corr_8`.
+- Reference variants: `default_reference`, `corr_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_8 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²)
+
+- Current default: `corr_8_reference`.
+- Reference variants: `corr_5`, `corr_6`, `corr_7`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_8_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_6 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_7 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: corr_dist + ms_chol combinations
+
+- Current default: `bare_corr_8_reference`.
+- Reference variants: `ms_chol_corr_8`, `ms_chol_corr_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_corr_8_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| ms_chol_corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| ms_chol_corr_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)
+
+- Current default: `baseline_reference`.
+- Reference variants: `c2f_only_sigma`, `c2f_only_full`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| baseline_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| c2f_only_sigma | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| c2f_only_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
+
+- Current default: `map_15`.
+- Active challengers: `map_20_reference`, `map_10`.
+- Reference variants: `map_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: map_size sweep on corr=8 winner
+
+- Current default: `map_20_reference`.
+- Active challengers: `map_15`.
+- Reference variants: `map_30`, `map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| map_20_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| map_15 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_30 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 05 full: simplified recipes from bare + map=50
+
+- Current default: `bare_map_50_corr_4`.
+- Active challengers: `bare_map_50_reference`, `bare_map_50_iter_8`, `bare_map_50_voxel_05`.
+- Reference variants: `arch_tuned_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_map_50_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_50_corr_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| bare_map_50_iter_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_50_voxel_05 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| arch_tuned_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner
+
+- Current default: `corr_4_reference`.
+- Active challengers: `corr_8`, `corr_16`, `corr_default`.
+- Reference variants: `corr_2`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| corr_4_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_2 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_16 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner
+
+- Current default: `arch_tuned_map_30`.
+- Active challengers: `arch_tuned_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| arch_tuned_map_30 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| arch_tuned_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 05 full: map_size on BARE baseline
+
+- Current default: `bare_map_50`.
+- Active challengers: `bare_map_20`, `bare_map_30`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| bare_map_20 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_30 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| bare_map_50 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP seq 07 full: ms_chol + simplified pattern combo
+
+- Current default: `ms_chol_reference`.
+- Active challengers: `ms_chol_plus_simplified_a`.
+- Reference variants: `ms_chol_plus_c2f`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| ms_chol_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| ms_chol_plus_c2f | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| ms_chol_plus_simplified_a | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner
+
+- Current default: `default_reference`.
+- Reference variants: `corr_8`, `corr_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
+
+- Current default: `fast_window`.
+- Active challengers: `dense_window`.
+- Reference variants: `balanced_window`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 07 full: map=50 retrofit on ms_chol winner
+
+- Current default: `ms_chol_map_20`.
+- Reference variants: `ms_chol_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| ms_chol_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| ms_chol_map_50 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
+
+- Current default: `fast_window`.
+- Active challengers: `dense_window`.
+- Reference variants: `balanced_window`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_07_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| balanced_window | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast_window | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_window | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 08 full: c2f without ms_chol — knob reduction probe
+
+- Current default: `c2f_only_reference`.
+- Active challengers: `bare_c2f`, `ms_chol_c2f_no_cholesky`, `cholesky_c2f_no_ms`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| c2f_only_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| bare_c2f | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| ms_chol_c2f_no_cholesky | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cholesky_c2f_no_ms | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner
+
+- Current default: `default_reference`.
+- Active challengers: `corr_8`.
+- Reference variants: `corr_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| corr_8 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames)
+
+- Current default: `cauchy_3_0`.
+- Active challengers: `cauchy_2_5`, `cauchy_4_0`.
+- Reference variants: `cauchy_2_0_reference`, `cauchy_1_5`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| cauchy_2_0_reference | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cauchy_1_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| cauchy_2_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| cauchy_3_0 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| cauchy_4_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner
+
+- Current default: `iter_6`.
+- Active challengers: `iter_3_reference`, `iter_1`, `iter_2`.
+- Reference variants: `iter_4`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| iter_3_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_1 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_2 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| iter_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| iter_6 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP seq 08 full: map=50 retrofit on c2f_only winner
+
+- Current default: `c2f_only_map_20`.
+- Active challengers: `c2f_only_map_50`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| c2f_only_map_20 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| c2f_only_map_50 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base
+
+- Current default: `default_reference`.
+- Reference variants: `plus_corr_4`, `plus_corr_8`.
+- Aggregate result: `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| plus_corr_4 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| plus_corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 02 full: simplified map=50+c2f probe
+
+- Current default: `current_winner`.
+- Reference variants: `simplified_seq_00_pattern`, `simplified_plus_corr_8`.
+- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| current_winner | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| simplified_seq_00_pattern | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| simplified_plus_corr_8 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base
+
+- Current default: `map_50_c2f_plus_corr_4`.
+- Active challengers: `current_winner`.
+- Reference variants: `map_50_c2f`.
+- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| current_winner | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| map_50_c2f | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| map_50_c2f_plus_corr_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## CT-ICP seq 07 full: simplified map=50+c2f probe
+
+- Current default: `current_winner`.
+- Reference variants: `simplified_seq_00_pattern`.
+- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| current_winner | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| simplified_seq_00_pattern | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## CT-ICP seq 08 full: simplified map=50+c2f probe
+
+- Current default: `simplified_seq_00_pattern`.
+- Active challengers: `current_winner`.
+- Aggregate result: `experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| current_winner | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| simplified_seq_00_pattern | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## Point-LIO on the public HDL-400 reference window
 
 - Current default: `fast`.
@@ -3981,6 +4019,19 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 - Blocker: Timed out after 120 seconds.
 - Next step: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 - Aggregate result: `experiments/results/r2live_kitti_raw_0061_matrix.json`
+
+## RKO-LIO gyro-bias feedback gain on the NCLT 2013-01-10 window
+
+- Current default: `no_bias_feedback`.
+- Reference variants: `bias_gain_010`, `bias_gain_030_default`, `bias_gain_060`.
+- Aggregate result: `experiments/results/rko_lio_nclt_2013_01_10_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| no_bias_feedback | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| bias_gain_010 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| bias_gain_030_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| bias_gain_060 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -4168,6 +4219,19 @@ _Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory
+
+- Current default: `gate_0_5`.
+- Reference variants: `default_gate_2_0`, `gate_1_5`, `gate_1_0`.
+- Aggregate result: `experiments/results/small_gicp_nclt_2013_01_10_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_gate_2_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| gate_1_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| gate_1_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| gate_0_5 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## SuMa on the public HDL-400 reference window
 

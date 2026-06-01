@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-06-02T03:34:33+00:00",
+  "manifest_path": "experiments/genz_icp_nclt_2013_01_10_matrix.json",
+  "problem": {
+    "id": "genz_icp_profile_nclt_2013_01_10",
+    "title": "GenZ-ICP profile trade-off on the NCLT 2013-01-10 window",
+    "question": "Which GenZ-ICP profile should be the default on NCLT, and does the adaptive hybrid help over the KISS-style baseline?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+      "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "genz_icp",
+    "primary_method": "GenZ-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+    "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default profile",
+      "design_style": "balanced",
+      "intent": "Default GenZ-ICP adaptive point-to-plane / point-to-point hybrid.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods genz_icp --summary-json experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/default/run.log",
+      "status": "ok",
+      "ate_m": 3.512657,
+      "rpe_trans_pct": 95.82225,
+      "rpe_rot_deg_per_m": 2.192503,
+      "fps": 7.568846,
+      "time_ms": 15854.463488,
+      "frames": 120,
+      "note": "Adaptive point-to-plane / point-to-point hybrid odometry (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 84.52,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "fast_profile",
+      "label": "Fast profile",
+      "design_style": "throughput-oriented",
+      "intent": "Larger voxels / fewer points / fewer iterations for speed.",
+      "args": [
+        "--genz-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods genz_icp --summary-json experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/fast_profile/summary.json --genz-fast-profile",
+      "summary_path": "experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/fast_profile/summary.json",
+      "log_path": "experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/fast_profile/run.log",
+      "status": "ok",
+      "ate_m": 10.075964,
+      "rpe_trans_pct": 261.527772,
+      "rpe_rot_deg_per_m": 2.903153,
+      "fps": 10.963427,
+      "time_ms": 10945.482315,
+      "frames": 120,
+      "note": "Adaptive point-to-plane / point-to-point hybrid odometry (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 67.43,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "dense_profile",
+      "label": "Dense profile",
+      "design_style": "accuracy-oriented",
+      "intent": "Smaller voxels / more points / more iterations for accuracy.",
+      "args": [
+        "--genz-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods genz_icp --summary-json experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/dense_profile/summary.json --genz-dense-profile",
+      "summary_path": "experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/genz_icp_nclt_2013_01_10_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 5.092956,
+      "rpe_trans_pct": 125.658498,
+      "rpe_rot_deg_per_m": 8.627724,
+      "fps": 7.875007,
+      "time_ms": 15238.081293,
+      "frames": 120,
+      "note": "Adaptive point-to-plane / point-to-point hybrid odometry (no GT seed; anchor matches first GT pose).",
+      "benchmark_score": 70.4,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

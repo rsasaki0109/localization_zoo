@@ -92,14 +92,16 @@ bash evaluation/scripts/smoke_multimodal_fixture.sh
 python3 evaluation/scripts/verify_environment.py
 ```
 
-The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB). `smoke_ci_fixture.sh` checks the LiDAR-only core, `smoke_multimodal_fixture.sh` checks the camera-aware `multimodal_dogfooding` path, and both scripts run in **GitHub Actions**. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
+To run **ctest**, **synthetic_benchmark**, and the same **smoke fixture** in one go: `bash evaluation/scripts/run_local_evaluation_suite.sh` (see [`evaluation/README.md`](evaluation/README.md)).
+
+The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB). `smoke_ci_fixture.sh` checks the LiDAR-only core, `smoke_multimodal_fixture.sh` checks the camera-aware `multimodal_dogfooding` path, and both scripts run in **GitHub Actions** after `ctest`. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
 
 ```bash
 python3 evaluation/scripts/run_experiment_matrix.py
 ```
 
 Use `--reuse-existing` to regenerate docs and aggregates from stored summaries without rerunning every benchmark.
-Use `--manifest experiments/<name>_matrix.json` only for local iteration; a manifest-only run rewrites `experiments/results/index.json` to that subset, so **commit paths should finish with** `python3 evaluation/scripts/refresh_study_docs.py` (or a full `run_experiment_matrix.py` without `--manifest`).
+Use `--manifest experiments/<name>_matrix.json --merge-existing-index` when adding or refreshing a single manifest; without `--merge-existing-index`, a manifest-only run rewrites `experiments/results/index.json` to that subset.
 Use `python3 evaluation/scripts/refresh_study_docs.py` to refresh both experiment docs and publication docs together.
 Publication docs alone can be regenerated with `python3 evaluation/scripts/generate_publication_docs.py`.
 Paper-ready tables and Pareto figures can be regenerated with `python3 evaluation/scripts/export_paper_assets.py`.

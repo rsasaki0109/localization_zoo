@@ -7345,11 +7345,12 @@ int main(int argc, char** argv) {
             << std::setw(24) << "Method"
             << std::setw(12) << "Status"
             << std::setw(12) << "ATE [m]"
+            << std::setw(15) << "Drift[m/100m]"
             << std::setw(12) << "Frames"
             << std::setw(15) << "Time [ms]"
             << std::setw(12) << "FPS"
             << std::endl;
-  std::cout << std::string(87, '-') << std::endl;
+  std::cout << std::string(102, '-') << std::endl;
 
   fs::create_directories("dogfooding_results");
   savePosesKITTI(gt, "dogfooding_results/gt.txt");
@@ -7359,6 +7360,7 @@ int main(int argc, char** argv) {
       std::cout << std::setw(24) << r.name
                 << std::setw(12) << r.status
                 << std::setw(12) << "-"
+                << std::setw(15) << "-"
                 << std::setw(12) << "-"
                 << std::setw(15) << "-"
                 << std::setw(12) << "-"
@@ -7379,9 +7381,16 @@ int main(int argc, char** argv) {
       r.status = "invalid_metric";
     }
     double fps = r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
+    std::ostringstream drift_ss;
+    if (r.has_rpe && std::isfinite(r.rpe_trans_pct)) {
+      drift_ss << std::fixed << std::setprecision(3) << r.rpe_trans_pct;
+    } else {
+      drift_ss << "-";
+    }
     std::cout << std::setw(24) << r.name
               << std::setw(12) << r.status
               << std::setw(12) << std::setprecision(3) << r.ate
+              << std::setw(15) << drift_ss.str()
               << std::setw(12) << r.poses.size()
               << std::setw(15) << std::setprecision(1) << r.time_ms
               << std::setw(12) << std::setprecision(1) << fps

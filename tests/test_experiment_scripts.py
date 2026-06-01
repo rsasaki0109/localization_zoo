@@ -647,6 +647,7 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
                 ["python3", "evaluation/scripts/generate_paper_comparison.py"],
                 ["python3", "evaluation/scripts/generate_reproduction_status.py"],
                 ["python3", "evaluation/scripts/generate_variant_analysis.py"],
+                ["python3", "evaluation/scripts/generate_leaderboard.py"],
             ],
         )
 

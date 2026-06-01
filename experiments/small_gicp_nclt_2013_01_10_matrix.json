@@ -1,0 +1,67 @@
+{
+    "schema_version": 1,
+    "problem": {
+        "id": "small_gicp_seed_gate_nclt_2013_01_10",
+        "title": "small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory",
+        "question": "small_gicp is only NCLT #4 at full scale and resists the levers that fix LiTAMIN2: finer voxel and tighter correspondence distance both wash out by full-5105 (cd=1.5 gives -23% at 2000 frames but 1.086 -> 1.089 at full, voxel0.5 also flat). The real lever is the seed gate. small_gicp's weak-update gate defaults to 2.0 m / 0.25 rad (looser than NDT's 1.5 m / 0.2 rad); on rollback the pose reverts to the GT seed. Tightening the gate (new --small-gicp-max-seed-translation-delta / --small-gicp-max-seed-rotation-delta-rad flags) monotonically cuts ATE: 1.086 -> 0.348 (-68%) at 0.5 m / 0.1 rad. HONEST CAVEAT: a tighter gate also raises the GT-fallback rate (2.5% -> 20.2% of frames revert to the exact GT seed at 0.5 m), so part of the gain is more aggressive GT substitution on the worst registrations, not purely better refinement. 1.0 m / 0.15 rad (-38%, 9.3% fallback) is the balanced choice; 0.5 m / 0.1 rad is the aggressive option (beats LiTAMIN2 T1's 0.582, but with 20% GT fallback).",
+        "dataset": {
+            "pcd_dir": "dogfooding_results/nclt_2013_01_10_full",
+            "gt_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv"
+        },
+        "same_metrics": [
+            "ate_m",
+            "rpe_trans_pct",
+            "fps"
+        ]
+    },
+    "stable_interface": {
+        "binary": "build/evaluation/pcd_dogfooding",
+        "methods": "small_gicp",
+        "primary_method": "Small-GICP"
+    },
+    "variants": [
+        {
+            "id": "default_gate_2_0",
+            "label": "Default gate 2.0 m / 0.25 rad",
+            "design_style": "balanced",
+            "intent": "Repository default small_gicp seed gate. Looser than NDT's 1.5 m / 0.2 rad; 2.5% of frames roll back to the GT seed.",
+            "args": []
+        },
+        {
+            "id": "gate_1_5",
+            "label": "Gate 1.5 m / 0.2 rad (NDT-equal)",
+            "design_style": "accuracy-oriented",
+            "intent": "Match NDT's seed gate exactly for a fair cross-method comparison. ATE 1.086 -> 0.882 (-19%), 4.2% GT fallback. Still far behind NDT (0.122) at the identical gate, so NDT's edge is genuine refinement quality, not just a tighter gate.",
+            "args": [
+                "--small-gicp-max-seed-translation-delta",
+                "1.5",
+                "--small-gicp-max-seed-rotation-delta-rad",
+                "0.2"
+            ]
+        },
+        {
+            "id": "gate_1_0",
+            "label": "Gate 1.0 m / 0.15 rad (balanced)",
+            "design_style": "accuracy-oriented",
+            "intent": "Balanced tightening: ATE 1.086 -> 0.675 (-38%), drift -11%, with a modest 9.3% GT-fallback rate. Recommended default improvement for small_gicp on NCLT.",
+            "args": [
+                "--small-gicp-max-seed-translation-delta",
+                "1.0",
+                "--small-gicp-max-seed-rotation-delta-rad",
+                "0.15"
+            ]
+        },
+        {
+            "id": "gate_0_5",
+            "label": "Gate 0.5 m / 0.1 rad (aggressive)",
+            "design_style": "accuracy-oriented",
+            "intent": "Aggressive tightening: ATE 1.086 -> 0.348 (-68%), drift -43%, overtaking LiTAMIN2 T1 (0.582) for NCLT #2. CAVEAT: 20.2% of frames revert to the exact GT seed, so a fifth of the trajectory is GT substitution rather than registration; the gain is partly an artifact of the weak-update mechanism, not pure refinement.",
+            "args": [
+                "--small-gicp-max-seed-translation-delta",
+                "0.5",
+                "--small-gicp-max-seed-rotation-delta-rad",
+                "0.1"
+            ]
+        }
+    ]
+}

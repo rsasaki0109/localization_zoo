@@ -2,13 +2,15 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
 
 #include "gicp/gicp_registration.h"
 #include "kiss_icp/kiss_icp.h"
+#include "genz_icp/genz_icp.h"
+#include "rko_lio/rko_lio.h"
 #include "litamin2/litamin2_registration.h"
 #include "ndt/ndt_registration.h"
 #include "scan_context/scan_context.h"
@@ -163,7 +165,8 @@ std::vector<std::string> splitMethodList(const std::string& csv) {
 
 bool isSupportedMethod(const std::string& method) {
   return method == "litamin2" || method == "gicp" || method == "ndt" ||
-         method == "fixed_map_ndt" || method == "kiss_icp" || method == "small_gicp" ||
+         method == "fixed_map_ndt" || method == "kiss_icp" || method == "genz_icp" ||
+         method == "small_gicp" ||
          method == "voxel_gicp" || method == "aloam" || method == "floam" ||
          method == "dlo" || method == "dlio" || method == "lego_loam" ||
          method == "mulls" || method == "ct_lio" || method == "ct_icp" ||
@@ -173,6 +176,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "suma" || method == "balm2" || method == "isc_loam" ||
          method == "loam_livox" || method == "lio_sam" || method == "lins" ||
          method == "fast_lio_slam" || method == "point_lio" ||
+         method == "rko_lio" ||
          method == "clins";
 }
 
@@ -1062,6 +1066,31 @@ struct KISSICPDogfoodingOptions {
   int max_icp_iterations = 30;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
+};
+
+struct GenZICPDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  double initial_threshold = 1.5;
+  int max_points_per_voxel = 12;
+  int max_icp_iterations = 30;
+  double planarity_threshold = 0.55;
+  int normal_min_neighbors = 5;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct RKOLIODogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  double initial_threshold = 1.5;
+  int max_points_per_voxel = 12;
+  int max_icp_iterations = 30;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+  double gyro_bias_gain = 0.3;
 };
 
 struct CTICPDogfoodingOptions {
@@ -2202,6 +2231,8 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
   Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
 
+  size_t seed_fallbacks = 0;
+  size_t seeded_frames = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -2222,6 +2253,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
             : applySeedPerturbation(gt[i], options.seed_perturbation);
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
     const auto result = reg.align(pts_local, T_init_guess);
+    ++seeded_frames;
     if ((result.converged || result.num_correspondences >= 96) &&
         isReasonableRefinement(result.transformation, T_init_guess,
                                options.max_seed_translation_delta,
@@ -2229,6 +2261,7 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
       T_est = result.transformation;
     } else {
       T_est = T_init_guess;
+      ++seed_fallbacks;
     }
     T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
@@ -2245,6 +2278,13 @@ MethodResult runSmallGICP(const std::vector<std::string>& pcd_dirs,
     }
   }
   std::cerr << std::endl;
+  if (!no_gt_seed && seeded_frames > 0) {
+    std::cerr << "  [Small-GICP] seed fallbacks=" << seed_fallbacks << "/"
+              << seeded_frames << " ("
+              << (100.0 * static_cast<double>(seed_fallbacks) /
+                  static_cast<double>(seeded_frames))
+              << "% rolled back to GT seed)" << std::endl;
+  }
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = no_gt_seed
@@ -3109,6 +3149,106 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  return res;
+}
+
+MethodResult runGenZICP(const std::vector<std::string>& pcd_dirs,
+                        const std::vector<Eigen::Matrix4d>& gt,
+                        const GenZICPDogfoodingOptions& options) {
+  using namespace localization_zoo::genz_icp;
+  MethodResult res;
+  res.name = "GenZ-ICP";
+
+  GenZICPParams params;
+  params.voxel_size = options.voxel_size;
+  params.initial_threshold = options.initial_threshold;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.planarity_threshold = options.planarity_threshold;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  GenZICPPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    const auto result = pipeline.registerFrame(pts_local);
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [GenZ-ICP] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Adaptive point-to-plane / point-to-point hybrid odometry (no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
+MethodResult runRKOLIO(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const std::vector<double>& frame_timestamps,
+                       const std::vector<ImuSampleCsv>& imu_samples,
+                       const RKOLIODogfoodingOptions& options) {
+  using namespace localization_zoo::rko_lio;
+  MethodResult res;
+  res.name = "RKO-LIO";
+
+  RKOLIOParams params;
+  params.voxel_size = options.voxel_size;
+  params.initial_threshold = options.initial_threshold;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  params.gyro_bias_gain = options.gyro_bias_gain;
+  RKOLIOPipeline pipeline(params);
+  pipeline.setInitialPose(gt.empty() ? Eigen::Matrix4d::Identity() : gt.front());
+
+  int imu_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() &&
+        frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.registerFrame(pts_local, imu_batch);
+    if (result.used_imu) ++imu_frames;
+    res.poses.push_back(result.pose);
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [RKO-LIO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      imu_frames > 0
+          ? "Scan-to-map odometry with IMU rotation prior (GT-seeded init; "
+            "IMU gyro preintegration used as ICP rotation guess)."
+          : "Scan-to-map odometry, constant-velocity fallback (no imu.csv; "
+            "GT-seeded init).";
   return res;
 }
 
@@ -4567,7 +4707,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -4612,6 +4752,8 @@ int main(int argc, char** argv) {
               << " [--small-gicp-max-correspondence-distance X]"
               << " [--small-gicp-max-correspondences N]"
               << " [--small-gicp-max-iterations N]"
+              << " [--small-gicp-max-seed-translation-delta M]"
+              << " [--small-gicp-max-seed-rotation-delta-rad R]"
               << " [--ndt-fast-profile]"
               << " [--ndt-dense-profile]"
               << " [--ndt-resolution X]"
@@ -4716,6 +4858,8 @@ int main(int argc, char** argv) {
   NDTDogfoodingOptions ndt_options;
   FixedMapNDTOptions fixed_map_ndt_options;
   KISSICPDogfoodingOptions kiss_icp_options;
+  GenZICPDogfoodingOptions genz_icp_options;
+  RKOLIODogfoodingOptions rko_lio_options;
   CTICPDogfoodingOptions ct_icp_options;
   CTICPNDTHybridOptions ct_icp_ndt_options;
   DLODofeedingOptions dlo_options;
@@ -5470,6 +5614,36 @@ int main(int argc, char** argv) {
           1, std::stoi(arg.substr(std::string("--small-gicp-max-iterations=").size())));
       continue;
     }
+    if (arg == "--small-gicp-max-seed-translation-delta") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--small-gicp-max-seed-translation-delta requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      small_gicp_options.max_seed_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--small-gicp-max-seed-translation-delta=", 0) == 0) {
+      small_gicp_options.max_seed_translation_delta = std::stod(arg.substr(
+          std::string("--small-gicp-max-seed-translation-delta=").size()));
+      continue;
+    }
+    if (arg == "--small-gicp-max-seed-rotation-delta-rad") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--small-gicp-max-seed-rotation-delta-rad requires a numeric value"
+            << std::endl;
+        return 1;
+      }
+      small_gicp_options.max_seed_rotation_delta_rad = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--small-gicp-max-seed-rotation-delta-rad=", 0) == 0) {
+      small_gicp_options.max_seed_rotation_delta_rad = std::stod(arg.substr(
+          std::string("--small-gicp-max-seed-rotation-delta-rad=").size()));
+      continue;
+    }
     if (arg == "--small-gicp-map-max-points") {
       if (i + 1 >= argc) {
         std::cerr << "--small-gicp-map-max-points requires an integer value"
@@ -5940,6 +6114,58 @@ int main(int argc, char** argv) {
       kiss_icp_options.max_icp_iterations = 40;
       kiss_icp_options.local_map_radius = 80.0;
       kiss_icp_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--genz-fast-profile") {
+      genz_icp_options.source_voxel_size = 0.75;
+      genz_icp_options.max_source_points = 2500;
+      genz_icp_options.voxel_size = 1.25;
+      genz_icp_options.initial_threshold = 1.75;
+      genz_icp_options.max_points_per_voxel = 10;
+      genz_icp_options.max_icp_iterations = 20;
+      genz_icp_options.planarity_threshold = 0.55;
+      genz_icp_options.local_map_radius = 45.0;
+      genz_icp_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--genz-dense-profile") {
+      genz_icp_options.source_voxel_size = 0.35;
+      genz_icp_options.max_source_points = 6000;
+      genz_icp_options.voxel_size = 0.8;
+      genz_icp_options.initial_threshold = 1.25;
+      genz_icp_options.max_points_per_voxel = 16;
+      genz_icp_options.max_icp_iterations = 40;
+      genz_icp_options.planarity_threshold = 0.5;
+      genz_icp_options.local_map_radius = 80.0;
+      genz_icp_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--genz-planarity-threshold") {
+      if (i + 1 >= argc) {
+        std::cerr << "--genz-planarity-threshold requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      genz_icp_options.planarity_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--genz-planarity-threshold=", 0) == 0) {
+      genz_icp_options.planarity_threshold =
+          std::stod(arg.substr(std::string("--genz-planarity-threshold=").size()));
+      continue;
+    }
+    if (arg == "--rko-lio-gyro-bias-gain") {
+      if (i + 1 >= argc) {
+        std::cerr << "--rko-lio-gyro-bias-gain requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      rko_lio_options.gyro_bias_gain = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--rko-lio-gyro-bias-gain=", 0) == 0) {
+      rko_lio_options.gyro_bias_gain =
+          std::stod(arg.substr(std::string("--rko-lio-gyro-bias-gain=").size()));
       continue;
     }
     if (arg == "--kiss-source-voxel-size") {
@@ -7040,6 +7266,29 @@ int main(int argc, char** argv) {
     results.push_back(runKISSICP(pcd_dirs, gt, kiss_icp_options));
   }
 
+  if (isMethodEnabled(selected_methods, "genz_icp")) {
+    std::cout << "Running GenZ-ICP..." << std::endl;
+    std::cout << "  source_voxel_size=" << genz_icp_options.source_voxel_size
+              << " max_source_points=" << genz_icp_options.max_source_points
+              << " voxel_size=" << genz_icp_options.voxel_size
+              << " planarity_threshold=" << genz_icp_options.planarity_threshold
+              << " max_iterations=" << genz_icp_options.max_icp_iterations
+              << std::endl;
+    results.push_back(runGenZICP(pcd_dirs, gt, genz_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "rko_lio")) {
+    std::cout << "Running RKO-LIO..." << std::endl;
+    std::cout << "  source_voxel_size=" << rko_lio_options.source_voxel_size
+              << " max_source_points=" << rko_lio_options.max_source_points
+              << " voxel_size=" << rko_lio_options.voxel_size
+              << " max_iterations=" << rko_lio_options.max_icp_iterations
+              << " imu=" << (imu_samples.empty() ? "absent" : "present")
+              << std::endl;
+    results.push_back(runRKOLIO(pcd_dirs, gt, frame_timestamps, imu_samples,
+                                rko_lio_options));
+  }
+
   if (isMethodEnabled(selected_methods, "dlo")) {
     std::cout << "Running DLO..." << std::endl;
     std::cout << "  input_voxel_size=" << dlo_options.input_voxel_size
@@ -7237,11 +7486,12 @@ int main(int argc, char** argv) {
             << std::setw(24) << "Method"
             << std::setw(12) << "Status"
             << std::setw(12) << "ATE [m]"
+            << std::setw(15) << "Drift[m/100m]"
             << std::setw(12) << "Frames"
             << std::setw(15) << "Time [ms]"
             << std::setw(12) << "FPS"
             << std::endl;
-  std::cout << std::string(87, '-') << std::endl;
+  std::cout << std::string(102, '-') << std::endl;
 
   fs::create_directories("dogfooding_results");
   savePosesKITTI(gt, "dogfooding_results/gt.txt");
@@ -7251,6 +7501,7 @@ int main(int argc, char** argv) {
       std::cout << std::setw(24) << r.name
                 << std::setw(12) << r.status
                 << std::setw(12) << "-"
+                << std::setw(15) << "-"
                 << std::setw(12) << "-"
                 << std::setw(15) << "-"
                 << std::setw(12) << "-"
@@ -7271,9 +7522,16 @@ int main(int argc, char** argv) {
       r.status = "invalid_metric";
     }
     double fps = r.time_ms > 0.0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
+    std::ostringstream drift_ss;
+    if (r.has_rpe && std::isfinite(r.rpe_trans_pct)) {
+      drift_ss << std::fixed << std::setprecision(3) << r.rpe_trans_pct;
+    } else {
+      drift_ss << "-";
+    }
     std::cout << std::setw(24) << r.name
               << std::setw(12) << r.status
               << std::setw(12) << std::setprecision(3) << r.ate
+              << std::setw(15) << drift_ss.str()
               << std::setw(12) << r.poses.size()
               << std::setw(15) << std::setprecision(1) << r.time_ms
               << std::setw(12) << std::setprecision(1) << fps

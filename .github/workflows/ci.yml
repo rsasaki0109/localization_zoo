@@ -25,6 +25,9 @@ jobs:
             libunwind-dev \
             libgtest-dev
 
+      - name: Install Python dependencies
+        run: python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt
+
       - name: Configure
         run: |
           mkdir build && cd build

@@ -1,4 +1,4 @@
-<p align="center">
+<div align="center">
   <h1 align="center">Localization Zoo</h1>
   <p align="center">
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
@@ -10,7 +10,15 @@
     <img src="https://img.shields.io/badge/Tests-CTest-brightgreen" alt="CTest">
     <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License">
   </p>
-</p>
+  <p align="center">
+    <a href="https://rsasaki0109.github.io/localization_zoo/"><b>Open the interactive benchmark and method explorer</b></a>
+  </p>
+  <p align="center">
+    <a href="https://rsasaki0109.github.io/localization_zoo/">
+      <img src="docs/assets/explorer_preview.png" alt="Localization Zoo interactive benchmark and method explorer" width="900">
+    </a>
+  </p>
+</div>
 
 ---
 
@@ -59,6 +67,23 @@ For heavy KITTI Raw full-sequence HDL Graph SLAM runs, the repository now keeps 
 `CT-LIO` and `CLINS` now both have public ROS1 HDL-400 synthetic-time comparisons, while GT-backed public `CT-LIO` remains blocked pending an independently curated trajectory CSV for that LiDAR+IMU stack. Those public ROS1 synthetic-time runs are useful comparative evidence, but they should be treated as a separate public-only benchmark, **not** as an exact native per-point-time reproduction of the reference/native-time HDL-400 setup.
 
 ### Quick sanity checks (after clone)
+
+For the fastest local tour, run the one-command demo. It builds the C++ targets,
+runs the synthetic benchmark, then compares a small committed MCD fixture with a
+broad, jointly validated method set.
+
+```bash
+bash evaluation/scripts/demo_localization_zoo.sh
+```
+
+The demo writes `report.html`, `manifest.json`, logs, and JSON summaries under
+`experiments/results/runs/demo_localization_zoo/`. If you already have a build,
+use `bash evaluation/scripts/demo_localization_zoo.sh --skip-build`. The default
+`broad` profile validates 24 LiDAR methods plus 6 multimodal methods in one run;
+use `--profile quick` for the old focused loop or `--profile full` to include
+the LiDAR FAST-LIO2 fixture check too.
+
+For CI-equivalent smoke coverage:
 
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j"$(nproc)"
@@ -278,13 +303,22 @@ LiTAMIN2       31.155      2.6
 # Dependencies (Ubuntu 22.04)
 sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev
 
-# Build and test
-mkdir build && cd build
-cmake .. && make -j$(nproc)
-ctest
+# One-command demo: build + synthetic benchmark + broad real-data fixture suite
+bash evaluation/scripts/demo_localization_zoo.sh
+
+# Open the generated report
+xdg-open experiments/results/runs/demo_localization_zoo/report.html
+```
+
+Manual build and test path:
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j"$(nproc)"
+ctest --test-dir build --output-on-failure
 
 # Benchmark (no external data required)
-./evaluation/synthetic_benchmark
+./build/evaluation/synthetic_benchmark
 ```
 
 ### ROS 2

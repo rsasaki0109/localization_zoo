@@ -1,0 +1,663 @@
+{
+  "schema_version": 1,
+  "methods": [
+    {
+      "name": "LiTAMIN2",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/litamin2",
+      "summary": "KL-divergence ICP with aggressive point reduction for fast scan-to-map registration.",
+      "tags": [
+        "fast",
+        "scan-to-map",
+        "benchmark"
+      ]
+    },
+    {
+      "name": "GICP",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/gicp",
+      "summary": "Plane-to-plane ICP with local covariance modeling and Mahalanobis distance.",
+      "tags": [
+        "classic",
+        "scan-to-map",
+        "covariance"
+      ]
+    },
+    {
+      "name": "Voxel-GICP",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/voxel_gicp",
+      "summary": "Voxel-level GICP acceleration for compact covariance-aware registration.",
+      "tags": [
+        "voxel",
+        "gicp",
+        "map"
+      ]
+    },
+    {
+      "name": "VGICP-SLAM",
+      "family": "Registration",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/vgicp_slam",
+      "summary": "Voxel-GICP front-end with Scan Context loop candidates and a lightweight pose graph.",
+      "tags": [
+        "voxel",
+        "graph",
+        "loop"
+      ]
+    },
+    {
+      "name": "small_gicp",
+      "family": "Registration",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/small_gicp",
+      "summary": "Compact GICP with voxel downsampling and capped correspondences.",
+      "tags": [
+        "small",
+        "fast",
+        "baseline"
+      ]
+    },
+    {
+      "name": "NDT",
+      "family": "Registration",
+      "scope": "Compact baseline",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/ndt",
+      "summary": "Normal Distributions Transform style registration with voxel Gaussian models.",
+      "tags": [
+        "ndt",
+        "scan-to-map",
+        "accuracy"
+      ]
+    },
+    {
+      "name": "KISS-ICP",
+      "family": "Registration",
+      "scope": "Compact baseline",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/kiss_icp",
+      "summary": "KISS-ICP style odometry with voxel hashing and robust ICP updates.",
+      "tags": [
+        "odometry",
+        "robust",
+        "simple"
+      ]
+    },
+    {
+      "name": "A-LOAM",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/aloam",
+      "summary": "Curvature features with a three-stage odom-to-map LOAM pipeline.",
+      "tags": [
+        "loam",
+        "features",
+        "mapping"
+      ]
+    },
+    {
+      "name": "F-LOAM",
+      "family": "Registration",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/floam",
+      "summary": "Lightweight LOAM pipeline with input thinning and sparse map updates.",
+      "tags": [
+        "loam",
+        "lightweight",
+        "features"
+      ]
+    },
+    {
+      "name": "ISC-LOAM",
+      "family": "Registration",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/isc_loam",
+      "summary": "Intensity descriptor LOAM with F-LOAM and GICP loop graph components.",
+      "tags": [
+        "intensity",
+        "loop",
+        "loam"
+      ]
+    },
+    {
+      "name": "LOAM Livox",
+      "family": "Registration",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/loam_livox",
+      "summary": "LOAM adaptation for solid-state LiDAR using azimuth-sector pseudo scan lines.",
+      "tags": [
+        "livox",
+        "solid-state",
+        "loam"
+      ]
+    },
+    {
+      "name": "LeGO-LOAM",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/lego_loam",
+      "summary": "Ground-aware feature extraction for vehicle-oriented LOAM.",
+      "tags": [
+        "ground",
+        "vehicle",
+        "loam"
+      ]
+    },
+    {
+      "name": "MULLS",
+      "family": "Registration",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/mulls",
+      "summary": "Multi-metric scan-to-map alignment with edge, plane, and point residuals.",
+      "tags": [
+        "multi-metric",
+        "features",
+        "scan-to-map"
+      ]
+    },
+    {
+      "name": "BALM2",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/balm2",
+      "summary": "Local bundle adjustment over recent keyframes with line and plane residuals.",
+      "tags": [
+        "bundle",
+        "keyframes",
+        "mapping"
+      ]
+    },
+    {
+      "name": "SuMa",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/suma",
+      "summary": "Dense surfel odometry from range-image maps.",
+      "tags": [
+        "surfel",
+        "dense",
+        "range-image"
+      ]
+    },
+    {
+      "name": "DLO",
+      "family": "Registration",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/dlo",
+      "summary": "Direct keyframe odometry that aligns dense scans to a local GICP map.",
+      "tags": [
+        "direct",
+        "keyframe",
+        "gicp"
+      ]
+    },
+    {
+      "name": "HDL Graph SLAM",
+      "family": "Registration",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/hdl_graph_slam",
+      "summary": "NDT front-end with floor priors, Scan Context, and GICP loop closures.",
+      "tags": [
+        "graph",
+        "loop",
+        "floor"
+      ]
+    },
+    {
+      "name": "CT-ICP",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/ct_icp",
+      "summary": "Continuous-time registration with two poses per frame and SLERP compensation.",
+      "tags": [
+        "continuous-time",
+        "deskew",
+        "odometry"
+      ]
+    },
+    {
+      "name": "X-ICP",
+      "family": "Degeneracy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "Degeneracy"
+      ],
+      "href": "papers/xicp",
+      "summary": "Constrained ICP using Hessian SVD to classify observable directions.",
+      "tags": [
+        "observability",
+        "hessian",
+        "constraints"
+      ]
+    },
+    {
+      "name": "RELEAD",
+      "family": "Degeneracy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU",
+        "Degeneracy"
+      ],
+      "href": "papers/relead",
+      "summary": "Constrained ESIKF with projection-based suppression along degenerate directions.",
+      "tags": [
+        "esikf",
+        "degeneracy",
+        "constraints"
+      ]
+    },
+    {
+      "name": "CT-ICP + RELEAD",
+      "family": "Degeneracy",
+      "scope": "Hybrid",
+      "signals": [
+        "LiDAR",
+        "Degeneracy"
+      ],
+      "href": "papers/ct_icp_relead",
+      "summary": "Continuous-time CT-ICP interpolation combined with RELEAD degeneracy handling.",
+      "tags": [
+        "hybrid",
+        "continuous-time",
+        "degeneracy"
+      ]
+    },
+    {
+      "name": "IMU Preintegration",
+      "family": "Foundation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/imu_preintegration",
+      "summary": "SO(3) preintegration with first-order bias correction for inertial pipelines.",
+      "tags": [
+        "imu",
+        "preintegration",
+        "foundation"
+      ]
+    },
+    {
+      "name": "CT-LIO",
+      "family": "LIO",
+      "scope": "Hybrid",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/ct_lio",
+      "summary": "Lightweight LIO combining CT-ICP interpolation with IMU preintegration constraints.",
+      "tags": [
+        "continuous-time",
+        "imu",
+        "fusion"
+      ]
+    },
+    {
+      "name": "DLIO",
+      "family": "LIO",
+      "scope": "Compact baseline",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/dlio",
+      "summary": "DLIO-style direct LiDAR-inertial odometry built on dense registration and preintegration.",
+      "tags": [
+        "direct",
+        "imu",
+        "odometry"
+      ]
+    },
+    {
+      "name": "LINS",
+      "family": "LIO",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/lins",
+      "summary": "Iterated-filter LiDAR-inertial estimator with point-to-plane updates.",
+      "tags": [
+        "filter",
+        "imu",
+        "point-to-plane"
+      ]
+    },
+    {
+      "name": "Point-LIO",
+      "family": "LIO",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/point_lio",
+      "summary": "Direct LIO with raw-point planarity correspondences and iterated filtering.",
+      "tags": [
+        "raw-points",
+        "filter",
+        "imu"
+      ]
+    },
+    {
+      "name": "CLINS",
+      "family": "LIO",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/clins",
+      "summary": "Sequence-pipeline version of CT-LIO style continuous-time registration.",
+      "tags": [
+        "continuous-time",
+        "imu",
+        "sequence"
+      ]
+    },
+    {
+      "name": "LIO-SAM",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/lio_sam",
+      "summary": "Pose graph with A-LOAM front-end, Scan Context, GICP, and IMU priors.",
+      "tags": [
+        "graph",
+        "loop",
+        "imu"
+      ]
+    },
+    {
+      "name": "FAST-LIO2",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/fast_lio2",
+      "summary": "Direct LIO with raw-point scan-to-map alignment and IMU prediction.",
+      "tags": [
+        "fast",
+        "raw-points",
+        "imu"
+      ]
+    },
+    {
+      "name": "FAST-LIO-SLAM",
+      "family": "LIO",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/fast_lio_slam",
+      "summary": "FAST-LIO2 front-end with Scan Context and GICP loop-closure graph SLAM.",
+      "tags": [
+        "fast",
+        "graph",
+        "loop"
+      ]
+    },
+    {
+      "name": "CUBE-LIO Repro",
+      "family": "LIO",
+      "scope": "Compact baseline",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/cube_lio_repro",
+      "summary": "Cubemap intensity and gradient front-end reproduction for CUBE-LIO style experiments.",
+      "tags": [
+        "cubemap",
+        "intensity",
+        "front-end"
+      ]
+    },
+    {
+      "name": "VILENS",
+      "family": "VIO/VLIO",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR",
+        "IMU",
+        "Camera"
+      ],
+      "href": "papers/vilens",
+      "summary": "Visual-lidar-inertial smoother with Point-LIO style local maps and reprojection fusion.",
+      "tags": [
+        "vlio",
+        "smoother",
+        "reprojection"
+      ]
+    },
+    {
+      "name": "LVI-SAM",
+      "family": "VIO/VLIO",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR",
+        "IMU",
+        "Camera"
+      ],
+      "href": "papers/lvi_sam",
+      "summary": "Visual-lidar-inertial SLAM built on a LIO-SAM style pose graph.",
+      "tags": [
+        "vlio",
+        "graph",
+        "loop"
+      ]
+    },
+    {
+      "name": "VINS-Fusion",
+      "family": "VIO/VLIO",
+      "scope": "Derived variant",
+      "signals": [
+        "IMU",
+        "Camera"
+      ],
+      "href": "papers/vins_fusion",
+      "summary": "Compact visual-inertial odometry with landmark reprojection and preintegration.",
+      "tags": [
+        "vio",
+        "landmarks",
+        "imu"
+      ]
+    },
+    {
+      "name": "OKVIS",
+      "family": "VIO/VLIO",
+      "scope": "Derived variant",
+      "signals": [
+        "IMU",
+        "Camera"
+      ],
+      "href": "papers/okvis",
+      "summary": "Fixed-window visual-inertial odometry with landmark reprojection factors.",
+      "tags": [
+        "vio",
+        "window",
+        "landmarks"
+      ]
+    },
+    {
+      "name": "ORB-SLAM3",
+      "family": "VIO/VLIO",
+      "scope": "Derived variant",
+      "signals": [
+        "IMU",
+        "Camera"
+      ],
+      "href": "papers/orb_slam3",
+      "summary": "Visual-inertial SLAM with keyframe graph and overlap-based loop closure.",
+      "tags": [
+        "visual",
+        "keyframes",
+        "loop"
+      ]
+    },
+    {
+      "name": "FAST-LIVO2",
+      "family": "VIO/VLIO",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR",
+        "IMU",
+        "Camera"
+      ],
+      "href": "papers/fast_livo2",
+      "summary": "Local visual-lidar-inertial odometry built on FAST-LIO2 poses and reprojection residuals.",
+      "tags": [
+        "vlio",
+        "fast",
+        "reprojection"
+      ]
+    },
+    {
+      "name": "R2LIVE",
+      "family": "VIO/VLIO",
+      "scope": "Derived variant",
+      "signals": [
+        "LiDAR",
+        "IMU",
+        "Camera"
+      ],
+      "href": "papers/r2live",
+      "summary": "Visual-lidar-inertial SLAM combining FAST-LIO2 odometry and visual landmark factors.",
+      "tags": [
+        "vlio",
+        "landmarks",
+        "fast-lio2"
+      ]
+    },
+    {
+      "name": "Scan Context",
+      "family": "Loop Closure",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/scan_context",
+      "summary": "Polar ring-sector descriptors with yaw-shift search for place recognition.",
+      "tags": [
+        "place-recognition",
+        "loop",
+        "descriptor"
+      ]
+    }
+  ],
+  "starter_tracks": [
+    {
+      "id": "quick",
+      "label": "Quick Smoke",
+      "title": "Quick Smoke",
+      "note": "Smallest path from clone to comparable LiDAR numbers.",
+      "methods": [
+        "LiTAMIN2",
+        "GICP",
+        "NDT",
+        "KISS-ICP"
+      ]
+    },
+    {
+      "id": "accuracy",
+      "label": "Accuracy First",
+      "title": "Accuracy First",
+      "note": "Scan-to-map methods that currently anchor the Istanbul benchmark snapshot.",
+      "methods": [
+        "NDT",
+        "GICP",
+        "LiTAMIN2",
+        "Voxel-GICP"
+      ]
+    },
+    {
+      "id": "fusion",
+      "label": "Fusion",
+      "title": "LiDAR-Inertial Fusion",
+      "note": "Start here when IMU data is available and timing matters.",
+      "methods": [
+        "FAST-LIO2",
+        "Point-LIO",
+        "CT-LIO",
+        "LIO-SAM"
+      ]
+    },
+    {
+      "id": "degeneracy",
+      "label": "Degeneracy",
+      "title": "Degeneracy-Aware Stack",
+      "note": "Methods aimed at tunnels, corridors, and weak geometric constraints.",
+      "methods": [
+        "RELEAD",
+        "X-ICP",
+        "CT-ICP + RELEAD",
+        "CT-ICP"
+      ]
+    }
+  ]
+}

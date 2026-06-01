@@ -1,0 +1,102 @@
+{
+  "generated_at": "2026-05-19T03:08:36+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_map50_retrofit_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_07_map50_retrofit",
+    "title": "CT-ICP seq 07 full: map=50 retrofit on ms_chol winner",
+    "question": "seq 07 ms_chol winner uses map=20 (1.61 m). Does map=50 retrofit help?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "ms_chol_map_20",
+      "label": "ms_chol map=20 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 1.61 m.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_20/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_20/run.log",
+      "status": "ok",
+      "ate_m": 1.607129,
+      "rpe_trans_pct": 2.057021,
+      "rpe_rot_deg_per_m": 0.019671,
+      "fps": 19.697388,
+      "time_ms": 55895.736891,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "ms_chol_map_50",
+      "label": "ms_chol map=50",
+      "design_style": "bigger map",
+      "intent": "seq 00 retrofit pattern.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_50/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_50/run.log",
+      "status": "ok",
+      "ate_m": 1.87793,
+      "rpe_trans_pct": 1.711048,
+      "rpe_rot_deg_per_m": 0.01853,
+      "fps": 17.454201,
+      "time_ms": 63079.368989,
+      "frames": 1101,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 87.1,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

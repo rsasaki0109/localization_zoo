@@ -1,4 +1,4 @@
-<p align="center">
+<div align="center">
   <h1 align="center">Localization Zoo</h1>
   <p align="center">
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
@@ -10,7 +10,15 @@
     <img src="https://img.shields.io/badge/Tests-CTest-brightgreen" alt="CTest">
     <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License">
   </p>
-</p>
+  <p align="center">
+    <a href="https://rsasaki0109.github.io/localization_zoo/"><b>Open the interactive benchmark and method explorer</b></a>
+  </p>
+  <p align="center">
+    <a href="https://rsasaki0109.github.io/localization_zoo/">
+      <img src="docs/assets/explorer_preview.png" alt="Localization Zoo interactive benchmark and method explorer" width="900">
+    </a>
+  </p>
+</div>
 
 ---
 
@@ -34,6 +42,7 @@ This repository mixes three levels of implementation scope:
 
 Methods already labeled `Derived` or `Hybrid` are intentionally adapted versions.
 Some paper-named entries still use compact or simplified internals today, especially `NDT`, `KISS-ICP`, and `DLIO`. Check each method README for current scope and deviations.
+The tracked claim boundary for original-paper reproduction is summarized separately in [`docs/reproduction_status.md`](docs/reproduction_status.md); benchmark usefulness and paper-result reproducibility are not treated as the same thing in this repository.
 
 ---
 
@@ -45,6 +54,7 @@ The current search state is externalized here:
 - [`docs/experiments.md`](docs/experiments.md): concrete variant comparisons
 - [`docs/decisions.md`](docs/decisions.md): adoption and rejection reasons
 - [`docs/interfaces.md`](docs/interfaces.md): current minimum stable interface
+- [`docs/reproduction_status.md`](docs/reproduction_status.md): what the repo currently can and cannot claim about reproducing original-paper results
 - [`docs/paper_tracks.md`](docs/paper_tracks.md): publication narratives ranked by current evidence
 - [`docs/paper_roadmap.md`](docs/paper_roadmap.md): concrete path from benchmark state to a paper package
 - [`docs/paper_assets.md`](docs/paper_assets.md): paper-ready tables and Pareto views exported from experiment aggregates
@@ -56,16 +66,35 @@ For heavy KITTI Raw full-sequence HDL Graph SLAM runs, the repository now keeps 
 [`docs/interfaces.md`](docs/interfaces.md) lists the current active selectors wired into `pcd_dogfooding`; the full integration surface is intentionally broader than any single manuscript-facing subset.
 `CT-LIO` and `CLINS` now both have public ROS1 HDL-400 synthetic-time comparisons, while GT-backed public `CT-LIO` remains blocked pending an independently curated trajectory CSV for that LiDAR+IMU stack. Those public ROS1 synthetic-time runs are useful comparative evidence, but they should be treated as a separate public-only benchmark, **not** as an exact native per-point-time reproduction of the reference/native-time HDL-400 setup.
 
-### Three-step sanity check (after clone)
+### Quick sanity checks (after clone)
+
+For the fastest local tour, run the one-command demo. It builds the C++ targets,
+runs the synthetic benchmark, then compares a small committed MCD fixture with a
+broad, jointly validated method set.
+
+```bash
+bash evaluation/scripts/demo_localization_zoo.sh
+```
+
+The demo writes `report.html`, `manifest.json`, logs, and JSON summaries under
+`experiments/results/runs/demo_localization_zoo/`. If you already have a build,
+use `bash evaluation/scripts/demo_localization_zoo.sh --skip-build`. The default
+`broad` profile validates 24 LiDAR methods plus 6 multimodal methods in one run;
+use `--profile quick` for the old focused loop or `--profile full` to include
+the LiDAR FAST-LIO2 fixture check too.
+
+For CI-equivalent smoke coverage:
 
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j"$(nproc)"
 bash evaluation/scripts/smoke_ci_fixture.sh
+bash evaluation/scripts/smoke_multimodal_fixture.sh
+python3 evaluation/scripts/verify_environment.py
 ```
 
 To run **ctest**, **synthetic_benchmark**, and the same **smoke fixture** in one go: `bash evaluation/scripts/run_local_evaluation_suite.sh` (see [`evaluation/README.md`](evaluation/README.md)).
 
-The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB); the same script runs in **GitHub Actions** after `ctest`. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
+The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB). `smoke_ci_fixture.sh` checks the LiDAR-only core, `smoke_multimodal_fixture.sh` checks the camera-aware `multimodal_dogfooding` path, and both scripts run in **GitHub Actions** after `ctest`. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
 
 ```bash
 python3 evaluation/scripts/run_experiment_matrix.py
@@ -76,6 +105,7 @@ Use `--manifest experiments/<name>_matrix.json --merge-existing-index` when addi
 Use `python3 evaluation/scripts/refresh_study_docs.py` to refresh both experiment docs and publication docs together.
 Publication docs alone can be regenerated with `python3 evaluation/scripts/generate_publication_docs.py`.
 Paper-ready tables and Pareto figures can be regenerated with `python3 evaluation/scripts/export_paper_assets.py`.
+For KITTI Odometry public velodyne+poses inputs, use `python3 evaluation/scripts/prepare_kitti_odometry_inputs.py --kitti-root /path/to/kitti_odometry --sequence 00 --sequence 07 --window-size 108 --include-full` (or the compatibility wrapper `bash evaluation/scripts/setup_kitti_benchmark.sh /path/to/kitti_odometry --include-full`).
 
 ---
 
@@ -126,6 +156,29 @@ python3 evaluation/scripts/kitti_raw_to_benchmark.py \
 ```
 
 If you already have a dogfooding tree and only need `imu.csv`, use `python3 evaluation/scripts/kitti_oxts_imu_for_dogfooding.py --drive-dir <sync> --pcd-dir <dogfooding_dir>`.
+
+To build KITTI Odometry public-sequence inputs (velodyne + poses, no IMU) into the repository's `kitti_seq_*` layout, run:
+
+```bash
+python3 evaluation/scripts/prepare_kitti_odometry_inputs.py \
+  --kitti-root /path/to/data_odometry \
+  --sequence 00 \
+  --sequence 07 \
+  --window-size 108 \
+  --include-full
+```
+
+This writes:
+
+- `dogfooding_results/kitti_seq_00_108`, `dogfooding_results/kitti_seq_07_108`
+- `dogfooding_results/kitti_seq_00_full`, `dogfooding_results/kitti_seq_07_full`
+- matching `experiments/reference_data/kitti_seq_*_gt.csv`
+
+The older shell wrapper still works:
+
+```bash
+bash evaluation/scripts/setup_kitti_benchmark.sh /path/to/data_odometry --include-full
+```
 
 To reproduce the repository-stored Istanbul run from a ROS 2 bag:
 
@@ -252,13 +305,22 @@ LiTAMIN2       31.155      2.6
 # Dependencies (Ubuntu 22.04)
 sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev
 
-# Build and test
-mkdir build && cd build
-cmake .. && make -j$(nproc)
-ctest
+# One-command demo: build + synthetic benchmark + broad real-data fixture suite
+bash evaluation/scripts/demo_localization_zoo.sh
+
+# Open the generated report
+xdg-open experiments/results/runs/demo_localization_zoo/report.html
+```
+
+Manual build and test path:
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j"$(nproc)"
+ctest --test-dir build --output-on-failure
 
 # Benchmark (no external data required)
-./evaluation/synthetic_benchmark
+./build/evaluation/synthetic_benchmark
 ```
 
 ### ROS 2

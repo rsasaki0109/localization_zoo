@@ -1,0 +1,700 @@
+{
+  "source_gate_report": "experiments/results/fixed_map_ndt/policy_gate/policy_gate_report.json",
+  "policy": {
+    "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
+    "policy_version": "lidar_degeneracy_triage_v4",
+    "strict_gate": {
+      "max_fail_rows": 0,
+      "max_investigate_rows": 0,
+      "require_policy_version_match": true
+    }
+  },
+  "summary": {
+    "action_items": 6,
+    "offender_rows": 23,
+    "category_rows": {
+      "detectable_bad_seed": 4,
+      "global_hypothesis_selection": 11,
+      "map_localization_gap": 4,
+      "wrong_pose_acceptance": 15
+    },
+    "method_rows": {
+      "fixed_map_ndt:ct_icp": 2,
+      "fixed_map_ndt:scan_context": 29,
+      "fixed_map_ndt:velocity": 3
+    }
+  },
+  "action_items": [
+    {
+      "priority": 1,
+      "policy_decision": "fail",
+      "category": "wrong_pose_acceptance",
+      "method": "fixed_map_ndt:scan_context",
+      "title": "Block accepted wrong-pose localization",
+      "component": "localization safety gate",
+      "recommended_action": "Treat high-acceptance/high-error rows as publish-blocking failures; add a second verifier before accepting these seed sources.",
+      "offender_rows": 14,
+      "reports": {
+        "fixed_map_ndt_failure_audit": 14
+      },
+      "reasons": {
+        "accepted_bad_localization": 14
+      },
+      "windows": [
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_10",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_5",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        }
+      ],
+      "evidence": [
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_10",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_5",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        }
+      ]
+    },
+    {
+      "priority": 2,
+      "policy_decision": "fail",
+      "category": "wrong_pose_acceptance",
+      "method": "fixed_map_ndt:ct_icp",
+      "title": "Block accepted wrong-pose localization",
+      "component": "localization safety gate",
+      "recommended_action": "Treat high-acceptance/high-error rows as publish-blocking failures; add a second verifier before accepting these seed sources.",
+      "offender_rows": 1,
+      "reports": {
+        "fixed_map_ndt_failure_audit": 1
+      },
+      "reasons": {
+        "accepted_bad_localization": 1
+      },
+      "windows": [
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_ct_icp",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        }
+      ],
+      "evidence": [
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_ct_icp",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:ct_icp",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization"
+          ]
+        }
+      ]
+    },
+    {
+      "priority": 3,
+      "policy_decision": "fail",
+      "category": "global_hypothesis_selection",
+      "method": "fixed_map_ndt:scan_context",
+      "title": "Replace unsafe global hypothesis selection",
+      "component": "global initializer",
+      "recommended_action": "Stop relying on NDT score alone for unfiltered global candidates; add a calibrated geometric verifier or sequential prior before retrying top-K.",
+      "offender_rows": 11,
+      "reports": {
+        "fixed_map_ndt_failure_audit": 11
+      },
+      "reasons": {
+        "unfiltered_ndt_score_trap": 11
+      },
+      "windows": [
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        }
+      ],
+      "evidence": [
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_10_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_5_topk_10_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_05",
+          "window": "seed_scan_context_stride_5_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "fail",
+          "policy_reasons": [
+            "accepted_bad_localization",
+            "unfiltered_ndt_score_trap"
+          ]
+        }
+      ]
+    },
+    {
+      "priority": 4,
+      "policy_decision": "investigate",
+      "category": "detectable_bad_seed",
+      "method": "fixed_map_ndt:velocity",
+      "title": "Handle rejected bad seeds explicitly",
+      "component": "seed fallback",
+      "recommended_action": "Keep these rows out of pose publication, then add a recovery path that switches to relocalization or returns unknown instead of dead reckoning.",
+      "offender_rows": 3,
+      "reports": {
+        "fixed_map_ndt_failure_audit": 3
+      },
+      "reasons": {
+        "rejected_bad_seed_detectable": 3
+      },
+      "windows": [
+        {
+          "sequence": "kitti_seq_02",
+          "window": "seed_velocity",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_05",
+          "window": "seed_velocity",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_velocity",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        }
+      ],
+      "evidence": [
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_02",
+          "window": "seed_velocity",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:velocity",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "rejected_bad_seed_detectable"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_05",
+          "window": "seed_velocity",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:velocity",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "rejected_bad_seed_detectable"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_08",
+          "window": "seed_velocity",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:velocity",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "rejected_bad_seed_detectable"
+          ]
+        }
+      ]
+    },
+    {
+      "priority": 5,
+      "policy_decision": "investigate",
+      "category": "detectable_bad_seed",
+      "method": "fixed_map_ndt:ct_icp",
+      "title": "Handle rejected bad seeds explicitly",
+      "component": "seed fallback",
+      "recommended_action": "Keep these rows out of pose publication, then add a recovery path that switches to relocalization or returns unknown instead of dead reckoning.",
+      "offender_rows": 1,
+      "reports": {
+        "fixed_map_ndt_failure_audit": 1
+      },
+      "reasons": {
+        "rejected_bad_seed_detectable": 1
+      },
+      "windows": [
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_ct_icp",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        }
+      ],
+      "evidence": [
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_08",
+          "window": "seed_ct_icp",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:ct_icp",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "rejected_bad_seed_detectable"
+          ]
+        }
+      ]
+    },
+    {
+      "priority": 6,
+      "policy_decision": "investigate",
+      "category": "map_localization_gap",
+      "method": "fixed_map_ndt:scan_context",
+      "title": "Close map-localization accuracy gap",
+      "component": "map localization backend",
+      "recommended_action": "Compare seed quality, NDT basin limits, and fixed-map acceptance scores; use the result to decide whether the initializer or backend needs work.",
+      "offender_rows": 4,
+      "reports": {
+        "fixed_map_ndt_failure_audit": 4
+      },
+      "reasons": {
+        "bad_localization": 4
+      },
+      "windows": [
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10_topk_10",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10_topk_5",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        },
+        {
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "rows": 1
+        }
+      ],
+      "evidence": [
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "bad_localization"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10_topk_10",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "bad_localization"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10_topk_5",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "bad_localization"
+          ]
+        },
+        {
+          "report": "fixed_map_ndt_failure_audit",
+          "sequence": "kitti_seq_08",
+          "window": "seed_scan_context_stride_10_topk_5_unfiltered",
+          "start": 0,
+          "end": 108,
+          "method": "fixed_map_ndt:scan_context",
+          "policy_decision": "investigate",
+          "policy_reasons": [
+            "bad_localization"
+          ]
+        }
+      ]
+    }
+  ]
+}

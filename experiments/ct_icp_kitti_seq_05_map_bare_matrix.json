@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_05_map_bare",
+    "title": "CT-ICP seq 05 full: map_size on BARE baseline",
+    "question": "seq 05 arch_tuned wins at map=30. Does bare baseline also prefer 30, or is it arch_tuned-entangled?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "bare_map_20",
+      "label": "bare map=20 (default)",
+      "design_style": "reference",
+      "intent": "Bare seq 05 baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "bare_map_30",
+      "label": "bare map=30",
+      "design_style": "arch_tuned setting",
+      "intent": "Does map=30 win on bare, like arch_tuned recipe wants?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "30"]
+    },
+    {
+      "id": "bare_map_50",
+      "label": "bare map=50",
+      "design_style": "big map",
+      "intent": "Does bare seq 05 reject map=50 like seq 00 bare did?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50"]
+    }
+  ]
+}

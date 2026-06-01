@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-05-21T01:06:03+00:00",
+  "manifest_path": "experiments/floam_kitti_seq_02_full_transfer_matrix.json",
+  "problem": {
+    "id": "floam_kitti_seq_02_full_transfer",
+    "title": "F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)",
+    "question": "Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 02 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "floam",
+    "primary_method": "F-LOAM"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Near-accuracy candidate from the seq 07 probe with better throughput than dense.",
+      "args": [
+        "--floam-kitti-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile",
+      "summary_path": "experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json",
+      "log_path": "experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/run.log",
+      "status": "ok",
+      "ate_m": 76.3199,
+      "rpe_trans_pct": 1.076644,
+      "rpe_rot_deg_per_m": 0.007178,
+      "fps": 12.204232,
+      "time_ms": 381916.713794,
+      "frames": 4661,
+      "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
+      "benchmark_score": 85.26,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Seq 07 accuracy/RPE winner.",
+      "args": [
+        "--floam-kitti-profile",
+        "--floam-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile",
+      "summary_path": "experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/run.log",
+      "status": "ok",
+      "ate_m": 53.822119,
+      "rpe_trans_pct": 0.945974,
+      "rpe_rot_deg_per_m": 0.006829,
+      "fps": 3.31239,
+      "time_ms": 1407140.926491,
+      "frames": 4661,
+      "note": "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).",
+      "benchmark_score": 63.57,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

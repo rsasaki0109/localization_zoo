@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "floam_kitti_seq_08_full_transfer",
+    "title": "F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)",
+    "question": "Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 08 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "floam",
+    "primary_method": "F-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Near-accuracy candidate from the seq 07 probe with better throughput than dense.",
+      "args": [
+        "--floam-kitti-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Seq 07 accuracy/RPE winner.",
+      "args": [
+        "--floam-kitti-profile",
+        "--floam-dense-profile"
+      ]
+    }
+  ]
+}

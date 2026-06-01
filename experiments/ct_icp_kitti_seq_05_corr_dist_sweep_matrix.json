@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_05_corr_dist_sweep",
+    "title": "CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner",
+    "question": "seq 05 winner uses corr_dist=4 m². Is 4 optimal or are 2/8/16/100 better?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "corr_4_reference",
+      "label": "arch_tuned corr=4 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 9.10 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "30", "--ct-icp-max-correspondence-distance", "4.0", "--ct-icp-keypoint-voxel-size", "0.5"]
+    },
+    {
+      "id": "corr_2",
+      "label": "arch_tuned corr=2",
+      "design_style": "tighter",
+      "intent": "Even tighter (paper-style).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "30", "--ct-icp-max-correspondence-distance", "2.0", "--ct-icp-keypoint-voxel-size", "0.5"]
+    },
+    {
+      "id": "corr_8",
+      "label": "arch_tuned corr=8",
+      "design_style": "looser",
+      "intent": "seq 00/02 winner threshold.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "30", "--ct-icp-max-correspondence-distance", "8.0", "--ct-icp-keypoint-voxel-size", "0.5"]
+    },
+    {
+      "id": "corr_16",
+      "label": "arch_tuned corr=16",
+      "design_style": "much looser",
+      "intent": "Test broader regime.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "30", "--ct-icp-max-correspondence-distance", "16.0", "--ct-icp-keypoint-voxel-size", "0.5"]
+    },
+    {
+      "id": "corr_default",
+      "label": "arch_tuned corr=default (100 m²)",
+      "design_style": "default",
+      "intent": "Remove the corr_dist override entirely.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "30", "--ct-icp-keypoint-voxel-size", "0.5"]
+    }
+  ]
+}

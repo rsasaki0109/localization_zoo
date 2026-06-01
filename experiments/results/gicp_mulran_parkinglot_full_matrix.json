@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-04-15T12:59:34+00:00",
+  "manifest_path": "experiments/gicp_mulran_parkinglot_full_matrix.json",
+  "problem": {
+    "id": "gicp_profile_tradeoff_mulran_parkinglot_full",
+    "title": "GICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence)",
+    "question": "Which GICP profile should stay as the default on a full MulRan Ouster sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "gicp",
+    "primary_method": "GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+    "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_local_map",
+      "label": "Balanced local map",
+      "design_style": "balanced",
+      "intent": "Repository default trade-off.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json",
+      "summary_path": "experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json",
+      "log_path": "experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/run.log",
+      "status": "OK",
+      "ate_m": 1.059807,
+      "rpe_trans_pct": 1.720222,
+      "rpe_rot_deg_per_m": 0.02038,
+      "fps": 13.811661,
+      "time_ms": 85073.039521,
+      "frames": 1175,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 67.33,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_recent_map",
+      "label": "Fast recent map",
+      "design_style": "throughput-oriented",
+      "intent": "Faster profile.",
+      "args": [
+        "--gicp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json --gicp-fast-profile",
+      "summary_path": "experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json",
+      "log_path": "experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 1.148695,
+      "rpe_trans_pct": 2.443276,
+      "rpe_rot_deg_per_m": 0.047401,
+      "fps": 30.27608,
+      "time_ms": 38809.515861,
+      "frames": 1175,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 91.08,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_recent_map",
+      "label": "Dense recent map",
+      "design_style": "accuracy-oriented",
+      "intent": "Denser map profile.",
+      "args": [
+        "--gicp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json --gicp-dense-profile",
+      "summary_path": "experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json",
+      "log_path": "experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/run.log",
+      "status": "OK",
+      "ate_m": 0.943724,
+      "rpe_trans_pct": 1.440364,
+      "rpe_rot_deg_per_m": 0.009161,
+      "fps": 9.932431,
+      "time_ms": 118299.336217,
+      "frames": 1175,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 66.4,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

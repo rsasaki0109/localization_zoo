@@ -1,6 +1,7 @@
 #include "ct_lio/ct_lio_registration.h"
 
 #include "ct_icp/cost_functions.h"
+#include "ct_lio/bspline.h"
 #include "ct_lio/cost_functions.h"
 
 #include <ceres/ceres.h>
@@ -402,8 +403,18 @@ std::vector<ct_icp::TimedPoint> CTLIORegistration::subsampleKeypoints(
 std::vector<CTLIORegistration::Correspondence>
 CTLIORegistration::findCorrespondences(
     const std::vector<ct_icp::TimedPoint>& keypoints,
-    const ct_icp::TrajectoryFrame& frame) const {
+    const ct_icp::TrajectoryFrame& frame,
+    int outer_iter) const {
   std::vector<Correspondence> correspondences;
+
+  const bool coarse_phase =
+      params_.coarse_to_fine && outer_iter < params_.coarse_iterations;
+  const int phase_search_radius =
+      coarse_phase ? std::max(1, params_.coarse_search_radius) : 1;
+  const double phase_planarity_threshold =
+      coarse_phase ? std::min(params_.planarity_threshold,
+                              params_.coarse_planarity_threshold)
+                   : params_.planarity_threshold;
 
   for (size_t i = 0; i < keypoints.size(); ++i) {
     Eigen::Vector3d world_point =
@@ -411,19 +422,34 @@ CTLIORegistration::findCorrespondences(
     ct_icp::Voxel center = pointToVoxel(world_point, params_.voxel_resolution);
 
     std::vector<Eigen::Vector3d> neighbors;
-    for (int dx = -1; dx <= 1; ++dx) {
-      for (int dy = -1; dy <= 1; ++dy) {
-        for (int dz = -1; dz <= 1; ++dz) {
-          ct_icp::Voxel voxel{center.x + dx, center.y + dy, center.z + dz};
-          auto it = voxel_map_.find(voxel);
-          if (it == voxel_map_.end()) {
-            continue;
-          }
-          for (int k = 0; k < it->second.num_points; ++k) {
-            neighbors.push_back(it->second.points[k]);
+    auto gather_shell = [&](int radius) {
+      for (int dx = -radius; dx <= radius; ++dx) {
+        for (int dy = -radius; dy <= radius; ++dy) {
+          for (int dz = -radius; dz <= radius; ++dz) {
+            if (std::abs(dx) < radius && std::abs(dy) < radius &&
+                std::abs(dz) < radius)
+              continue;  // 小半径で収集済みのシェルを除外
+            ct_icp::Voxel voxel{center.x + dx, center.y + dy, center.z + dz};
+            auto it = voxel_map_.find(voxel);
+            if (it == voxel_map_.end()) {
+              continue;
+            }
+            for (int k = 0; k < it->second.num_points; ++k) {
+              neighbors.push_back(it->second.points[k]);
+            }
           }
         }
       }
+    };
+    gather_shell(0);
+    gather_shell(1);  // 3x3x3
+    if (coarse_phase) {
+      for (int r = 2; r <= phase_search_radius; ++r) {
+        gather_shell(r);  // unconditional 5x5x5 (or wider) in coarse phase
+      }
+    } else if (params_.multi_scale_correspondences &&
+               static_cast<int>(neighbors.size()) < params_.knn) {
+      gather_shell(2);  // 5x5x5 fallback (CT-ICP ms_chol pattern)
     }
 
     if (static_cast<int>(neighbors.size()) < params_.knn) {
@@ -464,7 +490,7 @@ CTLIORegistration::findCorrespondences(
     }
 
     double planarity = (eigenvalues(1) - eigenvalues(0)) / eigenvalues(2);
-    if (planarity < params_.planarity_threshold) {
+    if (planarity < phase_planarity_threshold) {
       continue;
     }
 
@@ -547,6 +573,268 @@ CTLIOResult CTLIORegistration::registerFrame(
     keypoint.alpha = result.state.frame.getAlpha(keypoint.timestamp);
   }
 
+  if (params_.use_bspline_trajectory) {
+    // Stage 3 B-spline path: 4 control points + begin/end pose + IMU.
+    // CP indexing: P0 at t=-1, P1 at t=0 (scan begin), P2 at t=1 (scan end),
+    // P3 at t=2 (in scan-duration units). P1 and P2 anchor the current scan.
+    // P0 and P3 carry "before" and "after" motion info to let the cubic
+    // spline express curvature.
+    std::array<std::array<double, 4>, 4> cp_q;
+    std::array<std::array<double, 3>, 4> cp_t;
+
+    // P1 = begin pose, P2 = end pose
+    cp_q[1] = {result.state.frame.begin_pose.quat.x(),
+               result.state.frame.begin_pose.quat.y(),
+               result.state.frame.begin_pose.quat.z(),
+               result.state.frame.begin_pose.quat.w()};
+    cp_t[1] = {result.state.frame.begin_pose.trans.x(),
+               result.state.frame.begin_pose.trans.y(),
+               result.state.frame.begin_pose.trans.z()};
+    cp_q[2] = {result.state.frame.end_pose.quat.x(),
+               result.state.frame.end_pose.quat.y(),
+               result.state.frame.end_pose.quat.z(),
+               result.state.frame.end_pose.quat.w()};
+    cp_t[2] = {result.state.frame.end_pose.trans.x(),
+               result.state.frame.end_pose.trans.y(),
+               result.state.frame.end_pose.trans.z()};
+
+    // P0 at t=-1: prefer previous frame's begin pose; fallback to backward
+    // extrap by current begin velocity over preintegration delta_t.
+    const double scan_dt = result.preintegration.delta_t > 0.0
+                               ? result.preintegration.delta_t
+                               : 0.1;
+    if (!state_history_.empty()) {
+      const auto& prev = state_history_.back().state;
+      cp_q[0] = {prev.frame.begin_pose.quat.x(), prev.frame.begin_pose.quat.y(),
+                 prev.frame.begin_pose.quat.z(),
+                 prev.frame.begin_pose.quat.w()};
+      cp_t[0] = {prev.frame.begin_pose.trans.x(),
+                 prev.frame.begin_pose.trans.y(),
+                 prev.frame.begin_pose.trans.z()};
+    } else {
+      const Eigen::Vector3d p0_t = result.state.frame.begin_pose.trans -
+                                   result.state.begin_velocity * scan_dt;
+      cp_q[0] = cp_q[1];
+      cp_t[0] = {p0_t.x(), p0_t.y(), p0_t.z()};
+    }
+
+    // P3 at t=2: forward extrap by end velocity over scan_dt.
+    const Eigen::Vector3d p3_t = result.state.frame.end_pose.trans +
+                                 result.state.end_velocity * scan_dt;
+    cp_q[3] = cp_q[2];
+    cp_t[3] = {p3_t.x(), p3_t.y(), p3_t.z()};
+
+    double begin_q[4] = {result.state.frame.begin_pose.quat.x(),
+                         result.state.frame.begin_pose.quat.y(),
+                         result.state.frame.begin_pose.quat.z(),
+                         result.state.frame.begin_pose.quat.w()};
+    double begin_t[3] = {result.state.frame.begin_pose.trans.x(),
+                         result.state.frame.begin_pose.trans.y(),
+                         result.state.frame.begin_pose.trans.z()};
+    double end_q[4] = {result.state.frame.end_pose.quat.x(),
+                       result.state.frame.end_pose.quat.y(),
+                       result.state.frame.end_pose.quat.z(),
+                       result.state.frame.end_pose.quat.w()};
+    double end_t[3] = {result.state.frame.end_pose.trans.x(),
+                       result.state.frame.end_pose.trans.y(),
+                       result.state.frame.end_pose.trans.z()};
+    double begin_v[3] = {result.state.begin_velocity.x(),
+                         result.state.begin_velocity.y(),
+                         result.state.begin_velocity.z()};
+    double gyro_bias[3] = {result.state.gyro_bias.x(),
+                           result.state.gyro_bias.y(),
+                           result.state.gyro_bias.z()};
+    double accel_bias[3] = {result.state.accel_bias.x(),
+                            result.state.accel_bias.y(),
+                            result.state.accel_bias.z()};
+
+    const double kAnchorWeight = params_.bspline_anchor_weight;
+
+    for (int iter = 0; iter < params_.max_iterations; ++iter) {
+      result.state.frame.begin_pose.quat =
+          Eigen::Quaterniond(begin_q[3], begin_q[0], begin_q[1], begin_q[2]);
+      result.state.frame.begin_pose.trans =
+          Eigen::Vector3d(begin_t[0], begin_t[1], begin_t[2]);
+      result.state.frame.end_pose.quat =
+          Eigen::Quaterniond(end_q[3], end_q[0], end_q[1], end_q[2]);
+      result.state.frame.end_pose.trans =
+          Eigen::Vector3d(end_t[0], end_t[1], end_t[2]);
+
+      auto correspondences =
+          findCorrespondences(keypoints, result.state.frame, iter);
+      result.num_correspondences = static_cast<int>(correspondences.size());
+      if (correspondences.empty()) {
+        break;
+      }
+      const bool ct_coarse_phase =
+          params_.coarse_to_fine && iter < params_.coarse_iterations;
+
+      ceres::Problem problem;
+      for (int i = 0; i < 4; ++i) {
+        problem.AddParameterBlock(cp_q[i].data(), 4);
+        localization_zoo::SetEigenQuaternionManifold(problem, cp_q[i].data());
+        problem.AddParameterBlock(cp_t[i].data(), 3);
+      }
+      problem.AddParameterBlock(begin_q, 4);
+      localization_zoo::SetEigenQuaternionManifold(problem, begin_q);
+      problem.AddParameterBlock(begin_t, 3);
+      problem.AddParameterBlock(end_q, 4);
+      localization_zoo::SetEigenQuaternionManifold(problem, end_q);
+      problem.AddParameterBlock(end_t, 3);
+      problem.AddParameterBlock(begin_v, 3);
+      problem.AddParameterBlock(gyro_bias, 3);
+      problem.AddParameterBlock(accel_bias, 3);
+      if (!params_.estimate_imu_bias) {
+        problem.SetParameterBlockConstant(gyro_bias);
+        problem.SetParameterBlockConstant(accel_bias);
+      }
+
+      double cauchy_sigma = params_.cauchy_loss_param;
+      if (ct_coarse_phase && params_.coarse_cauchy_sigma_mult > 0.0) {
+        cauchy_sigma *= params_.coarse_cauchy_sigma_mult;
+      }
+      ceres::LossFunction* loss = new ceres::CauchyLoss(cauchy_sigma);
+      for (const auto& corr : correspondences) {
+        const auto& point = keypoints[corr.point_idx];
+        problem.AddResidualBlock(
+            CTPointToPlaneBspline::Create(point.raw_point, corr.reference,
+                                          corr.normal, point.alpha,
+                                          corr.weight),
+            loss, cp_q[0].data(), cp_t[0].data(), cp_q[1].data(),
+            cp_t[1].data(), cp_q[2].data(), cp_t[2].data(), cp_q[3].data(),
+            cp_t[3].data());
+      }
+
+      // Anchors: T(0) ≈ begin_pose, T(1) ≈ end_pose
+      problem.AddResidualBlock(
+          BsplineEndpointAnchorRotation::Create(0.0, kAnchorWeight), nullptr,
+          cp_q[0].data(), cp_q[1].data(), cp_q[2].data(), cp_q[3].data(),
+          begin_q);
+      problem.AddResidualBlock(
+          BsplineEndpointAnchorTranslation::Create(0.0, kAnchorWeight), nullptr,
+          cp_t[0].data(), cp_t[1].data(), cp_t[2].data(), cp_t[3].data(),
+          begin_t);
+      problem.AddResidualBlock(
+          BsplineEndpointAnchorRotation::Create(1.0, kAnchorWeight), nullptr,
+          cp_q[0].data(), cp_q[1].data(), cp_q[2].data(), cp_q[3].data(),
+          end_q);
+      problem.AddResidualBlock(
+          BsplineEndpointAnchorTranslation::Create(1.0, kAnchorWeight), nullptr,
+          cp_t[0].data(), cp_t[1].data(), cp_t[2].data(), cp_t[3].data(),
+          end_t);
+
+      if (result.preintegration.delta_t > 0.0) {
+        if (params_.imu_rotation_weight > 0.0) {
+          problem.AddResidualBlock(
+              IMURotationBiasPrior::Create(
+                  result.preintegration, initial_state.gyro_bias,
+                  params_.imu_rotation_weight),
+              nullptr, begin_q, end_q, gyro_bias);
+        }
+        if (params_.imu_translation_weight > 0.0) {
+          problem.AddResidualBlock(
+              IMUTranslationBiasPrior::Create(
+                  result.preintegration, initial_state.gyro_bias,
+                  initial_state.accel_bias, result.preintegration.delta_t,
+                  params_.gravity, params_.imu_translation_weight),
+              nullptr, begin_q, begin_t, end_t, begin_v, gyro_bias, accel_bias);
+        }
+      }
+
+      if (params_.velocity_prior_weight > 0.0) {
+        problem.AddResidualBlock(
+            VelocityPrior::Create(initial_state.begin_velocity,
+                                  params_.velocity_prior_weight),
+            nullptr, begin_v);
+      }
+      if (lagged_prior.valid && params_.fixed_lag_velocity_prior_weight > 0.0) {
+        problem.AddResidualBlock(
+            VelocityPrior::Create(lagged_prior.velocity,
+                                  params_.fixed_lag_velocity_prior_weight),
+            nullptr, begin_v);
+      }
+      const double bias_delta_t = result.preintegration.delta_t > 0.0
+                                      ? result.preintegration.delta_t
+                                      : 0.0;
+      const double gbpw =
+          params_.estimate_imu_bias
+              ? biasRandomWalkWeight(params_.gyro_bias_prior_weight, bias_delta_t)
+              : params_.gyro_bias_prior_weight;
+      const double abpw =
+          params_.estimate_imu_bias
+              ? biasRandomWalkWeight(params_.accel_bias_prior_weight, bias_delta_t)
+              : params_.accel_bias_prior_weight;
+      if (gbpw > 0.0) {
+        problem.AddResidualBlock(
+            BiasPrior::Create(initial_state.gyro_bias, gbpw), nullptr,
+            gyro_bias);
+      }
+      if (abpw > 0.0) {
+        problem.AddResidualBlock(
+            BiasPrior::Create(initial_state.accel_bias, abpw), nullptr,
+            accel_bias);
+      }
+
+      std::array<std::array<double, 3>, 4> prev_t = cp_t;
+
+      ceres::Solver::Options options;
+      options.linear_solver_type = ceres::DENSE_QR;
+      options.max_num_iterations = params_.ceres_max_iterations;
+      options.trust_region_strategy_type = ceres::LEVENBERG_MARQUARDT;
+      options.minimizer_progress_to_stdout = false;
+      options.num_threads = 1;
+
+      ceres::Solver::Summary summary;
+      ceres::Solve(options, &problem, &summary);
+
+      double max_update = 0.0;
+      for (int i = 0; i < 4; ++i) {
+        const Eigen::Vector3d diff =
+            Eigen::Vector3d(cp_t[i][0], cp_t[i][1], cp_t[i][2]) -
+            Eigen::Vector3d(prev_t[i][0], prev_t[i][1], prev_t[i][2]);
+        max_update = std::max(max_update, diff.norm());
+      }
+      result.num_iterations = iter + 1;
+      if (max_update < params_.convergence_threshold) {
+        result.converged = true;
+        break;
+      }
+    }
+
+    result.state.frame.begin_pose.quat =
+        Eigen::Quaterniond(begin_q[3], begin_q[0], begin_q[1], begin_q[2]);
+    result.state.frame.begin_pose.trans =
+        Eigen::Vector3d(begin_t[0], begin_t[1], begin_t[2]);
+    result.state.frame.end_pose.quat =
+        Eigen::Quaterniond(end_q[3], end_q[0], end_q[1], end_q[2]);
+    result.state.frame.end_pose.trans =
+        Eigen::Vector3d(end_t[0], end_t[1], end_t[2]);
+    result.state.begin_velocity =
+        Eigen::Vector3d(begin_v[0], begin_v[1], begin_v[2]);
+    result.state.gyro_bias =
+        Eigen::Vector3d(gyro_bias[0], gyro_bias[1], gyro_bias[2]);
+    result.state.accel_bias =
+        Eigen::Vector3d(accel_bias[0], accel_bias[1], accel_bias[2]);
+
+    if (result.preintegration.delta_t > 0.0) {
+      auto corrected = result.preintegration.correct(
+          result.state.gyro_bias - initial_state.gyro_bias,
+          result.state.accel_bias - initial_state.accel_bias);
+      result.state.end_velocity =
+          result.state.begin_velocity + params_.gravity * corrected.delta_t +
+          result.state.frame.begin_pose.quat * corrected.delta_v;
+    } else {
+      result.state.end_velocity = result.state.begin_velocity;
+    }
+
+    rememberState(result.state, result.preintegration, initial_state.gyro_bias,
+                  initial_state.accel_bias, std::move(keypoints));
+    if (!state_history_.empty()) {
+      result.state = state_history_.back().state;
+    }
+    return result;
+  }
+
   double begin_q[4] = {result.state.frame.begin_pose.quat.x(),
                        result.state.frame.begin_pose.quat.y(),
                        result.state.frame.begin_pose.quat.z(),
@@ -588,11 +876,13 @@ CTLIOResult CTLIORegistration::registerFrame(
     result.state.gyro_bias = bg;
     result.state.accel_bias = ba;
 
-    auto correspondences = findCorrespondences(keypoints, result.state.frame);
+    auto correspondences = findCorrespondences(keypoints, result.state.frame, iter);
     result.num_correspondences = static_cast<int>(correspondences.size());
     if (correspondences.empty()) {
       break;
     }
+    const bool ct_coarse_phase =
+        params_.coarse_to_fine && iter < params_.coarse_iterations;
 
     ceres::Problem problem;
     problem.AddParameterBlock(
@@ -611,8 +901,11 @@ CTLIOResult CTLIORegistration::registerFrame(
       problem.SetParameterBlockConstant(accel_bias);
     }
 
-    ceres::LossFunction* loss =
-        new ceres::CauchyLoss(params_.cauchy_loss_param);
+    double cauchy_sigma = params_.cauchy_loss_param;
+    if (ct_coarse_phase && params_.coarse_cauchy_sigma_mult > 0.0) {
+      cauchy_sigma *= params_.coarse_cauchy_sigma_mult;
+    }
+    ceres::LossFunction* loss = new ceres::CauchyLoss(cauchy_sigma);
     for (const auto& corr : correspondences) {
       const auto& point = keypoints[corr.point_idx];
       problem.AddResidualBlock(

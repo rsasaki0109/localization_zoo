@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "description": "Registry of localization_zoo method families. Tier and status are docs-facing classifications; they do not change runtime behavior. Update entries when a family graduates between tiers or when its maintenance status changes.",
+  "tier_definitions": {
+    "core": "Primary baselines that must stay green on the primary budget profile. Featured on leaderboards and in paper-comparison docs.",
+    "extended": "Maintained but not first-class on the primary leaderboard. Kept for catalog breadth and comparative study."
+  },
+  "status_definitions": {
+    "maintained": "Has a known-green manifest within the last documented refresh.",
+    "timeout_prone": "Frequently exceeds the practical_full_300s profile; reported under extended profile or with explicit timeout_budget status.",
+    "input_constrained": "Needs sensors or calibration not present in every dataset (e.g. camera intrinsics).",
+    "legacy": "Kept available for reproducibility of older comparisons; not actively tuned.",
+    "experimental": "Recent addition; contract verified but not yet routinely benchmarked."
+  },
+  "families": {
+    "kiss_icp": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Compact baseline; near-real-time on KITTI."},
+    "ct_icp": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Paper-oriented continuous-time core; main reproducibility target alongside LiTAMIN2."},
+    "litamin2": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Paper-oriented front-end; KITTI Raw 0009 RPE indicative result available."},
+    "small_gicp": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Compact GICP variant; fast baseline."},
+    "voxel_gicp": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Voxelized GICP baseline."},
+    "ndt": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Classical NDT baseline."},
+    "gicp": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Generalized-ICP baseline."},
+    "fast_lio2": {"tier": "core", "status": "maintained", "supports": ["lidar", "imu"], "notes": "IMU-tightly-coupled LIO baseline."},
+    "lio_sam": {"tier": "core", "status": "maintained", "supports": ["lidar", "imu"], "notes": "LIO-SAM-style factor graph LIO."},
+    "dlio": {"tier": "core", "status": "maintained", "supports": ["lidar", "imu"], "notes": "Direct LIO baseline."},
+    "dlo": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Direct LiDAR Odometry."},
+    "hdl_graph_slam": {"tier": "core", "status": "maintained", "supports": ["lidar"], "notes": "Graph-SLAM baseline with loop closure."},
+
+    "aloam": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "Advanced-LOAM variant."},
+    "balm2": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "Bundle Adjustment for LiDAR Mapping."},
+    "clins": {"tier": "extended", "status": "maintained", "supports": ["lidar", "imu"], "notes": "Continuous-time LIO."},
+    "ct_lio": {"tier": "extended", "status": "maintained", "supports": ["lidar", "imu"], "notes": "Custom continuous-time LIO integration; not a single-paper reproduction."},
+    "fast_lio_slam": {"tier": "extended", "status": "maintained", "supports": ["lidar", "imu"], "notes": "FAST-LIO + SLAM extensions."},
+    "floam": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "Faster LOAM."},
+    "isc_loam": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "ISC-LOAM with intensity descriptors."},
+    "lego_loam": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "LeGO-LOAM ground-segmented variant."},
+    "lins": {"tier": "extended", "status": "maintained", "supports": ["lidar", "imu"], "notes": "LiDAR-Inertial Navigation System."},
+    "loam_livox": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "LOAM Livox variant."},
+    "mulls": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "Multi-scale registration baseline."},
+    "point_lio": {"tier": "extended", "status": "maintained", "supports": ["lidar", "imu"], "notes": "Point-LIO."},
+    "suma": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "SuMa surfel mapping."},
+    "vgicp_slam": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "VGICP-based SLAM."},
+    "xicp": {"tier": "extended", "status": "maintained", "supports": ["lidar"], "notes": "X-ICP variant."},
+
+    "okvis": {"tier": "core", "status": "maintained", "supports": ["camera", "imu"], "notes": "Stereo-VIO baseline; primary camera-aware family for the practical profile."},
+    "vins_fusion": {"tier": "core", "status": "maintained", "supports": ["camera", "imu"], "notes": "VINS-Fusion VIO; completes KITTI Raw windows in the practical profile."},
+    "fast_livo2": {"tier": "core", "status": "maintained", "supports": ["lidar", "camera", "imu"], "notes": "FAST-LIVO2 LiDAR-inertial-visual; completes KITTI Raw windows in the practical profile."},
+
+    "orb_slam3": {"tier": "extended", "status": "timeout_prone", "supports": ["camera", "imu"], "notes": "Heavy under practical_full_300s; report under extended_full_1800s where applicable."},
+    "lvi_sam": {"tier": "extended", "status": "timeout_prone", "supports": ["lidar", "camera", "imu"], "notes": "Practical-budget timeouts on KITTI Raw 200/full; finishes 0061_200 fast at ~0.5-0.6 FPS."},
+    "r2live": {"tier": "extended", "status": "timeout_prone", "supports": ["lidar", "camera", "imu"], "notes": "Practical-budget timeouts; finishes 0061_200 fast at ~0.5-0.6 FPS."}
+  }
+}

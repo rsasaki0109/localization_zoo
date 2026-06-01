@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-05-18T12:14:26+00:00",
+  "manifest_path": "experiments/pending/ct_lio_hdl_400_ros1_synthtime_matrix.json",
+  "problem": {
+    "id": "ct_lio_ros1_synthtime_round2",
+    "title": "CT-LIO Round 2 winner on HDL-400 ros1_synthtime",
+    "question": "Does ms + radius_only beat the existing seed_only_fast (ATE 0.479) on the ros1_synthtime variant?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index",
+    "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "seed_only_fast",
+      "label": "Seed-only fast (baseline)",
+      "design_style": "reference",
+      "intent": "Baseline on ros1_synthtime variant.",
+      "args": [
+        "--ct-lio-fixed-lag-window",
+        "2",
+        "--ct-lio-fixed-lag-outer-iterations",
+        "1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods ct_lio --summary-json experiments/results/runs/ct_lio_hdl_400_ros1_synthtime_matrix/seed_only_fast/summary.json --ct-lio-fixed-lag-window 2 --ct-lio-fixed-lag-outer-iterations 1",
+      "summary_path": "experiments/results/runs/ct_lio_hdl_400_ros1_synthtime_matrix/seed_only_fast/summary.json",
+      "log_path": "experiments/results/runs/ct_lio_hdl_400_ros1_synthtime_matrix/seed_only_fast/run.log",
+      "status": "ok",
+      "ate_m": 0.479317,
+      "rpe_trans_pct": 4.238633,
+      "rpe_rot_deg_per_m": 0.406999,
+      "fps": 24.41691,
+      "time_ms": 4914.626721,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 94.39,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "ms_plus_radius_only",
+      "label": "Round 2 winner (ms + radius_only)",
+      "design_style": "round 2 winner",
+      "intent": "Test on ros1_synthtime.",
+      "args": [
+        "--ct-lio-fixed-lag-window",
+        "2",
+        "--ct-lio-fixed-lag-outer-iterations",
+        "1",
+        "--ct-lio-multi-scale",
+        "--ct-lio-coarse-to-fine",
+        "--ct-lio-coarse-iterations",
+        "2",
+        "--ct-lio-coarse-search-radius",
+        "2",
+        "--ct-lio-coarse-cauchy-mult",
+        "1.0",
+        "--ct-lio-coarse-planarity-threshold",
+        "0.1"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_ros1_open_ct_lio_120_time_index experiments/reference_data/hdl_400_public_reference.csv --methods ct_lio --summary-json experiments/results/runs/ct_lio_hdl_400_ros1_synthtime_matrix/ms_plus_radius_only/summary.json --ct-lio-fixed-lag-window 2 --ct-lio-fixed-lag-outer-iterations 1 --ct-lio-multi-scale --ct-lio-coarse-to-fine --ct-lio-coarse-iterations 2 --ct-lio-coarse-search-radius 2 --ct-lio-coarse-cauchy-mult 1.0 --ct-lio-coarse-planarity-threshold 0.1",
+      "summary_path": "experiments/results/runs/ct_lio_hdl_400_ros1_synthtime_matrix/ms_plus_radius_only/summary.json",
+      "log_path": "experiments/results/runs/ct_lio_hdl_400_ros1_synthtime_matrix/ms_plus_radius_only/run.log",
+      "status": "ok",
+      "ate_m": 0.425536,
+      "rpe_trans_pct": 4.141789,
+      "rpe_rot_deg_per_m": 0.387063,
+      "fps": 21.570131,
+      "time_ms": 5563.248551,
+      "frames": 120,
+      "note": "",
+      "benchmark_score": 94.17,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

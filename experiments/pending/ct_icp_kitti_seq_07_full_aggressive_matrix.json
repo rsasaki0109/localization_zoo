@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_aggressive_kitti_seq_07_full",
+    "title": "CT-ICP aggressive tuning on KITTI Odometry 07 (full)",
+    "question": "Can finer voxel + larger budget close more than the 7.1x gap on CT-ICP?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "voxel08_iter15_ceres8_map30",
+      "label": "voxel 0.8 + max_iter 15 + ceres_iter 8 + map 30",
+      "design_style": "aggressive accuracy",
+      "intent": "Push everything aggressively to test ceiling.",
+      "args": ["--ct-icp-voxel-resolution", "0.8", "--ct-icp-max-iterations", "15", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "30"]
+    },
+    {
+      "id": "voxel10_iter12_ceres6_map30",
+      "label": "voxel 1.0 + max_iter 12 + ceres_iter 6 + map 30",
+      "design_style": "moderate aggressive",
+      "intent": "Less extreme than 0.8 voxel.",
+      "args": ["--ct-icp-voxel-resolution", "1.0", "--ct-icp-max-iterations", "12", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "30"]
+    },
+    {
+      "id": "voxel06_iter10_ceres4_map20",
+      "label": "voxel 0.6 + max_iter 10 + ceres_iter 4 + map 20",
+      "design_style": "fine voxel emphasis",
+      "intent": "Test if voxel resolution is the dominant lever.",
+      "args": ["--ct-icp-voxel-resolution", "0.6", "--ct-icp-max-iterations", "10", "--ct-icp-ceres-max-iterations", "4", "--ct-icp-max-frames-in-map", "20"]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 108
+GT poses: 108
+IMU samples: 0 (imu.csv not found)
+Timestamp source: sampled GT timestamps
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 58.6 m
+Running NDT...
+  source_voxel_size=0.8 max_source_points=2000 resolution=0.5 max_iterations=12 map_max_points=22000
+  [NDT] 10/108 score=1.163  [NDT] 20/108 score=0.000  [NDT] 30/108 score=1.858  [NDT] 40/108 score=0.000  [NDT] 50/108 score=1.026  [NDT] 60/108 score=0.000  [NDT] 70/108 score=0.659  [NDT] 80/108 score=0.371  [NDT] 90/108 score=1.097  [NDT] 100/108 score=0.000
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Frames      Time [ms]      FPS
+---------------------------------------------------------------------------------------
+NDT                     ok          0.228       108         3367.5         32.1
+
+Notes:
+- NDT: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+Results saved to dogfooding_results/

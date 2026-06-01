@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-05-17T23:57:14+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_full_ms_chol_matrix.json",
+  "problem": {
+    "id": "ct_icp_ms_chol_kitti_seq_08_full",
+    "title": "CT-ICP multi-scale + DENSE_NORMAL_CHOLESKY on KITTI Odometry 08 (full)",
+    "question": "Does ms_chol generalize beyond KITTI 07?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "tune-v1 baseline",
+      "design_style": "reference",
+      "intent": "Reference for delta comparison.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_ms_chol_matrix/baseline/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_ms_chol_matrix/baseline/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_ms_chol_matrix/baseline/run.log",
+      "status": "ok",
+      "ate_m": 40.611768,
+      "rpe_trans_pct": 2.09957,
+      "rpe_rot_deg_per_m": 0.02579,
+      "fps": 14.250007,
+      "time_ms": 285684.07977,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 93.71,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "ms_chol",
+      "label": "tune-v1 + multi-scale + DENSE_NORMAL_CHOLESKY",
+      "design_style": "arch-2",
+      "intent": "Architecture bundle that improved KITTI 07 (ATE -28%, RPE -4%). Test generalization.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_ms_chol_matrix/ms_chol/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_ms_chol_matrix/ms_chol/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_ms_chol_matrix/ms_chol/run.log",
+      "status": "ok",
+      "ate_m": 35.500191,
+      "rpe_trans_pct": 2.098705,
+      "rpe_rot_deg_per_m": 0.025399,
+      "fps": 13.523717,
+      "time_ms": 301026.696952,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 97.45,
+      "readability_score": 2.75,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.45,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

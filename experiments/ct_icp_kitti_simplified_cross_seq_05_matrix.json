@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_simplified_cross_seq_05",
+    "title": "CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base",
+    "question": "seq 00/08 share map=50 + c2f σ×2 winner. seq 05 currently uses map=50 + corr=4 (8.78 m). Does c2f beat corr=4 here?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "current_winner",
+      "label": "bare + map=50 + corr=4 (existing seq 05 winner)",
+      "design_style": "reference",
+      "intent": "Confirm 8.78 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-max-correspondence-distance", "4.0"]
+    },
+    {
+      "id": "map_50_c2f",
+      "label": "map=50 + c2f σ×2 (seq 00/08 pattern)",
+      "design_style": "probe",
+      "intent": "Test if c2f σ×2 replaces corr=4.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "map_50_c2f_plus_corr_4",
+      "label": "map=50 + c2f σ×2 + corr=4 (combine both)",
+      "design_style": "combo",
+      "intent": "Stack c2f on top of corr=4 winner.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-max-correspondence-distance", "4.0"]
+    }
+  ]
+}

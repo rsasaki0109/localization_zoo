@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-05-19T20:34:47+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_raw_0061_full_recipes_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_raw_0061_full_recipes",
+    "title": "CT-ICP cluster A/D bake-off on KITTI Raw 0061 full (707 frames)",
+    "question": "0061_full has fast_window 6.97 m winning over dense 8.89 m \u2014 unusual for KITTI. Does cluster A beat fast_window, or does this 707-frame raw scene favor a different recipe class?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0061_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0061_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_window_reference",
+      "label": "fast_window (current best 6.97 m)",
+      "design_style": "reference",
+      "intent": "Confirm 6.97 m baseline.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/fast_window_reference/summary.json --ct-icp-fast-profile",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/fast_window_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/fast_window_reference/run.log",
+      "status": "ok",
+      "ate_m": 6.972412,
+      "rpe_trans_pct": 1.721654,
+      "rpe_rot_deg_per_m": 0.039063,
+      "fps": 57.76281,
+      "time_ms": 12170.460453,
+      "frames": 703,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 82.28,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "cluster_a",
+      "label": "cluster A (map=50 + c2f \u03c3\u00d72)",
+      "design_style": "long-traj-recipe",
+      "intent": "Cluster A on this 707-frame raw scene \u2014 beats fast_window?",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_a/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_a/run.log",
+      "status": "ok",
+      "ate_m": 6.703084,
+      "rpe_trans_pct": 1.205562,
+      "rpe_rot_deg_per_m": 0.021199,
+      "fps": 18.968951,
+      "time_ms": 37060.562386,
+      "frames": 703,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 49.99,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_d_ms_chol",
+      "label": "cluster D (ms_chol)",
+      "design_style": "short-traj-recipe",
+      "intent": "ms_chol on 707-frame raw scene.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_d_ms_chol/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_d_ms_chol/run.log",
+      "status": "ok",
+      "ate_m": 4.501114,
+      "rpe_trans_pct": 1.532162,
+      "rpe_rot_deg_per_m": 0.031082,
+      "fps": 26.758417,
+      "time_ms": 26272.107071,
+      "frames": 703,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 73.16,
+      "readability_score": 3.95,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.25,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

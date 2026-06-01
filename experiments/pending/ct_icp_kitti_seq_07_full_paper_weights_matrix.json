@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_paper_weights_kitti_seq_07_full",
+    "title": "CT-ICP paper-aligned correspondence and regularizer weights on KITTI Odometry 07 (full)",
+    "question": "Do gaps B/D/E/F (composite weight scheme, Cauchy 0.1, soft planarity floor, flat regularizer) close the RPE gap beyond ms_chol_best=1.61m/2.06%?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline (reference)",
+      "design_style": "reference",
+      "intent": "Reference for delta comparison.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "F_flat_regularizer_only",
+      "label": "ms_chol + flat regularizer (Gap F)",
+      "design_style": "F only",
+      "intent": "Isolate the effect of removing sqrt(N_corr) amplification from regularizer weights.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-flat-regularizer"]
+    },
+    {
+      "id": "D_cauchy_0p1_only",
+      "label": "ms_chol + Cauchy sigma 0.1 (Gap D)",
+      "design_style": "D only",
+      "intent": "Isolate Cauchy sigma tightening from 0.5 (current) to 0.1 (paper).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-cauchy-sigma", "0.1"]
+    },
+    {
+      "id": "E_soft_planarity_only",
+      "label": "ms_chol + soft planarity floor 0.01 (Gap E)",
+      "design_style": "E only",
+      "intent": "Drop planarity_threshold from 0.08 to 0.01, replacing hard cutoff with soft floor.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-planarity-threshold", "0.01"]
+    },
+    {
+      "id": "B_composite_weight_only",
+      "label": "ms_chol + composite weight (Gap B)",
+      "design_style": "B only",
+      "intent": "Replace raw a2D with 0.9*a2D^2 + 0.1*exp(-d_closest/d_max).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-power-planarity", "2.0", "--ct-icp-weight-alpha", "0.9", "--ct-icp-weight-neighborhood", "0.1"]
+    },
+    {
+      "id": "paper_weights_bundle",
+      "label": "ms_chol + paper-weights bundle (B+D+E+F)",
+      "design_style": "bundle",
+      "intent": "All four paper-aligned weight changes combined.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-paper-weights"]
+    }
+  ]
+}

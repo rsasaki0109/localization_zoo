@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_global_cauchy_kitti_seq_00_full",
+    "title": "CT-ICP global Cauchy sigma (no phase split) on KITTI 00",
+    "question": "Does permanently doubling Cauchy sigma (0.5 -> 1.0) deliver the c2f_sigma_only benefit on KITTI 00 without the phase split?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline (sigma=0.5)",
+      "design_style": "reference",
+      "intent": "Re-baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "global_sigma_07",
+      "label": "Global Cauchy sigma=0.7 (1.4x)",
+      "design_style": "global sigma 0.7",
+      "intent": "Lighter permanent sigma boost.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-cauchy-sigma", "0.7"]
+    },
+    {
+      "id": "global_sigma_10",
+      "label": "Global Cauchy sigma=1.0 (2x)",
+      "design_style": "global sigma 1.0",
+      "intent": "Match c2f sigma boost magnitude, permanently.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-cauchy-sigma", "1.0"]
+    }
+  ]
+}

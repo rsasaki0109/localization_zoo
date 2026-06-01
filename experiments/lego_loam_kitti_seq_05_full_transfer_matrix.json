@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "lego_loam_kitti_seq_05_full_transfer",
+    "title": "LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)",
+    "question": "Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 05 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lego_loam",
+    "primary_method": "LeGO-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Seq 07 accuracy/RPE winner.",
+      "args": [
+        "--lego-loam-kitti-profile"
+      ]
+    }
+  ]
+}

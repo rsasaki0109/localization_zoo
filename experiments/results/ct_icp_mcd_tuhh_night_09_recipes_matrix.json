@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-05-19T20:32:55+00:00",
+  "manifest_path": "experiments/ct_icp_mcd_tuhh_night_09_recipes_matrix.json",
+  "problem": {
+    "id": "ct_icp_mcd_tuhh_night_09_recipes",
+    "title": "CT-ICP recipe sensitivity test on MCD TUHH night_09 (108 frames)",
+    "question": "Completing 3-site MCD picture. KTH 6.12 m saturated (all recipes tied), NTU 0.325 m revealed cluster A RPE -50% / ATE +14% flip. What does TUHH 1.65 m show?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+      "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_tuhh_night_09_108",
+    "gt_csv": "experiments/reference_data/mcd_tuhh_night_09_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_reference",
+      "label": "dense_window (current best 1.65 m)",
+      "design_style": "reference",
+      "intent": "Confirm 1.65 m baseline.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/dense_reference/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/dense_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/dense_reference/run.log",
+      "status": "ok",
+      "ate_m": 1.652374,
+      "rpe_trans_pct": 97.867765,
+      "rpe_rot_deg_per_m": 21.936664,
+      "fps": 22.796122,
+      "time_ms": 4737.647925,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 96.41,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "cluster_a",
+      "label": "cluster A (map=50 + c2f \u03c3\u00d72)",
+      "design_style": "long-traj-recipe",
+      "intent": "Test cluster A on TUHH night.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_a/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_a/run.log",
+      "status": "ok",
+      "ate_m": 1.533709,
+      "rpe_trans_pct": 100.304881,
+      "rpe_rot_deg_per_m": 21.943436,
+      "fps": 16.595289,
+      "time_ms": 6507.871183,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 86.4,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_d_ms_chol",
+      "label": "cluster D (ms_chol)",
+      "design_style": "short-traj-recipe",
+      "intent": "Test ms_chol on TUHH night.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_d_ms_chol/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_d_ms_chol/run.log",
+      "status": "ok",
+      "ate_m": 1.748826,
+      "rpe_trans_pct": 94.435817,
+      "rpe_rot_deg_per_m": 21.954142,
+      "fps": 21.748126,
+      "time_ms": 4965.945141,
+      "frames": 108,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 91.55,
+      "readability_score": 3.95,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.25,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

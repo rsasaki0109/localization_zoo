@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-05-17T16:03:06+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_raw_0009_full_gt_seed_matrix.json",
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_kitti_raw_0009_full_gt_seed",
+    "title": "CT-ICP GT-seeded on KITTI Raw drive 0009 (full)",
+    "question": "When CT-ICP is given the same Policy A GT-seed prior that LiTAMIN2 uses by default, does it produce comparably clean numbers - confirming that the earlier MulRan asymmetry was methodology, not algorithm?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_full",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": 1200.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default_pure_odometry",
+      "label": "Default (pure odometry, no GT seed)",
+      "design_style": "paper-style baseline",
+      "intent": "Existing Policy B behavior, kept for reference.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_full_gt_seed_matrix/default_pure_odometry/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0009_full_gt_seed_matrix/default_pure_odometry/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0009_full_gt_seed_matrix/default_pure_odometry/run.log",
+      "status": "ok",
+      "ate_m": 4.673164,
+      "rpe_trans_pct": 5.308574,
+      "rpe_rot_deg_per_m": 0.042273,
+      "fps": 37.674879,
+      "time_ms": 11758.498249,
+      "frames": 443,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 78.3,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "gt_seeded",
+      "label": "GT-seeded TrajectoryFrame init (symmetric of Policy A)",
+      "design_style": "fair-prior dogfooding",
+      "intent": "Match LiTAMIN2's default GT-seeded initialization so the comparison is method-vs-method, not policy-vs-policy.",
+      "args": [
+        "--ct-icp-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_full_gt_seed_matrix/gt_seeded/summary.json --ct-icp-gt-seed",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0009_full_gt_seed_matrix/gt_seeded/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0009_full_gt_seed_matrix/gt_seeded/run.log",
+      "status": "ok",
+      "ate_m": 2.681302,
+      "rpe_trans_pct": 4.004414,
+      "rpe_rot_deg_per_m": 0.042467,
+      "fps": 37.969432,
+      "time_ms": 11667.280044,
+      "frames": 443,
+      "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

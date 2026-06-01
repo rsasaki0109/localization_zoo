@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_mcd_kth_day_06_recipes",
+    "title": "CT-ICP recipe transfer test on MCD KTH day_06 (108 frames)",
+    "question": "MCD 108-frame windows current best is dense_window 6.12 m. cluster A (long-traj winner) vs cluster D (ms_chol, short-traj winner) — which wins on this short-window mid-difficulty scene?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_kth_day_06_108",
+      "gt_csv": "experiments/reference_data/mcd_kth_day_06_108_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "dense_reference",
+      "label": "dense_window only (current best 6.12 m)",
+      "design_style": "reference",
+      "intent": "Confirm 6.12 m baseline.",
+      "args": ["--ct-icp-dense-profile"]
+    },
+    {
+      "id": "cluster_a",
+      "label": "cluster A (map=50 + c2f σ×2)",
+      "design_style": "long-traj-recipe",
+      "intent": "Does long-trajectory recipe help on a short 108-frame window?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "cluster_d_ms_chol",
+      "label": "cluster D (ms_chol)",
+      "design_style": "short-traj-recipe",
+      "intent": "ms_chol is KITTI 07 (1102 frames) winner. Does it transfer to 108-frame MCD KTH?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_map50_retrofit_seq_02",
+    "title": "CT-ICP seq 02 full: map=50 retrofit on bare baseline winner",
+    "question": "seq 00 improved from 15.93 to 15.11 with map=50. Does seq 02 (bare baseline winner) also benefit?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "baseline_map_20",
+      "label": "baseline (dense + iter=6 + map=20)",
+      "design_style": "reference",
+      "intent": "Confirm 56.54 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20"]
+    },
+    {
+      "id": "baseline_map_50",
+      "label": "baseline + map=50",
+      "design_style": "bigger map",
+      "intent": "Apply seq 00 finding to seq 02.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50"]
+    }
+  ]
+}

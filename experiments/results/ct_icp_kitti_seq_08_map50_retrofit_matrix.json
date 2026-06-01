@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-05-19T03:08:36+00:00",
+  "manifest_path": "experiments/pending/ct_icp_kitti_seq_08_map50_retrofit_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_08_map50_retrofit",
+    "title": "CT-ICP seq 08 full: map=50 retrofit on c2f_only winner",
+    "question": "seq 08 c2f_only winner uses map=20 (32.51 m). Does map=50 retrofit help?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "c2f_only_map_20",
+      "label": "c2f_only map=20 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 32.51 m.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "20",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "3",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.02"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_20/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_20/run.log",
+      "status": "ok",
+      "ate_m": 32.511038,
+      "rpe_trans_pct": 2.119687,
+      "rpe_rot_deg_per_m": 0.025611,
+      "fps": 13.44125,
+      "time_ms": 302873.626196,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 99.69,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.6,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "c2f_only_map_50",
+      "label": "c2f_only map=50",
+      "design_style": "bigger map",
+      "intent": "seq 00 retrofit pattern.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "3",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.02"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_50/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_50/run.log",
+      "status": "ok",
+      "ate_m": 32.308987,
+      "rpe_trans_pct": 2.045255,
+      "rpe_rot_deg_per_m": 0.025077,
+      "fps": 11.641964,
+      "time_ms": 349683.262752,
+      "frames": 4071,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 93.31,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 1.6,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

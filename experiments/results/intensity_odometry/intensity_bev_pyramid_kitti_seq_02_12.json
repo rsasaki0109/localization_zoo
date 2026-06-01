@@ -1,0 +1,207 @@
+{
+  "sequence_pcd_dir": "dogfooding_results/kitti_seq_02_108",
+  "gt_csv": "experiments/reference_data/kitti_seq_02_108_gt.csv",
+  "frames": 12,
+  "method": "intensity_bev_direct_odometry",
+  "parameters": {
+    "grid_resolution": 0.5,
+    "grid_radius": 45.0,
+    "preset": "pyramid",
+    "max_points": 6000,
+    "x_window": 3.0,
+    "y_window": 1.5,
+    "yaw_window_deg": 4.0,
+    "x_step": 1.0,
+    "y_step": 0.5,
+    "yaw_step_deg": 2.0,
+    "refine_levels": 1,
+    "pyramid_levels": 3,
+    "min_overlap": 400,
+    "motion_prior": true
+  },
+  "runtime_s": 1.571995205944404,
+  "metrics": {
+    "ate_xy_m": 0.16604448216042159,
+    "step_length_rmse_m": 0.028287149797637516,
+    "step_length_rmse_pct_of_mean_step": 101.42962163180299,
+    "gt_path_length_m": 0.3067729552453045
+  },
+  "poses_xyyaw": [
+    {
+      "index": 0,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 1,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 2,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 3,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 4,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 5,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 6,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 7,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 8,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": -2.0
+    },
+    {
+      "index": 9,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": -4.0
+    },
+    {
+      "index": 10,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": -6.0
+    },
+    {
+      "index": 11,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": -6.0
+    }
+  ],
+  "pairs": [
+    {
+      "index": 1,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4247667687291762,
+      "overlap": 3963
+    },
+    {
+      "index": 2,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.44560466296291623,
+      "overlap": 3969
+    },
+    {
+      "index": 3,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4313734006528058,
+      "overlap": 3923
+    },
+    {
+      "index": 4,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4425536265998835,
+      "overlap": 3961
+    },
+    {
+      "index": 5,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.44388416120263136,
+      "overlap": 4041
+    },
+    {
+      "index": 6,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.44758842428364504,
+      "overlap": 4032
+    },
+    {
+      "index": 7,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4154653543599636,
+      "overlap": 3892
+    },
+    {
+      "index": 8,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 2.0,
+      "score": 0.38986346163031466,
+      "overlap": 3973
+    },
+    {
+      "index": 9,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 2.0,
+      "score": 0.3755710503752321,
+      "overlap": 3989
+    },
+    {
+      "index": 10,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 2.0,
+      "score": 0.3862430572919524,
+      "overlap": 3941
+    },
+    {
+      "index": 11,
+      "dx_curr_to_prev_m": 0.0,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "score": 0.3448808857194887,
+      "overlap": 3968
+    }
+  ],
+  "pcd_files": [
+    "dogfooding_results/kitti_seq_02_108/00000000/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000001/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000002/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000003/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000004/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000005/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000006/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000007/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000008/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000009/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000010/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000011/cloud.pcd"
+  ]
+}

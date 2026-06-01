@@ -1,0 +1,20 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_05_108",
+  "gt_csv": "experiments/reference_data/kitti_seq_05_108_gt.csv",
+  "num_frames": 108,
+  "trajectory_length_m": 98.914374,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "FixedMap-NDT+ScanContext",
+      "status": "ok",
+      "ate_m": 53.797970,
+      "rpe_trans_pct": 136.834989,
+      "rpe_rot_deg_per_m": 1.712044,
+      "frames": 108,
+      "time_ms": 42676.022565,
+      "fps": 2.530695,
+      "note": "Fixed-map NDT: target map built once from GT/reference poses (stride=10, map_points=22000). Seed source=scan_context, accepted=107/107, rejected=0, seed fallbacks=0. ScanContext hits=107/107, top_k=10, NDT candidates evaluated=1070, mean distance=0.2560."
+    }
+  ]
+}

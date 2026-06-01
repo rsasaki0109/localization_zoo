@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_c2f_mulran_parkinglot_full",
+    "title": "CT-ICP c2f on MulRan parkinglot full (cross-sensor cross-motion)",
+    "question": "Does c2f generalize from KITTI Odometry (Velodyne, driving) to MulRan parkinglot (Aeva, slow turns)? Uses --ct-icp-gt-seed (Policy A symmetric prior).",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_gt_seed_best",
+      "label": "ms_chol + gt_seed baseline",
+      "design_style": "reference",
+      "intent": "Re-baseline with ms_chol bundle + GT seed (Policy A).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-gt-seed"]
+    },
+    {
+      "id": "c2f_full_gt_seed",
+      "label": "ms_chol + c2f + gt_seed",
+      "design_style": "c2f",
+      "intent": "Cross-dataset c2f test.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-gt-seed", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "c2f_plus_gap_c_gt_seed",
+      "label": "ms_chol + c2f + gap_c + gt_seed",
+      "design_style": "c2f+gap_c",
+      "intent": "Full long-residential profile cross-dataset.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-gt-seed", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02", "--ct-icp-min-distance-between-points", "0.1"]
+    }
+  ]
+}

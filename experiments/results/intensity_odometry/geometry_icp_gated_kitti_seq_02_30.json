@@ -1,0 +1,587 @@
+{
+  "sequence_pcd_dir": "dogfooding_results/kitti_seq_02_108",
+  "gt_csv": "experiments/reference_data/kitti_seq_02_108_gt.csv",
+  "frames": 30,
+  "method": "geometry_icp_pairwise_odometry",
+  "parameters": {
+    "max_points": 5000,
+    "voxel_size": 0.75,
+    "max_iterations": 20,
+    "max_correspondence_distance": 1.5,
+    "min_correspondences": 80,
+    "max_step_translation": 0.3,
+    "max_step_yaw_deg": 6.0,
+    "motion_prior": true
+  },
+  "runtime_s": 0.9842898619826883,
+  "metrics": {
+    "ate_xy_m": 1.9390448838959708,
+    "step_length_rmse_m": 0.1131699832706621,
+    "step_length_rmse_pct_of_mean_step": 353.57457823456394,
+    "gt_path_length_m": 0.9282142203877409
+  },
+  "poses_xyyaw": [
+    {
+      "index": 0,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 1,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 2,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 3,
+      "x_m": -0.11904677803986412,
+      "y_m": -0.05371889264681368,
+      "yaw_deg": -0.22463885316839627
+    },
+    {
+      "index": 4,
+      "x_m": -0.21161331022318022,
+      "y_m": -0.08721594969472068,
+      "yaw_deg": -0.5998423656769704
+    },
+    {
+      "index": 5,
+      "x_m": -0.451625371911073,
+      "y_m": -0.1364934001394248,
+      "yaw_deg": -1.2421833070684523
+    },
+    {
+      "index": 6,
+      "x_m": -0.6921747868800441,
+      "y_m": -0.1830770435788217,
+      "yaw_deg": -1.8845242484599343
+    },
+    {
+      "index": 7,
+      "x_m": -0.7203964807025828,
+      "y_m": -0.04576343065790081,
+      "yaw_deg": -1.9027762688811358
+    },
+    {
+      "index": 8,
+      "x_m": -0.8979706964262191,
+      "y_m": 0.0007848022170923522,
+      "yaw_deg": -1.4874194958789335
+    },
+    {
+      "index": 9,
+      "x_m": -1.092477958534897,
+      "y_m": 0.047264447512066154,
+      "yaw_deg": -1.145098309642336
+    },
+    {
+      "index": 10,
+      "x_m": -1.2441208354311617,
+      "y_m": 0.029695100946061856,
+      "yaw_deg": -0.2779084015095188
+    },
+    {
+      "index": 11,
+      "x_m": -1.3954804361294308,
+      "y_m": 0.009832691006869534,
+      "yaw_deg": 0.5892815066232984
+    },
+    {
+      "index": 12,
+      "x_m": -1.546522088154344,
+      "y_m": -0.012318232353502198,
+      "yaw_deg": 1.4564714147561155
+    },
+    {
+      "index": 13,
+      "x_m": -1.69721119186416,
+      "y_m": -0.03675259494523726,
+      "yaw_deg": 2.323661322888933
+    },
+    {
+      "index": 14,
+      "x_m": -1.847513228376618,
+      "y_m": -0.06346479950307461,
+      "yaw_deg": 3.19085123102175
+    },
+    {
+      "index": 15,
+      "x_m": -1.9973937674763003,
+      "y_m": -0.09244872696849343,
+      "yaw_deg": 4.058041139154567
+    },
+    {
+      "index": 16,
+      "x_m": -2.1468184755016813,
+      "y_m": -0.12369773789142738,
+      "yaw_deg": 4.925231047287385
+    },
+    {
+      "index": 17,
+      "x_m": -2.295753123210061,
+      "y_m": -0.15720467395118667,
+      "yaw_deg": 5.7924209554202015
+    },
+    {
+      "index": 18,
+      "x_m": -2.3723453039776348,
+      "y_m": -0.1810654698501935,
+      "yaw_deg": 6.367220367484181
+    },
+    {
+      "index": 19,
+      "x_m": -2.212981112430492,
+      "y_m": -0.15737623566823408,
+      "yaw_deg": 6.218061772277423
+    },
+    {
+      "index": 20,
+      "x_m": -2.053555790588517,
+      "y_m": -0.13410195546057008,
+      "yaw_deg": 6.0689031770706645
+    },
+    {
+      "index": 21,
+      "x_m": -1.894070418910884,
+      "y_m": -0.1112427869619281,
+      "yaw_deg": 5.919744581863906
+    },
+    {
+      "index": 22,
+      "x_m": -1.7345260782637364,
+      "y_m": -0.08879888509373485,
+      "yaw_deg": 5.770585986657148
+    },
+    {
+      "index": 23,
+      "x_m": -1.837601718141404,
+      "y_m": -0.13068646033868006,
+      "yaw_deg": 5.203379059150905
+    },
+    {
+      "index": 24,
+      "x_m": -1.833151632349907,
+      "y_m": -0.18527281910112917,
+      "yaw_deg": 4.771986897075243
+    },
+    {
+      "index": 25,
+      "x_m": -1.9158931743718013,
+      "y_m": -0.24764271776301192,
+      "yaw_deg": 4.657123330827518
+    },
+    {
+      "index": 26,
+      "x_m": -1.9444173166209693,
+      "y_m": -0.27026404212074556,
+      "yaw_deg": 5.328105291501305
+    },
+    {
+      "index": 27,
+      "x_m": -1.972674594181484,
+      "y_m": -0.29321784946542345,
+      "yaw_deg": 5.999087252175092
+    },
+    {
+      "index": 28,
+      "x_m": -2.000661131785026,
+      "y_m": -0.31650099185888253,
+      "yaw_deg": 6.670069212848878
+    },
+    {
+      "index": 29,
+      "x_m": -2.0283730912931786,
+      "y_m": -0.34011027619719036,
+      "yaw_deg": 7.341051173522665
+    }
+  ],
+  "pairs": [
+    {
+      "index": 1,
+      "dx_curr_to_prev_m": 0.9213720261403665,
+      "dy_curr_to_prev_m": -0.035367285332576465,
+      "yaw_curr_to_prev_deg": 0.2997193572432288,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.0,
+      "used_dy_curr_to_prev_m": 0.0,
+      "used_yaw_curr_to_prev_deg": 0.0,
+      "score": 0.6423105997926094,
+      "overlap": 2019
+    },
+    {
+      "index": 2,
+      "dx_curr_to_prev_m": 0.7813952887077616,
+      "dy_curr_to_prev_m": -0.09874713187186174,
+      "yaw_curr_to_prev_deg": -0.24097012168855694,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.0,
+      "used_dy_curr_to_prev_m": 0.0,
+      "used_yaw_curr_to_prev_deg": 0.0,
+      "score": 0.6465798419036238,
+      "overlap": 2050
+    },
+    {
+      "index": 3,
+      "dx_curr_to_prev_m": 0.11883524860237676,
+      "dy_curr_to_prev_m": 0.05418522380210199,
+      "yaw_curr_to_prev_deg": 0.22463885316839627,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.11883524860237676,
+      "used_dy_curr_to_prev_m": 0.05418522380210199,
+      "used_yaw_curr_to_prev_deg": 0.22463885316839627,
+      "score": 0.6427189091665176,
+      "overlap": 2006
+    },
+    {
+      "index": 4,
+      "dx_curr_to_prev_m": 0.09221077757153744,
+      "dy_curr_to_prev_m": 0.03446430343076848,
+      "yaw_curr_to_prev_deg": 0.37520351250857414,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.09221077757153744,
+      "used_dy_curr_to_prev_m": 0.03446430343076848,
+      "used_yaw_curr_to_prev_deg": 0.37520351250857414,
+      "score": 0.6426687257101703,
+      "overlap": 1963
+    },
+    {
+      "index": 5,
+      "dx_curr_to_prev_m": 0.23888739666315706,
+      "dy_curr_to_prev_m": 0.054468969087936345,
+      "yaw_curr_to_prev_deg": 0.6423409413914819,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.23888739666315706,
+      "used_dy_curr_to_prev_m": 0.054468969087936345,
+      "used_yaw_curr_to_prev_deg": 0.6423409413914819,
+      "score": 0.6438676588573516,
+      "overlap": 1973
+    },
+    {
+      "index": 6,
+      "dx_curr_to_prev_m": 0.5426223223110976,
+      "dy_curr_to_prev_m": -0.05289363684729031,
+      "yaw_curr_to_prev_deg": 0.9033800055392734,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.23888739666315706,
+      "used_dy_curr_to_prev_m": 0.054468969087936345,
+      "used_yaw_curr_to_prev_deg": 0.6423409413914819,
+      "score": 0.634901480251229,
+      "overlap": 1979
+    },
+    {
+      "index": 7,
+      "dx_curr_to_prev_m": 0.03276543981676214,
+      "dy_curr_to_prev_m": -0.13630083730199072,
+      "yaw_curr_to_prev_deg": 0.018252020421201803,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.03276543981676214,
+      "used_dy_curr_to_prev_m": -0.13630083730199072,
+      "used_yaw_curr_to_prev_deg": 0.018252020421201803,
+      "score": 0.6397558745705322,
+      "overlap": 1931
+    },
+    {
+      "index": 8,
+      "dx_curr_to_prev_m": 0.17872265534658047,
+      "dy_curr_to_prev_m": -0.041923174253824094,
+      "yaw_curr_to_prev_deg": -0.4153567730022021,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.17872265534658047,
+      "used_dy_curr_to_prev_m": -0.041923174253824094,
+      "used_yaw_curr_to_prev_deg": -0.4153567730022021,
+      "score": 0.6454053198312796,
+      "overlap": 1948
+    },
+    {
+      "index": 9,
+      "dx_curr_to_prev_m": 0.19539728548949645,
+      "dy_curr_to_prev_m": -0.04258325096909284,
+      "yaw_curr_to_prev_deg": -0.34232118623659746,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.19539728548949645,
+      "used_dy_curr_to_prev_m": -0.04258325096909284,
+      "used_yaw_curr_to_prev_deg": -0.34232118623659746,
+      "score": 0.6410763979617015,
+      "overlap": 1984
+    },
+    {
+      "index": 10,
+      "dx_curr_to_prev_m": 0.15155587476701857,
+      "dy_curr_to_prev_m": 0.018304668140554196,
+      "yaw_curr_to_prev_deg": -0.8671899081328172,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.15155587476701857,
+      "used_dy_curr_to_prev_m": 0.018304668140554196,
+      "used_yaw_curr_to_prev_deg": -0.8671899081328172,
+      "score": 0.6489585857903825,
+      "overlap": 1956
+    },
+    {
+      "index": 11,
+      "dx_curr_to_prev_m": 0.8101725695119626,
+      "dy_curr_to_prev_m": -0.01184726189911673,
+      "yaw_curr_to_prev_deg": -0.24102366869843297,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.15155587476701857,
+      "used_dy_curr_to_prev_m": 0.018304668140554196,
+      "used_yaw_curr_to_prev_deg": -0.8671899081328172,
+      "score": 0.6446566809578844,
+      "overlap": 1984
+    },
+    {
+      "index": 12,
+      "dx_curr_to_prev_m": 0.8597779537938248,
+      "dy_curr_to_prev_m": 0.00048648348027234816,
+      "yaw_curr_to_prev_deg": -0.35326332990845183,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.15155587476701857,
+      "used_dy_curr_to_prev_m": 0.018304668140554196,
+      "used_yaw_curr_to_prev_deg": -0.8671899081328172,
+      "score": 0.6427542092707182,
+      "overlap": 2034
+    },
+    {
+      "index": 13,
+      "dx_curr_to_prev_m": 0.838956549957649,
+      "dy_curr_to_prev_m": -0.01936554860451721,
+      "yaw_curr_to_prev_deg": -0.1598441594333579,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.15155587476701857,
+      "used_dy_curr_to_prev_m": 0.018304668140554196,
+      "used_yaw_curr_to_prev_deg": -0.8671899081328172,
+      "score": 0.6390612563641168,
+      "overlap": 2039
+    },
+    {
+      "index": 14,
+      "dx_curr_to_prev_m": 0.49542028925489867,
+      "dy_curr_to_prev_m": 0.04974379083095481,
+      "yaw_curr_to_prev_deg": -0.8222807116177984,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.15155587476701857,
+      "used_dy_curr_to_prev_m": 0.018304668140554196,
+      "used_yaw_curr_to_prev_deg": -0.8671899081328172,
+      "score": 0.6332717881897584,
+      "overlap": 2001
+    },
+    {
+      "index": 15,
+      "dx_curr_to_prev_m": 0.3004820308751372,
+      "dy_curr_to_prev_m": 0.00918725810867477,
+      "yaw_curr_to_prev_deg": -0.23276275154888512,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.15155587476701857,
+      "used_dy_curr_to_prev_m": 0.018304668140554196,
+      "used_yaw_curr_to_prev_deg": -0.8671899081328172,
+      "score": 0.6300612733470281,
+      "overlap": 2016
+    },
+    {
+      "index": 16,
+      "dx_curr_to_prev_m": 0.8385336183501092,
+      "dy_curr_to_prev_m": -0.06239518375939209,
+      "yaw_curr_to_prev_deg": -0.5703988844612118,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.15155587476701857,
+      "used_dy_curr_to_prev_m": 0.018304668140554196,
+      "used_yaw_curr_to_prev_deg": -0.8671899081328172,
+      "score": 0.6369344776336444,
+      "overlap": 2063
+    },
+    {
+      "index": 17,
+      "dx_curr_to_prev_m": 0.780897262674367,
+      "dy_curr_to_prev_m": -0.06210111941491218,
+      "yaw_curr_to_prev_deg": -0.1344831495568295,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.15155587476701857,
+      "used_dy_curr_to_prev_m": 0.018304668140554196,
+      "used_yaw_curr_to_prev_deg": -0.8671899081328172,
+      "score": 0.6427256476203936,
+      "overlap": 2080
+    },
+    {
+      "index": 18,
+      "dx_curr_to_prev_m": 0.07876589516450375,
+      "dy_curr_to_prev_m": 0.01521951032724618,
+      "yaw_curr_to_prev_deg": -0.574799412063979,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.07876589516450375,
+      "used_dy_curr_to_prev_m": 0.01521951032724618,
+      "used_yaw_curr_to_prev_deg": -0.574799412063979,
+      "score": 0.6342401331243036,
+      "overlap": 2057
+    },
+    {
+      "index": 19,
+      "dx_curr_to_prev_m": -0.16099247710898826,
+      "dy_curr_to_prev_m": -0.006288694452270838,
+      "yaw_curr_to_prev_deg": 0.14915859520675845,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": -0.16099247710898826,
+      "used_dy_curr_to_prev_m": -0.006288694452270838,
+      "used_yaw_curr_to_prev_deg": 0.14915859520675845,
+      "score": 0.6405799093727589,
+      "overlap": 2075
+    },
+    {
+      "index": 20,
+      "dx_curr_to_prev_m": 0.3017840524543926,
+      "dy_curr_to_prev_m": -0.03925526430229219,
+      "yaw_curr_to_prev_deg": -0.6227111347234933,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": -0.16099247710898826,
+      "used_dy_curr_to_prev_m": -0.006288694452270838,
+      "used_yaw_curr_to_prev_deg": 0.14915859520675845,
+      "score": 0.6390541555382462,
+      "overlap": 2172
+    },
+    {
+      "index": 21,
+      "dx_curr_to_prev_m": 0.9067123080476316,
+      "dy_curr_to_prev_m": 0.001057730699962853,
+      "yaw_curr_to_prev_deg": 0.23619027851000363,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": -0.16099247710898826,
+      "used_dy_curr_to_prev_m": -0.006288694452270838,
+      "used_yaw_curr_to_prev_deg": 0.14915859520675845,
+      "score": 0.6510672130743683,
+      "overlap": 2212
+    },
+    {
+      "index": 22,
+      "dx_curr_to_prev_m": 0.6913012173353261,
+      "dy_curr_to_prev_m": 0.001475854001581958,
+      "yaw_curr_to_prev_deg": 0.14673000680993104,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": -0.16099247710898826,
+      "used_dy_curr_to_prev_m": -0.006288694452270838,
+      "used_yaw_curr_to_prev_deg": 0.14915859520675845,
+      "score": 0.6518009136172581,
+      "overlap": 2209
+    },
+    {
+      "index": 23,
+      "dx_curr_to_prev_m": 0.10644970969978637,
+      "dy_curr_to_prev_m": 0.032366893593960146,
+      "yaw_curr_to_prev_deg": 0.5672069275062422,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.10644970969978637,
+      "used_dy_curr_to_prev_m": 0.032366893593960146,
+      "used_yaw_curr_to_prev_deg": 0.5672069275062422,
+      "score": 0.6477014288820035,
+      "overlap": 2203
+    },
+    {
+      "index": 24,
+      "dx_curr_to_prev_m": 0.00010641317572438554,
+      "dy_curr_to_prev_m": 0.054767348874402516,
+      "yaw_curr_to_prev_deg": 0.4313921620756628,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.00010641317572438554,
+      "used_dy_curr_to_prev_m": 0.054767348874402516,
+      "used_yaw_curr_to_prev_deg": 0.4313921620756628,
+      "score": 0.6387949106026901,
+      "overlap": 2181
+    },
+    {
+      "index": 25,
+      "dx_curr_to_prev_m": 0.0875323428279669,
+      "dy_curr_to_prev_m": 0.05544597365275205,
+      "yaw_curr_to_prev_deg": 0.11486356624772506,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.0875323428279669,
+      "used_dy_curr_to_prev_m": 0.05544597365275205,
+      "used_yaw_curr_to_prev_deg": 0.11486356624772506,
+      "score": 0.6444885405086062,
+      "overlap": 2208
+    },
+    {
+      "index": 26,
+      "dx_curr_to_prev_m": 0.030501490833621706,
+      "dy_curr_to_prev_m": 0.019874860091961596,
+      "yaw_curr_to_prev_deg": -0.6709819606737873,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.030501490833621706,
+      "used_dy_curr_to_prev_m": 0.019874860091961596,
+      "used_yaw_curr_to_prev_deg": -0.6709819606737873,
+      "score": 0.6453576788388681,
+      "overlap": 2222
+    },
+    {
+      "index": 27,
+      "dx_curr_to_prev_m": 0.7620485226974152,
+      "dy_curr_to_prev_m": -0.004705789122593472,
+      "yaw_curr_to_prev_deg": -0.3256609085143799,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.030501490833621706,
+      "used_dy_curr_to_prev_m": 0.019874860091961596,
+      "used_yaw_curr_to_prev_deg": -0.6709819606737873,
+      "score": 0.6575900506093022,
+      "overlap": 2269
+    },
+    {
+      "index": 28,
+      "dx_curr_to_prev_m": 0.9694976122763884,
+      "dy_curr_to_prev_m": 0.014550803739084689,
+      "yaw_curr_to_prev_deg": 0.0270337908512689,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.030501490833621706,
+      "used_dy_curr_to_prev_m": 0.019874860091961596,
+      "used_yaw_curr_to_prev_deg": -0.6709819606737873,
+      "score": 0.6582087295014727,
+      "overlap": 2273
+    },
+    {
+      "index": 29,
+      "dx_curr_to_prev_m": 0.9554295424447407,
+      "dy_curr_to_prev_m": -0.017446383581526746,
+      "yaw_curr_to_prev_deg": -0.3179899977248477,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.030501490833621706,
+      "used_dy_curr_to_prev_m": 0.019874860091961596,
+      "used_yaw_curr_to_prev_deg": -0.6709819606737873,
+      "score": 0.6588419744356127,
+      "overlap": 2308
+    }
+  ],
+  "pcd_files": [
+    "dogfooding_results/kitti_seq_02_108/00000000/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000001/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000002/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000003/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000004/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000005/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000006/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000007/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000008/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000009/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000010/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000011/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000012/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000013/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000014/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000015/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000016/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000017/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000018/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000019/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000020/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000021/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000022/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000023/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000024/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000025/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000026/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000027/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000028/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000029/cloud.pcd"
+  ]
+}

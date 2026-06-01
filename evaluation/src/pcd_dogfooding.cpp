@@ -2,13 +2,14 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
 
 #include "gicp/gicp_registration.h"
 #include "kiss_icp/kiss_icp.h"
+#include "genz_icp/genz_icp.h"
 #include "litamin2/litamin2_registration.h"
 #include "ndt/ndt_registration.h"
 #include "scan_context/scan_context.h"
@@ -163,7 +164,8 @@ std::vector<std::string> splitMethodList(const std::string& csv) {
 
 bool isSupportedMethod(const std::string& method) {
   return method == "litamin2" || method == "gicp" || method == "ndt" ||
-         method == "fixed_map_ndt" || method == "kiss_icp" || method == "small_gicp" ||
+         method == "fixed_map_ndt" || method == "kiss_icp" || method == "genz_icp" ||
+         method == "small_gicp" ||
          method == "voxel_gicp" || method == "aloam" || method == "floam" ||
          method == "dlo" || method == "dlio" || method == "lego_loam" ||
          method == "mulls" || method == "ct_lio" || method == "ct_icp" ||
@@ -1060,6 +1062,19 @@ struct KISSICPDogfoodingOptions {
   double initial_threshold = 1.5;
   int max_points_per_voxel = 12;
   int max_icp_iterations = 30;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct GenZICPDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  double initial_threshold = 1.5;
+  int max_points_per_voxel = 12;
+  int max_icp_iterations = 30;
+  double planarity_threshold = 0.55;
+  int normal_min_neighbors = 5;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -3112,6 +3127,49 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runGenZICP(const std::vector<std::string>& pcd_dirs,
+                        const std::vector<Eigen::Matrix4d>& gt,
+                        const GenZICPDogfoodingOptions& options) {
+  using namespace localization_zoo::genz_icp;
+  MethodResult res;
+  res.name = "GenZ-ICP";
+
+  GenZICPParams params;
+  params.voxel_size = options.voxel_size;
+  params.initial_threshold = options.initial_threshold;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.planarity_threshold = options.planarity_threshold;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  GenZICPPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    const auto result = pipeline.registerFrame(pts_local);
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [GenZ-ICP] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Adaptive point-to-plane / point-to-point hybrid odometry (no GT seed; anchor matches first GT pose).";
+  return res;
+}
+
 MethodResult runDLO(const std::vector<std::string>& pcd_dirs,
                     const std::vector<Eigen::Matrix4d>& gt,
                     const DLODofeedingOptions& options) {
@@ -4567,7 +4625,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -4716,6 +4774,7 @@ int main(int argc, char** argv) {
   NDTDogfoodingOptions ndt_options;
   FixedMapNDTOptions fixed_map_ndt_options;
   KISSICPDogfoodingOptions kiss_icp_options;
+  GenZICPDogfoodingOptions genz_icp_options;
   CTICPDogfoodingOptions ct_icp_options;
   CTICPNDTHybridOptions ct_icp_ndt_options;
   DLODofeedingOptions dlo_options;
@@ -5942,6 +6001,44 @@ int main(int argc, char** argv) {
       kiss_icp_options.map_cleanup_interval = 6;
       continue;
     }
+    if (arg == "--genz-fast-profile") {
+      genz_icp_options.source_voxel_size = 0.75;
+      genz_icp_options.max_source_points = 2500;
+      genz_icp_options.voxel_size = 1.25;
+      genz_icp_options.initial_threshold = 1.75;
+      genz_icp_options.max_points_per_voxel = 10;
+      genz_icp_options.max_icp_iterations = 20;
+      genz_icp_options.planarity_threshold = 0.55;
+      genz_icp_options.local_map_radius = 45.0;
+      genz_icp_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--genz-dense-profile") {
+      genz_icp_options.source_voxel_size = 0.35;
+      genz_icp_options.max_source_points = 6000;
+      genz_icp_options.voxel_size = 0.8;
+      genz_icp_options.initial_threshold = 1.25;
+      genz_icp_options.max_points_per_voxel = 16;
+      genz_icp_options.max_icp_iterations = 40;
+      genz_icp_options.planarity_threshold = 0.5;
+      genz_icp_options.local_map_radius = 80.0;
+      genz_icp_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--genz-planarity-threshold") {
+      if (i + 1 >= argc) {
+        std::cerr << "--genz-planarity-threshold requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      genz_icp_options.planarity_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--genz-planarity-threshold=", 0) == 0) {
+      genz_icp_options.planarity_threshold =
+          std::stod(arg.substr(std::string("--genz-planarity-threshold=").size()));
+      continue;
+    }
     if (arg == "--kiss-source-voxel-size") {
       if (i + 1 >= argc) {
         std::cerr << "--kiss-source-voxel-size requires a numeric value"
@@ -7038,6 +7135,17 @@ int main(int argc, char** argv) {
               << " local_map_radius=" << kiss_icp_options.local_map_radius
               << std::endl;
     results.push_back(runKISSICP(pcd_dirs, gt, kiss_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "genz_icp")) {
+    std::cout << "Running GenZ-ICP..." << std::endl;
+    std::cout << "  source_voxel_size=" << genz_icp_options.source_voxel_size
+              << " max_source_points=" << genz_icp_options.max_source_points
+              << " voxel_size=" << genz_icp_options.voxel_size
+              << " planarity_threshold=" << genz_icp_options.planarity_threshold
+              << " max_iterations=" << genz_icp_options.max_icp_iterations
+              << std::endl;
+    results.push_back(runGenZICP(pcd_dirs, gt, genz_icp_options));
   }
 
   if (isMethodEnabled(selected_methods, "dlo")) {

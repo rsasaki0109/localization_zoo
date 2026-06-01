@@ -4,9 +4,11 @@
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import sys
+from glob import glob
 from pathlib import Path
 
 
@@ -29,6 +31,28 @@ def run_version(cmd: list[str]) -> str:
         return ""
 
 
+def find_cmake_config(names: list[str]) -> str:
+    patterns = []
+    for prefix in os.environ.get("CMAKE_PREFIX_PATH", "").split(":"):
+        if prefix:
+            for name in names:
+                patterns.append(f"{prefix}/**/{name}")
+    for base in (
+        "/usr/lib",
+        "/usr/lib64",
+        "/usr/local/lib",
+        "/usr/local/lib64",
+        "/opt",
+    ):
+        for name in names:
+            patterns.append(f"{base}/**/{name}")
+    for pattern in patterns:
+        matches = sorted(glob(pattern, recursive=True))
+        if matches:
+            return matches[0]
+    return ""
+
+
 def main() -> int:
     all_ok = True
 
@@ -39,10 +63,20 @@ def main() -> int:
     gcc_ver = run_version(["g++", "--version"]).split("\n")[0] if run_version(["g++", "--version"]) else ""
     all_ok &= check("g++", bool(gcc_ver), gcc_ver)
 
-    # Build artifact
-    for binary_name in ["pcd_dogfooding", "multimodal_dogfooding"]:
-        binary = REPO_ROOT / "build" / "evaluation" / binary_name
-        all_ok &= check(f"{binary_name} binary", binary.exists(), str(binary))
+    ceres_config = find_cmake_config(["CeresConfig.cmake", "ceres-config.cmake"])
+    all_ok &= check("Ceres CMake package", bool(ceres_config), ceres_config or "not found")
+
+    # Build artifacts (evaluation stack)
+    eval_dir = REPO_ROOT / "build" / "evaluation"
+    for name in ("pcd_dogfooding", "multimodal_dogfooding", "synthetic_benchmark"):
+        path = eval_dir / name
+        all_ok &= check(f"build/evaluation/{name}", path.exists(), str(path))
+
+    fixture_pcd = REPO_ROOT / "evaluation" / "fixtures" / "mcd_kth_smoke"
+    all_ok &= check("evaluation/fixtures/mcd_kth_smoke/", fixture_pcd.is_dir())
+
+    suite = REPO_ROOT / "evaluation" / "scripts" / "run_local_evaluation_suite.sh"
+    all_ok &= check("script: run_local_evaluation_suite.sh", suite.exists())
 
     # Python packages
     for pkg in ["numpy", "matplotlib"]:

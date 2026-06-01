@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-06-02T03:37:00+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2785,6 +2785,19 @@ _Generated at 2026-06-02T03:37:00+00:00 by `evaluation/scripts/run_experiment_ma
 | fast_icp_only_half_threads | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window
+
+- Current default: `default_voxel_2_0`.
+- Active challengers: `voxel_1_0`.
+- Reference variants: `voxel_0_5_t1`.
+- Aggregate result: `experiments/results/litamin2_nclt_2013_01_10_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_voxel_2_0 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| voxel_1_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| voxel_0_5_t1 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence
 

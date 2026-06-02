@@ -41,6 +41,155 @@ only a private research scratchpad. First-clone users should immediately see a
 usable method explorer, a runnable demo, a generated report, and CI-backed proof
 that many methods can be validated together.
 
+### 0.0 Update — Showcase merged + 2 new methods (2026-06-02, later session)
+
+This subsection supersedes 0.1–0.7 where they conflict; those describe the
+pre-merge dirty-worktree state.
+
+- **Showcase merged to `main`.** PR #2 (`wip/profile-expansion-refresh` → `main`)
+  was merged (merge commit `4ddb7c3`). The merge brought in `main`'s 14 commits
+  (HDL-400 B benchmark docs, `run_local_evaluation_suite.sh` / `eval_local_suite`
+  CMake target, Ceres/OpenCV build tweaks, KISS-ICP empty-frame + common golden
+  tests). Conflicts were resolved keeping the branch's newer research/showcase
+  state for data/docs and merging both sides for source (`run_experiment_matrix.py`
+  kept the lower-case `is_metric_valid` taxonomy + new `--merge-existing-index`;
+  the duplicate `problem_run_from_aggregate` was disambiguated into
+  `problem_run_from_aggregate` (manifest form) and `problem_run_from_aggregate_file`
+  (aggregate-only form)).
+- **Method count 33 → 35.** Two new from-scratch LiDAR ports were added:
+  - `papers/genz_icp/` — GenZ-ICP style degeneracy-robust odometry (adaptive
+    point-to-plane / point-to-point hybrid, normal+planarity estimation on the
+    KISS-style voxel map). Selector `genz_icp`, profiles `--genz-fast-profile` /
+    `--genz-dense-profile` / `--genz-planarity-threshold`. `test_genz_icp`.
+  - `papers/rko_lio/` — RKO-LIO style scan-to-map odometry with an IMU gyro
+    rotation prior (via `imu_preintegration`), constant-velocity fallback when no
+    `imu.csv`. Selector `rko_lio`. `test_rko_lio`. Always runs (does not skip);
+    note text records whether the IMU prior was used.
+  - Both have `docs/methods.json` entries (catalog now 41 entries = 41 `papers/*`).
+- **Drift column.** `pcd_dogfooding` results table now prints `Drift[m/100m]`
+  (the existing KITTI-style `rpe_trans_pct`, previously only in summary JSON;
+  shows `-` for trajectories shorter than the RPE segment).
+- **GenZ-ICP KITTI Odom 108-window finding** (memory
+  `genz_icp_vs_kiss_kitti_windows.md`): GenZ-ICP beats KISS-ICP on drift in 3/5
+  windows (00/02/07) but is not universal (loses on 05), is slower, and does not
+  rescue the seq 08 no-seed divergence (~33 m/100m, like KISS). NDT (GT-seeded)
+  remains the overall window winner. RKO-LIO full benchmark intentionally **not
+  yet run** (user deferred).
+- **Commits on branch after the merge:** `dd69400` (GenZ-ICP), `e1ecc6a` (drift
+  column), `3645d67` (RKO-LIO). Branch pushed to origin.
+- **Verification:** `cmake --build build --target pcd_dogfooding multimodal_dogfooding`
+  clean; `ctest -R "genz_icp|rko_lio"` pass; `python3 -m unittest discover -s tests`
+  → 49 pass; one-command demo (broad) + `validate_showcase.py --require-demo` valid.
+  The demo all-OK profiles were intentionally **not** changed (genz_icp/rko_lio
+  are available via `--methods` but not in the default broad/full sets).
+- **NCLT dataset ingested (no-form, S3 direct).** `evaluation/scripts/prepare_nclt_inputs.py`
+  + `SETUP_NCLT_BENCHMARK.md` convert NCLT (UMich, Velodyne+MS25 IMU+6-DoF GT) into the
+  standard `dogfooding_results/nclt_*` (cloud.pcd + frame_timestamps.csv + imu.csv) and
+  `experiments/reference_data/nclt_*_gt.csv`. Smallest session `2013-01-10` (velodyne 2.9 GB)
+  ingested at 120- and 600-frame windows. Raw download lives outside the repo in
+  `nclt_raw/`; the PCD trees are gitignored, only GT CSVs are committed.
+  - Active manifests `rko_lio_nclt_2013_01_10` (gyro-bias-gain sweep) and
+    `genz_icp_nclt_2013_01_10`, run through `run_experiment_matrix.py --merge-existing-index`
+    and merged into `index.json` + generated docs.
+  - **Finding (memory `nclt_dataset_ingested.md`):** on NCLT the **raw IMU rotation prior
+    (gyro_bias_gain 0) is best** (RKO-LIO ATE 0.141 @120, 0.385 @600 — beating FAST-LIO2's
+    0.469 @600, 2nd only to GT-seeded NDT). Optimal bias gain is **dataset-dependent** —
+    HDL-400 wants 0.3 (high IMU bias), NCLT wants 0 (low-bias MS25); no universal default.
+    KISS-ICP (no IMU) drifts to 7.2 m @600. NCLT is where the inertial prior clearly pays off.
+  - **Bug fixed:** `variant_result_from_dict` in `run_experiment_matrix.py` (main-side helper
+    pulled in by the merge) omitted the branch's required `rpe_trans_pct` / `rpe_rot_deg_per_m`
+    fields, breaking the `--merge-existing-index` path. Now fixed.
+
+### 0.0b Update — NCLT cross-method + full-trajectory benchmark + LiTAMIN2 improvement (2026-06-02, later session)
+
+- **Full NCLT tree generated.** `prepare_nclt_inputs.py --max-frames -1` produced
+  `dogfooding_results/nclt_2013_01_10_full` (**5105 GT-matched frames**) + committed
+  `experiments/reference_data/nclt_2013_01_10_full_gt.csv`. Passing `max_frames` to
+  `pcd_dogfooding` lets any prefix window be evaluated off the full tree (2000-frame
+  windows are the practical tuning size — they reproduce the long-trajectory drift while
+  staying fast).
+- **Mechanism clarified.** In this dogfooding tool, GT-seeded methods (NDT, LiTAMIN2,
+  GICP-family) use a **per-frame** seed: `T_init_guess = applySeedPerturbation(gt[i], …)`,
+  then accept the refinement only if it stays within the gate (NDT 1.5 m/0.2 rad,
+  others 2.0 m/0.25 rad), else roll back to `gt[i]` (weak-update fallback). So their ATE is
+  the per-frame *registration residual* from GT, not accumulated odometry drift. RKO-LIO /
+  FAST-LIO2 / KISS-ICP only seed the **first** pose → they are odometry and drift over the
+  full trajectory (a different category from the per-frame-seeded registration methods).
+- **600-frame horizontal comparison (11 methods).** Winner NDT 0.198, then LiTAMIN2 0.380 ≈
+  RKO-LIO(gain0) 0.385, FAST-LIO2 0.469, small_gicp 1.024; no-seed odometry blows up
+  (KISS 7.25, CT-ICP 13.6, GenZ 26.0, Point-LIO 122).
+- **Full 5105-frame benchmark — scale-dependent reversal (key finding).**
+
+  | method (full 5105) | seed | ATE [m] | drift [m/100m] |
+  |---|---|---|---|
+  | NDT | GT | **0.122** | 0.460 |
+  | **LiTAMIN2 voxel0.5/iter12** | GT | **0.582** | 1.315 |
+  | small_gicp voxel0.5 | GT | 1.040 | 2.786 |
+  | small_gicp default | GT | 1.086 | 2.288 |
+  | LiTAMIN2 default (voxel2.0) | GT | 1.149 | 2.492 |
+  | RKO-LIO (gain0) | init | 7.334 | 2.077 |
+  | RKO-LIO (gain0.3) | init | 24.43 | 4.568 |
+  | FAST-LIO2 | – | 16.126 | 3.330 |
+  | KISS-ICP | – | 60.629 | 15.134 |
+
+  NDT actually *improves* at full scale (0.198 → 0.122) thanks to its tighter gate + GT
+  reanchoring. The 600-frame near-ties (LiTAMIN2/RKO-LIO ≈ NDT) do **not** hold at full.
+- **Improvement delivered: LiTAMIN2 voxel 2.0 → 0.5 (+ iter 12).** NCLT's HDL-32E scans are
+  sparser than KITTI's HDL-64E, so the default voxel 2.0 is too coarse. Transferring the
+  KITTI cluster-T1 recipe (voxel 0.5 + iter 12) cuts **full ATE 1.149 → 0.582 (−49 %)** and
+  drift 2.492 → 1.315 (−47 %), moving LiTAMIN2 to a clear #2 behind NDT. voxel 1.0 does *not*
+  help (1.044 @2000) — fineness is the lever. Captured as the reproducible manifest
+  `experiments/litamin2_nclt_2013_01_10_matrix.json` (voxel sweep, merged into `index.json`).
+- **Negative results recorded honestly:** small_gicp does *not* benefit from the voxel-0.5
+  lever (full 1.086 → 1.040 ATE but drift worsens 2.288 → 2.786); RKO-LIO gyro-bias gain 0.3
+  is *worse* than gain 0 at full (24.4 vs 7.3) — bias correction over-integrates on the long
+  trajectory. Optimal gain is both dataset- and scale-dependent; no universal default.
+
+### 0.0c Update — cross-session T1 generality + small_gicp seed-gate lever (2026-06-02, later session)
+
+- **Second NCLT session ingested for cross-session validation.** Downloaded 2012-12-01
+  (velodyne 13.4 GB, fetched via 8-way HTTP range requests at ~12 MB/s after the single
+  stream stalled at ~1 MB/s), ingested a **5000-frame / 937 m** prefix as
+  `dogfooding_results/nclt_2012_12_01_5000` + committed `…_5000_gt.csv`.
+- **LiTAMIN2 T1 (voxel0.5/iter12) generalizes across NCLT sessions.** On 2012-12-01 it cuts
+  ATE **0.869 → 0.519 (−40 %)** and drift 1.844 → 1.357 (−26 %), mirroring the 2013-01-10
+  full-5105 −49 %/−47 %. NDT is the winner again (0.118, vs 2013-01-10's 0.122). The
+  fine-voxel recipe is a **session-independent NCLT improvement**, not a per-session artifact.
+  Manifest `experiments/litamin2_nclt_2012_12_01_matrix.json` (merged into `index.json`).
+
+  | method (2012-12-01, 5000 f) | ATE [m] | drift [m/100m] |
+  |---|---|---|
+  | NDT | **0.118** | 0.374 |
+  | LiTAMIN2 T1 (voxel0.5/iter12) | **0.519** | 1.357 |
+  | LiTAMIN2 default (voxel2.0) | 0.869 | 1.844 |
+  | small_gicp default | 1.049 | 2.616 |
+  | small_gicp cd1.5 | 1.009 | 2.883 |
+
+- **small_gicp #3 improvement: the seed gate is the lever, not voxel/correspondence.** The
+  CLI levers that fix LiTAMIN2 wash out for small_gicp at full scale: correspondence distance
+  1.5 gives a real −23 % at 2000 frames (1.181 → 0.908) but evaporates by full-5105
+  (1.086 → 1.089); voxel0.5 is likewise flat. The actual bottleneck is the **weak-update seed
+  gate**, which defaulted to 2.0 m / 0.25 rad (looser than NDT's 1.5 m / 0.2 rad) and was not
+  CLI-exposed. Added `--small-gicp-max-seed-translation-delta` / `-rotation-delta-rad`
+  (mirrors the existing CT-ICP flags) + a seed-fallback counter in `runSmallGICP`. Tightening
+  the gate monotonically cuts full-5105 ATE:
+
+  | gate (full 5105) | ATE [m] | drift | GT-fallback % (2000 f) |
+  |---|---|---|---|
+  | 2.0 m / 0.25 rad (default) | 1.086 | 2.288 | 2.5 % |
+  | 1.5 m / 0.2 rad (NDT-equal) | 0.882 | 2.357 | 4.2 % |
+  | **1.0 m / 0.15 rad (balanced)** | **0.675** | 2.036 | 9.3 % |
+  | **0.5 m / 0.1 rad (aggressive)** | **0.348** | 1.313 | 20.2 % |
+
+  At 1.0 m / 0.15 rad ATE drops −38 % with only 9.3 % GT fallback (the recommended balanced
+  config); at 0.5 m / 0.1 rad it drops −68 % and overtakes LiTAMIN2 T1 (0.582) for NCLT #2.
+  **Honest caveat:** a tighter gate also raises the GT-fallback rate (2.5 % → 20.2 %), so part
+  of the gain is more aggressive reversion to the *exact* GT seed on the worst registrations,
+  not purely better refinement — the same weak-update mechanism NDT benefits from, now exposed
+  for small_gicp. The fair fixed-gate comparison (small_gicp 0.882 vs NDT 0.122 at the
+  identical 1.5 m gate) shows NDT's edge is genuine refinement quality, not just the gate.
+  Manifest `experiments/small_gicp_nclt_2013_01_10_matrix.json`.
+
 ### 0.1 Current Git State
 
 | Item | Value |
@@ -599,9 +748,11 @@ This matters because:
 
 ## 5. Indexed Method Surface
 
-### 5.1 LiDAR-only families (27)
+### 5.1 LiDAR-only families (29)
 
-`aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `floam`, `gicp`, `hdl_graph_slam`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `mulls`, `ndt`, `point_lio`, `small_gicp`, `suma`, `vgicp_slam`, `voxel_gicp`, `xicp`
+`aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `floam`, `genz_icp`, `gicp`, `hdl_graph_slam`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `mulls`, `ndt`, `point_lio`, `rko_lio`, `small_gicp`, `suma`, `vgicp_slam`, `voxel_gicp`, `xicp`
+
+(`genz_icp`, `rko_lio` added 2026-06-02 later session — see §0.0.)
 
 ### 5.2 Camera-aware families (6)
 

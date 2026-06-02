@@ -737,6 +737,8 @@ def variant_result_from_dict(data: dict[str, Any]) -> VariantResult:
         log_path=str(data.get("log_path", "")),
         status=str(data.get("status", "OK")),
         ate_m=data.get("ate_m"),
+        rpe_trans_pct=data.get("rpe_trans_pct"),
+        rpe_rot_deg_per_m=data.get("rpe_rot_deg_per_m"),
         fps=data.get("fps"),
         time_ms=data.get("time_ms"),
         frames=data.get("frames"),

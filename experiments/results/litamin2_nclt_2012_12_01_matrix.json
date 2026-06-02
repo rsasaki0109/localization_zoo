@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-06-02T11:18:16+00:00",
+  "manifest_path": "experiments/litamin2_nclt_2012_12_01_matrix.json",
+  "problem": {
+    "id": "litamin2_voxel_resolution_nclt_2012_12_01",
+    "title": "LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check)",
+    "question": "Does the LiTAMIN2 fine-voxel win (cluster T1: voxel 0.5 + iter 12) generalize across NCLT sessions, or was it specific to 2013-01-10? This runs the same sweep on a different session (2012-12-01, 5000 frames / 937 m, Velodyne HDL-32E). Result: T1 cuts ATE 0.869 -> 0.519 (-40%) and drift -26%, mirroring the 2013-01-10 full-5105 -49%/-47%. The fine-voxel recipe is a session-independent NCLT improvement, not a per-session artifact.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/nclt_2012_12_01_5000",
+      "gt_csv": "experiments/reference_data/nclt_2012_12_01_5000_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/nclt_2012_12_01_5000",
+    "gt_csv": "experiments/reference_data/nclt_2012_12_01_5000_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default_voxel_2_0",
+      "label": "Default voxel 2.0",
+      "design_style": "balanced",
+      "intent": "Repository default LiTAMIN2 voxel resolution (tuned for KITTI HDL-64E).",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2012_12_01_5000 experiments/reference_data/nclt_2012_12_01_5000_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_nclt_2012_12_01_matrix/default_voxel_2_0/summary.json",
+      "summary_path": "experiments/results/runs/litamin2_nclt_2012_12_01_matrix/default_voxel_2_0/summary.json",
+      "log_path": "experiments/results/runs/litamin2_nclt_2012_12_01_matrix/default_voxel_2_0/run.log",
+      "status": "ok",
+      "ate_m": 0.86859,
+      "rpe_trans_pct": 1.843598,
+      "rpe_rot_deg_per_m": 0.021064,
+      "fps": 6.914601,
+      "time_ms": 723107.515635,
+      "frames": 5000,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 79.88,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    },
+    {
+      "id": "voxel_1_0",
+      "label": "Voxel 1.0 + iter 12",
+      "design_style": "accuracy-oriented",
+      "intent": "Intermediate voxel resolution with more ICP iterations.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2012_12_01_5000 experiments/reference_data/nclt_2012_12_01_5000_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_1_0/summary.json --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_1_0/summary.json",
+      "log_path": "experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_1_0/run.log",
+      "status": "ok",
+      "ate_m": 1.02107,
+      "rpe_trans_pct": 2.205229,
+      "rpe_rot_deg_per_m": 0.025076,
+      "fps": 4.26629,
+      "time_ms": 1171978.52454,
+      "frames": 5000,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 56.27,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "voxel_0_5_t1",
+      "label": "Voxel 0.5 + iter 12 (KITTI T1 transfer)",
+      "design_style": "accuracy-oriented",
+      "intent": "Fine voxel resolution from the KITTI cluster-T1 winner. Confirms the long-trajectory NCLT win generalizes across sessions: 2012-12-01 ATE 0.519 vs default 0.869 (-40%), matching the 2013-01-10 full-5105 -49%.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "0.5",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2012_12_01_5000 experiments/reference_data/nclt_2012_12_01_5000_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_0_5_t1/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_0_5_t1/summary.json",
+      "log_path": "experiments/results/runs/litamin2_nclt_2012_12_01_matrix/voxel_0_5_t1/run.log",
+      "status": "ok",
+      "ate_m": 0.519153,
+      "rpe_trans_pct": 1.356872,
+      "rpe_rot_deg_per_m": 0.015294,
+      "fps": 4.38913,
+      "time_ms": 1139177.995446,
+      "frames": 5000,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 81.74,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

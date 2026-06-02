@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-06-02T23:08:27+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_seq_05_velocity_reg_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_seq_05_velocity_reg",
+    "title": "CT-ICP seq 05 full: constant-velocity regularization sweep",
+    "question": "The velocity-only regularizer helped the short seq 07 (1.256 -> 1.168%). Does the same lever transfer to the medium-length seq 05 (2761 frames, prior best 1.122%), or is it short-trajectory only?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "dense_map50_reference",
+      "label": "dense + ceres8 + map50 (existing best, RPE 1.122%)",
+      "design_style": "reference",
+      "intent": "Confirm the prior seq 05 leaderboard-best recipe.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "50"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/dense_map50_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/dense_map50_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/dense_map50_reference/run.log",
+      "status": "ok",
+      "ate_m": 9.691358,
+      "rpe_trans_pct": 1.12183,
+      "rpe_rot_deg_per_m": 0.023505,
+      "fps": 9.820857,
+      "time_ms": 281136.359515,
+      "frames": 2761,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 3.45,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.95,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "velocity_reg_005",
+      "label": "+ constant-velocity-weight 0.05 (winner)",
+      "design_style": "regularization",
+      "intent": "Velocity-only smoothing at 0.05; tests transfer from seq 07.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "8",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-constant-velocity-weight",
+        "0.05"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/velocity_reg_005/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50 --ct-icp-constant-velocity-weight 0.05",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/velocity_reg_005/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_seq_05_velocity_reg_matrix/velocity_reg_005/run.log",
+      "status": "ok",
+      "ate_m": 10.745615,
+      "rpe_trans_pct": 1.087976,
+      "rpe_rot_deg_per_m": 0.022096,
+      "fps": 9.49173,
+      "time_ms": 290884.788439,
+      "frames": 2761,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 93.42,
+      "readability_score": 2.85,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.55,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as active challenger",
+      "decision_reason": "Close enough to the current default to keep as a live alternative."
+    }
+  ]
+}

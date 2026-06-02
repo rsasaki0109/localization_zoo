@@ -1150,6 +1150,15 @@ struct CTICPDogfoodingOptions {
   int coarse_search_radius = 2;
   double coarse_planarity_threshold = 0.05;
   double coarse_cauchy_sigma_mult = 2.0;
+
+  // Continuous-time trajectory regularization weights. <0 leaves the
+  // algorithm-level defaults (all 0.001) unchanged. These tie the current
+  // frame's begin pose to the previous end pose (location/orientation) and
+  // enforce constant velocity across the scan, so they trade local
+  // registration freedom for trajectory smoothness (drift control).
+  double location_consistency_weight = -1.0;
+  double orientation_consistency_weight = -1.0;
+  double constant_velocity_weight = -1.0;
 };
 
 struct CTICPNDTHybridOptions {
@@ -3432,6 +3441,15 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   params.coarse_search_radius = options.coarse_search_radius;
   params.coarse_planarity_threshold = options.coarse_planarity_threshold;
   params.coarse_cauchy_sigma_mult = options.coarse_cauchy_sigma_mult;
+  if (options.location_consistency_weight >= 0.0) {
+    params.location_consistency_weight = options.location_consistency_weight;
+  }
+  if (options.orientation_consistency_weight >= 0.0) {
+    params.orientation_consistency_weight = options.orientation_consistency_weight;
+  }
+  if (options.constant_velocity_weight >= 0.0) {
+    params.constant_velocity_weight = options.constant_velocity_weight;
+  }
   CTICPRegistration reg(params);
 
   auto frame_to_matrix = [](const TrajectoryFrame& f) {
@@ -6580,6 +6598,21 @@ int main(int argc, char** argv) {
     if (arg == "--ct-icp-cauchy-sigma") {
       if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
       ct_icp_options.cauchy_loss_param = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-location-consistency-weight") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.location_consistency_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-orientation-consistency-weight") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.orientation_consistency_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-constant-velocity-weight") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.constant_velocity_weight = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--ct-icp-max-seed-translation-delta") {

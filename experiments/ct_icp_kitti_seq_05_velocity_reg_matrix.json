@@ -1,0 +1,49 @@
+{
+    "schema_version": 1,
+    "problem": {
+        "id": "ct_icp_kitti_seq_05_velocity_reg",
+        "title": "CT-ICP seq 05 full: constant-velocity regularization sweep",
+        "question": "The velocity-only regularizer helped the short seq 07 (1.256 -> 1.168%). Does the same lever transfer to the medium-length seq 05 (2761 frames, prior best 1.122%), or is it short-trajectory only?",
+        "dataset": {
+            "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+            "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+        },
+        "same_metrics": [
+            "ate_m",
+            "fps",
+            "rpe_trans_pct",
+            "readability_score",
+            "extensibility_score"
+        ]
+    },
+    "stable_interface": {
+        "binary": "build/evaluation/pcd_dogfooding",
+        "methods": "ct_icp",
+        "primary_method": "CT-ICP"
+    },
+    "variants": [
+        {
+            "id": "dense_map50_reference",
+            "label": "dense + ceres8 + map50 (existing best, RPE 1.122%)",
+            "design_style": "reference",
+            "intent": "Confirm the prior seq 05 leaderboard-best recipe.",
+            "args": [
+                "--ct-icp-dense-profile",
+                "--ct-icp-ceres-max-iterations", "8",
+                "--ct-icp-max-frames-in-map", "50"
+            ]
+        },
+        {
+            "id": "velocity_reg_005",
+            "label": "+ constant-velocity-weight 0.05 (winner)",
+            "design_style": "regularization",
+            "intent": "Velocity-only smoothing at 0.05; tests transfer from seq 07.",
+            "args": [
+                "--ct-icp-dense-profile",
+                "--ct-icp-ceres-max-iterations", "8",
+                "--ct-icp-max-frames-in-map", "50",
+                "--ct-icp-constant-velocity-weight", "0.05"
+            ]
+        }
+    ]
+}

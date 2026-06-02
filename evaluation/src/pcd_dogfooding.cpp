@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -10,6 +10,7 @@
 #include "gicp/gicp_registration.h"
 #include "kiss_icp/kiss_icp.h"
 #include "genz_icp/genz_icp.h"
+#include "rko_lio/rko_lio.h"
 #include "litamin2/litamin2_registration.h"
 #include "ndt/ndt_registration.h"
 #include "scan_context/scan_context.h"
@@ -175,6 +176,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "suma" || method == "balm2" || method == "isc_loam" ||
          method == "loam_livox" || method == "lio_sam" || method == "lins" ||
          method == "fast_lio_slam" || method == "point_lio" ||
+         method == "rko_lio" ||
          method == "clins";
 }
 
@@ -1075,6 +1077,17 @@ struct GenZICPDogfoodingOptions {
   int max_icp_iterations = 30;
   double planarity_threshold = 0.55;
   int normal_min_neighbors = 5;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct RKOLIODogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  double initial_threshold = 1.5;
+  int max_points_per_voxel = 12;
+  int max_icp_iterations = 30;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -3170,6 +3183,62 @@ MethodResult runGenZICP(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runRKOLIO(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const std::vector<double>& frame_timestamps,
+                       const std::vector<ImuSampleCsv>& imu_samples,
+                       const RKOLIODogfoodingOptions& options) {
+  using namespace localization_zoo::rko_lio;
+  MethodResult res;
+  res.name = "RKO-LIO";
+
+  RKOLIOParams params;
+  params.voxel_size = options.voxel_size;
+  params.initial_threshold = options.initial_threshold;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  RKOLIOPipeline pipeline(params);
+  pipeline.setInitialPose(gt.empty() ? Eigen::Matrix4d::Identity() : gt.front());
+
+  int imu_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() &&
+        frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.registerFrame(pts_local, imu_batch);
+    if (result.used_imu) ++imu_frames;
+    res.poses.push_back(result.pose);
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [RKO-LIO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      imu_frames > 0
+          ? "Scan-to-map odometry with IMU rotation prior (GT-seeded init; "
+            "IMU gyro preintegration used as ICP rotation guess)."
+          : "Scan-to-map odometry, constant-velocity fallback (no imu.csv; "
+            "GT-seeded init).";
+  return res;
+}
+
 MethodResult runDLO(const std::vector<std::string>& pcd_dirs,
                     const std::vector<Eigen::Matrix4d>& gt,
                     const DLODofeedingOptions& options) {
@@ -4775,6 +4844,7 @@ int main(int argc, char** argv) {
   FixedMapNDTOptions fixed_map_ndt_options;
   KISSICPDogfoodingOptions kiss_icp_options;
   GenZICPDogfoodingOptions genz_icp_options;
+  RKOLIODogfoodingOptions rko_lio_options;
   CTICPDogfoodingOptions ct_icp_options;
   CTICPNDTHybridOptions ct_icp_ndt_options;
   DLODofeedingOptions dlo_options;
@@ -7146,6 +7216,18 @@ int main(int argc, char** argv) {
               << " max_iterations=" << genz_icp_options.max_icp_iterations
               << std::endl;
     results.push_back(runGenZICP(pcd_dirs, gt, genz_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "rko_lio")) {
+    std::cout << "Running RKO-LIO..." << std::endl;
+    std::cout << "  source_voxel_size=" << rko_lio_options.source_voxel_size
+              << " max_source_points=" << rko_lio_options.max_source_points
+              << " voxel_size=" << rko_lio_options.voxel_size
+              << " max_iterations=" << rko_lio_options.max_icp_iterations
+              << " imu=" << (imu_samples.empty() ? "absent" : "present")
+              << std::endl;
+    results.push_back(runRKOLIO(pcd_dirs, gt, frame_timestamps, imu_samples,
+                                rko_lio_options));
   }
 
   if (isMethodEnabled(selected_methods, "dlo")) {

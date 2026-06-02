@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-04-15T12:59:34+00:00",
+  "manifest_path": "experiments/ct_icp_mulran_parkinglot_full_matrix.json",
+  "problem": {
+    "id": "ct_icp_profile_tradeoff_mulran_parkinglot_full",
+    "title": "CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence)",
+    "question": "Which CT-ICP profile should stay as the default on a full MulRan Ouster sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+    "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_window",
+      "label": "Balanced window",
+      "design_style": "balanced",
+      "intent": "Continuous-time baseline profile.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/run.log",
+      "status": "OK",
+      "ate_m": 76.545,
+      "rpe_trans_pct": 104.493717,
+      "rpe_rot_deg_per_m": 0.071966,
+      "fps": 35.402869,
+      "time_ms": 33189.400749,
+      "frames": 1175,
+      "note": "",
+      "benchmark_score": 78.34,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_window",
+      "label": "Fast window",
+      "design_style": "throughput-oriented",
+      "intent": "Faster CT-ICP profile.",
+      "args": [
+        "--ct-icp-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/summary.json --ct-icp-fast-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/run.log",
+      "status": "OK",
+      "ate_m": 80.958211,
+      "rpe_trans_pct": 107.256249,
+      "rpe_rot_deg_per_m": 0.155683,
+      "fps": 59.749697,
+      "time_ms": 19665.371725,
+      "frames": 1175,
+      "note": "",
+      "benchmark_score": 96.06,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_window",
+      "label": "Dense window",
+      "design_style": "accuracy-oriented",
+      "intent": "Denser map / point budget.",
+      "args": [
+        "--ct-icp-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/summary.json --ct-icp-dense-profile",
+      "summary_path": "experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/run.log",
+      "status": "OK",
+      "ate_m": 74.578194,
+      "rpe_trans_pct": 104.590503,
+      "rpe_rot_deg_per_m": 0.158878,
+      "fps": 17.350619,
+      "time_ms": 67720.925279,
+      "frames": 1175,
+      "note": "",
+      "benchmark_score": 64.52,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

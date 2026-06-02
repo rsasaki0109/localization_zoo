@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_lio_c2f_hdl_400_open",
+    "title": "CT-LIO c2f (coarse-to-fine) on HDL-400",
+    "question": "Does CT-ICP's c2f bundle (r=2 + planarity 0.02 + Cauchy x2 in coarse phase) help CT-LIO?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "variants": [
+    {
+      "id": "seed_only_fast_plus_ms",
+      "label": "Seed-only fast + multi_scale (Round 1 winner)",
+      "design_style": "reference",
+      "intent": "Current best CT-LIO on HDL-400 (ATE 0.429 m).",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale"]
+    },
+    {
+      "id": "ms_plus_c2f",
+      "label": "ms + c2f (r=2, plan=0.02, sigma x2, i=2)",
+      "design_style": "ms + c2f",
+      "intent": "Stack c2f on top of Round 1 winner.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "2.0", "--ct-lio-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "ms_plus_c2f_radius_only",
+      "label": "ms + radius_only (CT-ICP round 17 winner pattern)",
+      "design_style": "ms + radius_only",
+      "intent": "Radius widening alone (no sigma/planarity boost).",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1"]
+    },
+    {
+      "id": "c2f_only_no_ms",
+      "label": "c2f without multi_scale",
+      "design_style": "c2f only",
+      "intent": "Is c2f sufficient alone, or does it need multi_scale?",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "2.0", "--ct-lio-coarse-planarity-threshold", "0.02"]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "pcd_dir": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_08_108",
+  "gt_csv": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_08_108_gt.csv",
+  "num_frames": 108,
+  "trajectory_length_m": 58.563773,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "NDT",
+      "status": "ok",
+      "ate_m": 1.024644,
+      "rpe_trans_pct": 10.930265,
+      "rpe_rot_deg_per_m": 0.036970,
+      "frames": 108,
+      "time_ms": 3509.077983,
+      "fps": 30.777315,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Seed perturbation applied in local seed frame: dx=1.000m dy=0.000m dz=0.000m yaw=10.000deg."
+    }
+  ]
+}

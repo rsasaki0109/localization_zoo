@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "lego_loam_kitti_seq_07_full_sweep",
+    "title": "LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames)",
+    "question": "Which LeGO-LOAM profile family is strongest on KITTI Odom seq 07 full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lego_loam",
+    "primary_method": "LeGO-LOAM"
+  },
+  "variants": [
+    {
+      "id": "kitti_default",
+      "label": "KITTI default",
+      "design_style": "balanced",
+      "intent": "Ground-aware LeGO-LOAM baseline for HDL-64E (n_scans=64, sensor height ~KITTI).",
+      "args": [
+        "--lego-loam-kitti-profile"
+      ]
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Coarser surf sampling and lighter odometry/mapping Ceres budgets.",
+      "args": [
+        "--lego-loam-kitti-profile",
+        "--lego-loam-fast-profile"
+      ]
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Finer features and deeper optimization passes.",
+      "args": [
+        "--lego-loam-kitti-profile",
+        "--lego-loam-dense-profile"
+      ]
+    }
+  ]
+}

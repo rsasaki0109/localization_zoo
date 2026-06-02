@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-05-19T22:18:44+00:00",
+  "manifest_path": "experiments/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json",
+  "problem": {
+    "id": "litamin2_mcd_ntu_day_02_cluster_t1",
+    "title": "LiTAMIN2 cluster T1 on MCD NTU day_02 (108 frames)",
+    "question": "MCD NTU baseline 0.325 m no-seed (CT-ICP dense, seed hurts). LiTAMIN2 needs seed though \u2014 cluster T1 + seed transfer test.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+      "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "litamin2",
+    "primary_method": "LiTAMIN2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/mcd_ntu_day_02_108",
+    "gt_csv": "experiments/reference_data/mcd_ntu_day_02_108_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast_seeded_reference",
+      "label": "fast + seed",
+      "design_style": "reference",
+      "intent": "Baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/summary.json",
+      "summary_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/run.log",
+      "status": "ok",
+      "ate_m": 0.074987,
+      "rpe_trans_pct": 155.124033,
+      "rpe_rot_deg_per_m": 7.778634,
+      "fps": 33.946786,
+      "time_ms": 3181.449892,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 52.78,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_t1_seeded",
+      "label": "cluster T1 + seed",
+      "design_style": "transfer",
+      "intent": "Transfer.",
+      "args": [
+        "--litamin2-voxel-resolution",
+        "0.5",
+        "--litamin2-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12",
+      "summary_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/summary.json",
+      "log_path": "experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/run.log",
+      "status": "ok",
+      "ate_m": 0.020511,
+      "rpe_trans_pct": 16.625755,
+      "rpe_rot_deg_per_m": 2.360907,
+      "fps": 43.404453,
+      "time_ms": 2488.223947,
+      "frames": 108,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 100.0,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    }
+  ]
+}

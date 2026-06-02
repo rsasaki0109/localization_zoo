@@ -31,6 +31,64 @@ struct CTICPParams {
 
   // スライディングウィンドウ
   int max_frames_in_map = 30;  // マップに保持する最新フレーム数
+
+  // 拡張: 27 ボクセル近傍で knn 未満のときに 125 ボクセル (5x5x5) まで広げる
+  bool multi_scale_correspondences = false;
+
+  // Ceres linear solver. 既定 DENSE_QR と DENSE_NORMAL_CHOLESKY の選択肢。
+  // CT-ICP の論文公式実装は DENSE_NORMAL_CHOLESKY を採用しているため、
+  // paper 一致設定では true にする。
+  bool use_normal_cholesky_solver = false;
+
+  // Paper weight scheme (jedeschaud/ct_icp YAML 一致):
+  // correspondence weight = weight_alpha * a2D^power_planarity
+  //                       + weight_neighborhood * exp(-d_closest / d_max)
+  // ここで d_closest は最近傍距離 [m]、d_max は sqrt(max_correspondence_dist) [m]。
+  // weight_alpha=1.0, weight_neighborhood=0.0, power_planarity=1.0 で現状互換。
+  // paper 既定: weight_alpha=0.9, weight_neighborhood=0.1, power_planarity=2.0
+  double power_planarity = 1.0;
+  double weight_alpha = 1.0;
+  double weight_neighborhood = 0.0;
+
+  // 平面性の soft floor。a2D < min_planarity_floor のときに対応点を rejection。
+  // planarity_threshold (hard) と排他ではなく両方適用される。
+  // paper 既定: 0.01 (planarity_threshold は 0 に近づけて soft weight に任せる)。
+  double min_planarity_floor = 0.0;
+
+  // 正則化重みを sqrt(N_corr · β) ではなく sqrt(β) フラットにする。
+  // 既定 false は現状互換、true で paper 一致 (β=0.001 単独適用)。
+  bool flat_regularizer_weight = false;
+
+  // 正則化重みの N_corr 上限。<=0 で無効 (N_corr 全数使用、現状互換)。
+  // 正値 cap で weight = sqrt(min(N_corr, cap) * β) になる。
+  // 短軌跡では大きな N_corr が prior を 22-30x amplify するが、長軌跡では
+  // この amplification が global drift を抑える load-bearing なので、cap で
+  // 中間策を取る (KITTI 07: cap 小、KITTI 02: cap 大が好ましいかは未確認)。
+  int regularizer_n_cap = 0;
+
+  // Paper-aligned correspondence anchoring (Gap A):
+  // 既定 false で reference = mean of knn neighbors (現状)。
+  // true で reference = closest neighbor only。
+  bool use_closest_neighbor_reference = false;
+  // PCA に使う近傍点数。0 で knn と同じ (現状互換)。paper は 20。
+  // pca_neighbor_count > knn のとき、PCA は dists ソート後の先頭 pca_neighbor_count を使う。
+  int pca_neighbor_count = 0;
+
+  // Paper-aligned voxel insertion (Gap C). 単位 m。
+  // 0 で無効 (kMaxPoints 上限まで append、現状)。paper は 0.1 m。
+  // VoxelBlock::addPoint に min_distance_sq として渡される。
+  double min_distance_between_points = 0.0;
+
+  // Coarse-to-fine 2-phase schedule。
+  // false で従来通り (全 outer iteration で同一 params)。
+  // true で iter < coarse_iterations は coarse phase: 探索半径 +1
+  // (3x3x3 → 5x5x5)、planarity を coarse_planarity_threshold まで緩める、
+  // Cauchy σ を coarse_cauchy_sigma_mult 倍。残り iter は fine phase で現状 params。
+  bool coarse_to_fine = false;
+  int coarse_iterations = 3;
+  int coarse_search_radius = 2;
+  double coarse_planarity_threshold = 0.05;
+  double coarse_cauchy_sigma_mult = 2.0;
 };
 
 struct CTICPResult {
@@ -85,7 +143,8 @@ private:
 
   std::vector<Correspondence> findCorrespondences(
       const std::vector<TimedPoint>& keypoints,
-      const TrajectoryFrame& frame) const;
+      const TrajectoryFrame& frame,
+      int outer_iter = 0) const;
 
   CTICPParams params_;
   VoxelHashMap voxel_map_;

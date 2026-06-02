@@ -1,0 +1,144 @@
+{
+  "generated_at": "2026-04-14T22:56:47+00:00",
+  "manifest_path": "experiments/fast_livo2_kitti_raw_0009_matrix.json",
+  "problem": {
+    "id": "fast_livo2_profile_tradeoff_kitti_raw_0009",
+    "title": "FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
+    "question": "Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?",
+    "variant_timeout_seconds": 120,
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv",
+      "extra_args": [
+        "--landmarks-csv",
+        "dogfooding_results/kitti_raw_0009_200/landmarks.csv",
+        "--visual-observations-csv",
+        "dogfooding_results/kitti_raw_0009_200/visual_observations.csv",
+        "--camera-fx",
+        "721.5377",
+        "--camera-fy",
+        "721.5377",
+        "--camera-cx",
+        "609.5593",
+        "--camera-cy",
+        "172.8540",
+        "--camera-width",
+        "1241",
+        "--camera-height",
+        "376"
+      ]
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/multimodal_dogfooding",
+    "methods": "fast_livo2",
+    "primary_method": "FAST-LIVO2"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv",
+    "extra_args": [
+      "--landmarks-csv",
+      "dogfooding_results/kitti_raw_0009_200/landmarks.csv",
+      "--visual-observations-csv",
+      "dogfooding_results/kitti_raw_0009_200/visual_observations.csv",
+      "--camera-fx",
+      "721.5377",
+      "--camera-fy",
+      "721.5377",
+      "--camera-cx",
+      "609.5593",
+      "--camera-cy",
+      "172.8540",
+      "--camera-width",
+      "1241",
+      "--camera-height",
+      "376"
+    ]
+  },
+  "variant_timeout_seconds": 120.0,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Keep the current FAST-LIVO2 defaults as the multimodal baseline.",
+      "args": [],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376",
+      "summary_path": "experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/run.log",
+      "status": "OK",
+      "ate_m": 31.298371,
+      "fps": 2.649651,
+      "time_ms": 70575.338474,
+      "frames": 187,
+      "note": "FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.",
+      "benchmark_score": 65.95,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Trim LiDAR and visual update work to favor throughput.",
+      "args": [
+        "--fast-livo2-fast-profile"
+      ],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile",
+      "summary_path": "experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/run.log",
+      "status": "OK",
+      "ate_m": 31.368137,
+      "fps": 8.304955,
+      "time_ms": 22516.678571,
+      "frames": 187,
+      "note": "FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.",
+      "benchmark_score": 99.89,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Keep a denser fused update for accuracy at lower FPS.",
+      "args": [
+        "--fast-livo2-dense-profile"
+      ],
+      "command": "build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile",
+      "summary_path": "experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/run.log",
+      "status": "OK",
+      "ate_m": 31.298351,
+      "fps": 2.338494,
+      "time_ms": 79965.986432,
+      "frames": 187,
+      "note": "FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.",
+      "benchmark_score": 64.08,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

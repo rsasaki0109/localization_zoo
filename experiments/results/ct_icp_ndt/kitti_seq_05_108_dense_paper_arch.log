@@ -1,0 +1,25 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 108
+GT poses: 108
+IMU samples: 0 (imu.csv not found)
+Timestamp source: sampled GT timestamps
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 98.9 m
+Running CT-ICP+NDT...
+  ct_icp_voxel_resolution=1.2 ct_icp_max_iterations=10 ndt_resolution=0.5 ndt_max_iterations=12
+  [CT-ICP] 10/108  [CT-ICP] 20/108  [CT-ICP] 30/108  [CT-ICP] 40/108  [CT-ICP] 50/108  [CT-ICP] 60/108  [CT-ICP] 70/108  [CT-ICP] 80/108  [CT-ICP] 90/108  [CT-ICP] 100/108
+  [NDT] 10/108 score=2.319  [NDT] 20/108 score=2.461  [NDT] 30/108 score=2.623  [NDT] 40/108 score=2.443  [NDT] 50/108 score=2.620  [NDT] 60/108 score=2.649  [NDT] 70/108 score=2.827  [NDT] 80/108 score=2.712  [NDT] 90/108 score=2.386  [NDT] 100/108 score=2.585
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Frames      Time [ms]      FPS
+---------------------------------------------------------------------------------------
+CT-ICP+NDT              ok          0.639       108         10995.9        9.8
+
+Notes:
+- CT-ICP+NDT: Hybrid: CT-ICP no-GT odometry prior feeds NDT scan-to-map initial guess; first frame remains anchored to GT for dogfooding alignment. CT-ICP prior ATE=0.649m. Runtime is CT-ICP+NDT combined.
+
+Results saved to dogfooding_results/

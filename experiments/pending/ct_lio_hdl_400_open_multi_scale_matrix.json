@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_lio_multi_scale_hdl_400_open",
+    "title": "CT-LIO multi_scale_correspondences on HDL-400 (120 frames)",
+    "question": "Does the CT-ICP ms_chol multi_scale fallback (3x3x3 -> 5x5x5 when neighbors < knn) help CT-LIO too?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "variants": [
+    {
+      "id": "seed_only_fast",
+      "label": "Seed-only fast (current best, no multi-scale)",
+      "design_style": "reference",
+      "intent": "Existing CT-LIO best on HDL-400 (ATE 0.488 m).",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1"]
+    },
+    {
+      "id": "seed_only_fast_plus_ms",
+      "label": "Seed-only fast + multi_scale",
+      "design_style": "ms ablation",
+      "intent": "Test if 5x5x5 fallback helps when 3x3x3 is short on neighbors.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale"]
+    },
+    {
+      "id": "ct_lio_default_plus_ms",
+      "label": "CT-LIO default + multi_scale",
+      "design_style": "ms ablation on default",
+      "intent": "Test if multi_scale also helps the IMU preintegration default.",
+      "args": ["--ct-lio-estimate-bias", "--ct-lio-fixed-lag-window", "4", "--ct-lio-multi-scale"]
+    }
+  ]
+}

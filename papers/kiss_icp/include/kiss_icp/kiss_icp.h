@@ -4,6 +4,7 @@
 #include <Eigen/Geometry>
 
 #include <functional>
+#include <limits>
 #include <unordered_map>
 #include <vector>
 
@@ -76,6 +77,44 @@ struct KISSICPResult {
   Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
   bool converged = false;
   int iterations = 0;
+};
+
+struct KISSMatcherParams {
+  double target_voxel_size = 0.75;
+  double source_voxel_size = 0.75;
+  double min_range = 2.0;
+  double max_range = 70.0;
+  int max_points_per_voxel = 20;
+  double max_correspondence_distance = 1.5;
+  int max_icp_iterations = 30;
+  int min_correspondences = 80;
+  double convergence_criterion = 0.001;
+};
+
+struct KISSMatcherResult {
+  Eigen::Matrix4d transform = Eigen::Matrix4d::Identity();
+  bool converged = false;
+  int iterations = 0;
+  int num_correspondences = 0;
+  double rmse = std::numeric_limits<double>::infinity();
+};
+
+/// Pair-wise KISS-style matcher. `align()` estimates source-to-target transform.
+class KISSMatcher {
+public:
+  explicit KISSMatcher(const KISSMatcherParams& params = KISSMatcherParams());
+
+  void setTarget(const std::vector<Eigen::Vector3d>& target);
+  KISSMatcherResult align(const std::vector<Eigen::Vector3d>& source,
+                          const Eigen::Matrix4d& initial_guess =
+                              Eigen::Matrix4d::Identity()) const;
+
+private:
+  std::vector<Eigen::Vector3d> preprocess(
+      const std::vector<Eigen::Vector3d>& points, double voxel_size) const;
+
+  KISSMatcherParams params_;
+  VoxelHashMap target_map_;
 };
 
 /// KISS-ICP パイプライン

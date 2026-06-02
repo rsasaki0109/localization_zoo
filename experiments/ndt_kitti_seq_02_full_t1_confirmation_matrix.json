@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ndt_kitti_seq_02_full_t1_confirmation",
+    "title": "NDT T1 confirmation on KITTI Odom seq 02 full (4661 frames)",
+    "question": "Does the NDT T1 transfer recipe stay sub-10cm on long seq 02?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ndt",
+    "primary_method": "NDT"
+  },
+  "variants": [
+    {
+      "id": "t1_transfer_r05_i12",
+      "label": "T1 transfer (res=0.5 + iter=12)",
+      "design_style": "transfer",
+      "intent": "Confirm the NDT T1 recipe on this full KITTI Odometry sequence.",
+      "args": [
+        "--ndt-resolution",
+        "0.5",
+        "--ndt-max-iterations",
+        "12"
+      ]
+    }
+  ]
+}

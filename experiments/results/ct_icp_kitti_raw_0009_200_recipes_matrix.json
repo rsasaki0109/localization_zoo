@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-05-19T21:01:27+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_raw_0009_200_recipes_matrix.json",
+  "problem": {
+    "id": "ct_icp_kitti_raw_0009_200_recipes",
+    "title": "CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window",
+    "question": "0009_full had balanced_window winning 4.67 m, cluster A/D both regressed +14-17%. Does the 200-frame variant (balanced 1.66 m) show the same balanced-only winner pattern, or does the shorter window change the cluster?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+      "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_reference",
+      "label": "balanced_window (current best 1.66 m)",
+      "design_style": "reference",
+      "intent": "Confirm baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/balanced_reference/summary.json",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/balanced_reference/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/balanced_reference/run.log",
+      "status": "ok",
+      "ate_m": 1.659312,
+      "rpe_trans_pct": 1.745803,
+      "rpe_rot_deg_per_m": 0.023386,
+      "fps": 40.911595,
+      "time_ms": 4888.589674,
+      "frames": 200,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 100.0,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "cluster_a",
+      "label": "cluster A (map=50 + c2f \u03c3\u00d72)",
+      "design_style": "long-traj-recipe",
+      "intent": "Cluster A on 200-frame 0009.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-ceres-max-iterations",
+        "6",
+        "--ct-icp-max-frames-in-map",
+        "50",
+        "--ct-icp-coarse-to-fine",
+        "--ct-icp-coarse-iterations",
+        "2",
+        "--ct-icp-coarse-search-radius",
+        "2",
+        "--ct-icp-coarse-cauchy-mult",
+        "2.0",
+        "--ct-icp-coarse-planarity-threshold",
+        "0.06"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_a/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_a/run.log",
+      "status": "ok",
+      "ate_m": 2.49316,
+      "rpe_trans_pct": 1.580811,
+      "rpe_rot_deg_per_m": 0.012924,
+      "fps": 17.948135,
+      "time_ms": 11143.219163,
+      "frames": 200,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 55.21,
+      "readability_score": 1.0,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 2.1,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "cluster_d_ms_chol",
+      "label": "cluster D (ms_chol)",
+      "design_style": "short-traj-recipe",
+      "intent": "ms_chol on 200-frame 0009.",
+      "args": [
+        "--ct-icp-dense-profile",
+        "--ct-icp-multi-scale",
+        "--ct-icp-normal-cholesky"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky",
+      "summary_path": "experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_d_ms_chol/summary.json",
+      "log_path": "experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_d_ms_chol/run.log",
+      "status": "ok",
+      "ate_m": 2.296382,
+      "rpe_trans_pct": 1.576184,
+      "rpe_rot_deg_per_m": 0.022147,
+      "fps": 24.571402,
+      "time_ms": 8139.543605,
+      "frames": 200,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
+      "benchmark_score": 66.16,
+      "readability_score": 3.95,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.25,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_map50_partner",
+    "title": "CT-ICP seq 00 full: map=50 + single partner knob isolation",
+    "question": "map=50 alone is catastrophic (+245%). Which single partner knob (ms_chol / c2f / corr=5) rescues it the most?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "bare_map_50_reference",
+      "label": "bare + map=50 (catastrophic baseline)",
+      "design_style": "reference",
+      "intent": "Confirm 61.59 m (already known).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50"]
+    },
+    {
+      "id": "map_50_plus_ms_chol",
+      "label": "map=50 + ms_chol",
+      "design_style": "single partner",
+      "intent": "Does ms_chol alone rescue map=50?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "map_50_plus_c2f",
+      "label": "map=50 + c2f σ×2 (no ms_chol)",
+      "design_style": "single partner",
+      "intent": "Does c2f alone rescue map=50?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "map_50_plus_corr_5",
+      "label": "map=50 + corr=5",
+      "design_style": "single partner",
+      "intent": "Does corr=5 alone rescue map=50?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-max-correspondence-distance", "5"]
+    }
+  ]
+}

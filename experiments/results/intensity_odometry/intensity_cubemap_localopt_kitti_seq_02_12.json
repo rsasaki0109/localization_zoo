@@ -1,0 +1,257 @@
+{
+  "sequence_pcd_dir": "dogfooding_results/kitti_seq_02_108",
+  "gt_csv": "experiments/reference_data/kitti_seq_02_108_gt.csv",
+  "frames": 12,
+  "method": "intensity_cubemap_direct_odometry",
+  "parameters": {
+    "face_size": 64,
+    "gaussian_sigma": 1.0,
+    "score_channel": "intensity",
+    "feature_quantile": 0.9,
+    "max_points": 4000,
+    "x_window": 1.5,
+    "y_window": 0.75,
+    "yaw_window_deg": 4.0,
+    "x_step": 0.5,
+    "y_step": 0.5,
+    "yaw_step_deg": 2.0,
+    "refine_levels": 1,
+    "min_overlap_pixels": 120,
+    "max_step_translation": 0.75,
+    "max_step_yaw_deg": 4.0,
+    "local_opt_iters": 3,
+    "local_opt_x_step": 0.15,
+    "local_opt_y_step": 0.15,
+    "local_opt_yaw_step_deg": 0.5,
+    "motion_prior": true
+  },
+  "runtime_s": 0.8693585389992222,
+  "metrics": {
+    "ate_xy_m": 1.1415215233274676,
+    "step_length_rmse_m": 0.13197147158299075,
+    "step_length_rmse_pct_of_mean_step": 473.2119186491156,
+    "gt_path_length_m": 0.3067729552453045
+  },
+  "poses_xyyaw": [
+    {
+      "index": 0,
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 1,
+      "x_m": -0.15,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 2,
+      "x_m": -0.3,
+      "y_m": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "index": 3,
+      "x_m": -0.4525260863055519,
+      "y_m": 0.06971938752105704,
+      "yaw_deg": 2.0
+    },
+    {
+      "index": 4,
+      "x_m": -0.607392429375335,
+      "y_m": 0.13407322022892507,
+      "yaw_deg": 4.0
+    },
+    {
+      "index": 5,
+      "x_m": -0.7605211166650139,
+      "y_m": 0.202458928742764,
+      "yaw_deg": 2.5000000000000004
+    },
+    {
+      "index": 6,
+      "x_m": -0.9118072014212688,
+      "y_m": 0.27482964491390083,
+      "yaw_deg": 1.0000000000000002
+    },
+    {
+      "index": 7,
+      "x_m": -1.063719071290693,
+      "y_m": 0.3458774020408867,
+      "yaw_deg": 1.5000000000000002
+    },
+    {
+      "index": 8,
+      "x_m": -1.213719071290693,
+      "y_m": 0.2708774020408867,
+      "yaw_deg": 1.2087865489152884e-16
+    },
+    {
+      "index": 9,
+      "x_m": -1.323014457029682,
+      "y_m": 0.19127986026875954,
+      "yaw_deg": 2.375
+    },
+    {
+      "index": 10,
+      "x_m": -1.4350863605650033,
+      "y_m": 0.18147483920964802,
+      "yaw_deg": 4.999999999999999
+    },
+    {
+      "index": 11,
+      "x_m": -1.621426947200574,
+      "y_m": 0.160655718855721,
+      "yaw_deg": 6.374999999999998
+    }
+  ],
+  "pairs": [
+    {
+      "index": 1,
+      "dx_curr_to_prev_m": 0.15,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.15,
+      "used_dy_curr_to_prev_m": 0.0,
+      "used_yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4597096885838657,
+      "overlap_pixels": 1663
+    },
+    {
+      "index": 2,
+      "dx_curr_to_prev_m": 0.15,
+      "dy_curr_to_prev_m": 0.0,
+      "yaw_curr_to_prev_deg": 0.0,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.15,
+      "used_dy_curr_to_prev_m": 0.0,
+      "used_yaw_curr_to_prev_deg": 0.0,
+      "score": 0.4294537781587031,
+      "overlap_pixels": 1516
+    },
+    {
+      "index": 3,
+      "dx_curr_to_prev_m": 0.15,
+      "dy_curr_to_prev_m": -0.075,
+      "yaw_curr_to_prev_deg": -2.0,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.15,
+      "used_dy_curr_to_prev_m": -0.075,
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.47846349687725065,
+      "overlap_pixels": 1428
+    },
+    {
+      "index": 4,
+      "dx_curr_to_prev_m": 0.8,
+      "dy_curr_to_prev_m": -0.15,
+      "yaw_curr_to_prev_deg": 0.0,
+      "accepted": false,
+      "used_dx_curr_to_prev_m": 0.15,
+      "used_dy_curr_to_prev_m": -0.075,
+      "used_yaw_curr_to_prev_deg": -2.0,
+      "score": 0.43174277036157593,
+      "overlap_pixels": 1495
+    },
+    {
+      "index": 5,
+      "dx_curr_to_prev_m": 0.15,
+      "dy_curr_to_prev_m": -0.075,
+      "yaw_curr_to_prev_deg": 1.5000000000000002,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.15,
+      "used_dy_curr_to_prev_m": -0.075,
+      "used_yaw_curr_to_prev_deg": 1.5000000000000002,
+      "score": 0.429089157874848,
+      "overlap_pixels": 1747
+    },
+    {
+      "index": 6,
+      "dx_curr_to_prev_m": 0.15,
+      "dy_curr_to_prev_m": -0.075,
+      "yaw_curr_to_prev_deg": 1.5000000000000002,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.15,
+      "used_dy_curr_to_prev_m": -0.075,
+      "used_yaw_curr_to_prev_deg": 1.5000000000000002,
+      "score": 0.400524172887568,
+      "overlap_pixels": 1811
+    },
+    {
+      "index": 7,
+      "dx_curr_to_prev_m": 0.15,
+      "dy_curr_to_prev_m": -0.075,
+      "yaw_curr_to_prev_deg": -0.4999999999999999,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.15,
+      "used_dy_curr_to_prev_m": -0.075,
+      "used_yaw_curr_to_prev_deg": -0.4999999999999999,
+      "score": 0.4018785810715715,
+      "overlap_pixels": 1725
+    },
+    {
+      "index": 8,
+      "dx_curr_to_prev_m": 0.1499999999999999,
+      "dy_curr_to_prev_m": 0.07499999999999998,
+      "yaw_curr_to_prev_deg": 1.5000000000000002,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.1499999999999999,
+      "used_dy_curr_to_prev_m": 0.07499999999999998,
+      "used_yaw_curr_to_prev_deg": 1.5000000000000002,
+      "score": 0.4318790348833879,
+      "overlap_pixels": 1726
+    },
+    {
+      "index": 9,
+      "dx_curr_to_prev_m": 0.1124999999999999,
+      "dy_curr_to_prev_m": 0.07499999999999998,
+      "yaw_curr_to_prev_deg": -2.3749999999999996,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.1124999999999999,
+      "used_dy_curr_to_prev_m": 0.07499999999999998,
+      "used_yaw_curr_to_prev_deg": -2.3749999999999996,
+      "score": 0.40225274641821374,
+      "overlap_pixels": 1842
+    },
+    {
+      "index": 10,
+      "dx_curr_to_prev_m": 0.1124999999999999,
+      "dy_curr_to_prev_m": -1.3877787807814457e-17,
+      "yaw_curr_to_prev_deg": -2.6249999999999996,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.1124999999999999,
+      "used_dy_curr_to_prev_m": -1.3877787807814457e-17,
+      "used_yaw_curr_to_prev_deg": -2.6249999999999996,
+      "score": 0.39774325996620663,
+      "overlap_pixels": 1912
+    },
+    {
+      "index": 11,
+      "dx_curr_to_prev_m": 0.1874999999999999,
+      "dy_curr_to_prev_m": -1.3877787807814457e-17,
+      "yaw_curr_to_prev_deg": -1.3749999999999996,
+      "accepted": true,
+      "used_dx_curr_to_prev_m": 0.1874999999999999,
+      "used_dy_curr_to_prev_m": -1.3877787807814457e-17,
+      "used_yaw_curr_to_prev_deg": -1.3749999999999996,
+      "score": 0.4077191321365129,
+      "overlap_pixels": 1886
+    }
+  ],
+  "pcd_files": [
+    "dogfooding_results/kitti_seq_02_108/00000000/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000001/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000002/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000003/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000004/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000005/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000006/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000007/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000008/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000009/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000010/cloud.pcd",
+    "dogfooding_results/kitti_seq_02_108/00000011/cloud.pcd"
+  ]
+}

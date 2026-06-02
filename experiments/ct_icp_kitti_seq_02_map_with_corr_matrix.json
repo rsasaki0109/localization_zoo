@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_02_map_with_corr",
+    "title": "CT-ICP seq 02 full: map_size sweep on corr=8 winner",
+    "question": "seq 02 + corr=default best at map=20. seq 02 + corr=8 best at 50.63. Does the map optimum shift with corr=8?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "map_20_reference",
+      "label": "corr=8 + map=20 (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 50.63 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-max-correspondence-distance", "8"]
+    },
+    {
+      "id": "map_15",
+      "label": "corr=8 + map=15",
+      "design_style": "smaller map",
+      "intent": "Did map optimum shift smaller with tighter corr?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "15", "--ct-icp-max-correspondence-distance", "8"]
+    },
+    {
+      "id": "map_30",
+      "label": "corr=8 + map=30",
+      "design_style": "bigger map",
+      "intent": "Bare seq 02 hated map=30; does corr=8 rescue it?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "30", "--ct-icp-max-correspondence-distance", "8"]
+    },
+    {
+      "id": "map_50",
+      "label": "corr=8 + map=50",
+      "design_style": "big map",
+      "intent": "Bare seq 02 catastrophically rejected map=50 (+109%). Does corr=8 fix it?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-max-correspondence-distance", "8"]
+    }
+  ]
+}

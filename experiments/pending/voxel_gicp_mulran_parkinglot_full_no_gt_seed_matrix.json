@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "voxel_gicp_profile_tradeoff_mulran_parkinglot_full_no_gt_seed",
+    "title": "voxel_gicp pure-odometry (velocity-model, no GT seed) on MulRan parkinglot full",
+    "question": "How does Voxel-GICP pure-odometry compare to CT-ICP (10 m ATE) and LiTAMIN2 (74 m ATE) on MulRan parkinglot full?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+      "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "voxel_gicp",
+    "primary_method": "Voxel-GICP"
+  },
+  "variants": [
+    {
+      "id": "default_no_gt_seed",
+      "label": "Default (no GT seed)",
+      "design_style": "balanced",
+      "intent": "Default profile measured as pure odometry with velocity-model prior.",
+      "args": ["--no-gt-seed"]
+    }
+  ]
+}

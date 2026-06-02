@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_lio_final_recipe_cross_check",
+    "title": "CT-LIO final recipe (map=50) cross-checked on time_azimuth variant",
+    "question": "Does map=50 + ms + radius_only stay best on time_azimuth as it did on default?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120_time_azimuth",
+      "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_lio",
+    "primary_method": "CT-LIO"
+  },
+  "variants": [
+    {
+      "id": "seed_only_fast",
+      "label": "Seed-only fast (original baseline)",
+      "design_style": "reference",
+      "intent": "Original baseline on time_azimuth.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1"]
+    },
+    {
+      "id": "final_recipe",
+      "label": "Final recipe (ms + radius_only + map=50)",
+      "design_style": "final",
+      "intent": "Round 6 winner cross-checked on time_azimuth.",
+      "args": ["--ct-lio-fixed-lag-window", "2", "--ct-lio-fixed-lag-outer-iterations", "1", "--ct-lio-multi-scale", "--ct-lio-coarse-to-fine", "--ct-lio-coarse-iterations", "2", "--ct-lio-coarse-search-radius", "2", "--ct-lio-coarse-cauchy-mult", "1.0", "--ct-lio-coarse-planarity-threshold", "0.1", "--ct-lio-max-frames-in-map", "50"]
+    }
+  ]
+}

@@ -1,0 +1,785 @@
+{
+  "input_json": "experiments/results/intensity_odometry/intensity_cubemap_kiss_prior_gated_kitti_seq_08_30.json",
+  "rows": [
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.6,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 3,
+      "metrics": {
+        "ate_xy_m": 0.39378215346289447,
+        "step_length_rmse_m": 0.12130930066658145,
+        "step_length_rmse_pct_of_mean_step": 28.400063872668014,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.6,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 3,
+      "metrics": {
+        "ate_xy_m": 0.39378215346289447,
+        "step_length_rmse_m": 0.12130930066658145,
+        "step_length_rmse_pct_of_mean_step": 28.400063872668014,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.6,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 3,
+      "metrics": {
+        "ate_xy_m": 0.39378215346289447,
+        "step_length_rmse_m": 0.12130930066658145,
+        "step_length_rmse_pct_of_mean_step": 28.400063872668014,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.8,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 3,
+      "metrics": {
+        "ate_xy_m": 0.39378215346289447,
+        "step_length_rmse_m": 0.12130930066658145,
+        "step_length_rmse_pct_of_mean_step": 28.400063872668014,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.8,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 3,
+      "metrics": {
+        "ate_xy_m": 0.39378215346289447,
+        "step_length_rmse_m": 0.12130930066658145,
+        "step_length_rmse_pct_of_mean_step": 28.400063872668014,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.8,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 3,
+      "metrics": {
+        "ate_xy_m": 0.39378215346289447,
+        "step_length_rmse_m": 0.12130930066658145,
+        "step_length_rmse_pct_of_mean_step": 28.400063872668014,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.6,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 4,
+      "metrics": {
+        "ate_xy_m": 0.5067390675580615,
+        "step_length_rmse_m": 0.15323328939811875,
+        "step_length_rmse_pct_of_mean_step": 35.87387926904807,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.6,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 4,
+      "metrics": {
+        "ate_xy_m": 0.5067390675580615,
+        "step_length_rmse_m": 0.15323328939811875,
+        "step_length_rmse_pct_of_mean_step": 35.87387926904807,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.8,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 4,
+      "metrics": {
+        "ate_xy_m": 0.5067390675580615,
+        "step_length_rmse_m": 0.15323328939811875,
+        "step_length_rmse_pct_of_mean_step": 35.87387926904807,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.8,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 4,
+      "metrics": {
+        "ate_xy_m": 0.5067390675580615,
+        "step_length_rmse_m": 0.15323328939811875,
+        "step_length_rmse_pct_of_mean_step": 35.87387926904807,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.6,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.6,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.6,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.8,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.8,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.8,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.6,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.6,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.6,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.8,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.8,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.8,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 1,
+      "metrics": {
+        "ate_xy_m": 0.5709047672625323,
+        "step_length_rmse_m": 0.10971073952707652,
+        "step_length_rmse_pct_of_mean_step": 25.684691882367446,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.25,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.25,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.25,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.4,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.4,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.4,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.25,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.25,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.25,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.4,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.4,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.03,
+      "max_translation": 0.4,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.25,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.25,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.25,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.4,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.4,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.04,
+      "max_translation": 0.4,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.25,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.25,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.25,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.4,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.4,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.05,
+      "max_translation": 0.4,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.25,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.25,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.25,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.4,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.4,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.4,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.6,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.6,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.6,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.8,
+      "max_yaw_deg": 0.5,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.8,
+      "max_yaw_deg": 1.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.06,
+      "max_translation": 0.8,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 0,
+      "metrics": {
+        "ate_xy_m": 0.8767251609185134,
+        "step_length_rmse_m": 0.08237280280071338,
+        "step_length_rmse_pct_of_mean_step": 19.28453010656427,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.6,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 6,
+      "metrics": {
+        "ate_xy_m": 1.08024223456953,
+        "step_length_rmse_m": 0.17416075136297776,
+        "step_length_rmse_pct_of_mean_step": 40.77326664684174,
+        "gt_path_length_m": 12.387189462332607
+      }
+    },
+    {
+      "min_score_gain": 0.02,
+      "max_translation": 0.8,
+      "max_yaw_deg": 2.0,
+      "min_overlap_ratio": 0.9,
+      "accepted_corrections": 6,
+      "metrics": {
+        "ate_xy_m": 1.08024223456953,
+        "step_length_rmse_m": 0.17416075136297776,
+        "step_length_rmse_pct_of_mean_step": 40.77326664684174,
+        "gt_path_length_m": 12.387189462332607
+      }
+    }
+  ]
+}

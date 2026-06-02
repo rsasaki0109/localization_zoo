@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_n_cap_sweep_kitti_seq_07_full",
+    "title": "CT-ICP regularizer N_corr cap sweep on KITTI Odometry 07 (full)",
+    "question": "Does an intermediate sqrt(min(N_corr, cap) * beta) regularizer weight find a usable trade-off between the flat (KITTI 07 wins, KITTI 02 diverges) and full N_corr (current default) extremes?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline (cap=N_corr)",
+      "design_style": "reference",
+      "intent": "Reference (effective cap = N_corr ~500-1000).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "n_cap_10",
+      "label": "ms_chol + regularizer_n_cap=10 (near-flat)",
+      "design_style": "cap=10",
+      "intent": "Smallest cap; should approximate the flat-regularizer KITTI 07 win.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "10"]
+    },
+    {
+      "id": "n_cap_30",
+      "label": "ms_chol + regularizer_n_cap=30",
+      "design_style": "cap=30",
+      "intent": "1/16 of typical N_corr.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "30"]
+    },
+    {
+      "id": "n_cap_60",
+      "label": "ms_chol + regularizer_n_cap=60",
+      "design_style": "cap=60",
+      "intent": "1/8 of typical N_corr.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "60"]
+    },
+    {
+      "id": "n_cap_120",
+      "label": "ms_chol + regularizer_n_cap=120",
+      "design_style": "cap=120",
+      "intent": "1/4 of typical N_corr.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "120"]
+    },
+    {
+      "id": "n_cap_300",
+      "label": "ms_chol + regularizer_n_cap=300",
+      "design_style": "cap=300",
+      "intent": "Approximately half of typical N_corr.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-regularizer-n-cap", "300"]
+    }
+  ]
+}

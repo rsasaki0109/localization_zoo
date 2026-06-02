@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_08_c2f_alone",
+    "title": "CT-ICP seq 08 full: c2f without ms_chol — knob reduction probe",
+    "question": "seq 08 winner c2f_only = ms_chol + c2f (32.51 m). Does dropping ms_chol simplify and improve like seq 05's arch_tuned drop?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "c2f_only_reference",
+      "label": "c2f_only = ms_chol + c2f (existing winner)",
+      "design_style": "reference",
+      "intent": "Confirm 32.51 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "bare_c2f",
+      "label": "bare + c2f (no ms_chol, no cholesky)",
+      "design_style": "knob reduction",
+      "intent": "Strip ms_chol and cholesky from winner.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "ms_chol_c2f_no_cholesky",
+      "label": "ms_chol + c2f (no cholesky)",
+      "design_style": "knob reduction",
+      "intent": "Isolate cholesky's contribution.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "cholesky_c2f_no_ms",
+      "label": "cholesky + c2f (no multi-scale)",
+      "design_style": "knob reduction",
+      "intent": "Isolate multi-scale's contribution.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    }
+  ]
+}

@@ -1,22 +1,25 @@
 # Experiment Results
 
-_Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-05-21T04:04:32+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
 | Problem | Status | Current Default | Best ATE [m] | Best FPS | Aggregate |
 |---------|--------|-----------------|--------------|----------|-----------|
-| A-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.131 | 19.0 | `experiments/results/aloam_hdl_400_reference_b_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.146 | 13.8 | `experiments/results/aloam_hdl_400_reference_matrix.json` |
 | A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.105 | 5.8 | `experiments/results/aloam_kitti_raw_0009_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 3.185 | 3.4 | `experiments/results/aloam_kitti_raw_0009_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 3.185 | 4.8 | `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 3.654 | 6.0 | `experiments/results/aloam_kitti_raw_0061_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.459 | 6.0 | `experiments/results/aloam_kitti_raw_0061_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 9.521 | 4.9 | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast` | 50.790 | 4.5 | `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast` | 5.193 | 4.1 | `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json` |
+| A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames) | `ready` | `fast` | 2.505 | 7.3 | `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json` |
+| A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast` | 18.661 | 4.2 | `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.077 | 6.7 | `experiments/results/aloam_mcd_kth_day_06_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense` | 0.035 | 5.8 | `experiments/results/aloam_mcd_ntu_day_02_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.336 | 6.5 | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
-| BALM2 on the second public HDL-400 reference window | `ready` | `fast` | 0.429 | 15.9 | `experiments/results/balm2_hdl_400_reference_b_matrix.json` |
 | BALM2 on the public HDL-400 reference window | `ready` | `fast` | 0.476 | 9.0 | `experiments/results/balm2_hdl_400_reference_matrix.json` |
 | BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 3.338 | 12.7 | `experiments/results/balm2_kitti_raw_0009_full_matrix.json` |
 | BALM2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.366 | 13.7 | `experiments/results/balm2_kitti_raw_0009_matrix.json` |
@@ -27,24 +30,80 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | BALM2 on MCD NTU day-02 sequence | `ready` | `fast` | 0.062 | 12.7 | `experiments/results/balm2_mcd_ntu_day_02_matrix.json` |
 | BALM2 on MCD TUHH night-09 sequence | `ready` | `fast` | 1.270 | 14.6 | `experiments/results/balm2_mcd_tuhh_night_09_matrix.json` |
 | CLINS trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense` | 1.473 | 100.3 | `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json` |
-| CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 68.5 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
+| CT-ICP performance-priority trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `dense_window` | 1.254 | 65.9 | `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second public HDL-400 reference window | `ready` | `fast_window` | 0.556 | 2.4 | `experiments/results/ct_icp_hdl_400_reference_b_matrix.json` |
-| CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 72.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
+| CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 54.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `balanced_window` | 6.820 | 3.1 | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `balanced_window` | 7.539 | 2.8 | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
+| CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `corr_5` | 13.322 | 17.3 | `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json` |
+| CT-ICP seq 02 full: map=50 retrofit on bare baseline winner | `ready` | `baseline_map_20` | 56.537 | 19.9 | `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window | `ready` | `balanced_reference` | 1.659 | 40.9 | `experiments/results/ct_icp_kitti_raw_0009_200_recipes_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `balanced_window` | 4.673 | 44.9 | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `balanced_window` | 1.659 | 54.8 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames) | `ready` | `balanced_reference` | 4.673 | 39.3 | `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_window` | 1.659 | 49.3 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_window` | 1.659 | 71.4 | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0061 200-frame short window | `ready` | `fast_reference` | 0.944 | 59.4 | `experiments/results/ct_icp_kitti_raw_0061_200_recipes_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_window` | 6.972 | 37.6 | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0061 full (707 frames) | `ready` | `fast_window_reference` | 4.501 | 57.8 | `experiments/results/ct_icp_kitti_raw_0061_full_recipes_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_window` | 1.475 | 56.9 | `experiments/results/ct_icp_kitti_raw_0061_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_window` | 6.115 | 59.8 | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_window` | 0.325 | 71.7 | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_window` | 1.652 | 71.6 | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
+| CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f) | `ready` | `bare_corr_8` | 14.968 | 22.4 | `experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json` |
+| CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames) | `ready` | `cauchy_2_0_reference` | 15.927 | 19.5 | `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json` |
+| CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner | `ready` | `iter_2` | 14.780 | 19.4 | `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json` |
+| CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner | `ready` | `corr_8` | 14.363 | 18.0 | `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json` |
+| CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified) | `ready` | `fine_sigma_0_375` | 12.694 | 14.9 | `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json` |
+| CT-ICP map_size sweep on KITTI seq 00 full (4542 frames) | `ready` | `map_30` | 15.109 | 18.9 | `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `dense_window` | 16.778 | 77.7 | `experiments/results/ct_icp_kitti_seq_00_full_matrix.json` |
+| CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A) | `ready` | `radius_2_reference` | 12.694 | 16.2 | `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` |
+| CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full | `ready` | `cluster_a_seeded` | 4.906 | 17.6 | `experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json` |
+| CT-ICP seq 00 full: leave-one-out ablation on full recipe | `ready` | `full_recipe_reference` | 13.322 | 20.6 | `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json` |
+| CT-ICP seq 00 full: map=50 + single partner knob isolation | `ready` | `map_50_plus_c2f` | 12.694 | 20.4 | `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json` |
+| CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?) | `ready` | `bare_map_30` | 15.803 | 20.2 | `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00 | `ready` | `fast_window` | 1.851 | 74.9 | `experiments/results/ct_icp_kitti_seq_00_matrix.json` |
+| CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner | `ready` | `default_reference` | 12.694 | 18.8 | `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json` |
+| CT-ICP seq 02 full: corr_dist sweep on bare baseline | `ready` | `corr_8` | 50.635 | 17.3 | `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` |
+| CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²) | `ready` | `corr_8_reference` | 50.635 | 17.8 | `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json` |
+| CT-ICP seq 02 full: corr_dist + ms_chol combinations | `ready` | `bare_corr_8_reference` | 50.635 | 21.6 | `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json` |
+| CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f) | `ready` | `baseline_reference` | 56.537 | 16.8 | `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json` |
+| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `map_15` | 56.537 | 23.8 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
+| CT-ICP seq 02 full: map_size sweep on corr=8 winner | `ready` | `map_20_reference` | 50.635 | 20.9 | `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json` |
+| CT-ICP seq 05 full: simplified recipes from bare + map=50 | `ready` | `bare_map_50_corr_4` | 8.783 | 19.7 | `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json` |
+| CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner | `ready` | `corr_4_reference` | 9.097 | 18.7 | `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json` |
+| CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner | `ready` | `arch_tuned_map_30` | 9.097 | 18.5 | `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json` |
+| CT-ICP seq 05 full: map_size on BARE baseline | `ready` | `bare_map_50` | 9.337 | 20.0 | `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json` |
+| CT-ICP seq 07 full: ms_chol + simplified pattern combo | `ready` | `ms_chol_reference` | 1.607 | 15.8 | `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json` |
+| CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner | `ready` | `default_reference` | 1.607 | 19.8 | `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07 | `ready` | `fast_window` | 3.794 | 74.9 | `experiments/results/ct_icp_kitti_seq_07_full_matrix.json` |
+| CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D) | `ready` | `cluster_d_full_no_seed_reference` | 1.603 | 21.5 | `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json` |
+| CT-ICP seq 07 full: map=50 retrofit on ms_chol winner | `ready` | `ms_chol_map_20` | 1.607 | 19.7 | `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07 | `ready` | `fast_window` | 0.390 | 77.3 | `experiments/results/ct_icp_kitti_seq_07_matrix.json` |
+| CT-ICP seq 08 full: c2f without ms_chol — knob reduction probe | `ready` | `c2f_only_reference` | 32.511 | 19.7 | `experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json` |
+| CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner | `ready` | `default_reference` | 32.511 | 17.4 | `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json` |
+| CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames) | `ready` | `cauchy_3_0` | 32.511 | 19.2 | `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json` |
+| CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner | `ready` | `iter_6` | 32.511 | 13.6 | `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json` |
+| CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full | `ready` | `cluster_a_seeded` | 6.024 | 16.8 | `experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json` |
+| CT-ICP seq 08 full: map=50 retrofit on c2f_only winner | `ready` | `c2f_only_map_20` | 32.309 | 13.4 | `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json` |
+| CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base | `ready` | `default_reference` | 27.850 | 15.7 | `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json` |
+| CT-ICP seq 02 full: simplified map=50+c2f probe | `ready` | `current_winner` | 50.635 | 21.8 | `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json` |
+| CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base | `ready` | `map_50_c2f_plus_corr_4` | 7.762 | 20.6 | `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json` |
+| CT-ICP seq 07 full: simplified map=50+c2f probe | `ready` | `current_winner` | 1.607 | 20.3 | `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json` |
+| CT-ICP seq 08 full: simplified map=50+c2f probe | `ready` | `simplified_seq_00_pattern` | 27.850 | 19.4 | `experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_window` | 6.115 | 57.2 | `experiments/results/ct_icp_mcd_kth_day_06_matrix.json` |
+| CT-ICP recipe transfer test on MCD KTH day_06 (108 frames) | `ready` | `dense_reference` | 6.107 | 18.0 | `experiments/results/ct_icp_mcd_kth_day_06_recipes_matrix.json` |
+| CT-ICP cluster A/D + GT seed on MCD KTH day_06 (108 frames) | `ready` | `dense_seeded_reference` | 2.401 | 28.3 | `experiments/results/ct_icp_mcd_kth_day_06_seeded_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_window` | 0.325 | 60.0 | `experiments/results/ct_icp_mcd_ntu_day_02_matrix.json` |
+| CT-ICP recipe sensitivity test on MCD NTU day_02 (108 frames) | `ready` | `dense_reference` | 0.325 | 23.9 | `experiments/results/ct_icp_mcd_ntu_day_02_recipes_matrix.json` |
+| CT-ICP cluster A/D + GT seed on MCD NTU day_02 (108 frames) | `ready` | `dense_seeded_reference` | 0.425 | 28.4 | `experiments/results/ct_icp_mcd_ntu_day_02_seeded_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_window` | 1.652 | 51.4 | `experiments/results/ct_icp_mcd_tuhh_night_09_matrix.json` |
+| CT-ICP recipe sensitivity test on MCD TUHH night_09 (108 frames) | `ready` | `dense_reference` | 1.534 | 22.8 | `experiments/results/ct_icp_mcd_tuhh_night_09_recipes_matrix.json` |
+| CT-ICP cluster A/D + GT seed on MCD TUHH night_09 (108 frames) | `ready` | `dense_seeded_reference` | 0.832 | 27.4 | `experiments/results/ct_icp_mcd_tuhh_night_09_seeded_matrix.json` |
+| CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_window` | 15.873 | 74.7 | `experiments/results/ct_icp_mulran_parkinglot_120_matrix.json` |
+| CT-ICP cluster A/D transfer to MulRan parkinglot 120-frame short window | `ready` | `cluster_a_with_seed` | 2.547 | 27.0 | `experiments/results/ct_icp_mulran_parkinglot_120_recipes_matrix.json` |
+| CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full | `ready` | `cluster_a_with_seed` | 9.186 | 14.6 | `experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json` |
+| CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_window` | 74.578 | 59.7 | `experiments/results/ct_icp_mulran_parkinglot_full_matrix.json` |
 | CT-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_window` | 75.075 | 2.7 | `experiments/results/ct_icp_profile_matrix.json` |
 | CT-LIO trade-off on the public ROS1 HDL-400 window with synthesized per-point time | `ready` | `seed_only_fast` | 0.479 | 25.8 | `experiments/results/ct_lio_hdl_400_public_ros1_synthtime_matrix.json` |
 | CT-LIO GT-backed public benchmark readiness on HDL-400 ROS2 data | `blocked` | `-` | - | - | `experiments/results/ct_lio_public_readiness_matrix.json` |
 | CT-LIO reference-trajectory trade-off on the public HDL-400 120-frame window | `ready` | `seed_only_fast` | 0.488 | 26.0 | `experiments/results/ct_lio_reference_profile_matrix.json` |
-| DLIO throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.315 | 15.0 | `experiments/results/dlio_hdl_400_reference_b_matrix.json` |
 | DLIO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.239 | 12.1 | `experiments/results/dlio_hdl_400_reference_matrix.json` |
 | DLIO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlio_kitti_raw_0009_full_matrix.json` |
 | DLIO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.3 | `experiments/results/dlio_kitti_raw_0009_matrix.json` |
@@ -54,7 +113,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | DLIO throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.070 | 10.4 | `experiments/results/dlio_mcd_kth_day_06_matrix.json` |
 | DLIO throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.016 | 16.6 | `experiments/results/dlio_mcd_ntu_day_02_matrix.json` |
 | DLIO throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.340 | 13.0 | `experiments/results/dlio_mcd_tuhh_night_09_matrix.json` |
-| DLO throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.117 | 17.9 | `experiments/results/dlo_hdl_400_reference_b_matrix.json` |
 | DLO throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.101 | 15.0 | `experiments/results/dlo_hdl_400_reference_matrix.json` |
 | DLO trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.026 | 7.3 | `experiments/results/dlo_kitti_raw_0009_full_matrix.json` |
 | DLO throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.362 | 5.9 | `experiments/results/dlo_kitti_raw_0009_matrix.json` |
@@ -82,13 +140,21 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | FAST-LIO-SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 6.075 | 9.4 | `experiments/results/fast_lio_slam_mcd_kth_day_06_matrix.json` |
 | FAST-LIO-SLAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.025 | 20.4 | `experiments/results/fast_lio_slam_mcd_ntu_day_02_matrix.json` |
 | FAST-LIO-SLAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.330 | 12.8 | `experiments/results/fast_lio_slam_mcd_tuhh_night_09_matrix.json` |
-| F-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.089 | 76.6 | `experiments/results/floam_hdl_400_reference_b_matrix.json` |
+| FAST-LIVO2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 49.209 | 7.5 | `experiments/results/fast_livo2_kitti_raw_0009_full_matrix.json` |
+| FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.298 | 8.3 | `experiments/results/fast_livo2_kitti_raw_0009_matrix.json` |
+| FAST-LIVO2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 96.345 | 14.0 | `experiments/results/fast_livo2_kitti_raw_0061_full_matrix.json` |
+| FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.581 | 7.2 | `experiments/results/fast_livo2_kitti_raw_0061_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.193 | 64.2 | `experiments/results/floam_hdl_400_reference_matrix.json` |
 | F-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 5.452 | 28.6 | `experiments/results/floam_kitti_raw_0009_full_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.883 | 24.6 | `experiments/results/floam_kitti_raw_0009_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.883 | 28.0 | `experiments/results/floam_kitti_raw_0009_nogt_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 3.822 | 30.7 | `experiments/results/floam_kitti_raw_0061_full_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.587 | 25.9 | `experiments/results/floam_kitti_raw_0061_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 8.556 | 12.3 | `experiments/results/floam_kitti_seq_00_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 53.822 | 12.2 | `experiments/results/floam_kitti_seq_02_full_transfer_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 6.039 | 12.2 | `experiments/results/floam_kitti_seq_05_full_transfer_matrix.json` |
+| F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 3.174 | 29.8 | `experiments/results/floam_kitti_seq_07_full_sweep_matrix.json` |
+| F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 16.661 | 12.8 | `experiments/results/floam_kitti_seq_08_full_transfer_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.005 | 31.1 | `experiments/results/floam_mcd_kth_day_06_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.111 | 27.0 | `experiments/results/floam_mcd_ntu_day_02_matrix.json` |
 | F-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.345 | 27.6 | `experiments/results/floam_mcd_tuhh_night_09_matrix.json` |
@@ -104,6 +170,8 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 0.630 | 24.7 | `experiments/results/gicp_mcd_kth_day_06_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.017 | 28.7 | `experiments/results/gicp_mcd_ntu_day_02_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.317 | 31.2 | `experiments/results/gicp_mcd_tuhh_night_09_matrix.json` |
+| GICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 0.644 | 27.7 | `experiments/results/gicp_mulran_parkinglot_120_matrix.json` |
+| GICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 0.944 | 30.3 | `experiments/results/gicp_mulran_parkinglot_full_matrix.json` |
 | GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 0.994 | 6.3 | `experiments/results/gicp_profile_matrix.json` |
 | HDL-Graph-SLAM on the public HDL-400 reference window | `ready` | `fast` | 13.820 | 6.7 | `experiments/results/hdl_graph_slam_hdl_400_reference_matrix.json` |
 | HDL Graph SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `default` | 185.826 | 0.2 | `experiments/results/hdl_graph_slam_kitti_raw_0009_full_matrix.json` |
@@ -132,21 +200,31 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_recent_map` | 2.412 | 28.2 | `experiments/results/kiss_icp_kitti_raw_0009_nogt_matrix.json` |
 | KISS-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 4.343 | 11.2 | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `fast_profile` | 11.976 | 30.6 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast_profile` | 39.231 | 32.7 | `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast_profile` | 4.160 | 23.5 | `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast_profile` | 1.391 | 35.6 | `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json` |
+| KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 19.409 | 30.8 | `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 5.568 | 11.3 | `experiments/results/kiss_icp_mcd_kth_day_06_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast_recent_map` | 0.017 | 66.7 | `experiments/results/kiss_icp_mcd_ntu_day_02_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 1.104 | 24.1 | `experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json` |
+| KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json` |
+| KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 73.621 | 26.9 | `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `experiments/results/kiss_icp_profile_matrix.json` |
-| LeGO-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast` | 0.146 | 26.1 | `experiments/results/lego_loam_hdl_400_reference_b_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.147 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.865 | 8.9 | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.865 | 9.9 | `experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 5.248 | 11.1 | `experiments/results/lego_loam_kitti_raw_0061_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.458 | 9.7 | `experiments/results/lego_loam_kitti_raw_0061_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 12.378 | 3.4 | `experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `kitti_default` | 42.209 | 3.8 | `experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `kitti_default` | 5.218 | 3.7 | `experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json` |
+| LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 2.558 | 10.0 | `experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json` |
+| LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `kitti_default` | 19.121 | 3.2 | `experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.072 | 9.9 | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.036 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.344 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
-| LINS on the second public HDL-400 reference window | `ready` | `fast` | 231.572 | 81.5 | `experiments/results/lins_hdl_400_reference_b_matrix.json` |
 | LINS on the public HDL-400 reference window | `ready` | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.380 | 123.3 | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
 | LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.861 | 120.7 | `experiments/results/lins_kitti_raw_0009_matrix.json` |
@@ -166,17 +244,36 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | LIO-SAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.045 | 31.7 | `experiments/results/lio_sam_mcd_ntu_day_02_matrix.json` |
 | LIO-SAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.314 | 30.0 | `experiments/results/lio_sam_mcd_tuhh_night_09_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_icp_only_half_threads` | 0.168 | 6.1 | `experiments/results/litamin2_hdl_400_reference_b_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `paper_cov_half_threads` | 0.111 | 94.2 | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_cov_half_threads` | 0.111 | 80.7 | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.222 | 20.9 | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `paper_icp_only_half_threads` | 0.741 | 21.2 | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames) | `ready` | `cluster_t1_seeded` | 0.633 | 45.0 | `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames) | `ready` | `cluster_t1_seeded` | 0.666 | 46.3 | `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_icp_only_half_threads` | 1.145 | 48.8 | `experiments/results/litamin2_kitti_raw_0009_full_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `paper_icp_only_half_threads` | 1.053 | 43.7 | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_cov_half_threads` | 1.053 | 34.2 | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `paper_cov_half_threads` | 122.275 | 87.3 | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames) | `ready` | `cluster_t1_seeded` | 0.511 | 48.1 | `experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames) | `ready` | `cluster_t1_seeded` | 0.600 | 61.4 | `experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_icp_only_half_threads` | 0.944 | 58.1 | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_cov_half_threads` | 0.511 | 68.6 | `experiments/results/litamin2_kitti_raw_0061_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_cov_half_threads` | 0.401 | 64.2 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 105.6 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_cov_half_threads` | 0.194 | 106.5 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00 | `ready` | `fast_icp_only_half_threads` | 0.998 | 108.9 | `experiments/results/litamin2_kitti_seq_00_full_matrix.json` |
+| LiTAMIN2 paper-comparable on KITTI Odometry 00 (full) | `ready` | `fast_cov_no_gt_seed` | 110.484 | 98.9 | `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json` |
+| LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full) | `ready` | `tuned_voxel1_iter12` | 13.464 | 60.9 | `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json` |
+| LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed | `ready` | `tuned_voxel2_iter12_seeded` | 0.731 | 86.8 | `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq) | `ready` | `cluster_t1_seeded` | 0.728 | 68.3 | `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length) | `ready` | `fast_seeded_reference` | 0.751 | 17.2 | `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full | `ready` | `fast_seeded_reference` | 0.647 | 94.7 | `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory) | `ready` | `fast_seeded_reference` | 0.696 | 104.9 | `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames) | `ready` | `cluster_t1_seeded` | 0.192 | 33.0 | `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_icp_only_half_threads` | 0.401 | 113.0 | `experiments/results/litamin2_mcd_kth_day_06_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD NTU day_02 (108 frames) | `ready` | `cluster_t1_seeded` | 0.021 | 43.4 | `experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `paper_icp_only_half_threads` | 0.045 | 81.2 | `experiments/results/litamin2_mcd_ntu_day_02_matrix.json` |
+| LiTAMIN2 cluster T1 on MCD TUHH night_09 (108 frames) | `ready` | `cluster_t1_seeded` | 0.132 | 39.5 | `experiments/results/litamin2_mcd_tuhh_night_09_cluster_t1_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_icp_only_half_threads` | 0.194 | 121.2 | `experiments/results/litamin2_mcd_tuhh_night_09_matrix.json` |
+| LiTAMIN2 cluster T1 on MulRan parkinglot 120-frame | `ready` | `cluster_t1_seeded` | 0.212 | 39.0 | `experiments/results/litamin2_mulran_parkinglot_120_cluster_t1_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_cov_half_threads` | 0.498 | 121.0 | `experiments/results/litamin2_mulran_parkinglot_120_matrix.json` |
+| LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory) | `ready` | `cluster_t1_seeded` | 0.303 | 34.4 | `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_icp_only_half_threads` | 0.711 | 118.6 | `experiments/results/litamin2_mulran_parkinglot_full_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.213 | 23.5 | `experiments/results/litamin2_profile_matrix.json` |
 | LOAM-Livox on the public HDL-400 reference window | `ready` | `default` | 0.079 | 52.0 | `experiments/results/loam_livox_hdl_400_reference_matrix.json` |
 | LOAM Livox on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 124.828 | 33.1 | `experiments/results/loam_livox_kitti_raw_0009_full_matrix.json` |
@@ -187,12 +284,17 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | LOAM Livox on MCD KTH day-06 sequence | `ready` | `fast` | 4.095 | 66.3 | `experiments/results/loam_livox_mcd_kth_day_06_matrix.json` |
 | LOAM Livox on MCD NTU day-02 sequence | `ready` | `fast` | 0.057 | 69.0 | `experiments/results/loam_livox_mcd_ntu_day_02_matrix.json` |
 | LOAM Livox on MCD TUHH night-09 sequence | `ready` | `fast` | 1.192 | 68.8 | `experiments/results/loam_livox_mcd_tuhh_night_09_matrix.json` |
+| LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0009_full_matrix.json` |
+| LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0009_matrix.json` |
+| LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json` |
+| LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.874 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.651 | 3.1 | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.651 | 3.4 | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 10.173 | 3.3 | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.425 | 3.3 | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
+| MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.207 | 4.1 | `experiments/results/mulls_mcd_kth_day_06_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.097 | 2.3 | `experiments/results/mulls_mcd_ntu_day_02_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.206 | 3.8 | `experiments/results/mulls_mcd_tuhh_night_09_matrix.json` |
@@ -205,11 +307,23 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_coarse_map` | 121.733 | 25.0 | `experiments/results/ndt_kitti_raw_0009_nogt_matrix.json` |
 | NDT trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_coarse_map` | 0.247 | 23.8 | `experiments/results/ndt_kitti_raw_0061_full_matrix.json` |
 | NDT throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_coarse_map` | 0.319 | 41.2 | `experiments/results/ndt_kitti_raw_0061_matrix.json` |
+| NDT T1 transfer on KITTI Odom seq 00 full (4542 frames) | `ready` | `t1_transfer_r03_i12` | 0.023 | 37.5 | `experiments/results/ndt_kitti_seq_00_full_sweep_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 02 full (4661 frames) | `ready` | `t1_transfer_r05_i12` | 0.059 | 0.2 | `experiments/results/ndt_kitti_seq_02_full_t1_confirmation_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 05 full (2761 frames) | `ready` | `t1_transfer_r05_i12` | 0.059 | 0.2 | `experiments/results/ndt_kitti_seq_05_full_t1_confirmation_matrix.json` |
+| NDT cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast_profile` | 0.076 | 43.6 | `experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json` |
+| NDT T1 confirmation on KITTI Odom seq 08 full (4071 frames) | `ready` | `t1_transfer_r05_i12` | 0.076 | 0.3 | `experiments/results/ndt_kitti_seq_08_full_t1_confirmation_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_coarse_map` | 0.136 | 31.2 | `experiments/results/ndt_mcd_kth_day_06_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `balanced_local_map` | 0.013 | 44.9 | `experiments/results/ndt_mcd_ntu_day_02_matrix.json` |
 | NDT throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_coarse_map` | 0.063 | 40.8 | `experiments/results/ndt_mcd_tuhh_night_09_matrix.json` |
 | NDT throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `fast_coarse_map` | 0.070 | 2.0 | `experiments/results/ndt_profile_matrix.json` |
-| Point-LIO on the second public HDL-400 reference window | `ready` | `fast` | 85.421 | 68.8 | `experiments/results/point_lio_hdl_400_reference_b_matrix.json` |
+| OKVIS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 108.629 | 1146.6 | `experiments/results/okvis_kitti_raw_0009_full_matrix.json` |
+| OKVIS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.400 | 524.0 | `experiments/results/okvis_kitti_raw_0009_matrix.json` |
+| OKVIS trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 201.724 | 1717.1 | `experiments/results/okvis_kitti_raw_0061_full_matrix.json` |
+| OKVIS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.889 | 894.7 | `experiments/results/okvis_kitti_raw_0061_matrix.json` |
+| ORB-SLAM3 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0009_full_matrix.json` |
+| ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0009_matrix.json` |
+| ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0061_full_matrix.json` |
+| ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/orb_slam3_kitti_raw_0061_matrix.json` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `fast` | 17.929 | 69.9 | `experiments/results/point_lio_hdl_400_reference_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.384 | 113.1 | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.890 | 117.4 | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |
@@ -219,17 +333,25 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | Point-LIO on MCD KTH day-06 sequence | `ready` | `fast` | 7.113 | 112.7 | `experiments/results/point_lio_mcd_kth_day_06_matrix.json` |
 | Point-LIO on MCD NTU day-02 sequence | `ready` | `fast` | 0.083 | 77.3 | `experiments/results/point_lio_mcd_ntu_day_02_matrix.json` |
 | Point-LIO on MCD TUHH night-09 sequence | `ready` | `fast` | 1.116 | 88.7 | `experiments/results/point_lio_mcd_tuhh_night_09_matrix.json` |
-| Small-GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `fast_recent_map` | 0.155 | 117.5 | `experiments/results/small_gicp_hdl_400_reference_b_matrix.json` |
+| R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0009_full_matrix.json` |
+| R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0009_matrix.json` |
+| R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0061_full_matrix.json` |
+| R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0061_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.109 | 110.3 | `experiments/results/small_gicp_hdl_400_reference_matrix.json` |
 | Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.437 | 92.4 | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 0.471 | 83.3 | `experiments/results/small_gicp_kitti_raw_0009_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_local_map` | 1.624 | 76.3 | `experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 0.959 | 82.2 | `experiments/results/small_gicp_kitti_raw_0061_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.639 | 78.1 | `experiments/results/small_gicp_kitti_raw_0061_matrix.json` |
+| Small-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames) | `ready` | `fast_seeded_reference` | 0.890 | 63.3 | `experiments/results/small_gicp_kitti_seq_00_full_no_seed_matrix.json` |
+| Small-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `fast_profile` | 0.890 | 106.4 | `experiments/results/small_gicp_kitti_seq_00_full_sweep_matrix.json` |
+| Small-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast_profile` | 0.909 | 96.5 | `experiments/results/small_gicp_kitti_seq_02_full_sweep_matrix.json` |
+| Small-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast_profile` | 0.984 | 104.5 | `experiments/results/small_gicp_kitti_seq_05_full_sweep_matrix.json` |
+| Small-GICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast_profile` | 0.682 | 107.7 | `experiments/results/small_gicp_kitti_seq_07_full_sweep_matrix.json` |
+| Small-GICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast_profile` | 0.858 | 74.6 | `experiments/results/small_gicp_kitti_seq_08_full_sweep_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 0.806 | 107.9 | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.031 | 113.8 | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.250 | 107.2 | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
-| SuMa on the second public HDL-400 reference window | `ready` | `dense` | 0.175 | 174.4 | `experiments/results/suma_hdl_400_reference_b_matrix.json` |
 | SuMa on the public HDL-400 reference window | `ready` | `default` | 0.183 | 168.4 | `experiments/results/suma_hdl_400_reference_matrix.json` |
 | SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 5.487 | 85.5 | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.784 | 62.9 | `experiments/results/suma_kitti_raw_0009_matrix.json` |
@@ -248,17 +370,25 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | VGICP SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 6.092 | 20.8 | `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json` |
 | VGICP SLAM on MCD NTU day-02 sequence | `ready` | `fast` | 0.016 | 40.3 | `experiments/results/vgicp_slam_mcd_ntu_day_02_matrix.json` |
 | VGICP SLAM on MCD TUHH night-09 sequence | `ready` | `fast` | 1.319 | 21.8 | `experiments/results/vgicp_slam_mcd_tuhh_night_09_matrix.json` |
-| Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window | `ready` | `dense_recent_map` | 0.427 | 148.5 | `experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json` |
+| VINS-Fusion trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 50.238 | 93.7 | `experiments/results/vins_fusion_kitti_raw_0009_full_matrix.json` |
+| VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 31.407 | 83.5 | `experiments/results/vins_fusion_kitti_raw_0009_matrix.json` |
+| VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 97.611 | 236.7 | `experiments/results/vins_fusion_kitti_raw_0061_full_matrix.json` |
+| VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.811 | 255.5 | `experiments/results/vins_fusion_kitti_raw_0061_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `dense_recent_map` | 0.268 | 141.1 | `experiments/results/voxel_gicp_hdl_400_reference_matrix.json` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense_recent_map` | 0.640 | 110.1 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense_recent_map` | 0.670 | 93.9 | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense_recent_map` | 27.610 | 82.1 | `experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `dense_recent_map` | 0.917 | 75.4 | `experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `dense_recent_map` | 0.741 | 73.7 | `experiments/results/voxel_gicp_kitti_raw_0061_matrix.json` |
+| Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames) | `ready` | `dense_seeded_reference` | 1.047 | 95.6 | `experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json` |
+| Voxel-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `dense_profile` | 1.047 | 97.9 | `experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json` |
+| Voxel-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames) | `ready` | `dense_profile` | 0.944 | 84.8 | `experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json` |
+| Voxel-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames) | `ready` | `dense_profile` | 1.031 | 111.1 | `experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json` |
+| Voxel-GICP cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `dense_profile` | 0.950 | 101.4 | `experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json` |
+| Voxel-GICP cluster discovery on KITTI Odom seq 08 full (4071 frames) | `ready` | `dense_profile` | 0.955 | 91.1 | `experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `dense_recent_map` | 0.926 | 124.2 | `experiments/results/voxel_gicp_mcd_kth_day_06_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.121 | 117.2 | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `dense_recent_map` | 0.286 | 116.4 | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |
-| X-ICP on the second public HDL-400 reference window | `ready` | `fast` | 0.173 | 130.0 | `experiments/results/xicp_hdl_400_reference_b_matrix.json` |
 | X-ICP on the public HDL-400 reference window | `ready` | `dense` | 0.168 | 123.9 | `experiments/results/xicp_hdl_400_reference_matrix.json` |
 | X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 0.130 | 92.9 | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |
 | X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense` | 0.139 | 102.8 | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
@@ -268,66 +398,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 | X-ICP on MCD KTH day-06 sequence | `ready` | `fast` | 0.305 | 84.8 | `experiments/results/xicp_mcd_kth_day_06_matrix.json` |
 | X-ICP on MCD NTU day-02 sequence | `ready` | `dense` | 0.095 | 81.8 | `experiments/results/xicp_mcd_ntu_day_02_matrix.json` |
 | X-ICP on MCD TUHH night-09 sequence | `ready` | `dense` | 0.081 | 100.4 | `experiments/results/xicp_mcd_tuhh_night_09_matrix.json` |
-
-## A-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window
-
-- **Problem ID**: `aloam_profile_tradeoff_hdl_400_reference_b`
-- **Question**: Which A-LOAM profile should stay as the current default on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `aloam`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/aloam_hdl_400_reference_b_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 0.131 | 8.3 | 71.9 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 0.166 | 19.0 | 89.3 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 0.157 | 9.2 | 66.0 | 4.65 | 4.75 | Keep as reference variant |
-
-### Observations
-
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 19.0 FPS.
-3. `kitti_default` is the most accurate observed variant at 0.131 m ATE.
-
-### Variant Notes
-
-#### `kitti_default`
-
-- Intent: Baseline settings for KITTI (n_scans=64).
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods aloam --summary-json experiments/results/runs/aloam_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Summary: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Log: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/kitti_default/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
-
-#### `fast`
-
-- Intent: Reduce feature density and solver work for speed.
-- CLI args: `--aloam-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods aloam --summary-json experiments/results/runs/aloam_hdl_400_reference_b_matrix/fast/summary.json --aloam-fast-profile`
-- Summary: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/fast/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
-
-#### `dense`
-
-- Intent: Increase feature density and solver iterations for accuracy.
-- CLI args: `--aloam-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods aloam --summary-json experiments/results/runs/aloam_hdl_400_reference_b_matrix/dense/summary.json --aloam-dense-profile`
-- Summary: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/aloam_hdl_400_reference_b_matrix/dense/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
-
 
 ## A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -689,6 +759,258 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
 
 
+## A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `aloam_kitti_seq_00_full_transfer`
+- **Question**: Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 00 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 9.521 | 2.6 | 76.5 | 4.65 | 4.75 | Adopt as current default |
+| Fast | throughput-oriented | 19.371 | 4.9 | 74.6 | 4.30 | 4.50 | Keep as active challenger |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.9 FPS.
+3. `kitti_default` is the most accurate observed variant at 9.521 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Combined-score winner from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_00_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `aloam_kitti_seq_02_full_transfer`
+- **Question**: Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 02 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 50.790 | 2.5 | 77.8 | 4.65 | 4.75 | Keep as active challenger |
+| Fast | throughput-oriented | 74.966 | 4.5 | 83.9 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.5 FPS.
+3. `kitti_default` is the most accurate observed variant at 50.790 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Combined-score winner from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_02_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `aloam_kitti_seq_05_full_transfer`
+- **Question**: Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 05 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 5.193 | 2.3 | 77.8 | 4.65 | 4.75 | Keep as active challenger |
+| Fast | throughput-oriented | 7.789 | 4.1 | 83.3 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.1 FPS.
+3. `kitti_default` is the most accurate observed variant at 5.193 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Combined-score winner from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_05_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM cluster discovery on KITTI Odom seq 07 full (1101 frames)
+
+- **Problem ID**: `aloam_kitti_seq_07_full_sweep`
+- **Question**: Which A-LOAM profile family is strongest on KITTI Odom seq 07 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 2.505 | 3.3 | 72.4 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 4.031 | 7.3 | 81.1 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 4.872 | 3.2 | 47.8 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 7.3 FPS.
+3. `kitti_default` is the most accurate observed variant at 2.505 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Baseline settings for KITTI (n_scans=64).
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Reduce feature density and solver work for speed.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `dense`
+
+- Intent: Increase feature density and solver iterations for accuracy.
+- CLI args: `--aloam-kitti-profile --aloam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/summary.json --aloam-kitti-profile --aloam-dense-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_07_full_sweep_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
+## A-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `aloam_kitti_seq_08_full_transfer`
+- **Question**: Do the A-LOAM seq 07 candidate profiles transfer to KITTI Odom seq 08 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `aloam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 18.661 | 2.3 | 77.5 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 23.358 | 4.2 | 90.0 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.2 FPS.
+3. `kitti_default` is the most accurate observed variant at 18.661 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Accuracy candidate from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json --aloam-kitti-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+#### `fast`
+
+- Intent: Combined-score winner from the seq 07 probe.
+- CLI args: `--aloam-kitti-profile --aloam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods aloam --summary-json experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/summary.json --aloam-kitti-profile --aloam-fast-profile`
+- Summary: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/aloam_kitti_seq_08_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+
+
 ## A-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `aloam_profile_tradeoff_mcd_kth_day_06`
@@ -867,66 +1189,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
-
-
-## BALM2 on the second public HDL-400 reference window
-
-- **Problem ID**: `balm2_hdl_400_reference_b`
-- **Question**: How does BALM2 perform on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `balm2`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/balm2_hdl_400_reference_b_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 0.452 | 2.0 | 53.9 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 0.714 | 15.9 | 80.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 0.429 | 0.7 | 52.4 | 4.65 | 4.75 | Keep as reference variant |
-
-### Observations
-
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 15.9 FPS.
-3. `dense` is the most accurate observed variant at 0.429 m ATE.
-
-### Variant Notes
-
-#### `default`
-
-- Intent: Repository default hyperparameters.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_b_matrix/default/summary.json`
-- Summary: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/default/summary.json`
-- Log: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/default/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
-
-#### `fast`
-
-- Intent: Reduce feature density and bundle-adjustment effort for a lighter mapping window.
-- CLI args: `--balm2-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_b_matrix/fast/summary.json --balm2-fast-profile`
-- Summary: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/fast/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
-
-#### `dense`
-
-- Intent: Increase feature density and keep a slightly larger optimization window for a more exhaustive mapping solve without the previous runtime blow-up.
-- CLI args: `--balm2-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods balm2 --summary-json experiments/results/runs/balm2_hdl_400_reference_b_matrix/dense/summary.json --balm2-dense-profile`
-- Summary: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/balm2_hdl_400_reference_b_matrix/dense/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
 
 
 ## BALM2 on the public HDL-400 reference window
@@ -1543,14 +1805,14 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.604 | 40.3 | 78.2 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 2.465 | 68.5 | 50.9 | 4.65 | 4.75 | Keep as reference variant |
-| Dense window | accuracy-oriented | 1.254 | 16.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Balanced window | balanced | 1.604 | 29.8 | 78.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 2.465 | 65.9 | 50.9 | 4.65 | 4.75 | Keep as reference variant |
+| Dense window | accuracy-oriented | 1.254 | 18.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `dense_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 68.5 FPS.
+2. `fast_window` is the fastest observed variant at 65.9 FPS.
 3. `dense_window` is the most accurate observed variant at 1.254 m ATE.
 
 ### Variant Notes
@@ -1663,14 +1925,14 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.668 | 22.6 | 53.0 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 2.582 | 72.9 | 74.2 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 1.251 | 19.5 | 63.4 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 1.668 | 38.7 | 72.7 | 5.00 | 5.00 | Keep as active challenger |
+| Fast window | throughput-oriented | 2.582 | 54.9 | 74.2 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 1.251 | 18.7 | 67.0 | 4.65 | 4.75 | Keep as active challenger |
 
 ### Observations
 
 1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 72.9 FPS.
+2. `fast_window` is the fastest observed variant at 54.9 FPS.
 3. `dense_window` is the most accurate observed variant at 1.251 m ATE.
 
 ### Variant Notes
@@ -1829,6 +2091,186 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## CT-ICP seq 00 full: fine corr_dist grid (5/6/7/8 m²)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_corr_fine_grid`
+- **Question**: Sharp cliff between 4 (catastrophic) and 8 (winner). Where exactly does the optimum sit?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_corr_fine_grid_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| corr=8 (existing winner) | reference | 14.363 | 14.2 | 87.3 | 1.00 | 1.20 | Keep as active challenger |
+| corr=5 | tighter | 13.322 | 15.5 | 94.6 | 1.00 | 1.20 | Adopt as current default |
+| corr=6 | tighter | 15.092 | 17.3 | 94.1 | 1.00 | 1.20 | Keep as active challenger |
+| corr=7 | tighter | 15.931 | 17.3 | 91.8 | 1.00 | 1.20 | Keep as active challenger |
+
+### Observations
+
+1. `corr_5` is the current default for this problem.
+2. `corr_7` is the fastest observed variant at 17.3 FPS.
+3. `corr_5` is the most accurate observed variant at 13.322 m ATE.
+
+### Variant Notes
+
+#### `corr_8_reference`
+
+- Intent: Confirm 14.36 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_8_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_8_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_8_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_5`
+
+- Intent: Just above the cliff at 4.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_5/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_6`
+
+- Intent: Midway probe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 6`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_6/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 6`
+- Summary: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_6/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_6/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_7`
+
+- Intent: Just below the existing winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 7`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_7/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 7`
+- Summary: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_7/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_corr_fine_grid_matrix/corr_7/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: map=50 retrofit on bare baseline winner
+
+- **Problem ID**: `ct_icp_kitti_map50_retrofit_seq_02`
+- **Question**: seq 00 improved from 15.93 to 15.11 with map=50. Does seq 02 (bare baseline winner) also benefit?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| baseline (dense + iter=6 + map=20) | reference | 56.537 | 19.9 | 100.0 | 3.45 | 3.95 | Adopt as current default |
+| baseline + map=50 | bigger map | 118.257 | 18.5 | 70.3 | 3.45 | 3.95 | Keep as reference variant |
+
+### Observations
+
+1. `baseline_map_20` is the current default for this problem.
+2. `baseline_map_20` is the fastest observed variant at 19.9 FPS.
+3. `baseline_map_20` is the most accurate observed variant at 56.537 m ATE.
+
+### Variant Notes
+
+#### `baseline_map_20`
+
+- Intent: Confirm 56.54 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_20/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_20/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `baseline_map_50`
+
+- Intent: Apply seq 00 finding to seq 02.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Summary: `experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_50/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window
+
+- **Problem ID**: `ct_icp_kitti_raw_0009_200_recipes`
+- **Question**: 0009_full had balanced_window winning 4.67 m, cluster A/D both regressed +14-17%. Does the 200-frame variant (balanced 1.66 m) show the same balanced-only winner pattern, or does the shorter window change the cluster?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_raw_0009_200_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced_window (current best 1.66 m) | reference | 1.659 | 40.9 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 2.493 | 17.9 | 55.2 | 1.00 | 2.10 | Keep as reference variant |
+| cluster D (ms_chol) | short-traj-recipe | 2.296 | 24.6 | 66.2 | 3.95 | 4.25 | Keep as reference variant |
+
+### Observations
+
+1. `balanced_reference` is the current default for this problem.
+2. `balanced_reference` is the fastest observed variant at 40.9 FPS.
+3. `balanced_reference` is the most accurate observed variant at 1.659 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Confirm baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a`
+
+- Intent: Cluster A on 200-frame 0009.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_ms_chol`
+
+- Intent: ms_chol on 200-frame 0009.
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_d_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_200_recipes_matrix/cluster_d_ms_chol/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - **Problem ID**: `ct_icp_profile_tradeoff_kitti_raw_0009_full`
@@ -1889,6 +2331,66 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames)
+
+- **Problem ID**: `ct_icp_kitti_raw_0009_full_recipes`
+- **Question**: 0009_full has balanced_window 4.67 m winning over dense 5.66 m and fast 5.85 m. 0061_full just became a cluster D winner. Does 0009 join cluster D, cluster A, or a new cluster?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced_window (current best 4.67 m) | reference | 4.673 | 39.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 5.479 | 18.5 | 66.2 | 1.00 | 2.10 | Keep as reference variant |
+| cluster D (ms_chol) | short-traj-recipe | 5.312 | 25.1 | 76.0 | 3.95 | 4.25 | Keep as reference variant |
+
+### Observations
+
+1. `balanced_reference` is the current default for this problem.
+2. `balanced_reference` is the fastest observed variant at 39.3 FPS.
+3. `balanced_reference` is the most accurate observed variant at 4.673 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Confirm 4.67 m baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a`
+
+- Intent: Cluster A on 447-frame raw scene.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_ms_chol`
+
+- Intent: ms_chol on 447-frame raw scene — joins cluster D like 0061 and seq 07?
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_d_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_recipes_matrix/cluster_d_ms_chol/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 
 - **Problem ID**: `ct_icp_profile_tradeoff_kitti_raw_0009`
@@ -1903,14 +2405,14 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.659 | 34.4 | 81.4 | 5.00 | 5.00 | Adopt as current default |
-| Fast window | throughput-oriented | 2.728 | 54.8 | 80.4 | 4.65 | 4.75 | Keep as active challenger |
-| Dense window | drift-oriented | 2.653 | 17.6 | 47.3 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 1.659 | 29.6 | 80.1 | 5.00 | 5.00 | Keep as active challenger |
+| Fast window | throughput-oriented | 2.728 | 49.3 | 80.4 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 2.653 | 18.3 | 49.9 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `balanced_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 54.8 FPS.
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 49.3 FPS.
 3. `balanced_window` is the most accurate observed variant at 1.659 m ATE.
 
 ### Variant Notes
@@ -2009,6 +2511,66 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## CT-ICP cluster A/D bake-off on KITTI Raw 0061 200-frame short window
+
+- **Problem ID**: `ct_icp_kitti_raw_0061_200_recipes`
+- **Question**: 0061_full became a cluster D winner (ms_chol 4.50 m, -35% vs fast). The 200-frame variant has fast_window 1.48 m winning. Does cluster D dethrone fast on the short window too, or is short-window 0061 different?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_raw_0061_200_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast_window (current best 1.48 m) | reference | 1.475 | 59.4 | 82.0 | 4.65 | 4.75 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 1.609 | 18.6 | 45.0 | 1.00 | 2.10 | Keep as reference variant |
+| cluster D (ms_chol) | short-traj-recipe | 0.944 | 25.6 | 71.5 | 3.95 | 4.25 | Keep as reference variant |
+
+### Observations
+
+1. `fast_reference` is the current default for this problem.
+2. `fast_reference` is the fastest observed variant at 59.4 FPS.
+3. `cluster_d_ms_chol` is the most accurate observed variant at 0.944 m ATE.
+
+### Variant Notes
+
+#### `fast_reference`
+
+- Intent: Confirm baseline.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/fast_reference/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/fast_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/fast_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a`
+
+- Intent: Cluster A on 200-frame raw.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/cluster_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/cluster_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_ms_chol`
+
+- Intent: ms_chol on 200-frame raw — extends 0061_full cluster D win?
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/cluster_d_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0061_200_recipes_matrix/cluster_d_ms_chol/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
 - **Problem ID**: `ct_icp_profile_tradeoff_kitti_raw_0061_full`
@@ -2067,6 +2629,66 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
+
+
+## CT-ICP cluster A/D bake-off on KITTI Raw 0061 full (707 frames)
+
+- **Problem ID**: `ct_icp_kitti_raw_0061_full_recipes`
+- **Question**: 0061_full has fast_window 6.97 m winning over dense 8.89 m — unusual for KITTI. Does cluster A beat fast_window, or does this 707-frame raw scene favor a different recipe class?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_raw_0061_full_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast_window (current best 6.97 m) | reference | 6.972 | 57.8 | 82.3 | 4.65 | 4.75 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 6.703 | 19.0 | 50.0 | 1.00 | 2.10 | Keep as reference variant |
+| cluster D (ms_chol) | short-traj-recipe | 4.501 | 26.8 | 73.2 | 3.95 | 4.25 | Keep as reference variant |
+
+### Observations
+
+1. `fast_window_reference` is the current default for this problem.
+2. `fast_window_reference` is the fastest observed variant at 57.8 FPS.
+3. `cluster_d_ms_chol` is the most accurate observed variant at 4.501 m ATE.
+
+### Variant Notes
+
+#### `fast_window_reference`
+
+- Intent: Confirm 6.97 m baseline.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/fast_window_reference/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/fast_window_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/fast_window_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a`
+
+- Intent: Cluster A on this 707-frame raw scene — beats fast_window?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_ms_chol`
+
+- Intent: ms_chol on 707-frame raw scene.
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_d_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_raw_0061_full_recipes_matrix/cluster_d_ms_chol/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
 ## CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
@@ -2129,6 +2751,2718 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## CT-ICP seq 00 full: corr_dist on bare baseline (no ms_chol, no c2f)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_corr_bare`
+- **Question**: corr=5 won seq 00 atop the full ms_chol+c2f+map=50 recipe. Is the corr effect itself, or recipe-induced? Probe with bare baseline.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_corr_bare_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| bare (dense + iter=6 + map=20) corr=default | reference | 17.883 | 20.7 | 88.1 | 3.45 | 3.95 | Keep as reference variant |
+| bare + corr=8 | tighter | 14.968 | 22.3 | 99.9 | 2.85 | 3.55 | Adopt as current default |
+| bare + corr=5 | tighter | 19.849 | 22.3 | 87.6 | 2.85 | 3.55 | Keep as reference variant |
+| bare + corr=4 (paper-style) | very tight | 16.181 | 22.4 | 96.2 | 2.85 | 3.55 | Keep as active challenger |
+
+### Observations
+
+1. `bare_corr_8` is the current default for this problem.
+2. `bare_corr_4` is the fastest observed variant at 22.4 FPS.
+3. `bare_corr_8` is the most accurate observed variant at 14.968 m ATE.
+
+### Variant Notes
+
+#### `bare_corr_default`
+
+- Intent: Re-confirm 17.88 m baseline (no corr override).
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_default/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_default/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_default/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_corr_8`
+
+- Intent: seq 02 winner corr setting.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_8/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_corr_5`
+
+- Intent: seq 00 fine-grid winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_5/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_corr_4`
+
+- Intent: seq 05 winner / paper recipe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 4`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_corr_bare_matrix/bare_corr_4/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cauchy_mult sweep on KITTI seq 00 full (4542 frames)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_cauchy_sweep`
+- **Question**: c2f_sigma_only (cauchy=2.0) is the seq 00 full winner at 15.93 m. Does pushing cauchy further (2.5/3.0/4.0) help or hurt?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_sigma_only cauchy=2.0 (existing winner) | reference | 15.927 | 19.4 | 99.7 | 1.00 | 1.60 | Adopt as current default |
+| cauchy=1.5 | softer | 20.196 | 19.1 | 88.5 | 1.00 | 1.60 | Keep as reference variant |
+| cauchy=2.5 | harder | 16.445 | 19.5 | 98.4 | 1.00 | 1.60 | Keep as active challenger |
+| cauchy=3.0 | harder | 17.888 | 19.1 | 93.4 | 1.00 | 1.60 | Keep as active challenger |
+| cauchy=4.0 | extreme | 19.656 | 18.9 | 88.9 | 1.00 | 1.60 | Keep as reference variant |
+
+### Observations
+
+1. `cauchy_2_0_reference` is the current default for this problem.
+2. `cauchy_2_5` is the fastest observed variant at 19.5 FPS.
+3. `cauchy_2_0_reference` is the most accurate observed variant at 15.927 m ATE.
+
+### Variant Notes
+
+#### `cauchy_2_0_reference`
+
+- Intent: Confirm 15.93 m baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_2_0_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_2_0_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_2_0_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cauchy_1_5`
+
+- Intent: Test if cauchy needs to be even higher than 2.0 or if 1.5 is enough.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 1.5 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_1_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 1.5 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_1_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_1_5/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cauchy_2_5`
+
+- Intent: Test if pushing past 2.0 reduces residual drift.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.5 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_2_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.5 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_2_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_2_5/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cauchy_3_0`
+
+- Intent: Test if outlier tolerance scales further.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 3.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_3_0/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 3.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_3_0/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_3_0/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cauchy_4_0`
+
+- Intent: Test extreme outlier tolerance regime.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 4.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_4_0/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 4.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_4_0/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_cauchy_sweep_matrix/cauchy_4_0/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 00 full: coarse_iterations sweep on map=50 winner
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_coarse_iter_sweep`
+- **Question**: Current best (15.11 m) uses coarse_iterations=3. Untested axis — does 1/2/4/6 change ATE?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| coarse_iter=3 (existing winner) | reference | 15.109 | 16.6 | 91.7 | 1.00 | 1.60 | Keep as active challenger |
+| coarse_iter=1 | fewer | 17.183 | 19.4 | 93.0 | 1.00 | 1.60 | Keep as active challenger |
+| coarse_iter=2 | fewer | 14.780 | 18.5 | 97.8 | 1.00 | 1.60 | Adopt as current default |
+| coarse_iter=4 | more | 16.059 | 17.0 | 90.0 | 1.00 | 1.60 | Keep as active challenger |
+| coarse_iter=6 | all-coarse | 15.582 | 15.8 | 88.1 | 1.00 | 1.60 | Keep as active challenger |
+
+### Observations
+
+1. `iter_2` is the current default for this problem.
+2. `iter_1` is the fastest observed variant at 19.4 FPS.
+3. `iter_2` is the most accurate observed variant at 14.780 m ATE.
+
+### Variant Notes
+
+#### `iter_3_reference`
+
+- Intent: Confirm 15.11 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_3_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_3_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_3_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `iter_1`
+
+- Intent: Just 1 coarse iter — minimal warmup.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_1/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_1/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_1/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `iter_2`
+
+- Intent: 1 less than reference.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_2/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_2/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_2/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `iter_4`
+
+- Intent: 1 more.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 4 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 4 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_4/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `iter_6`
+
+- Intent: Coarse phase consumes all 6 outer iters — no fine phase.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 6 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_6/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 6 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_6/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_coarse_iter_sweep_matrix/iter_6/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 00 full: max_correspondence_distance sweep on iter=2 winner
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_corr_dist_sweep`
+- **Question**: Default corr_dist is 100 m² (10 m linear). Paper recipe uses 1-2 m². seq 05 winner uses 4 m². Does tightening on seq 00 help?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| corr_dist=default (100 m², 10 m linear) — existing winner | reference | 14.780 | 16.3 | 93.8 | 1.00 | 1.60 | Keep as active challenger |
+| corr_dist=16 m² (4 m linear) | tighter | 15.164 | 17.3 | 95.3 | 1.00 | 1.20 | Keep as active challenger |
+| corr_dist=8 m² (2.8 m linear) | tighter | 14.363 | 17.5 | 98.4 | 1.00 | 1.20 | Adopt as current default |
+| corr_dist=4 m² (2 m linear) — seq 05 setting | tighter | 165.587 | 18.0 | 54.3 | 1.00 | 1.20 | Keep as reference variant |
+| corr_dist=2 m² (1.4 m linear) — paper-style | very tight | 445.973 | 18.0 | 51.5 | 1.00 | 1.20 | Keep as reference variant |
+
+### Observations
+
+1. `corr_8` is the current default for this problem.
+2. `corr_4` is the fastest observed variant at 18.0 FPS.
+3. `corr_8` is the most accurate observed variant at 14.363 m ATE.
+
+### Variant Notes
+
+#### `corr_default_reference`
+
+- Intent: Confirm 14.78 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_default_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_default_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_default_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_16`
+
+- Intent: Same magnitude as seq 05 arch_tuned setting.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 16`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_16/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 16`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_16/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_16/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_8`
+
+- Intent: Mid probe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_8/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_4`
+
+- Intent: seq 05 winner's exact threshold.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 4`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_4/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_2`
+
+- Intent: Paper-style outlier rejection.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 2`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_2/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 2`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_2/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_corr_dist_sweep_matrix/corr_2/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP fine-phase Cauchy σ sweep on KITTI seq 00 full (cluster A simplified)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_fine_cauchy_sweep`
+- **Question**: Cluster A simplified recipe (map=50 + c2f σ×2) wins seq 00 at 12.69 m using default fine σ=0.5. Does tightening or relaxing fine σ unlock further ATE improvement, or is σ=0.5 already optimal?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fine σ=0.5 (default, cluster A reference) | reference | 12.694 | 12.1 | 90.4 | 1.00 | 2.10 | Keep as active challenger |
+| fine σ=0.25 (tighter) | tighter | 13.366 | 9.9 | 80.8 | 1.00 | 1.70 | Keep as reference variant |
+| fine σ=0.375 (slightly tighter) | tighter | 13.907 | 14.2 | 93.2 | 1.00 | 1.70 | Adopt as current default |
+| fine σ=0.75 (softer) | softer | 15.484 | 14.9 | 91.0 | 1.00 | 1.70 | Keep as active challenger |
+| fine σ=1.0 (much softer) | softer | 16.386 | 14.9 | 88.7 | 1.00 | 1.70 | Keep as active challenger |
+
+### Observations
+
+1. `fine_sigma_0_375` is the current default for this problem.
+2. `fine_sigma_0_75` is the fastest observed variant at 14.9 FPS.
+3. `fine_sigma_default` is the most accurate observed variant at 12.694 m ATE.
+
+### Variant Notes
+
+#### `fine_sigma_default`
+
+- Intent: Confirm 12.69 m baseline at default fine σ.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_default/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_default/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_default/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fine_sigma_0_25`
+
+- Intent: Tighter outlier rejection in fine phase — does this reduce residual drift?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.25`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_25/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.25`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_25/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_25/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fine_sigma_0_375`
+
+- Intent: Midpoint between 0.25 and 0.5.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.375`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_375/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.375`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_375/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_375/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fine_sigma_0_75`
+
+- Intent: More tolerant fine phase — does this help long-trajectory drift?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.75`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_75/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 0.75`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_75/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_0_75/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fine_sigma_1_0`
+
+- Intent: Match coarse σ (1.0 = 0.5×2). Tests whether two phases can converge to similar tolerance.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 1.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_1_0/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-cauchy-sigma 1.0`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_1_0/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_fine_cauchy_sweep_matrix/fine_sigma_1_0/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP map_size sweep on KITTI seq 00 full (4542 frames)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_map_size_sweep`
+- **Question**: c2f_sigma_only winner uses map=20 (15.93 m). HDL-400 and MCD-NTU sweet-spot is 50. Does seq 00 also benefit from a larger map?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_map_size_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_sigma_only map=20 (existing winner) | reference | 15.927 | 15.7 | 88.9 | 1.00 | 1.60 | Keep as active challenger |
+| map=15 | tighter map | 22.280 | 18.9 | 83.9 | 1.00 | 1.60 | Keep as reference variant |
+| map=30 | medium map | 16.541 | 18.0 | 93.3 | 1.00 | 1.60 | Adopt as current default |
+| map=50 | big map | 15.109 | 12.9 | 84.1 | 1.00 | 1.60 | Keep as active challenger |
+
+### Observations
+
+1. `map_30` is the current default for this problem.
+2. `map_15` is the fastest observed variant at 18.9 FPS.
+3. `map_50` is the most accurate observed variant at 15.109 m ATE.
+
+### Variant Notes
+
+#### `map_20_reference`
+
+- Intent: Confirm 15.93 m baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_20_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_20_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_15`
+
+- Intent: Smaller map — does seq 00 prefer fresher voxels?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_15/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_15/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_30`
+
+- Intent: MCD-TUHH sweet-spot.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_30/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_30/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_50`
+
+- Intent: HDL-400 / MCD-NTU sweet-spot.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_map_size_sweep_matrix/map_50/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 00
+
+- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_00_full`
+- **Question**: Which CT-ICP profile should stay as the current default on the full KITTI Odometry public dataset (sequence 00)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 21.423 | 40.9 | 65.5 | 5.00 | 5.00 | Keep as active challenger |
+| Fast window | throughput-oriented | 217.414 | 77.7 | 53.9 | 4.65 | 4.75 | Keep as reference variant |
+| Dense window | drift-oriented | 16.778 | 26.9 | 67.3 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `dense_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 77.7 FPS.
+3. `dense_window` is the most accurate observed variant at 16.778 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Keep the current repository default as the continuous-time baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fast_window`
+
+- Intent: Shrink the working set and point budget to improve FPS.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `dense_window`
+
+- Intent: Increase point density and window richness to preserve more structure.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_search_radius_sweep`
+- **Question**: Cluster A simplified recipe uses coarse_search_radius=2 (5x5x5 voxel neighborhood). Does narrower (1=3x3x3) or wider (3=7x7x7, 4=9x9x9) improve drift, or is 2 already optimal?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| coarse search radius=1 (3x3x3, same as fine) | narrower | 15.507 | 14.3 | 85.1 | 1.00 | 2.10 | Keep as reference variant |
+| coarse search radius=2 (5x5x5, cluster A default) | reference | 12.694 | 16.2 | 100.0 | 1.00 | 2.10 | Adopt as current default |
+| coarse search radius=3 (7x7x7) | wider | 14.992 | 13.7 | 84.7 | 1.00 | 2.10 | Keep as reference variant |
+| coarse search radius=4 (9x9x9) | wider | 12.787 | 11.0 | 83.8 | 1.00 | 2.10 | Keep as reference variant |
+
+### Observations
+
+1. `radius_2_reference` is the current default for this problem.
+2. `radius_2_reference` is the fastest observed variant at 16.2 FPS.
+3. `radius_2_reference` is the most accurate observed variant at 12.694 m ATE.
+
+### Variant Notes
+
+#### `radius_1`
+
+- Intent: Coarse phase has no spatial expansion advantage over fine phase.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 1 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_1/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 1 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_1/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_1/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `radius_2_reference`
+
+- Intent: Confirm 12.69 m baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_2_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_2_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_2_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `radius_3`
+
+- Intent: Wider coarse search captures more candidates, may help sparse regions.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 3 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_3/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 3 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_3/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_3/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `radius_4`
+
+- Intent: Extreme widening — does it add noise or stabilize further?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 4 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 4 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix/radius_4/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full
+
+- **Problem ID**: `ct_icp_kitti_seq_00_full_seeded`
+- **Question**: seq 07 + seed: cluster D wins seed-independent (1.60 m). Does adding seed to cluster A (seq 00's winner 12.69 m) help or hurt? Confirms whether KITTI Odom is self-anchoring family like seq 07.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cluster A no seed (current best 12.69 m) | reference | 12.694 | 17.6 | 69.3 | 1.00 | 2.10 | Keep as reference variant |
+| cluster A + GT seed | seeded | 4.906 | 15.2 | 93.2 | 1.00 | 1.85 | Adopt as current default |
+
+### Observations
+
+1. `cluster_a_seeded` is the current default for this problem.
+2. `cluster_a_no_seed_reference` is the fastest observed variant at 17.6 FPS.
+3. `cluster_a_seeded` is the most accurate observed variant at 4.906 m ATE.
+
+### Variant Notes
+
+#### `cluster_a_no_seed_reference`
+
+- Intent: Confirm 12.69 m baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_seeded_matrix/cluster_a_no_seed_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_seeded_matrix/cluster_a_no_seed_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_seeded_matrix/cluster_a_no_seed_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a_seeded`
+
+- Intent: Does seed unlock further improvement on KITTI seq 00?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_full_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_full_seeded_matrix/cluster_a_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_full_seeded_matrix/cluster_a_seeded/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
+## CT-ICP seq 00 full: leave-one-out ablation on full recipe
+
+- **Problem ID**: `ct_icp_kitti_seq_00_leave_one_out`
+- **Question**: Sequential addition order influenced contribution measurement. Leave-one-out from final 13.32 m recipe reveals each knob's contribution in synergy.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_leave_one_out_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| full recipe (existing 13.32 m) | reference | 13.322 | 18.7 | 95.4 | 1.00 | 1.20 | Adopt as current default |
+| full minus ms_chol (no multi-scale, no cholesky) | leave-one-out | 16.363 | 18.4 | 85.4 | 1.00 | 1.70 | Keep as reference variant |
+| full minus c2f | leave-one-out | 16.340 | 20.2 | 89.8 | 2.15 | 3.05 | Keep as active challenger |
+| full minus map=50 (revert to 20) | leave-one-out | 16.993 | 20.6 | 89.2 | 1.00 | 1.20 | Keep as active challenger |
+| full minus corr=5 (revert to default 100) | leave-one-out | 14.780 | 18.2 | 89.3 | 1.00 | 1.60 | Keep as active challenger |
+
+### Observations
+
+1. `full_recipe_reference` is the current default for this problem.
+2. `minus_map_50` is the fastest observed variant at 20.6 FPS.
+3. `full_recipe_reference` is the most accurate observed variant at 13.322 m ATE.
+
+### Variant Notes
+
+#### `full_recipe_reference`
+
+- Intent: Confirm 13.32 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/full_recipe_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/full_recipe_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/full_recipe_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `minus_ms_chol`
+
+- Intent: Isolate ms_chol's contribution in synergy.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_ms_chol/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `minus_c2f`
+
+- Intent: Isolate c2f's contribution.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_c2f/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_c2f/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_c2f/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `minus_map_50`
+
+- Intent: Isolate map=50's contribution.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_map_50/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `minus_corr_5`
+
+- Intent: Isolate corr=5's contribution.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_corr_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_corr_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_leave_one_out_matrix/minus_corr_5/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 00 full: map=50 + single partner knob isolation
+
+- **Problem ID**: `ct_icp_kitti_seq_00_map50_partner`
+- **Question**: map=50 alone is catastrophic (+245%). Which single partner knob (ms_chol / c2f / corr=5) rescues it the most?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| bare + map=50 (catastrophic baseline) | reference | 61.590 | 20.3 | 60.2 | 3.45 | 3.95 | Keep as reference variant |
+| map=50 + ms_chol | single partner | 16.139 | 20.0 | 88.4 | 2.75 | 3.45 | Keep as active challenger |
+| map=50 + c2f σ×2 (no ms_chol) | single partner | 12.694 | 18.7 | 95.9 | 1.00 | 2.10 | Adopt as current default |
+| map=50 + corr=5 | single partner | 118.015 | 20.4 | 55.4 | 2.85 | 3.55 | Keep as reference variant |
+
+### Observations
+
+1. `map_50_plus_c2f` is the current default for this problem.
+2. `map_50_plus_corr_5` is the fastest observed variant at 20.4 FPS.
+3. `map_50_plus_c2f` is the most accurate observed variant at 12.694 m ATE.
+
+### Variant Notes
+
+#### `bare_map_50_reference`
+
+- Intent: Confirm 61.59 m (already known).
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/bare_map_50_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/bare_map_50_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/bare_map_50_reference/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_50_plus_ms_chol`
+
+- Intent: Does ms_chol alone rescue map=50?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_ms_chol/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_50_plus_c2f`
+
+- Intent: Does c2f alone rescue map=50?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_c2f/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_c2f/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_c2f/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_50_plus_corr_5`
+
+- Intent: Does corr=5 alone rescue map=50?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_corr_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_corr_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_map50_partner_matrix/map_50_plus_corr_5/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 00 full: map_size on BARE baseline (recipe context dep?)
+
+- **Problem ID**: `ct_icp_kitti_seq_00_map_bare`
+- **Question**: map=50 won seq 00 in full recipe context. Is it the recipe interaction or intrinsic to seq 00? Test on bare baseline.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| bare map=20 (default) | reference | 17.883 | 20.2 | 94.2 | 3.45 | 3.95 | Keep as active challenger |
+| bare map=30 | medium | 15.803 | 18.7 | 96.2 | 3.45 | 3.95 | Adopt as current default |
+| bare map=50 | big map | 61.590 | 15.9 | 52.1 | 3.45 | 3.95 | Keep as reference variant |
+
+### Observations
+
+1. `bare_map_30` is the current default for this problem.
+2. `bare_map_20` is the fastest observed variant at 20.2 FPS.
+3. `bare_map_30` is the most accurate observed variant at 15.803 m ATE.
+
+### Variant Notes
+
+#### `bare_map_20`
+
+- Intent: Bare seq 00 baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_20/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_20/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_map_30`
+
+- Intent: Mid probe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_30/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_30/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_map_50`
+
+- Intent: Is the recipe winner intrinsic to seq 00?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_map_bare_matrix/bare_map_50/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00
+
+- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_00`
+- **Question**: Which CT-ICP profile should stay as the current default on the KITTI Odometry public dataset (sequence 00)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_108`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 2.313 | 40.0 | 66.7 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 2.824 | 74.9 | 82.8 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 1.851 | 27.4 | 68.3 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 74.9 FPS.
+3. `dense_window` is the most accurate observed variant at 1.851 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Keep the current repository default as the continuous-time baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fast_window`
+
+- Intent: Shrink the working set and point budget to improve FPS.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `dense_window`
+
+- Intent: Increase point density and window richness to preserve more structure.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_108 experiments/reference_data/kitti_seq_00_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 00 full: corr_dist sweep on simplified map=50+c2f winner
+
+- **Problem ID**: `ct_icp_kitti_seq_00_simplified_corr`
+- **Question**: Earlier corr=5 winner found on over-tuned full recipe. Does corr=5 still help on simplified 12.69 m base, or does the new context have a different optimum?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| map=50 + c2f σ×2 (existing 12.69) | reference | 12.694 | 18.6 | 99.4 | 1.00 | 2.10 | Adopt as current default |
+| + corr=5 | with corr | 16.363 | 18.8 | 88.8 | 1.00 | 1.70 | Keep as reference variant |
+| + corr=8 | with corr | 13.870 | 18.7 | 95.3 | 1.00 | 1.70 | Keep as active challenger |
+| + corr=16 | looser | 17.417 | 18.7 | 86.0 | 1.00 | 1.70 | Keep as reference variant |
+
+### Observations
+
+1. `default_reference` is the current default for this problem.
+2. `plus_corr_5` is the fastest observed variant at 18.8 FPS.
+3. `default_reference` is the most accurate observed variant at 12.694 m ATE.
+
+### Variant Notes
+
+#### `default_reference`
+
+- Intent: Confirm 12.69 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/default_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/default_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/default_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `plus_corr_5`
+
+- Intent: Earlier full-recipe winner setting.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_5/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `plus_corr_8`
+
+- Intent: Long-driving regime setting.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_8/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `plus_corr_16`
+
+- Intent: Probe wider regime.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 16`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_16/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 16`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_16/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_00_simplified_corr_matrix/plus_corr_16/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: corr_dist sweep on bare baseline
+
+- **Problem ID**: `ct_icp_kitti_seq_02_corr_dist_retrofit`
+- **Question**: seq 02 baseline is improvable by nothing tested so far. Does the seq 00 winner knob (corr_dist=8 m²) help here?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| baseline (dense + iter=6 + map=20) — existing winner | reference | 56.537 | 11.1 | 76.8 | 3.45 | 3.95 | Keep as reference variant |
+| baseline + corr_dist=8 m² | tighter | 50.635 | 16.4 | 97.3 | 2.85 | 3.55 | Adopt as current default |
+| baseline + corr_dist=4 m² | tighter | 164.338 | 17.3 | 65.4 | 2.85 | 3.55 | Keep as reference variant |
+
+### Observations
+
+1. `corr_8` is the current default for this problem.
+2. `corr_4` is the fastest observed variant at 17.3 FPS.
+3. `corr_8` is the most accurate observed variant at 50.635 m ATE.
+
+### Variant Notes
+
+#### `default_reference`
+
+- Intent: Confirm 56.54 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/default_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/default_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/default_reference/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_8`
+
+- Intent: seq 00 winner knob retrofit.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/corr_8/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_4`
+
+- Intent: seq 05 setting test on seq 02.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 4`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix/corr_4/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: fine corr_dist grid (5/6/7/8 m²)
+
+- **Problem ID**: `ct_icp_kitti_seq_02_corr_fine_grid`
+- **Question**: seq 00 found corr=5 winner via non-smooth landscape. Does seq 02 (corr=8 winner) show the same dual-optimum pattern?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_corr_fine_grid_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| corr=8 (existing seq 02 winner) | reference | 50.635 | 17.2 | 98.4 | 2.85 | 3.55 | Adopt as current default |
+| corr=5 | tighter | 86.184 | 17.8 | 79.4 | 2.85 | 3.55 | Keep as reference variant |
+| corr=6 | tighter | 59.521 | 14.7 | 83.9 | 2.85 | 3.55 | Keep as reference variant |
+| corr=7 | tighter | 120.926 | 14.6 | 61.9 | 2.85 | 3.55 | Keep as reference variant |
+
+### Observations
+
+1. `corr_8_reference` is the current default for this problem.
+2. `corr_5` is the fastest observed variant at 17.8 FPS.
+3. `corr_8_reference` is the most accurate observed variant at 50.635 m ATE.
+
+### Variant Notes
+
+#### `corr_8_reference`
+
+- Intent: Confirm 50.63 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_8_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_8_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_8_reference/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_5`
+
+- Intent: seq 00 fine grid winner — does it transfer?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_5/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_6`
+
+- Intent: Probe valley.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 6`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_6/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 6`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_6/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_6/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_7`
+
+- Intent: Just below the existing winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 7`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_7/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 7`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_7/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_fine_grid_matrix/corr_7/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: corr_dist + ms_chol combinations
+
+- **Problem ID**: `ct_icp_kitti_seq_02_corr_ms_chol_combo`
+- **Question**: ms_chol alone hurts seq 02 (+43%). corr=8 alone helps (-10.4%). Does corr=8 + ms_chol break or improve 50.63 m?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| bare + corr=8 (existing winner) | reference | 50.635 | 21.6 | 100.0 | 2.85 | 3.55 | Adopt as current default |
+| ms_chol + corr=8 | combo | 74.308 | 21.2 | 83.1 | 2.15 | 3.05 | Keep as reference variant |
+| ms_chol + corr=5 | tighter combo | 67.820 | 20.0 | 83.6 | 2.15 | 3.05 | Keep as reference variant |
+
+### Observations
+
+1. `bare_corr_8_reference` is the current default for this problem.
+2. `bare_corr_8_reference` is the fastest observed variant at 21.6 FPS.
+3. `bare_corr_8_reference` is the most accurate observed variant at 50.635 m ATE.
+
+### Variant Notes
+
+#### `bare_corr_8_reference`
+
+- Intent: Confirm 50.63 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/bare_corr_8_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/bare_corr_8_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/bare_corr_8_reference/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `ms_chol_corr_8`
+
+- Intent: Does corr=8 rescue the ms_chol regression on seq 02?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/ms_chol_corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/ms_chol_corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/ms_chol_corr_8/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `ms_chol_corr_5`
+
+- Intent: Probe slightly tighter — between 4 catastrophic and 8 winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/ms_chol_corr_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/ms_chol_corr_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_corr_ms_chol_combo_matrix/ms_chol_corr_5/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: c2f without ms_chol (probe whether ms_chol regression interacts with c2f)
+
+- **Problem ID**: `ct_icp_kitti_seq_02_full_c2f_without_ms_chol`
+- **Question**: ms_chol regresses on seq 02 (+43%). All existing c2f tests had ms_chol underneath. Does c2f-only (no ms_chol, no normal-cholesky) beat or hurt the 56.54 m baseline?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense + iter=6 + map=20 (existing winner) | reference | 56.537 | 16.8 | 100.0 | 3.45 | 3.95 | Adopt as current default |
+| + c2f sigma_only (no ms_chol) | c2f_only | 88.696 | 9.3 | 59.4 | 1.00 | 2.10 | Keep as reference variant |
+| + c2f full (radius+sigma+planarity, no ms_chol) | c2f_only | 71.318 | 11.9 | 75.0 | 1.00 | 2.10 | Keep as reference variant |
+
+### Observations
+
+1. `baseline_reference` is the current default for this problem.
+2. `baseline_reference` is the fastest observed variant at 16.8 FPS.
+3. `baseline_reference` is the most accurate observed variant at 56.537 m ATE.
+
+### Variant Notes
+
+#### `baseline_reference`
+
+- Intent: Confirm 56.54 m baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/baseline_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/baseline_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/baseline_reference/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `c2f_only_sigma`
+
+- Intent: Add c2f σ×2 but without ms_chol/normal-cholesky.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/c2f_only_sigma/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/c2f_only_sigma/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/c2f_only_sigma/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `c2f_only_full`
+
+- Intent: Full c2f without ms_chol — test if planarity 0.02 still catastrophic here.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/c2f_only_full/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/c2f_only_full/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_c2f_without_ms_chol_matrix/c2f_only_full/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
+
+- **Problem ID**: `ct_icp_kitti_seq_02_full_small_map`
+- **Question**: seq 02 catastrophically rejects map=50 (+109%). Does it prefer SMALLER maps?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| baseline map=20 (existing winner) | reference | 56.537 | 14.2 | 79.8 | 3.45 | 3.95 | Keep as active challenger |
+| baseline map=15 | smaller | 66.558 | 19.1 | 82.6 | 3.45 | 3.95 | Adopt as current default |
+| baseline map=10 | smaller | 74.455 | 20.7 | 81.4 | 3.45 | 3.95 | Keep as active challenger |
+| baseline map=5 | extreme small | 121.786 | 23.8 | 73.2 | 3.45 | 3.95 | Keep as reference variant |
+
+### Observations
+
+1. `map_15` is the current default for this problem.
+2. `map_5` is the fastest observed variant at 23.8 FPS.
+3. `map_20_reference` is the most accurate observed variant at 56.537 m ATE.
+
+### Variant Notes
+
+#### `map_20_reference`
+
+- Intent: Confirm 56.54 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_15`
+
+- Intent: Test if seq 02 wants tighter recency window.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_10`
+
+- Intent: Half the existing winner — probe seq 02 small-map regime.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_5`
+
+- Intent: Extreme — likely too tight, but bounds the trend.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: map_size sweep on corr=8 winner
+
+- **Problem ID**: `ct_icp_kitti_seq_02_map_with_corr`
+- **Question**: seq 02 + corr=default best at map=20. seq 02 + corr=8 best at 50.63. Does the map optimum shift with corr=8?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| corr=8 + map=20 (existing winner) | reference | 50.635 | 18.0 | 93.0 | 2.85 | 3.55 | Adopt as current default |
+| corr=8 + map=15 | smaller map | 60.852 | 20.9 | 91.6 | 2.85 | 3.55 | Keep as active challenger |
+| corr=8 + map=30 | bigger map | 79.472 | 19.1 | 77.5 | 2.85 | 3.55 | Keep as reference variant |
+| corr=8 + map=50 | big map | 102.913 | 18.1 | 67.8 | 2.85 | 3.55 | Keep as reference variant |
+
+### Observations
+
+1. `map_20_reference` is the current default for this problem.
+2. `map_15` is the fastest observed variant at 20.9 FPS.
+3. `map_20_reference` is the most accurate observed variant at 50.635 m ATE.
+
+### Variant Notes
+
+#### `map_20_reference`
+
+- Intent: Confirm 50.63 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_20_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_20_reference/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_15`
+
+- Intent: Did map optimum shift smaller with tighter corr?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_15/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_15/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_30`
+
+- Intent: Bare seq 02 hated map=30; does corr=8 rescue it?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_30/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_30/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_50`
+
+- Intent: Bare seq 02 catastrophically rejected map=50 (+109%). Does corr=8 fix it?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_02_map_with_corr_matrix/map_50/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 05 full: simplified recipes from bare + map=50
+
+- **Problem ID**: `ct_icp_kitti_seq_05_combo`
+- **Question**: bare + map=50 = 9.34 m, arch_tuned = 9.10 m. Which knob in arch_tuned (iter=8, corr=4, voxel=0.5) gives the additional 2.6%?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_05_combo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| bare + map=50 (existing 9.34) | reference | 9.337 | 19.6 | 96.7 | 3.45 | 3.95 | Keep as active challenger |
+| bare + map=50 + corr=4 | added corr only | 8.783 | 19.7 | 100.0 | 2.85 | 3.55 | Adopt as current default |
+| bare + map=50 + iter=8 | added iter only | 9.691 | 19.7 | 95.3 | 3.45 | 3.95 | Keep as active challenger |
+| bare + map=50 + voxel=0.5 | added voxel only | 9.500 | 18.4 | 92.9 | 2.85 | 3.55 | Keep as active challenger |
+| arch_tuned + map=50 (full + bigger) | full + bigger map | 10.864 | 18.6 | 87.6 | 2.25 | 3.15 | Keep as reference variant |
+
+### Observations
+
+1. `bare_map_50_corr_4` is the current default for this problem.
+2. `bare_map_50_corr_4` is the fastest observed variant at 19.7 FPS.
+3. `bare_map_50_corr_4` is the most accurate observed variant at 8.783 m ATE.
+
+### Variant Notes
+
+#### `bare_map_50_reference`
+
+- Intent: Bare baseline confirmation.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_reference/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_map_50_corr_4`
+
+- Intent: Isolate corr=4's contribution to arch_tuned win.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_corr_4/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_map_50_iter_8`
+
+- Intent: Isolate iter=8 contribution.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_iter_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_iter_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_iter_8/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_map_50_voxel_05`
+
+- Intent: Isolate keypoint_voxel_size=0.5 contribution.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_voxel_05/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_voxel_05/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/bare_map_50_voxel_05/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `arch_tuned_map_50`
+
+- Intent: All arch_tuned knobs + map=50.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/arch_tuned_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/arch_tuned_map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_combo_matrix/arch_tuned_map_50/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 05 full: corr_dist sweep on arch_tuned winner
+
+- **Problem ID**: `ct_icp_kitti_seq_05_corr_dist_sweep`
+- **Question**: seq 05 winner uses corr_dist=4 m². Is 4 optimal or are 2/8/16/100 better?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| arch_tuned corr=4 (existing winner) | reference | 9.097 | 15.7 | 92.1 | 2.25 | 3.15 | Adopt as current default |
+| arch_tuned corr=2 | tighter | 14.216 | 17.7 | 79.3 | 2.25 | 3.15 | Keep as reference variant |
+| arch_tuned corr=8 | looser | 11.972 | 18.7 | 88.0 | 2.25 | 3.15 | Keep as active challenger |
+| arch_tuned corr=16 | much looser | 10.593 | 18.1 | 91.3 | 2.25 | 3.15 | Keep as active challenger |
+| arch_tuned corr=default (100 m²) | default | 10.593 | 17.6 | 90.0 | 2.85 | 3.55 | Keep as active challenger |
+
+### Observations
+
+1. `corr_4_reference` is the current default for this problem.
+2. `corr_8` is the fastest observed variant at 18.7 FPS.
+3. `corr_4_reference` is the most accurate observed variant at 9.097 m ATE.
+
+### Variant Notes
+
+#### `corr_4_reference`
+
+- Intent: Confirm 9.10 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_4_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_4_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_4_reference/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_2`
+
+- Intent: Even tighter (paper-style).
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 2.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_2/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 2.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_2/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_2/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_8`
+
+- Intent: seq 00/02 winner threshold.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 8.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 8.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_8/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_16`
+
+- Intent: Test broader regime.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 16.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_16/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 16.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_16/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_16/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_default`
+
+- Intent: Remove the corr_dist override entirely.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_default/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_default/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_corr_dist_sweep_matrix/corr_default/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 05 full: map=50 retrofit on arch_tuned winner
+
+- **Problem ID**: `ct_icp_kitti_seq_05_map50_retrofit`
+- **Question**: seq 05 winner arch_tuned uses map=30 (9.10 m). Does map=50 help on the seq 00 pattern?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_05_map50_retrofit_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| arch_tuned map=30 (existing winner) | reference | 9.097 | 18.3 | 99.4 | 2.25 | 3.15 | Adopt as current default |
+| arch_tuned map=50 | bigger map | 10.864 | 18.5 | 91.9 | 2.25 | 3.15 | Keep as active challenger |
+
+### Observations
+
+1. `arch_tuned_map_30` is the current default for this problem.
+2. `arch_tuned_map_50` is the fastest observed variant at 18.5 FPS.
+3. `arch_tuned_map_30` is the most accurate observed variant at 9.097 m ATE.
+
+### Variant Notes
+
+#### `arch_tuned_map_30`
+
+- Intent: Confirm 9.10 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 30 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_30/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_30/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `arch_tuned_map_50`
+
+- Intent: seq 00 retrofit pattern.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 8 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0 --ct-icp-keypoint-voxel-size 0.5`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_map50_retrofit_matrix/arch_tuned_map_50/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 05 full: map_size on BARE baseline
+
+- **Problem ID**: `ct_icp_kitti_seq_05_map_bare`
+- **Question**: seq 05 arch_tuned wins at map=30. Does bare baseline also prefer 30, or is it arch_tuned-entangled?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_05_map_bare_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| bare map=20 (default) | reference | 12.553 | 20.0 | 87.2 | 3.45 | 3.95 | Keep as active challenger |
+| bare map=30 | arch_tuned setting | 10.744 | 19.1 | 91.3 | 3.45 | 3.95 | Keep as active challenger |
+| bare map=50 | big map | 9.337 | 18.0 | 95.0 | 3.45 | 3.95 | Adopt as current default |
+
+### Observations
+
+1. `bare_map_50` is the current default for this problem.
+2. `bare_map_20` is the fastest observed variant at 20.0 FPS.
+3. `bare_map_50` is the most accurate observed variant at 9.337 m ATE.
+
+### Variant Notes
+
+#### `bare_map_20`
+
+- Intent: Bare seq 05 baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_20/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_20/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_map_30`
+
+- Intent: Does map=30 win on bare, like arch_tuned recipe wants?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_30/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 30`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_30/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_30/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_map_50`
+
+- Intent: Does bare seq 05 reject map=50 like seq 00 bare did?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_05_map_bare_matrix/bare_map_50/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 07 full: ms_chol + simplified pattern combo
+
+- **Problem ID**: `ct_icp_kitti_seq_07_combo`
+- **Question**: ms_chol alone = 1.61 m. seq 00/08 cluster A pattern = map=50 + c2f σ×2. Does the combination help on seq 07?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_combo_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| ms_chol (existing 1.61 m) | reference | 1.607 | 14.9 | 97.1 | 2.75 | 3.45 | Adopt as current default |
+| ms_chol + c2f σ×2 (no map=50 change) | combo | 2.409 | 15.8 | 83.4 | 1.00 | 1.60 | Keep as reference variant |
+| ms_chol + map=50 + c2f σ×2 (full combo) | combo | 1.783 | 14.3 | 90.5 | 1.00 | 1.60 | Keep as active challenger |
+
+### Observations
+
+1. `ms_chol_reference` is the current default for this problem.
+2. `ms_chol_plus_c2f` is the fastest observed variant at 15.8 FPS.
+3. `ms_chol_reference` is the most accurate observed variant at 1.607 m ATE.
+
+### Variant Notes
+
+#### `ms_chol_reference`
+
+- Intent: Confirm seq 07 winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_reference/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `ms_chol_plus_c2f`
+
+- Intent: Add c2f without changing map_size.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_c2f/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_c2f/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_c2f/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `ms_chol_plus_simplified_a`
+
+- Intent: Full Cluster A pattern stacked on ms_chol.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_simplified_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_simplified_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_combo_matrix/ms_chol_plus_simplified_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 07 full: corr_dist=8 m² retrofit on ms_chol winner
+
+- **Problem ID**: `ct_icp_kitti_seq_07_corr_dist_retrofit`
+- **Question**: seq 00 found corr_dist=8 m² improves ATE -2.8%. Does it transfer to seq 07?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| ms_chol corr_dist=default (existing winner) | reference | 1.607 | 17.0 | 92.9 | 2.75 | 3.45 | Adopt as current default |
+| ms_chol + corr_dist=8 m² | tighter | 2.844 | 18.6 | 75.1 | 2.15 | 3.05 | Keep as reference variant |
+| ms_chol + corr_dist=4 m² | tighter | 4.807 | 19.8 | 66.7 | 2.15 | 3.05 | Keep as reference variant |
+
+### Observations
+
+1. `default_reference` is the current default for this problem.
+2. `corr_4` is the fastest observed variant at 19.8 FPS.
+3. `default_reference` is the most accurate observed variant at 1.607 m ATE.
+
+### Variant Notes
+
+#### `default_reference`
+
+- Intent: Confirm 1.61 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/default_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/default_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/default_reference/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_8`
+
+- Intent: seq 00 finding retrofit.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/corr_8/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_4`
+
+- Intent: Test seq 05's threshold here too.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-max-correspondence-distance 4`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_corr_dist_retrofit_matrix/corr_4/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP throughput and accuracy trade-off on the full KITTI Odometry sequence 07
+
+- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_07_full`
+- **Question**: Which CT-ICP profile should stay as the current default on the full KITTI Odometry public dataset (sequence 07)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 6.659 | 48.2 | 60.7 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 10.705 | 74.9 | 67.7 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 3.794 | 25.5 | 67.0 | 4.65 | 4.75 | Keep as active challenger |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 74.9 FPS.
+3. `dense_window` is the most accurate observed variant at 3.794 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Keep the current repository default as the continuous-time baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fast_window`
+
+- Intent: Shrink the working set and point budget to improve FPS.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `dense_window`
+
+- Intent: Increase point density and window richness to preserve more structure.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D)
+
+- **Problem ID**: `ct_icp_kitti_seq_07_full_seeded`
+- **Question**: Cluster D's true recipe needs map=20 + iter=6 alongside ms_chol (1.61 m). Does cluster A+seed (the universal MCD/MulRan winner) dethrone cluster D no-seed (1.61) on seq 07, or does seq 07 join the self-anchor family where seed hurts?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cluster D full no seed (current winner 1.61 m) | reference | 1.607 | 21.5 | 99.9 | 2.75 | 3.45 | Adopt as current default |
+| cluster D full + GT seed | seeded | 1.603 | 21.3 | 99.5 | 2.40 | 3.20 | Keep as active challenger |
+| cluster A no seed | no-seed | 4.816 | 18.3 | 59.1 | 1.00 | 2.10 | Keep as reference variant |
+| cluster A + GT seed | seeded | 2.876 | 18.0 | 69.8 | 1.00 | 1.85 | Keep as reference variant |
+
+### Observations
+
+1. `cluster_d_full_no_seed_reference` is the current default for this problem.
+2. `cluster_d_full_no_seed_reference` is the fastest observed variant at 21.5 FPS.
+3. `cluster_d_full_seeded` is the most accurate observed variant at 1.603 m ATE.
+
+### Variant Notes
+
+#### `cluster_d_full_no_seed_reference`
+
+- Intent: Confirm prior best with full cluster D recipe.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_d_full_no_seed_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_d_full_no_seed_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_d_full_no_seed_reference/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_full_seeded`
+
+- Intent: Does seed help or hurt the cluster D winner?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_d_full_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_d_full_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_d_full_seeded/run.log`
+- Readability proxy: 2.40 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_a_no_seed`
+
+- Intent: cluster A no-seed baseline on seq 07.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_a_no_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_a_no_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_a_no_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a_seeded`
+
+- Intent: Cluster A+seed pattern test on seq 07.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_a_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_full_seeded_matrix/cluster_a_seeded/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
+## CT-ICP seq 07 full: map=50 retrofit on ms_chol winner
+
+- **Problem ID**: `ct_icp_kitti_seq_07_map50_retrofit`
+- **Question**: seq 07 ms_chol winner uses map=20 (1.61 m). Does map=50 retrofit help?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_map50_retrofit_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| ms_chol map=20 (existing winner) | reference | 1.607 | 19.7 | 100.0 | 2.75 | 3.45 | Adopt as current default |
+| ms_chol map=50 | bigger map | 1.878 | 17.5 | 87.1 | 2.75 | 3.45 | Keep as reference variant |
+
+### Observations
+
+1. `ms_chol_map_20` is the current default for this problem.
+2. `ms_chol_map_20` is the fastest observed variant at 19.7 FPS.
+3. `ms_chol_map_20` is the most accurate observed variant at 1.607 m ATE.
+
+### Variant Notes
+
+#### `ms_chol_map_20`
+
+- Intent: Confirm 1.61 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_20/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_20/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `ms_chol_map_50`
+
+- Intent: seq 00 retrofit pattern.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_map50_retrofit_matrix/ms_chol_map_50/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07
+
+- **Problem ID**: `ct_icp_profile_tradeoff_kitti_seq_07`
+- **Question**: Which CT-ICP profile should stay as the current default on the KITTI Odometry public dataset (sequence 07)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_108`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_07_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 1.050 | 40.8 | 45.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 0.978 | 77.3 | 70.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 0.390 | 26.3 | 67.0 | 4.65 | 4.75 | Keep as active challenger |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 77.3 FPS.
+3. `dense_window` is the most accurate observed variant at 0.390 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Keep the current repository default as the continuous-time baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `fast_window`
+
+- Intent: Shrink the working set and point budget to improve FPS.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `dense_window`
+
+- Intent: Increase point density and window richness to preserve more structure.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_108 experiments/reference_data/kitti_seq_07_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_07_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 08 full: c2f without ms_chol — knob reduction probe
+
+- **Problem ID**: `ct_icp_kitti_seq_08_c2f_alone`
+- **Question**: seq 08 winner c2f_only = ms_chol + c2f (32.51 m). Does dropping ms_chol simplify and improve like seq 05's arch_tuned drop?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_c2f_alone_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_only = ms_chol + c2f (existing winner) | reference | 32.511 | 17.9 | 95.3 | 1.00 | 1.60 | Adopt as current default |
+| bare + c2f (no ms_chol, no cholesky) | knob reduction | 41.300 | 19.3 | 88.3 | 1.00 | 2.10 | Keep as active challenger |
+| ms_chol + c2f (no cholesky) | knob reduction | 36.866 | 18.9 | 92.0 | 1.00 | 1.85 | Keep as active challenger |
+| cholesky + c2f (no multi-scale) | knob reduction | 40.595 | 19.7 | 90.0 | 1.00 | 1.85 | Keep as active challenger |
+
+### Observations
+
+1. `c2f_only_reference` is the current default for this problem.
+2. `cholesky_c2f_no_ms` is the fastest observed variant at 19.7 FPS.
+3. `c2f_only_reference` is the most accurate observed variant at 32.511 m ATE.
+
+### Variant Notes
+
+#### `c2f_only_reference`
+
+- Intent: Confirm 32.51 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/c2f_only_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/c2f_only_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/c2f_only_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `bare_c2f`
+
+- Intent: Strip ms_chol and cholesky from winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/bare_c2f/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/bare_c2f/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/bare_c2f/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `ms_chol_c2f_no_cholesky`
+
+- Intent: Isolate cholesky's contribution.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/ms_chol_c2f_no_cholesky/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/ms_chol_c2f_no_cholesky/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/ms_chol_c2f_no_cholesky/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cholesky_c2f_no_ms`
+
+- Intent: Isolate multi-scale's contribution.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/cholesky_c2f_no_ms/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/cholesky_c2f_no_ms/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_c2f_alone_matrix/cholesky_c2f_no_ms/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 08 full: corr_dist=8 m² retrofit on c2f_only winner
+
+- **Problem ID**: `ct_icp_kitti_seq_08_corr_dist_retrofit`
+- **Question**: seq 00 found corr_dist=8 m² improves ATE -2.8%. Does it transfer to seq 08?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_only corr_dist=default (existing winner) | reference | 32.511 | 17.4 | 100.0 | 1.00 | 1.60 | Adopt as current default |
+| c2f_only + corr_dist=8 m² | tighter | 36.461 | 17.3 | 94.4 | 1.00 | 1.20 | Keep as active challenger |
+| c2f_only + corr_dist=4 m² | tighter | 40.465 | 17.2 | 89.7 | 1.00 | 1.20 | Keep as reference variant |
+
+### Observations
+
+1. `default_reference` is the current default for this problem.
+2. `default_reference` is the fastest observed variant at 17.4 FPS.
+3. `default_reference` is the most accurate observed variant at 32.511 m ATE.
+
+### Variant Notes
+
+#### `default_reference`
+
+- Intent: Confirm 32.51 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/default_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/default_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/default_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_8`
+
+- Intent: seq 00 finding retrofit.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/corr_8/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `corr_4`
+
+- Intent: Where seq 00 catastrophe occurs.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02 --ct-icp-max-correspondence-distance 4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02 --ct-icp-max-correspondence-distance 4`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_corr_dist_retrofit_matrix/corr_4/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cauchy_mult sweep on KITTI seq 08 full (4071 frames)
+
+- **Problem ID**: `ct_icp_kitti_seq_08_full_cauchy_sweep`
+- **Question**: seq 00 showed ATE/RPE trade-off with cauchy peaks at opposite ends. Does seq 08 (where c2f_only with planarity=0.02 wins at 32.51 m) exhibit the same pattern?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_only cauchy=2.0 (existing winner) | reference | 32.511 | 12.0 | 81.2 | 1.00 | 1.60 | Keep as reference variant |
+| cauchy=1.5 | softer | 37.094 | 15.7 | 84.7 | 1.00 | 1.60 | Keep as reference variant |
+| cauchy=2.5 | harder | 34.799 | 17.3 | 91.6 | 1.00 | 1.60 | Keep as active challenger |
+| cauchy=3.0 | harder | 34.397 | 18.4 | 95.2 | 1.00 | 1.60 | Adopt as current default |
+| cauchy=4.0 | extreme | 38.765 | 19.2 | 91.9 | 1.00 | 1.60 | Keep as active challenger |
+
+### Observations
+
+1. `cauchy_3_0` is the current default for this problem.
+2. `cauchy_4_0` is the fastest observed variant at 19.2 FPS.
+3. `cauchy_2_0_reference` is the most accurate observed variant at 32.511 m ATE.
+
+### Variant Notes
+
+#### `cauchy_2_0_reference`
+
+- Intent: Confirm 32.51 m baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_2_0_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_2_0_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_2_0_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cauchy_1_5`
+
+- Intent: Less outlier tolerance — check if seq 08 prefers stricter Cauchy.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 1.5 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_1_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 1.5 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_1_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_1_5/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cauchy_2_5`
+
+- Intent: Probe whether the ATE peak shifts.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.5 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_2_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.5 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_2_5/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_2_5/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cauchy_3_0`
+
+- Intent: Probe ATE/RPE trade-off region.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 3.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_3_0/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 3.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_3_0/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_3_0/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cauchy_4_0`
+
+- Intent: Far end — check if RPE keeps improving.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 4.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_4_0/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 4.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_4_0/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_cauchy_sweep_matrix/cauchy_4_0/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 08 full: coarse_iterations sweep on c2f_only winner
+
+- **Problem ID**: `ct_icp_kitti_seq_08_full_coarse_iter_sweep`
+- **Question**: seq 00 found iter=2 beats iter=3 (-2.2%). Does the same hold on seq 08 c2f_only winner (32.51 m, iter=3)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_only iter=3 (existing winner) | reference | 32.511 | 11.1 | 90.7 | 1.00 | 1.60 | Keep as active challenger |
+| coarse_iter=1 | fewer | 37.809 | 11.9 | 86.8 | 1.00 | 1.60 | Keep as active challenger |
+| coarse_iter=2 | fewer | 36.127 | 11.9 | 88.7 | 1.00 | 1.60 | Keep as active challenger |
+| coarse_iter=4 | more | 38.682 | 11.5 | 84.3 | 1.00 | 1.60 | Keep as reference variant |
+| coarse_iter=6 | all-coarse | 35.598 | 13.6 | 95.7 | 1.00 | 1.60 | Adopt as current default |
+
+### Observations
+
+1. `iter_6` is the current default for this problem.
+2. `iter_6` is the fastest observed variant at 13.6 FPS.
+3. `iter_3_reference` is the most accurate observed variant at 32.511 m ATE.
+
+### Variant Notes
+
+#### `iter_3_reference`
+
+- Intent: Confirm 32.51 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_3_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_3_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_3_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `iter_1`
+
+- Intent: Minimal warmup.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_1/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 1 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_1/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_1/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `iter_2`
+
+- Intent: seq 00 winner — does it transfer?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_2/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_2/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_2/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `iter_4`
+
+- Intent: 1 more.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 4 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 4 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_4/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `iter_6`
+
+- Intent: All-coarse extreme.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 6 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_6/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 6 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_6/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_coarse_iter_sweep_matrix/iter_6/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cluster A + GT seed on KITTI Odometry seq 08 full
+
+- **Problem ID**: `ct_icp_kitti_seq_08_full_seeded`
+- **Question**: seq 00 + seed shows sharpest ATE/RPE flip (ATE -61% / RPE +174%). Does seq 08 (4071 frames, similar length to seq 00) show the same long-distance seed flip pattern, or is seq 00 unique?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_full_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cluster A no seed (current best 27.85 m) | reference | 27.850 | 15.2 | 56.2 | 1.00 | 2.10 | Keep as reference variant |
+| cluster A + GT seed | seeded | 6.024 | 16.8 | 100.0 | 1.00 | 1.85 | Adopt as current default |
+
+### Observations
+
+1. `cluster_a_seeded` is the current default for this problem.
+2. `cluster_a_seeded` is the fastest observed variant at 16.8 FPS.
+3. `cluster_a_seeded` is the most accurate observed variant at 6.024 m ATE.
+
+### Variant Notes
+
+#### `cluster_a_no_seed_reference`
+
+- Intent: Confirm baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a_seeded`
+
+- Intent: Does seq 08 also show ATE big-win / RPE big-loss?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
+## CT-ICP seq 08 full: map=50 retrofit on c2f_only winner
+
+- **Problem ID**: `ct_icp_kitti_seq_08_map50_retrofit`
+- **Question**: seq 08 c2f_only winner uses map=20 (32.51 m). Does map=50 retrofit help?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_map50_retrofit_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_only map=20 (existing winner) | reference | 32.511 | 13.4 | 99.7 | 1.00 | 1.60 | Adopt as current default |
+| c2f_only map=50 | bigger map | 32.309 | 11.6 | 93.3 | 1.00 | 1.60 | Keep as active challenger |
+
+### Observations
+
+1. `c2f_only_map_20` is the current default for this problem.
+2. `c2f_only_map_20` is the fastest observed variant at 13.4 FPS.
+3. `c2f_only_map_50` is the most accurate observed variant at 32.309 m ATE.
+
+### Variant Notes
+
+#### `c2f_only_map_20`
+
+- Intent: Confirm 32.51 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_20/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_20/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_20/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `c2f_only_map_50`
+
+- Intent: seq 00 retrofit pattern.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_50/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_50/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_map50_retrofit_matrix/c2f_only_map_50/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 08 full: corr_dist on simplified map=50+c2f base
+
+- **Problem ID**: `ct_icp_kitti_seq_08_simplified_corr`
+- **Question**: seq 05 with same simplified base + corr=4 won by -11.6%. Does seq 08 benefit similarly?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_08_simplified_corr_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| simplified (map=50 + c2f σ×2) — existing 27.85 m | reference | 27.850 | 15.7 | 100.0 | 1.00 | 2.10 | Adopt as current default |
+| + corr=4 (seq 05 pattern) | with corr | 40.458 | 12.9 | 75.4 | 1.00 | 1.70 | Keep as reference variant |
+| + corr=8 (seq 02 pattern) | with corr | 33.902 | 10.9 | 75.5 | 1.00 | 1.70 | Keep as reference variant |
+
+### Observations
+
+1. `default_reference` is the current default for this problem.
+2. `default_reference` is the fastest observed variant at 15.7 FPS.
+3. `default_reference` is the most accurate observed variant at 27.850 m ATE.
+
+### Variant Notes
+
+#### `default_reference`
+
+- Intent: Confirm 27.85 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/default_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/default_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/default_reference/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `plus_corr_4`
+
+- Intent: Apply seq 05 partner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 4`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_4/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `plus_corr_8`
+
+- Intent: Test other corr regime.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_seq_08_simplified_corr_matrix/plus_corr_8/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 02 full: simplified map=50+c2f probe
+
+- **Problem ID**: `ct_icp_kitti_simplified_cross_seq_02`
+- **Question**: seq 00 found minimal winner = map=50 + c2f σ×2 (12.69 m). Does the same minimal pattern beat seq 02's 50.63 m?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| bare + corr=8 (existing seq 02 winner) | reference | 50.635 | 21.8 | 100.0 | 2.85 | 3.55 | Adopt as current default |
+| map=50 + c2f σ×2 (seq 00 minimal) | probe | 100.546 | 17.9 | 66.2 | 1.00 | 2.10 | Keep as reference variant |
+| map=50 + c2f σ×2 + corr=8 | combo | 98.390 | 17.9 | 66.8 | 1.00 | 1.70 | Keep as reference variant |
+
+### Observations
+
+1. `current_winner` is the current default for this problem.
+2. `current_winner` is the fastest observed variant at 21.8 FPS.
+3. `current_winner` is the most accurate observed variant at 50.635 m ATE.
+
+### Variant Notes
+
+#### `current_winner`
+
+- Intent: Confirm 50.63 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/current_winner/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/current_winner/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/current_winner/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `simplified_seq_00_pattern`
+
+- Intent: Apply seq 00 minimal pattern to seq 02.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/simplified_seq_00_pattern/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/simplified_seq_00_pattern/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/simplified_seq_00_pattern/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `simplified_plus_corr_8`
+
+- Intent: Combine seq 00 pattern with seq 02 winner knob.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/simplified_plus_corr_8/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 8`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/simplified_plus_corr_8/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_02_matrix/simplified_plus_corr_8/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base
+
+- **Problem ID**: `ct_icp_kitti_simplified_cross_seq_05`
+- **Question**: seq 00/08 share map=50 + c2f σ×2 winner. seq 05 currently uses map=50 + corr=4 (8.78 m). Does c2f beat corr=4 here?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| bare + map=50 + corr=4 (existing seq 05 winner) | reference | 8.783 | 20.6 | 94.2 | 2.85 | 3.55 | Keep as active challenger |
+| map=50 + c2f σ×2 (seq 00/08 pattern) | probe | 13.011 | 18.8 | 75.5 | 1.00 | 2.10 | Keep as reference variant |
+| map=50 + c2f σ×2 + corr=4 (combine both) | combo | 7.762 | 18.9 | 96.0 | 1.00 | 1.70 | Adopt as current default |
+
+### Observations
+
+1. `map_50_c2f_plus_corr_4` is the current default for this problem.
+2. `current_winner` is the fastest observed variant at 20.6 FPS.
+3. `map_50_c2f_plus_corr_4` is the most accurate observed variant at 7.762 m ATE.
+
+### Variant Notes
+
+#### `current_winner`
+
+- Intent: Confirm 8.78 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/current_winner/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-max-correspondence-distance 4.0`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/current_winner/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/current_winner/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_50_c2f`
+
+- Intent: Test if c2f σ×2 replaces corr=4.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/map_50_c2f/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/map_50_c2f/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/map_50_c2f/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `map_50_c2f_plus_corr_4`
+
+- Intent: Stack c2f on top of corr=4 winner.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 4.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/map_50_c2f_plus_corr_4/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-max-correspondence-distance 4.0`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/map_50_c2f_plus_corr_4/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_05_matrix/map_50_c2f_plus_corr_4/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 07 full: simplified map=50+c2f probe
+
+- **Problem ID**: `ct_icp_kitti_simplified_cross_seq_07`
+- **Question**: Does seq 00 minimal pattern beat seq 07's 1.61 m ms_chol winner?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| ms_chol (existing seq 07 winner) | reference | 1.607 | 20.3 | 100.0 | 2.75 | 3.45 | Adopt as current default |
+| map=50 + c2f σ×2 (no ms_chol) | probe | 4.816 | 19.0 | 63.4 | 1.00 | 2.10 | Keep as reference variant |
+
+### Observations
+
+1. `current_winner` is the current default for this problem.
+2. `current_winner` is the fastest observed variant at 20.3 FPS.
+3. `current_winner` is the most accurate observed variant at 1.607 m ATE.
+
+### Variant Notes
+
+#### `current_winner`
+
+- Intent: Confirm 1.61 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/current_winner/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/current_winner/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/current_winner/run.log`
+- Readability proxy: 2.75 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.45 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `simplified_seq_00_pattern`
+
+- Intent: Apply seq 00 minimal pattern.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/simplified_seq_00_pattern/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/simplified_seq_00_pattern/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_07_matrix/simplified_seq_00_pattern/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP seq 08 full: simplified map=50+c2f probe
+
+- **Problem ID**: `ct_icp_kitti_simplified_cross_seq_08`
+- **Question**: Does seq 00 minimal pattern beat seq 08's 32.51 m c2f_only winner?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| c2f_only (existing seq 08 winner) | reference | 32.511 | 19.4 | 92.8 | 1.00 | 1.60 | Keep as active challenger |
+| map=50 + c2f σ×2 (no ms_chol) | probe | 27.850 | 18.3 | 97.3 | 1.00 | 2.10 | Adopt as current default |
+
+### Observations
+
+1. `simplified_seq_00_pattern` is the current default for this problem.
+2. `current_winner` is the fastest observed variant at 19.4 FPS.
+3. `simplified_seq_00_pattern` is the most accurate observed variant at 27.850 m ATE.
+
+### Variant Notes
+
+#### `current_winner`
+
+- Intent: Confirm 32.51 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_08_matrix/current_winner/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 3 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.02`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_08_matrix/current_winner/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_08_matrix/current_winner/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.60 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `simplified_seq_00_pattern`
+
+- Intent: Apply seq 00 minimal pattern.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_simplified_cross_seq_08_matrix/simplified_seq_00_pattern/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_08_matrix/simplified_seq_00_pattern/summary.json`
+- Log: `experiments/results/runs/ct_icp_kitti_simplified_cross_seq_08_matrix/simplified_seq_00_pattern/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
 ## CT-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `ct_icp_profile_tradeoff_mcd_kth_day_06`
@@ -2143,14 +5477,14 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 6.295 | 34.6 | 77.5 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 6.525 | 59.8 | 96.9 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 6.115 | 15.3 | 62.8 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 6.295 | 34.5 | 78.7 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 6.525 | 57.2 | 96.9 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 6.115 | 17.3 | 65.1 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 59.8 FPS.
+2. `fast_window` is the fastest observed variant at 57.2 FPS.
 3. `dense_window` is the most accurate observed variant at 6.115 m ATE.
 
 ### Variant Notes
@@ -2189,6 +5523,126 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## CT-ICP recipe transfer test on MCD KTH day_06 (108 frames)
+
+- **Problem ID**: `ct_icp_mcd_kth_day_06_recipes`
+- **Question**: MCD 108-frame windows current best is dense_window 6.12 m. cluster A (long-traj winner) vs cluster D (ms_chol, short-traj winner) — which wins on this short-window mid-difficulty scene?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mcd_kth_day_06_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense_window only (current best 6.12 m) | reference | 6.115 | 18.0 | 99.9 | 4.65 | 4.75 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 6.107 | 12.8 | 85.7 | 1.00 | 2.10 | Keep as reference variant |
+| cluster D (ms_chol) | short-traj-recipe | 6.163 | 17.3 | 97.7 | 3.95 | 4.25 | Keep as active challenger |
+
+### Observations
+
+1. `dense_reference` is the current default for this problem.
+2. `dense_reference` is the fastest observed variant at 18.0 FPS.
+3. `cluster_a` is the most accurate observed variant at 6.107 m ATE.
+
+### Variant Notes
+
+#### `dense_reference`
+
+- Intent: Confirm 6.12 m baseline.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/dense_reference/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/dense_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/dense_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a`
+
+- Intent: Does long-trajectory recipe help on a short 108-frame window?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/cluster_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/cluster_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_ms_chol`
+
+- Intent: ms_chol is KITTI 07 (1102 frames) winner. Does it transfer to 108-frame MCD KTH?
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/cluster_d_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_kth_day_06_recipes_matrix/cluster_d_ms_chol/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cluster A/D + GT seed on MCD KTH day_06 (108 frames)
+
+- **Problem ID**: `ct_icp_mcd_kth_day_06_seeded`
+- **Question**: MCD NTU + seed: +39% drift (self-anchoring scene). MulRan parkinglot + seed: -84% drift (drift-limit scene). KTH baseline is 6.12 m — is that drift-limited (seed helps) or self-anchoring (seed hurts)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mcd_kth_day_06_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense_window + GT seed | reference | 2.778 | 28.3 | 93.2 | 4.30 | 4.50 | Adopt as current default |
+| cluster A + GT seed | transfer-seeded | 2.401 | 15.7 | 77.8 | 1.00 | 1.85 | Keep as reference variant |
+| cluster D (ms_chol) + GT seed | alternative-seeded | 3.458 | 24.1 | 77.3 | 3.60 | 4.00 | Keep as reference variant |
+
+### Observations
+
+1. `dense_seeded_reference` is the current default for this problem.
+2. `dense_seeded_reference` is the fastest observed variant at 28.3 FPS.
+3. `cluster_a_seeded` is the most accurate observed variant at 2.401 m ATE.
+
+### Variant Notes
+
+#### `dense_seeded_reference`
+
+- Intent: Seeded baseline. KTH no-seed was 6.115 m.
+- CLI args: `--ct-icp-dense-profile --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/dense_seeded_reference/summary.json --ct-icp-dense-profile --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/dense_seeded_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/dense_seeded_reference/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_a_seeded`
+
+- Intent: Cluster A with seed.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_a_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_a_seeded/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_d_seeded`
+
+- Intent: ms_chol with seed.
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_d_seeded/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_d_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_kth_day_06_seeded_matrix/cluster_d_seeded/run.log`
+- Readability proxy: 3.60 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.00 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
 ## CT-ICP throughput and accuracy trade-off on the MCD NTU day-02 sequence
 
 - **Problem ID**: `ct_icp_profile_tradeoff_mcd_ntu_day_02`
@@ -2203,14 +5657,14 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 0.926 | 39.2 | 44.9 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 2.498 | 71.7 | 56.5 | 4.65 | 4.75 | Keep as reference variant |
-| Dense window | drift-oriented | 0.325 | 22.0 | 65.3 | 4.65 | 4.75 | Adopt as current default |
+| Balanced window | balanced | 0.926 | 29.1 | 41.8 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 2.498 | 60.0 | 56.5 | 4.65 | 4.75 | Keep as reference variant |
+| Dense window | drift-oriented | 0.325 | 18.6 | 65.5 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `dense_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 71.7 FPS.
+2. `fast_window` is the fastest observed variant at 60.0 FPS.
 3. `dense_window` is the most accurate observed variant at 0.325 m ATE.
 
 ### Variant Notes
@@ -2249,6 +5703,126 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## CT-ICP recipe sensitivity test on MCD NTU day_02 (108 frames)
+
+- **Problem ID**: `ct_icp_mcd_ntu_day_02_recipes`
+- **Question**: MCD KTH 108 frames showed all recipes within 1% (saturated). NTU has the lowest baseline (0.325 m, dense_window) — a smaller absolute number makes recipe differences proportionally bigger. Does cluster A or D unlock meaningful change?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mcd_ntu_day_02_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense_window (current best 0.325 m) | reference | 0.325 | 21.9 | 95.7 | 4.65 | 4.75 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 0.372 | 20.7 | 86.8 | 1.00 | 2.10 | Keep as active challenger |
+| cluster D (ms_chol) | short-traj-recipe | 0.426 | 23.9 | 88.1 | 3.95 | 4.25 | Keep as active challenger |
+
+### Observations
+
+1. `dense_reference` is the current default for this problem.
+2. `cluster_d_ms_chol` is the fastest observed variant at 23.9 FPS.
+3. `dense_reference` is the most accurate observed variant at 0.325 m ATE.
+
+### Variant Notes
+
+#### `dense_reference`
+
+- Intent: Confirm 0.325 m baseline.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/dense_reference/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/dense_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/dense_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a`
+
+- Intent: Does cluster A help short window?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_ms_chol`
+
+- Intent: ms_chol on 108-frame NTU.
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_d_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_ntu_day_02_recipes_matrix/cluster_d_ms_chol/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cluster A/D + GT seed on MCD NTU day_02 (108 frames)
+
+- **Problem ID**: `ct_icp_mcd_ntu_day_02_seeded`
+- **Question**: MCD NTU day_02 without seed: dense 0.325 m wins ATE, cluster A halves RPE. MulRan parkinglot 120 + seed shows cluster A -84%. Does adding GT seed to MCD NTU reveal a similar cluster A dominance?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mcd_ntu_day_02_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense_window + GT seed | reference | 0.451 | 28.4 | 97.1 | 4.30 | 4.50 | Adopt as current default |
+| cluster A + GT seed | transfer-seeded | 0.432 | 21.1 | 86.5 | 1.00 | 1.85 | Keep as reference variant |
+| cluster D (ms_chol) + GT seed | alternative-seeded | 0.425 | 25.3 | 94.6 | 3.60 | 4.00 | Keep as active challenger |
+
+### Observations
+
+1. `dense_seeded_reference` is the current default for this problem.
+2. `dense_seeded_reference` is the fastest observed variant at 28.4 FPS.
+3. `cluster_d_seeded` is the most accurate observed variant at 0.425 m ATE.
+
+### Variant Notes
+
+#### `dense_seeded_reference`
+
+- Intent: Seeded baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/dense_seeded_reference/summary.json --ct-icp-dense-profile --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/dense_seeded_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/dense_seeded_reference/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_a_seeded`
+
+- Intent: Cluster A with seed (mirror of MulRan parkinglot 120 -84% pattern).
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_a_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_a_seeded/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_d_seeded`
+
+- Intent: ms_chol with seed.
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_d_seeded/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_d_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_ntu_day_02_seeded_matrix/cluster_d_seeded/run.log`
+- Readability proxy: 3.60 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.00 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
 ## CT-ICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence
 
 - **Problem ID**: `ct_icp_profile_tradeoff_mcd_tuhh_night_09`
@@ -2263,14 +5837,14 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 2.387 | 39.2 | 62.0 | 5.00 | 5.00 | Keep as reference variant |
-| Fast window | throughput-oriented | 3.553 | 71.6 | 73.3 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 1.652 | 19.4 | 63.5 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 2.387 | 27.6 | 61.5 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 3.553 | 51.4 | 73.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 1.652 | 14.0 | 63.6 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 71.6 FPS.
+2. `fast_window` is the fastest observed variant at 51.4 FPS.
 3. `dense_window` is the most accurate observed variant at 1.652 m ATE.
 
 ### Variant Notes
@@ -2304,6 +5878,378 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_matrix/dense_window/summary.json --ct-icp-dense-profile`
 - Summary: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_matrix/dense_window/summary.json`
 - Log: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+
+## CT-ICP recipe sensitivity test on MCD TUHH night_09 (108 frames)
+
+- **Problem ID**: `ct_icp_mcd_tuhh_night_09_recipes`
+- **Question**: Completing 3-site MCD picture. KTH 6.12 m saturated (all recipes tied), NTU 0.325 m revealed cluster A RPE -50% / ATE +14% flip. What does TUHH 1.65 m show?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mcd_tuhh_night_09_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense_window (current best 1.65 m) | reference | 1.652 | 22.8 | 96.4 | 4.65 | 4.75 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 1.534 | 16.6 | 86.4 | 1.00 | 2.10 | Keep as reference variant |
+| cluster D (ms_chol) | short-traj-recipe | 1.749 | 21.7 | 91.5 | 3.95 | 4.25 | Keep as active challenger |
+
+### Observations
+
+1. `dense_reference` is the current default for this problem.
+2. `dense_reference` is the fastest observed variant at 22.8 FPS.
+3. `cluster_a` is the most accurate observed variant at 1.534 m ATE.
+
+### Variant Notes
+
+#### `dense_reference`
+
+- Intent: Confirm 1.65 m baseline.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/dense_reference/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/dense_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/dense_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a`
+
+- Intent: Test cluster A on TUHH night.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_a/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_a/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_a/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_d_ms_chol`
+
+- Intent: Test ms_chol on TUHH night.
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_d_ms_chol/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky`
+- Summary: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_d_ms_chol/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_recipes_matrix/cluster_d_ms_chol/run.log`
+- Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## CT-ICP cluster A/D + GT seed on MCD TUHH night_09 (108 frames)
+
+- **Problem ID**: `ct_icp_mcd_tuhh_night_09_seeded`
+- **Question**: KTH (6.12 m baseline) + seed = -61% drift, NTU (0.325 m) + seed = +39%. Where does TUHH (1.65 m) sit on the self-anchor vs drift-limited axis?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mcd_tuhh_night_09_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense_window + GT seed | reference | 1.182 | 27.4 | 85.2 | 4.30 | 4.50 | Adopt as current default |
+| cluster A + GT seed | transfer-seeded | 0.832 | 17.7 | 82.3 | 1.00 | 1.85 | Keep as active challenger |
+| cluster D (ms_chol) + GT seed | alternative-seeded | 1.658 | 24.0 | 68.9 | 3.60 | 4.00 | Keep as reference variant |
+
+### Observations
+
+1. `dense_seeded_reference` is the current default for this problem.
+2. `dense_seeded_reference` is the fastest observed variant at 27.4 FPS.
+3. `cluster_a_seeded` is the most accurate observed variant at 0.832 m ATE.
+
+### Variant Notes
+
+#### `dense_seeded_reference`
+
+- Intent: Seeded baseline.
+- CLI args: `--ct-icp-dense-profile --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/dense_seeded_reference/summary.json --ct-icp-dense-profile --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/dense_seeded_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/dense_seeded_reference/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_a_seeded`
+
+- Intent: Cluster A with seed.
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/cluster_a_seeded/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/cluster_a_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/cluster_a_seeded/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_d_seeded`
+
+- Intent: ms_chol with seed.
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/cluster_d_seeded/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/cluster_d_seeded/summary.json`
+- Log: `experiments/results/runs/ct_icp_mcd_tuhh_night_09_seeded_matrix/cluster_d_seeded/run.log`
+- Readability proxy: 3.60 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.00 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
+## CT-ICP throughput and drift trade-off on MulRan ParkingLot (120-frame window)
+
+- **Problem ID**: `ct_icp_profile_tradeoff_mulran_parkinglot_120`
+- **Question**: Which CT-ICP profile should stay as the default on a MulRan Ouster window after data prep?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mulran_parkinglot_120_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 16.280 | 42.3 | 77.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 16.474 | 74.7 | 98.2 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | accuracy-oriented | 15.873 | 20.1 | 63.5 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 74.7 FPS.
+3. `dense_window` is the most accurate observed variant at 15.873 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Continuous-time baseline profile.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_window`
+
+- Intent: Faster CT-ICP profile.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_window`
+
+- Intent: Denser map / point budget.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_matrix/dense_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+
+## CT-ICP cluster A/D transfer to MulRan parkinglot 120-frame short window
+
+- **Problem ID**: `ct_icp_mulran_parkinglot_120_recipes`
+- **Question**: Parkinglot full had cluster A+seed = 9.19 m (-36% vs ms_chol+seed). Does cluster A also win on the 120-frame short window where current best is dense_window 15.87 m? Does GT seed change the picture?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mulran_parkinglot_120_recipes_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense_window (current best 15.87 m) | reference | 15.873 | 27.0 | 58.0 | 4.65 | 4.75 | Keep as reference variant |
+| cluster A, no GT seed | transfer | 15.722 | 19.6 | 44.3 | 1.00 | 2.10 | Keep as reference variant |
+| cluster A + GT seed | transfer-seeded | 2.547 | 17.9 | 83.0 | 1.00 | 1.85 | Adopt as current default |
+| cluster D (ms_chol) + GT seed | alternative-seeded | 4.473 | 25.5 | 75.5 | 3.60 | 4.00 | Keep as active challenger |
+
+### Observations
+
+1. `cluster_a_with_seed` is the current default for this problem.
+2. `dense_reference` is the fastest observed variant at 27.0 FPS.
+3. `cluster_a_with_seed` is the most accurate observed variant at 2.547 m ATE.
+
+### Variant Notes
+
+#### `dense_reference`
+
+- Intent: Confirm baseline.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/dense_reference/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/dense_reference/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/dense_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a_no_seed`
+
+- Intent: Does cluster A unlock parkinglot 120 without seed?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_a_no_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_a_no_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_a_no_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a_with_seed`
+
+- Intent: Cluster A with seed (mirror of full-window winner).
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_a_with_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_a_with_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_a_with_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_d_with_seed`
+
+- Intent: Compare ms_chol family on 120-frame parkinglot.
+- CLI args: `--ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_d_with_seed/summary.json --ct-icp-dense-profile --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_d_with_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_120_recipes_matrix/cluster_d_with_seed/run.log`
+- Readability proxy: 3.60 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.00 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
+## CT-ICP cluster A simplified recipe transfer to MulRan parkinglot full
+
+- **Problem ID**: `ct_icp_mulran_parkinglot_full_cluster_a`
+- **Question**: KITTI seq 00/05/08 share cluster A (map=50 + c2f σ×2). Does this transfer to MulRan parkinglot, where existing best is 14.36 m WITH GT seed using ms_chol full recipe and bare without GT seed gets 74-81 m? Test cluster A both with and without GT seed.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mulran_parkinglot_full_cluster_a_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| cluster A (map=50 + c2f σ×2), no GT seed | transfer | 74.592 | 12.9 | 50.3 | 1.00 | 2.10 | Keep as reference variant |
+| cluster A (map=50 + c2f σ×2) + GT seed | transfer-seeded | 9.186 | 14.6 | 100.0 | 1.00 | 1.85 | Adopt as current default |
+| cluster A + ms_chol + GT seed | hybrid | 16.399 | 10.4 | 63.7 | 1.00 | 1.35 | Keep as reference variant |
+
+### Observations
+
+1. `cluster_a_with_seed` is the current default for this problem.
+2. `cluster_a_with_seed` is the fastest observed variant at 14.6 FPS.
+3. `cluster_a_with_seed` is the most accurate observed variant at 9.186 m ATE.
+
+### Variant Notes
+
+#### `cluster_a_no_seed`
+
+- Intent: Fair cross-dataset transfer of seq 00 winner. Hits dense_window 74.58 m baseline?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_no_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_no_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_no_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+#### `cluster_a_with_seed`
+
+- Intent: Best-case test. Beats ms_chol_gt_seed_best 14.36 m or does seq 00 recipe lose to ms_chol on this dataset?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.85 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+#### `cluster_a_with_ms_chol_seed`
+
+- Intent: Recipes might combine. Does map=50 + c2f added to ms_chol full beat 14.36 m?
+- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_ms_chol_seed/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 50 --ct-icp-multi-scale --ct-icp-normal-cholesky --ct-icp-coarse-to-fine --ct-icp-coarse-iterations 2 --ct-icp-coarse-search-radius 2 --ct-icp-coarse-cauchy-mult 2.0 --ct-icp-coarse-planarity-threshold 0.06 --ct-icp-gt-seed`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_ms_chol_seed/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_cluster_a_matrix/cluster_a_with_ms_chol_seed/run.log`
+- Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 1.35 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.
+
+
+## CT-ICP throughput and drift trade-off on MulRan ParkingLot (full sequence)
+
+- **Problem ID**: `ct_icp_profile_tradeoff_mulran_parkinglot_full`
+- **Question**: Which CT-ICP profile should stay as the default on a full MulRan Ouster sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ct_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ct_icp_mulran_parkinglot_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced window | balanced | 76.545 | 35.4 | 78.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 80.958 | 59.7 | 96.1 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | accuracy-oriented | 74.578 | 17.4 | 64.5 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 59.7 FPS.
+3. `dense_window` is the most accurate observed variant at 74.578 m ATE.
+
+### Variant Notes
+
+#### `balanced_window`
+
+- Intent: Continuous-time baseline profile.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/summary.json`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/balanced_window/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_window`
+
+- Intent: Faster CT-ICP profile.
+- CLI args: `--ct-icp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/summary.json --ct-icp-fast-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/fast_window/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_window`
+
+- Intent: Denser map / point budget.
+- CLI args: `--ct-icp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/summary.json --ct-icp-dense-profile`
+- Summary: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/summary.json`
+- Log: `experiments/results/runs/ct_icp_mulran_parkinglot_full_matrix/dense_window/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
@@ -2509,66 +6455,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: No extra method note.
-
-
-## DLIO throughput and accuracy trade-off on the second public HDL-400 reference window
-
-- **Problem ID**: `dlio_profile_tradeoff_hdl_400_reference_b`
-- **Question**: Which DLIO profile should stay as the current default on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `dlio`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/dlio_hdl_400_reference_b_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced GICP+IMU fusion | 0.756 | 5.8 | 40.2 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 0.315 | 15.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 0.806 | 2.7 | 28.6 | 4.65 | 4.75 | Keep as reference variant |
-
-### Observations
-
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 15.0 FPS.
-3. `fast` is the most accurate observed variant at 0.315 m ATE.
-
-### Variant Notes
-
-#### `kitti_default`
-
-- Intent: Baseline DLIO-style GICP keyframe odometry with default IMU/LiDAR fusion weights.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Summary: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Log: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/kitti_default/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).
-
-#### `fast`
-
-- Intent: Coarser downsampling, fewer GICP iterations, lighter IMU fusion influence.
-- CLI args: `--dlio-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_b_matrix/fast/summary.json --dlio-fast-profile`
-- Summary: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/fast/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).
-
-#### `dense`
-
-- Intent: Finer voxels, deeper GICP, stronger IMU term when imu.csv is present.
-- CLI args: `--dlio-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlio --summary-json experiments/results/runs/dlio_hdl_400_reference_b_matrix/dense/summary.json --dlio-dense-profile`
-- Summary: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/dlio_hdl_400_reference_b_matrix/dense/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).
 
 
 ## DLIO throughput and accuracy trade-off on the public HDL-400 reference window
@@ -3109,66 +6995,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed).
-
-
-## DLO throughput and accuracy trade-off on the second public HDL-400 reference window
-
-- **Problem ID**: `dlo_profile_tradeoff_hdl_400_reference_b`
-- **Question**: Which DLO profile should stay as the current default on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `dlo`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/dlo_hdl_400_reference_b_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 0.122 | 8.0 | 70.2 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 0.149 | 17.9 | 89.2 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 0.117 | 3.9 | 61.0 | 4.65 | 4.75 | Keep as reference variant |
-
-### Observations
-
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 17.9 FPS.
-3. `dense` is the most accurate observed variant at 0.117 m ATE.
-
-### Variant Notes
-
-#### `kitti_default`
-
-- Intent: Baseline DLO GICP keyframe odometry for KITTI-scale LiDAR.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Summary: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Log: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/kitti_default/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
-
-#### `fast`
-
-- Intent: Coarser downsampling and fewer GICP iterations.
-- CLI args: `--dlo-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/summary.json --dlo-fast-profile`
-- Summary: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/fast/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
-
-#### `dense`
-
-- Intent: Finer voxels, more map keyframes, and deeper GICP.
-- CLI args: `--dlo-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods dlo --summary-json experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/summary.json --dlo-dense-profile`
-- Summary: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/dlo_hdl_400_reference_b_matrix/dense/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Keyframe scan-to-map odometry with GICP alignment (no GT seed; anchor matches first GT pose).
 
 
 ## DLO throughput and accuracy trade-off on the public HDL-400 reference window
@@ -4791,64 +8617,244 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: FAST-LIO2 front-end with ScanContext loop closure and pose-graph optimization (no GT seed; anchor matches first GT pose).
 
 
-## F-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window
+## FAST-LIVO2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
-- **Problem ID**: `floam_profile_tradeoff_hdl_400_reference_b`
-- **Question**: Which F-LOAM profile should stay as the current default on the second public HDL-400 reference window?
+- **Problem ID**: `fast_livo2_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
 - **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `floam`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `fast_livo2`
 - **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/floam_hdl_400_reference_b_matrix.json`
+- **Aggregate result**: `experiments/results/fast_livo2_kitti_raw_0009_full_matrix.json`
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 0.089 | 35.3 | 73.0 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 0.102 | 76.6 | 93.6 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 0.137 | 8.2 | 37.8 | 4.65 | 4.75 | Keep as reference variant |
+| Default | balanced | 49.423 | 2.2 | 64.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 49.629 | 7.5 | 99.6 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 49.209 | 2.3 | 65.2 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 76.6 FPS.
-3. `kitti_default` is the most accurate observed variant at 0.089 m ATE.
+2. `fast` is the fastest observed variant at 7.5 FPS.
+3. `dense` is the most accurate observed variant at 49.209 m ATE.
 
 ### Variant Notes
 
-#### `kitti_default`
+#### `default`
 
-- Intent: Baseline F-LOAM settings for KITTI (n_scans=64).
+- Intent: Keep the current FAST-LIVO2 defaults as the multimodal baseline.
 - CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods floam --summary-json experiments/results/runs/floam_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Summary: `experiments/results/runs/floam_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Log: `experiments/results/runs/floam_hdl_400_reference_b_matrix/kitti_default/run.log`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
 
 #### `fast`
 
-- Intent: Thin input and throttle mapping for speed.
-- CLI args: `--floam-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods floam --summary-json experiments/results/runs/floam_hdl_400_reference_b_matrix/fast/summary.json --floam-fast-profile`
-- Summary: `experiments/results/runs/floam_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/floam_hdl_400_reference_b_matrix/fast/run.log`
+- Intent: Trim LiDAR and visual update work to favor throughput.
+- CLI args: `--fast-livo2-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/fast/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
 
 #### `dense`
 
-- Intent: Process denser input and update mapping every frame.
-- CLI args: `--floam-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods floam --summary-json experiments/results/runs/floam_hdl_400_reference_b_matrix/dense/summary.json --floam-dense-profile`
-- Summary: `experiments/results/runs/floam_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/floam_hdl_400_reference_b_matrix/dense/run.log`
+- Intent: Keep a denser fused update for accuracy at lower FPS.
+- CLI args: `--fast-livo2-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_full_matrix/dense/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+
+## FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `fast_livo2_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `fast_livo2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_livo2_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 31.298 | 2.6 | 66.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 31.368 | 8.3 | 99.9 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 31.298 | 2.3 | 64.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 8.3 FPS.
+3. `dense` is the most accurate observed variant at 31.298 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current FAST-LIVO2 defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `fast`
+
+- Intent: Trim LiDAR and visual update work to favor throughput.
+- CLI args: `--fast-livo2-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `dense`
+
+- Intent: Keep a denser fused update for accuracy at lower FPS.
+- CLI args: `--fast-livo2-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0009_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+
+## FAST-LIVO2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `fast_livo2_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `fast_livo2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_livo2_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 96.904 | 4.1 | 64.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 96.345 | 14.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 96.759 | 3.0 | 60.5 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 14.0 FPS.
+3. `fast` is the most accurate observed variant at 96.345 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current FAST-LIVO2 defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `fast`
+
+- Intent: Trim LiDAR and visual update work to favor throughput.
+- CLI args: `--fast-livo2-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `dense`
+
+- Intent: Keep a denser fused update for accuracy at lower FPS.
+- CLI args: `--fast-livo2-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+
+## FAST-LIVO2 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `fast_livo2_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which FAST-LIVO2 profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `fast_livo2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/fast_livo2_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 27.934 | 2.8 | 69.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 27.581 | 7.2 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 27.774 | 1.8 | 62.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 7.2 FPS.
+3. `fast` is the most accurate observed variant at 27.581 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current FAST-LIVO2 defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `fast`
+
+- Intent: Trim LiDAR and visual update work to favor throughput.
+- CLI args: `--fast-livo2-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-fast-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/fast/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
+
+#### `dense`
+
+- Intent: Keep a denser fused update for accuracy at lower FPS.
+- CLI args: `--fast-livo2-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods fast_livo2 --summary-json experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --fast-livo2-dense-profile`
+- Summary: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/dense/summary.json`
+- Log: `experiments/results/runs/fast_livo2_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: FAST-LIO2 front-end with landmark reprojection refinement for visual-lidar-inertial odometry.
 
 
 ## F-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
@@ -5206,6 +9212,258 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_raw_0061_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
 - Summary: `experiments/results/runs/floam_kitti_raw_0061_matrix/dense/summary.json`
 - Log: `experiments/results/runs/floam_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `floam_kitti_seq_00_full_transfer`
+- **Question**: Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 00 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 15.795 | 12.3 | 77.1 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 8.556 | 3.4 | 63.7 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 12.3 FPS.
+3. `dense` is the most accurate observed variant at 8.556 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Near-accuracy candidate from the seq 07 probe with better throughput than dense.
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_00_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `floam_kitti_seq_02_full_transfer`
+- **Question**: Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 02 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 76.320 | 12.2 | 85.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 53.822 | 3.3 | 63.6 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 12.2 FPS.
+3. `dense` is the most accurate observed variant at 53.822 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Near-accuracy candidate from the seq 07 probe with better throughput than dense.
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_02_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `floam_kitti_seq_05_full_transfer`
+- **Question**: Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 05 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 6.959 | 12.2 | 93.4 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 6.039 | 3.5 | 64.3 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 12.2 FPS.
+3. `dense` is the most accurate observed variant at 6.039 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Near-accuracy candidate from the seq 07 probe with better throughput than dense.
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_05_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `floam_kitti_seq_07_full_sweep`
+- **Question**: Which F-LOAM profile family is strongest on KITTI Odom seq 07 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 3.245 | 13.2 | 71.1 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 5.026 | 29.8 | 81.6 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 3.174 | 3.7 | 56.3 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 29.8 FPS.
+3. `dense` is the most accurate observed variant at 3.174 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Baseline F-LOAM settings for KITTI (n_scans=64).
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `fast`
+
+- Intent: Thin input and throttle mapping for speed.
+- CLI args: `--floam-kitti-profile --floam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/summary.json --floam-kitti-profile --floam-fast-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Process denser input and update mapping every frame.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_07_full_sweep_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+
+## F-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `floam_kitti_seq_08_full_transfer`
+- **Question**: Do the F-LOAM seq 07 accuracy candidates transfer to KITTI Odom seq 08 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `floam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/floam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 16.661 | 12.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 17.318 | 3.2 | 60.7 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 12.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 16.661 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Near-accuracy candidate from the seq 07 probe with better throughput than dense.
+- CLI args: `--floam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json --floam-kitti-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
+
+#### `dense`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--floam-kitti-profile --floam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods floam --summary-json experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/dense/summary.json --floam-kitti-profile --floam-dense-profile`
+- Summary: `experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/floam_kitti_seq_08_full_transfer_matrix/dense/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).
@@ -6111,6 +10369,126 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## GICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)
+
+- **Problem ID**: `gicp_profile_tradeoff_mulran_parkinglot_120`
+- **Question**: Which GICP profile should stay as the default on a MulRan Ouster window after data prep?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `gicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/gicp_mulran_parkinglot_120_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 0.800 | 15.6 | 68.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 0.644 | 27.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 0.819 | 8.9 | 55.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 27.7 FPS.
+3. `fast_recent_map` is the most accurate observed variant at 0.644 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default trade-off.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_recent_map`
+
+- Intent: Faster profile.
+- CLI args: `--gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json --gicp-fast-profile`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_recent_map`
+
+- Intent: Denser map profile.
+- CLI args: `--gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json --gicp-dense-profile`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_120_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## GICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence)
+
+- **Problem ID**: `gicp_profile_tradeoff_mulran_parkinglot_full`
+- **Question**: Which GICP profile should stay as the default on a full MulRan Ouster sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `gicp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/gicp_mulran_parkinglot_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 1.060 | 13.8 | 67.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 1.149 | 30.3 | 91.1 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 0.944 | 9.9 | 66.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 30.3 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 0.944 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default trade-off.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_recent_map`
+
+- Intent: Faster profile.
+- CLI args: `--gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json --gicp-fast-profile`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_recent_map`
+
+- Intent: Denser map profile.
+- CLI args: `--gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods gicp --summary-json experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json --gicp-dense-profile`
+- Summary: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/gicp_mulran_parkinglot_full_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## GICP throughput and accuracy trade-off on the repository-stored Istanbul sequence
 
 - **Problem ID**: `gicp_profile_tradeoff`
@@ -6381,7 +10759,7 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | Status | Note | Summary | Log |
 |---------|-------|--------|------|---------|-----|
-| Default | balanced | `SKIPPED` | Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames) | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/run.log` |
+| Default | balanced | `skipped` | Skipped: computation exceeds 1 hour on KITTI Raw 0061 full (703 frames) | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/hdl_graph_slam_kitti_raw_0061_full_matrix/default/run.log` |
 
 ## HDL Graph SLAM on KITTI Raw drive 0061 (200 frames, residential)
 
@@ -7703,6 +12081,378 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames)
+
+- **Problem ID**: `kiss_icp_kitti_seq_00_full_sweep`
+- **Question**: Long-trajectory probe for KISS-ICP recipe family on KITTI Odom seq 00.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 15.449 | 18.1 | 68.3 | 5.00 | 5.00 | Keep as reference variant |
+| fast profile | throughput | 20.927 | 30.6 | 78.6 | 4.65 | 4.75 | Adopt as current default |
+| dense profile | accuracy | 11.976 | 12.7 | 70.7 | 4.65 | 4.75 | Keep as reference variant |
+| T1 transfer (voxel=0.5 + iter=12) | transfer | 13.946 | 11.4 | 61.6 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 30.6 FPS.
+3. `dense_profile` is the most accurate observed variant at 11.976 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_profile`
+
+- Intent: Fast profile.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_profile`
+
+- Intent: Dense profile.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1 recipe transfer.
+- CLI args: `--kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/summary.json --kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: No extra method note.
+
+
+## KISS-ICP cluster discovery on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `kiss_icp_kitti_seq_02_full_sweep`
+- **Question**: Long-trajectory check on seq 02.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_02_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 51.326 | 15.5 | 61.9 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 86.812 | 32.7 | 72.6 | 4.65 | 4.75 | Adopt as current default |
+| dense | accuracy | 39.231 | 10.9 | 66.6 | 4.65 | 4.75 | Keep as active challenger |
+| T1 v0.5+i12 | transfer | 44.114 | 11.1 | 61.4 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 32.7 FPS.
+3. `dense_profile` is the most accurate observed variant at 39.231 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/fast_profile/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/dense_profile/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/summary.json --kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: No extra method note.
+
+
+## KISS-ICP cluster discovery on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `kiss_icp_kitti_seq_05_full_sweep`
+- **Question**: Does per-seq variability persist on mid-length seq 05?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_05_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 5.893 | 17.0 | 71.6 | 5.00 | 5.00 | Keep as active challenger |
+| fast | throughput | 9.420 | 23.5 | 72.1 | 4.65 | 4.75 | Adopt as current default |
+| dense | accuracy | 4.160 | 8.5 | 68.2 | 4.65 | 4.75 | Keep as active challenger |
+| T1 v0.5+i12 | transfer | 7.366 | 9.3 | 48.0 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 23.5 FPS.
+3. `dense_profile` is the most accurate observed variant at 4.160 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/fast_profile/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/dense_profile/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/summary.json --kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: No extra method note.
+
+
+## KISS-ICP cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `kiss_icp_kitti_seq_07_full_sweep`
+- **Question**: Does LiTAMIN2 T1 (voxel=0.5 + iter=12) recipe pattern transfer to KISS-ICP on KITTI Odom?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 1.799 | 20.8 | 67.9 | 5.00 | 5.00 | Keep as reference variant |
+| fast profile | throughput | 2.525 | 35.6 | 77.5 | 4.65 | 4.75 | Adopt as current default |
+| dense profile | accuracy | 1.800 | 14.2 | 58.6 | 4.65 | 4.75 | Keep as reference variant |
+| T1 transfer (voxel=0.5 + iter=12) | transfer | 1.391 | 13.0 | 68.2 | 3.80 | 4.20 | Keep as reference variant |
+| T1 transfer (voxel=0.3 + iter=12) | transfer | 1.450 | 12.8 | 65.9 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 35.6 FPS.
+3. `t1_transfer_v05_i12` is the most accurate observed variant at 1.391 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_profile`
+
+- Intent: Fast profile.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_profile`
+
+- Intent: Dense profile.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1 recipe transfer.
+- CLI args: `--kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/summary.json --kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: No extra method note.
+
+#### `t1_transfer_v03_i12`
+
+- Intent: Finer voxel variant.
+- CLI args: `--kiss-voxel-size 0.3 --kiss-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/summary.json --kiss-voxel-size 0.3 --kiss-max-iterations 12`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: No extra method note.
+
+
+## KISS-ICP cluster discovery on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `kiss_icp_kitti_seq_08_full_sweep`
+- **Question**: Long-trajectory check on seq 08.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_kitti_seq_08_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 22.157 | 16.4 | 70.4 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 19.592 | 30.8 | 99.5 | 4.65 | 4.75 | Adopt as current default |
+| dense | accuracy | 19.409 | 9.6 | 65.6 | 4.65 | 4.75 | Keep as reference variant |
+| T1 v0.5+i12 | transfer | 23.591 | 9.2 | 56.1 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 30.8 FPS.
+3. `dense_profile` is the most accurate observed variant at 19.409 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/fast_profile/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/dense_profile/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/summary.json --kiss-voxel-size 0.5 --kiss-max-iterations 12`
+- Summary: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/kiss_icp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: No extra method note.
+
+
 ## KISS-ICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `kiss_icp_profile_tradeoff_mcd_kth_day_06`
@@ -7883,6 +12633,126 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: No extra method note.
 
 
+## KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)
+
+- **Problem ID**: `kiss_icp_profile_tradeoff_mulran_parkinglot_120`
+- **Question**: Which KISS-ICP configuration should stay as the default on a MulRan Ouster window after data prep?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 15.654 | 12.7 | 73.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 15.641 | 27.3 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 15.641 | 9.2 | 66.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 27.3 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 15.641 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default trade-off.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_recent_map`
+
+- Intent: Faster profile.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_recent_map`
+
+- Intent: Denser map profile.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_120_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+
+## KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence)
+
+- **Problem ID**: `kiss_icp_profile_tradeoff_mulran_parkinglot_full`
+- **Question**: Which KISS-ICP configuration should stay as the default on a full MulRan Ouster sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `kiss_icp`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Balanced local map | balanced | 74.259 | 10.1 | 68.4 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 74.337 | 26.9 | 99.5 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 73.621 | 4.4 | 58.2 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 26.9 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 73.621 m ATE.
+
+### Variant Notes
+
+#### `balanced_local_map`
+
+- Intent: Repository default trade-off.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/balanced_local_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/balanced_local_map/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: No extra method note.
+
+#### `fast_recent_map`
+
+- Intent: Faster profile.
+- CLI args: `--kiss-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json --kiss-fast-profile`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/fast_recent_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/fast_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+#### `dense_recent_map`
+
+- Intent: Denser map profile.
+- CLI args: `--kiss-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json --kiss-dense-profile`
+- Summary: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/dense_recent_map/summary.json`
+- Log: `experiments/results/runs/kiss_icp_mulran_parkinglot_full_matrix/dense_recent_map/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: No extra method note.
+
+
 ## KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence
 
 - **Problem ID**: `kiss_icp_profile_tradeoff`
@@ -7941,66 +12811,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
-
-
-## LeGO-LOAM throughput and accuracy trade-off on the second public HDL-400 reference window
-
-- **Problem ID**: `lego_loam_profile_tradeoff_hdl_400_reference_b`
-- **Question**: Which LeGO-LOAM profile should stay as the current default on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `lego_loam`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/lego_loam_hdl_400_reference_b_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 0.146 | 9.0 | 67.2 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 0.163 | 26.1 | 94.7 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 0.187 | 10.3 | 58.8 | 4.65 | 4.75 | Keep as reference variant |
-
-### Observations
-
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 26.1 FPS.
-3. `kitti_default` is the most accurate observed variant at 0.146 m ATE.
-
-### Variant Notes
-
-#### `kitti_default`
-
-- Intent: Ground-aware LeGO-LOAM baseline for HDL-64E (n_scans=64, sensor height ~KITTI).
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Summary: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/kitti_default/summary.json`
-- Log: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/kitti_default/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
-
-#### `fast`
-
-- Intent: Coarser surf sampling and lighter odometry/mapping Ceres budgets.
-- CLI args: `--lego-loam-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/fast/summary.json --lego-loam-fast-profile`
-- Summary: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/fast/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
-
-#### `dense`
-
-- Intent: Finer features and deeper optimization passes.
-- CLI args: `--lego-loam-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/dense/summary.json --lego-loam-dense-profile`
-- Summary: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/lego_loam_hdl_400_reference_b_matrix/dense/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
 
 
 ## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
@@ -8363,6 +13173,210 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
 
 
+## LeGO-LOAM transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_00_full_transfer`
+- **Question**: Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 00 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 12.378 | 3.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 3.4 FPS.
+3. `kitti_default` is the most accurate observed variant at 12.378 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_00_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_02_full_transfer`
+- **Question**: Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 02 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 42.209 | 3.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 3.8 FPS.
+3. `kitti_default` is the most accurate observed variant at 42.209 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_02_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_05_full_transfer`
+- **Question**: Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 05 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 5.218 | 3.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 3.7 FPS.
+3. `kitti_default` is the most accurate observed variant at 5.218 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_05_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_05_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_07_full_sweep`
+- **Question**: Which LeGO-LOAM profile family is strongest on KITTI Odom seq 07 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 2.558 | 3.9 | 69.4 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 4.385 | 10.0 | 79.2 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 3.945 | 3.7 | 50.8 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 10.0 FPS.
+3. `kitti_default` is the most accurate observed variant at 2.558 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Ground-aware LeGO-LOAM baseline for HDL-64E (n_scans=64, sensor height ~KITTI).
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+#### `fast`
+
+- Intent: Coarser surf sampling and lighter odometry/mapping Ceres budgets.
+- CLI args: `--lego-loam-kitti-profile --lego-loam-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/fast/summary.json --lego-loam-kitti-profile --lego-loam-fast-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/fast/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+#### `dense`
+
+- Intent: Finer features and deeper optimization passes.
+- CLI args: `--lego-loam-kitti-profile --lego-loam-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/dense/summary.json --lego-loam-kitti-profile --lego-loam-dense-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/dense/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_07_full_sweep_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LeGO-LOAM transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `lego_loam_kitti_seq_08_full_transfer`
+- **Question**: Does the LeGO-LOAM seq 07 accuracy candidate transfer to KITTI Odom seq 08 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lego_loam`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lego_loam_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 19.121 | 3.2 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `kitti_default` is the current default for this problem.
+2. `kitti_default` is the fastest observed variant at 3.2 FPS.
+3. `kitti_default` is the most accurate observed variant at 19.121 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: Seq 07 accuracy/RPE winner.
+- CLI args: `--lego-loam-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods lego_loam --summary-json experiments/results/runs/lego_loam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json --lego-loam-kitti-profile`
+- Summary: `experiments/results/runs/lego_loam_kitti_seq_08_full_transfer_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/lego_loam_kitti_seq_08_full_transfer_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
 ## LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `lego_loam_profile_tradeoff_mcd_kth_day_06`
@@ -8541,66 +13555,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
-
-
-## LINS on the second public HDL-400 reference window
-
-- **Problem ID**: `lins_hdl_400_reference_b`
-- **Question**: How does LINS perform on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `lins`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/lins_hdl_400_reference_b_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 300.860 | 47.8 | 67.8 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 231.572 | 81.5 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 277.412 | 17.5 | 52.5 | 4.65 | 4.75 | Keep as reference variant |
-
-### Observations
-
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 81.5 FPS.
-3. `fast` is the most accurate observed variant at 231.572 m ATE.
-
-### Variant Notes
-
-#### `default`
-
-- Intent: Repository default hyperparameters.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lins --summary-json experiments/results/runs/lins_hdl_400_reference_b_matrix/default/summary.json`
-- Summary: `experiments/results/runs/lins_hdl_400_reference_b_matrix/default/summary.json`
-- Log: `experiments/results/runs/lins_hdl_400_reference_b_matrix/default/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
-
-#### `fast`
-
-- Intent: Coarsen the voxel maps and cap correspondences to favor throughput.
-- CLI args: `--lins-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lins --summary-json experiments/results/runs/lins_hdl_400_reference_b_matrix/fast/summary.json --lins-fast-profile`
-- Summary: `experiments/results/runs/lins_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/lins_hdl_400_reference_b_matrix/fast/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
-
-#### `dense`
-
-- Intent: Use finer voxel maps and more correspondences for a denser iterated Kalman update.
-- CLI args: `--lins-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods lins --summary-json experiments/results/runs/lins_hdl_400_reference_b_matrix/dense/summary.json --lins-dense-profile`
-- Summary: `experiments/results/runs/lins_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/lins_hdl_400_reference_b_matrix/dense/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: LiDAR-inertial navigation with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
 
 
 ## LINS on the public HDL-400 reference window
@@ -9769,15 +14723,15 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 0.111 | 61.6 | 82.7 | 5.00 | 5.00 | Keep as reference variant |
-| Fast local-map + ICP-only | single-term simplification | 0.111 | 58.6 | 81.1 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + covariance | paper-oriented | 0.129 | 94.2 | 93.1 | 4.65 | 4.75 | Adopt as current default |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 0.129 | 89.9 | 90.8 | 4.30 | 4.50 | Keep as active challenger |
+| Fast local-map + covariance | throughput-oriented | 0.111 | 80.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Fast local-map + ICP-only | single-term simplification | 0.111 | 71.3 | 94.2 | 4.65 | 4.75 | Keep as active challenger |
+| Paper-like 3m + covariance | paper-oriented | 0.129 | 75.5 | 89.8 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.129 | 79.9 | 92.6 | 4.30 | 4.50 | Keep as active challenger |
 
 ### Observations
 
-1. `paper_cov_half_threads` is the current default for this problem.
-2. `paper_cov_half_threads` is the fastest observed variant at 94.2 FPS.
+1. `fast_cov_half_threads` is the current default for this problem.
+2. `fast_cov_half_threads` is the fastest observed variant at 80.7 FPS.
 3. `fast_cov_half_threads` is the most accurate observed variant at 0.111 m ATE.
 
 ### Variant Notes
@@ -9971,6 +14925,102 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
 
 
+## LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames)
+
+- **Problem ID**: `litamin2_kitti_raw_0009_200_cluster_t1`
+- **Question**: 0009 200-frame CT-ICP best is balanced 1.66 m. LiTAMIN2 T1 transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 1.053 | 32.6 | 66.3 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.633 | 45.0 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 45.0 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.633 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames)
+
+- **Problem ID**: `litamin2_kitti_raw_0009_full_cluster_t1`
+- **Question**: 0009 is CT-ICP's 'own family' (balanced only winner 4.67 m). Does LiTAMIN2 cluster T1 still win or fall into a sub-cluster?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 1.145 | 46.3 | 79.1 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.666 | 40.2 | 93.5 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 46.3 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.666 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
 - **Problem ID**: `litamin2_profile_tradeoff_kitti_raw_0009_full`
@@ -10057,15 +15107,15 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 1.053 | 27.1 | 81.0 | 5.00 | 5.00 | Keep as active challenger |
-| Fast local-map + ICP-only | single-term simplification | 1.053 | 30.0 | 84.3 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + covariance | paper-oriented | 1.397 | 33.8 | 76.4 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 1.397 | 43.7 | 87.7 | 4.30 | 4.50 | Adopt as current default |
+| Fast local-map + covariance | throughput-oriented | 1.053 | 34.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| Fast local-map + ICP-only | single-term simplification | 1.053 | 32.6 | 97.7 | 4.65 | 4.75 | Keep as active challenger |
+| Paper-like 3m + covariance | paper-oriented | 1.397 | 30.7 | 82.6 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 1.397 | 31.1 | 83.2 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `paper_icp_only_half_threads` is the current default for this problem.
-2. `paper_icp_only_half_threads` is the fastest observed variant at 43.7 FPS.
+1. `fast_cov_half_threads` is the current default for this problem.
+2. `fast_cov_half_threads` is the fastest observed variant at 34.2 FPS.
 3. `fast_cov_half_threads` is the most accurate observed variant at 1.053 m ATE.
 
 ### Variant Notes
@@ -10185,6 +15235,102 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses odometry-chain scan-to-map initialization (no GT seed). Covariance-shape term disabled.
+
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames)
+
+- **Problem ID**: `litamin2_kitti_raw_0061_200_cluster_t1`
+- **Question**: 0061 200-frame CT-ICP best is cluster D 0.94 m. LiTAMIN2 T1 transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.511 | 47.4 | 99.3 | 5.00 | 5.00 | Keep as active challenger |
+| cluster T1 + seed | transfer | 0.517 | 48.1 | 99.4 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 48.1 FPS.
+3. `fast_seeded_reference` is the most accurate observed variant at 0.511 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0061_200_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames)
+
+- **Problem ID**: `litamin2_kitti_raw_0061_full_cluster_t1`
+- **Question**: 0061 is CT-ICP cluster D territory (ms_chol 4.50 m). LiTAMIN2 T1 transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.944 | 61.4 | 81.8 | 5.00 | 5.00 | Keep as active challenger |
+| cluster T1 + seed | transfer | 0.600 | 39.8 | 82.4 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 61.4 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.600 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_raw_0061_full_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
 ## LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
@@ -10331,6 +15477,462 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
 
 
+## LiTAMIN2 throughput and accuracy trade-off on the full KITTI Odometry sequence 00
+
+- **Problem ID**: `litamin2_profile_tradeoff_kitti_seq_00_full`
+- **Question**: Which LiTAMIN2 profile should stay as the current default on the full KITTI Odometry public dataset (sequence 00)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_00_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast local-map + covariance | throughput-oriented | 0.998 | 104.6 | 98.0 | 5.00 | 5.00 | Keep as active challenger |
+| Fast local-map + ICP-only | single-term simplification | 0.998 | 108.9 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 1.225 | 81.0 | 77.9 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 1.225 | 100.9 | 87.1 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `fast_icp_only_half_threads` is the fastest observed variant at 108.9 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 0.998 m ATE.
+
+### Variant Notes
+
+#### `fast_cov_half_threads`
+
+- Intent: Keep the current repository default with recent/local-map pruning and covariance-aware cost.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_cov_half_threads/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_cov_half_threads/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_icp_only_half_threads`
+
+- Intent: Remove the covariance-shape term while keeping the same fast local-map profile.
+- CLI args: `--litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/fast_icp_only_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+#### `paper_cov_half_threads`
+
+- Intent: Move closer to the paper's 3 m profile while preserving the same benchmark interface.
+- CLI args: `--litamin2-paper-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_cov_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `paper_icp_only_half_threads`
+
+- Intent: Use the paper-like 3 m profile, but isolate the first cost term by disabling covariance cost.
+- CLI args: `--litamin2-paper-profile --litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_matrix/paper_icp_only_half_threads/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 paper-comparable on KITTI Odometry 00 (full)
+
+- **Problem ID**: `litamin2_paper_comparison_kitti_seq_00_full`
+- **Question**: Does LiTAMIN2 fast pure-odom match paper-reported RPE on KITTI Odometry 00?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_00_full_paper_comp_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast local-map + covariance (pure odometry) | throughput-oriented pure odometry | 110.484 | 98.9 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `fast_cov_no_gt_seed` is the current default for this problem.
+2. `fast_cov_no_gt_seed` is the fastest observed variant at 98.9 FPS.
+3. `fast_cov_no_gt_seed` is the most accurate observed variant at 110.484 m ATE.
+
+### Variant Notes
+
+#### `fast_cov_no_gt_seed`
+
+- Intent: Direct paper-comparison: fast profile with velocity-model init.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_paper_comp_matrix/fast_cov_no_gt_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_paper_comp_matrix/fast_cov_no_gt_seed/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_paper_comp_matrix/fast_cov_no_gt_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## LiTAMIN2 tuned (voxel 1.0 + iter 12) on KITTI Odometry 00 (full)
+
+- **Problem ID**: `litamin2_tuned_kitti_seq_00_full`
+- **Question**: Does the KITTI 07 winning tune (voxel 1.0 + iter 12) close the gap on sequence 00?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Tuned: voxel 1.0 + iter 12 (no GT seed) | tuned for paper parity | 13.464 | 60.9 | 100.0 | 3.45 | 3.95 | Adopt as current default |
+
+### Observations
+
+1. `tuned_voxel1_iter12` is the current default for this problem.
+2. `tuned_voxel1_iter12` is the fastest observed variant at 60.9 FPS.
+3. `tuned_voxel1_iter12` is the most accurate observed variant at 13.464 m ATE.
+
+### Variant Notes
+
+#### `tuned_voxel1_iter12`
+
+- Intent: Apply KITTI 07 gap-close winner across the paper-evaluated set.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_matrix/tuned_voxel1_iter12/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_matrix/tuned_voxel1_iter12/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_matrix/tuned_voxel1_iter12/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## LiTAMIN2 tuned knobs (voxel=1.0, iter=12) on KITTI seq 00 full with GT seed
+
+- **Problem ID**: `litamin2_kitti_seq_00_full_tuned_seeded`
+- **Question**: Tuned no-seed gave RPE 0.92% (best on seq 00) but ATE 13.46 m due to no-seed drift. fast+seed gave ATE 0.998 m but RPE 1.91%. Combining (voxel=1.0 + iter=12) + seed — does this give both <1 m ATE and <1% RPE?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_00_full_tuned_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| voxel=1.0 + iter=12 + GT seed | tuned-seeded | 1.099 | 55.2 | 65.0 | 3.80 | 4.20 | Keep as reference variant |
+| voxel=0.5 + iter=12 + GT seed | tighter | 0.731 | 54.4 | 81.3 | 3.80 | 4.20 | Keep as active challenger |
+| voxel=2.0 + iter=12 + GT seed | midpoint | 1.117 | 86.8 | 82.7 | 3.80 | 4.20 | Adopt as current default |
+| voxel=1.0 + iter=20 + GT seed | more-iter | 1.096 | 56.0 | 65.6 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `tuned_voxel2_iter12_seeded` is the current default for this problem.
+2. `tuned_voxel2_iter12_seeded` is the fastest observed variant at 86.8 FPS.
+3. `tuned_voxel0_5_iter12_seeded` is the most accurate observed variant at 0.731 m ATE.
+
+### Variant Notes
+
+#### `tuned_voxel1_iter12_seeded`
+
+- Intent: Combine tightest known knobs with seed — does it dethrone fast+seed 0.998 m?
+- CLI args: `--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/summary.json --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter12_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `tuned_voxel0_5_iter12_seeded`
+
+- Intent: Push voxel finer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel0_5_iter12_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `tuned_voxel2_iter12_seeded`
+
+- Intent: Test voxel midpoint between fast default (auto) and tuned 1.0.
+- CLI args: `--litamin2-voxel-resolution 2.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/summary.json --litamin2-voxel-resolution 2.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel2_iter12_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `tuned_voxel1_iter20_seeded`
+
+- Intent: More iterations on fine voxel.
+- CLI args: `--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 20`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/summary.json --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 20`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_00_full_tuned_seeded_matrix/tuned_voxel1_iter20_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on KITTI seq 02 full (4661 frames, CT-ICP's worst seq)
+
+- **Problem ID**: `litamin2_kitti_seq_02_full_tuned_seeded`
+- **Question**: seq 00/07/08 all pick cluster T1. seq 02 is CT-ICP's worst seq (50.63 m best, own cluster C). Does LiTAMIN2 cluster T1 collapse seq 02 too, or does seq 02 break LiTAMIN2's universal-recipe streak?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_02_full_tuned_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 1.038 | 67.1 | 84.2 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.728 | 68.3 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 68.3 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.728 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline on seq 02.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Test cluster T1 on the long winding seq 02.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_tuned_seeded_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on KITTI seq 05 full (2761 frames, mid-length)
+
+- **Problem ID**: `litamin2_kitti_seq_05_full_tuned_seeded`
+- **Question**: seq 00/07/08 all pick cluster T1. seq 05 is mid-length where CT-ICP picked cluster B (cluster A + corr=4). Does LiTAMIN2 cluster T1 win on seq 05 too?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_05_full_tuned_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 0.957 | 17.2 | 89.2 | 5.00 | 5.00 | Adopt as current default |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.751 | 7.3 | 71.4 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_seeded_reference` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 17.2 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.751 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline on seq 05.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Test cluster T1 on seq 05.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_tuned_seeded_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) on KITTI seq 07 full
+
+- **Problem ID**: `litamin2_kitti_seq_07_full_tuned_seeded`
+- **Question**: seq 00 cluster T1 winner: 0.731 m / 0.92% RPE. CT-ICP on seq 07 wins with cluster D (ms_chol 1.61 m). Does LiTAMIN2 cluster T1 dethrone CT-ICP cluster D on seq 07?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_07_full_tuned_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 0.836 | 94.7 | 88.7 | 5.00 | 5.00 | Adopt as current default |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.647 | 58.3 | 80.8 | 3.80 | 4.20 | Keep as active challenger |
+
+### Observations
+
+1. `fast_seeded_reference` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 94.7 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.647 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 fast baseline on seq 07.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Apply seq 00 winner to seq 07.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_tuned_seeded_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on KITTI seq 08 full (long urban, seed-flip territory)
+
+- **Problem ID**: `litamin2_kitti_seq_08_full_tuned_seeded`
+- **Question**: seq 00/07 both pick cluster T1 (voxel=0.5 + iter=12 + seed). seq 08 is the second long urban-driving seq where CT-ICP +seed has the +369% RPE catastrophe. Does LiTAMIN2 cluster T1+seed avoid the same RPE explosion?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_08_full_tuned_seeded_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 1.130 | 104.9 | 80.8 | 5.00 | 5.00 | Adopt as current default |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.696 | 54.3 | 75.9 | 3.80 | 4.20 | Keep as active challenger |
+
+### Observations
+
+1. `fast_seeded_reference` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 104.9 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.696 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline on seq 08.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_tuned_seeded_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_tuned_seeded_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Confirm cluster T1 transfers to seq 08 long urban.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_tuned_seeded_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_tuned_seeded_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 cluster T1 on MCD KTH day_06 (108 frames)
+
+- **Problem ID**: `litamin2_mcd_kth_day_06_cluster_t1`
+- **Question**: MCD KTH baseline 6.115 m no-seed, CT-ICP cluster A + seed 2.40 m. Does LiTAMIN2 cluster T1 + seed dethrone?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_kth_day_06_108`
+- **Reference CSV**: `experiments/reference_data/mcd_kth_day_06_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mcd_kth_day_06_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.401 | 33.0 | 73.9 | 5.00 | 5.00 | Keep as active challenger |
+| cluster T1 + seed | transfer | 0.192 | 20.1 | 80.3 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 33.0 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.192 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_kth_day_06_108 experiments/reference_data/mcd_kth_day_06_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_kth_day_06_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `litamin2_profile_tradeoff_mcd_kth_day_06`
@@ -10345,15 +15947,15 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 0.401 | 64.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
-| Fast local-map + ICP-only | single-term simplification | 0.401 | 53.6 | 91.8 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + covariance | paper-oriented | 0.953 | 45.2 | 56.3 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 0.953 | 54.5 | 63.5 | 4.30 | 4.50 | Keep as reference variant |
+| Fast local-map + covariance | throughput-oriented | 0.401 | 89.4 | 89.6 | 5.00 | 5.00 | Keep as active challenger |
+| Fast local-map + ICP-only | single-term simplification | 0.401 | 91.6 | 90.5 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 0.953 | 113.0 | 71.1 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.953 | 89.1 | 60.5 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_cov_half_threads` is the current default for this problem.
-2. `fast_cov_half_threads` is the fastest observed variant at 64.2 FPS.
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `paper_cov_half_threads` is the fastest observed variant at 113.0 FPS.
 3. `fast_cov_half_threads` is the most accurate observed variant at 0.401 m ATE.
 
 ### Variant Notes
@@ -10403,6 +16005,54 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
 
 
+## LiTAMIN2 cluster T1 on MCD NTU day_02 (108 frames)
+
+- **Problem ID**: `litamin2_mcd_ntu_day_02_cluster_t1`
+- **Question**: MCD NTU baseline 0.325 m no-seed (CT-ICP dense, seed hurts). LiTAMIN2 needs seed though — cluster T1 + seed transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_ntu_day_02_108`
+- **Reference CSV**: `experiments/reference_data/mcd_ntu_day_02_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mcd_ntu_day_02_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.075 | 33.9 | 52.8 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.021 | 43.4 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 43.4 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.021 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_ntu_day_02_108 experiments/reference_data/mcd_ntu_day_02_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_ntu_day_02_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD NTU day-02 sequence
 
 - **Problem ID**: `litamin2_profile_tradeoff_mcd_ntu_day_02`
@@ -10417,15 +16067,15 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 0.075 | 99.5 | 77.4 | 5.00 | 5.00 | Keep as reference variant |
-| Fast local-map + ICP-only | single-term simplification | 0.075 | 100.6 | 77.9 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + covariance | paper-oriented | 0.045 | 102.8 | 98.7 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 0.045 | 105.6 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| Fast local-map + covariance | throughput-oriented | 0.075 | 72.9 | 75.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast local-map + ICP-only | single-term simplification | 0.075 | 79.4 | 79.2 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + covariance | paper-oriented | 0.045 | 73.2 | 95.0 | 4.65 | 4.75 | Keep as active challenger |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.045 | 81.2 | 100.0 | 4.30 | 4.50 | Adopt as current default |
 
 ### Observations
 
 1. `paper_icp_only_half_threads` is the current default for this problem.
-2. `paper_icp_only_half_threads` is the fastest observed variant at 105.6 FPS.
+2. `paper_icp_only_half_threads` is the fastest observed variant at 81.2 FPS.
 3. `paper_cov_half_threads` is the most accurate observed variant at 0.045 m ATE.
 
 ### Variant Notes
@@ -10475,6 +16125,54 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
 
 
+## LiTAMIN2 cluster T1 on MCD TUHH night_09 (108 frames)
+
+- **Problem ID**: `litamin2_mcd_tuhh_night_09_cluster_t1`
+- **Question**: MCD TUHH baseline 1.65 m no-seed, CT-ICP cluster A + seed 0.83 m. LiTAMIN2 cluster T1 + seed transfer test.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mcd_tuhh_night_09_108`
+- **Reference CSV**: `experiments/reference_data/mcd_tuhh_night_09_108_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mcd_tuhh_night_09_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.194 | 39.3 | 84.0 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.132 | 39.5 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 39.5 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.132 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mcd_tuhh_night_09_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## LiTAMIN2 throughput and accuracy trade-off on the MCD TUHH night-09 sequence
 
 - **Problem ID**: `litamin2_profile_tradeoff_mcd_tuhh_night_09`
@@ -10489,15 +16187,15 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 0.194 | 106.5 | 100.0 | 5.00 | 5.00 | Adopt as current default |
-| Fast local-map + ICP-only | single-term simplification | 0.194 | 105.8 | 99.7 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + covariance | paper-oriented | 0.291 | 97.9 | 79.2 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 0.291 | 106.4 | 83.2 | 4.30 | 4.50 | Keep as reference variant |
+| Fast local-map + covariance | throughput-oriented | 0.194 | 81.8 | 83.8 | 5.00 | 5.00 | Keep as reference variant |
+| Fast local-map + ICP-only | single-term simplification | 0.194 | 107.2 | 94.2 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 0.291 | 121.2 | 83.3 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.291 | 57.5 | 57.0 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_cov_half_threads` is the current default for this problem.
-2. `fast_cov_half_threads` is the fastest observed variant at 106.5 FPS.
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `paper_cov_half_threads` is the fastest observed variant at 121.2 FPS.
 3. `fast_cov_half_threads` is the most accurate observed variant at 0.194 m ATE.
 
 ### Variant Notes
@@ -10542,6 +16240,246 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/mcd_tuhh_night_09_108 experiments/reference_data/mcd_tuhh_night_09_108_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mcd_tuhh_night_09_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
 - Summary: `experiments/results/runs/litamin2_mcd_tuhh_night_09_matrix/paper_icp_only_half_threads/summary.json`
 - Log: `experiments/results/runs/litamin2_mcd_tuhh_night_09_matrix/paper_icp_only_half_threads/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 cluster T1 on MulRan parkinglot 120-frame
+
+- **Problem ID**: `litamin2_mulran_parkinglot_120_cluster_t1`
+- **Question**: Cluster T1 wins parkinglot full at 0.303 m. Does it also win 120-frame variant where CT-ICP cluster A+seed got 2.55 m?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mulran_parkinglot_120_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 0.498 | 39.0 | 71.3 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.212 | 30.6 | 89.2 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 39.0 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.212 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer cluster T1.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window)
+
+- **Problem ID**: `litamin2_profile_tradeoff_mulran_parkinglot_120`
+- **Question**: Which LiTAMIN2 profile should stay as the default on a MulRan Ouster window after data prep?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_120`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mulran_parkinglot_120_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast local-map + covariance | throughput-oriented | 0.498 | 90.2 | 87.3 | 5.00 | 5.00 | Adopt as current default |
+| Fast local-map + ICP-only | single-term simplification | 0.498 | 64.4 | 76.6 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + covariance | paper-oriented | 0.730 | 97.5 | 74.4 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 0.730 | 121.0 | 84.1 | 4.30 | 4.50 | Keep as active challenger |
+
+### Observations
+
+1. `fast_cov_half_threads` is the current default for this problem.
+2. `paper_icp_only_half_threads` is the fastest observed variant at 121.0 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 0.498 m ATE.
+
+### Variant Notes
+
+#### `fast_cov_half_threads`
+
+- Intent: Repository default local-map profile with covariance cost.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_cov_half_threads/summary.json`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_cov_half_threads/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_icp_only_half_threads`
+
+- Intent: Disable covariance-shape term.
+- CLI args: `--litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/fast_icp_only_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+#### `paper_cov_half_threads`
+
+- Intent: Paper-like 3m local map.
+- CLI args: `--litamin2-paper-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_cov_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `paper_icp_only_half_threads`
+
+- Intent: Paper profile without covariance cost.
+- CLI args: `--litamin2-paper-profile --litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_120 experiments/reference_data/mulran_parkinglot_120_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_120_matrix/paper_icp_only_half_threads/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+
+## LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory)
+
+- **Problem ID**: `litamin2_mulran_parkinglot_full_cluster_t1`
+- **Question**: LiTAMIN2 cluster T1 (voxel=0.5 + iter=12 + seed) is universal on KITTI Odom 5/5. CT-ICP cluster A + seed wins MulRan parkinglot full at 9.19 m. Does LiTAMIN2 T1 dethrone it?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed (baseline) | reference | 0.711 | 33.1 | 69.3 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1: voxel=0.5 + iter=12 + seed | transfer | 0.303 | 34.4 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `cluster_t1_seeded` is the current default for this problem.
+2. `cluster_t1_seeded` is the fastest observed variant at 34.4 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.303 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: LiTAMIN2 baseline on parkinglot full.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `cluster_t1_seeded`
+
+- Intent: Transfer KITTI Odom universal recipe to MulRan parkinglot.
+- CLI args: `--litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/cluster_t1_seeded/summary.json --litamin2-voxel-resolution 0.5 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/cluster_t1_seeded/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_cluster_t1_matrix/cluster_t1_seeded/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence)
+
+- **Problem ID**: `litamin2_profile_tradeoff_mulran_parkinglot_full`
+- **Question**: Which LiTAMIN2 profile should stay as the default on a full MulRan Ouster sequence?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/mulran_parkinglot_full`
+- **Reference CSV**: `experiments/reference_data/mulran_parkinglot_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_mulran_parkinglot_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast local-map + covariance | throughput-oriented | 0.711 | 44.1 | 68.6 | 5.00 | 5.00 | Keep as reference variant |
+| Fast local-map + ICP-only | single-term simplification | 0.711 | 118.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 1.151 | 112.5 | 78.3 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 1.151 | 70.1 | 60.4 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `fast_icp_only_half_threads` is the fastest observed variant at 118.6 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 0.711 m ATE.
+
+### Variant Notes
+
+#### `fast_cov_half_threads`
+
+- Intent: Repository default local-map profile with covariance cost.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/summary.json`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_cov_half_threads/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_icp_only_half_threads`
+
+- Intent: Disable covariance-shape term.
+- CLI args: `--litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/summary.json --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/fast_icp_only_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+
+#### `paper_cov_half_threads`
+
+- Intent: Paper-like 3m local map.
+- CLI args: `--litamin2-paper-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/summary.json --litamin2-paper-profile`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_cov_half_threads/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `paper_icp_only_half_threads`
+
+- Intent: Paper profile without covariance cost.
+- CLI args: `--litamin2-paper-profile --litamin2-icp-only`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/mulran_parkinglot_full experiments/reference_data/mulran_parkinglot_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/summary.json --litamin2-paper-profile --litamin2-icp-only`
+- Summary: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/summary.json`
+- Log: `experiments/results/runs/litamin2_mulran_parkinglot_full_matrix/paper_icp_only_half_threads/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
@@ -11159,6 +17097,94 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: LOAM adapted for Livox LiDAR (no GT seed; anchor matches first GT pose).
 
 
+## LVI-SAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `lvi_sam_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `lvi_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lvi_sam_kitti_raw_0009_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_full_matrix/dense/run.log` |
+
+## LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `lvi_sam_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `lvi_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lvi_sam_kitti_raw_0009_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0009_matrix/dense/run.log` |
+
+## LVI-SAM trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `lvi_sam_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `lvi_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lvi_sam_kitti_raw_0061_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_full_matrix/dense/run.log` |
+
+## LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `lvi_sam_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which LVI-SAM profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `lvi_sam`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lvi_sam_kitti_raw_0061_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/lvi_sam_kitti_raw_0061_matrix/dense/run.log` |
+
 ## MULLS throughput and accuracy trade-off on the public HDL-400 reference window
 
 - **Problem ID**: `mulls_profile_tradeoff_hdl_400_reference`
@@ -11514,6 +17540,66 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_raw_0061_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
 - Summary: `experiments/results/runs/mulls_kitti_raw_0061_matrix/dense/summary.json`
 - Log: `experiments/results/runs/mulls_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
+## MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `mulls_kitti_seq_07_full_sweep`
+- **Question**: Which MULLS profile family is strongest on KITTI Odom seq 07 full?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| KITTI default | balanced | 8.459 | 1.4 | 66.1 | 4.65 | 4.75 | Keep as reference variant |
+| Fast | throughput-oriented | 10.501 | 4.1 | 89.5 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 8.288 | 1.3 | 65.3 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 4.1 FPS.
+3. `dense` is the most accurate observed variant at 8.288 m ATE.
+
+### Variant Notes
+
+#### `kitti_default`
+
+- Intent: A-LOAM-style features + multi-metric scan-to-map (line/plane/point) baseline for HDL-64E.
+- CLI args: `--mulls-kitti-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json --mulls-kitti-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/kitti_default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+#### `fast`
+
+- Intent: Coarser voxels, lighter Ceres, shorter submap window, sparser point metric.
+- CLI args: `--mulls-kitti-profile --mulls-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+#### `dense`
+
+- Intent: Finer map voxels, more knn, deeper Ceres, longer history.
+- CLI args: `--mulls-kitti-profile --mulls-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
@@ -12239,6 +18325,282 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## NDT T1 transfer on KITTI Odom seq 00 full (4542 frames)
+
+- **Problem ID**: `ndt_kitti_seq_00_full_sweep`
+- **Question**: NDT seq 07 で T1 transfer が 0.076 m (8.5× LiTAMIN2 T1)。long-traj でも保持されるか?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_00_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 0.252 | 24.9 | 37.7 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 0.247 | 37.5 | 54.6 | 4.65 | 4.75 | Keep as reference variant |
+| dense | accuracy | 0.259 | 17.4 | 27.5 | 4.65 | 4.75 | Keep as reference variant |
+| T1 (res=0.5+i12) | transfer | 0.071 | 10.2 | 29.6 | 3.80 | 4.20 | Keep as reference variant |
+| T1 (res=0.3+i12) | transfer | 0.023 | 11.7 | 65.5 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `t1_transfer_r03_i12` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 37.5 FPS.
+3. `t1_transfer_r03_i12` is the most accurate observed variant at 0.023 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--ndt-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json --ndt-fast-profile`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--ndt-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json --ndt-dense-profile`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_r05_i12`
+
+- Intent: LiTAMIN2 T1 recipe.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_r03_i12`
+
+- Intent: Finer voxel.
+- CLI args: `--ndt-resolution 0.3 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r03_i12/summary.json --ndt-resolution 0.3 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r03_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_00_full_sweep_matrix/t1_transfer_r03_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## NDT T1 confirmation on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `ndt_kitti_seq_02_full_t1_confirmation`
+- **Question**: Does the NDT T1 transfer recipe stay sub-10cm on long seq 02?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_02_full_t1_confirmation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| T1 transfer (res=0.5 + iter=12) | transfer | 0.059 | 0.2 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `t1_transfer_r05_i12` is the current default for this problem.
+2. `t1_transfer_r05_i12` is the fastest observed variant at 0.2 FPS.
+3. `t1_transfer_r05_i12` is the most accurate observed variant at 0.059 m ATE.
+
+### Variant Notes
+
+#### `t1_transfer_r05_i12`
+
+- Intent: Confirm the NDT T1 recipe on this full KITTI Odometry sequence.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_02_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_02_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_02_full_t1_confirmation_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## NDT T1 confirmation on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `ndt_kitti_seq_05_full_t1_confirmation`
+- **Question**: Does the NDT T1 transfer recipe stay sub-10cm on mid-length seq 05?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_05_full_t1_confirmation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| T1 transfer (res=0.5 + iter=12) | transfer | 0.059 | 0.2 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `t1_transfer_r05_i12` is the current default for this problem.
+2. `t1_transfer_r05_i12` is the fastest observed variant at 0.2 FPS.
+3. `t1_transfer_r05_i12` is the most accurate observed variant at 0.059 m ATE.
+
+### Variant Notes
+
+#### `t1_transfer_r05_i12`
+
+- Intent: Confirm the NDT T1 recipe on this full KITTI Odometry sequence.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_05_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_05_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_05_full_t1_confirmation_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## NDT cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `ndt_kitti_seq_07_full_sweep`
+- **Question**: Does NDT recipe space follow voxel_gicp dense or LiTAMIN2 T1 (voxel=0.5 + iter=12) pattern?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 0.262 | 24.8 | 43.0 | 5.00 | 5.00 | Keep as reference variant |
+| fast profile | throughput | 0.279 | 43.6 | 63.6 | 4.65 | 4.75 | Adopt as current default |
+| dense profile | accuracy | 0.281 | 15.9 | 31.9 | 4.65 | 4.75 | Keep as reference variant |
+| T1 transfer (res=0.5 + iter=12) | transfer | 0.076 | 10.4 | 61.9 | 3.80 | 4.20 | Keep as active challenger |
+| T1 variant (res=1.0 + iter=12) | transfer | 0.269 | 10.7 | 26.4 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 43.6 FPS.
+3. `t1_transfer_r05_i12` is the most accurate observed variant at 0.076 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast profile.
+- CLI args: `--ndt-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json --ndt-fast-profile`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense profile.
+- CLI args: `--ndt-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json --ndt-dense-profile`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_r05_i12`
+
+- Intent: LiTAMIN2 T1 recipe transfer.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_r10_i12`
+
+- Intent: NDT typical resolution.
+- CLI args: `--ndt-resolution 1.0 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/summary.json --ndt-resolution 1.0 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_07_full_sweep_matrix/t1_transfer_r10_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## NDT T1 confirmation on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `ndt_kitti_seq_08_full_t1_confirmation`
+- **Question**: Does the NDT T1 transfer recipe stay sub-10cm on long seq 08?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `ndt`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/ndt_kitti_seq_08_full_t1_confirmation_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| T1 transfer (res=0.5 + iter=12) | transfer | 0.076 | 0.3 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+
+### Observations
+
+1. `t1_transfer_r05_i12` is the current default for this problem.
+2. `t1_transfer_r05_i12` is the fastest observed variant at 0.3 FPS.
+3. `t1_transfer_r05_i12` is the most accurate observed variant at 0.076 m ATE.
+
+### Variant Notes
+
+#### `t1_transfer_r05_i12`
+
+- Intent: Confirm the NDT T1 recipe on this full KITTI Odometry sequence.
+- CLI args: `--ndt-resolution 0.5 --ndt-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12`
+- Summary: `experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json`
+- Log: `experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## NDT throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `ndt_profile_tradeoff_mcd_kth_day_06`
@@ -12479,65 +18841,333 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
-## Point-LIO on the second public HDL-400 reference window
+## OKVIS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
-- **Problem ID**: `point_lio_hdl_400_reference_b`
-- **Question**: How does Point-LIO perform on the second public HDL-400 reference window?
+- **Problem ID**: `okvis_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which OKVIS profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
 - **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `point_lio`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `okvis`
 - **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/point_lio_hdl_400_reference_b_matrix.json`
+- **Aggregate result**: `experiments/results/okvis_kitti_raw_0009_full_matrix.json`
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (no IMU) | balanced | 304.043 | 36.4 | 40.5 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 85.421 | 68.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 286.804 | 16.8 | 27.1 | 4.65 | 4.75 | Keep as reference variant |
+| Default | balanced | 108.630 | 467.0 | 70.4 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 108.629 | 1146.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 108.634 | 227.8 | 59.9 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 68.8 FPS.
-3. `fast` is the most accurate observed variant at 85.421 m ATE.
+2. `fast` is the fastest observed variant at 1146.6 FPS.
+3. `fast` is the most accurate observed variant at 108.629 m ATE.
 
 ### Variant Notes
 
 #### `default`
 
-- Intent: LiDAR-only mode; no IMU data available in KITTI Raw fixtures.
+- Intent: Keep the current OKVIS defaults as the multimodal baseline.
 - CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_b_matrix/default/summary.json`
-- Summary: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/default/summary.json`
-- Log: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/default/run.log`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
 
 #### `fast`
 
-- Intent: Use coarser registration and a smaller local map to speed up point-level Kalman updates; remains LiDAR-only when imu.csv is absent.
-- CLI args: `--point-lio-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_b_matrix/fast/summary.json --point-lio-fast-profile`
-- Summary: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/fast/run.log`
+- Intent: Trim keyframe retention and optimization work for higher FPS.
+- CLI args: `--okvis-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-fast-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/fast/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
 
 #### `dense`
 
-- Intent: Use finer registration and a larger local map with more correspondences; remains LiDAR-only when imu.csv is absent.
-- CLI args: `--point-lio-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods point_lio --summary-json experiments/results/runs/point_lio_hdl_400_reference_b_matrix/dense/summary.json --point-lio-dense-profile`
-- Summary: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/point_lio_hdl_400_reference_b_matrix/dense/run.log`
+- Intent: Spend more optimization work to preserve more visual constraints.
+- CLI args: `--okvis-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-dense-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_full_matrix/dense/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
 
+
+## OKVIS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `okvis_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which OKVIS profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `okvis`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/okvis_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 31.407 | 215.1 | 70.5 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 31.400 | 524.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 31.418 | 96.8 | 59.2 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 524.0 FPS.
+3. `fast` is the most accurate observed variant at 31.400 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current OKVIS defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `fast`
+
+- Intent: Trim keyframe retention and optimization work for higher FPS.
+- CLI args: `--okvis-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-fast-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_matrix/fast/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `dense`
+
+- Intent: Spend more optimization work to preserve more visual constraints.
+- CLI args: `--okvis-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0009_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-dense-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0009_matrix/dense/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0009_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+
+## OKVIS trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `okvis_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which OKVIS profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `okvis`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/okvis_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 218.647 | 692.6 | 66.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 225.666 | 1717.1 | 94.7 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 201.724 | 269.2 | 57.8 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 1717.1 FPS.
+3. `dense` is the most accurate observed variant at 201.724 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current OKVIS defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `fast`
+
+- Intent: Trim keyframe retention and optimization work for higher FPS.
+- CLI args: `--okvis-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-fast-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `dense`
+
+- Intent: Spend more optimization work to preserve more visual constraints.
+- CLI args: `--okvis-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-dense-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+
+## OKVIS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `okvis_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which OKVIS profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `okvis`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/okvis_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 28.469 | 533.0 | 78.8 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 29.001 | 894.7 | 98.1 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 27.889 | 269.2 | 65.0 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 894.7 FPS.
+3. `dense` is the most accurate observed variant at 27.889 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current OKVIS defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `fast`
+
+- Intent: Trim keyframe retention and optimization work for higher FPS.
+- CLI args: `--okvis-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-fast-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_matrix/fast/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+#### `dense`
+
+- Intent: Spend more optimization work to preserve more visual constraints.
+- CLI args: `--okvis-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods okvis --summary-json experiments/results/runs/okvis_kitti_raw_0061_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --okvis-dense-profile`
+- Summary: `experiments/results/runs/okvis_kitti_raw_0061_matrix/dense/summary.json`
+- Log: `experiments/results/runs/okvis_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact fixed-window visual-inertial odometry with landmark reprojection and IMU priors.
+
+
+## ORB-SLAM3 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
+
+- **Problem ID**: `orb_slam3_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which ORB-SLAM3 profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `orb_slam3`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/orb_slam3_kitti_raw_0009_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_full_matrix/dense/run.log` |
+
+## ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `orb_slam3_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which ORB-SLAM3 profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `orb_slam3`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/orb_slam3_kitti_raw_0009_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0009_matrix/dense/run.log` |
+
+## ORB-SLAM3 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `orb_slam3_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which ORB-SLAM3 profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `orb_slam3`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/orb_slam3_kitti_raw_0061_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_full_matrix/dense/run.log` |
+
+## ORB-SLAM3 throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `orb_slam3_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which ORB-SLAM3 profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `orb_slam3`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/orb_slam3_kitti_raw_0061_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/orb_slam3_kitti_raw_0061_matrix/dense/run.log` |
 
 ## Point-LIO on the public HDL-400 reference window
 
@@ -13079,65 +19709,93 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Point-level LiDAR-inertial odometry with error-state iterated Kalman filter (no GT seed; anchor matches first GT pose).
 
 
-## Small-GICP throughput and accuracy trade-off on the second public HDL-400 reference window
+## R2LIVE trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
-- **Problem ID**: `small_gicp_profile_tradeoff_hdl_400_reference_b`
-- **Question**: Which Small-GICP profile should stay as the current default on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `small_gicp`
+- **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which R2LIVE profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `r2live`
 - **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/small_gicp_hdl_400_reference_b_matrix.json`
+- **Aggregate result**: `experiments/results/r2live_kitti_raw_0009_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 0.437 | 62.9 | 44.5 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 0.226 | 117.5 | 84.3 | 4.65 | 4.75 | Adopt as current default |
-| Dense recent map | accuracy-oriented | 0.155 | 49.5 | 71.1 | 4.65 | 4.75 | Keep as reference variant |
+### Attempted Variants
 
-### Observations
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_full_matrix/dense/run.log` |
 
-1. `fast_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 117.5 FPS.
-3. `dense_recent_map` is the most accurate observed variant at 0.155 m ATE.
+## R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
 
-### Variant Notes
+- **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which R2LIVE profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `r2live`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/r2live_kitti_raw_0009_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 
-#### `balanced_local_map`
+### Attempted Variants
 
-- Intent: Default.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/balanced_local_map/summary.json`
-- Summary: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/balanced_local_map/summary.json`
-- Log: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/balanced_local_map/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0009_matrix/dense/run.log` |
 
-#### `fast_recent_map`
+## R2LIVE trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
 
-- Intent: Fast.
-- CLI args: `--small-gicp-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/fast_recent_map/summary.json --small-gicp-fast-profile`
-- Summary: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/fast_recent_map/summary.json`
-- Log: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/fast_recent_map/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which R2LIVE profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `r2live`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/r2live_kitti_raw_0061_full_matrix.json`
+- **Blocker**: Timed out after 300 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 
-#### `dense_recent_map`
+### Attempted Variants
 
-- Intent: Dense.
-- CLI args: `--small-gicp-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/dense_recent_map/summary.json --small-gicp-dense-profile`
-- Summary: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/dense_recent_map/summary.json`
-- Log: `experiments/results/runs/small_gicp_hdl_400_reference_b_matrix/dense_recent_map/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 300 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_full_matrix/dense/run.log` |
 
+## R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `r2live_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which R2LIVE profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `skipped`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `r2live`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/r2live_kitti_raw_0061_matrix.json`
+- **Blocker**: Timed out after 120 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
+
+### Attempted Variants
+
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| Default | balanced | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 120 seconds. | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/summary.json` | `experiments/results/runs/r2live_kitti_raw_0061_matrix/dense/run.log` |
 
 ## Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window
 
@@ -13499,6 +20157,450 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## Small-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames)
+
+- **Problem ID**: `small_gicp_kitti_seq_00_full_no_seed`
+- **Question**: Does small_gicp fast_profile maintain sub-meter ATE without GT seed?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/small_gicp_kitti_seq_00_full_no_seed_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| fast + seed | reference | 0.890 | 63.3 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| fast no-seed | deployment-robust | 202.722 | 62.2 | 49.3 | 4.30 | 4.50 | Keep as reference variant |
+| balanced no-seed | deployment-robust | 584.185 | 46.3 | 36.6 | 4.65 | 4.75 | Keep as reference variant |
+| dense no-seed | deployment-robust | 141.664 | 42.6 | 33.9 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast_seeded_reference` is the current default for this problem.
+2. `fast_seeded_reference` is the fastest observed variant at 63.3 FPS.
+3. `fast_seeded_reference` is the most accurate observed variant at 0.890 m ATE.
+
+### Variant Notes
+
+#### `fast_seeded_reference`
+
+- Intent: Default with GT seed (winner from prior sweep).
+- CLI args: `--small-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_seeded_reference/summary.json --small-gicp-fast-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_seeded_reference/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_seeded_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_no_seed`
+
+- Intent: No-seed deployment realism check.
+- CLI args: `--small-gicp-fast-profile --no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_no_seed/summary.json --small-gicp-fast-profile --no-gt-seed`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_no_seed/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/fast_no_seed/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `balanced_no_seed`
+
+- Intent: Compare default profile under no-seed.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `dense_no_seed`
+
+- Intent: Compare dense under no-seed.
+- CLI args: `--small-gicp-dense-profile --no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/summary.json --small-gicp-dense-profile --no-gt-seed`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## Small-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames)
+
+- **Problem ID**: `small_gicp_kitti_seq_00_full_sweep`
+- **Question**: Long-trajectory probe for Small-GICP recipe family on KITTI Odom seq 00.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/small_gicp_kitti_seq_00_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 1.093 | 65.2 | 71.4 | 5.00 | 5.00 | Keep as reference variant |
+| fast profile | throughput | 0.890 | 106.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| dense profile | accuracy | 1.077 | 51.8 | 65.7 | 4.65 | 4.75 | Keep as reference variant |
+| T1 transfer (voxel=0.5 + iter=12) | transfer | 1.091 | 39.7 | 59.5 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 106.4 FPS.
+3. `fast_profile` is the most accurate observed variant at 0.890 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast profile.
+- CLI args: `--small-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json --small-gicp-fast-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense profile.
+- CLI args: `--small-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json --small-gicp-dense-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1 recipe transfer.
+- CLI args: `--small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/summary.json --small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Small-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `small_gicp_kitti_seq_02_full_sweep`
+- **Question**: Is fast_profile the universal ATE winner on 4/4 seqs?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/small_gicp_kitti_seq_02_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 1.152 | 57.0 | 69.0 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 0.909 | 96.5 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| dense | accuracy | 1.117 | 41.7 | 62.3 | 4.65 | 4.75 | Keep as reference variant |
+| T1 v0.5+i12 | transfer | 1.080 | 33.8 | 59.6 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 96.5 FPS.
+3. `fast_profile` is the most accurate observed variant at 0.909 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--small-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/fast_profile/summary.json --small-gicp-fast-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--small-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/dense_profile/summary.json --small-gicp-dense-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/summary.json --small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Small-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `small_gicp_kitti_seq_05_full_sweep`
+- **Question**: Is fast_profile still the universal ATE winner on seq 05?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/small_gicp_kitti_seq_05_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 1.104 | 64.0 | 75.2 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 0.984 | 104.5 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| dense | accuracy | 1.126 | 52.1 | 68.6 | 4.65 | 4.75 | Keep as reference variant |
+| T1 v0.5+i12 | transfer | 1.138 | 49.6 | 66.9 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 104.5 FPS.
+3. `fast_profile` is the most accurate observed variant at 0.984 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--small-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/fast_profile/summary.json --small-gicp-fast-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--small-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/dense_profile/summary.json --small-gicp-dense-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/summary.json --small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Small-GICP cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `small_gicp_kitti_seq_07_full_sweep`
+- **Question**: Does LiTAMIN2 T1 (voxel=0.5 + iter=12) recipe pattern transfer to Small-GICP on KITTI Odom?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/small_gicp_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 0.981 | 50.9 | 58.4 | 5.00 | 5.00 | Keep as reference variant |
+| fast profile | throughput | 0.682 | 107.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| dense profile | accuracy | 1.025 | 51.8 | 57.3 | 4.65 | 4.75 | Keep as reference variant |
+| T1 transfer (voxel=0.5 + iter=12) | transfer | 0.922 | 49.8 | 60.1 | 3.80 | 4.20 | Keep as reference variant |
+| T1 transfer (voxel=0.3 + iter=12) | transfer | 0.925 | 38.7 | 54.8 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 107.7 FPS.
+3. `fast_profile` is the most accurate observed variant at 0.682 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast profile.
+- CLI args: `--small-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json --small-gicp-fast-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense profile.
+- CLI args: `--small-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json --small-gicp-dense-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1 recipe transfer.
+- CLI args: `--small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/summary.json --small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v03_i12`
+
+- Intent: Finer voxel variant.
+- CLI args: `--small-gicp-voxel-resolution 0.3 --small-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/summary.json --small-gicp-voxel-resolution 0.3 --small-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Small-GICP cluster discovery on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `small_gicp_kitti_seq_08_full_sweep`
+- **Question**: Is fast_profile the universal ATE winner on 4/4 seqs?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `small_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/small_gicp_kitti_seq_08_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 1.167 | 46.6 | 68.0 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 0.858 | 74.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| dense | accuracy | 1.135 | 36.0 | 62.0 | 4.65 | 4.75 | Keep as reference variant |
+| T1 v0.5+i12 | transfer | 1.173 | 29.1 | 56.0 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `fast_profile` is the current default for this problem.
+2. `fast_profile` is the fastest observed variant at 74.6 FPS.
+3. `fast_profile` is the most accurate observed variant at 0.858 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--small-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/summary.json --small-gicp-fast-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--small-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/summary.json --small-gicp-dense-profile`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods small_gicp --summary-json experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/summary.json --small-gicp-voxel-resolution 0.5 --small-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/small_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `small_gicp_profile_tradeoff_mcd_kth_day_06`
@@ -13677,66 +20779,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
-
-
-## SuMa on the second public HDL-400 reference window
-
-- **Problem ID**: `suma_hdl_400_reference_b`
-- **Question**: How does SuMa perform on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `suma`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/suma_hdl_400_reference_b_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 0.614 | 79.7 | 37.1 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 1.512 | 174.4 | 55.8 | 4.65 | 4.75 | Keep as active challenger |
-| Dense | accuracy-oriented | 0.175 | 30.5 | 58.7 | 4.65 | 4.75 | Adopt as current default |
-
-### Observations
-
-1. `dense` is the current default for this problem.
-2. `fast` is the fastest observed variant at 174.4 FPS.
-3. `dense` is the most accurate observed variant at 0.175 m ATE.
-
-### Variant Notes
-
-#### `default`
-
-- Intent: Repository default hyperparameters.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods suma --summary-json experiments/results/runs/suma_hdl_400_reference_b_matrix/default/summary.json`
-- Summary: `experiments/results/runs/suma_hdl_400_reference_b_matrix/default/summary.json`
-- Log: `experiments/results/runs/suma_hdl_400_reference_b_matrix/default/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
-
-#### `fast`
-
-- Intent: Use coarser surfels and a shorter history window for faster dense mapping.
-- CLI args: `--suma-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods suma --summary-json experiments/results/runs/suma_hdl_400_reference_b_matrix/fast/summary.json --suma-fast-profile`
-- Summary: `experiments/results/runs/suma_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/suma_hdl_400_reference_b_matrix/fast/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
-
-#### `dense`
-
-- Intent: Use finer surfels and a longer history window for a denser dense-mapping solve.
-- CLI args: `--suma-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods suma --summary-json experiments/results/runs/suma_hdl_400_reference_b_matrix/dense/summary.json --suma-dense-profile`
-- Summary: `experiments/results/runs/suma_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/suma_hdl_400_reference_b_matrix/dense/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
 
 
 ## SuMa on the public HDL-400 reference window
@@ -14819,64 +21861,244 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Voxel-GICP odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
 
 
-## Voxel-GICP throughput and accuracy trade-off on the second public HDL-400 reference window
+## VINS-Fusion trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
 
-- **Problem ID**: `voxel_gicp_profile_tradeoff_hdl_400_reference_b`
-- **Question**: Which Voxel-GICP profile should stay as the current default on the second public HDL-400 reference window?
+- **Problem ID**: `vins_fusion_profile_tradeoff_kitti_raw_0009_full`
+- **Question**: Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0009 full sequence (443 frames, urban)?
 - **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `voxel_gicp`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `vins_fusion`
 - **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/voxel_gicp_hdl_400_reference_b_matrix.json`
+- **Aggregate result**: `experiments/results/vins_fusion_kitti_raw_0009_full_matrix.json`
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 1.120 | 17.3 | 24.9 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 0.940 | 52.9 | 40.5 | 4.65 | 4.75 | Keep as reference variant |
-| Dense recent map | accuracy-oriented | 0.427 | 148.5 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Default | balanced | 50.522 | 6.2 | 53.0 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 136.572 | 93.7 | 68.4 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 50.238 | 4.4 | 52.4 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `dense_recent_map` is the current default for this problem.
-2. `dense_recent_map` is the fastest observed variant at 148.5 FPS.
-3. `dense_recent_map` is the most accurate observed variant at 0.427 m ATE.
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 93.7 FPS.
+3. `dense` is the most accurate observed variant at 50.238 m ATE.
 
 ### Variant Notes
 
-#### `balanced_local_map`
+#### `default`
 
-- Intent: Repository default hyperparameters.
+- Intent: Keep the current VINS-Fusion defaults as the multimodal baseline.
 - CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/balanced_local_map/summary.json`
-- Summary: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/balanced_local_map/summary.json`
-- Log: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/balanced_local_map/run.log`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
 
-#### `fast_recent_map`
+#### `fast`
 
-- Intent: Coarser voxels and lighter iterations.
-- CLI args: `--voxel-gicp-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/fast_recent_map/summary.json --voxel-gicp-fast-profile`
-- Summary: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/fast_recent_map/summary.json`
-- Log: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/fast_recent_map/run.log`
+- Intent: Reduce visual observation pressure and backend work for higher FPS.
+- CLI args: `--vins-fusion-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-fast-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/fast/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
 
-#### `dense_recent_map`
+#### `dense`
 
-- Intent: Finer voxels and deeper alignment.
-- CLI args: `--voxel-gicp-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/dense_recent_map/summary.json --voxel-gicp-dense-profile`
-- Summary: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/dense_recent_map/summary.json`
-- Log: `experiments/results/runs/voxel_gicp_hdl_400_reference_b_matrix/dense_recent_map/run.log`
+- Intent: Keep more visual constraints active to protect drift at lower speed.
+- CLI args: `--vins-fusion-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-dense-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_full_matrix/dense/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+
+## VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
+
+- **Problem ID**: `vins_fusion_profile_tradeoff_kitti_raw_0009`
+- **Question**: Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `vins_fusion`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vins_fusion_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 31.407 | 4.8 | 52.9 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 85.802 | 83.5 | 68.3 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 31.418 | 3.5 | 52.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 83.5 FPS.
+3. `default` is the most accurate observed variant at 31.407 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current VINS-Fusion defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/default/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `fast`
+
+- Intent: Reduce visual observation pressure and backend work for higher FPS.
+- CLI args: `--vins-fusion-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-fast-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/fast/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `dense`
+
+- Intent: Keep more visual constraints active to protect drift at lower speed.
+- CLI args: `--vins-fusion-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0009_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0009_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-dense-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/dense/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0009_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+
+## VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
+
+- **Problem ID**: `vins_fusion_profile_tradeoff_kitti_raw_0061_full`
+- **Question**: Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0061 full sequence (703 frames, residential)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_full_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `vins_fusion`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vins_fusion_kitti_raw_0061_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 197.043 | 16.1 | 28.2 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 257.641 | 236.7 | 68.9 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 97.611 | 13.5 | 52.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 236.7 FPS.
+3. `dense` is the most accurate observed variant at 97.611 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current VINS-Fusion defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `fast`
+
+- Intent: Reduce visual observation pressure and backend work for higher FPS.
+- CLI args: `--vins-fusion-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-fast-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/fast/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `dense`
+
+- Intent: Keep more visual constraints active to protect drift at lower speed.
+- CLI args: `--vins-fusion-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_full experiments/reference_data/kitti_raw_0061_full_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_full/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_full/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-dense-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/dense/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_full_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+
+## VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential)
+
+- **Problem ID**: `vins_fusion_profile_tradeoff_kitti_raw_0061`
+- **Question**: Which VINS-Fusion profile should stay as the current default on KITTI Raw drive 0061 (200 frames)?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0061_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0061_200_gt.csv`
+- **Stable binary**: `build/evaluation/multimodal_dogfooding`
+- **Shared method selector**: `vins_fusion`
+- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/vins_fusion_kitti_raw_0061_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 27.864 | 17.6 | 53.4 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 61.904 | 255.5 | 72.5 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 27.811 | 11.7 | 52.3 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 255.5 FPS.
+3. `dense` is the most accurate observed variant at 27.811 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Keep the current VINS-Fusion defaults as the multimodal baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/default/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/default/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `fast`
+
+- Intent: Reduce visual observation pressure and backend work for higher FPS.
+- CLI args: `--vins-fusion-fast-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/fast/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-fast-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/fast/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/fast/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
+
+#### `dense`
+
+- Intent: Keep more visual constraints active to protect drift at lower speed.
+- CLI args: `--vins-fusion-dense-profile`
+- Command: `build/evaluation/multimodal_dogfooding dogfooding_results/kitti_raw_0061_200 experiments/reference_data/kitti_raw_0061_200_gt.csv --methods vins_fusion --summary-json experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/dense/summary.json --landmarks-csv dogfooding_results/kitti_raw_0061_200/landmarks.csv --visual-observations-csv dogfooding_results/kitti_raw_0061_200/visual_observations.csv --camera-fx 721.5377 --camera-fy 721.5377 --camera-cx 609.5593 --camera-cy 172.8540 --camera-width 1241 --camera-height 376 --vins-fusion-dense-profile`
+- Summary: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/dense/summary.json`
+- Log: `experiments/results/runs/vins_fusion_kitti_raw_0061_matrix/dense/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Compact visual-inertial odometry with landmark reprojection and IMU preintegration.
 
 
 ## Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window
@@ -15239,6 +22461,438 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
 
 
+## Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames)
+
+- **Problem ID**: `voxel_gicp_kitti_seq_00_full_no_seed`
+- **Question**: Does voxel_gicp dense_profile maintain sub-meter ATE without GT seed?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `voxel_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| dense + seed | reference | 1.047 | 90.8 | 97.5 | 4.65 | 4.75 | Adopt as current default |
+| dense no-seed | deployment-robust | 87.915 | 95.6 | 50.6 | 4.30 | 4.50 | Keep as reference variant |
+| balanced no-seed | deployment-robust | 259.978 | 22.4 | 11.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `dense_seeded_reference` is the current default for this problem.
+2. `dense_no_seed` is the fastest observed variant at 95.6 FPS.
+3. `dense_seeded_reference` is the most accurate observed variant at 1.047 m ATE.
+
+### Variant Notes
+
+#### `dense_seeded_reference`
+
+- Intent: Default with GT seed (winner from prior sweep).
+- CLI args: `--voxel-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_seeded_reference/summary.json --voxel-gicp-dense-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_seeded_reference/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_seeded_reference/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_no_seed`
+
+- Intent: No-seed deployment realism check.
+- CLI args: `--voxel-gicp-dense-profile --no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/summary.json --voxel-gicp-dense-profile --no-gt-seed`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/dense_no_seed/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `balanced_no_seed`
+
+- Intent: Compare default profile under no-seed.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_no_seed_matrix/balanced_no_seed/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## Voxel-GICP cluster discovery on KITTI Odom seq 00 full (4542 frames)
+
+- **Problem ID**: `voxel_gicp_kitti_seq_00_full_sweep`
+- **Question**: Long-trajectory probe for Voxel-GICP recipe family on KITTI Odom seq 00.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `voxel_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/voxel_gicp_kitti_seq_00_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 1.106 | 23.5 | 59.4 | 5.00 | 5.00 | Keep as reference variant |
+| fast profile | throughput | 1.120 | 47.4 | 71.0 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile | accuracy | 1.047 | 97.9 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| T1 transfer (voxel=0.5 + iter=12) | transfer | 1.146 | 26.6 | 59.3 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 97.9 FPS.
+3. `dense_profile` is the most accurate observed variant at 1.047 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast profile.
+- CLI args: `--voxel-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json --voxel-gicp-fast-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense profile.
+- CLI args: `--voxel-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json --voxel-gicp-dense-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1 recipe transfer.
+- CLI args: `--voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/summary.json --voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Voxel-GICP cluster discovery on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `voxel_gicp_kitti_seq_02_full_sweep`
+- **Question**: Is dense_profile the universal winner on 4/4 seqs?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `voxel_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/voxel_gicp_kitti_seq_02_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 1.071 | 16.8 | 54.0 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 1.124 | 46.6 | 69.5 | 4.65 | 4.75 | Keep as reference variant |
+| dense | accuracy | 0.944 | 84.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| T1 v0.5+i12 | transfer | 1.113 | 22.2 | 55.5 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 84.8 FPS.
+3. `dense_profile` is the most accurate observed variant at 0.944 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--voxel-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/fast_profile/summary.json --voxel-gicp-fast-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--voxel-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/dense_profile/summary.json --voxel-gicp-dense-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/summary.json --voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_02_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Voxel-GICP cluster discovery on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `voxel_gicp_kitti_seq_05_full_sweep`
+- **Question**: Is dense_profile still the universal winner on seq 05?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `voxel_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/voxel_gicp_kitti_seq_05_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 1.116 | 24.4 | 57.1 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 1.155 | 59.4 | 71.3 | 4.65 | 4.75 | Keep as reference variant |
+| dense | accuracy | 1.031 | 111.1 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| T1 v0.5+i12 | transfer | 1.212 | 29.2 | 55.7 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 111.1 FPS.
+3. `dense_profile` is the most accurate observed variant at 1.031 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--voxel-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/fast_profile/summary.json --voxel-gicp-fast-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--voxel-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/dense_profile/summary.json --voxel-gicp-dense-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/summary.json --voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_05_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Voxel-GICP cluster discovery on KITTI Odom seq 07 full (1102 frames)
+
+- **Problem ID**: `voxel_gicp_kitti_seq_07_full_sweep`
+- **Question**: Does LiTAMIN2 T1 (voxel=0.5 + iter=12) recipe pattern transfer to Voxel-GICP on KITTI Odom?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `voxel_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/voxel_gicp_kitti_seq_07_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced (default) | reference | 0.950 | 25.2 | 62.5 | 5.00 | 5.00 | Keep as reference variant |
+| fast profile | throughput | 1.005 | 59.5 | 76.7 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile | accuracy | 1.027 | 101.4 | 96.3 | 4.65 | 4.75 | Adopt as current default |
+| T1 transfer (voxel=0.5 + iter=12) | transfer | 1.171 | 28.2 | 54.5 | 3.80 | 4.20 | Keep as reference variant |
+| T1 transfer (voxel=0.3 + iter=12) | transfer | 1.128 | 27.6 | 55.7 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 101.4 FPS.
+3. `balanced_reference` is the most accurate observed variant at 0.950 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast profile.
+- CLI args: `--voxel-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json --voxel-gicp-fast-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense profile.
+- CLI args: `--voxel-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json --voxel-gicp-dense-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1 recipe transfer.
+- CLI args: `--voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/summary.json --voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v03_i12`
+
+- Intent: Finer voxel variant.
+- CLI args: `--voxel-gicp-voxel-resolution 0.3 --voxel-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/summary.json --voxel-gicp-voxel-resolution 0.3 --voxel-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_07_full_sweep_matrix/t1_transfer_v03_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
+## Voxel-GICP cluster discovery on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `voxel_gicp_kitti_seq_08_full_sweep`
+- **Question**: Is dense_profile the universal winner on 4/4 seqs?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `voxel_gicp`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/voxel_gicp_kitti_seq_08_full_sweep_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| balanced | reference | 1.118 | 17.2 | 52.1 | 5.00 | 5.00 | Keep as reference variant |
+| fast | throughput | 1.066 | 39.9 | 66.7 | 4.65 | 4.75 | Keep as reference variant |
+| dense | accuracy | 0.955 | 91.1 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| T1 v0.5+i12 | transfer | 1.200 | 21.4 | 51.5 | 3.80 | 4.20 | Keep as reference variant |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `dense_profile` is the fastest observed variant at 91.1 FPS.
+3. `dense_profile` is the most accurate observed variant at 0.955 m ATE.
+
+### Variant Notes
+
+#### `balanced_reference`
+
+- Intent: Baseline.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/summary.json`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/balanced_reference/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `fast_profile`
+
+- Intent: Fast.
+- CLI args: `--voxel-gicp-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/summary.json --voxel-gicp-fast-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/fast_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `dense_profile`
+
+- Intent: Dense.
+- CLI args: `--voxel-gicp-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/summary.json --voxel-gicp-dense-profile`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/dense_profile/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+#### `t1_transfer_v05_i12`
+
+- Intent: LiTAMIN2 T1.
+- CLI args: `--voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods voxel_gicp --summary-json experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/summary.json --voxel-gicp-voxel-resolution 0.5 --voxel-gicp-max-iterations 12`
+- Summary: `experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/summary.json`
+- Log: `experiments/results/runs/voxel_gicp_kitti_seq_08_full_sweep_matrix/t1_transfer_v05_i12/run.log`
+- Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+
+
 ## Voxel-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence
 
 - **Problem ID**: `voxel_gicp_profile_tradeoff_mcd_kth_day_06`
@@ -15417,78 +23071,6 @@ _Generated at 2026-04-18T23:01:37+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
-
-
-## X-ICP on the second public HDL-400 reference window
-
-- **Problem ID**: `xicp_hdl_400_reference_b`
-- **Question**: How does X-ICP perform on the second public HDL-400 reference window?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/hdl_400_open_ct_lio_120_b`
-- **Reference CSV**: `experiments/reference_data/hdl_400_public_reference_b.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `xicp`
-- **Shared metrics**: ate_m, fps, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/xicp_hdl_400_reference_b_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (GT seed) | balanced | 0.264 | 90.7 | 67.7 | 5.00 | 5.00 | Keep as reference variant |
-| Fast (GT seed) | throughput-oriented | 0.180 | 130.0 | 98.2 | 4.65 | 4.75 | Adopt as current default |
-| Dense (GT seed) | accuracy-oriented | 0.173 | 69.4 | 76.7 | 4.65 | 4.75 | Keep as reference variant |
-| No GT seed | accuracy-oriented | 7.230 | 88.5 | 35.3 | 4.65 | 4.75 | Keep as reference variant |
-
-### Observations
-
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 130.0 FPS.
-3. `dense` is the most accurate observed variant at 0.173 m ATE.
-
-### Variant Notes
-
-#### `default`
-
-- Intent: Repository default with ground-truth seed initialization.
-- CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_b_matrix/default/summary.json`
-- Summary: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/default/summary.json`
-- Log: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/default/run.log`
-- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
-- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
-
-#### `fast`
-
-- Intent: Coarser voxel map and smaller working set while keeping the GT-seeded initialization path.
-- CLI args: `--xicp-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_b_matrix/fast/summary.json --xicp-fast-profile`
-- Summary: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/fast/summary.json`
-- Log: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/fast/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
-
-#### `dense`
-
-- Intent: Finer voxel map and larger correspondence budget while keeping the GT-seeded initialization path.
-- CLI args: `--xicp-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_b_matrix/dense/summary.json --xicp-dense-profile`
-- Summary: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/dense/summary.json`
-- Log: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/dense/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
-
-#### `no_gt_seed`
-
-- Intent: Ablation without ground-truth seed to test convergence from identity.
-- CLI args: `--no-gt-seed`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/hdl_400_open_ct_lio_120_b experiments/reference_data/hdl_400_public_reference_b.csv --methods xicp --summary-json experiments/results/runs/xicp_hdl_400_reference_b_matrix/no_gt_seed/summary.json --no-gt-seed`
-- Summary: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/no_gt_seed/summary.json`
-- Log: `experiments/results/runs/xicp_hdl_400_reference_b_matrix/no_gt_seed/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
 
 
 ## X-ICP on the public HDL-400 reference window

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_05_combo",
+    "title": "CT-ICP seq 05 full: simplified recipes from bare + map=50",
+    "question": "bare + map=50 = 9.34 m, arch_tuned = 9.10 m. Which knob in arch_tuned (iter=8, corr=4, voxel=0.5) gives the additional 2.6%?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "bare_map_50_reference",
+      "label": "bare + map=50 (existing 9.34)",
+      "design_style": "reference",
+      "intent": "Bare baseline confirmation.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50"]
+    },
+    {
+      "id": "bare_map_50_corr_4",
+      "label": "bare + map=50 + corr=4",
+      "design_style": "added corr only",
+      "intent": "Isolate corr=4's contribution to arch_tuned win.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-max-correspondence-distance", "4.0"]
+    },
+    {
+      "id": "bare_map_50_iter_8",
+      "label": "bare + map=50 + iter=8",
+      "design_style": "added iter only",
+      "intent": "Isolate iter=8 contribution.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "50"]
+    },
+    {
+      "id": "bare_map_50_voxel_05",
+      "label": "bare + map=50 + voxel=0.5",
+      "design_style": "added voxel only",
+      "intent": "Isolate keypoint_voxel_size=0.5 contribution.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-keypoint-voxel-size", "0.5"]
+    },
+    {
+      "id": "arch_tuned_map_50",
+      "label": "arch_tuned + map=50 (full + bigger)",
+      "design_style": "full + bigger map",
+      "intent": "All arch_tuned knobs + map=50.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "8", "--ct-icp-max-frames-in-map", "50", "--ct-icp-max-correspondence-distance", "4.0", "--ct-icp-keypoint-voxel-size", "0.5"]
+    }
+  ]
+}

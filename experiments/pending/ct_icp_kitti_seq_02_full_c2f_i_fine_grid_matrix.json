@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_c2f_i_fine_grid_kitti_seq_02_full",
+    "title": "CT-ICP coarse_iterations fine grid (i=1, i=4) on KITTI 02 (full)",
+    "question": "What is the c2f benefit curve between i=2 (+30% ATE), i=3 (-16%), i=5 (+120%) on KITTI 02?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "ms_chol_best",
+      "label": "ms_chol baseline",
+      "design_style": "reference",
+      "intent": "Re-baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky"]
+    },
+    {
+      "id": "c2f_i1",
+      "label": "C2F i=1 (very light)",
+      "design_style": "c2f i=1",
+      "intent": "Single coarse iter (10% of 10 outer iters).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "1", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "c2f_i4",
+      "label": "C2F i=4 (slightly heavier)",
+      "design_style": "c2f i=4",
+      "intent": "Between i=3 (-16%) and i=5 (+120%).",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "4", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    }
+  ]
+}

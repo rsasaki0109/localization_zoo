@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-05-20T21:14:27+00:00",
+  "manifest_path": "experiments/ndt_kitti_seq_08_full_t1_confirmation_matrix.json",
+  "problem": {
+    "id": "ndt_kitti_seq_08_full_t1_confirmation",
+    "title": "NDT T1 confirmation on KITTI Odom seq 08 full (4071 frames)",
+    "question": "Does the NDT T1 transfer recipe stay sub-10cm on long seq 08?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ndt",
+    "primary_method": "NDT"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "t1_transfer_r05_i12",
+      "label": "T1 transfer (res=0.5 + iter=12)",
+      "design_style": "transfer",
+      "intent": "Confirm the NDT T1 recipe on this full KITTI Odometry sequence.",
+      "args": [
+        "--ndt-resolution",
+        "0.5",
+        "--ndt-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods ndt --summary-json experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json --ndt-resolution 0.5 --ndt-max-iterations 12",
+      "summary_path": "experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/summary.json",
+      "log_path": "experiments/results/runs/ndt_kitti_seq_08_full_t1_confirmation_matrix/t1_transfer_r05_i12/run.log",
+      "status": "ok",
+      "ate_m": 0.07614,
+      "rpe_trans_pct": null,
+      "rpe_rot_deg_per_m": null,
+      "fps": 0.250023,
+      "time_ms": 16282481.973369,
+      "frames": 4071,
+      "note": "Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.",
+      "benchmark_score": 100.0,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Only confirmation variant for this targeted transfer check; result is sub-10cm on the full sequence."
+    }
+  ]
+}

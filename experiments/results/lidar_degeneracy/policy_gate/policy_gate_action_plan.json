@@ -1,0 +1,19 @@
+{
+  "source_gate_report": "experiments/results/lidar_degeneracy/policy_gate/policy_gate_report.json",
+  "policy": {
+    "path": "evaluation/config/lidar_degeneracy_triage_policy.json",
+    "policy_version": "lidar_degeneracy_triage_v4",
+    "strict_gate": {
+      "max_fail_rows": 0,
+      "max_investigate_rows": 0,
+      "require_policy_version_match": true
+    }
+  },
+  "summary": {
+    "action_items": 0,
+    "offender_rows": 0,
+    "category_rows": {},
+    "method_rows": {}
+  },
+  "action_items": []
+}

@@ -1,0 +1,25 @@
+========================================
+  PCD Dogfooding
+========================================
+PCD frames: 108
+GT poses: 108
+IMU samples: 0 (imu.csv not found)
+Timestamp source: sampled GT timestamps
+Frame gap [s]: min=1.000 median=1.000 mean=1.000 max=1.000
+Trajectory length: 58.6 m
+Running CT-ICP+NDT keyframe...
+  ct_icp_voxel_resolution=1.2 ct_icp_max_iterations=10 ndt_resolution=0.5 ndt_max_iterations=12 keyframe_interval=10 max_correction_translation=0.5 max_correction_rotation_rad=0.3
+  [CT-ICP] 10/108  [CT-ICP] 20/108  [CT-ICP] 30/108  [CT-ICP] 40/108  [CT-ICP] 50/108  [CT-ICP] 60/108  [CT-ICP] 70/108  [CT-ICP] 80/108  [CT-ICP] 90/108  [CT-ICP] 100/108
+  [CT-ICP+NDT-KF] 10/108 score=2.284 accepted=1/1  [CT-ICP+NDT-KF] 20/108 score=3.079 accepted=2/2  [CT-ICP+NDT-KF] 30/108 score=2.678 accepted=3/3  [CT-ICP+NDT-KF] 40/108 score=2.572 accepted=4/4  [CT-ICP+NDT-KF] 50/108 score=2.503 accepted=5/5  [CT-ICP+NDT-KF] 60/108 score=2.740 accepted=6/6  [CT-ICP+NDT-KF] 70/108 score=2.730 accepted=7/7  [CT-ICP+NDT-KF] 80/108 score=2.696 accepted=8/8  [CT-ICP+NDT-KF] 90/108 score=2.615 accepted=9/9  [CT-ICP+NDT-KF] 100/108 score=2.685 accepted=10/10
+
+========================================
+  RESULTS (Real Data)
+========================================
+Method                  Status      ATE [m]     Frames      Time [ms]      FPS
+---------------------------------------------------------------------------------------
+CT-ICP+NDT-KF           ok          11.632      108         5122.6         21.1
+
+Notes:
+- CT-ICP+NDT-KF: Hybrid keyframe correction: CT-ICP no-GT odometry is the base trajectory; NDT T1 correction is attempted every 10 frames and accepted only when correction delta is <= 0.5m / 0.35rad. accepted=10/10, rejected=0, finite-prior fallbacks=0, CT-ICP prior ATE=11.632m. Runtime is CT-ICP+NDT combined.
+
+Results saved to dogfooding_results/

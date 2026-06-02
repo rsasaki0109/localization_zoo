@@ -1,0 +1,192 @@
+{
+  "feature_set": "shared_no_method",
+  "calibration_json": "experiments/results/intensity_odometry/window_benchmark_smoke2/results/pair_prior_quality_calibration_shared_no_method_loo.json",
+  "windows": [
+    {
+      "window": "kitti_seq_02_start0000_30",
+      "kiss_ate_xy_m": 0.426082,
+      "kiss_step_rmse_m": 0.040265,
+      "small_gicp_ate_xy_m": 0.565253,
+      "small_gicp_step_rmse_m": 0.062181,
+      "margin_ate_xy_m": 0.3525783194270178,
+      "margin_step_rmse_m": 0.05439867951033386,
+      "margin_counts": {
+        "small_gicp": 21,
+        "kiss": 8
+      },
+      "stability_delta_ate_xy_m": 0.3253314900922733,
+      "stability_delta_step_rmse_m": 0.0408280864423245,
+      "stability_delta_counts": {
+        "kiss": 20,
+        "small_gicp": 9
+      },
+      "calibrated_full_ate_xy_m": 0.35890639713596234,
+      "calibrated_full_step_rmse_m": 0.04360284924271111,
+      "calibrated_full_counts": {
+        "kiss": 21,
+        "small_gicp": 8
+      },
+      "calibrated_holdout_ate_xy_m": 0.32341859064518796,
+      "calibrated_holdout_step_rmse_m": 0.04220608183091666,
+      "calibrated_holdout_counts": {
+        "kiss": 20,
+        "small_gicp": 9
+      }
+    },
+    {
+      "window": "kitti_seq_02_start0030_30",
+      "kiss_ate_xy_m": 0.513991,
+      "kiss_step_rmse_m": 0.040724,
+      "small_gicp_ate_xy_m": 0.287074,
+      "small_gicp_step_rmse_m": 0.063196,
+      "margin_ate_xy_m": 0.32871983674974575,
+      "margin_step_rmse_m": 0.060875444727202584,
+      "margin_counts": {
+        "small_gicp": 21,
+        "kiss": 8
+      },
+      "stability_delta_ate_xy_m": 0.5163662105080862,
+      "stability_delta_step_rmse_m": 0.04302143682561184,
+      "stability_delta_counts": {
+        "kiss": 24,
+        "small_gicp": 5
+      },
+      "calibrated_full_ate_xy_m": 0.4344418061320652,
+      "calibrated_full_step_rmse_m": 0.04716976029998934,
+      "calibrated_full_counts": {
+        "kiss": 20,
+        "small_gicp": 9
+      },
+      "calibrated_holdout_ate_xy_m": 0.2970678132557026,
+      "calibrated_holdout_step_rmse_m": 0.053852051957161806,
+      "calibrated_holdout_counts": {
+        "small_gicp": 26,
+        "kiss": 3
+      }
+    },
+    {
+      "window": "kitti_seq_05_start0000_30",
+      "kiss_ate_xy_m": 0.76507,
+      "kiss_step_rmse_m": 0.054993,
+      "small_gicp_ate_xy_m": 0.190212,
+      "small_gicp_step_rmse_m": 0.016821,
+      "margin_ate_xy_m": 0.3781303650077848,
+      "margin_step_rmse_m": 0.03338723534887239,
+      "margin_counts": {
+        "small_gicp": 20,
+        "kiss": 9
+      },
+      "stability_delta_ate_xy_m": 0.18474024319117482,
+      "stability_delta_step_rmse_m": 0.021461385120253335,
+      "stability_delta_counts": {
+        "small_gicp": 21,
+        "kiss": 8
+      },
+      "calibrated_full_ate_xy_m": 0.3906324503293539,
+      "calibrated_full_step_rmse_m": 0.03493069647258741,
+      "calibrated_full_counts": {
+        "kiss": 12,
+        "small_gicp": 17
+      },
+      "calibrated_holdout_ate_xy_m": 0.39177404437950414,
+      "calibrated_holdout_step_rmse_m": 0.03481364954545202,
+      "calibrated_holdout_counts": {
+        "kiss": 15,
+        "small_gicp": 14
+      }
+    },
+    {
+      "window": "kitti_seq_05_start0030_30",
+      "kiss_ate_xy_m": 0.660811,
+      "kiss_step_rmse_m": 0.083404,
+      "small_gicp_ate_xy_m": 0.246364,
+      "small_gicp_step_rmse_m": 0.038482,
+      "margin_ate_xy_m": 0.2792208916360101,
+      "margin_step_rmse_m": 0.05235397154700935,
+      "margin_counts": {
+        "kiss": 9,
+        "small_gicp": 20
+      },
+      "stability_delta_ate_xy_m": 0.498441865842238,
+      "stability_delta_step_rmse_m": 0.05853920806309345,
+      "stability_delta_counts": {
+        "small_gicp": 15,
+        "kiss": 14
+      },
+      "calibrated_full_ate_xy_m": 0.4572424101921789,
+      "calibrated_full_step_rmse_m": 0.062225887002760216,
+      "calibrated_full_counts": {
+        "small_gicp": 12,
+        "kiss": 17
+      },
+      "calibrated_holdout_ate_xy_m": 0.5711450921819595,
+      "calibrated_holdout_step_rmse_m": 0.06612323976807409,
+      "calibrated_holdout_counts": {
+        "kiss": 21,
+        "small_gicp": 8
+      }
+    },
+    {
+      "window": "kitti_seq_08_start0000_30",
+      "kiss_ate_xy_m": 0.877882,
+      "kiss_step_rmse_m": 0.082424,
+      "small_gicp_ate_xy_m": 0.53107,
+      "small_gicp_step_rmse_m": 0.067009,
+      "margin_ate_xy_m": 0.5598760675099768,
+      "margin_step_rmse_m": 0.06519849645471054,
+      "margin_counts": {
+        "small_gicp": 20,
+        "kiss": 9
+      },
+      "stability_delta_ate_xy_m": 0.6241148455696494,
+      "stability_delta_step_rmse_m": 0.06328437298404445,
+      "stability_delta_counts": {
+        "kiss": 15,
+        "small_gicp": 14
+      },
+      "calibrated_full_ate_xy_m": 0.536988459572656,
+      "calibrated_full_step_rmse_m": 0.058600539216433614,
+      "calibrated_full_counts": {
+        "small_gicp": 20,
+        "kiss": 9
+      },
+      "calibrated_holdout_ate_xy_m": 0.7277199481649569,
+      "calibrated_holdout_step_rmse_m": 0.0714008877605097,
+      "calibrated_holdout_counts": {
+        "small_gicp": 12,
+        "kiss": 17
+      }
+    },
+    {
+      "window": "kitti_seq_08_start0030_30",
+      "kiss_ate_xy_m": 0.439447,
+      "kiss_step_rmse_m": 0.07253,
+      "small_gicp_ate_xy_m": 1.26997,
+      "small_gicp_step_rmse_m": 0.077179,
+      "margin_ate_xy_m": 1.0920547390569781,
+      "margin_step_rmse_m": 0.07438345898029014,
+      "margin_counts": {
+        "kiss": 6,
+        "small_gicp": 23
+      },
+      "stability_delta_ate_xy_m": 0.4509447933281894,
+      "stability_delta_step_rmse_m": 0.058344265145131226,
+      "stability_delta_counts": {
+        "kiss": 17,
+        "small_gicp": 12
+      },
+      "calibrated_full_ate_xy_m": 0.4503968648131593,
+      "calibrated_full_step_rmse_m": 0.056802821294922465,
+      "calibrated_full_counts": {
+        "kiss": 16,
+        "small_gicp": 13
+      },
+      "calibrated_holdout_ate_xy_m": 0.7423608294093743,
+      "calibrated_holdout_step_rmse_m": 0.0662273833198017,
+      "calibrated_holdout_counts": {
+        "kiss": 9,
+        "small_gicp": 20
+      }
+    }
+  ]
+}

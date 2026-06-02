@@ -1,0 +1,145 @@
+{
+  "generated_at": "2026-05-19T22:54:43+00:00",
+  "manifest_path": "experiments/kiss_icp_kitti_seq_00_full_sweep_matrix.json",
+  "problem": {
+    "id": "kiss_icp_kitti_seq_00_full_sweep",
+    "title": "KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames)",
+    "question": "Long-trajectory probe for KISS-ICP recipe family on KITTI Odom seq 00.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "fps",
+      "rpe_trans_pct",
+      "readability_score",
+      "extensibility_score"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "kiss_icp",
+    "primary_method": "KISS-ICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "balanced_reference",
+      "label": "balanced (default)",
+      "design_style": "reference",
+      "intent": "Baseline.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/balanced_reference/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/balanced_reference/run.log",
+      "status": "ok",
+      "ate_m": 15.448869,
+      "rpe_trans_pct": 0.861466,
+      "rpe_rot_deg_per_m": 0.006986,
+      "fps": 18.058426,
+      "time_ms": 251461.559129,
+      "frames": 4541,
+      "note": "",
+      "benchmark_score": 68.29,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "fast_profile",
+      "label": "fast profile",
+      "design_style": "throughput",
+      "intent": "Fast profile.",
+      "args": [
+        "--kiss-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json --kiss-fast-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/fast_profile/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/fast_profile/run.log",
+      "status": "ok",
+      "ate_m": 20.926645,
+      "rpe_trans_pct": 0.856797,
+      "rpe_rot_deg_per_m": 0.007979,
+      "fps": 30.57988,
+      "time_ms": 148496.332508,
+      "frames": 4541,
+      "note": "",
+      "benchmark_score": 78.61,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "dense_profile",
+      "label": "dense profile",
+      "design_style": "accuracy",
+      "intent": "Dense profile.",
+      "args": [
+        "--kiss-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json --kiss-dense-profile",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 11.976146,
+      "rpe_trans_pct": 0.872099,
+      "rpe_rot_deg_per_m": 0.006487,
+      "fps": 12.685232,
+      "time_ms": 357975.321095,
+      "frames": 4541,
+      "note": "",
+      "benchmark_score": 70.74,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "t1_transfer_v05_i12",
+      "label": "T1 transfer (voxel=0.5 + iter=12)",
+      "design_style": "transfer",
+      "intent": "LiTAMIN2 T1 recipe transfer.",
+      "args": [
+        "--kiss-voxel-size",
+        "0.5",
+        "--kiss-max-iterations",
+        "12"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kiss_icp --summary-json experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/summary.json --kiss-voxel-size 0.5 --kiss-max-iterations 12",
+      "summary_path": "experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/summary.json",
+      "log_path": "experiments/results/runs/kiss_icp_kitti_seq_00_full_sweep_matrix/t1_transfer_v05_i12/run.log",
+      "status": "ok",
+      "ate_m": 13.945954,
+      "rpe_trans_pct": 0.900543,
+      "rpe_rot_deg_per_m": 0.007086,
+      "fps": 11.442166,
+      "time_ms": 396865.4205,
+      "frames": 4541,
+      "note": "",
+      "benchmark_score": 61.65,
+      "readability_score": 3.8,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 4.2,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

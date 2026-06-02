@@ -111,10 +111,15 @@ TEST(ScanContext, DetectsYawRotatedLoopCandidate) {
   const double yaw_deg = 30.0;
   const auto rotated_query = rotateYaw(base_scan, yaw_deg * M_PI / 180.0);
   const LoopCandidate candidate = manager.detectLoop(rotated_query);
+  const auto candidates = manager.detectLoopCandidates(rotated_query);
 
   ASSERT_TRUE(candidate.valid);
   EXPECT_EQ(candidate.index, 0);
   EXPECT_LT(candidate.distance, 0.20);
+  ASSERT_FALSE(candidates.empty());
+  EXPECT_TRUE(candidates.front().valid);
+  EXPECT_EQ(candidates.front().index, candidate.index);
+  EXPECT_LE(candidates.front().distance, candidate.distance + 1e-12);
 
   const int expected_shift =
       static_cast<int>(std::round(yaw_deg / 360.0 * params.num_sectors)) %

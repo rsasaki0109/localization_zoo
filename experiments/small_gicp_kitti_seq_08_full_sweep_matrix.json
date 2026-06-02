@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "small_gicp_kitti_seq_08_full_sweep",
+    "title": "Small-GICP cluster discovery on KITTI Odom seq 08 full (4071 frames)",
+    "question": "Is fast_profile the universal ATE winner on 4/4 seqs?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {"binary": "build/evaluation/pcd_dogfooding", "methods": "small_gicp", "primary_method": "Small-GICP"},
+  "variants": [
+    {"id": "balanced_reference", "label": "balanced", "design_style": "reference", "intent": "Baseline.", "args": []},
+    {"id": "fast_profile", "label": "fast", "design_style": "throughput", "intent": "Fast.", "args": ["--small-gicp-fast-profile"]},
+    {"id": "dense_profile", "label": "dense", "design_style": "accuracy", "intent": "Dense.", "args": ["--small-gicp-dense-profile"]},
+    {"id": "t1_transfer_v05_i12", "label": "T1 v0.5+i12", "design_style": "transfer", "intent": "LiTAMIN2 T1.", "args": ["--small-gicp-voxel-resolution", "0.5", "--small-gicp-max-iterations", "12"]}
+  ]
+}

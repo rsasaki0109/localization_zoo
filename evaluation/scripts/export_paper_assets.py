@@ -85,7 +85,7 @@ def load_variant_points() -> list[VariantPoint]:
         dataset_name = short_dataset_name(str(dataset["pcd_dir"]))
         current_default = problem_entry.get("current_default")
         for variant in aggregate["variants"]:
-            if variant.get("status") != "OK":
+            if variant.get("status") not in {"OK", "ok"}:
                 continue
             ate_m = variant.get("ate_m")
             fps = variant.get("fps")

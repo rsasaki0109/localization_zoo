@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_simplified_cross_seq_08",
+    "title": "CT-ICP seq 08 full: simplified map=50+c2f probe",
+    "question": "Does seq 00 minimal pattern beat seq 08's 32.51 m c2f_only winner?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "current_winner",
+      "label": "c2f_only (existing seq 08 winner)",
+      "design_style": "reference",
+      "intent": "Confirm 32.51 m.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "20", "--ct-icp-multi-scale", "--ct-icp-normal-cholesky", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "3", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.02"]
+    },
+    {
+      "id": "simplified_seq_00_pattern",
+      "label": "map=50 + c2f σ×2 (no ms_chol)",
+      "design_style": "probe",
+      "intent": "Apply seq 00 minimal pattern.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    }
+  ]
+}

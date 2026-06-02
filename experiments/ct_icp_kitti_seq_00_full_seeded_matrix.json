@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "ct_icp_kitti_seq_00_full_seeded",
+    "title": "CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full",
+    "question": "seq 07 + seed: cluster D wins seed-independent (1.60 m). Does adding seed to cluster A (seq 00's winner 12.69 m) help or hurt? Confirms whether KITTI Odom is self-anchoring family like seq 07.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": ["ate_m", "fps", "rpe_trans_pct", "readability_score", "extensibility_score"]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "ct_icp",
+    "primary_method": "CT-ICP"
+  },
+  "variants": [
+    {
+      "id": "cluster_a_no_seed_reference",
+      "label": "cluster A no seed (current best 12.69 m)",
+      "design_style": "reference",
+      "intent": "Confirm 12.69 m baseline.",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06"]
+    },
+    {
+      "id": "cluster_a_seeded",
+      "label": "cluster A + GT seed",
+      "design_style": "seeded",
+      "intent": "Does seed unlock further improvement on KITTI seq 00?",
+      "args": ["--ct-icp-dense-profile", "--ct-icp-ceres-max-iterations", "6", "--ct-icp-max-frames-in-map", "50", "--ct-icp-coarse-to-fine", "--ct-icp-coarse-iterations", "2", "--ct-icp-coarse-search-radius", "2", "--ct-icp-coarse-cauchy-mult", "2.0", "--ct-icp-coarse-planarity-threshold", "0.06", "--ct-icp-gt-seed"]
+    }
+  ]
+}

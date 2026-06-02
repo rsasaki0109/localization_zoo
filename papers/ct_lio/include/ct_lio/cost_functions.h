@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ct_lio/bspline.h"
 #include "imu_preintegration/imu_preintegration.h"
 
 #include <ceres/ceres.h>
@@ -323,6 +324,139 @@ struct OrientationDifferencePrior {
   }
 
   double weight_;
+};
+
+// Anchors the spline rotation at local time u to a target quaternion. Used to
+// tie spline T(0) and T(1) to the existing begin/end pose param blocks so the
+// IMU residuals (which live on begin/end blocks) couple back to the spline.
+// 5 param blocks: q0..q3 (4D each) and target_q (4D). Residual: 3D rotation
+// error (twice imaginary part of relative quaternion).
+struct BsplineEndpointAnchorRotation {
+  BsplineEndpointAnchorRotation(double u, double weight)
+      : u_(u), weight_(weight) {}
+
+  template <typename T>
+  bool operator()(const T* q0, const T* q1, const T* q2, const T* q3,
+                  const T* target_q, T* residual) const {
+    T b_tilde[4];
+    bspline::cumulativeBasis<T>(T(u_), b_tilde);
+
+    const Eigen::Quaternion<T> Q0(q0[3], q0[0], q0[1], q0[2]);
+    const Eigen::Quaternion<T> Q1(q1[3], q1[0], q1[1], q1[2]);
+    const Eigen::Quaternion<T> Q2(q2[3], q2[0], q2[1], q2[2]);
+    const Eigen::Quaternion<T> Q3(q3[3], q3[0], q3[1], q3[2]);
+    const Eigen::Matrix<T, 3, 1> omega1 = bspline::logQuaternion<T>(Q0.conjugate() * Q1);
+    const Eigen::Matrix<T, 3, 1> omega2 = bspline::logQuaternion<T>(Q1.conjugate() * Q2);
+    const Eigen::Matrix<T, 3, 1> omega3 = bspline::logQuaternion<T>(Q2.conjugate() * Q3);
+    Eigen::Quaternion<T> q_spline =
+        Q0 * bspline::expQuaternion<T>(b_tilde[1] * omega1) *
+        bspline::expQuaternion<T>(b_tilde[2] * omega2) *
+        bspline::expQuaternion<T>(b_tilde[3] * omega3);
+    q_spline.normalize();
+
+    Eigen::Quaternion<T> Q_target(target_q[3], target_q[0], target_q[1],
+                                  target_q[2]);
+    Eigen::Quaternion<T> q_err = q_spline.conjugate() * Q_target;
+    residual[0] = T(weight_) * T(2.0) * q_err.x();
+    residual[1] = T(weight_) * T(2.0) * q_err.y();
+    residual[2] = T(weight_) * T(2.0) * q_err.z();
+    return true;
+  }
+
+  static ceres::CostFunction* Create(double u, double weight) {
+    return new ceres::AutoDiffCostFunction<
+        BsplineEndpointAnchorRotation, 3, 4, 4, 4, 4, 4>(
+        new BsplineEndpointAnchorRotation(u, weight));
+  }
+
+  double u_;
+  double weight_;
+};
+
+// Anchors spline translation at local time u to a target translation. 5 param
+// blocks: t0..t3 (3D each) and target_t (3D). Residual: 3D translation error.
+struct BsplineEndpointAnchorTranslation {
+  BsplineEndpointAnchorTranslation(double u, double weight)
+      : u_(u), weight_(weight) {}
+
+  template <typename T>
+  bool operator()(const T* t0, const T* t1, const T* t2, const T* t3,
+                  const T* target_t, T* residual) const {
+    T b_tilde[4];
+    bspline::cumulativeBasis<T>(T(u_), b_tilde);
+    const Eigen::Matrix<T, 3, 1> T0(t0[0], t0[1], t0[2]);
+    const Eigen::Matrix<T, 3, 1> T1(t1[0], t1[1], t1[2]);
+    const Eigen::Matrix<T, 3, 1> T2(t2[0], t2[1], t2[2]);
+    const Eigen::Matrix<T, 3, 1> T3(t3[0], t3[1], t3[2]);
+    Eigen::Matrix<T, 3, 1> t_spline = T0 + b_tilde[1] * (T1 - T0) +
+                                      b_tilde[2] * (T2 - T1) +
+                                      b_tilde[3] * (T3 - T2);
+    residual[0] = T(weight_) * (t_spline.x() - target_t[0]);
+    residual[1] = T(weight_) * (t_spline.y() - target_t[1]);
+    residual[2] = T(weight_) * (t_spline.z() - target_t[2]);
+    return true;
+  }
+
+  static ceres::CostFunction* Create(double u, double weight) {
+    return new ceres::AutoDiffCostFunction<
+        BsplineEndpointAnchorTranslation, 3, 3, 3, 3, 3, 3>(
+        new BsplineEndpointAnchorTranslation(u, weight));
+  }
+
+  double u_;
+  double weight_;
+};
+
+// CT Point-to-Plane cost using a cumulative cubic SE3 B-spline trajectory.
+// 8 parameter blocks: 4 control-point quaternions (XYZW, dim 4) and
+// 4 control-point translations (XYZ, dim 3). Residual is the signed
+// point-to-plane distance after interpolating the pose at the point's
+// alpha in [0, 1].
+struct CTPointToPlaneBspline {
+  CTPointToPlaneBspline(Eigen::Vector3d raw_point,
+                        Eigen::Vector3d reference_point,
+                        Eigen::Vector3d normal, double alpha, double weight)
+      : raw_point_(raw_point),
+        reference_point_(reference_point),
+        normal_(normal),
+        alpha_(alpha),
+        weight_(weight) {}
+
+  template <typename T>
+  bool operator()(const T* q0, const T* t0, const T* q1, const T* t1,
+                  const T* q2, const T* t2, const T* q3, const T* t3,
+                  T* residual) const {
+    const T u = T(alpha_);
+    Eigen::Quaternion<T> q_inter;
+    Eigen::Matrix<T, 3, 1> t_inter;
+    bspline::interpolateSe3<T>(q0, t0, q1, t1, q2, t2, q3, t3, u, &q_inter,
+                               &t_inter);
+
+    const Eigen::Matrix<T, 3, 1> raw{T(raw_point_.x()), T(raw_point_.y()),
+                                     T(raw_point_.z())};
+    const Eigen::Matrix<T, 3, 1> ref{T(reference_point_.x()),
+                                     T(reference_point_.y()),
+                                     T(reference_point_.z())};
+    const Eigen::Matrix<T, 3, 1> n{T(normal_.x()), T(normal_.y()),
+                                   T(normal_.z())};
+
+    const Eigen::Matrix<T, 3, 1> transformed = q_inter * raw + t_inter;
+    residual[0] = T(weight_) * n.dot(ref - transformed);
+    return true;
+  }
+
+  static ceres::CostFunction* Create(const Eigen::Vector3d& raw_point,
+                                     const Eigen::Vector3d& reference_point,
+                                     const Eigen::Vector3d& normal,
+                                     double alpha, double weight) {
+    return new ceres::AutoDiffCostFunction<
+        CTPointToPlaneBspline, 1, 4, 3, 4, 3, 4, 3, 4, 3>(
+        new CTPointToPlaneBspline(raw_point, reference_point, normal, alpha,
+                                  weight));
+  }
+
+  Eigen::Vector3d raw_point_, reference_point_, normal_;
+  double alpha_, weight_;
 };
 
 }  // namespace ct_lio

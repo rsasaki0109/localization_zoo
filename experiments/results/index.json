@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T07:22:39+00:00",
+  "generated_at": "2026-06-02T11:18:16+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2081,6 +2081,15 @@
       "current_default": "fast_icp_only_half_threads"
     },
     {
+      "problem_id": "litamin2_voxel_resolution_nclt_2012_12_01",
+      "title": "LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/litamin2_nclt_2012_12_01_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_nclt_2012_12_01_matrix.json",
+      "current_default": "voxel_0_5_t1"
+    },
+    {
       "problem_id": "litamin2_voxel_resolution_nclt_2013_01_10",
       "title": "LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window",
       "status": "ready",
@@ -3141,6 +3150,15 @@
       "manifest_path": "experiments/small_gicp_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast_recent_map"
+    },
+    {
+      "problem_id": "small_gicp_seed_gate_nclt_2013_01_10",
+      "title": "small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/small_gicp_nclt_2013_01_10_matrix.json",
+      "aggregate_path": "experiments/results/small_gicp_nclt_2013_01_10_matrix.json",
+      "current_default": "gate_0_5"
     },
     {
       "problem_id": "suma_hdl_400_reference",

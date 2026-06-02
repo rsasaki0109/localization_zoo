@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-02T11:18:16+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2786,6 +2786,19 @@ _Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_ma
 | paper_cov_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | paper_icp_only_half_threads | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check)
+
+- Current default: `voxel_0_5_t1`.
+- Active challengers: `default_voxel_2_0`.
+- Reference variants: `voxel_1_0`.
+- Aggregate result: `experiments/results/litamin2_nclt_2012_12_01_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_voxel_2_0 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| voxel_1_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| voxel_0_5_t1 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
 ## LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window
 
 - Current default: `default_voxel_2_0`.
@@ -4206,6 +4219,19 @@ _Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_recent_map | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory
+
+- Current default: `gate_0_5`.
+- Reference variants: `default_gate_2_0`, `gate_1_5`, `gate_1_0`.
+- Aggregate result: `experiments/results/small_gicp_nclt_2013_01_10_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_gate_2_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| gate_1_5 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| gate_1_0 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| gate_0_5 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## SuMa on the public HDL-400 reference window
 

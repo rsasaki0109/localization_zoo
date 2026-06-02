@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-06-02T07:22:39+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-02T11:18:16+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -310,6 +310,7 @@ The runner is responsible for:
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `experiments/litamin2_mulran_parkinglot_120_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_mulran_parkinglot_120_matrix.json` |
 | LiTAMIN2 cluster T1 on MulRan parkinglot full (CT-ICP cluster A territory) | `ready` | `experiments/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_mulran_parkinglot_full_cluster_t1_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `experiments/litamin2_mulran_parkinglot_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_mulran_parkinglot_full_matrix.json` |
+| LiTAMIN2 voxel resolution on the NCLT 2012-12-01 5000-frame session (cross-session T1 check) | `ready` | `experiments/litamin2_nclt_2012_12_01_matrix.json` | `litamin2` | `voxel_0_5_t1` | `experiments/results/litamin2_nclt_2012_12_01_matrix.json` |
 | LiTAMIN2 voxel resolution on the NCLT 2013-01-10 600-frame window | `ready` | `experiments/litamin2_nclt_2013_01_10_matrix.json` | `litamin2` | `default_voxel_2_0` | `experiments/results/litamin2_nclt_2013_01_10_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/litamin2_profile_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_profile_matrix.json` |
 | LOAM-Livox on the public HDL-400 reference window | `ready` | `experiments/loam_livox_hdl_400_reference_matrix.json` | `loam_livox` | `default` | `experiments/results/loam_livox_hdl_400_reference_matrix.json` |
@@ -428,6 +429,7 @@ The runner is responsible for:
 | Small-GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/small_gicp_mcd_kth_day_06_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_mcd_kth_day_06_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/small_gicp_mcd_ntu_day_02_matrix.json` | `small_gicp` | `dense_recent_map` | `experiments/results/small_gicp_mcd_ntu_day_02_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/small_gicp_mcd_tuhh_night_09_matrix.json` | `small_gicp` | `fast_recent_map` | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
+| small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory | `ready` | `experiments/small_gicp_nclt_2013_01_10_matrix.json` | `small_gicp` | `gate_0_5` | `experiments/results/small_gicp_nclt_2013_01_10_matrix.json` |
 | SuMa on the public HDL-400 reference window | `ready` | `experiments/suma_hdl_400_reference_matrix.json` | `suma` | `default` | `experiments/results/suma_hdl_400_reference_matrix.json` |
 | SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/suma_kitti_raw_0009_full_matrix.json` | `suma` | `dense` | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/suma_kitti_raw_0009_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_raw_0009_matrix.json` |

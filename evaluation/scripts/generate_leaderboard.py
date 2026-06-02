@@ -1,23 +1,18 @@
 #!/usr/bin/env python3
-"""Generate the two-tier method leaderboard injected into README.md.
+"""Generate the odometry leaderboard injected into README.md.
 
-A single ATE ranking is misleading on this benchmark, because methods fall into
-two non-comparable groups:
+The leaderboard ranks odometry methods (KISS-ICP, the LOAM family, CT-ICP, ...)
+by RPE (relative drift %/100 m) over the five canonical KITTI Odometry full
+sequences. RPE is seed-independent and is the honest local-accuracy metric;
+their ATE accumulates unbounded drift over the run and is shown only as context.
 
-  * GT-seeded localization (NDT, LiTAMIN2, GICP family) re-anchor to the ground
-    truth every frame with a weak-update fallback, so their ATE is the per-frame
-    registration residual and is bounded by the seed. NDT in particular leans
-    almost entirely on the seed: with --no-gt-seed it diverges (KITTI Raw 0009
-    full: 310 m ATE / 41.5% RPE), yet seeded it reports a physically impossible
-    0.07% RPE -- i.e. it is essentially emitting the GT pose. Ranking these by
-    ATE rewards GT substitution, not registration quality.
+GT-seeded methods (NDT, LiTAMIN2, GICP family) are deliberately NOT ranked: they
+take the ground-truth pose as the per-frame initial guess, so their ATE measures
+seed adherence rather than tracking -- and that ranking inverts (NDT's tiny ATE
+comes from barely registering; with --no-gt-seed it diverges to ~87% RPE, the
+worst tracker, while GICP's larger ATE reflects real registration). A short note
+in the rendered block explains this; we do not put them in the ranked table.
 
-  * Odometry (KISS-ICP, the LOAM family, CT-ICP, ...) run with no GT seed, so
-    their ATE accumulates unbounded drift over the sequence. Their honest
-    quality metric is RPE (relative drift %/100 m), which is seed-independent.
-
-So this renders TWO tables over the five canonical KITTI Odometry full
-sequences: GT-seeded localization ranked by ATE, and odometry ranked by RPE.
 Each cell is the best result across all tuned variants for that method.
 
 Usage:
@@ -51,11 +46,9 @@ COLUMNS = [
     ("dogfooding_results/kitti_seq_08_full", "Seq 08", "4071 fr"),
 ]
 
-# GT-seeded scan-to-map methods: ATE is the per-frame residual from the seed.
-SEEDED = ["NDT", "LiTAMIN2", "GICP", "Small-GICP", "Voxel-GICP"]
-
 # Odometry methods: no per-frame GT seed, so ATE accumulates drift; RPE is the
-# fair, seed-independent quality metric.
+# fair, seed-independent quality metric. GT-seeded methods (NDT, LiTAMIN2, GICP
+# family) are intentionally excluded from the ranking -- see the module docstring.
 ODOMETRY = [
     "KISS-ICP", "GenZ-ICP", "A-LOAM", "F-LOAM", "LeGO-LOAM", "SuMa",
     "LOAM-Livox", "MULLS", "CT-ICP", "CT-LIO", "FAST-LIO2", "Point-LIO",
@@ -155,35 +148,27 @@ def _table(cells, methods, metric):
 
 
 def render_block(cells: dict) -> str:
-    seeded_table = _table(cells, SEEDED, "ate")
     odom_table = _table(cells, ODOMETRY, "rpe")
     explorer = "https://rsasaki0109.github.io/localization_zoo/"
     return f"""{START_MARKER}
-## Leaderboard
+## Leaderboard — odometry, RPE [drift %/100 m], lower is better
 
-KITTI Odometry full sequences. Two groups that **can't share an axis**, each
-ranked by its honest metric. Full matrix: [**explorer**]({explorer}).
-
-### GT-seeded localization — ATE [m], lower is better
-
-GT pose is the initial guess every frame, so ATE measures seed adherence, not tracking.
-
-{seeded_table}
-
-> ⚠️ **NDT's score is the GT guess, not registration.** Seq 07 seeded **0.076 m
-> / 0.20% RPE**, but `--no-gt-seed` → **125.6 m / 87.4% RPE**. Not the rollback
-> gate (fallback only 1.8%): the coarse-voxel solve barely moves off the
-> already-correct guess.
-
-### Odometry (no GT seed) — RPE [drift %/100 m], lower is better
-
-No seed, so ATE (in parens) is unbounded drift; RPE is the fair metric.
+KITTI Odometry full sequences, ranked by relative pose error (the
+seed-independent local-accuracy metric). ATE in parens is unbounded drift over
+the run. Full matrix: [**explorer**]({explorer}).
 
 {odom_table}
 
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
 LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
 broken port._
+
+> **No GT-seeded methods here.** NDT / LiTAMIN2 / GICP use the ground-truth pose
+> as the per-frame initial guess, so their ATE is seed adherence, not tracking —
+> and the ranking even inverts: NDT's 0.02 m comes from *not* registering
+> (`--no-gt-seed` → 87% RPE, the worst tracker), while GICP's larger ATE is real
+> registration. They need a GT prior and aren't standalone odometry, so they are
+> not ranked.
 {END_MARKER}"""
 
 

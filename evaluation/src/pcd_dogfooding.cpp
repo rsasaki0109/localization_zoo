@@ -1090,6 +1090,7 @@ struct RKOLIODogfoodingOptions {
   int max_icp_iterations = 30;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
+  double gyro_bias_gain = 0.3;
 };
 
 struct CTICPDogfoodingOptions {
@@ -3199,6 +3200,7 @@ MethodResult runRKOLIO(const std::vector<std::string>& pcd_dirs,
   params.max_icp_iterations = options.max_icp_iterations;
   params.local_map_radius = options.local_map_radius;
   params.map_cleanup_interval = options.map_cleanup_interval;
+  params.gyro_bias_gain = options.gyro_bias_gain;
   RKOLIOPipeline pipeline(params);
   pipeline.setInitialPose(gt.empty() ? Eigen::Matrix4d::Identity() : gt.front());
 
@@ -6107,6 +6109,20 @@ int main(int argc, char** argv) {
     if (arg.rfind("--genz-planarity-threshold=", 0) == 0) {
       genz_icp_options.planarity_threshold =
           std::stod(arg.substr(std::string("--genz-planarity-threshold=").size()));
+      continue;
+    }
+    if (arg == "--rko-lio-gyro-bias-gain") {
+      if (i + 1 >= argc) {
+        std::cerr << "--rko-lio-gyro-bias-gain requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      rko_lio_options.gyro_bias_gain = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--rko-lio-gyro-bias-gain=", 0) == 0) {
+      rko_lio_options.gyro_bias_gain =
+          std::stod(arg.substr(std::string("--rko-lio-gyro-bias-gain=").size()));
       continue;
     }
     if (arg == "--kiss-source-voxel-size") {

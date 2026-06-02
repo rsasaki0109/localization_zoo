@@ -23,6 +23,16 @@ Eigen::Matrix3d expSO3(const Eigen::Vector3d& w) {
          (1.0 - std::cos(t)) * K * K;
 }
 
+// SO3 の対数写像 (回転行列 -> 軸角ベクトル)。
+Eigen::Vector3d logSO3(const Eigen::Matrix3d& R) {
+  const double cos_theta = std::clamp((R.trace() - 1.0) / 2.0, -1.0, 1.0);
+  const double theta = std::acos(cos_theta);
+  if (theta < 1e-9) return Eigen::Vector3d::Zero();
+  const Eigen::Vector3d axis(R(2, 1) - R(1, 2), R(0, 2) - R(2, 0),
+                             R(1, 0) - R(0, 1));
+  return axis * (theta / (2.0 * std::sin(theta)));
+}
+
 std::vector<Eigen::Vector3d> transformPoints(
     const std::vector<Eigen::Vector3d>& pts, const Eigen::Matrix4d& T) {
   Eigen::Matrix3d R = T.block<3, 3>(0, 0);
@@ -203,12 +213,17 @@ RKOLIOResult RKOLIOPipeline::registerFrame(
     return result;
   }
 
-  // IMU 回転先験。gyro を事前積分して直前フレームからの相対回転を得る。
+  // IMU 回転先験。推定 gyro バイアスを差し引いて事前積分し、直前フレームからの
+  // 相対回転を得る。バイアス推定により生 gyro のドリフトが先験を歪めるのを防ぐ。
   Eigen::Matrix3d imu_delta_R = last_delta_.block<3, 3>(0, 0);  // 既定は等速
+  double imu_dt = 0.0;
   if (imu.size() >= 2) {
-    localization_zoo::imu_preintegration::ImuPreintegrator preint;
+    localization_zoo::imu_preintegration::ImuPreintegrator preint(
+        localization_zoo::imu_preintegration::ImuNoiseParams(), gyro_bias_,
+        Eigen::Vector3d::Zero());
     preint.integrateBatch(imu);
     const Eigen::Matrix3d dR = preint.result().delta_R;
+    imu_dt = imu.back().timestamp - imu.front().timestamp;
     if (dR.allFinite()) {
       imu_delta_R = dR;
       result.used_imu = true;
@@ -229,6 +244,16 @@ RKOLIOResult RKOLIOPipeline::registerFrame(
   const double model_error = last_delta_.block<3, 1>(0, 3).norm();
   model_errors_.push_back(model_error);
   if (model_errors_.size() > 100) model_errors_.erase(model_errors_.begin());
+
+  // gyro バイアスのオンライン補正。IMU 先験回転と ICP が解いた実回転の差分は
+  // バイアス起因の積分誤差。差分を角速度に直してバイアスを少しずつ更新する。
+  if (result.used_imu && params_.gyro_bias_gain > 0.0 && imu_dt > 1e-6) {
+    const Eigen::Matrix3d delta_R_icp = last_delta_.block<3, 3>(0, 0);
+    const Eigen::Vector3d residual = logSO3(imu_delta_R.transpose() * delta_R_icp);
+    gyro_bias_ -= params_.gyro_bias_gain * residual / imu_dt;
+    const double bn = gyro_bias_.norm();
+    if (bn > params_.max_gyro_bias) gyro_bias_ *= params_.max_gyro_bias / bn;
+  }
 
   pose_ = new_pose;
 

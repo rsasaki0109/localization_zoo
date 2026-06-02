@@ -1,0 +1,70 @@
+{
+    "schema_version": 1,
+    "problem": {
+        "id": "ct_icp_kitti_seq_07_velocity_reg",
+        "title": "CT-ICP seq 07 full: constant-velocity regularization sweep",
+        "question": "All exposed flags plateau at RPE 1.256% (ms_chol+flat). The continuous-time constant-velocity regularizer weight was hardcoded at 0.001 and never swept. Does raising it (velocity-only, leaving location/orientation at default) reduce frame-to-frame jitter / drift on this short sequence?",
+        "dataset": {
+            "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+            "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv"
+        },
+        "same_metrics": [
+            "ate_m",
+            "fps",
+            "rpe_trans_pct",
+            "readability_score",
+            "extensibility_score"
+        ]
+    },
+    "stable_interface": {
+        "binary": "build/evaluation/pcd_dogfooding",
+        "methods": "ct_icp",
+        "primary_method": "CT-ICP"
+    },
+    "variants": [
+        {
+            "id": "ms_chol_flat_reference",
+            "label": "ms_chol + flat-regularizer (existing best, RPE 1.256%)",
+            "design_style": "reference",
+            "intent": "Confirm the prior seq 07 leaderboard-best recipe.",
+            "args": [
+                "--ct-icp-dense-profile",
+                "--ct-icp-ceres-max-iterations", "6",
+                "--ct-icp-max-frames-in-map", "20",
+                "--ct-icp-multi-scale",
+                "--ct-icp-normal-cholesky",
+                "--ct-icp-flat-regularizer"
+            ]
+        },
+        {
+            "id": "velocity_reg_005",
+            "label": "+ constant-velocity-weight 0.05 (winner)",
+            "design_style": "regularization",
+            "intent": "Velocity-only smoothing at 0.05 (50x the 0.001 default), location/orientation left at default.",
+            "args": [
+                "--ct-icp-dense-profile",
+                "--ct-icp-ceres-max-iterations", "6",
+                "--ct-icp-max-frames-in-map", "20",
+                "--ct-icp-multi-scale",
+                "--ct-icp-normal-cholesky",
+                "--ct-icp-flat-regularizer",
+                "--ct-icp-constant-velocity-weight", "0.05"
+            ]
+        },
+        {
+            "id": "velocity_reg_01",
+            "label": "+ constant-velocity-weight 0.1",
+            "design_style": "regularization",
+            "intent": "Velocity-only smoothing at 0.1 to bracket the optimum.",
+            "args": [
+                "--ct-icp-dense-profile",
+                "--ct-icp-ceres-max-iterations", "6",
+                "--ct-icp-max-frames-in-map", "20",
+                "--ct-icp-multi-scale",
+                "--ct-icp-normal-cholesky",
+                "--ct-icp-flat-regularizer",
+                "--ct-icp-constant-velocity-weight", "0.1"
+            ]
+        }
+    ]
+}

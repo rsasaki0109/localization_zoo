@@ -42,8 +42,9 @@ the [**interactive explorer**](https://rsasaki0109.github.io/localization_zoo/).
 
 ### GT-seeded localization — ATE [m], lower is better
 
-These re-anchor to ground truth every frame (weak-update fallback), so ATE is
-the per-frame registration residual, not standalone tracking.
+These take the ground-truth pose as the **initial guess on every frame** (with a
+weak-update gate that rolls back to the seed if registration drifts too far), so
+ATE measures how little the method moves the GT guess, not standalone tracking.
 
 | Method | Seq 00 | Seq 02 | Seq 05 | Seq 07 | Seq 08 |
 |---|---:|---:|---:|---:|---:|
@@ -54,12 +55,17 @@ the per-frame registration residual, not standalone tracking.
 | Voxel-GICP | 1.047 | 0.944 | 1.031 | 0.950 | 0.955 |
 
 > ⚠️ **NDT's numbers are a GT-substitution artifact, not registration quality.**
-> NDT has essentially no standalone tracking: with `--no-gt-seed` it diverges
-> (KITTI Raw 0009 full: **310 m ATE / 41.5% RPE**). Seeded, it reports a
-> physically impossible **0.07% RPE** — i.e. it is emitting the GT pose each
-> frame. A tighter seed gate lowers ATE by substituting GT more often, not by
-> registering better. Treat the seeded ATE column as "how tightly the method
-> stays pinned to the seed," not as an odometry ranking.
+> The smoking gun is the same sequence with vs without the per-frame GT guess —
+> KITTI Seq 07: seeded **0.076 m ATE / 0.20% RPE**, but `--no-gt-seed`
+> **125.6 m ATE / 87.4% RPE**. Remove the GT guess and it is pure noise, so the
+> seeded score is the *guess*, not the registration. And this is **not** the
+> rollback gate doing it: instrumentation shows NDT falls back to the seed on
+> only **1.8%** of frames — on the other 98% it "accepts" a registration that
+> barely moves off the GT guess (NDT's coarse-voxel gradient is too weak to push
+> away from an already-correct pose). Treat the seeded ATE column as "how tightly
+> the method stays pinned to the GT guess," not as an odometry ranking. (Contrast
+> Small-GICP on Seq 07: similar 2.6% fallback but ATE 0.68 m / RPE 1.43% — it
+> *does* register, moving off the guess and earning a real, larger residual.)
 
 ### Odometry (no GT seed) — RPE [drift %/100 m], lower is better
 

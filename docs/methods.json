@@ -778,6 +778,21 @@
         "place-recognition",
         "descriptor"
       ]
+    },
+    {
+      "name": "DAMM-LOAM",
+      "family": "Degeneracy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/damm_loam",
+      "summary": "Degeneracy-aware multi-metric LiDAR odometry: range-image normal-class weighting (ground/wall/edge) + Hessian-eigenvalue degeneracy boost (arXiv:2510.13287).",
+      "tags": [
+        "odometry",
+        "degeneracy",
+        "multi-metric"
+      ]
     }
   ],
   "starter_tracks": [

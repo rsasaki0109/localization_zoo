@@ -46,6 +46,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   vibration_lio
   bievr_lio
   ua_lio
+  damm_loam
   cube_lio
   rko_lio
   aloam

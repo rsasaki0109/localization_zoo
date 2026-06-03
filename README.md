@@ -59,6 +59,35 @@ broken port._
 > (`--no-gt-seed` → 87% RPE, the worst tracker), while GICP's larger ATE is real
 > registration. They need a GT prior and aren't standalone odometry, so they are
 > not ranked.
+
+### From-paper reimplementations (no public reference code) — KITTI full
+
+Recently reimplemented papers with **no public author code**, run as pure
+odometry on KITTI Odometry full sequences (first-pose anchor only, `--no-gt-seed`,
+uniform `--*-dense-profile`). KITTI has no IMU in this harness, so LIO methods
+run their constant-velocity fallback. RPE is drift %/100 m (lower is better);
+ATE in parens is unbounded drift.
+
+| Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
+|---|---:|---:|---|
+| Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
+| CUBE-LIO | **0.851%** <sub>(9 m)</sub> | 0.608% <sub>(1 m)</sub> | ROBOMECH 2026 |
+| CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
+| Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
+| BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
+| R-VoxelMap | 1.076% <sub>(20 m)</sub> | _diverges_ | arXiv:2601.12377 |
+| D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |
+| DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
+| UA-LIO | _diverges_ | _diverges_ | IEEE TIM 2025 |
+| _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
+| _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
+
+**Adaptive-ICP and CUBE-LIO match or beat KISS-ICP on both sequences**, and the
+top six clear CT-ICP by a wide margin. R-VoxelMap is healthy on seq 00 but
+diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on KITTI —
+honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor
+(not odometry) and is benchmarked separately. Raw run JSON:
+[`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
 
 ## Scope Note

@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "DegenSense",
+      "status": "ok",
+      "ate_m": 39.475454,
+      "rpe_trans_pct": 9.940203,
+      "rpe_rot_deg_per_m": 0.096079,
+      "frames": 1101,
+      "time_ms": 1814543.396783,
+      "fps": 0.606764,
+      "seed_fallback_rate_pct": null,
+      "note": "Degeneracy sensing, constant-velocity fallback (no imu.csv; GT-seeded init). degenerate_frames=335"
+    }
+  ]
+}

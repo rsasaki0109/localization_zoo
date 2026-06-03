@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq00_full",
+  "gt_csv": "kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "D2-LIO",
+      "status": "ok",
+      "ate_m": 106.236840,
+      "rpe_trans_pct": 5.794076,
+      "rpe_rot_deg_per_m": 0.102637,
+      "frames": 4541,
+      "time_ms": 6135707.799501,
+      "fps": 0.740094,
+      "seed_fallback_rate_pct": null,
+      "note": "Scan-to-submap, constant-velocity fallback (no imu.csv; GT-seeded init). deg_dirs/frame rot=4365 trans=0"
+    }
+  ]
+}

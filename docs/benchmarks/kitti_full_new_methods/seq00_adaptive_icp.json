@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq00_full",
+  "gt_csv": "kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "Adaptive-ICP",
+      "status": "ok",
+      "ate_m": 11.171976,
+      "rpe_trans_pct": 0.870070,
+      "rpe_rot_deg_per_m": 0.006724,
+      "frames": 4541,
+      "time_ms": 4298833.883925,
+      "fps": 1.056333,
+      "seed_fallback_rate_pct": null,
+      "note": "Reliable-initial-pose adaptive ICP: density-filtered coarse pose vs constant-velocity prediction, robust point-to-plane with sigma_th gating (no GT seed; anchor matches first GT pose). coarse_accepted=4540"
+    }
+  ]
+}

@@ -48,6 +48,10 @@ target_link_libraries(pcd_dogfooding PRIVATE
   ua_lio
   damm_loam
   lodestar
+  terrain_rbf_lio
+  lidar_iba
+  dali_slam
+  intensity_flow
   cube_lio
   rko_lio
   aloam

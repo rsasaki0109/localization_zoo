@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -16,6 +16,10 @@
 #include "r_voxelmap/r_voxelmap.h"
 #include "damm_loam/damm_loam.h"
 #include "lodestar/lodestar.h"
+#include "terrain_rbf_lio/terrain_rbf_lio.h"
+#include "lidar_iba/lidar_iba.h"
+#include "dali_slam/dali_slam.h"
+#include "intensity_flow/intensity_flow.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -193,7 +197,9 @@ bool isSupportedMethod(const std::string& method) {
          method == "r_voxelmap" || method == "degen_sense" ||
          method == "vibration_lio" || method == "bievr_lio" ||
          method == "ua_lio" || method == "damm_loam" ||
-         method == "lodestar" || method == "clins";
+         method == "lodestar" || method == "terrain_rbf_lio" ||
+         method == "lidar_iba" || method == "dali_slam" ||
+         method == "intensity_flow" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1208,6 +1214,82 @@ struct LodestarDogfoodingOptions {
   int active_window = 2;
   bool enable_data_exploitation = true;
   double t_loc = 0.819;        // cos(35°)
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct TerrainRbfDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  int max_icp_iterations = 30;
+  double initial_threshold = 2.0;
+  double terrain_cell_size = 2.0;
+  double terrain_sigma = 3.0;
+  double terrain_ground_band = 1.0;
+  double terrain_weight = 5.0;  // z-drift 抑制 soft 拘束 (opt-in、dogfooding は有効)
+  int terrain_warmup = 10;
+  double sensor_height_alpha = 0.05;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct LidarIbaDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  int max_icp_iterations = 30;
+  double initial_threshold = 2.0;
+  bool enable_ba = true;
+  int keyframe_interval = 2;
+  int window_size = 5;
+  int ba_iterations = 4;
+  double plane_voxel = 2.0;
+  int max_landmarks = 150;
+  double lidar_sigma = 0.05;
+  double pose_prior_weight = 20.0;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct DaliSlamDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  int max_icp_iterations = 30;
+  double initial_threshold = 2.0;
+  bool enable_deskew = true;
+  bool spline_quadratic = false;
+  double degeneracy_threshold = 4.48;
+  bool enable_degeneracy = true;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct IntensityFlowDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  int max_icp_iterations = 30;
+  double initial_threshold = 2.0;
+  bool enable_gradient_flow = true;
+  double gf_radius = 1.0;
+  int gf_num_bins = 10;
+  double gf_keep_ratio = 0.5;
+  bool enable_intensity = true;
+  double intensity_sigma = 0.2;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -3803,6 +3885,220 @@ MethodResult runLodestar(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runTerrainRbf(const std::vector<std::string>& pcd_dirs,
+                           const std::vector<Eigen::Matrix4d>& gt,
+                           const TerrainRbfDogfoodingOptions& options) {
+  using namespace localization_zoo::terrain_rbf_lio;
+  MethodResult res;
+  res.name = "Terrain-RBF-LIO";
+
+  TerrainRbfParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.initial_threshold = options.initial_threshold;
+  params.terrain_cell_size = options.terrain_cell_size;
+  params.terrain_sigma = options.terrain_sigma;
+  params.terrain_ground_band = options.terrain_ground_band;
+  params.terrain_weight = options.terrain_weight;
+  params.terrain_warmup = options.terrain_warmup;
+  params.sensor_height_alpha = options.sensor_height_alpha;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  TerrainRbfPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  int terrain_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    if (result.terrain_active) ++terrain_frames;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [Terrain-RBF] " << i << "/" << pcd_dirs.size()
+                << " terrain_cells=" << pipeline.terrainSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Terrain-aware RBF-LIO: Gaussian RBF terrain height field (RLS) used as a "
+      "vehicle-height-above-terrain soft prior to suppress z-drift (legged-wheel "
+      "contact constraint reinterpreted for the car platform); constant-velocity, "
+      "no GT seed. terrain_active_frames=" +
+      std::to_string(terrain_frames);
+  return res;
+}
+
+MethodResult runLidarIba(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const LidarIbaDogfoodingOptions& options) {
+  using namespace localization_zoo::lidar_iba;
+  MethodResult res;
+  res.name = "LiDAR-IBA";
+
+  LidarIbaParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.initial_threshold = options.initial_threshold;
+  params.enable_ba = options.enable_ba;
+  params.keyframe_interval = options.keyframe_interval;
+  params.window_size = options.window_size;
+  params.ba_iterations = options.ba_iterations;
+  params.plane_voxel = options.plane_voxel;
+  params.max_landmarks = options.max_landmarks;
+  params.lidar_sigma = options.lidar_sigma;
+  params.pose_prior_weight = options.pose_prior_weight;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  LidarIbaPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  int ba_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    if (result.ba_ran) ++ba_frames;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [LiDAR-IBA] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Consistency-improved LiDAR bundle adjustment: stereographic plane-normal "
+      "parameterization + sliding-window plane BA with FEJ (oldest keyframe "
+      "gauge-fixed) and a front-end odometry prior; constant-velocity, no GT "
+      "seed. ba_frames=" +
+      std::to_string(ba_frames);
+  return res;
+}
+
+MethodResult runDaliSlam(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const DaliSlamDogfoodingOptions& options) {
+  using namespace localization_zoo::dali_slam;
+  MethodResult res;
+  res.name = "DALI-SLAM";
+
+  DaliSlamParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.initial_threshold = options.initial_threshold;
+  params.enable_deskew = options.enable_deskew;
+  params.spline_quadratic = options.spline_quadratic;
+  params.degeneracy_threshold = options.degeneracy_threshold;
+  params.enable_degeneracy = options.enable_degeneracy;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  DaliSlamPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  int degenerate_frames = 0;
+  int deskew_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    if (result.degenerate) ++degenerate_frames;
+    if (result.deskew_applied) ++deskew_frames;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [DALI-SLAM] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "DALI-SLAM: dual-spline motion distortion correction (constant-velocity "
+      "spline deskew, azimuth per-point time) + degeneracy-aware solution "
+      "remapping; pure-LiDAR, no GT seed. degenerate_frames=" +
+      std::to_string(degenerate_frames) +
+      " deskew_frames=" + std::to_string(deskew_frames);
+  return res;
+}
+
+MethodResult runIntensityFlow(const std::vector<std::string>& pcd_dirs,
+                              const std::vector<Eigen::Matrix4d>& gt,
+                              const IntensityFlowDogfoodingOptions& options) {
+  using namespace localization_zoo::intensity_flow;
+  MethodResult res;
+  res.name = "Intensity-Flow";
+
+  IntensityFlowParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.initial_threshold = options.initial_threshold;
+  params.enable_gradient_flow = options.enable_gradient_flow;
+  params.gf_radius = options.gf_radius;
+  params.gf_num_bins = options.gf_num_bins;
+  params.gf_keep_ratio = options.gf_keep_ratio;
+  params.enable_intensity = options.enable_intensity;
+  params.intensity_sigma = options.intensity_sigma;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  IntensityFlowPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  long sampled_sum = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto xyzi = limitLoadedXYZI(
+        loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size),
+        options.max_source_points);
+    if (xyzi.empty()) continue;
+    std::vector<PointI> pts_local(xyzi.size());
+    for (size_t k = 0; k < xyzi.size(); k++) {
+      pts_local[k].p = xyzi[k].point;
+      pts_local[k].intensity = xyzi[k].intensity;
+    }
+    const auto result = pipeline.registerFrame(pts_local);
+    sampled_sum += result.num_sampled;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [Intensity-Flow] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Intensity-gradient-flow odometry: RMS geometric gradient-flow sampling + "
+      "intensity-geometry fused point-to-plane matching (intensity-consistency "
+      "weight); pure-LiDAR (uses KITTI PointXYZI), no GT seed. sampled_points=" +
+      std::to_string(sampled_sum);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -5545,7 +5841,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -5703,6 +5999,10 @@ int main(int argc, char** argv) {
   RVoxelMapDogfoodingOptions r_voxelmap_options;
   DammLoamDogfoodingOptions damm_loam_options;
   LodestarDogfoodingOptions lodestar_options;
+  TerrainRbfDogfoodingOptions terrain_rbf_options;
+  LidarIbaDogfoodingOptions lidar_iba_options;
+  DaliSlamDogfoodingOptions dali_slam_options;
+  IntensityFlowDogfoodingOptions intensity_flow_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -7199,6 +7499,114 @@ int main(int argc, char** argv) {
       lodestar_options.enable_data_exploitation = false;
       continue;
     }
+    // --- terrain_rbf_lio ---
+    if (arg == "--terrain-rbf-fast-profile") {
+      terrain_rbf_options.source_voxel_size = 0.5;
+      terrain_rbf_options.max_source_points = 4000;
+      terrain_rbf_options.voxel_size = 1.0;
+      terrain_rbf_options.max_icp_iterations = 20;
+      terrain_rbf_options.local_map_radius = 45.0;
+      terrain_rbf_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--terrain-rbf-dense-profile") {
+      terrain_rbf_options.source_voxel_size = 0.35;
+      terrain_rbf_options.max_source_points = 6000;
+      terrain_rbf_options.voxel_size = 0.8;
+      terrain_rbf_options.max_icp_iterations = 40;
+      terrain_rbf_options.local_map_radius = 80.0;
+      terrain_rbf_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--terrain-rbf-weight") {
+      if (i + 1 >= argc) { std::cerr << "--terrain-rbf-weight requires a value" << std::endl; return 1; }
+      terrain_rbf_options.terrain_weight = std::stod(argv[++i]);
+      continue;
+    }
+    // --- lidar_iba ---
+    if (arg == "--lidar-iba-fast-profile") {
+      lidar_iba_options.source_voxel_size = 0.5;
+      lidar_iba_options.max_source_points = 4000;
+      lidar_iba_options.voxel_size = 1.0;
+      lidar_iba_options.max_icp_iterations = 20;
+      lidar_iba_options.local_map_radius = 45.0;
+      lidar_iba_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--lidar-iba-dense-profile") {
+      lidar_iba_options.source_voxel_size = 0.35;
+      lidar_iba_options.max_source_points = 6000;
+      lidar_iba_options.voxel_size = 0.8;
+      lidar_iba_options.max_icp_iterations = 40;
+      lidar_iba_options.local_map_radius = 80.0;
+      lidar_iba_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--lidar-iba-no-ba") {
+      lidar_iba_options.enable_ba = false;
+      continue;
+    }
+    if (arg == "--lidar-iba-pose-prior-weight") {
+      if (i + 1 >= argc) { std::cerr << "--lidar-iba-pose-prior-weight requires a value" << std::endl; return 1; }
+      lidar_iba_options.pose_prior_weight = std::stod(argv[++i]);
+      continue;
+    }
+    // --- dali_slam ---
+    if (arg == "--dali-slam-fast-profile") {
+      dali_slam_options.source_voxel_size = 0.5;
+      dali_slam_options.max_source_points = 4000;
+      dali_slam_options.voxel_size = 1.0;
+      dali_slam_options.max_icp_iterations = 20;
+      dali_slam_options.local_map_radius = 45.0;
+      dali_slam_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--dali-slam-dense-profile") {
+      dali_slam_options.source_voxel_size = 0.35;
+      dali_slam_options.max_source_points = 6000;
+      dali_slam_options.voxel_size = 0.8;
+      dali_slam_options.max_icp_iterations = 40;
+      dali_slam_options.local_map_radius = 80.0;
+      dali_slam_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--dali-slam-no-deskew") {
+      dali_slam_options.enable_deskew = false;
+      continue;
+    }
+    if (arg == "--dali-slam-degeneracy-threshold") {
+      if (i + 1 >= argc) { std::cerr << "--dali-slam-degeneracy-threshold requires a value" << std::endl; return 1; }
+      dali_slam_options.degeneracy_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    // --- intensity_flow ---
+    if (arg == "--intensity-flow-fast-profile") {
+      intensity_flow_options.source_voxel_size = 0.5;
+      intensity_flow_options.max_source_points = 4000;
+      intensity_flow_options.voxel_size = 1.0;
+      intensity_flow_options.max_icp_iterations = 20;
+      intensity_flow_options.local_map_radius = 45.0;
+      intensity_flow_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--intensity-flow-dense-profile") {
+      intensity_flow_options.source_voxel_size = 0.35;
+      intensity_flow_options.max_source_points = 6000;
+      intensity_flow_options.voxel_size = 0.8;
+      intensity_flow_options.max_icp_iterations = 40;
+      intensity_flow_options.local_map_radius = 80.0;
+      intensity_flow_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--intensity-flow-keep-ratio") {
+      if (i + 1 >= argc) { std::cerr << "--intensity-flow-keep-ratio requires a value" << std::endl; return 1; }
+      intensity_flow_options.gf_keep_ratio = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--intensity-flow-no-intensity") {
+      intensity_flow_options.enable_intensity = false;
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -8544,6 +8952,51 @@ int main(int argc, char** argv) {
               << " max_iterations=" << lodestar_options.max_icp_iterations
               << std::endl;
     results.push_back(runLodestar(pcd_dirs, gt, lodestar_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "terrain_rbf_lio")) {
+    std::cout << "Running Terrain-RBF-LIO..." << std::endl;
+    std::cout << "  source_voxel_size=" << terrain_rbf_options.source_voxel_size
+              << " voxel_size=" << terrain_rbf_options.voxel_size
+              << " terrain_cell=" << terrain_rbf_options.terrain_cell_size
+              << " terrain_weight=" << terrain_rbf_options.terrain_weight
+              << " max_iterations=" << terrain_rbf_options.max_icp_iterations
+              << std::endl;
+    results.push_back(runTerrainRbf(pcd_dirs, gt, terrain_rbf_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "lidar_iba")) {
+    std::cout << "Running LiDAR-IBA..." << std::endl;
+    std::cout << "  source_voxel_size=" << lidar_iba_options.source_voxel_size
+              << " voxel_size=" << lidar_iba_options.voxel_size
+              << " enable_ba=" << lidar_iba_options.enable_ba
+              << " window=" << lidar_iba_options.window_size
+              << " pose_prior=" << lidar_iba_options.pose_prior_weight
+              << " max_iterations=" << lidar_iba_options.max_icp_iterations
+              << std::endl;
+    results.push_back(runLidarIba(pcd_dirs, gt, lidar_iba_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "dali_slam")) {
+    std::cout << "Running DALI-SLAM..." << std::endl;
+    std::cout << "  source_voxel_size=" << dali_slam_options.source_voxel_size
+              << " voxel_size=" << dali_slam_options.voxel_size
+              << " deskew=" << dali_slam_options.enable_deskew
+              << " degeneracy_threshold=" << dali_slam_options.degeneracy_threshold
+              << " max_iterations=" << dali_slam_options.max_icp_iterations
+              << std::endl;
+    results.push_back(runDaliSlam(pcd_dirs, gt, dali_slam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "intensity_flow")) {
+    std::cout << "Running Intensity-Flow..." << std::endl;
+    std::cout << "  source_voxel_size=" << intensity_flow_options.source_voxel_size
+              << " voxel_size=" << intensity_flow_options.voxel_size
+              << " keep_ratio=" << intensity_flow_options.gf_keep_ratio
+              << " intensity=" << intensity_flow_options.enable_intensity
+              << " max_iterations=" << intensity_flow_options.max_icp_iterations
+              << std::endl;
+    results.push_back(runIntensityFlow(pcd_dirs, gt, intensity_flow_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

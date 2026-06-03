@@ -1267,9 +1267,12 @@ struct DaliSlamDogfoodingOptions {
   double planarity_threshold = 0.5;
   int max_icp_iterations = 30;
   double initial_threshold = 2.0;
-  bool enable_deskew = true;
+  // KITTI(IMU無)既定: deskew は off。azimuth ベースの per-point 時刻復元はこの
+  // harness のデータと不整合で、CV deskew が距離誤差を増幅し長系列(seq00)で発散
+  // する。退化対応 remap (DALI の主寄与) は維持。--dali-slam-... で deskew を有効化可。
+  bool enable_deskew = false;
   bool spline_quadratic = false;
-  double degeneracy_threshold = 4.48;
+  double degeneracy_ratio = 0.02;
   bool enable_degeneracy = true;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
@@ -4007,7 +4010,7 @@ MethodResult runDaliSlam(const std::vector<std::string>& pcd_dirs,
   params.initial_threshold = options.initial_threshold;
   params.enable_deskew = options.enable_deskew;
   params.spline_quadratic = options.spline_quadratic;
-  params.degeneracy_threshold = options.degeneracy_threshold;
+  params.degeneracy_ratio = options.degeneracy_ratio;
   params.enable_degeneracy = options.enable_degeneracy;
   params.local_map_radius = options.local_map_radius;
   params.map_cleanup_interval = options.map_cleanup_interval;
@@ -7574,9 +7577,13 @@ int main(int argc, char** argv) {
       dali_slam_options.enable_deskew = false;
       continue;
     }
-    if (arg == "--dali-slam-degeneracy-threshold") {
-      if (i + 1 >= argc) { std::cerr << "--dali-slam-degeneracy-threshold requires a value" << std::endl; return 1; }
-      dali_slam_options.degeneracy_threshold = std::stod(argv[++i]);
+    if (arg == "--dali-slam-deskew") {
+      dali_slam_options.enable_deskew = true;
+      continue;
+    }
+    if (arg == "--dali-slam-degeneracy-ratio") {
+      if (i + 1 >= argc) { std::cerr << "--dali-slam-degeneracy-ratio requires a value" << std::endl; return 1; }
+      dali_slam_options.degeneracy_ratio = std::stod(argv[++i]);
       continue;
     }
     // --- intensity_flow ---
@@ -8982,7 +8989,7 @@ int main(int argc, char** argv) {
     std::cout << "  source_voxel_size=" << dali_slam_options.source_voxel_size
               << " voxel_size=" << dali_slam_options.voxel_size
               << " deskew=" << dali_slam_options.enable_deskew
-              << " degeneracy_threshold=" << dali_slam_options.degeneracy_threshold
+              << " degeneracy_ratio=" << dali_slam_options.degeneracy_ratio
               << " max_iterations=" << dali_slam_options.max_icp_iterations
               << std::endl;
     results.push_back(runDaliSlam(pcd_dirs, gt, dali_slam_options));

@@ -71,28 +71,44 @@ ATE in parens is unbounded drift.
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
 | LODESTAR | **0.848%** <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
+| Terrain-RBF-LIO | 0.849% <sub>(8 m)</sub> | 0.587% <sub>(1 m)</sub> | arXiv:2509.26222 |
+| DALI-SLAM | 0.849% <sub>(8 m)</sub> | 0.600% <sub>(1 m)</sub> | ISPRS JPRS 2025 |
 | DAMM-LOAM | 0.851% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2510.13287 |
-| Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
 | CUBE-LIO | 0.851% <sub>(9 m)</sub> | 0.608% <sub>(1 m)</sub> | ROBOMECH 2026 |
+| Intensity-Flow | 0.856% <sub>(8 m)</sub> | 0.616% <sub>(1 m)</sub> | Measurement 2026 |
+| Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
 | CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
 | R-VoxelMap | 1.076% <sub>(20 m)</sub> | _diverges_ | arXiv:2601.12377 |
+| LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |
 | DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
 | UA-LIO | _diverges_ | _diverges_ | IEEE TIM 2025 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-**LODESTAR, DAMM-LOAM, Adaptive-ICP and CUBE-LIO match or beat KISS-ICP on both
-sequences** (LODESTAR posts the best seq-00 drift and ties second-best on seq 07;
-its condition-number Schmidt-Kalman gate stays silent on well-conditioned KITTI
-urban scans and fires on only 26 genuinely degenerate seq-00 frames — degeneracy
-compensation that activates exactly when needed, validated separately by unit
-tests on synthetic corridors),
-and the top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on seq 00 but
-diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on KITTI —
-honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor
+**LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow and
+Adaptive-ICP all match or beat KISS-ICP on both sequences** — the new batch is led
+by Terrain-RBF-LIO (2nd-best seq-00 drift: its Gaussian-RBF terrain height field
+anchors vehicle z and suppresses z-drift) and DALI-SLAM (best seq-07 of the new
+four at 0.600%). Intensity-Flow ties KISS-ICP via RMS gradient-flow sampling +
+intensity-fused matching. LODESTAR's condition-number Schmidt-Kalman gate stays
+silent on well-conditioned KITTI urban scans and fires on only 26 genuinely
+degenerate seq-00 frames (validated by unit tests on synthetic corridors).
+**Two honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
+in this IMU-free harness: its constant-velocity, azimuth-timed dual-spline deskew
+amplifies range error (it diverges on the long seq 00), so deskew is off by
+default; and its degeneracy-aware remap stays completely silent (0 frames) on
+well-conditioned KITTI — so the reported numbers are effectively DALI's
+point-to-plane front-end, and both mechanisms are exercised instead by the unit
+tests. (2) LiDAR-IBA's stereographic + FEJ windowed bundle adjustment improves
+global consistency (best-of-the-new ATE on seq 07, 0.82 m) but its per-keyframe
+pose feedback costs RPE drift — with the BA off the front-end matches KISS-ICP
+(0.62% seq 07); the stereographic parameterization and FEJ machinery are unit-tested
+directly. The top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on
+seq 00 but diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on
+KITTI — honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor
 (not odometry) and is benchmarked separately. Raw run JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->

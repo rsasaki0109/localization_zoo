@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "UA-LIO",
+      "status": "ok",
+      "ate_m": 321181.967943,
+      "rpe_trans_pct": 74003.427021,
+      "rpe_rot_deg_per_m": 1.007231,
+      "frames": 1101,
+      "time_ms": 50486.052277,
+      "fps": 21.808003,
+      "seed_fallback_rate_pct": null,
+      "note": "D2D + ground constraint, constant-velocity (no imu.csv; GT-seeded init). ground_cells=23"
+    }
+  ]
+}

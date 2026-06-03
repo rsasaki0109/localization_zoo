@@ -38,6 +38,15 @@ target_link_libraries(pcd_dogfooding PRIVATE
   scan_context
   kiss_icp
   genz_icp
+  adaptive_icp
+  d2lio
+  ct_voxelmap
+  r_voxelmap
+  degen_sense
+  vibration_lio
+  bievr_lio
+  ua_lio
+  cube_lio
   rko_lio
   aloam
   floam

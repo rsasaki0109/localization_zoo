@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq00_full",
+  "gt_csv": "kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "LODESTAR",
+      "status": "ok",
+      "ate_m": 6.600694,
+      "rpe_trans_pct": 0.848301,
+      "rpe_rot_deg_per_m": 0.006289,
+      "frames": 4541,
+      "time_ms": 4617284.553802,
+      "fps": 0.983478,
+      "seed_fallback_rate_pct": null,
+      "note": "Degeneracy-aware LiDAR odometry: condition-number Schmidt-Kalman anchoring of degenerate directions to constant-velocity prediction (DA-ASKF) + localizability pruning (DA-DE); pure-LiDAR scope, no GT seed (anchor matches first GT pose). degenerate_frames=26 pruned=18037"
+    }
+  ]
+}

@@ -47,6 +47,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   bievr_lio
   ua_lio
   damm_loam
+  lodestar
   cube_lio
   rko_lio
   aloam

@@ -808,6 +808,66 @@
         "degeneracy",
         "schmidt-kalman"
       ]
+    },
+    {
+      "name": "Terrain-RBF-LIO",
+      "family": "Terrain",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/terrain_rbf_lio",
+      "summary": "Terrain-aware LiDAR odometry: Gaussian-RBF terrain height field updated by RLS, used as a vehicle-height-above-terrain soft prior to suppress z-drift (legged-wheel contact constraint reinterpreted for the car platform) (arXiv:2509.26222).",
+      "tags": [
+        "odometry",
+        "terrain",
+        "rbf"
+      ]
+    },
+    {
+      "name": "LiDAR-IBA",
+      "family": "Bundle Adjustment",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/lidar_iba",
+      "summary": "Consistency-improved LiDAR bundle adjustment: stereographic plane-normal parameterization (no over-parameterization/ground-plane singularity) + sliding-window plane BA with FEJ (arXiv:2602.06380).",
+      "tags": [
+        "bundle-adjustment",
+        "stereographic",
+        "fej"
+      ]
+    },
+    {
+      "name": "DALI-SLAM",
+      "family": "Degeneracy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/dali_slam",
+      "summary": "Dual-spline motion distortion correction (continuous-time spline deskew) + degeneracy-aware solution remapping over the registration Hessian (ISPRS J. P&RS 221, 2025).",
+      "tags": [
+        "odometry",
+        "deskew",
+        "degeneracy"
+      ]
+    },
+    {
+      "name": "Intensity-Flow",
+      "family": "Intensity",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/intensity_flow",
+      "summary": "Intensity-enhanced LiDAR odometry: RMS geometric gradient-flow sampling (redundancy-minimizing, distribution-preserving) + intensity-geometry fused point-to-plane matching (Measurement, 2026).",
+      "tags": [
+        "odometry",
+        "intensity",
+        "sampling"
+      ]
     }
   ],
   "starter_tracks": [

@@ -221,6 +221,7 @@ Eigen::Matrix4d DaliSlamPipeline::runRegistration(
 
     Eigen::Matrix<double, 6, 6> A = Eigen::Matrix<double, 6, 6>::Zero();
     Eigen::Matrix<double, 6, 1> b = Eigen::Matrix<double, 6, 1>::Zero();
+    Eigen::Matrix3d Htt = Eigen::Matrix3d::Zero();  // 並進ブロック (退化判定用)
     int used = 0;
     for (size_t i = 0; i < source.size(); i++) {
       const auto& c = corr[i];
@@ -230,50 +231,57 @@ Eigen::Matrix4d DaliSlamPipeline::runRegistration(
       J.block<3, 3>(0, 3) = Eigen::Matrix3d::Identity();
       double e;
       Eigen::Matrix<double, 1, 6> Jr;
+      Eigen::Vector3d dir;
       if (c.has_normal && c.planarity >= params_.planarity_threshold) {
         e = c.normal.dot(src[i] - c.anchor);
         Jr = c.normal.transpose() * J;
+        dir = c.normal;
       } else {
         const Eigen::Vector3d d = src[i] - c.point;
         const double dn = d.norm();
         if (dn < 1e-9) continue;
-        Jr = (d / dn).transpose() * J;
+        dir = d / dn;
+        Jr = dir.transpose() * J;
         e = dn;
       }
       if (std::abs(e) > kernel) continue;
       const double w = std::exp(-0.5 * (e / kernel) * (e / kernel));
       A += w * Jr.transpose() * Jr;
       b -= w * Jr.transpose() * e;
+      Htt += w * dir * dir.transpose();  // 並進寄与方向の外積
       ++used;
     }
     if (used < 10) break;
 
-    // --- degeneracy-aware solution remapping ---
-    // A を固有分解し、しきい値未満の方向は更新から除去 (退化方向は予測を維持)。
-    Eigen::Matrix<double, 6, 1> delta;
+    Eigen::Matrix<double, 6, 1> delta = A.ldlt().solve(b);
+    if (!delta.allFinite()) break;
+
+    // --- degeneracy-aware solution remapping (並進ブロック相対基準) ---
+    // 並進 Hessian H_tt を固有分解し、λ_k < ratio·λmax_t の退化方向については
+    // 解の並進更新からその成分を除去する (回転と良方向の並進は保持)。回転 Hessian
+    // は点の距離² でスケールし条件数が常に大きいため、退化判定は並進ブロックのみで
+    // 行う (リポジトリ標準、KITTI 都市部では沈黙し発散しない)。
     if (params_.enable_degeneracy) {
-      Eigen::SelfAdjointEigenSolver<Eigen::Matrix<double, 6, 6>> es(A);
-      const Eigen::Matrix<double, 6, 1> ev = es.eigenvalues();      // 昇順
-      const Eigen::Matrix<double, 6, 6> V = es.eigenvectors();
-      delta.setZero();
+      Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> est(Htt);
+      const Eigen::Vector3d evt = est.eigenvalues();      // 昇順
+      const Eigen::Matrix3d Vt = est.eigenvectors();
+      const double lmax_t = std::max(evt(2), 1e-12);
+      const double floor_t = params_.degeneracy_ratio * lmax_t;
+      Eigen::Vector3d dt = delta.tail<3>();
       int ndeg = 0;
-      for (int k = 0; k < 6; k++) {
-        if (ev(k) < params_.degeneracy_threshold) {
+      for (int k = 0; k < 3; k++) {
+        if (evt(k) < floor_t) {
+          dt -= dt.dot(Vt.col(k)) * Vt.col(k);  // 退化並進方向の更新を除去
           ++ndeg;
-          continue;  // 退化方向: 更新しない
         }
-        const double coeff = (V.col(k).dot(b)) / ev(k);
-        delta += coeff * V.col(k);
       }
+      delta.tail<3>() = dt;
       if (result) {
-        result->min_eigenvalue = ev(0);
+        result->min_eigenvalue = evt(0);
         result->num_degenerate_dirs = ndeg;
         result->degenerate = (ndeg > 0);
       }
-    } else {
-      delta = A.ldlt().solve(b);
     }
-    if (!delta.allFinite()) break;
     Eigen::Matrix4d dT = Eigen::Matrix4d::Identity();
     dT.block<3, 3>(0, 0) = expSO3(delta.head<3>());
     dT.block<3, 1>(0, 3) = delta.tail<3>();

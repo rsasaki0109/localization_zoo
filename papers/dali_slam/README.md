@@ -21,9 +21,9 @@ pipeline, porting DALI's two contributions.
    before deskewing. The continuous-time spline accounts for the accumulated
    error of IMU integration within the scan.
 
-2. **Degeneracy-aware update (solution remapping).** The 6×6 coefficient matrix
-   of the active point Jacobians is eigen-decomposed; directions whose eigenvalue
-   falls below a threshold are removed from the state update so degenerate
+2. **Degeneracy-aware update (solution remapping).** The translation Hessian
+   `H_tt` is eigen-decomposed; translation directions whose eigenvalue falls below
+   a floor are removed from the state's translation update so degenerate
    directions hold their prediction instead of drifting.
 
 ## Scope / approximations for KITTI (pure-LiDAR)
@@ -36,15 +36,23 @@ pipeline, porting DALI's two contributions.
   (`s = (atan2(y,x)+π)/2π ∈ [0,1)`), since the accumulated KITTI PCDs carry no
   per-point timestamp. Points are deskewed to the scan-end frame by
   `p_end = Exp((s−1)·twist)⊙p`.
-- **Honest note:** under a constant-velocity model the LiDAR trajectory and the
-  motion-model trajectory nearly coincide, so the DS-MDC correction term is much
-  smaller than in the paper (whose numbers assume a MEMS IMU). On KITTI the
-  **degeneracy-aware update is the primary contributor**, as in the paper's
-  ablation. The degeneracy step is IMU-independent and ported faithfully.
-- The threshold is **absolute** (paper default `degeneracy = 4.48`), not a
-  condition-number ratio, so the rotation block's range²-scaled large eigenvalues
-  do not cause false firing — only genuinely small (unconstrained) directions
-  drop out.
+- **Honest note (deskew):** under a constant-velocity model the LiDAR and
+  motion-model trajectories nearly coincide, so the DS-MDC correction is much
+  smaller than in the paper (whose numbers assume a MEMS IMU). On the accumulated
+  KITTI PCDs the azimuth-timed constant-velocity deskew actually *hurts* — it
+  amplifies range error and diverges on the long seq 00 — so **`enable_deskew`
+  defaults to off on KITTI** (re-enable with `--dali-slam-deskew`). The repo's
+  other no-deskew methods already match KISS-ICP on this harness, indicating the
+  accumulated clouds need no extra deskew here.
+- **Degeneracy threshold:** the paper uses an *absolute* eigenvalue threshold
+  (`degeneracy = 4.48`) calibrated to FAST-LIO's IMU-fused, normalized Hessian.
+  That scale does not transfer to this Gauss-Newton point-to-plane pipeline —
+  the absolute threshold false-fires on most KITTI frames, drops good directions
+  and diverges on seq 00. It is replaced by the repo's standard **translation-block
+  relative floor** (`λ_k < ratio·λmax_t`, as in damm_loam/lodestar): degeneracy is
+  judged on the translation block only (the rotation Hessian scales with range²
+  and its condition number is always large), and stays silent on well-conditioned
+  KITTI urban scans.
 - The multi-constraint pose-graph back end (MC-PGO) and loop closure are out of
   scope (front-end odometry only). ESKF/IKFoM is replaced by the repo's
   Gauss-Newton point-to-plane solve.
@@ -53,9 +61,9 @@ pipeline, porting DALI's two contributions.
 
 | Param | Meaning | Default |
 |---|---|---|
-| `enable_deskew` | spline deskew on/off | true |
-| `spline_quadratic` | 2nd-order (accel) extrapolation | true |
-| `degeneracy_threshold` | min-eigenvalue gate | 4.48 (paper) |
+| `enable_deskew` | spline deskew on/off | false on KITTI (lib default true) |
+| `spline_quadratic` | 2nd-order (accel) extrapolation | false |
+| `degeneracy_ratio` | translation-block relative floor `λ_k<ratio·λmax_t` | 0.02 |
 | `enable_degeneracy` | solution remapping on/off | true |
 
 ## Tests

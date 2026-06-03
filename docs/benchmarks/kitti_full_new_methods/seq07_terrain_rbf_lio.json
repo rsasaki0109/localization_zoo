@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "Terrain-RBF-LIO",
+      "status": "ok",
+      "ate_m": 1.043995,
+      "rpe_trans_pct": 0.586769,
+      "rpe_rot_deg_per_m": 0.005395,
+      "frames": 1101,
+      "time_ms": 1059538.744781,
+      "fps": 1.039131,
+      "seed_fallback_rate_pct": null,
+      "note": "Terrain-aware RBF-LIO: Gaussian RBF terrain height field (RLS) used as a vehicle-height-above-terrain soft prior to suppress z-drift (legged-wheel contact constraint reinterpreted for the car platform); constant-velocity, no GT seed. terrain_active_frames=1091"
+    }
+  ]
+}

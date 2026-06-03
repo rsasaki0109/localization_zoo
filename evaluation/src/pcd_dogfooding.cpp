@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -14,6 +14,7 @@
 #include "d2lio/d2lio.h"
 #include "ct_voxelmap/ct_voxelmap.h"
 #include "r_voxelmap/r_voxelmap.h"
+#include "damm_loam/damm_loam.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -190,7 +191,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "ct_voxelmap" || method == "cube_lio" ||
          method == "r_voxelmap" || method == "degen_sense" ||
          method == "vibration_lio" || method == "bievr_lio" ||
-         method == "ua_lio" ||
+         method == "ua_lio" || method == "damm_loam" ||
          method == "clins";
 }
 
@@ -1169,6 +1170,25 @@ struct RVoxelMapDogfoodingOptions {
   int max_depth = 2;
   int max_icp_iterations = 30;
   double max_correspondence_dist = 2.0;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct DammLoamDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  int max_icp_iterations = 30;
+  double initial_threshold = 2.0;
+  double vertical_cos = 0.966;
+  double horizontal_cos = 0.34;
+  double ground_z = 0.0;
+  double edge_weight = 0.5;
+  double degeneracy_ratio = 0.05;
+  double degeneracy_boost = 4.0;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -3651,6 +3671,64 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runDammLoam(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const DammLoamDogfoodingOptions& options) {
+  using namespace localization_zoo::damm_loam;
+  MethodResult res;
+  res.name = "DAMM-LOAM";
+
+  DammLoamParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.initial_threshold = options.initial_threshold;
+  params.vertical_cos = options.vertical_cos;
+  params.horizontal_cos = options.horizontal_cos;
+  params.ground_z = options.ground_z;
+  params.edge_weight = options.edge_weight;
+  params.degeneracy_ratio = options.degeneracy_ratio;
+  params.degeneracy_boost = options.degeneracy_boost;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  DammLoamPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  long ground_sum = 0, wall_sum = 0, edge_sum = 0;
+  int degenerate_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    ground_sum += result.counts.ground;
+    wall_sum += result.counts.wall;
+    edge_sum += result.counts.edge;
+    if (result.degenerate) ++degenerate_frames;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [DAMM-LOAM] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Degeneracy-aware multi-metric LiDAR odometry: range-image normal-class "
+      "weighting (ground/wall/edge) + Hessian-eigen degeneracy boost (no GT "
+      "seed; anchor matches first GT pose). ground=" +
+      std::to_string(ground_sum) + " wall=" + std::to_string(wall_sum) +
+      " edge=" + std::to_string(edge_sum) +
+      " degenerate_frames=" + std::to_string(degenerate_frames);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -5393,7 +5471,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -5549,6 +5627,7 @@ int main(int argc, char** argv) {
   D2LIODogfoodingOptions d2lio_options;
   CTVoxelMapDogfoodingOptions ct_voxelmap_options;
   RVoxelMapDogfoodingOptions r_voxelmap_options;
+  DammLoamDogfoodingOptions damm_loam_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -6985,6 +7064,34 @@ int main(int argc, char** argv) {
       r_voxelmap_options.max_depth = std::stoi(argv[++i]);
       continue;
     }
+    if (arg == "--damm-loam-fast-profile") {
+      damm_loam_options.source_voxel_size = 0.5;
+      damm_loam_options.max_source_points = 4000;
+      damm_loam_options.voxel_size = 1.0;
+      damm_loam_options.max_icp_iterations = 20;
+      damm_loam_options.local_map_radius = 45.0;
+      damm_loam_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--damm-loam-dense-profile") {
+      damm_loam_options.source_voxel_size = 0.35;
+      damm_loam_options.max_source_points = 6000;
+      damm_loam_options.voxel_size = 0.8;
+      damm_loam_options.max_icp_iterations = 40;
+      damm_loam_options.local_map_radius = 80.0;
+      damm_loam_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--damm-loam-degeneracy-ratio") {
+      if (i + 1 >= argc) { std::cerr << "--damm-loam-degeneracy-ratio requires a value" << std::endl; return 1; }
+      damm_loam_options.degeneracy_ratio = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--damm-loam-edge-weight") {
+      if (i + 1 >= argc) { std::cerr << "--damm-loam-edge-weight requires a value" << std::endl; return 1; }
+      damm_loam_options.edge_weight = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -8307,6 +8414,17 @@ int main(int argc, char** argv) {
               << " max_iterations=" << r_voxelmap_options.max_icp_iterations
               << std::endl;
     results.push_back(runRVoxelMap(pcd_dirs, gt, r_voxelmap_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "damm_loam")) {
+    std::cout << "Running DAMM-LOAM..." << std::endl;
+    std::cout << "  source_voxel_size=" << damm_loam_options.source_voxel_size
+              << " voxel_size=" << damm_loam_options.voxel_size
+              << " degeneracy_ratio=" << damm_loam_options.degeneracy_ratio
+              << " edge_weight=" << damm_loam_options.edge_weight
+              << " max_iterations=" << damm_loam_options.max_icp_iterations
+              << std::endl;
+    results.push_back(runDammLoam(pcd_dirs, gt, damm_loam_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

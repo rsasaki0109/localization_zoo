@@ -868,6 +868,21 @@
         "intensity",
         "sampling"
       ]
+    },
+    {
+      "name": "SVN-ICP",
+      "family": "Uncertainty",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/svn_icp",
+      "summary": "Uncertainty-aware ICP LiDAR odometry: a particle posterior refined by Stein Variational Newton on SE(3) yields both a point-to-plane registration and a pose covariance without explicit noise modelling (arXiv:2509.08069).",
+      "tags": [
+        "odometry",
+        "uncertainty",
+        "stein-variational"
+      ]
     }
   ],
   "starter_tracks": [

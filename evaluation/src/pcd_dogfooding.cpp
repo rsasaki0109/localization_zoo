@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -20,6 +20,7 @@
 #include "lidar_iba/lidar_iba.h"
 #include "dali_slam/dali_slam.h"
 #include "intensity_flow/intensity_flow.h"
+#include "svn_icp/svn_icp.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -199,7 +200,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "ua_lio" || method == "damm_loam" ||
          method == "lodestar" || method == "terrain_rbf_lio" ||
          method == "lidar_iba" || method == "dali_slam" ||
-         method == "intensity_flow" || method == "clins";
+         method == "intensity_flow" || method == "svn_icp" ||
+         method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1293,6 +1295,25 @@ struct IntensityFlowDogfoodingOptions {
   double gf_keep_ratio = 0.5;
   bool enable_intensity = true;
   double intensity_sigma = 0.2;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct SvnIcpDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  double initial_threshold = 2.0;
+  int num_particles = 12;
+  int svn_iterations = 4;
+  double step_size = 1.0;
+  double lidar_sigma = 0.1;
+  double prior_precision = 1.0;
+  double init_spread_rot = 0.01;
+  double init_spread_trans = 0.05;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -4102,6 +4123,62 @@ MethodResult runIntensityFlow(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runSvnIcp(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const SvnIcpDogfoodingOptions& options) {
+  using namespace localization_zoo::svn_icp;
+  MethodResult res;
+  res.name = "SVN-ICP";
+
+  SvnIcpParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.initial_threshold = options.initial_threshold;
+  params.num_particles = options.num_particles;
+  params.svn_iterations = options.svn_iterations;
+  params.step_size = options.step_size;
+  params.lidar_sigma = options.lidar_sigma;
+  params.prior_precision = options.prior_precision;
+  params.init_spread_rot = options.init_spread_rot;
+  params.init_spread_trans = options.init_spread_trans;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  SvnIcpPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double trans_std_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    trans_std_sum += result.trans_std;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [SVN-ICP] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[64];
+  std::snprintf(buf, sizeof(buf), "%.4f",
+                n > 0 ? trans_std_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "SVN-ICP: Stein Variational Newton on SE(3) over M particles for "
+      "point-to-plane LiDAR odometry with built-in pose uncertainty (particle "
+      "covariance); constant-velocity prior, no GT seed. mean_trans_std_m=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -5844,7 +5921,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -6006,6 +6083,7 @@ int main(int argc, char** argv) {
   LidarIbaDogfoodingOptions lidar_iba_options;
   DaliSlamDogfoodingOptions dali_slam_options;
   IntensityFlowDogfoodingOptions intensity_flow_options;
+  SvnIcpDogfoodingOptions svn_icp_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -7614,6 +7692,42 @@ int main(int argc, char** argv) {
       intensity_flow_options.enable_intensity = false;
       continue;
     }
+    // --- svn_icp ---
+    if (arg == "--svn-icp-fast-profile") {
+      svn_icp_options.source_voxel_size = 0.5;
+      svn_icp_options.max_source_points = 4000;
+      svn_icp_options.voxel_size = 1.0;
+      svn_icp_options.num_particles = 8;
+      svn_icp_options.svn_iterations = 3;
+      svn_icp_options.local_map_radius = 45.0;
+      svn_icp_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--svn-icp-dense-profile") {
+      svn_icp_options.source_voxel_size = 0.35;
+      svn_icp_options.max_source_points = 6000;
+      svn_icp_options.voxel_size = 0.8;
+      svn_icp_options.num_particles = 12;
+      svn_icp_options.svn_iterations = 4;
+      svn_icp_options.local_map_radius = 80.0;
+      svn_icp_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--svn-icp-num-particles") {
+      if (i + 1 >= argc) { std::cerr << "--svn-icp-num-particles requires a value" << std::endl; return 1; }
+      svn_icp_options.num_particles = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--svn-icp-iterations") {
+      if (i + 1 >= argc) { std::cerr << "--svn-icp-iterations requires a value" << std::endl; return 1; }
+      svn_icp_options.svn_iterations = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--svn-icp-lidar-sigma") {
+      if (i + 1 >= argc) { std::cerr << "--svn-icp-lidar-sigma requires a value" << std::endl; return 1; }
+      svn_icp_options.lidar_sigma = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -9004,6 +9118,17 @@ int main(int argc, char** argv) {
               << " max_iterations=" << intensity_flow_options.max_icp_iterations
               << std::endl;
     results.push_back(runIntensityFlow(pcd_dirs, gt, intensity_flow_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "svn_icp")) {
+    std::cout << "Running SVN-ICP..." << std::endl;
+    std::cout << "  source_voxel_size=" << svn_icp_options.source_voxel_size
+              << " voxel_size=" << svn_icp_options.voxel_size
+              << " num_particles=" << svn_icp_options.num_particles
+              << " svn_iterations=" << svn_icp_options.svn_iterations
+              << " lidar_sigma=" << svn_icp_options.lidar_sigma
+              << std::endl;
+    results.push_back(runSvnIcp(pcd_dirs, gt, svn_icp_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

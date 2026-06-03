@@ -52,6 +52,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   lidar_iba
   dali_slam
   intensity_flow
+  svn_icp
   cube_lio
   rko_lio
   aloam

@@ -70,9 +70,10 @@ ATE in parens is unbounded drift.
 
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
-| DAMM-LOAM | **0.851%** <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2510.13287 |
+| LODESTAR | **0.848%** <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
+| DAMM-LOAM | 0.851% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2510.13287 |
 | Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
-| CUBE-LIO | **0.851%** <sub>(9 m)</sub> | 0.608% <sub>(1 m)</sub> | ROBOMECH 2026 |
+| CUBE-LIO | 0.851% <sub>(9 m)</sub> | 0.608% <sub>(1 m)</sub> | ROBOMECH 2026 |
 | CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
@@ -83,9 +84,12 @@ ATE in parens is unbounded drift.
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-**DAMM-LOAM, Adaptive-ICP and CUBE-LIO match or beat KISS-ICP on both
-sequences** (DAMM-LOAM ties the best seq-00 drift and is second-best on seq 07,
-with its Hessian-eigenvalue degeneracy gate firing on 120 real seq-00 frames),
+**LODESTAR, DAMM-LOAM, Adaptive-ICP and CUBE-LIO match or beat KISS-ICP on both
+sequences** (LODESTAR posts the best seq-00 drift and ties second-best on seq 07;
+its condition-number Schmidt-Kalman gate stays silent on well-conditioned KITTI
+urban scans and fires on only 26 genuinely degenerate seq-00 frames — degeneracy
+compensation that activates exactly when needed, validated separately by unit
+tests on synthetic corridors),
 and the top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on seq 00 but
 diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on KITTI —
 honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor

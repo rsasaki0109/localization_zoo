@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "Vibration-LIO",
+      "status": "ok",
+      "ate_m": 2.688093,
+      "rpe_trans_pct": 0.781135,
+      "rpe_rot_deg_per_m": 0.006637,
+      "frames": 1101,
+      "time_ms": 630933.670001,
+      "fps": 1.745033,
+      "seed_fallback_rate_pct": null,
+      "note": "Uncertainty-weighted point-to-plane, no vibration estimate (no imu.csv; GT-seeded init). mean_vib_omega=0.000000"
+    }
+  ]
+}

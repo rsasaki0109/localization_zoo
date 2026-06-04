@@ -54,6 +54,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   intensity_flow
   svn_icp
   pcr_dat
+  small_mighty
   cube_lio
   rko_lio
   aloam

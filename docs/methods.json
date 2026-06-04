@@ -898,6 +898,21 @@
         "registration",
         "hybrid-factor"
       ]
+    },
+    {
+      "name": "Small-but-Mighty",
+      "family": "Feature enhancement",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/small_mighty",
+      "summary": "Lightweight LiDAR-odometry feature enhancement: stability-aware feature selection from the statistical distribution of local smoothness plus a contribution-weighted point-to-plane/point-to-line optimization that emphasizes stable features and suppresses low-quality residuals (Remote Sensing 2025, 17(15):2656).",
+      "tags": [
+        "odometry",
+        "feature-selection",
+        "adaptive-weighting"
+      ]
     }
   ],
   "starter_tracks": [

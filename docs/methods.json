@@ -913,6 +913,21 @@
         "feature-selection",
         "adaptive-weighting"
       ]
+    },
+    {
+      "name": "M-GCLO",
+      "family": "Ground constrained",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/m_gclo",
+      "summary": "Multiple-ground-constrained LiDAR odometry: classifies points into ground/non-ground, applies multiple-ground-plane point-to-plane constraints for vertical accuracy and non-ground point-to-distribution (NDT) matching, with per-point range-uncertainty residual weighting (ISPRS Annals X-1-2024, 283-290).",
+      "tags": [
+        "odometry",
+        "ground-constraint",
+        "ndt"
+      ]
     }
   ],
   "starter_tracks": [

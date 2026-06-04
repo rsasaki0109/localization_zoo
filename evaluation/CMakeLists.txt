@@ -60,6 +60,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   dilo
   nhc_lio
   student_t_lo
+  spectral_lo
   cube_lio
   rko_lio
   aloam

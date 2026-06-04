@@ -86,6 +86,7 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |
 | DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
+| Spectral-LO | 12.029% <sub>(113 m)</sub> | 13.671% <sub>(47 m)</sub> | arXiv:2005.02042 |
 | DiLO | 18.305% <sub>(226 m)</sub> | 18.966% <sub>(159 m)</sub> | ETRI J. 2021 |
 | UA-LIO | _diverges_ | _diverges_ | IEEE TIM 2025 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
@@ -105,8 +106,11 @@ PCR-DAT's dual factor (~93% distribution), NHC-LIO's no-side-slip factor (ablati
 0.608↔0.607%), Student-T-LO's heavy-tail weighting (mean weight ~0.80, few
 outliers to reject). Each mechanism is verified by its own unit tests; per-method
 caveats live in the module READMEs. Honest negatives: DiLO's frame-to-keyframe
-direct odometry diverges over a full sequence (18–19%), R-VoxelMap diverges on
-seq 07, and UA-LIO/DegenSense are not yet competitive. Raw run JSON:
+direct odometry diverges over a full sequence (18–19%); Spectral-LO's ICP-free
+BEV phase-correlation (Fourier-Mellin yaw + POC translation) is the fastest tracker
+(~14 FPS) but coarse (~12–14% drift), limited by BEV cell quantization and its
+planar 3-DoF assumption; R-VoxelMap diverges on seq 07, and UA-LIO/DegenSense are
+not yet competitive. Raw run JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
 

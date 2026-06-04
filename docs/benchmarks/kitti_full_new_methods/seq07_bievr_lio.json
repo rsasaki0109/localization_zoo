@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "BIEVR-LIO",
+      "status": "ok",
+      "ate_m": 3.991453,
+      "rpe_trans_pct": 0.872554,
+      "rpe_rot_deg_per_m": 0.010502,
+      "frames": 1101,
+      "time_ms": 159157.515262,
+      "fps": 6.917675,
+      "seed_fallback_rate_pct": null,
+      "note": "Bump-image voxel map: oriented height image gradients add in-plane constraints (no GT seed; anchor matches first GT pose). mean_bump_ratio=0.406181"
+    }
+  ]
+}

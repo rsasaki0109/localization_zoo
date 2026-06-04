@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -21,6 +21,7 @@
 #include "dali_slam/dali_slam.h"
 #include "intensity_flow/intensity_flow.h"
 #include "svn_icp/svn_icp.h"
+#include "pcr_dat/pcr_dat.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -201,7 +202,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "lodestar" || method == "terrain_rbf_lio" ||
          method == "lidar_iba" || method == "dali_slam" ||
          method == "intensity_flow" || method == "svn_icp" ||
-         method == "clins";
+         method == "pcr_dat" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1314,6 +1315,27 @@ struct SvnIcpDogfoodingOptions {
   double prior_precision = 1.0;
   double init_spread_rot = 0.01;
   double init_spread_trans = 0.05;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct PcrDatDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double initial_threshold = 2.0;
+  int max_iterations = 20;
+  int distribution_min_points = 8;
+  double distribution_planarity = 0.1;
+  double distance_planarity = 0.4;
+  double distance_sigma = 0.1;
+  double distribution_regularization = 0.01;
+  double distance_weight = 1.0;
+  double distribution_weight = 1.0;
+  double robust_scale = 1.0;
+  double prior_precision = 0.0;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -4179,6 +4201,65 @@ MethodResult runSvnIcp(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runPcrDat(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const PcrDatDogfoodingOptions& options) {
+  using namespace localization_zoo::pcr_dat;
+  MethodResult res;
+  res.name = "PCR-DAT";
+
+  PcrDatParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.initial_threshold = options.initial_threshold;
+  params.max_iterations = options.max_iterations;
+  params.distribution_min_points = options.distribution_min_points;
+  params.distribution_planarity = options.distribution_planarity;
+  params.distance_planarity = options.distance_planarity;
+  params.distance_sigma = options.distance_sigma;
+  params.distribution_regularization = options.distribution_regularization;
+  params.distance_weight = options.distance_weight;
+  params.distribution_weight = options.distribution_weight;
+  params.robust_scale = options.robust_scale;
+  params.prior_precision = options.prior_precision;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  PcrDatPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  long n_distrib_sum = 0, n_dist_sum = 0, n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    n_distrib_sum += result.num_distribution;
+    n_dist_sum += result.num_distance;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [PCR-DAT] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[96];
+  std::snprintf(buf, sizeof(buf), "%.0f/%.0f",
+                n > 0 ? static_cast<double>(n_distrib_sum) / n : 0.0,
+                n > 0 ? static_cast<double>(n_dist_sum) / n : 0.0);
+  res.note =
+      "PCR-DAT: per-point switch between Gauss-distribution (rich) and "
+      "point-to-plane distance (sparse) factors fused in one GN system; "
+      "constant-velocity prior, no GT seed. mean_distrib/distance_corr=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -5921,7 +6002,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -6084,6 +6165,7 @@ int main(int argc, char** argv) {
   DaliSlamDogfoodingOptions dali_slam_options;
   IntensityFlowDogfoodingOptions intensity_flow_options;
   SvnIcpDogfoodingOptions svn_icp_options;
+  PcrDatDogfoodingOptions pcr_dat_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -7728,6 +7810,40 @@ int main(int argc, char** argv) {
       svn_icp_options.lidar_sigma = std::stod(argv[++i]);
       continue;
     }
+    // --- pcr_dat ---
+    if (arg == "--pcr-dat-fast-profile") {
+      pcr_dat_options.source_voxel_size = 0.5;
+      pcr_dat_options.max_source_points = 4000;
+      pcr_dat_options.voxel_size = 1.0;
+      pcr_dat_options.max_iterations = 15;
+      pcr_dat_options.local_map_radius = 45.0;
+      pcr_dat_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--pcr-dat-dense-profile") {
+      pcr_dat_options.source_voxel_size = 0.35;
+      pcr_dat_options.max_source_points = 6000;
+      pcr_dat_options.voxel_size = 0.8;
+      pcr_dat_options.max_iterations = 20;
+      pcr_dat_options.local_map_radius = 80.0;
+      pcr_dat_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--pcr-dat-distribution-min-points") {
+      if (i + 1 >= argc) { std::cerr << "--pcr-dat-distribution-min-points requires a value" << std::endl; return 1; }
+      pcr_dat_options.distribution_min_points = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--pcr-dat-distance-sigma") {
+      if (i + 1 >= argc) { std::cerr << "--pcr-dat-distance-sigma requires a value" << std::endl; return 1; }
+      pcr_dat_options.distance_sigma = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--pcr-dat-robust-scale") {
+      if (i + 1 >= argc) { std::cerr << "--pcr-dat-robust-scale requires a value" << std::endl; return 1; }
+      pcr_dat_options.robust_scale = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -9129,6 +9245,17 @@ int main(int argc, char** argv) {
               << " lidar_sigma=" << svn_icp_options.lidar_sigma
               << std::endl;
     results.push_back(runSvnIcp(pcd_dirs, gt, svn_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "pcr_dat")) {
+    std::cout << "Running PCR-DAT..." << std::endl;
+    std::cout << "  source_voxel_size=" << pcr_dat_options.source_voxel_size
+              << " voxel_size=" << pcr_dat_options.voxel_size
+              << " distribution_min_points="
+              << pcr_dat_options.distribution_min_points
+              << " distance_sigma=" << pcr_dat_options.distance_sigma
+              << std::endl;
+    results.push_back(runPcrDat(pcd_dirs, gt, pcr_dat_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

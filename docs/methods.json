@@ -883,6 +883,21 @@
         "uncertainty",
         "stein-variational"
       ]
+    },
+    {
+      "name": "PCR-DAT",
+      "family": "Hybrid factor",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/pcr_dat",
+      "summary": "Point cloud registration that switches per point between a Gauss-distribution (rich-feature) factor and a point-to-plane distance (sparse-feature) factor, fused in one Gauss-Newton system to avoid local optima in mixed-density scenes (Intelligent Service Robotics 2024, DOI:10.1007/s11370-024-00517-6).",
+      "tags": [
+        "odometry",
+        "registration",
+        "hybrid-factor"
+      ]
     }
   ],
   "starter_tracks": [

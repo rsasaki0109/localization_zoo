@@ -186,8 +186,44 @@ Eigen::Matrix4d SvnIcpPipeline::runSvn(const std::vector<Eigen::Vector3d>& sourc
       1.0 / (params_.lidar_sigma * params_.lidar_sigma);
   using Vec6 = Eigen::Matrix<double, 6, 1>;
   using Mat6 = Eigen::Matrix<double, 6, 6>;
+  const double kernel = params_.initial_threshold;
 
-  // --- 粒子初期化 (予測まわりに散布、粒子0は予測そのもの) ---
+  // --- 点推定 (MAP): 標準 GN point-to-plane を収束まで回し正確な姿勢を得る。
+  //     SVN 粒子平均は repulsion でモードからずれ長系列で発散するため、点推定は
+  //     ここで分離する (SVN は下で MAP 周りの不確かさ推定に使う)。 ---
+  Eigen::Matrix4d T_map = base;
+  for (int it = 0; it < params_.max_gn_iterations; it++) {
+    const auto src = transformPoints(source, T_map);
+    const auto corr = local_map_.getCorrespondences(
+        src, params_.initial_threshold, params_.normal_min_neighbors);
+    Mat6 A = Mat6::Zero();
+    Vec6 b = Vec6::Zero();
+    int used = 0;
+    for (size_t k = 0; k < source.size(); k++) {
+      const auto& c = corr[k];
+      if (!c.found || !c.has_normal || c.planarity < params_.planarity_threshold)
+        continue;
+      const double e = c.normal.dot(src[k] - c.anchor);
+      if (std::abs(e) > kernel) continue;
+      Eigen::Matrix<double, 3, 6> J;
+      J.block<3, 3>(0, 0) = -skew(src[k]);
+      J.block<3, 3>(0, 3) = Eigen::Matrix3d::Identity();
+      const Eigen::Matrix<double, 1, 6> Jr = c.normal.transpose() * J;
+      const double w = std::exp(-0.5 * (e / kernel) * (e / kernel));
+      A += w * Jr.transpose() * Jr;
+      b -= w * Jr.transpose() * e;
+      ++used;
+    }
+    if (used < 10) break;
+    const Vec6 d = A.ldlt().solve(b);
+    if (!d.allFinite()) break;
+    T_map = expSE3(d) * T_map;
+    if (d.norm() < params_.convergence_criterion) break;
+  }
+
+  // --- 粒子初期化 (MAP まわりに散布、粒子0は MAP そのもの) ---
+  // 以降 base は MAP に置き換え、θ は MAP 左接ベクトル。
+  const Eigen::Matrix4d svn_base = T_map;
   std::mt19937 rng(static_cast<unsigned>(params_.rng_seed + frame_count_));
   std::normal_distribution<double> nr(0.0, params_.init_spread_rot);
   std::normal_distribution<double> nt(0.0, params_.init_spread_trans);
@@ -202,7 +238,7 @@ Eigen::Matrix4d SvnIcpPipeline::runSvn(const std::vector<Eigen::Vector3d>& sourc
     Vec6 mean = Vec6::Zero();
     for (int i = 0; i < M; i++) mean += theta[i];
     mean /= M;
-    const Eigen::Matrix4d T_mean = expSE3(mean) * base;
+    const Eigen::Matrix4d T_mean = expSE3(mean) * svn_base;
     const auto src_mean = transformPoints(source, T_mean);
     const auto corr = local_map_.getCorrespondences(
         src_mean, params_.initial_threshold, params_.normal_min_neighbors);
@@ -226,7 +262,7 @@ Eigen::Matrix4d SvnIcpPipeline::runSvn(const std::vector<Eigen::Vector3d>& sourc
     std::vector<Vec6> g(M, Vec6::Zero());
     std::vector<Mat6> H(M, Mat6::Zero());
     for (int i = 0; i < M; i++) {
-      const Eigen::Matrix4d T_i = expSE3(theta[i]) * base;
+      const Eigen::Matrix4d T_i = expSE3(theta[i]) * svn_base;
       const Eigen::Matrix3d R_i = T_i.block<3, 3>(0, 0);
       const Eigen::Vector3d t_i = T_i.block<3, 1>(0, 3);
       Vec6 gi = Vec6::Zero();
@@ -303,7 +339,7 @@ Eigen::Matrix4d SvnIcpPipeline::runSvn(const std::vector<Eigen::Vector3d>& sourc
         std::sqrt(std::max(0.0, (C(3, 3) + C(4, 4) + C(5, 5)) / 3.0));
     result->num_correspondences = last_corr;
   }
-  return expSE3(mean) * base;
+  return T_map;
 }
 
 SvnIcpResult SvnIcpPipeline::registerFrame(

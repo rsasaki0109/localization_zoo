@@ -80,9 +80,12 @@ struct DaliSlamParams {
   bool spline_quadratic = false;
 
   // --- degeneracy-aware update (solution remapping) ---
-  /// 退化判定の固有値しきい値 (絶対値)。これ未満の方向は更新から除去。
-  /// 論文 (DALI-SLAM) デフォルト degeneracy=4.48 相当。
-  double degeneracy_threshold = 4.48;
+  /// 退化判定の相対基準 ratio。並進 Hessian H_tt の固有値 λ_k < ratio·λmax_t の
+  /// 方向を退化とみなし、解の並進更新からその方向成分を除去 (solution remapping)。
+  /// 論文は絶対しきい値 (degeneracy=4.48) だが、これは FAST-LIO の Hessian スケール
+  /// 前提で本パイプラインでは誤発火し長系列で発散する。リポジトリ標準の並進ブロック
+  /// 相対基準 (damm_loam/lodestar と同方式) に置換 (KITTI 都市部では沈黙)。
+  double degeneracy_ratio = 0.02;
   bool enable_degeneracy = true;
 
   double local_map_radius = 0.0;

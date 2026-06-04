@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq00_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "Intensity-Flow",
+      "status": "ok",
+      "ate_m": 8.236987,
+      "rpe_trans_pct": 0.855812,
+      "rpe_rot_deg_per_m": 0.006358,
+      "frames": 4541,
+      "time_ms": 2696015.211667,
+      "fps": 1.684338,
+      "seed_fallback_rate_pct": null,
+      "note": "Intensity-gradient-flow odometry: RMS geometric gradient-flow sampling + intensity-geometry fused point-to-plane matching (intensity-consistency weight); pure-LiDAR (uses KITTI PointXYZI), no GT seed. sampled_points=6645723"
+    }
+  ]
+}

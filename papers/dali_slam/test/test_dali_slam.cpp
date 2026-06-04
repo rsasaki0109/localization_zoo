@@ -44,7 +44,7 @@ TEST(DaliSlam, RecoversKnownTranslation) {
   params.voxel_size = 1.0;
   params.max_icp_iterations = 50;
   params.enable_deskew = false;
-  params.degeneracy_threshold = 0.5;  // 良条件では全方向が上回る
+  params.degeneracy_ratio = 0.1;  // 良条件では全並進方向が floor を上回る
   DaliSlamPipeline pipe(params);
 
   const auto room = makeScene(false);
@@ -64,12 +64,12 @@ TEST(DaliSlam, RecoversKnownTranslation) {
 
 // (2) degeneracy remap: 廊下 (x 退化) で退化方向を検出・除去する。
 TEST(DaliSlam, DegeneracyDetectsCorridor) {
-  auto runScene = [](bool corridor, double thr) {
+  auto runScene = [](bool corridor) {
     DaliSlamParams params;
     params.voxel_size = 1.0;
     params.max_icp_iterations = 30;
     params.enable_deskew = false;
-    params.degeneracy_threshold = thr;
+    params.degeneracy_ratio = 0.1;  // 相対基準 λ_k < 0.1·λmax_t
     DaliSlamPipeline pipe(params);
     const auto scene = makeScene(corridor);
     pipe.registerFrame(scene);
@@ -79,21 +79,14 @@ TEST(DaliSlam, DegeneracyDetectsCorridor) {
     return pipe.registerFrame(moved);
   };
 
-  // まず除去なし (thr≈0) で最小固有値を読み取る。
-  const auto corridor_probe = runScene(true, 1e-9);
-  const auto box_probe = runScene(false, 1e-9);
-  // 廊下は x 並進が無拘束 → 最小固有値が箱より顕著に小さい。
-  EXPECT_LT(corridor_probe.min_eigenvalue, 0.5 * box_probe.min_eigenvalue);
+  const auto corridor = runScene(true);
+  const auto closed_box = runScene(false);
 
-  // 廊下の弱方向の上、箱の最小固有値の下にしきい値を置く。
-  const double thr =
-      0.5 * (corridor_probe.min_eigenvalue + box_probe.min_eigenvalue);
-  const auto corridor = runScene(true, thr);
-  const auto closed_box = runScene(false, thr);
-
+  // 廊下は x 並進が無拘束 → 最小固有値が箱より顕著に小さく、相対 floor を下回る。
+  EXPECT_LT(corridor.min_eigenvalue, closed_box.min_eigenvalue);
   EXPECT_TRUE(corridor.degenerate);
   EXPECT_GE(corridor.num_degenerate_dirs, 1);
-  EXPECT_FALSE(closed_box.degenerate);
+  EXPECT_FALSE(closed_box.degenerate);  // 対称箱は全並進方向が拘束 → 非退化
 }
 
 // (3) deskew 有効でも移動シーケンスの並進を回復する (deskew が破綻しない)。
@@ -103,7 +96,7 @@ TEST(DaliSlam, DeskewEnabledStillRecoversMotion) {
   params.max_icp_iterations = 50;
   params.enable_deskew = true;
   params.spline_quadratic = true;
-  params.degeneracy_threshold = 0.5;
+  params.degeneracy_ratio = 0.1;
   DaliSlamPipeline pipe(params);
 
   const auto room = makeScene(false);

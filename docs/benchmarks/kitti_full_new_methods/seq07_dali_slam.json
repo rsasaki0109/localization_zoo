@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "DALI-SLAM",
+      "status": "ok",
+      "ate_m": 1.185562,
+      "rpe_trans_pct": 0.599776,
+      "rpe_rot_deg_per_m": 0.005644,
+      "frames": 1101,
+      "time_ms": 802747.619554,
+      "fps": 1.371539,
+      "seed_fallback_rate_pct": null,
+      "note": "DALI-SLAM: dual-spline motion distortion correction (constant-velocity spline deskew, azimuth per-point time) + degeneracy-aware solution remapping; pure-LiDAR, no GT seed. degenerate_frames=0 deskew_frames=0"
+    }
+  ]
+}

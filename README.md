@@ -82,6 +82,7 @@ ATE in parens is unbounded drift.
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
 | R-VoxelMap | 1.076% <sub>(20 m)</sub> | _diverges_ | arXiv:2601.12377 |
+| PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |
 | DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
@@ -101,7 +102,7 @@ covariance grows in degenerate directions (unit-tested). LODESTAR's
 condition-number Schmidt-Kalman gate stays
 silent on well-conditioned KITTI urban scans and fires on only 26 genuinely
 degenerate seq-00 frames (validated by unit tests on synthetic corridors).
-**Two honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
+**Three honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
 in this IMU-free harness: its constant-velocity, azimuth-timed dual-spline deskew
 amplifies range error (it diverges on the long seq 00), so deskew is off by
 default; and its degeneracy-aware remap stays completely silent (0 frames) on
@@ -111,7 +112,13 @@ tests. (2) LiDAR-IBA's stereographic + FEJ windowed bundle adjustment improves
 global consistency (best-of-the-new ATE on seq 07, 0.82 m) but its per-keyframe
 pose feedback costs RPE drift — with the BA off the front-end matches KISS-ICP
 (0.62% seq 07); the stereographic parameterization and FEJ machinery are unit-tested
-directly. The top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on
+directly. (3) PCR-DAT's per-point factor switch does fire on KITTI — both the
+Gauss-distribution (rich-feature) and point-to-plane distance (sparse-feature)
+factors are used every frame — but the distribution factor dominates ~93% of
+correspondences in KITTI's fairly uniform-density outdoor scans, so the registration
+behaves NDT-like and lands mid-pack (healthy, no divergence, but short of KISS-ICP's
+point-to-plane drift); the dual-factor split is verified by unit tests
+(`UsesBothFactorTypes`). The top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on
 seq 00 but diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on
 KITTI — honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor
 (not odometry) and is benchmarked separately. Raw run JSON:

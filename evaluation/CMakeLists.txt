@@ -53,6 +53,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   dali_slam
   intensity_flow
   svn_icp
+  pcr_dat
   cube_lio
   rko_lio
   aloam

@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq00_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "M-GCLO",
+      "status": "ok",
+      "ate_m": 19.143798,
+      "rpe_trans_pct": 0.835367,
+      "rpe_rot_deg_per_m": 0.007618,
+      "frames": 4541,
+      "time_ms": 1330824.086595,
+      "fps": 3.412171,
+      "seed_fallback_rate_pct": null,
+      "note": "M-GCLO: multiple-ground point-to-plane constraints (vertical accuracy) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=906/1964"
+    }
+  ]
+}

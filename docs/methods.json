@@ -928,6 +928,21 @@
         "ground-constraint",
         "ndt"
       ]
+    },
+    {
+      "name": "Quadric-LO",
+      "family": "Quadric surface",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/quadric_lo",
+      "summary": "Quadric-surface scene representation for LiDAR odometry: fits local patches to implicit quadric functions q=xAx+bx+c (planes are the degenerate case) and minimizes point-to-quadric Taubin-distance residuals, capturing curved structures more faithfully than planes (Xia et al., IEEE RA-L 2023, arXiv:2304.14190).",
+      "tags": [
+        "odometry",
+        "quadric",
+        "implicit-surface"
+      ]
     }
   ],
   "starter_tracks": [

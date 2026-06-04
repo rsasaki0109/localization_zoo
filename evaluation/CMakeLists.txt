@@ -63,6 +63,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   spectral_lo
   gmm_lo
   gnc_lo
+  mcc_lo
   cube_lio
   rko_lio
   aloam

@@ -59,6 +59,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   quadric_lo
   dilo
   nhc_lio
+  student_t_lo
   cube_lio
   rko_lio
   aloam

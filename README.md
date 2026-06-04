@@ -54,19 +54,14 @@ LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
 broken port._
 
 > **No GT-seeded methods here.** NDT / LiTAMIN2 / GICP use the ground-truth pose
-> as the per-frame initial guess, so their ATE is seed adherence, not tracking —
-> and the ranking even inverts: NDT's 0.02 m comes from *not* registering
-> (`--no-gt-seed` → 87% RPE, the worst tracker), while GICP's larger ATE is real
-> registration. They need a GT prior and aren't standalone odometry, so they are
-> not ranked.
+> as the per-frame initial guess, so their ATE is seed adherence, not tracking
+> (NDT `--no-gt-seed` → 87% RPE). They need a GT prior and aren't ranked.
 
 ### From-paper reimplementations (no public reference code) — KITTI full
 
-Recently reimplemented papers with **no public author code**, run as pure
-odometry on KITTI Odometry full sequences (first-pose anchor only, `--no-gt-seed`,
-uniform `--*-dense-profile`). KITTI has no IMU in this harness, so LIO methods
-run their constant-velocity fallback. RPE is drift %/100 m (lower is better);
-ATE in parens is unbounded drift.
+Papers with **no public author code**, run as pure odometry on KITTI full
+sequences (first-pose anchor, `--no-gt-seed`, uniform `--*-dense-profile`; no IMU,
+so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in parens.
 
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
@@ -81,6 +76,7 @@ ATE in parens is unbounded drift.
 | Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
 | NHC-LIO | 0.902% <sub>(18 m)</sub> | 0.608% <sub>(3 m)</sub> | IEEE Sens. J. 2023 |
 | SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
+| Student-T-LO | 0.952% <sub>(15 m)</sub> | 0.696% <sub>(2 m)</sub> | PMC11314997 2024 |
 | Small-but-Mighty | 0.961% <sub>(15 m)</sub> | 0.897% <sub>(3 m)</sub> | Remote Sens. 2025 |
 | CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
@@ -95,70 +91,22 @@ ATE in parens is unbounded drift.
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-**M-GCLO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow,
-Quadric-LO and Adaptive-ICP all match or beat KISS-ICP on both sequences** — the new batch is
-now led on seq-00 drift by **M-GCLO** (0.835%), whose multiple-ground-plane
-point-to-plane constraints plus non-ground NDT and per-point range-uncertainty
-weighting cut local drift on the long sequence below KISS-ICP and LODESTAR; note its
-*global* ATE is higher (19 m vs LODESTAR's 7 m), so the ground constraints reduce
-per-100 m drift % more than they reduce accumulated yaw drift — an honest RPE/ATE
-split. Next is Terrain-RBF-LIO (its Gaussian-RBF terrain height field anchors vehicle
-z and suppresses z-drift) and DALI-SLAM (best seq-07 of the new four at 0.600%). Intensity-Flow ties KISS-ICP via RMS gradient-flow sampling +
-intensity-fused matching. SVN-ICP (Stein Variational Newton particles) adds a
-built-in pose-uncertainty estimate on top of a competitive pose — beating
-KISS-ICP on seq 07 (0.607%) and staying healthy on seq 00 (0.912%); its particle
-covariance grows in degenerate directions (unit-tested). LODESTAR's
-condition-number Schmidt-Kalman gate stays
-silent on well-conditioned KITTI urban scans and fires on only 26 genuinely
-degenerate seq-00 frames (validated by unit tests on synthetic corridors).
-**Seven honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
-in this IMU-free harness: its constant-velocity, azimuth-timed dual-spline deskew
-amplifies range error (it diverges on the long seq 00), so deskew is off by
-default; and its degeneracy-aware remap stays completely silent (0 frames) on
-well-conditioned KITTI — so the reported numbers are effectively DALI's
-point-to-plane front-end, and both mechanisms are exercised instead by the unit
-tests. (2) LiDAR-IBA's stereographic + FEJ windowed bundle adjustment improves
-global consistency (best-of-the-new ATE on seq 07, 0.82 m) but its per-keyframe
-pose feedback costs RPE drift — with the BA off the front-end matches KISS-ICP
-(0.62% seq 07); the stereographic parameterization and FEJ machinery are unit-tested
-directly. (3) PCR-DAT's per-point factor switch does fire on KITTI — both the
-Gauss-distribution (rich-feature) and point-to-plane distance (sparse-feature)
-factors are used every frame — but the distribution factor dominates ~93% of
-correspondences in KITTI's fairly uniform-density outdoor scans, so the registration
-behaves NDT-like and lands mid-pack (healthy, no divergence, but short of KISS-ICP's
-point-to-plane drift); the dual-factor split is verified by unit tests
-(`UsesBothFactorTypes`). (4) Small-but-Mighty's stability-aware feature selection and
-contribution weighting both fire on KITTI — planar and line features are selected
-every frame from the statistical smoothness distribution (~640 planar / ~1110 edge),
-and it is the fastest of the new feature-based methods (4.5 FPS) — landing mid-pack
-(seq-00 0.961%, healthy) but its point-to-line edge constraints add drift on seq 07
-(0.897%) versus KISS-ICP's pure point-to-plane; the selection and weighting are
-unit-tested (`StableFeaturesGetHigherWeight`). (5) Quadric-LO genuinely uses its
-quadric-surface representation rather than degrading to planes — ~2760 of ~2780
-correspondences per frame are point-to-quadric (implicit q=xᵀAx+bᵀx+c, Taubin
-distance), with only ~15 plane fallbacks — and it beats KISS-ICP on both sequences
-(seq-00 0.867%, seq-07 0.598%); the cost is speed (0.62 FPS: a 10-parameter algebraic
-quadric fit per correspondence per iteration), an honest accuracy/compute tradeoff. (6) DiLO is the one new method that
-does *not* hold up on full KITTI: its spherical-range-image projective data association
-(no NN search) is genuinely fast (25–32 FPS) and correct on short/straight segments
-(4.5% over the first 200 frames, unit-tested), but the paper's frame-to-keyframe direct
-design accumulates yaw drift through turns and diverges over a full sequence (18–19%)
-without a persistent map or IMU. A scan-to-local-map SRI extension was tried but
-multi-scan range-image occlusion made it worse, so the faithful frame-to-keyframe form
-is reported — an honest negative result, kept for the distinct projective-association
-front-end rather than its accuracy. (7) NHC-LIO is competitive (seq-07 0.608% beats
-KISS-ICP, seq-00 0.902% is near it), but its nonholonomic-constraint factor is
-near-redundant on KITTI: an ablation (NHC on vs off) moves seq-07 RPE only
-0.608%↔0.607% (ATE 3.36↔3.47 m), because KITTI's geometry-rich urban scans already
-constrain body-frame lateral motion through buildings and walls, so the no-side-slip
-prior adds little where geometry suffices. The factor is correct and suppresses lateral
-drift in geometrically lateral-ambiguous scenes (unit-tested); the paper's IMU/CNN
-reliable-NHC prediction is out of scope on IMU-free KITTI and approximated by a
-yaw-rate-adaptive weight.
-The top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on
-seq 00 but diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on
-KITTI — honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor
-(not odometry) and is benchmarked separately. Raw run JSON:
+The top nine (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on both
+sequences**, well clear of CT-ICP. **M-GCLO** leads seq-00 drift (0.835%) via
+multiple-ground-plane constraints; its global ATE is higher (19 m), an honest
+RPE/ATE split. Quadric-LO genuinely fits implicit quadrics (~2760/2780
+correspondences, 0.62 FPS), and SVN-ICP/LODESTAR add unit-tested
+uncertainty/degeneracy machinery on top of competitive poses.
+
+Recurring honest finding: on geometry-rich, IMU-free KITTI many of the new
+mechanisms go near-silent or near-redundant and the front-end reduces to a
+~KISS-ICP point-to-plane core — DALI's deskew/degeneracy remap (0 frames fired),
+PCR-DAT's dual factor (~93% distribution), NHC-LIO's no-side-slip factor (ablation
+0.608↔0.607%), Student-T-LO's heavy-tail weighting (mean weight ~0.80, few
+outliers to reject). Each mechanism is verified by its own unit tests; per-method
+caveats live in the module READMEs. Honest negatives: DiLO's frame-to-keyframe
+direct odometry diverges over a full sequence (18–19%), R-VoxelMap diverges on
+seq 07, and UA-LIO/DegenSense are not yet competitive. Raw run JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
 

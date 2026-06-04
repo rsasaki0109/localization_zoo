@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq00_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "GNC-LO",
+      "status": "ok",
+      "ate_m": 17.532480,
+      "rpe_trans_pct": 0.986285,
+      "rpe_rot_deg_per_m": 0.010163,
+      "frames": 4541,
+      "time_ms": 1734478.428387,
+      "fps": 2.618078,
+      "seed_fallback_rate_pct": null,
+      "note": "GNC-LO: scan-to-map point-to-plane with Graduated Non-Convexity (TLS) robust weighting; mu continuation from convex to non-convex, hard outlier rejection; CV prior, no GT seed. mean_inlier_ratio=0.863"
+    }
+  ]
+}

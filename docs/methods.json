@@ -1020,6 +1020,22 @@
         "em",
         "soft-assignment"
       ]
+    },
+    {
+      "name": "GNC-LO",
+      "family": "Robust estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/gnc_lo",
+      "summary": "Graduated-Non-Convexity (GNC) robust point-to-plane LiDAR odometry. Unlike fixed M-estimator kernels (Cauchy/Student-t) or EM scale annealing, GNC anneals the non-convexity of the surrogate itself: a Truncated-Least-Squares cost is solved by weighted least squares while the control parameter mu is continued from a near-convex value (wide basin) toward the non-convex TLS, ending in hard inlier/outlier rejection (Yang, Antonante, Tzoumas, Carlone, IEEE RA-L 2020, arXiv:1909.08605).",
+      "tags": [
+        "odometry",
+        "robust",
+        "graduated-non-convexity",
+        "truncated-least-squares"
+      ]
     }
   ],
   "starter_tracks": [

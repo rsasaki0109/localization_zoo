@@ -55,6 +55,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   svn_icp
   pcr_dat
   small_mighty
+  m_gclo
   cube_lio
   rko_lio
   aloam

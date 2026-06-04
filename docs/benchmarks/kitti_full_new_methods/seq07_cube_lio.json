@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "CUBE-LIO",
+      "status": "ok",
+      "ate_m": 0.901035,
+      "rpe_trans_pct": 0.608097,
+      "rpe_rot_deg_per_m": 0.005093,
+      "frames": 1101,
+      "time_ms": 713629.150252,
+      "fps": 1.542818,
+      "seed_fallback_rate_pct": null,
+      "note": "Intensity-cubemap semi-dense odometry: IGM high-gradient feature selection + intensity-consistency-weighted point-to-plane (no GT seed; anchor matches first GT pose). semi_dense_total=1640106"
+    }
+  ]
+}

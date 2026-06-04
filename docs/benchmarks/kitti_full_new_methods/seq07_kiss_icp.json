@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 1.800244,
+      "rpe_trans_pct": 0.617735,
+      "rpe_rot_deg_per_m": 0.006405,
+      "frames": 1101,
+      "time_ms": 370256.146286,
+      "fps": 2.973617,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    }
+  ]
+}

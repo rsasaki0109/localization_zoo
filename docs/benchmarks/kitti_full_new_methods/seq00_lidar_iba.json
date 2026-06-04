@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq00_full",
+  "gt_csv": "kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "LiDAR-IBA",
+      "status": "ok",
+      "ate_m": 7.928244,
+      "rpe_trans_pct": 2.000755,
+      "rpe_rot_deg_per_m": 0.023248,
+      "frames": 4541,
+      "time_ms": 4243606.657402,
+      "fps": 1.07008,
+      "seed_fallback_rate_pct": null,
+      "note": "Consistency-improved LiDAR bundle adjustment: stereographic plane-normal parameterization + sliding-window plane BA with FEJ (oldest keyframe gauge-fixed) and a front-end odometry prior; constant-velocity, no GT seed. ba_frames=2270"
+    }
+  ]
+}

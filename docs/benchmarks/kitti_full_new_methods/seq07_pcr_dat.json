@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "PCR-DAT",
+      "status": "ok",
+      "ate_m": 3.991679,
+      "rpe_trans_pct": 1.039740,
+      "rpe_rot_deg_per_m": 0.010014,
+      "frames": 1101,
+      "time_ms": 523028.600165,
+      "fps": 2.105047,
+      "seed_fallback_rate_pct": null,
+      "note": "PCR-DAT: per-point switch between Gauss-distribution (rich) and point-to-plane distance (sparse) factors fused in one GN system; constant-velocity prior, no GT seed. mean_distrib/distance_corr=2682/186"
+    }
+  ]
+}

@@ -639,6 +639,419 @@
         "loop",
         "descriptor"
       ]
+    },
+    {
+      "name": "Adaptive-ICP",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/adaptive_icp",
+      "summary": "Reliable-initial-pose adaptive ICP: density-filtered coarse pose vs constant-velocity prediction, motion-state-weighted sigma_th, robust point-to-plane (arXiv:2509.22058).",
+      "tags": [
+        "odometry",
+        "adaptive",
+        "robust"
+      ]
+    },
+    {
+      "name": "D2-LIO",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/d2lio",
+      "summary": "Adaptive per-point outlier threshold + scan-to-submap IMU prior + degeneracy-aware hybrid weighting (arXiv:2508.14355).",
+      "tags": [
+        "odometry",
+        "degeneracy",
+        "imu"
+      ]
+    },
+    {
+      "name": "CT-VoxelMap",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/ct_voxelmap",
+      "summary": "Probabilistic adaptive voxel map (running mu/Sigma), point-uncertainty propagation, Mahalanobis hybrid point-to-plane/point-to-distribution (arXiv:2604.03747).",
+      "tags": [
+        "odometry",
+        "voxel-map",
+        "uncertainty"
+      ]
+    },
+    {
+      "name": "R-VoxelMap",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/r_voxelmap",
+      "summary": "Recursive octree plane fitting with outlier detect-and-reuse, plane-variance-weighted point-to-plane (arXiv:2601.12377).",
+      "tags": [
+        "odometry",
+        "plane",
+        "voxel-map"
+      ]
+    },
+    {
+      "name": "DegenSense",
+      "family": "Degeneracy",
+      "scope": "Degeneracy-robust baseline",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/degen_sense",
+      "summary": "Real-time degeneracy factor (Hessian condition number) + median+k*MAD outlier detection + IMU/LiDAR pose fusion (arXiv:2412.07513).",
+      "tags": [
+        "degeneracy",
+        "robust",
+        "imu"
+      ]
+    },
+    {
+      "name": "Vibration-LIO",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/vibration_lio",
+      "summary": "Post-undistortion point covariance with IMU-MAD vibration intensity, Mahalanobis-weighted point-to-plane (arXiv:2507.04311).",
+      "tags": [
+        "odometry",
+        "uncertainty",
+        "imu"
+      ]
+    },
+    {
+      "name": "BIEVR-LIO",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/bievr_lio",
+      "summary": "Bump image (per-voxel oriented height grid); image gradients add in-plane constraints to point-to-plane residual (arXiv:2604.14421).",
+      "tags": [
+        "odometry",
+        "bump-image",
+        "plane"
+      ]
+    },
+    {
+      "name": "UA-LIO",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/ua_lio",
+      "summary": "Gaussian voxel map, distribution-to-distribution uncertainty weighting, ground-plane z-constraint (IEEE TIM 2025).",
+      "tags": [
+        "odometry",
+        "d2d",
+        "ground"
+      ]
+    },
+    {
+      "name": "DTD",
+      "family": "Loop Closure",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/dtd",
+      "summary": "Density Triangle Descriptor: BEV density keypoints + rotation/translation-invariant triangle descriptor with entropy, hash voting + SVD verification (PMC 2025).",
+      "tags": [
+        "loop-closure",
+        "place-recognition",
+        "descriptor"
+      ]
+    },
+    {
+      "name": "DAMM-LOAM",
+      "family": "Degeneracy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/damm_loam",
+      "summary": "Degeneracy-aware multi-metric LiDAR odometry: range-image normal-class weighting (ground/wall/edge) + Hessian-eigenvalue degeneracy boost (arXiv:2510.13287).",
+      "tags": [
+        "odometry",
+        "degeneracy",
+        "multi-metric"
+      ]
+    },
+    {
+      "name": "LODESTAR",
+      "family": "Degeneracy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/lodestar",
+      "summary": "Degeneracy-aware LiDAR odometry: condition-number Schmidt-Kalman anchoring of degenerate directions to a sliding-window constant-velocity prediction (DA-ASKF) + localizability-based data exploitation/pruning (DA-DE) (arXiv:2511.09142).",
+      "tags": [
+        "odometry",
+        "degeneracy",
+        "schmidt-kalman"
+      ]
+    },
+    {
+      "name": "Terrain-RBF-LIO",
+      "family": "Terrain",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/terrain_rbf_lio",
+      "summary": "Terrain-aware LiDAR odometry: Gaussian-RBF terrain height field updated by RLS, used as a vehicle-height-above-terrain soft prior to suppress z-drift (legged-wheel contact constraint reinterpreted for the car platform) (arXiv:2509.26222).",
+      "tags": [
+        "odometry",
+        "terrain",
+        "rbf"
+      ]
+    },
+    {
+      "name": "LiDAR-IBA",
+      "family": "Bundle Adjustment",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/lidar_iba",
+      "summary": "Consistency-improved LiDAR bundle adjustment: stereographic plane-normal parameterization (no over-parameterization/ground-plane singularity) + sliding-window plane BA with FEJ (arXiv:2602.06380).",
+      "tags": [
+        "bundle-adjustment",
+        "stereographic",
+        "fej"
+      ]
+    },
+    {
+      "name": "DALI-SLAM",
+      "family": "Degeneracy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/dali_slam",
+      "summary": "Dual-spline motion distortion correction (continuous-time spline deskew) + degeneracy-aware solution remapping over the registration Hessian (ISPRS J. P&RS 221, 2025).",
+      "tags": [
+        "odometry",
+        "deskew",
+        "degeneracy"
+      ]
+    },
+    {
+      "name": "Intensity-Flow",
+      "family": "Intensity",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/intensity_flow",
+      "summary": "Intensity-enhanced LiDAR odometry: RMS geometric gradient-flow sampling (redundancy-minimizing, distribution-preserving) + intensity-geometry fused point-to-plane matching (Measurement, 2026).",
+      "tags": [
+        "odometry",
+        "intensity",
+        "sampling"
+      ]
+    },
+    {
+      "name": "SVN-ICP",
+      "family": "Uncertainty",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/svn_icp",
+      "summary": "Uncertainty-aware ICP LiDAR odometry: a particle posterior refined by Stein Variational Newton on SE(3) yields both a point-to-plane registration and a pose covariance without explicit noise modelling (arXiv:2509.08069).",
+      "tags": [
+        "odometry",
+        "uncertainty",
+        "stein-variational"
+      ]
+    },
+    {
+      "name": "PCR-DAT",
+      "family": "Hybrid factor",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/pcr_dat",
+      "summary": "Point cloud registration that switches per point between a Gauss-distribution (rich-feature) factor and a point-to-plane distance (sparse-feature) factor, fused in one Gauss-Newton system to avoid local optima in mixed-density scenes (Intelligent Service Robotics 2024, DOI:10.1007/s11370-024-00517-6).",
+      "tags": [
+        "odometry",
+        "registration",
+        "hybrid-factor"
+      ]
+    },
+    {
+      "name": "Small-but-Mighty",
+      "family": "Feature enhancement",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/small_mighty",
+      "summary": "Lightweight LiDAR-odometry feature enhancement: stability-aware feature selection from the statistical distribution of local smoothness plus a contribution-weighted point-to-plane/point-to-line optimization that emphasizes stable features and suppresses low-quality residuals (Remote Sensing 2025, 17(15):2656).",
+      "tags": [
+        "odometry",
+        "feature-selection",
+        "adaptive-weighting"
+      ]
+    },
+    {
+      "name": "M-GCLO",
+      "family": "Ground constrained",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/m_gclo",
+      "summary": "Multiple-ground-constrained LiDAR odometry: classifies points into ground/non-ground, applies multiple-ground-plane point-to-plane constraints for vertical accuracy and non-ground point-to-distribution (NDT) matching, with per-point range-uncertainty residual weighting (ISPRS Annals X-1-2024, 283-290).",
+      "tags": [
+        "odometry",
+        "ground-constraint",
+        "ndt"
+      ]
+    },
+    {
+      "name": "Quadric-LO",
+      "family": "Quadric surface",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/quadric_lo",
+      "summary": "Quadric-surface scene representation for LiDAR odometry: fits local patches to implicit quadric functions q=xAx+bx+c (planes are the degenerate case) and minimizes point-to-quadric Taubin-distance residuals, capturing curved structures more faithfully than planes (Xia et al., IEEE RA-L 2023, arXiv:2304.14190).",
+      "tags": [
+        "odometry",
+        "quadric",
+        "implicit-surface"
+      ]
+    },
+    {
+      "name": "DiLO",
+      "family": "Direct range-image",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/dilo",
+      "summary": "Direct LiDAR odometry on spherical range images: frame-to-keyframe alignment via projective data association (no nearest-neighbor search) with image-based point-to-plane residuals. Fast (25-32 FPS) but the frame-to-keyframe design drifts/diverges on long KITTI sequences without a persistent map (Han et al., ETRI Journal 2021).",
+      "tags": [
+        "odometry",
+        "range-image",
+        "direct"
+      ]
+    },
+    {
+      "name": "NHC-LIO",
+      "family": "Motion constraint",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/nhc_lio",
+      "summary": "Vehicle LiDAR odometry with a nonholonomic-constraint (NHC) factor: the body-frame lateral and vertical translation velocity is constrained to ~0, added as a soft factor to scan-to-map point-to-plane with a yaw-rate-adaptive weight (the paper's IMU/CNN-predicted reliable NHC is approximated by motion state on IMU-free KITTI) (Chen et al., IEEE Sensors Journal 2023).",
+      "tags": [
+        "odometry",
+        "nonholonomic",
+        "motion-constraint"
+      ]
+    },
+    {
+      "name": "Student-T-LO",
+      "family": "Robust estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/student_t_lo",
+      "summary": "Heavy-tail robust LiDAR odometry: scan-to-map point-to-plane residuals are modeled with a Student's-t distribution and solved by IRLS with per-correspondence weight w=(nu+1)/(nu+(r/sigma)^2), where the scale sigma is updated by EM each iteration (sigma^2=sum w r^2 / N). The variable degree-of-freedom nu generalizes the Cauchy kernel (nu=1) and approaches Gaussian as nu grows (2024 Student's-t point-cloud registration, PMC11314997).",
+      "tags": [
+        "odometry",
+        "robust",
+        "student-t"
+      ]
+    },
+    {
+      "name": "Spectral-LO",
+      "family": "Spectral / phase correlation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/spectral_lo",
+      "summary": "Frequency-domain LiDAR odometry with no ICP: each scan is rasterized to a bird's-eye-view density image, the relative yaw is recovered by Fourier-Mellin log-polar phase correlation on the translation-invariant magnitude spectrum, and the relative translation by phase-only correlation (POC) of the de-rotated BEV images. Estimates a planar 3-DoF (x, y, yaw) motion with z held (SROM-style phase-correlation matching, arXiv:2005.02042).",
+      "tags": [
+        "odometry",
+        "spectral",
+        "phase-correlation",
+        "fourier-mellin"
+      ]
+    },
+    {
+      "name": "GMM-LO",
+      "family": "GMM / EM registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/gmm_lo",
+      "summary": "Gaussian-mixture / EM soft-assignment LiDAR odometry. Unlike hard nearest-neighbor ICP or hard voxel assignment (NDT), each source point is softly associated to its neighboring map points by Gaussian responsibilities gamma_ij with a uniform-outlier term (E-step); the M-step minimizes a soft-centroid point-to-plane cost, and sigma is annealed from coarse to fine (deterministic annealing) for a wide-to-sharp basin (compact single-scale reduction of HGMR's tree of Gaussian mixtures, Eckart et al. 2018, arXiv:1807.02587).",
+      "tags": [
+        "odometry",
+        "gmm",
+        "em",
+        "soft-assignment"
+      ]
+    },
+    {
+      "name": "GNC-LO",
+      "family": "Robust estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/gnc_lo",
+      "summary": "Graduated-Non-Convexity (GNC) robust point-to-plane LiDAR odometry. Unlike fixed M-estimator kernels (Cauchy/Student-t) or EM scale annealing, GNC anneals the non-convexity of the surrogate itself: a Truncated-Least-Squares cost is solved by weighted least squares while the control parameter mu is continued from a near-convex value (wide basin) toward the non-convex TLS, ending in hard inlier/outlier rejection (Yang, Antonante, Tzoumas, Carlone, IEEE RA-L 2020, arXiv:1909.08605).",
+      "tags": [
+        "odometry",
+        "robust",
+        "graduated-non-convexity",
+        "truncated-least-squares"
+      ]
+    },
+    {
+      "name": "MCC-LO",
+      "family": "Robust estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/mcc_lo",
+      "summary": "Maximum-Correntropy-Criterion (MCC) robust point-to-plane LiDAR odometry. Instead of minimizing squared error, it maximizes the correntropy V=sum exp(-r^2/2 sigma^2); half-quadratic optimization yields an IRLS Welsch/Gaussian weight w=exp(-r^2/2 sigma^2), and the kernel bandwidth sigma is adapted per iteration from the residual distribution via the Silverman rule. An information-theoretic robust family distinct from M-estimator heavy tails, GNC continuation, and GMM soft assignment (He et al., PLOS ONE 2018, doi:10.1371/journal.pone.0197542; Pattern Recognition 2019).",
+      "tags": [
+        "odometry",
+        "robust",
+        "maximum-correntropy",
+        "adaptive-bandwidth"
+      ]
     }
   ],
   "starter_tracks": [

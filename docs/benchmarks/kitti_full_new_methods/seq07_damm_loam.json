@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "DAMM-LOAM",
+      "status": "ok",
+      "ate_m": 1.046375,
+      "rpe_trans_pct": 0.598088,
+      "rpe_rot_deg_per_m": 0.005110,
+      "frames": 1101,
+      "time_ms": 503057.845182,
+      "fps": 2.188615,
+      "seed_fallback_rate_pct": null,
+      "note": "Degeneracy-aware multi-metric LiDAR odometry: range-image normal-class weighting (ground/wall/edge) + Hessian-eigen degeneracy boost (no GT seed; anchor matches first GT pose). ground=409866 wall=193153 edge=1243938 degenerate_frames=69"
+    }
+  ]
+}

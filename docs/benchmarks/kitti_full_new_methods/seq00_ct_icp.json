@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq00_full",
+  "gt_csv": "kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "CT-ICP",
+      "status": "ok",
+      "ate_m": 16.778235,
+      "rpe_trans_pct": 2.577102,
+      "rpe_rot_deg_per_m": 0.030548,
+      "frames": 4541,
+      "time_ms": 433408.016002,
+      "fps": 10.477425,
+      "seed_fallback_rate_pct": null,
+      "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed)."
+    }
+  ]
+}

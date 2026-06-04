@@ -68,6 +68,9 @@ struct SvnIcpParams {
   int normal_min_neighbors = 5;
   double planarity_threshold = 0.5;
   double initial_threshold = 2.0;
+  /// MAP 点推定 (GN point-to-plane) の最大反復と収束しきい値。
+  int max_gn_iterations = 20;
+  double convergence_criterion = 0.001;
 
   // --- Stein Variational Newton ICP ---
   /// 粒子数 M (姿勢事後分布をこの数の粒子で近似)。
@@ -115,7 +118,10 @@ struct SvnIcpResult {
 ///    φ(θ_i) = (1/M) Σ_j [ k(θ_j,θ_i)·∇log p(θ_j) + ∇_{θ_j} k(θ_j,θ_i) ]
 ///    H_svn(θ_i) = (1/M) Σ_j [ k(θ_j,θ_i)²·H_j + ∇k ∇kᵀ ]
 ///    θ_i ← θ_i + α · H_svn(θ_i)⁻¹ φ(θ_i)
-///  出力姿勢は粒子平均、姿勢共分散は粒子分散 (明示的ノイズモデル不要の不確かさ推定)。
+///  論文題目どおり「ICP の点推定 + 不確かさ推定」: 出力姿勢は point-to-plane の
+///  MAP (GN 収束解、長系列で安定)、姿勢共分散は MAP 周りの粒子分散から推定する
+///  (明示的ノイズモデル不要)。素の粒子平均は repulsion でモードからずれ長系列
+///  (KITTI seq00) で発散するため、点推定は GN-MAP に分離した (README 参照)。
 ///
 /// 純 LiDAR scope。IMU 予測は等速 (constant-velocity)、IMU との緩結合 ESKF は範囲外。
 class SvnIcpPipeline {

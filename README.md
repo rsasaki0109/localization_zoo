@@ -79,6 +79,7 @@ ATE in parens is unbounded drift.
 | Intensity-Flow | 0.856% <sub>(8 m)</sub> | 0.616% <sub>(1 m)</sub> | Measurement 2026 |
 | Quadric-LO | 0.867% <sub>(15 m)</sub> | 0.598% <sub>(2 m)</sub> | arXiv:2304.14190 |
 | Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
+| NHC-LIO | 0.902% <sub>(18 m)</sub> | 0.608% <sub>(3 m)</sub> | IEEE Sens. J. 2023 |
 | SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
 | Small-but-Mighty | 0.961% <sub>(15 m)</sub> | 0.897% <sub>(3 m)</sub> | Remote Sens. 2025 |
 | CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
@@ -110,7 +111,7 @@ covariance grows in degenerate directions (unit-tested). LODESTAR's
 condition-number Schmidt-Kalman gate stays
 silent on well-conditioned KITTI urban scans and fires on only 26 genuinely
 degenerate seq-00 frames (validated by unit tests on synthetic corridors).
-**Six honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
+**Seven honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
 in this IMU-free harness: its constant-velocity, azimuth-timed dual-spline deskew
 amplifies range error (it diverges on the long seq 00), so deskew is off by
 default; and its degeneracy-aware remap stays completely silent (0 frames) on
@@ -145,7 +146,15 @@ design accumulates yaw drift through turns and diverges over a full sequence (18
 without a persistent map or IMU. A scan-to-local-map SRI extension was tried but
 multi-scan range-image occlusion made it worse, so the faithful frame-to-keyframe form
 is reported — an honest negative result, kept for the distinct projective-association
-front-end rather than its accuracy.
+front-end rather than its accuracy. (7) NHC-LIO is competitive (seq-07 0.608% beats
+KISS-ICP, seq-00 0.902% is near it), but its nonholonomic-constraint factor is
+near-redundant on KITTI: an ablation (NHC on vs off) moves seq-07 RPE only
+0.608%↔0.607% (ATE 3.36↔3.47 m), because KITTI's geometry-rich urban scans already
+constrain body-frame lateral motion through buildings and walls, so the no-side-slip
+prior adds little where geometry suffices. The factor is correct and suppresses lateral
+drift in geometrically lateral-ambiguous scenes (unit-tested); the paper's IMU/CNN
+reliable-NHC prediction is out of scope on IMU-free KITTI and approximated by a
+yaw-rate-adaptive weight.
 The top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on
 seq 00 but diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on
 KITTI — honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor

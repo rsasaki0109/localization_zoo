@@ -958,6 +958,21 @@
         "range-image",
         "direct"
       ]
+    },
+    {
+      "name": "NHC-LIO",
+      "family": "Motion constraint",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/nhc_lio",
+      "summary": "Vehicle LiDAR odometry with a nonholonomic-constraint (NHC) factor: the body-frame lateral and vertical translation velocity is constrained to ~0, added as a soft factor to scan-to-map point-to-plane with a yaw-rate-adaptive weight (the paper's IMU/CNN-predicted reliable NHC is approximated by motion state on IMU-free KITTI) (Chen et al., IEEE Sensors Journal 2023).",
+      "tags": [
+        "odometry",
+        "nonholonomic",
+        "motion-constraint"
+      ]
     }
   ],
   "starter_tracks": [

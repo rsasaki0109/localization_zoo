@@ -76,6 +76,7 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 | Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
 | NHC-LIO | 0.902% <sub>(18 m)</sub> | 0.608% <sub>(3 m)</sub> | IEEE Sens. J. 2023 |
 | SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
+| GMM-LO | 0.941% <sub>(14 m)</sub> | 0.657% <sub>(1 m)</sub> | arXiv:1807.02587 |
 | Student-T-LO | 0.952% <sub>(15 m)</sub> | 0.696% <sub>(2 m)</sub> | PMC11314997 2024 |
 | Small-but-Mighty | 0.961% <sub>(15 m)</sub> | 0.897% <sub>(3 m)</sub> | Remote Sens. 2025 |
 | CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
@@ -104,7 +105,8 @@ mechanisms go near-silent or near-redundant and the front-end reduces to a
 ~KISS-ICP point-to-plane core — DALI's deskew/degeneracy remap (0 frames fired),
 PCR-DAT's dual factor (~93% distribution), NHC-LIO's no-side-slip factor (ablation
 0.608↔0.607%), Student-T-LO's heavy-tail weighting (mean weight ~0.80, few
-outliers to reject). Each mechanism is verified by its own unit tests; per-method
+outliers to reject), GMM-LO's annealed soft assignment (mean responsibility ~0.98,
+collapsing to near-hard correspondences). Each mechanism is verified by its own unit tests; per-method
 caveats live in the module READMEs. Honest negatives: DiLO's frame-to-keyframe
 direct odometry diverges over a full sequence (18–19%); Spectral-LO's ICP-free
 BEV phase-correlation (Fourier-Mellin yaw + POC translation) is the fastest tracker

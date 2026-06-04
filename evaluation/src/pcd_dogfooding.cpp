@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -29,6 +29,7 @@
 #include "nhc_lio/nhc_lio.h"
 #include "student_t_lo/student_t_lo.h"
 #include "spectral_lo/spectral_lo.h"
+#include "gmm_lo/gmm_lo.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -213,7 +214,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "m_gclo" || method == "quadric_lo" ||
          method == "dilo" || method == "nhc_lio" ||
          method == "student_t_lo" || method == "spectral_lo" ||
-         method == "clins";
+         method == "gmm_lo" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1473,6 +1474,21 @@ struct SpectralLoDogfoodingOptions {
   int logpolar_radii = 256;
   double max_yaw_deg = 30.0;
   double keyframe_translation = 0.0;
+};
+
+struct GmmLoDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  int max_iterations = 20;
+  double sigma_init = 1.2;
+  double sigma_final = 0.25;
+  double outlier_weight = 0.1;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
 };
 
 struct DegenSenseDogfoodingOptions {
@@ -4781,6 +4797,58 @@ MethodResult runSpectralLo(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runGmmLo(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const GmmLoDogfoodingOptions& options) {
+  using namespace localization_zoo::gmm_lo;
+  MethodResult res;
+  res.name = "GMM-LO";
+
+  GmmLoParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_iterations = options.max_iterations;
+  params.sigma_init = options.sigma_init;
+  params.sigma_final = options.sigma_final;
+  params.outlier_weight = options.outlier_weight;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  GmmLoPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double w_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    w_sum += result.mean_weight;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [GMM-LO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[64];
+  std::snprintf(buf, sizeof(buf), "%.3f",
+                n > 0 ? w_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "GMM-LO: scan-to-map GMM/EM soft-assignment registration; Gaussian "
+      "responsibilities with uniform-outlier term, soft-centroid point-to-plane, "
+      "deterministic annealing of sigma; CV prior, no GT seed. mean_weight=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -6523,7 +6591,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -6694,6 +6762,7 @@ int main(int argc, char** argv) {
   NhcLioDogfoodingOptions nhc_lio_options;
   StudentTLoDogfoodingOptions student_t_lo_options;
   SpectralLoDogfoodingOptions spectral_lo_options;
+  GmmLoDogfoodingOptions gmm_lo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -8597,6 +8666,40 @@ int main(int argc, char** argv) {
       spectral_lo_options.keyframe_translation = std::stod(argv[++i]);
       continue;
     }
+    // --- gmm_lo ---
+    if (arg == "--gmm-lo-fast-profile") {
+      gmm_lo_options.source_voxel_size = 0.5;
+      gmm_lo_options.max_source_points = 4000;
+      gmm_lo_options.voxel_size = 1.0;
+      gmm_lo_options.max_iterations = 15;
+      gmm_lo_options.local_map_radius = 45.0;
+      gmm_lo_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--gmm-lo-dense-profile") {
+      gmm_lo_options.source_voxel_size = 0.35;
+      gmm_lo_options.max_source_points = 6000;
+      gmm_lo_options.voxel_size = 0.8;
+      gmm_lo_options.max_iterations = 20;
+      gmm_lo_options.local_map_radius = 80.0;
+      gmm_lo_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--gmm-lo-sigma-init") {
+      if (i + 1 >= argc) { std::cerr << "--gmm-lo-sigma-init requires a value" << std::endl; return 1; }
+      gmm_lo_options.sigma_init = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--gmm-lo-sigma-final") {
+      if (i + 1 >= argc) { std::cerr << "--gmm-lo-sigma-final requires a value" << std::endl; return 1; }
+      gmm_lo_options.sigma_final = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--gmm-lo-outlier-weight") {
+      if (i + 1 >= argc) { std::cerr << "--gmm-lo-outlier-weight requires a value" << std::endl; return 1; }
+      gmm_lo_options.outlier_weight = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -10077,6 +10180,15 @@ int main(int argc, char** argv) {
               << " bev_range=" << spectral_lo_options.bev_range
               << " max_yaw_deg=" << spectral_lo_options.max_yaw_deg << std::endl;
     results.push_back(runSpectralLo(pcd_dirs, gt, spectral_lo_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "gmm_lo")) {
+    std::cout << "Running GMM-LO..." << std::endl;
+    std::cout << "  source_voxel_size=" << gmm_lo_options.source_voxel_size
+              << " voxel_size=" << gmm_lo_options.voxel_size
+              << " sigma_init=" << gmm_lo_options.sigma_init
+              << " sigma_final=" << gmm_lo_options.sigma_final << std::endl;
+    results.push_back(runGmmLo(pcd_dirs, gt, gmm_lo_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

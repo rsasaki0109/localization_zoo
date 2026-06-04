@@ -78,6 +78,7 @@ ATE in parens is unbounded drift.
 | Intensity-Flow | 0.856% <sub>(8 m)</sub> | 0.616% <sub>(1 m)</sub> | Measurement 2026 |
 | Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
 | SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
+| Small-but-Mighty | 0.961% <sub>(15 m)</sub> | 0.897% <sub>(3 m)</sub> | Remote Sens. 2025 |
 | CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
@@ -102,7 +103,7 @@ covariance grows in degenerate directions (unit-tested). LODESTAR's
 condition-number Schmidt-Kalman gate stays
 silent on well-conditioned KITTI urban scans and fires on only 26 genuinely
 degenerate seq-00 frames (validated by unit tests on synthetic corridors).
-**Three honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
+**Four honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
 in this IMU-free harness: its constant-velocity, azimuth-timed dual-spline deskew
 amplifies range error (it diverges on the long seq 00), so deskew is off by
 default; and its degeneracy-aware remap stays completely silent (0 frames) on
@@ -118,7 +119,14 @@ factors are used every frame — but the distribution factor dominates ~93% of
 correspondences in KITTI's fairly uniform-density outdoor scans, so the registration
 behaves NDT-like and lands mid-pack (healthy, no divergence, but short of KISS-ICP's
 point-to-plane drift); the dual-factor split is verified by unit tests
-(`UsesBothFactorTypes`). The top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on
+(`UsesBothFactorTypes`). (4) Small-but-Mighty's stability-aware feature selection and
+contribution weighting both fire on KITTI — planar and line features are selected
+every frame from the statistical smoothness distribution (~640 planar / ~1110 edge),
+and it is the fastest of the new feature-based methods (4.5 FPS) — landing mid-pack
+(seq-00 0.961%, healthy) but its point-to-line edge constraints add drift on seq 07
+(0.897%) versus KISS-ICP's pure point-to-plane; the selection and weighting are
+unit-tested (`StableFeaturesGetHigherWeight`). The top methods clear CT-ICP by a wide
+margin. R-VoxelMap is healthy on
 seq 00 but diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on
 KITTI — honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor
 (not odometry) and is benchmarked separately. Raw run JSON:

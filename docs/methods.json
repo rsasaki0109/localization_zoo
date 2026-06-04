@@ -639,6 +639,145 @@
         "loop",
         "descriptor"
       ]
+    },
+    {
+      "name": "Adaptive-ICP",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/adaptive_icp",
+      "summary": "Reliable-initial-pose adaptive ICP: density-filtered coarse pose vs constant-velocity prediction, motion-state-weighted sigma_th, robust point-to-plane (arXiv:2509.22058).",
+      "tags": [
+        "odometry",
+        "adaptive",
+        "robust"
+      ]
+    },
+    {
+      "name": "D2-LIO",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/d2lio",
+      "summary": "Adaptive per-point outlier threshold + scan-to-submap IMU prior + degeneracy-aware hybrid weighting (arXiv:2508.14355).",
+      "tags": [
+        "odometry",
+        "degeneracy",
+        "imu"
+      ]
+    },
+    {
+      "name": "CT-VoxelMap",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/ct_voxelmap",
+      "summary": "Probabilistic adaptive voxel map (running mu/Sigma), point-uncertainty propagation, Mahalanobis hybrid point-to-plane/point-to-distribution (arXiv:2604.03747).",
+      "tags": [
+        "odometry",
+        "voxel-map",
+        "uncertainty"
+      ]
+    },
+    {
+      "name": "R-VoxelMap",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/r_voxelmap",
+      "summary": "Recursive octree plane fitting with outlier detect-and-reuse, plane-variance-weighted point-to-plane (arXiv:2601.12377).",
+      "tags": [
+        "odometry",
+        "plane",
+        "voxel-map"
+      ]
+    },
+    {
+      "name": "DegenSense",
+      "family": "Degeneracy",
+      "scope": "Degeneracy-robust baseline",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/degen_sense",
+      "summary": "Real-time degeneracy factor (Hessian condition number) + median+k*MAD outlier detection + IMU/LiDAR pose fusion (arXiv:2412.07513).",
+      "tags": [
+        "degeneracy",
+        "robust",
+        "imu"
+      ]
+    },
+    {
+      "name": "Vibration-LIO",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/vibration_lio",
+      "summary": "Post-undistortion point covariance with IMU-MAD vibration intensity, Mahalanobis-weighted point-to-plane (arXiv:2507.04311).",
+      "tags": [
+        "odometry",
+        "uncertainty",
+        "imu"
+      ]
+    },
+    {
+      "name": "BIEVR-LIO",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/bievr_lio",
+      "summary": "Bump image (per-voxel oriented height grid); image gradients add in-plane constraints to point-to-plane residual (arXiv:2604.14421).",
+      "tags": [
+        "odometry",
+        "bump-image",
+        "plane"
+      ]
+    },
+    {
+      "name": "UA-LIO",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/ua_lio",
+      "summary": "Gaussian voxel map, distribution-to-distribution uncertainty weighting, ground-plane z-constraint (IEEE TIM 2025).",
+      "tags": [
+        "odometry",
+        "d2d",
+        "ground"
+      ]
+    },
+    {
+      "name": "DTD",
+      "family": "Loop Closure",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/dtd",
+      "summary": "Density Triangle Descriptor: BEV density keypoints + rotation/translation-invariant triangle descriptor with entropy, hash voting + SVD verification (PMC 2025).",
+      "tags": [
+        "loop-closure",
+        "place-recognition",
+        "descriptor"
+      ]
     }
   ],
   "starter_tracks": [

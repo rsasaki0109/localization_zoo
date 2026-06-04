@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -23,6 +23,7 @@
 #include "svn_icp/svn_icp.h"
 #include "pcr_dat/pcr_dat.h"
 #include "small_mighty/small_mighty.h"
+#include "m_gclo/m_gclo.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -204,7 +205,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "lidar_iba" || method == "dali_slam" ||
          method == "intensity_flow" || method == "svn_icp" ||
          method == "pcr_dat" || method == "small_mighty" ||
-         method == "clins";
+         method == "m_gclo" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1356,6 +1357,27 @@ struct SmallMightyDogfoodingOptions {
   double contribution_cap = 3.0;
   double plane_weight = 1.0;
   double edge_weight = 0.5;
+  double robust_scale = 1.0;
+  double prior_precision = 0.0;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct MGcloDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double initial_threshold = 2.0;
+  int max_iterations = 20;
+  double ground_normal_threshold = 0.85;
+  double ground_height_offset = -0.5;
+  double ground_weight = 2.0;
+  double nonground_weight = 1.0;
+  double ground_planarity = 0.3;
+  double distribution_regularization = 0.01;
+  double uncertainty_range_ref = 40.0;
   double robust_scale = 1.0;
   double prior_precision = 0.0;
   double local_map_radius = 60.0;
@@ -4341,6 +4363,65 @@ MethodResult runSmallMighty(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const MGcloDogfoodingOptions& options) {
+  using namespace localization_zoo::m_gclo;
+  MethodResult res;
+  res.name = "M-GCLO";
+
+  MGcloParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.initial_threshold = options.initial_threshold;
+  params.max_iterations = options.max_iterations;
+  params.ground_normal_threshold = options.ground_normal_threshold;
+  params.ground_height_offset = options.ground_height_offset;
+  params.ground_weight = options.ground_weight;
+  params.nonground_weight = options.nonground_weight;
+  params.ground_planarity = options.ground_planarity;
+  params.distribution_regularization = options.distribution_regularization;
+  params.uncertainty_range_ref = options.uncertainty_range_ref;
+  params.robust_scale = options.robust_scale;
+  params.prior_precision = options.prior_precision;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  MGcloPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  long n_ground_sum = 0, n_nonground_sum = 0, n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    n_ground_sum += result.num_ground;
+    n_nonground_sum += result.num_nonground;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [M-GCLO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[96];
+  std::snprintf(buf, sizeof(buf), "%.0f/%.0f",
+                n > 0 ? static_cast<double>(n_ground_sum) / n : 0.0,
+                n > 0 ? static_cast<double>(n_nonground_sum) / n : 0.0);
+  res.note =
+      "M-GCLO: multiple-ground point-to-plane constraints (vertical accuracy) + "
+      "non-ground point-to-distribution (NDT) with per-point range-uncertainty "
+      "weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -6083,7 +6164,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -6248,6 +6329,7 @@ int main(int argc, char** argv) {
   SvnIcpDogfoodingOptions svn_icp_options;
   PcrDatDogfoodingOptions pcr_dat_options;
   SmallMightyDogfoodingOptions small_mighty_options;
+  MGcloDogfoodingOptions m_gclo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -7960,6 +8042,40 @@ int main(int argc, char** argv) {
       small_mighty_options.planar_min = std::stod(argv[++i]);
       continue;
     }
+    // --- m_gclo ---
+    if (arg == "--m-gclo-fast-profile") {
+      m_gclo_options.source_voxel_size = 0.5;
+      m_gclo_options.max_source_points = 4000;
+      m_gclo_options.voxel_size = 1.0;
+      m_gclo_options.max_iterations = 15;
+      m_gclo_options.local_map_radius = 45.0;
+      m_gclo_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--m-gclo-dense-profile") {
+      m_gclo_options.source_voxel_size = 0.35;
+      m_gclo_options.max_source_points = 6000;
+      m_gclo_options.voxel_size = 0.8;
+      m_gclo_options.max_iterations = 20;
+      m_gclo_options.local_map_radius = 80.0;
+      m_gclo_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--m-gclo-ground-weight") {
+      if (i + 1 >= argc) { std::cerr << "--m-gclo-ground-weight requires a value" << std::endl; return 1; }
+      m_gclo_options.ground_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--m-gclo-ground-normal-threshold") {
+      if (i + 1 >= argc) { std::cerr << "--m-gclo-ground-normal-threshold requires a value" << std::endl; return 1; }
+      m_gclo_options.ground_normal_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--m-gclo-uncertainty-range-ref") {
+      if (i + 1 >= argc) { std::cerr << "--m-gclo-uncertainty-range-ref requires a value" << std::endl; return 1; }
+      m_gclo_options.uncertainty_range_ref = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -9382,6 +9498,16 @@ int main(int argc, char** argv) {
               << " edge_weight=" << small_mighty_options.edge_weight
               << std::endl;
     results.push_back(runSmallMighty(pcd_dirs, gt, small_mighty_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "m_gclo")) {
+    std::cout << "Running M-GCLO..." << std::endl;
+    std::cout << "  source_voxel_size=" << m_gclo_options.source_voxel_size
+              << " voxel_size=" << m_gclo_options.voxel_size
+              << " ground_weight=" << m_gclo_options.ground_weight
+              << " ground_normal_threshold="
+              << m_gclo_options.ground_normal_threshold << std::endl;
+    results.push_back(runMGclo(pcd_dirs, gt, m_gclo_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

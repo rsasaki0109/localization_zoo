@@ -70,7 +70,8 @@ ATE in parens is unbounded drift.
 
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
-| LODESTAR | **0.848%** <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
+| M-GCLO | **0.835%** <sub>(19 m)</sub> | 0.671% <sub>(2 m)</sub> | ISPRS Ann. 2024 |
+| LODESTAR | 0.848% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
 | Terrain-RBF-LIO | 0.849% <sub>(8 m)</sub> | 0.587% <sub>(1 m)</sub> | arXiv:2509.26222 |
 | DALI-SLAM | 0.849% <sub>(8 m)</sub> | 0.600% <sub>(1 m)</sub> | ISPRS JPRS 2025 |
 | DAMM-LOAM | 0.851% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2510.13287 |
@@ -91,11 +92,15 @@ ATE in parens is unbounded drift.
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-**LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow and
-Adaptive-ICP all match or beat KISS-ICP on both sequences** — the new batch is led
-by Terrain-RBF-LIO (2nd-best seq-00 drift: its Gaussian-RBF terrain height field
-anchors vehicle z and suppresses z-drift) and DALI-SLAM (best seq-07 of the new
-four at 0.600%). Intensity-Flow ties KISS-ICP via RMS gradient-flow sampling +
+**M-GCLO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow
+and Adaptive-ICP all match or beat KISS-ICP on both sequences** — the new batch is
+now led on seq-00 drift by **M-GCLO** (0.835%), whose multiple-ground-plane
+point-to-plane constraints plus non-ground NDT and per-point range-uncertainty
+weighting cut local drift on the long sequence below KISS-ICP and LODESTAR; note its
+*global* ATE is higher (19 m vs LODESTAR's 7 m), so the ground constraints reduce
+per-100 m drift % more than they reduce accumulated yaw drift — an honest RPE/ATE
+split. Next is Terrain-RBF-LIO (its Gaussian-RBF terrain height field anchors vehicle
+z and suppresses z-drift) and DALI-SLAM (best seq-07 of the new four at 0.600%). Intensity-Flow ties KISS-ICP via RMS gradient-flow sampling +
 intensity-fused matching. SVN-ICP (Stein Variational Newton particles) adds a
 built-in pose-uncertainty estimate on top of a competitive pose — beating
 KISS-ICP on seq 07 (0.607%) and staying healthy on seq 00 (0.912%); its particle

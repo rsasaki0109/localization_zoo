@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq00_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "NHC-LIO",
+      "status": "ok",
+      "ate_m": 17.692460,
+      "rpe_trans_pct": 0.901984,
+      "rpe_rot_deg_per_m": 0.008335,
+      "frames": 4541,
+      "time_ms": 1498915.759180,
+      "fps": 3.029523,
+      "seed_fallback_rate_pct": null,
+      "note": "NHC-LIO: scan-to-map point-to-plane + nonholonomic-constraint factor (body lateral/vertical velocity ~0) with yaw-rate-adaptive weight; constant-velocity prior, no GT seed. mean_nhc_weight=4.182"
+    }
+  ]
+}

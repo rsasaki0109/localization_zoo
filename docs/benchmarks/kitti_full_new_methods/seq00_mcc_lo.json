@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq00_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "MCC-LO",
+      "status": "ok",
+      "ate_m": 12.903093,
+      "rpe_trans_pct": 0.891520,
+      "rpe_rot_deg_per_m": 0.008584,
+      "frames": 4541,
+      "time_ms": 1731558.514881,
+      "fps": 2.622493,
+      "seed_fallback_rate_pct": null,
+      "note": "MCC-LO: scan-to-map point-to-plane with Maximum Correntropy Criterion (Welsch/Gaussian kernel) robust weighting and Silverman adaptive kernel bandwidth; CV prior, no GT seed. mean_weight=0.897 sigma=0.300"
+    }
+  ]
+}

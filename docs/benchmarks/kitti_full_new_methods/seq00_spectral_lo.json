@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq00_full",
+  "gt_csv": "kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "Spectral-LO",
+      "status": "ok",
+      "ate_m": 112.711728,
+      "rpe_trans_pct": 12.028885,
+      "rpe_rot_deg_per_m": 0.059210,
+      "frames": 4541,
+      "time_ms": 330377.143510,
+      "fps": 13.744898,
+      "seed_fallback_rate_pct": null,
+      "note": "Spectral-LO: frequency-domain BEV odometry; Fourier-Mellin log-polar phase correlation for yaw + phase-only correlation for translation (3-DoF, z held); no ICP, no GT seed. mean_translation_peak=0.552"
+    }
+  ]
+}

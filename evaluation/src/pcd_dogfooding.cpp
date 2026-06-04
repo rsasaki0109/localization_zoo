@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -15,6 +15,7 @@
 #include "ct_voxelmap/ct_voxelmap.h"
 #include "r_voxelmap/r_voxelmap.h"
 #include "damm_loam/damm_loam.h"
+#include "lodestar/lodestar.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -192,7 +193,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "r_voxelmap" || method == "degen_sense" ||
          method == "vibration_lio" || method == "bievr_lio" ||
          method == "ua_lio" || method == "damm_loam" ||
-         method == "clins";
+         method == "lodestar" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1189,6 +1190,24 @@ struct DammLoamDogfoodingOptions {
   double edge_weight = 0.5;
   double degeneracy_ratio = 0.05;
   double degeneracy_boost = 4.0;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct LodestarDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  int max_icp_iterations = 30;
+  double initial_threshold = 2.0;
+  double t_chi = 3.0;          // raw Hessian 向けに論文値 1.5 から緩める
+  double anchor_strength = 1.0;
+  int active_window = 2;
+  bool enable_data_exploitation = true;
+  double t_loc = 0.819;        // cos(35°)
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -3729,6 +3748,61 @@ MethodResult runDammLoam(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runLodestar(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const LodestarDogfoodingOptions& options) {
+  using namespace localization_zoo::lodestar;
+  MethodResult res;
+  res.name = "LODESTAR";
+
+  LodestarParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.initial_threshold = options.initial_threshold;
+  params.t_chi = options.t_chi;
+  params.anchor_strength = options.anchor_strength;
+  params.active_window = options.active_window;
+  params.enable_data_exploitation = options.enable_data_exploitation;
+  params.t_loc = options.t_loc;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  LodestarPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  int degenerate_frames = 0;
+  long pruned_sum = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    if (result.degenerate) ++degenerate_frames;
+    pruned_sum += result.num_pruned;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [LODESTAR] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Degeneracy-aware LiDAR odometry: condition-number Schmidt-Kalman "
+      "anchoring of degenerate directions to constant-velocity prediction "
+      "(DA-ASKF) + localizability pruning (DA-DE); pure-LiDAR scope, no GT "
+      "seed (anchor matches first GT pose). degenerate_frames=" +
+      std::to_string(degenerate_frames) +
+      " pruned=" + std::to_string(pruned_sum);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -5471,7 +5545,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -5628,6 +5702,7 @@ int main(int argc, char** argv) {
   CTVoxelMapDogfoodingOptions ct_voxelmap_options;
   RVoxelMapDogfoodingOptions r_voxelmap_options;
   DammLoamDogfoodingOptions damm_loam_options;
+  LodestarDogfoodingOptions lodestar_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -7092,6 +7167,38 @@ int main(int argc, char** argv) {
       damm_loam_options.edge_weight = std::stod(argv[++i]);
       continue;
     }
+    if (arg == "--lodestar-fast-profile") {
+      lodestar_options.source_voxel_size = 0.5;
+      lodestar_options.max_source_points = 4000;
+      lodestar_options.voxel_size = 1.0;
+      lodestar_options.max_icp_iterations = 20;
+      lodestar_options.local_map_radius = 45.0;
+      lodestar_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--lodestar-dense-profile") {
+      lodestar_options.source_voxel_size = 0.35;
+      lodestar_options.max_source_points = 6000;
+      lodestar_options.voxel_size = 0.8;
+      lodestar_options.max_icp_iterations = 40;
+      lodestar_options.local_map_radius = 80.0;
+      lodestar_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--lodestar-t-chi") {
+      if (i + 1 >= argc) { std::cerr << "--lodestar-t-chi requires a value" << std::endl; return 1; }
+      lodestar_options.t_chi = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--lodestar-anchor-strength") {
+      if (i + 1 >= argc) { std::cerr << "--lodestar-anchor-strength requires a value" << std::endl; return 1; }
+      lodestar_options.anchor_strength = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--lodestar-no-data-exploitation") {
+      lodestar_options.enable_data_exploitation = false;
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -8425,6 +8532,18 @@ int main(int argc, char** argv) {
               << " max_iterations=" << damm_loam_options.max_icp_iterations
               << std::endl;
     results.push_back(runDammLoam(pcd_dirs, gt, damm_loam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "lodestar")) {
+    std::cout << "Running LODESTAR..." << std::endl;
+    std::cout << "  source_voxel_size=" << lodestar_options.source_voxel_size
+              << " voxel_size=" << lodestar_options.voxel_size
+              << " t_chi=" << lodestar_options.t_chi
+              << " anchor_strength=" << lodestar_options.anchor_strength
+              << " data_exploitation=" << lodestar_options.enable_data_exploitation
+              << " max_iterations=" << lodestar_options.max_icp_iterations
+              << std::endl;
+    results.push_back(runLodestar(pcd_dirs, gt, lodestar_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

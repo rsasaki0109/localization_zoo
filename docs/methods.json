@@ -793,6 +793,21 @@
         "degeneracy",
         "multi-metric"
       ]
+    },
+    {
+      "name": "LODESTAR",
+      "family": "Degeneracy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/lodestar",
+      "summary": "Degeneracy-aware LiDAR odometry: condition-number Schmidt-Kalman anchoring of degenerate directions to a sliding-window constant-velocity prediction (DA-ASKF) + localizability-based data exploitation/pruning (DA-DE) (arXiv:2511.09142).",
+      "tags": [
+        "odometry",
+        "degeneracy",
+        "schmidt-kalman"
+      ]
     }
   ],
   "starter_tracks": [

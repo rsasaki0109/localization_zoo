@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq00_full",
+  "gt_csv": "kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "R-VoxelMap",
+      "status": "ok",
+      "ate_m": 19.903764,
+      "rpe_trans_pct": 1.076246,
+      "rpe_rot_deg_per_m": 0.010733,
+      "frames": 4541,
+      "time_ms": 2261967.398256,
+      "fps": 2.007544,
+      "seed_fallback_rate_pct": null,
+      "note": "Recursive plane-fitting voxel map (outlier detect-and-reuse octree; no GT seed; anchor matches first GT pose). mean_matched_ratio=0.928702"
+    }
+  ]
+}

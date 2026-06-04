@@ -54,11 +54,58 @@ LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
 broken port._
 
 > **No GT-seeded methods here.** NDT / LiTAMIN2 / GICP use the ground-truth pose
-> as the per-frame initial guess, so their ATE is seed adherence, not tracking —
-> and the ranking even inverts: NDT's 0.02 m comes from *not* registering
-> (`--no-gt-seed` → 87% RPE, the worst tracker), while GICP's larger ATE is real
-> registration. They need a GT prior and aren't standalone odometry, so they are
-> not ranked.
+> as the per-frame initial guess, so their ATE is seed adherence, not tracking
+> (NDT `--no-gt-seed` → 87% RPE). They need a GT prior and aren't ranked.
+
+### From-paper reimplementations (no public reference code) — KITTI full
+
+Papers with **no public author code**, run as pure odometry on KITTI full
+sequences (first-pose anchor, `--no-gt-seed`, uniform `--*-dense-profile`; no IMU,
+so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in parens.
+
+| Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
+|---|---:|---:|---|
+| M-GCLO | **0.835%** <sub>(19 m)</sub> | 0.671% <sub>(2 m)</sub> | ISPRS Ann. 2024 |
+| LODESTAR | 0.848% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
+| Terrain-RBF-LIO | 0.849% <sub>(8 m)</sub> | 0.587% <sub>(1 m)</sub> | arXiv:2509.26222 |
+| DALI-SLAM | 0.849% <sub>(8 m)</sub> | 0.600% <sub>(1 m)</sub> | ISPRS JPRS 2025 |
+| DAMM-LOAM | 0.851% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2510.13287 |
+| CUBE-LIO | 0.851% <sub>(9 m)</sub> | 0.608% <sub>(1 m)</sub> | ROBOMECH 2026 |
+| Intensity-Flow | 0.856% <sub>(8 m)</sub> | 0.616% <sub>(1 m)</sub> | Measurement 2026 |
+| Quadric-LO | 0.867% <sub>(15 m)</sub> | 0.598% <sub>(2 m)</sub> | arXiv:2304.14190 |
+| Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
+| MCC-LO | 0.892% <sub>(13 m)</sub> | 0.611% <sub>(2 m)</sub> | PLOS ONE 2018 |
+| NHC-LIO | 0.902% <sub>(18 m)</sub> | 0.608% <sub>(3 m)</sub> | IEEE Sens. J. 2023 |
+| SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
+| GMM-LO | 0.941% <sub>(14 m)</sub> | 0.657% <sub>(1 m)</sub> | arXiv:1807.02587 |
+| Student-T-LO | 0.952% <sub>(15 m)</sub> | 0.696% <sub>(2 m)</sub> | PMC11314997 2024 |
+| Small-but-Mighty | 0.961% <sub>(15 m)</sub> | 0.897% <sub>(3 m)</sub> | Remote Sens. 2025 |
+| GNC-LO | 0.986% <sub>(18 m)</sub> | 0.722% <sub>(2 m)</sub> | arXiv:1909.08605 |
+| CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
+| Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
+| BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
+| R-VoxelMap | 1.076% <sub>(20 m)</sub> | _diverges_ | arXiv:2601.12377 |
+| PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
+| LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
+| D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |
+| DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
+| Spectral-LO | 12.029% <sub>(113 m)</sub> | 13.671% <sub>(47 m)</sub> | arXiv:2005.02042 |
+| DiLO | 18.305% <sub>(226 m)</sub> | 18.966% <sub>(159 m)</sub> | ETRI J. 2021 |
+| UA-LIO | _diverges_ | _diverges_ | IEEE TIM 2025 |
+| _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
+| _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
+
+The top nine (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on both
+sequences**, well clear of CT-ICP. **M-GCLO** leads seq-00 drift (0.835%) via
+multiple-ground-plane constraints (higher ATE — an honest RPE/ATE split).
+
+Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
+mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP
+point-to-plane core. Honest negatives: DiLO (direct, 18–19% drift), Spectral-LO
+(ICP-free BEV phase-correlation, fastest at ~14 FPS but coarse ~12–14%),
+R-VoxelMap (diverges seq 07), UA-LIO/DegenSense. Per-method caveats live in the
+module READMEs; raw JSON:
+[`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
 
 ## Scope Note
@@ -77,23 +124,22 @@ The tracked claim boundary for original-paper reproduction is summarized separat
 
 ## Experiment-Driven Development
 
-This repository now keeps a small stable benchmark core and a discardable experiment layer.
-The current search state is externalized here:
+A small stable benchmark core plus a discardable experiment layer. The search
+state is externalized in: [`experiments.md`](docs/experiments.md) (variant
+comparisons), [`decisions.md`](docs/decisions.md) (adoption/rejection),
+[`interfaces.md`](docs/interfaces.md) (stable interface + active selectors),
+[`reproduction_status.md`](docs/reproduction_status.md) (claim boundaries), and
+the paper-track docs ([tracks](docs/paper_tracks.md),
+[roadmap](docs/paper_roadmap.md), [assets](docs/paper_assets.md),
+[captions](docs/paper_captions.md)).
 
-- [`docs/experiments.md`](docs/experiments.md): concrete variant comparisons
-- [`docs/decisions.md`](docs/decisions.md): adoption and rejection reasons
-- [`docs/interfaces.md`](docs/interfaces.md): current minimum stable interface
-- [`docs/reproduction_status.md`](docs/reproduction_status.md): what the repo currently can and cannot claim about reproducing original-paper results
-- [`docs/paper_tracks.md`](docs/paper_tracks.md): publication narratives ranked by current evidence
-- [`docs/paper_roadmap.md`](docs/paper_roadmap.md): concrete path from benchmark state to a paper package
-- [`docs/paper_assets.md`](docs/paper_assets.md): paper-ready tables and Pareto views exported from experiment aggregates
-- [`docs/paper_captions.md`](docs/paper_captions.md): manuscript-facing caption snippets derived from the current aggregates
-
-Concrete variants live under [`experiments/`](experiments/) and are meant to be compared, challenged, and replaced.
-The matrix runner tracks the generated problem set in [`experiments/results/index.json`](experiments/results/index.json) across Istanbul windows, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD (Ouster) windows, and KITTI Raw (short and full-sequence windows).
-For heavy KITTI Raw full-sequence HDL Graph SLAM runs, the repository now keeps truthful exceptions instead of inventing pseudo-equivalent lightweight profiles: `kitti_raw_0009_full` stays `default`-only, and `kitti_raw_0061_full` stays `skipped`.
-[`docs/interfaces.md`](docs/interfaces.md) lists the current active selectors wired into `pcd_dogfooding`; the full integration surface is intentionally broader than any single manuscript-facing subset.
-`CT-LIO` and `CLINS` now both have public ROS1 HDL-400 synthetic-time comparisons, while GT-backed public `CT-LIO` remains blocked pending an independently curated trajectory CSV for that LiDAR+IMU stack. Those public ROS1 synthetic-time runs are useful comparative evidence, but they should be treated as a separate public-only benchmark, **not** as an exact native per-point-time reproduction of the reference/native-time HDL-400 setup.
+Concrete variants live under [`experiments/`](experiments/). The matrix runner
+tracks [`results/index.json`](experiments/results/index.json) across Istanbul,
+HDL-400 (reference + public ROS1 synthetic-time), MCD (Ouster), and KITTI Raw
+windows. Truthful exceptions are kept rather than faked profiles
+(`kitti_raw_0009_full` stays `default`-only, `kitti_raw_0061_full` `skipped`).
+Public ROS1 synthetic-time HDL-400 runs are a separate public-only benchmark,
+**not** exact native per-point-time reproduction.
 
 ### Quick sanity checks (after clone)
 
@@ -231,20 +277,14 @@ python3 evaluation/scripts/reference_pose_to_gt_csv.py \
   --methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp
 ```
 
-`LiTAMIN2`, `GICP`, and `NDT` currently use GT-seeded scan-to-map initialization inside `pcd_dogfooding` so that sequential PCD exports remain comparable.
-If a refinement step becomes weak or unstable, the current dogfooding profile falls back to that seeded pose instead of forcing the update.
-`--litamin2-paper-profile` switches LiTAMIN2 to a more paper-like setting centered on `voxel_resolution=3.0`.
-`--litamin2-icp-only` disables the covariance-shape term so the first KL-derived distance term can be benchmarked on its own.
-`--litamin2-max-source-points` caps the per-frame source cloud after voxel filtering, and `--litamin2-num-threads` overrides the OpenMP worker count.
-`KISS-ICP` and `CT-ICP` remain odometry-style methods in this tool, so their absolute ATE is reported after anchoring the estimated trajectory to the first GT pose.
-For long runs, methods can be filtered with `./pcd_dogfooding ... --methods gicp,ndt,kiss_icp`.
-`--ct-lio-estimate-bias` is experimental and carries the previous-frame bias with a random-walk prior.
-`--ct-lio-fixed-lag-window 4` enables a short history prior on velocity and bias. Current defaults are `velocity_weight=0.0`, `gyro_bias_scale=0.25`, `accel_bias_scale=0.25`, and `history_decay=1.0`. Lower `history_decay` biases the prior toward the most recent state.
-`--ct-lio-fixed-lag-smoother` re-optimizes `begin/end pose + begin_velocity + bias` inside the window with local point-to-plane and IMU residuals.
-`--ct-lio-fixed-lag-outer-iterations` controls correspondence relinearization passes in the smoother. The current default is `3` for accuracy; `1` is lighter but usually hurts long-run ATE.
-For public HDL-400 experiments, this repository now also supports a reference-trajectory CSV converted from `pose_trace.csv` via `python3 evaluation/scripts/pose_trace_to_gt_csv.py`.
-For additional HDL-400 windows, `python3 evaluation/scripts/slice_trajectory_csv_by_frames.py` can slice the shared reference CSV to the timestamp span covered by a newly extracted `frame_timestamps.csv`.
-The repository keeps those reference/native-time-style HDL-400 windows separate from the public ROS1 synthetic-time reconstructions under `dogfooding_results/hdl_400_ros1_open_ct_lio_*_time_index`. The latter are public and reproducible from the released ROS1 bag, but they use synthesized per-point time and therefore should not be described as exact native-time reproduction.
+`LiTAMIN2`, `GICP`, and `NDT` use GT-seeded scan-to-map init inside
+`pcd_dogfooding` (falling back to the seed pose on weak updates) so sequential
+PCD exports stay comparable; `KISS-ICP` and `CT-ICP` are odometry-style, so their
+ATE is reported after anchoring to the first GT pose. Per-method flag families
+(`--litamin2-*`, `--ct-lio-*`, etc.) are listed in
+[`docs/interfaces.md`](docs/interfaces.md). HDL-400 helper scripts
+(`pose_trace_to_gt_csv.py`, `slice_trajectory_csv_by_frames.py`) and the
+reference- vs public-ROS1-synthetic-time distinction are documented there too.
 
 ### Synthetic Urban (30 frames)
 

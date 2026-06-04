@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "kitti_pcd/seq00_full",
+  "gt_csv": "kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "SVN-ICP",
+      "status": "ok",
+      "ate_m": 14.13377,
+      "rpe_trans_pct": 0.911975,
+      "rpe_rot_deg_per_m": 0.008944,
+      "frames": 4541,
+      "time_ms": 2474986.073114,
+      "fps": 1.834758,
+      "seed_fallback_rate_pct": null,
+      "note": "SVN-ICP: Stein Variational Newton on SE(3) over M particles for point-to-plane LiDAR odometry with built-in pose uncertainty (particle covariance); constant-velocity prior, no GT seed. mean_trans_std_m=1.0310"
+    }
+  ]
+}

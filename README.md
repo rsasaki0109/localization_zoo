@@ -77,6 +77,7 @@ ATE in parens is unbounded drift.
 | CUBE-LIO | 0.851% <sub>(9 m)</sub> | 0.608% <sub>(1 m)</sub> | ROBOMECH 2026 |
 | Intensity-Flow | 0.856% <sub>(8 m)</sub> | 0.616% <sub>(1 m)</sub> | Measurement 2026 |
 | Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
+| SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
 | CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
@@ -93,7 +94,11 @@ Adaptive-ICP all match or beat KISS-ICP on both sequences** — the new batch is
 by Terrain-RBF-LIO (2nd-best seq-00 drift: its Gaussian-RBF terrain height field
 anchors vehicle z and suppresses z-drift) and DALI-SLAM (best seq-07 of the new
 four at 0.600%). Intensity-Flow ties KISS-ICP via RMS gradient-flow sampling +
-intensity-fused matching. LODESTAR's condition-number Schmidt-Kalman gate stays
+intensity-fused matching. SVN-ICP (Stein Variational Newton particles) adds a
+built-in pose-uncertainty estimate on top of a competitive pose — beating
+KISS-ICP on seq 07 (0.607%) and staying healthy on seq 00 (0.912%); its particle
+covariance grows in degenerate directions (unit-tested). LODESTAR's
+condition-number Schmidt-Kalman gate stays
 silent on well-conditioned KITTI urban scans and fires on only 26 genuinely
 degenerate seq-00 frames (validated by unit tests on synthetic corridors).
 **Two honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable

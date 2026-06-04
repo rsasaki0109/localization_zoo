@@ -77,6 +77,7 @@ ATE in parens is unbounded drift.
 | DAMM-LOAM | 0.851% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2510.13287 |
 | CUBE-LIO | 0.851% <sub>(9 m)</sub> | 0.608% <sub>(1 m)</sub> | ROBOMECH 2026 |
 | Intensity-Flow | 0.856% <sub>(8 m)</sub> | 0.616% <sub>(1 m)</sub> | Measurement 2026 |
+| Quadric-LO | 0.867% <sub>(15 m)</sub> | 0.598% <sub>(2 m)</sub> | arXiv:2304.14190 |
 | Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
 | SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
 | Small-but-Mighty | 0.961% <sub>(15 m)</sub> | 0.897% <sub>(3 m)</sub> | Remote Sens. 2025 |
@@ -92,8 +93,8 @@ ATE in parens is unbounded drift.
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-**M-GCLO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow
-and Adaptive-ICP all match or beat KISS-ICP on both sequences** — the new batch is
+**M-GCLO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow,
+Quadric-LO and Adaptive-ICP all match or beat KISS-ICP on both sequences** — the new batch is
 now led on seq-00 drift by **M-GCLO** (0.835%), whose multiple-ground-plane
 point-to-plane constraints plus non-ground NDT and per-point range-uncertainty
 weighting cut local drift on the long sequence below KISS-ICP and LODESTAR; note its
@@ -108,7 +109,7 @@ covariance grows in degenerate directions (unit-tested). LODESTAR's
 condition-number Schmidt-Kalman gate stays
 silent on well-conditioned KITTI urban scans and fires on only 26 genuinely
 degenerate seq-00 frames (validated by unit tests on synthetic corridors).
-**Four honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
+**Five honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
 in this IMU-free harness: its constant-velocity, azimuth-timed dual-spline deskew
 amplifies range error (it diverges on the long seq 00), so deskew is off by
 default; and its degeneracy-aware remap stays completely silent (0 frames) on
@@ -130,8 +131,13 @@ every frame from the statistical smoothness distribution (~640 planar / ~1110 ed
 and it is the fastest of the new feature-based methods (4.5 FPS) — landing mid-pack
 (seq-00 0.961%, healthy) but its point-to-line edge constraints add drift on seq 07
 (0.897%) versus KISS-ICP's pure point-to-plane; the selection and weighting are
-unit-tested (`StableFeaturesGetHigherWeight`). The top methods clear CT-ICP by a wide
-margin. R-VoxelMap is healthy on
+unit-tested (`StableFeaturesGetHigherWeight`). (5) Quadric-LO genuinely uses its
+quadric-surface representation rather than degrading to planes — ~2760 of ~2780
+correspondences per frame are point-to-quadric (implicit q=xᵀAx+bᵀx+c, Taubin
+distance), with only ~15 plane fallbacks — and it beats KISS-ICP on both sequences
+(seq-00 0.867%, seq-07 0.598%); the cost is speed (0.62 FPS: a 10-parameter algebraic
+quadric fit per correspondence per iteration), an honest accuracy/compute tradeoff.
+The top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on
 seq 00 but diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on
 KITTI — honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor
 (not odometry) and is benchmarked separately. Raw run JSON:

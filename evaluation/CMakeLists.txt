@@ -57,6 +57,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   small_mighty
   m_gclo
   quadric_lo
+  dilo
   cube_lio
   rko_lio
   aloam

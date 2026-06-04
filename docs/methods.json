@@ -943,6 +943,21 @@
         "quadric",
         "implicit-surface"
       ]
+    },
+    {
+      "name": "DiLO",
+      "family": "Direct range-image",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/dilo",
+      "summary": "Direct LiDAR odometry on spherical range images: frame-to-keyframe alignment via projective data association (no nearest-neighbor search) with image-based point-to-plane residuals. Fast (25-32 FPS) but the frame-to-keyframe design drifts/diverges on long KITTI sequences without a persistent map (Han et al., ETRI Journal 2021).",
+      "tags": [
+        "odometry",
+        "range-image",
+        "direct"
+      ]
     }
   ],
   "starter_tracks": [

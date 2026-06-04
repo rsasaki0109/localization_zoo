@@ -89,6 +89,7 @@ ATE in parens is unbounded drift.
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |
 | DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
+| DiLO | 18.305% <sub>(226 m)</sub> | 18.966% <sub>(159 m)</sub> | ETRI J. 2021 |
 | UA-LIO | _diverges_ | _diverges_ | IEEE TIM 2025 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
@@ -109,7 +110,7 @@ covariance grows in degenerate directions (unit-tested). LODESTAR's
 condition-number Schmidt-Kalman gate stays
 silent on well-conditioned KITTI urban scans and fires on only 26 genuinely
 degenerate seq-00 frames (validated by unit tests on synthetic corridors).
-**Five honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
+**Six honest caveats.** (1) DALI-SLAM's two contributions are KITTI-inapplicable
 in this IMU-free harness: its constant-velocity, azimuth-timed dual-spline deskew
 amplifies range error (it diverges on the long seq 00), so deskew is off by
 default; and its degeneracy-aware remap stays completely silent (0 frames) on
@@ -136,7 +137,15 @@ quadric-surface representation rather than degrading to planes — ~2760 of ~278
 correspondences per frame are point-to-quadric (implicit q=xᵀAx+bᵀx+c, Taubin
 distance), with only ~15 plane fallbacks — and it beats KISS-ICP on both sequences
 (seq-00 0.867%, seq-07 0.598%); the cost is speed (0.62 FPS: a 10-parameter algebraic
-quadric fit per correspondence per iteration), an honest accuracy/compute tradeoff.
+quadric fit per correspondence per iteration), an honest accuracy/compute tradeoff. (6) DiLO is the one new method that
+does *not* hold up on full KITTI: its spherical-range-image projective data association
+(no NN search) is genuinely fast (25–32 FPS) and correct on short/straight segments
+(4.5% over the first 200 frames, unit-tested), but the paper's frame-to-keyframe direct
+design accumulates yaw drift through turns and diverges over a full sequence (18–19%)
+without a persistent map or IMU. A scan-to-local-map SRI extension was tried but
+multi-scan range-image occlusion made it worse, so the faithful frame-to-keyframe form
+is reported — an honest negative result, kept for the distinct projective-association
+front-end rather than its accuracy.
 The top methods clear CT-ICP by a wide margin. R-VoxelMap is healthy on
 seq 00 but diverges on seq 07, and UA-LIO/DegenSense are not yet competitive on
 KITTI — honest per-sequence behaviour, not hidden. DTD is a loop-closure descriptor

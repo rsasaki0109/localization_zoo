@@ -56,6 +56,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   pcr_dat
   small_mighty
   m_gclo
+  quadric_lo
   cube_lio
   rko_lio
   aloam

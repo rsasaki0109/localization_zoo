@@ -1036,6 +1036,22 @@
         "graduated-non-convexity",
         "truncated-least-squares"
       ]
+    },
+    {
+      "name": "MCC-LO",
+      "family": "Robust estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/mcc_lo",
+      "summary": "Maximum-Correntropy-Criterion (MCC) robust point-to-plane LiDAR odometry. Instead of minimizing squared error, it maximizes the correntropy V=sum exp(-r^2/2 sigma^2); half-quadratic optimization yields an IRLS Welsch/Gaussian weight w=exp(-r^2/2 sigma^2), and the kernel bandwidth sigma is adapted per iteration from the residual distribution via the Silverman rule. An information-theoretic robust family distinct from M-estimator heavy tails, GNC continuation, and GMM soft assignment (He et al., PLOS ONE 2018, doi:10.1371/journal.pone.0197542; Pattern Recognition 2019).",
+      "tags": [
+        "odometry",
+        "robust",
+        "maximum-correntropy",
+        "adaptive-bandwidth"
+      ]
     }
   ],
   "starter_tracks": [

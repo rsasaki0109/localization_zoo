@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -26,6 +26,7 @@
 #include "m_gclo/m_gclo.h"
 #include "quadric_lo/quadric_lo.h"
 #include "dilo/dilo.h"
+#include "nhc_lio/nhc_lio.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -208,7 +209,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "intensity_flow" || method == "svn_icp" ||
          method == "pcr_dat" || method == "small_mighty" ||
          method == "m_gclo" || method == "quadric_lo" ||
-         method == "dilo" || method == "clins";
+         method == "dilo" || method == "nhc_lio" ||
+         method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1420,6 +1422,22 @@ struct DiloDogfoodingOptions {
   double robust_scale = 0.5;
   double keyframe_translation = 2.0;
   double keyframe_rotation_deg = 10.0;
+};
+
+struct NhcLioDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  double initial_threshold = 2.0;
+  int max_iterations = 20;
+  bool enable_nhc = true;
+  double nhc_weight = 5.0;
+  double nhc_yaw_ref = 0.03;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
 };
 
 struct DegenSenseDogfoodingOptions {
@@ -4567,6 +4585,59 @@ MethodResult runDilo(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runNhcLio(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const NhcLioDogfoodingOptions& options) {
+  using namespace localization_zoo::nhc_lio;
+  MethodResult res;
+  res.name = "NHC-LIO";
+
+  NhcLioParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.initial_threshold = options.initial_threshold;
+  params.max_iterations = options.max_iterations;
+  params.enable_nhc = options.enable_nhc;
+  params.nhc_weight = options.nhc_weight;
+  params.nhc_yaw_ref = options.nhc_yaw_ref;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  NhcLioPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double nhc_w_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    nhc_w_sum += result.nhc_weight_used;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [NHC-LIO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[64];
+  std::snprintf(buf, sizeof(buf), "%.3f",
+                n > 0 ? nhc_w_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "NHC-LIO: scan-to-map point-to-plane + nonholonomic-constraint factor "
+      "(body lateral/vertical velocity ~0) with yaw-rate-adaptive weight; "
+      "constant-velocity prior, no GT seed. mean_nhc_weight=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -6309,7 +6380,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -6477,6 +6548,7 @@ int main(int argc, char** argv) {
   MGcloDogfoodingOptions m_gclo_options;
   QuadricLoDogfoodingOptions quadric_lo_options;
   DiloDogfoodingOptions dilo_options;
+  NhcLioDogfoodingOptions nhc_lio_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -8289,6 +8361,39 @@ int main(int argc, char** argv) {
       dilo_options.initial_threshold = std::stod(argv[++i]);
       continue;
     }
+    // --- nhc_lio ---
+    if (arg == "--nhc-lio-fast-profile") {
+      nhc_lio_options.source_voxel_size = 0.5;
+      nhc_lio_options.max_source_points = 4000;
+      nhc_lio_options.voxel_size = 1.0;
+      nhc_lio_options.max_iterations = 15;
+      nhc_lio_options.local_map_radius = 45.0;
+      nhc_lio_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--nhc-lio-dense-profile") {
+      nhc_lio_options.source_voxel_size = 0.35;
+      nhc_lio_options.max_source_points = 6000;
+      nhc_lio_options.voxel_size = 0.8;
+      nhc_lio_options.max_iterations = 20;
+      nhc_lio_options.local_map_radius = 80.0;
+      nhc_lio_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--nhc-lio-weight") {
+      if (i + 1 >= argc) { std::cerr << "--nhc-lio-weight requires a value" << std::endl; return 1; }
+      nhc_lio_options.nhc_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--nhc-lio-yaw-ref") {
+      if (i + 1 >= argc) { std::cerr << "--nhc-lio-yaw-ref requires a value" << std::endl; return 1; }
+      nhc_lio_options.nhc_yaw_ref = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--nhc-lio-disable") {
+      nhc_lio_options.enable_nhc = false;
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -9742,6 +9847,15 @@ int main(int argc, char** argv) {
               << " keyframe_translation=" << dilo_options.keyframe_translation
               << std::endl;
     results.push_back(runDilo(pcd_dirs, gt, dilo_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "nhc_lio")) {
+    std::cout << "Running NHC-LIO..." << std::endl;
+    std::cout << "  source_voxel_size=" << nhc_lio_options.source_voxel_size
+              << " voxel_size=" << nhc_lio_options.voxel_size
+              << " nhc_weight=" << nhc_lio_options.nhc_weight
+              << " enable_nhc=" << nhc_lio_options.enable_nhc << std::endl;
+    results.push_back(runNhcLio(pcd_dirs, gt, nhc_lio_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

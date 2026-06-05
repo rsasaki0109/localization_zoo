@@ -1004,6 +1004,22 @@
         "phase-correlation",
         "fourier-mellin"
       ]
+    },
+    {
+      "name": "GMM-LO",
+      "family": "GMM / EM registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/gmm_lo",
+      "summary": "Gaussian-mixture / EM soft-assignment LiDAR odometry. Unlike hard nearest-neighbor ICP or hard voxel assignment (NDT), each source point is softly associated to its neighboring map points by Gaussian responsibilities gamma_ij with a uniform-outlier term (E-step); the M-step minimizes a soft-centroid point-to-plane cost, and sigma is annealed from coarse to fine (deterministic annealing) for a wide-to-sharp basin (compact single-scale reduction of HGMR's tree of Gaussian mixtures, Eckart et al. 2018, arXiv:1807.02587).",
+      "tags": [
+        "odometry",
+        "gmm",
+        "em",
+        "soft-assignment"
+      ]
     }
   ],
   "starter_tracks": [

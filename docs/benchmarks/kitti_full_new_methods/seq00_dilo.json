@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq00_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "DiLO",
+      "status": "ok",
+      "ate_m": 225.703368,
+      "rpe_trans_pct": 18.305155,
+      "rpe_rot_deg_per_m": 0.195274,
+      "frames": 4541,
+      "time_ms": 181079.343018,
+      "fps": 25.077405,
+      "seed_fallback_rate_pct": null,
+      "note": "DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image projective data association (no NN search) + point-to-plane GN; constant-velocity prior, no GT seed. keyframes=1843"
+    }
+  ]
+}

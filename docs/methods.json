@@ -988,6 +988,22 @@
         "robust",
         "student-t"
       ]
+    },
+    {
+      "name": "Spectral-LO",
+      "family": "Spectral / phase correlation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/spectral_lo",
+      "summary": "Frequency-domain LiDAR odometry with no ICP: each scan is rasterized to a bird's-eye-view density image, the relative yaw is recovered by Fourier-Mellin log-polar phase correlation on the translation-invariant magnitude spectrum, and the relative translation by phase-only correlation (POC) of the de-rotated BEV images. Estimates a planar 3-DoF (x, y, yaw) motion with z held (SROM-style phase-correlation matching, arXiv:2005.02042).",
+      "tags": [
+        "odometry",
+        "spectral",
+        "phase-correlation",
+        "fourier-mellin"
+      ]
     }
   ],
   "starter_tracks": [

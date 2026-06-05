@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -28,6 +28,7 @@
 #include "dilo/dilo.h"
 #include "nhc_lio/nhc_lio.h"
 #include "student_t_lo/student_t_lo.h"
+#include "spectral_lo/spectral_lo.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -211,7 +212,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "pcr_dat" || method == "small_mighty" ||
          method == "m_gclo" || method == "quadric_lo" ||
          method == "dilo" || method == "nhc_lio" ||
-         method == "student_t_lo" || method == "clins";
+         method == "student_t_lo" || method == "spectral_lo" ||
+         method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1457,6 +1459,20 @@ struct StudentTLoDogfoodingOptions {
   double scale_floor = 0.05;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
+};
+
+struct SpectralLoDogfoodingOptions {
+  double source_voxel_size = 0.0;  // full cloud (BEV ラスタに密度が要る)
+  size_t max_source_points = 200000;
+  int bev_size = 256;
+  double bev_range = 60.0;
+  double max_range = 80.0;
+  double z_min = -3.0;
+  double z_max = 3.0;
+  int logpolar_angles = 256;
+  int logpolar_radii = 256;
+  double max_yaw_deg = 30.0;
+  double keyframe_translation = 0.0;
 };
 
 struct DegenSenseDogfoodingOptions {
@@ -4715,6 +4731,56 @@ MethodResult runStudentTLo(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runSpectralLo(const std::vector<std::string>& pcd_dirs,
+                           const std::vector<Eigen::Matrix4d>& gt,
+                           const SpectralLoDogfoodingOptions& options) {
+  using namespace localization_zoo::spectral_lo;
+  MethodResult res;
+  res.name = "Spectral-LO";
+
+  SpectralLoParams params;
+  params.bev_size = options.bev_size;
+  params.bev_range = options.bev_range;
+  params.max_range = options.max_range;
+  params.z_min = options.z_min;
+  params.z_max = options.z_max;
+  params.logpolar_angles = options.logpolar_angles;
+  params.logpolar_radii = options.logpolar_radii;
+  params.max_yaw_deg = options.max_yaw_deg;
+  params.keyframe_translation = options.keyframe_translation;
+  SpectralLoPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double peak_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    peak_sum += result.translation_peak;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [Spectral-LO] " << i << "/" << pcd_dirs.size();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[64];
+  std::snprintf(buf, sizeof(buf), "%.3f",
+                n > 0 ? peak_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "Spectral-LO: frequency-domain BEV odometry; Fourier-Mellin log-polar "
+      "phase correlation for yaw + phase-only correlation for translation "
+      "(3-DoF, z held); no ICP, no GT seed. mean_translation_peak=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -6457,7 +6523,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -6627,6 +6693,7 @@ int main(int argc, char** argv) {
   DiloDogfoodingOptions dilo_options;
   NhcLioDogfoodingOptions nhc_lio_options;
   StudentTLoDogfoodingOptions student_t_lo_options;
+  SpectralLoDogfoodingOptions spectral_lo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -8509,6 +8576,27 @@ int main(int argc, char** argv) {
       student_t_lo_options.enable_student_t = false;
       continue;
     }
+    // --- spectral_lo ---
+    if (arg == "--spectral-lo-bev-size") {
+      if (i + 1 >= argc) { std::cerr << "--spectral-lo-bev-size requires a value" << std::endl; return 1; }
+      spectral_lo_options.bev_size = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--spectral-lo-bev-range") {
+      if (i + 1 >= argc) { std::cerr << "--spectral-lo-bev-range requires a value" << std::endl; return 1; }
+      spectral_lo_options.bev_range = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--spectral-lo-max-yaw-deg") {
+      if (i + 1 >= argc) { std::cerr << "--spectral-lo-max-yaw-deg requires a value" << std::endl; return 1; }
+      spectral_lo_options.max_yaw_deg = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--spectral-lo-keyframe-translation") {
+      if (i + 1 >= argc) { std::cerr << "--spectral-lo-keyframe-translation requires a value" << std::endl; return 1; }
+      spectral_lo_options.keyframe_translation = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -9981,6 +10069,14 @@ int main(int argc, char** argv) {
               << " enable_student_t=" << student_t_lo_options.enable_student_t
               << std::endl;
     results.push_back(runStudentTLo(pcd_dirs, gt, student_t_lo_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "spectral_lo")) {
+    std::cout << "Running Spectral-LO..." << std::endl;
+    std::cout << "  bev_size=" << spectral_lo_options.bev_size
+              << " bev_range=" << spectral_lo_options.bev_range
+              << " max_yaw_deg=" << spectral_lo_options.max_yaw_deg << std::endl;
+    results.push_back(runSpectralLo(pcd_dirs, gt, spectral_lo_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

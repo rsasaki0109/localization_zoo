@@ -973,6 +973,21 @@
         "nonholonomic",
         "motion-constraint"
       ]
+    },
+    {
+      "name": "Student-T-LO",
+      "family": "Robust estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/student_t_lo",
+      "summary": "Heavy-tail robust LiDAR odometry: scan-to-map point-to-plane residuals are modeled with a Student's-t distribution and solved by IRLS with per-correspondence weight w=(nu+1)/(nu+(r/sigma)^2), where the scale sigma is updated by EM each iteration (sigma^2=sum w r^2 / N). The variable degree-of-freedom nu generalizes the Cauchy kernel (nu=1) and approaches Gaussian as nu grows (2024 Student's-t point-cloud registration, PMC11314997).",
+      "tags": [
+        "odometry",
+        "robust",
+        "student-t"
+      ]
     }
   ],
   "starter_tracks": [

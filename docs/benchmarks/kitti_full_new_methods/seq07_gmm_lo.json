@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "GMM-LO",
+      "status": "ok",
+      "ate_m": 1.430309,
+      "rpe_trans_pct": 0.657262,
+      "rpe_rot_deg_per_m": 0.006517,
+      "frames": 1101,
+      "time_ms": 463881.991746,
+      "fps": 2.373448,
+      "seed_fallback_rate_pct": null,
+      "note": "GMM-LO: scan-to-map GMM/EM soft-assignment registration; Gaussian responsibilities with uniform-outlier term, soft-centroid point-to-plane, deterministic annealing of sigma; CV prior, no GT seed. mean_weight=0.981"
+    }
+  ]
+}

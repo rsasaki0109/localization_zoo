@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-02**
+> **最終更新: 2026-06-05**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -19,6 +19,116 @@
 > 12. [`docs/reproduction_status.md`](docs/reproduction_status.md)
 > 13. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
 > 14. [`evaluation/src/multimodal_dogfooding.cpp`](evaluation/src/multimodal_dogfooding.cpp)
+
+---
+
+## 00. Latest Handoff: From-Paper Reimplementation Campaign (2026-06-05)
+
+> **これが最新・最優先の handoff。** §0 (2026-06-02 の OSS Showcase) 以降は依然
+> 有効な背景 (showcase/demo/CI、benchmark 履歴、recipe 由来) だが、2026-06-03〜05 の
+> アクティブな方向は **「OSS 未公開 (著者の公開コードが無い) LiDAR localization 論文を
+> from-paper で C++ 再実装し、KITTI full (seq00/seq07) で正直に評価する」** キャンペーン。
+
+### 00.1 テーマと運用ルール
+
+ユーザの一貫した指示:
+
+- 各 "tugi" / "tudukete" / "dondon ikou" で **次の 1 論文** を実装する (自律的に新規論文を
+  始めない — 明示トリガが必要)。候補が尽きたら新規 web サーベイを行う。
+- 対象は **著者の公開実装が無い** 論文のみ (OSS 済みは除外)。**KITTI で評価可能** な
+  古典・幾何・確率的手法 (deep/neural はスコープ外、CV 予測 front-end に落ちる)。
+- 結果は **正直に** 反映する (near-redundant / honest negative も隠さず記録)。
+- 機構ユニットテスト 3 件 + KITTI full seq00/seq07 評価 + README leaderboard 行 +
+  `docs/methods.json` エントリ + module README + memory 追記 + clean commit が 1 論文の単位。
+- **コミットは自分名義のみ** (Co-Authored-By を付けない)。**PR/コミットに AI 生成表記を
+  入れない** (CLAUDE.md 制約)。応答は日本語。
+
+### 00.2 現在地 (git / 数値)
+
+| Item | Value |
+|------|-------|
+| Branch | `feat/unossed-papers-10` |
+| 実装済み from-paper 論文数 | **28 本** (下記 §00.4) |
+| `docs/methods.json` | **68 手法** (campaign 開始前 ~40 → 68) |
+| 最新コミット | MCC-LO (28本目) commit 済み |
+| 直近完了 | **MCC-LO (28本目)** — seq00 0.892% / seq07 0.611%、robust 群最良 |
+
+直近コミット列 (campaign 部分):
+
+```
+15d2ebb Trim verbose README prose
+7030af1 GNC-LO (27th)        e29849b GMM-LO (26th)
+ce87279 Spectral-LO (25th)  79fedaa Student-T-LO (24th)
+ad1a20d NHC-LIO (23rd)      9ca8372 DiLO (22nd)
+9d3c500 Quadric-LO (21st)   f49fcb9 M-GCLO (20th)
+a2beaca Small-but-Mighty(19) 406e069 PCR-DAT (18th)
+8b825a5 SVN-ICP             48d951e Terrain-RBF/LiDAR-IBA/DALI/Intensity-Flow
+c3802c8 LODESTAR (12th)     8071bd2 DAMM-LOAM (11th)
+5672522 first 10 from-paper reimplementations
+```
+
+### 00.3 主要な恒例知見 (campaign 全体)
+
+整備済み・IMU 無し・CV 予測が効く KITTI では:
+
+- **robust / soft 機構は near-redundant**: Student-T (重尾)、GMM (soft assignment)、
+  GNC (継続 TLS)、MCC (相関エントロピー) はいずれも front-end が ~KISS-ICP の
+  point-to-plane に退化。外れ値が少なく重みがほぼ一様になるため。機構の正しさは
+  ユニットテストで担保し、KITTI では「near-redundant」と正直に記録。
+- **退化判定・粒子フィルタ・direct/range-image はKITTIで沈黙 or 有害**: DiLO (direct) は
+  full seq で発散 (18-19%)、Spectral-LO (ICP-free BEV phase-correlation) は最速 ~14 FPS
+  だが粗い (~12-14%)、UA-LIO/DegenSense は未競争。
+- **point-to-plane 主体が低 drift**: point-to-line / 分布ファクタは drift 増。地面拘束は
+  long-seq の局所 drift (RPE) を抑えるが ATE は悪化しうる (RPE↓/ATE↑ split)。
+- **退化しきい値は並進ブロック相対基準が鉄則** (絶対しきい値は移植不可で発散)。
+- seq00 RPE リーダーは **M-GCLO 0.835%** (multiple-ground-plane、ただし ATE 19m の split)。
+  top9 (M-GCLO〜Adaptive-ICP) は両 seq で KISS-ICP に match/beat。
+
+詳細は memory `three_unossed_papers_implemented.md` (各論文の機構・結果・教訓を逐次記録) と
+README の "From-paper reimplementations — KITTI full" leaderboard を参照。
+
+### 00.4 実装済み 28 本 (機構ファミリ別)
+
+- **Ground / multi-plane**: M-GCLO(20), DAMM-LOAM(11), DALI-SLAM, Terrain-RBF-LIO, NHC-LIO(23)
+- **Voxelmap / surface**: CT-VoxelMap, R-VoxelMap, Quadric-LO(21), CUBE-LIO
+- **Robust estimation**: Student-T-LO(24), GNC-LO(27), MCC-LO(28), SVN-ICP, Adaptive-ICP
+- **GMM / EM**: GMM-LO(26)
+- **Spectral / phase**: Spectral-LO(25)
+- **Distribution / factor**: PCR-DAT(18), LiDAR-IBA, D2-LIO, Intensity-Flow
+- **Direct / range-image**: DiLO(22) — honest negative
+- **Degeneracy / vibration / uncertainty**: DegenSense, Vibration-LIO, BIEVR-LIO, UA-LIO
+- **Feature enhancement**: Small-but-Mighty(19), LODESTAR(12)
+
+### 00.5 MCC-LO (28本目, 進行中の作業)
+
+`papers/mcc_lo/` — Maximum Correntropy Criterion ロバスト point-to-plane オドメトリ。
+出典: He et al., PLOS ONE 2018 (bidirectional MCC, doi:10.1371/journal.pone.0197542) +
+Pattern Recognition 2019 (Correntropy scale ICP)。いずれも対点群レジストレーション論文で
+オドメトリ公開実装は無い。機構: MSE の代わりに相関エントロピー `V=Σexp(−r²/2σ²)` を最大化、
+半二次最適化で Welsch/Gauss 重み `w=exp(−r²/2σ²)`、カーネルバンド幅 σ を Silverman 経験則
+`σ=1.06·std(r)·N^(−1/5)` で適応推定。**注意点**: 整備済みスキャンでは残差が小さく σ が
+floor まで収縮し、狭すぎるカーネルが未整合点 (収束信号) まで棄却して **過小収束** する
+(annealing 無し correntropy-ICP の既知の弱点)。そのため `mcc_sigma_floor=0.3` を導入。
+
+- 統合済み: header/src/test (3/3 pass)、root+evaluation CMake、`pcd_dogfooding` 8 スポット
+  (include / method-check / DogfoodingOptions struct / runMccLo / options var / arg-parse
+  `--mcc-lo-{fast,dense}-profile`/`--mcc-lo-sigma`/`--mcc-lo-fixed-sigma` / dispatch /
+  method-list 文字列 2 箇所)、`docs/methods.json` (68手法)、module README、seq07 ベンチ JSON。
+- 結果: **seq00 RPE 0.892% / ATE 12.9 m、seq07 RPE 0.611% / ATE 2.15 m, 2.6 FPS**
+  (mean_weight 0.90, σ=0.30 floor 張り付き) — robust 群最良 (GNC 0.986 / Student-T 0.952 /
+  GMM 0.941 を上回り、seq00 ATE 12.9m も robust 群で最小)。seq07 0.611 は Adaptive-ICP
+  0.569 に次ぐ好成績。
+- **完了**: seq00/seq07 ベンチ JSON、README leaderboard 行 (Adaptive-ICP と NHC-LIO の間)、
+  module README、methods.json (68手法)、memory 追記、commit すべて完了。
+
+### 00.6 次の一手 (28本目完了後)
+
+- distinct な古典機構は **かなり枯渇**。saturated: ground/degeneracy/voxelmap/feature-weighting/
+  distribution-factor/motion-constraint/robust-M-estimator/spectral/gmm-em/correntropy。
+  direct/range-image は発散。公開コード有で除外: symmetric-ICP(PCL), MAD-ICP, Anderson-ICP,
+  Fast-Robust-ICP, Surfel-LIO, DELO, Retrospective Map Refinement。
+- 次 "tugi" は **慎重な新規サーベイ** が必要。代替方向: 既存 from-paper 手法の
+  **cross-dataset 再評価** (MulRan/NCLT 等) — distinct mechanism 枯渇時の自然な拡張。
 
 ---
 

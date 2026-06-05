@@ -9,9 +9,31 @@
 - **IGM (intensity gradient magnitude)**: ガウシアン平滑化後の Sobel 勾配ノルム（スライド p.13）。
 - **Semi-dense 特徴**: IGM が上位分位を超えるピクセル集合（スライド p.13 の high-response 選択の近似）。
 
+## C++ odometry 実装 (`cube_lio` ライブラリ)
+
+Python デモに加え、ベンチ可能な C++ odometry フロントエンドを `include/cube_lio/`
++ `src/cube_lio.cpp` に実装した（`pcd_dogfooding --methods cube_lio` で実行可能）。
+著者実装は未公開のため from-slide の再実装である。
+
+- **キューブマップ強度投影 + IGM** を C++ で実装（`CubeMap`、6 面・Sobel）。
+- **semi-dense 特徴選択**: IGM 上位分位の 3D 点を登録対象に採用。
+- **強度整合性重み付き scan-to-map**: semi-dense 点で point-to-plane を解き、
+  対応の重みに幾何カーネル × 反射強度の一致 `exp(-ΔI²/2σ_I²)` を掛ける
+  （測光 + 幾何融合の近似）。強度つきボクセルマップ（平面法線 + 平均強度）を保持。
+
+ベンチ結果（GT シードなし、no-GT-seed odometry）:
+
+| データ | CUBE-LIO ATE | 参考 (KISS-ICP) |
+|---|---:|---:|
+| HDL-400 120fr | **0.211 m** | 1.281 m |
+| MCD KTH day-06 108fr | 6.108 m | 5.568 m（全手法が drift する難系列） |
+
 ## まだ含めないもの（本番 CUBE-LIO 全体）
 
-- **光度残差と幾何残差の同時最適化**、**IMU / ESIKF**、ENWIDE 等データセット上の ATE 再現（スライド p.7, 15–18）。これは ICRA 2026 論文＋実装公開待ち、または別パッケージへの統合が必要です。
+- **光度残差と幾何残差の同時最適化（直接法 photometric Jacobian）**、**IMU /
+  ESIKF**、ENWIDE 等データセット上の ATE 再現（スライド p.7, 15–18）。本実装は
+  強度を「対応重み」として使う近似で、画像空間の photometric warp 残差そのもの
+  は最適化していない。完全版は ICRA 2026 論文＋実装公開待ち。
 
 ## デモの実行
 

@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
+  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "CT-VoxelMap",
+      "status": "ok",
+      "ate_m": 2.583883,
+      "rpe_trans_pct": 0.800220,
+      "rpe_rot_deg_per_m": 0.007785,
+      "frames": 1101,
+      "time_ms": 79071.688238,
+      "fps": 13.924074,
+      "seed_fallback_rate_pct": null,
+      "note": "Probabilistic adaptive voxel map: uncertainty-weighted hybrid point-to-plane / point-to-distribution (no GT seed; anchor matches first GT pose). mean_planar_ratio=0.656126"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -32,6 +32,7 @@
 #include "gmm_lo/gmm_lo.h"
 #include "gnc_lo/gnc_lo.h"
 #include "mcc_lo/mcc_lo.h"
+#include "imls_slam/imls_slam.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -216,7 +217,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "m_gclo" || method == "quadric_lo" ||
          method == "dilo" || method == "nhc_lio" ||
          method == "student_t_lo" || method == "spectral_lo" ||
-         method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" || method == "clins";
+         method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
+         method == "imls_slam" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1520,6 +1522,23 @@ struct MccLoDogfoodingOptions {
   double mcc_sigma = 0.3;
   bool mcc_adaptive_sigma = true;
   double mcc_sigma_floor = 0.3;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct ImlsSlamDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double normal_radius = 0.0;
+  double imls_h = 0.5;
+  double imls_support_radius = 0.0;
+  double max_correspondence_dist = 1.0;
+  int max_iterations = 20;
+  int samples_per_axis = 100;
+  bool use_observability_sampling = true;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -4990,6 +5009,63 @@ MethodResult runMccLo(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runImlsSlam(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const ImlsSlamDogfoodingOptions& options) {
+  using namespace localization_zoo::imls_slam;
+  MethodResult res;
+  res.name = "IMLS-SLAM";
+
+  ImlsSlamParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.normal_radius = options.normal_radius;
+  params.imls_h = options.imls_h;
+  params.imls_support_radius = options.imls_support_radius;
+  params.max_correspondence_dist = options.max_correspondence_dist;
+  params.max_iterations = options.max_iterations;
+  params.samples_per_axis = options.samples_per_axis;
+  params.use_observability_sampling = options.use_observability_sampling;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  ImlsSlamPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double residual_sum = 0.0;
+  double sample_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    residual_sum += result.mean_abs_residual;
+    sample_sum += result.num_samples;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [IMLS-SLAM] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[96];
+  std::snprintf(buf, sizeof(buf), "%.3f samples=%.0f",
+                n > 0 ? residual_sum / static_cast<double>(n) : 0.0,
+                n > 0 ? sample_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "IMLS-SLAM: scan-to-model matching on an implicit moving least squares "
+      "surface (point-to-implicit-surface) with observability-based sampling; "
+      "CV prior, no GT seed. mean|residual|=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -6732,7 +6808,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -6906,6 +6982,7 @@ int main(int argc, char** argv) {
   GmmLoDogfoodingOptions gmm_lo_options;
   GncLoDogfoodingOptions gnc_lo_options;
   MccLoDogfoodingOptions mcc_lo_options;
+  ImlsSlamDogfoodingOptions imls_slam_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -8900,6 +8977,38 @@ int main(int argc, char** argv) {
       mcc_lo_options.mcc_adaptive_sigma = false;
       continue;
     }
+    // --- imls_slam ---
+    if (arg == "--imls-slam-fast-profile") {
+      imls_slam_options.source_voxel_size = 0.5;
+      imls_slam_options.max_source_points = 4000;
+      imls_slam_options.voxel_size = 1.0;
+      imls_slam_options.imls_h = 0.5;
+      imls_slam_options.max_iterations = 15;
+      imls_slam_options.samples_per_axis = 100;
+      imls_slam_options.local_map_radius = 45.0;
+      imls_slam_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--imls-slam-dense-profile") {
+      imls_slam_options.source_voxel_size = 0.35;
+      imls_slam_options.max_source_points = 6000;
+      imls_slam_options.voxel_size = 0.8;
+      imls_slam_options.imls_h = 0.4;
+      imls_slam_options.max_iterations = 20;
+      imls_slam_options.samples_per_axis = 150;
+      imls_slam_options.local_map_radius = 80.0;
+      imls_slam_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--imls-slam-h") {
+      if (i + 1 >= argc) { std::cerr << "--imls-slam-h requires a value" << std::endl; return 1; }
+      imls_slam_options.imls_h = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imls-slam-no-sampling") {
+      imls_slam_options.use_observability_sampling = false;
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -10407,6 +10516,16 @@ int main(int argc, char** argv) {
               << " mcc_sigma=" << mcc_lo_options.mcc_sigma
               << " adaptive_sigma=" << mcc_lo_options.mcc_adaptive_sigma << std::endl;
     results.push_back(runMccLo(pcd_dirs, gt, mcc_lo_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "imls_slam")) {
+    std::cout << "Running IMLS-SLAM..." << std::endl;
+    std::cout << "  source_voxel_size=" << imls_slam_options.source_voxel_size
+              << " voxel_size=" << imls_slam_options.voxel_size
+              << " imls_h=" << imls_slam_options.imls_h
+              << " sampling=" << imls_slam_options.use_observability_sampling
+              << std::endl;
+    results.push_back(runImlsSlam(pcd_dirs, gt, imls_slam_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

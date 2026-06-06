@@ -11,12 +11,15 @@
     <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License">
   </p>
   <p align="center">
-    <a href="https://rsasaki0109.github.io/localization_zoo/"><b>Open the interactive benchmark and method explorer</b></a>
+    <a href="https://rsasaki0109.github.io/localization_zoo/">
+      <img src="docs/assets/hero_seq00.gif" alt="KITTI seq00 top-down trajectories: KC-LO, KISS-ICP, TrICP-LO vs ground truth, no GT seed" width="900">
+    </a>
   </p>
   <p align="center">
-    <a href="https://rsasaki0109.github.io/localization_zoo/">
-      <img src="docs/assets/explorer_preview.png" alt="Localization Zoo interactive benchmark and method explorer" width="900">
-    </a>
+    <sub>KITTI seq00 odometry, no GT seed — paper reimplementations tracked against ground truth.</sub>
+  </p>
+  <p align="center">
+    <a href="https://rsasaki0109.github.io/localization_zoo/"><b>↪ Open the interactive benchmark and method explorer</b></a>
   </p>
 </div>
 

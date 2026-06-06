@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "Localization Zoo"
+message: "If you use this software or its benchmarks, please cite it as below."
+type: software
+authors:
+  - given-names: Ryohei
+    family-names: Sasaki
+    alias: rsasaki0109
+repository-code: "https://github.com/rsasaki0109/localization_zoo"
+url: "https://rsasaki0109.github.io/localization_zoo/"
+abstract: >-
+  Localization Zoo is a collection of C++ implementations of LiDAR localization
+  and odometry papers behind a unified API, with ROS 2 nodes and built-in
+  evaluation tools. It emphasizes from-paper reimplementations of methods that
+  ship no public author code, benchmarked honestly on the KITTI Odometry
+  dataset.
+keywords:
+  - SLAM
+  - LiDAR odometry
+  - localization
+  - point cloud registration
+  - KITTI
+  - ROS 2
+  - benchmark
+license: MIT

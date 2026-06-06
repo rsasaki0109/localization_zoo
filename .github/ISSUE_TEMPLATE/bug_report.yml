@@ -1,0 +1,36 @@
+name: "🐛 Bug report"
+description: "Build failure, crash, or a benchmark number that looks wrong."
+title: "[Bug] <short summary>"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: "What you ran and what went wrong. Paste the failing command and error output."
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: method
+    attributes:
+      label: Method / module (if specific)
+      placeholder: "e.g. kc_lo, pcd_dogfooding"
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: "OS, compiler, Eigen/PCL/Ceres versions, ROS 2 distro (if used)."
+      placeholder: |
+        - OS:
+        - Compiler:
+        - Eigen / PCL / Ceres:
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before filing
+      options:
+        - label: "I built from a clean `build/` directory (stale CMakeCache is a common cause)"
+        - label: "I checked existing issues for a duplicate"

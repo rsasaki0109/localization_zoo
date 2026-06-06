@@ -516,6 +516,11 @@ mkdir -p papers/your_method/{include/your_method,src,test}
 # 4. Run ctest and keep the full suite passing
 ```
 
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full "one paper unit" checklist
+(mechanism tests, KITTI eval, leaderboard row, honesty policy). Want a specific
+paper reimplemented — or are you its author? Open a
+[paper request](https://github.com/rsasaki0109/localization_zoo/issues/new?template=paper_request.yml).
+
 ---
 
 ## Dependencies
@@ -527,6 +532,17 @@ mkdir -p papers/your_method/{include/your_method,src,test}
 | Ceres Solver | >= 2.0 | Nonlinear optimization |
 | GTest | >= 1.11 | Unit testing |
 | OpenCV | >= 4.0 | I/O utilities |
+
+## Contributing
+
+Contributions are welcome — new paper reimplementations, bug fixes, and
+benchmark improvements. See [CONTRIBUTING.md](CONTRIBUTING.md) for scope, the
+honesty policy, and the per-paper checklist.
+
+## Citation
+
+If you use this software or its benchmarks, please cite it (see
+[CITATION.cff](CITATION.cff)) or use GitHub's "Cite this repository" button.
 
 ## License
 

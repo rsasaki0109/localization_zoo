@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -33,6 +33,7 @@
 #include "gnc_lo/gnc_lo.h"
 #include "mcc_lo/mcc_lo.h"
 #include "imls_slam/imls_slam.h"
+#include "tricp_lo/tricp_lo.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -218,7 +219,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "dilo" || method == "nhc_lio" ||
          method == "student_t_lo" || method == "spectral_lo" ||
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
-         method == "imls_slam" || method == "clins";
+         method == "imls_slam" || method == "tricp_lo" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1539,6 +1540,23 @@ struct ImlsSlamDogfoodingOptions {
   int max_iterations = 20;
   int samples_per_axis = 100;
   bool use_observability_sampling = true;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct TricpLoDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  double max_correspondence_dist = 2.0;
+  int max_iterations = 20;
+  bool auto_overlap = true;
+  double overlap_ratio = 0.9;
+  double min_overlap = 0.8;
+  double frmsd_lambda = 1.5;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -5066,6 +5084,60 @@ MethodResult runImlsSlam(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runTricpLo(const std::vector<std::string>& pcd_dirs,
+                        const std::vector<Eigen::Matrix4d>& gt,
+                        const TricpLoDogfoodingOptions& options) {
+  using namespace localization_zoo::tricp_lo;
+  MethodResult res;
+  res.name = "TrICP-LO";
+
+  TricpLoParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.max_correspondence_dist = options.max_correspondence_dist;
+  params.max_iterations = options.max_iterations;
+  params.auto_overlap = options.auto_overlap;
+  params.overlap_ratio = options.overlap_ratio;
+  params.min_overlap = options.min_overlap;
+  params.frmsd_lambda = options.frmsd_lambda;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  TricpLoPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double overlap_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    overlap_sum += result.overlap;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [TrICP-LO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[64];
+  std::snprintf(buf, sizeof(buf), "%.3f",
+                n > 0 ? overlap_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "TrICP-LO: trimmed/fractional ICP (least trimmed squares) point-to-plane "
+      "with FRMSD automatic overlap estimation; CV prior, no GT seed. "
+      "mean_overlap=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
                            const std::vector<Eigen::Matrix4d>& gt,
                            const std::vector<double>& frame_timestamps,
@@ -6808,7 +6880,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -6983,6 +7055,7 @@ int main(int argc, char** argv) {
   GncLoDogfoodingOptions gnc_lo_options;
   MccLoDogfoodingOptions mcc_lo_options;
   ImlsSlamDogfoodingOptions imls_slam_options;
+  TricpLoDogfoodingOptions tricp_lo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
@@ -9009,6 +9082,40 @@ int main(int argc, char** argv) {
       imls_slam_options.use_observability_sampling = false;
       continue;
     }
+    // --- tricp_lo ---
+    if (arg == "--tricp-lo-fast-profile") {
+      tricp_lo_options.source_voxel_size = 0.5;
+      tricp_lo_options.max_source_points = 4000;
+      tricp_lo_options.voxel_size = 1.0;
+      tricp_lo_options.max_iterations = 15;
+      tricp_lo_options.local_map_radius = 45.0;
+      tricp_lo_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--tricp-lo-dense-profile") {
+      tricp_lo_options.source_voxel_size = 0.35;
+      tricp_lo_options.max_source_points = 6000;
+      tricp_lo_options.voxel_size = 0.8;
+      tricp_lo_options.max_iterations = 20;
+      tricp_lo_options.local_map_radius = 80.0;
+      tricp_lo_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--tricp-lo-overlap") {
+      if (i + 1 >= argc) { std::cerr << "--tricp-lo-overlap requires a value" << std::endl; return 1; }
+      tricp_lo_options.overlap_ratio = std::stod(argv[++i]);
+      tricp_lo_options.auto_overlap = false;
+      continue;
+    }
+    if (arg == "--tricp-lo-fixed-overlap") {
+      tricp_lo_options.auto_overlap = false;
+      continue;
+    }
+    if (arg == "--tricp-lo-lambda") {
+      if (i + 1 >= argc) { std::cerr << "--tricp-lo-lambda requires a value" << std::endl; return 1; }
+      tricp_lo_options.frmsd_lambda = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--degen-sense-fast-profile") {
       degen_sense_options.source_voxel_size = 0.5;
       degen_sense_options.max_source_points = 4000;
@@ -10526,6 +10633,15 @@ int main(int argc, char** argv) {
               << " sampling=" << imls_slam_options.use_observability_sampling
               << std::endl;
     results.push_back(runImlsSlam(pcd_dirs, gt, imls_slam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "tricp_lo")) {
+    std::cout << "Running TrICP-LO..." << std::endl;
+    std::cout << "  source_voxel_size=" << tricp_lo_options.source_voxel_size
+              << " voxel_size=" << tricp_lo_options.voxel_size
+              << " auto_overlap=" << tricp_lo_options.auto_overlap
+              << " lambda=" << tricp_lo_options.frmsd_lambda << std::endl;
+    results.push_back(runTricpLo(pcd_dirs, gt, tricp_lo_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

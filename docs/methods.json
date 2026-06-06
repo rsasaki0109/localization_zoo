@@ -1069,6 +1069,23 @@
         "scan-to-model",
         "observability-sampling"
       ]
+    },
+    {
+      "name": "TrICP-LO",
+      "family": "Robust estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/tricp_lo",
+      "summary": "Trimmed / Fractional ICP (Least Trimmed Squares) point-to-plane LiDAR odometry. Unlike M-estimators (Student-T/Cauchy/MCC) and GNC that down-weight residuals by magnitude, TrICP sorts residuals by rank and keeps only the best xi fraction in the least-squares solve (a high-breakdown LTS estimator), and estimates the overlap ratio xi automatically by minimizing the Fractional RMSD FRMSD(xi)=sqrt(e(xi))/xi^lambda, explicitly rejecting the non-overlapping part (newly appearing / disappearing / dynamic points) between consecutive scans (Chetverikov et al., ICPR 2002 / IVC 2005; Phillips et al., 3DIM 2007).",
+      "tags": [
+        "odometry",
+        "robust",
+        "trimmed-icp",
+        "least-trimmed-squares",
+        "overlap-estimation"
+      ]
     }
   ],
   "starter_tracks": [

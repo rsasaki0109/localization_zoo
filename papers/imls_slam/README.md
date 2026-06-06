@@ -66,9 +66,24 @@ min_{R,t} Σ_j |n_j·(R x_j + t − y_j)|²
 
 ## KITTI full での所見
 
-> KITTI full (no GT seed) での seq00/seq07 評価は、評価マシン (KITTI 点群 +
-> Ceres ビルド環境) で実行して反映する。本アーカイブ環境には点群データが無いため
-> 未測定。実行コマンドは下記。
+KITTI full (no GT seed, `--imls-slam-dense-profile`):
+
+| seq | RPE drift | ATE | FPS | 参照 KISS-ICP (同データ) |
+|---|---:|---:|---:|---|
+| 00 (4541 fr) | 1.000% | 17.6 m | 7.4 | 0.872% / 12.0 m |
+| 07 (1101 fr) | 0.700% | 3.04 m | 9.3 | 0.618% / 1.8 m |
+
+**正直な所見 (honest negative)**: IMLS-SLAM は両 seq で KISS-ICP を僅かに下回る。
+整備済み・幾何リッチで CV 予測が効く KITTI では、ボクセルダウンサンプルした局所
+マップ上の暗黙的 MLS 曲面 (`h=0.4`, voxel 0.8) は実質 point-to-plane に退化し、
+KISS-ICP の適応 point-to-plane を上回らない。原論文の 0.4–0.7% drift は**生 HDL64
+密度**の稠密曲面 (ボクセル化なし) + 900 点観測性サンプルによるもので、本パイプライン
+の密度では再現しない。
+
+**観測性サンプリングは有効**: seq07 で全点 (2023 点) を使っても RPE 0.701% / ATE
+3.09 m と、サンプリング (807 点) の 0.700% / 3.04 m と同等の精度を保ちつつ FPS は
+2 倍 (9.3 vs 4.3)。精度差は under-sampling 起因ではなく、6-DoF を拘束する点を選べて
+いることを示す (`--imls-slam-no-sampling` でアブレーション可能)。
 
 ```
 pcd_dogfooding <seq_pcd_dir> <seq_gt_csv> \

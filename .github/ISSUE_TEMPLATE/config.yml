@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📊 Interactive benchmark & method explorer
+    url: https://rsasaki0109.github.io/localization_zoo/
+    about: Browse the full method matrix and KITTI leaderboard before filing.
+  - name: 💬 Questions & discussion
+    url: https://github.com/rsasaki0109/localization_zoo/discussions
+    about: Ask about methods, results, or how to add one (if Discussions is enabled).

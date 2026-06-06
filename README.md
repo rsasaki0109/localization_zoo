@@ -144,63 +144,29 @@ The tracked claim boundary for original-paper reproduction is summarized separat
 
 ## Experiment-Driven Development
 
-A small stable benchmark core plus a discardable experiment layer. The search
-state is externalized in: [`experiments.md`](docs/experiments.md) (variant
-comparisons), [`decisions.md`](docs/decisions.md) (adoption/rejection),
-[`interfaces.md`](docs/interfaces.md) (stable interface + active selectors),
-[`reproduction_status.md`](docs/reproduction_status.md) (claim boundaries), and
-the paper-track docs ([tracks](docs/paper_tracks.md),
-[roadmap](docs/paper_roadmap.md), [assets](docs/paper_assets.md),
-[captions](docs/paper_captions.md)).
+A small stable benchmark core plus a discardable experiment layer. Search state is
+externalized in docs ([experiments](docs/experiments.md), [decisions](docs/decisions.md),
+[interfaces](docs/interfaces.md), [reproduction status](docs/reproduction_status.md));
+variants live under [`experiments/`](experiments/) with a matrix runner over Istanbul,
+HDL-400, MCD, and KITTI windows.
 
-Concrete variants live under [`experiments/`](experiments/). The matrix runner
-tracks [`results/index.json`](experiments/results/index.json) across Istanbul,
-HDL-400 (reference + public ROS1 synthetic-time), MCD (Ouster), and KITTI Raw
-windows. Truthful exceptions are kept rather than faked profiles
-(`kitti_raw_0009_full` stays `default`-only, `kitti_raw_0061_full` `skipped`).
-Public ROS1 synthetic-time HDL-400 runs are a separate public-only benchmark,
-**not** exact native per-point-time reproduction.
-
-### Quick sanity checks (after clone)
-
-For the fastest local tour, run the one-command demo. It builds the C++ targets,
-runs the synthetic benchmark, then compares a small committed MCD fixture with a
-broad, jointly validated method set.
+### Quick checks (after clone)
 
 ```bash
+# build + synthetic benchmark + broad real-data fixture suite
 bash evaluation/scripts/demo_localization_zoo.sh
 ```
 
-The demo writes `report.html`, `manifest.json`, logs, and JSON summaries under
-`experiments/results/runs/demo_localization_zoo/`. If you already have a build,
-use `bash evaluation/scripts/demo_localization_zoo.sh --skip-build`. The default
-`broad` profile validates 24 LiDAR methods plus 6 multimodal methods in one run;
-use `--profile quick` for the old focused loop or `--profile full` to include
-the LiDAR FAST-LIO2 fixture check too.
-
-For CI-equivalent smoke coverage:
+CI-equivalent smoke coverage (a committed ~3 MB MCD fixture, also run in GitHub Actions
+after `ctest`):
 
 ```bash
-cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j"$(nproc)"
 bash evaluation/scripts/smoke_ci_fixture.sh
 bash evaluation/scripts/smoke_multimodal_fixture.sh
-python3 evaluation/scripts/verify_environment.py
 ```
 
-To run **ctest**, **synthetic_benchmark**, and the same **smoke fixture** in one go: `bash evaluation/scripts/run_local_evaluation_suite.sh` (see [`evaluation/README.md`](evaluation/README.md)).
-
-The fixture is a **three-frame MCD slice** committed under `evaluation/fixtures/mcd_kth_smoke/` (~3MB). `smoke_ci_fixture.sh` checks the LiDAR-only core, `smoke_multimodal_fixture.sh` checks the camera-aware `multimodal_dogfooding` path, and both scripts run in **GitHub Actions** after `ctest`. Full experiment docs need local `dogfooding_results/` trees: `python3 evaluation/scripts/refresh_study_docs.py` (or see [`evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md`](evaluation/scripts/SETUP_PUBLIC_BENCHMARK_WINDOWS.md)).
-
-```bash
-python3 evaluation/scripts/run_experiment_matrix.py
-```
-
-Use `--reuse-existing` to regenerate docs and aggregates from stored summaries without rerunning every benchmark.
-Use `--manifest experiments/<name>_matrix.json --merge-existing-index` when adding or refreshing a single manifest; without `--merge-existing-index`, a manifest-only run rewrites `experiments/results/index.json` to that subset.
-Use `python3 evaluation/scripts/refresh_study_docs.py` to refresh both experiment docs and publication docs together.
-Publication docs alone can be regenerated with `python3 evaluation/scripts/generate_publication_docs.py`.
-Paper-ready tables and Pareto figures can be regenerated with `python3 evaluation/scripts/export_paper_assets.py`.
-For KITTI Odometry public velodyne+poses inputs, use `python3 evaluation/scripts/prepare_kitti_odometry_inputs.py --kitti-root /path/to/kitti_odometry --sequence 00 --sequence 07 --window-size 108 --include-full` (or the compatibility wrapper `bash evaluation/scripts/setup_kitti_benchmark.sh /path/to/kitti_odometry --include-full`).
+Refreshing the experiment/publication docs and the matrix runner is documented in
+[`evaluation/README.md`](evaluation/README.md).
 
 ---
 
@@ -208,13 +174,10 @@ For KITTI Odometry public velodyne+poses inputs, use `python3 evaluation/scripts
 
 ### Real LiDAR Data
 
-The repository currently ships one real-data benchmark snapshot from the official Autoware Istanbul localization bag.
-GitHub Pages publishes the latest repository-stored report from [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
-The table below is the last full multi-method snapshot.
-Per-method profile adoption decisions are tracked separately in [`docs/decisions.md`](docs/decisions.md).
-The current snapshot uses a speed-oriented dogfooding profile with recent/local-map pruning.
-`LiTAMIN2` additionally uses OpenMP-enabled voxel-map and cost accumulation in this repository, with the benchmark profile defaulting to half of the detected hardware threads.
-For GT-seeded scan-to-map methods, weak updates fall back to the seed pose instead of forcing a poor refinement.
+One real-data snapshot from the Autoware Istanbul localization bag (last full
+multi-method run; speed-oriented profile, GT-seeded scan-to-map methods fall back to
+the seed pose on weak updates). GitHub Pages serves the latest from
+[`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
 
 - Topic: `/localization/util/downsample/pointcloud`
 - Window: frames `10200-10307`
@@ -233,78 +196,18 @@ For GT-seeded scan-to-map methods, weak updates fall back to the seed pose inste
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
 
-`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path> [variant flags...]` evaluates sequential PCD datasets against a shared trajectory CSV contract.
-The exact current selector list and manifest contract are generated in [`docs/interfaces.md`](docs/interfaces.md). Method-specific profile flags now span the older paper-style families plus newer graph/LIO surfaces such as `--hdl-graph-slam-*`, `--vgicp-slam-*`, `--suma-*`, `--balm2-*`, `--isc-loam-*`, `--loam-livox-*`, `--lio-sam-*`, `--lins-*`, `--fast-lio-slam-*`, `--point-lio-*`, and `--clins-*`.
+`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path>`
+evaluates sequential PCD datasets against a shared trajectory CSV. The selector list
+and per-method flag families are generated in [`docs/interfaces.md`](docs/interfaces.md).
 
-`CT-LIO` and `CLINS` expect `imu.csv` plus a dense raw LiDAR sequence. Sparse keyframe or submap sequences such as `graph/000000xx/cloud.pcd` are skipped automatically.
-
-To extract a raw sequence from ROS 1 bags, use `./evaluation/scripts/extract_ros1_lidar_imu.py --pointcloud-bag corrected.bag --imu-bag record_slam.bag --output-dir dogfooding_results/raw_seq`.
-
-To build a KITTI Raw *sync* export (Velodyne `*.bin` + OXTS) into the sequential `NNNNNNNN/cloud.pcd` layout plus a trajectory CSV, run:
-
-```bash
-python3 evaluation/scripts/kitti_raw_to_benchmark.py \
-  --drive-dir /path/to/2011_09_26_drive_XXXX_sync \
-  --output-dir dogfooding_results/kitti_raw_XXXX \
-  --gt-csv experiments/reference_data/kitti_raw_XXXX_gt.csv \
-  --write-imu-csv   # optional: writes imu.csv for DLIO/CT-LIO (OXTS-derived, index-aligned stamps)
-```
-
-If you already have a dogfooding tree and only need `imu.csv`, use `python3 evaluation/scripts/kitti_oxts_imu_for_dogfooding.py --drive-dir <sync> --pcd-dir <dogfooding_dir>`.
-
-To build KITTI Odometry public-sequence inputs (velodyne + poses, no IMU) into the repository's `kitti_seq_*` layout, run:
+Dataset-prep helpers (KITTI Odometry, KITTI Raw, ROS 1/2 bag extraction, HDL-400) live
+under [`evaluation/scripts/`](evaluation/scripts/). For KITTI Odometry public sequences:
 
 ```bash
 python3 evaluation/scripts/prepare_kitti_odometry_inputs.py \
-  --kitti-root /path/to/data_odometry \
-  --sequence 00 \
-  --sequence 07 \
-  --window-size 108 \
-  --include-full
+  --kitti-root /path/to/data_odometry --sequence 00 --sequence 07 \
+  --window-size 108 --include-full
 ```
-
-This writes:
-
-- `dogfooding_results/kitti_seq_00_108`, `dogfooding_results/kitti_seq_07_108`
-- `dogfooding_results/kitti_seq_00_full`, `dogfooding_results/kitti_seq_07_full`
-- matching `experiments/reference_data/kitti_seq_*_gt.csv`
-
-The older shell wrapper still works:
-
-```bash
-bash evaluation/scripts/setup_kitti_benchmark.sh /path/to/data_odometry --include-full
-```
-
-To reproduce the repository-stored Istanbul run from a ROS 2 bag:
-
-```bash
-python3 -m pip install rosbags numpy matplotlib
-
-python3 evaluation/scripts/extract_ros2_lidar_imu.py \
-  --bag ../lidarloc_ws/data/official/autoware_istanbul/localization_rosbag \
-  --pointcloud-topic /localization/util/downsample/pointcloud \
-  --output-dir dogfooding_results/autoware_istanbul_open_108 \
-  --start-frame 10200 \
-  --max-frames 108
-
-python3 evaluation/scripts/reference_pose_to_gt_csv.py \
-  --input ../lidarloc_ws/data/official/autoware_istanbul/reference_pose_full.csv \
-  --output dogfooding_results/autoware_istanbul_open_108_gt.csv
-
-./build/evaluation/pcd_dogfooding \
-  dogfooding_results/autoware_istanbul_open_108 \
-  dogfooding_results/autoware_istanbul_open_108_gt.csv \
-  --methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp
-```
-
-`LiTAMIN2`, `GICP`, and `NDT` use GT-seeded scan-to-map init inside
-`pcd_dogfooding` (falling back to the seed pose on weak updates) so sequential
-PCD exports stay comparable; `KISS-ICP` and `CT-ICP` are odometry-style, so their
-ATE is reported after anchoring to the first GT pose. Per-method flag families
-(`--litamin2-*`, `--ct-lio-*`, etc.) are listed in
-[`docs/interfaces.md`](docs/interfaces.md). HDL-400 helper scripts
-(`pose_trace_to_gt_csv.py`, `slice_trajectory_csv_by_frames.py`) and the
-reference- vs public-ROS1-synthetic-time distinction are documented there too.
 
 ### Synthetic Urban (30 frames)
 
@@ -453,50 +356,14 @@ python3 evaluation/scripts/benchmark.py \
 
 ```
 localization_zoo/
-├── common/                    # Shared Eigen/PCL utilities
-├── papers/
-│   ├── litamin2/              # KL-divergence ICP
-│   ├── gicp/                  # Generalized ICP
-│   ├── voxel_gicp/            # Voxelized GICP
-│   ├── small_gicp/            # Compact lightweight GICP
-│   ├── vgicp_slam/            # Voxel-GICP graph SLAM
-│   ├── ndt/                   # Normal Distributions Transform
-│   ├── kiss_icp/              # KISS-ICP
-│   ├── scan_context/          # Loop closure / place recognition
-│   ├── aloam/                 # Three-stage LOAM pipeline
-│   ├── floam/                 # Fast LOAM-style lightweight pipeline
-│   ├── isc_loam/              # Intensity-aware loop-closure LOAM
-│   ├── loam_livox/            # Solid-state LiDAR-oriented LOAM
-│   ├── lego_loam/             # Ground-aware LOAM for UGVs
-│   ├── mulls/                 # Multi-metric scan-to-map
-│   ├── balm2/                 # Local bundle-adjustment mapping
-│   ├── suma/                  # Surfel-based dense LiDAR odometry
-│   ├── dlo/                   # Direct LiDAR odometry
-│   ├── hdl_graph_slam/        # NDT plus graph-based LiDAR SLAM
-│   ├── ct_icp/                # Continuous-time ICP
-│   ├── ct_lio/                # Continuous-time LiDAR-inertial odometry
-│   ├── dlio/                  # Direct LiDAR-inertial odometry
-│   ├── lins/                  # Iterated-filter LIO
-│   ├── point_lio/             # Direct raw-point LiDAR-inertial odometry
-│   ├── clins/                 # Continuous-time LiDAR-inertial pipeline
-│   ├── lio_sam/               # Graph-based LiDAR-inertial SLAM
-│   ├── lvi_sam/               # Graph-based visual-lidar-inertial SLAM
-│   ├── vins_fusion/           # Compact visual-inertial odometry
-│   ├── okvis/                 # Local-window visual-inertial odometry
-│   ├── orb_slam3/             # Visual-inertial SLAM with loop closure
-│   ├── fast_lio2/             # Direct LiDAR-inertial odometry
-│   ├── fast_lio_slam/         # FAST-LIO2 with loop-closure graph SLAM
-│   ├── relead/                # Degeneracy-aware constrained ESIKF
-│   ├── xicp/                  # Observability-aware ICP
-│   ├── ct_icp_relead/         # Hybrid method
-│   └── imu_preintegration/    # IMU preintegration
-├── evaluation/                # Benchmark and evaluation tools
-├── ros2/                      # ROS 2 Humble wrappers
-└── .github/workflows/ci.yml   # CI
+├── common/      # Shared Eigen/PCL utilities
+├── papers/      # One self-contained dir per method (headers, sources, tests)
+├── evaluation/  # Benchmark and evaluation tools
+├── ros2/        # ROS 2 Humble wrappers
+└── .github/workflows/ci.yml
 ```
 
-Each directory under `papers/*/` is self-contained with headers, sources, and tests.
-The core libraries are ROS-independent and can be used without ROS 2.
+Each `papers/*/` directory is self-contained; the core libraries are ROS-independent. See [Implementations](#implementations) for the full catalog.
 
 ---
 

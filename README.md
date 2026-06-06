@@ -66,6 +66,7 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
 | M-GCLO | **0.835%** <sub>(19 m)</sub> | 0.671% <sub>(2 m)</sub> | ISPRS Ann. 2024 |
+| KC-LO | 0.842% <sub>(14 m)</sub> | **0.514%** <sub>(1 m)</sub> | ECCV 2004 |
 | LODESTAR | 0.848% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
 | Terrain-RBF-LIO | 0.849% <sub>(8 m)</sub> | 0.587% <sub>(1 m)</sub> | arXiv:2509.26222 |
 | DALI-SLAM | 0.849% <sub>(8 m)</sub> | 0.600% <sub>(1 m)</sub> | ISPRS JPRS 2025 |
@@ -73,7 +74,7 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 | CUBE-LIO | 0.851% <sub>(9 m)</sub> | 0.608% <sub>(1 m)</sub> | ROBOMECH 2026 |
 | Intensity-Flow | 0.856% <sub>(8 m)</sub> | 0.616% <sub>(1 m)</sub> | Measurement 2026 |
 | Quadric-LO | 0.867% <sub>(15 m)</sub> | 0.598% <sub>(2 m)</sub> | arXiv:2304.14190 |
-| Adaptive-ICP | 0.870% <sub>(11 m)</sub> | **0.569%** <sub>(1 m)</sub> | arXiv:2509.22058 |
+| Adaptive-ICP | 0.870% <sub>(11 m)</sub> | 0.569% <sub>(1 m)</sub> | arXiv:2509.22058 |
 | MCC-LO | 0.892% <sub>(13 m)</sub> | 0.611% <sub>(2 m)</sub> | PLOS ONE 2018 |
 | NHC-LIO | 0.902% <sub>(18 m)</sub> | 0.608% <sub>(3 m)</sub> | IEEE Sens. J. 2023 |
 | SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
@@ -97,9 +98,11 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-The top nine (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on both
+The top ten (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on both
 sequences**, well clear of CT-ICP. **M-GCLO** leads seq-00 drift (0.835%) via
 multiple-ground-plane constraints (higher ATE — an honest RPE/ATE split).
+**KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.514%)
+and beats KISS-ICP on both sequences — at a heavy throughput cost (~1.4 FPS).
 
 Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
 mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP

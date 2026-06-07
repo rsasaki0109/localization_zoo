@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 1458.533691,
+      "rpe_trans_pct": 52.694812,
+      "rpe_rot_deg_per_m": 0.756123,
+      "frames": 4542,
+      "time_ms": 88478.612,
+      "fps": 51.334,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical-image feature extraction (ground/facade/edge/reflector) + intensity B-spline registration in scan-to-scan LO; temporal DOR deferred. no GT seed. mean_intensity_residual=3.611"
+    }
+  ]
+}

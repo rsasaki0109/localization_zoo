@@ -29,8 +29,15 @@ HILINE = '#f0883e'      # 強調手法色
 
 
 def load_xy(path):
-    a = np.loadtxt(path).reshape(-1, 3, 4)
+    a = np.loadtxt(path)
+    if a.size == 0 or a.size % 12 != 0:
+        raise SystemExit(f'{path}: expected KITTI poses (12 values/line), got size {a.size}')
+    a = a.reshape(-1, 3, 4)
     return a[:, 0, 3], a[:, 1, 3]
+
+
+def _norm(s):
+    return s.replace('-', '_').lower() if s else s
 
 
 def load_drift(summary):
@@ -51,7 +58,7 @@ def load_drift(summary):
         name = r.get('name')
         for k in ('rpe_trans_pct', 'rpe_trans_percent', 'drift_pct', 'drift'):
             if name and k in r and r[k] is not None:
-                out[name] = r[k]
+                out[_norm(name)] = r[k]
                 break
     return out
 
@@ -115,7 +122,7 @@ def main():
         ax.set_ylim(*ylim)
         ax.plot(gx, gy, color=GT_COL, lw=1.3, alpha=0.55, zorder=1)
         ax.plot(ex, ey, color=col, lw=1.8, zorder=2, solid_capstyle='round')
-        d = drift.get(label)
+        d = drift.get(_norm(label))
         sub = f'{d:.3f}%/100m' if isinstance(d, (int, float)) else ''
         ax.set_title(label, color=(col if hi else FG), fontsize=11,
                      fontweight='bold', pad=3)

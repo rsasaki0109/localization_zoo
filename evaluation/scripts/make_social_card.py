@@ -25,7 +25,10 @@ GT_COL = '#6e7681'
 
 
 def load_xy(path):
-    a = np.loadtxt(path).reshape(-1, 3, 4)
+    a = np.loadtxt(path)
+    if a.size == 0 or a.size % 12 != 0:
+        raise SystemExit(f'{path}: expected KITTI poses (12 values/line), got size {a.size}')
+    a = a.reshape(-1, 3, 4)
     return a[:, 0, 3], a[:, 1, 3]
 
 

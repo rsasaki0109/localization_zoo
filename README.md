@@ -101,8 +101,9 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-The top ten (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on both
-sequences**, well clear of CT-ICP. **M-GCLO** leads seq-00 drift (0.835%) via
+The top ten (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on seq-00**,
+and all but M-GCLO (0.671% seq-07) also beat it on **seq-07** — well clear of
+CT-ICP. **M-GCLO** leads seq-00 drift (0.835%) via
 multiple-ground-plane constraints (higher ATE — an honest RPE/ATE split).
 **KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.514%)
 and beats KISS-ICP on both sequences — at a heavy throughput cost (~1.4 FPS).
@@ -363,7 +364,7 @@ localization_zoo/
 └── .github/workflows/ci.yml
 ```
 
-Each `papers/*/` directory is self-contained; the core libraries are ROS-independent. See [Implementations](#implementations) for the full catalog.
+Each `papers/*/` directory is a self-contained method (headers, sources, tests); the core libraries are ROS-independent. The full method list lives in the leaderboard and [Implementations](#implementations) tables above.
 
 ---
 

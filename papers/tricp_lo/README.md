@@ -32,7 +32,7 @@ scan-to-map point-to-plane を **LTS** で解く。
 
 - `auto_overlap` (既定 true): FRMSD で ξ を自動推定。false で固定 ξ。
 - `overlap_ratio` (既定 0.9): 固定モード時の ξ。
-- `min_overlap` (既定 0.4): 自動推定の下限 (拘束点不足を防ぐ)。
+- `min_overlap` (既定 0.8): 自動推定の下限 (連続スキャンの現実的重なり; 拘束点不足を防ぐ)。
 - `frmsd_lambda` (既定 1.5): FRMSD ペナルティ指数 λ。
 - `voxel_size` (既定 1.0), `planarity_threshold` (既定 0.5) ほか共通。
 

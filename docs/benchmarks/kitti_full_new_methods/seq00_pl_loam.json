@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "PL-LOAM",
+      "status": "ok",
+      "ate_m": 3016.463867,
+      "rpe_trans_pct": 143.210678,
+      "rpe_rot_deg_per_m": 1.198234,
+      "frames": 4542,
+      "time_ms": 34927.456,
+      "fps": 130.043,
+      "seed_fallback_rate_pct": null,
+      "note": "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with depth priors in PL-BA on KITTI-projected pseudo-image; no GT seed. mean_scale_correction=1.005 mean_depth_prior_residual=4.06"
+    }
+  ]
+}

@@ -19,7 +19,7 @@ import validate_demo_artifacts
 
 README_REQUIRED_SNIPPETS = [
     "https://rsasaki0109.github.io/localization_zoo/",
-    "docs/assets/explorer_preview.png",
+    "docs/assets/hero_seq00.gif",
     "bash evaluation/scripts/demo_localization_zoo.sh",
     "experiments/results/runs/demo_localization_zoo/report.html",
     "manifest.json",
@@ -30,7 +30,7 @@ INDEX_REQUIRED_SNIPPETS = [
     'const dataPath = "./benchmarks/latest/results.json"',
     "Method Explorer",
     "demo_localization_zoo.sh",
-    "explorer_preview.png",
+    "social_card.png",
 ]
 
 METHOD_REQUIRED_FIELDS = {
@@ -80,12 +80,12 @@ def validate_readme(root: Path) -> None:
     if missing:
         raise SystemExit(f"README missing showcase snippets: {', '.join(missing)}")
 
-    preview_path = root / "docs/assets/explorer_preview.png"
-    require_file(preview_path)
-    with preview_path.open("rb") as handle:
-        signature = handle.read(8)
-    if signature != b"\x89PNG\r\n\x1a\n":
-        raise SystemExit(f"README preview is not a PNG: {preview_path}")
+    hero_path = root / "docs/assets/hero_seq00.gif"
+    require_file(hero_path)
+    with hero_path.open("rb") as handle:
+        signature = handle.read(6)
+    if not signature.startswith(b"GIF8"):
+        raise SystemExit(f"README hero is not a GIF: {hero_path}")
 
 
 def validate_pages_index(root: Path) -> None:

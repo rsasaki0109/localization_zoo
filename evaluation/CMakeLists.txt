@@ -67,6 +67,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   imls_slam
   tricp_lo
   kc_lo
+  i_loam
   cube_lio
   rko_lio
   aloam

@@ -97,6 +97,7 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 | DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
 | Spectral-LO | 12.029% <sub>(113 m)</sub> | 13.671% <sub>(47 m)</sub> | arXiv:2005.02042 |
 | DiLO | 18.305% <sub>(226 m)</sub> | 18.966% <sub>(159 m)</sub> | ETRI J. 2021 |
+| **PL-LOAM** | **143.211%** <sub>(3016 m)</sub> | **116.899%** <sub>(271 m)</sub> | ICRA 2020 |
 | UA-LIO | _diverges_ | _diverges_ | IEEE TIM 2025 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
@@ -112,6 +113,7 @@ Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
 mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP
 point-to-plane core. Honest negatives: DiLO (direct, 18–19% drift), Spectral-LO
 (ICP-free BEV phase-correlation, fastest at ~14 FPS but coarse ~12–14%),
+**PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),
 R-VoxelMap (diverges seq 07), UA-LIO/DegenSense. Per-method caveats live in the
 module READMEs; raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).

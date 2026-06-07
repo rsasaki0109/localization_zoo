@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -36,6 +36,7 @@
 #include "tricp_lo/tricp_lo.h"
 #include "kc_lo/kc_lo.h"
 #include "i_loam/i_loam.h"
+#include "pl_loam/pl_loam.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -222,7 +223,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "student_t_lo" || method == "spectral_lo" ||
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
          method == "imls_slam" || method == "tricp_lo" || method == "kc_lo" ||
-         method == "i_loam" || method == "clins";
+         method == "i_loam" || method == "pl_loam" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1044,6 +1045,18 @@ struct ILoamDogfoodingOptions {
   bool use_intensity_correspondence = true;
   double intensity_sigma = 0.15;
   double intensity_corr_weight = 1.0;
+};
+
+struct PlLoamDogfoodingOptions {
+  size_t input_stride = 2;
+  int max_point_features = 280;
+  int max_line_features = 64;
+  int patch_radius = 4;
+  bool use_depth_prior = true;
+  bool use_line_features = true;
+  bool use_scale_correction = true;
+  double depth_prior_weight = 1.0;
+  int ceres_max_iterations = 12;
 };
 
 struct LeGOLOAMDogfoodingOptions {
@@ -3194,6 +3207,82 @@ MethodResult runILoam(const std::vector<std::string>& pcd_dirs,
       "odometry — reflectance-augmented correspondence + intensity-similarity "
       "residual weighting on KITTI PointXYZI; no GT seed. mean_intensity_weight=" +
       std::to_string(mean_w);
+  return res;
+}
+
+MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const PlLoamDogfoodingOptions& options) {
+  using namespace localization_zoo::pl_loam;
+  MethodResult res;
+  res.name = "PL-LOAM";
+
+  PlLoamParams params;
+  params.input_stride = options.input_stride;
+  params.max_point_features = options.max_point_features;
+  params.max_line_features = options.max_line_features;
+  params.patch_radius = options.patch_radius;
+  params.use_depth_prior = options.use_depth_prior;
+  params.use_line_features = options.use_line_features;
+  params.use_scale_correction = options.use_scale_correction;
+  params.depth_prior_weight = options.depth_prior_weight;
+  params.ceres_max_iterations = options.ceres_max_iterations;
+
+  PlLoam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  res.poses.push_back(world_anchor);
+
+  double scale_acc = 0.0;
+  double depth_res_acc = 0.0;
+  long valid_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    if (xyzi.empty()) continue;
+
+    std::vector<Eigen::Vector3d> points;
+    std::vector<float> intensity;
+    points.reserve(xyzi.size());
+    intensity.reserve(xyzi.size());
+    for (const auto& p : xyzi) {
+      points.push_back(p.point);
+      intensity.push_back(p.intensity);
+    }
+
+    const auto result = pipeline.process(points, intensity);
+    if (result.frame_count < 1) continue;
+
+    Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
+    T_rel.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    T_rel.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, T_rel));
+
+    if (result.valid) {
+      scale_acc += result.scale_correction;
+      depth_res_acc += result.mean_depth_prior_residual;
+      ++valid_frames;
+    }
+    if (i % 10 == 0) {
+      std::cerr << "\r  [PL-LOAM] " << i << "/" << pcd_dirs.size()
+                << " pts=" << result.num_points << " lines=" << result.num_lines
+                << " pm=" << result.num_point_matches
+                << " scale=" << result.scale_correction;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  const double mean_scale =
+      valid_frames ? scale_acc / static_cast<double>(valid_frames) : 1.0;
+  const double mean_depth_res =
+      valid_frames ? depth_res_acc / static_cast<double>(valid_frames) : 0.0;
+  res.note =
+      "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with "
+      "depth priors in PL-BA on KITTI-projected pseudo-image; no GT seed. "
+      "mean_scale_correction=" +
+      std::to_string(mean_scale) +
+      " mean_depth_prior_residual=" + std::to_string(mean_depth_res);
   return res;
 }
 
@@ -7050,7 +7139,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -7197,6 +7286,7 @@ int main(int argc, char** argv) {
   ALOAMDogfoodingOptions aloam_options;
   FLOAMDogfoodingOptions floam_options;
   ILoamDogfoodingOptions i_loam_options;
+  PlLoamDogfoodingOptions pl_loam_options;
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
@@ -7651,6 +7741,37 @@ int main(int argc, char** argv) {
     if (arg == "--i-loam-stride" && i + 1 < argc) {
       i_loam_options.input_point_stride =
           static_cast<size_t>(std::stoul(argv[++i]));
+      continue;
+    }
+    if (arg == "--pl-loam-fast-profile") {
+      pl_loam_options.input_stride = 3;
+      pl_loam_options.max_point_features = 200;
+      pl_loam_options.max_line_features = 48;
+      pl_loam_options.ceres_max_iterations = 8;
+      continue;
+    }
+    if (arg == "--pl-loam-dense-profile") {
+      pl_loam_options.input_stride = 1;
+      pl_loam_options.max_point_features = 320;
+      pl_loam_options.max_line_features = 80;
+      pl_loam_options.patch_radius = 5;
+      pl_loam_options.ceres_max_iterations = 15;
+      continue;
+    }
+    if (arg == "--pl-loam-no-depth-prior") {
+      pl_loam_options.use_depth_prior = false;
+      continue;
+    }
+    if (arg == "--pl-loam-no-lines") {
+      pl_loam_options.use_line_features = false;
+      continue;
+    }
+    if (arg == "--pl-loam-no-scale") {
+      pl_loam_options.use_scale_correction = false;
+      continue;
+    }
+    if (arg == "--pl-loam-stride" && i + 1 < argc) {
+      pl_loam_options.input_stride = static_cast<size_t>(std::stoul(argv[++i]));
       continue;
     }
     if (arg == "--floam-fast-profile") {
@@ -10889,6 +11010,17 @@ int main(int argc, char** argv) {
               << " corr_weight=" << i_loam_options.intensity_corr_weight
               << std::endl;
     results.push_back(runILoam(pcd_dirs, gt, i_loam_options));
+  }
+  if (isMethodEnabled(selected_methods, "pl_loam")) {
+    std::cout << "\n=== PL-LOAM ===" << std::endl;
+    std::cout << "  stride=" << pl_loam_options.input_stride
+              << " points=" << pl_loam_options.max_point_features
+              << " lines=" << pl_loam_options.max_line_features
+              << " depth_prior=" << pl_loam_options.use_depth_prior
+              << " line_features=" << pl_loam_options.use_line_features
+              << " scale_corr=" << pl_loam_options.use_scale_correction
+              << std::endl;
+    results.push_back(runPlLoam(pcd_dirs, gt, pl_loam_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

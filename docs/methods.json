@@ -885,6 +885,22 @@
       ]
     },
     {
+      "name": "PL-LOAM",
+      "family": "LiDAR-Visual",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "Camera"
+      ],
+      "href": "papers/pl_loam",
+      "summary": "PL-LOAM (ICRA 2020): LiDAR-monocular point+line visual odometry with robust LiDAR depth extraction and depth-prior point-line bundle adjustment plus scale correction. KITTI Odometry eval uses LiDAR-projected pseudo-images (no RGB in odometry benchmark).",
+      "tags": [
+        "odometry",
+        "lidar-visual",
+        "point-line"
+      ]
+    },
+    {
       "name": "SVN-ICP",
       "family": "Uncertainty",
       "scope": "Paper reimplementation",

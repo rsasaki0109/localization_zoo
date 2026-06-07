@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "KC-LO",
+      "status": "ok",
+      "ate_m": 0.830931,
+      "rpe_trans_pct": 0.514327,
+      "rpe_rot_deg_per_m": 0.004873,
+      "frames": 1101,
+      "time_ms": 791365.928448,
+      "fps": 1.391265,
+      "seed_fallback_rate_pct": null,
+      "note": "KC-LO: correspondence-free kernel-correlation (Renyi quadratic entropy) soft point-to-point with sigma annealing; CV prior, no GT seed. mean_weight=29.725"
+    }
+  ]
+}

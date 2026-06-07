@@ -1052,6 +1052,57 @@
         "maximum-correntropy",
         "adaptive-bandwidth"
       ]
+    },
+    {
+      "name": "IMLS-SLAM",
+      "family": "Implicit surface",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/imls_slam",
+      "summary": "Scan-to-model LiDAR odometry that matches the new scan against an Implicit Moving Least Squares (IMLS) surface defined by the oriented points of past scans: I^P(x)=sum W_i (x-p_i).n_i / sum W_i with Gaussian weights W_i=exp(-||x-p_i||^2/h^2). Each sampled point is registered to this smooth higher-order implicit surface (point-to-implicit-surface) by Gauss-Newton, and an observability-based sampling selects the points that best constrain the 6-DoF pose. A distinct geometric family from single-nearest-plane point-to-plane and from voxel-surfel maps (Deschaud, ICRA 2018, arXiv:1802.08633; author released CT-ICP but not IMLS-SLAM).",
+      "tags": [
+        "odometry",
+        "implicit-surface",
+        "moving-least-squares",
+        "scan-to-model",
+        "observability-sampling"
+      ]
+    },
+    {
+      "name": "TrICP-LO",
+      "family": "Robust estimation",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/tricp_lo",
+      "summary": "Trimmed / Fractional ICP (Least Trimmed Squares) point-to-plane LiDAR odometry. Unlike M-estimators (Student-T/Cauchy/MCC) and GNC that down-weight residuals by magnitude, TrICP sorts residuals by rank and keeps only the best xi fraction in the least-squares solve (a high-breakdown LTS estimator), and estimates the overlap ratio xi automatically by minimizing the Fractional RMSD FRMSD(xi)=sqrt(e(xi))/xi^lambda, explicitly rejecting the non-overlapping part (newly appearing / disappearing / dynamic points) between consecutive scans (Chetverikov et al., ICPR 2002 / IVC 2005; Phillips et al., 3DIM 2007).",
+      "tags": [
+        "odometry",
+        "robust",
+        "trimmed-icp",
+        "least-trimmed-squares",
+        "overlap-estimation"
+      ]
+    },
+    {
+      "name": "KC-LO",
+      "family": "Correlation / entropy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/kc_lo",
+      "summary": "Correspondence-free Kernel Correlation LiDAR odometry. Instead of taking nearest-neighbour correspondences (ICP), latent assignments (GMM-EM), or voxel Gaussians (NDT), it treats the two clouds as kernel density estimates and maximizes their kernel correlation C=sum_i sum_j exp(-||T x_i - y_j||^2 / 2 sigma^2), equivalent to minimizing the Renyi quadratic entropy of the combined density. Each scan point is pulled toward the affinity-weighted mean of nearby map points (a soft point-to-point step), with coarse-to-fine sigma annealing for a wide basin of convergence (Tsin & Kanade, ECCV 2004).",
+      "tags": [
+        "odometry",
+        "kernel-correlation",
+        "correspondence-free",
+        "renyi-entropy",
+        "annealing"
+      ]
     }
   ],
   "starter_tracks": [

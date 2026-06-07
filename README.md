@@ -116,6 +116,18 @@ module READMEs; raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
 
+### Trajectory gallery — KITTI seq07, all methods, one figure
+
+Top-down 2D trajectories on KITTI seq07 (1101 frames, `--no-gt-seed`), each
+method (color) over ground truth (gray), on a shared scale and ordered by RPE
+drift. **KC-LO** leads; the divergent tails of NDT / SuMa are honest no-GT-seed
+failures, not cropping. Regenerate with
+[`evaluation/scripts/plot_trajectory_grid.py`](evaluation/scripts/plot_trajectory_grid.py).
+
+<p align="center">
+  <img src="docs/assets/grid_seq07.png" alt="KITTI seq07 2D trajectory gallery: 15 localization methods over ground truth, no GT seed, ordered by RPE drift" width="960">
+</p>
+
 ## Scope Note
 
 This repository mixes three levels of implementation scope:

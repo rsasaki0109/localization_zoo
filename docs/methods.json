@@ -1086,6 +1086,23 @@
         "least-trimmed-squares",
         "overlap-estimation"
       ]
+    },
+    {
+      "name": "KC-LO",
+      "family": "Correlation / entropy",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/kc_lo",
+      "summary": "Correspondence-free Kernel Correlation LiDAR odometry. Instead of taking nearest-neighbour correspondences (ICP), latent assignments (GMM-EM), or voxel Gaussians (NDT), it treats the two clouds as kernel density estimates and maximizes their kernel correlation C=sum_i sum_j exp(-||T x_i - y_j||^2 / 2 sigma^2), equivalent to minimizing the Renyi quadratic entropy of the combined density. Each scan point is pulled toward the affinity-weighted mean of nearby map points (a soft point-to-point step), with coarse-to-fine sigma annealing for a wide basin of convergence (Tsin & Kanade, ECCV 2004).",
+      "tags": [
+        "odometry",
+        "kernel-correlation",
+        "correspondence-free",
+        "renyi-entropy",
+        "annealing"
+      ]
     }
   ],
   "starter_tracks": [

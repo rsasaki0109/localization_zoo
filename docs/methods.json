@@ -870,6 +870,21 @@
       ]
     },
     {
+      "name": "I-LOAM",
+      "family": "Intensity",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/i_loam",
+      "summary": "Intensity Enhanced LOAM (UR 2020): LOAM scan-to-scan odometry with the LiDAR reflectance channel injected into correspondence search (geometry + lambda*delta-intensity^2) and residual weighting (w=exp(-delta-intensity^2/2sigma^2)). Ablation on KITTI shows intensity cuts drift ~18-20% vs the identical geometric pipeline.",
+      "tags": [
+        "odometry",
+        "intensity",
+        "loam"
+      ]
+    },
+    {
       "name": "SVN-ICP",
       "family": "Uncertainty",
       "scope": "Paper reimplementation",

@@ -117,6 +117,26 @@ module READMEs; raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
 
+### Does LiDAR intensity actually help? — I-LOAM ablation
+
+[**I-LOAM**](papers/i_loam/) (Intensity Enhanced LOAM, UR 2020 — no public author
+code) injects the LiDAR reflectance channel into LOAM's scan-to-scan association
+(intensity-augmented correspondence + intensity-similarity residual weighting).
+Running the *identical* pipeline with the intensity paths on vs. off
+(`--i-loam-no-intensity`) isolates exactly what reflectance contributes on KITTI:
+
+| Sequence | Geometric baseline (intensity off) | I-LOAM (intensity on) | Δ drift |
+|---|---:|---:|---:|
+| Seq 00 | 3.186% <sub>(76.0 m)</sub> | **2.606%** <sub>(49.4 m)</sub> | **−18.2%** |
+| Seq 07 | 3.806% <sub>(18.5 m)</sub> | **3.055%** <sub>(15.1 m)</sub> | **−19.7%** |
+
+Reflectance consistently cuts drift ~18–20% (and ATE up to ~35%) versus the same
+geometry-only pipeline — I-LOAM's central claim **reproduces on KITTI**, even
+though KITTI intensity is uncalibrated and coarse. This is a scan-to-scan
+odometry with no mapping refinement, so its absolute drift sits well above the
+mapping-based methods in the table above; it is shown here as an ablation, not
+ranked alongside them.
+
 ### Trajectory gallery — KITTI seq07, all methods, one figure
 
 Top-down trajectories on KITTI seq07 (1101 frames, `--no-gt-seed`), each path

@@ -901,6 +901,21 @@
       ]
     },
     {
+      "name": "InTEn-LOAM",
+      "family": "Intensity",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/inten_loam",
+      "summary": "InTEn-LOAM (RS 2022/23): cylindrical range+intensity images for adaptive ground/facade/edge/reflector features, joint geometric + B-spline intensity scan registration. Temporal DOR and mapping deferred in this port.",
+      "tags": [
+        "odometry",
+        "intensity",
+        "cylindrical"
+      ]
+    },
+    {
       "name": "SVN-ICP",
       "family": "Uncertainty",
       "scope": "Paper reimplementation",

@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -37,6 +37,7 @@
 #include "kc_lo/kc_lo.h"
 #include "i_loam/i_loam.h"
 #include "pl_loam/pl_loam.h"
+#include "inten_loam/inten_loam.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -223,7 +224,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "student_t_lo" || method == "spectral_lo" ||
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
          method == "imls_slam" || method == "tricp_lo" || method == "kc_lo" ||
-         method == "i_loam" || method == "pl_loam" || method == "clins";
+         method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
+         method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1057,6 +1059,17 @@ struct PlLoamDogfoodingOptions {
   bool use_scale_correction = true;
   double depth_prior_weight = 1.0;
   int ceres_max_iterations = 12;
+};
+
+struct InTenLoamDogfoodingOptions {
+  size_t input_stride = 2;
+  int cyl_width = 1024;
+  int cyl_height = 64;
+  bool use_intensity_registration = true;
+  int max_edge_features = 200;
+  int max_surface_features = 400;
+  int max_reflector_features = 120;
+  double intensity_weight = 1.0;
 };
 
 struct LeGOLOAMDogfoodingOptions {
@@ -3283,6 +3296,72 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
       "mean_scale_correction=" +
       std::to_string(mean_scale) +
       " mean_depth_prior_residual=" + std::to_string(mean_depth_res);
+  return res;
+}
+
+MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
+                          const std::vector<Eigen::Matrix4d>& gt,
+                          const InTenLoamDogfoodingOptions& options) {
+  using namespace localization_zoo::inten_loam;
+  MethodResult res;
+  res.name = "InTEn-LOAM";
+
+  InTenLoamParams params;
+  params.input_stride = options.input_stride;
+  params.cylindrical.width = options.cyl_width;
+  params.cylindrical.height = options.cyl_height;
+  params.use_intensity_registration = options.use_intensity_registration;
+  params.max_edge_features = options.max_edge_features;
+  params.max_surface_features = options.max_surface_features;
+  params.max_reflector_features = options.max_reflector_features;
+  params.intensity_weight = options.intensity_weight;
+
+  InTenLoam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  res.poses.push_back(world_anchor);
+
+  double int_res_acc = 0.0;
+  long valid_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    if (xyzi.empty()) continue;
+    std::vector<PointI> points;
+    points.reserve(xyzi.size());
+    for (const auto& p : xyzi) {
+      PointI pt;
+      pt.p = p.point;
+      pt.intensity = p.intensity;
+      points.push_back(pt);
+    }
+    const auto result = pipeline.process(points);
+    if (result.frame_count < 1) continue;
+
+    Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
+    T_rel.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    T_rel.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, T_rel));
+
+    if (result.valid) {
+      int_res_acc += result.mean_intensity_residual;
+      ++valid_frames;
+    }
+    if (i % 10 == 0) {
+      std::cerr << "\r  [InTEn-LOAM] " << i << "/" << pcd_dirs.size()
+                << " edge=" << result.num_edge << " refl=" << result.num_reflector;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  const double mean_int_res =
+      valid_frames ? int_res_acc / static_cast<double>(valid_frames) : 0.0;
+  res.note =
+      "InTEn-LOAM (Li et al., RS 2022/23): cylindrical-image feature extraction "
+      "(ground/facade/edge/reflector) + intensity B-spline registration in "
+      "scan-to-scan LO; temporal DOR deferred. no GT seed. mean_intensity_residual=" +
+      std::to_string(mean_int_res);
   return res;
 }
 
@@ -7139,7 +7218,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -7287,6 +7366,7 @@ int main(int argc, char** argv) {
   FLOAMDogfoodingOptions floam_options;
   ILoamDogfoodingOptions i_loam_options;
   PlLoamDogfoodingOptions pl_loam_options;
+  InTenLoamDogfoodingOptions inten_loam_options;
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
@@ -7772,6 +7852,31 @@ int main(int argc, char** argv) {
     }
     if (arg == "--pl-loam-stride" && i + 1 < argc) {
       pl_loam_options.input_stride = static_cast<size_t>(std::stoul(argv[++i]));
+      continue;
+    }
+    if (arg == "--inten-loam-fast-profile") {
+      inten_loam_options.input_stride = 3;
+      inten_loam_options.cyl_width = 720;
+      inten_loam_options.cyl_height = 48;
+      inten_loam_options.max_edge_features = 150;
+      inten_loam_options.max_surface_features = 300;
+      continue;
+    }
+    if (arg == "--inten-loam-dense-profile") {
+      inten_loam_options.input_stride = 1;
+      inten_loam_options.cyl_width = 1024;
+      inten_loam_options.cyl_height = 64;
+      inten_loam_options.max_edge_features = 220;
+      inten_loam_options.max_surface_features = 500;
+      inten_loam_options.max_reflector_features = 150;
+      continue;
+    }
+    if (arg == "--inten-loam-no-intensity") {
+      inten_loam_options.use_intensity_registration = false;
+      continue;
+    }
+    if (arg == "--inten-loam-stride" && i + 1 < argc) {
+      inten_loam_options.input_stride = static_cast<size_t>(std::stoul(argv[++i]));
       continue;
     }
     if (arg == "--floam-fast-profile") {
@@ -11021,6 +11126,15 @@ int main(int argc, char** argv) {
               << " scale_corr=" << pl_loam_options.use_scale_correction
               << std::endl;
     results.push_back(runPlLoam(pcd_dirs, gt, pl_loam_options));
+  }
+  if (isMethodEnabled(selected_methods, "inten_loam")) {
+    std::cout << "\n=== InTEn-LOAM ===" << std::endl;
+    std::cout << "  stride=" << inten_loam_options.input_stride
+              << " cyl=" << inten_loam_options.cyl_width << "x"
+              << inten_loam_options.cyl_height
+              << " intensity_reg=" << inten_loam_options.use_intensity_registration
+              << std::endl;
+    results.push_back(runInTenLoam(pcd_dirs, gt, inten_loam_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

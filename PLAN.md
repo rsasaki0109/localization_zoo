@@ -539,19 +539,21 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 
 #### 現状ギャップ
 
-- リポジトリは **3D PCD (`pcd_dogfooding`) 中心**。2D `LaserScan` 用 harness **追加済み**
-  (`scan_dogfooding`, RF2O smoke fixture)。
-- 既存 42 手法はすべて 3D 点群 or multimodal。**RF2O が初の 2D scan matcher**。
+- リポジトリは **3D PCD (`pcd_dogfooding`) 中心**。2D `LaserScan` harness **追加済み**
+  (`scan_dogfooding`, smoke + slow-motion corridor fixtures)。
+- **2D scan matchers 4 本**: RF2O, PL-ICP, CSM, Kinematic-ICP（papers 43–46、コミット済み）。
 
-#### インフラ（先に必要）
+#### インフラ
 
-| 要素 | 案 |
-|------|-----|
-| 入力 | `scan_dogfooding`: `00000000/scan.csv` (angle_min, angle_increment, ranges[]) |
-| GT | `gt.csv`: timestamp, x, y, yaw [rad] |
-| 評価 | 2D ATE / drift [m/100m]（既存 KITTI-style RPE を xy に限定） |
-| データセット | Radish / Intel Research Lab / Freiburg 2D hallway（公開 log） |
-| 前処理 | `evaluation/scripts/prepare_2d_scan_inputs.py`（bag/log → scan tree） |
+| 要素 | 状態 |
+|------|------|
+| 入力 | ✅ `scan_dogfooding`: `00000000/scan.csv` + `scan_meta.json` |
+| GT | ✅ `gt.csv`: timestamp, x, y, yaw [rad] |
+| 評価 | ✅ 2D ATE + drift [%]（KITTI-style RPE、`pcd_dogfooding` 同 segment 規則）+ `--summary-json` |
+| 前処理 | ✅ `evaluation/scripts/prepare_2d_scan_inputs.py`（ROS1 LaserScan → scan tree） |
+| セットアップ doc | ✅ `evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md` |
+| 合成ベンチ | ✅ `rf2o_smoke` (60f) + `rf2o_corridor` (120f, slow motion) |
+| 公開 log | ⏳ Radish / Intel / Freiburg — bag 入手後 `prepare_2d_scan_inputs.py` で export |
 
 #### 論文 43 本目候補（2D LiDAR shortlist）
 
@@ -586,9 +588,9 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
   - 修正: coarse-to-fine 順序・coarse 初回 no-warp・全 pyramid level の `range_old` 保持、
     `filterLevelSolution` 再有効化、`PoseUpdate` 型 pose 合成。
 - Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60.json`
-- **未実装**: ROS bag reader、Radish/Intel 公開 log 前処理、Cauchy IRLS 再重み付け。
+- **未実装**: Cauchy IRLS 再重み付け。
 
-**状態**: ワークツリーに未コミット。次候補: **PL-ICP** (2D baseline, §00.6c rank 2)。
+**状態**: ✅ コミット済み (`origin/main`)。次: 公開 2D bag ベンチ or **PSM** (§00.6c rank 5)。
 
 ### 00.54 PL-ICP (44本目) — 2D point-to-line ICP baseline (2026-06-09)
 
@@ -604,7 +606,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_pl_icp_vs_rf2o.json`
 - **未実装**: Censi recursive distortion、local map / CSM、kd-tree 対応探索。
 
-**状態**: ワークツリーに未コミット。次候補: **Kinematic-ICP 2D** または **CSM/Karto** (§00.6c rank 3–4)。
+**状態**: ✅ コミット済み。次: **PSM** or 公開 2D log ベンチ。
 
 ### 00.55 CSM (45本目) — correlative scan matching (2026-06-09)
 
@@ -619,7 +621,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_csm_vs_rf2o.json`
 - **未実装**: 確率グリッド / distance transform、Karto 式多解像度 grid、探索高速化。
 
-**状態**: ワークツリーに未コミット。次候補: **Kinematic-ICP 2D** (§00.6c rank 3)。
+**状態**: ✅ コミット済み。
 
 ### 00.56 Kinematic-ICP 2D (46本目) — unicycle ICP + wheel odom (2026-06-09)
 
@@ -636,8 +638,18 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_kinematic_icp_vs_rf2o.json`
 - **未実装**: PRBonn 3D pipeline、動的重み付け、extrinsic TF、KISS-ICP backend。
 
-**状態**: ワークツリーに未コミット。
+**状態**: ✅ コミット済み。
 
+### 00.57 2D scan 評価インフラ (2026-06-09)
+
+- ✅ **`scan_dogfooding` drift 列**: KITTI-style RPE (`Drift [%]`)、`--summary-json` 出力。
+- ✅ **`prepare_2d_scan_inputs.py`**: ROS1 `sensor_msgs/LaserScan` → scan tree + GT 補間。
+- ✅ **`SETUP_2D_SCAN_BENCHMARK.md`**: 合成 fixture / bag export / 公開 dataset 手順。
+- ✅ **`rf2o_corridor` fixture** (120f, ~9.5 m, 0.08 m/frame slow mixed motion):
+  - RF2O: ATE **0.085 m**, drift **~1.3%**
+  - PL-ICP: ATE **0.020 m**, drift **~0.4%**
+  - Artifact: `docs/benchmarks/scan2d/rf2o_corridor_120.json`
+- ⏳ **次**: 公開 2D bag (Intel/Radish) 初ベンチ、または **PSM** (§00.6c rank 5)。
 
 This section is the authoritative current handoff. Older sections below still
 matter for benchmark history, recipe provenance, and paper-grade claims, but

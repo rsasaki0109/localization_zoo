@@ -249,12 +249,86 @@ double trajectoryLength2D(const std::vector<Eigen::Matrix4d>& poses) {
   return len;
 }
 
+struct RPEMetrics {
+  bool available = false;
+  double trans_pct = 0.0;
+  double rot_deg_per_m = 0.0;
+};
+
+double rpeSegmentLengthM(double trajectory_length_m) {
+  if (trajectory_length_m <= 0.0) return 0.0;
+  constexpr double kKitBench = 100.0;
+  if (trajectory_length_m >= kKitBench) return kKitBench;
+  const double half = 0.5 * trajectory_length_m;
+  constexpr double kMinSeg = 3.0;
+  double seg = std::max(half, kMinSeg);
+  seg = std::min(seg, trajectory_length_m * 0.95);
+  return seg;
+}
+
+RPEMetrics computeRPE(const std::vector<Eigen::Matrix4d>& est,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      double segment_length_m = 100.0) {
+  const int n = std::min(static_cast<int>(est.size()), static_cast<int>(gt.size()));
+  if (n < 2 || segment_length_m <= 0.0) return {};
+
+  std::vector<double> trans_errs;
+  std::vector<double> rot_errs;
+  for (int i = 0; i < n; i++) {
+    double dist = 0.0;
+    int j = i + 1;
+    while (j < n) {
+      dist += (gt[static_cast<size_t>(j)].block<3, 1>(0, 3) -
+               gt[static_cast<size_t>(j - 1)].block<3, 1>(0, 3))
+                  .norm();
+      if (dist >= segment_length_m) break;
+      ++j;
+    }
+    if (j >= n || dist <= 1e-9) break;
+
+    const Eigen::Matrix4d dT_est = est[static_cast<size_t>(i)].inverse() * est[static_cast<size_t>(j)];
+    const Eigen::Matrix4d dT_gt = gt[static_cast<size_t>(i)].inverse() * gt[static_cast<size_t>(j)];
+    const Eigen::Matrix4d T_err = dT_gt.inverse() * dT_est;
+
+    const double t_err = T_err.block<3, 1>(0, 3).norm();
+    const Eigen::Matrix3d R_err = T_err.block<3, 3>(0, 0);
+    const double trace_term =
+        std::clamp((R_err.trace() - 1.0) / 2.0, -1.0, 1.0);
+    const double r_err_rad = std::acos(trace_term);
+
+    trans_errs.push_back(t_err / dist * 100.0);
+    rot_errs.push_back(r_err_rad / dist * 180.0 / M_PI);
+  }
+
+  if (trans_errs.empty()) return {};
+
+  RPEMetrics metrics;
+  metrics.available = true;
+  for (double value : trans_errs) metrics.trans_pct += value;
+  for (double value : rot_errs) metrics.rot_deg_per_m += value;
+  metrics.trans_pct /= trans_errs.size();
+  metrics.rot_deg_per_m /= rot_errs.size();
+  return metrics;
+}
+
+void writeJsonNumberOrNull(std::ostream& out, double value) {
+  if (std::isfinite(value)) {
+    out << std::fixed << std::setprecision(3) << value;
+  } else {
+    out << "null";
+  }
+}
+
 struct MethodResult {
   std::string name;
   std::vector<Eigen::Matrix4d> poses;
   double time_ms = 0.0;
   bool skipped = false;
   std::string note;
+  double ate_m = 0.0;
+  bool has_rpe = false;
+  double rpe_trans_pct = 0.0;
+  double rpe_rot_deg_per_m = 0.0;
 };
 
 MethodResult runRF2O(const std::vector<fs::path>& frames, const ScanMeta& meta,
@@ -413,7 +487,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp]"
-              << " [--no-gt-seed] [--wheel-odom-from-gt]\n";
+              << " [--no-gt-seed] [--wheel-odom-from-gt] [--summary-json path]\n";
     return 1;
   }
 
@@ -423,6 +497,7 @@ int main(int argc, char** argv) {
   bool no_gt_seed = false;
   bool wheel_odom_from_gt = false;
   std::string methods = "rf2o";
+  std::string summary_json_path;
   for (int i = 3; i < argc; ++i) {
     std::string arg = argv[i];
     if (arg == "--no-gt-seed") {
@@ -431,6 +506,10 @@ int main(int argc, char** argv) {
       wheel_odom_from_gt = true;
     } else if (arg == "--methods" && i + 1 < argc) {
       methods = argv[++i];
+    } else if (arg == "--summary-json" && i + 1 < argc) {
+      summary_json_path = argv[++i];
+    } else if (arg.rfind("--summary-json=", 0) == 0) {
+      summary_json_path = arg.substr(std::string("--summary-json=").size());
     } else if (std::all_of(arg.begin(), arg.end(), ::isdigit)) {
       max_frames = static_cast<size_t>(std::stoul(arg));
     }
@@ -448,7 +527,9 @@ int main(int argc, char** argv) {
 
   std::cout << "Scan frames: " << frames.size() << "\n";
   std::cout << "GT poses: " << gt.size() << "\n";
-  std::cout << "Trajectory length: " << trajectoryLength2D(gt) << " m\n";
+  const double traj_len = trajectoryLength2D(gt);
+  std::cout << "Trajectory length: " << traj_len << " m\n";
+  const double rpe_seg = rpeSegmentLengthM(traj_len);
 
   std::vector<MethodResult> results;
   if (methods.find("kinematic_icp") != std::string::npos) {
@@ -472,19 +553,92 @@ int main(int argc, char** argv) {
   std::cout << "  RESULTS (2D Scan Data)\n";
   std::cout << "========================================\n";
   std::cout << std::left << std::setw(20) << "Method" << std::setw(12) << "ATE [m]"
-            << std::setw(12) << "Frames" << std::setw(12) << "Time [ms]" << std::setw(10)
-            << "FPS\n";
-  std::cout << std::string(66, '-') << "\n";
+            << std::setw(14) << "Drift [%]" << std::setw(12) << "Frames"
+            << std::setw(12) << "Time [ms]" << std::setw(10) << "FPS\n";
+  std::cout << std::string(80, '-') << "\n";
 
-  for (const auto& r : results) {
+  for (auto& r : results) {
     if (r.skipped) continue;
-    const double ate = computeATE2D(r.poses, gt);
+    r.ate_m = computeATE2D(r.poses, gt);
+    const RPEMetrics rpe = computeRPE(r.poses, gt, rpe_seg);
+    r.has_rpe = rpe.available;
+    r.rpe_trans_pct = rpe.trans_pct;
+    r.rpe_rot_deg_per_m = rpe.rot_deg_per_m;
     const double fps =
         r.time_ms > 0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
+    std::ostringstream drift_ss;
+    if (r.has_rpe && std::isfinite(r.rpe_trans_pct)) {
+      drift_ss << std::fixed << std::setprecision(2) << r.rpe_trans_pct;
+    } else {
+      drift_ss << "-";
+    }
     std::cout << std::setw(20) << r.name << std::setw(12) << std::fixed
-              << std::setprecision(3) << ate << std::setw(12) << r.poses.size()
-              << std::setw(12) << r.time_ms << std::setw(10) << fps << "\n";
+              << std::setprecision(3) << r.ate_m << std::setw(14) << drift_ss.str()
+              << std::setw(12) << r.poses.size() << std::setw(12) << r.time_ms
+              << std::setw(10) << fps << "\n";
     if (!r.note.empty()) std::cout << "  note: " << r.note << "\n";
+  }
+
+  if (!summary_json_path.empty()) {
+    std::ofstream out(summary_json_path);
+    if (!out) {
+      std::cerr << "Failed to write summary json: " << summary_json_path << "\n";
+      return 1;
+    }
+    out << "{\n";
+    out << "  \"scan_dir\": \"" << scan_dir.string() << "\",\n";
+    out << "  \"gt_csv\": \"" << gt_csv.string() << "\",\n";
+    out << "  \"num_frames\": " << frames.size() << ",\n";
+    out << "  \"trajectory_length_m\": ";
+    writeJsonNumberOrNull(out, traj_len);
+    out << ",\n";
+    out << "  \"rpe_segment_length_m\": ";
+    writeJsonNumberOrNull(out, rpe_seg);
+    out << ",\n";
+    out << "  \"gt_seed\": " << (no_gt_seed ? "false" : "true") << ",\n";
+    out << "  \"methods\": [\n";
+    bool first = true;
+    for (const auto& r : results) {
+      if (r.skipped) continue;
+      if (!first) out << ",\n";
+      first = false;
+      out << "    {\n";
+      out << "      \"name\": \"" << r.name << "\",\n";
+      out << "      \"status\": \"ok\",\n";
+      out << "      \"ate_m\": ";
+      writeJsonNumberOrNull(out, r.ate_m);
+      out << ",\n";
+      out << "      \"drift_pct\": ";
+      if (r.has_rpe && std::isfinite(r.rpe_trans_pct)) {
+        writeJsonNumberOrNull(out, r.rpe_trans_pct);
+      } else {
+        out << "null";
+      }
+      out << ",\n";
+      out << "      \"rpe_rot_deg_per_m\": ";
+      if (r.has_rpe && std::isfinite(r.rpe_rot_deg_per_m)) {
+        writeJsonNumberOrNull(out, r.rpe_rot_deg_per_m);
+      } else {
+        out << "null";
+      }
+      out << ",\n";
+      out << "      \"frames\": " << r.poses.size() << ",\n";
+      out << "      \"time_ms\": ";
+      writeJsonNumberOrNull(out, r.time_ms);
+      out << ",\n";
+      out << "      \"fps\": ";
+      if (r.time_ms > 0) {
+        writeJsonNumberOrNull(out, r.poses.size() / (r.time_ms / 1000.0));
+      } else {
+        out << "null";
+      }
+      out << ",\n";
+      out << "      \"note\": \"" << r.note << "\"\n";
+      out << "    }";
+    }
+    out << "\n  ]\n";
+    out << "}\n";
+    std::cout << "Wrote summary: " << summary_json_path << "\n";
   }
 
   return 0;

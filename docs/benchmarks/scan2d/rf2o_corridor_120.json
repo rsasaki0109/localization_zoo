@@ -1,0 +1,32 @@
+{
+  "scan_dir": "evaluation/fixtures/rf2o_corridor",
+  "gt_csv": "evaluation/fixtures/rf2o_corridor/gt.csv",
+  "num_frames": 120,
+  "trajectory_length_m": 9.543,
+  "rpe_segment_length_m": 4.772,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "PL-ICP",
+      "status": "ok",
+      "ate_m": 0.020,
+      "drift_pct": 0.380,
+      "rpe_rot_deg_per_m": 0.044,
+      "frames": 120,
+      "time_ms": 91.850,
+      "fps": 1306.475,
+      "note": "Point-to-line ICP 2D scan odometry (Censi IROS 2008, simplified port)."
+    },
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 0.085,
+      "drift_pct": 1.276,
+      "rpe_rot_deg_per_m": 0.272,
+      "frames": 120,
+      "time_ms": 34.694,
+      "fps": 3458.789,
+      "note": "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port)."
+    }
+  ]
+}

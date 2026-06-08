@@ -154,6 +154,23 @@
       ]
     },
     {
+      "name": "Kinematic-ICP",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR",
+        "Wheel odometry"
+      ],
+      "href": "papers/kinematic_icp",
+      "summary": "Kinematic-ICP 2D laser odometry fusing unicycle wheel odometry with point-to-line ICP (Guadagnino ICRA 2025).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "kinematic",
+        "icp"
+      ]
+    },
+    {
       "name": "CSM",
       "family": "2D Odometry",
       "scope": "Paper reimplementation",

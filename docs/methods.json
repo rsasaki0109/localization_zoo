@@ -154,6 +154,21 @@
       ]
     },
     {
+      "name": "CSM",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR"
+      ],
+      "href": "papers/csm",
+      "summary": "Multi-resolution correlative scan matching for 2D laser odometry using occupancy-grid pose search (Olson ICRA 2009).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "scan-matching"
+      ]
+    },
+    {
       "name": "PL-ICP",
       "family": "2D Odometry",
       "scope": "Paper reimplementation",

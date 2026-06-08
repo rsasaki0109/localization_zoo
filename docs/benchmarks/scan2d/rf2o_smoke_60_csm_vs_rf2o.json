@@ -1,0 +1,29 @@
+{
+  "scan_dir": "evaluation/fixtures/rf2o_smoke",
+  "gt_csv": "evaluation/fixtures/rf2o_smoke/gt.csv",
+  "num_frames": 60,
+  "trajectory_length_m": 17.7047,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "CSM",
+      "status": "ok",
+      "ate_m": 3.38,
+      "drift_pct": 19.09,
+      "frames": 60,
+      "time_ms": 65105.809,
+      "fps": 0.922,
+      "note": "Brute-force correlative scan matching; slow on 360-beam exhaustive search."
+    },
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 0.203,
+      "drift_pct": 1.15,
+      "frames": 60,
+      "time_ms": 13.955,
+      "fps": 4299.441,
+      "note": "Range-flow reference on same fixture."
+    }
+  ]
+}

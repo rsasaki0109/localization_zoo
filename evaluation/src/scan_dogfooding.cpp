@@ -1,7 +1,7 @@
 /// 2D laser scan dogfooding tool
 ///
 /// Usage:
-///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm]
+///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d]
 ///
 /// scan_dir layout:
 ///   scan_meta.json  (angle_min, angle_max, angle_increment, range_min, range_max, scan_rate_hz)
@@ -12,6 +12,7 @@
 #include "csm/csm.h"
 #include "kinematic_icp/kinematic_icp.h"
 #include "pl_icp/pl_icp.h"
+#include "ndt_2d/ndt_2d.h"
 #include "psm/psm.h"
 #include "rf2o/rf2o.h"
 
@@ -159,6 +160,25 @@ localization_zoo::kinematic_icp::LaserScan loadScanKinematicICP(const fs::path& 
 
 localization_zoo::csm::LaserScan loadScanCSM(const fs::path& frame_dir, const ScanMeta& meta) {
   localization_zoo::csm::LaserScan scan;
+  scan.angle_min = meta.angle_min;
+  scan.angle_max = meta.angle_max;
+  scan.angle_increment = meta.angle_increment;
+  scan.range_min = meta.range_min;
+  scan.range_max = meta.range_max;
+  std::ifstream in(frame_dir / "scan.csv");
+  if (!in) return scan;
+  std::string line;
+  std::getline(in, line);
+  for (const auto& tok : splitCsv(line)) {
+    if (tok.empty()) continue;
+    scan.ranges.push_back(std::stod(tok));
+  }
+  return scan;
+}
+
+localization_zoo::ndt_2d::LaserScan loadScanNDT2D(const fs::path& frame_dir,
+                                                    const ScanMeta& meta) {
+  localization_zoo::ndt_2d::LaserScan scan;
   scan.angle_min = meta.angle_min;
   scan.angle_max = meta.angle_max;
   scan.angle_increment = meta.angle_increment;
@@ -455,6 +475,41 @@ MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   return res;
 }
 
+MethodResult runNDT2D(const std::vector<fs::path>& frames, const ScanMeta& meta,
+                    const std::vector<GTPose2D>& gt, bool no_gt_seed) {
+  using namespace localization_zoo::ndt_2d;
+  MethodResult res;
+  res.name = "NDT-2D";
+  NDT2DParams params;
+  params.cell_size = 0.5;
+  params.cov_regularization = 0.05;
+  params.max_iterations = 30;
+  NDT2DEstimator est(params);
+  if (!gt.empty() && !no_gt_seed) {
+    est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
+  }
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < frames.size(); ++i) {
+    const auto scan = loadScanNDT2D(frames[i], meta);
+    if (scan.size() < 10) continue;
+    const auto out = est.registerScan(scan);
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<2, 2>(0, 0) = out.pose.block<2, 2>(0, 0);
+    T(0, 3) = out.pose(0, 2);
+    T(1, 3) = out.pose(1, 2);
+    res.poses.push_back(T);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [NDT-2D] " << i << "/" << frames.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "2D NDT scan matching odometry (Biber & Straßer IROS 2003, simplified port).";
+  return res;
+}
+
 MethodResult runPSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
                   const std::vector<GTPose2D>& gt, bool no_gt_seed) {
   using namespace localization_zoo::psm;
@@ -543,7 +598,7 @@ MethodResult runKinematicICP(const std::vector<fs::path>& frames, const ScanMeta
 int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
-              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm]"
+              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d]"
               << " [--no-gt-seed] [--wheel-odom-from-gt] [--summary-json path]\n";
     return 1;
   }
@@ -589,6 +644,10 @@ int main(int argc, char** argv) {
   const double rpe_seg = rpeSegmentLengthM(traj_len);
 
   std::vector<MethodResult> results;
+  if (methods.find("ndt_2d") != std::string::npos) {
+    std::cout << "Running NDT-2D...\n";
+    results.push_back(runNDT2D(frames, meta, gt_raw, no_gt_seed));
+  }
   if (methods.find("psm") != std::string::npos) {
     std::cout << "Running PSM...\n";
     results.push_back(runPSM(frames, meta, gt_raw, no_gt_seed));

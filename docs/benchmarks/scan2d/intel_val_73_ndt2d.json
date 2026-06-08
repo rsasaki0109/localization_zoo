@@ -1,0 +1,54 @@
+{
+  "scan_dir": "evaluation/fixtures/intel_val_73",
+  "gt_csv": "evaluation/fixtures/intel_val_73/gt.csv",
+  "num_frames": 73,
+  "trajectory_length_m": 377.915,
+  "rpe_segment_length_m": 100.000,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "NDT-2D",
+      "status": "ok",
+      "ate_m": 18.165,
+      "drift_pct": 14.782,
+      "rpe_rot_deg_per_m": 0.854,
+      "frames": 73,
+      "time_ms": 47.115,
+      "fps": 1549.412,
+      "note": "2D NDT scan matching odometry (Biber & Straßer IROS 2003, simplified port)."
+    },
+    {
+      "name": "PSM",
+      "status": "ok",
+      "ate_m": 28.494,
+      "drift_pct": 21.800,
+      "rpe_rot_deg_per_m": 0.907,
+      "frames": 73,
+      "time_ms": 724.077,
+      "fps": 100.818,
+      "note": "Polar scan matching 2D odometry (Hähnel polar range correlation, simplified port)."
+    },
+    {
+      "name": "PL-ICP",
+      "status": "ok",
+      "ate_m": 21.168,
+      "drift_pct": 16.922,
+      "rpe_rot_deg_per_m": 0.807,
+      "frames": 73,
+      "time_ms": 89.736,
+      "fps": 813.494,
+      "note": "Point-to-line ICP 2D scan odometry (Censi IROS 2008, simplified port)."
+    },
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 15.361,
+      "drift_pct": 14.287,
+      "rpe_rot_deg_per_m": 0.921,
+      "frames": 73,
+      "time_ms": 11.186,
+      "fps": 6525.869,
+      "note": "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port)."
+    }
+  ]
+}

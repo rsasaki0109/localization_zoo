@@ -1,0 +1,21 @@
+{
+  "scan_dir": "evaluation/fixtures/rf2o_corridor",
+  "gt_csv": "evaluation/fixtures/rf2o_corridor/gt.csv",
+  "num_frames": 120,
+  "trajectory_length_m": 9.543,
+  "rpe_segment_length_m": 4.772,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "CSM",
+      "status": "ok",
+      "ate_m": 3.953,
+      "drift_pct": 73.325,
+      "rpe_rot_deg_per_m": 1.439,
+      "frames": 120,
+      "time_ms": 4669.465,
+      "fps": 25.699,
+      "note": "Correlative scan matching 2D odometry (Olson ICRA 2009, simplified port)."
+    }
+  ]
+}

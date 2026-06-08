@@ -1,0 +1,21 @@
+{
+  "scan_dir": "evaluation/fixtures/intel_val_73",
+  "gt_csv": "evaluation/fixtures/intel_val_73/gt.csv",
+  "num_frames": 73,
+  "trajectory_length_m": 377.915,
+  "rpe_segment_length_m": 100.000,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "CSM",
+      "status": "ok",
+      "ate_m": 27.896,
+      "drift_pct": 15.973,
+      "rpe_rot_deg_per_m": 0.793,
+      "frames": 73,
+      "time_ms": 1227.144,
+      "fps": 59.488,
+      "note": "Correlative scan matching 2D odometry (Olson ICRA 2009, simplified port)."
+    }
+  ]
+}

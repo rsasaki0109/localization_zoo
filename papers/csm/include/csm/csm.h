@@ -29,6 +29,7 @@ struct CSMParams {
   int coarse_yaw_steps = 13;
   int fine_xy_steps = 7;
   int fine_yaw_steps = 7;
+  double score_sigma = 0.15;
   double min_range = 0.1;
   double max_range = 30.0;
   bool use_motion_prior = true;
@@ -60,23 +61,25 @@ class CSMEstimator {
     int height = 0;
     double origin_x = 0.0;
     double origin_y = 0.0;
-    std::vector<float> cells;
+    /// Distance to nearest occupied cell [m] after distance transform.
+    std::vector<float> dist_m;
   };
 
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   Grid buildGrid(const std::vector<Eigen::Vector2d>& points, double resolution) const;
-  double scorePoseBruteForce(const std::vector<Eigen::Vector2d>& ref,
-                            const std::vector<Eigen::Vector2d>& points,
-                            const Eigen::Matrix3d& transform) const;
+  void computeDistanceTransform(Grid* grid) const;
+  std::vector<Grid> buildPyramid(const std::vector<Eigen::Vector2d>& points) const;
   double scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
                    const Eigen::Matrix3d& transform) const;
-  Eigen::Matrix3d searchBestTransform(const Grid& grid,
+  Eigen::Matrix3d searchBestTransform(const std::vector<Grid>& pyramid,
                                       const std::vector<Eigen::Vector2d>& points,
                                       const Eigen::Matrix3d& prior) const;
+  double lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p) const;
 
   CSMParams params_;
   bool initialized_ = false;
   std::vector<Eigen::Vector2d> ref_points_;
+  std::vector<Grid> ref_pyramid_;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

@@ -154,6 +154,54 @@
       ]
     },
     {
+      "name": "PL-ICP",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR"
+      ],
+      "href": "papers/pl_icp",
+      "summary": "PL-ICP 2D laser scan matching using point-to-line metric and iterative Gauss-Newton SE(2) alignment (Censi IROS 2008).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "icp"
+      ]
+    },
+    {
+      "name": "RF2O",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR"
+      ],
+      "href": "papers/rf2o",
+      "summary": "RF2O range-flow 2D laser odometry using dense scan gradients and coarse-to-fine robust least squares (ICRA 2016).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "range-flow"
+      ]
+    },
+    {
+      "name": "PG-LIO",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU",
+        "Intensity"
+      ],
+      "href": "papers/pg_lio",
+      "summary": "PG-LIO style photometric-geometric LIO fusing NCC range-image patches with point-to-plane ICP and IMU priors on degenerate directions.",
+      "tags": [
+        "odometry",
+        "imu",
+        "intensity",
+        "degeneracy-robust"
+      ]
+    },
+    {
       "name": "A-LOAM",
       "family": "Registration",
       "scope": "Paper reimplementation",

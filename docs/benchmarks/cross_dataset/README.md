@@ -89,6 +89,21 @@ this NCLT window. Sub-frames stayed at 1 for most NCLT frames (low IMU variance)
 
 Artifact: `nclt_600_fr_lio_vs_rko.json`
 
+### NCLT 2013-01-10 600 — PG-LIO vs FR-LIO (2026-06-09)
+
+`--no-gt-seed`, fast profiles:
+
+| Method | Drift [m/100m] | ATE [m] |
+|--------|---------------:|--------:|
+| FR-LIO | 0.63 | 0.58 |
+| PG-LIO | 32.99 | 23.67 |
+
+Simplified PG-LIO NCC photometric fusion **diverges** on NCLT Velodyne (unorganized
+points, intensity noise). Geometric-only path tracks in unit tests; photometric
+terms need organized scans / better projection (paper uses Ouster OS0).
+
+Artifact: `nclt_600_pg_lio_vs_fr_lio.json`
+
 ## Notes
 
 - InTEn-LOAM runs with TVF + DOR + scan-to-map mapping enabled by default.

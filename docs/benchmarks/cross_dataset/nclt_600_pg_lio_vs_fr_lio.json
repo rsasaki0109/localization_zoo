@@ -1,0 +1,33 @@
+{
+  "pcd_dir": "dogfooding_results/nclt_2013_01_10_600",
+  "gt_csv": "experiments/reference_data/nclt_2013_01_10_600_gt.csv",
+  "num_frames": 600,
+  "trajectory_length_m": 100.578783,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "FR-LIO",
+      "status": "ok",
+      "ate_m": 0.575138,
+      "rpe_trans_pct": 0.634010,
+      "rpe_rot_deg_per_m": 0.018834,
+      "frames": 600,
+      "time_ms": 117851.850343,
+      "fps": 5.091138,
+      "seed_fallback_rate_pct": null,
+      "note": "RC-Vox scan-to-map LIO with adaptive sub-frames + simplified ESKS (IMU required). IMU prior frames=599 avg_subframes=1 smoothed_subframes=599"
+    },
+    {
+      "name": "PG-LIO",
+      "status": "ok",
+      "ate_m": 23.668506,
+      "rpe_trans_pct": 32.987587,
+      "rpe_rot_deg_per_m": 0.245243,
+      "frames": 600,
+      "time_ms": 396990.278848,
+      "fps": 1.511372,
+      "seed_fallback_rate_pct": null,
+      "note": "Photometric-geometric LIO with NCC range-image patches (IMU required). IMU frames=599 photometric_patch_frames=17214"
+    }
+  ]
+}

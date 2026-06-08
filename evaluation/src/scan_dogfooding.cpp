@@ -1,0 +1,344 @@
+/// 2D laser scan dogfooding tool
+///
+/// Usage:
+///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp]
+///
+/// scan_dir layout:
+///   scan_meta.json  (angle_min, angle_max, angle_increment, range_min, range_max, scan_rate_hz)
+///   00000000/scan.csv  (comma-separated ranges)
+///   00000001/scan.csv
+/// gt_csv: timestamp,x,y,yaw
+
+#include "pl_icp/pl_icp.h"
+#include "rf2o/rf2o.h"
+
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+
+#include <algorithm>
+#include <chrono>
+#include <cmath>
+#include <filesystem>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <sstream>
+#include <string>
+#include <vector>
+
+namespace fs = std::filesystem;
+using Clock = std::chrono::steady_clock;
+
+namespace {
+
+struct GTPose2D {
+  double timestamp = 0.0;
+  double x = 0.0;
+  double y = 0.0;
+  double yaw = 0.0;
+
+  Eigen::Matrix4d matrix4() const {
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<3, 3>(0, 0) =
+        Eigen::AngleAxisd(yaw, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    T(0, 3) = x;
+    T(1, 3) = y;
+    return T;
+  }
+};
+
+std::string trim(std::string s) {
+  while (!s.empty() && (s.back() == '\r' || s.back() == '\n' || s.back() == ' '))
+    s.pop_back();
+  size_t b = 0;
+  while (b < s.size() && s[b] == ' ') ++b;
+  return s.substr(b);
+}
+
+std::vector<std::string> splitCsv(const std::string& line) {
+  std::vector<std::string> out;
+  std::istringstream ss(line);
+  std::string tok;
+  while (std::getline(ss, tok, ',')) out.push_back(trim(tok));
+  return out;
+}
+
+std::vector<GTPose2D> loadGT(const fs::path& csv) {
+  std::ifstream in(csv);
+  if (!in) throw std::runtime_error("failed to open gt csv");
+  std::string header;
+  std::getline(in, header);
+  const auto cols = splitCsv(header);
+  auto idx = [&](const char* name) {
+    const auto it = std::find(cols.begin(), cols.end(), name);
+    return it == cols.end() ? -1 : static_cast<int>(it - cols.begin());
+  };
+  const int ix = idx("x"), iy = idx("y"), iyaw = idx("yaw"), its = idx("timestamp");
+  std::vector<GTPose2D> poses;
+  std::string line;
+  while (std::getline(in, line)) {
+    if (line.empty()) continue;
+    const auto c = splitCsv(line);
+    GTPose2D p;
+    if (its >= 0 && its < static_cast<int>(c.size())) p.timestamp = std::stod(c[its]);
+    if (ix >= 0) p.x = std::stod(c[ix]);
+    if (iy >= 0) p.y = std::stod(c[iy]);
+    if (iyaw >= 0) p.yaw = std::stod(c[iyaw]);
+    poses.push_back(p);
+  }
+  return poses;
+}
+
+struct ScanMeta {
+  double angle_min = -M_PI;
+  double angle_max = M_PI;
+  double angle_increment = 0.0;
+  double range_min = 0.1;
+  double range_max = 30.0;
+  double scan_rate_hz = 10.0;
+};
+
+ScanMeta loadMeta(const fs::path& scan_dir) {
+  ScanMeta meta;
+  std::ifstream in(scan_dir / "scan_meta.json");
+  if (!in) return meta;
+  std::string content((std::istreambuf_iterator<char>(in)),
+                      std::istreambuf_iterator<char>());
+  auto findNum = [&](const char* key) -> double {
+    const std::string pat = std::string("\"") + key + "\"";
+    const size_t pos = content.find(pat);
+    if (pos == std::string::npos) return 0.0;
+    const size_t colon = content.find(':', pos);
+    return std::stod(content.substr(colon + 1));
+  };
+  meta.angle_min = findNum("angle_min");
+  meta.angle_max = findNum("angle_max");
+  meta.angle_increment = findNum("angle_increment");
+  meta.range_min = findNum("range_min");
+  meta.range_max = findNum("range_max");
+  meta.scan_rate_hz = findNum("scan_rate_hz");
+  if (meta.scan_rate_hz <= 0.0) meta.scan_rate_hz = 10.0;
+  return meta;
+}
+
+localization_zoo::pl_icp::LaserScan loadScanPLICP(const fs::path& frame_dir,
+                                                  const ScanMeta& meta) {
+  localization_zoo::pl_icp::LaserScan scan;
+  scan.angle_min = meta.angle_min;
+  scan.angle_max = meta.angle_max;
+  scan.angle_increment = meta.angle_increment;
+  scan.range_min = meta.range_min;
+  scan.range_max = meta.range_max;
+  std::ifstream in(frame_dir / "scan.csv");
+  if (!in) return scan;
+  std::string line;
+  std::getline(in, line);
+  for (const auto& tok : splitCsv(line)) {
+    if (tok.empty()) continue;
+    scan.ranges.push_back(std::stod(tok));
+  }
+  return scan;
+}
+
+localization_zoo::rf2o::LaserScan loadScan(const fs::path& frame_dir,
+                                           const ScanMeta& meta) {
+  localization_zoo::rf2o::LaserScan scan;
+  scan.angle_min = meta.angle_min;
+  scan.angle_max = meta.angle_max;
+  scan.angle_increment = meta.angle_increment;
+  scan.range_min = meta.range_min;
+  scan.range_max = meta.range_max;
+  std::ifstream in(frame_dir / "scan.csv");
+  if (!in) return scan;
+  std::string line;
+  std::getline(in, line);
+  for (const auto& tok : splitCsv(line)) {
+    if (tok.empty()) continue;
+    scan.ranges.push_back(std::stod(tok));
+  }
+  return scan;
+}
+
+std::vector<fs::path> listFrames(const fs::path& scan_dir, size_t max_frames) {
+  std::vector<fs::path> frames;
+  for (const auto& ent : fs::directory_iterator(scan_dir)) {
+    if (!ent.is_directory()) continue;
+    const auto name = ent.path().filename().string();
+    if (name.size() == 8 && std::all_of(name.begin(), name.end(), ::isdigit))
+      frames.push_back(ent.path());
+  }
+  std::sort(frames.begin(), frames.end());
+  if (max_frames > 0 && frames.size() > max_frames)
+    frames.resize(max_frames);
+  return frames;
+}
+
+double computeATE2D(const std::vector<Eigen::Matrix4d>& est,
+                    const std::vector<Eigen::Matrix4d>& gt) {
+  const int n = std::min(est.size(), gt.size());
+  if (n == 0) return 0.0;
+  double sum = 0.0;
+  for (int i = 0; i < n; ++i) {
+    const double dx = est[static_cast<size_t>(i)](0, 3) - gt[static_cast<size_t>(i)](0, 3);
+    const double dy = est[static_cast<size_t>(i)](1, 3) - gt[static_cast<size_t>(i)](1, 3);
+    sum += dx * dx + dy * dy;
+  }
+  return std::sqrt(sum / n);
+}
+
+double trajectoryLength2D(const std::vector<Eigen::Matrix4d>& poses) {
+  double len = 0.0;
+  for (size_t i = 1; i < poses.size(); ++i) {
+    const Eigen::Vector2d a(poses[i - 1](0, 3), poses[i - 1](1, 3));
+    const Eigen::Vector2d b(poses[i](0, 3), poses[i](1, 3));
+    len += (b - a).norm();
+  }
+  return len;
+}
+
+struct MethodResult {
+  std::string name;
+  std::vector<Eigen::Matrix4d> poses;
+  double time_ms = 0.0;
+  bool skipped = false;
+  std::string note;
+};
+
+MethodResult runRF2O(const std::vector<fs::path>& frames, const ScanMeta& meta,
+                     const std::vector<GTPose2D>& gt, bool no_gt_seed) {
+  using namespace localization_zoo::rf2o;
+  MethodResult res;
+  res.name = "RF2O";
+  RF2OParams params;
+  RF2OEstimator est(params);
+  if (!gt.empty() && !no_gt_seed) {
+    est.setInitialPose(localization_zoo::rf2o::pose2D(gt.front().x, gt.front().y,
+                                                     gt.front().yaw));
+  }
+  const double dt = 1.0 / meta.scan_rate_hz;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < frames.size(); ++i) {
+    auto scan = loadScan(frames[i], meta);
+    if (scan.size() < 10) continue;
+    scan.timestamp = static_cast<double>(i) * dt;
+    const auto out = est.registerScan(scan, dt);
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<2, 2>(0, 0) = out.pose.block<2, 2>(0, 0);
+    T(0, 3) = out.pose(0, 2);
+    T(1, 3) = out.pose(1, 2);
+    res.poses.push_back(T);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [RF2O] " << i << "/" << frames.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port).";
+  return res;
+}
+
+MethodResult runPLICP(const std::vector<fs::path>& frames, const ScanMeta& meta,
+                      const std::vector<GTPose2D>& gt, bool no_gt_seed) {
+  using namespace localization_zoo::pl_icp;
+  MethodResult res;
+  res.name = "PL-ICP";
+  PLICPParams params;
+  params.max_correspondence_distance = 1.5;
+  params.max_neighbor_gap = 2.0;
+  PLICPEstimator est(params);
+  if (!gt.empty() && !no_gt_seed) {
+    est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
+  }
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < frames.size(); ++i) {
+    const auto scan = loadScanPLICP(frames[i], meta);
+    if (scan.size() < 10) continue;
+    const auto out = est.registerScan(scan);
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<2, 2>(0, 0) = out.pose.block<2, 2>(0, 0);
+    T(0, 3) = out.pose(0, 2);
+    T(1, 3) = out.pose(1, 2);
+    res.poses.push_back(T);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [PL-ICP] " << i << "/" << frames.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note = "Point-to-line ICP 2D scan odometry (Censi IROS 2008, simplified port).";
+  return res;
+}
+
+}  // namespace
+
+int main(int argc, char** argv) {
+  if (argc < 3) {
+    std::cerr << "Usage: " << argv[0]
+              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp] [--no-gt-seed]\n";
+    return 1;
+  }
+
+  const fs::path scan_dir = argv[1];
+  const fs::path gt_csv = argv[2];
+  size_t max_frames = 0;
+  bool no_gt_seed = false;
+  std::string methods = "rf2o";
+  for (int i = 3; i < argc; ++i) {
+    std::string arg = argv[i];
+    if (arg == "--no-gt-seed") {
+      no_gt_seed = true;
+    } else if (arg == "--methods" && i + 1 < argc) {
+      methods = argv[++i];
+    } else if (std::all_of(arg.begin(), arg.end(), ::isdigit)) {
+      max_frames = static_cast<size_t>(std::stoul(arg));
+    }
+  }
+
+  const auto frames = listFrames(scan_dir, max_frames);
+  const auto gt_raw = loadGT(gt_csv);
+  const auto meta = loadMeta(scan_dir);
+  std::vector<Eigen::Matrix4d> gt;
+  gt.reserve(frames.size());
+  for (size_t i = 0; i < frames.size(); ++i) {
+    const size_t gi = std::min(i, gt_raw.size() - 1);
+    gt.push_back(gt_raw[gi].matrix4());
+  }
+
+  std::cout << "Scan frames: " << frames.size() << "\n";
+  std::cout << "GT poses: " << gt.size() << "\n";
+  std::cout << "Trajectory length: " << trajectoryLength2D(gt) << " m\n";
+
+  std::vector<MethodResult> results;
+  if (methods.find("pl_icp") != std::string::npos) {
+    std::cout << "Running PL-ICP...\n";
+    results.push_back(runPLICP(frames, meta, gt_raw, no_gt_seed));
+  }
+  if (methods.find("rf2o") != std::string::npos) {
+    std::cout << "Running RF2O...\n";
+    results.push_back(runRF2O(frames, meta, gt_raw, no_gt_seed));
+  }
+
+  std::cout << "\n========================================\n";
+  std::cout << "  RESULTS (2D Scan Data)\n";
+  std::cout << "========================================\n";
+  std::cout << std::left << std::setw(20) << "Method" << std::setw(12) << "ATE [m]"
+            << std::setw(12) << "Frames" << std::setw(12) << "Time [ms]" << std::setw(10)
+            << "FPS\n";
+  std::cout << std::string(66, '-') << "\n";
+
+  for (const auto& r : results) {
+    if (r.skipped) continue;
+    const double ate = computeATE2D(r.poses, gt);
+    const double fps =
+        r.time_ms > 0 ? r.poses.size() / (r.time_ms / 1000.0) : 0.0;
+    std::cout << std::setw(20) << r.name << std::setw(12) << std::fixed
+              << std::setprecision(3) << ate << std::setw(12) << r.poses.size()
+              << std::setw(12) << r.time_ms << std::setw(10) << fps << "\n";
+    if (!r.note.empty()) std::cout << "  note: " << r.note << "\n";
+  }
+
+  return 0;
+}

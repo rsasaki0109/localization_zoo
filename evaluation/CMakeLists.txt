@@ -79,6 +79,8 @@ target_link_libraries(pcd_dogfooding PRIVATE
   cube_lio
   rko_lio
   fr_lio
+  pg_lio
+  rf2o
   aloam
   floam
   dlo
@@ -145,6 +147,9 @@ target_link_libraries(multimodal_dogfooding PRIVATE
   ${PCL_LIBRARIES}
 )
 target_include_directories(multimodal_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})
+
+add_executable(scan_dogfooding src/scan_dogfooding.cpp)
+target_link_libraries(scan_dogfooding PRIVATE rf2o pl_icp)
 
 add_custom_target(
   eval_local_suite

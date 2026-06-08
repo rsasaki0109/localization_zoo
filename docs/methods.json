@@ -946,6 +946,22 @@
       ]
     },
     {
+      "name": "VLOM",
+      "family": "LiDAR-Visual",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "Camera"
+      ],
+      "href": "papers/vlom",
+      "summary": "Scale-correction VLOM (arXiv:2304.08978): loosely coupled monocular VO with LiDAR depth scale correction and visual bootstrapping for A-LOAM odometry+mapping. Pseudo-image eval on KITTI Odometry.",
+      "tags": [
+        "odometry",
+        "lidar-visual",
+        "scale-correction"
+      ]
+    },
+    {
       "name": "SVN-ICP",
       "family": "Uncertainty",
       "scope": "Paper reimplementation",

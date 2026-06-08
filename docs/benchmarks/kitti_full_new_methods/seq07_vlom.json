@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "VLOM",
+      "status": "ok",
+      "ate_m": 439.410599,
+      "rpe_trans_pct": 153.867980,
+      "rpe_rot_deg_per_m": 1.188767,
+      "frames": 1101,
+      "time_ms": 460475.460250,
+      "fps": 2.391007,
+      "seed_fallback_rate_pct": null,
+      "note": "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM on LiDAR-rendered pseudo-image; no GT seed. mean_scale=1.003 bootstrap_frames=172"
+    }
+  ]
+}

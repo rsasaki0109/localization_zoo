@@ -119,14 +119,16 @@ module READMEs; raw JSON:
 
 ### Trajectory gallery — KITTI seq07, all methods, one figure
 
-Top-down 2D trajectories on KITTI seq07 (1101 frames, `--no-gt-seed`), each
-method (color) over ground truth (gray), on a shared scale and ordered by RPE
-drift. **KC-LO** leads; the divergent tails of NDT / SuMa are honest no-GT-seed
-failures, not cropping. Regenerate with
-[`evaluation/scripts/plot_trajectory_grid.py`](evaluation/scripts/plot_trajectory_grid.py).
+Top-down trajectories on KITTI seq07 (1101 frames, `--no-gt-seed`), each path
+**colored by its distance from ground truth** (cool = on-track, warm = drifting,
+clipped at 3 m) on a shared scale and ordered by RPE drift. This surfaces *where*
+each method drifts — the top tier all hug GT, so the raw paths look identical;
+the color reveals the difference. **KC-LO** leads; NDT / SuMa run fully warm —
+honest no-GT-seed failures, not cropping. Regenerate with
+[`evaluation/scripts/plot_trajectory_diff.py`](evaluation/scripts/plot_trajectory_diff.py).
 
 <p align="center">
-  <img src="docs/assets/grid_seq07.png" alt="KITTI seq07 2D trajectory gallery: 15 localization methods over ground truth, no GT seed, ordered by RPE drift" width="960">
+  <img src="docs/assets/grid_seq07.png" alt="KITTI seq07 trajectory gallery: 15 localization methods, each path colored by distance from ground truth, no GT seed, ordered by RPE drift" width="960">
 </p>
 
 ## Scope Note

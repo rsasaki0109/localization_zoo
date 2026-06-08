@@ -49,6 +49,11 @@ jobs:
           chmod +x evaluation/scripts/smoke_multimodal_fixture.sh
           bash evaluation/scripts/smoke_multimodal_fixture.sh
 
+      - name: 2D scan smoke (committed Intel Lab val slice, 20 frames)
+        run: |
+          chmod +x evaluation/scripts/smoke_scan2d_fixture.sh
+          bash evaluation/scripts/smoke_scan2d_fixture.sh
+
       - name: One-command demo report
         run: |
           bash evaluation/scripts/demo_localization_zoo.sh --skip-build

@@ -154,6 +154,22 @@
       ]
     },
     {
+      "name": "PSM",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR"
+      ],
+      "href": "papers/psm",
+      "summary": "Polar scan matching 2D laser odometry that aligns scans by correlating range profiles in the sensor polar frame (Hähnel & Burgard PSM, ICRA 2003).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "scan-matching",
+        "polar"
+      ]
+    },
+    {
       "name": "Kinematic-ICP",
       "family": "2D Odometry",
       "scope": "Paper reimplementation",

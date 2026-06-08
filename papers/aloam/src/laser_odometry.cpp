@@ -27,6 +27,13 @@ void LaserOdometry::transformToStart(const PointT& pi, PointT& po) const {
   po.intensity = pi.intensity;
 }
 
+void LaserOdometry::setMotionPrior(const Eigen::Quaterniond& q_last_curr,
+                                   const Eigen::Vector3d& t_last_curr) {
+  q_last_curr_ = q_last_curr.normalized();
+  t_last_curr_ = t_last_curr;
+  has_motion_prior_ = true;
+}
+
 OdometryResult LaserOdometry::process(const FeatureCloud& features) {
   OdometryResult result;
 
@@ -47,6 +54,10 @@ OdometryResult LaserOdometry::process(const FeatureCloud& features) {
 
   int corner_sharp_num = features.corner_sharp->size();
   int surf_flat_num = features.surf_flat->size();
+
+  if (has_motion_prior_) {
+    has_motion_prior_ = false;
+  }
 
   // Ceres最適化変数 (Eigen四元数: x,y,z,w)
   double para_q[4] = {q_last_curr_.x(), q_last_curr_.y(), q_last_curr_.z(),

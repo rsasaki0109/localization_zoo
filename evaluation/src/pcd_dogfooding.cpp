@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -40,6 +40,7 @@
 #include "inten_loam/inten_loam.h"
 #include "mcgicp/mcgicp.h"
 #include "icpsc/icpsc.h"
+#include "vlom/vlom.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -227,7 +228,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
          method == "imls_slam" || method == "tricp_lo" || method == "kc_lo" ||
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
-         method == "mcgicp" || method == "icpsc" ||
+         method == "mcgicp" || method == "icpsc" || method == "vlom" ||
          method == "clins";
 }
 
@@ -1101,6 +1102,41 @@ struct IcpscLoDogfoodingOptions {
   int max_iterations = 15;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
+};
+
+struct VlomDogfoodingOptions {
+  size_t input_point_stride = 2;
+  size_t visual_input_stride = 2;
+  int max_point_features = 280;
+  int max_line_features = 64;
+  bool enable_visual_bootstrap = true;
+  bool enable_scale_correction = true;
+  int scale_correction_interval = 5;
+  double mad_outlier_k = 2.5;
+  bool enable_mapping = true;
+
+  int n_scans = 64;
+  float scan_period = 0.1f;
+  float minimum_range = 1.0f;
+  float curvature_threshold = 0.1f;
+  int max_corner_sharp = 2;
+  int max_corner_less_sharp = 20;
+  int max_surf_flat = 4;
+  float less_flat_leaf_size = 0.2f;
+  double odom_distance_sq_threshold = 25.0;
+  double odom_nearby_scan = 2.5;
+  int odom_outer_iters = 2;
+  int odom_ceres_iters = 4;
+  double odom_huber_loss_s = 0.1;
+  double map_line_resolution = 0.4;
+  double map_plane_resolution = 0.8;
+  int map_outer_iters = 2;
+  int map_ceres_iters = 4;
+  double map_huber_loss_s = 0.1;
+  int map_knn = 5;
+  double map_knn_max_dist_sq = 1.0;
+  double map_edge_eigenvalue_ratio = 3.0;
+  double map_plane_threshold = 0.2;
 };
 
 struct McGicpLoDogfoodingOptions {
@@ -3546,6 +3582,101 @@ MethodResult runIcpscLo(const std::vector<std::string>& pcd_dirs,
       "+ adaptive geom/intensity fusion scan-to-map; loop closure deferred. "
       "no GT seed. mean_geom_weight=" +
       std::string(buf);
+  return res;
+}
+
+MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
+                     const std::vector<Eigen::Matrix4d>& gt,
+                     const VlomDogfoodingOptions& options) {
+  using namespace localization_zoo::vlom;
+  MethodResult res;
+  res.name = "VLOM";
+
+  VlomParams params;
+  params.input_point_stride = options.input_point_stride;
+  params.visual.input_stride = options.visual_input_stride;
+  params.visual.max_point_features = options.max_point_features;
+  params.visual.max_line_features = options.max_line_features;
+  params.enable_visual_bootstrap = options.enable_visual_bootstrap;
+  params.enable_scale_correction = options.enable_scale_correction;
+  params.scale_correction_interval = options.scale_correction_interval;
+  params.mad_outlier_k = options.mad_outlier_k;
+  params.enable_mapping = options.enable_mapping;
+
+  params.scan_registration.n_scans = options.n_scans;
+  params.scan_registration.scan_period = options.scan_period;
+  params.scan_registration.minimum_range = options.minimum_range;
+  params.scan_registration.curvature_threshold = options.curvature_threshold;
+  params.scan_registration.max_corner_sharp = options.max_corner_sharp;
+  params.scan_registration.max_corner_less_sharp = options.max_corner_less_sharp;
+  params.scan_registration.max_surf_flat = options.max_surf_flat;
+  params.scan_registration.less_flat_leaf_size = options.less_flat_leaf_size;
+
+  params.odometry.distance_sq_threshold = options.odom_distance_sq_threshold;
+  params.odometry.nearby_scan = options.odom_nearby_scan;
+  params.odometry.num_optimization_iters = options.odom_outer_iters;
+  params.odometry.ceres_max_iterations = options.odom_ceres_iters;
+  params.odometry.huber_loss_s = options.odom_huber_loss_s;
+
+  params.mapping.line_resolution = options.map_line_resolution;
+  params.mapping.plane_resolution = options.map_plane_resolution;
+  params.mapping.num_optimization_iters = options.map_outer_iters;
+  params.mapping.ceres_max_iterations = options.map_ceres_iters;
+  params.mapping.huber_loss_s = options.map_huber_loss_s;
+  params.mapping.knn = options.map_knn;
+  params.mapping.knn_max_dist_sq = options.map_knn_max_dist_sq;
+  params.mapping.edge_eigenvalue_ratio = options.map_edge_eigenvalue_ratio;
+  params.mapping.plane_threshold = options.map_plane_threshold;
+
+  Vlom pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  res.poses.push_back(world_anchor);
+
+  double scale_acc = 0.0;
+  long scale_frames = 0;
+  long bootstrap_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    if (xyzi.empty()) continue;
+    auto cloud = toPclXYZICloud(xyzi);
+    std::vector<float> intensity;
+    intensity.reserve(xyzi.size());
+    for (const auto& p : xyzi) intensity.push_back(p.intensity);
+
+    const auto result = pipeline.process(cloud, intensity);
+    if (!result.valid) {
+      if (i % 10 == 0) std::cerr << "\r  [VLOM] " << i << "/" << pcd_dirs.size();
+      continue;
+    }
+
+    Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
+    T_rel.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    T_rel.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, T_rel));
+
+    scale_acc += result.scale_factor;
+    ++scale_frames;
+    if (result.visual_bootstrap_used) ++bootstrap_frames;
+    if (i % 10 == 0) {
+      std::cerr << "\r  [VLOM] " << i << "/" << pcd_dirs.size()
+                << " bootstrap=" << result.visual_bootstrap_used
+                << " scale=" << result.scale_factor;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char note_buf[160];
+  std::snprintf(
+      note_buf, sizeof(note_buf),
+      "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM "
+      "on LiDAR-rendered pseudo-image; no GT seed. mean_scale=%.3f "
+      "bootstrap_frames=%ld",
+      scale_frames ? scale_acc / static_cast<double>(scale_frames) : 1.0,
+      bootstrap_frames);
+  res.note = note_buf;
   return res;
 }
 
@@ -7402,7 +7533,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -7553,6 +7684,7 @@ int main(int argc, char** argv) {
   InTenLoamDogfoodingOptions inten_loam_options;
   McGicpLoDogfoodingOptions mcgicp_options;
   IcpscLoDogfoodingOptions icpsc_options;
+  VlomDogfoodingOptions vlom_options;
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
@@ -8134,6 +8266,31 @@ int main(int argc, char** argv) {
     }
     if (arg == "--icpsc-no-intensity") {
       icpsc_options.enable_intensity = false;
+      continue;
+    }
+    // --- vlom ---
+    if (arg == "--vlom-fast-profile") {
+      vlom_options.input_point_stride = 3;
+      vlom_options.visual_input_stride = 3;
+      vlom_options.max_point_features = 200;
+      vlom_options.max_line_features = 48;
+      vlom_options.scale_correction_interval = 8;
+      continue;
+    }
+    if (arg == "--vlom-dense-profile") {
+      vlom_options.input_point_stride = 1;
+      vlom_options.visual_input_stride = 1;
+      vlom_options.max_point_features = 320;
+      vlom_options.max_line_features = 80;
+      vlom_options.scale_correction_interval = 5;
+      continue;
+    }
+    if (arg == "--vlom-no-bootstrap") {
+      vlom_options.enable_visual_bootstrap = false;
+      continue;
+    }
+    if (arg == "--vlom-no-scale") {
+      vlom_options.enable_scale_correction = false;
       continue;
     }
     if (arg == "--floam-fast-profile") {
@@ -11411,6 +11568,14 @@ int main(int argc, char** argv) {
               << " enable_intensity=" << icpsc_options.enable_intensity
               << std::endl;
     results.push_back(runIcpscLo(pcd_dirs, gt, icpsc_options));
+  }
+  if (isMethodEnabled(selected_methods, "vlom")) {
+    std::cout << "\n=== VLOM ===" << std::endl;
+    std::cout << "  stride=" << vlom_options.input_point_stride
+              << " bootstrap=" << vlom_options.enable_visual_bootstrap
+              << " scale_corr=" << vlom_options.enable_scale_correction
+              << std::endl;
+    results.push_back(runVlom(pcd_dirs, gt, vlom_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

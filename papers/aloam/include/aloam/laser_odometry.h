@@ -34,6 +34,10 @@ public:
   /// 新しい特徴点群を処理してオドメトリを更新
   OdometryResult process(const FeatureCloud& features);
 
+  /// 次の process() で frame-to-frame 初期値として使う (visual bootstrapping 等)。
+  void setMotionPrior(const Eigen::Quaterniond& q_last_curr,
+                      const Eigen::Vector3d& t_last_curr);
+
   const Eigen::Quaterniond& orientation() const { return q_w_curr_; }
   const Eigen::Vector3d& position() const { return t_w_curr_; }
 
@@ -57,6 +61,7 @@ private:
   Eigen::Vector3d t_last_curr_ = Eigen::Vector3d::Zero();
 
   bool initialized_ = false;
+  bool has_motion_prior_ = false;
   int frame_count_ = 0;
 };
 

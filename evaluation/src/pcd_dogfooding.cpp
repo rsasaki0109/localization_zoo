@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -38,6 +38,8 @@
 #include "i_loam/i_loam.h"
 #include "pl_loam/pl_loam.h"
 #include "inten_loam/inten_loam.h"
+#include "mcgicp/mcgicp.h"
+#include "icpsc/icpsc.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -225,6 +227,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
          method == "imls_slam" || method == "tricp_lo" || method == "kc_lo" ||
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
+         method == "mcgicp" || method == "icpsc" ||
          method == "clins";
 }
 
@@ -1082,6 +1085,40 @@ struct InTenLoamDogfoodingOptions {
   int max_surface_features = 400;
   int max_reflector_features = 120;
   double intensity_weight = 1.0;
+};
+
+struct IcpscLoDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  int cyl_width = 1024;
+  int cyl_height = 64;
+  int num_rings = 20;
+  int num_sectors = 60;
+  double intensity_sigma = 0.15;
+  double adaptive_alpha = 1.0;
+  bool enable_intensity = true;
+  double voxel_size = 1.0;
+  int max_iterations = 15;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct McGicpLoDogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int normal_min_neighbors = 5;
+  double planarity_threshold = 0.5;
+  double initial_threshold = 2.0;
+  double max_correspondence_dist = 2.0;
+  int max_iterations = 20;
+  double intensity_scale = 2.0;
+  double normal_epsilon = 1e-3;
+  double intensity_epsilon = 0.05;
+  bool enable_intensity = true;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
 };
 
 struct LeGOLOAMDogfoodingOptions {
@@ -3389,6 +3426,126 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
       "(ground/facade/edge/reflector) + intensity B-spline registration in "
       "scan-to-scan LO; temporal DOR deferred. no GT seed. mean_intensity_residual=" +
       std::to_string(mean_int_res);
+  return res;
+}
+
+MethodResult runMcGicpLo(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const McGicpLoDogfoodingOptions& options) {
+  using namespace localization_zoo::mcgicp;
+  MethodResult res;
+  res.name = "MCGICP-LO";
+
+  McGicpLoParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.normal_min_neighbors = options.normal_min_neighbors;
+  params.planarity_threshold = options.planarity_threshold;
+  params.initial_threshold = options.initial_threshold;
+  params.max_correspondence_dist = options.max_correspondence_dist;
+  params.max_iterations = options.max_iterations;
+  params.intensity_scale = options.intensity_scale;
+  params.normal_epsilon = options.normal_epsilon;
+  params.intensity_epsilon = options.intensity_epsilon;
+  params.enable_intensity = options.enable_intensity;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  McGicpLoPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double int_res_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto xyzi = limitLoadedXYZI(
+        loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size),
+        options.max_source_points);
+    if (xyzi.empty()) continue;
+    std::vector<PointI> points;
+    points.reserve(xyzi.size());
+    for (const auto& p : xyzi) {
+      points.push_back({p.point, static_cast<double>(p.intensity)});
+    }
+    const auto result = pipeline.registerFrame(points);
+    int_res_sum += result.mean_intensity_residual;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [MCGICP-LO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[96];
+  std::snprintf(buf, sizeof(buf), "%.3f / scale=%.2f",
+                n > 0 ? int_res_sum / static_cast<double>(n) : 0.0,
+                options.intensity_scale);
+  res.note =
+      "MCGICP-LO (Servos/Waslander, RAS 2017): 4D multi-channel GICP with "
+      "intensity in point covariance + Mahalanobis correspondences; "
+      "constant-velocity prior, no GT seed. mean_intensity_residual/scale=" +
+      std::string(buf);
+  return res;
+}
+
+MethodResult runIcpscLo(const std::vector<std::string>& pcd_dirs,
+                        const std::vector<Eigen::Matrix4d>& gt,
+                        const IcpscLoDogfoodingOptions& options) {
+  using namespace localization_zoo::icpsc;
+  MethodResult res;
+  res.name = "ICPSC-LO";
+
+  IcpscParams params;
+  params.cylindrical.width = options.cyl_width;
+  params.cylindrical.height = options.cyl_height;
+  params.num_rings = options.num_rings;
+  params.num_sectors = options.num_sectors;
+  params.intensity_sigma = options.intensity_sigma;
+  params.adaptive_alpha = options.adaptive_alpha;
+  params.enable_intensity = options.enable_intensity;
+  params.voxel_size = options.voxel_size;
+  params.max_iterations = options.max_iterations;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  IcpscPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double geom_w_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto xyzi = limitLoadedXYZI(
+        loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size),
+        options.max_source_points);
+    if (xyzi.empty()) continue;
+    std::vector<PointI> points;
+    points.reserve(xyzi.size());
+    for (const auto& p : xyzi) {
+      points.push_back({p.point, p.intensity});
+    }
+    const auto result = pipeline.registerFrame(points);
+    geom_w_sum += result.geom_weight;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [ICPSC-LO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize()
+                << " w_geom=" << result.geom_weight;
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[64];
+  std::snprintf(buf, sizeof(buf), "%.3f",
+                n > 0 ? geom_w_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "ICPSC-LO (Zhang et al., JAG 2023): cylindrical intensity shape-context "
+      "+ adaptive geom/intensity fusion scan-to-map; loop closure deferred. "
+      "no GT seed. mean_geom_weight=" +
+      std::string(buf);
   return res;
 }
 
@@ -7245,7 +7402,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -7394,6 +7551,8 @@ int main(int argc, char** argv) {
   ILoamDogfoodingOptions i_loam_options;
   PlLoamDogfoodingOptions pl_loam_options;
   InTenLoamDogfoodingOptions inten_loam_options;
+  McGicpLoDogfoodingOptions mcgicp_options;
+  IcpscLoDogfoodingOptions icpsc_options;
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
@@ -7921,6 +8080,60 @@ int main(int argc, char** argv) {
     }
     if (arg == "--inten-loam-stride" && i + 1 < argc) {
       inten_loam_options.input_stride = static_cast<size_t>(std::stoul(argv[++i]));
+      continue;
+    }
+    // --- mcgicp ---
+    if (arg == "--mcgicp-fast-profile") {
+      mcgicp_options.source_voxel_size = 0.5;
+      mcgicp_options.max_source_points = 4000;
+      mcgicp_options.voxel_size = 1.0;
+      mcgicp_options.max_iterations = 15;
+      mcgicp_options.local_map_radius = 45.0;
+      mcgicp_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--mcgicp-dense-profile") {
+      mcgicp_options.source_voxel_size = 0.35;
+      mcgicp_options.max_source_points = 6000;
+      mcgicp_options.voxel_size = 0.8;
+      mcgicp_options.max_iterations = 20;
+      mcgicp_options.local_map_radius = 80.0;
+      mcgicp_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--mcgicp-no-intensity") {
+      mcgicp_options.enable_intensity = false;
+      continue;
+    }
+    if (arg == "--mcgicp-intensity-scale" && i + 1 < argc) {
+      mcgicp_options.intensity_scale = std::stod(argv[++i]);
+      continue;
+    }
+    // --- icpsc ---
+    if (arg == "--icpsc-fast-profile") {
+      icpsc_options.source_voxel_size = 0.5;
+      icpsc_options.max_source_points = 4000;
+      icpsc_options.cyl_width = 720;
+      icpsc_options.cyl_height = 48;
+      icpsc_options.voxel_size = 1.0;
+      icpsc_options.max_iterations = 12;
+      icpsc_options.local_map_radius = 45.0;
+      icpsc_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--icpsc-dense-profile") {
+      icpsc_options.source_voxel_size = 0.35;
+      icpsc_options.max_source_points = 6000;
+      icpsc_options.cyl_width = 1024;
+      icpsc_options.cyl_height = 64;
+      icpsc_options.voxel_size = 0.8;
+      icpsc_options.max_iterations = 15;
+      icpsc_options.local_map_radius = 80.0;
+      icpsc_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--icpsc-no-intensity") {
+      icpsc_options.enable_intensity = false;
       continue;
     }
     if (arg == "--floam-fast-profile") {
@@ -11180,6 +11393,24 @@ int main(int argc, char** argv) {
               << " intensity_reg=" << inten_loam_options.use_intensity_registration
               << std::endl;
     results.push_back(runInTenLoam(pcd_dirs, gt, inten_loam_options));
+  }
+  if (isMethodEnabled(selected_methods, "mcgicp")) {
+    std::cout << "\n=== MCGICP-LO ===" << std::endl;
+    std::cout << "  source_voxel_size=" << mcgicp_options.source_voxel_size
+              << " voxel_size=" << mcgicp_options.voxel_size
+              << " intensity_scale=" << mcgicp_options.intensity_scale
+              << " enable_intensity=" << mcgicp_options.enable_intensity
+              << std::endl;
+    results.push_back(runMcGicpLo(pcd_dirs, gt, mcgicp_options));
+  }
+  if (isMethodEnabled(selected_methods, "icpsc")) {
+    std::cout << "\n=== ICPSC-LO ===" << std::endl;
+    std::cout << "  source_voxel_size=" << icpsc_options.source_voxel_size
+              << " cyl=" << icpsc_options.cyl_width << "x"
+              << icpsc_options.cyl_height
+              << " enable_intensity=" << icpsc_options.enable_intensity
+              << std::endl;
+    results.push_back(runIcpscLo(pcd_dirs, gt, icpsc_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

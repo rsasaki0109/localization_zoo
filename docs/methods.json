@@ -916,6 +916,36 @@
       ]
     },
     {
+      "name": "MCGICP-LO",
+      "family": "Intensity",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/mcgicp",
+      "summary": "MCGICP (Servos & Waslander, RAS 2017): multi-channel GICP that integrates LiDAR intensity into 4D point covariances and Mahalanobis scan-to-map registration. No author code.",
+      "tags": [
+        "odometry",
+        "intensity",
+        "gicp"
+      ]
+    },
+    {
+      "name": "ICPSC-LO",
+      "family": "Intensity",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/icpsc",
+      "summary": "ICPSC (Zhang et al., JAG 2023): cylindrical intensity shape-context descriptor with adaptive geometry/intensity fusion for scan-to-map odometry. Loop closure deferred in this port.",
+      "tags": [
+        "odometry",
+        "intensity",
+        "shape-context"
+      ]
+    },
+    {
       "name": "SVN-ICP",
       "family": "Uncertainty",
       "scope": "Paper reimplementation",

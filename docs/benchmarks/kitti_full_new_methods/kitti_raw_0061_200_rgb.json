@@ -1,0 +1,33 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_raw_0061_200",
+  "gt_csv": "experiments/reference_data/kitti_raw_0061_200_gt.csv",
+  "num_frames": 200,
+  "trajectory_length_m": 150.647160,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "PL-LOAM-RGB",
+      "status": "ok",
+      "ate_m": 83.965724,
+      "rpe_trans_pct": 99.315388,
+      "rpe_rot_deg_per_m": 0.974932,
+      "frames": 201,
+      "time_ms": 10245.131343,
+      "fps": 19.619075,
+      "seed_fallback_rate_pct": null,
+      "note": "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with depth priors in PL-BA; no GT seed. eval=KITTI-Raw-RGB mean_scale_correction=0.974130 mean_depth_prior_residual=2.545926 rgb_frames=200"
+    },
+    {
+      "name": "VLOM-RGB",
+      "status": "ok",
+      "ate_m": 81.458282,
+      "rpe_trans_pct": 99.272689,
+      "rpe_rot_deg_per_m": 0.989592,
+      "frames": 200,
+      "time_ms": 113682.293249,
+      "fps": 1.759289,
+      "seed_fallback_rate_pct": null,
+      "note": "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM; eval=KITTI-Raw-RGB; no GT seed. mean_scale=1.000 bootstrap_frames=199 rgb_frames=200"
+    }
+  ]
+}

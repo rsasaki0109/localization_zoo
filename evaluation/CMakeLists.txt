@@ -73,6 +73,9 @@ target_link_libraries(pcd_dogfooding PRIVATE
   mcgicp
   icpsc
   vlom
+  odonet
+  nhc_net
+  nn_zupt
   cube_lio
   rko_lio
   aloam

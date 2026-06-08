@@ -228,6 +228,85 @@ void PlLoam::detectPointFeatures(const RangeImage& image, int max_features,
   }
 }
 
+void PlLoam::detectPointFeaturesGrayscale(const GrayscaleImage& image,
+                                          int max_features, int block_size,
+                                          double harris_k,
+                                          std::vector<PointFeature>* features) {
+  features->clear();
+  if (image.width < 8 || image.height < 8 || image.pixels.empty()) return;
+
+  const int w = image.width;
+  const int h = image.height;
+  std::vector<float> response(static_cast<size_t>(w * h), 0.0f);
+
+  for (int y = block_size; y < h - block_size; ++y) {
+    for (int x = block_size; x < w - block_size; ++x) {
+      const int idx = pixelIndex(x, y, w);
+      double Ix2 = 0.0, Iy2 = 0.0, Ixy = 0.0;
+      for (int dy = -block_size; dy <= block_size; ++dy) {
+        for (int dx = -block_size; dx <= block_size; ++dx) {
+          const int px = x + dx;
+          const int py = y + dy;
+          if (px < 0 || px >= w - 1 || py < 0 || py >= h - 1) continue;
+          const int ix = pixelIndex(px, py, w);
+          const int ix1 = pixelIndex(px + 1, py, w);
+          const int iy1 = pixelIndex(px, py + 1, w);
+          const double gx = static_cast<double>(image.pixels[ix1]) -
+                            static_cast<double>(image.pixels[ix]);
+          const double gy = static_cast<double>(image.pixels[iy1]) -
+                            static_cast<double>(image.pixels[ix]);
+          Ix2 += gx * gx;
+          Iy2 += gy * gy;
+          Ixy += gx * gy;
+        }
+      }
+      const double det = Ix2 * Iy2 - Ixy * Ixy;
+      const double trace = Ix2 + Iy2;
+      const double r = det - harris_k * trace * trace;
+      response[idx] = static_cast<float>(std::max(0.0, r));
+    }
+  }
+
+  struct Candidate {
+    float score;
+    int u;
+    int v;
+  };
+  std::vector<Candidate> candidates;
+  const int nms = 6;
+  for (int y = nms; y < h - nms; y += 2) {
+    for (int x = nms; x < w - nms; x += 2) {
+      const int idx = pixelIndex(x, y, w);
+      const float r = response[idx];
+      if (r <= 1e-4f) continue;
+      bool is_max = true;
+      for (int dy = -nms; dy <= nms && is_max; ++dy) {
+        for (int dx = -nms; dx <= nms; ++dx) {
+          if (dx == 0 && dy == 0) continue;
+          if (response[pixelIndex(x + dx, y + dy, w)] > r) {
+            is_max = false;
+            break;
+          }
+        }
+      }
+      if (is_max) candidates.push_back({r, x, y});
+    }
+  }
+
+  std::sort(candidates.begin(), candidates.end(),
+            [](const Candidate& a, const Candidate& b) {
+              return a.score > b.score;
+            });
+  const int take = std::min(max_features, static_cast<int>(candidates.size()));
+  features->reserve(static_cast<size_t>(take));
+  for (int i = 0; i < take; ++i) {
+    PointFeature f;
+    f.uv = Eigen::Vector2d(candidates[i].u, candidates[i].v);
+    f.score = candidates[i].score;
+    features->push_back(f);
+  }
+}
+
 void PlLoam::detectLineFeatures(const RangeImage& image, int max_features,
                                 std::vector<LineFeature>* features) {
   features->clear();
@@ -292,6 +371,87 @@ void PlLoam::detectLineFeatures(const RangeImage& image, int max_features,
       }
       const double seg_len =
           std::hypot(u1 - u0, v1 - v0);
+      if (seg_len < 12.0) continue;
+      SegmentCandidate cand;
+      cand.score = len;
+      cand.line.start = Eigen::Vector2d(u0, v0);
+      cand.line.end = Eigen::Vector2d(u1, v1);
+      candidates.push_back(cand);
+    }
+  }
+
+  std::sort(candidates.begin(), candidates.end(),
+            [](const SegmentCandidate& a, const SegmentCandidate& b) {
+              return a.score > b.score;
+            });
+  const int take = std::min(max_features, static_cast<int>(candidates.size()));
+  for (int i = 0; i < take; ++i) {
+    candidates[i].line.score = candidates[i].score;
+    features->push_back(candidates[i].line);
+  }
+}
+
+void PlLoam::detectLineFeaturesGrayscale(const GrayscaleImage& image,
+                                         int max_features,
+                                         std::vector<LineFeature>* features) {
+  features->clear();
+  if (image.width < 16 || image.height < 16 || image.pixels.empty()) return;
+
+  const int w = image.width;
+  const int h = image.height;
+  std::vector<float> gx(static_cast<size_t>(w * h), 0.0f);
+  std::vector<float> gy(static_cast<size_t>(w * h), 0.0f);
+  std::vector<float> mag(static_cast<size_t>(w * h), 0.0f);
+
+  for (int y = 1; y < h - 1; ++y) {
+    for (int x = 1; x < w - 1; ++x) {
+      const int idx = pixelIndex(x, y, w);
+      const float sx = static_cast<float>(image.pixels[pixelIndex(x + 1, y, w)]) -
+                       static_cast<float>(image.pixels[pixelIndex(x - 1, y, w)]);
+      const float sy = static_cast<float>(image.pixels[pixelIndex(x, y + 1, w)]) -
+                       static_cast<float>(image.pixels[pixelIndex(x, y - 1, w)]);
+      gx[idx] = sx;
+      gy[idx] = sy;
+      mag[idx] = std::sqrt(sx * sx + sy * sy);
+    }
+  }
+
+  struct SegmentCandidate {
+    float score;
+    LineFeature line;
+  };
+  std::vector<SegmentCandidate> candidates;
+
+  for (int y = 4; y < h - 4; y += 3) {
+    for (int x = 4; x < w - 4; x += 3) {
+      const int idx = pixelIndex(x, y, w);
+      if (mag[idx] < 8.0f) continue;
+      const float theta = std::atan2(gy[idx], gx[idx]);
+      const float c = std::cos(theta);
+      const float s = std::sin(theta);
+      int u0 = x, v0 = y, u1 = x, v1 = y;
+      float len = 0.0f;
+      for (int step = 1; step < 40; ++step) {
+        const int ux = static_cast<int>(std::round(x + c * step));
+        const int uy = static_cast<int>(std::round(y + s * step));
+        if (!inImage(ux, uy, w, h)) break;
+        const int j = pixelIndex(ux, uy, w);
+        if (mag[j] < 5.0f) break;
+        u1 = ux;
+        v1 = uy;
+        len += mag[j];
+      }
+      for (int step = 1; step < 40; ++step) {
+        const int ux = static_cast<int>(std::round(x - c * step));
+        const int uy = static_cast<int>(std::round(y - s * step));
+        if (!inImage(ux, uy, w, h)) break;
+        const int j = pixelIndex(ux, uy, w);
+        if (mag[j] < 5.0f) break;
+        u0 = ux;
+        v0 = uy;
+        len += mag[j];
+      }
+      const double seg_len = std::hypot(u1 - u0, v1 - v0);
       if (seg_len < 12.0) continue;
       SegmentCandidate cand;
       cand.score = len;
@@ -520,6 +680,118 @@ PlLoamResult PlLoam::process(const std::vector<Eigen::Vector3d>& points,
     detectLineFeatures(image, params_.max_line_features, &lines_feat);
     for (auto& l : lines_feat) {
       extractLineDepths(image, &l, params_.patch_radius, params_.min_depth,
+                        params_.max_depth);
+    }
+  }
+
+  result.num_points = points_feat.size();
+  result.num_lines = lines_feat.size();
+
+  if (!initialized_) {
+    prev_points_ = points_feat;
+    prev_lines_ = lines_feat;
+    initialized_ = true;
+    frame_count_++;
+    result.valid = true;
+    result.frame_count = frame_count_;
+    return result;
+  }
+
+  const auto point_matches = matchPoints(prev_points_, points_feat);
+  const auto line_matches =
+      params_.use_line_features ? matchLines(prev_lines_, lines_feat)
+                                : std::vector<std::pair<int, int>>{};
+
+  result.num_point_matches = point_matches.size();
+  result.num_line_matches = line_matches.size();
+
+  Eigen::Matrix4d T_cam_prev_curr = Eigen::Matrix4d::Identity();
+  T_cam_prev_curr.block<3, 3>(0, 0) = q_last_curr_.toRotationMatrix();
+  T_cam_prev_curr.block<3, 1>(0, 3) = t_last_curr_;
+
+  size_t num_depth_priors = 0;
+  double mean_depth_residual = 0.0;
+  double scale = 1.0;
+  const bool ok = optimizeRelativePose(
+      params_.camera, params_, prev_points_, points_feat, prev_lines_,
+      lines_feat, point_matches, line_matches, &T_cam_prev_curr, &scale,
+      &num_depth_priors, &mean_depth_residual, T_cam_prev_curr);
+
+  if (!ok) {
+    T_cam_prev_curr.setIdentity();
+    T_cam_prev_curr.block<3, 3>(0, 0) = q_last_curr_.toRotationMatrix();
+    T_cam_prev_curr.block<3, 1>(0, 3) = t_last_curr_;
+    scale = 1.0;
+  }
+
+  q_last_curr_ = Eigen::Quaterniond(T_cam_prev_curr.block<3, 3>(0, 0));
+  t_last_curr_ = T_cam_prev_curr.block<3, 1>(0, 3);
+
+  const Eigen::Matrix4d T_velo_cam = params_.camera.T_velo_cam;
+  const Eigen::Matrix4d T_cam_velo = T_velo_cam.inverse();
+  const Eigen::Matrix4d T_velo_prev_curr =
+      T_cam_velo * T_cam_prev_curr * T_velo_cam;
+
+  Eigen::Matrix4d T_world_curr = Eigen::Matrix4d::Identity();
+  T_world_curr.block<3, 3>(0, 0) = q_w_curr_.toRotationMatrix();
+  T_world_curr.block<3, 1>(0, 3) = t_w_curr_;
+  T_world_curr = T_world_curr * T_velo_prev_curr;
+
+  q_w_curr_ = Eigen::Quaterniond(T_world_curr.block<3, 3>(0, 0));
+  t_w_curr_ = T_world_curr.block<3, 1>(0, 3);
+
+  prev_points_ = std::move(points_feat);
+  prev_lines_ = std::move(lines_feat);
+  frame_count_++;
+
+  result.q_w_curr = q_w_curr_;
+  result.t_w_curr = t_w_curr_;
+  result.valid = ok;
+  result.frame_count = frame_count_;
+  result.scale_correction = scale;
+  result.num_depth_priors = num_depth_priors;
+  result.mean_depth_prior_residual = mean_depth_residual;
+  return result;
+}
+
+PlLoamResult PlLoam::processWithGrayscale(
+    const std::vector<Eigen::Vector3d>& points,
+    const std::vector<float>& intensity, const GrayscaleImage& gray) {
+  if (gray.empty() || gray.width != params_.camera.width ||
+      gray.height != params_.camera.height) {
+    return process(points, intensity);
+  }
+
+  PlLoamResult result;
+  result.frame_count = frame_count_;
+
+  std::vector<Eigen::Vector3d> subsampled;
+  std::vector<float> sub_intensity;
+  subsampled.reserve(points.size() / params_.input_stride + 1);
+  sub_intensity.reserve(points.size() / params_.input_stride + 1);
+  for (size_t i = 0; i < points.size(); i += params_.input_stride) {
+    subsampled.push_back(points[i]);
+    sub_intensity.push_back(i < intensity.size() ? intensity[i] : 0.5f);
+  }
+
+  const RangeImage depth_image =
+      buildRangeImage(subsampled, sub_intensity, params_.camera);
+
+  std::vector<PointFeature> points_feat;
+  detectPointFeaturesGrayscale(gray, params_.max_point_features,
+                               params_.harris_block, params_.harris_k,
+                               &points_feat);
+  for (auto& f : points_feat) {
+    f.has_depth = extractPointDepth(depth_image, f.uv, params_.patch_radius,
+                                    params_.min_depth, params_.max_depth,
+                                    &f.depth_prior);
+  }
+
+  std::vector<LineFeature> lines_feat;
+  if (params_.use_line_features) {
+    detectLineFeaturesGrayscale(gray, params_.max_line_features, &lines_feat);
+    for (auto& l : lines_feat) {
+      extractLineDepths(depth_image, &l, params_.patch_radius, params_.min_depth,
                         params_.max_depth);
     }
   }

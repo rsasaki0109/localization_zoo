@@ -291,12 +291,163 @@ void InTenLoam::clear() {
   last_edges_.clear();
   last_surfs_.clear();
   last_reflectors_.clear();
+  map_edges_.clear();
+  map_surfs_.clear();
+  map_reflectors_.clear();
+  temporal_voxels_.clear();
   q_w_curr_ = Eigen::Quaterniond::Identity();
   t_w_curr_ = Eigen::Vector3d::Zero();
   q_last_curr_ = Eigen::Quaterniond::Identity();
   t_last_curr_ = Eigen::Vector3d::Zero();
   initialized_ = false;
   frame_count_ = 0;
+}
+
+InTenLoam::VoxelKey InTenLoam::voxelKey(const Eigen::Vector3d& p,
+                                        double voxel_size) const {
+  VoxelKey key;
+  key.x = static_cast<int>(std::floor(p.x() / voxel_size));
+  key.y = static_cast<int>(std::floor(p.y() / voxel_size));
+  key.z = static_cast<int>(std::floor(p.z() / voxel_size));
+  return key;
+}
+
+void InTenLoam::applyTemporalVoxelFilter(std::vector<PointI>* points,
+                                           size_t* removed) {
+  if (removed) *removed = 0;
+  if (!points || !params_.enable_tvf || points->empty()) return;
+
+  std::vector<PointI> kept;
+  kept.reserve(points->size());
+  for (const auto& pt : *points) {
+    const VoxelKey key = voxelKey(pt.p, params_.tvf_voxel_size);
+    TemporalVoxel& voxel = temporal_voxels_[key];
+    const float range = static_cast<float>(pt.p.norm());
+    if (voxel.obs_count == 0) {
+      voxel.mean_range = range;
+    } else {
+      voxel.mean_range = 0.9f * voxel.mean_range + 0.1f * range;
+    }
+    voxel.obs_count++;
+    voxel.last_frame = frame_count_;
+
+    if (frame_count_ < params_.tvf_min_observations ||
+        voxel.obs_count >= params_.tvf_min_observations) {
+      kept.push_back(pt);
+    } else if (removed) {
+      (*removed)++;
+    }
+  }
+  *points = std::move(kept);
+}
+
+void InTenLoam::applyDynamicObjectRemoval(CylindricalImage* image,
+                                          size_t* removed) {
+  if (removed) *removed = 0;
+  if (!image || !params_.enable_dor || map_surfs_.empty()) return;
+
+  pcl::KdTreeFLANN<pcl::PointXYZ> kd;
+  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
+  for (const auto& p : map_surfs_) {
+    cloud->push_back(pcl::PointXYZ(static_cast<float>(p.p.x()),
+                                   static_cast<float>(p.p.y()),
+                                   static_cast<float>(p.p.z())));
+  }
+  kd.setInputCloud(cloud);
+
+  const int w = image->params.width;
+  const int h = image->params.height;
+  std::vector<int> idx(1);
+  std::vector<float> dist(1);
+  for (int v = 0; v < h; ++v) {
+    for (int u = 0; u < w; ++u) {
+      const int pix = pixelIndex(u, v, w);
+      if (image->range[pix] <= 0.0f) continue;
+      const Eigen::Vector3d pw =
+          q_w_curr_ * image->points[pix] + t_w_curr_;
+      pcl::PointXYZ q(static_cast<float>(pw.x()), static_cast<float>(pw.y()),
+                      static_cast<float>(pw.z()));
+      if (kd.nearestKSearch(q, 1, idx, dist) <= 0) continue;
+      const Eigen::Vector3d p_map = map_surfs_[idx[0]].p;
+      const Eigen::Vector3d p_map_body =
+          q_w_curr_.inverse() * (p_map - t_w_curr_);
+      const double map_range = p_map_body.norm();
+      const double curr_range = image->range[pix];
+      if (std::abs(curr_range - map_range) > params_.dor_range_delta_thresh) {
+        image->range[pix] = 0.0f;
+        image->intensity[pix] = 0.0f;
+        image->label[pix] = static_cast<uint8_t>(FeatureLabel::kNone);
+        if (removed) (*removed)++;
+      }
+    }
+  }
+}
+
+std::vector<PointI> InTenLoam::transformPoints(
+    const std::vector<PointI>& pts) const {
+  std::vector<PointI> out;
+  out.reserve(pts.size());
+  for (const auto& pt : pts) {
+    PointI tp = pt;
+    tp.p = q_w_curr_ * pt.p + t_w_curr_;
+    out.push_back(tp);
+  }
+  return out;
+}
+
+std::vector<PointI> InTenLoam::transformWorldToBody(
+    const std::vector<PointI>& world_pts) const {
+  std::vector<PointI> out;
+  out.reserve(world_pts.size());
+  const Eigen::Quaterniond q_inv = q_w_curr_.inverse();
+  for (const auto& pt : world_pts) {
+    PointI bp = pt;
+    bp.p = q_inv * (pt.p - t_w_curr_);
+    out.push_back(bp);
+  }
+  return out;
+}
+
+void InTenLoam::updateLocalMap(const std::vector<PointI>& edges,
+                               const std::vector<PointI>& surfs,
+                               const std::vector<PointI>& reflectors) {
+  if (!params_.enable_mapping) return;
+  auto appendUnique = [this](std::vector<PointI>* map,
+                              const std::vector<PointI>& src) {
+    for (const auto& pt : src) {
+      PointI wp = pt;
+      wp.p = q_w_curr_ * pt.p + t_w_curr_;
+      const VoxelKey key = voxelKey(wp.p, params_.map_voxel_size);
+      bool exists = false;
+      for (const auto& mp : *map) {
+        if (voxelKey(mp.p, params_.map_voxel_size) == key) {
+          exists = true;
+          break;
+        }
+      }
+      if (!exists) map->push_back(wp);
+    }
+  };
+  appendUnique(&map_edges_, edges);
+  appendUnique(&map_surfs_, surfs);
+  appendUnique(&map_reflectors_, reflectors);
+  pruneLocalMap();
+}
+
+void InTenLoam::pruneLocalMap() {
+  auto prune = [this](std::vector<PointI>* map) {
+    std::vector<PointI> kept;
+    kept.reserve(map->size());
+    for (const auto& pt : *map) {
+      if ((pt.p - t_w_curr_).norm() <= params_.local_map_radius) {
+        kept.push_back(pt);
+      }
+    }
+    *map = std::move(kept);
+  };
+  prune(&map_edges_);
+  prune(&map_surfs_);
+  prune(&map_reflectors_);
 }
 
 std::vector<InTenLoam::GeomMatch> InTenLoam::findGeomMatches(
@@ -453,7 +604,17 @@ InTenLoamResult InTenLoam::process(const std::vector<PointI>& points) {
     subsampled.push_back(points[i]);
   }
 
+  size_t tvf_removed = 0;
+  applyTemporalVoxelFilter(&subsampled, &tvf_removed);
+  result.num_tvf_removed = tvf_removed;
+
   CylindricalImage img = projectCylindrical(subsampled, params_.cylindrical);
+  size_t dor_removed = 0;
+  if (initialized_ && params_.enable_dor) {
+    applyDynamicObjectRemoval(&img, &dor_removed);
+  }
+  result.num_dor_removed = dor_removed;
+
   extractFeatureLabels(&img, params_.edge_curvature_thresh,
                        params_.reflector_intensity_delta_thresh,
                        params_.reflector_intensity_abs_thresh);
@@ -487,6 +648,22 @@ InTenLoamResult InTenLoam::process(const std::vector<PointI>& points) {
   const bool ok = optimizeFrame(edges, surfs, reflectors, last_edges_, last_surfs_,
                                 last_reflectors_, &result);
 
+  if (params_.enable_mapping && !map_edges_.empty() &&
+      frame_count_ % std::max(1, params_.mapping_keyframe_interval) == 0) {
+    const auto map_edges_body = transformWorldToBody(map_edges_);
+    const auto map_surfs_body = transformWorldToBody(map_surfs_);
+    const auto map_refl_body = transformWorldToBody(map_reflectors_);
+    InTenLoamResult map_result;
+    if (optimizeFrame(edges, surfs, reflectors, map_edges_body, map_surfs_body,
+                      map_refl_body, &map_result)) {
+      result.num_geom_factors += map_result.num_geom_factors;
+      result.num_intensity_factors += map_result.num_intensity_factors;
+      result.num_map_factors =
+          map_result.num_geom_factors + map_result.num_intensity_factors;
+      result.mapping_updates++;
+    }
+  }
+
   Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
   T_rel.block<3, 3>(0, 0) = q_last_curr_.toRotationMatrix();
   T_rel.block<3, 1>(0, 3) = t_last_curr_;
@@ -501,6 +678,9 @@ InTenLoamResult InTenLoam::process(const std::vector<PointI>& points) {
   last_edges_ = std::move(edges);
   last_surfs_ = std::move(surfs);
   last_reflectors_ = std::move(reflectors);
+  if (params_.enable_mapping && ok) {
+    updateLocalMap(last_edges_, last_surfs_, last_reflectors_);
+  }
   frame_count_++;
 
   result.q_w_curr = q_w_curr_;

@@ -1,0 +1,98 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "eval": "KITTI Odometry full, --no-gt-seed, --inten-loam-dense-profile",
+  "methods": [
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 210.494822,
+      "rpe_trans_pct": 71.739515,
+      "rpe_rot_deg_per_m": 1.179952,
+      "frames": 1102,
+      "time_ms": 206304.516322,
+      "fps": 5.341618,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=550 mean_intensity_residual=3.481281",
+      "variant": "full"
+    },
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 308.372769,
+      "rpe_trans_pct": 67.872346,
+      "rpe_rot_deg_per_m": 1.141003,
+      "frames": 1102,
+      "time_ms": 144721.409553,
+      "fps": 7.61463,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=off dor=off mapping=on mapping_updates=550 mean_intensity_residual=3.737140",
+      "variant": "mapping_only"
+    },
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 300.561626,
+      "rpe_trans_pct": 67.861221,
+      "rpe_rot_deg_per_m": 1.143399,
+      "frames": 1102,
+      "time_ms": 168037.177028,
+      "fps": 6.558073,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=off mapping=on mapping_updates=550 mean_intensity_residual=3.737012",
+      "variant": "no_dor"
+    },
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 217.716064,
+      "rpe_trans_pct": 71.691249,
+      "rpe_rot_deg_per_m": 1.17719,
+      "frames": 1102,
+      "time_ms": 225102.606934,
+      "fps": 4.895545,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=550 mean_intensity_residual=0.000000",
+      "variant": "no_intensity"
+    },
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 442.300185,
+      "rpe_trans_pct": 67.414994,
+      "rpe_rot_deg_per_m": 1.136539,
+      "frames": 1102,
+      "time_ms": 46956.550688,
+      "fps": 23.468504,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=off mapping_updates=0 mean_intensity_residual=3.737012",
+      "variant": "no_mapping"
+    },
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 200.209904,
+      "rpe_trans_pct": 71.710974,
+      "rpe_rot_deg_per_m": 1.17781,
+      "frames": 1102,
+      "time_ms": 191681.196621,
+      "fps": 5.749129,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=off dor=on mapping=on mapping_updates=550 mean_intensity_residual=3.483059",
+      "variant": "no_tvf"
+    },
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 308.372769,
+      "rpe_trans_pct": 67.872346,
+      "rpe_rot_deg_per_m": 1.141003,
+      "frames": 1102,
+      "time_ms": 131443.492903,
+      "fps": 8.383831,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=off dor=off mapping=on mapping_updates=550 mean_intensity_residual=3.737140",
+      "variant": "no_tvf_no_dor"
+    }
+  ]
+}

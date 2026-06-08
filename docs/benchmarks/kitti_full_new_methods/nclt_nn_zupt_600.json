@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/nclt_2013_01_10_full",
+  "gt_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv",
+  "num_frames": 600,
+  "trajectory_length_m": 100.578783,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "NN-ZUPT",
+      "status": "ok",
+      "ate_m": 27.847924,
+      "rpe_trans_pct": 26.558919,
+      "rpe_rot_deg_per_m": 0.142027,
+      "frames": 600,
+      "time_ms": 6848.008223,
+      "fps": 87.616717,
+      "seed_fallback_rate_pct": null,
+      "note": "NN-ZUPT (Meas. Sci. Technol. 2023): KITTI-OXTS-trained CNN on NCLT MS25 IMU (600-frame prefix). zupt_frames=0 off-domain"
+    }
+  ]
+}

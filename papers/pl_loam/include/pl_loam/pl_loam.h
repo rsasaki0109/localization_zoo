@@ -4,6 +4,8 @@
 #include <Eigen/Geometry>
 
 #include <cstddef>
+#include <cstdint>
+#include <string>
 #include <vector>
 
 namespace localization_zoo {
@@ -27,6 +29,10 @@ struct CameraModel {
   Eigen::Matrix4d T_velo_cam = Eigen::Matrix4d::Identity();
 
   static CameraModel kittiHalfRes();
+  /// KITTI Raw color_02 full resolution (1242×375).
+  static CameraModel kittiColor02();
+  /// Half-res color_02 for throughput (matches pseudo-image size scale).
+  static CameraModel kittiColor02HalfRes();
   Eigen::Vector3d veloToCam(const Eigen::Vector3d& p_velo) const;
   bool projectVelo(const Eigen::Vector3d& p_velo, Eigen::Vector2d* uv,
                    double* depth_cam) const;
@@ -38,6 +44,18 @@ struct RangeImage {
   int height = 0;
   std::vector<float> depth;      // camera Z [m], 0 = invalid
   std::vector<float> intensity;  // [0,1]
+};
+
+/// Real RGB converted to grayscale (KITTI Raw PNG).
+struct GrayscaleImage {
+  int width = 0;
+  int height = 0;
+  std::vector<uint8_t> pixels;
+
+  bool empty() const { return pixels.empty(); }
+  /// Load PNG and optionally resize to target resolution.
+  bool loadRgbPng(const std::string& path, int target_width = 0,
+                  int target_height = 0);
 };
 
 struct PointFeature {
@@ -69,6 +87,8 @@ struct PlLoamParams {
   bool use_depth_prior = true;
   bool use_line_features = true;
   bool use_scale_correction = true;
+  /// When true, visual features come from real RGB (GrayscaleImage) not depth map.
+  bool use_rgb_features = false;
   double depth_prior_weight = 1.0;
   double reproj_sigma_px = 2.0;
   double line_sigma_px = 2.5;
@@ -96,6 +116,10 @@ class PlLoam {
 
   PlLoamResult process(const std::vector<Eigen::Vector3d>& points,
                        const std::vector<float>& intensity);
+  /// Same as process(), but Harris/lines on real RGB grayscale; depth from LiDAR.
+  PlLoamResult processWithGrayscale(const std::vector<Eigen::Vector3d>& points,
+                                    const std::vector<float>& intensity,
+                                    const GrayscaleImage& gray);
   void clear();
 
   int frameCount() const { return frame_count_; }
@@ -122,6 +146,13 @@ class PlLoam {
                                   std::vector<PointFeature>* features);
   static void detectLineFeatures(const RangeImage& image, int max_features,
                                  std::vector<LineFeature>* features);
+  static void detectPointFeaturesGrayscale(const GrayscaleImage& image,
+                                           int max_features, int block_size,
+                                           double harris_k,
+                                           std::vector<PointFeature>* features);
+  static void detectLineFeaturesGrayscale(const GrayscaleImage& image,
+                                          int max_features,
+                                          std::vector<LineFeature>* features);
   /// 単眼三角測量深度と LiDAR 深度の比からスケール補正係数 (論文 scheme)。
   static double scaleCorrectionFactor(
       const std::vector<double>& lidar_depths,

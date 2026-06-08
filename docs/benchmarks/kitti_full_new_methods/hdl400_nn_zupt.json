@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+  "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+  "num_frames": 120,
+  "trajectory_length_m": 14.418029,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "NN-ZUPT",
+      "status": "ok",
+      "ate_m": 7.036002,
+      "rpe_trans_pct": 92.240139,
+      "rpe_rot_deg_per_m": 9.638564,
+      "frames": 120,
+      "time_ms": 2527.811735,
+      "fps": 47.471890,
+      "seed_fallback_rate_pct": null,
+      "note": "NN-ZUPT (Meas. Sci. Technol. 2023): CNN stop detection + ZUPT/NHC DR; KITTI-OXTS weights on HDL-400 IMU. nn_frames=2290 zupt_frames=0 (cross-sensor honest negative)"
+    }
+  ]
+}

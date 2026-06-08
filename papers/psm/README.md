@@ -35,15 +35,18 @@ python3 evaluation/scripts/generate_rf2o_corridor_fixture.py
 - No polar occupancy / co-occurrence matrix (direct range-profile correlation)
 - Brute-force search (OK for ~360 beams and short motion priors)
 
-## Smoke benchmark (2026-06-09)
+## Benchmark (2026-06-09)
 
-| Fixture | Frames | Traj [m] | ATE [m] | Drift | vs PL-ICP / RF2O |
-|---------|--------|----------|---------|-------|------------------|
-| `evaluation/fixtures/rf2o_corridor` | 120 | 9.5 | 0.30 | ~11.6% | PL-ICP 0.02 m / RF2O 0.09 m |
-| `evaluation/fixtures/rf2o_smoke` | 60 | 17.7 | 3.01 | ~38.6% | PL-ICP 2.22 m / RF2O 0.20 m |
+| Fixture | Frames | Traj [m] | ATE [m] | Drift | Leader on fixture |
+|---------|--------|----------|---------|-------|-------------------|
+| `intel_val_73` | 73 | 378 | 28.5 | 21.8% | RF2O 14.3% |
+| `fr079_val_384` | 384 | 373 | 28.5 | **13.9%** | **PSM (this port)** |
+| `mit_val_33` | 33 | 267 | 17.2 | 27.9% | Kinematic-ICP 23.4% |
+| `rf2o_corridor` | 120 | 9.5 | 0.30 | 11.6% | PL-ICP 0.38% |
 
-Artifact: `docs/benchmarks/scan2d/rf2o_corridor_120_psm.json`
+Artifacts: `docs/benchmarks/scan2d/{intel_val_73,fr079_val_384,mit_val_33,rf2o_corridor}.json`
 
-**Honest finding:** this simplified polar range-profile port underperforms PL-ICP and RF2O on
-both slow-motion corridor and fast mixed-motion smoke fixtures. Brute-force polar correlation
-without occupancy/co-occurrence matrix is competitive on unit tests but drifts on long tracks.
+**Honest finding:** polar range-profile matching is **dataset-dependent** — best drift on
+fr079 val (13.9%) but behind RF2O on Intel and behind PL-ICP on the synthetic corridor.
+Brute-force correlation without occupancy/co-occurrence matrix is competitive on unit tests
+but not uniformly strong across environments.

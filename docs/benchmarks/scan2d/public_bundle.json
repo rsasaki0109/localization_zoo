@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "description": "Public Bonn 2D-SLAM fixtures — drift [%] per method (lower is better). GT is dataset odometry proxy.",
+  "methods": ["RF2O", "PL-ICP", "CSM", "Kinematic-ICP", "PSM"],
+  "fixtures": [
+    {
+      "id": "intel_val_73",
+      "dataset": "intel",
+      "split": "val",
+      "frames": 73,
+      "trajectory_length_m": 377.915,
+      "artifact": "docs/benchmarks/scan2d/intel_val_73.json",
+      "drift_pct": {
+        "RF2O": 14.287,
+        "PL-ICP": 16.922,
+        "CSM": 17.550,
+        "Kinematic-ICP": 18.346,
+        "PSM": 21.800
+      },
+      "best": "RF2O"
+    },
+    {
+      "id": "fr079_val_384",
+      "dataset": "fr079",
+      "split": "val",
+      "frames": 384,
+      "trajectory_length_m": 373.138,
+      "artifact": "docs/benchmarks/scan2d/fr079_val_384.json",
+      "drift_pct": {
+        "RF2O": 15.370,
+        "PSM": 13.890,
+        "Kinematic-ICP": 18.860,
+        "CSM": 38.970,
+        "PL-ICP": 40.990
+      },
+      "best": "PSM"
+    },
+    {
+      "id": "mit_val_33",
+      "dataset": "mit",
+      "split": "val",
+      "frames": 33,
+      "trajectory_length_m": 266.522,
+      "artifact": "docs/benchmarks/scan2d/mit_val_33.json",
+      "drift_pct": {
+        "Kinematic-ICP": 23.410,
+        "RF2O": 27.620,
+        "CSM": 27.670,
+        "PSM": 27.900,
+        "PL-ICP": 30.290
+      },
+      "best": "Kinematic-ICP",
+      "note": "Short 33-frame window — drift is indicative only."
+    }
+  ]
+}

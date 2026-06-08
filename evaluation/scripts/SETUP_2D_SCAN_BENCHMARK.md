@@ -80,8 +80,33 @@ python3 evaluation/scripts/prepare_bonn_2dslam_inputs.py \
   --output-dir evaluation/fixtures/intel_val_73
 ```
 
-The repo ships `evaluation/fixtures/intel_val_73/` (73 frames, 180 beams, ~600 KB) for CI and
-the public 2D leaderboard. GT is dataset odometry (scan-matched proxy).
+The repo ships these Bonn JSON fixtures for CI and the public 2D leaderboard:
+
+| Fixture | Source | Frames | Beams | Traj [m] | Size |
+|---------|--------|--------|-------|----------|------|
+| `intel_val_73` | `intel/val.json` | 73 | 180 | ~378 | ~600 KB |
+| `fr079_val_384` | `fr079/val.json` | 384 | 360 | ~373 | ~3.1 MB |
+| `mit_val_33` | `mit/val.json` | 33 | 360 | ~267 | ~280 KB |
+
+GT is dataset odometry (scan-matched proxy, not centimeter truth).
+
+### fr079 (Freiburg building 079)
+
+```bash
+unzip /tmp/2dslam.zip fr079/val.json -d /tmp/2dslam
+python3 evaluation/scripts/prepare_bonn_2dslam_inputs.py \
+  --json /tmp/2dslam/fr079/val.json \
+  --output-dir evaluation/fixtures/fr079_val_384
+```
+
+### MIT CSAIL
+
+```bash
+unzip /tmp/2dslam.zip mit/val.json -d /tmp/2dslam
+python3 evaluation/scripts/prepare_bonn_2dslam_inputs.py \
+  --json /tmp/2dslam/mit/val.json \
+  --output-dir evaluation/fixtures/mit_val_33
+```
 
 ## Run scan_dogfooding
 
@@ -112,4 +137,10 @@ Metrics:
   --summary-json docs/benchmarks/scan2d/rf2o_smoke_60_refresh.json
 ```
 
-Corridor benchmark artifact: `docs/benchmarks/scan2d/rf2o_corridor_120.json` (after first run).
+Refresh all committed 2D benchmarks:
+
+```bash
+bash evaluation/scripts/run_scan2d_benchmark.sh
+```
+
+Artifacts: `docs/benchmarks/scan2d/{intel_val_73,fr079_val_384,mit_val_33,rf2o_corridor}.json`.

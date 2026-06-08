@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "ICPSC-LO",
+      "status": "ok",
+      "ate_m": 3.705974,
+      "rpe_trans_pct": 0.660231,
+      "rpe_rot_deg_per_m": 0.009647,
+      "frames": 1101,
+      "time_ms": 714288.577765,
+      "fps": 1.541394,
+      "seed_fallback_rate_pct": null,
+      "note": "ICPSC-LO (Zhang et al., JAG 2023): cylindrical intensity shape-context + adaptive geom/intensity fusion scan-to-map; loop closure deferred. no GT seed. mean_geom_weight=0.946"
+    }
+  ]
+}

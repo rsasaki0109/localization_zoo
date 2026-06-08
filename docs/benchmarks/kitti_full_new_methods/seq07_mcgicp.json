@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "MCGICP-LO",
+      "status": "ok",
+      "ate_m": 4.506780,
+      "rpe_trans_pct": 0.773688,
+      "rpe_rot_deg_per_m": 0.010425,
+      "frames": 1101,
+      "time_ms": 524415.444628,
+      "fps": 2.099481,
+      "seed_fallback_rate_pct": null,
+      "note": "MCGICP-LO (Servos/Waslander, RAS 2017): 4D multi-channel GICP with intensity in point covariance + intensity-weighted point-to-plane; --mcgicp-dense-profile; no GT seed. mean_intensity_residual=0.105"
+    }
+  ]
+}

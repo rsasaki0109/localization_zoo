@@ -1,7 +1,7 @@
 /// 2D laser scan dogfooding tool
 ///
 /// Usage:
-///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp]
+///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm]
 ///
 /// scan_dir layout:
 ///   scan_meta.json  (angle_min, angle_max, angle_increment, range_min, range_max, scan_rate_hz)
@@ -9,6 +9,7 @@
 ///   00000001/scan.csv
 /// gt_csv: timestamp,x,y,yaw
 
+#include "csm/csm.h"
 #include "pl_icp/pl_icp.h"
 #include "rf2o/rf2o.h"
 
@@ -120,6 +121,24 @@ ScanMeta loadMeta(const fs::path& scan_dir) {
   meta.scan_rate_hz = findNum("scan_rate_hz");
   if (meta.scan_rate_hz <= 0.0) meta.scan_rate_hz = 10.0;
   return meta;
+}
+
+localization_zoo::csm::LaserScan loadScanCSM(const fs::path& frame_dir, const ScanMeta& meta) {
+  localization_zoo::csm::LaserScan scan;
+  scan.angle_min = meta.angle_min;
+  scan.angle_max = meta.angle_max;
+  scan.angle_increment = meta.angle_increment;
+  scan.range_min = meta.range_min;
+  scan.range_max = meta.range_max;
+  std::ifstream in(frame_dir / "scan.csv");
+  if (!in) return scan;
+  std::string line;
+  std::getline(in, line);
+  for (const auto& tok : splitCsv(line)) {
+    if (tok.empty()) continue;
+    scan.ranges.push_back(std::stod(tok));
+  }
+  return scan;
 }
 
 localization_zoo::pl_icp::LaserScan loadScanPLICP(const fs::path& frame_dir,
@@ -272,12 +291,50 @@ MethodResult runPLICP(const std::vector<fs::path>& frames, const ScanMeta& meta,
   return res;
 }
 
+MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
+                    const std::vector<GTPose2D>& gt, bool no_gt_seed) {
+  using namespace localization_zoo::csm;
+  MethodResult res;
+  res.name = "CSM";
+  CSMParams params;
+  params.search_xy_range = 0.8;
+  params.search_yaw_range = 0.25;
+  params.coarse_xy_steps = 11;
+  params.coarse_yaw_steps = 11;
+  params.fine_xy_steps = 5;
+  params.fine_yaw_steps = 5;
+  CSMEstimator est(params);
+  if (!gt.empty() && !no_gt_seed) {
+    est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
+  }
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < frames.size(); ++i) {
+    const auto scan = loadScanCSM(frames[i], meta);
+    if (scan.size() < 10) continue;
+    const auto out = est.registerScan(scan);
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<2, 2>(0, 0) = out.pose.block<2, 2>(0, 0);
+    T(0, 3) = out.pose(0, 2);
+    T(1, 3) = out.pose(1, 2);
+    res.poses.push_back(T);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [CSM] " << i << "/" << frames.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Correlative scan matching 2D odometry (Olson ICRA 2009, simplified port).";
+  return res;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
-              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp] [--no-gt-seed]\n";
+              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm] [--no-gt-seed]\n";
     return 1;
   }
 
@@ -312,6 +369,10 @@ int main(int argc, char** argv) {
   std::cout << "Trajectory length: " << trajectoryLength2D(gt) << " m\n";
 
   std::vector<MethodResult> results;
+  if (methods.find("csm") != std::string::npos) {
+    std::cout << "Running CSM...\n";
+    results.push_back(runCSM(frames, meta, gt_raw, no_gt_seed));
+  }
   if (methods.find("pl_icp") != std::string::npos) {
     std::cout << "Running PL-ICP...\n";
     results.push_back(runPLICP(frames, meta, gt_raw, no_gt_seed));

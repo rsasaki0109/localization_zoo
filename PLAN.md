@@ -606,6 +606,21 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 
 **状態**: ワークツリーに未コミット。次候補: **Kinematic-ICP 2D** または **CSM/Karto** (§00.6c rank 3–4)。
 
+### 00.55 CSM (45本目) — correlative scan matching (2026-06-09)
+
+- ✅ **実装**: `papers/csm/` — brute-force SE(2) 相関探索 + Gaussian endpoint score +
+  motion prior warm-start（Olson ICRA 2009 簡略版）。
+- ✅ **統合**: `scan_dogfooding --methods csm`。
+- ✅ **テスト**: `test_csm` 5 cases PASS（brute-force score、やや遅い）。
+- ✅ **Smoke benchmark** vs RF2O (60f, traj 17.7 m):
+  - CSM: ATE **3.38 m**, drift **~19%**, **0.9 FPS**
+  - RF2O: ATE **0.20 m**, drift **~1.1%**
+  - 短区間ユニットテストでは並進/回転/混合 OK。長軌道高速運動では PL-ICP 同様ドリフト。
+- Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_csm_vs_rf2o.json`
+- **未実装**: 確率グリッド / distance transform、Karto 式多解像度 grid、探索高速化。
+
+**状態**: ワークツリーに未コミット。次候補: **Kinematic-ICP 2D** (§00.6c rank 3)。
+
 
 This section is the authoritative current handoff. Older sections below still
 matter for benchmark history, recipe provenance, and paper-grade claims, but

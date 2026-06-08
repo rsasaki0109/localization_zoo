@@ -20,6 +20,7 @@ using aloam::PointT;
 ILoam::ILoam(const ILoamParams& params)
     : params_(params),
       scan_registration_(params.scan_registration),
+      mapping_(params.mapping),
       corner_last_(new PointCloud),
       surf_last_(new PointCloud) {}
 
@@ -40,12 +41,17 @@ void ILoam::clear() {
   surf_last_.reset(new PointCloud);
   corner_last_refl_.clear();
   surf_last_refl_.clear();
+  scan_registration_ = aloam::ScanRegistration(params_.scan_registration);
+  mapping_ = aloam::LaserMapping(params_.mapping);
   q_w_curr_ = Eigen::Quaterniond::Identity();
   t_w_curr_ = Eigen::Vector3d::Zero();
   q_last_curr_ = Eigen::Quaterniond::Identity();
   t_last_curr_ = Eigen::Vector3d::Zero();
+  q_map_odom_ = Eigen::Quaterniond::Identity();
+  t_map_odom_ = Eigen::Vector3d::Zero();
   initialized_ = false;
   frame_count_ = 0;
+  mapping_updates_ = 0;
 }
 
 PointCloudPtr ILoam::strideCloud(const PointCloudConstPtr& cloud) const {
@@ -92,6 +98,23 @@ void ILoam::transformToStart(const PointT& pi, const Eigen::Quaterniond& q,
   po.y = un_point.y();
   po.z = un_point.z();
   po.intensity = pi.intensity;
+}
+
+void ILoam::updateMapOdomCorrection(const Eigen::Quaterniond& q_map,
+                                    const Eigen::Vector3d& t_map,
+                                    const Eigen::Quaterniond& q_odom,
+                                    const Eigen::Vector3d& t_odom) {
+  q_map_odom_ = (q_map * q_odom.conjugate()).normalized();
+  t_map_odom_ = t_map - q_map_odom_ * t_odom;
+}
+
+void ILoam::applyMapOdomCorrection(const Eigen::Quaterniond& q_odom,
+                                   const Eigen::Vector3d& t_odom,
+                                   Eigen::Quaterniond* q_out,
+                                   Eigen::Vector3d* t_out) const {
+  if (q_out == nullptr || t_out == nullptr) return;
+  *q_out = (q_map_odom_ * q_odom).normalized();
+  *t_out = q_map_odom_ * t_odom + t_map_odom_;
 }
 
 ILoamResult ILoam::process(const PointCloudConstPtr& cloud) {
@@ -324,18 +347,51 @@ ILoamResult ILoam::process(const PointCloudConstPtr& cloud) {
   t_w_curr_ = t_w_curr_ + q_w_curr_ * t_last_curr_;
   q_w_curr_ = q_w_curr_ * q_last_curr_;
 
+  const Eigen::Quaterniond q_odom = q_w_curr_;
+  const Eigen::Vector3d t_odom = t_w_curr_;
+
   store_last();
 
-  result.q_w_curr = q_w_curr_;
-  result.t_w_curr = t_w_curr_;
-  result.valid = true;
   result.odom_valid = true;
   result.num_edge_correspondences = edge_corr;
   result.num_plane_correspondences = plane_corr;
   result.mean_intensity_weight =
       weight_count ? weight_sum / static_cast<double>(weight_count) : 1.0;
+
   frame_count_++;
   result.frame_count = frame_count_;
+  result.mapping_updates = mapping_updates_;
+
+  const bool should_update_mapping =
+      params_.enable_mapping &&
+      (mapping_updates_ == 0 ||
+       (params_.mapping_update_interval > 0 &&
+        frame_count_ % params_.mapping_update_interval == 0));
+
+  if (should_update_mapping) {
+    const aloam::MappingResult mapping_result = mapping_.process(
+        features.corner_less_sharp, features.surf_less_flat, features.full_cloud,
+        q_odom, t_odom);
+    if (mapping_result.valid) {
+      q_w_curr_ = mapping_result.q_w_curr.normalized();
+      t_w_curr_ = mapping_result.t_w_curr;
+      updateMapOdomCorrection(q_w_curr_, t_w_curr_, q_odom, t_odom);
+      mapping_updates_++;
+      result.mapping_updated = true;
+      result.valid = true;
+    }
+  }
+
+  if (!result.valid) {
+    if (params_.enable_mapping) {
+      applyMapOdomCorrection(q_odom, t_odom, &q_w_curr_, &t_w_curr_);
+    }
+    result.valid = true;
+  }
+
+  result.q_w_curr = q_w_curr_;
+  result.t_w_curr = t_w_curr_;
+  result.mapping_updates = mapping_updates_;
   return result;
 }
 

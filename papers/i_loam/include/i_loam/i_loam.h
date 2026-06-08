@@ -1,5 +1,6 @@
 #pragma once
 
+#include "aloam/laser_mapping.h"
 #include "aloam/scan_registration.h"
 #include "aloam/types.h"
 
@@ -41,6 +42,11 @@ struct ILoamParams {
   bool use_intensity_correspondence = true;  // 強度拡張対応探索を使う
   double intensity_sigma = 0.15;             // 残差重みの σ (反射強度スケール)
   double intensity_corr_weight = 1.0;        // 対応探索の Δ強度^2 重み [m^2]
+
+  // --- マッピング (aloam::LaserMapping 準拠) ---
+  aloam::LaserMappingParams mapping;
+  bool enable_mapping = true;
+  int mapping_update_interval = 1;  // 1 = 毎フレーム (A-LOAM 同様)
 };
 
 struct ILoamResult {
@@ -48,7 +54,9 @@ struct ILoamResult {
   Eigen::Vector3d t_w_curr = Eigen::Vector3d::Zero();
   bool valid = false;
   bool odom_valid = false;
+  bool mapping_updated = false;
   int frame_count = 0;
+  int mapping_updates = 0;
   size_t num_input_points = 0;
   size_t num_corner_sharp = 0;
   size_t num_surf_flat = 0;
@@ -65,6 +73,7 @@ class ILoam {
   void clear();
 
   int frameCount() const { return frame_count_; }
+  int mappingUpdates() const { return mapping_updates_; }
   const Eigen::Quaterniond& orientation() const { return q_w_curr_; }
   const Eigen::Vector3d& position() const { return t_w_curr_; }
 
@@ -85,9 +94,18 @@ class ILoam {
       const aloam::PointCloudConstPtr& raw) const;
   void transformToStart(const aloam::PointT& pi, const Eigen::Quaterniond& q,
                         const Eigen::Vector3d& t, aloam::PointT& po) const;
+  void updateMapOdomCorrection(const Eigen::Quaterniond& q_map,
+                               const Eigen::Vector3d& t_map,
+                               const Eigen::Quaterniond& q_odom,
+                               const Eigen::Vector3d& t_odom);
+  void applyMapOdomCorrection(const Eigen::Quaterniond& q_odom,
+                             const Eigen::Vector3d& t_odom,
+                             Eigen::Quaterniond* q_out,
+                             Eigen::Vector3d* t_out) const;
 
   ILoamParams params_;
   aloam::ScanRegistration scan_registration_;
+  aloam::LaserMapping mapping_;
 
   // 前フレームの less-feature 点群 + その反射強度
   aloam::PointCloudPtr corner_last_;
@@ -101,9 +119,12 @@ class ILoam {
   Eigen::Vector3d t_w_curr_ = Eigen::Vector3d::Zero();
   Eigen::Quaterniond q_last_curr_ = Eigen::Quaterniond::Identity();
   Eigen::Vector3d t_last_curr_ = Eigen::Vector3d::Zero();
+  Eigen::Quaterniond q_map_odom_ = Eigen::Quaterniond::Identity();
+  Eigen::Vector3d t_map_odom_ = Eigen::Vector3d::Zero();
 
   bool initialized_ = false;
   int frame_count_ = 0;
+  int mapping_updates_ = 0;
 };
 
 }  // namespace i_loam

@@ -119,6 +119,25 @@ TEST(ILoam, IntensityVariantsBothTrack) {
   }
 }
 
+TEST(ILoam, MappingModeTracksShortSequence) {
+  std::mt19937 rng(99);
+  ILoamParams params;
+  params.enable_mapping = true;
+  params.mapping.line_resolution = 0.5;
+  params.mapping.plane_resolution = 1.0;
+  params.mapping.knn_max_dist_sq = 4.0;
+  ILoam pipeline(params);
+  ILoamResult last;
+  for (int frame = 0; frame < 10; ++frame) {
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    pose(0, 3) = 0.5 * frame;
+    last = pipeline.process(generateScan(pose, rng));
+  }
+  ASSERT_TRUE(last.valid);
+  EXPECT_GT(last.mapping_updates, 0);
+  EXPECT_LT((last.t_w_curr - Eigen::Vector3d(4.5, 0.0, 0.0)).norm(), 5.0);
+}
+
 TEST(ILoam, ClearResetsState) {
   std::mt19937 rng(11);
   ILoam pipeline;

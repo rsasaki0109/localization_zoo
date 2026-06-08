@@ -70,6 +70,7 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 |---|---:|---:|---|
 | M-GCLO | **0.835%** <sub>(19 m)</sub> | 0.671% <sub>(2 m)</sub> | ISPRS Ann. 2024 |
 | KC-LO | 0.842% <sub>(14 m)</sub> | **0.514%** <sub>(1 m)</sub> | ECCV 2004 |
+| **I-LOAM** | **0.899%** <sub>(13 m)</sub> | **0.575%** <sub>(2 m)</sub> | UR 2020 |
 | LODESTAR | 0.848% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
 | Terrain-RBF-LIO | 0.849% <sub>(8 m)</sub> | 0.587% <sub>(1 m)</sub> | arXiv:2509.26222 |
 | DALI-SLAM | 0.849% <sub>(8 m)</sub> | 0.600% <sub>(1 m)</sub> | ISPRS JPRS 2025 |
@@ -127,7 +128,8 @@ module READMEs; raw JSON:
 code) injects the LiDAR reflectance channel into LOAM's scan-to-scan association
 (intensity-augmented correspondence + intensity-similarity residual weighting).
 Running the *identical* pipeline with the intensity paths on vs. off
-(`--i-loam-no-intensity`) isolates exactly what reflectance contributes on KITTI:
+(`--i-loam-no-intensity`) **and mapping disabled** (`--i-loam-no-mapping`)
+isolates exactly what reflectance contributes on KITTI:
 
 | Sequence | Geometric baseline (intensity off) | I-LOAM (intensity on) | Δ drift |
 |---|---:|---:|---:|
@@ -136,10 +138,10 @@ Running the *identical* pipeline with the intensity paths on vs. off
 
 Reflectance consistently cuts drift ~18–20% (and ATE up to ~35%) versus the same
 geometry-only pipeline — I-LOAM's central claim **reproduces on KITTI**, even
-though KITTI intensity is uncalibrated and coarse. This is a scan-to-scan
-odometry with no mapping refinement, so its absolute drift sits well above the
-mapping-based methods in the table above; it is shown here as an ablation, not
-ranked alongside them.
+though KITTI intensity is uncalibrated and coarse. With **mapping enabled**
+(default), I-LOAM reaches ~0.58% drift on seq07 and is ranked in the from-paper
+table above; the ablation below uses scan-to-scan only to isolate the intensity
+channel.
 
 ### Trajectory gallery — KITTI seq07, all methods, one figure
 

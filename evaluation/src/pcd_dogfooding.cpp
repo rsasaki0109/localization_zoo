@@ -35,6 +35,7 @@
 #include "imls_slam/imls_slam.h"
 #include "tricp_lo/tricp_lo.h"
 #include "kc_lo/kc_lo.h"
+#include "i_loam/i_loam.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -221,7 +222,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "student_t_lo" || method == "spectral_lo" ||
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
          method == "imls_slam" || method == "tricp_lo" || method == "kc_lo" ||
-         method == "clins";
+         method == "i_loam" || method == "clins";
 }
 
 bool isMethodEnabled(const std::vector<std::string>& methods,
@@ -1018,6 +1019,31 @@ struct FLOAMDogfoodingOptions {
   int map_outer_iters = 1;
   int map_ceres_iters = 3;
   double map_knn_max_dist_sq = 4.0;
+};
+
+struct ILoamDogfoodingOptions {
+  int n_scans = 64;
+  float scan_period = 0.1f;
+  float minimum_range = 1.0f;
+  size_t input_point_stride = 2;
+
+  float curvature_threshold = 0.08f;
+  int max_corner_sharp = 1;
+  int max_corner_less_sharp = 10;
+  int max_surf_flat = 2;
+  float less_flat_leaf_size = 0.3f;
+
+  double odom_distance_sq_threshold = 16.0;
+  double odom_nearby_scan = 2.5;
+  int odom_outer_iters = 2;
+  int odom_ceres_iters = 4;
+  double odom_huber_loss_s = 0.1;
+
+  // I-LOAM 強度拡張
+  bool use_intensity_weight = true;
+  bool use_intensity_correspondence = true;
+  double intensity_sigma = 0.15;
+  double intensity_corr_weight = 1.0;
 };
 
 struct LeGOLOAMDogfoodingOptions {
@@ -3091,6 +3117,83 @@ MethodResult runFLOAM(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = "Fast feature-based odometry+mapping with thinned input and throttled mapping updates (no GT seed).";
+  return res;
+}
+
+MethodResult runILoam(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const ILoamDogfoodingOptions& options) {
+  using namespace localization_zoo::i_loam;
+  MethodResult res;
+  res.name = "I-LOAM";
+
+  ILoamParams params;
+  params.scan_registration.n_scans = options.n_scans;
+  params.scan_registration.scan_period = options.scan_period;
+  params.scan_registration.minimum_range = options.minimum_range;
+  params.scan_registration.curvature_threshold = options.curvature_threshold;
+  params.scan_registration.max_corner_sharp = options.max_corner_sharp;
+  params.scan_registration.max_corner_less_sharp = options.max_corner_less_sharp;
+  params.scan_registration.max_surf_flat = options.max_surf_flat;
+  params.scan_registration.less_flat_leaf_size = options.less_flat_leaf_size;
+
+  params.input_point_stride = options.input_point_stride;
+  params.distance_sq_threshold = options.odom_distance_sq_threshold;
+  params.nearby_scan = options.odom_nearby_scan;
+  params.num_optimization_iters = options.odom_outer_iters;
+  params.ceres_max_iterations = options.odom_ceres_iters;
+  params.huber_loss_s = options.odom_huber_loss_s;
+  params.enable_distortion = false;
+
+  params.use_intensity_weight = options.use_intensity_weight;
+  params.use_intensity_correspondence = options.use_intensity_correspondence;
+  params.intensity_sigma = options.intensity_sigma;
+  params.intensity_corr_weight = options.intensity_corr_weight;
+
+  ILoam pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  res.poses.push_back(world_anchor);
+
+  double weight_acc = 0.0;
+  long weight_frames = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    // 反射強度を保持して読み込む (I-LOAM の本質)。LOAM のスキャン構造を
+    // 壊さないよう load 時はダウンサンプリングしない (leaf=0)。
+    auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0 /* no downsample */);
+    if (xyzi.empty()) continue;
+    auto cloud = toPclXYZICloud(xyzi);
+    const auto result = pipeline.process(cloud);
+    if (!result.valid) {
+      if (i % 10 == 0) std::cerr << "\r  [I-LOAM] " << i << "/" << pcd_dirs.size();
+      continue;
+    }
+
+    Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
+    T_rel.block<3, 3>(0, 0) = result.q_w_curr.toRotationMatrix();
+    T_rel.block<3, 1>(0, 3) = result.t_w_curr;
+    res.poses.push_back(anchorRelativePose(world_anchor, T_rel));
+
+    weight_acc += result.mean_intensity_weight;
+    ++weight_frames;
+    if (i % 10 == 0) {
+      std::cerr << "\r  [I-LOAM] " << i << "/" << pcd_dirs.size()
+                << " edges=" << result.num_edge_correspondences
+                << " planes=" << result.num_plane_correspondences
+                << " w=" << result.mean_intensity_weight;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  const double mean_w =
+      weight_frames ? weight_acc / static_cast<double>(weight_frames) : 1.0;
+  res.note =
+      "I-LOAM (Park/Jang/Kim, UR 2020): intensity-enhanced LOAM scan-to-scan "
+      "odometry — reflectance-augmented correspondence + intensity-similarity "
+      "residual weighting on KITTI PointXYZI; no GT seed. mean_intensity_weight=" +
+      std::to_string(mean_w);
   return res;
 }
 
@@ -7093,6 +7196,7 @@ int main(int argc, char** argv) {
   VoxelGICPDogfoodingOptions voxel_gicp_options;
   ALOAMDogfoodingOptions aloam_options;
   FLOAMDogfoodingOptions floam_options;
+  ILoamDogfoodingOptions i_loam_options;
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
@@ -7528,6 +7632,25 @@ int main(int argc, char** argv) {
       floam_options.input_point_stride = 2;
       floam_options.mapping_update_interval = 2;
       floam_options.enable_mapping = true;
+      continue;
+    }
+    if (arg == "--i-loam-no-intensity") {
+      // 強度経路を無効化し、純幾何 LOAM ベースラインとして走らせる(ablation)。
+      i_loam_options.use_intensity_weight = false;
+      i_loam_options.use_intensity_correspondence = false;
+      continue;
+    }
+    if (arg == "--i-loam-intensity-sigma" && i + 1 < argc) {
+      i_loam_options.intensity_sigma = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--i-loam-corr-weight" && i + 1 < argc) {
+      i_loam_options.intensity_corr_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--i-loam-stride" && i + 1 < argc) {
+      i_loam_options.input_point_stride =
+          static_cast<size_t>(std::stoul(argv[++i]));
       continue;
     }
     if (arg == "--floam-fast-profile") {
@@ -10754,6 +10877,18 @@ int main(int argc, char** argv) {
               << " kc_sigma=" << kc_lo_options.kc_sigma
               << " sigma_init=" << kc_lo_options.kc_sigma_init << std::endl;
     results.push_back(runKcLo(pcd_dirs, gt, kc_lo_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "i_loam")) {
+    std::cout << "Running I-LOAM..." << std::endl;
+    std::cout << "  n_scans=" << i_loam_options.n_scans
+              << " stride=" << i_loam_options.input_point_stride
+              << " intensity_weight=" << i_loam_options.use_intensity_weight
+              << " intensity_corr=" << i_loam_options.use_intensity_correspondence
+              << " intensity_sigma=" << i_loam_options.intensity_sigma
+              << " corr_weight=" << i_loam_options.intensity_corr_weight
+              << std::endl;
+    results.push_back(runILoam(pcd_dirs, gt, i_loam_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

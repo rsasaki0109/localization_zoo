@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "IMLS-SLAM",
+      "status": "ok",
+      "ate_m": 3.037946,
+      "rpe_trans_pct": 0.700374,
+      "rpe_rot_deg_per_m": 0.007423,
+      "frames": 1101,
+      "time_ms": 118437.245400,
+      "fps": 9.296062,
+      "seed_fallback_rate_pct": null,
+      "note": "IMLS-SLAM: scan-to-model matching on an implicit moving least squares surface (point-to-implicit-surface) with observability-based sampling; CV prior, no GT seed. mean|residual|=0.055 samples=807"
+    }
+  ]
+}

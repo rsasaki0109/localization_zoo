@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "TrICP-LO",
+      "status": "ok",
+      "ate_m": 10.042527,
+      "rpe_trans_pct": 0.930580,
+      "rpe_rot_deg_per_m": 0.008522,
+      "frames": 4541,
+      "time_ms": 805107.148507,
+      "fps": 5.640243,
+      "seed_fallback_rate_pct": null,
+      "note": "TrICP-LO: trimmed/fractional ICP (least trimmed squares) point-to-plane with FRMSD automatic overlap estimation; CV prior, no GT seed. mean_overlap=0.800"
+    }
+  ]
+}

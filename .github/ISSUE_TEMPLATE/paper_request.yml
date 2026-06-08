@@ -1,0 +1,57 @@
+name: "📄 Request a paper reimplementation"
+description: "Suggest a localization paper (ideally with no public author code) to reimplement and benchmark."
+title: "[Paper] <method / paper title>"
+labels: ["paper-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a paper! Localization Zoo focuses on **classical /
+        geometric / probabilistic** LiDAR localization papers that ship **no
+        public author implementation**, reimplemented from the paper and
+        benchmarked honestly on KITTI. If that's your paper — even better,
+        we'd love your input on the mechanism.
+  - type: input
+    id: paper
+    attributes:
+      label: Paper title and venue
+      placeholder: "e.g. A Correlation-Based Approach to Robust Point Set Registration, ECCV 2004"
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link (arXiv / DOI / publisher)
+      placeholder: "https://arxiv.org/abs/..."
+    validations:
+      required: true
+  - type: textarea
+    id: mechanism
+    attributes:
+      label: Core mechanism (1-3 sentences)
+      description: "What makes it distinct from ICP / NDT / GMM-EM? The geometric or probabilistic idea we'd reimplement."
+    validations:
+      required: true
+  - type: dropdown
+    id: public_code
+    attributes:
+      label: Is there public author code?
+      options:
+        - "No public implementation (in scope)"
+        - "Yes, author code exists (likely out of scope)"
+        - "Not sure"
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: "Classical / geometric / probabilistic mechanism (not a deep/neural network)"
+        - label: "Evaluable on KITTI Odometry (LiDAR, no required proprietary sensor)"
+  - type: checkboxes
+    id: author
+    attributes:
+      label: Are you an author?
+      options:
+        - label: "I am an author of this paper and happy to clarify the method"

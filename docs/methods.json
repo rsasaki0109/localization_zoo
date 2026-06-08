@@ -154,6 +154,22 @@
       ]
     },
     {
+      "name": "IDC",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR"
+      ],
+      "href": "papers/idc",
+      "summary": "Iterative Dual Correspondence 2D laser odometry that fuses closest-point translation with matching-range rotation each ICP iteration (Lu & Milios, 1997).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "scan-matching",
+        "icp"
+      ]
+    },
+    {
       "name": "NDT-2D",
       "family": "2D Odometry",
       "scope": "Paper reimplementation",

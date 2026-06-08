@@ -1,0 +1,32 @@
+{
+  "scan_dir": "evaluation/fixtures/fr079_val_384",
+  "gt_csv": "evaluation/fixtures/fr079_val_384/gt.csv",
+  "num_frames": 384,
+  "trajectory_length_m": 373.138,
+  "rpe_segment_length_m": 100.000,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "IDC",
+      "status": "ok",
+      "ate_m": 30.699,
+      "drift_pct": 27.737,
+      "rpe_rot_deg_per_m": 0.849,
+      "frames": 384,
+      "time_ms": 2359.972,
+      "fps": 162.714,
+      "note": "Iterative dual correspondence 2D odometry (Lu & Milios 1997, simplified port)."
+    },
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 17.033,
+      "drift_pct": 15.374,
+      "rpe_rot_deg_per_m": 0.853,
+      "frames": 384,
+      "time_ms": 121.657,
+      "fps": 3156.404,
+      "note": "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port)."
+    }
+  ]
+}

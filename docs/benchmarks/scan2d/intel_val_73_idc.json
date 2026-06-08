@@ -1,0 +1,43 @@
+{
+  "scan_dir": "evaluation/fixtures/intel_val_73",
+  "gt_csv": "evaluation/fixtures/intel_val_73/gt.csv",
+  "num_frames": 73,
+  "trajectory_length_m": 377.915,
+  "rpe_segment_length_m": 100.000,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "IDC",
+      "status": "ok",
+      "ate_m": 18.016,
+      "drift_pct": 15.271,
+      "rpe_rot_deg_per_m": 0.936,
+      "frames": 73,
+      "time_ms": 118.777,
+      "fps": 614.596,
+      "note": "Iterative dual correspondence 2D odometry (Lu & Milios 1997, simplified port)."
+    },
+    {
+      "name": "PL-ICP",
+      "status": "ok",
+      "ate_m": 21.168,
+      "drift_pct": 16.922,
+      "rpe_rot_deg_per_m": 0.807,
+      "frames": 73,
+      "time_ms": 96.694,
+      "fps": 754.962,
+      "note": "Point-to-line ICP 2D scan odometry (Censi IROS 2008, simplified port)."
+    },
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 15.361,
+      "drift_pct": 14.287,
+      "rpe_rot_deg_per_m": 0.921,
+      "frames": 73,
+      "time_ms": 15.198,
+      "fps": 4803.145,
+      "note": "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port)."
+    }
+  ]
+}

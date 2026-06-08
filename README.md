@@ -158,6 +158,9 @@ HDL-400, MCD, and KITTI windows.
 bash evaluation/scripts/demo_localization_zoo.sh
 ```
 
+It writes a `report.html` + `manifest.json` and JSON summaries under
+`experiments/results/runs/demo_localization_zoo/`.
+
 CI-equivalent smoke coverage (a committed ~3 MB MCD fixture, also run in GitHub Actions
 after `ctest`):
 

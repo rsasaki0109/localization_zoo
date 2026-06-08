@@ -1,0 +1,45 @@
+{
+  "pcd_dir": "dogfooding_results/nclt_2013_01_10_600",
+  "gt_csv": "experiments/reference_data/nclt_2013_01_10_600_gt.csv",
+  "num_frames": 600,
+  "trajectory_length_m": 100.578783,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 7.247748,
+      "rpe_trans_pct": 2.756556,
+      "rpe_rot_deg_per_m": 0.153108,
+      "frames": 600,
+      "time_ms": 111094.122538,
+      "fps": 5.400826,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "RKO-LIO",
+      "status": "ok",
+      "ate_m": 1.133912,
+      "rpe_trans_pct": 1.423070,
+      "rpe_rot_deg_per_m": 0.021239,
+      "frames": 600,
+      "time_ms": 81720.014776,
+      "fps": 7.342143,
+      "seed_fallback_rate_pct": null,
+      "note": "Scan-to-map odometry with IMU rotation prior (GT-seeded init; IMU gyro preintegration used as ICP rotation guess)."
+    },
+    {
+      "name": "FR-LIO",
+      "status": "ok",
+      "ate_m": 0.575138,
+      "rpe_trans_pct": 0.634010,
+      "rpe_rot_deg_per_m": 0.018834,
+      "frames": 600,
+      "time_ms": 123699.429219,
+      "fps": 4.850467,
+      "seed_fallback_rate_pct": null,
+      "note": "RC-Vox scan-to-map LIO with adaptive sub-frames + simplified ESKS (GT-seeded init; IMU required). IMU prior frames=599 avg_subframes=1 smoothed_subframes=599"
+    }
+  ]
+}

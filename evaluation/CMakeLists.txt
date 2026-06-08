@@ -78,6 +78,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   nn_zupt
   cube_lio
   rko_lio
+  fr_lio
   aloam
   floam
   dlo

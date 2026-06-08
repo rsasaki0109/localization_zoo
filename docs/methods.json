@@ -138,6 +138,22 @@
       ]
     },
     {
+      "name": "FR-LIO",
+      "family": "LIO",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/fr_lio",
+      "summary": "FR-LIO style RC-Vox scan-to-map LIO with adaptive sub-frames, IMU preintegration prior, and simplified backward ESKS smoothing.",
+      "tags": [
+        "odometry",
+        "imu",
+        "voxel-map"
+      ]
+    },
+    {
       "name": "A-LOAM",
       "family": "Registration",
       "scope": "Paper reimplementation",

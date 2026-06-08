@@ -480,7 +480,40 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
   KISS/MCC ~103%; I-LOAM/MCGICP 発散。スクリプト:
   `evaluation/scripts/run_cross_dataset_benchmark.py`。README:
   `docs/benchmarks/cross_dataset/README.md`。
-推奨次候補: `validate_showcase.py`、セッション成果 commit。
+- ✅ **validate_showcase** + **commit `8a980fc` push** (2026-06-09) 完了。
+
+### 00.6b 新規 web サーベイ — 論文 41 本目候補 (2026-06-09)
+
+3 カテゴリ shortlist 完了後の追加サーベイ。除外: OSS 済み
+(SiMpLE, MAD-ICP, RESPLE, MOLA, C3P-VoxelMap, VoxelMap++ 等)。
+
+| Rank | 論文 | 機構 | OSS | Feasibility |
+|------|------|------|-----|-------------|
+| ⭐1 | **FR-LIO** (arXiv:2302.04031) | sub-frame + ESKS + **RC-Vox** 固定配列 kNN マップ | **無** | **4/5** (要 IMU) |
+| 2 | **PG-LIO** (2025) | NCC フォトメトリ + geom + IMU | 未公開 | 3.5/5 |
+| 3 | **ERASOR++** (2403.05019) | 動的物体除去 (静的マップ) | **無** | 3/5 (odom 本体ではない) |
+| 4 | **Tightly-coupled mono-LiDAR** (ISR 2022) | 単眼+LiDAR 密結合 + LC | 無 | 2.5/5 |
+
+**推奨 41 本目: FR-LIO** — RC-Vox は既存 voxelmap 群と非重複。NCLT/HDL-400/KITTI Raw
+は `imu.csv` あり。LiDAR-only 簡約版も scoping 可。
+
+**運用**: 「41本目 FR-LIO」等の明示で着手。
+
+### 00.51 FR-LIO (41本目, RC-Vox + sub-frame + ESKS 2026-06-09)
+
+- ✅ **実装**: `papers/fr_lio/` — RC-Vox 二層ボクセルマップ、IMU 分散による adaptive
+  sub-frame、簡略 backward ESKS、IMU 回転 preintegration + point-to-plane ICP。
+- ✅ **統合**: selector `fr_lio`、`--fr-lio-fast-profile` / `--fr-lio-dense-profile`、
+  `imu.csv` 無しは skip（RKO-LIO と異なり IMU 必須）。
+- ✅ **テスト**: `test_fr_lio` 4 cases PASS。
+- ✅ **NCLT 600** (`--no-gt-seed`, fast profile, vs RKO-LIO/KISS-ICP):
+  - FR-LIO: **ATE 0.58 m**, **drift 0.63%**
+  - RKO-LIO: ATE 1.13 m, drift 1.42%
+  - KISS-ICP: ATE 7.25 m, drift 2.76%
+  - 所見: 簡略 port だが NCLT では RKO/KISS を上回る。sub-frame は NCLT IMU では
+    ほぼ常に 1（avg_subframes=1）— 動的区間では増加する設計。
+- Artifact: `docs/benchmarks/cross_dataset/nclt_600_fr_lio_vs_rko.json`
+- **未実装**: deskew、full IEKF、重力/外参推定、著者コード無しのため論文数値との直接比較不可。
 
 ---
 

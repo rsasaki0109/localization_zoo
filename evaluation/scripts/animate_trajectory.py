@@ -30,7 +30,10 @@ GT_COL = '#6e7681'  # ground-truth reference
 
 def load_xy(path):
     """KITTI形式ポーズの接地面 (x, y) 列を返す。"""
-    a = np.loadtxt(path).reshape(-1, 3, 4)
+    a = np.loadtxt(path)
+    if a.size == 0 or a.size % 12 != 0:
+        raise SystemExit(f'{path}: expected KITTI poses (12 values/line), got size {a.size}')
+    a = a.reshape(-1, 3, 4)
     return a[:, 0, 3], a[:, 1, 3]
 
 
@@ -97,7 +100,7 @@ def main():
     # drift 降順 (悪い順) に太→細の入れ子バンドで描き、全色が縁取りで見えるようにする。
     # 最良 (=最前面・最細) を最後に重ね、強調手法はヘッドマーカーで主張する。
     draw_order = sorted(range(len(methods)),
-                        key=lambda i: float(methods[i]['drift']) if methods[i]['drift'] else 0,
+                        key=lambda i: float(methods[i]['drift']) if methods[i]['drift'] else float('inf'),
                         reverse=True)
     nm = len(methods)
     lines = [None] * len(methods)
@@ -130,7 +133,7 @@ def main():
     yy -= 0.05
     # drift 昇順で並べる
     order = sorted(range(len(methods)),
-                   key=lambda i: float(methods[i]['drift']) if methods[i]['drift'] else 9e9)
+                   key=lambda i: float(methods[i]['drift']) if methods[i]['drift'] else float('inf'))
     for i in order:
         m = methods[i]
         label = m['name']

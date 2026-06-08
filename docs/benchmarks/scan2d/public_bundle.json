@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "description": "Public Bonn 2D-SLAM fixtures — drift [%] per method (lower is better). GT is dataset odometry proxy.",
-  "methods": ["RF2O", "PL-ICP", "CSM", "Kinematic-ICP", "PSM"],
+  "methods": ["RF2O", "NDT-2D", "PL-ICP", "CSM", "Kinematic-ICP", "PSM"],
   "fixtures": [
     {
       "id": "intel_val_73",
@@ -12,6 +12,7 @@
       "artifact": "docs/benchmarks/scan2d/intel_val_73.json",
       "drift_pct": {
         "RF2O": 14.287,
+        "NDT-2D": 14.780,
         "PL-ICP": 16.922,
         "CSM": 17.550,
         "Kinematic-ICP": 18.346,
@@ -29,6 +30,7 @@
       "drift_pct": {
         "RF2O": 15.370,
         "PSM": 13.890,
+        "NDT-2D": 21.790,
         "Kinematic-ICP": 18.860,
         "CSM": 38.970,
         "PL-ICP": 40.990

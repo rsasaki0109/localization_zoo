@@ -260,19 +260,20 @@ LiTAMIN2       31.155      2.6
 
 ### 2D Laser Scan Odometry
 
-Five planar `LaserScan` matchers share `scan_dogfooding` (ATE + drift [%/segment]).
+Six planar `LaserScan` matchers in `scan_dogfooding` (ATE + drift [%/segment]).
 GT-seed anchors the first pose; `--no-gt-seed` is supported for odometry-only runs.
 
 | Method | Intel val | fr079 val | MIT val | Synth corridor |
 |--------|---:|---:|---:|---:|
 | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
 | **RF2O** | **14.3%** | 15.4% | 27.6% | 1.28% |
+| **NDT-2D** | 14.8% | 21.8% | **29.2%** | 22.3% |
 | **PSM** | 21.8% | **13.9%** | 27.9% | 11.6% |
 | **CSM** | 17.6% | 38.9% | 27.7% | 69.6% |
 | **PL-ICP** | 16.9% | 41.0% | 30.3% | **0.38%** |
-| **Kinematic-ICP** | 18.4% | 18.9% | **23.4%** | 83.8% |
+| **Kinematic-ICP** | 18.4% | 18.9% | 23.4% | 83.8% |
 
-Public logs are from the [Bonn 2D-SLAM JSON export](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip) (Radish CARMEN conversions). GT is dataset odometry (scan-matched proxy, not centimeter truth). **RF2O** leads Intel; **PSM** leads fr079 on drift; **PL-ICP** wins the synthetic slow-motion corridor. MIT val is only 33 frames — treat drift as indicative. Synthetic corridor is a box-world raycast (`evaluation/fixtures/rf2o_corridor`).
+Public logs are from the [Bonn 2D-SLAM JSON export](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip) (Radish CARMEN conversions). GT is dataset odometry (scan-matched proxy, not centimeter truth). **RF2O** leads Intel; **PSM** leads fr079; **NDT-2D** is competitive on Intel (~14.8% drift) without explicit correspondences; **PL-ICP** wins the synthetic slow-motion corridor. MIT val is only 33 frames — treat drift as indicative.
 
 <p align="center">
   <img src="docs/assets/scan2d_public_gt.png" alt="Top-down GT trajectories for Intel, fr079, and MIT public 2D fixtures" width="900">

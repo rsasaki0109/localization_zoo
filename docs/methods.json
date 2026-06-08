@@ -154,6 +154,22 @@
       ]
     },
     {
+      "name": "NDT-2D",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR"
+      ],
+      "href": "papers/ndt_2d",
+      "summary": "2D Normal Distributions Transform laser odometry that registers scans against a grid of per-cell Gaussians without explicit point correspondences (Biber & Straßer, IROS 2003).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "scan-matching",
+        "ndt"
+      ]
+    },
+    {
       "name": "PSM",
       "family": "2D Odometry",
       "scope": "Paper reimplementation",

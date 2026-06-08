@@ -1,0 +1,43 @@
+{
+  "scan_dir": "evaluation/fixtures/fr079_val_384",
+  "gt_csv": "evaluation/fixtures/fr079_val_384/gt.csv",
+  "num_frames": 384,
+  "trajectory_length_m": 373.138,
+  "rpe_segment_length_m": 100.000,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "NDT-2D",
+      "status": "ok",
+      "ate_m": 58.726,
+      "drift_pct": 21.790,
+      "rpe_rot_deg_per_m": 0.856,
+      "frames": 384,
+      "time_ms": 379.666,
+      "fps": 1011.415,
+      "note": "2D NDT scan matching odometry (Biber & Straßer IROS 2003, simplified port)."
+    },
+    {
+      "name": "PL-ICP",
+      "status": "ok",
+      "ate_m": 71.954,
+      "drift_pct": 40.986,
+      "rpe_rot_deg_per_m": 0.867,
+      "frames": 384,
+      "time_ms": 1700.866,
+      "fps": 225.767,
+      "note": "Point-to-line ICP 2D scan odometry (Censi IROS 2008, simplified port)."
+    },
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 17.033,
+      "drift_pct": 15.374,
+      "rpe_rot_deg_per_m": 0.853,
+      "frames": 384,
+      "time_ms": 115.948,
+      "fps": 3311.839,
+      "note": "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port)."
+    }
+  ]
+}

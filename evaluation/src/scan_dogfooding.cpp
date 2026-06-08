@@ -1,7 +1,7 @@
 /// 2D laser scan dogfooding tool
 ///
 /// Usage:
-///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp]
+///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm]
 ///
 /// scan_dir layout:
 ///   scan_meta.json  (angle_min, angle_max, angle_increment, range_min, range_max, scan_rate_hz)
@@ -12,6 +12,7 @@
 #include "csm/csm.h"
 #include "kinematic_icp/kinematic_icp.h"
 #include "pl_icp/pl_icp.h"
+#include "psm/psm.h"
 #include "rf2o/rf2o.h"
 
 #include <Eigen/Core>
@@ -158,6 +159,24 @@ localization_zoo::kinematic_icp::LaserScan loadScanKinematicICP(const fs::path& 
 
 localization_zoo::csm::LaserScan loadScanCSM(const fs::path& frame_dir, const ScanMeta& meta) {
   localization_zoo::csm::LaserScan scan;
+  scan.angle_min = meta.angle_min;
+  scan.angle_max = meta.angle_max;
+  scan.angle_increment = meta.angle_increment;
+  scan.range_min = meta.range_min;
+  scan.range_max = meta.range_max;
+  std::ifstream in(frame_dir / "scan.csv");
+  if (!in) return scan;
+  std::string line;
+  std::getline(in, line);
+  for (const auto& tok : splitCsv(line)) {
+    if (tok.empty()) continue;
+    scan.ranges.push_back(std::stod(tok));
+  }
+  return scan;
+}
+
+localization_zoo::psm::LaserScan loadScanPSM(const fs::path& frame_dir, const ScanMeta& meta) {
+  localization_zoo::psm::LaserScan scan;
   scan.angle_min = meta.angle_min;
   scan.angle_max = meta.angle_max;
   scan.angle_increment = meta.angle_increment;
@@ -436,6 +455,44 @@ MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   return res;
 }
 
+MethodResult runPSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
+                  const std::vector<GTPose2D>& gt, bool no_gt_seed) {
+  using namespace localization_zoo::psm;
+  MethodResult res;
+  res.name = "PSM";
+  PSMParams params;
+  params.search_xy_range = 0.8;
+  params.search_yaw_range = 0.25;
+  params.coarse_xy_steps = 11;
+  params.coarse_yaw_steps = 11;
+  params.fine_xy_steps = 5;
+  params.fine_yaw_steps = 5;
+  PSMEstimator est(params);
+  if (!gt.empty() && !no_gt_seed) {
+    est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
+  }
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < frames.size(); ++i) {
+    const auto scan = loadScanPSM(frames[i], meta);
+    if (scan.size() < 10) continue;
+    const auto out = est.registerScan(scan);
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<2, 2>(0, 0) = out.pose.block<2, 2>(0, 0);
+    T(0, 3) = out.pose(0, 2);
+    T(1, 3) = out.pose(1, 2);
+    res.poses.push_back(T);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [PSM] " << i << "/" << frames.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Polar scan matching 2D odometry (Hähnel polar range correlation, simplified port).";
+  return res;
+}
+
 MethodResult runKinematicICP(const std::vector<fs::path>& frames, const ScanMeta& meta,
                            const std::vector<GTPose2D>& gt, bool no_gt_seed,
                            bool wheel_odom_from_gt) {
@@ -486,7 +543,7 @@ MethodResult runKinematicICP(const std::vector<fs::path>& frames, const ScanMeta
 int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
-              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp]"
+              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm]"
               << " [--no-gt-seed] [--wheel-odom-from-gt] [--summary-json path]\n";
     return 1;
   }
@@ -532,6 +589,10 @@ int main(int argc, char** argv) {
   const double rpe_seg = rpeSegmentLengthM(traj_len);
 
   std::vector<MethodResult> results;
+  if (methods.find("psm") != std::string::npos) {
+    std::cout << "Running PSM...\n";
+    results.push_back(runPSM(frames, meta, gt_raw, no_gt_seed));
+  }
   if (methods.find("kinematic_icp") != std::string::npos) {
     std::cout << "Running Kinematic-ICP...\n";
     results.push_back(runKinematicICP(frames, meta, gt_raw, no_gt_seed, wheel_odom_from_gt));

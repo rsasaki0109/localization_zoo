@@ -258,6 +258,34 @@ LiTAMIN2       31.155      2.6
 
 > Reproduce with `./synthetic_benchmark`. No external dataset is required.
 
+### 2D Laser Scan Odometry
+
+Five planar `LaserScan` matchers share `scan_dogfooding` (ATE + drift [%/segment]).
+GT-seed anchors the first pose; `--no-gt-seed` is supported for odometry-only runs.
+
+| Method | Intel Lab val _(73 fr, 378 m)_ | Synthetic corridor _(120 fr, 9.5 m)_ |
+|--------|---:|---:|
+| | _drift %_ | _drift %_ |
+| **PL-ICP** | 16.9% | **0.38%** |
+| **RF2O** | **14.3%** | 1.28% |
+| **CSM** | 17.6% | 69.6% |
+| **Kinematic-ICP** | 18.4% | 83.8% |
+| **PSM** | 21.8% | 11.6% |
+
+Intel Lab is the classical Radish indoor log ([Bonn 2D-SLAM export](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip), `intel/val`, 180 beams). Evaluation GT is the dataset odometry (scan-matched proxy, not centimeter truth). Synthetic corridor is a slow-motion box-world raycast (`evaluation/fixtures/rf2o_corridor`).
+
+```bash
+cmake --build build --target scan_dogfooding
+./build/evaluation/scan_dogfooding \
+  evaluation/fixtures/intel_val_73 evaluation/fixtures/intel_val_73/gt.csv \
+  --methods rf2o,pl_icp,csm,kinematic_icp,psm \
+  --summary-json docs/benchmarks/scan2d/intel_val_73.json
+```
+
+Prep helpers: [`evaluation/scripts/prepare_2d_scan_inputs.py`](evaluation/scripts/prepare_2d_scan_inputs.py) (ROS1 bag), [`evaluation/scripts/prepare_bonn_2dslam_inputs.py`](evaluation/scripts/prepare_bonn_2dslam_inputs.py) (Bonn JSON). Full setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md).
+
+Raw JSON: [`docs/benchmarks/scan2d/`](docs/benchmarks/scan2d/).
+
 ---
 
 ## Implementations

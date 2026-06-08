@@ -67,9 +67,21 @@ TUM poses are also supported via `--gt-tum`.
 | [Intel Research Lab](https://www.intelrealsense.com/solution-areas/robotics/) / Radish | Classic 2D hallway logs; often distributed as ROS bags or `.flog` |
 | [Freiburg 2D](https://www2.informatik.uni-freiburg.de/~stachnis/datasets/) | Raw `.log` + ground truth; convert externally to bag or CSV |
 | [Radish (UMD)](http://radish.sourceforge.net/) | `.flog` format; use community converters to ROS bag first |
+| [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip) | Pre-converted Intel / fr079 / MIT splits (`train.json`, `val.json`, `test.json`) |
 
-This repo does **not** ship raw bags. After conversion, use `prepare_2d_scan_inputs.py`
-and keep exports under `dogfooding_results/` (gitignored).
+### Bonn JSON → committed fixture (Intel Lab val)
+
+```bash
+wget -O /tmp/2dslam.zip \
+  https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip
+unzip /tmp/2dslam.zip intel/val.json -d /tmp/2dslam
+python3 evaluation/scripts/prepare_bonn_2dslam_inputs.py \
+  --json /tmp/2dslam/intel/val.json \
+  --output-dir evaluation/fixtures/intel_val_73
+```
+
+The repo ships `evaluation/fixtures/intel_val_73/` (73 frames, 180 beams, ~600 KB) for CI and
+the public 2D leaderboard. GT is dataset odometry (scan-matched proxy).
 
 ## Run scan_dogfooding
 

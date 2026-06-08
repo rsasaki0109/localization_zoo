@@ -1,0 +1,65 @@
+{
+  "scan_dir": "evaluation/fixtures/rf2o_corridor",
+  "gt_csv": "evaluation/fixtures/rf2o_corridor/gt.csv",
+  "num_frames": 120,
+  "trajectory_length_m": 9.543,
+  "rpe_segment_length_m": 4.772,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "PSM",
+      "status": "ok",
+      "ate_m": 0.303,
+      "drift_pct": 11.599,
+      "rpe_rot_deg_per_m": 0.744,
+      "frames": 120,
+      "time_ms": 2430.228,
+      "fps": 49.378,
+      "note": "Polar scan matching 2D odometry (Hähnel polar range correlation, simplified port)."
+    },
+    {
+      "name": "Kinematic-ICP",
+      "status": "ok",
+      "ate_m": 3.584,
+      "drift_pct": 83.805,
+      "rpe_rot_deg_per_m": 0.007,
+      "frames": 120,
+      "time_ms": 89.628,
+      "fps": 1338.870,
+      "note": "Unicycle PL-ICP + wheel odom prior (Guadagnino ICRA 2025, simplified 2D port). GT-derived wheel odometry."
+    },
+    {
+      "name": "CSM",
+      "status": "ok",
+      "ate_m": 5.333,
+      "drift_pct": 69.597,
+      "rpe_rot_deg_per_m": 10.084,
+      "frames": 120,
+      "time_ms": 24553.105,
+      "fps": 4.887,
+      "note": "Correlative scan matching 2D odometry (Olson ICRA 2009, simplified port)."
+    },
+    {
+      "name": "PL-ICP",
+      "status": "ok",
+      "ate_m": 0.020,
+      "drift_pct": 0.380,
+      "rpe_rot_deg_per_m": 0.044,
+      "frames": 120,
+      "time_ms": 76.762,
+      "fps": 1563.271,
+      "note": "Point-to-line ICP 2D scan odometry (Censi IROS 2008, simplified port)."
+    },
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 0.085,
+      "drift_pct": 1.276,
+      "rpe_rot_deg_per_m": 0.272,
+      "frames": 120,
+      "time_ms": 32.546,
+      "fps": 3687.069,
+      "note": "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port)."
+    }
+  ]
+}

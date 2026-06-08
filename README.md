@@ -263,23 +263,24 @@ LiTAMIN2       31.155      2.6
 Five planar `LaserScan` matchers share `scan_dogfooding` (ATE + drift [%/segment]).
 GT-seed anchors the first pose; `--no-gt-seed` is supported for odometry-only runs.
 
-| Method | Intel Lab val _(73 fr, 378 m)_ | Synthetic corridor _(120 fr, 9.5 m)_ |
-|--------|---:|---:|
-| | _drift %_ | _drift %_ |
-| **PL-ICP** | 16.9% | **0.38%** |
-| **RF2O** | **14.3%** | 1.28% |
-| **CSM** | 17.6% | 69.6% |
-| **Kinematic-ICP** | 18.4% | 83.8% |
-| **PSM** | 21.8% | 11.6% |
+| Method | Intel val | fr079 val | MIT val | Synth corridor |
+|--------|---:|---:|---:|---:|
+| | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
+| **RF2O** | **14.3%** | 15.4% | 27.6% | 1.28% |
+| **PSM** | 21.8% | **13.9%** | 27.9% | 11.6% |
+| **CSM** | 17.6% | 38.9% | 27.7% | 69.6% |
+| **PL-ICP** | 16.9% | 41.0% | 30.3% | **0.38%** |
+| **Kinematic-ICP** | 18.4% | 18.9% | **23.4%** | 83.8% |
 
-Intel Lab is the classical Radish indoor log ([Bonn 2D-SLAM export](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip), `intel/val`, 180 beams). Evaluation GT is the dataset odometry (scan-matched proxy, not centimeter truth). Synthetic corridor is a slow-motion box-world raycast (`evaluation/fixtures/rf2o_corridor`).
+Public logs are from the [Bonn 2D-SLAM JSON export](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip) (Radish CARMEN conversions). GT is dataset odometry (scan-matched proxy, not centimeter truth). **RF2O** leads Intel; **PSM** leads fr079 on drift; **PL-ICP** wins the synthetic slow-motion corridor. MIT val is only 33 frames — treat drift as indicative. Synthetic corridor is a box-world raycast (`evaluation/fixtures/rf2o_corridor`).
+
+<p align="center">
+  <img src="docs/assets/scan2d_public_gt.png" alt="Top-down GT trajectories for Intel, fr079, and MIT public 2D fixtures" width="900">
+</p>
 
 ```bash
 cmake --build build --target scan_dogfooding
-./build/evaluation/scan_dogfooding \
-  evaluation/fixtures/intel_val_73 evaluation/fixtures/intel_val_73/gt.csv \
-  --methods rf2o,pl_icp,csm,kinematic_icp,psm \
-  --summary-json docs/benchmarks/scan2d/intel_val_73.json
+bash evaluation/scripts/run_scan2d_benchmark.sh   # refresh all committed fixtures
 ```
 
 Prep helpers: [`evaluation/scripts/prepare_2d_scan_inputs.py`](evaluation/scripts/prepare_2d_scan_inputs.py) (ROS1 bag), [`evaluation/scripts/prepare_bonn_2dslam_inputs.py`](evaluation/scripts/prepare_bonn_2dslam_inputs.py) (Bonn JSON). Full setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md).

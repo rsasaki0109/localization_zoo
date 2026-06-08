@@ -621,6 +621,23 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 
 **状態**: ワークツリーに未コミット。次候補: **Kinematic-ICP 2D** (§00.6c rank 3)。
 
+### 00.56 Kinematic-ICP 2D (46本目) — unicycle ICP + wheel odom (2026-06-09)
+
+- ✅ **実装**: `papers/kinematic_icp/` — PL-ICP + wheel odom 重み付き prior +
+  unicycle 射影（Guadagnino ICRA 2025 簡略 2D port）。
+- ✅ **統合**: `scan_dogfooding --methods kinematic_icp`
+  `--wheel-odom-from-gt`（GT 差分から合成エンコーダ）。
+- ✅ **テスト**: `test_kinematic_icp` 5 cases PASS。
+- ✅ **Smoke benchmark** (60f, traj 17.7 m, GT-seed + GT wheel odom):
+  - Kinematic-ICP: ATE **4.21 m**, drift **~23.8%**
+  - PL-ICP: ATE **2.22 m** / RF2O: ATE **0.20 m**
+  - 所見: 簡略 port では GT wheel odom あっても scan-to-scan ICP 系は
+    高速混合運動 fixture で RF2O に劣後（honest negative）。
+- Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_kinematic_icp_vs_rf2o.json`
+- **未実装**: PRBonn 3D pipeline、動的重み付け、extrinsic TF、KISS-ICP backend。
+
+**状態**: ワークツリーに未コミット。
+
 
 This section is the authoritative current handoff. Older sections below still
 matter for benchmark history, recipe provenance, and paper-grade claims, but

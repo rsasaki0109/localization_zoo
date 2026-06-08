@@ -149,7 +149,7 @@ target_link_libraries(multimodal_dogfooding PRIVATE
 target_include_directories(multimodal_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})
 
 add_executable(scan_dogfooding src/scan_dogfooding.cpp)
-target_link_libraries(scan_dogfooding PRIVATE rf2o pl_icp csm)
+target_link_libraries(scan_dogfooding PRIVATE rf2o pl_icp csm kinematic_icp)
 
 add_custom_target(
   eval_local_suite

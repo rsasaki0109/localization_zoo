@@ -1,7 +1,7 @@
 /// 2D laser scan dogfooding tool
 ///
 /// Usage:
-///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm]
+///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp]
 ///
 /// scan_dir layout:
 ///   scan_meta.json  (angle_min, angle_max, angle_increment, range_min, range_max, scan_rate_hz)
@@ -10,6 +10,7 @@
 /// gt_csv: timestamp,x,y,yaw
 
 #include "csm/csm.h"
+#include "kinematic_icp/kinematic_icp.h"
 #include "pl_icp/pl_icp.h"
 #include "rf2o/rf2o.h"
 
@@ -24,6 +25,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -91,6 +93,18 @@ std::vector<GTPose2D> loadGT(const fs::path& csv) {
   return poses;
 }
 
+localization_zoo::kinematic_icp::WheelOdom wheelOdomFromGT(const GTPose2D& prev,
+                                                           const GTPose2D& cur) {
+  localization_zoo::kinematic_icp::WheelOdom odom;
+  const double dx = cur.x - prev.x;
+  const double dy = cur.y - prev.y;
+  const double c = std::cos(prev.yaw);
+  const double s = std::sin(prev.yaw);
+  odom.forward_m = c * dx + s * dy;
+  odom.yaw_rad = cur.yaw - prev.yaw;
+  return odom;
+}
+
 struct ScanMeta {
   double angle_min = -M_PI;
   double angle_max = M_PI;
@@ -121,6 +135,25 @@ ScanMeta loadMeta(const fs::path& scan_dir) {
   meta.scan_rate_hz = findNum("scan_rate_hz");
   if (meta.scan_rate_hz <= 0.0) meta.scan_rate_hz = 10.0;
   return meta;
+}
+
+localization_zoo::kinematic_icp::LaserScan loadScanKinematicICP(const fs::path& frame_dir,
+                                                              const ScanMeta& meta) {
+  localization_zoo::kinematic_icp::LaserScan scan;
+  scan.angle_min = meta.angle_min;
+  scan.angle_max = meta.angle_max;
+  scan.angle_increment = meta.angle_increment;
+  scan.range_min = meta.range_min;
+  scan.range_max = meta.range_max;
+  std::ifstream in(frame_dir / "scan.csv");
+  if (!in) return scan;
+  std::string line;
+  std::getline(in, line);
+  for (const auto& tok : splitCsv(line)) {
+    if (tok.empty()) continue;
+    scan.ranges.push_back(std::stod(tok));
+  }
+  return scan;
 }
 
 localization_zoo::csm::LaserScan loadScanCSM(const fs::path& frame_dir, const ScanMeta& meta) {
@@ -329,12 +362,58 @@ MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   return res;
 }
 
+MethodResult runKinematicICP(const std::vector<fs::path>& frames, const ScanMeta& meta,
+                           const std::vector<GTPose2D>& gt, bool no_gt_seed,
+                           bool wheel_odom_from_gt) {
+  using namespace localization_zoo::kinematic_icp;
+  MethodResult res;
+  res.name = "Kinematic-ICP";
+  KinematicICPParams params;
+  params.max_correspondence_distance = 1.5;
+  params.wheel_odom_weight = 8.0;
+  params.use_last_increment_as_wheel_odom = !wheel_odom_from_gt;
+  KinematicICPEstimator est(params);
+  if (!gt.empty() && !no_gt_seed) {
+    est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
+  }
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < frames.size(); ++i) {
+    const auto scan = loadScanKinematicICP(frames[i], meta);
+    if (scan.size() < 10) continue;
+    std::optional<WheelOdom> wheel;
+    if (wheel_odom_from_gt && i > 0 && gt.size() > 1) {
+      const size_t gi = std::min(i, gt.size() - 1);
+      const size_t gp = std::min(i - 1, gt.size() - 1);
+      wheel = wheelOdomFromGT(gt[gp], gt[gi]);
+    }
+    const auto out = est.registerScan(scan, wheel);
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<2, 2>(0, 0) = out.pose.block<2, 2>(0, 0);
+    T(0, 3) = out.pose(0, 2);
+    T(1, 3) = out.pose(1, 2);
+    res.poses.push_back(T);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [Kinematic-ICP] " << i << "/" << frames.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Unicycle PL-ICP + wheel odom prior (Guadagnino ICRA 2025, simplified 2D port).";
+  if (wheel_odom_from_gt) {
+    res.note += " GT-derived wheel odometry.";
+  }
+  return res;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
-              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm] [--no-gt-seed]\n";
+              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp]"
+              << " [--no-gt-seed] [--wheel-odom-from-gt]\n";
     return 1;
   }
 
@@ -342,11 +421,14 @@ int main(int argc, char** argv) {
   const fs::path gt_csv = argv[2];
   size_t max_frames = 0;
   bool no_gt_seed = false;
+  bool wheel_odom_from_gt = false;
   std::string methods = "rf2o";
   for (int i = 3; i < argc; ++i) {
     std::string arg = argv[i];
     if (arg == "--no-gt-seed") {
       no_gt_seed = true;
+    } else if (arg == "--wheel-odom-from-gt") {
+      wheel_odom_from_gt = true;
     } else if (arg == "--methods" && i + 1 < argc) {
       methods = argv[++i];
     } else if (std::all_of(arg.begin(), arg.end(), ::isdigit)) {
@@ -369,6 +451,10 @@ int main(int argc, char** argv) {
   std::cout << "Trajectory length: " << trajectoryLength2D(gt) << " m\n";
 
   std::vector<MethodResult> results;
+  if (methods.find("kinematic_icp") != std::string::npos) {
+    std::cout << "Running Kinematic-ICP...\n";
+    results.push_back(runKinematicICP(frames, meta, gt_raw, no_gt_seed, wheel_odom_from_gt));
+  }
   if (methods.find("csm") != std::string::npos) {
     std::cout << "Running CSM...\n";
     results.push_back(runCSM(frames, meta, gt_raw, no_gt_seed));

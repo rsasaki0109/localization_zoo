@@ -1,0 +1,19 @@
+{
+  "scan_dir": "evaluation/fixtures/rf2o_smoke",
+  "gt_csv": "evaluation/fixtures/rf2o_smoke/gt.csv",
+  "num_frames": 60,
+  "trajectory_length_m": 17.7047,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 0.203,
+      "drift_pct": 1.15,
+      "frames": 60,
+      "time_ms": 14.227,
+      "fps": 4217.369,
+      "note": "Synthetic box-world smoke fixture; GT-seeded init; simplified RF2O port (ICRA 2016)."
+    }
+  ]
+}

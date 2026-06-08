@@ -1,0 +1,29 @@
+{
+  "scan_dir": "evaluation/fixtures/rf2o_smoke",
+  "gt_csv": "evaluation/fixtures/rf2o_smoke/gt.csv",
+  "num_frames": 60,
+  "trajectory_length_m": 17.7047,
+  "gt_seed": true,
+  "methods": [
+    {
+      "name": "PL-ICP",
+      "status": "ok",
+      "ate_m": 2.223,
+      "drift_pct": 12.56,
+      "frames": 60,
+      "time_ms": 105.677,
+      "fps": 567.77,
+      "note": "Scan-to-scan point-to-line ICP; drift accumulates on fast mixed-motion synthetic fixture."
+    },
+    {
+      "name": "RF2O",
+      "status": "ok",
+      "ate_m": 0.203,
+      "drift_pct": 1.15,
+      "frames": 60,
+      "time_ms": 16.998,
+      "fps": 3529.92,
+      "note": "Range-flow odometry; same fixture as PL-ICP comparison."
+    }
+  ]
+}

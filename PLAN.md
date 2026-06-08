@@ -515,9 +515,97 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - Artifact: `docs/benchmarks/cross_dataset/nclt_600_fr_lio_vs_rko.json`
 - **未実装**: deskew、full IEKF、重力/外参推定、著者コード無しのため論文数値との直接比較不可。
 
----
+### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 
-## 0. Latest Handoff: OSS Showcase / Star Growth Push (2026-06-02)
+- ✅ **実装**: `papers/pg_lio/` — range-image NCC パッチ + point-to-plane ICP +
+  幾何退化時 photometric 重み増加 + IMU 並進 prior。
+- ✅ **統合**: selector `pg_lio`、`--pg-lio-fast-profile` / `--pg-lio-dense-profile`、
+  `imu.csv` + PointXYZI 必須（欠如時 skip）。
+- ✅ **テスト**: `test_pg_lio` 4 cases PASS。
+- ✅ **NCLT 600** (`--no-gt-seed`, fast profile, vs FR-LIO):
+  - FR-LIO: ATE **0.58 m**, drift **0.63%**
+  - PG-LIO (初版): ATE **23.7 m**, drift **33.0%** — ** honest negative**
+  - 所見: 簡略 NCC + 非 organized Velodyne 投影で photometric 因子が不安定。
+    patch 上限・退化時のみ photometric 適用・IMU 並進 prior 除去で改善余地あり。
+- Artifact: `docs/benchmarks/cross_dataset/nclt_600_pg_lio_vs_fr_lio.json`
+- **未実装**: sliding-window factor graph、deskew、Ouster bias LUT、full IEKF。
+
+**状態**: ワークツリーに未コミット。NCLT 600 で honest negative のため、**当面は 2D LiDAR 路線を優先**（下記 §00.6c）。
+
+### 00.6c 方針転換 — 2D LiDAR キャンペーン (2026-06-09)
+
+ユーザー指示: **「しばらくは 2D LiDAR でやっていく」**。3D Velodyne + IMU 系
+(FR-LIO 完了、PG-LIO は保留) から、**planar laser scan** 系 odometry/SLAM へ軸足を移す。
+
+#### 現状ギャップ
+
+- リポジトリは **3D PCD (`pcd_dogfooding`) 中心**。2D `LaserScan` 用 harness **追加済み**
+  (`scan_dogfooding`, RF2O smoke fixture)。
+- 既存 42 手法はすべて 3D 点群 or multimodal。**RF2O が初の 2D scan matcher**。
+
+#### インフラ（先に必要）
+
+| 要素 | 案 |
+|------|-----|
+| 入力 | `scan_dogfooding`: `00000000/scan.csv` (angle_min, angle_increment, ranges[]) |
+| GT | `gt.csv`: timestamp, x, y, yaw [rad] |
+| 評価 | 2D ATE / drift [m/100m]（既存 KITTI-style RPE を xy に限定） |
+| データセット | Radish / Intel Research Lab / Freiburg 2D hallway（公開 log） |
+| 前処理 | `evaluation/scripts/prepare_2d_scan_inputs.py`（bag/log → scan tree） |
+
+#### 論文 43 本目候補（2D LiDAR shortlist）
+
+3D shortlist (PG-LIO / ERASOR++) は **保留**。2D 専用サーベイ:
+
+| Rank | 論文 | 機構 | OSS | Feasibility |
+|------|------|------|-----|-------------|
+| ⭐1 | **RF2O** (Jaimez et al., ICRA 2016) | **Range flow** 密拘束、対応探索不要 | GPL ROS 有 | **5/5** |
+| 2 | **PL-ICP** (Censi, IROS 2008) | 2D point-to-line ICP、定番 baseline | 各所 | **5/5** |
+| 3 | **Kinematic-ICP 2D** (Guadagnino et al., 2024/25) | 車輪運動学 + ICP、`use_2d_lidar` | MIT (PRBonn) | **4/5** |
+| 4 | **CSM / Karto** (Olson, correlative matching) | 多解像度相関、退化に強い | OpenSLAM | **4/5** |
+| 5 | **PSM** (Polar Scan Matching) | 極座標直接マッチ | 旧実装 | **3.5/5** |
+
+**推奨 43 本目: RF2O** — 3D zoo 群と機構が非重複（range flow ≠ ICP）。
+論文では PL-ICP/PSM を上回り corridor でも ~1% RMSE。実装は scan 勾配 +
+速度未知数の Gauss-Newton + coarse-to-fine + 共分散スムージング。
+
+**運用**: 「43本目 RF2O」または「2D harness から」で着手。PG-LIO はコミット保留可。
+
+### 00.53 RF2O (43本目) — 2D LiDAR range-flow odometry (2026-06-09)
+
+- ✅ **実装**: `papers/rf2o/` — range-flow 密拘束 + Gaussian pyramid + coarse-to-fine IRLS +
+  共分散 eigenvalue smoothing（MAPIRlab RF2O 準拠のループ順・PoseUpdate）。
+- ✅ **2D harness**: `evaluation/src/scan_dogfooding.cpp` — `scan_meta.json` +
+  `NNNNNNNN/scan.csv` + `gt.csv` (x,y,yaw)。
+- ✅ **フィクスチャ**: `evaluation/scripts/generate_rf2o_smoke_fixture.py` →
+  `evaluation/fixtures/rf2o_smoke/` (60 frames, box world)。
+- ✅ **テスト**: `test_rf2o` 5 cases PASS。
+- ✅ **Smoke benchmark** (GT-seeded, 60f, traj 17.7 m):
+  - ATE **0.20 m**, drift **~1.1%**
+  - 並進+回転混合 (0.2 m/f + 0.02 rad/f): ATE **0.37 m**
+  - 修正: coarse-to-fine 順序・coarse 初回 no-warp・全 pyramid level の `range_old` 保持、
+    `filterLevelSolution` 再有効化、`PoseUpdate` 型 pose 合成。
+- Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60.json`
+- **未実装**: ROS bag reader、Radish/Intel 公開 log 前処理、Cauchy IRLS 再重み付け。
+
+**状態**: ワークツリーに未コミット。次候補: **PL-ICP** (2D baseline, §00.6c rank 2)。
+
+### 00.54 PL-ICP (44本目) — 2D point-to-line ICP baseline (2026-06-09)
+
+- ✅ **実装**: `papers/pl_icp/` — beam-order line normals + iterative PL-ICP Gauss-Newton (SE2)。
+- ✅ **統合**: `scan_dogfooding --methods pl_icp`（motion prior warm-start あり）。
+- ✅ **テスト**: `test_pl_icp` 5 cases PASS。
+- ✅ **Smoke benchmark** vs RF2O (`rf2o_smoke`, GT-seed, 60f, traj 17.7 m):
+  - PL-ICP: ATE **2.22 m**, drift **~12.6%**
+  - RF2O: ATE **0.20 m**, drift **~1.1%**
+  - 短区間 (10f): PL-ICP **0.002 m**, RF2O **0.003 m** — 同等
+  - 所見: 合成 fixture の高速混合運動 (0.3 m/f + 0.02 rad/f) で scan-to-scan ICP は
+    ドリフト蓄積。RF2O 論文の PL-ICP 優位と整合。
+- Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_pl_icp_vs_rf2o.json`
+- **未実装**: Censi recursive distortion、local map / CSM、kd-tree 対応探索。
+
+**状態**: ワークツリーに未コミット。次候補: **Kinematic-ICP 2D** または **CSM/Karto** (§00.6c rank 3–4)。
+
 
 This section is the authoritative current handoff. Older sections below still
 matter for benchmark history, recipe provenance, and paper-grade claims, but

@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -51,6 +51,7 @@
 #include "cube_lio/cube_lio.h"
 #include "rko_lio/rko_lio.h"
 #include "fr_lio/fr_lio.h"
+#include "pg_lio/pg_lio.h"
 #include "litamin2/litamin2_registration.h"
 #include "ndt/ndt_registration.h"
 #include "scan_context/scan_context.h"
@@ -217,7 +218,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "suma" || method == "balm2" || method == "isc_loam" ||
          method == "loam_livox" || method == "lio_sam" || method == "lins" ||
          method == "fast_lio_slam" || method == "point_lio" ||
-         method == "rko_lio" || method == "fr_lio" || method == "d2lio" ||
+         method == "rko_lio" || method == "fr_lio" || method == "pg_lio" ||
+         method == "d2lio" ||
          method == "ct_voxelmap" || method == "cube_lio" ||
          method == "r_voxelmap" || method == "degen_sense" ||
          method == "vibration_lio" || method == "bievr_lio" ||
@@ -1339,6 +1341,21 @@ struct FRLIODogfoodingOptions {
   int max_subframes = 4;
   double esks_gain = 0.5;
   int min_valid_matches = 30;
+};
+
+struct PGLIODogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 20;
+  int max_icp_iterations = 30;
+  double max_correspondence_dist = 2.0;
+  int range_image_width = 512;
+  int range_image_height = 64;
+  int max_patches = 48;
+  double photometric_weight = 1.0;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
 };
 
 struct D2LIODogfoodingOptions {
@@ -4876,6 +4893,92 @@ MethodResult runFRLIO(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runPGLIO(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const std::vector<double>& frame_timestamps,
+                      const std::vector<ImuSampleCsv>& imu_samples,
+                      const PGLIODogfoodingOptions& options) {
+  using namespace localization_zoo::pg_lio;
+  MethodResult res;
+  res.name = "PG-LIO";
+
+  if (imu_samples.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note =
+        "imu.csv not found. PG-LIO requires synchronized IMU for inertial "
+        "priors and degeneracy regularization.";
+    return res;
+  }
+
+  auto probe = loadPCDXYZI(pcd_dirs.front() + "/cloud.pcd", options.source_voxel_size);
+  if (probe.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note =
+        "cloud.pcd lacks PointXYZI intensity. PG-LIO requires per-point "
+        "intensity for photometric NCC factors.";
+    return res;
+  }
+
+  PGLIOParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.max_correspondence_dist = options.max_correspondence_dist;
+  params.range_image_width = options.range_image_width;
+  params.range_image_height = options.range_image_height;
+  params.max_patches = options.max_patches;
+  params.photometric_weight = options.photometric_weight;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  PGLIOPipeline pipeline(params);
+  pipeline.setInitialPose(gt.empty() ? Eigen::Matrix4d::Identity() : gt.front());
+
+  int imu_frames = 0;
+  long photo_patches = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size);
+    if (pts.empty()) continue;
+    pts = limitLoadedXYZI(pts, options.max_source_points);
+    if (pts.empty()) continue;
+
+    std::vector<IntensityPoint> frame;
+    frame.reserve(pts.size());
+    for (const auto& p : pts) frame.push_back({p.point, p.intensity});
+
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+
+    const auto result = pipeline.registerFrame(frame, imu_batch);
+    if (result.used_imu) ++imu_frames;
+    photo_patches += result.photometric_patches;
+    res.poses.push_back(result.pose);
+
+    if (i % 10 == 0) {
+      std::cerr << "\r  [PG-LIO] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize()
+                << " patches=" << pipeline.patchCount();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  std::ostringstream oss;
+  oss << "Photometric-geometric LIO with NCC range-image patches (IMU required).";
+  if (imu_frames > 0) oss << " IMU frames=" << imu_frames;
+  if (photo_patches > 0) {
+    oss << " photometric_patch_frames=" << photo_patches;
+  }
+  res.note = oss.str();
+  return res;
+}
+
 MethodResult runD2LIO(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
                       const std::vector<double>& frame_timestamps,
@@ -8133,6 +8236,7 @@ int main(int argc, char** argv) {
   CubeLIODogfoodingOptions cube_lio_options;
   RKOLIODogfoodingOptions rko_lio_options;
   FRLIODogfoodingOptions fr_lio_options;
+  PGLIODogfoodingOptions pg_lio_options;
   CTICPDogfoodingOptions ct_icp_options;
   CTICPNDTHybridOptions ct_icp_ndt_options;
   DLODofeedingOptions dlo_options;
@@ -10648,6 +10752,27 @@ int main(int argc, char** argv) {
       fr_lio_options.min_valid_matches = 40;
       continue;
     }
+    if (arg == "--pg-lio-fast-profile") {
+      pg_lio_options.source_voxel_size = 0.5;
+      pg_lio_options.max_source_points = 4500;
+      pg_lio_options.voxel_size = 1.0;
+      pg_lio_options.max_icp_iterations = 25;
+      pg_lio_options.range_image_width = 512;
+      pg_lio_options.range_image_height = 64;
+      pg_lio_options.max_patches = 32;
+      continue;
+    }
+    if (arg == "--pg-lio-dense-profile") {
+      pg_lio_options.source_voxel_size = 0.3;
+      pg_lio_options.max_source_points = 8000;
+      pg_lio_options.voxel_size = 0.8;
+      pg_lio_options.max_icp_iterations = 40;
+      pg_lio_options.range_image_width = 768;
+      pg_lio_options.range_image_height = 96;
+      pg_lio_options.max_patches = 64;
+      pg_lio_options.photometric_weight = 1.5;
+      continue;
+    }
     if (arg == "--kiss-source-voxel-size") {
       if (i + 1 >= argc) {
         std::cerr << "--kiss-source-voxel-size requires a numeric value"
@@ -11805,6 +11930,19 @@ int main(int argc, char** argv) {
               << std::endl;
     results.push_back(runFRLIO(pcd_dirs, gt, frame_timestamps, imu_samples,
                                fr_lio_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "pg_lio")) {
+    std::cout << "Running PG-LIO..." << std::endl;
+    std::cout << "  source_voxel_size=" << pg_lio_options.source_voxel_size
+              << " voxel_size=" << pg_lio_options.voxel_size
+              << " range_image=" << pg_lio_options.range_image_width << "x"
+              << pg_lio_options.range_image_height
+              << " max_patches=" << pg_lio_options.max_patches
+              << " imu=" << (imu_samples.empty() ? "absent" : "present")
+              << std::endl;
+    results.push_back(runPGLIO(pcd_dirs, gt, frame_timestamps, imu_samples,
+                               pg_lio_options));
   }
 
   if (isMethodEnabled(selected_methods, "d2lio")) {

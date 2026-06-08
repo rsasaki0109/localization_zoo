@@ -74,6 +74,21 @@ fail catastrophically — dataset-dependent transfer.
 
 Artifact: `nclt_600_bundle.json`
 
+### NCLT 2013-01-10 600 — LIO (FR-LIO vs RKO-LIO, 2026-06-09)
+
+`--no-gt-seed`, `--fr-lio-fast-profile`:
+
+| Method | Drift [m/100m] | ATE [m] |
+|--------|---------------:|--------:|
+| **FR-LIO** | **0.63** | **0.58** |
+| RKO-LIO | 1.42 | 1.13 |
+| KISS-ICP | 2.76 | 7.25 |
+
+FR-LIO (simplified RC-Vox + sub-frame + ESKS port) beats RKO-LIO and KISS-ICP on
+this NCLT window. Sub-frames stayed at 1 for most NCLT frames (low IMU variance).
+
+Artifact: `nclt_600_fr_lio_vs_rko.json`
+
 ## Notes
 
 - InTEn-LOAM runs with TVF + DOR + scan-to-map mapping enabled by default.

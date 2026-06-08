@@ -1042,6 +1042,18 @@ struct ILoamDogfoodingOptions {
   int odom_ceres_iters = 4;
   double odom_huber_loss_s = 0.1;
 
+  bool enable_mapping = true;
+  int mapping_update_interval = 1;
+  double map_line_resolution = 0.4;
+  double map_plane_resolution = 0.8;
+  int map_outer_iters = 2;
+  int map_ceres_iters = 4;
+  double map_huber_loss_s = 0.1;
+  int map_knn = 5;
+  double map_knn_max_dist_sq = 1.0;
+  double map_edge_eigenvalue_ratio = 3.0;
+  double map_plane_threshold = 0.2;
+
   // I-LOAM 強度拡張
   bool use_intensity_weight = true;
   bool use_intensity_correspondence = true;
@@ -3176,6 +3188,18 @@ MethodResult runILoam(const std::vector<std::string>& pcd_dirs,
   params.intensity_sigma = options.intensity_sigma;
   params.intensity_corr_weight = options.intensity_corr_weight;
 
+  params.enable_mapping = options.enable_mapping;
+  params.mapping_update_interval = options.mapping_update_interval;
+  params.mapping.line_resolution = options.map_line_resolution;
+  params.mapping.plane_resolution = options.map_plane_resolution;
+  params.mapping.num_optimization_iters = options.map_outer_iters;
+  params.mapping.ceres_max_iterations = options.map_ceres_iters;
+  params.mapping.huber_loss_s = options.map_huber_loss_s;
+  params.mapping.knn = options.map_knn;
+  params.mapping.knn_max_dist_sq = options.map_knn_max_dist_sq;
+  params.mapping.edge_eigenvalue_ratio = options.map_edge_eigenvalue_ratio;
+  params.mapping.plane_threshold = options.map_plane_threshold;
+
   ILoam pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -3183,6 +3207,7 @@ MethodResult runILoam(const std::vector<std::string>& pcd_dirs,
 
   double weight_acc = 0.0;
   long weight_frames = 0;
+  int mapping_updates = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     // 反射強度を保持して読み込む (I-LOAM の本質)。LOAM のスキャン構造を
@@ -3203,11 +3228,13 @@ MethodResult runILoam(const std::vector<std::string>& pcd_dirs,
 
     weight_acc += result.mean_intensity_weight;
     ++weight_frames;
+    mapping_updates = result.mapping_updates;
     if (i % 10 == 0) {
       std::cerr << "\r  [I-LOAM] " << i << "/" << pcd_dirs.size()
                 << " edges=" << result.num_edge_correspondences
                 << " planes=" << result.num_plane_correspondences
-                << " w=" << result.mean_intensity_weight;
+                << " w=" << result.mean_intensity_weight
+                << " map=" << result.mapping_updates;
     }
   }
   std::cerr << std::endl;
@@ -3216,10 +3243,10 @@ MethodResult runILoam(const std::vector<std::string>& pcd_dirs,
   const double mean_w =
       weight_frames ? weight_acc / static_cast<double>(weight_frames) : 1.0;
   res.note =
-      "I-LOAM (Park/Jang/Kim, UR 2020): intensity-enhanced LOAM scan-to-scan "
-      "odometry — reflectance-augmented correspondence + intensity-similarity "
-      "residual weighting on KITTI PointXYZI; no GT seed. mean_intensity_weight=" +
-      std::to_string(mean_w);
+      "I-LOAM (Park/Jang/Kim, UR 2020): intensity-enhanced LOAM odometry"
+      + std::string(options.enable_mapping ? "+mapping" : " (scan-to-scan only)")
+      + " on KITTI PointXYZI; no GT seed. mean_intensity_weight=" +
+      std::to_string(mean_w) + " mapping_updates=" + std::to_string(mapping_updates);
   return res;
 }
 
@@ -7810,6 +7837,23 @@ int main(int argc, char** argv) {
       i_loam_options.use_intensity_correspondence = false;
       continue;
     }
+    if (arg == "--i-loam-no-mapping") {
+      i_loam_options.enable_mapping = false;
+      continue;
+    }
+    if (arg == "--i-loam-dense-profile") {
+      i_loam_options.curvature_threshold = 0.08f;
+      i_loam_options.less_flat_leaf_size = 0.15f;
+      i_loam_options.odom_outer_iters = 2;
+      i_loam_options.odom_ceres_iters = 6;
+      i_loam_options.map_outer_iters = 2;
+      i_loam_options.map_ceres_iters = 6;
+      i_loam_options.map_line_resolution = 0.3;
+      i_loam_options.map_plane_resolution = 0.6;
+      i_loam_options.map_knn_max_dist_sq = 0.8;
+      i_loam_options.map_plane_threshold = 0.15;
+      continue;
+    }
     if (arg == "--i-loam-intensity-sigma" && i + 1 < argc) {
       i_loam_options.intensity_sigma = std::stod(argv[++i]);
       continue;
@@ -11109,6 +11153,7 @@ int main(int argc, char** argv) {
     std::cout << "Running I-LOAM..." << std::endl;
     std::cout << "  n_scans=" << i_loam_options.n_scans
               << " stride=" << i_loam_options.input_point_stride
+              << " mapping=" << i_loam_options.enable_mapping
               << " intensity_weight=" << i_loam_options.use_intensity_weight
               << " intensity_corr=" << i_loam_options.use_intensity_correspondence
               << " intensity_sigma=" << i_loam_options.intensity_sigma

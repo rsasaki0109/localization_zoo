@@ -40,16 +40,20 @@ to encode the scan-line id, the **true reflectance is recovered per feature
 point by a nearest-neighbour lookup into the raw input cloud** (which still
 carries `PointXYZI` reflectance).
 
+**Mapping:** after intensity-enhanced scan-to-scan odometry, `aloam::LaserMapping`
+refines the pose scan-to-map (same three-stage LOAM pipeline as A-LOAM/F-LOAM).
+Disable with `--i-loam-no-mapping` for scan-to-scan-only ablation.
+
 ## Scope / approximations for KITTI
 
-- **Odometry only** (scan-to-scan); the paper's mapping refinement is not
-  reproduced here — consistent with the repo's odometry-focused benchmarking.
 - KITTI's intensity is **uncalibrated and coarse** (8-bit, range/incidence
   dependent). I-LOAM uses intensity only as a *correspondence cost term and a
   residual weight* (never as the primary signal), so it degrades gracefully
   rather than catastrophically when reflectance is noisy.
 - The reflectance lookup uses the nearest raw point (no incidence/range
   normalisation), documented as a simplification.
+- Mapping uses standard geometric LOAM scan-to-map factors (no intensity in the
+  map stage in this port).
 
 ## Parameters
 
@@ -59,50 +63,57 @@ carries `PointXYZI` reflectance).
 | `use_intensity_weight` | intensity residual weighting | true |
 | `intensity_sigma` | σ_I in the residual weight | 0.15 |
 | `intensity_corr_weight` | λ for the correspondence cost [m²] | 1.0 |
+| `enable_mapping` | scan-to-map refinement | true |
+| `mapping_update_interval` | mapping every N frames | 1 |
 | `distance_sq_threshold` | max correspondence distance² | 25 m² |
 | `num_optimization_iters` / `ceres_max_iterations` | outer / inner iters | 2 / 4 |
 
-Ablation: `--i-loam-no-intensity` disables both intensity paths, reducing the
-method to a plain geometric LOAM scan-to-scan baseline (used to measure what the
-intensity channel actually contributes — see Result).
+Ablation flags:
+- `--i-loam-no-intensity` — geometric LOAM baseline (intensity paths off)
+- `--i-loam-no-mapping` — scan-to-scan only (no map refinement)
+- `--i-loam-dense-profile` — tighter feature/map resolution for KITTI full eval
 
-## Result (KITTI Odometry, `--no-gt-seed`, scan-to-scan only)
+## Result (KITTI Odometry, `--no-gt-seed`, `--i-loam-dense-profile`)
 
-The headline is an **ablation**: the same pipeline run with the intensity paths
-on vs. off (`--i-loam-no-intensity`). RPE is translational drift %/100 m; ATE in
-parentheses. Mapping refinement is *not* implemented here, so absolute drift is
-at plain-LOAM scan-to-scan level — the point is the **intensity delta**.
+### Odometry + mapping (default)
 
-| Sequence | Geometric baseline (intensity off) | **I-LOAM (intensity on)** | Δ drift |
+| Sequence | RPE drift | ATE |
+|---|---:|---:|
+| Seq 00 _(4541 fr)_ | **0.899%** | 12.7 m |
+| Seq 07 _(1101 fr)_ | **0.575%** | 1.7 m |
+
+Competitive with A-LOAM (~0.61% seq07) while retaining the paper's intensity
+enhancement in the odometry stage. ~3 FPS on seq07 (mapping-heavy).
+
+### Intensity ablation (scan-to-scan only, `--i-loam-no-mapping`)
+
+| Sequence | Geometric baseline (intensity off) | I-LOAM (intensity on) | Δ drift |
 |---|---:|---:|---:|
-| Seq 00 _(4541 fr)_ | 3.186% <sub>(76.0 m)</sub> | **2.606%** <sub>(49.4 m)</sub> | **−18.2%** |
-| Seq 07 _(1101 fr)_ | 3.806% <sub>(18.5 m)</sub> | **3.055%** <sub>(15.1 m)</sub> | **−19.7%** |
+| Seq 00 | 3.186% <sub>(76.0 m)</sub> | **2.606%** <sub>(49.4 m)</sub> | **−18.2%** |
+| Seq 07 | 3.806% <sub>(18.5 m)</sub> | **3.055%** <sub>(15.1 m)</sub> | **−19.7%** |
 
-The reflectance channel consistently cuts drift by ~18–20% and ATE by ~18–35%
-versus the identical geometric pipeline, at ~12–15 FPS. mean intensity weight
-≈ 0.76 (intensity is actively engaged). So I-LOAM's central claim — that LiDAR
-reflectance disambiguates correspondences and improves odometry — **reproduces
-on KITTI**, even though KITTI's intensity is uncalibrated and coarse. Honest
-caveat: as scan-to-scan-only odometry the absolute accuracy is well below the
-mapping-based entries on the main leaderboard; the contribution here is the
-demonstrated, reproducible intensity improvement, not SOTA absolute drift.
+Reflectance cuts drift ~18–20% vs the identical geometric pipeline even without
+mapping — the paper's central claim **reproduces on KITTI**.
 
-Reproduce:
+## Reproduce
 
 ```sh
-# intensity on (I-LOAM)
+# default: intensity + mapping
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
-  experiments/reference_data/kitti_seq_07_full_gt.csv --methods i_loam --no-gt-seed
-# intensity off (geometric baseline)
+  experiments/reference_data/kitti_seq_07_full_gt.csv \
+  --methods i_loam --no-gt-seed --i-loam-dense-profile
+
+# scan-to-scan intensity ablation
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
-  experiments/reference_data/kitti_seq_07_full_gt.csv --methods i_loam \
-  --no-gt-seed --i-loam-no-intensity
+  experiments/reference_data/kitti_seq_07_full_gt.csv \
+  --methods i_loam --no-gt-seed --i-loam-no-mapping
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
+  experiments/reference_data/kitti_seq_07_full_gt.csv \
+  --methods i_loam --no-gt-seed --i-loam-no-mapping --i-loam-no-intensity
 ```
 
 ## Tests
 
-`test_i_loam` covers: the intensity-weight function (bounded in (0,1], monotone
-in |ΔI|, symmetric, disabled when σ≤0); the augmented correspondence distance
-(reduces to geometry when λ=0 or ΔI=0, increases with |ΔI|); short-sequence
-tracking with reflectance-bearing scans; that both intensity-on and
-intensity-off variants track; and state reset on `clear()`.
+`test_i_loam`: intensity weight / augmented distance helpers; short-sequence
+tracking; intensity on/off variants; mapping mode with map updates; `clear()`
+reset.

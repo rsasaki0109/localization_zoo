@@ -30,7 +30,9 @@ point-line bundle adjustment (PL-BA):
 - ORB/LSD are approximated by Harris corners + gradient line segments (no OpenCV
   dependency; same role in the pipeline).
 - **Odometry only** (frame-to-frame PL-BA); no global mapping or loop closure.
-- Full LiDAR-visual evaluation on KITTI Raw (actual camera images) is future work.
+- **KITTI Raw RGB path** (2026-06-09): real `image_02` PNGs loaded via
+  `--pl-loam-rgb-root` + `--pl-loam-rgb-camera kitti_color02`. Harris/line
+  detection runs on grayscale RGB instead of the depth-gradient pseudo-image.
 
 ## Parameters
 
@@ -76,5 +78,31 @@ and unit-tested, but without true photometric texture the tracker diverges badly
 (~117–143% drift vs paper ~0.6–1.0% on full KITTI Odom with RGB). Scale
 correction stays near 1.0 (mean ≈ 1.005) while depth-prior residuals remain
 large (≈3.7–4.1 m), indicating the visual front-end — not the LiDAR depth stage
-alone — is the bottleneck on pseudo-images. Full RGB evaluation on KITTI Raw is
-future work.
+alone — is the bottleneck on pseudo-images.
+
+## Result (KITTI Raw RGB, `--no-gt-seed`, 200-frame windows)
+
+| Drive | RPE drift | ATE | rgb_frames | mean scale |
+|---|---:|---:|---:|---:|
+| raw_0009 | **99.6%** | 120 m | 200 | 0.977 |
+| raw_0061 | **99.3%** | 84 m | 200 | 0.974 |
+
+**Still honest negative with real camera images.** Drift remains ~99% on both
+windows (paper ~0.6–1% on full KITTI Odom with RGB). The simplified Harris/line
+front-end (no ORB/LSD, no full PL-BA loop closure) does not close the gap vs the
+published pipeline. Depth-prior residuals stay large (~2.5–3.2 m).
+
+### Reproduce (KITTI Raw RGB)
+
+```sh
+python3 evaluation/scripts/download_kitti_raw_color_window.py \
+  --sequence-dir dogfooding_results/kitti_raw_0009_200 \
+  --kitti-root /path/to/kitti_raw
+
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 \
+  experiments/reference_data/kitti_raw_0009_200_gt.csv \
+  --methods pl_loam --no-gt-seed --pl-loam-dense-profile \
+  --pl-loam-rgb-root /path/to/2011_09_26_drive_0009_sync \
+  --pl-loam-rgb-camera kitti_color02 \
+  --summary-json docs/benchmarks/kitti_full_new_methods/kitti_raw_0009_200_rgb.json
+```

@@ -962,6 +962,51 @@
       ]
     },
     {
+      "name": "OdoNet",
+      "family": "IMU dead reckoning",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/odonet",
+      "summary": "OdoNet (IEEE Sensors J. 2022, arXiv:2109.03091): 1D-CNN pseudo-odometer regresses forward speed from a 50×6 IMU window; fused with strapdown INS, NHC, and ZUPT for vehicle dead reckoning. Trained on KITTI Raw OXTS; requires imu.csv at eval time.",
+      "tags": [
+        "imu",
+        "deep-learning",
+        "pseudo-odometer"
+      ]
+    },
+    {
+      "name": "NHC-Net",
+      "family": "IMU dead reckoning",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/nhc_net",
+      "summary": "NHC-Net/VMSC (GPS Solutions 2023): CNN classifies vehicle motion state and regresses lateral/vertical velocity for adaptive non-holonomic constraints on strapdown INS dead reckoning. Trained on KITTI Raw OXTS; requires imu.csv at eval time.",
+      "tags": [
+        "imu",
+        "deep-learning",
+        "nonholonomic-constraint"
+      ]
+    },
+    {
+      "name": "NN-ZUPT",
+      "family": "IMU dead reckoning",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/nn_zupt",
+      "summary": "NN-ZUPT (Meas. Sci. Technol. 2023): 1D-CNN detects zero-velocity intervals from a 50×6 IMU window; fused with strapdown INS, NHC, and velocity-reset ZUPT. Trained on KITTI Raw OXTS; requires imu.csv at eval time.",
+      "tags": [
+        "imu",
+        "deep-learning",
+        "zupt"
+      ]
+    },
+    {
       "name": "SVN-ICP",
       "family": "Uncertainty",
       "scope": "Paper reimplementation",

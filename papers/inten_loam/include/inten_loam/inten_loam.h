@@ -4,6 +4,8 @@
 #include <Eigen/Geometry>
 
 #include <cstddef>
+#include <cstdint>
+#include <unordered_map>
 #include <vector>
 
 namespace localization_zoo {
@@ -58,6 +60,17 @@ struct InTenLoamParams {
   double huber_loss_s = 0.1;
   double intensity_weight = 1.0;
   bool use_intensity_registration = true;
+  /// Temporal voxel filter + dynamic object removal (paper §3.3–3.4).
+  bool enable_tvf = true;
+  bool enable_dor = true;
+  double tvf_voxel_size = 1.0;
+  int tvf_min_observations = 3;
+  double dor_range_delta_thresh = 0.6;
+  /// Scan-to-map mapping (local feature map in world frame).
+  bool enable_mapping = true;
+  double map_voxel_size = 1.0;
+  double local_map_radius = 80.0;
+  int mapping_keyframe_interval = 2;
 };
 
 struct InTenLoamResult {
@@ -72,6 +85,10 @@ struct InTenLoamResult {
   size_t num_geom_factors = 0;
   size_t num_intensity_factors = 0;
   double mean_intensity_residual = 0.0;
+  size_t num_dor_removed = 0;
+  size_t num_tvf_removed = 0;
+  size_t num_map_factors = 0;
+  int mapping_updates = 0;
 };
 
 class InTenLoam {
@@ -125,6 +142,39 @@ class InTenLoam {
                      const std::vector<PointI>& last_surfs,
                      const std::vector<PointI>& last_reflectors,
                      InTenLoamResult* result);
+  void applyTemporalVoxelFilter(std::vector<PointI>* points, size_t* removed);
+  void applyDynamicObjectRemoval(CylindricalImage* image, size_t* removed);
+  std::vector<PointI> transformPoints(const std::vector<PointI>& pts) const;
+  std::vector<PointI> transformWorldToBody(const std::vector<PointI>& world_pts) const;
+  void updateLocalMap(const std::vector<PointI>& edges,
+                      const std::vector<PointI>& surfs,
+                      const std::vector<PointI>& reflectors);
+  void pruneLocalMap();
+
+  struct VoxelKey {
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    bool operator==(const VoxelKey& o) const {
+      return x == o.x && y == o.y && z == o.z;
+    }
+  };
+  struct VoxelKeyHash {
+    size_t operator()(const VoxelKey& k) const {
+      return static_cast<size_t>(k.x * 73856093 ^ k.y * 19349663 ^ k.z * 83492791);
+    }
+  };
+  struct TemporalVoxel {
+    int obs_count = 0;
+    int last_frame = -1;
+    float mean_range = 0.0f;
+  };
+
+  VoxelKey voxelKey(const Eigen::Vector3d& p, double voxel_size) const;
+  std::unordered_map<VoxelKey, TemporalVoxel, VoxelKeyHash> temporal_voxels_;
+  std::vector<PointI> map_edges_;
+  std::vector<PointI> map_surfs_;
+  std::vector<PointI> map_reflectors_;
 
   InTenLoamParams params_;
   std::vector<PointI> last_edges_;

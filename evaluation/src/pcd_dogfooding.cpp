@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -41,6 +41,9 @@
 #include "mcgicp/mcgicp.h"
 #include "icpsc/icpsc.h"
 #include "vlom/vlom.h"
+#include "odonet/odonet.h"
+#include "nhc_net/nhc_net.h"
+#include "nn_zupt/nn_zupt.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "bievr_lio/bievr_lio.h"
@@ -228,7 +231,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
          method == "imls_slam" || method == "tricp_lo" || method == "kc_lo" ||
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
-         method == "mcgicp" || method == "icpsc" || method == "vlom" ||
+         method == "mcgicp" ||          method == "icpsc" || method == "vlom" ||
+         method == "odonet" || method == "nhc_net" || method == "nn_zupt" ||
          method == "clins";
 }
 
@@ -610,6 +614,14 @@ std::vector<double> loadFrameTimestampsFromCsv(const std::string& dir,
 
   if (timestamps.size() != expected_frames) return {};
   return timestamps;
+}
+
+std::string resolveKittiRawRgbPath(const std::string& rgb_root,
+                                   const std::string& camera_subdir,
+                                   int global_frame_index) {
+  char name[32];
+  std::snprintf(name, sizeof(name), "%010d.png", global_frame_index);
+  return (fs::path(rgb_root) / camera_subdir / name).string();
 }
 
 FrameGapStats computeFrameGapStats(const std::vector<double>& frame_timestamps) {
@@ -1075,6 +1087,11 @@ struct PlLoamDogfoodingOptions {
   bool use_scale_correction = true;
   double depth_prior_weight = 1.0;
   int ceres_max_iterations = 12;
+  /// KITTI Raw RGB root (drive_*_sync dir). Empty → pseudo-image.
+  std::string rgb_image_root;
+  std::string rgb_camera_subdir = "image_02/data";
+  bool use_rgb = false;
+  bool rgb_half_res = true;
 };
 
 struct InTenLoamDogfoodingOptions {
@@ -1086,6 +1103,15 @@ struct InTenLoamDogfoodingOptions {
   int max_surface_features = 400;
   int max_reflector_features = 120;
   double intensity_weight = 1.0;
+  bool enable_tvf = true;
+  bool enable_dor = true;
+  bool enable_mapping = true;
+  double tvf_voxel_size = 1.0;
+  int tvf_min_observations = 3;
+  double dor_range_delta_thresh = 0.6;
+  double map_voxel_size = 1.0;
+  double local_map_radius = 80.0;
+  int mapping_keyframe_interval = 2;
 };
 
 struct IcpscLoDogfoodingOptions {
@@ -1137,6 +1163,10 @@ struct VlomDogfoodingOptions {
   double map_knn_max_dist_sq = 1.0;
   double map_edge_eigenvalue_ratio = 3.0;
   double map_plane_threshold = 0.2;
+  std::string rgb_image_root;
+  std::string rgb_camera_subdir = "image_02/data";
+  bool use_rgb = false;
+  bool rgb_half_res = true;
 };
 
 struct McGicpLoDogfoodingOptions {
@@ -3325,10 +3355,11 @@ MethodResult runILoam(const std::vector<std::string>& pcd_dirs,
 
 MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
                        const std::vector<Eigen::Matrix4d>& gt,
+                       const std::vector<double>& frame_timestamps,
                        const PlLoamDogfoodingOptions& options) {
   using namespace localization_zoo::pl_loam;
   MethodResult res;
-  res.name = "PL-LOAM";
+  res.name = options.use_rgb ? "PL-LOAM-RGB" : "PL-LOAM";
 
   PlLoamParams params;
   params.input_stride = options.input_stride;
@@ -3340,6 +3371,11 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   params.use_scale_correction = options.use_scale_correction;
   params.depth_prior_weight = options.depth_prior_weight;
   params.ceres_max_iterations = options.ceres_max_iterations;
+  params.use_rgb_features = options.use_rgb;
+  if (options.use_rgb) {
+    params.camera = options.rgb_half_res ? CameraModel::kittiColor02HalfRes()
+                                         : CameraModel::kittiColor02();
+  }
 
   PlLoam pipeline(params);
   const Eigen::Matrix4d world_anchor =
@@ -3349,6 +3385,7 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   double scale_acc = 0.0;
   double depth_res_acc = 0.0;
   long valid_frames = 0;
+  long rgb_frames = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
@@ -3363,7 +3400,22 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
       intensity.push_back(p.intensity);
     }
 
-    const auto result = pipeline.process(points, intensity);
+    PlLoamResult result;
+    if (options.use_rgb && !options.rgb_image_root.empty() &&
+        i < frame_timestamps.size()) {
+      const int global_idx = static_cast<int>(std::lround(frame_timestamps[i]));
+      const std::string rgb_path = resolveKittiRawRgbPath(
+          options.rgb_image_root, options.rgb_camera_subdir, global_idx);
+      GrayscaleImage gray;
+      if (gray.loadRgbPng(rgb_path, params.camera.width, params.camera.height)) {
+        result = pipeline.processWithGrayscale(points, intensity, gray);
+        ++rgb_frames;
+      } else {
+        result = pipeline.process(points, intensity);
+      }
+    } else {
+      result = pipeline.process(points, intensity);
+    }
     if (result.frame_count < 1) continue;
 
     Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();
@@ -3391,11 +3443,12 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   const double mean_depth_res =
       valid_frames ? depth_res_acc / static_cast<double>(valid_frames) : 0.0;
   res.note =
-      "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with "
-      "depth priors in PL-BA on KITTI-projected pseudo-image; no GT seed. "
-      "mean_scale_correction=" +
-      std::to_string(mean_scale) +
-      " mean_depth_prior_residual=" + std::to_string(mean_depth_res);
+      std::string("PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with "
+                  "depth priors in PL-BA; no GT seed. eval=") +
+      (options.use_rgb ? "KITTI-Raw-RGB" : "pseudo-image") +
+      " mean_scale_correction=" + std::to_string(mean_scale) +
+      " mean_depth_prior_residual=" + std::to_string(mean_depth_res) +
+      " rgb_frames=" + std::to_string(rgb_frames);
   return res;
 }
 
@@ -3415,6 +3468,15 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
   params.max_surface_features = options.max_surface_features;
   params.max_reflector_features = options.max_reflector_features;
   params.intensity_weight = options.intensity_weight;
+  params.enable_tvf = options.enable_tvf;
+  params.enable_dor = options.enable_dor;
+  params.enable_mapping = options.enable_mapping;
+  params.tvf_voxel_size = options.tvf_voxel_size;
+  params.tvf_min_observations = options.tvf_min_observations;
+  params.dor_range_delta_thresh = options.dor_range_delta_thresh;
+  params.map_voxel_size = options.map_voxel_size;
+  params.local_map_radius = options.local_map_radius;
+  params.mapping_keyframe_interval = options.mapping_keyframe_interval;
 
   InTenLoam pipeline(params);
   const Eigen::Matrix4d world_anchor =
@@ -3423,6 +3485,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
 
   double int_res_acc = 0.0;
   long valid_frames = 0;
+  long mapping_updates = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
@@ -3446,6 +3509,7 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
     if (result.valid) {
       int_res_acc += result.mean_intensity_residual;
       ++valid_frames;
+      mapping_updates += result.mapping_updates;
     }
     if (i % 10 == 0) {
       std::cerr << "\r  [InTEn-LOAM] " << i << "/" << pcd_dirs.size()
@@ -3458,10 +3522,13 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
   const double mean_int_res =
       valid_frames ? int_res_acc / static_cast<double>(valid_frames) : 0.0;
   res.note =
-      "InTEn-LOAM (Li et al., RS 2022/23): cylindrical-image feature extraction "
-      "(ground/facade/edge/reflector) + intensity B-spline registration in "
-      "scan-to-scan LO; temporal DOR deferred. no GT seed. mean_intensity_residual=" +
-      std::to_string(mean_int_res);
+      "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + "
+      "TVF/DOR/mapping; no GT seed. tvf=" +
+      std::string(options.enable_tvf ? "on" : "off") + " dor=" +
+      (options.enable_dor ? "on" : "off") + " mapping=" +
+      (options.enable_mapping ? "on" : "off") +
+      " mapping_updates=" + std::to_string(mapping_updates) +
+      " mean_intensity_residual=" + std::to_string(mean_int_res);
   return res;
 }
 
@@ -3587,16 +3654,24 @@ MethodResult runIcpscLo(const std::vector<std::string>& pcd_dirs,
 
 MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
                      const std::vector<Eigen::Matrix4d>& gt,
+                     const std::vector<double>& frame_timestamps,
                      const VlomDogfoodingOptions& options) {
   using namespace localization_zoo::vlom;
   MethodResult res;
-  res.name = "VLOM";
+  res.name = options.use_rgb ? "VLOM-RGB" : "VLOM";
 
   VlomParams params;
   params.input_point_stride = options.input_point_stride;
   params.visual.input_stride = options.visual_input_stride;
   params.visual.max_point_features = options.max_point_features;
   params.visual.max_line_features = options.max_line_features;
+  params.visual.use_rgb_features = options.use_rgb;
+  if (options.use_rgb) {
+    params.visual.camera =
+        options.rgb_half_res
+            ? localization_zoo::pl_loam::CameraModel::kittiColor02HalfRes()
+            : localization_zoo::pl_loam::CameraModel::kittiColor02();
+  }
   params.enable_visual_bootstrap = options.enable_visual_bootstrap;
   params.enable_scale_correction = options.enable_scale_correction;
   params.scale_correction_interval = options.scale_correction_interval;
@@ -3636,6 +3711,7 @@ MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
   double scale_acc = 0.0;
   long scale_frames = 0;
   long bootstrap_frames = 0;
+  long rgb_frames = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto xyzi = loadPCDXYZI(pcd_dirs[i] + "/cloud.pcd", 0.0);
@@ -3645,7 +3721,21 @@ MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
     intensity.reserve(xyzi.size());
     for (const auto& p : xyzi) intensity.push_back(p.intensity);
 
-    const auto result = pipeline.process(cloud, intensity);
+    localization_zoo::pl_loam::GrayscaleImage gray;
+    const localization_zoo::pl_loam::GrayscaleImage* gray_ptr = nullptr;
+    if (options.use_rgb && !options.rgb_image_root.empty() &&
+        i < frame_timestamps.size()) {
+      const int global_idx = static_cast<int>(std::lround(frame_timestamps[i]));
+      const std::string rgb_path = resolveKittiRawRgbPath(
+          options.rgb_image_root, options.rgb_camera_subdir, global_idx);
+      if (gray.loadRgbPng(rgb_path, params.visual.camera.width,
+                           params.visual.camera.height)) {
+        gray_ptr = &gray;
+        ++rgb_frames;
+      }
+    }
+
+    const auto result = pipeline.process(cloud, intensity, gray_ptr);
     if (!result.valid) {
       if (i % 10 == 0) std::cerr << "\r  [VLOM] " << i << "/" << pcd_dirs.size();
       continue;
@@ -3671,11 +3761,229 @@ MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
   char note_buf[160];
   std::snprintf(
       note_buf, sizeof(note_buf),
-      "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM "
-      "on LiDAR-rendered pseudo-image; no GT seed. mean_scale=%.3f "
-      "bootstrap_frames=%ld",
+      "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM; "
+      "eval=%s; no GT seed. mean_scale=%.3f bootstrap_frames=%ld rgb_frames=%ld",
+      options.use_rgb ? "KITTI-Raw-RGB" : "pseudo-image",
       scale_frames ? scale_acc / static_cast<double>(scale_frames) : 1.0,
-      bootstrap_frames);
+      bootstrap_frames, rgb_frames);
+  res.note = note_buf;
+  return res;
+}
+
+struct OdoNetDogfoodingOptions {
+  std::string weights_path = "papers/odonet/weights/odonet_kitti.json";
+  bool enable_nhc = true;
+  bool enable_zupt = true;
+  bool enable_cnn_speed = true;
+};
+
+MethodResult runOdoNet(const std::vector<Eigen::Matrix4d>& gt,
+                       const std::vector<double>& frame_timestamps,
+                       const std::vector<ImuSampleCsv>& imu_samples,
+                       const OdoNetDogfoodingOptions& options) {
+  using namespace localization_zoo::odonet;
+  MethodResult res;
+  res.name = "OdoNet";
+
+  if (imu_samples.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note =
+        "imu.csv not found. OdoNet requires synchronized IMU for pseudo-odometer "
+        "dead reckoning.";
+    return res;
+  }
+  if (frame_timestamps.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note = "OdoNet requires per-frame timestamps aligned with imu.csv.";
+    return res;
+  }
+
+  std::vector<ImuReading> imu;
+  imu.reserve(imu_samples.size());
+  for (const auto& sample : imu_samples) {
+    ImuReading reading;
+    reading.stamp = sample.timestamp;
+    reading.gyro = sample.gyro;
+    reading.accel = sample.accel;
+    imu.push_back(reading);
+  }
+
+  OdoNetParams params;
+  params.weights_path = options.weights_path;
+  params.enable_nhc = options.enable_nhc;
+  params.enable_zupt = options.enable_zupt;
+  params.enable_cnn_speed = options.enable_cnn_speed;
+
+  long zupt_frames = 0;
+  long cnn_frames = 0;
+  std::string error;
+  auto t0 = Clock::now();
+  const auto rel_poses =
+      integrateImuTrajectory(imu, frame_timestamps, params, &zupt_frames,
+                             &cnn_frames, &error);
+  if (rel_poses.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note = error.empty() ? "OdoNet integration failed." : error;
+    return res;
+  }
+
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  for (const auto& T : rel_poses) {
+    res.poses.push_back(anchorRelativePose(world_anchor, T));
+  }
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+
+  char note_buf[256];
+  std::snprintf(
+      note_buf, sizeof(note_buf),
+      "OdoNet (arXiv:2109.03091): CNN pseudo-odometer + strapdown INS + "
+      "NHC/ZUPT; no GT seed. cnn_frames=%ld zupt_frames=%ld nhc=%d",
+      cnn_frames, zupt_frames, options.enable_nhc ? 1 : 0);
+  res.note = note_buf;
+  return res;
+}
+
+struct NhcNetDogfoodingOptions {
+  std::string weights_path = "papers/nhc_net/weights/nhc_net_kitti.json";
+  bool enable_zupt = true;
+  bool adaptive_gain = true;
+  double nhc_gain = 6.0;
+};
+
+MethodResult runNhcNet(const std::vector<Eigen::Matrix4d>& gt,
+                       const std::vector<double>& frame_timestamps,
+                       const std::vector<ImuSampleCsv>& imu_samples,
+                       const NhcNetDogfoodingOptions& options) {
+  using namespace localization_zoo::nhc_net;
+  MethodResult res;
+  res.name = "NHC-Net";
+
+  if (imu_samples.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note = "imu.csv not found. NHC-Net requires synchronized IMU samples.";
+    return res;
+  }
+
+  std::vector<ImuReading> imu;
+  imu.reserve(imu_samples.size());
+  for (const auto& s : imu_samples) {
+    ImuReading r;
+    r.stamp = s.timestamp;
+    r.gyro = s.gyro;
+    r.accel = s.accel;
+    imu.push_back(r);
+  }
+
+  NhcNetParams params;
+  params.weights_path = options.weights_path;
+  params.enable_zupt = options.enable_zupt;
+  params.adaptive_gain = options.adaptive_gain;
+  params.nhc_gain = options.nhc_gain;
+
+  long zupt_frames = 0;
+  long cnn_frames = 0;
+  std::string error;
+  auto t0 = Clock::now();
+  const auto rel_poses =
+      integrateImuTrajectory(imu, frame_timestamps, params, &zupt_frames,
+                             &cnn_frames, &error);
+  if (rel_poses.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note = error.empty() ? "NHC-Net integration failed." : error;
+    return res;
+  }
+
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  for (const auto& T : rel_poses) {
+    res.poses.push_back(anchorRelativePose(world_anchor, T));
+  }
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char note_buf[256];
+  std::snprintf(
+      note_buf, sizeof(note_buf),
+      "NHC-Net/VMSC (GPS Solutions 2023): CNN motion-state + adaptive NHC DR; "
+      "no GT seed. vmsc_frames=%ld zupt_frames=%ld",
+      cnn_frames, zupt_frames);
+  res.note = note_buf;
+  return res;
+}
+
+struct NnZuptDogfoodingOptions {
+  std::string weights_path = "papers/nn_zupt/weights/nn_zupt_kitti.json";
+  bool enable_zupt = true;
+  bool enable_nhc = true;
+  bool use_threshold_detector = false;
+  double stop_prob_threshold = 0.5;
+};
+
+MethodResult runNnZupt(const std::vector<Eigen::Matrix4d>& gt,
+                       const std::vector<double>& frame_timestamps,
+                       const std::vector<ImuSampleCsv>& imu_samples,
+                       const NnZuptDogfoodingOptions& options) {
+  using namespace localization_zoo::nn_zupt;
+  MethodResult res;
+  res.name = "NN-ZUPT";
+
+  if (imu_samples.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note = "imu.csv not found. NN-ZUPT requires synchronized IMU samples.";
+    return res;
+  }
+
+  std::vector<ImuReading> imu;
+  imu.reserve(imu_samples.size());
+  for (const auto& s : imu_samples) {
+    ImuReading r;
+    r.stamp = s.timestamp;
+    r.gyro = s.gyro;
+    r.accel = s.accel;
+    imu.push_back(r);
+  }
+
+  NnZuptParams params;
+  params.weights_path = options.weights_path;
+  params.enable_zupt = options.enable_zupt;
+  params.enable_nhc = options.enable_nhc;
+  params.use_threshold_detector = options.use_threshold_detector;
+  params.stop_prob_threshold = options.stop_prob_threshold;
+
+  long zupt_frames = 0;
+  long nn_frames = 0;
+  std::string error;
+  auto t0 = Clock::now();
+  const auto rel_poses =
+      integrateImuTrajectory(imu, frame_timestamps, params, &zupt_frames,
+                             &nn_frames, &error);
+  if (rel_poses.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note = error.empty() ? "NN-ZUPT integration failed." : error;
+    return res;
+  }
+
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  for (const auto& T : rel_poses) {
+    res.poses.push_back(anchorRelativePose(world_anchor, T));
+  }
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char note_buf[256];
+  std::snprintf(
+      note_buf, sizeof(note_buf),
+      "NN-ZUPT (Meas. Sci. Technol. 2023): CNN zero-velocity detection + ZUPT/NHC "
+      "DR; no GT seed. nn_frames=%ld zupt_frames=%ld threshold=%d",
+      nn_frames, zupt_frames, options.use_threshold_detector ? 1 : 0);
   res.note = note_buf;
   return res;
 }
@@ -7533,7 +7841,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -7685,6 +7993,9 @@ int main(int argc, char** argv) {
   McGicpLoDogfoodingOptions mcgicp_options;
   IcpscLoDogfoodingOptions icpsc_options;
   VlomDogfoodingOptions vlom_options;
+  OdoNetDogfoodingOptions odonet_options;
+  NhcNetDogfoodingOptions nhc_net_options;
+  NnZuptDogfoodingOptions nn_zupt_options;
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
@@ -8189,6 +8500,19 @@ int main(int argc, char** argv) {
       pl_loam_options.input_stride = static_cast<size_t>(std::stoul(argv[++i]));
       continue;
     }
+    if (arg == "--pl-loam-rgb-root" && i + 1 < argc) {
+      pl_loam_options.rgb_image_root = argv[++i];
+      pl_loam_options.use_rgb = true;
+      continue;
+    }
+    if (arg == "--pl-loam-rgb-camera" && i + 1 < argc) {
+      pl_loam_options.rgb_camera_subdir = argv[++i];
+      continue;
+    }
+    if (arg == "--pl-loam-rgb-full-res") {
+      pl_loam_options.rgb_half_res = false;
+      continue;
+    }
     if (arg == "--inten-loam-fast-profile") {
       inten_loam_options.input_stride = 3;
       inten_loam_options.cyl_width = 720;
@@ -8208,6 +8532,18 @@ int main(int argc, char** argv) {
     }
     if (arg == "--inten-loam-no-intensity") {
       inten_loam_options.use_intensity_registration = false;
+      continue;
+    }
+    if (arg == "--inten-loam-no-tvf") {
+      inten_loam_options.enable_tvf = false;
+      continue;
+    }
+    if (arg == "--inten-loam-no-dor") {
+      inten_loam_options.enable_dor = false;
+      continue;
+    }
+    if (arg == "--inten-loam-no-mapping") {
+      inten_loam_options.enable_mapping = false;
       continue;
     }
     if (arg == "--inten-loam-stride" && i + 1 < argc) {
@@ -8291,6 +8627,74 @@ int main(int argc, char** argv) {
     }
     if (arg == "--vlom-no-scale") {
       vlom_options.enable_scale_correction = false;
+      continue;
+    }
+    if (arg == "--vlom-rgb-root" && i + 1 < argc) {
+      vlom_options.rgb_image_root = argv[++i];
+      vlom_options.use_rgb = true;
+      continue;
+    }
+    if (arg == "--vlom-rgb-camera" && i + 1 < argc) {
+      vlom_options.rgb_camera_subdir = argv[++i];
+      continue;
+    }
+    if (arg == "--vlom-rgb-full-res") {
+      vlom_options.rgb_half_res = false;
+      continue;
+    }
+    // --- odonet ---
+    if (arg == "--odonet-weights" && i + 1 < argc) {
+      odonet_options.weights_path = argv[++i];
+      continue;
+    }
+    if (arg == "--odonet-no-nhc") {
+      odonet_options.enable_nhc = false;
+      continue;
+    }
+    if (arg == "--odonet-no-zupt") {
+      odonet_options.enable_zupt = false;
+      continue;
+    }
+    if (arg == "--odonet-nhc-only") {
+      odonet_options.enable_cnn_speed = false;
+      continue;
+    }
+    // --- nhc_net ---
+    if (arg == "--nhc-net-weights" && i + 1 < argc) {
+      nhc_net_options.weights_path = argv[++i];
+      continue;
+    }
+    if (arg == "--nhc-net-no-zupt") {
+      nhc_net_options.enable_zupt = false;
+      continue;
+    }
+    if (arg == "--nhc-net-fixed-gain") {
+      nhc_net_options.adaptive_gain = false;
+      continue;
+    }
+    if (arg == "--nhc-net-gain" && i + 1 < argc) {
+      nhc_net_options.nhc_gain = std::stod(argv[++i]);
+      continue;
+    }
+    // --- nn_zupt ---
+    if (arg == "--nn-zupt-weights" && i + 1 < argc) {
+      nn_zupt_options.weights_path = argv[++i];
+      continue;
+    }
+    if (arg == "--nn-zupt-no-zupt") {
+      nn_zupt_options.enable_zupt = false;
+      continue;
+    }
+    if (arg == "--nn-zupt-no-nhc") {
+      nn_zupt_options.enable_nhc = false;
+      continue;
+    }
+    if (arg == "--nn-zupt-threshold-only") {
+      nn_zupt_options.use_threshold_detector = true;
+      continue;
+    }
+    if (arg == "--nn-zupt-prob" && i + 1 < argc) {
+      nn_zupt_options.stop_prob_threshold = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--floam-fast-profile") {
@@ -11539,8 +11943,9 @@ int main(int argc, char** argv) {
               << " depth_prior=" << pl_loam_options.use_depth_prior
               << " line_features=" << pl_loam_options.use_line_features
               << " scale_corr=" << pl_loam_options.use_scale_correction
+              << " rgb=" << pl_loam_options.use_rgb
               << std::endl;
-    results.push_back(runPlLoam(pcd_dirs, gt, pl_loam_options));
+    results.push_back(runPlLoam(pcd_dirs, gt, frame_timestamps, pl_loam_options));
   }
   if (isMethodEnabled(selected_methods, "inten_loam")) {
     std::cout << "\n=== InTEn-LOAM ===" << std::endl;
@@ -11548,6 +11953,9 @@ int main(int argc, char** argv) {
               << " cyl=" << inten_loam_options.cyl_width << "x"
               << inten_loam_options.cyl_height
               << " intensity_reg=" << inten_loam_options.use_intensity_registration
+              << " tvf=" << inten_loam_options.enable_tvf
+              << " dor=" << inten_loam_options.enable_dor
+              << " mapping=" << inten_loam_options.enable_mapping
               << std::endl;
     results.push_back(runInTenLoam(pcd_dirs, gt, inten_loam_options));
   }
@@ -11574,8 +11982,35 @@ int main(int argc, char** argv) {
     std::cout << "  stride=" << vlom_options.input_point_stride
               << " bootstrap=" << vlom_options.enable_visual_bootstrap
               << " scale_corr=" << vlom_options.enable_scale_correction
+              << " rgb=" << vlom_options.use_rgb
               << std::endl;
-    results.push_back(runVlom(pcd_dirs, gt, vlom_options));
+    results.push_back(runVlom(pcd_dirs, gt, frame_timestamps, vlom_options));
+  }
+  if (isMethodEnabled(selected_methods, "odonet")) {
+    std::cout << "\n=== OdoNet ===" << std::endl;
+    std::cout << "  weights=" << odonet_options.weights_path
+              << " nhc=" << odonet_options.enable_nhc
+              << " zupt=" << odonet_options.enable_zupt
+              << " cnn=" << odonet_options.enable_cnn_speed << std::endl;
+    results.push_back(
+        runOdoNet(gt, frame_timestamps, imu_samples, odonet_options));
+  }
+  if (isMethodEnabled(selected_methods, "nhc_net")) {
+    std::cout << "\n=== NHC-Net ===" << std::endl;
+    std::cout << "  weights=" << nhc_net_options.weights_path
+              << " adaptive=" << nhc_net_options.adaptive_gain
+              << " gain=" << nhc_net_options.nhc_gain << std::endl;
+    results.push_back(
+        runNhcNet(gt, frame_timestamps, imu_samples, nhc_net_options));
+  }
+  if (isMethodEnabled(selected_methods, "nn_zupt")) {
+    std::cout << "\n=== NN-ZUPT ===" << std::endl;
+    std::cout << "  weights=" << nn_zupt_options.weights_path
+              << " prob=" << nn_zupt_options.stop_prob_threshold
+              << " threshold_only=" << nn_zupt_options.use_threshold_detector
+              << std::endl;
+    results.push_back(
+        runNnZupt(gt, frame_timestamps, imu_samples, nn_zupt_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

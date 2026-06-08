@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/nclt_2013_01_10_full",
+  "gt_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv",
+  "num_frames": 600,
+  "trajectory_length_m": 100.578783,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "NHC-Net",
+      "status": "ok",
+      "ate_m": 29.088251,
+      "rpe_trans_pct": 31.626390,
+      "rpe_rot_deg_per_m": 0.142027,
+      "frames": 600,
+      "time_ms": 7402.865940,
+      "fps": 81.049691,
+      "seed_fallback_rate_pct": null,
+      "note": "NHC-Net/VMSC (GPS Solutions 2023): adaptive NHC only (no forward speed); KITTI-OXTS weights on NCLT MS25 IMU (600-frame prefix). vmsc_frames=5613 zupt_frames=0"
+    }
+  ]
+}

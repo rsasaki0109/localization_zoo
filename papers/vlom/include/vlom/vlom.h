@@ -73,7 +73,8 @@ class Vlom {
   explicit Vlom(const VlomParams& params = VlomParams());
 
   VlomResult process(const aloam::PointCloudConstPtr& cloud,
-                     const std::vector<float>& intensity);
+                     const std::vector<float>& intensity,
+                     const pl_loam::GrayscaleImage* gray = nullptr);
   void clear();
 
   int frameCount() const { return frame_count_; }
@@ -83,6 +84,7 @@ class Vlom {
  private:
   bool processVisual(const std::vector<Eigen::Vector3d>& points,
                      const std::vector<float>& intensity,
+                     const pl_loam::GrayscaleImage* gray,
                      Eigen::Matrix4d* T_velo_prev_curr, double* scale_factor,
                      size_t* num_matches, size_t* num_scale_samples,
                      double* mean_depth_residual);

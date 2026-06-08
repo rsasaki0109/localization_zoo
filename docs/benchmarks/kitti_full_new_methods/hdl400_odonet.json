@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+  "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+  "num_frames": 120,
+  "trajectory_length_m": 14.418029,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "OdoNet",
+      "status": "ok",
+      "ate_m": 75.011785,
+      "rpe_trans_pct": 889.653701,
+      "rpe_rot_deg_per_m": 9.638564,
+      "frames": 120,
+      "time_ms": 2121.603160,
+      "fps": 56.561002,
+      "seed_fallback_rate_pct": null,
+      "note": "OdoNet (arXiv:2109.03091): CNN pseudo-odometer + strapdown INS + NHC/ZUPT; KITTI-OXTS-trained weights on HDL-400 IMU (cross-sensor transfer). cnn_frames=2290 zupt_frames=49"
+    }
+  ]
+}

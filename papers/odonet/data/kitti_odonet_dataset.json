@@ -1,0 +1,7 @@
+{
+  "train_samples": 4003,
+  "val_samples": 1417,
+  "window": 50,
+  "channels": 6,
+  "val_drive": "2011_09_26_drive_0056_sync"
+}

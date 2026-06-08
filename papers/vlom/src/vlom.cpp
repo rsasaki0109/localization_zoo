@@ -135,6 +135,7 @@ void Vlom::clear() {
 
 bool Vlom::processVisual(const std::vector<Eigen::Vector3d>& points,
                          const std::vector<float>& intensity,
+                         const pl_loam::GrayscaleImage* gray,
                          Eigen::Matrix4d* T_velo_prev_curr, double* scale_factor,
                          size_t* num_matches, size_t* num_scale_samples,
                          double* mean_depth_residual) {
@@ -153,25 +154,43 @@ bool Vlom::processVisual(const std::vector<Eigen::Vector3d>& points,
     sub_intensity.push_back(i < intensity.size() ? intensity[i] : 0.5f);
   }
 
-  const auto image = pl_loam::PlLoam::buildRangeImage(
+  const auto depth_image = pl_loam::PlLoam::buildRangeImage(
       subsampled, sub_intensity, params_.visual.camera);
 
+  const bool use_rgb =
+      gray != nullptr && !gray->empty() &&
+      gray->width == params_.visual.camera.width &&
+      gray->height == params_.visual.camera.height;
+
   std::vector<pl_loam::PointFeature> points_feat;
-  pl_loam::PlLoam::detectPointFeatures(
-      image, params_.visual.max_point_features, params_.visual.harris_block,
-      params_.visual.harris_k, &points_feat);
+  if (use_rgb) {
+    pl_loam::PlLoam::detectPointFeaturesGrayscale(
+        *gray, params_.visual.max_point_features, params_.visual.harris_block,
+        params_.visual.harris_k, &points_feat);
+  } else {
+    pl_loam::PlLoam::detectPointFeatures(
+        depth_image, params_.visual.max_point_features,
+        params_.visual.harris_block, params_.visual.harris_k, &points_feat);
+  }
   for (auto& f : points_feat) {
     f.has_depth = pl_loam::PlLoam::extractPointDepth(
-        image, f.uv, params_.visual.patch_radius, params_.visual.min_depth,
+        depth_image, f.uv, params_.visual.patch_radius, params_.visual.min_depth,
         params_.visual.max_depth, &f.depth_prior);
   }
 
   std::vector<pl_loam::LineFeature> lines_feat;
   if (params_.visual.use_line_features) {
-    pl_loam::PlLoam::detectLineFeatures(image, params_.visual.max_line_features,
-                                        &lines_feat);
+    if (use_rgb) {
+      pl_loam::PlLoam::detectLineFeaturesGrayscale(
+          *gray, params_.visual.max_line_features, &lines_feat);
+    } else {
+      pl_loam::PlLoam::detectLineFeatures(depth_image,
+                                          params_.visual.max_line_features,
+                                          &lines_feat);
+    }
     for (auto& l : lines_feat) {
-      pl_loam::PlLoam::extractLineDepths(image, &l, params_.visual.patch_radius,
+      pl_loam::PlLoam::extractLineDepths(depth_image, &l,
+                                         params_.visual.patch_radius,
                                          params_.visual.min_depth,
                                          params_.visual.max_depth);
     }
@@ -276,7 +295,8 @@ bool Vlom::processVisual(const std::vector<Eigen::Vector3d>& points,
 }
 
 VlomResult Vlom::process(const aloam::PointCloudConstPtr& cloud,
-                         const std::vector<float>& intensity) {
+                         const std::vector<float>& intensity,
+                         const pl_loam::GrayscaleImage* gray) {
   VlomResult result;
   result.frame_count = frame_count_;
 
@@ -298,7 +318,7 @@ VlomResult Vlom::process(const aloam::PointCloudConstPtr& cloud,
   size_t num_scale_samples = 0;
   double mean_depth_residual = 0.0;
   const bool visual_ok =
-      processVisual(points, intens, &T_velo_prev_curr, &scale_factor,
+      processVisual(points, intens, gray, &T_velo_prev_curr, &scale_factor,
                     &num_matches, &num_scale_samples, &mean_depth_residual);
 
   result.num_visual_matches = num_matches;

@@ -16,8 +16,9 @@ and A-LOAM LiDAR odometry + mapping:
 
 ## KITTI Odometry approximations
 
-Same as PL-LOAM: no RGB in the Odometry benchmark → features on a LiDAR-projected
-depth-gradient pseudo-image (KITTI half-res camera model).
+Same as PL-LOAM on KITTI Odometry: no RGB → depth-gradient pseudo-image.
+**KITTI Raw RGB** (2026-06-09): pass `--vlom-rgb-root` to use real `image_02`
+PNG features (see PL-LOAM README reproduce block; swap `--methods vlom`).
 
 ## Tests
 
@@ -36,9 +37,21 @@ state reset.
 
 | Seq | Drift | ATE | FPS | mean scale | bootstrap frames |
 |-----|-------|-----|-----|------------|------------------|
+| seq00 | **91.5%** | 249 m | 1.0 | 1.000 | 1426/4541 |
 | seq07 | **153.9%** | 439 m | 2.4 | 1.003 | 172/1100 |
-| seq00 | (ベンチ実行中) | — | — | — | — |
 
 **Honest negative** (PL-LOAM と同様、RGB 無し疑似画像制約)。スケール補正は安定
-(mean≈1.0) だが visual bootstrap が後半で A-LOAM を攪乱し PL-LOAM (117%) より悪化。
-論文の seq00 1.18% は KITTI Raw + 実 RGB が前提。
+(mean≈1.0) だが visual bootstrap が A-LOAM を攪乱 — seq00 は PL-LOAM (143%) より
+マシ、seq07 は PL-LOAM (117%) より悪化。
+
+## Result (KITTI Raw RGB, `--vlom-dense-profile`, 200-frame windows)
+
+| Drive | Drift | ATE | mean scale | bootstrap |
+|-------|------:|----:|-----------:|----------:|
+| raw_0009 | **99.7%** | 122 m | 1.000 | 199/200 |
+| raw_0061 | **99.3%** | 81 m | 1.000 | 199/200 |
+
+Real RGB does not rescue drift (~99%, same as pseudo-image path). Scale correction
+remains stable; visual bootstrap fires on almost every frame but the simplified
+monocular front-end still diverges. Paper seq00 1.18% assumes full ORB-SLAM2-style
+VO on KITTI Raw.

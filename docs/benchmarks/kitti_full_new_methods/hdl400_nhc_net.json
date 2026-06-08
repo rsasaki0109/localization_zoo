@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/hdl_400_open_ct_lio_120",
+  "gt_csv": "experiments/reference_data/hdl_400_public_reference.csv",
+  "num_frames": 120,
+  "trajectory_length_m": 14.418029,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "NHC-Net",
+      "status": "ok",
+      "ate_m": 6.694367,
+      "rpe_trans_pct": 88.582083,
+      "rpe_rot_deg_per_m": 9.638564,
+      "frames": 120,
+      "time_ms": 2962.511693,
+      "fps": 40.506169,
+      "seed_fallback_rate_pct": null,
+      "note": "NHC-Net/VMSC (GPS Solutions 2023): CNN motion-state + adaptive NHC DR without forward speed aiding; KITTI-OXTS weights on HDL-400 IMU (cross-sensor). vmsc_frames=2290 zupt_frames=0"
+    }
+  ]
+}

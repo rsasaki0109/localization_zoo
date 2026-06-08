@@ -2,10 +2,12 @@ find_package(Ceres REQUIRED)
 
 add_library(pl_loam
   src/pl_loam.cpp
+  src/image_io.cpp
 )
 
 target_include_directories(pl_loam PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_SOURCE_DIR}/third_party
   ${CERES_INCLUDE_DIRS}
 )
 

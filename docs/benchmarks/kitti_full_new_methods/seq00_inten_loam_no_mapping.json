@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/dogfooding_results/kitti_seq_00_full",
+  "gt_csv": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/experiments/reference_data/kitti_seq_00_full_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 1458.636253,
+      "rpe_trans_pct": 52.684940,
+      "rpe_rot_deg_per_m": 1.083211,
+      "frames": 4542,
+      "time_ms": 140801.298583,
+      "fps": 32.258225,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=off mapping_updates=0 mean_intensity_residual=3.610495"
+    }
+  ]
+}

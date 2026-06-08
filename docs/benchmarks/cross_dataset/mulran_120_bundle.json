@@ -1,0 +1,81 @@
+{
+  "pcd_dir": "dogfooding_results/mulran_parkinglot_120",
+  "gt_csv": "experiments/reference_data/mulran_parkinglot_120_gt.csv",
+  "num_frames": 120,
+  "trajectory_length_m": 18.445431,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 15.653636,
+      "rpe_trans_pct": 225.107294,
+      "rpe_rot_deg_per_m": 0.099167,
+      "frames": 120,
+      "time_ms": 11993.221102,
+      "fps": 10.005652,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "MCC-LO",
+      "status": "ok",
+      "ate_m": 15.747360,
+      "rpe_trans_pct": 225.720645,
+      "rpe_rot_deg_per_m": 0.094021,
+      "frames": 120,
+      "time_ms": 36109.376876,
+      "fps": 3.323237,
+      "seed_fallback_rate_pct": null,
+      "note": "MCC-LO: scan-to-map point-to-plane with Maximum Correntropy Criterion (Welsch/Gaussian kernel) robust weighting and Silverman adaptive kernel bandwidth; CV prior, no GT seed. mean_weight=0.870 sigma=0.298"
+    },
+    {
+      "name": "I-LOAM",
+      "status": "ok",
+      "ate_m": 379.616820,
+      "rpe_trans_pct": 5535.507071,
+      "rpe_rot_deg_per_m": 11.824738,
+      "frames": 120,
+      "time_ms": 13251.437611,
+      "fps": 9.055621,
+      "seed_fallback_rate_pct": null,
+      "note": "I-LOAM (Park/Jang/Kim, UR 2020): intensity-enhanced LOAM odometry+mapping on KITTI PointXYZI; no GT seed. mean_intensity_weight=0.005362 mapping_updates=119"
+    },
+    {
+      "name": "InTEn-LOAM",
+      "status": "ok",
+      "ate_m": 32.019905,
+      "rpe_trans_pct": 185.397046,
+      "rpe_rot_deg_per_m": 9.744799,
+      "frames": 121,
+      "time_ms": 5598.154924,
+      "fps": 21.614264,
+      "seed_fallback_rate_pct": null,
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=59 mean_intensity_residual=1955.292651"
+    },
+    {
+      "name": "MCGICP-LO",
+      "status": "ok",
+      "ate_m": 722.261761,
+      "rpe_trans_pct": 5723.798803,
+      "rpe_rot_deg_per_m": 9.099228,
+      "frames": 120,
+      "time_ms": 2145.335154,
+      "fps": 55.935316,
+      "seed_fallback_rate_pct": null,
+      "note": "MCGICP-LO (Servos/Waslander, RAS 2017): 4D multi-channel GICP with intensity in point covariance + Mahalanobis correspondences; constant-velocity prior, no GT seed. mean_intensity_residual/scale=0.838 / scale=2.00"
+    },
+    {
+      "name": "ICPSC-LO",
+      "status": "ok",
+      "ate_m": 26.389593,
+      "rpe_trans_pct": 228.590349,
+      "rpe_rot_deg_per_m": 0.309673,
+      "frames": 120,
+      "time_ms": 296644.347884,
+      "fps": 0.404525,
+      "seed_fallback_rate_pct": null,
+      "note": "ICPSC-LO (Zhang et al., JAG 2023): cylindrical intensity shape-context + adaptive geom/intensity fusion scan-to-map; loop closure deferred. no GT seed. mean_geom_weight=0.946"
+    }
+  ]
+}

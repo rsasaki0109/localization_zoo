@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace localization_zoo {
 namespace mb_icp {
@@ -43,6 +44,74 @@ Eigen::Vector2d closestPointOnSegment(const Eigen::Vector2d& p, const Eigen::Vec
 
 Eigen::Matrix3d pose2D(double x, double y, double yaw) {
   return matrixFromIncrement(x, y, yaw);
+}
+
+MbICPEstimator::LocalMapIndex MbICPEstimator::LocalMapIndex::build(
+    const std::vector<Segment>& segments, const std::vector<RefPoint>& points,
+    double cell_size, double query_radius) {
+  LocalMapIndex index;
+  index.cell_size = std::max(cell_size, 1e-3);
+  index.query_radius = std::max(query_radius, index.cell_size);
+
+  const auto key = [](int ix, int iy) {
+    return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(iy);
+  };
+  const auto insert_range = [&](int ix_min, int ix_max, int iy_min, int iy_max, size_t idx,
+                                bool is_segment) {
+    for (int ix = ix_min; ix <= ix_max; ++ix) {
+      for (int iy = iy_min; iy <= iy_max; ++iy) {
+        (is_segment ? index.segment_bins[key(ix, iy)] : index.point_bins[key(ix, iy)])
+            .push_back(idx);
+      }
+    }
+  };
+  const int reach = static_cast<int>(std::ceil(index.query_radius / index.cell_size)) + 1;
+
+  for (size_t i = 0; i < segments.size(); ++i) {
+    const auto& seg = segments[i];
+    const Eigen::Vector2d mid = 0.5 * (seg.a + seg.b);
+    const int ix = static_cast<int>(std::floor(mid.x() / index.cell_size));
+    const int iy = static_cast<int>(std::floor(mid.y() / index.cell_size));
+    insert_range(ix - reach, ix + reach, iy - reach, iy + reach, i, true);
+  }
+
+  for (size_t i = 0; i < points.size(); ++i) {
+    if (!points[i].valid) continue;
+    const int ix = static_cast<int>(std::floor(points[i].point.x() / index.cell_size));
+    const int iy = static_cast<int>(std::floor(points[i].point.y() / index.cell_size));
+    index.point_bins[key(ix, iy)].push_back(i);
+  }
+  return index;
+}
+
+void MbICPEstimator::LocalMapIndex::querySegments(const Eigen::Vector2d& p,
+                                                  std::unordered_set<size_t>* visited) const {
+  const int cx = static_cast<int>(std::floor(p.x() / cell_size));
+  const int cy = static_cast<int>(std::floor(p.y() / cell_size));
+  const int reach = static_cast<int>(std::ceil(query_radius / cell_size)) + 1;
+  for (int dx = -reach; dx <= reach; ++dx) {
+    for (int dy = -reach; dy <= reach; ++dy) {
+      const int64_t k = (static_cast<int64_t>(cx + dx) << 32) ^ static_cast<uint32_t>(cy + dy);
+      const auto it = segment_bins.find(k);
+      if (it == segment_bins.end()) continue;
+      visited->insert(it->second.begin(), it->second.end());
+    }
+  }
+}
+
+void MbICPEstimator::LocalMapIndex::queryPoints(const Eigen::Vector2d& p,
+                                                std::unordered_set<size_t>* visited) const {
+  const int cx = static_cast<int>(std::floor(p.x() / cell_size));
+  const int cy = static_cast<int>(std::floor(p.y() / cell_size));
+  const int reach = static_cast<int>(std::ceil(query_radius / cell_size)) + 1;
+  for (int dx = -reach; dx <= reach; ++dx) {
+    for (int dy = -reach; dy <= reach; ++dy) {
+      const int64_t k = (static_cast<int64_t>(cx + dx) << 32) ^ static_cast<uint32_t>(cy + dy);
+      const auto it = point_bins.find(k);
+      if (it == point_bins.end()) continue;
+      visited->insert(it->second.begin(), it->second.end());
+    }
+  }
 }
 
 MbICPEstimator::MbICPEstimator(const MbICPParams& params) : params_(params) {}
@@ -102,48 +171,26 @@ void MbICPEstimator::buildReferenceModel(const LaserScan& scan) {
 void MbICPEstimator::addScanToLocalMap(const LaserScan& scan) {
   buildReferenceModel(scan);
   std::unordered_map<int64_t, RefPoint> point_voxels;
-  std::unordered_map<int64_t, Segment> segment_voxels;
   const auto voxelKey = [&](const Eigen::Vector2d& p) {
     const int ix = static_cast<int>(std::floor(p.x() / params_.local_map_voxel_size));
     const int iy = static_cast<int>(std::floor(p.y() / params_.local_map_voxel_size));
     return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(static_cast<uint32_t>(iy));
   };
-  if (params_.local_map_voxel_size > 0.0) {
-    for (const auto& ref : local_points_) {
-      if (!ref.valid) continue;
-      point_voxels[voxelKey(ref.point)] = ref;
-    }
-    for (const auto& seg : local_segments_) {
-      segment_voxels[voxelKey(0.5 * (seg.a + seg.b))] = seg;
-    }
+  for (const auto& ref : local_points_) {
+    if (!ref.valid) continue;
+    point_voxels[voxelKey(ref.point)] = ref;
   }
   for (const auto& ref : ref_points_) {
     if (!ref.valid) continue;
     RefPoint wp;
     wp.point = transformPoint(pose_, ref.point);
     wp.valid = true;
-    if (params_.local_map_voxel_size > 0.0) {
-      point_voxels[voxelKey(wp.point)] = wp;
-    } else {
-      local_points_.push_back(wp);
-    }
+    point_voxels[voxelKey(wp.point)] = wp;
   }
-  for (const auto& seg : ref_segments_) {
-    Segment ws{transformPoint(pose_, seg.a), transformPoint(pose_, seg.b)};
-    if (params_.local_map_voxel_size > 0.0) {
-      segment_voxels[voxelKey(0.5 * (ws.a + ws.b))] = ws;
-    } else {
-      local_segments_.push_back(ws);
-    }
-  }
-  if (params_.local_map_voxel_size > 0.0) {
-    local_points_.clear();
-    local_segments_.clear();
-    local_points_.reserve(point_voxels.size());
-    local_segments_.reserve(segment_voxels.size());
-    for (const auto& [_, ref] : point_voxels) local_points_.push_back(ref);
-    for (const auto& [_, seg] : segment_voxels) local_segments_.push_back(seg);
-  }
+  local_points_.clear();
+  local_points_.reserve(point_voxels.size());
+  for (const auto& [_, ref] : point_voxels) local_points_.push_back(ref);
+  local_segments_.clear();
   pruneLocalMap();
 }
 
@@ -284,6 +331,92 @@ bool MbICPEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
   return true;
 }
 
+bool MbICPEstimator::solveIncrementIndexed(const std::vector<Eigen::Vector2d>& current,
+                                           const std::vector<RefPoint>& points,
+                                           const std::vector<Segment>& segments,
+                                           const LocalMapIndex& index,
+                                           const Eigen::Matrix3d& transform,
+                                           Eigen::Matrix3d* increment) const {
+  struct Correspondence {
+    Eigen::Vector2d current;
+    Eigen::Vector2d reference;
+    double metric_sq = 0.0;
+  };
+
+  std::vector<Correspondence> corr;
+  corr.reserve(current.size());
+  const double max_metric_sq = params_.max_metric_distance * params_.max_metric_distance;
+  std::unordered_set<size_t> segment_ids;
+  std::unordered_set<size_t> point_ids;
+  segment_ids.reserve(32);
+  point_ids.reserve(32);
+
+  for (const auto& p_cur : current) {
+    const Eigen::Vector2d p_tr = transformPoint(transform, p_cur);
+    double best_metric_sq = max_metric_sq;
+    Eigen::Vector2d best_ref = Eigen::Vector2d::Zero();
+    bool found = false;
+
+    segment_ids.clear();
+    index.querySegments(p_tr, &segment_ids);
+    for (const size_t sid : segment_ids) {
+      const auto& seg = segments[sid];
+      const Eigen::Vector2d ref = closestPointOnSegment(p_tr, seg.a, seg.b);
+      const double d2 = metricDistanceSquared(p_tr - ref, ref);
+      if (d2 < best_metric_sq) {
+        best_metric_sq = d2;
+        best_ref = ref;
+        found = true;
+      }
+    }
+    if (!found) {
+      point_ids.clear();
+      index.queryPoints(p_tr, &point_ids);
+      for (const size_t pid : point_ids) {
+        const auto& ref = points[pid];
+        if (!ref.valid) continue;
+        const double d2 = metricDistanceSquared(p_tr - ref.point, ref.point);
+        if (d2 < best_metric_sq) {
+          best_metric_sq = d2;
+          best_ref = ref.point;
+          found = true;
+        }
+      }
+    }
+    if (found) corr.push_back({p_tr, best_ref, best_metric_sq});
+  }
+
+  if (corr.size() < static_cast<size_t>(params_.min_correspondences)) return false;
+  std::sort(corr.begin(), corr.end(), [](const auto& a, const auto& b) {
+    return a.metric_sq < b.metric_sq;
+  });
+  size_t keep = corr.size();
+  if (params_.trim_fraction > 0.0 && params_.trim_fraction < 1.0) {
+    keep = static_cast<size_t>(std::ceil(params_.trim_fraction * static_cast<double>(corr.size())));
+    keep = std::max(keep, static_cast<size_t>(params_.min_correspondences));
+    keep = std::min(keep, corr.size());
+  }
+
+  Eigen::Matrix3d A = Eigen::Matrix3d::Zero();
+  Eigen::Vector3d b = Eigen::Vector3d::Zero();
+  for (size_t i = 0; i < keep; ++i) {
+    const auto& c = corr[i];
+    const Eigen::Vector2d e = c.current - c.reference;
+    Eigen::Matrix<double, 2, 3> J;
+    J << 1.0, 0.0, -c.current.y(), 0.0, 1.0, c.current.x();
+    const Eigen::Matrix2d Q = metricMatrix(c.reference);
+    A += J.transpose() * Q * J;
+    b += J.transpose() * Q * e;
+  }
+
+  const Eigen::LDLT<Eigen::Matrix3d> ldlt(A);
+  if (ldlt.info() != Eigen::Success) return false;
+  const Eigen::Vector3d x = ldlt.solve(-b);
+  if (!x.allFinite()) return false;
+  *increment = matrixFromIncrement(x(0), x(1), x(2));
+  return true;
+}
+
 MbICPResult MbICPEstimator::registerScan(const LaserScan& scan) {
   MbICPResult result;
   result.pose = pose_;
@@ -311,10 +444,21 @@ MbICPResult MbICPEstimator::registerScan(const LaserScan& scan) {
       params_.use_local_map ? localPointsInFrame(pose_) : ref_points_;
   const std::vector<Segment> map_segments =
       params_.use_local_map ? localSegmentsInFrame(pose_) : ref_segments_;
+  const LocalMapIndex map_index =
+      params_.use_local_map
+          ? LocalMapIndex::build(map_segments, map_points,
+                                 std::max(params_.max_metric_distance, 0.5),
+                                 params_.max_metric_distance)
+          : LocalMapIndex{};
   int iterations = 0;
   for (; iterations < params_.max_iterations; ++iterations) {
     Eigen::Matrix3d delta = Eigen::Matrix3d::Identity();
-    if (!solveIncrement(current, map_points, map_segments, transform, &delta)) break;
+    const bool ok =
+        params_.use_local_map
+            ? solveIncrementIndexed(current, map_points, map_segments, map_index, transform,
+                                    &delta)
+            : solveIncrement(current, map_points, map_segments, transform, &delta);
+    if (!ok) break;
     transform = delta * transform;
 
     const double tx = delta(0, 2);

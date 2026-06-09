@@ -3,6 +3,8 @@
 #include <Eigen/Core>
 
 #include <cstddef>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace localization_zoo {
@@ -33,7 +35,7 @@ struct PLICPParams {
   bool use_motion_prior = true;
   bool use_local_map = false;
   double local_map_radius = 15.0;
-  int local_map_max_scans = 12;
+  double local_map_voxel_size = 0.15;
 };
 
 struct PLICPResult {
@@ -54,11 +56,7 @@ class PLICPEstimator {
   PLICPResult registerScan(const LaserScan& scan);
 
   const Eigen::Matrix3d& pose() const { return pose_; }
-  size_t mapSize() const {
-    size_t n = 0;
-    for (const auto& stored : local_map_) n += stored.refs.size();
-    return n;
-  }
+  size_t mapSize() const { return local_refs_.size(); }
 
  private:
   struct RefPoint {
@@ -68,24 +66,38 @@ class PLICPEstimator {
     bool valid_point = false;
   };
 
-  struct StoredScan {
-    std::vector<RefPoint> refs;
+  struct LocalMapIndex {
+    double cell_size = 1.0;
+    double query_radius = 1.0;
+    std::unordered_map<int64_t, std::vector<size_t>> bins;
+
+    static LocalMapIndex build(const std::vector<RefPoint>& refs, double cell_size,
+                               double query_radius);
+    void query(const Eigen::Vector2d& p, std::unordered_set<size_t>* visited) const;
   };
 
+  static int64_t voxelKey(double x, double y, double voxel_size);
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   std::vector<RefPoint> buildReferenceModel(const LaserScan& scan) const;
-  std::vector<RefPoint> localMapInFrame(const Eigen::Matrix3d& frame) const;
   void addScanToLocalMap(const LaserScan& scan);
+  void transformRobotMap(const Eigen::Matrix3d& inv_increment);
   void pruneLocalMap();
+  void rebuildLocalMapIndex();
   bool solveIncrement(const std::vector<Eigen::Vector2d>& current,
                       const std::vector<RefPoint>& references,
                       const Eigen::Matrix3d& transform, Eigen::Matrix3d* increment) const;
+  bool solveIncrementIndexed(const std::vector<Eigen::Vector2d>& current,
+                             const std::vector<RefPoint>& references,
+                             const LocalMapIndex& index, const Eigen::Matrix3d& transform,
+                             Eigen::Matrix3d* increment) const;
   static Eigen::Vector2d transformPoint(const Eigen::Matrix3d& T, const Eigen::Vector2d& p);
 
   PLICPParams params_;
   bool initialized_ = false;
   std::vector<RefPoint> ref_model_;
-  std::vector<StoredScan> local_map_;
+  std::vector<RefPoint> local_refs_;
+  LocalMapIndex local_map_index_;
+  bool local_map_index_valid_ = false;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

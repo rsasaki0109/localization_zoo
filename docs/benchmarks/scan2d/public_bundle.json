@@ -37,7 +37,7 @@
         "NDT-2D": 14.782,
         "IDC": 15.271,
         "CSM": 15.973,
-        "PL-ICP": 16.922,
+        "PL-ICP": 14.962,
         "MbICP": 14.543,
         "Kinematic-ICP": 18.346,
         "PSM": 21.800
@@ -60,7 +60,7 @@
         "CSM": 20.621,
         "NDT-2D": 21.790,
         "IDC": 27.737,
-        "PL-ICP": 40.986
+        "PL-ICP": 14.079
       },
       "best": "PSM"
     },
@@ -79,7 +79,7 @@
         "NDT-2D": 29.162,
         "CSM": 29.209,
         "IDC": 29.512,
-        "PL-ICP": 30.289,
+        "PL-ICP": 27.193,
         "Karto-Matcher": 29.120
       },
       "best": "Kinematic-ICP",
@@ -93,7 +93,7 @@
       "trajectory_length_m": 9.543,
       "artifact": "docs/benchmarks/scan2d/rf2o_corridor.json",
       "drift_pct": {
-        "PL-ICP": 0.380,
+        "PL-ICP": 0.007,
         "MbICP": 0.054,
         "RF2O": 1.276,
         "PSM": 11.599,

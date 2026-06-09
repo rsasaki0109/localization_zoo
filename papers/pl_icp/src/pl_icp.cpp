@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace localization_zoo {
 namespace pl_icp {
@@ -27,12 +29,52 @@ Eigen::Matrix3d pose2D(double x, double y, double yaw) {
   return matrixFromIncrement(x, y, yaw);
 }
 
+int64_t PLICPEstimator::voxelKey(double x, double y, double voxel_size) {
+  const int ix = static_cast<int>(std::floor(x / voxel_size));
+  const int iy = static_cast<int>(std::floor(y / voxel_size));
+  return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(static_cast<uint32_t>(iy));
+}
+
+PLICPEstimator::LocalMapIndex PLICPEstimator::LocalMapIndex::build(
+    const std::vector<RefPoint>& refs, double cell_size, double query_radius) {
+  LocalMapIndex index;
+  index.cell_size = std::max(cell_size, 1e-3);
+  index.query_radius = std::max(query_radius, index.cell_size);
+  const auto key = [](int ix, int iy) {
+    return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(iy);
+  };
+  for (size_t i = 0; i < refs.size(); ++i) {
+    if (!refs[i].valid_line) continue;
+    const int ix = static_cast<int>(std::floor(refs[i].point.x() / index.cell_size));
+    const int iy = static_cast<int>(std::floor(refs[i].point.y() / index.cell_size));
+    index.bins[key(ix, iy)].push_back(i);
+  }
+  return index;
+}
+
+void PLICPEstimator::LocalMapIndex::query(const Eigen::Vector2d& p,
+                                          std::unordered_set<size_t>* visited) const {
+  const int cx = static_cast<int>(std::floor(p.x() / cell_size));
+  const int cy = static_cast<int>(std::floor(p.y() / cell_size));
+  const int reach = static_cast<int>(std::ceil(query_radius / cell_size)) + 1;
+  for (int dx = -reach; dx <= reach; ++dx) {
+    for (int dy = -reach; dy <= reach; ++dy) {
+      const int64_t k = (static_cast<int64_t>(cx + dx) << 32) ^ static_cast<uint32_t>(cy + dy);
+      const auto it = bins.find(k);
+      if (it == bins.end()) continue;
+      visited->insert(it->second.begin(), it->second.end());
+    }
+  }
+}
+
 PLICPEstimator::PLICPEstimator(const PLICPParams& params) : params_(params) {}
 
 void PLICPEstimator::reset() {
   initialized_ = false;
   ref_model_.clear();
-  local_map_.clear();
+  local_refs_.clear();
+  local_map_index_ = LocalMapIndex{};
+  local_map_index_valid_ = false;
   pose_ = Eigen::Matrix3d::Identity();
   last_increment_ = Eigen::Matrix3d::Identity();
 }
@@ -96,65 +138,56 @@ std::vector<PLICPEstimator::RefPoint> PLICPEstimator::buildReferenceModel(
   return model;
 }
 
+void PLICPEstimator::transformRobotMap(const Eigen::Matrix3d& inv_increment) {
+  const Eigen::Matrix2d R = inv_increment.block<2, 2>(0, 0);
+  for (auto& ref : local_refs_) {
+    ref.point = transformPoint(inv_increment, ref.point);
+    ref.normal = (R * ref.normal).normalized();
+  }
+  local_map_index_valid_ = false;
+}
+
 void PLICPEstimator::addScanToLocalMap(const LaserScan& scan) {
   const auto model = buildReferenceModel(scan);
-  const Eigen::Matrix2d R = pose_.block<2, 2>(0, 0);
-  StoredScan stored;
-  stored.refs.reserve(model.size());
+  const double voxel = params_.local_map_voxel_size;
+
+  std::unordered_map<int64_t, size_t> point_voxels;
+  point_voxels.reserve(local_refs_.size() + model.size());
+  for (size_t i = 0; i < local_refs_.size(); ++i) {
+    if (!local_refs_[i].valid_line) continue;
+    point_voxels[voxelKey(local_refs_[i].point.x(), local_refs_[i].point.y(), voxel)] = i;
+  }
   for (const auto& ref : model) {
     if (!ref.valid_line) continue;
-    RefPoint wp;
-    wp.point = transformPoint(pose_, ref.point);
-    wp.normal = (R * ref.normal).normalized();
-    wp.valid_line = true;
-    wp.valid_point = ref.valid_point;
-    stored.refs.push_back(wp);
+    const int64_t k = voxelKey(ref.point.x(), ref.point.y(), voxel);
+    const auto it = point_voxels.find(k);
+    if (it != point_voxels.end()) {
+      local_refs_[it->second] = ref;
+    } else {
+      point_voxels[k] = local_refs_.size();
+      local_refs_.push_back(ref);
+    }
   }
-  if (!stored.refs.empty()) {
-    local_map_.push_back(std::move(stored));
-  }
-  while (static_cast<int>(local_map_.size()) > params_.local_map_max_scans) {
-    local_map_.erase(local_map_.begin());
-  }
+
   pruneLocalMap();
+  rebuildLocalMapIndex();
 }
 
 void PLICPEstimator::pruneLocalMap() {
   if (params_.local_map_radius <= 0.0) return;
-  const Eigen::Vector2d t = pose_.block<2, 1>(0, 2);
   const double r2 = params_.local_map_radius * params_.local_map_radius;
-  for (auto& stored : local_map_) {
-    stored.refs.erase(std::remove_if(stored.refs.begin(), stored.refs.end(),
-                                     [&](const RefPoint& ref) {
-                                       return !ref.valid_line ||
-                                              (ref.point - t).squaredNorm() > r2;
-                                     }),
-                      stored.refs.end());
-  }
-  local_map_.erase(std::remove_if(local_map_.begin(), local_map_.end(),
-                                  [](const StoredScan& stored) { return stored.refs.empty(); }),
-                   local_map_.end());
+  local_refs_.erase(std::remove_if(local_refs_.begin(), local_refs_.end(),
+                                   [&](const RefPoint& ref) {
+                                     return !ref.valid_line || ref.point.squaredNorm() > r2;
+                                   }),
+                    local_refs_.end());
+  local_map_index_valid_ = false;
 }
 
-std::vector<PLICPEstimator::RefPoint> PLICPEstimator::localMapInFrame(
-    const Eigen::Matrix3d& frame) const {
-  const Eigen::Matrix3d inv = frame.inverse();
-  const Eigen::Matrix2d R = inv.block<2, 2>(0, 0);
-  std::vector<RefPoint> local;
-  size_t total = 0;
-  for (const auto& stored : local_map_) total += stored.refs.size();
-  local.reserve(total);
-  for (const auto& stored : local_map_) {
-    for (const auto& ref : stored.refs) {
-      RefPoint mapped;
-      mapped.point = transformPoint(inv, ref.point);
-      mapped.normal = (R * ref.normal).normalized();
-      mapped.valid_line = true;
-      mapped.valid_point = ref.valid_point;
-      local.push_back(mapped);
-    }
-  }
-  return local;
+void PLICPEstimator::rebuildLocalMapIndex() {
+  local_map_index_ = LocalMapIndex::build(local_refs_, std::max(0.5, params_.local_map_voxel_size),
+                                          params_.max_correspondence_distance);
+  local_map_index_valid_ = true;
 }
 
 bool PLICPEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
@@ -170,6 +203,53 @@ bool PLICPEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
     double best_dist = params_.max_correspondence_distance;
     const RefPoint* best = nullptr;
     for (const auto& ref : references) {
+      if (!ref.valid_line) continue;
+      const double d = (ref.point - p_tr).norm();
+      if (d < best_dist) {
+        best_dist = d;
+        best = &ref;
+      }
+    }
+    if (best == nullptr) continue;
+
+    const Eigen::Vector2d n = best->normal;
+    const double err = n.dot(p_tr - best->point);
+    Eigen::Vector3d row;
+    row(0) = n.x();
+    row(1) = n.y();
+    row(2) = -n.x() * p_tr.y() + n.y() * p_tr.x();
+    A += row * row.transpose();
+    b += -err * row;
+    ++used;
+  }
+
+  if (used < params_.min_correspondences) return false;
+  const Eigen::Vector3d x = A.ldlt().solve(b);
+  if (!x.allFinite()) return false;
+  *increment = matrixFromIncrement(x(0), x(1), x(2));
+  return true;
+}
+
+bool PLICPEstimator::solveIncrementIndexed(const std::vector<Eigen::Vector2d>& current,
+                                           const std::vector<RefPoint>& references,
+                                           const LocalMapIndex& index,
+                                           const Eigen::Matrix3d& transform,
+                                           Eigen::Matrix3d* increment) const {
+  Eigen::Matrix3d A = Eigen::Matrix3d::Zero();
+  Eigen::Vector3d b = Eigen::Vector3d::Zero();
+  int used = 0;
+  std::unordered_set<size_t> candidate_ids;
+  candidate_ids.reserve(32);
+
+  for (const auto& p_cur : current) {
+    const Eigen::Vector2d p_tr = transformPoint(transform, p_cur);
+    double best_dist = params_.max_correspondence_distance;
+    const RefPoint* best = nullptr;
+
+    candidate_ids.clear();
+    index.query(p_tr, &candidate_ids);
+    for (const size_t rid : candidate_ids) {
+      const auto& ref = references[rid];
       if (!ref.valid_line) continue;
       const double d = (ref.point - p_tr).norm();
       if (d < best_dist) {
@@ -220,12 +300,19 @@ PLICPResult PLICPEstimator::registerScan(const LaserScan& scan) {
 
   Eigen::Matrix3d transform =
       params_.use_motion_prior ? last_increment_ : Eigen::Matrix3d::Identity();
-  const std::vector<RefPoint> references =
-      params_.use_local_map ? localMapInFrame(pose_) : ref_model_;
+  const std::vector<RefPoint>& references = params_.use_local_map ? local_refs_ : ref_model_;
+  if (params_.use_local_map && !local_map_index_valid_) {
+    rebuildLocalMapIndex();
+  }
+
   int iterations = 0;
   for (; iterations < params_.max_iterations; ++iterations) {
     Eigen::Matrix3d delta = Eigen::Matrix3d::Identity();
-    if (!solveIncrement(current, references, transform, &delta)) break;
+    const bool ok =
+        params_.use_local_map
+            ? solveIncrementIndexed(current, references, local_map_index_, transform, &delta)
+            : solveIncrement(current, references, transform, &delta);
+    if (!ok) break;
     transform = delta * transform;
 
     const double tx = delta(0, 2);
@@ -241,6 +328,7 @@ PLICPResult PLICPEstimator::registerScan(const LaserScan& scan) {
   pose_ = pose_ * transform;
   last_increment_ = transform;
   if (params_.use_local_map) {
+    transformRobotMap(transform.inverse());
     addScanToLocalMap(scan);
   } else {
     ref_model_ = buildReferenceModel(scan);

@@ -635,12 +635,12 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | Rank | 論文 | 機構 | OSS | Feasibility | 備考 |
 |------|------|------|-----|-------------|------|
 | ✅ | **MbICP** (Minguez et al., ICRA 2005 / T-RO 2006) | config-space metric ICP、対称性 | 各所 | 完了 | 50本目 |
-| 2 | **PL-ICP + local map** | Censi local map / CSM 併用 | — | **4/5** | 既存 PL-ICP 拡張、新論文不要 |
+| 2 | **PL-ICP + local map** | Censi local map / CSM 併用 | — | **5/5** | ✅ robot-frame cache + harness (Intel 15.0%, fr079 14.1%) |
 | 3 | **Hector SLAM** scan matcher | Gauss-Newton on occupancy grid | ROS 有 | **3.5/5** | OSS あり → campaign 対象外の可能性 |
 | 4 | **Olson 2009 full Karto** | 確率 grid + branch-and-bound | OpenSLAM | **3/5** | CSM からの段階的拡張 |
 | 5 | **GMapping particle filter** | Rao-Blackwellized PF | ROS 有 | **2.5/5** | SLAM 本体、odom 単体ではない |
 
-**次の推奨**: 長め MIT/Bonn window、PL-ICP local map harness、または MbICP/fr079 速度改善。PG-LIO (3D) は引き続き保留。
+**次の推奨**: 長め MIT/Bonn window、PL-ICP/MbICP fr079 速度改善、または Karto corridor 修正。PG-LIO (3D) は引き続き保留。
 
 ---
 
@@ -855,7 +855,7 @@ GT-seed on frame 0。**Drift [%]** — lower is better。
 | 48 | **NDT-2D** | 14.8 | 21.8 | 29.2 | 22.3 | — |
 | 49 | **IDC** | 15.3 | 27.7 | 29.5 | 42.6 | — |
 | 45 | **CSM** | 16.0 | 20.6 | 29.2 | 73.3 | — |
-| 44 | **PL-ICP** | 16.9 | 41.0 | 30.3 | **0.4** | Corridor |
+| 44 | **PL-ICP** | 15.0 | **14.1** | 27.2 | **0.01** | Corridor + fr079 competitive |
 | 50 | **MbICP** | 17.1 | 16.6 | 27.3 | 0.5 | — |
 | 46 | **Kinematic-ICP** | 18.4 | 18.9 | **23.4** | 83.8 | MIT (indicative) |
 | 47 | **PSM** | 21.8 | **13.9** | 27.9 | 11.6 | fr079 |
@@ -924,7 +924,7 @@ README.md (1-screen 概要)
 |----------|--------|-------------------|
 | **P0** | MbICP + 8-method refresh 差分を最終検証して commit | ✅ 検証済 (8/8 tests, smoke, validate_showcase, benchmark refresh) |
 | **P1** | `git push` — IDC + CSM-DT + markdown + MbICP refresh | ユーザ明示指示待ち |
-| **P2** | PL-ICP/MbICP local map 拡張 | ✅ MbICP robot-frame cache + harness local map (Intel **14.5%**, fr079 **15.4%**; fr079 ~9min) |
+| **P2** | PL-ICP/MbICP local map 拡張 | ✅ MbICP robot-frame cache (Intel **14.5%**, fr079 **15.4%**; ~9min) + PL-ICP robot-frame cache (Intel **15.0%**, fr079 **14.1%**; ~3.4min) |
 | **P3** | Karto-style map matcher / spatial index for local map | ✅ `karto_matcher` + Olson coarse BnB; fr079 **14.8%** drift (Intel 15.1%); corridor honest negative |
 | **P4** | 長め MIT/Bonn window 追加 | データ調達 |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |

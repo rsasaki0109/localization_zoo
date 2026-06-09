@@ -28,7 +28,8 @@ python3 evaluation/scripts/generate_rf2o_smoke_fixture.py
 ## Current Scope
 
 - Planar motion only (x, y, yaw)
-- Scan-to-scan (no local map / CSM)
+- Default harness path: scan-to-scan (no rolling map)
+- Optional rolling local map via `PLICPParams::use_local_map` (world-frame submap, matched in the previous pose frame)
 - No Censi recursive distortion model (standard ICP loop)
 - Brute-force correspondences (OK for ~360 beams)
 
@@ -41,5 +42,5 @@ python3 evaluation/scripts/generate_rf2o_smoke_fixture.py
 
 Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_pl_icp_vs_rf2o.json`
 
-Public 7-method leaderboard:
+Public 8-method leaderboard:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).

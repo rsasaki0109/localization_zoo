@@ -154,6 +154,22 @@
       ]
     },
     {
+      "name": "MbICP",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR"
+      ],
+      "href": "papers/mb_icp",
+      "summary": "Metric-based ICP 2D laser odometry that uses a configuration-space distance to account for translation and rotation together during correspondence search and least-squares alignment (Minguez, Lamiraux & Montesano, ICRA 2005 / T-RO 2006).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "scan-matching",
+        "icp"
+      ]
+    },
+    {
       "name": "IDC",
       "family": "2D Odometry",
       "scope": "Paper reimplementation",

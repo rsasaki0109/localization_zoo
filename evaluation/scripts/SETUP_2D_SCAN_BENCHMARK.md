@@ -119,12 +119,12 @@ cmake --build build --target scan_dogfooding
 ./build/evaluation/scan_dogfooding \
   evaluation/fixtures/intel_val_73 \
   evaluation/fixtures/intel_val_73/gt.csv \
-  --methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc \
+  --methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp \
   --wheel-odom-from-gt \
   --summary-json docs/benchmarks/scan2d/intel_val_73.json
 ```
 
-Methods (papers 43–49): `rf2o`, `pl_icp`, `csm`, `kinematic_icp`, `psm`, `ndt_2d`, `idc`.
+Methods (papers 43–50): `rf2o`, `pl_icp`, `csm`, `kinematic_icp`, `psm`, `ndt_2d`, `idc`, `mb_icp`.
 Kinematic-ICP requires `--wheel-odom-from-gt` (or real wheel odometry when available).
 
 Metrics:
@@ -135,7 +135,7 @@ Metrics:
 
 ## Smoke benchmark (committed fixtures)
 
-CI runs all seven methods on a 20-frame Intel slice:
+CI runs all eight methods on a 20-frame Intel slice:
 
 ```bash
 bash evaluation/scripts/smoke_scan2d_fixture.sh

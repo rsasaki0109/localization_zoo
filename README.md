@@ -260,7 +260,7 @@ LiTAMIN2       31.155      2.6
 
 ### 2D Laser Scan Odometry
 
-Seven planar matchers (papers 43–49) in [`scan_dogfooding`](evaluation/src/scan_dogfooding.cpp).
+Eight planar matchers (papers 43–50) in [`scan_dogfooding`](evaluation/src/scan_dogfooding.cpp).
 Full leaderboard, fixtures, and reproduction steps:
 [**docs/benchmarks/scan2d/README.md**](docs/benchmarks/scan2d/README.md).
 
@@ -269,9 +269,10 @@ Full leaderboard, fixtures, and reproduction steps:
 | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
 | **RF2O** | **14.3%** | 15.4% | 27.6% | 1.3% |
 | **NDT-2D** | 14.8% | 21.8% | 29.2% | 22.3% |
-| **IDC** | 15.3% | 27.7% | — | — |
-| **CSM** | 16.0% | 20.6% | 27.7% | 73.3% |
+| **IDC** | 15.3% | 27.7% | 29.5% | 42.6% |
+| **CSM** | 16.0% | 20.6% | 29.2% | 73.3% |
 | **PL-ICP** | 16.9% | 41.0% | 30.3% | **0.4%** |
+| **MbICP** | 17.1% | 16.6% | 27.3% | 0.5% |
 | **Kinematic-ICP** | 18.4% | 18.9% | **23.4%** | 83.8% |
 | **PSM** | 21.8% | **13.9%** | 27.9% | 11.6% |
 

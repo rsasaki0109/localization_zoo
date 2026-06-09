@@ -1,8 +1,11 @@
-#include "pl_icp/pl_icp.h"
+#include "mb_icp/mb_icp.h"
+
 #include <gtest/gtest.h>
+
+#include <algorithm>
 #include <cmath>
 
-using namespace localization_zoo::pl_icp;
+using namespace localization_zoo::mb_icp;
 
 namespace {
 
@@ -34,29 +37,30 @@ LaserScan makeBoxScan(double x, double y, double yaw, int beams = 360) {
 
 }  // namespace
 
-TEST(PLICP, FirstScanInitializes) {
-  PLICPEstimator est(PLICPParams{});
+TEST(MbICP, FirstScanInitializes) {
+  MbICPEstimator est(MbICPParams{});
   const auto res = est.registerScan(makeBoxScan(0, 0, 0));
   EXPECT_TRUE(res.valid);
 }
 
-TEST(PLICP, PureTranslationInBox) {
-  PLICPParams params;
-  params.max_correspondence_distance = 1.0;
-  PLICPEstimator est(params);
+TEST(MbICP, PureTranslationInBox) {
+  MbICPParams params;
+  params.max_metric_distance = 1.5;
+  MbICPEstimator est(params);
   est.registerScan(makeBoxScan(0, 0, 0));
   for (int i = 1; i <= 5; ++i) {
     const auto res = est.registerScan(makeBoxScan(i * 0.2, 0, 0));
     EXPECT_TRUE(res.valid);
   }
   const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(1.0, 0)).norm();
-  EXPECT_LT(err, 0.15);
+  EXPECT_LT(err, 0.25);
 }
 
-TEST(PLICP, PureRotationInBox) {
-  PLICPParams params;
-  params.max_correspondence_distance = 1.0;
-  PLICPEstimator est(params);
+TEST(MbICP, PureRotationInBox) {
+  MbICPParams params;
+  params.max_metric_distance = 1.5;
+  params.metric_radius = 2.0;
+  MbICPEstimator est(params);
   est.registerScan(makeBoxScan(0, 0, 0));
   const double yaw_step = 0.03;
   for (int i = 1; i <= 5; ++i) {
@@ -64,34 +68,38 @@ TEST(PLICP, PureRotationInBox) {
     EXPECT_TRUE(res.valid);
   }
   const double est_yaw = std::atan2(est.pose()(1, 0), est.pose()(0, 0));
-  EXPECT_NEAR(est_yaw, 5 * yaw_step, 0.05);
+  EXPECT_NEAR(est_yaw, 5 * yaw_step, 0.06);
 }
 
-TEST(PLICP, CoupledTranslationAndRotation) {
-  PLICPParams params;
-  params.max_correspondence_distance = 1.0;
-  PLICPEstimator est(params);
+TEST(MbICP, CoupledTranslationAndRotation) {
+  MbICPParams params;
+  params.max_metric_distance = 1.5;
+  params.metric_radius = 2.0;
+  MbICPEstimator est(params);
   est.registerScan(makeBoxScan(0, 0, 0));
   for (int i = 1; i <= 20; ++i) {
     const auto res = est.registerScan(makeBoxScan(0.2 * i, 0, 0.02 * i));
     EXPECT_TRUE(res.valid);
   }
   const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(4.0, 0)).norm();
-  EXPECT_LT(err, 0.5);
+  EXPECT_LT(err, 0.8);
+  const double est_yaw = std::atan2(est.pose()(1, 0), est.pose()(0, 0));
+  EXPECT_NEAR(est_yaw, 0.4, 0.12);
 }
 
-TEST(PLICP, Pose2DUtility) {
+TEST(MbICP, Pose2DUtility) {
   const auto T = pose2D(1.0, 2.0, M_PI / 4);
   EXPECT_NEAR(T(0, 2), 1.0, 1e-9);
   EXPECT_NEAR(T(1, 2), 2.0, 1e-9);
 }
 
-TEST(PLICP, LocalMapAccumulatesFeatures) {
-  PLICPParams params;
-  params.max_correspondence_distance = 1.0;
+TEST(MbICP, LocalMapAccumulatesFeatures) {
+  MbICPParams params;
+  params.max_metric_distance = 1.5;
+  params.metric_radius = 2.0;
   params.use_local_map = true;
   params.local_map_radius = 20.0;
-  PLICPEstimator est(params);
+  MbICPEstimator est(params);
   est.registerScan(makeBoxScan(0, 0, 0));
   EXPECT_GT(est.mapSize(), 100u);
   for (int i = 1; i <= 5; ++i) {

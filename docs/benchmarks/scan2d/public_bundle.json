@@ -8,6 +8,7 @@
     "IDC",
     "CSM",
     "PL-ICP",
+    "MbICP",
     "Kinematic-ICP",
     "PSM"
   ],
@@ -18,7 +19,8 @@
     "Kinematic-ICP": 46,
     "PSM": 47,
     "NDT-2D": 48,
-    "IDC": 49
+    "IDC": 49,
+    "MbICP": 50
   },
   "fixtures": [
     {
@@ -30,10 +32,11 @@
       "artifact": "docs/benchmarks/scan2d/intel_val_73.json",
       "drift_pct": {
         "RF2O": 14.287,
-        "NDT-2D": 14.780,
+        "NDT-2D": 14.782,
         "IDC": 15.271,
-        "CSM": 15.970,
+        "CSM": 15.973,
         "PL-ICP": 16.922,
+        "MbICP": 17.069,
         "Kinematic-ICP": 18.346,
         "PSM": 21.800
       },
@@ -47,13 +50,14 @@
       "trajectory_length_m": 373.138,
       "artifact": "docs/benchmarks/scan2d/fr079_val_384.json",
       "drift_pct": {
-        "PSM": 13.890,
-        "RF2O": 15.370,
-        "Kinematic-ICP": 18.860,
-        "CSM": 20.620,
+        "PSM": 13.891,
+        "RF2O": 15.374,
+        "MbICP": 16.550,
+        "Kinematic-ICP": 18.864,
+        "CSM": 20.621,
         "NDT-2D": 21.790,
-        "IDC": 27.740,
-        "PL-ICP": 40.990
+        "IDC": 27.737,
+        "PL-ICP": 40.986
       },
       "best": "PSM"
     },
@@ -66,11 +70,13 @@
       "artifact": "docs/benchmarks/scan2d/mit_val_33.json",
       "drift_pct": {
         "Kinematic-ICP": 23.410,
-        "RF2O": 27.620,
-        "CSM": 27.670,
-        "PSM": 27.900,
-        "NDT-2D": 29.160,
-        "PL-ICP": 30.290
+        "MbICP": 27.325,
+        "RF2O": 27.623,
+        "PSM": 27.901,
+        "NDT-2D": 29.162,
+        "CSM": 29.209,
+        "IDC": 29.512,
+        "PL-ICP": 30.289
       },
       "best": "Kinematic-ICP",
       "note": "Short 33-frame window — drift is indicative only."
@@ -84,10 +90,12 @@
       "artifact": "docs/benchmarks/scan2d/rf2o_corridor.json",
       "drift_pct": {
         "PL-ICP": 0.380,
+        "MbICP": 0.456,
         "RF2O": 1.276,
         "PSM": 11.599,
-        "NDT-2D": 22.320,
-        "CSM": 73.320,
+        "NDT-2D": 22.319,
+        "IDC": 42.599,
+        "CSM": 73.325,
         "Kinematic-ICP": 83.805
       },
       "best": "PL-ICP",

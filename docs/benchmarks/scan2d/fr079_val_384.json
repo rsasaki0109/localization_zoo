@@ -1,11 +1,44 @@
 {
-  "scan_dir": "evaluation/fixtures/fr079_val_384",
-  "gt_csv": "evaluation/fixtures/fr079_val_384/gt.csv",
+  "scan_dir": "localization_zoo/evaluation/fixtures/fr079_val_384",
+  "gt_csv": "localization_zoo/evaluation/fixtures/fr079_val_384/gt.csv",
   "num_frames": 384,
   "trajectory_length_m": 373.138,
   "rpe_segment_length_m": 100.000,
   "gt_seed": true,
   "methods": [
+    {
+      "name": "IDC",
+      "status": "ok",
+      "ate_m": 30.699,
+      "drift_pct": 27.737,
+      "rpe_rot_deg_per_m": 0.849,
+      "frames": 384,
+      "time_ms": 1909.022,
+      "fps": 201.150,
+      "note": "Iterative dual correspondence 2D odometry (Lu & Milios 1997, simplified port)."
+    },
+    {
+      "name": "MbICP",
+      "status": "ok",
+      "ate_m": 35.558,
+      "drift_pct": 16.550,
+      "rpe_rot_deg_per_m": 0.939,
+      "frames": 384,
+      "time_ms": 10870.171,
+      "fps": 35.326,
+      "note": "Metric-based ICP 2D odometry with rolling local map (Minguez-Lamiraux-Montesano ICRA 2005, simplified port)."
+    },
+    {
+      "name": "NDT-2D",
+      "status": "ok",
+      "ate_m": 58.726,
+      "drift_pct": 21.790,
+      "rpe_rot_deg_per_m": 0.856,
+      "frames": 384,
+      "time_ms": 370.998,
+      "fps": 1035.045,
+      "note": "2D NDT scan matching odometry (Biber & Straßer IROS 2003, simplified port)."
+    },
     {
       "name": "PSM",
       "status": "ok",
@@ -13,8 +46,8 @@
       "drift_pct": 13.891,
       "rpe_rot_deg_per_m": 0.867,
       "frames": 384,
-      "time_ms": 7523.253,
-      "fps": 51.042,
+      "time_ms": 7300.174,
+      "fps": 52.601,
       "note": "Polar scan matching 2D odometry (Hähnel polar range correlation, simplified port)."
     },
     {
@@ -24,19 +57,19 @@
       "drift_pct": 18.864,
       "rpe_rot_deg_per_m": 0.840,
       "frames": 384,
-      "time_ms": 1829.590,
-      "fps": 209.883,
+      "time_ms": 1536.319,
+      "fps": 249.948,
       "note": "Unicycle PL-ICP + wheel odom prior (Guadagnino ICRA 2025, simplified 2D port). GT-derived wheel odometry."
     },
     {
       "name": "CSM",
       "status": "ok",
-      "ate_m": 109.479,
-      "drift_pct": 38.970,
-      "rpe_rot_deg_per_m": 0.892,
+      "ate_m": 42.419,
+      "drift_pct": 20.621,
+      "rpe_rot_deg_per_m": 0.840,
       "frames": 384,
-      "time_ms": 76193.871,
-      "fps": 5.040,
+      "time_ms": 11324.105,
+      "fps": 33.910,
       "note": "Correlative scan matching 2D odometry (Olson ICRA 2009, simplified port)."
     },
     {
@@ -46,8 +79,8 @@
       "drift_pct": 40.986,
       "rpe_rot_deg_per_m": 0.867,
       "frames": 384,
-      "time_ms": 1660.463,
-      "fps": 231.261,
+      "time_ms": 1664.502,
+      "fps": 230.700,
       "note": "Point-to-line ICP 2D scan odometry (Censi IROS 2008, simplified port)."
     },
     {
@@ -57,8 +90,8 @@
       "drift_pct": 15.374,
       "rpe_rot_deg_per_m": 0.853,
       "frames": 384,
-      "time_ms": 100.057,
-      "fps": 3837.813,
+      "time_ms": 99.821,
+      "fps": 3846.871,
       "note": "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port)."
     }
   ]

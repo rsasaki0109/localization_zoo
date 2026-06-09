@@ -80,8 +80,10 @@ MbICPEstimator::LocalMapIndex MbICPEstimator::LocalMapIndex::build(
   return index;
 }
 
-void MbICPEstimator::LocalMapIndex::querySegments(const Eigen::Vector2d& p,
-                                                  std::unordered_set<size_t>* visited) const {
+void MbICPEstimator::LocalMapIndex::querySegmentCandidates(const Eigen::Vector2d& p,
+                                                           const std::vector<uint32_t>& stamp,
+                                                           uint32_t generation,
+                                                           std::vector<size_t>* candidates) const {
   const int cx = static_cast<int>(std::floor(p.x() / cell_size));
   const int cy = static_cast<int>(std::floor(p.y() / cell_size));
   const int reach = static_cast<int>(std::ceil(query_radius / cell_size)) + 1;
@@ -90,13 +92,18 @@ void MbICPEstimator::LocalMapIndex::querySegments(const Eigen::Vector2d& p,
       const int64_t k = (static_cast<int64_t>(cx + dx) << 32) ^ static_cast<uint32_t>(cy + dy);
       const auto it = segment_bins.find(k);
       if (it == segment_bins.end()) continue;
-      visited->insert(it->second.begin(), it->second.end());
+      for (const size_t sid : it->second) {
+        if (sid >= stamp.size() || stamp[sid] == generation) continue;
+        candidates->push_back(sid);
+      }
     }
   }
 }
 
-void MbICPEstimator::LocalMapIndex::queryPoints(const Eigen::Vector2d& p,
-                                                std::unordered_set<size_t>* visited) const {
+void MbICPEstimator::LocalMapIndex::queryPointCandidates(const Eigen::Vector2d& p,
+                                                         const std::vector<uint32_t>& stamp,
+                                                         uint32_t generation,
+                                                         std::vector<size_t>* candidates) const {
   const int cx = static_cast<int>(std::floor(p.x() / cell_size));
   const int cy = static_cast<int>(std::floor(p.y() / cell_size));
   const int reach = static_cast<int>(std::ceil(query_radius / cell_size)) + 1;
@@ -105,7 +112,10 @@ void MbICPEstimator::LocalMapIndex::queryPoints(const Eigen::Vector2d& p,
       const int64_t k = (static_cast<int64_t>(cx + dx) << 32) ^ static_cast<uint32_t>(cy + dy);
       const auto it = point_bins.find(k);
       if (it == point_bins.end()) continue;
-      visited->insert(it->second.begin(), it->second.end());
+      for (const size_t pid : it->second) {
+        if (pid >= stamp.size() || stamp[pid] == generation) continue;
+        candidates->push_back(pid);
+      }
     }
   }
 }
@@ -118,8 +128,13 @@ void MbICPEstimator::reset() {
   ref_segments_.clear();
   local_points_.clear();
   local_segments_.clear();
+  point_voxels_.clear();
+  segment_voxels_.clear();
   local_map_index_ = LocalMapIndex{};
   local_map_index_valid_ = false;
+  segment_query_stamp_.clear();
+  point_query_stamp_.clear();
+  query_generation_ = 1;
   pose_ = Eigen::Matrix3d::Identity();
   last_increment_ = Eigen::Matrix3d::Identity();
 }
@@ -177,43 +192,61 @@ void MbICPEstimator::transformRobotMap(const Eigen::Matrix3d& inv_increment) {
   local_map_index_valid_ = false;
 }
 
+void MbICPEstimator::rebuildPointVoxels() {
+  point_voxels_.clear();
+  const double voxel = params_.local_map_voxel_size;
+  point_voxels_.reserve(local_points_.size());
+  for (size_t i = 0; i < local_points_.size(); ++i) {
+    if (!local_points_[i].valid) continue;
+    point_voxels_[voxelKey(local_points_[i].point.x(), local_points_[i].point.y(), voxel)] = i;
+  }
+}
+
+void MbICPEstimator::rebuildSegmentVoxels() {
+  segment_voxels_.clear();
+  const double voxel = params_.local_map_voxel_size;
+  segment_voxels_.reserve(local_segments_.size());
+  for (const auto& seg : local_segments_) {
+    const Eigen::Vector2d mid = 0.5 * (seg.a + seg.b);
+    segment_voxels_.insert(voxelKey(mid.x(), mid.y(), voxel));
+  }
+}
+
 void MbICPEstimator::addScanToLocalMap(const LaserScan& scan) {
   buildReferenceModel(scan);
   const double voxel = params_.local_map_voxel_size;
 
-  std::unordered_map<int64_t, size_t> point_voxels;
-  point_voxels.reserve(local_points_.size() + ref_points_.size());
-  for (size_t i = 0; i < local_points_.size(); ++i) {
-    if (!local_points_[i].valid) continue;
-    point_voxels[voxelKey(local_points_[i].point.x(), local_points_[i].point.y(), voxel)] = i;
-  }
+  rebuildPointVoxels();
   for (const auto& ref : ref_points_) {
     if (!ref.valid) continue;
     const int64_t k = voxelKey(ref.point.x(), ref.point.y(), voxel);
-    const auto it = point_voxels.find(k);
-    if (it != point_voxels.end()) {
+    const auto it = point_voxels_.find(k);
+    if (it != point_voxels_.end()) {
       local_points_[it->second] = ref;
     } else {
-      point_voxels[k] = local_points_.size();
+      point_voxels_[k] = local_points_.size();
       local_points_.push_back(ref);
     }
   }
 
-  std::unordered_set<int64_t> segment_voxels;
-  segment_voxels.reserve(local_segments_.size() + ref_segments_.size());
-  for (const auto& seg : local_segments_) {
-    const Eigen::Vector2d mid = 0.5 * (seg.a + seg.b);
-    segment_voxels.insert(voxelKey(mid.x(), mid.y(), voxel));
-  }
+  rebuildSegmentVoxels();
   for (const auto& seg : ref_segments_) {
     const Eigen::Vector2d mid = 0.5 * (seg.a + seg.b);
     const int64_t k = voxelKey(mid.x(), mid.y(), voxel);
-    if (segment_voxels.insert(k).second) {
+    if (segment_voxels_.insert(k).second) {
       local_segments_.push_back(seg);
     }
   }
 
+  const size_t points_before = local_points_.size();
+  const size_t segments_before = local_segments_.size();
   pruneLocalMap();
+  if (local_points_.size() != points_before) {
+    rebuildPointVoxels();
+  }
+  if (local_segments_.size() != segments_before) {
+    rebuildSegmentVoxels();
+  }
   rebuildLocalMapIndex();
 }
 
@@ -350,20 +383,32 @@ bool MbICPEstimator::solveIncrementIndexed(const std::vector<Eigen::Vector2d>& c
   std::vector<Correspondence> corr;
   corr.reserve(current.size());
   const double max_metric_sq = params_.max_metric_distance * params_.max_metric_distance;
-  std::unordered_set<size_t> segment_ids;
-  std::unordered_set<size_t> point_ids;
-  segment_ids.reserve(32);
-  point_ids.reserve(32);
+  if (segment_query_stamp_.size() < segments.size()) {
+    segment_query_stamp_.assign(segments.size(), 0);
+  }
+  if (point_query_stamp_.size() < points.size()) {
+    point_query_stamp_.assign(points.size(), 0);
+  }
+  std::vector<size_t> candidates;
+  candidates.reserve(32);
 
   for (const auto& p_cur : current) {
+    if (++query_generation_ == 0) {
+      std::fill(segment_query_stamp_.begin(), segment_query_stamp_.end(), 0);
+      std::fill(point_query_stamp_.begin(), point_query_stamp_.end(), 0);
+      query_generation_ = 1;
+    }
+    const uint32_t generation = query_generation_;
     const Eigen::Vector2d p_tr = transformPoint(transform, p_cur);
     double best_metric_sq = max_metric_sq;
     Eigen::Vector2d best_ref = Eigen::Vector2d::Zero();
     bool found = false;
 
-    segment_ids.clear();
-    index.querySegments(p_tr, &segment_ids);
-    for (const size_t sid : segment_ids) {
+    candidates.clear();
+    index.querySegmentCandidates(p_tr, segment_query_stamp_, generation, &candidates);
+    for (const size_t sid : candidates) {
+      if (segment_query_stamp_[sid] == generation) continue;
+      segment_query_stamp_[sid] = generation;
       const auto& seg = segments[sid];
       const Eigen::Vector2d ref = closestPointOnSegment(p_tr, seg.a, seg.b);
       const double d2 = metricDistanceSquared(p_tr - ref, ref);
@@ -374,9 +419,11 @@ bool MbICPEstimator::solveIncrementIndexed(const std::vector<Eigen::Vector2d>& c
       }
     }
     if (!found) {
-      point_ids.clear();
-      index.queryPoints(p_tr, &point_ids);
-      for (const size_t pid : point_ids) {
+      candidates.clear();
+      index.queryPointCandidates(p_tr, point_query_stamp_, generation, &candidates);
+      for (const size_t pid : candidates) {
+        if (point_query_stamp_[pid] == generation) continue;
+        point_query_stamp_[pid] = generation;
         const auto& ref = points[pid];
         if (!ref.valid) continue;
         const double d2 = metricDistanceSquared(p_tr - ref.point, ref.point);

@@ -4,7 +4,6 @@
 
 #include <cstddef>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 namespace localization_zoo {
@@ -73,12 +72,14 @@ class PLICPEstimator {
 
     static LocalMapIndex build(const std::vector<RefPoint>& refs, double cell_size,
                                double query_radius);
-    void query(const Eigen::Vector2d& p, std::unordered_set<size_t>* visited) const;
+    void queryCandidates(const Eigen::Vector2d& p, const std::vector<uint32_t>& stamp,
+                         uint32_t generation, std::vector<size_t>* candidates) const;
   };
 
   static int64_t voxelKey(double x, double y, double voxel_size);
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   std::vector<RefPoint> buildReferenceModel(const LaserScan& scan) const;
+  void rebuildPointVoxels();
   void addScanToLocalMap(const LaserScan& scan);
   void transformRobotMap(const Eigen::Matrix3d& inv_increment);
   void pruneLocalMap();
@@ -96,8 +97,11 @@ class PLICPEstimator {
   bool initialized_ = false;
   std::vector<RefPoint> ref_model_;
   std::vector<RefPoint> local_refs_;
+  std::unordered_map<int64_t, size_t> point_voxels_;
   LocalMapIndex local_map_index_;
   bool local_map_index_valid_ = false;
+  mutable std::vector<uint32_t> query_stamp_;
+  mutable uint32_t query_generation_ = 1;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

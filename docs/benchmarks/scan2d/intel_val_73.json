@@ -90,8 +90,8 @@
       "drift_pct": 14.962,
       "rpe_rot_deg_per_m": 0.817,
       "frames": 73,
-      "time_ms": 5610.068,
-      "fps": 13.012,
+      "time_ms": 985.532,
+      "fps": 74.072,
       "note": "Point-to-line ICP 2D odometry with robot-frame local map cache (Censi IROS 2008, simplified port)."
     },
     {

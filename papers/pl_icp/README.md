@@ -45,7 +45,7 @@ python3 evaluation/scripts/generate_rf2o_smoke_fixture.py
 | Fixture | Drift | Notes |
 |---------|-------|-------|
 | Intel val 73f | **15.0%** | was 16.9% scan-to-scan |
-| fr079 val 384f | **14.1%** | was 41.0%; ~3.4 min runtime |
+| fr079 val 384f | **14.1%** | was 41.0%; ~26 s runtime |
 | MIT val 33f | 27.2% | was 30.3% |
 | Corridor 120f | **0.01%** | corridor leader |
 

@@ -924,7 +924,7 @@ README.md (1-screen 概要)
 |----------|--------|-------------------|
 | **P0** | MbICP + 8-method refresh 差分を最終検証して commit | ✅ 検証済 (8/8 tests, smoke, validate_showcase, benchmark refresh) |
 | **P1** | `git push` — IDC + CSM-DT + markdown + MbICP refresh | ユーザ明示指示待ち |
-| **P2** | PL-ICP/MbICP local map 拡張 | ✅ MbICP robot-frame cache (Intel **14.5%**, fr079 **15.4%**; ~9min) + PL-ICP robot-frame cache (Intel **15.0%**, fr079 **14.1%**; ~3.4min) |
+| **P2** | PL-ICP/MbICP local map 拡張 | ✅ MbICP robot-frame cache (Intel **14.5%**, fr079 **15.4%**; ~2.3min) + PL-ICP robot-frame cache (Intel **15.0%**, fr079 **14.1%**; ~26s) + stamp-indexed search speedup |
 | **P3** | Karto-style map matcher / spatial index for local map | ✅ `karto_matcher` + Olson coarse BnB; fr079 **14.8%** drift (Intel 15.1%); corridor honest negative |
 | **P4** | 長め MIT/Bonn window 追加 | データ調達 |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |

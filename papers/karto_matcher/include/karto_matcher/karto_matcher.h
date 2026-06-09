@@ -3,6 +3,7 @@
 #include <Eigen/Core>
 
 #include <cstddef>
+#include <unordered_map>
 #include <vector>
 
 namespace localization_zoo {
@@ -29,8 +30,9 @@ struct KartoMatcherParams {
   double min_range = 0.1;
   double max_range = 30.0;
   bool use_motion_prior = true;
-  /// Rolling local map radius around the robot [m].
+  /// Rolling local map radius around the robot [m] (robot-frame cache).
   double local_map_radius = 12.0;
+  double local_map_voxel_size = 0.15;
   bool use_branch_and_bound = true;
   double bnb_min_xy = 0.04;
   double bnb_min_yaw = 0.02;
@@ -63,7 +65,7 @@ class KartoMatcherEstimator {
   KartoMatcherResult registerScan(const LaserScan& scan);
 
   const Eigen::Matrix3d& pose() const { return pose_; }
-  size_t mapSize() const { return map_points_world_.size(); }
+  size_t mapSize() const { return map_points_robot_.size(); }
 
  private:
   struct Grid {
@@ -90,6 +92,8 @@ class KartoMatcherEstimator {
 
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   std::vector<Eigen::Vector2d> localMapPoints() const;
+  static int64_t voxelKey(double x, double y, double voxel_size);
+  void rebuildPointVoxels();
   Grid buildGrid(const std::vector<Eigen::Vector2d>& points, double resolution) const;
   void computeDistanceTransform(Grid* grid) const;
   void computeScoreGrid(Grid* grid) const;
@@ -97,31 +101,35 @@ class KartoMatcherEstimator {
   void computeBoundFromFiner(const Grid& fine, Grid* coarse) const;
   std::vector<Grid> buildPyramid(const std::vector<Eigen::Vector2d>& points) const;
   double scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
-                   const Eigen::Matrix3d& world_transform) const;
+                   const Eigen::Matrix3d& increment) const;
   double lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p) const;
   double lookupBound(const Grid& grid, int x, int y) const;
   double nodeUpperBound(const Grid& grid, const SearchNode& node,
                         const std::vector<Eigen::Vector2d>& points,
-                        const Eigen::Matrix3d& base_world) const;
+                        const Eigen::Matrix3d& base_increment) const;
   Eigen::Matrix3d searchBranchAndBound(const std::vector<Grid>& pyramid,
                                        const std::vector<Eigen::Vector2d>& points,
-                                       const Eigen::Matrix3d& prior) const;
+                                       const Eigen::Matrix3d& prior, double xy_range,
+                                       double yaw_range) const;
   Eigen::Matrix3d searchBranchAndBoundAtLevel(const Grid& grid, int level,
                                               const std::vector<Eigen::Vector2d>& points,
                                               const Eigen::Matrix3d& center_increment,
                                               double xy_range, double yaw_range) const;
   Eigen::Matrix3d refineAtLevel(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
-                                const Eigen::Matrix3d& center_increment, int level,
-                                int finest) const;
+                                const Eigen::Matrix3d& center_increment, int level, int finest,
+                                double xy_range, double yaw_range) const;
   Eigen::Matrix3d searchBestTransformBruteForce(const std::vector<Grid>& pyramid,
                                                 const std::vector<Eigen::Vector2d>& points,
-                                                const Eigen::Matrix3d& prior) const;
+                                                const Eigen::Matrix3d& prior, double xy_range,
+                                                double yaw_range) const;
+  void transformRobotMap(const Eigen::Matrix3d& inv_increment);
   void addScanToMap(const std::vector<Eigen::Vector2d>& points);
   void pruneMap();
 
   KartoMatcherParams params_;
   bool initialized_ = false;
-  std::vector<Eigen::Vector2d> map_points_world_;
+  std::vector<Eigen::Vector2d> map_points_robot_;
+  std::unordered_map<int64_t, size_t> point_voxels_;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

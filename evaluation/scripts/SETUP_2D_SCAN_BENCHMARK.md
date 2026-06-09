@@ -111,6 +111,23 @@ python3 evaluation/scripts/prepare_bonn_2dslam_inputs.py \
   --output-dir evaluation/fixtures/mit_val_33
 ```
 
+### Long train windows (P4)
+
+Requires `mit/train.json` and `intel/train.json` from the same zip:
+
+```bash
+unzip /tmp/2dslam.zip mit/train.json intel/train.json -d /tmp/2dslam
+bash evaluation/scripts/prepare_bonn_long_fixtures.sh
+bash evaluation/scripts/run_scan2d_long_benchmark.sh
+```
+
+Committed long fixtures:
+
+| Fixture | Source | Frames | Beams |
+|---------|--------|--------|-------|
+| `mit_train_120` | `mit/train.json` (first 120) | 120 | 360 |
+| `intel_train_150` | `intel/train.json` (first 150) | 150 | 180 |
+
 ## Run scan_dogfooding
 
 ```bash

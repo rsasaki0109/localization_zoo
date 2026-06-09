@@ -926,7 +926,7 @@ README.md (1-screen 概要)
 | **P1** | `git push` — IDC + CSM-DT + markdown + MbICP refresh | ユーザ明示指示待ち |
 | **P2** | PL-ICP/MbICP local map 拡張 | ✅ MbICP robot-frame cache (Intel **14.5%**, fr079 **15.4%**; ~2.3min) + PL-ICP robot-frame cache (Intel **15.0%**, fr079 **14.1%**; ~26s) + stamp-indexed search speedup |
 | **P3** | Karto-style map matcher / spatial index for local map | ✅ `karto_matcher` + Olson coarse BnB; fr079 **14.8%** drift (Intel 15.1%); corridor honest negative |
-| **P4** | 長め MIT/Bonn window 追加 | データ調達 |
+| **P4** | 長め MIT/Bonn window 追加 | ✅ `mit_train_120` + `intel_train_150` fixtures + `run_scan2d_long_benchmark.sh` |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

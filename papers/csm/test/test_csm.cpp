@@ -86,3 +86,17 @@ TEST(CSM, Pose2DUtility) {
   EXPECT_NEAR(T(0, 2), 1.0, 1e-9);
   EXPECT_NEAR(T(1, 2), 2.0, 1e-9);
 }
+
+TEST(CSM, LocalMapAccumulatesFeatures) {
+  CSMParams params;
+  params.search_xy_range = 0.5;
+  params.use_local_map = true;
+  params.local_map_radius = 20.0;
+  CSMEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  const size_t after_first = est.mapSize();
+  for (int i = 1; i <= 10; ++i) {
+    est.registerScan(makeBoxScan(0.3 * i, 0, 0));
+  }
+  EXPECT_GT(est.mapSize(), after_first);
+}

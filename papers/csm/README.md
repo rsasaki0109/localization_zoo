@@ -29,7 +29,8 @@
 | `fr079_val_384` | 384 | 38.9% | **20.6%** |
 | `rf2o_corridor` | 120 | 69.6% | 73.3% |
 
-Artifacts: `docs/benchmarks/scan2d/*_csm_dt.json`
+Artifacts: `docs/benchmarks/scan2d/*_csm_dt.json`. Full leaderboard:
+[`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
 **Honest finding:** distance-transform scoring materially helps **real Bonn logs** (especially
 fr079) but remains weak on the synthetic slow-motion corridor versus PL-ICP / RF2O. Brute-force

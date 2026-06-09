@@ -40,3 +40,6 @@ python3 evaluation/scripts/generate_rf2o_smoke_fixture.py
 | same | 10 | 2.7 | 0.002 | ~0.1% | comparable |
 
 Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_pl_icp_vs_rf2o.json`
+
+Public 7-method leaderboard:
+[`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).

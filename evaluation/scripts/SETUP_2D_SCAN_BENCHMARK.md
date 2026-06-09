@@ -1,6 +1,9 @@
 # 2D laser scan benchmark prep (scan_dogfooding)
 
-Planar `LaserScan` odometry uses `scan_dogfooding` with this layout:
+Planar `LaserScan` odometry uses `scan_dogfooding`. **Leaderboard and artifact index:**
+[`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
+
+Fixture layout:
 
 ```
 <scan_dir>/
@@ -114,11 +117,15 @@ python3 evaluation/scripts/prepare_bonn_2dslam_inputs.py \
 cmake --build build --target scan_dogfooding
 
 ./build/evaluation/scan_dogfooding \
-  evaluation/fixtures/rf2o_corridor \
-  evaluation/fixtures/rf2o_corridor/gt.csv \
-  --methods rf2o,pl_icp \
-  --summary-json /tmp/rf2o_corridor.json
+  evaluation/fixtures/intel_val_73 \
+  evaluation/fixtures/intel_val_73/gt.csv \
+  --methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc \
+  --wheel-odom-from-gt \
+  --summary-json docs/benchmarks/scan2d/intel_val_73.json
 ```
+
+Methods (papers 43–49): `rf2o`, `pl_icp`, `csm`, `kinematic_icp`, `psm`, `ndt_2d`, `idc`.
+Kinematic-ICP requires `--wheel-odom-from-gt` (or real wheel odometry when available).
 
 Metrics:
 
@@ -128,19 +135,17 @@ Metrics:
 
 ## Smoke benchmark (committed fixtures)
 
+CI runs all seven methods on a 20-frame Intel slice:
+
 ```bash
-./build/evaluation/scan_dogfooding \
-  evaluation/fixtures/rf2o_smoke \
-  evaluation/fixtures/rf2o_smoke/gt.csv \
-  60 --methods rf2o,pl_icp,csm,kinematic_icp \
-  --wheel-odom-from-gt \
-  --summary-json docs/benchmarks/scan2d/rf2o_smoke_60_refresh.json
+bash evaluation/scripts/smoke_scan2d_fixture.sh
 ```
 
-Refresh all committed 2D benchmarks:
+Full fixture refresh (4 benchmarks → `docs/benchmarks/scan2d/*.json`):
 
 ```bash
 bash evaluation/scripts/run_scan2d_benchmark.sh
 ```
 
-Artifacts: `docs/benchmarks/scan2d/{intel_val_73,fr079_val_384,mit_val_33,rf2o_corridor}.json`.
+See [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md) for the
+leaderboard and per-method notes.

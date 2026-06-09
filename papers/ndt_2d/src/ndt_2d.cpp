@@ -1,6 +1,7 @@
 #include "ndt_2d/ndt_2d.h"
 
 #include <Eigen/Dense>
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -36,6 +37,8 @@ NDT2DEstimator::NDT2DEstimator(const NDT2DParams& params) : params_(params) {}
 
 void NDT2DEstimator::reset() {
   initialized_ = false;
+  local_points_.clear();
+  point_voxels_.clear();
   ref_map_.clear();
   map_origin_ = Eigen::Vector2d::Zero();
   pose_ = Eigen::Matrix3d::Identity();
@@ -53,6 +56,55 @@ void NDT2DEstimator::cellIndex(const Eigen::Vector2d& p, int* ix, int* iy) const
   const Eigen::Vector2d q = p - map_origin_;
   *ix = static_cast<int>(std::floor(q.x() / params_.cell_size));
   *iy = static_cast<int>(std::floor(q.y() / params_.cell_size));
+}
+
+int64_t NDT2DEstimator::voxelKey(double x, double y, double voxel_size) {
+  const int ix = static_cast<int>(std::floor(x / voxel_size));
+  const int iy = static_cast<int>(std::floor(y / voxel_size));
+  return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(static_cast<uint32_t>(iy));
+}
+
+void NDT2DEstimator::rebuildPointVoxels() {
+  point_voxels_.clear();
+  const double voxel = params_.local_map_voxel_size;
+  point_voxels_.reserve(local_points_.size());
+  for (size_t i = 0; i < local_points_.size(); ++i) {
+    point_voxels_[voxelKey(local_points_[i].x(), local_points_[i].y(), voxel)] = i;
+  }
+}
+
+void NDT2DEstimator::addScanToLocalMap(const std::vector<Eigen::Vector2d>& points) {
+  const double voxel = params_.local_map_voxel_size;
+  rebuildPointVoxels();
+  for (const auto& p : points) {
+    const int64_t k = voxelKey(p.x(), p.y(), voxel);
+    const auto it = point_voxels_.find(k);
+    if (it != point_voxels_.end()) {
+      local_points_[it->second] = p;
+    } else {
+      point_voxels_[k] = local_points_.size();
+      local_points_.push_back(p);
+    }
+  }
+  const size_t before = local_points_.size();
+  pruneLocalMap();
+  if (local_points_.size() != before) {
+    rebuildPointVoxels();
+  }
+}
+
+void NDT2DEstimator::transformRobotMap(const Eigen::Matrix3d& inv_increment) {
+  for (auto& p : local_points_) {
+    p = transformPoint(inv_increment, p);
+  }
+}
+
+void NDT2DEstimator::pruneLocalMap() {
+  if (params_.local_map_radius <= 0.0) return;
+  const double r2 = params_.local_map_radius * params_.local_map_radius;
+  local_points_.erase(std::remove_if(local_points_.begin(), local_points_.end(),
+                                     [&](const Eigen::Vector2d& p) { return p.squaredNorm() > r2; }),
+                      local_points_.end());
 }
 
 std::vector<Eigen::Vector2d> NDT2DEstimator::scanToPoints(const LaserScan& scan) const {
@@ -193,7 +245,12 @@ NDT2DResult NDT2DEstimator::registerScan(const LaserScan& scan) {
   }
 
   if (!initialized_) {
-    ref_map_ = buildNDTMap(points);
+    if (params_.use_local_map) {
+      addScanToLocalMap(points);
+      ref_map_ = buildNDTMap(local_points_);
+    } else {
+      ref_map_ = buildNDTMap(points);
+    }
     if (ref_map_.size() < 3) return result;
     initialized_ = true;
     result.valid = true;
@@ -227,7 +284,13 @@ NDT2DResult NDT2DEstimator::registerScan(const LaserScan& scan) {
 
   last_increment_ = estimate;
   pose_ = pose_ * estimate;
-  ref_map_ = buildNDTMap(points);
+  if (params_.use_local_map) {
+    transformRobotMap(estimate.inverse());
+    addScanToLocalMap(points);
+    ref_map_ = buildNDTMap(local_points_);
+  } else {
+    ref_map_ = buildNDTMap(points);
+  }
 
   result.valid = true;
   result.increment = estimate;

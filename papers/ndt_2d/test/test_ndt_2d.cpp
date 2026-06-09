@@ -85,3 +85,35 @@ TEST(NDT2D, Pose2DUtility) {
   EXPECT_NEAR(T(0, 2), 1.0, 1e-9);
   EXPECT_NEAR(T(1, 2), 2.0, 1e-9);
 }
+
+TEST(NDT2D, LocalMapAccumulatesFeatures) {
+  NDT2DParams params;
+  params.cell_size = 0.4;
+  params.use_local_map = true;
+  params.local_map_radius = 20.0;
+  NDT2DEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  EXPECT_GT(est.mapSize(), 100u);
+  for (int i = 1; i <= 5; ++i) {
+    const auto res = est.registerScan(makeBoxScan(i * 0.2, 0, 0));
+    EXPECT_TRUE(res.valid);
+  }
+  EXPECT_GT(est.mapSize(), 100u);
+}
+
+TEST(NDT2D, RobotFrameLocalMapTracksTranslation) {
+  NDT2DParams params;
+  params.cell_size = 0.4;
+  params.use_local_map = true;
+  params.local_map_radius = 20.0;
+  params.local_map_voxel_size = 0.15;
+  NDT2DEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 10; ++i) {
+    const auto res = est.registerScan(makeBoxScan(i * 0.2, 0, 0));
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(2.0, 0)).norm();
+  EXPECT_LT(err, 0.35);
+  EXPECT_GT(est.mapSize(), 50u);
+}

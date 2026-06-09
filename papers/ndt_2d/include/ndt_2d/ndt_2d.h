@@ -32,6 +32,9 @@ struct NDT2DParams {
   double max_range = 30.0;
   int min_points = 20;
   bool use_motion_prior = true;
+  bool use_local_map = false;
+  double local_map_radius = 15.0;
+  double local_map_voxel_size = 0.15;
 };
 
 struct NDT2DResult {
@@ -53,6 +56,7 @@ class NDT2DEstimator {
   NDT2DResult registerScan(const LaserScan& scan);
 
   const Eigen::Matrix3d& pose() const { return pose_; }
+  size_t mapSize() const { return local_points_.size(); }
 
  private:
   struct Cell {
@@ -66,8 +70,13 @@ class NDT2DEstimator {
 
   int64_t cellKey(int ix, int iy) const;
   void cellIndex(const Eigen::Vector2d& p, int* ix, int* iy) const;
+  static int64_t voxelKey(double x, double y, double voxel_size);
 
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
+  void rebuildPointVoxels();
+  void addScanToLocalMap(const std::vector<Eigen::Vector2d>& points);
+  void transformRobotMap(const Eigen::Matrix3d& inv_increment);
+  void pruneLocalMap();
   CellMap buildNDTMap(const std::vector<Eigen::Vector2d>& points);
   const Cell* lookupCell(const CellMap& map, const Eigen::Vector2d& p) const;
   bool solveIncrement(const std::vector<Eigen::Vector2d>& current,
@@ -78,6 +87,8 @@ class NDT2DEstimator {
 
   NDT2DParams params_;
   bool initialized_ = false;
+  std::vector<Eigen::Vector2d> local_points_;
+  std::unordered_map<int64_t, size_t> point_voxels_;
   CellMap ref_map_;
   Eigen::Vector2d map_origin_ = Eigen::Vector2d::Zero();
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();

@@ -673,6 +673,9 @@ MethodResult runNDT2D(const std::vector<fs::path>& frames, const ScanMeta& meta,
   params.cell_size = 0.5;
   params.cov_regularization = 0.05;
   params.max_iterations = 30;
+  params.use_local_map = true;
+  params.local_map_radius = 15.0;
+  params.local_map_voxel_size = 0.15;
   NDT2DEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
@@ -695,7 +698,7 @@ MethodResult runNDT2D(const std::vector<fs::path>& frames, const ScanMeta& meta,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "2D NDT scan matching odometry (Biber & Straßer IROS 2003, simplified port).";
+      "2D NDT scan matching with robot-frame rolling local map (Biber & Straßer IROS 2003, simplified port).";
   return res;
 }
 

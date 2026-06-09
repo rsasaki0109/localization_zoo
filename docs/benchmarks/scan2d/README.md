@@ -7,7 +7,8 @@ Metrics: **ATE [m]** and **Drift [%]** (KITTI-style RPE over a segment scaled to
 
 Nine from-paper / extension 2D odometry ports (papers 43–50 + Karto-style map matcher) share one harness.
 **No single method wins every fixture** — RF2O leads Intel, PSM leads fr079, Kinematic-ICP leads the short MIT
-window, and PL-ICP dominates the synthetic corridor. **Karto-Matcher** (rolling local map + correlative search)
+window, and PL-ICP (robot-frame local map) leads the synthetic corridor and is competitive on Bonn logs.
+**Karto-Matcher** (rolling local map + correlative search)
 improves over scan-to-scan CSM on real Bonn logs (Intel 15.1%, fr079 **14.7%**) but remains weak on the
 synthetic slow-motion corridor (honest negative, like CSM).
 
@@ -24,7 +25,7 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 | 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
 | 45 | **CSM** | ICRA 2009 | 16.0 | 20.6 | 29.2 | 73.3 |
 | 50 | **MbICP** | ICRA 2005 | 14.5 | 15.4 | 27.5 | **0.05** |
-| 44 | **PL-ICP** | IROS 2008 | 16.9 | 41.0 | 30.3 | 0.4 |
+| 44 | **PL-ICP** | IROS 2008 | 15.0 | **14.1** | 27.2 | **0.01** |
 | 46 | **Kinematic-ICP** | ICRA 2025 | 18.4 | 18.9 | **23.4** | 83.8 |
 | 47 | **PSM** | ICRA 2003 | 21.8 | **13.9** | 27.9 | 11.6 |
 
@@ -62,7 +63,7 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 - **NDT-2D** — correspondence-free; competitive on real logs, weak on synthetic corridor.
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
 - **CSM** — DT + 3-level pyramid (2026-06 refresh); fr079 38.9% → 20.6%, corridor still ~73%.
-- **PL-ICP** — corridor winner; scan-to-scan ICP drifts on long public logs.
+- **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~3.4 min (indexed map cache).
 - **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~9 min.
 - **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only.
 - **PSM** — best fr079 drift; polar profile matching is dataset-dependent.

@@ -86,13 +86,13 @@
     {
       "name": "PL-ICP",
       "status": "ok",
-      "ate_m": 17.717,
-      "drift_pct": 30.289,
-      "rpe_rot_deg_per_m": 0.974,
+      "ate_m": 19.602,
+      "drift_pct": 27.193,
+      "rpe_rot_deg_per_m": 0.749,
       "frames": 33,
-      "time_ms": 309.151,
-      "fps": 106.744,
-      "note": "Point-to-line ICP 2D scan odometry (Censi IROS 2008, simplified port)."
+      "time_ms": 3594.658,
+      "fps": 9.180,
+      "note": "Point-to-line ICP 2D odometry with robot-frame local map cache (Censi IROS 2008, simplified port)."
     },
     {
       "name": "RF2O",

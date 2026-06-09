@@ -28,8 +28,8 @@ python3 evaluation/scripts/generate_rf2o_smoke_fixture.py
 ## Current Scope
 
 - Planar motion only (x, y, yaw)
-- Default harness path: scan-to-scan (no rolling map)
-- Optional rolling local map via `PLICPParams::use_local_map` (world-frame submap, matched in the previous pose frame)
+- Default harness path: robot-frame rolling local map (`use_local_map=true`, radius 15 m, voxel 0.15 m)
+- Optional scan-to-scan via `PLICPParams::use_local_map=false`
 - No Censi recursive distortion model (standard ICP loop)
 - Brute-force correspondences (OK for ~360 beams)
 
@@ -39,6 +39,15 @@ python3 evaluation/scripts/generate_rf2o_smoke_fixture.py
 |---------|--------|----------|---------|-------|---------|
 | `evaluation/fixtures/rf2o_smoke` | 60 | 17.7 | 2.22 | ~12.6% | RF2O 0.20 m |
 | same | 10 | 2.7 | 0.002 | ~0.1% | comparable |
+
+## Public benchmark (2026-06-10, robot-frame local map)
+
+| Fixture | Drift | Notes |
+|---------|-------|-------|
+| Intel val 73f | **15.0%** | was 16.9% scan-to-scan |
+| fr079 val 384f | **14.1%** | was 41.0%; ~3.4 min runtime |
+| MIT val 33f | 27.2% | was 30.3% |
+| Corridor 120f | **0.01%** | corridor leader |
 
 Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_pl_icp_vs_rf2o.json`
 

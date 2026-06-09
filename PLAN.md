@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (2D LiDAR MbICP + 8-method refresh)**
+> **最終更新: 2026-06-10 (CSM robot-frame local map)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -640,7 +640,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | 4 | **Olson 2009 full Karto** | 確率 grid + branch-and-bound | OpenSLAM | **3/5** | CSM からの段階的拡張 |
 | 5 | **GMapping particle filter** | Rao-Blackwellized PF | ROS 有 | **2.5/5** | SLAM 本体、odom 単体ではない |
 
-**次の推奨**: 長め MIT/Bonn window、PL-ICP/MbICP fr079 速度改善、または Karto corridor 修正。PG-LIO (3D) は引き続き保留。
+**次の推奨**: CI long-fixture smoke、CSM branch-and-bound、または fr079_train 等の更長 window。PG-LIO (3D) は引き続き保留。
 
 ---
 
@@ -675,7 +675,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - brute-force SE(2) + Gaussian endpoint score + motion prior warm-start
 - smoke 60f: drift ~19% vs RF2O ~1.1%
 
-**DT + pyramid refresh** (commit `3fc5be0`, **ローカル未 push**):
+**DT + pyramid refresh** (commit `3fc5be0`):
 - ✅ occupancy grid + chamfer **distance transform** scoring (Olson-style)
 - ✅ 3-level resolution pyramid (coarse → fine)
 - ✅ relative SE(2) search around motion prior + bilinear DT lookup
@@ -684,8 +684,15 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
   - Corridor **73.3%** (was 69.6% → 初版 DT で 167% 退行後 fix)
 - ✅ **所見 (honest)**: DT は **real Bonn logs で大幅改善** (特に fr079) だが
   **合成 corridor では依然 ~73%** — PL-ICP 0.4% / RF2O 1.3% に大差。
+
+**Robot-frame local map** (2026-06-10, **未 commit**):
+- ✅ `use_local_map` + voxel merge + radius prune + adaptive search (Karto/MbICP パターン)
+- ✅ harness 有効化 (`runCSM`)
+- ✅ **Public benchmark (local map)**:
+  - Intel **14.5%** (was 16.0%) / fr079 **14.5%** (was 20.6%) / corridor **95.8%** (was 73.3%)
+- ✅ **所見 (honest)**: Bonn logs で Karto 帯に到達; **合成 corridor は local map で悪化**。
 - **未実装**: Felzenszwalb exact EDT、Karto branch-and-bound、確率 grid
-- **状態**: ✅ commit 済、push 待ち
+- **状態**: 実装済、push 待ち
 
 ### 00.6c-46 Kinematic-ICP (46本目) — unicycle ICP + wheel odom (2026-06-09)
 
@@ -927,6 +934,7 @@ README.md (1-screen 概要)
 | **P2** | PL-ICP/MbICP local map 拡張 | ✅ MbICP robot-frame cache (Intel **14.5%**, fr079 **15.4%**; ~2.3min) + PL-ICP robot-frame cache (Intel **15.0%**, fr079 **14.1%**; ~26s) + stamp-indexed search speedup |
 | **P3** | Karto-style map matcher / spatial index for local map | ✅ `karto_matcher` + Olson coarse BnB; fr079 **14.8%** drift (Intel 15.1%); corridor honest negative |
 | **P4** | 長め MIT/Bonn window 追加 | ✅ `mit_train_120` + `intel_train_150` fixtures + `run_scan2d_long_benchmark.sh` |
+| **P5** | CSM robot-frame local map | ✅ Intel **14.5%**, fr079 **14.5%**; corridor **95.8%** (honest negative vs scan-to-scan 73%) |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

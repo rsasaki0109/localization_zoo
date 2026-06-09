@@ -75,13 +75,13 @@
     {
       "name": "CSM",
       "status": "ok",
-      "ate_m": 3.953,
-      "drift_pct": 73.325,
-      "rpe_rot_deg_per_m": 1.439,
+      "ate_m": 4.061,
+      "drift_pct": 95.784,
+      "rpe_rot_deg_per_m": 0.146,
       "frames": 120,
-      "time_ms": 4751.157,
-      "fps": 25.257,
-      "note": "Correlative scan matching 2D odometry (Olson ICRA 2009, simplified port)."
+      "time_ms": 7607.449,
+      "fps": 15.774,
+      "note": "Correlative scan matching with robot-frame local map and adaptive search (Olson ICRA 2009, simplified port)."
     },
     {
       "name": "PL-ICP",

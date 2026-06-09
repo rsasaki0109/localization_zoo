@@ -3,6 +3,7 @@
 #include <Eigen/Core>
 
 #include <cstddef>
+#include <unordered_map>
 #include <vector>
 
 namespace localization_zoo {
@@ -33,6 +34,9 @@ struct CSMParams {
   double min_range = 0.1;
   double max_range = 30.0;
   bool use_motion_prior = true;
+  bool use_local_map = false;
+  double local_map_radius = 15.0;
+  double local_map_voxel_size = 0.15;
 };
 
 struct CSMResult {
@@ -53,6 +57,7 @@ class CSMEstimator {
   CSMResult registerScan(const LaserScan& scan);
 
   const Eigen::Matrix3d& pose() const { return pose_; }
+  size_t mapSize() const { return map_points_robot_.size(); }
 
  private:
   struct Grid {
@@ -65,21 +70,30 @@ class CSMEstimator {
     std::vector<float> dist_m;
   };
 
+  static int64_t voxelKey(double x, double y, double voxel_size);
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
+  std::vector<Eigen::Vector2d> localMapPoints() const;
+  void rebuildPointVoxels();
+  void transformRobotMap(const Eigen::Matrix3d& inv_increment);
+  void addScanToMap(const std::vector<Eigen::Vector2d>& points);
+  void pruneMap();
   Grid buildGrid(const std::vector<Eigen::Vector2d>& points, double resolution) const;
   void computeDistanceTransform(Grid* grid) const;
   std::vector<Grid> buildPyramid(const std::vector<Eigen::Vector2d>& points) const;
   double scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
-                   const Eigen::Matrix3d& transform) const;
+                   const Eigen::Matrix3d& increment) const;
   Eigen::Matrix3d searchBestTransform(const std::vector<Grid>& pyramid,
                                       const std::vector<Eigen::Vector2d>& points,
-                                      const Eigen::Matrix3d& prior) const;
+                                      const Eigen::Matrix3d& prior, double xy_range,
+                                      double yaw_range) const;
   double lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p) const;
 
   CSMParams params_;
   bool initialized_ = false;
   std::vector<Eigen::Vector2d> ref_points_;
   std::vector<Grid> ref_pyramid_;
+  std::vector<Eigen::Vector2d> map_points_robot_;
+  std::unordered_map<int64_t, size_t> point_voxels_;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

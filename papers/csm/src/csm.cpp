@@ -26,10 +26,25 @@ Eigen::Vector2d transformPoint(const Eigen::Matrix3d& T, const Eigen::Vector2d& 
   return (T.block<2, 2>(0, 0) * p + T.block<2, 1>(0, 2)).eval();
 }
 
+Eigen::Matrix3d se2Inverse(const Eigen::Matrix3d& T) {
+  const Eigen::Matrix2d R = T.block<2, 2>(0, 0);
+  const Eigen::Vector2d t = T.block<2, 1>(0, 2);
+  Eigen::Matrix3d inv = Eigen::Matrix3d::Identity();
+  inv.block<2, 2>(0, 0) = R.transpose();
+  inv.block<2, 1>(0, 2) = -R.transpose() * t;
+  return inv;
+}
+
 }  // namespace
 
 Eigen::Matrix3d pose2D(double x, double y, double yaw) {
   return matrixFromIncrement(x, y, yaw);
+}
+
+int64_t CSMEstimator::voxelKey(double x, double y, double voxel_size) {
+  const int ix = static_cast<int>(std::floor(x / voxel_size));
+  const int iy = static_cast<int>(std::floor(y / voxel_size));
+  return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(static_cast<uint32_t>(iy));
 }
 
 CSMEstimator::CSMEstimator(const CSMParams& params) : params_(params) {}
@@ -38,6 +53,8 @@ void CSMEstimator::reset() {
   initialized_ = false;
   ref_points_.clear();
   ref_pyramid_.clear();
+  map_points_robot_.clear();
+  point_voxels_.clear();
   pose_ = Eigen::Matrix3d::Identity();
   last_increment_ = Eigen::Matrix3d::Identity();
 }
@@ -59,6 +76,61 @@ std::vector<Eigen::Vector2d> CSMEstimator::scanToPoints(const LaserScan& scan) c
     points.emplace_back(r * std::cos(a), r * std::sin(a));
   }
   return points;
+}
+
+std::vector<Eigen::Vector2d> CSMEstimator::localMapPoints() const {
+  std::vector<Eigen::Vector2d> local;
+  local.reserve(map_points_robot_.size());
+  const double r2 = params_.local_map_radius * params_.local_map_radius;
+  for (const auto& p : map_points_robot_) {
+    if (p.squaredNorm() <= r2) {
+      local.push_back(p);
+    }
+  }
+  return local;
+}
+
+void CSMEstimator::rebuildPointVoxels() {
+  point_voxels_.clear();
+  const double voxel = params_.local_map_voxel_size;
+  point_voxels_.reserve(map_points_robot_.size());
+  for (size_t i = 0; i < map_points_robot_.size(); ++i) {
+    point_voxels_[voxelKey(map_points_robot_[i].x(), map_points_robot_[i].y(), voxel)] = i;
+  }
+}
+
+void CSMEstimator::transformRobotMap(const Eigen::Matrix3d& inv_increment) {
+  for (auto& p : map_points_robot_) {
+    p = transformPoint(inv_increment, p);
+  }
+  point_voxels_.clear();
+}
+
+void CSMEstimator::addScanToMap(const std::vector<Eigen::Vector2d>& points) {
+  const double voxel = params_.local_map_voxel_size;
+  rebuildPointVoxels();
+  for (const auto& p : points) {
+    const int64_t k = voxelKey(p.x(), p.y(), voxel);
+    const auto it = point_voxels_.find(k);
+    if (it != point_voxels_.end()) {
+      map_points_robot_[it->second] = p;
+    } else {
+      point_voxels_[k] = map_points_robot_.size();
+      map_points_robot_.push_back(p);
+    }
+  }
+}
+
+void CSMEstimator::pruneMap() {
+  const double r2 = params_.local_map_radius * params_.local_map_radius;
+  const size_t before = map_points_robot_.size();
+  map_points_robot_.erase(
+      std::remove_if(map_points_robot_.begin(), map_points_robot_.end(),
+                     [&](const Eigen::Vector2d& p) { return p.squaredNorm() > r2; }),
+      map_points_robot_.end());
+  if (map_points_robot_.size() != before) {
+    rebuildPointVoxels();
+  }
 }
 
 CSMEstimator::Grid CSMEstimator::buildGrid(const std::vector<Eigen::Vector2d>& points,
@@ -111,7 +183,6 @@ void CSMEstimator::computeDistanceTransform(Grid* grid) const {
   const int h = grid->height;
   auto& d = grid->dist_m;
 
-  // 8-connected chamfer distance transform (cells), then scale to meters.
   for (int y = 0; y < h; ++y) {
     for (int x = 0; x < w; ++x) {
       const size_t i = static_cast<size_t>(y * w + x);
@@ -189,13 +260,13 @@ double CSMEstimator::lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p)
 }
 
 double CSMEstimator::scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
-                               const Eigen::Matrix3d& transform) const {
+                               const Eigen::Matrix3d& increment) const {
   if (points.empty()) return 0.0;
   const double sigma = params_.score_sigma;
   const double inv_sigma2 = 1.0 / (sigma * sigma);
   double score = 0.0;
   for (const auto& p : points) {
-    const Eigen::Vector2d q = transformPoint(transform, p);
+    const Eigen::Vector2d q = transformPoint(increment, p);
     const double d = lookupDistanceM(grid, q);
     score += std::exp(-d * d * inv_sigma2);
   }
@@ -204,7 +275,7 @@ double CSMEstimator::scorePose(const Grid& grid, const std::vector<Eigen::Vector
 
 Eigen::Matrix3d CSMEstimator::searchBestTransform(
     const std::vector<Grid>& pyramid, const std::vector<Eigen::Vector2d>& points,
-    const Eigen::Matrix3d& prior) const {
+    const Eigen::Matrix3d& prior, double xy_range, double yaw_range) const {
   if (pyramid.empty()) return prior;
 
   Eigen::Matrix3d best = prior;
@@ -214,27 +285,25 @@ Eigen::Matrix3d CSMEstimator::searchBestTransform(
     const Grid& grid = pyramid[level];
     const bool finest = (level + 1 == n_levels);
     const double scale = finest ? 1.0 : static_cast<double>(1 << (n_levels - 1 - level));
-    const double xy_range =
-        finest ? params_.search_xy_range : params_.search_xy_range / scale;
-    const double yaw_range =
-        finest ? params_.search_yaw_range : params_.search_yaw_range / scale;
+    const double level_xy_range = finest ? xy_range : xy_range / scale;
+    const double level_yaw_range = finest ? yaw_range : yaw_range / scale;
     const int xy_steps = finest ? params_.fine_xy_steps : params_.coarse_xy_steps;
     const int yaw_steps = finest ? params_.fine_yaw_steps : params_.coarse_yaw_steps;
 
     const double xy_step =
-        xy_steps > 1 ? (2.0 * xy_range) / static_cast<double>(xy_steps - 1) : 0.0;
+        xy_steps > 1 ? (2.0 * level_xy_range) / static_cast<double>(xy_steps - 1) : 0.0;
     const double yaw_step =
-        yaw_steps > 1 ? (2.0 * yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
+        yaw_steps > 1 ? (2.0 * level_yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
 
     double local_best_score = scorePose(grid, points, best);
     Eigen::Matrix3d local_best = best;
 
     for (int iy = 0; iy < xy_steps; ++iy) {
-      const double dty = -xy_range + static_cast<double>(iy) * xy_step;
+      const double dty = -level_xy_range + static_cast<double>(iy) * xy_step;
       for (int ix = 0; ix < xy_steps; ++ix) {
-        const double dtx = -xy_range + static_cast<double>(ix) * xy_step;
+        const double dtx = -level_xy_range + static_cast<double>(ix) * xy_step;
         for (int it = 0; it < yaw_steps; ++it) {
-          const double dyaw = -yaw_range + static_cast<double>(it) * yaw_step;
+          const double dyaw = -level_yaw_range + static_cast<double>(it) * yaw_step;
           const Eigen::Matrix3d T = best * matrixFromIncrement(dtx, dty, dyaw);
           const double s = scorePose(grid, points, T);
           if (s > local_best_score) {
@@ -259,25 +328,64 @@ CSMResult CSMEstimator::registerScan(const LaserScan& scan) {
   if (current.size() < 10) return result;
 
   if (!initialized_) {
-    ref_points_ = current;
-    ref_pyramid_ = buildPyramid(ref_points_);
+    if (params_.use_local_map) {
+      addScanToMap(current);
+      pruneMap();
+    } else {
+      ref_points_ = current;
+      ref_pyramid_ = buildPyramid(ref_points_);
+    }
     initialized_ = true;
     result.valid = true;
     result.pose = pose_;
     return result;
   }
 
+  const auto local_map = params_.use_local_map ? localMapPoints() : std::vector<Eigen::Vector2d>{};
+  if (params_.use_local_map && local_map.size() < 20) {
+    addScanToMap(current);
+    pruneMap();
+    result.valid = true;
+    result.pose = pose_;
+    return result;
+  }
+
+  std::vector<Grid> map_pyramid;
+  const std::vector<Grid>* pyramid = &ref_pyramid_;
+  if (params_.use_local_map) {
+    map_pyramid = buildPyramid(local_map);
+    pyramid = &map_pyramid;
+  }
+
   const Eigen::Matrix3d motion_prior =
       params_.use_motion_prior ? last_increment_ : Eigen::Matrix3d::Identity();
 
-  const Eigen::Matrix3d transform = searchBestTransform(ref_pyramid_, current, motion_prior);
+  double xy_range = params_.search_xy_range;
+  double yaw_range = params_.search_yaw_range;
+  if (params_.use_motion_prior) {
+    const double motion_xy = std::hypot(last_increment_(0, 2), last_increment_(1, 2));
+    const double motion_yaw =
+        std::abs(std::atan2(last_increment_(1, 0), last_increment_(0, 0)));
+    xy_range = std::min(xy_range, std::max(0.15, motion_xy * 5.0 + 0.08));
+    yaw_range = std::min(yaw_range, std::max(0.05, motion_yaw * 5.0 + 0.03));
+  }
+
+  const Eigen::Matrix3d transform =
+      searchBestTransform(*pyramid, current, motion_prior, xy_range, yaw_range);
   const double best_score =
-      ref_pyramid_.empty() ? 0.0 : scorePose(ref_pyramid_.back(), current, transform);
+      pyramid->empty() ? 0.0 : scorePose(pyramid->back(), current, transform);
 
   pose_ = pose_ * transform;
   last_increment_ = transform;
-  ref_points_ = current;
-  ref_pyramid_ = buildPyramid(ref_points_);
+
+  if (params_.use_local_map) {
+    transformRobotMap(se2Inverse(transform));
+    addScanToMap(current);
+    pruneMap();
+  } else {
+    ref_points_ = current;
+    ref_pyramid_ = buildPyramid(ref_points_);
+  }
 
   result.increment = transform;
   result.pose = pose_;

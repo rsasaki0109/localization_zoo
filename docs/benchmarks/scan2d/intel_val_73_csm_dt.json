@@ -9,13 +9,13 @@
     {
       "name": "CSM",
       "status": "ok",
-      "ate_m": 27.896,
-      "drift_pct": 15.973,
-      "rpe_rot_deg_per_m": 0.793,
+      "ate_m": 13.137,
+      "drift_pct": 14.465,
+      "rpe_rot_deg_per_m": 0.928,
       "frames": 73,
-      "time_ms": 1227.144,
-      "fps": 59.488,
-      "note": "Correlative scan matching 2D odometry (Olson ICRA 2009, simplified port)."
+      "time_ms": 2621.929,
+      "fps": 27.842,
+      "note": "Correlative scan matching with robot-frame local map and adaptive search (Olson ICRA 2009, simplified port)."
     }
   ]
 }

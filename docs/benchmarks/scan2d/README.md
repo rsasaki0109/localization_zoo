@@ -23,7 +23,7 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 | — | **Karto-Matcher** | Olson/Karto ext. | 14.2 | 14.5 | 29.1 | 102.0 |
 | 48 | **NDT-2D** | IROS 2003 | 14.8 | 21.8 | 29.2 | 22.3 |
 | 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
-| 45 | **CSM** | ICRA 2009 | 16.0 | 20.6 | 29.2 | 73.3 |
+| 45 | **CSM** | ICRA 2009 | **14.5** | **14.5** | 29.2 | 95.8 |
 | 50 | **MbICP** | ICRA 2005 | 14.5 | 15.4 | 27.5 | **0.05** |
 | 44 | **PL-ICP** | IROS 2008 | 15.0 | **14.1** | 27.2 | **0.01** |
 | 46 | **Kinematic-ICP** | ICRA 2025 | 18.4 | 18.9 | **23.4** | 83.8 |
@@ -75,7 +75,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 - **Karto-Matcher** — robot-frame rolling map + adaptive search + Olson coarse BnB; **fr079 14.5%**, Intel **14.2%**; synthetic corridor ~102% (improved from ~124%, still honest negative).
 - **NDT-2D** — correspondence-free; competitive on real logs, weak on synthetic corridor.
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
-- **CSM** — DT + 3-level pyramid (2026-06 refresh); fr079 38.9% → 20.6%, corridor still ~73%.
+- **CSM** — DT + 3-level pyramid + **robot-frame local map** in harness; fr079 20.6%→**14.5%**, Intel 16.0%→**14.5%**; synthetic corridor 73%→**96%** (local map hurts on slow-motion box).
 - **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~26 s (stamp-indexed map cache).
 - **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~2.3 min.
 - **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only.

@@ -12,6 +12,8 @@
 - 3-level resolution pyramid (coarse → fine)
 - relative SE(2) search around motion prior warm-start
 - bilinear distance lookup
+- **robot-frame rolling local map** (voxel merge + radius prune) in harness
+- adaptive search window from last increment
 
 ## Dogfooding
 
@@ -21,23 +23,24 @@
   --methods csm,rf2o
 ```
 
-## Benchmark (2026-06-09, DT + pyramid refresh)
+## Benchmark (2026-06-10, robot-frame local map)
 
-| Fixture | Frames | Drift (before) | Drift (after) |
-|---------|--------|----------------|---------------|
-| `intel_val_73` | 73 | 17.6% | **16.0%** |
-| `fr079_val_384` | 384 | 38.9% | **20.6%** |
-| `rf2o_corridor` | 120 | 69.6% | 73.3% |
+| Fixture | Frames | Drift (scan-to-scan) | Drift (local map) |
+|---------|--------|----------------------|-------------------|
+| `intel_val_73` | 73 | 16.0% | **14.5%** |
+| `fr079_val_384` | 384 | 20.6% | **14.5%** |
+| `rf2o_corridor` | 120 | 73.3% | 95.8% |
 
 Artifacts: `docs/benchmarks/scan2d/*_csm_dt.json`. Full leaderboard:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
-**Honest finding:** distance-transform scoring materially helps **real Bonn logs** (especially
-fr079) but remains weak on the synthetic slow-motion corridor versus PL-ICP / RF2O. Brute-force
-search windows and scan-to-scan-only scope limit Karto-level performance.
+**Honest finding:** robot-frame local map materially helps **real Bonn logs** (fr079 20.6%→14.5%,
+Intel 16.0%→14.5%) and now matches Karto-Matcher on fr079, but **hurts** the synthetic slow-motion
+corridor (73%→96%) where scan-to-scan was already ambiguous. Brute-force search windows remain the
+bottleneck versus branch-and-bound Karto.
 
 ## Current Scope
 
-- Scan-to-scan only (no loop closure / SLAM graph)
+- Rolling local map in harness (no loop closure / SLAM graph)
 - Chamfer DT (not exact Euclidean Felzenszwalb)
 - Brute-force pose search (small windows only)

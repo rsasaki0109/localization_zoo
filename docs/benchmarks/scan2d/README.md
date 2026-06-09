@@ -21,7 +21,7 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 | 43 | **RF2O** | ICRA 2016 | **14.3** | 15.4 | 27.6 | 1.3 |
 | — | **Karto-Matcher** | Olson/Karto ext. | **14.0** | **13.7** | 28.1 | 30.5 |
 | 48 | **NDT-2D** | IROS 2003 | 14.6 | 14.8 | 28.1 | 1.0 |
-| 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
+| 49 | **IDC** | Lu & Milios 1997 | 15.2 | **14.3** | 27.8 | 3.6 |
 | 45 | **CSM** | ICRA 2009 | **14.0** | **13.7** | 28.1 | 30.5 |
 | 50 | **MbICP** | ICRA 2005 | 14.5 | 15.4 | 27.5 | **0.05** |
 | 44 | **PL-ICP** | IROS 2008 | 15.0 | **14.1** | 27.2 | **0.01** |
@@ -80,7 +80,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 - **RF2O** — strong Intel baseline; range-flow dense constraint.
 - **Karto-Matcher** — robot-frame rolling map + Felzenszwalb EDT + tuned Olson BnB; fr079 **13.7%**, Intel **14.0%**; corridor **30.5%**.
 - **NDT-2D** — 3-level pyramid (scale 1.5) + robot-frame local map; **`fr079_train_1200` 8.8%** (was 10.3% local-map-only); Intel **14.6%**; fr079 val **14.8%**; corridor **1.0%**.
-- **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
+- **IDC** — robot-frame rolling local map; fr079 val **14.3%** (was 27.7% scan-to-scan); corridor **3.6%** (was 42.6%); Intel **15.2%**; `fr079_train_1200` **35.0%** (was 46.4%).
 - **CSM** — Felzenszwalb EDT + tuned Olson BnB; matches Karto on public fixtures; corridor **30.5%** (was 41% with chamfer).
 - **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~26 s (stamp-indexed map cache).
 - **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~2.3 min.
@@ -127,5 +127,5 @@ Single fixture, all methods:
 
 ## 次アクション
 
-1. NDT outlier trimming (optional).
-2. IDC / PSM robot-frame local map.
+1. PSM robot-frame local map.
+2. NDT outlier trimming (optional).

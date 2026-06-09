@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (NDT-2D pyramid P14)**
+> **最終更新: 2026-06-10 (IDC local map P15)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -737,7 +737,20 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - **未実装**: occupancy/co-occurrence matrix、local map
 - **状態**: ✅ push 済 (`709d25c`)
 
-**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は NDT outlier trimming、または IDC/PSM local map。
+**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は PSM local map、または NDT outlier trimming。
+
+---
+
+### 00.6c-49 IDC local map (2026-06-10, P15)
+
+- ✅ **Robot-frame rolling local map** — voxel merge + radius prune; CP spatial index; RR bearing-window (not beam index)
+- ✅ harness 有効化 (`runIDC`: `use_local_map=true`, radius 15 m, voxel 0.15 m)
+- ✅ **Public benchmark (local map)**:
+  - Intel **15.2%** (was 15.3%) / fr079 val **14.3%** (was **27.7%**) / MIT **27.8%** / corridor **3.6%** (was **42.6%**)
+  - `fr079_train_1200` **35.0%** (was 46.4%) / `intel_train_150` **25.1%** (was 41.9%)
+- ✅ **所見 (honest)**: local map fixes IDC's main weakness (fr079 + corridor). Intel ~flat. Long train still behind NDT/PL-ICP. `fr079_train_200` honest negative (~85%).
+- **未実装**: visibility filter、trimmed IDC
+- **状態**: 実装済
 
 ---
 
@@ -782,13 +795,13 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 
 - ✅ **実装**: `papers/idc/` — CP (closest point) translation + RR (matching range) rotation fusion。
 - ✅ **統合**: `scan_dogfooding --methods idc`
-- ✅ **テスト**: `test_idc` 5 cases PASS（pure translation threshold 0.2→0.25）。
-- ✅ **Public benchmark** (partial JSON `*_idc.json`):
-  - Intel **15.3%** / fr079 **27.7%** / MIT **—** / corridor **—**
-- ✅ **所見 (honest)**: Intel mid-pack (NDT-2D/CSM 帯) だが fr079 27.7% で PSM 13.9% に劣後。
-  visibility filter / trimmed IDC / local map 無し。
-- **未実装**: trimmed IDC、visibility filter、local map
-- **状態**: ✅ commit 済 (`361a592`)、**未 push**
+- ✅ **テスト**: `test_idc` 7 cases PASS（pure translation threshold 0.2→0.25）。
+- ✅ **Public benchmark** (local map, 2026-06-10):
+  - Intel **15.2%** / fr079 **14.3%** / MIT **27.8%** / corridor **3.6%**
+- ✅ **所見 (honest)**: local map で fr079/corridor 大幅改善。Intel mid-pack 維持。long train は NDT/PL-ICP 劣後。
+  visibility filter / trimmed IDC 無し。
+- **未実装**: trimmed IDC、visibility filter
+- **状態**: ✅ 実装済 (P15 local map)
 
 ### 00.6c-50 MbICP (50本目) — metric-based ICP 2D scan matching (2026-06-10)
 
@@ -991,6 +1004,7 @@ README.md (1-screen 概要)
 | **P12** | fr079_train 更長 window | ✅ `fr079_train_1200` (~150 m); CSM/Karto **17.6%** (vs 40% on 200f); CI long smoke uses 1200 fixture |
 | **P13** | NDT-2D robot-frame local map | ✅ voxel merge + radius prune; fr079 **14.4%** (was 21.8%), corridor **0.8%** (was 22.3%); Intel **14.9%** |
 | **P14** | NDT-2D multi-resolution pyramid | ✅ 3-level coarse→fine (scale **1.5**); `fr079_train_1200` **8.8%** (was 10.3%); `mit_train_120` **29.1%** (best) |
+| **P15** | IDC robot-frame local map | ✅ voxel merge + radius prune + bearing-window RR; fr079 val **14.3%** (was 27.7%); corridor **3.6%** (was 42.6%); Intel **15.2%** |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

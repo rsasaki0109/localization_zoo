@@ -158,6 +158,14 @@ CI runs all nine methods on a 20-frame Intel slice:
 bash evaluation/scripts/smoke_scan2d_fixture.sh
 ```
 
+Long train fixtures (P4) get a separate 20-frame × 9-method smoke:
+
+```bash
+bash evaluation/scripts/smoke_scan2d_long_fixture.sh
+```
+
+Fixtures: `mit_train_120`, `intel_train_150` (committed under `evaluation/fixtures/`).
+
 Full fixture refresh (4 benchmarks → `docs/benchmarks/scan2d/*.json`):
 
 ```bash

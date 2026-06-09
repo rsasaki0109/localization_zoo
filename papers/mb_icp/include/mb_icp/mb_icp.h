@@ -3,6 +3,8 @@
 #include <Eigen/Core>
 
 #include <cstddef>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace localization_zoo {
@@ -69,6 +71,19 @@ class MbICPEstimator {
     Eigen::Vector2d b = Eigen::Vector2d::Zero();
   };
 
+  struct LocalMapIndex {
+    double cell_size = 1.0;
+    double query_radius = 1.0;
+    std::unordered_map<int64_t, std::vector<size_t>> segment_bins;
+    std::unordered_map<int64_t, std::vector<size_t>> point_bins;
+
+    static LocalMapIndex build(const std::vector<Segment>& segments,
+                               const std::vector<RefPoint>& points, double cell_size,
+                               double query_radius);
+    void querySegments(const Eigen::Vector2d& p, std::unordered_set<size_t>* visited) const;
+    void queryPoints(const Eigen::Vector2d& p, std::unordered_set<size_t>* visited) const;
+  };
+
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   void buildReferenceModel(const LaserScan& scan);
   std::vector<RefPoint> localPointsInFrame(const Eigen::Matrix3d& frame) const;
@@ -79,6 +94,11 @@ class MbICPEstimator {
                       const std::vector<RefPoint>& points,
                       const std::vector<Segment>& segments,
                       const Eigen::Matrix3d& transform, Eigen::Matrix3d* increment) const;
+  bool solveIncrementIndexed(const std::vector<Eigen::Vector2d>& current,
+                             const std::vector<RefPoint>& points,
+                             const std::vector<Segment>& segments,
+                             const LocalMapIndex& index, const Eigen::Matrix3d& transform,
+                             Eigen::Matrix3d* increment) const;
   double metricDistanceSquared(const Eigen::Vector2d& delta,
                                const Eigen::Vector2d& reference) const;
   Eigen::Matrix2d metricMatrix(const Eigen::Vector2d& reference) const;

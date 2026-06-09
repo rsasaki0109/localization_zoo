@@ -925,7 +925,7 @@ README.md (1-screen 概要)
 | **P0** | MbICP + 8-method refresh 差分を最終検証して commit | ✅ 検証済 (8/8 tests, smoke, validate_showcase, benchmark refresh) |
 | **P1** | `git push` — IDC + CSM-DT + markdown + MbICP refresh | ユーザ明示指示待ち |
 | **P2** | PL-ICP/MbICP local map 拡張 | ✅ in-library (`use_local_map`); harness は scan-to-scan 維持 (MbICP local map は drift 改善するが O(n²) で遅い) |
-| **P3** | Karto-style map matcher / spatial index for local map | 次推奨 |
+| **P3** | Karto-style map matcher / spatial index for local map | ✅ grid index in-library; harness scan-to-scan (local map ~14% Intel/fr079 drift but >10× slower) |
 | **P4** | 長め MIT/Bonn window 追加 | データ調達 |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |

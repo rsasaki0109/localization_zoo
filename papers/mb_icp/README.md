@@ -16,9 +16,9 @@ Displacement Estimation** by Minguez, Lamiraux, and Montesano (ICRA 2005 / T-RO 
 ## Simplifications
 
 - Default harness path: scan-to-scan against the previous scan only.
-- Optional rolling local map via `MbICPParams::use_local_map` (voxel-deduped world submap with radius pruning).
-  Offline smoke on Intel/fr079 shows modest drift gains, but brute-force map matching is too slow for the
-  canonical 8-method benchmark harness without a spatial index.
+- Optional rolling local map via `MbICPParams::use_local_map` with grid-indexed correspondence search.
+  Offline smoke (Intel 7s / fr079 ~5min): drift improves to ~14% on Intel/fr079 vs ~17%/16.6% scan-to-scan,
+  but the canonical harness keeps scan-to-scan for CI latency until robot-frame map caching lands.
 - Visibility rejection and range-based outlier tests are approximated by metric distance gating
   plus trimming.
 - The exact point-to-segment metric derivation is approximated by projecting onto scan segments

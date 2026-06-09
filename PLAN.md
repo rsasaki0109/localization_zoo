@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (CSM robot-frame local map)**
+> **最終更新: 2026-06-10 (CSM speed tuning P9)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -640,7 +640,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | 4 | **Olson 2009 full Karto** | 確率 grid + branch-and-bound | OpenSLAM | **3/5** | CSM からの段階的拡張 |
 | 5 | **GMapping particle filter** | Rao-Blackwellized PF | ROS 有 | **2.5/5** | SLAM 本体、odom 単体ではない |
 
-**次の推奨**: CSM 速度チューニング、Felzenszwalb EDT、または fr079_train 更長 window。PG-LIO (3D) は引き続き保留。
+**次の推奨**: Felzenszwalb EDT、fr079_train 更長 window、または Karto-Matcher への同チューニング移植。PG-LIO (3D) は引き続き保留。
 
 ---
 
@@ -691,13 +691,20 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **Public benchmark (local map)**:
   - Intel **14.5%** (was 16.0%) / fr079 **14.5%** (was 20.6%) / corridor **95.8%** (was 73.3%)
 
-**Olson coarse branch-and-bound** (2026-06-10, **未 commit**):
+**Olson coarse branch-and-bound** (2026-06-10, pushed):
 - ✅ score upper-bound pyramid + coarse BnB + fine refinement (Karto から移植)
 - ✅ harness デフォルト `use_branch_and_bound=true`
 - ✅ **Public benchmark (BnB refresh)**:
   - Intel **15.2%** / fr079 **14.9%** / corridor **102.0%**
 - ✅ **所見 (honest)**: BnB は探索スタックを Karto 級に揃えるが、Bonn drift は local map 単体から微悪化〜横ばい。corridor honest negative 継続。
-- **状態**: 実装済、push 待ち
+
+**速度チューニング** (2026-06-10, P9):
+- ✅ BnB node budget 128→64、leaf 3→2、fine refine 5→3、中間 pyramid refine スキップ
+- ✅ score grid bilinear lookup（`exp()` 削減）
+- ✅ **Public benchmark (tuned)**:
+  - Intel **14.7%** (~79 FPS, was ~16 FPS) / fr079 **14.3%** (~58 FPS, was ~11 FPS) / corridor **41.3%** (was 102%)
+- ✅ **所見**: 速度最適化が Bonn drift を改善し corridor も大幅改善。Felzenszwalb EDT は次候補。
+- **状態**: 実装済
 
 ### 00.6c-46 Kinematic-ICP (46本目) — unicycle ICP + wheel odom (2026-06-09)
 
@@ -943,6 +950,7 @@ README.md (1-screen 概要)
 | **P6** | CI long-fixture smoke | ✅ `smoke_scan2d_long_fixture.sh` — MIT/Intel train 20f × 9 methods (`.github/workflows/ci.yml`) |
 | **P7** | CSM Olson coarse branch-and-bound | ✅ Karto から移植; fr079 **14.9%**, Intel **15.2%**; corridor ~102% (honest negative) |
 | **P8** | fr079_train long window | ✅ `fr079_train_200` fixture + benchmark + CI long smoke |
+| **P9** | CSM 速度チューニング | ✅ 64-node BnB + finest-only refine + score lookup; Intel **14.7%** (~79 FPS), fr079 **14.3%** (~58 FPS), corridor **41%** (was 102%) |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

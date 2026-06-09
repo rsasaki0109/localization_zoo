@@ -85,3 +85,48 @@ TEST(IDC, Pose2DUtility) {
   EXPECT_NEAR(T(0, 2), 1.0, 1e-9);
   EXPECT_NEAR(T(1, 2), 2.0, 1e-9);
 }
+
+TEST(IDC, RobotFrameLocalMapTracksTranslation) {
+  IDCParams params;
+  params.max_cp_distance = 1.0;
+  params.use_local_map = true;
+  params.local_map_radius = 20.0;
+  params.local_map_voxel_size = 0.15;
+  IDCEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 10; ++i) {
+    const auto res = est.registerScan(makeBoxScan(i * 0.2, 0, 0));
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(2.0, 0)).norm();
+  EXPECT_LT(err, 0.35);
+  EXPECT_GT(est.mapSize(), static_cast<size_t>(100));
+}
+
+TEST(IDC, LocalMapImprovesLongTranslationVsScanToScan) {
+  IDCParams scan_params;
+  scan_params.max_cp_distance = 1.0;
+  IDCEstimator scan_est(scan_params);
+  scan_est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 15; ++i) {
+    scan_est.registerScan(makeBoxScan(i * 0.2, 0, 0));
+  }
+  const double scan_err =
+      (scan_est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(3.0, 0)).norm();
+
+  IDCParams map_params;
+  map_params.max_cp_distance = 1.0;
+  map_params.use_local_map = true;
+  map_params.local_map_radius = 20.0;
+  map_params.local_map_voxel_size = 0.15;
+  IDCEstimator map_est(map_params);
+  map_est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 15; ++i) {
+    map_est.registerScan(makeBoxScan(i * 0.2, 0, 0));
+  }
+  const double map_err =
+      (map_est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(3.0, 0)).norm();
+
+  EXPECT_LT(map_err, scan_err);
+  EXPECT_LT(map_err, 0.5);
+}

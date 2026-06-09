@@ -599,6 +599,9 @@ MethodResult runIDC(const std::vector<fs::path>& frames, const ScanMeta& meta,
   params.max_cp_distance = 0.8;
   params.max_range_diff = 0.4;
   params.range_match_beam_window = 8;
+  params.use_local_map = true;
+  params.local_map_radius = 15.0;
+  params.local_map_voxel_size = 0.15;
   IDCEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
@@ -621,7 +624,8 @@ MethodResult runIDC(const std::vector<fs::path>& frames, const ScanMeta& meta,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Iterative dual correspondence 2D odometry (Lu & Milios 1997, simplified port).";
+      "Iterative dual correspondence 2D odometry with robot-frame rolling local map "
+      "(Lu & Milios 1997, simplified port).";
   return res;
 }
 

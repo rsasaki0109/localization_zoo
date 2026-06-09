@@ -50,6 +50,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 | Harness | `scan_dogfooding` — `scan_meta.json`, `NNNNNNNN/scan.csv`, `gt.csv` |
 | Methods | `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp,karto_matcher` |
 | CI smoke | `evaluation/scripts/smoke_scan2d_fixture.sh` (Intel 20 frames, all 9 methods) |
+| CI long smoke | `evaluation/scripts/smoke_scan2d_long_fixture.sh` (MIT/Intel train 20f × 9 methods) |
 | Batch refresh | `evaluation/scripts/run_scan2d_benchmark.sh` |
 | Long train refresh (P4) | `evaluation/scripts/run_scan2d_long_benchmark.sh` |
 | Long fixture prep | `evaluation/scripts/prepare_bonn_long_fixtures.sh` |

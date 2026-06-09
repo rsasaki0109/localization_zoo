@@ -111,12 +111,12 @@ python3 evaluation/scripts/prepare_bonn_2dslam_inputs.py \
   --output-dir evaluation/fixtures/mit_val_33
 ```
 
-### Long train windows (P4)
+### Long train windows (P4 / P8)
 
-Requires `mit/train.json` and `intel/train.json` from the same zip:
+Requires `mit/train.json`, `intel/train.json`, and `fr079/train.json` from the same zip:
 
 ```bash
-unzip /tmp/2dslam.zip mit/train.json intel/train.json -d /tmp/2dslam
+unzip /tmp/2dslam.zip mit/train.json intel/train.json fr079/train.json -d /tmp/2dslam
 bash evaluation/scripts/prepare_bonn_long_fixtures.sh
 bash evaluation/scripts/run_scan2d_long_benchmark.sh
 ```
@@ -127,6 +127,7 @@ Committed long fixtures:
 |---------|--------|--------|-------|
 | `mit_train_120` | `mit/train.json` (first 120) | 120 | 360 |
 | `intel_train_150` | `intel/train.json` (first 150) | 150 | 180 |
+| `fr079_train_200` | `fr079/train.json` (first 200) | 200 | 360 |
 
 ## Run scan_dogfooding
 
@@ -164,7 +165,7 @@ Long train fixtures (P4) get a separate 20-frame × 9-method smoke:
 bash evaluation/scripts/smoke_scan2d_long_fixture.sh
 ```
 
-Fixtures: `mit_train_120`, `intel_train_150` (committed under `evaluation/fixtures/`).
+Fixtures: `mit_train_120`, `intel_train_150`, `fr079_train_200` (committed under `evaluation/fixtures/`).
 
 Full fixture refresh (4 benchmarks → `docs/benchmarks/scan2d/*.json`):
 

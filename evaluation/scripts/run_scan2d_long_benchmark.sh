@@ -27,5 +27,6 @@ run_fixture() {
 
 run_fixture mit_train_120
 run_fixture intel_train_150
+run_fixture fr079_train_200
 
 echo "long scan2d benchmarks written under ${OUT}"

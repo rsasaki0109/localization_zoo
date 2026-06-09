@@ -47,5 +47,5 @@ Scan tree layout: `scan_meta.json` + `NNNNNNNN/scan.csv` (comma-separated ranges
 
 Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60.json`
 
-Public 7-method leaderboard:
+Public 8-method leaderboard:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).

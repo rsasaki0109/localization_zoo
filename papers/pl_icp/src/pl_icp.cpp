@@ -1,6 +1,7 @@
 #include "pl_icp/pl_icp.h"
 
 #include <Eigen/Dense>
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -31,6 +32,7 @@ PLICPEstimator::PLICPEstimator(const PLICPParams& params) : params_(params) {}
 void PLICPEstimator::reset() {
   initialized_ = false;
   ref_model_.clear();
+  local_map_.clear();
   pose_ = Eigen::Matrix3d::Identity();
   last_increment_ = Eigen::Matrix3d::Identity();
 }
@@ -94,7 +96,69 @@ std::vector<PLICPEstimator::RefPoint> PLICPEstimator::buildReferenceModel(
   return model;
 }
 
+void PLICPEstimator::addScanToLocalMap(const LaserScan& scan) {
+  const auto model = buildReferenceModel(scan);
+  const Eigen::Matrix2d R = pose_.block<2, 2>(0, 0);
+  StoredScan stored;
+  stored.refs.reserve(model.size());
+  for (const auto& ref : model) {
+    if (!ref.valid_line) continue;
+    RefPoint wp;
+    wp.point = transformPoint(pose_, ref.point);
+    wp.normal = (R * ref.normal).normalized();
+    wp.valid_line = true;
+    wp.valid_point = ref.valid_point;
+    stored.refs.push_back(wp);
+  }
+  if (!stored.refs.empty()) {
+    local_map_.push_back(std::move(stored));
+  }
+  while (static_cast<int>(local_map_.size()) > params_.local_map_max_scans) {
+    local_map_.erase(local_map_.begin());
+  }
+  pruneLocalMap();
+}
+
+void PLICPEstimator::pruneLocalMap() {
+  if (params_.local_map_radius <= 0.0) return;
+  const Eigen::Vector2d t = pose_.block<2, 1>(0, 2);
+  const double r2 = params_.local_map_radius * params_.local_map_radius;
+  for (auto& stored : local_map_) {
+    stored.refs.erase(std::remove_if(stored.refs.begin(), stored.refs.end(),
+                                     [&](const RefPoint& ref) {
+                                       return !ref.valid_line ||
+                                              (ref.point - t).squaredNorm() > r2;
+                                     }),
+                      stored.refs.end());
+  }
+  local_map_.erase(std::remove_if(local_map_.begin(), local_map_.end(),
+                                  [](const StoredScan& stored) { return stored.refs.empty(); }),
+                   local_map_.end());
+}
+
+std::vector<PLICPEstimator::RefPoint> PLICPEstimator::localMapInFrame(
+    const Eigen::Matrix3d& frame) const {
+  const Eigen::Matrix3d inv = frame.inverse();
+  const Eigen::Matrix2d R = inv.block<2, 2>(0, 0);
+  std::vector<RefPoint> local;
+  size_t total = 0;
+  for (const auto& stored : local_map_) total += stored.refs.size();
+  local.reserve(total);
+  for (const auto& stored : local_map_) {
+    for (const auto& ref : stored.refs) {
+      RefPoint mapped;
+      mapped.point = transformPoint(inv, ref.point);
+      mapped.normal = (R * ref.normal).normalized();
+      mapped.valid_line = true;
+      mapped.valid_point = ref.valid_point;
+      local.push_back(mapped);
+    }
+  }
+  return local;
+}
+
 bool PLICPEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
+                                    const std::vector<RefPoint>& references,
                                     const Eigen::Matrix3d& transform,
                                     Eigen::Matrix3d* increment) const {
   Eigen::Matrix3d A = Eigen::Matrix3d::Zero();
@@ -105,7 +169,7 @@ bool PLICPEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
     const Eigen::Vector2d p_tr = transformPoint(transform, p_cur);
     double best_dist = params_.max_correspondence_distance;
     const RefPoint* best = nullptr;
-    for (const auto& ref : ref_model_) {
+    for (const auto& ref : references) {
       if (!ref.valid_line) continue;
       const double d = (ref.point - p_tr).norm();
       if (d < best_dist) {
@@ -143,7 +207,11 @@ PLICPResult PLICPEstimator::registerScan(const LaserScan& scan) {
   }
 
   if (!initialized_) {
-    ref_model_ = buildReferenceModel(scan);
+    if (params_.use_local_map) {
+      addScanToLocalMap(scan);
+    } else {
+      ref_model_ = buildReferenceModel(scan);
+    }
     initialized_ = true;
     result.valid = true;
     result.pose = pose_;
@@ -152,10 +220,12 @@ PLICPResult PLICPEstimator::registerScan(const LaserScan& scan) {
 
   Eigen::Matrix3d transform =
       params_.use_motion_prior ? last_increment_ : Eigen::Matrix3d::Identity();
+  const std::vector<RefPoint> references =
+      params_.use_local_map ? localMapInFrame(pose_) : ref_model_;
   int iterations = 0;
   for (; iterations < params_.max_iterations; ++iterations) {
     Eigen::Matrix3d delta = Eigen::Matrix3d::Identity();
-    if (!solveIncrement(current, transform, &delta)) break;
+    if (!solveIncrement(current, references, transform, &delta)) break;
     transform = delta * transform;
 
     const double tx = delta(0, 2);
@@ -170,7 +240,11 @@ PLICPResult PLICPEstimator::registerScan(const LaserScan& scan) {
 
   pose_ = pose_ * transform;
   last_increment_ = transform;
-  ref_model_ = buildReferenceModel(scan);
+  if (params_.use_local_map) {
+    addScanToLocalMap(scan);
+  } else {
+    ref_model_ = buildReferenceModel(scan);
+  }
   result.increment = transform;
   result.pose = pose_;
   result.valid = true;

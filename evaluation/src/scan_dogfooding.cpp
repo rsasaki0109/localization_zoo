@@ -1,7 +1,7 @@
 /// 2D laser scan dogfooding tool
 ///
 /// Usage:
-///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc]
+///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp]
 ///
 /// scan_dir layout:
 ///   scan_meta.json  (angle_min, angle_max, angle_increment, range_min, range_max, scan_rate_hz)
@@ -13,6 +13,7 @@
 #include "kinematic_icp/kinematic_icp.h"
 #include "pl_icp/pl_icp.h"
 #include "idc/idc.h"
+#include "mb_icp/mb_icp.h"
 #include "ndt_2d/ndt_2d.h"
 #include "psm/psm.h"
 #include "rf2o/rf2o.h"
@@ -179,6 +180,25 @@ localization_zoo::csm::LaserScan loadScanCSM(const fs::path& frame_dir, const Sc
 
 localization_zoo::idc::LaserScan loadScanIDC(const fs::path& frame_dir, const ScanMeta& meta) {
   localization_zoo::idc::LaserScan scan;
+  scan.angle_min = meta.angle_min;
+  scan.angle_max = meta.angle_max;
+  scan.angle_increment = meta.angle_increment;
+  scan.range_min = meta.range_min;
+  scan.range_max = meta.range_max;
+  std::ifstream in(frame_dir / "scan.csv");
+  if (!in) return scan;
+  std::string line;
+  std::getline(in, line);
+  for (const auto& tok : splitCsv(line)) {
+    if (tok.empty()) continue;
+    scan.ranges.push_back(std::stod(tok));
+  }
+  return scan;
+}
+
+localization_zoo::mb_icp::LaserScan loadScanMbICP(const fs::path& frame_dir,
+                                                  const ScanMeta& meta) {
+  localization_zoo::mb_icp::LaserScan scan;
   scan.angle_min = meta.angle_min;
   scan.angle_max = meta.angle_max;
   scan.angle_increment = meta.angle_increment;
@@ -529,6 +549,42 @@ MethodResult runIDC(const std::vector<fs::path>& frames, const ScanMeta& meta,
   return res;
 }
 
+MethodResult runMbICP(const std::vector<fs::path>& frames, const ScanMeta& meta,
+                      const std::vector<GTPose2D>& gt, bool no_gt_seed) {
+  using namespace localization_zoo::mb_icp;
+  MethodResult res;
+  res.name = "MbICP";
+  MbICPParams params;
+  params.max_metric_distance = 1.5;
+  params.metric_radius = 1.0;
+  params.max_neighbor_gap = 2.0;
+  params.trim_fraction = 0.9;
+  MbICPEstimator est(params);
+  if (!gt.empty() && !no_gt_seed) {
+    est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
+  }
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < frames.size(); ++i) {
+    const auto scan = loadScanMbICP(frames[i], meta);
+    if (scan.size() < 10) continue;
+    const auto out = est.registerScan(scan);
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<2, 2>(0, 0) = out.pose.block<2, 2>(0, 0);
+    T(0, 3) = out.pose(0, 2);
+    T(1, 3) = out.pose(1, 2);
+    res.poses.push_back(T);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [MbICP] " << i << "/" << frames.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Metric-based ICP 2D odometry (Minguez-Lamiraux-Montesano ICRA 2005, simplified port).";
+  return res;
+}
+
 MethodResult runNDT2D(const std::vector<fs::path>& frames, const ScanMeta& meta,
                     const std::vector<GTPose2D>& gt, bool no_gt_seed) {
   using namespace localization_zoo::ndt_2d;
@@ -652,7 +708,7 @@ MethodResult runKinematicICP(const std::vector<fs::path>& frames, const ScanMeta
 int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
-              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc]"
+              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp]"
               << " [--no-gt-seed] [--wheel-odom-from-gt] [--summary-json path]\n";
     return 1;
   }
@@ -701,6 +757,10 @@ int main(int argc, char** argv) {
   if (methods.find("idc") != std::string::npos) {
     std::cout << "Running IDC...\n";
     results.push_back(runIDC(frames, meta, gt_raw, no_gt_seed));
+  }
+  if (methods.find("mb_icp") != std::string::npos) {
+    std::cout << "Running MbICP...\n";
+    results.push_back(runMbICP(frames, meta, gt_raw, no_gt_seed));
   }
   if (methods.find("ndt_2d") != std::string::npos) {
     std::cout << "Running NDT-2D...\n";

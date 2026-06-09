@@ -28,7 +28,7 @@ Simplified **2D scan-to-scan IDC odometry**:
 | `intel_val_73` | 73 | 378 | **15.3%** | RF2O 14.3% / NDT-2D 14.8% |
 | `fr079_val_384` | 384 | 373 | 27.7% | PSM 13.9% / RF2O 15.4% |
 
-Artifacts: `docs/benchmarks/scan2d/*_idc.json`. Full 7-method table:
+Artifacts: `docs/benchmarks/scan2d/*_idc.json`. Full 8-method table:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
 **Honest finding:** dual CP+RR fusion is **mid-pack on Intel** (between NDT-2D and CSM) but

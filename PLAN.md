@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-09 (2D LiDAR キャンペーン + ドキュメント整備)**
+> **最終更新: 2026-06-10 (2D LiDAR MbICP + 8-method refresh)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -23,13 +23,13 @@
 
 ---
 
-## 00. Latest Handoff: From-Paper Reimplementation Campaign (2026-06-09 更新)
+## 00. Latest Handoff: From-Paper Reimplementation Campaign (2026-06-10 更新)
 
 > **これが最新・最優先の handoff。**
 >
-> **2026-06-09 現時点のアクティブ方向は 2D LiDAR scan odometry キャンペーン (papers 43–49)。**
+> **2026-06-10 現時点のアクティブ方向は 2D LiDAR scan odometry キャンペーン (papers 43–50)。**
 > 3D Velodyne + IMU 系 (FR-LIO 完了、PG-LIO は NCLT honest negative で保留) から
-> **planar `LaserScan` matchers** へ軸足を移し、7 法 × 4 fixture の公開リーダーボードを整備済み。
+> **planar `LaserScan` matchers** へ軸足を移し、8 法 × 4 fixture の公開リーダーボードを整備済み。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) だが、**次セッションのデフォルト作業は §00.6c〜§00.66 (2D) を読んで着手**すること。
@@ -37,12 +37,13 @@
 > ### 2026-06-09 セッション要約 (3D → 2D 転換後)
 >
 > - **方針転換**: ユーザ指示「しばらくは 2D LiDAR でやっていく」→ `scan_dogfooding` harness 新設。
-> - **papers 43–49 完了** (RF2O / PL-ICP / CSM / Kinematic-ICP / PSM / NDT-2D / IDC)。
+> - **papers 43–50 完了** (RF2O / PL-ICP / CSM / Kinematic-ICP / PSM / NDT-2D / IDC / MbICP)。
 > - **公開 dataset**: Bonn 2D-SLAM JSON → `intel_val_73`, `fr079_val_384`, `mit_val_33` を repo に commit。
 > - **合成 fixture**: `rf2o_smoke` (60f), `rf2o_corridor` (120f slow motion)。
 > - **CSM 改善** (commit `3fc5be0`): distance transform + 3-level pyramid → fr079 drift 38.9%→**20.6%**。
-> - **ドキュメント整備** (未 commit): [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) ハブ、
->   README / SETUP / `public_bundle.json` / 各 paper README を 7 法に同期。
+> - **MbICP (50本目)**: config-space metric ICP を追加し、canonical JSON を8法で refresh。
+> - **ドキュメント整備**: [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) ハブ、
+>   README / SETUP / `public_bundle.json` / 各 paper README を 8 法に同期。
 > - **git**: `main` は `origin/main` より **2 commit ahead** (`361a592` IDC, `3fc5be0` CSM-DT)。
 >   markdown 整理分はワークツリーに未 commit。
 >
@@ -105,12 +106,12 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 |------|-------|
 | Branch | `main` |
 | vs `origin/main` | **2 commits ahead** (IDC + CSM-DT); markdown 整理は未 commit |
-| 実装済み from-paper 論文数 | **49 本** (3D: §00.48–§00.56 + FR-LIO/PG-LIO; **2D: §00.6c papers 43–49**) |
-| `docs/methods.json` | **89 手法** |
-| 2D scan matchers | **7 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc` |
+| 実装済み from-paper 論文数 | **50 本** (3D: §00.48–§00.56 + FR-LIO/PG-LIO; **2D: §00.6c papers 43–50**) |
+| `docs/methods.json` | **90 手法** |
+| 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
-| 直近完了 (2D) | **IDC (49本目)** + **CSM DT refresh** (ローカル) |
+| 直近完了 (2D) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
 | その前 (2D, pushed) | **NDT-2D (48)** / **PSM (47)** / Bonn fixtures (`a2817ff`) |
 | 3D 直近 (背景) | **NN-ZUPT (40本目)** — cross-IMU honest negative |
 | PG-LIO (42本目) | NCLT honest negative → **保留** (§00.52) |
@@ -178,17 +179,19 @@ a2817ff Add fr079 and MIT public 2D scan fixtures with multi-dataset benchmarks.
 
 各論文の機構・結果・教訓は per-paper memory と README / `docs/benchmarks/scan2d/README.md` を参照。
 
-**2D scan odometry (papers 43–49) の追加知見**:
+**2D scan odometry (papers 43–50) の追加知見**:
 
 - **fixture 依存が支配的** — RF2O@Intel, PSM@fr079, PL-ICP@corridor。単一手法の「勝者」は存在しない。
-- **scan-to-scan 限界** — 7 法すべて local map 無し。長 Bonn log では drift 15–40% 帯が典型。
+- **scan-to-scan 限界** — 8 法すべて local map 無し。長 Bonn log では drift 15–40% 帯が典型。
 - **合成 corridor の罠** — PL-ICP 0.4% でも fr079 41% — synthetic 成功は real 一般化の証拠にならない。
 - **CSM engineering win** — DT + pyramid で fr079 38.9%→20.6%。corridor ~73% は honest negative 継続。
 - **correspondence-free 2D** — NDT-2D は Intel で RF2O 近傍 (14.8% vs 14.3%) だが corridor 22%。
+- **metric-space ICP** — MbICP は fr079 16.6%、MIT 27.3%、corridor 0.46%。fixture winner ではないが
+  PL-ICP より real logs で安定し、corridor では PL-ICP に近い。
 - **wheel odom 依存** — Kinematic-ICP は `--wheel-odom-from-gt` 必須。real encoder 無しでは実用度低。
 - **GT proxy 限界** — Bonn GT は scan-matched odometry。centimeter truth ではない — drift は相対比較用。
 
-### 00.4 実装済み 49 本 (機構ファミリ別)
+### 00.4 実装済み 50 本 (機構ファミリ別)
 
 **3D Velodyne / multimodal (papers 1–42, 代表ファミリ)**
 
@@ -204,10 +207,10 @@ a2817ff Add fr079 and MIT public 2D scan fixtures with multi-dataset benchmarks.
 - **Distribution / factor**: PCR-DAT(18), LiDAR-IBA, D2-LIO
 - **Direct / range-image**: DiLO(22) — honest negative; PG-LIO photometric — honest negative
 
-**2D planar scan odometry (papers 43–49, `scan_dogfooding`)**
+**2D planar scan odometry (papers 43–50, `scan_dogfooding`)**
 
 - **Range flow (dense, no correspondences)**: RF2O(43)
-- **ICP family**: PL-ICP(44), Kinematic-ICP(46, wheel prior)
+- **ICP family**: PL-ICP(44), Kinematic-ICP(46, wheel prior), MbICP(50, config-space metric)
 - **Correlative / grid**: CSM(45, DT+pyramid), NDT-2D(48, Gaussian cells)
 - **Polar / dual correspondence**: PSM(47), IDC(49, CP+RR fusion)
 
@@ -572,7 +575,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 ユーザー指示: **「しばらくは 2D LiDAR でやっていく」**。3D Velodyne + IMU 系
 (FR-LIO 完了、PG-LIO は保留) から、**planar laser scan** 系 odometry/SLAM へ軸足を移す。
 
-#### キャンペーン状態: Phase 1 **完了** (papers 43–49)
+#### キャンペーン状態: Phase 1 + MbICP **完了** (papers 43–50)
 
 | Phase | 内容 | 状態 |
 |-------|------|------|
@@ -584,14 +587,14 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | Phase 1f | IDC (49本目) | ✅ commit、**未 push** (`361a592`) |
 | Phase 1g | CSM DT + pyramid refresh | ✅ commit、**未 push** (`3fc5be0`) |
 | Phase 1h | ドキュメント整備 (scan2d hub) | ✅ ワークツリー、**未 commit** |
+| Phase 2a | MbICP (50本目) + 8-method refresh | ✅ ワークツリー |
 
 #### 現状ギャップ (Phase 2 以降)
 
-- **canonical JSON 統合**: `run_scan2d_benchmark.sh` 再実行で 7 法を 1 JSON/fixture に merge
-  (CSM/IDC/NDT の partial `*_csm_dt.json` 等を解消)。
+- **canonical JSON 統合**: `run_scan2d_benchmark.sh` で 8 法を 1 JSON/fixture に refresh 済み。
 - **MIT val**: 33 frame のみ — drift は indicative。長 window が必要。
-- **合成 corridor**: IDC/NDT-2D 未 refresh。CSM は ~73% で PL-ICP/RF2O に大差。
-- **local map / SLAM graph**: 全 7 法 scan-to-scan のみ — Karto/Hector 級には未達。
+- **合成 corridor**: MbICP 0.46% が PL-ICP 0.38% に近接。CSM は ~73% で honest negative 継続。
+- **local map / SLAM graph**: 全 8 法 scan-to-scan のみ — Karto/Hector 級には未達。
 - **ROS2 / 実 bag CI**: smoke は Intel 20f slice のみ。full bag export は手動。
 
 #### インフラ
@@ -609,7 +612,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | GT 可視化 | ✅ `plot_scan2d_gt_overview.py` → `docs/assets/scan2d_public_gt.png` |
 | セットアップ doc | ✅ `evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md` |
 | 一括ベンチ | ✅ `evaluation/scripts/run_scan2d_benchmark.sh` |
-| CI smoke | ✅ `evaluation/scripts/smoke_scan2d_fixture.sh` (Intel 20f × 7 methods) |
+| CI smoke | ✅ `evaluation/scripts/smoke_scan2d_fixture.sh` (Intel 20f × 8 methods) |
 | 合成ベンチ | ✅ `rf2o_smoke` (60f) + `rf2o_corridor` (120f, slow motion) |
 | 公開 log | ✅ Bonn 2D-SLAM JSON → `intel_val_73`, `fr079_val_384`, `mit_val_33` |
 | リーダーボード | ✅ [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
@@ -627,20 +630,17 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | 6 | **NDT-2D** (IROS 2003) | 48 | ✅ |
 | 7 | **IDC** (Lu & Milios 1997) | 49 | ✅ |
 
-#### Phase 2 shortlist — 論文 50 本目候補 (未着手)
+#### Phase 2 shortlist — 50本目以降
 
 | Rank | 論文 | 機構 | OSS | Feasibility | 備考 |
 |------|------|------|-----|-------------|------|
-| ⭐1 | **MbICP** (Minguez et al., IROS 2006) | config-space metric ICP、対称性 | 各所 | **4/5** | PL-ICP 系の自然拡張 |
+| ✅ | **MbICP** (Minguez et al., ICRA 2005 / T-RO 2006) | config-space metric ICP、対称性 | 各所 | 完了 | 50本目 |
 | 2 | **PL-ICP + local map** | Censi local map / CSM 併用 | — | **4/5** | 既存 PL-ICP 拡張、新論文不要 |
 | 3 | **Hector SLAM** scan matcher | Gauss-Newton on occupancy grid | ROS 有 | **3.5/5** | OSS あり → campaign 対象外の可能性 |
 | 4 | **Olson 2009 full Karto** | 確率 grid + branch-and-bound | OpenSLAM | **3/5** | CSM からの段階的拡張 |
 | 5 | **GMapping particle filter** | Rao-Blackwellized PF | ROS 有 | **2.5/5** | SLAM 本体、odom 単体ではない |
 
-**推奨 50 本目: MbICP** — 2D ICP 群 (PL-ICP/Kinematic-ICP) と機構が非重複。
-config-space 距離で対称性・外れ値に強い。scan_dogfooding にそのまま載せやすい。
-
-**運用**: 「50本目 MbICP」等の明示で着手。PG-LIO (3D) は引き続き保留。
+**次の推奨**: PL-ICP/MbICP local map 拡張、または Karto-style map matcher。PG-LIO (3D) は引き続き保留。
 
 ---
 
@@ -736,6 +736,81 @@ config-space 距離で対称性・外れ値に強い。scan_dogfooding にその
 - **未実装**: trimmed IDC、visibility filter、local map
 - **状態**: ✅ commit 済 (`361a592`)、**未 push**
 
+### 00.6c-50 MbICP (50本目) — metric-based ICP 2D scan matching (2026-06-10)
+
+- ✅ **実装**: `papers/mb_icp/` — Minguez/Lamiraux/Montesano の config-space metric ICP。
+  対応探索と Gauss-Newton 最小化の両方で `||p||^2 + L^2` による rotation-aware metric を使用。
+- ✅ **統合**: `scan_dogfooding --methods mb_icp`、`run_scan2d_benchmark.sh`、CI smoke。
+- ✅ **テスト**: `test_mb_icp` 5 cases PASS。
+- ✅ **Public benchmark** (canonical JSON 8-method refresh):
+  - Intel **17.1%** / fr079 **16.6%** / MIT **27.3%** / corridor **0.46%**
+- ✅ **所見 (honest)**: fixture winner ではないが、fr079/MIT/corridor のバランスが良い。
+  PL-ICP より real logs で安定し、corridor では PL-ICP に近い。scan-to-scan のため長距離 drift は残る。
+  visibility rejection / local map / exact point-to-segment metric は未実装。
+
+#### 00.6c-50a MbICP 実装ログ / 後続向け詳細
+
+今回追加した主な差分:
+
+| 領域 | 変更 |
+|------|------|
+| 実装 | `papers/mb_icp/include/mb_icp/mb_icp.h`, `papers/mb_icp/src/mb_icp.cpp` |
+| テスト | `papers/mb_icp/test/test_mb_icp.cpp` — 初期化、並進、回転、並進+回転、`pose2D` |
+| ビルド | `papers/mb_icp/CMakeLists.txt`, root `CMakeLists.txt`, `evaluation/CMakeLists.txt` |
+| Harness | `evaluation/src/scan_dogfooding.cpp` — loader, `runMbICP`, selector `mb_icp`, JSON note |
+| Batch/CI | `evaluation/scripts/run_scan2d_benchmark.sh`, `evaluation/scripts/smoke_scan2d_fixture.sh` |
+| Docs/catalog | `papers/mb_icp/README.md`, `README.md`, `docs/benchmarks/scan2d/README.md`, `docs/methods.json`, `public_bundle.json`, `SETUP_2D_SCAN_BENCHMARK.md` |
+| Artifacts | `docs/benchmarks/scan2d/{intel_val_73,fr079_val_384,mit_val_33,rf2o_corridor}.json` を 8-method canonical として再生成 |
+
+実装メモ:
+
+- reference scan は beam 隣接点から segment list を作る。range gap が `max_neighbor_gap` を超える segment は切る。
+- 対応探索は transformed current point を reference segment に射影し、`metricDistanceSquared()` で最小の対応を選ぶ。
+- metric は `delta^T Q delta` 相当で、`Q = I - aa^T/(||ref||^2 + L^2)`、`a=(ref_y,-ref_x)`。
+  これにより遠距離で回転に吸収できる tangential error を弱める。
+- solve は同じ metric matrix を Gauss-Newton normal equation に入れる。対応集合は `trim_fraction=0.9` で上位 90% を使用。
+- `scan_dogfooding` の MbICP 既定は `max_metric_distance=1.5`, `metric_radius=1.0`, `max_neighbor_gap=2.0`, `trim_fraction=0.9`。
+
+パラメータ探索メモ:
+
+| `metric_radius` | Intel | fr079 | MIT | Corridor | 所見 |
+|----------------:|------:|------:|----:|---------:|------|
+| 1.0 | 17.07 | **16.55** | 27.33 | 0.46 | 採用。4 fixture 平均 drift が最良 |
+| 1.5 | 16.75 | 20.92 | 27.10 | 0.45 | fr079 が悪化 |
+| 2.0 | **14.98** | 20.32 | **27.02** | 0.43 | Intel/MIT は良いが fr079 が悪化 |
+| 3.0 | 15.83 | 20.18 | 27.83 | **0.41** | corridor は最良だが real logs で弱い |
+
+採用値は single-fixture 最適ではなく、公開4 fixture の平均と honest leaderboard を優先。
+次に retune する場合は `public_bundle.json` と `docs/benchmarks/scan2d/README.md` の数値も同時に更新する。
+
+未実装 / 論文との差分:
+
+- exact な MbICP point-to-segment metric derivation ではなく、segment 射影点に metric を評価する近似。
+- visibility rejection、range discontinuity に基づく occlusion filter、local submap は未実装。
+- scan-to-scan のみ。長い Bonn logs で drift が残るのは実装バグではなく current harness の設計限界。
+
+検証済みコマンド:
+
+```bash
+rtk cmake -B build -DCMAKE_BUILD_TYPE=Release
+rtk cmake --build build --target test_mb_icp scan_dogfooding -j$(nproc)
+rtk ctest --test-dir build -R test_mb_icp --output-on-failure
+rtk bash evaluation/scripts/run_scan2d_benchmark.sh
+rtk jq empty docs/methods.json docs/benchmarks/scan2d/public_bundle.json \
+  docs/benchmarks/scan2d/intel_val_73.json \
+  docs/benchmarks/scan2d/fr079_val_384.json \
+  docs/benchmarks/scan2d/mit_val_33.json \
+  docs/benchmarks/scan2d/rf2o_corridor.json
+```
+
+最終 commit 前にもう一度回す推奨:
+
+```bash
+rtk ctest --test-dir build -R 'test_mb_icp|test_rf2o|test_pl_icp|test_csm|test_kinematic_icp|test_psm|test_ndt_2d|test_idc' --output-on-failure
+rtk bash evaluation/scripts/smoke_scan2d_fixture.sh
+rtk python3 evaluation/scripts/validate_showcase.py --root .
+```
+
 ---
 
 ### 00.57 2D scan 評価インフラ (2026-06-09)
@@ -743,9 +818,9 @@ config-space 距離で対称性・外れ値に強い。scan_dogfooding にその
 - ✅ **`scan_dogfooding` drift 列**: KITTI-style RPE (`Drift [%]`)、`--summary-json` 出力。
 - ✅ **`prepare_2d_scan_inputs.py`**: ROS1 `sensor_msgs/LaserScan` → scan tree + GT 補間。
 - ✅ **`prepare_bonn_2dslam_inputs.py`**: Bonn JSON → committed fixtures。
-- ✅ **`SETUP_2D_SCAN_BENCHMARK.md`**: 合成 / bag / Bonn 手順 + 7 法 run 例。
-- ✅ **`run_scan2d_benchmark.sh`**: 4 fixtures × 7 methods 一括 refresh。
-- ✅ **`smoke_scan2d_fixture.sh`**: CI — Intel 20f × 7 methods (`.github/workflows/ci.yml`)。
+- ✅ **`SETUP_2D_SCAN_BENCHMARK.md`**: 合成 / bag / Bonn 手順 + 8 法 run 例。
+- ✅ **`run_scan2d_benchmark.sh`**: 4 fixtures × 8 methods 一括 refresh。
+- ✅ **`smoke_scan2d_fixture.sh`**: CI — Intel 20f × 8 methods (`.github/workflows/ci.yml`)。
 - ✅ **`plot_scan2d_gt_overview.py`**: public GT 軌跡 PNG。
 - ✅ **Bonn fixtures** (committed, GT = dataset odometry proxy):
 
@@ -771,16 +846,17 @@ config-space 距離で対称性・外れ値に強い。scan_dogfooding にその
 
 GT-seed on frame 0。**Drift [%]** — lower is better。
 
-#### 7 法 × 4 fixture (committed numbers)
+#### 8 法 × 4 fixture (committed numbers)
 
 | # | Method | Intel val | fr079 val | MIT val | Synth corridor | Best on |
 |---|--------|----------:|----------:|--------:|---------------:|---------|
 | | | _73f / 378m_ | _384f / 373m_ | _33f / 267m_ | _120f / 9.5m_ | |
 | 43 | **RF2O** | **14.3** | 15.4 | 27.6 | 1.3 | Intel |
 | 48 | **NDT-2D** | 14.8 | 21.8 | 29.2 | 22.3 | — |
-| 49 | **IDC** | 15.3 | 27.7 | — | — | — |
-| 45 | **CSM** | 16.0 | 20.6 | 27.7 | 73.3 | — |
+| 49 | **IDC** | 15.3 | 27.7 | 29.5 | 42.6 | — |
+| 45 | **CSM** | 16.0 | 20.6 | 29.2 | 73.3 | — |
 | 44 | **PL-ICP** | 16.9 | 41.0 | 30.3 | **0.4** | Corridor |
+| 50 | **MbICP** | 17.1 | 16.6 | 27.3 | 0.5 | — |
 | 46 | **Kinematic-ICP** | 18.4 | 18.9 | **23.4** | 83.8 | MIT (indicative) |
 | 47 | **PSM** | 21.8 | **13.9** | 27.9 | 11.6 | fr079 |
 
@@ -798,11 +874,11 @@ GT-seed on frame 0。**Drift [%]** — lower is better。
 
 | Fixture | Canonical JSON | 備考 |
 |---------|----------------|------|
-| Intel | `docs/benchmarks/scan2d/intel_val_73.json` | CSM 行は DT 前の可能性 → re-run 推奨 |
-| fr079 | `docs/benchmarks/scan2d/fr079_val_384.json` | 同上 |
-| MIT | `docs/benchmarks/scan2d/mit_val_33.json` | IDC 未計測 |
-| Corridor | `docs/benchmarks/scan2d/rf2o_corridor.json` | IDC/NDT 未 merge |
-| Summary | `docs/benchmarks/scan2d/public_bundle.json` | schema v2, 7 法 |
+| Intel | `docs/benchmarks/scan2d/intel_val_73.json` | 8-method canonical |
+| fr079 | `docs/benchmarks/scan2d/fr079_val_384.json` | 8-method canonical |
+| MIT | `docs/benchmarks/scan2d/mit_val_33.json` | short window; indicative |
+| Corridor | `docs/benchmarks/scan2d/rf2o_corridor.json` | 8-method canonical |
+| Summary | `docs/benchmarks/scan2d/public_bundle.json` | schema v2, 8 法 |
 | Partial | `*_idc.json`, `*_ndt2d.json`, `*_csm_dt.json` | method-specific reruns |
 
 再現:
@@ -820,11 +896,11 @@ bash evaluation/scripts/smoke_scan2d_fixture.sh   # CI 同等
 
 | ファイル | 変更 |
 |---------|------|
-| **新規** `docs/benchmarks/scan2d/README.md` | 7×4 リーダーボード、artifact index、再現手順、所見 |
-| `README.md` | Six→Seven、IDC 行、詳細はハブへ |
-| `public_bundle.json` | schema v2、7 法 + corridor、drift 同期 |
-| `SETUP_2D_SCAN_BENCHMARK.md` | 7 法 run 例、CI smoke、ハブリンク |
-| `papers/{rf2o,pl_icp,csm,psm,ndt_2d,idc,kinematic_icp}/README.md` | ベンチ表 or ハブリンク統一 |
+| **新規** `docs/benchmarks/scan2d/README.md` | 8×4 リーダーボード、artifact index、再現手順、所見 |
+| `README.md` | Eight、MbICP 行、詳細はハブへ |
+| `public_bundle.json` | schema v2、8 法 + corridor、drift 同期 |
+| `SETUP_2D_SCAN_BENCHMARK.md` | 8 法 run 例、CI smoke、ハブリンク |
+| `papers/{rf2o,pl_icp,csm,psm,ndt_2d,idc,kinematic_icp,mb_icp}/README.md` | ベンチ表 or ハブリンク統一 |
 | `PLAN.md` | 本更新 |
 
 **ドキュメント階層**:
@@ -838,37 +914,38 @@ README.md (1-screen 概要)
 ```
 
 **未完了 (docs)**:
-- `run_scan2d_benchmark.sh` 再実行後に canonical JSON を最新 CSM/IDC/NDT で上書き
-- `docs/methods.json` に 2D 7 法の tag/summary 強化 (optional)
+- PL-ICP/MbICP local map 拡張の設計
+- `docs/methods.json` に 2D 8 法の tag/summary 強化 (optional)
 - `validate_showcase.py` — 2D セクション追加は未実施
 
 ### 00.60 次セッション優先タスク (2D)
 
-| Priority | タスク | ブロッカー |
-|----------|--------|-----------|
-| **P0** | `git push` — IDC + CSM-DT + markdown 整理 commit | ユーザ明示指示 |
-| **P1** | `run_scan2d_benchmark.sh` — canonical JSON 7 法統合 | build 済みなら即 |
-| **P2** | corridor に IDC/NDT-2D 追加 refresh | P1 と同時可 |
-| **P3** | **50 本目 MbICP** 実装 | ユーザ「tugi」指示 |
-| **P4** | PL-ICP local map 拡張 (新論文不要) | P3 と排他 or 並行 |
+| Priority | タスク | 状態 (2026-06-10) |
+|----------|--------|-------------------|
+| **P0** | MbICP + 8-method refresh 差分を最終検証して commit | ✅ 検証済 (8/8 tests, smoke, validate_showcase, benchmark refresh) |
+| **P1** | `git push` — IDC + CSM-DT + markdown + MbICP refresh | ユーザ明示指示待ち |
+| **P2** | PL-ICP/MbICP local map 拡張 | ✅ in-library (`use_local_map`); harness は scan-to-scan 維持 (MbICP local map は drift 改善するが O(n²) で遅い) |
+| **P3** | Karto-style map matcher / spatial index for local map | 次推奨 |
+| **P4** | 長め MIT/Bonn window 追加 | データ調達 |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 
 **Do NOT** (明示指示なし):
-- 自律的に 50 本目を開始
+- 50本目を未着手扱いに戻す
 - PG-LIO を 2D より優先
 - force push / git config 変更
+- canonical JSON を partial artifact (`*_idc.json`, `*_csm_dt.json`) の古い数字で上書き
 
 ---
 
-**§00.6c 以前の旧 2D 節 (00.53 RF2O 等) は上記 §00.6c-43〜49 に統合済み。以下は 3D 37 本目 VLOM の §00.53。**
+**§00.6c 以前の旧 2D 節 (00.53 RF2O 等) は上記 §00.6c-43〜50 に統合済み。以下は 3D 37 本目 VLOM の §00.53。**
 
 This section is the authoritative current handoff for **June 2026 2D LiDAR campaign**
 (§00.6c–§00.60). Older sections below still matter for 3D benchmark history, recipe
 provenance, and paper-grade claims, but they describe the May 2026 / early-June 3D research
 state. The active direction is:
 
-1. **2D scan odometry** — expand matchers (MbICP next), unify benchmarks, honest leaderboard.
+1. **2D scan odometry** — 8-method leaderboard is current; next value is local mapping / Karto-style matching.
 2. **OSS polish** — showcase/demo/CI remain important (§0, validate_showcase contract).
 3. **3D on hold** — PG-LIO honest negative; KITTI full reruns blocked by data.
 
@@ -1394,7 +1471,7 @@ Avoid these unless the user explicitly asks:
 
 > **⚠️ 2026-06-09: §00 が最新 handoff。** 本章 (§1–§14) は 2026-05〜06 初旬の
 > 3D benchmark / manifest / reproduction 状態の**歴史的記録**。現アクティブ作業は
-> **2D LiDAR scan odometry (papers 43–49, §00.6c–§00.60)**。git/論文数/次タスクは §00.2 を正とする。
+> **2D LiDAR scan odometry (papers 43–50, §00.6c–§00.60)**。git/論文数/次タスクは §00.2 を正とする。
 
 ### 1.1 Current indexed artifact (historical snapshot — see §00.2 for live state)
 
@@ -1803,9 +1880,9 @@ Pick a single path and finish it before switching.
    cmake --build build --target scan_dogfooding
    bash evaluation/scripts/run_scan2d_benchmark.sh
    ```
-   Merge 7 methods into `docs/benchmarks/scan2d/{intel,fr079,mit,corridor}.json`.
+   Merge 8 methods into `docs/benchmarks/scan2d/{intel,fr079,mit,corridor}.json`.
 3. **Verify CI path**: `bash evaluation/scripts/smoke_scan2d_fixture.sh`
-4. **Next paper (50本目)**: **MbICP** — only on explicit user "tugi" / "50本目" trigger.
+4. **Next 2D work**: PL-ICP/MbICP local map or Karto-style map matcher.
 5. **Docs**: keep [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) as canonical;
    README top-level table stays a 1-screen summary linking to the hub.
 
@@ -1835,7 +1912,7 @@ NCLT 600 honest negative (33% drift). Do not prioritize over 2D unless user redi
 
 ### Do NOT do next (unless explicitly asked)
 
-- Start paper 50 autonomously
+- Treat paper 50 MbICP as unstarted
 - PG-LIO over 2D campaign
 - Paper drafting / prose generation
 - PR / branch cleanup unrelated to current task
@@ -1857,7 +1934,7 @@ cmake --build build -j"$(nproc)" --target pcd_dogfooding multimodal_dogfooding s
 ### 13.1b 2D scan odometry (active campaign)
 
 ```bash
-# CI-equivalent smoke (Intel 20f × 7 methods)
+# CI-equivalent smoke (Intel 20f × 8 methods)
 bash evaluation/scripts/smoke_scan2d_fixture.sh
 
 # Refresh all committed 2D benchmarks
@@ -1936,10 +2013,10 @@ python3 evaluation/scripts/run_experiment_matrix.py \
 
 ## 14. Final Notes
 
-- **2026-06-09 更新**: アクティブ価値は **2D scan odometry zoo** (7 法 × 4 fixture,
-  honest leaderboard) と **from-paper 49 本**の蓄積。§00.6c–§00.60 が運用 handoff。
+- **2026-06-10 更新**: アクティブ価値は **2D scan odometry zoo** (8 法 × 4 fixture,
+  honest leaderboard) と **from-paper 50 本**の蓄積。§00.6c–§00.60 が運用 handoff。
 - 3D 側は依然 valuable だが、**PG-LIO honest negative** と KITTI full データ欠如で
-  新規 3D 論文より 2D 拡張 (MbICP, local map) を優先。
+  新規 3D 論文より 2D 拡張 (local map / Karto-style matcher) を優先。
 - The cheapest claim-level upgrade for 3D remains local MCD/HDL-400 reruns with RPE;
   strongest is full KITTI Odometry (blocked).
 - Keep the stable summary contract small; new failure modes flow through `MethodResult::status` strings.

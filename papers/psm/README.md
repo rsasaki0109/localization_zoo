@@ -45,7 +45,7 @@ python3 evaluation/scripts/generate_rf2o_corridor_fixture.py
 | `rf2o_corridor` | 120 | 9.5 | 0.30 | 11.6% | PL-ICP 0.38% |
 
 Artifacts: `docs/benchmarks/scan2d/{intel_val_73,fr079_val_384,mit_val_33,rf2o_corridor}.json`.
-Full 7-method leaderboard:
+Full 8-method leaderboard:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
 **Honest finding:** polar range-profile matching is **dataset-dependent** — best drift on

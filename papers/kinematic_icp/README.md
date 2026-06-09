@@ -39,5 +39,5 @@ used on smoke fixture when present).
 
 Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_kinematic_icp_vs_rf2o.json`
 
-Public 7-method leaderboard:
+Public 8-method leaderboard:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).

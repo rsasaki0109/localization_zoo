@@ -14,7 +14,7 @@ fi
 
 METHODS=(rf2o pl_icp psm ndt_2d idc mb_icp kinematic_icp csm karto_matcher)
 
-FIXTURES=(mit_train_120 intel_train_150 fr079_train_200)
+FIXTURES=(mit_train_120 intel_train_150 fr079_train_1200)
 
 for fixture in "${FIXTURES[@]}"; do
   scan="${ROOT}/evaluation/fixtures/${fixture}"

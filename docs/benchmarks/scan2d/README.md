@@ -37,9 +37,10 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 |---------|--------|----------|------|-----:|-------:|----:|------:|------:|-------:|
 | `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 30.2% | 30.2% | 30.4% | 50.9% |
 | `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 21.5% | 21.5% | 23.4% | 27.6% |
+| `fr079_train_1200` | 1200 | 150 | NDT-2D | 10.6% | **9.2%** | 17.6% | 17.6% | 10.4% | **7.4%** |
 | `fr079_train_200` | 200 | 27 | NDT-2D | 30.3% | 29.4% | 40.3% | 40.3% | 7.5% | **5.6%** |
 
-Note: `fr079_train_200` is the first 200 frames of Bonn fr079 **train** (~27 m GT length in this window — drift is indicative, not comparable to 373 m val runs).
+Note: `fr079_train_200` covers only ~27 m at the start of Bonn fr079 **train** (slow initial motion) — drift is **not comparable** to val or `fr079_train_1200`. Prefer **`fr079_train_1200`** (~150 m, aligned with MIT/Intel train windows).
 
 Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_long_fixtures.sh`).
 
@@ -70,6 +71,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 | `evaluation/fixtures/mit_train_120` | Bonn `mit/train.json` (first 120) | 120 | 360 | ~900 |
 | `evaluation/fixtures/intel_train_150` | Bonn `intel/train.json` (first 150) | 150 | 180 | ~780 |
 | `evaluation/fixtures/fr079_train_200` | Bonn `fr079/train.json` (first 200) | 200 | 360 | ~27* |
+| `evaluation/fixtures/fr079_train_1200` | Bonn `fr079/train.json` (first 1200) | 1200 | 360 | ~150 |
 | `evaluation/fixtures/rf2o_corridor` | synthetic raycast | 120 | 360 | ~9.5 |
 | `evaluation/fixtures/rf2o_smoke` | synthetic raycast | 60 | 360 | ~18 |
 
@@ -95,6 +97,7 @@ Canonical multi-method JSON (refresh with `run_scan2d_benchmark.sh`):
 | fr079 val | [`fr079_val_384.json`](fr079_val_384.json) |
 | MIT val | [`mit_val_33.json`](mit_val_33.json) |
 | Corridor | [`rf2o_corridor.json`](rf2o_corridor.json) |
+| fr079 train (1200f) | [`fr079_train_1200.json`](fr079_train_1200.json) |
 | Public summary | [`public_bundle.json`](public_bundle.json) |
 
 Method-specific reruns (partial method sets): `*_idc.json`, `*_ndt2d.json`, `*_csm_dt.json`.
@@ -119,7 +122,7 @@ Single fixture, all methods:
 
 ## 未確認 / 要確認項目
 
-- **MIT val** — only 33 frames; all drift values are indicative, not paper-grade.
+- **fr079_train_200** — short ~27 m prefix only; CSM/Karto drift misleading (~40%). Use **`fr079_train_1200`** (~150 m) for train-window comparison.
 - **Karto-Matcher** — point-cache local map (not log-odds grid); tuned Olson BnB (64-node, finest-only refine, score lookup).
 
 ## 次アクション

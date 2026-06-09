@@ -84,12 +84,13 @@ class MbICPEstimator {
     void queryPoints(const Eigen::Vector2d& p, std::unordered_set<size_t>* visited) const;
   };
 
+  static int64_t voxelKey(double x, double y, double voxel_size);
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   void buildReferenceModel(const LaserScan& scan);
-  std::vector<RefPoint> localPointsInFrame(const Eigen::Matrix3d& frame) const;
-  std::vector<Segment> localSegmentsInFrame(const Eigen::Matrix3d& frame) const;
   void addScanToLocalMap(const LaserScan& scan);
+  void transformRobotMap(const Eigen::Matrix3d& inv_increment);
   void pruneLocalMap();
+  void rebuildLocalMapIndex();
   bool solveIncrement(const std::vector<Eigen::Vector2d>& current,
                       const std::vector<RefPoint>& points,
                       const std::vector<Segment>& segments,
@@ -108,8 +109,11 @@ class MbICPEstimator {
   bool initialized_ = false;
   std::vector<RefPoint> ref_points_;
   std::vector<Segment> ref_segments_;
+  /// Rolling local map stored in the current robot frame (map cache).
   std::vector<RefPoint> local_points_;
   std::vector<Segment> local_segments_;
+  LocalMapIndex local_map_index_;
+  bool local_map_index_valid_ = false;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

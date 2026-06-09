@@ -515,6 +515,7 @@ MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   params.use_local_map = true;
   params.local_map_radius = 15.0;
   params.local_map_voxel_size = 0.15;
+  params.use_branch_and_bound = true;
   CSMEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
@@ -537,7 +538,7 @@ MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Correlative scan matching with robot-frame local map and adaptive search (Olson ICRA 2009, simplified port).";
+      "Correlative scan matching with robot-frame local map, Olson branch-and-bound, and adaptive search (ICRA 2009, simplified port).";
   return res;
 }
 

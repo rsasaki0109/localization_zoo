@@ -9,7 +9,8 @@
 **Multi-resolution correlative scan matching** for 2D odometry:
 
 - occupancy grid + chamfer **distance transform** scoring (Olson-style)
-- 3-level resolution pyramid (coarse → fine)
+- 3-level resolution pyramid (coarse → fine via grid downsampling)
+- **Olson coarse branch-and-bound** over score upper bounds
 - relative SE(2) search around motion prior warm-start
 - bilinear distance lookup
 - **robot-frame rolling local map** (voxel merge + radius prune) in harness
@@ -23,24 +24,23 @@
   --methods csm,rf2o
 ```
 
-## Benchmark (2026-06-10, robot-frame local map)
+## Benchmark (2026-06-10, local map + BnB)
 
-| Fixture | Frames | Drift (scan-to-scan) | Drift (local map) |
-|---------|--------|----------------------|-------------------|
-| `intel_val_73` | 73 | 16.0% | **14.5%** |
-| `fr079_val_384` | 384 | 20.6% | **14.5%** |
-| `rf2o_corridor` | 120 | 73.3% | 95.8% |
+| Fixture | Frames | Drift (scan-to-scan) | Drift (local map) | Drift (+ BnB) |
+|---------|--------|----------------------|-------------------|---------------|
+| `intel_val_73` | 73 | 16.0% | 14.5% | **15.2%** |
+| `fr079_val_384` | 384 | 20.6% | 14.5% | **14.9%** |
+| `rf2o_corridor` | 120 | 73.3% | 95.8% | **102.0%** |
 
 Artifacts: `docs/benchmarks/scan2d/*_csm_dt.json`. Full leaderboard:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
-**Honest finding:** robot-frame local map materially helps **real Bonn logs** (fr079 20.6%→14.5%,
-Intel 16.0%→14.5%) and now matches Karto-Matcher on fr079, but **hurts** the synthetic slow-motion
-corridor (73%→96%) where scan-to-scan was already ambiguous. Brute-force search windows remain the
-bottleneck versus branch-and-bound Karto.
+**Honest finding:** robot-frame local map materially helps **real Bonn logs** (fr079 20.6%→~15%).
+Adding Olson coarse BnB completes the Karto-style search stack but **does not further improve**
+Bonn drift in this simplified port; synthetic corridor remains ~100% (honest negative).
 
 ## Current Scope
 
-- Rolling local map in harness (no loop closure / SLAM graph)
+- Rolling local map + coarse BnB in harness (no loop closure / SLAM graph)
 - Chamfer DT (not exact Euclidean Felzenszwalb)
-- Brute-force pose search (small windows only)
+- Coarse BnB + fine brute-force refinement (Karto-Matcher pattern)

@@ -9,13 +9,13 @@
     {
       "name": "CSM",
       "status": "ok",
-      "ate_m": 4.061,
-      "drift_pct": 95.784,
-      "rpe_rot_deg_per_m": 0.146,
+      "ate_m": 4.551,
+      "drift_pct": 101.948,
+      "rpe_rot_deg_per_m": 0.361,
       "frames": 120,
-      "time_ms": 7607.449,
-      "fps": 15.774,
-      "note": "Correlative scan matching with robot-frame local map and adaptive search (Olson ICRA 2009, simplified port)."
+      "time_ms": 13657.400,
+      "fps": 8.786,
+      "note": "Correlative scan matching with robot-frame local map, Olson branch-and-bound, and adaptive search (ICRA 2009, simplified port)."
     }
   ]
 }

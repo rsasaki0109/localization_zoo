@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (fr079_train_1200 P12)**
+> **最終更新: 2026-06-10 (NDT-2D local map P13)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -737,6 +737,22 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - **未実装**: occupancy/co-occurrence matrix、local map
 - **状態**: ✅ push 済 (`709d25c`)
 
+**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は NDT local map 後の drift 安定性 watch、または NDT pyramid/outlier trimming。
+
+---
+
+### 00.6c-48 NDT-2D local map (2026-06-10, P13)
+
+- ✅ **Robot-frame rolling local map** — voxel merge + radius prune (PL-ICP/MbICP パターン)
+- ✅ harness 有効化 (`runNDT2D`)
+- ✅ **Public benchmark (local map)**:
+  - Intel **14.9%** (was 14.8%) / fr079 **14.4%** (was **21.8%**) / MIT **27.8%** (was 29.2%) / corridor **0.8%** (was **22.3%**)
+- ✅ **所見 (honest)**: local map は fr079 val + corridor で大幅改善。Intel は横ばい。`fr079_train_1200` は scan-to-scan 7.4% → **10.3%** (微悪化)。
+- **未実装**: multi-resolution pyramid、outlier trimming
+- **状態**: 実装済
+
+---
+
 ### 00.6c-48 NDT-2D (48本目) — normal distributions transform (2026-06-09)
 
 - ✅ **実装**: `papers/ndt_2d/` — grid Gaussian cells + Gauss-Newton NDT score (no correspondences)。
@@ -960,6 +976,7 @@ README.md (1-screen 概要)
 | **P10** | Karto-Matcher への CSM 同チューニング移植 | ✅ 64-node BnB + finest-only refine + score lookup; Intel **14.7%** (~64 FPS), fr079 **14.3%** (~47 FPS), corridor **41%** (was 102%) |
 | **P11** | Felzenszwalb EDT (CSM + Karto) | ✅ `common/felzenszwalb_edt`; Intel **14.0%**, fr079 **13.7%**, corridor **30.5%** (was 41%); `fr079_train_200` regressed (indicative) |
 | **P12** | fr079_train 更長 window | ✅ `fr079_train_1200` (~150 m); CSM/Karto **17.6%** (vs 40% on 200f); CI long smoke uses 1200 fixture |
+| **P13** | NDT-2D robot-frame local map | ✅ voxel merge + radius prune; fr079 **14.4%** (was 21.8%), corridor **0.8%** (was 22.3%); Intel **14.9%** |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

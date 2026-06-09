@@ -46,3 +46,6 @@ Scan tree layout: `scan_meta.json` + `NNNNNNNN/scan.csv` (comma-separated ranges
 | `evaluation/fixtures/rf2o_smoke` | 60 | 17.7 | 0.20 | ~1.1% |
 
 Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60.json`
+
+Public 7-method leaderboard:
+[`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).

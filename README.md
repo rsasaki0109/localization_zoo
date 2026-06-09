@@ -260,33 +260,27 @@ LiTAMIN2       31.155      2.6
 
 ### 2D Laser Scan Odometry
 
-Six planar `LaserScan` matchers in `scan_dogfooding` (ATE + drift [%/segment]).
-GT-seed anchors the first pose; `--no-gt-seed` is supported for odometry-only runs.
+Seven planar matchers (papers 43–49) in [`scan_dogfooding`](evaluation/src/scan_dogfooding.cpp).
+Full leaderboard, fixtures, and reproduction steps:
+[**docs/benchmarks/scan2d/README.md**](docs/benchmarks/scan2d/README.md).
 
 | Method | Intel val | fr079 val | MIT val | Synth corridor |
 |--------|---:|---:|---:|---:|
 | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
-| **RF2O** | **14.3%** | 15.4% | 27.6% | 1.28% |
-| **NDT-2D** | 14.8% | 21.8% | **29.2%** | 22.3% |
-| **PSM** | 21.8% | **13.9%** | 27.9% | 11.6% |
+| **RF2O** | **14.3%** | 15.4% | 27.6% | 1.3% |
+| **NDT-2D** | 14.8% | 21.8% | 29.2% | 22.3% |
+| **IDC** | 15.3% | 27.7% | — | — |
 | **CSM** | 16.0% | 20.6% | 27.7% | 73.3% |
-| **PL-ICP** | 16.9% | 41.0% | 30.3% | **0.38%** |
-| **Kinematic-ICP** | 18.4% | 18.9% | 23.4% | 83.8% |
-
-Public logs are from the [Bonn 2D-SLAM JSON export](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip) (Radish CARMEN conversions). GT is dataset odometry (scan-matched proxy, not centimeter truth). **RF2O** leads Intel; **PSM** leads fr079; **NDT-2D** is competitive on Intel (~14.8% drift) without explicit correspondences; **PL-ICP** wins the synthetic slow-motion corridor. MIT val is only 33 frames — treat drift as indicative.
-
-<p align="center">
-  <img src="docs/assets/scan2d_public_gt.png" alt="Top-down GT trajectories for Intel, fr079, and MIT public 2D fixtures" width="900">
-</p>
+| **PL-ICP** | 16.9% | 41.0% | 30.3% | **0.4%** |
+| **Kinematic-ICP** | 18.4% | 18.9% | **23.4%** | 83.8% |
+| **PSM** | 21.8% | **13.9%** | 27.9% | 11.6% |
 
 ```bash
 cmake --build build --target scan_dogfooding
-bash evaluation/scripts/run_scan2d_benchmark.sh   # refresh all committed fixtures
+bash evaluation/scripts/run_scan2d_benchmark.sh
 ```
 
-Prep helpers: [`evaluation/scripts/prepare_2d_scan_inputs.py`](evaluation/scripts/prepare_2d_scan_inputs.py) (ROS1 bag), [`evaluation/scripts/prepare_bonn_2dslam_inputs.py`](evaluation/scripts/prepare_bonn_2dslam_inputs.py) (Bonn JSON). Full setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md).
-
-Raw JSON: [`docs/benchmarks/scan2d/`](docs/benchmarks/scan2d/).
+Setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md).
 
 ---
 

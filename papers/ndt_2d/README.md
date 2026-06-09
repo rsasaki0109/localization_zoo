@@ -30,7 +30,8 @@ Simplified **2D scan-to-scan NDT odometry**:
 | `mit_val_33` | 33 | 267 | 29.2% | RF2O 27.6% / PL-ICP 30.3% |
 | `rf2o_corridor` | 120 | 9.5 | 22.3% | PL-ICP 0.38% / RF2O 1.28% |
 
-Artifacts: `docs/benchmarks/scan2d/*_ndt2d.json`
+Artifacts: `docs/benchmarks/scan2d/*_ndt2d.json`. Full leaderboard:
+[`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
 **Honest finding:** correspondence-free NDT is **competitive on real Bonn logs** (Intel ~RF2O,
 fr079 mid-pack) but **underperforms on the synthetic corridor** where PL-ICP dominates.

@@ -44,7 +44,9 @@ python3 evaluation/scripts/generate_rf2o_corridor_fixture.py
 | `mit_val_33` | 33 | 267 | 17.2 | 27.9% | Kinematic-ICP 23.4% |
 | `rf2o_corridor` | 120 | 9.5 | 0.30 | 11.6% | PL-ICP 0.38% |
 
-Artifacts: `docs/benchmarks/scan2d/{intel_val_73,fr079_val_384,mit_val_33,rf2o_corridor}.json`
+Artifacts: `docs/benchmarks/scan2d/{intel_val_73,fr079_val_384,mit_val_33,rf2o_corridor}.json`.
+Full 7-method leaderboard:
+[`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
 **Honest finding:** polar range-profile matching is **dataset-dependent** — best drift on
 fr079 val (13.9%) but behind RF2O on Intel and behind PL-ICP on the synthetic corridor.

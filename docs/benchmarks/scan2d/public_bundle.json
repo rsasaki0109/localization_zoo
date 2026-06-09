@@ -1,7 +1,25 @@
 {
-  "schema_version": 1,
-  "description": "Public Bonn 2D-SLAM fixtures — drift [%] per method (lower is better). GT is dataset odometry proxy.",
-  "methods": ["RF2O", "NDT-2D", "PL-ICP", "CSM", "Kinematic-ICP", "PSM"],
+  "schema_version": 2,
+  "description": "2D scan odometry leaderboard — drift [%] per method (lower is better). GT is Bonn dataset odometry proxy.",
+  "readme": "docs/benchmarks/scan2d/README.md",
+  "methods_order": [
+    "RF2O",
+    "NDT-2D",
+    "IDC",
+    "CSM",
+    "PL-ICP",
+    "Kinematic-ICP",
+    "PSM"
+  ],
+  "paper_numbers": {
+    "RF2O": 43,
+    "PL-ICP": 44,
+    "CSM": 45,
+    "Kinematic-ICP": 46,
+    "PSM": 47,
+    "NDT-2D": 48,
+    "IDC": 49
+  },
   "fixtures": [
     {
       "id": "intel_val_73",
@@ -13,8 +31,9 @@
       "drift_pct": {
         "RF2O": 14.287,
         "NDT-2D": 14.780,
-        "PL-ICP": 16.922,
+        "IDC": 15.271,
         "CSM": 15.970,
+        "PL-ICP": 16.922,
         "Kinematic-ICP": 18.346,
         "PSM": 21.800
       },
@@ -28,11 +47,12 @@
       "trajectory_length_m": 373.138,
       "artifact": "docs/benchmarks/scan2d/fr079_val_384.json",
       "drift_pct": {
-        "RF2O": 15.370,
         "PSM": 13.890,
-        "NDT-2D": 21.790,
+        "RF2O": 15.370,
         "Kinematic-ICP": 18.860,
         "CSM": 20.620,
+        "NDT-2D": 21.790,
+        "IDC": 27.740,
         "PL-ICP": 40.990
       },
       "best": "PSM"
@@ -49,10 +69,29 @@
         "RF2O": 27.620,
         "CSM": 27.670,
         "PSM": 27.900,
+        "NDT-2D": 29.160,
         "PL-ICP": 30.290
       },
       "best": "Kinematic-ICP",
       "note": "Short 33-frame window — drift is indicative only."
+    },
+    {
+      "id": "rf2o_corridor",
+      "dataset": "synthetic",
+      "split": "corridor",
+      "frames": 120,
+      "trajectory_length_m": 9.543,
+      "artifact": "docs/benchmarks/scan2d/rf2o_corridor.json",
+      "drift_pct": {
+        "PL-ICP": 0.380,
+        "RF2O": 1.276,
+        "PSM": 11.599,
+        "NDT-2D": 22.320,
+        "CSM": 73.320,
+        "Kinematic-ICP": 83.805
+      },
+      "best": "PL-ICP",
+      "note": "Slow-motion box-world raycast; not a real hallway."
     }
   ]
 }

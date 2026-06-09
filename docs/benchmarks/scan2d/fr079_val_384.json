@@ -24,8 +24,8 @@
       "drift_pct": 15.411,
       "rpe_rot_deg_per_m": 0.901,
       "frames": 384,
-      "time_ms": 519445.129,
-      "fps": 0.739,
+      "time_ms": 139831.959,
+      "fps": 2.746,
       "note": "Metric-based ICP 2D odometry with robot-frame rolling local map (Minguez-Lamiraux-Montesano ICRA 2005, simplified port)."
     },
     {
@@ -90,8 +90,8 @@
       "drift_pct": 14.079,
       "rpe_rot_deg_per_m": 0.828,
       "frames": 384,
-      "time_ms": 202507.906,
-      "fps": 1.896,
+      "time_ms": 25768.783,
+      "fps": 14.902,
       "note": "Point-to-line ICP 2D odometry with robot-frame local map cache (Censi IROS 2008, simplified port)."
     },
     {

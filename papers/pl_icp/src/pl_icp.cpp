@@ -5,7 +5,7 @@
 #include <cmath>
 #include <limits>
 #include <unordered_map>
-#include <unordered_set>
+#include <vector>
 
 namespace localization_zoo {
 namespace pl_icp {
@@ -52,8 +52,10 @@ PLICPEstimator::LocalMapIndex PLICPEstimator::LocalMapIndex::build(
   return index;
 }
 
-void PLICPEstimator::LocalMapIndex::query(const Eigen::Vector2d& p,
-                                          std::unordered_set<size_t>* visited) const {
+void PLICPEstimator::LocalMapIndex::queryCandidates(const Eigen::Vector2d& p,
+                                                    const std::vector<uint32_t>& stamp,
+                                                    uint32_t generation,
+                                                    std::vector<size_t>* candidates) const {
   const int cx = static_cast<int>(std::floor(p.x() / cell_size));
   const int cy = static_cast<int>(std::floor(p.y() / cell_size));
   const int reach = static_cast<int>(std::ceil(query_radius / cell_size)) + 1;
@@ -62,7 +64,10 @@ void PLICPEstimator::LocalMapIndex::query(const Eigen::Vector2d& p,
       const int64_t k = (static_cast<int64_t>(cx + dx) << 32) ^ static_cast<uint32_t>(cy + dy);
       const auto it = bins.find(k);
       if (it == bins.end()) continue;
-      visited->insert(it->second.begin(), it->second.end());
+      for (const size_t rid : it->second) {
+        if (rid >= stamp.size() || stamp[rid] == generation) continue;
+        candidates->push_back(rid);
+      }
     }
   }
 }
@@ -73,8 +78,11 @@ void PLICPEstimator::reset() {
   initialized_ = false;
   ref_model_.clear();
   local_refs_.clear();
+  point_voxels_.clear();
   local_map_index_ = LocalMapIndex{};
   local_map_index_valid_ = false;
+  query_stamp_.clear();
+  query_generation_ = 1;
   pose_ = Eigen::Matrix3d::Identity();
   last_increment_ = Eigen::Matrix3d::Identity();
 }
@@ -147,29 +155,38 @@ void PLICPEstimator::transformRobotMap(const Eigen::Matrix3d& inv_increment) {
   local_map_index_valid_ = false;
 }
 
+void PLICPEstimator::rebuildPointVoxels() {
+  point_voxels_.clear();
+  const double voxel = params_.local_map_voxel_size;
+  point_voxels_.reserve(local_refs_.size());
+  for (size_t i = 0; i < local_refs_.size(); ++i) {
+    if (!local_refs_[i].valid_line) continue;
+    point_voxels_[voxelKey(local_refs_[i].point.x(), local_refs_[i].point.y(), voxel)] = i;
+  }
+}
+
 void PLICPEstimator::addScanToLocalMap(const LaserScan& scan) {
   const auto model = buildReferenceModel(scan);
   const double voxel = params_.local_map_voxel_size;
 
-  std::unordered_map<int64_t, size_t> point_voxels;
-  point_voxels.reserve(local_refs_.size() + model.size());
-  for (size_t i = 0; i < local_refs_.size(); ++i) {
-    if (!local_refs_[i].valid_line) continue;
-    point_voxels[voxelKey(local_refs_[i].point.x(), local_refs_[i].point.y(), voxel)] = i;
-  }
+  rebuildPointVoxels();
   for (const auto& ref : model) {
     if (!ref.valid_line) continue;
     const int64_t k = voxelKey(ref.point.x(), ref.point.y(), voxel);
-    const auto it = point_voxels.find(k);
-    if (it != point_voxels.end()) {
+    const auto it = point_voxels_.find(k);
+    if (it != point_voxels_.end()) {
       local_refs_[it->second] = ref;
     } else {
-      point_voxels[k] = local_refs_.size();
+      point_voxels_[k] = local_refs_.size();
       local_refs_.push_back(ref);
     }
   }
 
+  const size_t before = local_refs_.size();
   pruneLocalMap();
+  if (local_refs_.size() != before) {
+    rebuildPointVoxels();
+  }
   rebuildLocalMapIndex();
 }
 
@@ -238,22 +255,33 @@ bool PLICPEstimator::solveIncrementIndexed(const std::vector<Eigen::Vector2d>& c
   Eigen::Matrix3d A = Eigen::Matrix3d::Zero();
   Eigen::Vector3d b = Eigen::Vector3d::Zero();
   int used = 0;
-  std::unordered_set<size_t> candidate_ids;
-  candidate_ids.reserve(32);
+  if (query_stamp_.size() < references.size()) {
+    query_stamp_.assign(references.size(), 0);
+  }
+  const double max_dist = params_.max_correspondence_distance;
+  const double max_dist2 = max_dist * max_dist;
+  std::vector<size_t> candidates;
+  candidates.reserve(32);
 
   for (const auto& p_cur : current) {
+    if (++query_generation_ == 0) {
+      std::fill(query_stamp_.begin(), query_stamp_.end(), 0);
+      query_generation_ = 1;
+    }
+    const uint32_t generation = query_generation_;
     const Eigen::Vector2d p_tr = transformPoint(transform, p_cur);
-    double best_dist = params_.max_correspondence_distance;
+    double best_dist2 = max_dist2;
     const RefPoint* best = nullptr;
 
-    candidate_ids.clear();
-    index.query(p_tr, &candidate_ids);
-    for (const size_t rid : candidate_ids) {
+    candidates.clear();
+    index.queryCandidates(p_tr, query_stamp_, generation, &candidates);
+    for (const size_t rid : candidates) {
+      query_stamp_[rid] = generation;
       const auto& ref = references[rid];
       if (!ref.valid_line) continue;
-      const double d = (ref.point - p_tr).norm();
-      if (d < best_dist) {
-        best_dist = d;
+      const double d2 = (ref.point - p_tr).squaredNorm();
+      if (d2 < best_dist2) {
+        best_dist2 = d2;
         best = &ref;
       }
     }

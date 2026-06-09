@@ -63,8 +63,8 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 - **NDT-2D** — correspondence-free; competitive on real logs, weak on synthetic corridor.
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
 - **CSM** — DT + 3-level pyramid (2026-06 refresh); fr079 38.9% → 20.6%, corridor still ~73%.
-- **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~3.4 min (indexed map cache).
-- **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~9 min.
+- **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~26 s (stamp-indexed map cache).
+- **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~2.3 min.
 - **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only.
 - **PSM** — best fr079 drift; polar profile matching is dataset-dependent.
 

@@ -36,14 +36,16 @@ struct KartoMatcherParams {
   bool use_branch_and_bound = true;
   double bnb_min_xy = 0.04;
   double bnb_min_yaw = 0.02;
-  int leaf_xy_steps = 3;
-  int leaf_yaw_steps = 3;
-  int bnb_max_nodes = 128;
+  int leaf_xy_steps = 2;
+  int leaf_yaw_steps = 2;
+  int bnb_max_nodes = 64;
+  /// When false, refine only at the finest pyramid level (faster BnB path).
+  bool refine_intermediate_levels = false;
   /// Brute-force fallback (when use_branch_and_bound = false).
   int coarse_xy_steps = 11;
   int coarse_yaw_steps = 11;
-  int fine_xy_steps = 5;
-  int fine_yaw_steps = 5;
+  int fine_xy_steps = 3;
+  int fine_yaw_steps = 3;
 };
 
 struct KartoMatcherResult {
@@ -103,6 +105,7 @@ class KartoMatcherEstimator {
   double scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
                    const Eigen::Matrix3d& increment) const;
   double lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p) const;
+  double lookupScore(const Grid& grid, const Eigen::Vector2d& p) const;
   double lookupBound(const Grid& grid, int x, int y) const;
   double nodeUpperBound(const Grid& grid, const SearchNode& node,
                         const std::vector<Eigen::Vector2d>& points,

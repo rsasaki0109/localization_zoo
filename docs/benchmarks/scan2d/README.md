@@ -6,11 +6,10 @@ Metrics: **ATE [m]** and **Drift [%]** (KITTI-style RPE over a segment scaled to
 ## 結論
 
 Nine from-paper / extension 2D odometry ports (papers 43–50 + Karto-style map matcher) share one harness.
-**No single method wins every fixture** — RF2O leads Intel, PSM leads fr079, Kinematic-ICP leads the short MIT
-window, and PL-ICP (robot-frame local map) leads the synthetic corridor and is competitive on Bonn logs.
-**Karto-Matcher** (rolling local map + correlative search)
-improves over scan-to-scan CSM on real Bonn logs (Intel **14.2%**, fr079 **14.5%**) but remains weak on the
-synthetic slow-motion corridor (~**102%** drift, improved from ~124% with robot-frame map + adaptive search).
+**No single method wins every fixture** — CSM/Karto lead Intel (Felzenszwalb EDT), PSM leads fr079, Kinematic-ICP leads the short MIT
+window, and PL-ICP leads the synthetic corridor.
+**CSM / Karto-Matcher** — Felzenszwalb EDT + tuned Olson BnB; **Intel 14.0%**, fr079 **13.7%**,
+corridor **30.5%** (improved from chamfer 41%); short `fr079_train_200` regressed (indicative window).
 
 ## Leaderboard (drift % — lower is better)
 
@@ -20,10 +19,10 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 |---|--------|-------|----------:|----------:|--------:|---------------:|
 | | | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
 | 43 | **RF2O** | ICRA 2016 | **14.3** | 15.4 | 27.6 | 1.3 |
-| — | **Karto-Matcher** | Olson/Karto ext. | 14.2 | 14.5 | 29.1 | 102.0 |
+| — | **Karto-Matcher** | Olson/Karto ext. | **14.0** | **13.7** | 28.1 | 30.5 |
 | 48 | **NDT-2D** | IROS 2003 | 14.8 | 21.8 | 29.2 | 22.3 |
 | 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
-| 45 | **CSM** | ICRA 2009 | 14.7 | 14.3 | 28.1 | 41.3 |
+| 45 | **CSM** | ICRA 2009 | **14.0** | **13.7** | 28.1 | 30.5 |
 | 50 | **MbICP** | ICRA 2005 | 14.5 | 15.4 | 27.5 | **0.05** |
 | 44 | **PL-ICP** | IROS 2008 | 15.0 | **14.1** | 27.2 | **0.01** |
 | 46 | **Kinematic-ICP** | ICRA 2025 | 18.4 | 18.9 | **23.4** | 83.8 |
@@ -36,9 +35,9 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 
 | Fixture | Frames | Traj [m] | Best | RF2O | PL-ICP | CSM | Karto | MbICP | NDT-2D |
 |---------|--------|----------|------|-----:|-------:|----:|------:|------:|-------:|
-| `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 32.0% | 37.1% | 30.4% | 50.9% |
-| `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 21.1% | 18.7% | 23.4% | 27.6% |
-| `fr079_train_200` | 200 | 27 | NDT-2D | 30.3% | 29.4% | **12.0%** | 14.1% | 7.5% | **5.6%** |
+| `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 30.2% | 30.2% | 30.4% | 50.9% |
+| `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 21.5% | 21.5% | 23.4% | 27.6% |
+| `fr079_train_200` | 200 | 27 | NDT-2D | 30.3% | 29.4% | 40.3% | 40.3% | 7.5% | **5.6%** |
 
 Note: `fr079_train_200` is the first 200 frames of Bonn fr079 **train** (~27 m GT length in this window — drift is indicative, not comparable to 373 m val runs).
 
@@ -76,11 +75,11 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 
 ### Per-method notes (honest)
 
-- **RF2O** — best overall on Intel; range-flow dense constraint.
-- **Karto-Matcher** — robot-frame rolling map + adaptive search + Olson coarse BnB; **fr079 14.5%**, Intel **14.2%**; synthetic corridor ~102% (improved from ~124%, still honest negative).
+- **RF2O** — strong Intel baseline; range-flow dense constraint.
+- **Karto-Matcher** — robot-frame rolling map + Felzenszwalb EDT + tuned Olson BnB; fr079 **13.7%**, Intel **14.0%**; corridor **30.5%**.
 - **NDT-2D** — correspondence-free; competitive on real logs, weak on synthetic corridor.
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
-- **CSM** — DT + 3-level pyramid + robot-frame local map + **tuned Olson BnB** (64-node budget, finest-only refine, precomputed score lookup); fr079 **14.3%**, Intel **14.7%** (~5× faster than pre-tune); synthetic corridor **41%** (improved from ~102%, still behind PL-ICP/RF2O).
+- **CSM** — Felzenszwalb EDT + tuned Olson BnB; matches Karto on public fixtures; corridor **30.5%** (was 41% with chamfer).
 - **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~26 s (stamp-indexed map cache).
 - **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~2.3 min.
 - **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only.
@@ -121,7 +120,7 @@ Single fixture, all methods:
 ## 未確認 / 要確認項目
 
 - **MIT val** — only 33 frames; all drift values are indicative, not paper-grade.
-- **Karto-Matcher** — point-cache local map (not log-odds grid); Olson coarse BnB + coarse-to-fine refinement.
+- **Karto-Matcher** — point-cache local map (not log-odds grid); tuned Olson BnB (64-node, finest-only refine, score lookup).
 
 ## 次アクション
 

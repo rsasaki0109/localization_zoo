@@ -1,5 +1,7 @@
 #include "csm/csm.h"
 
+#include "common/felzenszwalb_edt.h"
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -181,47 +183,9 @@ CSMEstimator::Grid CSMEstimator::buildGrid(const std::vector<Eigen::Vector2d>& p
 
 void CSMEstimator::computeDistanceTransform(Grid* grid) const {
   if (grid == nullptr || grid->dist_m.empty()) return;
-  const int w = grid->width;
-  const int h = grid->height;
-  auto& d = grid->dist_m;
-
-  for (int y = 0; y < h; ++y) {
-    for (int x = 0; x < w; ++x) {
-      const size_t i = static_cast<size_t>(y * w + x);
-      float v = d[i];
-      if (x > 0) v = std::min(v, d[i - 1] + 1.f);
-      if (y > 0) v = std::min(v, d[i - static_cast<size_t>(w)] + 1.f);
-      if (x > 0 && y > 0) v = std::min(v, d[i - static_cast<size_t>(w) - 1] + 1.41421356f);
-      if (x + 1 < w && y > 0) {
-        v = std::min(v, d[i - static_cast<size_t>(w) + 1] + 1.41421356f);
-      }
-      d[i] = v;
-    }
-  }
-  for (int y = h - 1; y >= 0; --y) {
-    for (int x = w - 1; x >= 0; --x) {
-      const size_t i = static_cast<size_t>(y * w + x);
-      float v = d[i];
-      if (x + 1 < w) v = std::min(v, d[i + 1] + 1.f);
-      if (y + 1 < h) v = std::min(v, d[i + static_cast<size_t>(w)] + 1.f);
-      if (x + 1 < w && y + 1 < h) {
-        v = std::min(v, d[i + static_cast<size_t>(w) + 1] + 1.41421356f);
-      }
-      if (x > 0 && y + 1 < h) {
-        v = std::min(v, d[i + static_cast<size_t>(w) - 1] + 1.41421356f);
-      }
-      d[i] = v;
-    }
-  }
-
-  const float scale = static_cast<float>(grid->resolution);
-  for (float& v : d) {
-    if (v >= kDistInf * 0.5f) {
-      v = 5.f;
-    } else {
-      v *= scale;
-    }
-  }
+  common::felzenszwalbDistanceTransformMeters(grid->dist_m.data(), grid->width, grid->height,
+                                              static_cast<float>(grid->resolution), 0.f, kDistInf,
+                                              5.f);
 }
 
 void CSMEstimator::computeScoreGrid(Grid* grid) const {

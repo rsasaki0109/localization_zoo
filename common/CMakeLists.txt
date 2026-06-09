@@ -1,6 +1,7 @@
 add_library(localization_common
   src/math_utils.cpp
   src/io.cpp
+  src/felzenszwalb_edt.cpp
 )
 
 target_include_directories(localization_common PUBLIC
@@ -23,3 +24,7 @@ add_test(NAME common_math COMMAND test_common_math)
 add_executable(test_common_io test/test_io.cpp)
 target_link_libraries(test_common_io PRIVATE localization_common GTest::gtest_main)
 add_test(NAME common_io COMMAND test_common_io)
+
+add_executable(test_felzenszwalb_edt test/test_felzenszwalb_edt.cpp)
+target_link_libraries(test_felzenszwalb_edt PRIVATE localization_common GTest::gtest_main)
+add_test(NAME felzenszwalb_edt COMMAND test_felzenszwalb_edt)

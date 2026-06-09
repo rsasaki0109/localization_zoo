@@ -34,7 +34,7 @@
       "drift_pct": {
         "IDC": 15.271,
         "MbICP": 14.543,
-        "NDT-2D": 14.869,
+        "NDT-2D": 14.589,
         "PSM": 21.8,
         "Kinematic-ICP": 18.346,
         "Karto-Matcher": 13.957,
@@ -54,7 +54,7 @@
       "drift_pct": {
         "IDC": 27.737,
         "MbICP": 15.411,
-        "NDT-2D": 14.439,
+        "NDT-2D": 14.819,
         "PSM": 13.891,
         "Kinematic-ICP": 18.864,
         "Karto-Matcher": 13.737,
@@ -62,7 +62,7 @@
         "PL-ICP": 14.079,
         "RF2O": 15.374
       },
-      "best": "PSM"
+      "best": "Karto-Matcher"
     },
     {
       "id": "mit_val_33",
@@ -74,7 +74,7 @@
       "drift_pct": {
         "IDC": 29.512,
         "MbICP": 27.499,
-        "NDT-2D": 27.841,
+        "NDT-2D": 28.088,
         "PSM": 27.901,
         "Kinematic-ICP": 23.41,
         "Karto-Matcher": 28.11,
@@ -95,7 +95,7 @@
       "drift_pct": {
         "IDC": 42.599,
         "MbICP": 0.054,
-        "NDT-2D": 0.8,
+        "NDT-2D": 0.95,
         "PSM": 11.599,
         "Kinematic-ICP": 83.805,
         "Karto-Matcher": 30.53,
@@ -116,15 +116,15 @@
       "drift_pct": {
         "IDC": 48.125,
         "MbICP": 30.368,
-        "NDT-2D": 30.106,
+        "NDT-2D": 29.08,
         "PSM": 29.565,
         "Kinematic-ICP": 46.412,
-        "Karto-Matcher": 30.23,
-        "CSM": 30.23,
+        "Karto-Matcher": 30.229,
+        "CSM": 30.229,
         "PL-ICP": 30.621,
         "RF2O": 29.484
       },
-      "best": "RF2O",
+      "best": "NDT-2D",
       "note": "Longer MIT window (Bonn train, first 120 frames)."
     },
     {
@@ -137,11 +137,11 @@
       "drift_pct": {
         "IDC": 41.909,
         "MbICP": 23.418,
-        "NDT-2D": 20.52,
+        "NDT-2D": 18.0,
         "PSM": 23.7,
         "Kinematic-ICP": 25.425,
-        "Karto-Matcher": 21.47,
-        "CSM": 21.47,
+        "Karto-Matcher": 21.475,
+        "CSM": 21.475,
         "PL-ICP": 19.622,
         "RF2O": 17.546
       },
@@ -158,15 +158,15 @@
       "drift_pct": {
         "IDC": 98.49,
         "MbICP": 7.477,
-        "NDT-2D": 16.962,
+        "NDT-2D": 1.263,
         "PSM": 63.677,
         "Kinematic-ICP": 11.021,
-        "Karto-Matcher": 40.31,
-        "CSM": 40.31,
+        "Karto-Matcher": 40.314,
+        "CSM": 40.314,
         "PL-ICP": 29.365,
         "RF2O": 30.291
       },
-      "best": "MbICP",
+      "best": "NDT-2D",
       "note": "Bonn fr079 train, first 200 frames (~27 m GT length \u2014 short window, indicative drift)."
     },
     {
@@ -179,7 +179,7 @@
       "drift_pct": {
         "IDC": 46.363,
         "MbICP": 10.428,
-        "NDT-2D": 10.285,
+        "NDT-2D": 8.782,
         "PSM": 72.203,
         "Kinematic-ICP": 10.716,
         "Karto-Matcher": 17.624,
@@ -187,7 +187,7 @@
         "PL-ICP": 9.222,
         "RF2O": 10.593
       },
-      "best": "PL-ICP",
+      "best": "NDT-2D",
       "note": "Bonn fr079 train, first 1200 frames (~150 m \u2014 comparable to MIT/Intel train windows)."
     }
   ]

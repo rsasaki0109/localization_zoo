@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (NDT-2D local map P13)**
+> **最終更新: 2026-06-10 (NDT-2D pyramid P14)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -737,7 +737,20 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - **未実装**: occupancy/co-occurrence matrix、local map
 - **状態**: ✅ push 済 (`709d25c`)
 
-**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は NDT local map 後の drift 安定性 watch、または NDT pyramid/outlier trimming。
+**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は NDT outlier trimming、または IDC/PSM local map。
+
+---
+
+### 00.6c-48 NDT-2D pyramid (2026-06-10, P14)
+
+- ✅ **3-level multi-resolution pyramid** — coarse→fine Gauss-Newton with `pyramid_scale=1.5`
+- ✅ harness 有効化 (`runNDT2D`: `pyramid_levels=3`, `pyramid_scale=1.5`)
+- ✅ **Public benchmark (pyramid + local map)**:
+  - Intel **14.6%** / fr079 val **14.8%** / MIT **28.1%** / corridor **1.0%**
+  - `fr079_train_1200` **8.8%** (was **10.3%** P13) / `intel_train_150` **18.0%** (was 20.5%) / `mit_train_120` **29.1%** (best)
+- ✅ **所見 (honest)**: mild 1.5× scale fixes long-window drift; aggressive 2× scale regressed `fr079_train_1200` to ~14%. Val fr079/corridor ~flat vs P13.
+- **未実装**: outlier trimming
+- **状態**: 実装済
 
 ---
 
@@ -748,7 +761,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **Public benchmark (local map)**:
   - Intel **14.9%** (was 14.8%) / fr079 **14.4%** (was **21.8%**) / MIT **27.8%** (was 29.2%) / corridor **0.8%** (was **22.3%**)
 - ✅ **所見 (honest)**: local map は fr079 val + corridor で大幅改善。Intel は横ばい。`fr079_train_1200` は scan-to-scan 7.4% → **10.3%** (微悪化)。
-- **未実装**: multi-resolution pyramid、outlier trimming
+- **未実装**: outlier trimming
 - **状態**: 実装済
 
 ---
@@ -977,6 +990,7 @@ README.md (1-screen 概要)
 | **P11** | Felzenszwalb EDT (CSM + Karto) | ✅ `common/felzenszwalb_edt`; Intel **14.0%**, fr079 **13.7%**, corridor **30.5%** (was 41%); `fr079_train_200` regressed (indicative) |
 | **P12** | fr079_train 更長 window | ✅ `fr079_train_1200` (~150 m); CSM/Karto **17.6%** (vs 40% on 200f); CI long smoke uses 1200 fixture |
 | **P13** | NDT-2D robot-frame local map | ✅ voxel merge + radius prune; fr079 **14.4%** (was 21.8%), corridor **0.8%** (was 22.3%); Intel **14.9%** |
+| **P14** | NDT-2D multi-resolution pyramid | ✅ 3-level coarse→fine (scale **1.5**); `fr079_train_1200` **8.8%** (was 10.3%); `mit_train_120` **29.1%** (best) |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

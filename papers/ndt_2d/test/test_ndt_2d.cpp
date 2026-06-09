@@ -107,6 +107,7 @@ TEST(NDT2D, RobotFrameLocalMapTracksTranslation) {
   params.use_local_map = true;
   params.local_map_radius = 20.0;
   params.local_map_voxel_size = 0.15;
+  params.pyramid_levels = 3;
   NDT2DEstimator est(params);
   est.registerScan(makeBoxScan(0, 0, 0));
   for (int i = 1; i <= 10; ++i) {
@@ -116,4 +117,34 @@ TEST(NDT2D, RobotFrameLocalMapTracksTranslation) {
   const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(2.0, 0)).norm();
   EXPECT_LT(err, 0.35);
   EXPECT_GT(est.mapSize(), 50u);
+}
+
+TEST(NDT2D, PyramidCoarseToFineTranslation) {
+  NDT2DParams params;
+  params.cell_size = 0.4;
+  params.pyramid_levels = 3;
+  params.use_local_map = true;
+  params.local_map_radius = 20.0;
+  NDT2DEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 15; ++i) {
+    const auto res = est.registerScan(makeBoxScan(i * 0.25, 0, 0));
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(3.75, 0)).norm();
+  EXPECT_LT(err, 0.5);
+}
+
+TEST(NDT2D, SingleLevelPyramidMatchesLegacyPath) {
+  NDT2DParams params;
+  params.cell_size = 0.4;
+  params.pyramid_levels = 1;
+  NDT2DEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 5; ++i) {
+    const auto res = est.registerScan(makeBoxScan(i * 0.2, 0, 0));
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(1.0, 0)).norm();
+  EXPECT_LT(err, 0.35);
 }

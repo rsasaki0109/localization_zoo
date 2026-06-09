@@ -6,9 +6,9 @@ Metrics: **ATE [m]** and **Drift [%]** (KITTI-style RPE over a segment scaled to
 ## 結論
 
 Nine from-paper / extension 2D odometry ports (papers 43–50 + Karto-style map matcher) share one harness.
-**No single method wins every fixture** — CSM/Karto lead Intel (Felzenszwalb EDT), PSM leads fr079 val, Kinematic-ICP leads the short MIT
-window, and PL-ICP leads the synthetic corridor.
-**NDT-2D** — robot-frame rolling local map; **Intel 14.9%**, fr079 **14.4%** (was 21.8% scan-to-scan), corridor **0.8%** (was 22.3%).
+**No single method wins every fixture** — CSM/Karto lead Intel val (Felzenszwalb EDT), PSM leads fr079 val, Kinematic-ICP leads the short MIT
+window, PL-ICP leads the synthetic corridor, and **NDT-2D leads long train windows** (`fr079_train_1200` **8.8%**, `mit_train_120` **29.1%**).
+**NDT-2D** — 3-level pyramid (scale 1.5) + robot-frame local map; **Intel 14.6%**, fr079 val **14.8%**, corridor **1.0%**; long train **`fr079_train_1200` 8.8%** (was 10.3% local-map-only).
 **CSM / Karto-Matcher** — Felzenszwalb EDT + tuned Olson BnB; **Intel 14.0%**, fr079 **13.7%**, corridor **30.5%**.
 
 ## Leaderboard (drift % — lower is better)
@@ -20,7 +20,7 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 | | | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
 | 43 | **RF2O** | ICRA 2016 | **14.3** | 15.4 | 27.6 | 1.3 |
 | — | **Karto-Matcher** | Olson/Karto ext. | **14.0** | **13.7** | 28.1 | 30.5 |
-| 48 | **NDT-2D** | IROS 2003 | 14.9 | **14.4** | 27.8 | **0.8** |
+| 48 | **NDT-2D** | IROS 2003 | 14.6 | 14.8 | 28.1 | 1.0 |
 | 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
 | 45 | **CSM** | ICRA 2009 | **14.0** | **13.7** | 28.1 | 30.5 |
 | 50 | **MbICP** | ICRA 2005 | 14.5 | 15.4 | 27.5 | **0.05** |
@@ -35,10 +35,10 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 
 | Fixture | Frames | Traj [m] | Best | RF2O | PL-ICP | CSM | Karto | MbICP | NDT-2D |
 |---------|--------|----------|------|-----:|-------:|----:|------:|------:|-------:|
-| `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 30.2% | 30.2% | 30.4% | 30.1% |
-| `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 21.5% | 21.5% | 23.4% | 20.5% |
-| `fr079_train_1200` | 1200 | 150 | PL-ICP | 10.6% | **9.2%** | 17.6% | 17.6% | 10.4% | 10.3% |
-| `fr079_train_200` | 200 | 27 | MbICP | 30.3% | 29.4% | 40.3% | 40.3% | **7.5%** | 17.0% |
+| `mit_train_120` | 120 | 150 | **NDT-2D** | 29.5% | 30.6% | 30.2% | 30.2% | 30.4% | **29.1%** |
+| `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 21.5% | 21.5% | 23.4% | 18.0% |
+| `fr079_train_1200` | 1200 | 150 | **NDT-2D** | 10.6% | 9.2% | 17.6% | 17.6% | 10.4% | **8.8%** |
+| `fr079_train_200` | 200 | 27 | **NDT-2D*** | 30.3% | 29.4% | 40.3% | 40.3% | 7.5% | **1.3%** |
 
 Note: `fr079_train_200` covers only ~27 m at the start of Bonn fr079 **train** (slow initial motion) — drift is **not comparable** to val or `fr079_train_1200`. Prefer **`fr079_train_1200`** (~150 m, aligned with MIT/Intel train windows).
 
@@ -79,7 +79,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 
 - **RF2O** — strong Intel baseline; range-flow dense constraint.
 - **Karto-Matcher** — robot-frame rolling map + Felzenszwalb EDT + tuned Olson BnB; fr079 **13.7%**, Intel **14.0%**; corridor **30.5%**.
-- **NDT-2D** — robot-frame rolling local map + correspondence-free NDT score; fr079 **14.4%** (was 21.8%), corridor **0.8%** (was 22.3%); Intel **14.9%**.
+- **NDT-2D** — 3-level pyramid (scale 1.5) + robot-frame local map; **`fr079_train_1200` 8.8%** (was 10.3% local-map-only); Intel **14.6%**; fr079 val **14.8%**; corridor **1.0%**.
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
 - **CSM** — Felzenszwalb EDT + tuned Olson BnB; matches Karto on public fixtures; corridor **30.5%** (was 41% with chamfer).
 - **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~26 s (stamp-indexed map cache).
@@ -127,5 +127,5 @@ Single fixture, all methods:
 
 ## 次アクション
 
-1. Watch drift stability after NDT local map + Felzenszwalb EDT changes.
-2. Optional: NDT multi-resolution pyramid / outlier trimming.
+1. NDT outlier trimming (optional).
+2. IDC / PSM robot-frame local map.

@@ -676,6 +676,8 @@ MethodResult runNDT2D(const std::vector<fs::path>& frames, const ScanMeta& meta,
   params.use_local_map = true;
   params.local_map_radius = 15.0;
   params.local_map_voxel_size = 0.15;
+  params.pyramid_levels = 3;
+  params.pyramid_scale = 1.5;
   NDT2DEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
@@ -698,7 +700,7 @@ MethodResult runNDT2D(const std::vector<fs::path>& frames, const ScanMeta& meta,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "2D NDT scan matching with robot-frame rolling local map (Biber & Straßer IROS 2003, simplified port).";
+      "2D NDT scan matching with 3-level pyramid (scale 1.5) + robot-frame rolling local map (Biber & Straßer IROS 2003, simplified port).";
   return res;
 }
 

@@ -8,7 +8,7 @@ Metrics: **ATE [m]** and **Drift [%]** (KITTI-style RPE over a segment scaled to
 Nine from-paper / extension 2D odometry ports (papers 43–50 + Karto-style map matcher) share one harness.
 **No single method wins every fixture** — RF2O leads Intel, PSM leads fr079, Kinematic-ICP leads the short MIT
 window, and PL-ICP dominates the synthetic corridor. **Karto-Matcher** (rolling local map + correlative search)
-improves over scan-to-scan CSM on real Bonn logs (Intel 15.2%, fr079 **14.8%**) but remains weak on the
+improves over scan-to-scan CSM on real Bonn logs (Intel 15.1%, fr079 **14.7%**) but remains weak on the
 synthetic slow-motion corridor (honest negative, like CSM).
 
 ## Leaderboard (drift % — lower is better)
@@ -19,7 +19,7 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 |---|--------|-------|----------:|----------:|--------:|---------------:|
 | | | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
 | 43 | **RF2O** | ICRA 2016 | **14.3** | 15.4 | 27.6 | 1.3 |
-| — | **Karto-Matcher** | Olson/Karto ext. | 15.2 | 14.8 | 28.2 | 96.9 |
+| — | **Karto-Matcher** | Olson/Karto ext. | 15.1 | 14.7 | 29.1 | 123.8 |
 | 48 | **NDT-2D** | IROS 2003 | 14.8 | 21.8 | 29.2 | 22.3 |
 | 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
 | 45 | **CSM** | ICRA 2009 | 16.0 | 20.6 | 29.2 | 73.3 |
@@ -58,7 +58,7 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 ### Per-method notes (honest)
 
 - **RF2O** — best overall on Intel; range-flow dense constraint.
-- **Karto-Matcher** — rolling local map + DT correlative search; **fr079 14.8%** (2nd to PSM), Intel mid-pack; synthetic corridor ~97% (map drift on slow box motion).
+- **Karto-Matcher** — rolling local map + Olson coarse BnB; **fr079 14.7%** (2nd to PSM), Intel mid-pack; synthetic corridor ~124% (map drift on slow box motion).
 - **NDT-2D** — correspondence-free; competitive on real logs, weak on synthetic corridor.
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
 - **CSM** — DT + 3-level pyramid (2026-06 refresh); fr079 38.9% → 20.6%, corridor still ~73%.
@@ -102,9 +102,9 @@ Single fixture, all methods:
 ## 未確認 / 要確認項目
 
 - **MIT val** — only 33 frames; all drift values are indicative, not paper-grade.
-- **Karto-Matcher** — point-cache local map (not log-odds grid); branch-and-bound not yet ported (coarse-to-fine search like CSM).
+- **Karto-Matcher** — point-cache local map (not log-odds grid); Olson coarse BnB + coarse-to-fine refinement.
 
 ## 次アクション
 
-1. Port Olson branch-and-bound kernel bounds for wider search without brute force.
-2. Find a longer MIT/Bonn validation window for less fragile ranking.
+1. Find a longer MIT/Bonn validation window for less fragile ranking.
+2. MbICP robot-frame map cache for harness local-map enablement.

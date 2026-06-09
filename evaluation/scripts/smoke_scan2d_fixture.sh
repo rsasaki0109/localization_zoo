@@ -14,7 +14,7 @@ if [[ ! -x "${BIN}" ]]; then
   exit 1
 fi
 
-METHODS=(rf2o pl_icp psm ndt_2d idc mb_icp kinematic_icp csm)
+METHODS=(rf2o pl_icp psm ndt_2d idc mb_icp kinematic_icp csm karto_matcher)
 
 for m in "${METHODS[@]}"; do
   echo "=== CI scan2d / ${m} ==="

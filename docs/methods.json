@@ -154,6 +154,22 @@
       ]
     },
     {
+      "name": "Karto-Matcher",
+      "family": "2D Odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "2D LiDAR"
+      ],
+      "href": "papers/karto_matcher",
+      "summary": "Map-based correlative scan matching for 2D laser odometry using a rolling local occupancy map and multi-resolution distance-transform scoring (Olson ICRA 2009 / Karto-style extension).",
+      "tags": [
+        "odometry",
+        "2d-lidar",
+        "scan-matching",
+        "local-map"
+      ]
+    },
+    {
       "name": "MbICP",
       "family": "2D Odometry",
       "scope": "Paper reimplementation",

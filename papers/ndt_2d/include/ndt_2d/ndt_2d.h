@@ -35,6 +35,8 @@ struct NDT2DParams {
   bool use_local_map = false;
   double local_map_radius = 15.0;
   double local_map_voxel_size = 0.15;
+  int pyramid_levels = 3;
+  double pyramid_scale = 1.5;
 };
 
 struct NDT2DResult {
@@ -68,8 +70,14 @@ class NDT2DEstimator {
 
   using CellMap = std::unordered_map<int64_t, Cell>;
 
+  struct NDTMap {
+    CellMap cells;
+    Eigen::Vector2d origin = Eigen::Vector2d::Zero();
+  };
+
   int64_t cellKey(int ix, int iy) const;
-  void cellIndex(const Eigen::Vector2d& p, int* ix, int* iy) const;
+  void cellIndex(const Eigen::Vector2d& p, const Eigen::Vector2d& map_origin, double cell_size,
+                 int* ix, int* iy) const;
   static int64_t voxelKey(double x, double y, double voxel_size);
 
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
@@ -77,20 +85,27 @@ class NDT2DEstimator {
   void addScanToLocalMap(const std::vector<Eigen::Vector2d>& points);
   void transformRobotMap(const Eigen::Matrix3d& inv_increment);
   void pruneLocalMap();
-  CellMap buildNDTMap(const std::vector<Eigen::Vector2d>& points);
-  const Cell* lookupCell(const CellMap& map, const Eigen::Vector2d& p) const;
-  bool solveIncrement(const std::vector<Eigen::Vector2d>& current,
-                      const CellMap& map, const Eigen::Matrix3d& transform,
-                      Eigen::Matrix3d* increment, double* score) const;
+  NDTMap buildNDTMap(const std::vector<Eigen::Vector2d>& points, double cell_size) const;
+  const Cell* lookupCell(const CellMap& map, const Eigen::Vector2d& p,
+                         const Eigen::Vector2d& map_origin, double cell_size) const;
+  bool solveIncrement(const std::vector<Eigen::Vector2d>& current, const CellMap& map,
+                      const Eigen::Matrix3d& transform, const Eigen::Vector2d& map_origin,
+                      double cell_size, Eigen::Matrix3d* increment, double* score) const;
+  bool solveGaussNewton(const std::vector<Eigen::Vector2d>& current, const NDTMap& map,
+                        double cell_size, Eigen::Matrix3d* estimate, int max_iterations,
+                        int* iterations, double* score) const;
+  bool solveWithPyramid(const std::vector<Eigen::Vector2d>& current,
+                        const std::vector<Eigen::Vector2d>& ref_points,
+                        Eigen::Matrix3d* estimate, int* iterations, double* score) const;
   static Eigen::Vector2d transformPoint(const Eigen::Matrix3d& T,
                                         const Eigen::Vector2d& p);
 
   NDT2DParams params_;
   bool initialized_ = false;
   std::vector<Eigen::Vector2d> local_points_;
+  std::vector<Eigen::Vector2d> ref_points_;
   std::unordered_map<int64_t, size_t> point_voxels_;
-  CellMap ref_map_;
-  Eigen::Vector2d map_origin_ = Eigen::Vector2d::Zero();
+  NDTMap ref_map_;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

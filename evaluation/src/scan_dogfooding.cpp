@@ -618,6 +618,9 @@ MethodResult runMbICP(const std::vector<fs::path>& frames, const ScanMeta& meta,
   params.metric_radius = 1.0;
   params.max_neighbor_gap = 2.0;
   params.trim_fraction = 0.9;
+  params.use_local_map = true;
+  params.local_map_radius = 15.0;
+  params.local_map_voxel_size = 0.15;
   MbICPEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
@@ -640,7 +643,7 @@ MethodResult runMbICP(const std::vector<fs::path>& frames, const ScanMeta& meta,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Metric-based ICP 2D odometry (Minguez-Lamiraux-Montesano ICRA 2005, simplified port).";
+      "Metric-based ICP 2D odometry with robot-frame rolling local map (Minguez-Lamiraux-Montesano ICRA 2005, simplified port).";
   return res;
 }
 

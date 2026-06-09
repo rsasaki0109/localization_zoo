@@ -23,8 +23,8 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 | 48 | **NDT-2D** | IROS 2003 | 14.8 | 21.8 | 29.2 | 22.3 |
 | 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
 | 45 | **CSM** | ICRA 2009 | 16.0 | 20.6 | 29.2 | 73.3 |
-| 44 | **PL-ICP** | IROS 2008 | 16.9 | 41.0 | 30.3 | **0.4** |
-| 50 | **MbICP** | ICRA 2005 | 17.1 | 16.6 | 27.3 | 0.5 |
+| 50 | **MbICP** | ICRA 2005 | 14.5 | 15.4 | 27.5 | **0.05** |
+| 44 | **PL-ICP** | IROS 2008 | 16.9 | 41.0 | 30.3 | 0.4 |
 | 46 | **Kinematic-ICP** | ICRA 2025 | 18.4 | 18.9 | **23.4** | 83.8 |
 | 47 | **PSM** | ICRA 2003 | 21.8 | **13.9** | 27.9 | 11.6 |
 
@@ -63,7 +63,7 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
 - **CSM** — DT + 3-level pyramid (2026-06 refresh); fr079 38.9% → 20.6%, corridor still ~73%.
 - **PL-ICP** — corridor winner; scan-to-scan ICP drifts on long public logs.
-- **MbICP** — config-space metric ICP; good fr079/MIT balance and near-PL-ICP corridor behavior.
+- **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~9 min.
 - **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only.
 - **PSM** — best fr079 drift; polar profile matching is dataset-dependent.
 

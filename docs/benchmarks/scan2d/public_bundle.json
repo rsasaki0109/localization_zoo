@@ -38,7 +38,7 @@
         "IDC": 15.271,
         "CSM": 15.973,
         "PL-ICP": 16.922,
-        "MbICP": 17.069,
+        "MbICP": 14.543,
         "Kinematic-ICP": 18.346,
         "PSM": 21.800
       },
@@ -55,7 +55,7 @@
         "PSM": 13.891,
         "Karto-Matcher": 14.662,
         "RF2O": 15.374,
-        "MbICP": 16.550,
+        "MbICP": 15.411,
         "Kinematic-ICP": 18.864,
         "CSM": 20.621,
         "NDT-2D": 21.790,
@@ -73,7 +73,7 @@
       "artifact": "docs/benchmarks/scan2d/mit_val_33.json",
       "drift_pct": {
         "Kinematic-ICP": 23.410,
-        "MbICP": 27.325,
+        "MbICP": 27.499,
         "RF2O": 27.623,
         "PSM": 27.901,
         "NDT-2D": 29.162,
@@ -94,7 +94,7 @@
       "artifact": "docs/benchmarks/scan2d/rf2o_corridor.json",
       "drift_pct": {
         "PL-ICP": 0.380,
-        "MbICP": 0.456,
+        "MbICP": 0.054,
         "RF2O": 1.276,
         "PSM": 11.599,
         "NDT-2D": 22.319,
@@ -103,7 +103,7 @@
         "Kinematic-ICP": 83.805,
         "Karto-Matcher": 123.833
       },
-      "best": "PL-ICP",
+      "best": "MbICP",
       "note": "Slow-motion box-world raycast; not a real hallway."
     }
   ]

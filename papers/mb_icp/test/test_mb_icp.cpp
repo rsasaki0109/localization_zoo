@@ -108,3 +108,19 @@ TEST(MbICP, LocalMapAccumulatesFeatures) {
   }
   EXPECT_GT(est.mapSize(), 100u);
 }
+
+TEST(MbICP, RobotFrameLocalMapTracksTranslation) {
+  MbICPParams params;
+  params.max_metric_distance = 1.5;
+  params.metric_radius = 2.0;
+  params.use_local_map = true;
+  params.local_map_radius = 20.0;
+  MbICPEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 5; ++i) {
+    const auto res = est.registerScan(makeBoxScan(i * 0.2, 0, 0));
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(1.0, 0)).norm();
+  EXPECT_LT(err, 0.35);
+}

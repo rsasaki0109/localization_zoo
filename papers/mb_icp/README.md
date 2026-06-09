@@ -15,14 +15,24 @@ Displacement Estimation** by Minguez, Lamiraux, and Montesano (ICRA 2005 / T-RO 
 
 ## Simplifications
 
-- Default harness path: scan-to-scan against the previous scan only.
-- Optional rolling local map via `MbICPParams::use_local_map` with grid-indexed correspondence search.
-  Offline smoke (Intel 7s / fr079 ~5min): drift improves to ~14% on Intel/fr079 vs ~17%/16.6% scan-to-scan,
-  but the canonical harness keeps scan-to-scan for CI latency until robot-frame map caching lands.
+- Optional rolling local map via `MbICPParams::use_local_map`.
+- **Robot-frame map cache** (2026-06): the local map is stored in the current robot frame,
+  updated by `inv(increment)` after each registration instead of re-transforming world points
+  every frame. A grid index is rebuilt once per map update.
+- Default harness enables local map (`use_local_map=true`) for drift gains on real logs.
 - Visibility rejection and range-based outlier tests are approximated by metric distance gating
   plus trimming.
 - The exact point-to-segment metric derivation is approximated by projecting onto scan segments
   and evaluating the metric at the projected reference point.
+
+## Local map benchmark (robot-frame cache, Intel 73f / fr079 384f)
+
+| Mode | Intel drift | fr079 drift | Intel time |
+|------|------------:|------------:|-----------:|
+| scan-to-scan | 17.1% | 16.6% | ~1s |
+| local map + cache | **14.5%** | **15.4%** | ~22s |
+
+Corridor synthetic: **0.05%** drift with local map. fr079 384f takes ~9 min — heavy for full benchmark refresh.
 
 ## Benchmark status
 

@@ -100,3 +100,26 @@ TEST(CSM, LocalMapAccumulatesFeatures) {
   }
   EXPECT_GT(est.mapSize(), after_first);
 }
+
+TEST(CSM, BranchAndBoundMatchesBruteForceOnTranslation) {
+  CSMParams bnb_params;
+  bnb_params.search_xy_range = 0.4;
+  bnb_params.use_branch_and_bound = true;
+  CSMParams brute_params = bnb_params;
+  brute_params.use_branch_and_bound = false;
+
+  CSMEstimator bnb(bnb_params);
+  CSMEstimator brute(brute_params);
+  bnb.registerScan(makeBoxScan(0, 0, 0));
+  brute.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 3; ++i) {
+    const auto scan = makeBoxScan(0.25 * i, 0, 0);
+    const auto bnb_res = bnb.registerScan(scan);
+    const auto brute_res = brute.registerScan(scan);
+    EXPECT_TRUE(bnb_res.valid);
+    EXPECT_TRUE(brute_res.valid);
+  }
+  const double err =
+      (bnb.pose().block<2, 1>(0, 2) - brute.pose().block<2, 1>(0, 2)).norm();
+  EXPECT_LT(err, 0.4);
+}

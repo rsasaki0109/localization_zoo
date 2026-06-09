@@ -26,10 +26,6 @@ struct CSMParams {
   int pyramid_levels = 3;
   double search_xy_range = 0.6;
   double search_yaw_range = 0.15;
-  int coarse_xy_steps = 13;
-  int coarse_yaw_steps = 13;
-  int fine_xy_steps = 7;
-  int fine_yaw_steps = 7;
   double score_sigma = 0.15;
   double min_range = 0.1;
   double max_range = 30.0;
@@ -37,6 +33,17 @@ struct CSMParams {
   bool use_local_map = false;
   double local_map_radius = 15.0;
   double local_map_voxel_size = 0.15;
+  bool use_branch_and_bound = true;
+  double bnb_min_xy = 0.04;
+  double bnb_min_yaw = 0.02;
+  int leaf_xy_steps = 3;
+  int leaf_yaw_steps = 3;
+  int bnb_max_nodes = 128;
+  /// Brute-force fallback (when use_branch_and_bound = false).
+  int coarse_xy_steps = 13;
+  int coarse_yaw_steps = 13;
+  int fine_xy_steps = 7;
+  int fine_yaw_steps = 7;
 };
 
 struct CSMResult {
@@ -66,8 +73,20 @@ class CSMEstimator {
     int height = 0;
     double origin_x = 0.0;
     double origin_y = 0.0;
-    /// Distance to nearest occupied cell [m] after distance transform.
     std::vector<float> dist_m;
+    std::vector<float> score;
+    std::vector<float> bound;
+  };
+
+  struct SearchNode {
+    double dx = 0.0;
+    double dy = 0.0;
+    double dt = 0.0;
+    double wx = 0.0;
+    double wy = 0.0;
+    double wt = 0.0;
+    int level = 0;
+    double bound = 0.0;
   };
 
   static int64_t voxelKey(double x, double y, double voxel_size);
@@ -79,14 +98,32 @@ class CSMEstimator {
   void pruneMap();
   Grid buildGrid(const std::vector<Eigen::Vector2d>& points, double resolution) const;
   void computeDistanceTransform(Grid* grid) const;
+  void computeScoreGrid(Grid* grid) const;
+  void downsampleGrid(const Grid& fine, Grid* coarse) const;
+  void computeBoundFromFiner(const Grid& fine, Grid* coarse) const;
   std::vector<Grid> buildPyramid(const std::vector<Eigen::Vector2d>& points) const;
   double scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
                    const Eigen::Matrix3d& increment) const;
-  Eigen::Matrix3d searchBestTransform(const std::vector<Grid>& pyramid,
-                                      const std::vector<Eigen::Vector2d>& points,
-                                      const Eigen::Matrix3d& prior, double xy_range,
-                                      double yaw_range) const;
   double lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p) const;
+  double lookupBound(const Grid& grid, int x, int y) const;
+  double nodeUpperBound(const Grid& grid, const SearchNode& node,
+                        const std::vector<Eigen::Vector2d>& points,
+                        const Eigen::Matrix3d& base_increment) const;
+  Eigen::Matrix3d searchBranchAndBound(const std::vector<Grid>& pyramid,
+                                       const std::vector<Eigen::Vector2d>& points,
+                                       const Eigen::Matrix3d& prior, double xy_range,
+                                       double yaw_range) const;
+  Eigen::Matrix3d searchBranchAndBoundAtLevel(const Grid& grid, int level,
+                                              const std::vector<Eigen::Vector2d>& points,
+                                              const Eigen::Matrix3d& center_increment,
+                                              double xy_range, double yaw_range) const;
+  Eigen::Matrix3d refineAtLevel(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
+                                const Eigen::Matrix3d& center_increment, int level, int finest,
+                                double xy_range, double yaw_range) const;
+  Eigen::Matrix3d searchBestTransformBruteForce(const std::vector<Grid>& pyramid,
+                                                const std::vector<Eigen::Vector2d>& points,
+                                                const Eigen::Matrix3d& prior, double xy_range,
+                                                double yaw_range) const;
 
   CSMParams params_;
   bool initialized_ = false;

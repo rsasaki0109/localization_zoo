@@ -1,8 +1,10 @@
 #include "csm/csm.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <limits>
+#include <queue>
 
 namespace localization_zoo {
 namespace csm {
@@ -222,18 +224,79 @@ void CSMEstimator::computeDistanceTransform(Grid* grid) const {
   }
 }
 
+void CSMEstimator::computeScoreGrid(Grid* grid) const {
+  if (grid == nullptr || grid->dist_m.empty()) return;
+  const double inv_sigma2 = 1.0 / (params_.score_sigma * params_.score_sigma);
+  grid->score.resize(grid->dist_m.size());
+  for (size_t i = 0; i < grid->dist_m.size(); ++i) {
+    const double d = static_cast<double>(grid->dist_m[i]);
+    grid->score[i] = static_cast<float>(std::exp(-d * d * inv_sigma2));
+  }
+}
+
+void CSMEstimator::downsampleGrid(const Grid& fine, Grid* coarse) const {
+  if (coarse == nullptr) return;
+  coarse->resolution = fine.resolution * 2.0;
+  coarse->origin_x = fine.origin_x;
+  coarse->origin_y = fine.origin_y;
+  coarse->width = std::max(1, (fine.width + 1) / 2);
+  coarse->height = std::max(1, (fine.height + 1) / 2);
+  coarse->dist_m.assign(static_cast<size_t>(coarse->width * coarse->height), kDistInf);
+
+  for (int y = 0; y < coarse->height; ++y) {
+    for (int x = 0; x < coarse->width; ++x) {
+      float min_dist = kDistInf;
+      for (int dy = 0; dy < 2; ++dy) {
+        for (int dx = 0; dx < 2; ++dx) {
+          const int fx = 2 * x + dx;
+          const int fy = 2 * y + dy;
+          if (fx >= fine.width || fy >= fine.height) continue;
+          min_dist = std::min(
+              min_dist, fine.dist_m[static_cast<size_t>(fy * fine.width + fx)]);
+        }
+      }
+      coarse->dist_m[static_cast<size_t>(y * coarse->width + x)] = min_dist;
+    }
+  }
+}
+
+void CSMEstimator::computeBoundFromFiner(const Grid& fine, Grid* coarse) const {
+  if (coarse == nullptr) return;
+  coarse->bound.assign(static_cast<size_t>(coarse->width * coarse->height), 0.f);
+  for (int y = 0; y < coarse->height; ++y) {
+    for (int x = 0; x < coarse->width; ++x) {
+      float max_bound = 0.f;
+      for (int dy = 0; dy < 2; ++dy) {
+        for (int dx = 0; dx < 2; ++dx) {
+          const int fx = 2 * x + dx;
+          const int fy = 2 * y + dy;
+          if (fx >= fine.width || fy >= fine.height) continue;
+          max_bound = std::max(
+              max_bound, fine.bound[static_cast<size_t>(fy * fine.width + fx)]);
+        }
+      }
+      coarse->bound[static_cast<size_t>(y * coarse->width + x)] = max_bound;
+    }
+  }
+}
+
 std::vector<CSMEstimator::Grid> CSMEstimator::buildPyramid(
     const std::vector<Eigen::Vector2d>& points) const {
   const int levels = std::max(1, params_.pyramid_levels);
-  std::vector<Grid> pyramid;
-  pyramid.reserve(static_cast<size_t>(levels));
-  for (int level = 0; level < levels; ++level) {
-    const int exponent = levels - 1 - level;
-    const double resolution = params_.grid_resolution * static_cast<double>(1 << exponent);
-    Grid grid = buildGrid(points, resolution);
-    computeDistanceTransform(&grid);
-    pyramid.push_back(std::move(grid));
+  std::vector<Grid> pyramid(static_cast<size_t>(levels));
+
+  pyramid[static_cast<size_t>(levels - 1)] = buildGrid(points, params_.grid_resolution);
+  computeDistanceTransform(&pyramid[static_cast<size_t>(levels - 1)]);
+  computeScoreGrid(&pyramid[static_cast<size_t>(levels - 1)]);
+  pyramid[static_cast<size_t>(levels - 1)].bound = pyramid[static_cast<size_t>(levels - 1)].score;
+
+  for (int level = levels - 2; level >= 0; --level) {
+    downsampleGrid(pyramid[static_cast<size_t>(level + 1)], &pyramid[static_cast<size_t>(level)]);
+    computeScoreGrid(&pyramid[static_cast<size_t>(level)]);
+    computeBoundFromFiner(pyramid[static_cast<size_t>(level + 1)],
+                          &pyramid[static_cast<size_t>(level)]);
   }
+
   return pyramid;
 }
 
@@ -259,6 +322,11 @@ double CSMEstimator::lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p)
   return d0 * (1.0 - ay) + d1 * ay;
 }
 
+double CSMEstimator::lookupBound(const Grid& grid, int x, int y) const {
+  if (x < 0 || y < 0 || x >= grid.width || y >= grid.height) return 0.0;
+  return static_cast<double>(grid.bound[static_cast<size_t>(y * grid.width + x)]);
+}
+
 double CSMEstimator::scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
                                const Eigen::Matrix3d& increment) const {
   if (points.empty()) return 0.0;
@@ -273,7 +341,179 @@ double CSMEstimator::scorePose(const Grid& grid, const std::vector<Eigen::Vector
   return score / static_cast<double>(points.size());
 }
 
-Eigen::Matrix3d CSMEstimator::searchBestTransform(
+double CSMEstimator::nodeUpperBound(const Grid& grid, const SearchNode& node,
+                                    const std::vector<Eigen::Vector2d>& points,
+                                    const Eigen::Matrix3d& base_increment) const {
+  if (points.empty() || grid.bound.empty()) return 0.0;
+
+  const Eigen::Matrix3d center_offset = matrixFromIncrement(node.dx, node.dy, node.dt);
+  const Eigen::Matrix3d center_increment = base_increment * center_offset;
+  const int trans_cells =
+      std::max(1, static_cast<int>(std::ceil((node.wx + node.wy) / grid.resolution)));
+
+  double sum = 0.0;
+  for (const auto& p : points) {
+    const Eigen::Vector2d q = transformPoint(center_increment, p);
+    const int cx = static_cast<int>(std::floor((q.x() - grid.origin_x) / grid.resolution));
+    const int cy = static_cast<int>(std::floor((q.y() - grid.origin_y) / grid.resolution));
+    const int rot_cells = static_cast<int>(std::ceil(p.norm() * node.wt / grid.resolution));
+    const int radius = trans_cells + rot_cells;
+
+    double point_bound = 0.0;
+    for (int y = cy - radius; y <= cy + radius; ++y) {
+      for (int x = cx - radius; x <= cx + radius; ++x) {
+        point_bound = std::max(point_bound, lookupBound(grid, x, y));
+      }
+    }
+    sum += point_bound;
+  }
+
+  return sum / static_cast<double>(points.size());
+}
+
+Eigen::Matrix3d CSMEstimator::refineAtLevel(const Grid& grid,
+                                            const std::vector<Eigen::Vector2d>& points,
+                                            const Eigen::Matrix3d& center_increment, int level,
+                                            int finest, double xy_range, double yaw_range) const {
+  const bool finest_level = (level == finest);
+  const double scale = finest_level ? 1.0 : static_cast<double>(1 << (finest - level));
+  const double level_xy_range = finest_level ? xy_range : xy_range / scale;
+  const double level_yaw_range = finest_level ? yaw_range : yaw_range / scale;
+  const int xy_steps = finest_level ? params_.fine_xy_steps : params_.coarse_xy_steps;
+  const int yaw_steps = finest_level ? params_.fine_yaw_steps : params_.coarse_yaw_steps;
+
+  const double xy_step =
+      xy_steps > 1 ? (2.0 * level_xy_range) / static_cast<double>(xy_steps - 1) : 0.0;
+  const double yaw_step =
+      yaw_steps > 1 ? (2.0 * level_yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
+
+  Eigen::Matrix3d best_offset = Eigen::Matrix3d::Identity();
+  double best_score = scorePose(grid, points, center_increment);
+
+  for (int iy = 0; iy < xy_steps; ++iy) {
+    const double dy = -level_xy_range + static_cast<double>(iy) * xy_step;
+    for (int ix = 0; ix < xy_steps; ++ix) {
+      const double dx = -level_xy_range + static_cast<double>(ix) * xy_step;
+      for (int it = 0; it < yaw_steps; ++it) {
+        const double dt = -level_yaw_range + static_cast<double>(it) * yaw_step;
+        const Eigen::Matrix3d offset = matrixFromIncrement(dx, dy, dt);
+        const Eigen::Matrix3d inc = center_increment * offset;
+        const double s = scorePose(grid, points, inc);
+        if (s > best_score) {
+          best_score = s;
+          best_offset = offset;
+        }
+      }
+    }
+  }
+
+  return center_increment * best_offset;
+}
+
+Eigen::Matrix3d CSMEstimator::searchBranchAndBoundAtLevel(
+    const Grid& grid, int /*level*/, const std::vector<Eigen::Vector2d>& points,
+    const Eigen::Matrix3d& center_increment, double xy_range, double yaw_range) const {
+  const Eigen::Matrix3d base_increment = center_increment;
+
+  double best_score = scorePose(grid, points, base_increment);
+  Eigen::Matrix3d best_offset = Eigen::Matrix3d::Identity();
+
+  struct QueueEntry {
+    SearchNode node;
+    bool operator<(const QueueEntry& other) const { return node.bound < other.node.bound; }
+  };
+
+  std::priority_queue<QueueEntry> queue;
+  SearchNode root{0.0, 0.0, 0.0, xy_range, xy_range, yaw_range, 0, 0.0};
+  root.bound = nodeUpperBound(grid, root, points, base_increment);
+  queue.push({root});
+
+  const auto isLeaf = [&](const SearchNode& node) {
+    return node.wx <= params_.bnb_min_xy && node.wy <= params_.bnb_min_xy &&
+           node.wt <= params_.bnb_min_yaw;
+  };
+
+  int expanded = 0;
+  while (!queue.empty() && expanded < params_.bnb_max_nodes) {
+    const SearchNode node = queue.top().node;
+    queue.pop();
+    ++expanded;
+
+    if (node.bound <= best_score) continue;
+
+    if (isLeaf(node)) {
+      const int xy_steps = std::max(1, params_.leaf_xy_steps);
+      const int yaw_steps = std::max(1, params_.leaf_yaw_steps);
+      const double xy_span = std::max(node.wx, params_.bnb_min_xy);
+      const double yaw_span = std::max(node.wt, params_.bnb_min_yaw);
+      const double xy_step =
+          xy_steps > 1 ? (2.0 * xy_span) / static_cast<double>(xy_steps - 1) : 0.0;
+      const double yaw_step =
+          yaw_steps > 1 ? (2.0 * yaw_span) / static_cast<double>(yaw_steps - 1) : 0.0;
+
+      for (int iy = 0; iy < xy_steps; ++iy) {
+        const double dy = node.dy - xy_span + static_cast<double>(iy) * xy_step;
+        for (int ix = 0; ix < xy_steps; ++ix) {
+          const double dx = node.dx - xy_span + static_cast<double>(ix) * xy_step;
+          for (int it = 0; it < yaw_steps; ++it) {
+            const double dt = node.dt - yaw_span + static_cast<double>(it) * yaw_step;
+            const Eigen::Matrix3d offset = matrixFromIncrement(dx, dy, dt);
+            const double s = scorePose(grid, points, base_increment * offset);
+            if (s > best_score) {
+              best_score = s;
+              best_offset = offset;
+            }
+          }
+        }
+      }
+      continue;
+    }
+
+    const double child_wx = node.wx * 0.5;
+    const double child_wy = node.wy * 0.5;
+    const double child_wt = node.wt * 0.5;
+    const std::array<double, 2> offsets = {-0.5, 0.5};
+
+    for (const double ox : offsets) {
+      for (const double oy : offsets) {
+        for (const double ot : offsets) {
+          SearchNode child;
+          child.dx = node.dx + ox * child_wx;
+          child.dy = node.dy + oy * child_wy;
+          child.dt = node.dt + ot * child_wt;
+          child.wx = child_wx;
+          child.wy = child_wy;
+          child.wt = child_wt;
+          child.bound = nodeUpperBound(grid, child, points, base_increment);
+          if (child.bound > best_score) {
+            queue.push({child});
+          }
+        }
+      }
+    }
+  }
+
+  return center_increment * best_offset;
+}
+
+Eigen::Matrix3d CSMEstimator::searchBranchAndBound(
+    const std::vector<Grid>& pyramid, const std::vector<Eigen::Vector2d>& points,
+    const Eigen::Matrix3d& prior, double xy_range, double yaw_range) const {
+  if (pyramid.empty()) return prior;
+
+  const int finest = static_cast<int>(pyramid.size()) - 1;
+  Eigen::Matrix3d best =
+      searchBranchAndBoundAtLevel(pyramid.front(), 0, points, prior, xy_range, yaw_range);
+
+  for (int level = 1; level <= finest; ++level) {
+    best = refineAtLevel(pyramid[static_cast<size_t>(level)], points, best, level, finest,
+                         xy_range, yaw_range);
+  }
+
+  return best;
+}
+
+Eigen::Matrix3d CSMEstimator::searchBestTransformBruteForce(
     const std::vector<Grid>& pyramid, const std::vector<Eigen::Vector2d>& points,
     const Eigen::Matrix3d& prior, double xy_range, double yaw_range) const {
   if (pyramid.empty()) return prior;
@@ -371,7 +611,9 @@ CSMResult CSMEstimator::registerScan(const LaserScan& scan) {
   }
 
   const Eigen::Matrix3d transform =
-      searchBestTransform(*pyramid, current, motion_prior, xy_range, yaw_range);
+      params_.use_branch_and_bound
+          ? searchBranchAndBound(*pyramid, current, motion_prior, xy_range, yaw_range)
+          : searchBestTransformBruteForce(*pyramid, current, motion_prior, xy_range, yaw_range);
   const double best_score =
       pyramid->empty() ? 0.0 : scorePose(pyramid->back(), current, transform);
 

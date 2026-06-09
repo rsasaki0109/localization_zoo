@@ -1,5 +1,7 @@
 #include "karto_matcher/karto_matcher.h"
 
+#include "common/felzenszwalb_edt.h"
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -153,47 +155,9 @@ KartoMatcherEstimator::Grid KartoMatcherEstimator::buildGrid(
 
 void KartoMatcherEstimator::computeDistanceTransform(Grid* grid) const {
   if (grid == nullptr || grid->dist_m.empty()) return;
-  const int w = grid->width;
-  const int h = grid->height;
-  auto& d = grid->dist_m;
-
-  for (int y = 0; y < h; ++y) {
-    for (int x = 0; x < w; ++x) {
-      const size_t i = static_cast<size_t>(y * w + x);
-      float v = d[i];
-      if (x > 0) v = std::min(v, d[i - 1] + 1.f);
-      if (y > 0) v = std::min(v, d[i - static_cast<size_t>(w)] + 1.f);
-      if (x > 0 && y > 0) v = std::min(v, d[i - static_cast<size_t>(w) - 1] + 1.41421356f);
-      if (x + 1 < w && y > 0) {
-        v = std::min(v, d[i - static_cast<size_t>(w) + 1] + 1.41421356f);
-      }
-      d[i] = v;
-    }
-  }
-  for (int y = h - 1; y >= 0; --y) {
-    for (int x = w - 1; x >= 0; --x) {
-      const size_t i = static_cast<size_t>(y * w + x);
-      float v = d[i];
-      if (x + 1 < w) v = std::min(v, d[i + 1] + 1.f);
-      if (y + 1 < h) v = std::min(v, d[i + static_cast<size_t>(w)] + 1.f);
-      if (x + 1 < w && y + 1 < h) {
-        v = std::min(v, d[i + static_cast<size_t>(w) + 1] + 1.41421356f);
-      }
-      if (x > 0 && y + 1 < h) {
-        v = std::min(v, d[i + static_cast<size_t>(w) - 1] + 1.41421356f);
-      }
-      d[i] = v;
-    }
-  }
-
-  const float scale = static_cast<float>(grid->resolution);
-  for (float& v : d) {
-    if (v >= kDistInf * 0.5f) {
-      v = 5.f;
-    } else {
-      v *= scale;
-    }
-  }
+  common::felzenszwalbDistanceTransformMeters(grid->dist_m.data(), grid->width, grid->height,
+                                              static_cast<float>(grid->resolution), 0.f, kDistInf,
+                                              5.f);
 }
 
 void KartoMatcherEstimator::computeScoreGrid(Grid* grid) const {
@@ -272,6 +236,35 @@ std::vector<KartoMatcherEstimator::Grid> KartoMatcherEstimator::buildPyramid(
   return pyramid;
 }
 
+double KartoMatcherEstimator::lookupScore(const Grid& grid,
+                                          const Eigen::Vector2d& p) const {
+  if (grid.score.empty()) {
+    const double d = lookupDistanceM(grid, p);
+    const double inv_sigma2 = 1.0 / (params_.score_sigma * params_.score_sigma);
+    return std::exp(-d * d * inv_sigma2);
+  }
+
+  const double fx = (p.x() - grid.origin_x) / grid.resolution - 0.5;
+  const double fy = (p.y() - grid.origin_y) / grid.resolution - 0.5;
+  const int x0 = static_cast<int>(std::floor(fx));
+  const int y0 = static_cast<int>(std::floor(fy));
+  const double ax = fx - static_cast<double>(x0);
+  const double ay = fy - static_cast<double>(y0);
+
+  auto sample = [&](int x, int y) -> double {
+    if (x < 0 || y < 0 || x >= grid.width || y >= grid.height) return 0.0;
+    return static_cast<double>(grid.score[static_cast<size_t>(y * grid.width + x)]);
+  };
+
+  const double s00 = sample(x0, y0);
+  const double s10 = sample(x0 + 1, y0);
+  const double s01 = sample(x0, y0 + 1);
+  const double s11 = sample(x0 + 1, y0 + 1);
+  const double s0 = s00 * (1.0 - ax) + s10 * ax;
+  const double s1 = s01 * (1.0 - ax) + s11 * ax;
+  return s0 * (1.0 - ay) + s1 * ay;
+}
+
 double KartoMatcherEstimator::lookupDistanceM(const Grid& grid,
                                               const Eigen::Vector2d& p) const {
   const double fx = (p.x() - grid.origin_x) / grid.resolution - 0.5;
@@ -304,13 +297,10 @@ double KartoMatcherEstimator::scorePose(const Grid& grid,
                                         const std::vector<Eigen::Vector2d>& points,
                                         const Eigen::Matrix3d& increment) const {
   if (points.empty()) return 0.0;
-  const double sigma = params_.score_sigma;
-  const double inv_sigma2 = 1.0 / (sigma * sigma);
   double score = 0.0;
   for (const auto& p : points) {
     const Eigen::Vector2d q = transformPoint(increment, p);
-    const double d = lookupDistanceM(grid, q);
-    score += std::exp(-d * d * inv_sigma2);
+    score += lookupScore(grid, q);
   }
   return score / static_cast<double>(points.size());
 }
@@ -357,19 +347,19 @@ Eigen::Matrix3d KartoMatcherEstimator::refineAtLevel(
   const int yaw_steps = finest_level ? params_.fine_yaw_steps : params_.coarse_yaw_steps;
 
   const double xy_step =
-      xy_steps > 1 ? (2.0 * xy_range) / static_cast<double>(xy_steps - 1) : 0.0;
+      xy_steps > 1 ? (2.0 * level_xy_range) / static_cast<double>(xy_steps - 1) : 0.0;
   const double yaw_step =
-      yaw_steps > 1 ? (2.0 * yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
+      yaw_steps > 1 ? (2.0 * level_yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
 
   Eigen::Matrix3d best_offset = Eigen::Matrix3d::Identity();
   double best_score = scorePose(grid, points, center_increment);
 
   for (int iy = 0; iy < xy_steps; ++iy) {
-    const double dy = -xy_range + static_cast<double>(iy) * xy_step;
+    const double dy = -level_xy_range + static_cast<double>(iy) * xy_step;
     for (int ix = 0; ix < xy_steps; ++ix) {
-      const double dx = -xy_range + static_cast<double>(ix) * xy_step;
+      const double dx = -level_xy_range + static_cast<double>(ix) * xy_step;
       for (int it = 0; it < yaw_steps; ++it) {
-        const double dt = -yaw_range + static_cast<double>(it) * yaw_step;
+        const double dt = -level_yaw_range + static_cast<double>(it) * yaw_step;
         const Eigen::Matrix3d offset = matrixFromIncrement(dx, dy, dt);
         const Eigen::Matrix3d inc = center_increment * offset;
         const double s = scorePose(grid, points, inc);
@@ -480,6 +470,7 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBranchAndBound(
       pyramid.front(), 0, points, prior, xy_range, yaw_range);
 
   for (int level = 1; level <= finest; ++level) {
+    if (!params_.refine_intermediate_levels && level < finest) continue;
     best = refineAtLevel(pyramid[static_cast<size_t>(level)], points, best, level, finest,
                          xy_range, yaw_range);
   }
@@ -505,19 +496,19 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBestTransformBruteForce(
     const int yaw_steps = finest ? params_.fine_yaw_steps : params_.coarse_yaw_steps;
 
     const double xy_step =
-        xy_steps > 1 ? (2.0 * xy_range) / static_cast<double>(xy_steps - 1) : 0.0;
+        xy_steps > 1 ? (2.0 * level_xy_range) / static_cast<double>(xy_steps - 1) : 0.0;
     const double yaw_step =
-        yaw_steps > 1 ? (2.0 * yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
+        yaw_steps > 1 ? (2.0 * level_yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
 
     double local_best_score = scorePose(grid, points, best);
     Eigen::Matrix3d local_best = best;
 
     for (int iy = 0; iy < xy_steps; ++iy) {
-      const double dty = -xy_range + static_cast<double>(iy) * xy_step;
+      const double dty = -level_xy_range + static_cast<double>(iy) * xy_step;
       for (int ix = 0; ix < xy_steps; ++ix) {
-        const double dtx = -xy_range + static_cast<double>(ix) * xy_step;
+        const double dtx = -level_xy_range + static_cast<double>(ix) * xy_step;
         for (int it = 0; it < yaw_steps; ++it) {
-          const double dyaw = -yaw_range + static_cast<double>(it) * yaw_step;
+          const double dyaw = -level_yaw_range + static_cast<double>(it) * yaw_step;
           const Eigen::Matrix3d T = best * matrixFromIncrement(dtx, dty, dyaw);
           const double s = scorePose(grid, points, T);
           if (s > local_best_score) {

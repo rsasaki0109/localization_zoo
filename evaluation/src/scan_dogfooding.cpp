@@ -558,8 +558,12 @@ MethodResult runKartoMatcher(const std::vector<fs::path>& frames, const ScanMeta
   params.local_map_voxel_size = 0.15;
   params.coarse_xy_steps = 11;
   params.coarse_yaw_steps = 11;
-  params.fine_xy_steps = 5;
-  params.fine_yaw_steps = 5;
+  params.fine_xy_steps = 3;
+  params.fine_yaw_steps = 3;
+  params.leaf_xy_steps = 2;
+  params.leaf_yaw_steps = 2;
+  params.bnb_max_nodes = 64;
+  params.refine_intermediate_levels = false;
   KartoMatcherEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
@@ -582,7 +586,7 @@ MethodResult runKartoMatcher(const std::vector<fs::path>& frames, const ScanMeta
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Map-based correlative scan matching with robot-frame local map, adaptive search, and Olson coarse BnB (ICRA 2009 / Karto-style, simplified port).";
+      "Map-based correlative scan matching with robot-frame local map, adaptive search, and tuned Olson BnB (64-node budget, finest-only refine, precomputed score lookup).";
   return res;
 }
 

@@ -8,7 +8,7 @@
 
 **Multi-resolution correlative scan matching** for 2D odometry:
 
-- occupancy grid + chamfer **distance transform** scoring (Olson-style)
+- occupancy grid + **Felzenszwalb Euclidean distance transform** scoring (Olson-style)
 - 3-level resolution pyramid (coarse → fine via grid downsampling)
 - **Olson coarse branch-and-bound** over score upper bounds
 - **Tuned BnB path**: 64-node budget, 2×2 leaf grid, finest-level-only refine
@@ -25,24 +25,23 @@
   --methods csm,rf2o
 ```
 
-## Benchmark (2026-06-10, local map + tuned BnB)
+## Benchmark (2026-06-10, Felzenszwalb EDT + tuned BnB)
 
-| Fixture | Frames | Drift (scan-to-scan) | Drift (local map) | Drift (+ BnB) | Drift (tuned BnB) | FPS (tuned) |
-|---------|--------|----------------------|-------------------|---------------|-------------------|-------------|
-| `intel_val_73` | 73 | 16.0% | 14.5% | 15.2% | **14.7%** | **79** |
-| `fr079_val_384` | 384 | 20.6% | 14.5% | 14.9% | **14.3%** | **58** |
-| `rf2o_corridor` | 120 | 73.3% | 95.8% | 102.0% | **41.3%** | 28 |
+| Fixture | Frames | Drift (chamfer) | Drift (Felzenszwalb EDT) | FPS |
+|---------|--------|-----------------|--------------------------|-----|
+| `intel_val_73` | 73 | 14.7% | **14.0%** | ~59 |
+| `fr079_val_384` | 384 | 14.3% | **13.7%** | ~46 |
+| `rf2o_corridor` | 120 | 41.3% | **30.5%** | ~25 |
 
-Artifacts: `docs/benchmarks/scan2d/*_csm_dt.json`. Full leaderboard:
+Artifacts: `docs/benchmarks/scan2d/*.json`. Full leaderboard:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
-**Finding:** speed tuning (64-node BnB budget, skip intermediate refine, score-grid lookup)
-cuts runtime ~**5×** on Bonn val fixtures while **improving** drift on Intel/fr079 and
-materially improving the synthetic corridor (102%→41%). Corridor remains an honest negative
-vs PL-ICP/RF2O but is no longer ~100% drift.
+**Finding:** replacing chamfer DT with exact **Felzenszwalb EDT** (`common/felzenszwalb_edt`)
+improves Bonn Intel/fr079 drift and corridor (41%→**30%**). Short `fr079_train_200` window
+regressed (12%→40%, indicative only). Corridor remains an honest negative vs PL-ICP/RF2O.
 
 ## Current Scope
 
 - Rolling local map + tuned BnB in harness (no loop closure / SLAM graph)
-- Chamfer DT (not exact Euclidean Felzenszwalb)
+- Felzenszwalb EDT (shared with Karto-Matcher)
 - Coarse BnB + fine brute-force refinement at finest pyramid level only

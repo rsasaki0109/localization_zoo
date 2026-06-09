@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (CSM speed tuning P9)**
+> **最終更新: 2026-06-10 (Felzenszwalb EDT P11)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -640,7 +640,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | 4 | **Olson 2009 full Karto** | 確率 grid + branch-and-bound | OpenSLAM | **3/5** | CSM からの段階的拡張 |
 | 5 | **GMapping particle filter** | Rao-Blackwellized PF | ROS 有 | **2.5/5** | SLAM 本体、odom 単体ではない |
 
-**次の推奨**: Felzenszwalb EDT、fr079_train 更長 window、または Karto-Matcher への同チューニング移植。PG-LIO (3D) は引き続き保留。
+**次の推奨**: fr079_train 更長 window。PG-LIO (3D) は引き続き保留。
 
 ---
 
@@ -703,7 +703,13 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ score grid bilinear lookup（`exp()` 削減）
 - ✅ **Public benchmark (tuned)**:
   - Intel **14.7%** (~79 FPS, was ~16 FPS) / fr079 **14.3%** (~58 FPS, was ~11 FPS) / corridor **41.3%** (was 102%)
-- ✅ **所見**: 速度最適化が Bonn drift を改善し corridor も大幅改善。Felzenszwalb EDT は次候補。
+- ✅ **所見**: 速度最適化が Bonn drift を改善し corridor も大幅改善。Felzenszwalb EDT は次候補 → **P11 完了**。
+
+**Felzenszwalb EDT** (2026-06-10, P11):
+- ✅ `common/felzenszwalb_edt` — exact Euclidean DT replaces chamfer in CSM + Karto
+- ✅ **Public benchmark (Felzenszwalb EDT)**:
+  - Intel **14.0%** (was 14.7%) / fr079 **13.7%** (was 14.3%) / corridor **30.5%** (was 41%)
+- ✅ **所見 (honest)**: main Bonn val + corridor improve; short `fr079_train_200` regressed 12%→40% (indicative window).
 - **状態**: 実装済
 
 ### 00.6c-46 Kinematic-ICP (46本目) — unicycle ICP + wheel odom (2026-06-09)
@@ -951,6 +957,8 @@ README.md (1-screen 概要)
 | **P7** | CSM Olson coarse branch-and-bound | ✅ Karto から移植; fr079 **14.9%**, Intel **15.2%**; corridor ~102% (honest negative) |
 | **P8** | fr079_train long window | ✅ `fr079_train_200` fixture + benchmark + CI long smoke |
 | **P9** | CSM 速度チューニング | ✅ 64-node BnB + finest-only refine + score lookup; Intel **14.7%** (~79 FPS), fr079 **14.3%** (~58 FPS), corridor **41%** (was 102%) |
+| **P10** | Karto-Matcher への CSM 同チューニング移植 | ✅ 64-node BnB + finest-only refine + score lookup; Intel **14.7%** (~64 FPS), fr079 **14.3%** (~47 FPS), corridor **41%** (was 102%) |
+| **P11** | Felzenszwalb EDT (CSM + Karto) | ✅ `common/felzenszwalb_edt`; Intel **14.0%**, fr079 **13.7%**, corridor **30.5%** (was 41%); `fr079_train_200` regressed (indicative) |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

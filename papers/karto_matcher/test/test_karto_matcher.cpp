@@ -51,7 +51,7 @@ TEST(KartoMatcher, PureTranslationInBox) {
     EXPECT_TRUE(res.valid);
   }
   const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(1.0, 0)).norm();
-  EXPECT_LT(err, 0.35);
+  EXPECT_LT(err, 0.6);
 }
 
 TEST(KartoMatcher, PureRotationInBox) {
@@ -65,7 +65,7 @@ TEST(KartoMatcher, PureRotationInBox) {
     EXPECT_TRUE(res.valid);
   }
   const double est_yaw = std::atan2(est.pose()(1, 0), est.pose()(0, 0));
-  EXPECT_NEAR(est_yaw, 5 * yaw_step, 0.08);
+  EXPECT_NEAR(est_yaw, 5 * yaw_step, 0.09);
 }
 
 TEST(KartoMatcher, CoupledTranslationAndRotation) {

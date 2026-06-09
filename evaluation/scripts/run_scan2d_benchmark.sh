@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 BIN="${ROOT}/build/evaluation/scan_dogfooding"
 OUT="${ROOT}/docs/benchmarks/scan2d"
-METHODS="rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp"
+METHODS="rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp,karto_matcher"
 
 if [[ ! -x "${BIN}" ]]; then
   echo "error: build scan_dogfooding first (cmake --build build --target scan_dogfooding)" >&2

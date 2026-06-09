@@ -260,7 +260,7 @@ LiTAMIN2       31.155      2.6
 
 ### 2D Laser Scan Odometry
 
-Eight planar matchers (papers 43–50) in [`scan_dogfooding`](evaluation/src/scan_dogfooding.cpp).
+Eight planar matchers (papers 43–50) plus **Karto-Matcher** (map-based CSM extension) in [`scan_dogfooding`](evaluation/src/scan_dogfooding.cpp).
 Full leaderboard, fixtures, and reproduction steps:
 [**docs/benchmarks/scan2d/README.md**](docs/benchmarks/scan2d/README.md).
 
@@ -268,6 +268,7 @@ Full leaderboard, fixtures, and reproduction steps:
 |--------|---:|---:|---:|---:|
 | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
 | **RF2O** | **14.3%** | 15.4% | 27.6% | 1.3% |
+| **Karto-Matcher** | 15.2% | 14.8% | 28.2% | 96.9% |
 | **NDT-2D** | 14.8% | 21.8% | 29.2% | 22.3% |
 | **IDC** | 15.3% | 27.7% | 29.5% | 42.6% |
 | **CSM** | 16.0% | 20.6% | 29.2% | 73.3% |

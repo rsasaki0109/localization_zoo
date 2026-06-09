@@ -4,6 +4,7 @@
   "readme": "docs/benchmarks/scan2d/README.md",
   "methods_order": [
     "RF2O",
+    "Karto-Matcher",
     "NDT-2D",
     "IDC",
     "CSM",
@@ -32,6 +33,7 @@
       "artifact": "docs/benchmarks/scan2d/intel_val_73.json",
       "drift_pct": {
         "RF2O": 14.287,
+        "Karto-Matcher": 15.242,
         "NDT-2D": 14.782,
         "IDC": 15.271,
         "CSM": 15.973,
@@ -51,6 +53,7 @@
       "artifact": "docs/benchmarks/scan2d/fr079_val_384.json",
       "drift_pct": {
         "PSM": 13.891,
+        "Karto-Matcher": 14.836,
         "RF2O": 15.374,
         "MbICP": 16.550,
         "Kinematic-ICP": 18.864,
@@ -76,7 +79,8 @@
         "NDT-2D": 29.162,
         "CSM": 29.209,
         "IDC": 29.512,
-        "PL-ICP": 30.289
+        "PL-ICP": 30.289,
+        "Karto-Matcher": 28.201
       },
       "best": "Kinematic-ICP",
       "note": "Short 33-frame window — drift is indicative only."
@@ -96,7 +100,8 @@
         "NDT-2D": 22.319,
         "IDC": 42.599,
         "CSM": 73.325,
-        "Kinematic-ICP": 83.805
+        "Kinematic-ICP": 83.805,
+        "Karto-Matcher": 96.926
       },
       "best": "PL-ICP",
       "note": "Slow-motion box-world raycast; not a real hallway."

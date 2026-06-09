@@ -640,7 +640,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | 4 | **Olson 2009 full Karto** | 確率 grid + branch-and-bound | OpenSLAM | **3/5** | CSM からの段階的拡張 |
 | 5 | **GMapping particle filter** | Rao-Blackwellized PF | ROS 有 | **2.5/5** | SLAM 本体、odom 単体ではない |
 
-**次の推奨**: PL-ICP/MbICP local map 拡張、または Karto-style map matcher。PG-LIO (3D) は引き続き保留。
+**次の推奨**: Olson branch-and-bound kernel bounds、または長め MIT/Bonn window。PG-LIO (3D) は引き続き保留。
 
 ---
 
@@ -925,7 +925,7 @@ README.md (1-screen 概要)
 | **P0** | MbICP + 8-method refresh 差分を最終検証して commit | ✅ 検証済 (8/8 tests, smoke, validate_showcase, benchmark refresh) |
 | **P1** | `git push` — IDC + CSM-DT + markdown + MbICP refresh | ユーザ明示指示待ち |
 | **P2** | PL-ICP/MbICP local map 拡張 | ✅ in-library (`use_local_map`); harness は scan-to-scan 維持 (MbICP local map は drift 改善するが O(n²) で遅い) |
-| **P3** | Karto-style map matcher / spatial index for local map | ✅ grid index in-library; harness scan-to-scan (local map ~14% Intel/fr079 drift but >10× slower) |
+| **P3** | Karto-style map matcher / spatial index for local map | ✅ `karto_matcher` — rolling map + DT search; fr079 **14.8%** drift (Intel 15.2%); corridor honest negative |
 | **P4** | 長め MIT/Bonn window 追加 | データ調達 |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |

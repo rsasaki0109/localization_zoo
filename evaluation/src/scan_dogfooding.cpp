@@ -1,7 +1,7 @@
 /// 2D laser scan dogfooding tool
 ///
 /// Usage:
-///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp]
+///   ./scan_dogfooding <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp,karto_matcher]
 ///
 /// scan_dir layout:
 ///   scan_meta.json  (angle_min, angle_max, angle_increment, range_min, range_max, scan_rate_hz)
@@ -10,6 +10,7 @@
 /// gt_csv: timestamp,x,y,yaw
 
 #include "csm/csm.h"
+#include "karto_matcher/karto_matcher.h"
 #include "kinematic_icp/kinematic_icp.h"
 #include "pl_icp/pl_icp.h"
 #include "idc/idc.h"
@@ -162,6 +163,25 @@ localization_zoo::kinematic_icp::LaserScan loadScanKinematicICP(const fs::path& 
 
 localization_zoo::csm::LaserScan loadScanCSM(const fs::path& frame_dir, const ScanMeta& meta) {
   localization_zoo::csm::LaserScan scan;
+  scan.angle_min = meta.angle_min;
+  scan.angle_max = meta.angle_max;
+  scan.angle_increment = meta.angle_increment;
+  scan.range_min = meta.range_min;
+  scan.range_max = meta.range_max;
+  std::ifstream in(frame_dir / "scan.csv");
+  if (!in) return scan;
+  std::string line;
+  std::getline(in, line);
+  for (const auto& tok : splitCsv(line)) {
+    if (tok.empty()) continue;
+    scan.ranges.push_back(std::stod(tok));
+  }
+  return scan;
+}
+
+localization_zoo::karto_matcher::LaserScan loadScanKartoMatcher(const fs::path& frame_dir,
+                                                                const ScanMeta& meta) {
+  localization_zoo::karto_matcher::LaserScan scan;
   scan.angle_min = meta.angle_min;
   scan.angle_max = meta.angle_max;
   scan.angle_increment = meta.angle_increment;
@@ -514,6 +534,45 @@ MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   return res;
 }
 
+MethodResult runKartoMatcher(const std::vector<fs::path>& frames, const ScanMeta& meta,
+                             const std::vector<GTPose2D>& gt, bool no_gt_seed) {
+  using namespace localization_zoo::karto_matcher;
+  MethodResult res;
+  res.name = "Karto-Matcher";
+  KartoMatcherParams params;
+  params.search_xy_range = 0.8;
+  params.search_yaw_range = 0.25;
+  params.local_map_radius = 15.0;
+  params.coarse_xy_steps = 11;
+  params.coarse_yaw_steps = 11;
+  params.fine_xy_steps = 5;
+  params.fine_yaw_steps = 5;
+  KartoMatcherEstimator est(params);
+  if (!gt.empty() && !no_gt_seed) {
+    est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
+  }
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < frames.size(); ++i) {
+    const auto scan = loadScanKartoMatcher(frames[i], meta);
+    if (scan.size() < 10) continue;
+    const auto out = est.registerScan(scan);
+    Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
+    T.block<2, 2>(0, 0) = out.pose.block<2, 2>(0, 0);
+    T(0, 3) = out.pose(0, 2);
+    T(1, 3) = out.pose(1, 2);
+    res.poses.push_back(T);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [Karto-Matcher] " << i << "/" << frames.size();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.note =
+      "Map-based correlative scan matching with rolling local map (Olson ICRA 2009 / Karto-style, simplified port).";
+  return res;
+}
+
 MethodResult runIDC(const std::vector<fs::path>& frames, const ScanMeta& meta,
                   const std::vector<GTPose2D>& gt, bool no_gt_seed) {
   using namespace localization_zoo::idc;
@@ -708,7 +767,7 @@ MethodResult runKinematicICP(const std::vector<fs::path>& frames, const ScanMeta
 int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
-              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp]"
+              << " <scan_dir> <gt_csv> [max_frames] [--methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp,karto_matcher]"
               << " [--no-gt-seed] [--wheel-odom-from-gt] [--summary-json path]\n";
     return 1;
   }
@@ -773,6 +832,10 @@ int main(int argc, char** argv) {
   if (methods.find("kinematic_icp") != std::string::npos) {
     std::cout << "Running Kinematic-ICP...\n";
     results.push_back(runKinematicICP(frames, meta, gt_raw, no_gt_seed, wheel_odom_from_gt));
+  }
+  if (methods.find("karto_matcher") != std::string::npos) {
+    std::cout << "Running Karto-Matcher...\n";
+    results.push_back(runKartoMatcher(frames, meta, gt_raw, no_gt_seed));
   }
   if (methods.find("csm") != std::string::npos) {
     std::cout << "Running CSM...\n";

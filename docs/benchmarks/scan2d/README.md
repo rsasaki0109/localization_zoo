@@ -5,10 +5,11 @@ Metrics: **ATE [m]** and **Drift [%]** (KITTI-style RPE over a segment scaled to
 
 ## 結論
 
-Eight from-paper 2D odometry ports (papers 43–50) share one harness. **No single method wins every
-fixture** — RF2O leads Intel, PSM leads fr079, Kinematic-ICP leads the short MIT window, and
-PL-ICP dominates the synthetic corridor. MbICP is competitive on fr079/MIT and nearly matches
-PL-ICP on the synthetic corridor, while CSM remains weak there despite DT + pyramid improvements.
+Nine from-paper / extension 2D odometry ports (papers 43–50 + Karto-style map matcher) share one harness.
+**No single method wins every fixture** — RF2O leads Intel, PSM leads fr079, Kinematic-ICP leads the short MIT
+window, and PL-ICP dominates the synthetic corridor. **Karto-Matcher** (rolling local map + correlative search)
+improves over scan-to-scan CSM on real Bonn logs (Intel 15.2%, fr079 **14.8%**) but remains weak on the
+synthetic slow-motion corridor (honest negative, like CSM).
 
 ## Leaderboard (drift % — lower is better)
 
@@ -18,6 +19,7 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 |---|--------|-------|----------:|----------:|--------:|---------------:|
 | | | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
 | 43 | **RF2O** | ICRA 2016 | **14.3** | 15.4 | 27.6 | 1.3 |
+| — | **Karto-Matcher** | Olson/Karto ext. | 15.2 | 14.8 | 28.2 | 96.9 |
 | 48 | **NDT-2D** | IROS 2003 | 14.8 | 21.8 | 29.2 | 22.3 |
 | 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
 | 45 | **CSM** | ICRA 2009 | 16.0 | 20.6 | 29.2 | 73.3 |
@@ -36,8 +38,8 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 | Item | Detail |
 |------|--------|
 | Harness | `scan_dogfooding` — `scan_meta.json`, `NNNNNNNN/scan.csv`, `gt.csv` |
-| Methods | `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
-| CI smoke | `evaluation/scripts/smoke_scan2d_fixture.sh` (Intel 20 frames, all 8 methods) |
+| Methods | `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp,karto_matcher` |
+| CI smoke | `evaluation/scripts/smoke_scan2d_fixture.sh` (Intel 20 frames, all 9 methods) |
 | Batch refresh | `evaluation/scripts/run_scan2d_benchmark.sh` |
 | Prep (Bonn JSON) | `evaluation/scripts/prepare_bonn_2dslam_inputs.py` |
 | Prep (ROS1 bag) | `evaluation/scripts/prepare_2d_scan_inputs.py` |
@@ -56,11 +58,12 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 ### Per-method notes (honest)
 
 - **RF2O** — best overall on Intel; range-flow dense constraint.
+- **Karto-Matcher** — rolling local map + DT correlative search; **fr079 14.8%** (2nd to PSM), Intel mid-pack; synthetic corridor ~97% (map drift on slow box motion).
 - **NDT-2D** — correspondence-free; competitive on real logs, weak on synthetic corridor.
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
 - **CSM** — DT + 3-level pyramid (2026-06 refresh); fr079 38.9% → 20.6%, corridor still ~73%.
 - **PL-ICP** — corridor winner; scan-to-scan ICP drifts on long public logs.
-- **MbICP** — config-space metric ICP; good fr079/MIT balance and near-PL-ICP corridor behavior, slower than PL-ICP/RF2O.
+- **MbICP** — config-space metric ICP; good fr079/MIT balance and near-PL-ICP corridor behavior.
 - **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only.
 - **PSM** — best fr079 drift; polar profile matching is dataset-dependent.
 
@@ -91,7 +94,7 @@ Single fixture, all methods:
 ```bash
 ./build/evaluation/scan_dogfooding \
   evaluation/fixtures/intel_val_73 evaluation/fixtures/intel_val_73/gt.csv \
-  --methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp \
+  --methods rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp,karto_matcher \
   --wheel-odom-from-gt \
   --summary-json docs/benchmarks/scan2d/intel_val_73.json
 ```
@@ -99,9 +102,9 @@ Single fixture, all methods:
 ## 未確認 / 要確認項目
 
 - **MIT val** — only 33 frames; all drift values are indicative, not paper-grade.
-- **Local map / SLAM graph** — PL-ICP and MbICP now expose optional rolling local maps in-library; the canonical harness still runs scan-to-scan. MbICP local-map smoke shows modest Intel/fr079 drift gains but needs a spatial index before benchmark enablement.
+- **Karto-Matcher** — point-cache local map (not log-odds grid); branch-and-bound not yet ported (coarse-to-fine search like CSM).
 
 ## 次アクション
 
-1. Add spatial indexing (grid/kd-tree) and enable MbICP local map in the harness, or pursue a Karto-style map matcher.
+1. Port Olson branch-and-bound kernel bounds for wider search without brute force.
 2. Find a longer MIT/Bonn validation window for less fragile ranking.

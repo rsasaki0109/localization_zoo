@@ -9,8 +9,8 @@ Nine from-paper / extension 2D odometry ports (papers 43–50 + Karto-style map 
 **No single method wins every fixture** — RF2O leads Intel, PSM leads fr079, Kinematic-ICP leads the short MIT
 window, and PL-ICP (robot-frame local map) leads the synthetic corridor and is competitive on Bonn logs.
 **Karto-Matcher** (rolling local map + correlative search)
-improves over scan-to-scan CSM on real Bonn logs (Intel 15.1%, fr079 **14.7%**) but remains weak on the
-synthetic slow-motion corridor (honest negative, like CSM).
+improves over scan-to-scan CSM on real Bonn logs (Intel **14.2%**, fr079 **14.5%**) but remains weak on the
+synthetic slow-motion corridor (~**102%** drift, improved from ~124% with robot-frame map + adaptive search).
 
 ## Leaderboard (drift % — lower is better)
 
@@ -20,7 +20,7 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 |---|--------|-------|----------:|----------:|--------:|---------------:|
 | | | | _73 fr / 378 m_ | _384 fr / 373 m_ | _33 fr / 267 m_ | _120 fr / 9.5 m_ |
 | 43 | **RF2O** | ICRA 2016 | **14.3** | 15.4 | 27.6 | 1.3 |
-| — | **Karto-Matcher** | Olson/Karto ext. | 15.1 | 14.7 | 29.1 | 123.8 |
+| — | **Karto-Matcher** | Olson/Karto ext. | 14.2 | 14.5 | 29.1 | 102.0 |
 | 48 | **NDT-2D** | IROS 2003 | 14.8 | 21.8 | 29.2 | 22.3 |
 | 49 | **IDC** | Lu & Milios 1997 | 15.3 | 27.7 | 29.5 | 42.6 |
 | 45 | **CSM** | ICRA 2009 | 16.0 | 20.6 | 29.2 | 73.3 |
@@ -32,6 +32,15 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip)
 (Radish CARMEN conversions). GT is dataset odometry (scan-matched proxy, not centimeter truth).
 
+### Long train windows (P4)
+
+| Fixture | Frames | Traj [m] | Best | RF2O | PL-ICP | Karto | MbICP |
+|---------|--------|----------|------|-----:|-------:|------:|------:|
+| `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 37.1% | 30.4% |
+| `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 18.7% | 23.4% |
+
+Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_long_fixtures.sh`).
+
 ![Public fixture GT trajectories](../../assets/scan2d_public_gt.png)
 
 ## 確認済み事実
@@ -42,6 +51,8 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 | Methods | `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp,karto_matcher` |
 | CI smoke | `evaluation/scripts/smoke_scan2d_fixture.sh` (Intel 20 frames, all 9 methods) |
 | Batch refresh | `evaluation/scripts/run_scan2d_benchmark.sh` |
+| Long train refresh (P4) | `evaluation/scripts/run_scan2d_long_benchmark.sh` |
+| Long fixture prep | `evaluation/scripts/prepare_bonn_long_fixtures.sh` |
 | Prep (Bonn JSON) | `evaluation/scripts/prepare_bonn_2dslam_inputs.py` |
 | Prep (ROS1 bag) | `evaluation/scripts/prepare_2d_scan_inputs.py` |
 | Setup guide | [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](../../../evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md) |
@@ -53,13 +64,15 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 | `evaluation/fixtures/intel_val_73` | Bonn `intel/val.json` | 73 | 180 | ~378 |
 | `evaluation/fixtures/fr079_val_384` | Bonn `fr079/val.json` | 384 | 360 | ~373 |
 | `evaluation/fixtures/mit_val_33` | Bonn `mit/val.json` | 33 | 360 | ~267 |
+| `evaluation/fixtures/mit_train_120` | Bonn `mit/train.json` (first 120) | 120 | 360 | ~900 |
+| `evaluation/fixtures/intel_train_150` | Bonn `intel/train.json` (first 150) | 150 | 180 | ~780 |
 | `evaluation/fixtures/rf2o_corridor` | synthetic raycast | 120 | 360 | ~9.5 |
 | `evaluation/fixtures/rf2o_smoke` | synthetic raycast | 60 | 360 | ~18 |
 
 ### Per-method notes (honest)
 
 - **RF2O** — best overall on Intel; range-flow dense constraint.
-- **Karto-Matcher** — rolling local map + Olson coarse BnB; **fr079 14.7%** (2nd to PSM), Intel mid-pack; synthetic corridor ~124% (map drift on slow box motion).
+- **Karto-Matcher** — robot-frame rolling map + adaptive search + Olson coarse BnB; **fr079 14.5%**, Intel **14.2%**; synthetic corridor ~102% (improved from ~124%, still honest negative).
 - **NDT-2D** — correspondence-free; competitive on real logs, weak on synthetic corridor.
 - **IDC** — dual CP+RR fusion; mid-pack on Intel, behind RF2O/PSM on fr079.
 - **CSM** — DT + 3-level pyramid (2026-06 refresh); fr079 38.9% → 20.6%, corridor still ~73%.

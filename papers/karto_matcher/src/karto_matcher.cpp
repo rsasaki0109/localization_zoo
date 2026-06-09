@@ -28,6 +28,15 @@ Eigen::Vector2d transformPoint(const Eigen::Matrix3d& T, const Eigen::Vector2d& 
   return (T.block<2, 2>(0, 0) * p + T.block<2, 1>(0, 2)).eval();
 }
 
+Eigen::Matrix3d se2Inverse(const Eigen::Matrix3d& T) {
+  const Eigen::Matrix2d R = T.block<2, 2>(0, 0);
+  const Eigen::Vector2d t = T.block<2, 1>(0, 2);
+  Eigen::Matrix3d inv = Eigen::Matrix3d::Identity();
+  inv.block<2, 2>(0, 0) = R.transpose();
+  inv.block<2, 1>(0, 2) = -R.transpose() * t;
+  return inv;
+}
+
 }  // namespace
 
 Eigen::Matrix3d pose2D(double x, double y, double yaw) {
@@ -39,7 +48,8 @@ KartoMatcherEstimator::KartoMatcherEstimator(const KartoMatcherParams& params)
 
 void KartoMatcherEstimator::reset() {
   initialized_ = false;
-  map_points_world_.clear();
+  map_points_robot_.clear();
+  point_voxels_.clear();
   pose_ = Eigen::Matrix3d::Identity();
   last_increment_ = Eigen::Matrix3d::Identity();
 }
@@ -63,17 +73,38 @@ std::vector<Eigen::Vector2d> KartoMatcherEstimator::scanToPoints(const LaserScan
   return points;
 }
 
+int64_t KartoMatcherEstimator::voxelKey(double x, double y, double voxel_size) {
+  const int ix = static_cast<int>(std::floor(x / voxel_size));
+  const int iy = static_cast<int>(std::floor(y / voxel_size));
+  return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(static_cast<uint32_t>(iy));
+}
+
 std::vector<Eigen::Vector2d> KartoMatcherEstimator::localMapPoints() const {
   std::vector<Eigen::Vector2d> local;
-  local.reserve(map_points_world_.size());
-  const Eigen::Vector2d center(pose_(0, 2), pose_(1, 2));
+  local.reserve(map_points_robot_.size());
   const double r2 = params_.local_map_radius * params_.local_map_radius;
-  for (const auto& p : map_points_world_) {
-    if ((p - center).squaredNorm() <= r2) {
+  for (const auto& p : map_points_robot_) {
+    if (p.squaredNorm() <= r2) {
       local.push_back(p);
     }
   }
   return local;
+}
+
+void KartoMatcherEstimator::rebuildPointVoxels() {
+  point_voxels_.clear();
+  const double voxel = params_.local_map_voxel_size;
+  point_voxels_.reserve(map_points_robot_.size());
+  for (size_t i = 0; i < map_points_robot_.size(); ++i) {
+    point_voxels_[voxelKey(map_points_robot_[i].x(), map_points_robot_[i].y(), voxel)] = i;
+  }
+}
+
+void KartoMatcherEstimator::transformRobotMap(const Eigen::Matrix3d& inv_increment) {
+  for (auto& p : map_points_robot_) {
+    p = transformPoint(inv_increment, p);
+  }
+  point_voxels_.clear();
 }
 
 KartoMatcherEstimator::Grid KartoMatcherEstimator::buildGrid(
@@ -271,13 +302,13 @@ double KartoMatcherEstimator::lookupBound(const Grid& grid, int x, int y) const 
 
 double KartoMatcherEstimator::scorePose(const Grid& grid,
                                         const std::vector<Eigen::Vector2d>& points,
-                                        const Eigen::Matrix3d& world_transform) const {
+                                        const Eigen::Matrix3d& increment) const {
   if (points.empty()) return 0.0;
   const double sigma = params_.score_sigma;
   const double inv_sigma2 = 1.0 / (sigma * sigma);
   double score = 0.0;
   for (const auto& p : points) {
-    const Eigen::Vector2d q = transformPoint(world_transform, p);
+    const Eigen::Vector2d q = transformPoint(increment, p);
     const double d = lookupDistanceM(grid, q);
     score += std::exp(-d * d * inv_sigma2);
   }
@@ -286,17 +317,17 @@ double KartoMatcherEstimator::scorePose(const Grid& grid,
 
 double KartoMatcherEstimator::nodeUpperBound(
     const Grid& grid, const SearchNode& node, const std::vector<Eigen::Vector2d>& points,
-    const Eigen::Matrix3d& base_world) const {
+    const Eigen::Matrix3d& base_increment) const {
   if (points.empty() || grid.bound.empty()) return 0.0;
 
   const Eigen::Matrix3d center_offset = matrixFromIncrement(node.dx, node.dy, node.dt);
-  const Eigen::Matrix3d center_world = base_world * center_offset;
+  const Eigen::Matrix3d center_increment = base_increment * center_offset;
   const int trans_cells =
       std::max(1, static_cast<int>(std::ceil((node.wx + node.wy) / grid.resolution)));
 
   double sum = 0.0;
   for (const auto& p : points) {
-    const Eigen::Vector2d q = transformPoint(center_world, p);
+    const Eigen::Vector2d q = transformPoint(center_increment, p);
     const int cx = static_cast<int>(std::floor((q.x() - grid.origin_x) / grid.resolution));
     const int cy = static_cast<int>(std::floor((q.y() - grid.origin_y) / grid.resolution));
     const int rot_cells = static_cast<int>(std::ceil(p.norm() * node.wt / grid.resolution));
@@ -316,13 +347,12 @@ double KartoMatcherEstimator::nodeUpperBound(
 
 Eigen::Matrix3d KartoMatcherEstimator::refineAtLevel(
     const Grid& grid, const std::vector<Eigen::Vector2d>& points,
-    const Eigen::Matrix3d& center_increment, int level, int finest) const {
+    const Eigen::Matrix3d& center_increment, int level, int finest, double xy_range,
+    double yaw_range) const {
   const bool finest_level = (level == finest);
   const double scale = finest_level ? 1.0 : static_cast<double>(1 << (finest - level));
-  const double xy_range =
-      finest_level ? params_.search_xy_range : params_.search_xy_range / scale;
-  const double yaw_range =
-      finest_level ? params_.search_yaw_range : params_.search_yaw_range / scale;
+  const double level_xy_range = finest_level ? xy_range : xy_range / scale;
+  const double level_yaw_range = finest_level ? yaw_range : yaw_range / scale;
   const int xy_steps = finest_level ? params_.fine_xy_steps : params_.coarse_xy_steps;
   const int yaw_steps = finest_level ? params_.fine_yaw_steps : params_.coarse_yaw_steps;
 
@@ -332,7 +362,7 @@ Eigen::Matrix3d KartoMatcherEstimator::refineAtLevel(
       yaw_steps > 1 ? (2.0 * yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
 
   Eigen::Matrix3d best_offset = Eigen::Matrix3d::Identity();
-  double best_score = scorePose(grid, points, pose_ * center_increment);
+  double best_score = scorePose(grid, points, center_increment);
 
   for (int iy = 0; iy < xy_steps; ++iy) {
     const double dy = -xy_range + static_cast<double>(iy) * xy_step;
@@ -342,7 +372,7 @@ Eigen::Matrix3d KartoMatcherEstimator::refineAtLevel(
         const double dt = -yaw_range + static_cast<double>(it) * yaw_step;
         const Eigen::Matrix3d offset = matrixFromIncrement(dx, dy, dt);
         const Eigen::Matrix3d inc = center_increment * offset;
-        const double s = scorePose(grid, points, pose_ * inc);
+        const double s = scorePose(grid, points, inc);
         if (s > best_score) {
           best_score = s;
           best_offset = offset;
@@ -357,9 +387,9 @@ Eigen::Matrix3d KartoMatcherEstimator::refineAtLevel(
 Eigen::Matrix3d KartoMatcherEstimator::searchBranchAndBoundAtLevel(
     const Grid& grid, int /*level*/, const std::vector<Eigen::Vector2d>& points,
     const Eigen::Matrix3d& center_increment, double xy_range, double yaw_range) const {
-  const Eigen::Matrix3d base_world = pose_ * center_increment;
+  const Eigen::Matrix3d base_increment = center_increment;
 
-  double best_score = scorePose(grid, points, base_world);
+  double best_score = scorePose(grid, points, base_increment);
   Eigen::Matrix3d best_offset = Eigen::Matrix3d::Identity();
 
   struct QueueEntry {
@@ -369,7 +399,7 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBranchAndBoundAtLevel(
 
   std::priority_queue<QueueEntry> queue;
   SearchNode root{0.0, 0.0, 0.0, xy_range, xy_range, yaw_range, 0, 0.0};
-  root.bound = nodeUpperBound(grid, root, points, base_world);
+  root.bound = nodeUpperBound(grid, root, points, base_increment);
   queue.push({root});
 
   const auto isLeaf = [&](const SearchNode& node) {
@@ -402,7 +432,7 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBranchAndBoundAtLevel(
           for (int it = 0; it < yaw_steps; ++it) {
             const double dt = node.dt - yaw_span + static_cast<double>(it) * yaw_step;
             const Eigen::Matrix3d offset = matrixFromIncrement(dx, dy, dt);
-            const double s = scorePose(grid, points, base_world * offset);
+            const double s = scorePose(grid, points, base_increment * offset);
             if (s > best_score) {
               best_score = s;
               best_offset = offset;
@@ -428,7 +458,7 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBranchAndBoundAtLevel(
           child.wx = child_wx;
           child.wy = child_wy;
           child.wt = child_wt;
-          child.bound = nodeUpperBound(grid, child, points, base_world);
+          child.bound = nodeUpperBound(grid, child, points, base_increment);
           if (child.bound > best_score) {
             queue.push({child});
           }
@@ -442,15 +472,16 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBranchAndBoundAtLevel(
 
 Eigen::Matrix3d KartoMatcherEstimator::searchBranchAndBound(
     const std::vector<Grid>& pyramid, const std::vector<Eigen::Vector2d>& points,
-    const Eigen::Matrix3d& prior) const {
+    const Eigen::Matrix3d& prior, double xy_range, double yaw_range) const {
   if (pyramid.empty()) return prior;
 
   const int finest = static_cast<int>(pyramid.size()) - 1;
   Eigen::Matrix3d best = searchBranchAndBoundAtLevel(
-      pyramid.front(), 0, points, prior, params_.search_xy_range, params_.search_yaw_range);
+      pyramid.front(), 0, points, prior, xy_range, yaw_range);
 
   for (int level = 1; level <= finest; ++level) {
-    best = refineAtLevel(pyramid[static_cast<size_t>(level)], points, best, level, finest);
+    best = refineAtLevel(pyramid[static_cast<size_t>(level)], points, best, level, finest,
+                         xy_range, yaw_range);
   }
 
   return best;
@@ -458,7 +489,7 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBranchAndBound(
 
 Eigen::Matrix3d KartoMatcherEstimator::searchBestTransformBruteForce(
     const std::vector<Grid>& pyramid, const std::vector<Eigen::Vector2d>& points,
-    const Eigen::Matrix3d& prior) const {
+    const Eigen::Matrix3d& prior, double xy_range, double yaw_range) const {
   if (pyramid.empty()) return prior;
 
   Eigen::Matrix3d best = prior;
@@ -468,10 +499,8 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBestTransformBruteForce(
     const Grid& grid = pyramid[level];
     const bool finest = (level + 1 == n_levels);
     const double scale = finest ? 1.0 : static_cast<double>(1 << (n_levels - 1 - level));
-    const double xy_range =
-        finest ? params_.search_xy_range : params_.search_xy_range / scale;
-    const double yaw_range =
-        finest ? params_.search_yaw_range : params_.search_yaw_range / scale;
+    const double level_xy_range = finest ? xy_range : xy_range / scale;
+    const double level_yaw_range = finest ? yaw_range : yaw_range / scale;
     const int xy_steps = finest ? params_.fine_xy_steps : params_.coarse_xy_steps;
     const int yaw_steps = finest ? params_.fine_yaw_steps : params_.coarse_yaw_steps;
 
@@ -480,7 +509,7 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBestTransformBruteForce(
     const double yaw_step =
         yaw_steps > 1 ? (2.0 * yaw_range) / static_cast<double>(yaw_steps - 1) : 0.0;
 
-    double local_best_score = scorePose(grid, points, pose_ * best);
+    double local_best_score = scorePose(grid, points, best);
     Eigen::Matrix3d local_best = best;
 
     for (int iy = 0; iy < xy_steps; ++iy) {
@@ -490,7 +519,7 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBestTransformBruteForce(
         for (int it = 0; it < yaw_steps; ++it) {
           const double dyaw = -yaw_range + static_cast<double>(it) * yaw_step;
           const Eigen::Matrix3d T = best * matrixFromIncrement(dtx, dty, dyaw);
-          const double s = scorePose(grid, points, pose_ * T);
+          const double s = scorePose(grid, points, T);
           if (s > local_best_score) {
             local_best_score = s;
             local_best = T;
@@ -506,19 +535,30 @@ Eigen::Matrix3d KartoMatcherEstimator::searchBestTransformBruteForce(
 }
 
 void KartoMatcherEstimator::addScanToMap(const std::vector<Eigen::Vector2d>& points) {
-  map_points_world_.reserve(map_points_world_.size() + points.size());
+  const double voxel = params_.local_map_voxel_size;
+  rebuildPointVoxels();
   for (const auto& p : points) {
-    map_points_world_.push_back(transformPoint(pose_, p));
+    const int64_t k = voxelKey(p.x(), p.y(), voxel);
+    const auto it = point_voxels_.find(k);
+    if (it != point_voxels_.end()) {
+      map_points_robot_[it->second] = p;
+    } else {
+      point_voxels_[k] = map_points_robot_.size();
+      map_points_robot_.push_back(p);
+    }
   }
 }
 
 void KartoMatcherEstimator::pruneMap() {
-  const Eigen::Vector2d center(pose_(0, 2), pose_(1, 2));
   const double r2 = params_.local_map_radius * params_.local_map_radius;
-  map_points_world_.erase(
-      std::remove_if(map_points_world_.begin(), map_points_world_.end(),
-                     [&](const Eigen::Vector2d& p) { return (p - center).squaredNorm() > r2; }),
-      map_points_world_.end());
+  const size_t before = map_points_robot_.size();
+  map_points_robot_.erase(
+      std::remove_if(map_points_robot_.begin(), map_points_robot_.end(),
+                     [&](const Eigen::Vector2d& p) { return p.squaredNorm() > r2; }),
+      map_points_robot_.end());
+  if (map_points_robot_.size() != before) {
+    rebuildPointVoxels();
+  }
 }
 
 KartoMatcherResult KartoMatcherEstimator::registerScan(const LaserScan& scan) {
@@ -549,16 +589,26 @@ KartoMatcherResult KartoMatcherEstimator::registerScan(const LaserScan& scan) {
   const Eigen::Matrix3d motion_prior =
       params_.use_motion_prior ? last_increment_ : Eigen::Matrix3d::Identity();
 
+  double xy_range = params_.search_xy_range;
+  double yaw_range = params_.search_yaw_range;
+  if (params_.use_motion_prior) {
+    const double motion_xy = std::hypot(last_increment_(0, 2), last_increment_(1, 2));
+    const double motion_yaw =
+        std::abs(std::atan2(last_increment_(1, 0), last_increment_(0, 0)));
+    xy_range = std::min(xy_range, std::max(0.15, motion_xy * 5.0 + 0.08));
+    yaw_range = std::min(yaw_range, std::max(0.05, motion_yaw * 5.0 + 0.03));
+  }
+
   const Eigen::Matrix3d increment =
       params_.use_branch_and_bound
-          ? searchBranchAndBound(pyramid, current, motion_prior)
-          : searchBestTransformBruteForce(pyramid, current, motion_prior);
+          ? searchBranchAndBound(pyramid, current, motion_prior, xy_range, yaw_range)
+          : searchBestTransformBruteForce(pyramid, current, motion_prior, xy_range, yaw_range);
   const double best_score =
-      pyramid.empty() ? 0.0
-                      : scorePose(pyramid.back(), current, pose_ * increment);
+      pyramid.empty() ? 0.0 : scorePose(pyramid.back(), current, increment);
 
   pose_ = pose_ * increment;
   last_increment_ = increment;
+  transformRobotMap(se2Inverse(increment));
   addScanToMap(current);
   pruneMap();
 

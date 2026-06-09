@@ -8,10 +8,10 @@
 
 **Map-based multi-resolution correlative scan matching** for 2D odometry:
 
-- rolling local occupancy map (world-frame point cache + radius pruning)
+- **robot-frame** rolling local map (voxel merge + radius prune; updated via `inv(increment)`)
 - nested score pyramid with max-pooled Olson upper-bound grids
+- motion-prior **adaptive search window** (tight on slow synthetic corridor motion)
 - branch-and-bound pose search at the coarsest level, then coarse-to-fine refinement
-- motion-prior warm start
 
 Unlike scan-to-scan CSM (`papers/csm/`), each frame is matched against an accumulated local map.
 
@@ -25,22 +25,22 @@ Unlike scan-to-scan CSM (`papers/csm/`), each frame is matched against an accumu
 
 Full leaderboard: [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
 
-## Benchmark (2026-06-10, 9-method refresh)
+## Benchmark (2026-06-10, robot-frame map refresh)
 
 | Fixture | Frames | Drift |
 |---------|--------|------:|
-| `intel_val_73` | 73 | **15.1%** |
-| `fr079_val_384` | 384 | **14.7%** |
+| `intel_val_73` | 73 | **14.2%** |
+| `fr079_val_384` | 384 | **14.5%** |
 | `mit_val_33` | 33 | 29.1% |
-| `rf2o_corridor` | 120 | 123.8% |
+| `rf2o_corridor` | 120 | 102.0% |
 
-**Honest finding:** rolling local map + Olson coarse BnB helps **real Bonn logs** versus scan-to-scan CSM
-(Intel 16.0% → 15.1%, fr079 20.6% → **14.7%**). Synthetic slow-motion corridor remains an honest negative
-(~124% drift) — map-based correlative matching drifts on repetitive box geometry.
+**Honest finding:** robot-frame map + adaptive search improves **real Bonn logs** (Intel 15.1% → **14.2%**,
+fr079 14.7% → **14.5%**). Synthetic slow-motion corridor improves 124% → **~102%** but remains an honest
+negative — repetitive box geometry still fools correlative map matching.
 
 ## Current Scope
 
 - Nested bound pyramid from finest DT (max-pool upper bounds)
 - BnB at coarsest level only; finer levels use brute-force refinement
-- Rolling point map (not full log-odds occupancy grid)
+- Robot-frame point map (not full log-odds occupancy grid)
 - No loop closure / SLAM graph

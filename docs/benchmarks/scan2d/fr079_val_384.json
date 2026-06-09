@@ -64,13 +64,13 @@
     {
       "name": "Karto-Matcher",
       "status": "ok",
-      "ate_m": 18.390,
-      "drift_pct": 14.436,
+      "ate_m": 24.583,
+      "drift_pct": 14.504,
       "rpe_rot_deg_per_m": 0.966,
       "frames": 384,
-      "time_ms": 22905.794,
-      "fps": 16.764,
-      "note": "Map-based correlative scan matching with Olson coarse BnB and rolling local map (ICRA 2009 / Karto-style, simplified port)."
+      "time_ms": 24773.603,
+      "fps": 15.500,
+      "note": "Map-based correlative scan matching with robot-frame local map, adaptive search, and Olson coarse BnB (ICRA 2009 / Karto-style, simplified port)."
     },
     {
       "name": "CSM",

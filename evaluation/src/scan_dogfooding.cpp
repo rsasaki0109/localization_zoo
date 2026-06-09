@@ -547,6 +547,7 @@ MethodResult runKartoMatcher(const std::vector<fs::path>& frames, const ScanMeta
   params.search_xy_range = 0.8;
   params.search_yaw_range = 0.25;
   params.local_map_radius = 15.0;
+  params.local_map_voxel_size = 0.15;
   params.coarse_xy_steps = 11;
   params.coarse_yaw_steps = 11;
   params.fine_xy_steps = 5;
@@ -573,7 +574,7 @@ MethodResult runKartoMatcher(const std::vector<fs::path>& frames, const ScanMeta
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Map-based correlative scan matching with Olson coarse BnB and rolling local map (ICRA 2009 / Karto-style, simplified port).";
+      "Map-based correlative scan matching with robot-frame local map, adaptive search, and Olson coarse BnB (ICRA 2009 / Karto-style, simplified port).";
   return res;
 }
 

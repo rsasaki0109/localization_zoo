@@ -1,0 +1,11 @@
+{
+  "angle_min": -1.5707963267948966,
+  "angle_max": 1.5707963267948966,
+  "angle_increment": 0.017453292519943295,
+  "range_min": 0.1,
+  "range_max": 10.0,
+  "scan_rate_hz": 10.0,
+  "provenance": "Bonn 2D-SLAM JSON (Intel/fr079/MIT from 2dslam.zip)",
+  "dataset": "intel",
+  "split": "train"
+}

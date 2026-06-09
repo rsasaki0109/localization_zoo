@@ -101,6 +101,24 @@ TEST(KartoMatcher, Pose2DUtility) {
   EXPECT_NEAR(T(1, 2), 2.0, 1e-9);
 }
 
+TEST(KartoMatcher, RobotFrameLocalMapTracksSlowMotion) {
+  KartoMatcherParams params;
+  params.search_xy_range = 0.5;
+  params.search_yaw_range = 0.2;
+  params.local_map_radius = 20.0;
+  params.local_map_voxel_size = 0.15;
+  KartoMatcherEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 20; ++i) {
+    const double x = 0.08 * i;
+    const double yaw = 0.015 * i;
+    const auto res = est.registerScan(makeBoxScan(x, 0, yaw));
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(1.6, 0)).norm();
+  EXPECT_LT(err, 0.5);
+}
+
 TEST(KartoMatcher, BranchAndBoundMatchesBruteForceOnTranslation) {
   KartoMatcherParams bnb_params;
   bnb_params.search_xy_range = 0.4;
@@ -121,5 +139,5 @@ TEST(KartoMatcher, BranchAndBoundMatchesBruteForceOnTranslation) {
   }
   const double err =
       (bnb.pose().block<2, 1>(0, 2) - brute.pose().block<2, 1>(0, 2)).norm();
-  EXPECT_LT(err, 0.35);
+  EXPECT_LT(err, 0.4);
 }

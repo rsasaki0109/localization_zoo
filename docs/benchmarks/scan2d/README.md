@@ -32,12 +32,15 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip)
 (Radish CARMEN conversions). GT is dataset odometry (scan-matched proxy, not centimeter truth).
 
-### Long train windows (P4)
+### Long train windows (P4 / P8)
 
-| Fixture | Frames | Traj [m] | Best | RF2O | PL-ICP | Karto | MbICP |
-|---------|--------|----------|------|-----:|-------:|------:|------:|
-| `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 37.1% | 30.4% |
-| `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 18.7% | 23.4% |
+| Fixture | Frames | Traj [m] | Best | RF2O | PL-ICP | CSM | Karto | MbICP | NDT-2D |
+|---------|--------|----------|------|-----:|-------:|----:|------:|------:|-------:|
+| `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 35.3% | 37.1% | 30.4% | 50.9% |
+| `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 39.6% | 18.7% | 23.4% | 27.6% |
+| `fr079_train_200` | 200 | 27 | NDT-2D | 30.3% | 29.4% | **12.4%** | 14.1% | 7.5% | **5.6%** |
+
+Note: `fr079_train_200` is the first 200 frames of Bonn fr079 **train** (~27 m GT length in this window — drift is indicative, not comparable to 373 m val runs).
 
 Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_long_fixtures.sh`).
 
@@ -50,7 +53,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 | Harness | `scan_dogfooding` — `scan_meta.json`, `NNNNNNNN/scan.csv`, `gt.csv` |
 | Methods | `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp,karto_matcher` |
 | CI smoke | `evaluation/scripts/smoke_scan2d_fixture.sh` (Intel 20 frames, all 9 methods) |
-| CI long smoke | `evaluation/scripts/smoke_scan2d_long_fixture.sh` (MIT/Intel train 20f × 9 methods) |
+| CI long smoke | `evaluation/scripts/smoke_scan2d_long_fixture.sh` (MIT/Intel/fr079 train 20f × 9 methods) |
 | Batch refresh | `evaluation/scripts/run_scan2d_benchmark.sh` |
 | Long train refresh (P4) | `evaluation/scripts/run_scan2d_long_benchmark.sh` |
 | Long fixture prep | `evaluation/scripts/prepare_bonn_long_fixtures.sh` |
@@ -67,6 +70,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 | `evaluation/fixtures/mit_val_33` | Bonn `mit/val.json` | 33 | 360 | ~267 |
 | `evaluation/fixtures/mit_train_120` | Bonn `mit/train.json` (first 120) | 120 | 360 | ~900 |
 | `evaluation/fixtures/intel_train_150` | Bonn `intel/train.json` (first 150) | 150 | 180 | ~780 |
+| `evaluation/fixtures/fr079_train_200` | Bonn `fr079/train.json` (first 200) | 200 | 360 | ~27* |
 | `evaluation/fixtures/rf2o_corridor` | synthetic raycast | 120 | 360 | ~9.5 |
 | `evaluation/fixtures/rf2o_smoke` | synthetic raycast | 60 | 360 | ~18 |
 

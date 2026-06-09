@@ -640,7 +640,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | 4 | **Olson 2009 full Karto** | 確率 grid + branch-and-bound | OpenSLAM | **3/5** | CSM からの段階的拡張 |
 | 5 | **GMapping particle filter** | Rao-Blackwellized PF | ROS 有 | **2.5/5** | SLAM 本体、odom 単体ではない |
 
-**次の推奨**: fr079_train 等の更長 window、CSM 速度チューニング、または Felzenszwalb EDT。PG-LIO (3D) は引き続き保留。
+**次の推奨**: CSM 速度チューニング、Felzenszwalb EDT、または fr079_train 更長 window。PG-LIO (3D) は引き続き保留。
 
 ---
 
@@ -942,6 +942,7 @@ README.md (1-screen 概要)
 | **P5** | CSM robot-frame local map | ✅ Intel **14.5%**, fr079 **14.5%**; corridor **95.8%** (honest negative vs scan-to-scan 73%) |
 | **P6** | CI long-fixture smoke | ✅ `smoke_scan2d_long_fixture.sh` — MIT/Intel train 20f × 9 methods (`.github/workflows/ci.yml`) |
 | **P7** | CSM Olson coarse branch-and-bound | ✅ Karto から移植; fr079 **14.9%**, Intel **15.2%**; corridor ~102% (honest negative) |
+| **P8** | fr079_train long window | ✅ `fr079_train_200` fixture + benchmark + CI long smoke |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

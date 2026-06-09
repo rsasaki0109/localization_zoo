@@ -147,6 +147,27 @@
       },
       "best": "RF2O",
       "note": "Longer Intel window (Bonn train, first 150 frames)."
+    },
+    {
+      "id": "fr079_train_200",
+      "dataset": "fr079",
+      "split": "train",
+      "frames": 200,
+      "trajectory_length_m": 26.775,
+      "artifact": "docs/benchmarks/scan2d/fr079_train_200.json",
+      "drift_pct": {
+        "NDT-2D": 5.586,
+        "MbICP": 7.477,
+        "Kinematic-ICP": 11.021,
+        "CSM": 12.429,
+        "Karto-Matcher": 14.132,
+        "PL-ICP": 29.365,
+        "RF2O": 30.291,
+        "PSM": 63.677,
+        "IDC": 98.490
+      },
+      "best": "NDT-2D",
+      "note": "Bonn fr079 train, first 200 frames (~27 m GT length — short window, indicative drift)."
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (Felzenszwalb EDT P11)**
+> **最終更新: 2026-06-10 (fr079_train_1200 P12)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -640,7 +640,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 | 4 | **Olson 2009 full Karto** | 確率 grid + branch-and-bound | OpenSLAM | **3/5** | CSM からの段階的拡張 |
 | 5 | **GMapping particle filter** | Rao-Blackwellized PF | ROS 有 | **2.5/5** | SLAM 本体、odom 単体ではない |
 
-**次の推奨**: fr079_train 更長 window。PG-LIO (3D) は引き続き保留。
+**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は新 fixture 追加より Felzenszwalb 後の drift 安定性 watch。
 
 ---
 
@@ -959,6 +959,7 @@ README.md (1-screen 概要)
 | **P9** | CSM 速度チューニング | ✅ 64-node BnB + finest-only refine + score lookup; Intel **14.7%** (~79 FPS), fr079 **14.3%** (~58 FPS), corridor **41%** (was 102%) |
 | **P10** | Karto-Matcher への CSM 同チューニング移植 | ✅ 64-node BnB + finest-only refine + score lookup; Intel **14.7%** (~64 FPS), fr079 **14.3%** (~47 FPS), corridor **41%** (was 102%) |
 | **P11** | Felzenszwalb EDT (CSM + Karto) | ✅ `common/felzenszwalb_edt`; Intel **14.0%**, fr079 **13.7%**, corridor **30.5%** (was 41%); `fr079_train_200` regressed (indicative) |
+| **P12** | fr079_train 更長 window | ✅ `fr079_train_1200` (~150 m); CSM/Karto **17.6%** (vs 40% on 200f); CI long smoke uses 1200 fixture |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

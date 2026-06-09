@@ -168,6 +168,27 @@
       },
       "best": "NDT-2D",
       "note": "Bonn fr079 train, first 200 frames (~27 m GT length \u2014 short window, indicative drift)."
+    },
+    {
+      "id": "fr079_train_1200",
+      "dataset": "fr079",
+      "split": "train",
+      "frames": 1200,
+      "trajectory_length_m": 150.033,
+      "artifact": "docs/benchmarks/scan2d/fr079_train_1200.json",
+      "drift_pct": {
+        "IDC": 46.363,
+        "MbICP": 10.428,
+        "NDT-2D": 7.448,
+        "PSM": 72.203,
+        "Kinematic-ICP": 10.716,
+        "Karto-Matcher": 17.624,
+        "CSM": 17.624,
+        "PL-ICP": 9.222,
+        "RF2O": 10.593
+      },
+      "best": "NDT-2D",
+      "note": "Bonn fr079 train, first 1200 frames (~150 m \u2014 comparable to MIT/Intel train windows)."
     }
   ]
 }

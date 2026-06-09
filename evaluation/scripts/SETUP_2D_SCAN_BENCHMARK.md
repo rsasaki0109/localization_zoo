@@ -128,6 +128,7 @@ Committed long fixtures:
 | `mit_train_120` | `mit/train.json` (first 120) | 120 | 360 |
 | `intel_train_150` | `intel/train.json` (first 150) | 150 | 180 |
 | `fr079_train_200` | `fr079/train.json` (first 200) | 200 | 360 |
+| `fr079_train_1200` | `fr079/train.json` (first 1200) | 1200 | 360 |
 
 ## Run scan_dogfooding
 
@@ -165,7 +166,7 @@ Long train fixtures (P4) get a separate 20-frame × 9-method smoke:
 bash evaluation/scripts/smoke_scan2d_long_fixture.sh
 ```
 
-Fixtures: `mit_train_120`, `intel_train_150`, `fr079_train_200` (committed under `evaluation/fixtures/`).
+Fixtures: `mit_train_120`, `intel_train_150`, `fr079_train_1200` (committed under `evaluation/fixtures/`). Legacy `fr079_train_200` (~27 m) remains for reference.
 
 Full fixture refresh (4 benchmarks → `docs/benchmarks/scan2d/*.json`):
 

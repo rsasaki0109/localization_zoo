@@ -40,4 +40,10 @@ python3 "${PREP}" \
   --output-dir "${ROOT}/evaluation/fixtures/fr079_train_200" \
   --max-frames 200
 
-echo "long fixtures ready under evaluation/fixtures/{mit_train_120,intel_train_150,fr079_train_200}"
+echo "=== fr079_train_1200 (Bonn fr079 train, first 1200 frames, ~150 m) ==="
+python3 "${PREP}" \
+  --json "${BONN}/fr079/train.json" \
+  --output-dir "${ROOT}/evaluation/fixtures/fr079_train_1200" \
+  --max-frames 1200
+
+echo "long fixtures ready under evaluation/fixtures/{mit_train_120,intel_train_150,fr079_train_200,fr079_train_1200}"

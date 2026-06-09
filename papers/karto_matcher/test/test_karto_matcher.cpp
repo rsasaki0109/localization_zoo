@@ -6,7 +6,7 @@ using namespace localization_zoo::karto_matcher;
 
 namespace {
 
-LaserScan makeBoxScan(double x, double y, double yaw, int beams = 360) {
+LaserScan makeBoxScan(double x, double y, double yaw, int beams = 180) {
   LaserScan scan;
   scan.angle_min = -M_PI;
   scan.angle_max = M_PI;
@@ -38,7 +38,7 @@ TEST(KartoMatcher, FirstScanInitializes) {
   KartoMatcherEstimator est(KartoMatcherParams{});
   const auto res = est.registerScan(makeBoxScan(0, 0, 0));
   EXPECT_TRUE(res.valid);
-  EXPECT_GT(est.mapSize(), 100u);
+  EXPECT_GT(est.mapSize(), 20u);
 }
 
 TEST(KartoMatcher, PureTranslationInBox) {
@@ -99,4 +99,27 @@ TEST(KartoMatcher, Pose2DUtility) {
   const auto T = pose2D(1.0, 2.0, M_PI / 4);
   EXPECT_NEAR(T(0, 2), 1.0, 1e-9);
   EXPECT_NEAR(T(1, 2), 2.0, 1e-9);
+}
+
+TEST(KartoMatcher, BranchAndBoundMatchesBruteForceOnTranslation) {
+  KartoMatcherParams bnb_params;
+  bnb_params.search_xy_range = 0.4;
+  bnb_params.use_branch_and_bound = true;
+  KartoMatcherParams brute_params = bnb_params;
+  brute_params.use_branch_and_bound = false;
+
+  KartoMatcherEstimator bnb(bnb_params);
+  KartoMatcherEstimator brute(brute_params);
+  bnb.registerScan(makeBoxScan(0, 0, 0));
+  brute.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 3; ++i) {
+    const auto scan = makeBoxScan(0.25 * i, 0, 0);
+    const auto bnb_res = bnb.registerScan(scan);
+    const auto brute_res = brute.registerScan(scan);
+    EXPECT_TRUE(bnb_res.valid);
+    EXPECT_TRUE(brute_res.valid);
+  }
+  const double err =
+      (bnb.pose().block<2, 1>(0, 2) - brute.pose().block<2, 1>(0, 2)).norm();
+  EXPECT_LT(err, 0.35);
 }

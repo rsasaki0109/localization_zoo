@@ -31,6 +31,13 @@ struct KartoMatcherParams {
   bool use_motion_prior = true;
   /// Rolling local map radius around the robot [m].
   double local_map_radius = 12.0;
+  bool use_branch_and_bound = true;
+  double bnb_min_xy = 0.04;
+  double bnb_min_yaw = 0.02;
+  int leaf_xy_steps = 3;
+  int leaf_yaw_steps = 3;
+  int bnb_max_nodes = 128;
+  /// Brute-force fallback (when use_branch_and_bound = false).
   int coarse_xy_steps = 11;
   int coarse_yaw_steps = 11;
   int fine_xy_steps = 5;
@@ -45,7 +52,7 @@ struct KartoMatcherResult {
 };
 
 /// Karto-style correlative scan matching against a rolling occupancy map with
-/// multi-resolution coarse-to-fine search (Olson ICRA 2009, simplified port).
+/// Olson branch-and-bound over a multi-resolution score pyramid (ICRA 2009).
 class KartoMatcherEstimator {
  public:
   explicit KartoMatcherEstimator(const KartoMatcherParams& params = KartoMatcherParams());
@@ -66,19 +73,49 @@ class KartoMatcherEstimator {
     double origin_x = 0.0;
     double origin_y = 0.0;
     std::vector<float> dist_m;
+    std::vector<float> score;
+    std::vector<float> bound;
+  };
+
+  struct SearchNode {
+    double dx = 0.0;
+    double dy = 0.0;
+    double dt = 0.0;
+    double wx = 0.0;
+    double wy = 0.0;
+    double wt = 0.0;
+    int level = 0;
+    double bound = 0.0;
   };
 
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   std::vector<Eigen::Vector2d> localMapPoints() const;
   Grid buildGrid(const std::vector<Eigen::Vector2d>& points, double resolution) const;
   void computeDistanceTransform(Grid* grid) const;
+  void computeScoreGrid(Grid* grid) const;
+  void downsampleGrid(const Grid& fine, Grid* coarse) const;
+  void computeBoundFromFiner(const Grid& fine, Grid* coarse) const;
   std::vector<Grid> buildPyramid(const std::vector<Eigen::Vector2d>& points) const;
   double scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
                    const Eigen::Matrix3d& world_transform) const;
   double lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p) const;
-  Eigen::Matrix3d searchBestTransform(const std::vector<Grid>& pyramid,
-                                      const std::vector<Eigen::Vector2d>& points,
-                                      const Eigen::Matrix3d& prior) const;
+  double lookupBound(const Grid& grid, int x, int y) const;
+  double nodeUpperBound(const Grid& grid, const SearchNode& node,
+                        const std::vector<Eigen::Vector2d>& points,
+                        const Eigen::Matrix3d& base_world) const;
+  Eigen::Matrix3d searchBranchAndBound(const std::vector<Grid>& pyramid,
+                                       const std::vector<Eigen::Vector2d>& points,
+                                       const Eigen::Matrix3d& prior) const;
+  Eigen::Matrix3d searchBranchAndBoundAtLevel(const Grid& grid, int level,
+                                              const std::vector<Eigen::Vector2d>& points,
+                                              const Eigen::Matrix3d& center_increment,
+                                              double xy_range, double yaw_range) const;
+  Eigen::Matrix3d refineAtLevel(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
+                                const Eigen::Matrix3d& center_increment, int level,
+                                int finest) const;
+  Eigen::Matrix3d searchBestTransformBruteForce(const std::vector<Grid>& pyramid,
+                                                const std::vector<Eigen::Vector2d>& points,
+                                                const Eigen::Matrix3d& prior) const;
   void addScanToMap(const std::vector<Eigen::Vector2d>& points);
   void pruneMap();
 

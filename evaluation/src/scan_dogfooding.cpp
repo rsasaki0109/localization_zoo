@@ -569,7 +569,7 @@ MethodResult runKartoMatcher(const std::vector<fs::path>& frames, const ScanMeta
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Map-based correlative scan matching with rolling local map (Olson ICRA 2009 / Karto-style, simplified port).";
+      "Map-based correlative scan matching with Olson coarse BnB and rolling local map (ICRA 2009 / Karto-style, simplified port).";
   return res;
 }
 

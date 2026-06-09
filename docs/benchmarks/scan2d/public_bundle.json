@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "description": "2D scan odometry leaderboard — drift [%] per method (lower is better). GT is Bonn dataset odometry proxy.",
+  "description": "2D scan odometry leaderboard \u2014 drift [%] per method (lower is better). GT is Bonn dataset odometry proxy.",
   "readme": "docs/benchmarks/scan2d/README.md",
   "methods_order": [
     "RF2O",
@@ -32,17 +32,17 @@
       "trajectory_length_m": 377.915,
       "artifact": "docs/benchmarks/scan2d/intel_val_73.json",
       "drift_pct": {
-        "RF2O": 14.287,
-        "Karto-Matcher": 14.190,
-        "NDT-2D": 14.782,
         "IDC": 15.271,
-        "CSM": 15.236,
-        "PL-ICP": 14.962,
         "MbICP": 14.543,
+        "NDT-2D": 14.782,
+        "PSM": 21.8,
         "Kinematic-ICP": 18.346,
-        "PSM": 21.800
+        "Karto-Matcher": 14.19,
+        "CSM": 14.731,
+        "PL-ICP": 14.962,
+        "RF2O": 14.287
       },
-      "best": "RF2O"
+      "best": "Karto-Matcher"
     },
     {
       "id": "fr079_val_384",
@@ -52,15 +52,15 @@
       "trajectory_length_m": 373.138,
       "artifact": "docs/benchmarks/scan2d/fr079_val_384.json",
       "drift_pct": {
-        "PSM": 13.891,
-        "Karto-Matcher": 14.504,
-        "RF2O": 15.374,
-        "MbICP": 15.411,
-        "Kinematic-ICP": 18.864,
-        "CSM": 14.931,
-        "NDT-2D": 21.790,
         "IDC": 27.737,
-        "PL-ICP": 14.079
+        "MbICP": 15.411,
+        "NDT-2D": 21.79,
+        "PSM": 13.891,
+        "Kinematic-ICP": 18.864,
+        "Karto-Matcher": 14.501,
+        "CSM": 14.251,
+        "PL-ICP": 14.079,
+        "RF2O": 15.374
       },
       "best": "PSM"
     },
@@ -72,18 +72,18 @@
       "trajectory_length_m": 266.522,
       "artifact": "docs/benchmarks/scan2d/mit_val_33.json",
       "drift_pct": {
-        "Kinematic-ICP": 23.410,
-        "MbICP": 27.499,
-        "RF2O": 27.623,
-        "PSM": 27.901,
-        "NDT-2D": 29.162,
-        "CSM": 29.209,
         "IDC": 29.512,
+        "MbICP": 27.499,
+        "NDT-2D": 29.162,
+        "PSM": 27.901,
+        "Kinematic-ICP": 23.41,
+        "Karto-Matcher": 28.251,
+        "CSM": 28.11,
         "PL-ICP": 27.193,
-        "Karto-Matcher": 29.120
+        "RF2O": 27.623
       },
       "best": "Kinematic-ICP",
-      "note": "Short 33-frame window — drift is indicative only."
+      "note": "Short 33-frame window \u2014 drift is indicative only."
     },
     {
       "id": "rf2o_corridor",
@@ -93,17 +93,17 @@
       "trajectory_length_m": 9.543,
       "artifact": "docs/benchmarks/scan2d/rf2o_corridor.json",
       "drift_pct": {
-        "PL-ICP": 0.007,
-        "MbICP": 0.054,
-        "RF2O": 1.276,
-        "PSM": 11.599,
-        "NDT-2D": 22.319,
         "IDC": 42.599,
-        "CSM": 101.952,
+        "MbICP": 0.054,
+        "NDT-2D": 22.319,
+        "PSM": 11.599,
         "Kinematic-ICP": 83.805,
-        "Karto-Matcher": 102.019
+        "Karto-Matcher": 102.024,
+        "CSM": 41.3,
+        "PL-ICP": 0.007,
+        "RF2O": 1.276
       },
-      "best": "MbICP",
+      "best": "PL-ICP",
       "note": "Slow-motion box-world raycast; not a real hallway."
     },
     {
@@ -114,15 +114,15 @@
       "trajectory_length_m": 150.385,
       "artifact": "docs/benchmarks/scan2d/mit_train_120.json",
       "drift_pct": {
-        "RF2O": 29.484,
-        "PSM": 29.565,
-        "MbICP": 30.368,
-        "PL-ICP": 30.621,
-        "CSM": 35.329,
-        "Karto-Matcher": 37.091,
-        "Kinematic-ICP": 46.412,
         "IDC": 48.125,
-        "NDT-2D": 50.872
+        "MbICP": 30.368,
+        "NDT-2D": 50.872,
+        "PSM": 29.565,
+        "Kinematic-ICP": 46.412,
+        "Karto-Matcher": 37.091,
+        "CSM": 32.017,
+        "PL-ICP": 30.621,
+        "RF2O": 29.484
       },
       "best": "RF2O",
       "note": "Longer MIT window (Bonn train, first 120 frames)."
@@ -135,15 +135,15 @@
       "trajectory_length_m": 153.652,
       "artifact": "docs/benchmarks/scan2d/intel_train_150.json",
       "drift_pct": {
-        "RF2O": 17.546,
-        "Karto-Matcher": 18.728,
-        "PL-ICP": 19.622,
+        "IDC": 41.909,
         "MbICP": 23.418,
-        "PSM": 23.700,
-        "Kinematic-ICP": 25.425,
         "NDT-2D": 27.601,
-        "CSM": 39.575,
-        "IDC": 41.909
+        "PSM": 23.7,
+        "Kinematic-ICP": 25.425,
+        "Karto-Matcher": 18.728,
+        "CSM": 21.055,
+        "PL-ICP": 19.622,
+        "RF2O": 17.546
       },
       "best": "RF2O",
       "note": "Longer Intel window (Bonn train, first 150 frames)."
@@ -156,18 +156,18 @@
       "trajectory_length_m": 26.775,
       "artifact": "docs/benchmarks/scan2d/fr079_train_200.json",
       "drift_pct": {
-        "NDT-2D": 5.586,
+        "IDC": 98.49,
         "MbICP": 7.477,
-        "Kinematic-ICP": 11.021,
-        "CSM": 12.429,
-        "Karto-Matcher": 14.132,
-        "PL-ICP": 29.365,
-        "RF2O": 30.291,
+        "NDT-2D": 5.586,
         "PSM": 63.677,
-        "IDC": 98.490
+        "Kinematic-ICP": 11.021,
+        "Karto-Matcher": 14.132,
+        "CSM": 11.972,
+        "PL-ICP": 29.365,
+        "RF2O": 30.291
       },
       "best": "NDT-2D",
-      "note": "Bonn fr079 train, first 200 frames (~27 m GT length — short window, indicative drift)."
+      "note": "Bonn fr079 train, first 200 frames (~27 m GT length \u2014 short window, indicative drift)."
     }
   ]
 }

@@ -322,6 +322,34 @@ double CSMEstimator::lookupDistanceM(const Grid& grid, const Eigen::Vector2d& p)
   return d0 * (1.0 - ay) + d1 * ay;
 }
 
+double CSMEstimator::lookupScore(const Grid& grid, const Eigen::Vector2d& p) const {
+  if (grid.score.empty()) {
+    const double d = lookupDistanceM(grid, p);
+    const double inv_sigma2 = 1.0 / (params_.score_sigma * params_.score_sigma);
+    return std::exp(-d * d * inv_sigma2);
+  }
+
+  const double fx = (p.x() - grid.origin_x) / grid.resolution - 0.5;
+  const double fy = (p.y() - grid.origin_y) / grid.resolution - 0.5;
+  const int x0 = static_cast<int>(std::floor(fx));
+  const int y0 = static_cast<int>(std::floor(fy));
+  const double ax = fx - static_cast<double>(x0);
+  const double ay = fy - static_cast<double>(y0);
+
+  auto sample = [&](int x, int y) -> double {
+    if (x < 0 || y < 0 || x >= grid.width || y >= grid.height) return 0.0;
+    return static_cast<double>(grid.score[static_cast<size_t>(y * grid.width + x)]);
+  };
+
+  const double s00 = sample(x0, y0);
+  const double s10 = sample(x0 + 1, y0);
+  const double s01 = sample(x0, y0 + 1);
+  const double s11 = sample(x0 + 1, y0 + 1);
+  const double s0 = s00 * (1.0 - ax) + s10 * ax;
+  const double s1 = s01 * (1.0 - ax) + s11 * ax;
+  return s0 * (1.0 - ay) + s1 * ay;
+}
+
 double CSMEstimator::lookupBound(const Grid& grid, int x, int y) const {
   if (x < 0 || y < 0 || x >= grid.width || y >= grid.height) return 0.0;
   return static_cast<double>(grid.bound[static_cast<size_t>(y * grid.width + x)]);
@@ -330,13 +358,10 @@ double CSMEstimator::lookupBound(const Grid& grid, int x, int y) const {
 double CSMEstimator::scorePose(const Grid& grid, const std::vector<Eigen::Vector2d>& points,
                                const Eigen::Matrix3d& increment) const {
   if (points.empty()) return 0.0;
-  const double sigma = params_.score_sigma;
-  const double inv_sigma2 = 1.0 / (sigma * sigma);
   double score = 0.0;
   for (const auto& p : points) {
     const Eigen::Vector2d q = transformPoint(increment, p);
-    const double d = lookupDistanceM(grid, q);
-    score += std::exp(-d * d * inv_sigma2);
+    score += lookupScore(grid, q);
   }
   return score / static_cast<double>(points.size());
 }
@@ -506,6 +531,7 @@ Eigen::Matrix3d CSMEstimator::searchBranchAndBound(
       searchBranchAndBoundAtLevel(pyramid.front(), 0, points, prior, xy_range, yaw_range);
 
   for (int level = 1; level <= finest; ++level) {
+    if (!params_.refine_intermediate_levels && level < finest) continue;
     best = refineAtLevel(pyramid[static_cast<size_t>(level)], points, best, level, finest,
                          xy_range, yaw_range);
   }

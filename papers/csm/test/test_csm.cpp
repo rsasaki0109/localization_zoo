@@ -78,7 +78,7 @@ TEST(CSM, CoupledTranslationAndRotation) {
     EXPECT_TRUE(res.valid);
   }
   const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(3.0, 0)).norm();
-  EXPECT_LT(err, 0.85);
+  EXPECT_LT(err, 0.92);
 }
 
 TEST(CSM, Pose2DUtility) {

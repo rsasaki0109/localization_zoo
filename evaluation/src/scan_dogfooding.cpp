@@ -510,8 +510,12 @@ MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   params.search_yaw_range = 0.25;
   params.coarse_xy_steps = 11;
   params.coarse_yaw_steps = 11;
-  params.fine_xy_steps = 5;
-  params.fine_yaw_steps = 5;
+  params.fine_xy_steps = 3;
+  params.fine_yaw_steps = 3;
+  params.leaf_xy_steps = 2;
+  params.leaf_yaw_steps = 2;
+  params.bnb_max_nodes = 64;
+  params.refine_intermediate_levels = false;
   params.use_local_map = true;
   params.local_map_radius = 15.0;
   params.local_map_voxel_size = 0.15;
@@ -538,7 +542,7 @@ MethodResult runCSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Correlative scan matching with robot-frame local map, Olson branch-and-bound, and adaptive search (ICRA 2009, simplified port).";
+      "Correlative scan matching with robot-frame local map, tuned Olson BnB (64-node budget, finest-only refine), and adaptive search (ICRA 2009, simplified port).";
   return res;
 }
 

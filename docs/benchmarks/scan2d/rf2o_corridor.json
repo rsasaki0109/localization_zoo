@@ -13,8 +13,8 @@
       "drift_pct": 42.599,
       "rpe_rot_deg_per_m": 0.860,
       "frames": 120,
-      "time_ms": 973.209,
-      "fps": 123.303,
+      "time_ms": 980.272,
+      "fps": 122.415,
       "note": "Iterative dual correspondence 2D odometry (Lu & Milios 1997, simplified port)."
     },
     {
@@ -24,8 +24,8 @@
       "drift_pct": 0.054,
       "rpe_rot_deg_per_m": 0.002,
       "frames": 120,
-      "time_ms": 2604.652,
-      "fps": 46.071,
+      "time_ms": 735.835,
+      "fps": 163.080,
       "note": "Metric-based ICP 2D odometry with robot-frame rolling local map (Minguez-Lamiraux-Montesano ICRA 2005, simplified port)."
     },
     {
@@ -35,8 +35,8 @@
       "drift_pct": 22.319,
       "rpe_rot_deg_per_m": 1.004,
       "frames": 120,
-      "time_ms": 63.065,
-      "fps": 1902.798,
+      "time_ms": 62.957,
+      "fps": 1906.064,
       "note": "2D NDT scan matching odometry (Biber & Straßer IROS 2003, simplified port)."
     },
     {
@@ -46,8 +46,8 @@
       "drift_pct": 11.599,
       "rpe_rot_deg_per_m": 0.744,
       "frames": 120,
-      "time_ms": 3977.734,
-      "fps": 30.168,
+      "time_ms": 3617.986,
+      "fps": 33.168,
       "note": "Polar scan matching 2D odometry (Hähnel polar range correlation, simplified port)."
     },
     {
@@ -57,31 +57,31 @@
       "drift_pct": 83.805,
       "rpe_rot_deg_per_m": 0.007,
       "frames": 120,
-      "time_ms": 102.732,
-      "fps": 1168.089,
+      "time_ms": 124.032,
+      "fps": 967.490,
       "note": "Unicycle PL-ICP + wheel odom prior (Guadagnino ICRA 2025, simplified 2D port). GT-derived wheel odometry."
     },
     {
       "name": "Karto-Matcher",
       "status": "ok",
       "ate_m": 4.444,
-      "drift_pct": 102.019,
-      "rpe_rot_deg_per_m": 2.888,
+      "drift_pct": 102.024,
+      "rpe_rot_deg_per_m": 0.978,
       "frames": 120,
-      "time_ms": 9013.224,
-      "fps": 13.314,
+      "time_ms": 8632.265,
+      "fps": 13.901,
       "note": "Map-based correlative scan matching with robot-frame local map, adaptive search, and Olson coarse BnB (ICRA 2009 / Karto-style, simplified port)."
     },
     {
       "name": "CSM",
       "status": "ok",
-      "ate_m": 4.551,
-      "drift_pct": 101.952,
-      "rpe_rot_deg_per_m": 0.146,
+      "ate_m": 2.186,
+      "drift_pct": 41.300,
+      "rpe_rot_deg_per_m": 2.895,
       "frames": 120,
-      "time_ms": 13657.400,
-      "fps": 8.786,
-      "note": "Correlative scan matching with robot-frame local map, Olson branch-and-bound, and adaptive search (ICRA 2009, simplified port)."
+      "time_ms": 4249.474,
+      "fps": 28.239,
+      "note": "Correlative scan matching with robot-frame local map, tuned Olson BnB (64-node budget, finest-only refine), and adaptive search (ICRA 2009, simplified port)."
     },
     {
       "name": "PL-ICP",
@@ -90,8 +90,8 @@
       "drift_pct": 0.007,
       "rpe_rot_deg_per_m": 0.001,
       "frames": 120,
-      "time_ms": 649.002,
-      "fps": 184.899,
+      "time_ms": 328.522,
+      "fps": 365.273,
       "note": "Point-to-line ICP 2D odometry with robot-frame local map cache (Censi IROS 2008, simplified port)."
     },
     {
@@ -101,8 +101,8 @@
       "drift_pct": 1.276,
       "rpe_rot_deg_per_m": 0.272,
       "frames": 120,
-      "time_ms": 42.575,
-      "fps": 2818.566,
+      "time_ms": 51.536,
+      "fps": 2328.487,
       "note": "Range-flow 2D laser odometry (Jaimez ICRA 2016, simplified port)."
     }
   ]

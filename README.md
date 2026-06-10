@@ -400,6 +400,29 @@ ctest --test-dir build --output-on-failure
 ./build/evaluation/synthetic_benchmark
 ```
 
+### Python bindings (experimental)
+
+A thin pybind11 layer over a representative subset (KISS-ICP odometry,
+NDT / GICP / LiTAMIN2 registration). Point clouds are Nx3 numpy arrays:
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON_BINDINGS=ON
+cmake --build build -j"$(nproc)" --target localization_zoo_py
+python3 python/example_synthetic.py   # end-to-end check, no dataset needed
+```
+
+```python
+import sys; sys.path.insert(0, "build/python")
+import localization_zoo as lz
+
+odom = lz.KissICP()
+for scan in scans:          # Nx3 float64 numpy arrays
+    odom.register_frame(scan)
+print(odom.pose)            # 4x4 world-frame pose
+```
+
+See [`python/README.md`](python/README.md) for the full API.
+
 ### ROS 2
 
 ```bash

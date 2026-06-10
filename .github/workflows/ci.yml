@@ -31,13 +31,16 @@ jobs:
       - name: Configure
         run: |
           mkdir build && cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON_BINDINGS=ON
 
       - name: Build
         run: cmake --build build -j$(nproc)
 
       - name: Test
         run: cd build && ctest --output-on-failure
+
+      - name: Python bindings smoke
+        run: python3 python/example_synthetic.py
 
       - name: Dogfooding smoke (committed 3-frame MCD fixture ~3MB)
         run: |

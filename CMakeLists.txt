@@ -104,3 +104,8 @@ add_subdirectory(papers/fast_livo2)
 add_subdirectory(papers/r2live)
 add_subdirectory(papers/fast_lio_slam)
 add_subdirectory(evaluation)
+
+option(BUILD_PYTHON_BINDINGS "Build the pybind11 Python module (python/)" OFF)
+if(BUILD_PYTHON_BINDINGS)
+  add_subdirectory(python)
+endif()

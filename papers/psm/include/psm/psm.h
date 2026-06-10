@@ -3,6 +3,8 @@
 #include <Eigen/Core>
 
 #include <cstddef>
+#include <cstdint>
+#include <unordered_map>
 #include <vector>
 
 namespace localization_zoo {
@@ -33,6 +35,9 @@ struct PSMParams {
   int min_valid_bins = 30;
   int refine_iterations = 12;
   bool use_motion_prior = true;
+  bool use_local_map = false;
+  double local_map_radius = 15.0;
+  double local_map_voxel_size = 0.15;
 };
 
 struct PSMResult {
@@ -53,11 +58,18 @@ class PSMEstimator {
   PSMResult registerScan(const LaserScan& scan);
 
   const Eigen::Matrix3d& pose() const { return pose_; }
+  size_t mapSize() const { return local_points_.size(); }
 
  private:
+  static int64_t voxelKey(double x, double y, double voxel_size);
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   std::vector<double> polarProfileFromPoints(const std::vector<Eigen::Vector2d>& points,
                                              const LaserScan& grid) const;
+  void rebuildPointVoxels();
+  void addScanToLocalMap(const LaserScan& scan);
+  void transformRobotMap(const Eigen::Matrix3d& inv_increment);
+  void pruneLocalMap();
+  void rebuildReferencePolar();
   double scorePolarProfiles(const std::vector<double>& ref,
                             const std::vector<double>& cur) const;
   double scoreTransform(const std::vector<Eigen::Vector2d>& points,
@@ -72,6 +84,8 @@ class PSMEstimator {
   bool initialized_ = false;
   LaserScan ref_scan_;
   std::vector<double> ref_polar_;
+  std::vector<Eigen::Vector2d> local_points_;
+  std::unordered_map<int64_t, size_t> point_voxels_;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

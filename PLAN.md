@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (IDC local map P15)**
+> **最終更新: 2026-06-10 (PSM local map P16)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -728,16 +728,29 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 
 - ✅ **実装**: `papers/psm/` — polar range-profile Gaussian correlation + coarse-to-fine search。
 - ✅ **統合**: `scan_dogfooding --methods psm`
-- ✅ **テスト**: `test_psm` 5 cases PASS。
+- ✅ **テスト**: `test_psm` 7 cases PASS。
 - ✅ **Intel CI smoke** 導入 (`709d25c`): `smoke_scan2d_fixture.sh`
-- ✅ **Public benchmark**:
-  - Intel **21.8%** / **fr079 13.9%** (リーダー) / MIT **27.9%** / corridor **11.6%**
-- ✅ **所見 (honest)**: **dataset-dependent** — fr079 best だが Intel/corridor では RF2O/PL-ICP 劣後。
+- ✅ **Public benchmark** (local map, 2026-06-10):
+  - Intel **15.3%** / fr079 **14.3%** / MIT **28.5%** / corridor **4.4%**
+- ✅ **所見 (honest)**: local map で Intel/corridor 大幅改善。fr079 val は mid-pack (~Karto 13.7%)。long train は NDT/PL-ICP 劣後。
   co-occurrence matrix 無しの簡略 polar correlation。
-- **未実装**: occupancy/co-occurrence matrix、local map
-- **状態**: ✅ push 済 (`709d25c`)
+- **未実装**: occupancy/co-occurrence matrix
+- **状態**: ✅ 実装済 (P16 local map)
 
-**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は PSM local map、または NDT outlier trimming。
+**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は NDT outlier trimming、または RF2O local map。
+
+---
+
+### 00.6c-47 PSM local map (2026-06-10, P16)
+
+- ✅ **Robot-frame rolling local map** — voxel merge + radius prune; reference polar profile rebuilt from accumulated points
+- ✅ harness 有効化 (`runPSM`: `use_local_map=true`, radius 15 m, voxel 0.15 m)
+- ✅ **Public benchmark (local map)**:
+  - Intel **15.3%** (was **21.8%**) / fr079 val **14.3%** (was 13.9%) / MIT **28.5%** / corridor **4.4%** (was 11.6%)
+  - `fr079_train_1200` **46.7%** (was 72.2%) / `intel_train_150` **22.5%** (was 23.7%)
+- ✅ **所見 (honest)**: local map fixes Intel weakness; fr079 val ~flat; long train improves but still behind NDT/PL-ICP. `fr079_train_200` honest negative (~681%).
+- **未実装**: occupancy/co-occurrence matrix
+- **状態**: 実装済
 
 ---
 
@@ -1005,6 +1018,7 @@ README.md (1-screen 概要)
 | **P13** | NDT-2D robot-frame local map | ✅ voxel merge + radius prune; fr079 **14.4%** (was 21.8%), corridor **0.8%** (was 22.3%); Intel **14.9%** |
 | **P14** | NDT-2D multi-resolution pyramid | ✅ 3-level coarse→fine (scale **1.5**); `fr079_train_1200` **8.8%** (was 10.3%); `mit_train_120` **29.1%** (best) |
 | **P15** | IDC robot-frame local map | ✅ voxel merge + radius prune + bearing-window RR; fr079 val **14.3%** (was 27.7%); corridor **3.6%** (was 42.6%); Intel **15.2%** |
+| **P16** | PSM robot-frame local map | ✅ point cache → polar profile rebuild; Intel **15.3%** (was 21.8%); fr079 **14.3%**; corridor **4.4%** (was 11.6%) |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

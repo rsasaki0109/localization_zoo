@@ -6,7 +6,7 @@ Metrics: **ATE [m]** and **Drift [%]** (KITTI-style RPE over a segment scaled to
 ## 結論
 
 Nine from-paper / extension 2D odometry ports (papers 43–50 + Karto-style map matcher) share one harness.
-**No single method wins every fixture** — CSM/Karto lead Intel val (Felzenszwalb EDT), PSM leads fr079 val, Kinematic-ICP leads the short MIT
+**No single method wins every fixture** — CSM/Karto lead Intel val (Felzenszwalb EDT), Karto/CSM lead fr079 val, Kinematic-ICP leads the short MIT
 window, PL-ICP leads the synthetic corridor, and **NDT-2D leads long train windows** (`fr079_train_1200` **8.8%**, `mit_train_120` **29.1%**).
 **NDT-2D** — 3-level pyramid (scale 1.5) + robot-frame local map; **Intel 14.6%**, fr079 val **14.8%**, corridor **1.0%**; long train **`fr079_train_1200` 8.8%** (was 10.3% local-map-only).
 **CSM / Karto-Matcher** — Felzenszwalb EDT + tuned Olson BnB; **Intel 14.0%**, fr079 **13.7%**, corridor **30.5%**.
@@ -26,7 +26,7 @@ GT-seed on frame 0; `--no-gt-seed` supported for pure odometry runs.
 | 50 | **MbICP** | ICRA 2005 | 14.5 | 15.4 | 27.5 | **0.05** |
 | 44 | **PL-ICP** | IROS 2008 | 15.0 | **14.1** | 27.2 | **0.01** |
 | 46 | **Kinematic-ICP** | ICRA 2025 | 18.4 | 18.9 | **23.4** | 83.8 |
-| 47 | **PSM** | ICRA 2003 | 21.8 | **13.9** | 27.9 | 11.6 |
+| 47 | **PSM** | ICRA 2003 | **15.3** | 14.3 | 28.5 | 4.4 |
 
 Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang2023ral/2dslam.zip)
 (Radish CARMEN conversions). GT is dataset odometry (scan-matched proxy, not centimeter truth).
@@ -85,7 +85,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 - **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~26 s (stamp-indexed map cache).
 - **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~2.3 min.
 - **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only.
-- **PSM** — best fr079 drift; polar profile matching is dataset-dependent.
+- **PSM** — robot-frame rolling local map (polar profile rebuilt from point cache); Intel **15.3%** (was 21.8%); fr079 **14.3%**; corridor **4.4%** (was 11.6%); long train `fr079_train_1200` **46.7%** (was 72.2%).
 
 ## Artifact index
 
@@ -127,5 +127,5 @@ Single fixture, all methods:
 
 ## 次アクション
 
-1. PSM robot-frame local map.
-2. NDT outlier trimming (optional).
+1. NDT outlier trimming (optional).
+2. RF2O / Kinematic-ICP local map (optional).

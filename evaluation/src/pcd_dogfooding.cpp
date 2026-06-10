@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -33,6 +33,7 @@
 #include "gnc_lo/gnc_lo.h"
 #include "mcc_lo/mcc_lo.h"
 #include "imls_slam/imls_slam.h"
+#include "mesh_loam/mesh_loam.h"
 #include "tricp_lo/tricp_lo.h"
 #include "kc_lo/kc_lo.h"
 #include "i_loam/i_loam.h"
@@ -232,7 +233,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "dilo" || method == "nhc_lio" ||
          method == "student_t_lo" || method == "spectral_lo" ||
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
-         method == "imls_slam" || method == "tricp_lo" || method == "kc_lo" ||
+         method == "imls_slam" || method == "mesh_loam" || method == "tricp_lo" || method == "kc_lo" ||
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
          method == "mcgicp" ||          method == "icpsc" || method == "vlom" ||
          method == "odonet" || method == "nhc_net" || method == "nn_zupt" ||
@@ -1744,6 +1745,21 @@ struct ImlsSlamDogfoodingOptions {
   bool use_observability_sampling = true;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
+};
+
+struct MeshLoamDogfoodingOptions {
+  double source_voxel_size = 0.25;
+  size_t max_source_points = 8000;
+  double voxel_size = 0.1;
+  double imls_h = 0.05;
+  double lambda_n = 0.2;
+  double curvature_threshold = 0.1;
+  double cos_gate = 0.98;
+  double search_radius = 0.2;
+  double max_correspondence_dist = 0.5;
+  int max_iterations = 30;
+  int mesh_update_interval = 5;
+  double local_map_radius = 80.0;
 };
 
 struct TricpLoDogfoodingOptions {
@@ -6196,6 +6212,59 @@ MethodResult runImlsSlam(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
+                         const std::vector<Eigen::Matrix4d>& gt,
+                         const MeshLoamDogfoodingOptions& options) {
+  using namespace localization_zoo::mesh_loam;
+  MethodResult res;
+  res.name = "Mesh-LOAM";
+
+  MeshLoamParams params;
+  params.voxel_size = options.voxel_size;
+  params.imls_h = options.imls_h;
+  params.lambda_n = options.lambda_n;
+  params.curvature_threshold = options.curvature_threshold;
+  params.cos_gate = options.cos_gate;
+  params.search_radius = options.search_radius;
+  params.max_correspondence_dist = options.max_correspondence_dist;
+  params.max_iterations = options.max_iterations;
+  params.mesh_update_interval = options.mesh_update_interval;
+  params.local_map_radius = options.local_map_radius;
+  MeshLoamPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double residual_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    residual_sum += result.mean_abs_residual;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [Mesh-LOAM] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << pipeline.mapSize()
+                << " facets=" << pipeline.meshSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[64];
+  std::snprintf(buf, sizeof(buf), "%.3f",
+                n > 0 ? residual_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise "
+      "zero-surface extraction and point-to-mesh GN odometry (normal cosine "
+      "gate); CV prior, no GT seed. mean|residual|=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runTricpLo(const std::vector<std::string>& pcd_dirs,
                         const std::vector<Eigen::Matrix4d>& gt,
                         const TricpLoDogfoodingOptions& options) {
@@ -8043,7 +8112,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -8227,6 +8296,7 @@ int main(int argc, char** argv) {
   GncLoDogfoodingOptions gnc_lo_options;
   MccLoDogfoodingOptions mcc_lo_options;
   ImlsSlamDogfoodingOptions imls_slam_options;
+  MeshLoamDogfoodingOptions mesh_loam_options;
   TricpLoDogfoodingOptions tricp_lo_options;
   KcLoDogfoodingOptions kc_lo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
@@ -10489,6 +10559,38 @@ int main(int argc, char** argv) {
       mcc_lo_options.mcc_adaptive_sigma = false;
       continue;
     }
+    // --- mesh_loam ---
+    if (arg == "--mesh-loam-fast-profile") {
+      mesh_loam_options.source_voxel_size = 0.5;
+      mesh_loam_options.max_source_points = 5000;
+      mesh_loam_options.voxel_size = 0.2;
+      mesh_loam_options.mesh_update_interval = 8;
+      mesh_loam_options.local_map_radius = 60.0;
+      continue;
+    }
+    if (arg == "--mesh-loam-dense-profile") {
+      mesh_loam_options.source_voxel_size = 0.25;
+      mesh_loam_options.max_source_points = 8000;
+      mesh_loam_options.voxel_size = 0.1;
+      mesh_loam_options.mesh_update_interval = 5;
+      mesh_loam_options.local_map_radius = 80.0;
+      continue;
+    }
+    if (arg == "--mesh-loam-voxel-size") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-voxel-size requires a value" << std::endl; return 1; }
+      mesh_loam_options.voxel_size = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--mesh-loam-cos-gate") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-cos-gate requires a value" << std::endl; return 1; }
+      mesh_loam_options.cos_gate = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--mesh-loam-mesh-interval") {
+      if (i + 1 >= argc) { std::cerr << "--mesh-loam-mesh-interval requires a value" << std::endl; return 1; }
+      mesh_loam_options.mesh_update_interval = std::stoi(argv[++i]);
+      continue;
+    }
     // --- imls_slam ---
     if (arg == "--imls-slam-fast-profile") {
       imls_slam_options.source_voxel_size = 0.5;
@@ -12173,6 +12275,15 @@ int main(int argc, char** argv) {
               << " sampling=" << imls_slam_options.use_observability_sampling
               << std::endl;
     results.push_back(runImlsSlam(pcd_dirs, gt, imls_slam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "mesh_loam")) {
+    std::cout << "Running Mesh-LOAM..." << std::endl;
+    std::cout << "  source_voxel_size=" << mesh_loam_options.source_voxel_size
+              << " voxel_size=" << mesh_loam_options.voxel_size
+              << " mesh_interval=" << mesh_loam_options.mesh_update_interval
+              << " cos_gate=" << mesh_loam_options.cos_gate << std::endl;
+    results.push_back(runMeshLoam(pcd_dirs, gt, mesh_loam_options));
   }
 
   if (isMethodEnabled(selected_methods, "tricp_lo")) {

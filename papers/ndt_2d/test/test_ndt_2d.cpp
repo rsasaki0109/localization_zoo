@@ -148,3 +148,43 @@ TEST(NDT2D, SingleLevelPyramidMatchesLegacyPath) {
   const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(1.0, 0)).norm();
   EXPECT_LT(err, 0.35);
 }
+
+TEST(NDT2D, OutlierTrimmingTracksWithRangeSpike) {
+  NDT2DParams params;
+  params.cell_size = 0.4;
+  params.use_outlier_trimming = true;
+  params.max_range_jump = 0.5;
+  params.trim_fraction = 0.9;
+  params.pyramid_levels = 3;
+  NDT2DEstimator est(params);
+
+  auto scan0 = makeBoxScan(0, 0, 0);
+  scan0.ranges[180] = 1.0;
+  est.registerScan(scan0);
+
+  for (int i = 1; i <= 10; ++i) {
+    auto scan = makeBoxScan(i * 0.2, 0, 0);
+    scan.ranges[180] = 1.0;
+    const auto res = est.registerScan(scan);
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(2.0, 0)).norm();
+  EXPECT_LT(err, 0.45);
+}
+
+TEST(NDT2D, OutlierTrimmingDoesNotBreakCleanScan) {
+  NDT2DParams params;
+  params.cell_size = 0.4;
+  params.use_outlier_trimming = true;
+  params.max_range_jump = 0.5;
+  params.trim_fraction = 0.9;
+  params.pyramid_levels = 3;
+  NDT2DEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  for (int i = 1; i <= 10; ++i) {
+    const auto res = est.registerScan(makeBoxScan(i * 0.2, 0, 0));
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(2.0, 0)).norm();
+  EXPECT_LT(err, 0.35);
+}

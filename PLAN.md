@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (PSM local map P16)**
+> **最終更新: 2026-06-10 (NDT outlier trim P17)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -737,7 +737,19 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - **未実装**: occupancy/co-occurrence matrix
 - **状態**: ✅ 実装済 (P16 local map)
 
-**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は NDT outlier trimming、または RF2O local map。
+**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は RF2O local map、または docs polish (`methods.json` / validate_showcase)。
+
+---
+
+### 00.6c-48 NDT-2D outlier trim (2026-06-10, P17)
+
+- ✅ **Outlier trimming** — range-jump filter on match points (not local map); Mahalanobis trim (90%) on finest pyramid level only
+- ✅ harness 有効化 (`use_outlier_trimming=true`, `max_range_jump=0.5`, `trim_fraction=0.9`)
+- ✅ **Public benchmark**:
+  - Intel **14.8%** (was 14.6%) / fr079 val **14.5%** (was 14.8%) / MIT **27.3%** / corridor **0.3%** (was 1.0%)
+  - `fr079_train_1200` **7.5%** (was **8.8%**) / `intel_train_150` **16.5%** (was 18.0%)
+- ✅ **所見 (honest)**: naive trim on map + all pyramid levels regressed long train to ~23%; match-only + finest-level fix recovers and improves. `mit_train_120` slight regression (31.6% vs 29.1%).
+- **状態**: 実装済
 
 ---
 
@@ -774,9 +786,10 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **Public benchmark (pyramid + local map)**:
   - Intel **14.6%** / fr079 val **14.8%** / MIT **28.1%** / corridor **1.0%**
   - `fr079_train_1200` **8.8%** (was **10.3%** P13) / `intel_train_150` **18.0%** (was 20.5%) / `mit_train_120` **29.1%** (best)
-- ✅ **所見 (honest)**: mild 1.5× scale fixes long-window drift; aggressive 2× scale regressed `fr079_train_1200` to ~14%. Val fr079/corridor ~flat vs P13.
-- **未実装**: outlier trimming
-- **状態**: 実装済
+- ✅ **所見 (honest)**: mild pyramid (scale **1.5**, 3 levels) recovers long-window drift on
+  `fr079_train_1200`. P17 outlier trim further improves to **7.5%**. Naive trim regressed long train — see honest note above.
+- **未実装**: —
+- **状態**: ✅ 実装済 (P17 outlier trim)
 
 ---
 
@@ -1019,6 +1032,7 @@ README.md (1-screen 概要)
 | **P14** | NDT-2D multi-resolution pyramid | ✅ 3-level coarse→fine (scale **1.5**); `fr079_train_1200` **8.8%** (was 10.3%); `mit_train_120` **29.1%** (best) |
 | **P15** | IDC robot-frame local map | ✅ voxel merge + radius prune + bearing-window RR; fr079 val **14.3%** (was 27.7%); corridor **3.6%** (was 42.6%); Intel **15.2%** |
 | **P16** | PSM robot-frame local map | ✅ point cache → polar profile rebuild; Intel **15.3%** (was 21.8%); fr079 **14.3%**; corridor **4.4%** (was 11.6%) |
+| **P17** | NDT-2D outlier trimming | ✅ match-only range jump + finest-level Mahalanobis trim; `fr079_train_1200` **7.5%** (was 8.8%); corridor **0.3%**; Intel ~flat |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

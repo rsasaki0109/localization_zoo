@@ -37,6 +37,9 @@ struct NDT2DParams {
   double local_map_voxel_size = 0.15;
   int pyramid_levels = 3;
   double pyramid_scale = 1.5;
+  bool use_outlier_trimming = false;
+  double max_range_jump = 0.5;
+  double trim_fraction = 0.9;
 };
 
 struct NDT2DResult {
@@ -80,7 +83,8 @@ class NDT2DEstimator {
                  int* ix, int* iy) const;
   static int64_t voxelKey(double x, double y, double voxel_size);
 
-  std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
+  std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan,
+                                            bool apply_outlier_filter = false) const;
   void rebuildPointVoxels();
   void addScanToLocalMap(const std::vector<Eigen::Vector2d>& points);
   void transformRobotMap(const Eigen::Matrix3d& inv_increment);
@@ -90,10 +94,11 @@ class NDT2DEstimator {
                          const Eigen::Vector2d& map_origin, double cell_size) const;
   bool solveIncrement(const std::vector<Eigen::Vector2d>& current, const CellMap& map,
                       const Eigen::Matrix3d& transform, const Eigen::Vector2d& map_origin,
-                      double cell_size, Eigen::Matrix3d* increment, double* score) const;
+                      double cell_size, Eigen::Matrix3d* increment, double* score,
+                      bool apply_trim = true) const;
   bool solveGaussNewton(const std::vector<Eigen::Vector2d>& current, const NDTMap& map,
                         double cell_size, Eigen::Matrix3d* estimate, int max_iterations,
-                        int* iterations, double* score) const;
+                        int* iterations, double* score, bool apply_trim = true) const;
   bool solveWithPyramid(const std::vector<Eigen::Vector2d>& current,
                         const std::vector<Eigen::Vector2d>& ref_points,
                         Eigen::Matrix3d* estimate, int* iterations, double* score) const;

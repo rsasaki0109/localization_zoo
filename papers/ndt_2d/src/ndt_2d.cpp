@@ -108,7 +108,8 @@ void NDT2DEstimator::pruneLocalMap() {
                       local_points_.end());
 }
 
-std::vector<Eigen::Vector2d> NDT2DEstimator::scanToPoints(const LaserScan& scan) const {
+std::vector<Eigen::Vector2d> NDT2DEstimator::scanToPoints(const LaserScan& scan,
+                                                          bool apply_outlier_filter) const {
   std::vector<Eigen::Vector2d> points;
   points.reserve(scan.size());
   const double inc =
@@ -116,9 +117,21 @@ std::vector<Eigen::Vector2d> NDT2DEstimator::scanToPoints(const LaserScan& scan)
                                  : (scan.size() > 1 ? (scan.angle_max - scan.angle_min) /
                                                           static_cast<double>(scan.size() - 1)
                                                     : 0.0);
+  const bool filter =
+      apply_outlier_filter && params_.use_outlier_trimming && params_.max_range_jump > 0.0;
   for (size_t i = 0; i < scan.size(); ++i) {
     const double r = scan.ranges[i];
     if (!std::isfinite(r) || r < params_.min_range || r > params_.max_range) continue;
+    if (filter) {
+      if (i > 0) {
+        const double prev = scan.ranges[i - 1];
+        if (std::isfinite(prev) && std::abs(r - prev) > params_.max_range_jump) continue;
+      }
+      if (i + 1 < scan.size()) {
+        const double next = scan.ranges[i + 1];
+        if (std::isfinite(next) && std::abs(r - next) > params_.max_range_jump) continue;
+      }
+    }
     const double a = scan.angle_min + static_cast<double>(i) * inc;
     points.emplace_back(r * std::cos(a), r * std::sin(a));
   }
@@ -200,11 +213,17 @@ Eigen::Vector2d NDT2DEstimator::transformPoint(const Eigen::Matrix3d& T,
 bool NDT2DEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
                                     const CellMap& map, const Eigen::Matrix3d& transform,
                                     const Eigen::Vector2d& map_origin, double cell_size,
-                                    Eigen::Matrix3d* increment, double* score) const {
-  Eigen::Matrix3d A = Eigen::Matrix3d::Zero();
-  Eigen::Vector3d b = Eigen::Vector3d::Zero();
-  double total_score = 0.0;
-  int used = 0;
+                                    Eigen::Matrix3d* increment, double* score,
+                                    bool apply_trim) const {
+  struct Term {
+    Eigen::Matrix<double, 3, 3> H;
+    Eigen::Vector3d g;
+    double mahal = 0.0;
+    double contrib = 0.0;
+  };
+
+  std::vector<Term> terms;
+  terms.reserve(current.size());
 
   const double c = transform(0, 0);
   const double s = transform(1, 0);
@@ -216,7 +235,6 @@ bool NDT2DEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
 
     const Eigen::Vector2d r = pw - cell->mean;
     const double mahal = r.transpose() * cell->inv_cov * r;
-    total_score += std::exp(-0.5 * mahal);
 
     Eigen::Matrix<double, 2, 3> J = Eigen::Matrix<double, 2, 3>::Zero();
     J(0, 0) = 1.0;
@@ -224,14 +242,37 @@ bool NDT2DEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
     J(0, 2) = -s * p.x() - c * p.y();
     J(1, 2) = c * p.x() - s * p.y();
 
-    const Eigen::Matrix<double, 3, 3> H = J.transpose() * cell->inv_cov * J;
-    const Eigen::Vector3d g = J.transpose() * cell->inv_cov * r;
-    A += H;
-    b += g;
-    ++used;
+    Term term;
+    term.H = J.transpose() * cell->inv_cov * J;
+    term.g = J.transpose() * cell->inv_cov * r;
+    term.mahal = mahal;
+    term.contrib = std::exp(-0.5 * mahal);
+    terms.push_back(term);
   }
 
-  if (used < params_.min_points) return false;
+  if (terms.size() < static_cast<size_t>(params_.min_points)) return false;
+
+  if (apply_trim && params_.use_outlier_trimming && params_.trim_fraction > 0.0 &&
+      params_.trim_fraction < 1.0 &&
+      terms.size() > static_cast<size_t>(params_.min_points)) {
+    std::vector<Term> sorted = terms;
+    std::sort(sorted.begin(), sorted.end(),
+              [](const Term& a, const Term& b) { return a.mahal < b.mahal; });
+    const size_t keep = std::max(
+        static_cast<size_t>(params_.min_points),
+        static_cast<size_t>(std::ceil(params_.trim_fraction * static_cast<double>(sorted.size()))));
+    sorted.resize(keep);
+    terms.swap(sorted);
+  }
+
+  Eigen::Matrix3d A = Eigen::Matrix3d::Zero();
+  Eigen::Vector3d b = Eigen::Vector3d::Zero();
+  double total_score = 0.0;
+  for (const auto& term : terms) {
+    A += term.H;
+    b += term.g;
+    total_score += term.contrib;
+  }
 
   const Eigen::Vector3d delta = A.ldlt().solve(-b);
   if (!delta.allFinite()) return false;
@@ -244,7 +285,7 @@ bool NDT2DEstimator::solveIncrement(const std::vector<Eigen::Vector2d>& current,
 bool NDT2DEstimator::solveGaussNewton(const std::vector<Eigen::Vector2d>& current,
                                       const NDTMap& map, double cell_size,
                                       Eigen::Matrix3d* estimate, int max_iterations,
-                                      int* iterations, double* score) const {
+                                      int* iterations, double* score, bool apply_trim) const {
   if (estimate == nullptr) return false;
   double best_score = -1.0;
   int total_iters = iterations != nullptr ? *iterations : 0;
@@ -253,7 +294,7 @@ bool NDT2DEstimator::solveGaussNewton(const std::vector<Eigen::Vector2d>& curren
     Eigen::Matrix3d increment = Eigen::Matrix3d::Identity();
     double iter_score = 0.0;
     if (!solveIncrement(current, map.cells, *estimate, map.origin, cell_size, &increment,
-                        &iter_score)) {
+                        &iter_score, apply_trim)) {
       break;
     }
 
@@ -295,7 +336,7 @@ bool NDT2DEstimator::solveWithPyramid(const std::vector<Eigen::Vector2d>& curren
     const int level_iters =
         finest ? params_.max_iterations : std::max(5, params_.max_iterations / 2);
     if (!solveGaussNewton(current, map, cell_size, estimate, level_iters, &total_iters,
-                          &best_score)) {
+                          &best_score, finest)) {
       return false;
     }
   }
@@ -307,18 +348,19 @@ bool NDT2DEstimator::solveWithPyramid(const std::vector<Eigen::Vector2d>& curren
 
 NDT2DResult NDT2DEstimator::registerScan(const LaserScan& scan) {
   NDT2DResult result;
-  const auto points = scanToPoints(scan);
-  if (points.size() < static_cast<size_t>(params_.min_points)) {
+  const auto map_points = scanToPoints(scan, false);
+  const auto match_points = scanToPoints(scan, true);
+  if (map_points.size() < static_cast<size_t>(params_.min_points)) {
     return result;
   }
 
   if (!initialized_) {
     if (params_.use_local_map) {
-      addScanToLocalMap(points);
+      addScanToLocalMap(map_points);
       ref_points_ = local_points_;
       ref_map_ = buildNDTMap(ref_points_, params_.cell_size);
     } else {
-      ref_points_ = points;
+      ref_points_ = map_points;
       ref_map_ = buildNDTMap(ref_points_, params_.cell_size);
     }
     if (ref_map_.cells.size() < 3) return result;
@@ -335,13 +377,13 @@ NDT2DResult NDT2DEstimator::registerScan(const LaserScan& scan) {
   int iterations = 0;
 
   if (params_.pyramid_levels > 1) {
-    if (!solveWithPyramid(points, ref_points_, &estimate, &iterations, &best_score)) {
+    if (!solveWithPyramid(match_points, ref_points_, &estimate, &iterations, &best_score)) {
       return result;
     }
     result.iterations = iterations;
   } else {
-    if (!solveGaussNewton(points, ref_map_, params_.cell_size, &estimate, params_.max_iterations,
-                          &iterations, &best_score)) {
+    if (!solveGaussNewton(match_points, ref_map_, params_.cell_size, &estimate,
+                          params_.max_iterations, &iterations, &best_score)) {
       return result;
     }
     result.iterations = iterations;
@@ -351,11 +393,11 @@ NDT2DResult NDT2DEstimator::registerScan(const LaserScan& scan) {
   pose_ = pose_ * estimate;
   if (params_.use_local_map) {
     transformRobotMap(estimate.inverse());
-    addScanToLocalMap(points);
+    addScanToLocalMap(map_points);
     ref_points_ = local_points_;
     ref_map_ = buildNDTMap(ref_points_, params_.cell_size);
   } else {
-    ref_points_ = points;
+    ref_points_ = map_points;
     ref_map_ = buildNDTMap(ref_points_, params_.cell_size);
   }
 

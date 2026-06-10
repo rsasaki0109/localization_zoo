@@ -4,6 +4,8 @@
 #include <Eigen/Geometry>
 
 #include <cstddef>
+#include <cstdint>
+#include <unordered_map>
 #include <vector>
 
 namespace localization_zoo {
@@ -31,6 +33,10 @@ struct RF2OParams {
   double max_range = 30.0;
   double max_range_diff = 0.3;
   double default_dt = 0.1;
+  bool use_local_map = false;
+  double local_map_radius = 15.0;
+  double local_map_voxel_size = 0.15;
+  int local_map_max_age = 0;  ///< frames a point survives unrefreshed; 0 = unlimited
 };
 
 struct RF2OResult {
@@ -51,6 +57,7 @@ class RF2OEstimator {
   RF2OResult registerScan(const LaserScan& scan, double dt);
 
   const Eigen::Matrix3d& pose() const { return pose_; }
+  size_t mapSize() const { return local_points_.size(); }
 
  private:
   struct LevelData {
@@ -73,6 +80,16 @@ class RF2OEstimator {
     std::vector<int> null_mask;
     std::vector<float> rtita;
   };
+
+  static int64_t voxelKey(double x, double y, double voxel_size);
+  static Eigen::Vector2d transformPoint(const Eigen::Matrix3d& T, const Eigen::Vector2d& p);
+  std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
+  std::vector<float> rangesFromLocalMap(const LaserScan& scan) const;
+  void rebuildPointVoxels();
+  void addScanToLocalMap(const LaserScan& scan);
+  void transformRobotMap(const Eigen::Matrix3d& inv_increment);
+  void pruneLocalMap();
+  void setReferenceFromRanges(const std::vector<float>& ref_ranges);
 
   void initialize(const LaserScan& scan);
   void createPyramid(const std::vector<float>& ranges);
@@ -98,6 +115,10 @@ class RF2OEstimator {
   Eigen::Vector3f kai_loc_old_ = Eigen::Vector3f::Zero();
   Eigen::Matrix3f cov_odo_ = Eigen::Matrix3f::Identity();
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
+  LaserScan ref_scan_;
+  std::vector<Eigen::Vector2d> local_points_;
+  std::vector<int> local_point_ages_;
+  std::unordered_map<int64_t, size_t> point_voxels_;
   std::vector<float> g_mask_{1.f / 16.f, 0.25f, 6.f / 16.f, 0.25f, 1.f / 16.f};
 };
 

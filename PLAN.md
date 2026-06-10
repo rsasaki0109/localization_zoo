@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-10 (NDT outlier trim P17)**
+> **最終更新: 2026-06-11 (RF2O local map P18 完了 — sweep の結果 default off の opt-in に確定、honest negative)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -182,7 +182,8 @@ a2817ff Add fr079 and MIT public 2D scan fixtures with multi-dataset benchmarks.
 **2D scan odometry (papers 43–50) の追加知見**:
 
 - **fixture 依存が支配的** — RF2O@Intel, PSM@fr079, PL-ICP@corridor。単一手法の「勝者」は存在しない。
-- **scan-to-scan 限界** — 8 法すべて local map 無し。長 Bonn log では drift 15–40% 帯が典型。
+- **scan-to-scan 限界** — IDC/PSM/PL-ICP/MbICP/NDT-2D/Karto は robot-frame local map 済。**RF2O は opt-in (P18: projection 型 reference が long 窓で退行する honest negative)**、Kinematic-ICP のみ未着手。長 Bonn log では drift 15–30% 帯が典型。
+- **projection 型 local map の罠 (P18)** — 点群を min-range polar profile に再投影する reference (RF2O local map; IDC/PSM も同族) は val 窓で効くが long train 窓で爆発 (fr079_train_200: IDC 85% / PSM 681% / RF2O 99%)。bin 量子化 + 近距離バイアスが原因で、age 減衰でも救えない。
 - **合成 corridor の罠** — PL-ICP 0.4% でも fr079 41% — synthetic 成功は real 一般化の証拠にならない。
 - **CSM engineering win** — DT + pyramid で fr079 38.9%→20.6%。corridor ~73% は honest negative 継続。
 - **correspondence-free 2D** — NDT-2D は Intel で RF2O 近傍 (14.8% vs 14.3%) だが corridor 22%。
@@ -649,13 +650,14 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **実装**: `papers/rf2o/` — range-flow 密拘束 + Gaussian pyramid + coarse-to-fine IRLS +
   共分散 eigenvalue smoothing（MAPIRlab RF2O 準拠のループ順・PoseUpdate）。
 - ✅ **Harness 初版**: `scan_dogfooding` — `scan_meta.json` + `NNNNNNNN/scan.csv` + `gt.csv`。
-- ✅ **テスト**: `test_rf2o` 5 cases PASS。
+- ✅ **テスト**: `test_rf2o` 8 cases PASS。
 - ✅ **Public benchmark** (Bonn intel val, GT-seed, 73f, 378 m):
   - Drift **14.3%** — **Intel リーダー**
   - fr079 **15.4%** / MIT **27.6%** / corridor **1.3%**
 - ✅ **Smoke** (synthetic 60f): ATE 0.20 m, drift ~1.1%
+- ✅ **Robot-frame local map 実装 (opt-in, default off)** (2026-06-10, P18) — see §00.6c-43 RF2O local map
 - **未実装**: Cauchy IRLS 再重み付け
-- **状態**: ✅ push 済 (`1c94e71` 以降)
+- **状態**: ✅ push 済; P18 local map は honest negative as default で opt-in 維持
 
 ### 00.6c-44 PL-ICP (44本目) — 2D point-to-line ICP (2026-06-09)
 
@@ -737,7 +739,24 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - **未実装**: occupancy/co-occurrence matrix
 - **状態**: ✅ 実装済 (P16 local map)
 
-**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は RF2O local map、または docs polish (`methods.json` / validate_showcase)。
+---
+
+### 00.6c-43 RF2O local map (2026-06-10/11, P18) — **honest negative as default → opt-in**
+
+- ✅ **Robot-frame rolling local map 実装** — voxel merge + radius prune + per-point max-age expiry; accumulated points → min-range polar profile as range-flow reference (`setReferenceFromRanges`)
+- ✅ **テスト**: `test_rf2o` 8 cases PASS (+ `RobotFrameLocalMapTracksTranslation`, `LocalMapImprovesLongTranslationVsScanToScan`, `LocalMapMaxAgeExpiresStalePoints`)
+- ✅ **全 fixture sweep 完了** (radius 8–20 m × voxel 0.05–0.25 m × max-age 2–50f, 13 configs × 8 fixtures):
+  - val 改善は再現: fr079 val **13.9%** (was 15.4%) / corridor **0.6%** (was 1.3%) / Intel・MIT ~flat
+  - **long train は全 config で退行**: `fr079_train_1200` 10.6%→best 20.1% / `fr079_train_200` 30.3%→best 87.8% / `intel_train_150` 17.5%→21.8%
+  - **age 減衰でも救えない** (age2 でも fr079_train_200 ~93%) → stale/動的点は根本原因ではなく、**min-range polar 投影自体** (bin 量子化 + 近距離バイアス) が range-flow 勾配を壊す
+  - IDC 85% / PSM 681% (fr079_train_200) と同族パターン = **projection-style local map の family-level finding**
+- ✅ **判断: default OFF (opt-in)** — scan-to-scan が既に Intel val リーダーで val 改善は微小、long 窓の損失が支配的。CT-ICP coarse-to-fine の opt-in 前例と整合。`RF2OParams::use_local_map` + 3 テストは維持
+- ✅ canonical JSON を scan-to-scan default で全 refresh (`run_scan2d_benchmark.sh` + `run_scan2d_long_benchmark.sh`、`fr079_train_1200` 含む) + `public_bundle.json` 再生成
+- ✅ 詳細: `papers/rf2o/README.md` "Local map: honest negative as a default" 節
+- **未実装**: Cauchy IRLS 再重み付け
+- **状態**: ✅ 完了
+
+**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は Kinematic-ICP local map (RF2O の知見から projection 型でなく point 型 reference 推奨)、または docs polish (`methods.json` / validate_showcase)。
 
 ---
 
@@ -1007,7 +1026,6 @@ README.md (1-screen 概要)
 ```
 
 **未完了 (docs)**:
-- PL-ICP/MbICP local map 拡張の設計
 - `docs/methods.json` に 2D 8 法の tag/summary 強化 (optional)
 - `validate_showcase.py` — 2D セクション追加は未実施
 
@@ -1033,6 +1051,7 @@ README.md (1-screen 概要)
 | **P15** | IDC robot-frame local map | ✅ voxel merge + radius prune + bearing-window RR; fr079 val **14.3%** (was 27.7%); corridor **3.6%** (was 42.6%); Intel **15.2%** |
 | **P16** | PSM robot-frame local map | ✅ point cache → polar profile rebuild; Intel **15.3%** (was 21.8%); fr079 **14.3%**; corridor **4.4%** (was 11.6%) |
 | **P17** | NDT-2D outlier trimming | ✅ match-only range jump + finest-level Mahalanobis trim; `fr079_train_1200` **7.5%** (was 8.8%); corridor **0.3%**; Intel ~flat |
+| **P18** | RF2O robot-frame local map | ✅ **opt-in (default off)** — val は fr079 13.9%/corridor 0.6% と改善するが long train が全 config 退行 (`fr079_train_1200` 10.6→20.1%+, `fr079_train_200` 30→88%+); min-range polar 投影が原因の family-level honest negative |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-11 (ELO 93手法目実装 §00.52c — seq00 full RPE 1.124%、seq07 full RPE 0.981%、2D は一旦停止)**
+> **最終更新: 2026-06-11 (ID-LIO 94手法目実装 §00.52d — seq00 full RPE 1.111%、seq07 full RPE 0.999%、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -105,14 +105,14 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 | Item | Value |
 |------|-------|
 | Branch | `main` |
-| vs `origin/main` | **1 commit ahead**予定 (ELO 93手法目、push 待ち) |
-| 実装済み from-paper 論文数 | **52 本** (3D 再開: Mesh-LOAM + ELO; 2D papers 43–50 は停止中) |
-| `docs/methods.json` | **93 手法** |
+| vs `origin/main` | **1 commit ahead**予定 (ID-LIO 94手法目、push 待ち) |
+| 実装済み from-paper 論文数 | **53 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO; 2D papers 43–50 は停止中) |
+| `docs/methods.json` | **94 手法** |
 | 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
-| 直近完了 (3D) | **ELO (93手法目)** — SRI + ground BEV fusion、KITTI seq00/07 full 完走 |
-| その前 (3D) | **Mesh-LOAM (92手法目)** — point-to-mesh、seq07 KISS 同等 |
+| 直近完了 (3D) | **ID-LIO (94手法目)** — indexed point + delayed removal dynamic LIO、KITTI seq00/07 full 完走 |
+| その前 (3D) | **ELO (93手法目)** — SRI + ground BEV fusion、KITTI seq00/07 full 完走 |
 | 2D 直近 (停止中) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
 | PG-LIO (42本目) | NCLT honest negative → **保留** (§00.52) |
 
@@ -622,6 +622,42 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **docs**: README from-paper 表へ ELO 行追加、`docs/methods.json` 93 手法、
   `papers/elo/README.md` に seq00/07 結果表を追加。
 - **状態**: 実装 + harness + methods.json (93 手法) + seq00/07 full artifact + docs 更新済。
+
+### 00.52d ID-LIO (94手法目 / 3D LIO from-paper, 2026-06-11) — **実装 + seq00/07 full 完了**
+
+- **論文**: Weizhuang Wu and Wanliang Wang, "LiDAR Inertial Odometry Based on Indexed
+  Point and Delayed Removal Strategy in Highly Dynamic Environments", Sensors 2023
+  23(11):5188, doi:10.3390/s23115188。著者公開実装は見つからず。LIO-SAM ベースで
+  pseudo occupancy による dynamic point detection、indexed point propagation、
+  delayed removal、dynamic weight を主張。
+- ✅ **実装**: `papers/id_lio/` — (1) current scan / predicted map の spherical
+  range image pseudo-occupancy、(2) map 点に stable id / confidence / missing age /
+  dynamic age を保持する indexed voxel map、(3) delayed removal 前の低重み保持、
+  (4) source dynamic weight + map confidence 付き point-to-plane scan-to-map、
+  (5) `imu.csv` がある場合のみ gyro preintegration rotation prior。
+- **主な逸脱** (詳細 `papers/id_lio/README.md`): 論文の LIO-SAM feature extraction /
+  keyframe graph / GTSAM / loop closure / full IMU factor は範囲外。KITTI PCD export は
+  `frame_timestamps.csv` のみで `imu.csv` が無いため、full KITTI は constant-velocity fallback。
+- ✅ **テスト**: `test_id_lio` 5 cases PASS (初期 indexed map / 並進 sequence /
+  IMU yaw prior / foreground dynamic downweight / delayed removal)。
+- ✅ **KITTI seq00 full (4541f, `--no-gt-seed --id-lio-dense-profile`)**:
+  ATE **15.45 m** / RPE **1.111%** / 0.014 deg/m / **7.82 FPS**。
+  Dynamic machinery は active (dynamic/frame ≈464) だが、top KISS-like front-end には届かない
+  honest mid-pack。Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_id_lio.json`
+- ✅ **KITTI seq07 full (1101f, `--no-gt-seed --id-lio-dense-profile`)**:
+  ATE **4.61 m** / RPE **0.999%** / 0.013 deg/m / **11.52 FPS**。
+  Dynamic/frame ≈432。ELO と同程度だが seq07 は僅差で悪い。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_id_lio.json`
+- 再現コマンド:
+  ```bash
+  ./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full \
+    data/kitti_pcd/seq00_gt.csv --methods id_lio --no-gt-seed \
+    --id-lio-dense-profile \
+    --summary-json docs/benchmarks/kitti_full_new_methods/seq00_id_lio.json
+  ```
+- ✅ **docs**: README from-paper 表へ ID-LIO 行追加、`docs/methods.json` 94 手法、
+  `papers/id_lio/README.md` に seq00/07 結果表を追加。
+- **状態**: 実装 + harness + methods.json (94 手法) + seq00/07 full artifact + docs 更新済。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 

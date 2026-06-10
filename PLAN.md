@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-11 (P19 Kinematic-ICP point 型 local map — trade-off で safe default 無し、opt-in。2D local map 化はこれで全 9 法調査完了)**
+> **最終更新: 2026-06-11 (Mesh-LOAM 92手法目実装 §00.52b — seq07 full RPE 0.616% で KISS 同等、seq00 full は中断・再開コマンド記載)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -553,6 +553,39 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
     ほぼ常に 1（avg_subframes=1）— 動的区間では増加する設計。
 - Artifact: `docs/benchmarks/cross_dataset/nclt_600_fr_lio_vs_rko.json`
 - **未実装**: deskew、full IEKF、重力/外参推定、著者コード無しのため論文数値との直接比較不可。
+
+### 00.52b Mesh-LOAM (92手法目 / 3D from-paper, 2026-06-11) — **実装完了、seq00 full 未完**
+
+- **論文**: Zhu, Zheng & Zhu, "Mesh-LOAM: Real-time Mesh-Based LiDAR Odometry and Mapping",
+  IEEE T-IV 2024, arXiv:2312.15630。公式 repo (`HelloXiaoZHU/Mesh-LOAM`) は 2024 年から
+  README のみでコード未公開、サードパーティ実装も無し。新規 web サーベイ (2026-06-11) の
+  第 1 推薦 (次点 ELO arXiv:2104.10879、他候補 RF-LIO / L-LO / LMBAO は PLAN 外メモ)。
+- ✅ **実装**: `papers/mesh_loam/` — (1) passive-voxel IMLS-SDF 地図: 各点が 3×3×3 voxel
+  近傍に符号付き距離増分を scatter (O(N)、式 5–10、hybrid weight
+  `exp(-d²/h) + λ_n·max(0, nᵢ·n_v)`)、(2) dirty block 単位の増分 zero-surface 抽出、
+  (3) point-to-mesh GN odometry (CV 予測 + 曲率<0.1 平面特徴 + 0.2 m facet bin 探索 +
+  |cos|>0.98 法線ゲート、式 3–4)。
+- **主な逸脱** (詳細 `papers/mesh_loam/README.md`): marching cubes → **marching tetrahedra**
+  (table-free)、GPU並列 hash/voxel deletion → CPU `unordered_map` + radius prune、
+  2×2 m 可変高 block → 立方 8³ block、入力は harness で 0.25 m downsample
+  (scatter 半径 0.3 m が隣接サンプルを覆い SDF 連結は維持)。
+- ✅ **テスト**: `test_mesh_loam` 5 cases PASS (SDF+mesh 構築 / 静止 / 並進回復 / 系列追跡 / yaw 回復)。
+- ✅ **KITTI seq07 (108f window)**: ATE **0.135 m** / RPE **0.525%** (0.7 FPS)
+- ✅ **KITTI seq07 full (1101f, `--no-gt-seed --mesh-loam-dense-profile`)**:
+  ATE **0.98 m** / RPE **0.616%** / 0.005 deg/m / **0.74 FPS** —
+  同 profile KISS-ICP (0.618%) と同等、from-paper 表 mid-top-10 圏。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_mesh_loam.json`
+- ⏳ **未完**: **seq00 full は 1530/4541 frame で中断** (ユーザー停止、約 0.67 FPS で
+  全走 ~110 分)。再開コマンド:
+  ```bash
+  ./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full \
+    kitti_pcd/seq00_gt.csv --methods mesh_loam --no-gt-seed \
+    --mesh-loam-dense-profile \
+    --summary-json docs/benchmarks/kitti_full_new_methods/seq00_mesh_loam.json
+  ```
+- ⏳ **docs 残**: seq00 完走後に README from-paper 表へ行追加 + `papers/mesh_loam/README.md`
+  の結果表更新 (seq07 行は記入済み・seq00 は running 表記のまま)。
+- **状態**: 実装 + harness + methods.json (92 手法) + seq07 full まで push 済 (`74fe6b3` + 本 commit)
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 

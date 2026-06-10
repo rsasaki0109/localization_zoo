@@ -3,7 +3,9 @@
 #include <Eigen/Core>
 
 #include <cstddef>
+#include <cstdint>
 #include <optional>
+#include <unordered_map>
 #include <vector>
 
 namespace localization_zoo {
@@ -38,6 +40,9 @@ struct KinematicICPParams {
   int min_correspondences = 20;
   double wheel_odom_weight = 5.0;
   bool use_last_increment_as_wheel_odom = true;
+  bool use_local_map = false;
+  double local_map_radius = 15.0;
+  double local_map_voxel_size = 0.15;
 };
 
 struct KinematicICPResult {
@@ -61,6 +66,7 @@ class KinematicICPEstimator {
                                   const std::optional<WheelOdom>& wheel_odom = std::nullopt);
 
   const Eigen::Matrix3d& pose() const { return pose_; }
+  size_t mapSize() const { return local_refs_.size(); }
 
  private:
   struct RefPoint {
@@ -70,20 +76,53 @@ class KinematicICPEstimator {
     bool valid_point = false;
   };
 
+  struct LocalMapIndex {
+    double cell_size = 1.0;
+    double query_radius = 1.0;
+    std::unordered_map<int64_t, std::vector<size_t>> bins;
+
+    static LocalMapIndex build(const std::vector<RefPoint>& refs, double cell_size,
+                               double query_radius);
+    void queryCandidates(const Eigen::Vector2d& p, const std::vector<uint32_t>& stamp,
+                         uint32_t generation, std::vector<size_t>* candidates) const;
+  };
+
   std::vector<Eigen::Vector2d> scanToPoints(const LaserScan& scan) const;
   std::vector<RefPoint> buildReferenceModel(const LaserScan& scan) const;
   static WheelOdom incrementToWheelOdom(const Eigen::Matrix3d& T);
   static Eigen::Matrix3d wheelOdomToIncrement(double forward_m, double yaw_rad);
   static Eigen::Vector2d transformPoint(const Eigen::Matrix3d& T, const Eigen::Vector2d& p);
+  static int64_t voxelKey(double x, double y, double voxel_size);
+  void rebuildPointVoxels();
+  void addScanToLocalMap(const LaserScan& scan);
+  void transformRobotMap(const Eigen::Matrix3d& inv_increment);
+  void pruneLocalMap();
+  void rebuildLocalMapIndex();
   bool solveKinematicIncrement(const std::vector<Eigen::Vector2d>& current,
+                             const std::vector<RefPoint>& references,
                              const Eigen::Matrix3d& transform, const WheelOdom& wheel_prior,
                              Eigen::Matrix3d* increment) const;
+  bool solveKinematicIncrementIndexed(const std::vector<Eigen::Vector2d>& current,
+                                      const std::vector<RefPoint>& references,
+                                      const LocalMapIndex& index,
+                                      const Eigen::Matrix3d& transform,
+                                      const WheelOdom& wheel_prior,
+                                      Eigen::Matrix3d* increment) const;
+  bool finalizeKinematicSolve(const Eigen::Matrix3d& A_icp, const Eigen::Vector3d& b_icp,
+                              int used, const Eigen::Matrix3d& transform,
+                              const WheelOdom& wheel_prior, Eigen::Matrix3d* increment) const;
 
   static Eigen::Matrix3d projectToUnicycle(const Eigen::Matrix3d& T);
 
   KinematicICPParams params_;
   bool initialized_ = false;
   std::vector<RefPoint> ref_model_;
+  std::vector<RefPoint> local_refs_;
+  std::unordered_map<int64_t, size_t> point_voxels_;
+  LocalMapIndex local_map_index_;
+  bool local_map_index_valid_ = false;
+  mutable std::vector<uint32_t> query_stamp_;
+  mutable uint32_t query_generation_ = 1;
   Eigen::Matrix3d pose_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d last_increment_ = Eigen::Matrix3d::Identity();
 };

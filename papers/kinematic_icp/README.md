@@ -41,3 +41,34 @@ Artifact: `docs/benchmarks/scan2d/rf2o_smoke_60_kinematic_icp_vs_rf2o.json`
 
 Public 8-method leaderboard:
 [`docs/benchmarks/scan2d/README.md`](../../docs/benchmarks/scan2d/README.md).
+
+## Local map: opt-in only, no safe default (2026-06-11, P19)
+
+`KinematicICPParams::use_local_map` adds a robot-frame rolling local map of
+point-to-line references (voxel merge + radius prune + grid-indexed
+correspondence search, same structure as the PL-ICP/MbICP local maps). The
+mechanism is unit-tested (`LocalMapTracksTranslationWithWheelOdom`,
+`LocalMapMatchesScanToScanOnShortRun`) but it is **not** the benchmark
+default, because no swept configuration is safe across fixtures:
+
+| Fixture | scan-to-scan (default) | local map (r=15 m, voxel=0.10 m) |
+|---|---:|---:|
+| `mit_train_120` | 46.4% | **12.8%** |
+| `fr079_train_200` | 11.0% | **5.9%** |
+| `fr079_val_384` | 18.9% | **16.0%** |
+| `intel_val_73` | **18.3%** | 18.2% (~flat) |
+| `mit_val_33` | **23.4%** | 30.5% |
+| `rf2o_corridor` | **83.8%** | 93.5% |
+| `intel_train_150` | **25.4%** | 39.0% |
+| `fr079_train_1200` | **10.7%** | 18.7% |
+
+The sweep covered radius {10, 15, 20} m, voxel {0.10–0.25} m, and wheel-prior
+weight {8–64}. Gains and losses move together: configs that rescue
+`mit_train_120` (46.4% → 12.8%) break `mit_val_33` — Kinematic-ICP's only
+leaderboard win — and `fr079_train_1200`; raising the unicycle prior weight to
+compensate for the larger correspondence set destabilizes `fr079_train_200`
+instead (5.9% → 81.8% at w=32). This mirrors the suite-wide finding that the
+best 2D odometry configuration is fixture-dependent; unlike RF2O's polar
+reprojection (which loses everywhere on long windows), the point-style map
+here is a genuine trade-off with no dominating choice, so the paper-faithful
+scan-to-scan reference stays the default.

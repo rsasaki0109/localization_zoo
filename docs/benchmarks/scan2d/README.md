@@ -84,7 +84,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 - **CSM** — Felzenszwalb EDT + tuned Olson BnB; matches Karto on public fixtures; corridor **30.5%** (was 41% with chamfer).
 - **PL-ICP** — robot-frame rolling local map in harness; Intel **15.0%**, fr079 **14.1%**, corridor **0.01%**; fr079 ~26 s (stamp-indexed map cache).
 - **MbICP** — config-space metric ICP with **robot-frame rolling local map** in harness; Intel **14.5%**, fr079 **15.4%**, corridor **0.05%**; fr079 full refresh ~2.3 min.
-- **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only.
+- **Kinematic-ICP** — needs `--wheel-odom-from-gt`; best on short MIT window only. Point-style local map implemented but **opt-in (default off)**: it rescues `mit_train_120` (46.4%→12.8%) and `fr079_train_200` (11.0%→5.9%) yet breaks MIT val (23.4%→30.5%) and `fr079_train_1200` (10.7%→18.7%) with no safe shared config — see [`papers/kinematic_icp/README.md`](../../../papers/kinematic_icp/README.md).
 - **PSM** — robot-frame rolling local map (polar profile rebuilt from point cache); Intel **15.3%** (was 21.8%); fr079 **14.3%**; corridor **4.4%** (was 11.6%); long train `fr079_train_1200` **46.7%** (was 72.2%).
 
 ## Artifact index
@@ -127,5 +127,4 @@ Single fixture, all methods:
 
 ## 次アクション
 
-1. Kinematic-ICP local map (optional; RF2O P18 の知見から projection 型 reference は避ける).
-2. `docs/methods.json` 2D tag 強化 / `validate_showcase.py` 2D セクション (optional).
+1. `docs/methods.json` 2D tag 強化 / `validate_showcase.py` 2D セクション (optional).

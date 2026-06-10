@@ -108,3 +108,39 @@ TEST(KinematicICP, Pose2DUtility) {
   EXPECT_NEAR(T(0, 2), 1.0, 1e-9);
   EXPECT_NEAR(T(1, 2), 2.0, 1e-9);
 }
+
+TEST(KinematicICP, LocalMapTracksTranslationWithWheelOdom) {
+  KinematicICPParams params;
+  params.max_correspondence_distance = 1.0;
+  params.use_local_map = true;
+  KinematicICPEstimator est(params);
+  est.registerScan(makeBoxScan(0, 0, 0));
+  EXPECT_GT(est.mapSize(), static_cast<size_t>(100));
+  for (int i = 1; i <= 10; ++i) {
+    WheelOdom odom{0.2, 0.0};
+    const auto res = est.registerScan(makeBoxScan(i * 0.2, 0, 0), odom);
+    EXPECT_TRUE(res.valid);
+  }
+  const double err = (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(2.0, 0)).norm();
+  EXPECT_LT(err, 0.3);
+}
+
+TEST(KinematicICP, LocalMapMatchesScanToScanOnShortRun) {
+  auto run = [](bool use_map) {
+    KinematicICPParams params;
+    params.max_correspondence_distance = 1.0;
+    params.use_local_map = use_map;
+    KinematicICPEstimator est(params);
+    est.registerScan(makeBoxScan(0, 0, 0));
+    for (int i = 1; i <= 8; ++i) {
+      const double yaw = i * 0.02;
+      WheelOdom odom = deltaFromPoses((i - 1) * 0.15, 0, (i - 1) * 0.02, i * 0.15, 0, yaw);
+      est.registerScan(makeBoxScan(i * 0.15, 0, yaw), odom);
+    }
+    return (est.pose().block<2, 1>(0, 2) - Eigen::Vector2d(8 * 0.15, 0)).norm();
+  };
+  const double scan_err = run(false);
+  const double map_err = run(true);
+  EXPECT_LT(map_err, 0.3);
+  EXPECT_LT(map_err, scan_err + 0.1);
+}

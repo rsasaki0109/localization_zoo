@@ -44,6 +44,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   r_voxelmap
   degen_sense
   vibration_lio
+  id_lio
   bievr_lio
   ua_lio
   damm_loam

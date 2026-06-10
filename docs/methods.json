@@ -1297,6 +1297,24 @@
       ]
     },
     {
+      "name": "ID-LIO",
+      "family": "Dynamic LiDAR-inertial odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/id_lio",
+      "summary": "Indexed-point dynamic LiDAR-inertial odometry: pseudo-occupancy range-image checks mark foreground/disappearing dynamic points, indexed map points carry confidence/missing age, and delayed removal plus dynamic residual weights protect scan-to-map optimization; IMU gyro preintegration is used as a rotation prior when synchronized imu.csv is present (Wu & Wang, Sensors 2023).",
+      "tags": [
+        "odometry",
+        "dynamic",
+        "indexed-map",
+        "delayed-removal",
+        "lidar-inertial"
+      ]
+    },
+    {
       "name": "NHC-LIO",
       "family": "Motion constraint",
       "scope": "Paper reimplementation",

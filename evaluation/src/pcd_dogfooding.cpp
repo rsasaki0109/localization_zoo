@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -48,6 +48,7 @@
 #include "nn_zupt/nn_zupt.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
+#include "id_lio/id_lio.h"
 #include "bievr_lio/bievr_lio.h"
 #include "ua_lio/ua_lio.h"
 #include "cube_lio/cube_lio.h"
@@ -224,7 +225,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "d2lio" ||
          method == "ct_voxelmap" || method == "cube_lio" ||
          method == "r_voxelmap" || method == "degen_sense" ||
-         method == "vibration_lio" || method == "bievr_lio" ||
+         method == "vibration_lio" || method == "id_lio" || method == "bievr_lio" ||
          method == "ua_lio" || method == "damm_loam" ||
          method == "lodestar" || method == "terrain_rbf_lio" ||
          method == "lidar_iba" || method == "dali_slam" ||
@@ -1839,6 +1840,24 @@ struct VibrationLIODogfoodingOptions {
   double gamma = 0.1;
   double scan_period = 0.1;
   double gyro_bias_gain = 0.3;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct IDLIODogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 12;
+  int max_icp_iterations = 30;
+  double max_correspondence_dist = 2.0;
+  int range_image_width = 1024;
+  int range_image_height = 64;
+  double new_object_margin = 1.0;
+  double disappearance_margin = 1.0;
+  double dynamic_weight = 0.15;
+  int delayed_removal_frames = 3;
+  double gyro_bias_gain = 0.2;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -6573,6 +6592,80 @@ MethodResult runVibrationLIO(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runIDLIO(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const std::vector<double>& frame_timestamps,
+                      const std::vector<ImuSampleCsv>& imu_samples,
+                      const IDLIODogfoodingOptions& options) {
+  using namespace localization_zoo::id_lio;
+  MethodResult res;
+  res.name = "ID-LIO";
+
+  IDLIOParams params;
+  params.voxel_size = options.voxel_size;
+  params.max_points_per_voxel = options.max_points_per_voxel;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.max_correspondence_dist = options.max_correspondence_dist;
+  params.range_image_width = options.range_image_width;
+  params.range_image_height = options.range_image_height;
+  params.new_object_margin = options.new_object_margin;
+  params.disappearance_margin = options.disappearance_margin;
+  params.dynamic_weight = options.dynamic_weight;
+  params.delayed_removal_frames = options.delayed_removal_frames;
+  params.gyro_bias_gain = options.gyro_bias_gain;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  IDLIOPipeline pipeline(params);
+  pipeline.setInitialPose(gt.empty() ? Eigen::Matrix4d::Identity() : gt.front());
+
+  int imu_frames = 0;
+  long long dynamic_total = 0;
+  long long removed_total = 0;
+  long long corr_total = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); ++i) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() &&
+        frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+    const auto result = pipeline.registerFrame(pts_local, imu_batch);
+    if (result.used_imu) ++imu_frames;
+    dynamic_total += result.num_dynamic_points;
+    removed_total += result.num_removed_points;
+    corr_total += result.num_correspondences;
+    res.poses.push_back(result.pose);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [ID-LIO] " << i << "/" << pcd_dirs.size()
+                << " map=" << pipeline.mapSize()
+                << " dynamic_map=" << pipeline.dynamicMapPoints();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  const double denom = std::max<size_t>(1, res.poses.size());
+  res.note =
+      (imu_frames > 0
+           ? "Indexed-point dynamic LIO: pseudo-occupancy dynamic detection, "
+             "delayed removal, and IMU gyro prior."
+           : "Indexed-point dynamic scan-to-map: pseudo-occupancy dynamic "
+             "detection and delayed removal; no imu.csv so constant-velocity "
+             "fallback.") +
+      std::string(" dynamic/frame=") +
+      std::to_string(static_cast<double>(dynamic_total) / denom) +
+      " corr/frame=" + std::to_string(static_cast<double>(corr_total) / denom) +
+      " removed_sum/frame=" +
+      std::to_string(static_cast<double>(removed_total) / denom);
+  return res;
+}
+
 MethodResult runBievrLIO(const std::vector<std::string>& pcd_dirs,
                          const std::vector<Eigen::Matrix4d>& gt,
                          const BievrLIODogfoodingOptions& options) {
@@ -8190,7 +8283,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -8380,6 +8473,7 @@ int main(int argc, char** argv) {
   KcLoDogfoodingOptions kc_lo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
+  IDLIODogfoodingOptions id_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
   UALIODogfoodingOptions ua_lio_options;
   CubeLIODogfoodingOptions cube_lio_options;
@@ -10858,6 +10952,48 @@ int main(int argc, char** argv) {
       vibration_lio_options.gamma = std::stod(argv[++i]);
       continue;
     }
+    if (arg == "--id-lio-fast-profile") {
+      id_lio_options.source_voxel_size = 0.5;
+      id_lio_options.max_source_points = 4000;
+      id_lio_options.voxel_size = 1.0;
+      id_lio_options.max_icp_iterations = 20;
+      id_lio_options.range_image_width = 768;
+      id_lio_options.range_image_height = 64;
+      id_lio_options.local_map_radius = 45.0;
+      id_lio_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--id-lio-dense-profile") {
+      id_lio_options.source_voxel_size = 0.35;
+      id_lio_options.max_source_points = 7000;
+      id_lio_options.voxel_size = 0.8;
+      id_lio_options.max_icp_iterations = 40;
+      id_lio_options.range_image_width = 1024;
+      id_lio_options.range_image_height = 80;
+      id_lio_options.local_map_radius = 80.0;
+      id_lio_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--id-lio-dynamic-weight") {
+      if (i + 1 >= argc) { std::cerr << "--id-lio-dynamic-weight requires a value" << std::endl; return 1; }
+      id_lio_options.dynamic_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--id-lio-delayed-removal-frames") {
+      if (i + 1 >= argc) { std::cerr << "--id-lio-delayed-removal-frames requires a value" << std::endl; return 1; }
+      id_lio_options.delayed_removal_frames = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--id-lio-new-object-margin") {
+      if (i + 1 >= argc) { std::cerr << "--id-lio-new-object-margin requires a value" << std::endl; return 1; }
+      id_lio_options.new_object_margin = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--id-lio-disappearance-margin") {
+      if (i + 1 >= argc) { std::cerr << "--id-lio-disappearance-margin requires a value" << std::endl; return 1; }
+      id_lio_options.disappearance_margin = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--bievr-lio-fast-profile") {
       // bump-image は平面ベースなので密な入力が必要 (疎だと平面が形成されない)。
       bievr_lio_options.source_voxel_size = 0.3;
@@ -12545,6 +12681,21 @@ int main(int argc, char** argv) {
               << std::endl;
     results.push_back(runVibrationLIO(pcd_dirs, gt, frame_timestamps,
                                       imu_samples, vibration_lio_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "id_lio")) {
+    std::cout << "Running ID-LIO..." << std::endl;
+    std::cout << "  source_voxel_size=" << id_lio_options.source_voxel_size
+              << " voxel_size=" << id_lio_options.voxel_size
+              << " range_image=" << id_lio_options.range_image_width << "x"
+              << id_lio_options.range_image_height
+              << " dynamic_weight=" << id_lio_options.dynamic_weight
+              << " delayed_removal_frames="
+              << id_lio_options.delayed_removal_frames
+              << " imu=" << (imu_samples.empty() ? "absent" : "present")
+              << std::endl;
+    results.push_back(runIDLIO(pcd_dirs, gt, frame_timestamps, imu_samples,
+                               id_lio_options));
   }
 
   if (isMethodEnabled(selected_methods, "bievr_lio")) {

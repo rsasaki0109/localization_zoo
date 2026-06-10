@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq07_full",
+  "gt_csv": "data/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "ID-LIO",
+      "status": "ok",
+      "ate_m": 4.611321,
+      "rpe_trans_pct": 0.998890,
+      "rpe_rot_deg_per_m": 0.012780,
+      "frames": 1101,
+      "time_ms": 95608.862145,
+      "fps": 11.515669,
+      "seed_fallback_rate_pct": null,
+      "note": "Indexed-point dynamic scan-to-map: pseudo-occupancy dynamic detection and delayed removal; no imu.csv so constant-velocity fallback. dynamic/frame=431.530427 corr/frame=2878.325159 removed_sum/frame=99563.526794"
+    }
+  ]
+}

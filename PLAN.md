@@ -1038,9 +1038,8 @@ README.md (1-screen 概要)
         └── papers/*/README.md (per-method honest notes)
 ```
 
-**未完了 (docs)**:
-- `docs/methods.json` に 2D 8 法の tag/summary 強化 (optional)
-- `validate_showcase.py` — 2D セクション追加は未実施
+**未完了 (docs)**: なし — 2026-06-11 に `methods.json` 2D tag 強化 (local-map/distance-transform tag + opt-in 注記) と
+`validate_showcase.py` scan2d セクション (public_bundle ↔ fixture JSON の drift 整合検証) を実施済。
 
 ### 00.60 次セッション優先タスク (2D)
 

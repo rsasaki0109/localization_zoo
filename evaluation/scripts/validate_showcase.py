@@ -166,6 +166,57 @@ def validate_benchmark_snapshot(root: Path) -> None:
         require_file(root / "docs/benchmarks/latest" / plot)
 
 
+def validate_scan2d_benchmarks(root: Path) -> None:
+    bundle_path = root / "docs/benchmarks/scan2d/public_bundle.json"
+    bundle = load_json(bundle_path)
+    if bundle.get("schema_version") != 2:
+        raise SystemExit(f"unsupported scan2d bundle schema: {bundle.get('schema_version')}")
+
+    methods_order = bundle.get("methods_order", [])
+    if not methods_order:
+        raise SystemExit("scan2d bundle has no methods_order")
+    require_file(root / bundle.get("readme", "docs/benchmarks/scan2d/README.md"))
+
+    fixtures = bundle.get("fixtures", [])
+    if not fixtures:
+        raise SystemExit("scan2d bundle has no fixtures")
+
+    known = set(methods_order)
+    for fixture in fixtures:
+        fid = fixture.get("id", "<unnamed>")
+        artifact_rel = fixture.get("artifact")
+        if not artifact_rel:
+            raise SystemExit(f"scan2d fixture missing artifact path: {fid}")
+        artifact = load_json(root / artifact_rel)
+        artifact_drift = {
+            method.get("name"): round(float(method["drift_pct"]), 3)
+            for method in artifact.get("methods", [])
+            if "drift_pct" in method
+        }
+
+        drift = fixture.get("drift_pct", {})
+        if not drift:
+            raise SystemExit(f"scan2d fixture has no drift_pct: {fid}")
+        unknown = set(drift) - known
+        if unknown:
+            raise SystemExit(f"scan2d fixture {fid} has methods outside methods_order: {sorted(unknown)}")
+        if fixture.get("best") not in drift:
+            raise SystemExit(f"scan2d fixture {fid} best={fixture.get('best')} not in drift_pct")
+        if fixture["best"] != min(drift, key=drift.get):
+            raise SystemExit(f"scan2d fixture {fid} best={fixture['best']} does not match min drift")
+
+        stale = {
+            name: (value, artifact_drift.get(name))
+            for name, value in drift.items()
+            if round(float(value), 3) != artifact_drift.get(name)
+        }
+        if stale:
+            raise SystemExit(
+                f"scan2d bundle drift out of sync with {artifact_rel}: {stale} "
+                "(refresh docs/benchmarks/scan2d/public_bundle.json from the fixture JSONs)"
+            )
+
+
 def validate_demo(root: Path, demo_dir: Path, mode: str) -> None:
     resolved_demo_dir = demo_dir if demo_dir.is_absolute() else root / demo_dir
     if mode == "skip":
@@ -213,6 +264,7 @@ def main() -> None:
     validate_pages_index(root)
     validate_method_catalog(root)
     validate_benchmark_snapshot(root)
+    validate_scan2d_benchmarks(root)
     validate_demo(root, Path(args.demo_dir), args.demo_mode)
     print("showcase valid")
 

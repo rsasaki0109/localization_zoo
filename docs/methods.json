@@ -166,7 +166,8 @@
         "odometry",
         "2d-lidar",
         "scan-matching",
-        "local-map"
+        "local-map",
+        "distance-transform"
       ]
     },
     {
@@ -182,7 +183,8 @@
         "odometry",
         "2d-lidar",
         "scan-matching",
-        "icp"
+        "icp",
+        "local-map"
       ]
     },
     {
@@ -198,7 +200,8 @@
         "odometry",
         "2d-lidar",
         "scan-matching",
-        "icp"
+        "icp",
+        "local-map"
       ]
     },
     {
@@ -214,7 +217,8 @@
         "odometry",
         "2d-lidar",
         "scan-matching",
-        "ndt"
+        "ndt",
+        "local-map"
       ]
     },
     {
@@ -230,7 +234,8 @@
         "odometry",
         "2d-lidar",
         "scan-matching",
-        "polar"
+        "polar",
+        "local-map"
       ]
     },
     {
@@ -242,7 +247,7 @@
         "Wheel odometry"
       ],
       "href": "papers/kinematic_icp",
-      "summary": "Kinematic-ICP 2D laser odometry fusing unicycle wheel odometry with point-to-line ICP (Guadagnino ICRA 2025).",
+      "summary": "Kinematic-ICP 2D laser odometry fusing unicycle wheel odometry with point-to-line ICP (Guadagnino ICRA 2025). A point-style robot-frame local map is implemented but opt-in: it rescues some long train windows while breaking the MIT val and fr079 long windows, with no safe shared configuration.",
       "tags": [
         "odometry",
         "2d-lidar",
@@ -262,7 +267,8 @@
       "tags": [
         "odometry",
         "2d-lidar",
-        "scan-matching"
+        "scan-matching",
+        "distance-transform"
       ]
     },
     {
@@ -277,7 +283,8 @@
       "tags": [
         "odometry",
         "2d-lidar",
-        "icp"
+        "icp",
+        "local-map"
       ]
     },
     {
@@ -288,7 +295,7 @@
         "2D LiDAR"
       ],
       "href": "papers/rf2o",
-      "summary": "RF2O range-flow 2D laser odometry using dense scan gradients and coarse-to-fine robust least squares (ICRA 2016).",
+      "summary": "RF2O range-flow 2D laser odometry using dense scan gradients and coarse-to-fine robust least squares (ICRA 2016). A robot-frame local map is implemented but opt-in: its min-range polar reference helps short validation windows and degrades every long Bonn train window.",
       "tags": [
         "odometry",
         "2d-lidar",

@@ -127,4 +127,5 @@ Single fixture, all methods:
 
 ## 次アクション
 
-1. `docs/methods.json` 2D tag 強化 / `validate_showcase.py` 2D セクション (optional).
+なし — 2D トラックは local map 調査 (P15–P19) と docs 整備まで完了。
+`public_bundle.json` と fixture JSON の整合は `validate_showcase.py` が CI で検証する。

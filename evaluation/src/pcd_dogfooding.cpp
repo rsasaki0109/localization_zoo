@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -34,6 +34,7 @@
 #include "mcc_lo/mcc_lo.h"
 #include "imls_slam/imls_slam.h"
 #include "mesh_loam/mesh_loam.h"
+#include "elo/elo.h"
 #include "tricp_lo/tricp_lo.h"
 #include "kc_lo/kc_lo.h"
 #include "i_loam/i_loam.h"
@@ -233,7 +234,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "dilo" || method == "nhc_lio" ||
          method == "student_t_lo" || method == "spectral_lo" ||
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
-         method == "imls_slam" || method == "mesh_loam" || method == "tricp_lo" || method == "kc_lo" ||
+         method == "imls_slam" || method == "mesh_loam" || method == "elo" ||
+         method == "tricp_lo" || method == "kc_lo" ||
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
          method == "mcgicp" ||          method == "icpsc" || method == "vlom" ||
          method == "odonet" || method == "nhc_net" || method == "nn_zupt" ||
@@ -1760,6 +1762,22 @@ struct MeshLoamDogfoodingOptions {
   int max_iterations = 30;
   int mesh_update_interval = 5;
   double local_map_radius = 80.0;
+};
+
+struct EloDogfoodingOptions {
+  double source_voxel_size = 0.2;
+  size_t max_source_points = 50000;
+  int sri_width = 1024;
+  int sri_height = 80;
+  double bev_resolution = 0.25;
+  double sensor_height = 1.73;
+  int max_iterations = 18;
+  double max_sri_correspondence_dist = 1.0;
+  double max_ground_correspondence_dist = 1.0;
+  double ground_weight = 5.0;
+  double non_ground_weight = 1.0;
+  int max_alignment_points = 12000;
+  int model_window_frames = 100;
 };
 
 struct TricpLoDogfoodingOptions {
@@ -6265,6 +6283,66 @@ MethodResult runMeshLoam(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runElo(const std::vector<std::string>& pcd_dirs,
+                    const std::vector<Eigen::Matrix4d>& gt,
+                    const EloDogfoodingOptions& options) {
+  using namespace localization_zoo::elo;
+  MethodResult res;
+  res.name = "ELO";
+
+  EloParams params;
+  params.sri_width = options.sri_width;
+  params.sri_height = options.sri_height;
+  params.bev_resolution = options.bev_resolution;
+  params.sensor_height = options.sensor_height;
+  params.max_iterations = options.max_iterations;
+  params.max_sri_correspondence_dist = options.max_sri_correspondence_dist;
+  params.max_ground_correspondence_dist = options.max_ground_correspondence_dist;
+  params.ground_weight = options.ground_weight;
+  params.non_ground_weight = options.non_ground_weight;
+  params.max_alignment_points = options.max_alignment_points;
+  params.model_window_frames = options.model_window_frames;
+  EloPipeline pipeline(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  double residual_sum = 0.0;
+  double ground_corr_sum = 0.0;
+  double nonground_corr_sum = 0.0;
+  long n = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    residual_sum += result.mean_abs_residual;
+    ground_corr_sum += result.num_ground_correspondences;
+    nonground_corr_sum += result.num_non_ground_correspondences;
+    ++n;
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0)
+      std::cerr << "\r  [ELO] " << i << "/" << pcd_dirs.size()
+                << " sri=" << pipeline.nonGroundMapSize()
+                << " bev=" << pipeline.groundMapSize();
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char buf[128];
+  std::snprintf(buf, sizeof(buf), "%.3f g=%.0f ng=%.0f",
+                n > 0 ? residual_sum / static_cast<double>(n) : 0.0,
+                n > 0 ? ground_corr_sum / static_cast<double>(n) : 0.0,
+                n > 0 ? nonground_corr_sum / static_cast<double>(n) : 0.0);
+  res.note =
+      "ELO: frame-to-model projective odometry with non-ground spherical "
+      "range-image map, ground BEV map, range-adaptive PCA normals, and "
+      "SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=" +
+      std::string(buf);
+  return res;
+}
+
 MethodResult runTricpLo(const std::vector<std::string>& pcd_dirs,
                         const std::vector<Eigen::Matrix4d>& gt,
                         const TricpLoDogfoodingOptions& options) {
@@ -8112,7 +8190,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -8297,6 +8375,7 @@ int main(int argc, char** argv) {
   MccLoDogfoodingOptions mcc_lo_options;
   ImlsSlamDogfoodingOptions imls_slam_options;
   MeshLoamDogfoodingOptions mesh_loam_options;
+  EloDogfoodingOptions elo_options;
   TricpLoDogfoodingOptions tricp_lo_options;
   KcLoDogfoodingOptions kc_lo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
@@ -10591,6 +10670,47 @@ int main(int argc, char** argv) {
       mesh_loam_options.mesh_update_interval = std::stoi(argv[++i]);
       continue;
     }
+    // --- elo ---
+    if (arg == "--elo-fast-profile") {
+      elo_options.source_voxel_size = 0.25;
+      elo_options.max_source_points = 35000;
+      elo_options.sri_width = 1024;
+      elo_options.bev_resolution = 0.3;
+      elo_options.max_alignment_points = 8000;
+      elo_options.max_iterations = 14;
+      elo_options.ground_weight = 5.0;
+      continue;
+    }
+    if (arg == "--elo-dense-profile") {
+      elo_options.source_voxel_size = 0.15;
+      elo_options.max_source_points = 80000;
+      elo_options.sri_width = 2048;
+      elo_options.bev_resolution = 0.2;
+      elo_options.max_alignment_points = 18000;
+      elo_options.max_iterations = 20;
+      elo_options.ground_weight = 5.0;
+      continue;
+    }
+    if (arg == "--elo-sri-width") {
+      if (i + 1 >= argc) { std::cerr << "--elo-sri-width requires a value" << std::endl; return 1; }
+      elo_options.sri_width = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--elo-bev-resolution") {
+      if (i + 1 >= argc) { std::cerr << "--elo-bev-resolution requires a value" << std::endl; return 1; }
+      elo_options.bev_resolution = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--elo-ground-weight") {
+      if (i + 1 >= argc) { std::cerr << "--elo-ground-weight requires a value" << std::endl; return 1; }
+      elo_options.ground_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--elo-max-alignment-points") {
+      if (i + 1 >= argc) { std::cerr << "--elo-max-alignment-points requires a value" << std::endl; return 1; }
+      elo_options.max_alignment_points = std::stoi(argv[++i]);
+      continue;
+    }
     // --- imls_slam ---
     if (arg == "--imls-slam-fast-profile") {
       imls_slam_options.source_voxel_size = 0.5;
@@ -12284,6 +12404,16 @@ int main(int argc, char** argv) {
               << " mesh_interval=" << mesh_loam_options.mesh_update_interval
               << " cos_gate=" << mesh_loam_options.cos_gate << std::endl;
     results.push_back(runMeshLoam(pcd_dirs, gt, mesh_loam_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "elo")) {
+    std::cout << "Running ELO..." << std::endl;
+    std::cout << "  source_voxel_size=" << elo_options.source_voxel_size
+              << " max_source_points=" << elo_options.max_source_points
+              << " sri=" << elo_options.sri_width << "x" << elo_options.sri_height
+              << " bev_res=" << elo_options.bev_resolution
+              << " ground_weight=" << elo_options.ground_weight << std::endl;
+    results.push_back(runElo(pcd_dirs, gt, elo_options));
   }
 
   if (isMethodEnabled(selected_methods, "tricp_lo")) {

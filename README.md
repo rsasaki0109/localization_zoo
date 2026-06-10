@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>91 methods</b> · <b>63 paper reimplementations</b> · <b>33 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>93 methods</b> · <b>64 paper reimplementations</b> · <b>34 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -73,13 +73,14 @@ broken port._
 ### From-paper reimplementations (no public reference code) — KITTI full
 
 > **📋 [Reproducibility Report](docs/reproducibility_report.md)** — what
-> happens when you reimplement 36 papers that ship no code: which claims
+> happens when you reimplement 37 papers that ship no code: which claims
 > reproduce, which mechanisms go silent on KITTI, which diverge, and the
 > recurring implementation lessons.
 
 Papers with **no public author code**, run as pure odometry on KITTI full
-sequences (first-pose anchor, `--no-gt-seed`, uniform `--*-dense-profile`; no IMU,
-so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in parens.
+sequences (first-pose anchor, `--no-gt-seed`, dense profile unless a method README
+calls out a CPU profile; no IMU, so LIO methods use constant-velocity fallback).
+RPE is drift %/100 m; ATE in parens.
 
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
@@ -110,6 +111,7 @@ so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in par
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
 | R-VoxelMap | 1.076% <sub>(20 m)</sub> | _diverges_ | arXiv:2601.12377 |
+| ELO | 1.124% <sub>(23 m)</sub> | 0.981% <sub>(4 m)</sub> | IEEE RA-L 2021 |
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |

@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq00_full",
+  "gt_csv": "data/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "Mesh-LOAM",
+      "status": "ok",
+      "ate_m": 13.473766,
+      "rpe_trans_pct": 0.901275,
+      "rpe_rot_deg_per_m": 0.007371,
+      "frames": 4541,
+      "time_ms": 7856178.590748,
+      "fps": 0.578016,
+      "seed_fallback_rate_pct": null,
+      "note": "Mesh-LOAM: incremental voxel-hash IMLS-SDF map with block-wise zero-surface extraction and point-to-mesh GN odometry (normal cosine gate); CV prior, no GT seed. mean|residual|=0.016"
+    }
+  ]
+}

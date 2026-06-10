@@ -63,12 +63,14 @@ Flags: `--mesh-loam-{fast,dense}-profile`, `--mesh-loam-voxel-size`,
 |---|---:|---:|---:|
 | seq07 first 108 fr | 0.135 | 0.525 | 0.7 |
 | seq07 full (1101 fr) | 0.98 | **0.616** | 0.74 |
-| seq00 full (4541 fr) | _pending (run interrupted at 1530/4541)_ | | |
+| seq00 full (4541 fr) | 13.47 | **0.901** | 0.58 |
 
-seq07 full matches the same-profile KISS-ICP baseline (0.618 %) — the
+seq07 full matches the same-profile KISS-ICP baseline (0.618 %), while seq00
+lands just behind the same-profile KISS-ICP baseline (0.872 %). The
 point-to-mesh map representation holds up at full-sequence scale on CPU with
-downsampled input. Artifact:
-[`docs/benchmarks/kitti_full_new_methods/seq07_mesh_loam.json`](../../docs/benchmarks/kitti_full_new_methods/seq07_mesh_loam.json).
+downsampled input. Artifacts:
+[`docs/benchmarks/kitti_full_new_methods/seq07_mesh_loam.json`](../../docs/benchmarks/kitti_full_new_methods/seq07_mesh_loam.json),
+[`docs/benchmarks/kitti_full_new_methods/seq00_mesh_loam.json`](../../docs/benchmarks/kitti_full_new_methods/seq00_mesh_loam.json).
 
 Paper reports 0.31 % (seq07) / 0.53 % (seq00) relative translation error with
 full-density scans on GPU; this port runs downsampled input on CPU, so parity

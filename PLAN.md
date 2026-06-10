@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-11 (Mesh-LOAM 92手法目実装 §00.52b — seq07 full RPE 0.616% で KISS 同等、seq00 full は中断・再開コマンド記載)**
+> **最終更新: 2026-06-11 (Mesh-LOAM 92手法目実装 §00.52b — seq07 full RPE 0.616% で KISS 同等、seq00 full RPE 0.901% で完走)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -554,7 +554,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - Artifact: `docs/benchmarks/cross_dataset/nclt_600_fr_lio_vs_rko.json`
 - **未実装**: deskew、full IEKF、重力/外参推定、著者コード無しのため論文数値との直接比較不可。
 
-### 00.52b Mesh-LOAM (92手法目 / 3D from-paper, 2026-06-11) — **実装完了、seq00 full 未完**
+### 00.52b Mesh-LOAM (92手法目 / 3D from-paper, 2026-06-11) — **実装 + seq00/07 full 完了**
 
 - **論文**: Zhu, Zheng & Zhu, "Mesh-LOAM: Real-time Mesh-Based LiDAR Odometry and Mapping",
   IEEE T-IV 2024, arXiv:2312.15630。公式 repo (`HelloXiaoZHU/Mesh-LOAM`) は 2024 年から
@@ -575,17 +575,19 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
   ATE **0.98 m** / RPE **0.616%** / 0.005 deg/m / **0.74 FPS** —
   同 profile KISS-ICP (0.618%) と同等、from-paper 表 mid-top-10 圏。
   Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_mesh_loam.json`
-- ⏳ **未完**: **seq00 full は 1530/4541 frame で中断** (ユーザー停止、約 0.67 FPS で
-  全走 ~110 分)。再開コマンド:
+- ✅ **KITTI seq00 full (4541f, `--no-gt-seed --mesh-loam-dense-profile`)**:
+  ATE **13.47 m** / RPE **0.901%** / 0.007 deg/m / **0.58 FPS** —
+  同 profile KISS-ICP (0.872%) に seq00 RPE で僅差負け、from-paper 表は MCC-LO と NHC-LIO の間。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_mesh_loam.json`
+  再現コマンド:
   ```bash
   ./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full \
     data/kitti_pcd/seq00_gt.csv --methods mesh_loam --no-gt-seed \
     --mesh-loam-dense-profile \
     --summary-json docs/benchmarks/kitti_full_new_methods/seq00_mesh_loam.json
   ```
-- ⏳ **docs 残**: seq00 完走後に README from-paper 表へ行追加 + `papers/mesh_loam/README.md`
-  の結果表更新 (seq07 行は記入済み・seq00 は running 表記のまま)。
-- **状態**: 実装 + harness + methods.json (92 手法) + seq07 full まで push 済 (`74fe6b3` + 本 commit)
+- ✅ **docs**: README from-paper 表へ Mesh-LOAM 行追加、`papers/mesh_loam/README.md` の結果表更新。
+- **状態**: 実装 + harness + methods.json (92 手法) + seq00/07 full artifact + docs 更新済。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 

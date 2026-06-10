@@ -1333,6 +1333,25 @@
       ]
     },
     {
+      "name": "OPL-LVIO",
+      "family": "LiDAR-visual-inertial point-line fusion",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "visual",
+        "IMU"
+      ],
+      "href": "papers/opl_lvio",
+      "summary": "Optimized point-line LiDAR-visual-inertial odometry: range-image point and line proxies stand in for visual features on KITTI PCD, LiDAR depth correlation supplies metric landmarks, and scan-to-map plane plus visual point residuals are balanced by Helmert-style variance component weighting; pseudo-line residuals are extracted but disabled in the dense profile after a short-window ablation (He et al., Remote Sensing 2022).",
+      "tags": [
+        "odometry",
+        "lidar-visual-inertial",
+        "point-line-features",
+        "helmert-weighting",
+        "range-image"
+      ]
+    },
+    {
       "name": "NHC-LIO",
       "family": "Motion constraint",
       "scope": "Paper reimplementation",

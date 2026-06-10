@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq00_full",
+  "gt_csv": "data/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "OPL-LVIO",
+      "status": "ok",
+      "ate_m": 15.239616,
+      "rpe_trans_pct": 1.049587,
+      "rpe_rot_deg_per_m": 0.011191,
+      "frames": 4541,
+      "time_ms": 592336.277473,
+      "fps": 7.666253,
+      "seed_fallback_rate_pct": null,
+      "note": "OPL-LVIO: optimized point-line LiDAR-visual-inertial port with range-image visual point/line proxies, LiDAR depth correlation, scan-to-map plane + visual point + visual line residuals, and Helmert-style variance component weighting. visual_points/frame=94.784629 visual_lines/frame=56.136534 fused_lines/frame=245.013653 plane_corr/frame=3686.896499 point_corr/frame=87.660427 line_corr/frame=235.639727 point_scale/frame=0.778010 line_scale/frame=1.318278 fallback_frames=0 mean|residual|=0.186195"
+    }
+  ]
+}

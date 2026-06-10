@@ -23,6 +23,7 @@
 #include <Eigen/Geometry>
 
 #include <algorithm>
+#include <cstdlib>
 #include <chrono>
 #include <cmath>
 #include <filesystem>
@@ -767,6 +768,9 @@ MethodResult runKinematicICP(const std::vector<fs::path>& frames, const ScanMeta
   params.max_correspondence_distance = 1.5;
   params.wheel_odom_weight = 8.0;
   params.use_last_increment_as_wheel_odom = !wheel_odom_from_gt;
+  // Local map stays opt-in: it rescues some long train windows but breaks the
+  // MIT val window and fr079_train_1200 with no safe shared config (see
+  // papers/kinematic_icp/README.md), so scan-to-scan remains the default.
   KinematicICPEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));

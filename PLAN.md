@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-11 (RF2O local map P18 完了 — sweep の結果 default off の opt-in に確定、honest negative)**
+> **最終更新: 2026-06-11 (P19 Kinematic-ICP point 型 local map — trade-off で safe default 無し、opt-in。2D local map 化はこれで全 9 法調査完了)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -182,7 +182,7 @@ a2817ff Add fr079 and MIT public 2D scan fixtures with multi-dataset benchmarks.
 **2D scan odometry (papers 43–50) の追加知見**:
 
 - **fixture 依存が支配的** — RF2O@Intel, PSM@fr079, PL-ICP@corridor。単一手法の「勝者」は存在しない。
-- **scan-to-scan 限界** — IDC/PSM/PL-ICP/MbICP/NDT-2D/Karto は robot-frame local map 済。**RF2O は opt-in (P18: projection 型 reference が long 窓で退行する honest negative)**、Kinematic-ICP のみ未着手。長 Bonn log では drift 15–30% 帯が典型。
+- **scan-to-scan 限界** — IDC/PSM/PL-ICP/MbICP/NDT-2D/Karto は robot-frame local map 済。**RF2O (P18) と Kinematic-ICP (P19) は opt-in** — 前者は projection 型で long 窓全敗、後者は point 型でも trade-off に safe config 無し。これで 2D 全 9 法の local map 調査完了。長 Bonn log では drift 15–30% 帯が典型。
 - **projection 型 local map の罠 (P18)** — 点群を min-range polar profile に再投影する reference (RF2O local map; IDC/PSM も同族) は val 窓で効くが long train 窓で爆発 (fr079_train_200: IDC 85% / PSM 681% / RF2O 99%)。bin 量子化 + 近距離バイアスが原因で、age 減衰でも救えない。
 - **合成 corridor の罠** — PL-ICP 0.4% でも fr079 41% — synthetic 成功は real 一般化の証拠にならない。
 - **CSM engineering win** — DT + pyramid で fr079 38.9%→20.6%。corridor ~73% は honest negative 継続。
@@ -718,13 +718,26 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 
 - ✅ **実装**: `papers/kinematic_icp/` — PL-ICP + wheel odom 重み付き prior + unicycle 射影。
 - ✅ **統合**: `--methods kinematic_icp --wheel-odom-from-gt`
-- ✅ **テスト**: `test_kinematic_icp` 5 cases PASS。
+- ✅ **テスト**: `test_kinematic_icp` 7 cases PASS。
 - ✅ **Public benchmark**:
   - Intel **18.4%** / fr079 **18.9%** / MIT **23.4%** (MIT リーダー) / corridor **83.8%**
 - ✅ **所見**: GT wheel odom 合成でも smoke 高速運動では RF2O に劣後 (honest negative)。
   短 MIT window では best drift だが 33f は indicative のみ。
+- ✅ **Robot-frame local map 実装 (opt-in, default off)** (2026-06-11, P19) — see §00.6c-46 Kinematic-ICP local map
 - **未実装**: PRBonn 3D pipeline、動的重み付け、extrinsic TF
 - **状態**: ✅ push 済
+
+### 00.6c-46 Kinematic-ICP local map (2026-06-11, P19) — **trade-off、safe default 無しで opt-in**
+
+- ✅ **Point 型 robot-frame rolling local map** — PL-ICP/MbICP と同構造 (RefPoint voxel merge + radius prune + grid-indexed correspondence + normal 回転)。`solveKinematicIncrementIndexed` + 共通 `finalizeKinematicSolve` (unicycle prior + 射影は共有)
+- ✅ **テスト**: `test_kinematic_icp` 7 cases PASS (+ `LocalMapTracksTranslationWithWheelOdom`, `LocalMapMatchesScanToScanOnShortRun`)
+- ✅ **全 fixture sweep** (radius 10–20 m × voxel 0.10–0.25 m × wheel weight 8–64):
+  - **劇的改善**: `mit_train_120` **46.4%→12.8%** / `fr079_train_200` **11.0%→5.9%** / fr079 val 18.9%→16.0%
+  - **同時に破壊**: MIT val **23.4%→30.5%** (唯一のリーダー fixture) / `fr079_train_1200` 10.7%→18.7% / corridor 83.8%→93.5%
+  - wheel weight 増 (correspondence 数増の補償) は train_200 を 5.9%→81.8% に不安定化
+- ✅ **判断: opt-in (default off)** — RF2O P18 (projection 型は long 窓で全敗) と違い、point 型 map は真の trade-off だが dominating config が無い。「fixture 依存が支配的」の追加証拠。scan-to-scan (paper-faithful) を default 維持
+- ✅ 詳細: `papers/kinematic_icp/README.md` "Local map: opt-in only, no safe default" 節
+- **状態**: ✅ 完了 (canonical JSON 変更なし — default 不変)
 
 ### 00.6c-47 PSM (47本目) — polar scan matching (2026-06-09)
 
@@ -756,7 +769,7 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - **未実装**: Cauchy IRLS 再重み付け
 - **状態**: ✅ 完了
 
-**次の推奨**: PG-LIO (3D) は引き続き保留。2D 側は Kinematic-ICP local map (RF2O の知見から projection 型でなく point 型 reference 推奨)、または docs polish (`methods.json` / validate_showcase)。
+**次の推奨**: PG-LIO (3D) は引き続き保留。2D local map 化は P19 で全 9 法調査完了。残りは docs polish (`methods.json` 2D tag / validate_showcase 2D セクション)、または 3D 側の新論文。
 
 ---
 
@@ -1052,6 +1065,7 @@ README.md (1-screen 概要)
 | **P16** | PSM robot-frame local map | ✅ point cache → polar profile rebuild; Intel **15.3%** (was 21.8%); fr079 **14.3%**; corridor **4.4%** (was 11.6%) |
 | **P17** | NDT-2D outlier trimming | ✅ match-only range jump + finest-level Mahalanobis trim; `fr079_train_1200` **7.5%** (was 8.8%); corridor **0.3%**; Intel ~flat |
 | **P18** | RF2O robot-frame local map | ✅ **opt-in (default off)** — val は fr079 13.9%/corridor 0.6% と改善するが long train が全 config 退行 (`fr079_train_1200` 10.6→20.1%+, `fr079_train_200` 30→88%+); min-range polar 投影が原因の family-level honest negative |
+| **P19** | Kinematic-ICP point 型 local map | ✅ **opt-in (default off)** — `mit_train_120` 46→13% / `fr079_train_200` 11→6% と効く窓がある一方、MIT val 23→31% (唯一のリーダー fixture) と `fr079_train_1200` 11→19% を破壊、safe shared config 無し |
 | — | PG-LIO (3D) 改善 | 保留 (honest negative) |
 | — | KITTI Odom full rerun | データ入手 |
 

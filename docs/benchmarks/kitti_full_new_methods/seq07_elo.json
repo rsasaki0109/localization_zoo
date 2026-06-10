@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq07_full",
+  "gt_csv": "data/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "ELO",
+      "status": "ok",
+      "ate_m": 3.536384,
+      "rpe_trans_pct": 0.981002,
+      "rpe_rot_deg_per_m": 0.009988,
+      "frames": 1101,
+      "time_ms": 198414.161717,
+      "fps": 5.548999,
+      "seed_fallback_rate_pct": null,
+      "note": "ELO: frame-to-model projective odometry with non-ground spherical range-image map, ground BEV map, range-adaptive PCA normals, and SRI/BEV model fusion; CV prior, no GT seed. mean|residual|=0.026 g=5103 ng=461"
+    }
+  ]
+}

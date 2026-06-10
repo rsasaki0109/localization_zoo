@@ -1280,6 +1280,23 @@
       ]
     },
     {
+      "name": "ELO",
+      "family": "Range-image / BEV fusion",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/elo",
+      "summary": "Efficient LiDAR odometry using non-ground spherical range-image projective association fused with a ground bird's-eye-view map, range-adaptive PCA normals, and memory-efficient SRI/BEV model updates (Zheng & Zhu, IEEE RA-L 2021, arXiv:2104.10879).",
+      "tags": [
+        "odometry",
+        "range-image",
+        "bev",
+        "ground",
+        "scan-to-map"
+      ]
+    },
+    {
       "name": "NHC-LIO",
       "family": "Motion constraint",
       "scope": "Paper reimplementation",

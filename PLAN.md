@@ -1,12 +1,12 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-11 (Mesh-LOAM 92手法目実装 §00.52b — seq07 full RPE 0.616% で KISS 同等、seq00 full RPE 0.901% で完走)**
+> **最終更新: 2026-06-11 (ELO 93手法目実装 §00.52c — seq00 full RPE 1.124%、seq07 full RPE 0.981%、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
 > 最初に本ファイルを読み、その次に:
 > 1. [`README.md`](README.md)
-> 2. [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) — **2D scan odometry リーダーボード (現アクティブ)**
+> 2. [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) — **2D scan odometry リーダーボード (停止中/背景)**
 > 3. [`docs/index.html`](docs/index.html)
 > 4. [`docs/methods.json`](docs/methods.json)
 > 5. [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md)
@@ -23,16 +23,16 @@
 
 ---
 
-## 00. Latest Handoff: From-Paper Reimplementation Campaign (2026-06-10 更新)
+## 00. Latest Handoff: From-Paper Reimplementation Campaign (2026-06-11 更新)
 
 > **これが最新・最優先の handoff。**
 >
-> **2026-06-10 現時点のアクティブ方向は 2D LiDAR scan odometry キャンペーン (papers 43–50)。**
-> 3D Velodyne + IMU 系 (FR-LIO 完了、PG-LIO は NCLT honest negative で保留) から
-> **planar `LaserScan` matchers** へ軸足を移し、8 法 × 4 fixture の公開リーダーボードを整備済み。
+> **2026-06-11 現時点のアクティブ方向は 3D LiDAR from-paper KITTI キャンペーンへ戻した。**
+> ユーザ指示「2d ha ittan iran!」により、2D LiDAR scan odometry は一旦停止。
+> 3D Velodyne 系の著者コード無し論文を、KITTI seq00/seq07 full で正直評価する流れを優先。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
-> recipe 由来) だが、**次セッションのデフォルト作業は §00.6c〜§00.66 (2D) を読んで着手**すること。
+> recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。
 >
 > ### 2026-06-09 セッション要約 (3D → 2D 転換後)
 >
@@ -44,8 +44,8 @@
 > - **MbICP (50本目)**: config-space metric ICP を追加し、canonical JSON を8法で refresh。
 > - **ドキュメント整備**: [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) ハブ、
 >   README / SETUP / `public_bundle.json` / 各 paper README を 8 法に同期。
-> - **git**: `main` は `origin/main` より **2 commit ahead** (`361a592` IDC, `3fc5be0` CSM-DT)。
->   markdown 整理分はワークツリーに未 commit。
+> - **git (当時)**: `main` は `origin/main` より **2 commit ahead** (`361a592` IDC, `3fc5be0` CSM-DT)。
+>   markdown 整理分はワークツリーに未 commit だった。
 >
 > ### 2026-06-03〜08 セッション要約 (3D campaign、背景)
 >
@@ -105,15 +105,15 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 | Item | Value |
 |------|-------|
 | Branch | `main` |
-| vs `origin/main` | **2 commits ahead** (IDC + CSM-DT); markdown 整理は未 commit |
-| 実装済み from-paper 論文数 | **50 本** (3D: §00.48–§00.56 + FR-LIO/PG-LIO; **2D: §00.6c papers 43–50**) |
-| `docs/methods.json` | **90 手法** |
+| vs `origin/main` | **1 commit ahead**予定 (ELO 93手法目、push 待ち) |
+| 実装済み from-paper 論文数 | **52 本** (3D 再開: Mesh-LOAM + ELO; 2D papers 43–50 は停止中) |
+| `docs/methods.json` | **93 手法** |
 | 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
-| 直近完了 (2D) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
-| その前 (2D, pushed) | **NDT-2D (48)** / **PSM (47)** / Bonn fixtures (`a2817ff`) |
-| 3D 直近 (背景) | **NN-ZUPT (40本目)** — cross-IMU honest negative |
+| 直近完了 (3D) | **ELO (93手法目)** — SRI + ground BEV fusion、KITTI seq00/07 full 完走 |
+| その前 (3D) | **Mesh-LOAM (92手法目)** — point-to-mesh、seq07 KISS 同等 |
+| 2D 直近 (停止中) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
 | PG-LIO (42本目) | NCLT honest negative → **保留** (§00.52) |
 
 直近コミット列 (`main`、2D 部分):
@@ -588,6 +588,40 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
   ```
 - ✅ **docs**: README from-paper 表へ Mesh-LOAM 行追加、`papers/mesh_loam/README.md` の結果表更新。
 - **状態**: 実装 + harness + methods.json (92 手法) + seq00/07 full artifact + docs 更新済。
+
+### 00.52c ELO (93手法目 / 3D from-paper, 2026-06-11) — **実装 + seq00/07 full 完了**
+
+- **論文**: Xin Zheng and Jianke Zhu, "Efficient LiDAR Odometry for Autonomous Driving",
+  IEEE RA-L 2021, arXiv:2104.10879。著者公開実装は見つからず。論文/ KITTI detail は
+  non-ground spherical range image + ground BEV map、range-adaptive normal、memory-efficient
+  model update を主張。KITTI detail は SRI 2048×80、BEV 120 m × 60 m と記載。
+- ✅ **実装**: `papers/elo/` — (1) non-ground SRI cell map (vertex + PCA normal)、
+  (2) ground BEV cell map (ground average + neighbor normal)、(3) projective frame-to-model
+  point-to-plane GN、(4) registration 後に前 model を現フレームへ移し、stale cell を落として
+  SRI/BEV を融合。
+- **主な逸脱** (詳細 `papers/elo/README.md`): CUDA → CPU、full 実測は tractable runtime のため
+  `--elo-fast-profile` (SRI 1024×80、BEV 0.3 m)。per-point time が無いので model window は
+  frame index。ground segmentation は LiDAR 高 + 5 deg slope gate と欠損時 fallback。
+- ✅ **テスト**: `test_elo` 5 cases PASS (初期 map / 静止 / 並進 / yaw / sequence)。
+- ✅ **KITTI seq00 full (4541f, `--no-gt-seed --elo-fast-profile`)**:
+  ATE **22.50 m** / RPE **1.124%** / 0.010 deg/m / **5.15 FPS** —
+  論文 training seq00 0.54% には届かない honest negative だが、DiLO direct より大幅に安定。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_elo.json`
+- ✅ **KITTI seq07 full (1101f, `--no-gt-seed --elo-fast-profile`)**:
+  ATE **3.54 m** / RPE **0.981%** / 0.010 deg/m / **5.55 FPS** —
+  論文 training seq07 0.31% には届かない。ground BEV は drift を抑えるが、CPU 簡略 port では
+  KISS 同等までは届かず。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_elo.json`
+- 再現コマンド:
+  ```bash
+  ./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full \
+    data/kitti_pcd/seq00_gt.csv --methods elo --no-gt-seed \
+    --elo-fast-profile \
+    --summary-json docs/benchmarks/kitti_full_new_methods/seq00_elo.json
+  ```
+- ✅ **docs**: README from-paper 表へ ELO 行追加、`docs/methods.json` 93 手法、
+  `papers/elo/README.md` に seq00/07 結果表を追加。
+- **状態**: 実装 + harness + methods.json (93 手法) + seq00/07 full artifact + docs 更新済。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 

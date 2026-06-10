@@ -4,6 +4,9 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
+    <b>91 methods</b> · <b>63 paper reimplementations</b> · <b>33 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+  </p>
+  <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
     <img src="https://img.shields.io/badge/ROS2-Humble-green" alt="ROS2 Humble">
     <img src="https://img.shields.io/badge/Scope-Reimpl%20%2B%20Derived-orange" alt="Reimplementations and Derived Variants">
@@ -22,6 +25,13 @@
     <a href="https://rsasaki0109.github.io/localization_zoo/"><b>↪ Open the interactive benchmark and method explorer</b></a>
   </p>
 </div>
+
+**Try it in one command** — no build, no dataset; runs the synthetic benchmark plus
+committed real-data fixtures and drops `report.html` into `./zoo-demo/`:
+
+```bash
+docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest
+```
 
 ---
 
@@ -355,6 +365,19 @@ Setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETU
 
 ## Quick Start
 
+### Docker (no local dependencies)
+
+```bash
+# Runs the full demo and writes report.html + JSON summaries to ./zoo-demo/
+docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest
+
+# Pass demo options after the image name, e.g. a quicker method profile
+docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest \
+  bash evaluation/scripts/docker_demo_entrypoint.sh --profile quick
+```
+
+### Native build
+
 ```bash
 # Dependencies (Ubuntu 22.04)
 sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev
@@ -484,6 +507,17 @@ honesty policy, and the per-paper checklist.
 
 If you use this software or its benchmarks, please cite it (see
 [CITATION.cff](CITATION.cff)) or use GitHub's "Cite this repository" button.
+
+```bibtex
+@software{sasaki_localization_zoo,
+  author  = {Sasaki, Ryohei},
+  title   = {Localization Zoo: from-paper {C++} reimplementations of {LiDAR}
+             localization and odometry methods, honestly benchmarked},
+  url     = {https://github.com/rsasaki0109/localization_zoo},
+  version = {1.0.0},
+  year    = {2026}
+}
+```
 
 ## License
 

@@ -28,12 +28,18 @@ RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 WORKDIR /workspace
 COPY . /workspace
 
-# Build benchmark binary only (skip unrelated paper implementations)
+# Build the demo binaries (synthetic benchmark + LiDAR/multimodal fixture runners)
 RUN cmake -B build -DCMAKE_BUILD_TYPE=Release && \
-    cmake --build build -j$(nproc) --target pcd_dogfooding
+    cmake --build build -j$(nproc) \
+      --target pcd_dogfooding synthetic_benchmark multimodal_dogfooding
 
 # Verify build
-RUN test -f build/evaluation/pcd_dogfooding && echo "BUILD OK"
+RUN test -f build/evaluation/pcd_dogfooding && \
+    test -f build/evaluation/synthetic_benchmark && \
+    test -f build/evaluation/multimodal_dogfooding && echo "BUILD OK"
 
-# Default: run full refresh (requires dogfooding_results/ to be mounted)
-CMD ["python3", "evaluation/scripts/refresh_study_docs.py"]
+# Default: one-command demo (synthetic benchmark + committed real-data fixtures,
+# writes report.html; mount /out to keep the report on the host).
+# For the docs refresh pipeline instead, run:
+#   docker run ... python3 evaluation/scripts/refresh_study_docs.py
+CMD ["bash", "evaluation/scripts/docker_demo_entrypoint.sh"]

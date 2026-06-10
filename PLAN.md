@@ -237,8 +237,8 @@ point-to-plane や voxel-surfel とは別系統の幾何当てはめ。
 - **完了**: seq00/07 ベンチ JSON、README leaderboard 行 (GNC-LO と CT-VoxelMap の間)、
   module README、methods.json (69手法)、memory 追記、commit。
 - ※ この環境は archive copy で KITTI 点群・Ceres を欠く。調達手順は memory
-  `loc-zoo-archive-build-env` 参照 (Ceres を `~/.local/ceres` へ source build、KITTI velodyne を
-  `../kitti_raw` へ再 download)。
+  `loc-zoo-archive-build-env` 参照 (Ceres を `third_party/ceres/install` へ source build、
+  KITTI velodyne を `data/kitti_raw` へ再 download)。
 
 ### 00.46 TrICP-LO (30本目, 最新完了)
 
@@ -578,8 +578,8 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ⏳ **未完**: **seq00 full は 1530/4541 frame で中断** (ユーザー停止、約 0.67 FPS で
   全走 ~110 分)。再開コマンド:
   ```bash
-  ./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full \
-    kitti_pcd/seq00_gt.csv --methods mesh_loam --no-gt-seed \
+  ./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full \
+    data/kitti_pcd/seq00_gt.csv --methods mesh_loam --no-gt-seed \
     --mesh-loam-dense-profile \
     --summary-json docs/benchmarks/kitti_full_new_methods/seq00_mesh_loam.json
   ```
@@ -1969,7 +1969,7 @@ LiTAMIN2 full-sequence manifests remain in `experiments/pending/` — runnable n
 
 - **MulRan parkinglot**: ingested. 8 indexed manifests covering `LiTAMIN2`, `CT-ICP`, `KISS-ICP`, `GICP` × {120-frame, full}.
 - **MulRan dcc01**: 4 pending manifests in `experiments/pending/` (`*_mulran_dcc01_120_matrix.json` for ct_icp/gicp/kiss_icp/litamin2). **Blocked**: raw data not local. Requires MulRan official download form (https://forms.gle/EmUybUiGc8pR3r7Q6) per `evaluation/scripts/SETUP_MULRAN_BENCHMARK.md`.
-- **Newer College**: 2 pending manifests in `experiments/pending/` (`ct_icp_newer_college_01_short_120_matrix.json`, `litamin2_newer_college_01_short_120_matrix.json`). **Blocked on two fronts**: (a) the manifests target sequence `01_short_experiment`, which is not in `ros2/demo_data/newer_college/` — only `math_hard` is local; (b) the local `math_hard` data is a ROS2 bag (`math_hard.bag` + `_rosbag2.db3`) with `/os_node/lidar_packets` (raw Ouster packets), not the flat PCD layout expected by `prepare_newer_college_inputs.py`. Extracting requires either downloading the flat-file release from https://ori-drs.github.io/newer-college-dataset/, or setting up ROS2 + Ouster driver to replay the bag and save PCDs.
+- **Newer College**: 2 pending manifests in `experiments/pending/` (`ct_icp_newer_college_01_short_120_matrix.json`, `litamin2_newer_college_01_short_120_matrix.json`). **Blocked on two fronts**: (a) the manifests target sequence `01_short_experiment`, which is not present under `data/newer_college/`; (b) the available local `math_hard` data is a ROS2 bag (`math_hard.bag` + `_rosbag2.db3`) with topic `os_node/lidar_packets` (raw Ouster packets), not the flat PCD layout expected by `prepare_newer_college_inputs.py`. Extracting requires either downloading the flat-file release from https://ori-drs.github.io/newer-college-dataset/, or setting up ROS2 + Ouster driver to replay the bag and save PCDs.
 
 ### 9.2 Best next LiDAR target
 
@@ -2140,7 +2140,7 @@ python3 evaluation/scripts/refresh_study_docs.py
 ```bash
 ./build/evaluation/pcd_dogfooding <pcd_dir> <gt_csv> \
   --methods litamin2,gicp,ndt \
-  --summary-json /tmp/smoke.json
+  --summary-json artifacts/tmp/smoke.json
 ```
 
 ### 13.5 Multimodal smoke
@@ -2150,7 +2150,7 @@ python3 evaluation/scripts/refresh_study_docs.py
   --methods okvis,vins_fusion,fast_livo2 \
   --landmarks-csv <sequence_dir>/landmarks.csv \
   --visual-observations-csv <sequence_dir>/visual_observations.csv \
-  --summary-json /tmp/multimodal_smoke.json
+  --summary-json artifacts/tmp/multimodal_smoke.json
 ```
 
 ### 13.6 KITTI Raw multimodal prep
@@ -2164,20 +2164,20 @@ python3 evaluation/scripts/run_multimodal_study.py --include-full --method okvis
 
 ```bash
 python3 evaluation/scripts/prepare_kitti_odometry_inputs.py \
-  --kitti-root /path/to/data_odometry \
+  --kitti-root data/kitti_odometry \
   --sequence 00 --sequence 07 \
   --window-size 108 --include-full
 ```
 
 ### 13.8 Safe exploratory runs
 
-Use `/tmp` outputs when you do not want to disturb canonical repo docs / index:
+Use repo-local scratch outputs when you do not want to disturb canonical repo docs / index:
 
 ```bash
 python3 evaluation/scripts/run_experiment_matrix.py \
   --manifest experiments/<something>.json \
-  --output-dir /tmp/localization_zoo_results \
-  --docs-dir /tmp/localization_zoo_docs
+  --output-dir artifacts/tmp/localization_zoo_results \
+  --docs-dir artifacts/tmp/localization_zoo_docs
 ```
 
 ---

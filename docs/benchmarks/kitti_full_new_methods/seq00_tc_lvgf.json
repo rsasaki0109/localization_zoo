@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq00_full",
+  "gt_csv": "data/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "TC-LVGF",
+      "status": "ok",
+      "ate_m": 11.945129,
+      "rpe_trans_pct": 1.054891,
+      "rpe_rot_deg_per_m": 0.011092,
+      "frames": 4541,
+      "time_ms": 538530.542466,
+      "fps": 8.432205,
+      "seed_fallback_rate_pct": null,
+      "note": "TC-LVGF: tightly coupled LiDAR-visual geometric-feature port with spherical fusion of pseudo-visual range-image lines and LiDAR linear features, point-to-plane + point-to-line scan-to-map optimization, and LiDAR fallback on visual-line scarcity. visual_lines/frame=56.136534 fused_lines/frame=245.013653 plane_corr/frame=3687.100639 line_corr/frame=235.615944 fallback_frames=0 mean|residual|=0.181076"
+    }
+  ]
+}

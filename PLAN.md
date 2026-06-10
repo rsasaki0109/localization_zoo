@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-11 (ID-LIO 94手法目実装 §00.52d — seq00 full RPE 1.111%、seq07 full RPE 0.999%、2D は一旦停止)**
+> **最終更新: 2026-06-11 (TC-LVGF 95手法目実装 §00.52e — seq00 full RPE 1.055%、seq07 full RPE 0.941%、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -105,14 +105,14 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 | Item | Value |
 |------|-------|
 | Branch | `main` |
-| vs `origin/main` | **1 commit ahead**予定 (ID-LIO 94手法目、push 待ち) |
-| 実装済み from-paper 論文数 | **53 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO; 2D papers 43–50 は停止中) |
-| `docs/methods.json` | **94 手法** |
+| vs `origin/main` | **1 commit ahead** (TC-LVGF 95手法目、push 待ち) |
+| 実装済み from-paper 論文数 | **54 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO + TC-LVGF; 2D papers 43–50 は停止中) |
+| `docs/methods.json` | **95 手法** |
 | 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
-| 直近完了 (3D) | **ID-LIO (94手法目)** — indexed point + delayed removal dynamic LIO、KITTI seq00/07 full 完走 |
-| その前 (3D) | **ELO (93手法目)** — SRI + ground BEV fusion、KITTI seq00/07 full 完走 |
+| 直近完了 (3D) | **TC-LVGF (95手法目)** — LiDAR-visual geometric feature fusion、KITTI seq00/07 full 完走 |
+| その前 (3D) | **ID-LIO (94手法目)** — indexed point + delayed removal dynamic LIO、KITTI seq00/07 full 完走 |
 | 2D 直近 (停止中) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
 | PG-LIO (42本目) | NCLT honest negative → **保留** (§00.52) |
 
@@ -658,6 +658,37 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **docs**: README from-paper 表へ ID-LIO 行追加、`docs/methods.json` 94 手法、
   `papers/id_lio/README.md` に seq00/07 結果表を追加。
 - **状態**: 実装 + harness + methods.json (94 手法) + seq00/07 full artifact + docs 更新済。
+
+### 00.52e TC-LVGF (95手法目 / 3D LiDAR-visual from-paper, 2026-06-11) — **実装 + seq00/07 full 完了**
+
+- **論文**: Ke Cao et al., "Tightly-Coupled LiDAR-Visual SLAM Based on Geometric
+  Features for Mobile Agents", ROBIO 2023 / arXiv:2307.07763。作者実装は見つからず。
+  LiDAR subsystem と monocular visual subsystem の geometric features を spherical
+  fusion frame で対応づけ、visual line で LiDAR linear feature を補正し、LiDAR depth /
+  direction で visual line landmark を補強する主張。
+- ✅ **実装**: `papers/tc_lvgf/` — (1) spherical range-image fusion frame、
+  (2) range-image 局所 PCA による LiDAR linear feature、(3) KITTI PCD 用の
+  pseudo-visual sparse range-line segment、(4) visual/LiDAR line direction fusion、
+  (5) point-to-plane + light point-to-line / direction residual scan-to-map、
+  (6) visual line 不足時の LiDAR fallback。
+- **主な逸脱**: RGB ORB/LSD / semantic association / dual SLAM backend /
+  loop closure は範囲外。KITTI Odometry PCD export は Velodyne のみなので、visual
+  line は LiDAR range-image から生成。短窓 ablation では強い line residual が僅かに悪化したため、
+  dense profile は `line_weight=0.2`, `direction_weight=0.05`。
+- ✅ **テスト**: `test_tc_lvgf` 4 cases PASS (球面投影 / line 抽出+fusion /
+  並進 tracking / visual sparse fallback)。
+- ✅ **KITTI seq00 full (4541f, `--no-gt-seed --tc-lvgf-dense-profile`)**:
+  ATE **11.95 m** / RPE **1.055%** / 0.011 deg/m / **8.43 FPS**。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_tc_lvgf.json`
+- ✅ **KITTI seq07 full (1101f, `--no-gt-seed --tc-lvgf-dense-profile`)**:
+  ATE **3.74 m** / RPE **0.941%** / 0.011 deg/m / **11.21 FPS**。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_tc_lvgf.json`
+- 所見: pseudo-visual line は full で fallback 0 (約56 visual lines/frame) と安定。
+  PL-LOAM/VLOM の疑似画像 honest negative より大幅に良いが、最上位の KISS-like
+  point-to-plane core はまだ超えない mid-pack positive。
+- ✅ **docs**: README from-paper 表へ TC-LVGF 行追加、`docs/methods.json` 95 手法、
+  `papers/tc_lvgf/README.md` に seq00/07 結果表を追加。
+  **状態**: 実装 + harness + methods.json (95 手法) + seq00/07 full artifact + docs 更新済。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 
@@ -2111,10 +2142,23 @@ To refresh all of them: `python3 evaluation/scripts/refresh_study_docs.py`.
 
 ## 12. What Cursor / Codex Should Do Next
 
-This is the operational handoff. **Default path: 2D LiDAR campaign (§00.60).**
+This is the operational handoff. **Default path: 3D LiDAR from-paper campaign (§00.2 / §00.52e).**
 Pick a single path and finish it before switching.
 
-### Priority A (active): 2D scan odometry campaign
+### Priority A (active): 3D LiDAR / visual / IMU from-paper campaign
+
+1. **Next paper target**: survey one more author-code-free LiDAR-visual or LiDAR-inertial paper that can
+   be scoped into the existing KITTI PCD harness.
+2. **Keep the unit of work stable**: module under `papers/<method>/`, CMake integration,
+   `pcd_dogfooding` selector, focused unit tests, KITTI seq00/07 full artifacts,
+   README leaderboard row, `docs/methods.json`, method README, and this PLAN.
+3. **Respect current user direction**: 2D scan odometry is paused unless explicitly resumed.
+4. **Verify docs after README/index edits**:
+   ```bash
+   python3 evaluation/scripts/validate_showcase.py --root .
+   ```
+
+### Priority B (paused): 2D scan odometry campaign
 
 1. **Commit + push** pending work if user asks:
    - IDC (`361a592`), CSM-DT (`3fc5be0`), markdown hub (§00.59 files).
@@ -2129,12 +2173,12 @@ Pick a single path and finish it before switching.
 5. **Docs**: keep [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) as canonical;
    README top-level table stays a 1-screen summary linking to the hub.
 
-### Priority B: OSS showcase / regression (parallel, low effort)
+### Priority C: OSS showcase / regression (parallel, low effort)
 
 1. After README/index.html edits: `python3 evaluation/scripts/validate_showcase.py --root .`
 2. Demo path: `bash evaluation/scripts/demo_localization_zoo.sh`
 
-### Priority C (blocked): KITTI Odometry full reruns
+### Priority D (blocked): KITTI Odometry full reruns
 
 Blocked only by data.
 
@@ -2149,14 +2193,14 @@ Blocked only by data.
    ```
 3. Run 108-frame manifests first, then full-sequence manifests.
 
-### Priority D (on hold): 3D PG-LIO improvement
+### Priority E (on hold): 3D PG-LIO improvement
 
 NCLT 600 honest negative (33% drift). Do not prioritize over 2D unless user redirects.
 
 ### Do NOT do next (unless explicitly asked)
 
 - Treat paper 50 MbICP as unstarted
-- PG-LIO over 2D campaign
+- Resume 2D campaign without user direction
 - Paper drafting / prose generation
 - PR / branch cleanup unrelated to current task
 - Broad refactor that touches the stable contract

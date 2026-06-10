@@ -1391,6 +1391,24 @@
       ]
     },
     {
+      "name": "Mesh-LOAM",
+      "family": "Explicit mesh",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/mesh_loam",
+      "summary": "Mesh-based scan-to-model LiDAR odometry: every scanned point scatters an IMLS-weighted signed-distance increment into a voxel-hash SDF map (the O(N) 'passive voxel' scheme with hybrid distance+normal weights), an explicit triangle mesh is extracted incrementally per voxel block from the SDF zero set, and the next scan is registered point-to-mesh with Gauss-Newton under a strict normal cosine-similarity correspondence gate (|cos|>0.98). A distinct map representation family from surfels (SuMa), implicit-surface matching (IMLS-SLAM), and voxel plane maps (Zhu, Zheng & Zhu, IEEE T-IV 2024, arXiv:2312.15630; official repo is README-only, no code).",
+      "tags": [
+        "odometry",
+        "mesh",
+        "sdf",
+        "voxel-hash",
+        "scan-to-model",
+        "marching-cubes"
+      ]
+    },
+    {
       "name": "TrICP-LO",
       "family": "Robust estimation",
       "scope": "Paper reimplementation",

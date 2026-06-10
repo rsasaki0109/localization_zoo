@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>94 methods</b> · <b>65 paper reimplementations</b> · <b>35 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>95 methods</b> · <b>66 paper reimplementations</b> · <b>36 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -73,7 +73,7 @@ broken port._
 ### From-paper reimplementations (no public reference code) — KITTI full
 
 > **📋 [Reproducibility Report](docs/reproducibility_report.md)** — what
-> happens when you reimplement 38 papers that ship no code: which claims
+> happens when you reimplement 36 papers that ship no code: which claims
 > reproduce, which mechanisms go silent on KITTI, which diverge, and the
 > recurring implementation lessons.
 
@@ -108,9 +108,10 @@ RPE is drift %/100 m; ATE in parens.
 | GNC-LO | 0.986% <sub>(18 m)</sub> | 0.722% <sub>(2 m)</sub> | arXiv:1909.08605 |
 | IMLS-SLAM | 1.000% <sub>(18 m)</sub> | 0.700% <sub>(3 m)</sub> | ICRA 2018 |
 | CT-VoxelMap | 1.046% <sub>(21 m)</sub> | 0.800% <sub>(3 m)</sub> | arXiv:2604.03747 |
-| Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
+| TC-LVGF | 1.055% <sub>(12 m)</sub> | 0.941% <sub>(4 m)</sub> | ROBIO 2023 |
 | BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
 | R-VoxelMap | 1.076% <sub>(20 m)</sub> | _diverges_ | arXiv:2601.12377 |
+| Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | ID-LIO | 1.111% <sub>(15 m)</sub> | 0.999% <sub>(5 m)</sub> | Sensors 2023 |
 | ELO | 1.124% <sub>(23 m)</sub> | 0.981% <sub>(4 m)</sub> | IEEE RA-L 2021 |
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
@@ -135,7 +136,10 @@ and beats KISS-ICP on both sequences — at a heavy throughput cost (~1.4 FPS).
 
 Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
 mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP
-point-to-plane core. Honest negatives: DiLO (direct, 18–19% drift), Spectral-LO
+point-to-plane core. **TC-LVGF** is the best pseudo-visual result so far
+(~0.94–1.06% drift) because range-image line fusion stays stable; still, its
+line residuals remain secondary to the point-to-plane core. Honest negatives:
+DiLO (direct, 18–19% drift), Spectral-LO
 (ICP-free BEV phase-correlation, fastest at ~14 FPS but coarse ~12–14%),
 **PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),
 **VLOM** (scale-corrected visual bootstrap A-LOAM on pseudo-image, ~91–154% drift),

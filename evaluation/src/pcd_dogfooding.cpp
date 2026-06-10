@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -35,6 +35,7 @@
 #include "imls_slam/imls_slam.h"
 #include "mesh_loam/mesh_loam.h"
 #include "elo/elo.h"
+#include "tc_lvgf/tc_lvgf.h"
 #include "tricp_lo/tricp_lo.h"
 #include "kc_lo/kc_lo.h"
 #include "i_loam/i_loam.h"
@@ -236,7 +237,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "student_t_lo" || method == "spectral_lo" ||
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
          method == "imls_slam" || method == "mesh_loam" || method == "elo" ||
-         method == "tricp_lo" || method == "kc_lo" ||
+         method == "tc_lvgf" || method == "tricp_lo" || method == "kc_lo" ||
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
          method == "mcgicp" ||          method == "icpsc" || method == "vlom" ||
          method == "odonet" || method == "nhc_net" || method == "nn_zupt" ||
@@ -1779,6 +1780,26 @@ struct EloDogfoodingOptions {
   double non_ground_weight = 1.0;
   int max_alignment_points = 12000;
   int model_window_frames = 100;
+};
+
+struct TcLvgfDogfoodingOptions {
+  double source_voxel_size = 0.45;
+  size_t max_source_points = 5500;
+  double voxel_size = 1.0;
+  double registration_voxel_size = 0.9;
+  int max_registration_points = 4200;
+  int image_width = 1024;
+  int image_height = 64;
+  int max_icp_iterations = 24;
+  double max_correspondence_dist = 2.0;
+  int min_visual_lines = 8;
+  int max_lidar_lines = 180;
+  int max_visual_lines = 120;
+  double line_weight = 0.2;
+  double direction_weight = 0.05;
+  double fusion_pixel_gate = 8.0;
+  double local_map_radius = 70.0;
+  int map_cleanup_interval = 4;
 };
 
 struct TricpLoDogfoodingOptions {
@@ -6362,6 +6383,80 @@ MethodResult runElo(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runTcLvgf(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const TcLvgfDogfoodingOptions& options) {
+  using namespace localization_zoo::tc_lvgf;
+  MethodResult res;
+  res.name = "TC-LVGF";
+
+  TcLvgfParams params;
+  params.voxel_size = options.voxel_size;
+  params.registration_voxel_size = options.registration_voxel_size;
+  params.max_registration_points = options.max_registration_points;
+  params.image_width = options.image_width;
+  params.image_height = options.image_height;
+  params.max_icp_iterations = options.max_icp_iterations;
+  params.max_correspondence_dist = options.max_correspondence_dist;
+  params.min_visual_lines = options.min_visual_lines;
+  params.max_lidar_lines = options.max_lidar_lines;
+  params.max_visual_lines = options.max_visual_lines;
+  params.line_weight = options.line_weight;
+  params.direction_weight = options.direction_weight;
+  params.fusion_pixel_gate = options.fusion_pixel_gate;
+  params.local_map_radius = options.local_map_radius;
+  params.map_cleanup_interval = options.map_cleanup_interval;
+  TcLvgfPipeline pipeline(params);
+  pipeline.setInitialPose(gt.empty() ? Eigen::Matrix4d::Identity() : gt.front());
+
+  long long visual_lines_total = 0;
+  long long fused_lines_total = 0;
+  long long plane_corr_total = 0;
+  long long line_corr_total = 0;
+  long fallback_frames = 0;
+  double residual_sum = 0.0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); ++i) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    visual_lines_total += result.num_visual_lines;
+    fused_lines_total += result.num_fused_lines;
+    plane_corr_total += result.num_plane_correspondences;
+    line_corr_total += result.num_line_correspondences;
+    residual_sum += result.mean_abs_residual;
+    if (result.lidar_fallback) ++fallback_frames;
+    res.poses.push_back(result.pose);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [TC-LVGF] " << i << "/" << pcd_dirs.size()
+                << " map=" << pipeline.mapSize()
+                << " lines=" << pipeline.lineMapSize()
+                << " fallback=" << fallback_frames;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  const double denom = std::max<size_t>(1, res.poses.size());
+  res.note =
+      "TC-LVGF: tightly coupled LiDAR-visual geometric-feature port with "
+      "spherical fusion of pseudo-visual range-image lines and LiDAR linear "
+      "features, point-to-plane + point-to-line scan-to-map optimization, and "
+      "LiDAR fallback on visual-line scarcity. visual_lines/frame=" +
+      std::to_string(static_cast<double>(visual_lines_total) / denom) +
+      " fused_lines/frame=" +
+      std::to_string(static_cast<double>(fused_lines_total) / denom) +
+      " plane_corr/frame=" +
+      std::to_string(static_cast<double>(plane_corr_total) / denom) +
+      " line_corr/frame=" +
+      std::to_string(static_cast<double>(line_corr_total) / denom) +
+      " fallback_frames=" + std::to_string(fallback_frames) +
+      " mean|residual|=" + std::to_string(residual_sum / denom);
+  return res;
+}
+
 MethodResult runTricpLo(const std::vector<std::string>& pcd_dirs,
                         const std::vector<Eigen::Matrix4d>& gt,
                         const TricpLoDogfoodingOptions& options) {
@@ -8283,7 +8378,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -8469,6 +8564,7 @@ int main(int argc, char** argv) {
   ImlsSlamDogfoodingOptions imls_slam_options;
   MeshLoamDogfoodingOptions mesh_loam_options;
   EloDogfoodingOptions elo_options;
+  TcLvgfDogfoodingOptions tc_lvgf_options;
   TricpLoDogfoodingOptions tricp_lo_options;
   KcLoDogfoodingOptions kc_lo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
@@ -10805,6 +10901,56 @@ int main(int argc, char** argv) {
       elo_options.max_alignment_points = std::stoi(argv[++i]);
       continue;
     }
+    // --- tc_lvgf ---
+    if (arg == "--tc-lvgf-fast-profile") {
+      tc_lvgf_options.source_voxel_size = 0.55;
+      tc_lvgf_options.max_source_points = 3500;
+      tc_lvgf_options.voxel_size = 1.1;
+      tc_lvgf_options.registration_voxel_size = 1.0;
+      tc_lvgf_options.max_registration_points = 2800;
+      tc_lvgf_options.image_width = 768;
+      tc_lvgf_options.image_height = 64;
+      tc_lvgf_options.max_icp_iterations = 18;
+      tc_lvgf_options.max_lidar_lines = 120;
+      tc_lvgf_options.max_visual_lines = 80;
+      tc_lvgf_options.line_weight = 0.2;
+      tc_lvgf_options.direction_weight = 0.05;
+      tc_lvgf_options.local_map_radius = 55.0;
+      tc_lvgf_options.map_cleanup_interval = 3;
+      continue;
+    }
+    if (arg == "--tc-lvgf-dense-profile") {
+      tc_lvgf_options.source_voxel_size = 0.35;
+      tc_lvgf_options.max_source_points = 7000;
+      tc_lvgf_options.voxel_size = 0.8;
+      tc_lvgf_options.registration_voxel_size = 0.7;
+      tc_lvgf_options.max_registration_points = 5500;
+      tc_lvgf_options.image_width = 1024;
+      tc_lvgf_options.image_height = 80;
+      tc_lvgf_options.max_icp_iterations = 32;
+      tc_lvgf_options.max_lidar_lines = 220;
+      tc_lvgf_options.max_visual_lines = 160;
+      tc_lvgf_options.line_weight = 0.2;
+      tc_lvgf_options.direction_weight = 0.05;
+      tc_lvgf_options.local_map_radius = 80.0;
+      tc_lvgf_options.map_cleanup_interval = 5;
+      continue;
+    }
+    if (arg == "--tc-lvgf-line-weight") {
+      if (i + 1 >= argc) { std::cerr << "--tc-lvgf-line-weight requires a value" << std::endl; return 1; }
+      tc_lvgf_options.line_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--tc-lvgf-direction-weight") {
+      if (i + 1 >= argc) { std::cerr << "--tc-lvgf-direction-weight requires a value" << std::endl; return 1; }
+      tc_lvgf_options.direction_weight = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--tc-lvgf-min-visual-lines") {
+      if (i + 1 >= argc) { std::cerr << "--tc-lvgf-min-visual-lines requires a value" << std::endl; return 1; }
+      tc_lvgf_options.min_visual_lines = std::stoi(argv[++i]);
+      continue;
+    }
     // --- imls_slam ---
     if (arg == "--imls-slam-fast-profile") {
       imls_slam_options.source_voxel_size = 0.5;
@@ -12550,6 +12696,19 @@ int main(int argc, char** argv) {
               << " bev_res=" << elo_options.bev_resolution
               << " ground_weight=" << elo_options.ground_weight << std::endl;
     results.push_back(runElo(pcd_dirs, gt, elo_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "tc_lvgf")) {
+    std::cout << "Running TC-LVGF..." << std::endl;
+    std::cout << "  source_voxel_size=" << tc_lvgf_options.source_voxel_size
+              << " voxel_size=" << tc_lvgf_options.voxel_size
+              << " image=" << tc_lvgf_options.image_width << "x"
+              << tc_lvgf_options.image_height
+              << " line_weight=" << tc_lvgf_options.line_weight
+              << " direction_weight=" << tc_lvgf_options.direction_weight
+              << " min_visual_lines=" << tc_lvgf_options.min_visual_lines
+              << std::endl;
+    results.push_back(runTcLvgf(pcd_dirs, gt, tc_lvgf_options));
   }
 
   if (isMethodEnabled(selected_methods, "tricp_lo")) {

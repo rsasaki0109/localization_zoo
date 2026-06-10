@@ -1315,6 +1315,24 @@
       ]
     },
     {
+      "name": "TC-LVGF",
+      "family": "LiDAR-visual geometric fusion",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "visual"
+      ],
+      "href": "papers/tc_lvgf",
+      "summary": "Tightly coupled LiDAR-visual geometric-feature odometry: LiDAR linear features and pseudo-visual range-image line segments are associated in a spherical fusion frame, then fused point-to-line and direction residuals augment scan-to-map point-to-plane optimization with LiDAR fallback when visual line support is sparse (Cao et al., ROBIO 2023 / arXiv:2307.07763).",
+      "tags": [
+        "odometry",
+        "lidar-visual",
+        "spherical-fusion",
+        "line-features",
+        "fallback"
+      ]
+    },
+    {
       "name": "NHC-LIO",
       "family": "Motion constraint",
       "scope": "Paper reimplementation",

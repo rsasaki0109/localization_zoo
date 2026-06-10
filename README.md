@@ -72,6 +72,11 @@ broken port._
 
 ### From-paper reimplementations (no public reference code) — KITTI full
 
+> **📋 [Reproducibility Report](docs/reproducibility_report.md)** — what
+> happens when you reimplement 36 papers that ship no code: which claims
+> reproduce, which mechanisms go silent on KITTI, which diverge, and the
+> recurring implementation lessons.
+
 Papers with **no public author code**, run as pure odometry on KITTI full
 sequences (first-pose anchor, `--no-gt-seed`, uniform `--*-dense-profile`; no IMU,
 so LIO methods use constant-velocity fallback). RPE is drift %/100 m; ATE in parens.

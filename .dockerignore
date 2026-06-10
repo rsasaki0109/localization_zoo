@@ -1,5 +1,8 @@
 build/
 dogfooding_results/
+data/
+Testing/
+experiments/results/
 .git/
 *.bag
 *.db3

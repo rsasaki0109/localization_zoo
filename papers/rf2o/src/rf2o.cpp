@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <unordered_map>
 
 namespace localization_zoo {
 namespace rf2o {
@@ -13,12 +14,10 @@ namespace {
 
 float signf(float x) { return x >= 0.f ? 1.f : -1.f; }
 
-Eigen::Matrix3d toMatrix3d(const Eigen::Matrix3f& m) {
-  Eigen::Matrix3d out = Eigen::Matrix3d::Identity();
-  out.block<2, 2>(0, 0) = m.block<2, 2>(0, 0).cast<double>();
-  out(0, 2) = m(0, 2);
-  out(1, 2) = m(1, 2);
-  return out;
+double angleIncrement(const LaserScan& scan) {
+  if (scan.angle_increment > 0.0) return scan.angle_increment;
+  if (scan.size() <= 1) return 0.0;
+  return (scan.angle_max - scan.angle_min) / static_cast<double>(scan.size() - 1);
 }
 
 }  // namespace
@@ -36,6 +35,17 @@ Eigen::Matrix3d pose2D(double x, double y, double yaw) {
 
 RF2OEstimator::RF2OEstimator(const RF2OParams& params) : params_(params) {}
 
+int64_t RF2OEstimator::voxelKey(double x, double y, double voxel_size) {
+  const int ix = static_cast<int>(std::floor(x / voxel_size));
+  const int iy = static_cast<int>(std::floor(y / voxel_size));
+  return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(static_cast<uint32_t>(iy));
+}
+
+Eigen::Vector2d RF2OEstimator::transformPoint(const Eigen::Matrix3d& T,
+                                              const Eigen::Vector2d& p) {
+  return (T.block<2, 2>(0, 0) * p + T.block<2, 1>(0, 2)).eval();
+}
+
 void RF2OEstimator::reset() {
   initialized_ = false;
   pyramid_.clear();
@@ -43,9 +53,121 @@ void RF2OEstimator::reset() {
   kai_loc_old_.setZero();
   cov_odo_.setIdentity();
   pose_ = Eigen::Matrix3d::Identity();
+  ref_scan_ = LaserScan{};
+  local_points_.clear();
+  local_point_ages_.clear();
+  point_voxels_.clear();
 }
 
 void RF2OEstimator::setInitialPose(const Eigen::Matrix3d& pose) { pose_ = pose; }
+
+std::vector<Eigen::Vector2d> RF2OEstimator::scanToPoints(const LaserScan& scan) const {
+  std::vector<Eigen::Vector2d> points;
+  points.reserve(scan.size());
+  const double inc = angleIncrement(scan);
+  for (size_t i = 0; i < scan.size(); ++i) {
+    const double r = scan.ranges[i];
+    if (!std::isfinite(r) || r < params_.min_range || r > params_.max_range) continue;
+    const double a = scan.angle_min + static_cast<double>(i) * inc;
+    points.emplace_back(r * std::cos(a), r * std::sin(a));
+  }
+  return points;
+}
+
+void RF2OEstimator::transformRobotMap(const Eigen::Matrix3d& inv_increment) {
+  for (auto& p : local_points_) {
+    p = transformPoint(inv_increment, p);
+  }
+}
+
+void RF2OEstimator::rebuildPointVoxels() {
+  point_voxels_.clear();
+  const double voxel = params_.local_map_voxel_size;
+  point_voxels_.reserve(local_points_.size());
+  for (size_t i = 0; i < local_points_.size(); ++i) {
+    point_voxels_[voxelKey(local_points_[i].x(), local_points_[i].y(), voxel)] = i;
+  }
+}
+
+void RF2OEstimator::pruneLocalMap() {
+  const bool use_radius = params_.local_map_radius > 0.0;
+  const bool use_age = params_.local_map_max_age > 0;
+  if (!use_radius && !use_age) return;
+  const double r2 = params_.local_map_radius * params_.local_map_radius;
+  size_t kept = 0;
+  for (size_t i = 0; i < local_points_.size(); ++i) {
+    if (use_radius && local_points_[i].squaredNorm() > r2) continue;
+    if (use_age && local_point_ages_[i] > params_.local_map_max_age) continue;
+    local_points_[kept] = local_points_[i];
+    local_point_ages_[kept] = local_point_ages_[i];
+    ++kept;
+  }
+  local_points_.resize(kept);
+  local_point_ages_.resize(kept);
+}
+
+void RF2OEstimator::addScanToLocalMap(const LaserScan& scan) {
+  const auto points = scanToPoints(scan);
+  const double voxel = params_.local_map_voxel_size;
+
+  for (auto& age : local_point_ages_) ++age;
+
+  rebuildPointVoxels();
+  for (const auto& p : points) {
+    const int64_t k = voxelKey(p.x(), p.y(), voxel);
+    const auto it = point_voxels_.find(k);
+    if (it != point_voxels_.end()) {
+      local_points_[it->second] = p;
+      local_point_ages_[it->second] = 0;
+    } else {
+      point_voxels_[k] = local_points_.size();
+      local_points_.push_back(p);
+      local_point_ages_.push_back(0);
+    }
+  }
+
+  const size_t before = local_points_.size();
+  pruneLocalMap();
+  if (local_points_.size() != before) {
+    rebuildPointVoxels();
+  }
+}
+
+std::vector<float> RF2OEstimator::rangesFromLocalMap(const LaserScan& scan) const {
+  const size_t n = scan.size();
+  std::vector<float> ranges(n, 0.f);
+  if (n == 0 || local_points_.empty()) return ranges;
+
+  const double inc = angleIncrement(scan);
+  const double half_bin = inc > 0.0 ? 0.5 * inc : M_PI;
+
+  for (const auto& p : local_points_) {
+    const double r = p.norm();
+    if (r < params_.min_range || r > params_.max_range) continue;
+    const double a = std::atan2(p.y(), p.x());
+    if (a < scan.angle_min - half_bin || a > scan.angle_max + half_bin) continue;
+
+    const double idx_f = inc > 0.0 ? (a - scan.angle_min) / inc : 0.0;
+    const int idx = static_cast<int>(std::lround(idx_f));
+    if (idx < 0 || static_cast<size_t>(idx) >= n) continue;
+
+    const size_t ui = static_cast<size_t>(idx);
+    const float rf = static_cast<float>(r);
+    if (ranges[ui] <= 0.f || rf < ranges[ui]) {
+      ranges[ui] = rf;
+    }
+  }
+  return ranges;
+}
+
+void RF2OEstimator::setReferenceFromRanges(const std::vector<float>& ref_ranges) {
+  createPyramid(ref_ranges);
+  for (auto& lvl : pyramid_) {
+    lvl.range_old = lvl.range;
+    lvl.xx_old = lvl.xx;
+    lvl.yy_old = lvl.yy;
+  }
+}
 
 void RF2OEstimator::initialize(const LaserScan& scan) {
   width_ = static_cast<int>(scan.size());
@@ -404,6 +526,10 @@ RF2OResult RF2OEstimator::registerScan(const LaserScan& scan, double dt) {
 
   if (!initialized_ || width_ != static_cast<int>(scan.size())) {
     initialize(scan);
+    ref_scan_ = scan;
+    if (params_.use_local_map) {
+      addScanToLocalMap(scan);
+    }
     createPyramid(ranges);
     pyramid_[0].range_old = pyramid_[0].range;
     pyramid_[0].xx_old = pyramid_[0].xx;
@@ -413,7 +539,11 @@ RF2OResult RF2OEstimator::registerScan(const LaserScan& scan, double dt) {
   }
 
   const float fps = static_cast<float>(1.0 / std::max(dt, 1e-3));
-  createImagePyramid();
+  if (params_.use_local_map && !local_points_.empty()) {
+    setReferenceFromRanges(rangesFromLocalMap(scan));
+  } else {
+    createImagePyramid();
+  }
   createPyramid(ranges);
 
   const int log_offset = static_cast<int>(std::round(
@@ -492,6 +622,11 @@ RF2OResult RF2OEstimator::registerScan(const LaserScan& scan, double dt) {
   result.increment = pose_aux;
   result.pose = pose_;
   result.valid = true;
+
+  if (params_.use_local_map) {
+    transformRobotMap(pose_aux.inverse());
+    addScanToLocalMap(scan);
+  }
 
   const float phi_after = std::atan2(static_cast<float>(pose_(1, 0)),
                                      static_cast<float>(pose_(0, 0)));

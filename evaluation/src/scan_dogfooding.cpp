@@ -435,6 +435,9 @@ MethodResult runRF2O(const std::vector<fs::path>& frames, const ScanMeta& meta,
   MethodResult res;
   res.name = "RF2O";
   RF2OParams params;
+  // Local map stays opt-in: the min-range polar reference helps short val
+  // windows but structurally degrades long Bonn train windows (see
+  // papers/rf2o/README.md), so scan-to-scan remains the benchmark default.
   RF2OEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(localization_zoo::rf2o::pose2D(gt.front().x, gt.front().y,

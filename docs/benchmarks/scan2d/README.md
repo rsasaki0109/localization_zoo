@@ -7,7 +7,7 @@ Metrics: **ATE [m]** and **Drift [%]** (KITTI-style RPE over a segment scaled to
 
 Nine from-paper / extension 2D odometry ports (papers 43–50 + Karto-style map matcher) share one harness.
 **No single method wins every fixture** — CSM/Karto lead Intel val (Felzenszwalb EDT), Karto/CSM lead fr079 val, Kinematic-ICP leads the short MIT
-window, PL-ICP leads the synthetic corridor, and **NDT-2D leads long train windows** (`fr079_train_1200` **7.5%**).
+window, PL-ICP leads the synthetic corridor, **NDT-2D leads the Intel train window** (16.5%), and **MbICP leads `fr079_train_1200`** (**5.7%**, NDT-2D 7.5%).
 **NDT-2D** — 3-level pyramid + outlier trimming + robot-frame local map; **Intel 14.8%**, fr079 val **14.5%**, corridor **0.3%**; long train **`fr079_train_1200` 7.5%**.
 **CSM / Karto-Matcher** — Felzenszwalb EDT + tuned Olson BnB; **Intel 14.0%**, fr079 **13.7%**, corridor **30.5%**.
 
@@ -35,10 +35,10 @@ Public logs: [Bonn 2D-SLAM JSON](https://www.ipb.uni-bonn.de/html/projects/kuang
 
 | Fixture | Frames | Traj [m] | Best | RF2O | PL-ICP | CSM | Karto | MbICP | NDT-2D |
 |---------|--------|----------|------|-----:|-------:|----:|------:|------:|-------:|
-| `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 30.2% | 30.2% | 30.4% | 31.6% |
-| `intel_train_150` | 150 | 154 | RF2O | **17.5%** | 19.6% | 21.5% | 21.5% | 23.4% | 16.5% |
-| `fr079_train_1200` | 1200 | 150 | **NDT-2D** | 10.6% | 9.2% | 17.6% | 17.6% | 10.4% | **7.5%** |
-| `fr079_train_200` | 200 | 27 | **NDT-2D*** | 30.3% | 29.4% | 40.3% | 40.3% | 7.5% | **0.9%** |
+| `mit_train_120` | 120 | 150 | RF2O | **29.5%** | 30.6% | 30.2% | 30.2% | 30.5% | 31.6% |
+| `intel_train_150` | 150 | 154 | **NDT-2D** | 17.5% | 19.6% | 21.5% | 21.5% | 20.7% | **16.5%** |
+| `fr079_train_1200` | 1200 | 150 | **MbICP** | 10.6% | 9.2% | 17.6% | 17.6% | **5.7%** | 7.5% |
+| `fr079_train_200` | 200 | 27 | **NDT-2D*** | 30.3% | 29.4% | 40.3% | 40.3% | 7.1% | **0.9%** |
 
 Note: `fr079_train_200` covers only ~27 m at the start of Bonn fr079 **train** (slow initial motion) — drift is **not comparable** to val or `fr079_train_1200`. Prefer **`fr079_train_1200`** (~150 m, aligned with MIT/Intel train windows).
 
@@ -77,7 +77,7 @@ Refresh: `evaluation/scripts/run_scan2d_long_benchmark.sh` (after `prepare_bonn_
 
 ### Per-method notes (honest)
 
-- **RF2O** — strong Intel baseline; range-flow dense constraint.
+- **RF2O** — strong Intel baseline; range-flow dense constraint. Robot-frame local map is implemented but **opt-in (default off)**: the min-range polar reference helps val windows (fr079 13.9%, corridor 0.6%) but degrades every long train window under a full param sweep (`fr079_train_1200` 10.6%→20%+) — see [`papers/rf2o/README.md`](../../../papers/rf2o/README.md).
 - **Karto-Matcher** — robot-frame rolling map + Felzenszwalb EDT + tuned Olson BnB; fr079 **13.7%**, Intel **14.0%**; corridor **30.5%**.
 - **NDT-2D** — 3-level pyramid + outlier trimming (match-only range jump + finest-level Mahalanobis trim) + robot-frame local map; **`fr079_train_1200` 7.5%** (was 8.8%); Intel **14.8%**; corridor **0.3%**.
 - **IDC** — robot-frame rolling local map; fr079 val **14.3%** (was 27.7% scan-to-scan); corridor **3.6%** (was 42.6%); Intel **15.2%**; `fr079_train_1200` **35.0%** (was 46.4%).
@@ -127,5 +127,5 @@ Single fixture, all methods:
 
 ## 次アクション
 
-1. RF2O / Kinematic-ICP local map (optional).
+1. Kinematic-ICP local map (optional; RF2O P18 の知見から projection 型 reference は避ける).
 2. `docs/methods.json` 2D tag 強化 / `validate_showcase.py` 2D セクション (optional).

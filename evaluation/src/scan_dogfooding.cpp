@@ -720,6 +720,9 @@ MethodResult runPSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   params.coarse_yaw_steps = 11;
   params.fine_xy_steps = 5;
   params.fine_yaw_steps = 5;
+  params.use_local_map = true;
+  params.local_map_radius = 15.0;
+  params.local_map_voxel_size = 0.15;
   PSMEstimator est(params);
   if (!gt.empty() && !no_gt_seed) {
     est.setInitialPose(pose2D(gt.front().x, gt.front().y, gt.front().yaw));
@@ -742,7 +745,8 @@ MethodResult runPSM(const std::vector<fs::path>& frames, const ScanMeta& meta,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
-      "Polar scan matching 2D odometry (Hähnel polar range correlation, simplified port).";
+      "Polar scan matching 2D odometry with robot-frame rolling local map "
+      "(Hähnel polar range correlation, simplified port).";
   return res;
 }
 

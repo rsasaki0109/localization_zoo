@@ -1,5 +1,7 @@
 #include "psm/psm.h"
 
+#include <Eigen/Dense>
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -31,12 +33,20 @@ Eigen::Matrix3d pose2D(double x, double y, double yaw) {
   return matrixFromIncrement(x, y, yaw);
 }
 
+int64_t PSMEstimator::voxelKey(double x, double y, double voxel_size) {
+  const int ix = static_cast<int>(std::floor(x / voxel_size));
+  const int iy = static_cast<int>(std::floor(y / voxel_size));
+  return (static_cast<int64_t>(ix) << 32) ^ static_cast<uint32_t>(static_cast<uint32_t>(iy));
+}
+
 PSMEstimator::PSMEstimator(const PSMParams& params) : params_(params) {}
 
 void PSMEstimator::reset() {
   initialized_ = false;
   ref_scan_ = LaserScan{};
   ref_polar_.clear();
+  local_points_.clear();
+  point_voxels_.clear();
   pose_ = Eigen::Matrix3d::Identity();
   last_increment_ = Eigen::Matrix3d::Identity();
 }
@@ -59,6 +69,56 @@ std::vector<Eigen::Vector2d> PSMEstimator::scanToPoints(const LaserScan& scan) c
     points.emplace_back(r * std::cos(a), r * std::sin(a));
   }
   return points;
+}
+
+void PSMEstimator::transformRobotMap(const Eigen::Matrix3d& inv_increment) {
+  for (auto& p : local_points_) {
+    p = transformPoint(inv_increment, p);
+  }
+}
+
+void PSMEstimator::rebuildPointVoxels() {
+  point_voxels_.clear();
+  const double voxel = params_.local_map_voxel_size;
+  point_voxels_.reserve(local_points_.size());
+  for (size_t i = 0; i < local_points_.size(); ++i) {
+    point_voxels_[voxelKey(local_points_[i].x(), local_points_[i].y(), voxel)] = i;
+  }
+}
+
+void PSMEstimator::pruneLocalMap() {
+  if (params_.local_map_radius <= 0.0) return;
+  const double r2 = params_.local_map_radius * params_.local_map_radius;
+  local_points_.erase(std::remove_if(local_points_.begin(), local_points_.end(),
+                                     [&](const Eigen::Vector2d& p) { return p.squaredNorm() > r2; }),
+                      local_points_.end());
+}
+
+void PSMEstimator::addScanToLocalMap(const LaserScan& scan) {
+  const auto points = scanToPoints(scan);
+  const double voxel = params_.local_map_voxel_size;
+
+  rebuildPointVoxels();
+  for (const auto& p : points) {
+    const int64_t k = voxelKey(p.x(), p.y(), voxel);
+    const auto it = point_voxels_.find(k);
+    if (it != point_voxels_.end()) {
+      local_points_[it->second] = p;
+    } else {
+      point_voxels_[k] = local_points_.size();
+      local_points_.push_back(p);
+    }
+  }
+
+  const size_t before = local_points_.size();
+  pruneLocalMap();
+  if (local_points_.size() != before) {
+    rebuildPointVoxels();
+  }
+}
+
+void PSMEstimator::rebuildReferencePolar() {
+  ref_polar_ = polarProfileFromPoints(local_points_, ref_scan_);
 }
 
 std::vector<double> PSMEstimator::polarProfileFromPoints(
@@ -230,7 +290,12 @@ PSMResult PSMEstimator::registerScan(const LaserScan& scan) {
 
   if (!initialized_) {
     ref_scan_ = scan;
-    ref_polar_ = ref_scan_.ranges;
+    if (params_.use_local_map) {
+      addScanToLocalMap(scan);
+      rebuildReferencePolar();
+    } else {
+      ref_polar_ = ref_scan_.ranges;
+    }
     initialized_ = true;
     result.valid = true;
     result.pose = pose_;
@@ -246,8 +311,14 @@ PSMResult PSMEstimator::registerScan(const LaserScan& scan) {
 
   pose_ = pose_ * transform;
   last_increment_ = transform;
-  ref_scan_ = scan;
-  ref_polar_ = ref_scan_.ranges;
+  if (params_.use_local_map) {
+    transformRobotMap(transform.inverse());
+    addScanToLocalMap(scan);
+    rebuildReferencePolar();
+  } else {
+    ref_scan_ = scan;
+    ref_polar_ = ref_scan_.ranges;
+  }
 
   result.increment = transform;
   result.pose = pose_;

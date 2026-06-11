@@ -14,20 +14,21 @@
     "claim_policy": "Use only tiered T0/T1 evidence for manuscript claims; keep adapters and compact baselines outside the main claim table."
   },
   "status": {
-    "frozen_methods": 3,
-    "paper_table_rows": 6,
-    "paired_ablation_summaries": 3,
+    "frozen_methods": 4,
+    "paper_table_rows": 8,
+    "paired_ablation_summaries": 4,
     "t0_evidence_candidates": [
       "I-LOAM",
       "KC-LO"
     ],
     "t1_plus_evidence_candidates": [
-      "M-GCLO"
+      "M-GCLO",
+      "Quadric-LO"
     ],
     "remaining_before_full_manuscript_table": [
-      "Quadric-LO plane-fallback ablation",
       "RF-LIO/ID-LIO dynamic-object stress",
-      "M-GCLO non-flat dataset check"
+      "M-GCLO non-flat dataset check",
+      "Quadric-LO curved-object or non-urban dataset check"
     ]
   },
   "paper_table_rows": [
@@ -101,6 +102,30 @@
       "rpe_trans_pct": 0.670573,
       "rpe_rot_deg_per_m": 0.010557,
       "fps": 3.666932,
+      "frames": 1101
+    },
+    {
+      "method": "Quadric-LO",
+      "tier": "T1+ evidence candidate",
+      "sequence": "00",
+      "variant": "plane_fallback_on",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json",
+      "ate_m": 14.736361,
+      "rpe_trans_pct": 0.867316,
+      "rpe_rot_deg_per_m": 0.00764,
+      "fps": 0.617696,
+      "frames": 4541
+    },
+    {
+      "method": "Quadric-LO",
+      "tier": "T1+ evidence candidate",
+      "sequence": "07",
+      "variant": "plane_fallback_on",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json",
+      "ate_m": 2.129764,
+      "rpe_trans_pct": 0.597674,
+      "rpe_rot_deg_per_m": 0.006249,
+      "fps": 0.669543,
       "frames": 1101
     }
   ],
@@ -485,6 +510,135 @@
         "conclusion": "The ground factor is not needed to minimize local translational RPE on KITTI seq00/07, but disabling it increases rotational drift and more than doubles ATE on both sequences. Under this protocol, M-GCLO's multiple-ground constraint behaves as a stability/anchoring term rather than a pure translational-drift reducer."
       },
       "remaining_work": "Add one non-flat dataset check before promoting to T0."
+    },
+    {
+      "id": "quadric_lo",
+      "method": "Quadric-LO",
+      "selector": "quadric_lo",
+      "tier": "T1+ evidence candidate",
+      "paper": "Xia et al., Quadric Representations for LiDAR Odometry, Mapping and Localization, IEEE RA-L 2023 / arXiv:2304.14190",
+      "claim": "Point-to-quadric Taubin-distance residuals model curved local surfaces, with a point-to-plane fallback when a stable quadric cannot be fit.",
+      "mechanism": "Point-to-quadric Taubin-distance residuals with rare point-to-plane fallback.",
+      "paper_result": {
+        "variant": "plane_fallback_on",
+        "role": "paper mechanism enabled",
+        "sequences": [
+          {
+            "sequence": "00",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json",
+            "metrics": {
+              "ate_m": 14.736361,
+              "rpe_trans_pct": 0.867316,
+              "rpe_rot_deg_per_m": 0.00764,
+              "fps": 0.617696,
+              "frames": 4541
+            },
+            "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json"
+          },
+          {
+            "sequence": "07",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json",
+            "metrics": {
+              "ate_m": 2.129764,
+              "rpe_trans_pct": 0.597674,
+              "rpe_rot_deg_per_m": 0.006249,
+              "fps": 0.669543,
+              "frames": 1101
+            },
+            "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json"
+          }
+        ]
+      },
+      "ablation": {
+        "summary_artifact": "docs/benchmarks/kitti_full_new_methods/quadric_lo_plane_fallback_ablation.json",
+        "protocol": {
+          "dataset": "KITTI Odometry full sequences",
+          "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+          "profile": "--quadric-lo-dense-profile",
+          "variants": {
+            "plane_fallback_on": "default point-to-quadric residuals plus point-to-plane fallback for non-quadric neighborhoods",
+            "plane_fallback_off": "--quadric-lo-no-plane-fallback after --quadric-lo-dense-profile; non-quadric neighborhoods are held out of the optimizer"
+          }
+        },
+        "pairs": [
+          {
+            "sequence": "00",
+            "frames": 4541,
+            "variants": {
+              "plane_fallback_on": {
+                "role": "paper mechanism enabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json",
+                "metrics": {
+                  "ate_m": 14.736361,
+                  "rpe_trans_pct": 0.867316,
+                  "rpe_rot_deg_per_m": 0.00764,
+                  "fps": 0.617696,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json"
+              },
+              "plane_fallback_off": {
+                "role": "plane fallback disabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo_no_plane_fallback.json",
+                "metrics": {
+                  "ate_m": 12.894692,
+                  "rpe_trans_pct": 0.879792,
+                  "rpe_rot_deg_per_m": 0.007823,
+                  "fps": 1.132509,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --quadric-lo-no-plane-fallback --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo_no_plane_fallback.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": 0.012476,
+              "rpe_trans_pct_rel": 1.438461,
+              "rpe_rot_deg_per_m_rel": 2.395288,
+              "ate_m_rel": -12.497448,
+              "fps_rel": 83.344072
+            }
+          },
+          {
+            "sequence": "07",
+            "frames": 1101,
+            "variants": {
+              "plane_fallback_on": {
+                "role": "paper mechanism enabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json",
+                "metrics": {
+                  "ate_m": 2.129764,
+                  "rpe_trans_pct": 0.597674,
+                  "rpe_rot_deg_per_m": 0.006249,
+                  "fps": 0.669543,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json"
+              },
+              "plane_fallback_off": {
+                "role": "plane fallback disabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo_no_plane_fallback.json",
+                "metrics": {
+                  "ate_m": 2.146722,
+                  "rpe_trans_pct": 0.589873,
+                  "rpe_rot_deg_per_m": 0.006165,
+                  "fps": 1.062744,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --quadric-lo-no-plane-fallback --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo_no_plane_fallback.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.007801,
+              "rpe_trans_pct_rel": -1.305227,
+              "rpe_rot_deg_per_m_rel": -1.344215,
+              "ate_m_rel": 0.796238,
+              "fps_rel": 58.726773
+            }
+          }
+        ],
+        "conclusion": "Plane fallback is rare on KITTI seq00/07 (about 0.5-0.6% of used correspondences). Disabling it keeps Quadric-LO accuracy within about 1.5% translational RPE while improving throughput by 1.6-1.8x, so the committed KITTI evidence is dominated by the point-to-quadric path rather than the fallback."
+      },
+      "remaining_work": "Add a curved-object or non-urban dataset check before promoting to T0."
     }
   ]
 }

@@ -109,6 +109,40 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
         },
         "remaining_work": "Add one non-flat dataset check before promoting to T0.",
     },
+    {
+        "id": "quadric_lo",
+        "selector": "quadric_lo",
+        "method": "Quadric-LO",
+        "tier": "T1+ evidence candidate",
+        "mechanism": "Point-to-quadric Taubin-distance residuals with rare point-to-plane fallback.",
+        "paper_result": {
+            "variant": "plane_fallback_on",
+            "role": "paper mechanism enabled",
+            "flags": ["--quadric-lo-dense-profile"],
+            "artifacts": {
+                "00": "docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json",
+                "07": "docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json",
+            },
+        },
+        "ablation": {
+            "summary": "docs/benchmarks/kitti_full_new_methods/quadric_lo_plane_fallback_ablation.json",
+            "delta_key": "delta_no_fallback_vs_on",
+            "variants": {
+                "plane_fallback_on": {
+                    "role": "paper mechanism enabled",
+                    "flags": ["--quadric-lo-dense-profile"],
+                },
+                "plane_fallback_off": {
+                    "role": "plane fallback disabled",
+                    "flags": [
+                        "--quadric-lo-dense-profile",
+                        "--quadric-lo-no-plane-fallback",
+                    ],
+                },
+            },
+        },
+        "remaining_work": "Add a curved-object or non-urban dataset check before promoting to T0.",
+    },
 ]
 
 
@@ -293,11 +327,11 @@ def build_bundle() -> dict[str, Any]:
             "paper_table_rows": len(table_rows),
             "paired_ablation_summaries": len(methods),
             "t0_evidence_candidates": ["I-LOAM", "KC-LO"],
-            "t1_plus_evidence_candidates": ["M-GCLO"],
+            "t1_plus_evidence_candidates": ["M-GCLO", "Quadric-LO"],
             "remaining_before_full_manuscript_table": [
-                "Quadric-LO plane-fallback ablation",
                 "RF-LIO/ID-LIO dynamic-object stress",
                 "M-GCLO non-flat dataset check",
+                "Quadric-LO curved-object or non-urban dataset check",
             ],
         },
         "paper_table_rows": table_rows,

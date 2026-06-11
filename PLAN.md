@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-12 (paper-ready bundle manifest §00.52m、2D は一旦停止)**
+> **最終更新: 2026-06-12 (Quadric-LO plane-fallback ablation §00.52n、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,7 +24,7 @@
 
 ---
 
-## 00. Latest Handoff: Paper-Ready Bundle Manifest (2026-06-12 更新)
+## 00. Latest Handoff: Quadric-LO Plane-Fallback Ablation (2026-06-12 更新)
 
 > **これが最新・最優先の handoff。**
 >
@@ -37,8 +37,10 @@
 > ablation も seq00/07 full raw artifacts 付きで追加した (§00.52j〜§00.52l)。
 > さらに `docs/benchmarks/paper_ready_bundle.json` を生成する
 > `evaluation/scripts/build_paper_ready_bundle.py` を追加し、I-LOAM / KC-LO / M-GCLO の
-> frozen seed bundle を固定した (§00.52m)。T0 evidence candidate は I-LOAM と KC-LO。
-> M-GCLO は T1+ evidence candidate で、T0 昇格には non-flat dataset check が残る。
+> frozen seed bundle を固定した (§00.52m)。直近では Quadric-LO plane-fallback off ablation も
+> seq00/07 full raw artifacts 付きで追加し、bundle を 4 methods / 8 rows / 4 ablations に拡張した
+> (§00.52n)。T0 evidence candidate は I-LOAM と KC-LO。M-GCLO と Quadric-LO は T1+
+> evidence candidate。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。
@@ -120,7 +122,7 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 | 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
-| 直近完了 | **paper-ready bundle manifest** — I-LOAM / KC-LO / M-GCLO の frozen seed bundle |
+| 直近完了 | **Quadric-LO plane-fallback ablation** — seq00/07 fallback on/off raw JSON + bundle 4-method化 |
 | 直近完了 (3D) | **RF-LIO (101手法目)** — removal-first dynamic LIO、KITTI seq00/07 full 完走 |
 | その前 (3D) | **V-LOAM2015 / TC-VLO / AD-VLO / TC-MVLO (97-100手法目)** — LiDAR-visual adapter family、KITTI seq00/07 full 完走 |
 | 2D 直近 (停止中) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
@@ -847,12 +849,12 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
   - I-LOAM: intensity on/off の full artifact と paired commands を追加済み (§00.52j)。
   - KC-LO: sigma schedule ablation と runtime/accuracy trade-off を追加済み (§00.52k)。
   - M-GCLO: ground-factor off ablation は追加済み (§00.52l)。non-flat dataset check は未実施。
-  - Quadric-LO: plane-fallback ablation と fallback ratio を追加。
+  - Quadric-LO: plane-fallback ablation は追加済み (§00.52n)。curved-object / non-urban dataset check は未実施。
   - RF-LIO/ID-LIO: KITTI だけで paper claim しない。dynamic dataset または synthetic dynamic-object
     benchmark を追加してから昇格判断。
 - **次の既定動作**: 新規 102 手法目ではなく、8-12 method の frozen paper table と paired ablation を
   作る。README は breadth、論文本文は T0/T1 subset、T2/T3 は appendix catalog。
-  現在の seed bundle は `docs/benchmarks/paper_ready_bundle.json` (§00.52m)。
+  現在の seed bundle は `docs/benchmarks/paper_ready_bundle.json` (§00.52m/§00.52n)。
 
 ### 00.52j I-LOAM paper-ready ablation artifacts (2026-06-12) — **seq00/07 full raw JSON 完了**
 
@@ -951,9 +953,9 @@ ablations を 1 つの frozen evidence manifest に固定した。
     `docs/benchmarks/...`) で記録。
 - ✅ **manifest**: `docs/benchmarks/paper_ready_bundle.json`
   - `bundle_id`: `paper_ready_core_2026_06_12`
-  - frozen methods: **3**
-  - paper table rows: **6** (seq00/07 × I-LOAM/KC-LO/M-GCLO)
-  - paired ablation summaries: **3**
+  - frozen methods: **3** (後続 §00.52n で **4** に拡張)
+  - paper table rows: **6** (後続 §00.52n で **8** に拡張)
+  - paired ablation summaries: **3** (後続 §00.52n で **4** に拡張)
   - T0 evidence candidates: **I-LOAM, KC-LO**
   - T1+ evidence candidates: **M-GCLO**
 - ✅ **docs**: README claim boundary、`docs/paper_ready_reproducibility.md`,
@@ -963,6 +965,44 @@ ablations を 1 つの frozen evidence manifest に固定した。
   - `python3 -m json.tool docs/benchmarks/paper_ready_bundle.json`
 - **次**: Quadric-LO plane-fallback ablation、RF-LIO/ID-LIO dynamic-object stress、
   または M-GCLO non-flat dataset check で seed bundle を 8-12 method table に拡張。
+
+### 00.52n Quadric-LO plane-fallback ablation artifacts (2026-06-12) — **seq00/07 full raw JSON 完了**
+
+paper-ready hardening の 5 本目として、Quadric-LO の point-to-plane fallback を
+`--quadric-lo-no-plane-fallback` で無効化し、paper mechanism の fallback-on 既存 artifact と
+seq00/07 full で比較した。fallback off では quadric が立たない対応を optimizer から外す。
+
+- ✅ **code**:
+  - `papers/quadric_lo/include/quadric_lo/quadric_lo.h` に `allow_plane_fallback` を追加。
+  - `papers/quadric_lo/src/quadric_lo.cpp` で fallback 分岐を無効化可能にした。
+  - `evaluation/src/pcd_dogfooding.cpp` に `--quadric-lo-no-plane-fallback` と
+    `plane_fallback_ratio` note を追加。
+- ✅ **seq00 full**:
+  - fallback on: RPE **0.867316%**, rot **0.007640 deg/m**, ATE **14.736361 m**,
+    FPS **0.62**, fallback ratio **0.005757**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json`
+  - fallback off: RPE **0.879792%**, rot **0.007823 deg/m**, ATE **12.894692 m**,
+    FPS **1.13**, fallback ratio **0.0**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo_no_plane_fallback.json`
+  - delta off vs on: translational RPE **+1.44% relative**, ATE **-12.50%**, FPS **+83.34%**。
+- ✅ **seq07 full**:
+  - fallback on: RPE **0.597674%**, rot **0.006249 deg/m**, ATE **2.129764 m**,
+    FPS **0.67**, fallback ratio **0.005078**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json`
+  - fallback off: RPE **0.589873%**, rot **0.006165 deg/m**, ATE **2.146722 m**,
+    FPS **1.06**, fallback ratio **0.0**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo_no_plane_fallback.json`
+  - delta off vs on: translational RPE **-1.31% relative**, ATE **+0.80%**, FPS **+58.73%**。
+- ✅ **paired summary**:
+  `docs/benchmarks/kitti_full_new_methods/quadric_lo_plane_fallback_ablation.json`
+- ✅ **bundle**: `docs/benchmarks/paper_ready_bundle.json` を **4 methods / 8 rows / 4 ablations** に拡張。
+- ✅ **docs**: README Quadric paragraph、`papers/quadric_lo/README.md`、paper-ready plan、
+  reproducibility report、PLAN を更新。
+- **所見**: KITTI seq00/07 では plane fallback は used correspondence の約 0.5-0.6% と少なく、
+  Quadric-LO の evidence は fallback ではなく point-to-quadric path が支配的。T0 昇格には
+  curved-object / non-urban dataset check が残る。
+- **次**: RF-LIO/ID-LIO dynamic-object stress、M-GCLO non-flat dataset check、
+  または Quadric-LO curved-object / non-urban dataset check。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 
@@ -2424,13 +2464,13 @@ Pick a single path and finish it before switching.
 
 ### Priority A (active): paper-ready reproducibility hardening
 
-1. **Next action**: add paired ablations for the remaining frozen core subset:
-   Quadric-LO plane-fallback and RF-LIO/ID-LIO dynamic-object stress. I-LOAM
-   intensity on/off, KC-LO sigma schedule, and M-GCLO ground factor full
-   artifacts are already committed in §00.52j〜§00.52l and indexed by the
-   seed bundle in §00.52m.
+1. **Next action**: add paired ablations/stress checks for the remaining frozen core subset:
+   RF-LIO/ID-LIO dynamic-object stress, M-GCLO non-flat dataset check, or
+   Quadric-LO curved-object / non-urban dataset check. I-LOAM intensity on/off,
+   KC-LO sigma schedule, M-GCLO ground factor, and Quadric-LO plane fallback
+   full artifacts are already committed in §00.52j〜§00.52n.
 2. **Extend the paper bundle**: `docs/benchmarks/paper_ready_bundle.json` currently
-   freezes 3 methods. Grow it toward the final 8-12 method table from raw JSON.
+   freezes 4 methods. Grow it toward the final 8-12 method table from raw JSON.
 3. **Keep claims tiered**: README may advertise breadth; paper/manuscript language should use only
    T0/T1 methods from [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md).
 4. **Respect current user direction**: 2D scan odometry is paused unless explicitly resumed.

@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq00_full",
+  "gt_csv": "data/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "Quadric-LO",
+      "status": "ok",
+      "ate_m": 12.894692,
+      "rpe_trans_pct": 0.879792,
+      "rpe_rot_deg_per_m": 0.007823,
+      "frames": 4541,
+      "time_ms": 4009680.283852,
+      "fps": 1.132509,
+      "seed_fallback_rate_pct": null,
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback disabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2764/0 plane_fallback_ratio=0.0000"
+    }
+  ]
+}

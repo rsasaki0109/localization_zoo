@@ -75,8 +75,11 @@ or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
   (0.833 % seq 00, 0.600 % seq 07), but ATE more than doubles on both
   sequences and rotational drift worsens.
 - **Quadric-LO** (arXiv 2023): point-to-quadric residuals beat KISS-ICP on both
-  sequences, but quadric fitting is expensive (0.62 FPS) and on plane-dominated
-  KITTI most surfels fall back to planes anyway.
+  sequences. The committed plane-fallback ablation shows fallback is rare on
+  KITTI (about 0.5-0.6 % of used correspondences); disabling it keeps RPE within
+  ~1.5 % while improving throughput by 1.6-1.8x. The evidence is therefore
+  dominated by the quadric path, but still needs a curved-object or non-urban
+  dataset check before a T0 claim.
 
 ## Finding 2 — On geometry-rich, IMU-free KITTI, robust estimation goes silent
 

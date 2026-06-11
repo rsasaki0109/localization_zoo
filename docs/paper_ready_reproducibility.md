@@ -52,7 +52,7 @@ positive or negative evidence.
 
 | Method | Current tier | Why it matters | Missing work to reach T0 |
 |---|---|---|---|
-| I-LOAM | T0 candidate | Intensity weighting shows a controlled 18-20% drift reduction on KITTI. | Add one more full-sequence intensity-off artifact beside the existing ablation summary; refresh method README with exact paired commands. |
+| I-LOAM | T0 evidence candidate | Intensity weighting shows a controlled 18-20% drift reduction on KITTI with committed seq00/07 on/off raw artifacts. | Add it to the frozen paper bundle and keep the paired commands/artifacts locked. |
 | KC-LO | T0 candidate | Correspondence-free kernel correlation beats KISS-ICP on seq00/07 with a clear speed trade-off. | Add sigma-schedule ablation and record runtime/accuracy trade-off table. |
 | M-GCLO | T1 candidate | Multiple ground constraints produce the expected RPE/ATE trade-off. | Add ground-factor off ablation and one non-flat dataset check. |
 | Quadric-LO | T1 candidate | Quadric residuals are competitive but expensive. | Add plane-fallback ablation and report fallback ratio by sequence. |
@@ -65,7 +65,8 @@ positive or negative evidence.
    of all 101 methods.
 2. **Promote only T0/T1 methods** into the main paper claim; keep T2/T3 in an
    appendix-style catalog.
-3. **Add paired ablations** for I-LOAM, KC-LO, M-GCLO, Quadric-LO, and RF-LIO.
+3. **Add paired ablations** for KC-LO, M-GCLO, Quadric-LO, and RF-LIO; I-LOAM
+   now has committed seq00/07 intensity on/off artifacts.
 4. **Regenerate README and reproducibility report** from raw JSON artifacts
    where possible, rather than hand-editing values.
 5. **Add a `paper` benchmark bundle** that runs the frozen table and emits a

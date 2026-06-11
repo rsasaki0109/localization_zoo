@@ -58,6 +58,8 @@ or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
   residual weighting cuts drift — survives a controlled ablation: running the
   *identical* pipeline with intensity on vs. off yields **−18.2 % drift on
   seq 00 and −19.7 % on seq 07**, even though KITTI intensity is uncalibrated.
+  The paired raw artifacts are committed in
+  [`i_loam_intensity_ablation.json`](benchmarks/kitti_full_new_methods/i_loam_intensity_ablation.json).
 - **KC-LO** (ECCV 2004): correspondence-free kernel correlation with σ
   annealing leads seq 07 (0.514 %) and beats KISS-ICP on both sequences — at
   ~1.4 FPS, an honest 8× throughput cost.

@@ -75,3 +75,22 @@ RF-LIO is stable, but on KITTI its removal-first path is below ID-LIO
 (1.111% / 0.999%) and the strongest LiDAR-only baselines. The mechanism is
 active, but KITTI's mostly static geometry makes aggressive foreground removal a
 trade-off rather than a win.
+
+## Synthetic Dynamic-Object Stress
+
+Dataset-free mechanism stress:
+
+```bash
+python3 evaluation/scripts/run_dynamic_object_stress.py
+```
+
+The runner generates clean and crossing-object fixtures under
+`evaluation/fixtures/dynamic_object_stress*` and writes
+`docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json`.
+On the 30-frame stress, default RF-LIO removes **214.3 foreground points/frame**
+and degrades from **2.487 m** clean ATE to **49.932 m** with moving boxes. The
+same stress sends ID-LIO to **130.549 m** ATE, so removal-first reduces the
+failure severity, and a conservative RF cap (`--rf-lio-foreground-margin 1.5
+--rf-lio-max-removal-fraction 0.08`) improves RF-LIO to **41.632 m**. This is a
+synthetic mechanism/failure-boundary artifact, not a substitute for a public
+high-dynamic dataset.

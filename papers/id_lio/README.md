@@ -62,3 +62,19 @@ urban scenes and IMU/GTSAM back-end it is not competitive with the top
 KISS-like LiDAR-only front ends. This is an honest port of the front-end
 mechanism, not a claim of reproducing the original paper's dynamic-dataset
 numbers.
+
+## Synthetic Dynamic-Object Stress
+
+Dataset-free mechanism stress:
+
+```bash
+python3 evaluation/scripts/run_dynamic_object_stress.py
+```
+
+The runner generates clean and crossing-object fixtures under
+`evaluation/fixtures/dynamic_object_stress*` and writes
+`docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json`.
+On the 30-frame stress, ID-LIO goes from **0.676 m** clean ATE to
+**130.549 m** with moving foreground boxes (`dynamic/frame=78.6`). This confirms
+the pseudo-occupancy path is strongly active, but also records a hard failure
+boundary for this compact LiDAR-only port.

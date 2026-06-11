@@ -120,6 +120,16 @@ points/frame**, but on mostly static KITTI it degrades drift to **1.35 % / 1.27
 %** versus the delayed-removal ID-LIO baseline. The mechanism is designed for
 high-dynamic scenes, not for this static urban benchmark.
 
+The committed synthetic dynamic-object stress makes that caveat reproducible
+without external data. `evaluation/scripts/run_dynamic_object_stress.py`
+generates clean and crossing-object fixtures, then writes
+[`rf_id_lio_dynamic_object_stress_summary.json`](benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json).
+On the 30-frame stress, ID-LIO degrades from **0.676 m** clean ATE to
+**130.549 m** with moving foreground boxes; default RF-LIO degrades from
+**2.487 m** to **49.932 m**, and a conservative removal cap improves RF-LIO to
+**41.632 m**. This is a mechanism stress and failure-boundary artifact, not a
+replacement for a public high-dynamic dataset.
+
 ## Finding 3 — A third of the methods degrade or diverge, reproducibly
 
 Honest negatives, kept in the leaderboard rather than dropped:

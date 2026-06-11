@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "benchmark": "synthetic_dynamic_object_stress",
+  "generated_by": "evaluation/scripts/run_dynamic_object_stress.py",
+  "fixture_generator": "evaluation/scripts/generate_dynamic_object_stress_fixture.py",
+  "scope": {
+    "frames": 30,
+    "trajectory_length_m": 11.02,
+    "static_fixture": "evaluation/fixtures/dynamic_object_stress_clean",
+    "dynamic_fixture": "evaluation/fixtures/dynamic_object_stress",
+    "claim_limit": "Synthetic mechanism stress only; this does not replace a public high-dynamic dataset evaluation for manuscript-level claims."
+  },
+  "artifacts": {
+    "static_clean_default": "docs/benchmarks/dynamic_object_stress/static_clean_default_30.json",
+    "dynamic_objects_default": "docs/benchmarks/dynamic_object_stress/dynamic_objects_default_30.json",
+    "dynamic_objects_rf_lio_conservative": "docs/benchmarks/dynamic_object_stress/dynamic_objects_rf_lio_conservative_30.json"
+  },
+  "protocol": {
+    "base_command": "./build/evaluation/pcd_dogfooding <fixture> <fixture>/gt.csv 30 --methods <methods> --no-gt-seed --summary-json <artifact>",
+    "default_methods": "id_lio,rf_lio,kiss_icp",
+    "rf_lio_conservative_flags": [
+      "--rf-lio-foreground-margin",
+      "1.5",
+      "--rf-lio-max-removal-fraction",
+      "0.08"
+    ]
+  },
+  "pairs": [
+    {
+      "method": "KISS-ICP",
+      "static_clean": {
+        "ate_m": 0.028915,
+        "rpe_trans_pct": 0.260716,
+        "rpe_rot_deg_per_m": 0.000399,
+        "frames": 30,
+        "fps": 111.683325
+      },
+      "dynamic_objects": {
+        "ate_m": 0.04045,
+        "rpe_trans_pct": 0.316912,
+        "rpe_rot_deg_per_m": 0.002087,
+        "frames": 30,
+        "fps": 97.394932
+      },
+      "dynamic_minus_static": {
+        "ate_m_abs_delta": 0.011535,
+        "ate_m_relative_pct": 39.89278920975273,
+        "rpe_trans_pct_abs_delta": 0.056196000000000024,
+        "rpe_trans_pct_relative_pct": 21.554488408843348,
+        "rpe_rot_deg_per_m_abs_delta": 0.0016879999999999998,
+        "rpe_rot_deg_per_m_relative_pct": 423.05764411027565
+      }
+    },
+    {
+      "method": "ID-LIO",
+      "static_clean": {
+        "ate_m": 0.675926,
+        "rpe_trans_pct": 2.819591,
+        "rpe_rot_deg_per_m": 0.00602,
+        "frames": 30,
+        "fps": 44.416265
+      },
+      "dynamic_objects": {
+        "ate_m": 130.549154,
+        "rpe_trans_pct": 2717.515544,
+        "rpe_rot_deg_per_m": 0.208793,
+        "frames": 30,
+        "fps": 27.624536
+      },
+      "dynamic_minus_static": {
+        "ate_m_abs_delta": 129.87322799999998,
+        "ate_m_relative_pct": 19214.119297082816,
+        "rpe_trans_pct_abs_delta": 2714.695953,
+        "rpe_trans_pct_relative_pct": 96279.77791814486,
+        "rpe_rot_deg_per_m_abs_delta": 0.202773,
+        "rpe_rot_deg_per_m_relative_pct": 3368.3222591362123
+      },
+      "dynamic_statistics": {
+        "dynamic_per_frame": 78.566667,
+        "correspondences_per_frame": 1180.6,
+        "removed_sum_per_frame": 2703.366667
+      }
+    },
+    {
+      "method": "RF-LIO",
+      "static_clean": {
+        "ate_m": 2.4868,
+        "rpe_trans_pct": 19.590612,
+        "rpe_rot_deg_per_m": 0.011834,
+        "frames": 30,
+        "fps": 24.047003
+      },
+      "dynamic_objects": {
+        "ate_m": 49.932244,
+        "rpe_trans_pct": 1025.023244,
+        "rpe_rot_deg_per_m": 0.101449,
+        "frames": 30,
+        "fps": 20.347133
+      },
+      "dynamic_minus_static": {
+        "ate_m_abs_delta": 47.445443999999995,
+        "ate_m_relative_pct": 1907.8914267331509,
+        "rpe_trans_pct_abs_delta": 1005.432632,
+        "rpe_trans_pct_relative_pct": 5132.216553520635,
+        "rpe_rot_deg_per_m_abs_delta": 0.089615,
+        "rpe_rot_deg_per_m_relative_pct": 757.2671962142978
+      },
+      "dynamic_statistics": {
+        "removal_first_per_frame": 214.266667,
+        "candidates_per_frame": 214.266667,
+        "kept_per_frame": 2549.233333,
+        "backend_dynamic_per_frame": 43.333333
+      }
+    }
+  ],
+  "rf_lio_conservative": {
+    "metrics": {
+      "ate_m": 41.632002,
+      "rpe_trans_pct": 835.618764,
+      "rpe_rot_deg_per_m": 0.077599,
+      "frames": 30,
+      "fps": 24.663028
+    },
+    "dynamic_statistics": {
+      "removal_first_per_frame": 149.733333,
+      "candidates_per_frame": 167.933333,
+      "kept_per_frame": 2613.766667,
+      "backend_dynamic_per_frame": 52.9
+    },
+    "delta_vs_default_rf_lio": {
+      "ate_m_abs_delta": -8.300241999999997,
+      "ate_m_relative_pct": -16.62301017354637,
+      "rpe_trans_pct_abs_delta": -189.40447999999992,
+      "rpe_trans_pct_relative_pct": -18.47806682518508,
+      "rpe_rot_deg_per_m_abs_delta": -0.023849999999999996,
+      "rpe_rot_deg_per_m_relative_pct": -23.509349525377278
+    }
+  },
+  "conclusion": "The synthetic foreground boxes strongly activate both dynamic paths. Default RF-LIO removes far more foreground points than clean-scene baseline and fails less severely than ID-LIO, while conservative removal cap improves RF-LIO further. KISS-ICP remains the sanity reference on this simple synthetic geometry."
+}

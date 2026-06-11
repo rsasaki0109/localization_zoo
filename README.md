@@ -169,6 +169,10 @@ and beats KISS-ICP on both sequences — at a heavy throughput cost
 (~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine
 annealing). Its sigma-schedule ablation is committed as
 [`kc_lo_sigma_schedule_ablation.json`](docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json).
+**Quadric-LO** is also frozen in the paper-ready bundle: plane fallback is rare
+on KITTI (~0.5-0.6% of correspondences), and disabling it keeps RPE within
+~1.5% while improving throughput by 1.6-1.8x
+([`quadric_lo_plane_fallback_ablation.json`](docs/benchmarks/kitti_full_new_methods/quadric_lo_plane_fallback_ablation.json)).
 
 Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
 mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP

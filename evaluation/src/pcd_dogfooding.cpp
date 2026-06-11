@@ -1626,6 +1626,7 @@ struct QuadricLoDogfoodingOptions {
   int max_iterations = 20;
   int quadric_min_neighbors = 14;
   double planarity_threshold = 0.4;
+  bool allow_plane_fallback = true;
   double quadric_weight = 1.0;
   double min_grad_norm = 1e-3;
   double robust_scale = 1.0;
@@ -5918,6 +5919,7 @@ MethodResult runQuadricLo(const std::vector<std::string>& pcd_dirs,
   params.max_iterations = options.max_iterations;
   params.quadric_min_neighbors = options.quadric_min_neighbors;
   params.planarity_threshold = options.planarity_threshold;
+  params.allow_plane_fallback = options.allow_plane_fallback;
   params.quadric_weight = options.quadric_weight;
   params.min_grad_norm = options.min_grad_norm;
   params.robust_scale = options.robust_scale;
@@ -5951,11 +5953,21 @@ MethodResult runQuadricLo(const std::vector<std::string>& pcd_dirs,
   std::snprintf(buf, sizeof(buf), "%.0f/%.0f",
                 n > 0 ? static_cast<double>(n_quadric_sum) / n : 0.0,
                 n > 0 ? static_cast<double>(n_plane_sum) / n : 0.0);
+  const double fallback_ratio =
+      (n_quadric_sum + n_plane_sum) > 0
+          ? static_cast<double>(n_plane_sum) /
+                static_cast<double>(n_quadric_sum + n_plane_sum)
+          : 0.0;
+  char ratio_buf[32];
+  std::snprintf(ratio_buf, sizeof(ratio_buf), "%.4f", fallback_ratio);
+  const std::string fallback_mode =
+      options.allow_plane_fallback ? "plane fallback enabled"
+                                   : "plane fallback disabled";
   res.note =
       "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with "
-      "point-to-quadric Taubin-distance residuals and plane fallback; "
+      "point-to-quadric Taubin-distance residuals and " + fallback_mode + "; "
       "constant-velocity prior, no GT seed. mean_quadric/plane_corr=" +
-      std::string(buf);
+      std::string(buf) + " plane_fallback_ratio=" + std::string(ratio_buf);
   return res;
 }
 
@@ -11021,6 +11033,10 @@ int main(int argc, char** argv) {
       quadric_lo_options.quadric_weight = std::stod(argv[++i]);
       continue;
     }
+    if (arg == "--quadric-lo-no-plane-fallback") {
+      quadric_lo_options.allow_plane_fallback = false;
+      continue;
+    }
     // --- dilo ---
     if (arg == "--dilo-fast-profile") {
       dilo_options.source_voxel_size = 0.0;  // SRI は全点群から
@@ -13117,6 +13133,8 @@ int main(int argc, char** argv) {
               << " voxel_size=" << quadric_lo_options.voxel_size
               << " quadric_min_neighbors="
               << quadric_lo_options.quadric_min_neighbors
+              << " plane_fallback="
+              << quadric_lo_options.allow_plane_fallback
               << " quadric_weight=" << quadric_lo_options.quadric_weight
               << std::endl;
     results.push_back(runQuadricLo(pcd_dirs, gt, quadric_lo_options));

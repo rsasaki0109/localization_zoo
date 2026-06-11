@@ -86,6 +86,8 @@ struct QuadricLoParams {
   int quadric_min_neighbors = 14;
   /// 平面フォールバックに要求する平面性下限。
   double planarity_threshold = 0.4;
+  /// quadric が立たない局所近傍を point-to-plane に退避する。
+  bool allow_plane_fallback = true;
   /// quadric 拘束の相対重み (平面フォールバックを 1 とした比)。
   double quadric_weight = 1.0;
   /// Taubin 距離の勾配ノルム下限 (退化 quadric の弾き)。

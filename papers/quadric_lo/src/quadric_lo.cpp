@@ -248,7 +248,8 @@ Eigen::Matrix4d QuadricLoPipeline::runRegistration(
         b -= w * Jr.transpose() * d;
         ++n_quadric;
         ++used;
-      } else if (c.has_plane && c.planarity >= params_.planarity_threshold) {
+      } else if (params_.allow_plane_fallback && c.has_plane &&
+                 c.planarity >= params_.planarity_threshold) {
         // 平面フォールバック: point-to-plane。
         const double e = c.normal.dot(src[k] - c.mean);
         if (std::abs(e) > kernel) continue;

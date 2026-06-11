@@ -60,7 +60,9 @@ a narrower evidence set:
 - **Paper-ready subset**: only methods that satisfy the tier checklist and
   paired-ablation requirements in
   [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md)
-  should be treated as reproduction evidence.
+  should be treated as reproduction evidence. The current frozen evidence
+  manifest is
+  [`docs/benchmarks/paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
 - **Strongest current candidates**: I-LOAM, KC-LO, M-GCLO, and Quadric-LO.
   LiDAR-visual adapters and dynamic-filtering LIO ports remain
   adapter/mechanism evidence until real RGB, synchronized camera, IMU, or

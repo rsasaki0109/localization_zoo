@@ -13,6 +13,7 @@ correct mechanisms that go silent on this benchmark.** The pattern of *which*
 bucket each method lands in is itself the most useful finding.
 
 Related pages: [paper-ready reproducibility plan](paper_ready_reproducibility.md)
+· [frozen evidence bundle](benchmarks/paper_ready_bundle.json)
 · [reproduction status for established methods](reproduction_status.md)
 · [experiment log](experiments.md) · [README leaderboard](../README.md).
 
@@ -31,7 +32,9 @@ Related pages: [paper-ready reproducibility plan](paper_ready_reproducibility.md
   profile (KISS-ICP: 0.872 % seq 00 / 0.618 % seq 07).
 
 Raw JSON for every run lives under
-[`docs/benchmarks/kitti_full_new_methods/`](benchmarks/kitti_full_new_methods/),
+[`docs/benchmarks/kitti_full_new_methods/`](benchmarks/kitti_full_new_methods/).
+The current manuscript-facing seed bundle is
+[`docs/benchmarks/paper_ready_bundle.json`](benchmarks/paper_ready_bundle.json),
 and each module's README records its per-method deviations.
 
 ## Verdict summary

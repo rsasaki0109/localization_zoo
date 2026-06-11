@@ -95,21 +95,42 @@ enhancement in the odometry stage. ~3 FPS on seq07 (mapping-heavy).
 Reflectance cuts drift ~18–20% vs the identical geometric pipeline even without
 mapping — the paper's central claim **reproduces on KITTI**.
 
+Committed raw artifacts:
+
+- [`seq00_i_loam_no_mapping.json`](../../docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_mapping.json)
+  and [`seq00_i_loam_no_intensity.json`](../../docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_intensity.json)
+- [`seq07_i_loam_no_mapping.json`](../../docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_mapping.json)
+  and [`seq07_i_loam_no_intensity.json`](../../docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_intensity.json)
+- Paired summary:
+  [`i_loam_intensity_ablation.json`](../../docs/benchmarks/kitti_full_new_methods/i_loam_intensity_ablation.json)
+
 ## Reproduce
 
 ```sh
-# default: intensity + mapping
+# default: intensity + mapping, seq07
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
   experiments/reference_data/kitti_seq_07_full_gt.csv \
   --methods i_loam --no-gt-seed --i-loam-dense-profile
 
-# scan-to-scan intensity ablation
+# scan-to-scan intensity ablation, seq07
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
   experiments/reference_data/kitti_seq_07_full_gt.csv \
-  --methods i_loam --no-gt-seed --i-loam-no-mapping
+  --methods i_loam --no-gt-seed --i-loam-no-mapping \
+  --summary-json docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_mapping.json
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
   experiments/reference_data/kitti_seq_07_full_gt.csv \
-  --methods i_loam --no-gt-seed --i-loam-no-mapping --i-loam-no-intensity
+  --methods i_loam --no-gt-seed --i-loam-no-mapping --i-loam-no-intensity \
+  --summary-json docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_intensity.json
+
+# scan-to-scan intensity ablation, seq00
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full \
+  experiments/reference_data/kitti_seq_00_full_gt.csv \
+  --methods i_loam --no-gt-seed --i-loam-no-mapping \
+  --summary-json docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_mapping.json
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full \
+  experiments/reference_data/kitti_seq_00_full_gt.csv \
+  --methods i_loam --no-gt-seed --i-loam-no-mapping --i-loam-no-intensity \
+  --summary-json docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_intensity.json
 ```
 
 ## Tests

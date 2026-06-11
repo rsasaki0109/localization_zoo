@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "I-LOAM",
+      "status": "ok",
+      "ate_m": 49.432759,
+      "rpe_trans_pct": 2.606375,
+      "rpe_rot_deg_per_m": 0.028292,
+      "frames": 4541,
+      "time_ms": 532741.019158,
+      "fps": 8.523841,
+      "seed_fallback_rate_pct": null,
+      "note": "I-LOAM (Park/Jang/Kim, UR 2020): intensity-enhanced LOAM odometry (scan-to-scan only) on KITTI PointXYZI; no GT seed. mean_intensity_weight=0.757003 mapping_updates=0"
+    }
+  ]
+}

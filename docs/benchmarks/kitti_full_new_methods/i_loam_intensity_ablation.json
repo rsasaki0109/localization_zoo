@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "method": "I-LOAM",
+  "paper": "Park, Jang, and Kim, I-LOAM: Intensity Enhanced LiDAR Odometry and Mapping, UR 2020",
+  "claim": "LiDAR reflectance improves LOAM odometry when used for correspondence search and residual weighting.",
+  "protocol": {
+    "dataset": "KITTI Odometry full sequences",
+    "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+    "ablation_flags": {
+      "intensity_on": "--i-loam-no-mapping",
+      "intensity_off": "--i-loam-no-mapping --i-loam-no-intensity"
+    },
+    "reason_for_no_mapping": "Mapping is disabled to isolate the paper-specific intensity correspondence and residual weighting in scan-to-scan odometry."
+  },
+  "pairs": [
+    {
+      "sequence": "00",
+      "frames": 4541,
+      "intensity_off": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_intensity.json",
+        "rpe_trans_pct": 3.185596,
+        "ate_m": 76.028538,
+        "fps": 8.377143
+      },
+      "intensity_on": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_mapping.json",
+        "rpe_trans_pct": 2.606375,
+        "ate_m": 49.432759,
+        "fps": 8.523841,
+        "mean_intensity_weight": 0.757003
+      },
+      "delta": {
+        "rpe_trans_pct_abs": -0.579221,
+        "rpe_trans_pct_rel": -18.1825,
+        "ate_m_rel": -34.981311
+      }
+    },
+    {
+      "sequence": "07",
+      "frames": 1101,
+      "intensity_off": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_intensity.json",
+        "rpe_trans_pct": 3.806092,
+        "ate_m": 18.502306,
+        "fps": 8.882216
+      },
+      "intensity_on": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_mapping.json",
+        "rpe_trans_pct": 3.055169,
+        "ate_m": 15.132579,
+        "fps": 8.583119,
+        "mean_intensity_weight": 0.773522
+      },
+      "delta": {
+        "rpe_trans_pct_abs": -0.750923,
+        "rpe_trans_pct_rel": -19.729502,
+        "ate_m_rel": -18.21247
+      }
+    }
+  ],
+  "conclusion": "The I-LOAM intensity path reduces scan-to-scan RPE drift by 18.2% on seq00 and 19.7% on seq07 under identical preprocessing, with active intensity weights around 0.76-0.77."
+}

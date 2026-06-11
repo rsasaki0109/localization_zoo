@@ -200,7 +200,13 @@ geometry-only pipeline — I-LOAM's central claim **reproduces on KITTI**, even
 though KITTI intensity is uncalibrated and coarse. With **mapping enabled**
 (default), I-LOAM reaches ~0.58% drift on seq07 and is ranked in the from-paper
 table above; the ablation below uses scan-to-scan only to isolate the intensity
-channel.
+channel. Raw artifacts:
+[`seq00 on`](docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_mapping.json),
+[`seq00 off`](docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_intensity.json),
+[`seq07 on`](docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_mapping.json),
+[`seq07 off`](docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_intensity.json),
+and the paired summary
+[`i_loam_intensity_ablation.json`](docs/benchmarks/kitti_full_new_methods/i_loam_intensity_ablation.json).
 
 ### Trajectory gallery — KITTI seq07, all methods, one figure
 

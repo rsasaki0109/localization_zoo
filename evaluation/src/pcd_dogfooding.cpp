@@ -2040,22 +2040,25 @@ struct CubeLIODogfoodingOptions {
 };
 
 struct CTICPDogfoodingOptions {
-  double source_voxel_size = 0.75;
-  size_t max_source_points = 500;
-  double voxel_resolution = 1.5;
-  int max_iterations = 8;
-  int ceres_max_iterations = 1;
-  double planarity_threshold = 0.08;
-  double keypoint_voxel_size = 1.25;
-  int max_frames_in_map = 8;
+  // Reproduction-oriented default. This matches the robust KITTI tune recorded
+  // in docs/reproduction_status.md and avoids the older lightweight profile's
+  // paper-comparable RPE regression.
+  double source_voxel_size = 0.6;
+  size_t max_source_points = 700;
+  double voxel_resolution = 1.2;
+  int max_iterations = 10;
+  int ceres_max_iterations = 6;
+  double planarity_threshold = 0.06;
+  double keypoint_voxel_size = 1.0;
+  int max_frames_in_map = 20;
   // <=0 leaves the algorithm-level default of 100 m^2 unchanged. Override via
   // --ct-icp-max-correspondence-distance for paper-style tighter outlier
   // rejection (paper uses 1-2 m^2, i.e. 1-1.4 m linear).
   double max_correspondence_dist = -1.0;
   int knn = -1;  // <=0 keeps algorithm default (5).
   // Architecture-level extensions enabled by --ct-icp-paper-arch.
-  bool multi_scale_correspondences = false;
-  bool use_normal_cholesky_solver = false;
+  bool multi_scale_correspondences = true;
+  bool use_normal_cholesky_solver = true;
   // LiTAMIN2/X-ICP 風の "refinement-acceptance gate" + velocity-model bootstrap。
   // CT-ICP は素朴な constant-velocity 外挿だと急カーブで発散するため、結果が
   // 大きく seed から逸れた場合は予測値にロールバックして発散を抑える。
@@ -11930,6 +11933,8 @@ int main(int argc, char** argv) {
       ct_icp_options.planarity_threshold = 0.10;
       ct_icp_options.keypoint_voxel_size = 1.5;
       ct_icp_options.max_frames_in_map = 6;
+      ct_icp_options.multi_scale_correspondences = false;
+      ct_icp_options.use_normal_cholesky_solver = false;
       continue;
     }
     if (arg == "--ct-icp-dense-profile") {
@@ -11937,10 +11942,12 @@ int main(int argc, char** argv) {
       ct_icp_options.max_source_points = 700;
       ct_icp_options.voxel_resolution = 1.2;
       ct_icp_options.max_iterations = 10;
-      ct_icp_options.ceres_max_iterations = 2;
+      ct_icp_options.ceres_max_iterations = 6;
       ct_icp_options.planarity_threshold = 0.06;
       ct_icp_options.keypoint_voxel_size = 1.0;
-      ct_icp_options.max_frames_in_map = 10;
+      ct_icp_options.max_frames_in_map = 20;
+      ct_icp_options.multi_scale_correspondences = true;
+      ct_icp_options.use_normal_cholesky_solver = true;
       continue;
     }
     if (arg == "--ct-icp-source-voxel-size") {
@@ -13599,7 +13606,13 @@ int main(int argc, char** argv) {
               << " max_source_points=" << ct_icp_options.max_source_points
               << " voxel_resolution=" << ct_icp_options.voxel_resolution
               << " max_iterations=" << ct_icp_options.max_iterations
+              << " ceres_max_iterations="
+              << ct_icp_options.ceres_max_iterations
               << " max_frames_in_map=" << ct_icp_options.max_frames_in_map
+              << " multi_scale="
+              << (ct_icp_options.multi_scale_correspondences ? "on" : "off")
+              << " normal_cholesky="
+              << (ct_icp_options.use_normal_cholesky_solver ? "on" : "off")
               << std::endl;
     results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options, ct_icp_gt_seed));
   }

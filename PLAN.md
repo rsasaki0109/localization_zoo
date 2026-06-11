@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-11 (OPL-LVIO 96手法目実装 §00.52f — seq00 full RPE 1.050%、seq07 full RPE 0.902%、2D は一旦停止)**
+> **最終更新: 2026-06-12 (V-LOAM2015/TC-VLO/AD-VLO/TC-MVLO 97-100手法目実装 §00.52g — 100 methods 到達、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -23,11 +23,11 @@
 
 ---
 
-## 00. Latest Handoff: From-Paper Reimplementation Campaign (2026-06-11 更新)
+## 00. Latest Handoff: From-Paper Reimplementation Campaign (2026-06-12 更新)
 
 > **これが最新・最優先の handoff。**
 >
-> **2026-06-11 現時点のアクティブ方向は 3D LiDAR from-paper KITTI キャンペーンへ戻した。**
+> **2026-06-12 現時点のアクティブ方向は 3D LiDAR from-paper KITTI キャンペーン。**
 > ユーザ指示「2d ha ittan iran!」により、2D LiDAR scan odometry は一旦停止。
 > 3D Velodyne 系の著者コード無し論文を、KITTI seq00/seq07 full で正直評価する流れを優先。
 >
@@ -105,14 +105,14 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 | Item | Value |
 |------|-------|
 | Branch | `main` |
-| vs `origin/main` | **1 commit ahead** (OPL-LVIO 96手法目、push 待ち) |
-| 実装済み from-paper 論文数 | **55 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO + TC-LVGF + OPL-LVIO; 2D papers 43–50 は停止中) |
-| `docs/methods.json` | **96 手法** |
+| vs `origin/main` | **ahead 1** (100手法目まで local commit、push 未実行) |
+| 実装済み from-paper 論文数 | **59 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO + TC-LVGF + OPL-LVIO + V-LOAM2015 + TC-VLO + AD-VLO + TC-MVLO; 2D papers 43–50 は停止中) |
+| `docs/methods.json` | **100 手法** |
 | 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
-| 直近完了 (3D) | **OPL-LVIO (96手法目)** — optimized point-line LVIO、KITTI seq00/07 full 完走 |
-| その前 (3D) | **TC-LVGF (95手法目)** — LiDAR-visual geometric feature fusion、KITTI seq00/07 full 完走 |
+| 直近完了 (3D) | **V-LOAM2015 / TC-VLO / AD-VLO / TC-MVLO (97-100手法目)** — LiDAR-visual adapter family、KITTI seq00/07 full 完走 |
+| その前 (3D) | **OPL-LVIO (96手法目)** — optimized point-line LVIO、KITTI seq00/07 full 完走 |
 | 2D 直近 (停止中) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
 | PG-LIO (42本目) | NCLT honest negative → **保留** (§00.52) |
 
@@ -720,6 +720,61 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **docs**: README from-paper 表へ OPL-LVIO 行追加、`docs/methods.json` 96 手法、
   `papers/opl_lvio/README.md` に seq00/07 結果表を追加。
   **状態**: 実装 + harness + methods.json (96 手法) + seq00/07 full artifact + docs 更新済。
+
+### 00.52g V-LOAM2015 / TC-VLO / AD-VLO / TC-MVLO (97-100手法目 / 3D LiDAR-visual from-paper, 2026-06-12) — **実装 + seq00/07 full 完了**
+
+- **論文**:
+  - **V-LOAM2015**: Ji Zhang and Sanjiv Singh, "Visual-Lidar Odometry and Mapping:
+    Low-drift, Robust, and Fast", ICRA 2015。visual odometry bootstrap + LiDAR
+    scan matching refinement。
+  - **TC-VLO**: Young-Woo Seo and Chih-Chung Chou, "A Tight Coupling of
+    Vision-Lidar Measurements for an Effective Odometry", IEEE IV 2019。visual /
+    LiDAR residual を pose solve に密結合。
+  - **AD-VLO**: Kaihong Huang, Junhao Xiao, Cyrill Stachniss, "Accurate Direct
+    Visual-Laser Odometry with Explicit Occlusion Handling and Plane Detection",
+    ICRA 2019。direct visual-laser alignment + occlusion / plane handling。
+  - **TC-MVLO**: Lingbo Meng, Chao Ye, Weiyang Lin, "A Tightly Coupled Monocular
+    Visual Lidar Odometry with Loop Closure", Intelligent Service Robotics 2022。
+    monocular visual-LiDAR tight coupling + loop closure。
+- ✅ **実装**: `papers/v_loam15/`, `papers/tc_vlo/`, `papers/ad_vlo/`,
+  `papers/tc_mvlo/`。いずれも `opl_lvio` backend 上の paper-specific adapter:
+  range-image visual point/line proxy、LiDAR depth付き visual residual、
+  scan-to-map point-to-plane refinement、Helmert-style residual scale balancingを共有し、
+  有効化する residual / weight / fallback 条件を論文ごとに分離。
+- **主な profile 差分**:
+  - V-LOAM2015: visual point bootstrap + small motion prior、line residual 無効。
+  - TC-VLO: visual point + point-to-line + direction residual を軽量に密結合。
+  - AD-VLO: range-jump occlusion gate + plane emphasis、line residual 無効。
+  - TC-MVLO: visual point + line residual を TC-VLO より強め、Helmert clamp を狭める。
+- **主な逸脱**: 4 本とも RGB camera tracker / true monocular VO / direct photometric
+  image alignment / full SLAM graph / loop closure は範囲外。KITTI Odometry PCD export は
+  Velodyne のみなので、visual features は LiDAR range-image proxy。PL-LOAM/VLOM の
+  depth-gradient pseudo-image より安定するが、主成分は依然 point-to-plane core。
+- ✅ **テスト**:
+  `test_v_loam15`, `test_tc_vlo`, `test_ad_vlo`, `test_tc_mvlo` 各 3 cases PASS
+  (profile 適用 / feature 抽出 / short translation tracking)。
+- ✅ **KITTI seq00 full (4541f, `--no-gt-seed`, dense profile)**:
+  - V-LOAM2015: ATE **14.37 m** / RPE **1.066%** / **7.76 FPS**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_v_loam15.json`
+  - TC-VLO: ATE **12.01 m** / RPE **1.060%** / **7.64 FPS**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_tc_vlo.json`
+  - AD-VLO: ATE **12.95 m** / RPE **1.052%** / **8.15 FPS**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_ad_vlo.json`
+  - TC-MVLO: ATE **10.82 m** / RPE **1.054%** / **8.00 FPS**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_tc_mvlo.json`
+- ✅ **KITTI seq07 full (1101f, `--no-gt-seed`, dense profile)**:
+  - V-LOAM2015: ATE **3.63 m** / RPE **0.910%** / **10.05 FPS**。
+  - TC-VLO: ATE **4.22 m** / RPE **0.925%** / **10.91 FPS**。
+  - AD-VLO: ATE **3.08 m** / RPE **0.939%** / **9.96 FPS**。
+  - TC-MVLO: ATE **3.00 m** / RPE **0.939%** / **10.76 FPS**。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_visual_lidar_97_100.json`
+- 所見: LiDAR-visual adapter family は 0.90-1.07% drift で安定し、PL-LOAM/VLOM の
+  pseudo-image honest negative より大幅に良い。AD-VLO は seq00 RPE、TC-MVLO は ATE、
+  V-LOAM2015 は seq07 RPE が強い。ただし KISS-like point-to-plane core を上回るほどではなく、
+  pseudo-visual residual は補助的。
+- ✅ **docs**: README from-paper 表へ 4 行追加、`docs/methods.json` 100 手法、
+  各 module README と再現 artifact を追加。
+  **状態**: 実装 + harness + methods.json (100 手法) + seq00/07 full artifact + docs 更新済。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 
@@ -2173,14 +2228,14 @@ To refresh all of them: `python3 evaluation/scripts/refresh_study_docs.py`.
 
 ## 12. What Cursor / Codex Should Do Next
 
-This is the operational handoff. **Default path: 3D LiDAR from-paper campaign (§00.2 / §00.52f).**
+This is the operational handoff. **Default path: 3D LiDAR from-paper campaign (§00.2 / §00.52g).**
 Pick a single path and finish it before switching.
 
 ### Priority A (active): 3D LiDAR / visual / IMU from-paper campaign
 
-1. **Next action**: if OPL-LVIO is committed but not pushed, push `main`. If it is already pushed,
-   survey one more author-code-free LiDAR-visual or LiDAR-inertial paper that can be scoped into the
-   existing KITTI PCD harness.
+1. **Next action**: commit/push the 100-method milestone if still local; otherwise survey and
+   implement the next author-code-free LiDAR-visual or LiDAR-inertial paper that can be scoped
+   into the existing KITTI PCD harness.
 2. **Keep the unit of work stable**: module under `papers/<method>/`, CMake integration,
    `pcd_dogfooding` selector, focused unit tests, KITTI seq00/07 full artifacts,
    README leaderboard row, `docs/methods.json`, method README, and this PLAN.

@@ -1352,6 +1352,78 @@
       ]
     },
     {
+      "name": "V-LOAM2015",
+      "family": "Visual-LiDAR odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "visual"
+      ],
+      "href": "papers/v_loam15",
+      "summary": "Visual-LiDAR odometry and mapping adapter: range-image visual point proxies provide a conservative bootstrap/prior, then LiDAR scan-to-map point-to-plane refinement estimates the final pose; the camera VO, global mapping, and loop closure stages are out of scope for the KITTI PCD harness (Zhang and Singh, ICRA 2015).",
+      "tags": [
+        "odometry",
+        "lidar-visual",
+        "visual-bootstrap",
+        "range-image",
+        "scan-to-map"
+      ]
+    },
+    {
+      "name": "TC-VLO",
+      "family": "Tightly coupled vision-LiDAR odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "visual"
+      ],
+      "href": "papers/tc_vlo",
+      "summary": "Tightly coupled vision-LiDAR odometry adapter: sparse range-image visual point proxies, pseudo-visual line support, and LiDAR scan-to-map plane constraints are jointly optimized through point, line, and plane residuals, with LiDAR fallback when visual support is sparse (Seo and Chou, IV 2019).",
+      "tags": [
+        "odometry",
+        "lidar-visual",
+        "tightly-coupled",
+        "point-line-features",
+        "fallback"
+      ]
+    },
+    {
+      "name": "AD-VLO",
+      "family": "Direct visual-laser odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "visual"
+      ],
+      "href": "papers/ad_vlo",
+      "summary": "Accurate direct visual-laser odometry adapter: occlusion-aware range-jump gating and plane-emphasized scan-to-map residuals approximate the paper's direct visual-laser alignment and explicit plane handling on Velodyne-only KITTI PCD data (Huang, Xiao, and Stachniss, ICRA 2019).",
+      "tags": [
+        "odometry",
+        "direct-alignment",
+        "lidar-visual",
+        "occlusion",
+        "plane-features"
+      ]
+    },
+    {
+      "name": "TC-MVLO",
+      "family": "Tightly coupled monocular visual-LiDAR odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "visual"
+      ],
+      "href": "papers/tc_mvlo",
+      "summary": "Tightly coupled monocular visual-LiDAR odometry adapter: range-image visual point proxies and fused visual/LiDAR line support augment LiDAR scan-to-map constraints with Helmert-style point/line residual balancing; loop closure is out of scope in the KITTI PCD port (Meng, Ye, and Lin, Intelligent Service Robotics 2022).",
+      "tags": [
+        "odometry",
+        "lidar-visual",
+        "monocular",
+        "tightly-coupled",
+        "line-features"
+      ]
+    },
+    {
       "name": "NHC-LIO",
       "family": "Motion constraint",
       "scope": "Paper reimplementation",

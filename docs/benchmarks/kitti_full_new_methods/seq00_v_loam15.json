@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq00_full",
+  "gt_csv": "data/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "V-LOAM2015",
+      "status": "ok",
+      "ate_m": 14.369738,
+      "rpe_trans_pct": 1.065828,
+      "rpe_rot_deg_per_m": 0.011292,
+      "frames": 4541,
+      "time_ms": 585264.622128,
+      "fps": 7.758883,
+      "seed_fallback_rate_pct": null,
+      "note": "V-LOAM2015: visual-lidar odometry port with range-image pseudo-visual bootstrapping and LiDAR scan-to-map refinement; global mapping/loop closure are out of scope on KITTI PCD. visual_points/frame=100.836600 visual_lines/frame=56.136534 fused_lines/frame=245.013653 plane_corr/frame=3688.642370 point_corr/frame=93.613521 line_corr/frame=235.611319 point_scale/frame=0.786949 line_scale/frame=1.302466 fallback_frames=0 mean|residual|=0.186119"
+    }
+  ]
+}

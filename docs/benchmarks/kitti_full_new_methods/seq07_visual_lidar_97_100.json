@@ -1,0 +1,57 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq07_full",
+  "gt_csv": "data/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "V-LOAM2015",
+      "status": "ok",
+      "ate_m": 3.633913,
+      "rpe_trans_pct": 0.910166,
+      "rpe_rot_deg_per_m": 0.011153,
+      "frames": 1101,
+      "time_ms": 109604.611270,
+      "fps": 10.045198,
+      "seed_fallback_rate_pct": null,
+      "note": "V-LOAM2015: visual-lidar odometry port with range-image pseudo-visual bootstrapping and LiDAR scan-to-map refinement; global mapping/loop closure are out of scope on KITTI PCD. visual_points/frame=104.782016 visual_lines/frame=56.312443 fused_lines/frame=246.752044 plane_corr/frame=3648.004541 point_corr/frame=98.641235 line_corr/frame=239.233424 point_scale/frame=0.828832 line_scale/frame=1.352701 fallback_frames=0 mean|residual|=0.184767"
+    },
+    {
+      "name": "TC-VLO",
+      "status": "ok",
+      "ate_m": 4.224822,
+      "rpe_trans_pct": 0.924968,
+      "rpe_rot_deg_per_m": 0.011345,
+      "frames": 1101,
+      "time_ms": 100957.188672,
+      "fps": 10.905613,
+      "seed_fallback_rate_pct": null,
+      "note": "TC-VLO: tightly coupled vision-lidar odometry port with separate visual point and LiDAR voxel maps jointly optimized through plane, point, and line residuals. visual_points/frame=98.750227 visual_lines/frame=56.312443 fused_lines/frame=246.752044 plane_corr/frame=3646.132607 point_corr/frame=92.610354 line_corr/frame=239.171662 point_scale/frame=0.817417 line_scale/frame=1.374783 fallback_frames=0 mean|residual|=0.184582"
+    },
+    {
+      "name": "AD-VLO",
+      "status": "ok",
+      "ate_m": 3.078978,
+      "rpe_trans_pct": 0.939400,
+      "rpe_rot_deg_per_m": 0.010975,
+      "frames": 1101,
+      "time_ms": 110554.851500,
+      "fps": 9.958857,
+      "seed_fallback_rate_pct": null,
+      "note": "AD-VLO: direct visual-laser odometry port with occlusion-aware range discontinuity gating, planar patch emphasis, and LiDAR scan-to-map refinement. visual_points/frame=87.840145 visual_lines/frame=39.237057 fused_lines/frame=239.574024 plane_corr/frame=3644.336058 point_corr/frame=81.900999 line_corr/frame=232.284287 point_scale/frame=0.802001 line_scale/frame=1.417456 fallback_frames=0 mean|residual|=0.183511"
+    },
+    {
+      "name": "TC-MVLO",
+      "status": "ok",
+      "ate_m": 2.996035,
+      "rpe_trans_pct": 0.938894,
+      "rpe_rot_deg_per_m": 0.010266,
+      "frames": 1101,
+      "time_ms": 102366.586109,
+      "fps": 10.755463,
+      "seed_fallback_rate_pct": null,
+      "note": "TC-MVLO: tightly coupled monocular visual-lidar odometry port using range-image visual points, fused visual/LiDAR line support, and LiDAR scan-to-map constraints; loop closure is out of scope. visual_points/frame=98.750227 visual_lines/frame=56.312443 fused_lines/frame=246.752044 plane_corr/frame=3648.391462 point_corr/frame=92.675749 line_corr/frame=239.230699 point_scale/frame=0.815797 line_scale/frame=1.359036 fallback_frames=0 mean|residual|=0.183932"
+    }
+  ]
+}

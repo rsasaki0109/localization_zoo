@@ -45,6 +45,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   degen_sense
   vibration_lio
   id_lio
+  rf_lio
   bievr_lio
   ua_lio
   damm_loam

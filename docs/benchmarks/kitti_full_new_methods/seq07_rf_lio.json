@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq07_full",
+  "gt_csv": "data/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "RF-LIO",
+      "status": "ok",
+      "ate_m": 4.810118,
+      "rpe_trans_pct": 1.272006,
+      "rpe_rot_deg_per_m": 0.018111,
+      "frames": 1101,
+      "time_ms": 99527.906107,
+      "fps": 11.062224,
+      "seed_fallback_rate_pct": null,
+      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=246.208901 candidates/frame=246.208901 kept/frame=6753.791099 backend_dynamic/frame=404.927339 corr/frame=2625.652134 backend_removed_sum/frame=222610.380563"
+    }
+  ]
+}

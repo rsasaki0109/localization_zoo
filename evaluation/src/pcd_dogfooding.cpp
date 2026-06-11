@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -55,6 +55,7 @@
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "id_lio/id_lio.h"
+#include "rf_lio/rf_lio.h"
 #include "bievr_lio/bievr_lio.h"
 #include "ua_lio/ua_lio.h"
 #include "cube_lio/cube_lio.h"
@@ -231,7 +232,8 @@ bool isSupportedMethod(const std::string& method) {
          method == "d2lio" ||
          method == "ct_voxelmap" || method == "cube_lio" ||
          method == "r_voxelmap" || method == "degen_sense" ||
-         method == "vibration_lio" || method == "id_lio" || method == "bievr_lio" ||
+         method == "vibration_lio" || method == "id_lio" ||
+         method == "rf_lio" || method == "bievr_lio" ||
          method == "ua_lio" || method == "damm_loam" ||
          method == "lodestar" || method == "terrain_rbf_lio" ||
          method == "lidar_iba" || method == "dali_slam" ||
@@ -1967,6 +1969,27 @@ struct IDLIODogfoodingOptions {
   double disappearance_margin = 1.0;
   double dynamic_weight = 0.15;
   int delayed_removal_frames = 3;
+  double gyro_bias_gain = 0.2;
+  double local_map_radius = 60.0;
+  int map_cleanup_interval = 4;
+};
+
+struct RFLIODogfoodingOptions {
+  double source_voxel_size = 0.5;
+  size_t max_source_points = 4500;
+  double voxel_size = 1.0;
+  int max_points_per_voxel = 12;
+  int max_icp_iterations = 30;
+  double max_correspondence_dist = 2.0;
+  int range_image_width = 1024;
+  int range_image_height = 64;
+  double new_object_margin = 1.0;
+  double disappearance_margin = 1.0;
+  double dynamic_weight = 0.10;
+  int delayed_removal_frames = 1;
+  double foreground_margin = 0.9;
+  double max_removal_fraction = 0.30;
+  int min_keep_points = 1000;
   double gyro_bias_gain = 0.2;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
@@ -7037,6 +7060,98 @@ MethodResult runIDLIO(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runRFLIO(const std::vector<std::string>& pcd_dirs,
+                      const std::vector<Eigen::Matrix4d>& gt,
+                      const std::vector<double>& frame_timestamps,
+                      const std::vector<ImuSampleCsv>& imu_samples,
+                      const RFLIODogfoodingOptions& options) {
+  using namespace localization_zoo::rf_lio;
+  MethodResult res;
+  res.name = "RF-LIO";
+
+  RfLioParams params;
+  params.backend.voxel_size = options.voxel_size;
+  params.backend.max_points_per_voxel = options.max_points_per_voxel;
+  params.backend.max_icp_iterations = options.max_icp_iterations;
+  params.backend.max_correspondence_dist = options.max_correspondence_dist;
+  params.backend.range_image_width = options.range_image_width;
+  params.backend.range_image_height = options.range_image_height;
+  params.backend.new_object_margin = options.new_object_margin;
+  params.backend.disappearance_margin = options.disappearance_margin;
+  params.backend.dynamic_weight = options.dynamic_weight;
+  params.backend.delayed_removal_frames = options.delayed_removal_frames;
+  params.backend.gyro_bias_gain = options.gyro_bias_gain;
+  params.backend.local_map_radius = options.local_map_radius;
+  params.backend.map_cleanup_interval = options.map_cleanup_interval;
+  params.range_image_width = options.range_image_width;
+  params.range_image_height = options.range_image_height;
+  params.foreground_margin = options.foreground_margin;
+  params.max_removal_fraction = options.max_removal_fraction;
+  params.min_keep_points = options.min_keep_points;
+  RfLioPipeline pipeline(params);
+  pipeline.setInitialPose(gt.empty() ? Eigen::Matrix4d::Identity() : gt.front());
+
+  int imu_frames = 0;
+  long long dynamic_total = 0;
+  long long backend_removed_total = 0;
+  long long corr_total = 0;
+  long long removal_first_total = 0;
+  long long candidate_total = 0;
+  long long kept_total = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); ++i) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    std::vector<localization_zoo::imu_preintegration::ImuSample> imu_batch;
+    if (i > 0 && !imu_samples.empty() &&
+        frame_timestamps.size() == pcd_dirs.size() &&
+        i < frame_timestamps.size()) {
+      imu_batch = selectImuWindow(imu_samples, frame_timestamps[i - 1],
+                                  frame_timestamps[i]);
+    }
+    const auto result = pipeline.registerFrame(pts_local, imu_batch);
+    if (result.backend.used_imu) ++imu_frames;
+    dynamic_total += result.backend.num_dynamic_points;
+    backend_removed_total += result.backend.num_removed_points;
+    corr_total += result.backend.num_correspondences;
+    removal_first_total += result.removal_first_points;
+    candidate_total += result.candidate_points;
+    kept_total += result.kept_points;
+    res.poses.push_back(result.pose);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [RF-LIO] " << i << "/" << pcd_dirs.size()
+                << " map=" << pipeline.mapSize()
+                << " dynamic_map=" << pipeline.dynamicMapPoints()
+                << " removed_first=" << removal_first_total;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  const double denom = std::max<size_t>(1, res.poses.size());
+  res.note =
+      (imu_frames > 0
+           ? "RF-LIO removal-first LIO: adaptive multi-resolution range-image "
+             "foreground removal before indexed dynamic LIO, with IMU gyro prior."
+           : "RF-LIO removal-first scan-to-map: adaptive multi-resolution "
+             "range-image foreground removal before indexed dynamic scan-to-map; "
+             "no imu.csv so constant-velocity fallback.") +
+      std::string(" removal_first/frame=") +
+      std::to_string(static_cast<double>(removal_first_total) / denom) +
+      " candidates/frame=" +
+      std::to_string(static_cast<double>(candidate_total) / denom) +
+      " kept/frame=" +
+      std::to_string(static_cast<double>(kept_total) / denom) +
+      " backend_dynamic/frame=" +
+      std::to_string(static_cast<double>(dynamic_total) / denom) +
+      " corr/frame=" + std::to_string(static_cast<double>(corr_total) / denom) +
+      " backend_removed_sum/frame=" +
+      std::to_string(static_cast<double>(backend_removed_total) / denom);
+  return res;
+}
+
 MethodResult runBievrLIO(const std::vector<std::string>& pcd_dirs,
                          const std::vector<Eigen::Matrix4d>& gt,
                          const BievrLIODogfoodingOptions& options) {
@@ -8654,7 +8769,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -8851,6 +8966,7 @@ int main(int argc, char** argv) {
   DegenSenseDogfoodingOptions degen_sense_options;
   VibrationLIODogfoodingOptions vibration_lio_options;
   IDLIODogfoodingOptions id_lio_options;
+  RFLIODogfoodingOptions rf_lio_options;
   BievrLIODogfoodingOptions bievr_lio_options;
   UALIODogfoodingOptions ua_lio_options;
   CubeLIODogfoodingOptions cube_lio_options;
@@ -11486,6 +11602,44 @@ int main(int argc, char** argv) {
       id_lio_options.disappearance_margin = std::stod(argv[++i]);
       continue;
     }
+    if (arg == "--rf-lio-fast-profile") {
+      rf_lio_options.source_voxel_size = 0.5;
+      rf_lio_options.max_source_points = 4000;
+      rf_lio_options.voxel_size = 1.0;
+      rf_lio_options.max_icp_iterations = 20;
+      rf_lio_options.range_image_width = 768;
+      rf_lio_options.range_image_height = 64;
+      rf_lio_options.foreground_margin = 1.0;
+      rf_lio_options.max_removal_fraction = 0.25;
+      rf_lio_options.min_keep_points = 1400;
+      rf_lio_options.local_map_radius = 45.0;
+      rf_lio_options.map_cleanup_interval = 2;
+      continue;
+    }
+    if (arg == "--rf-lio-dense-profile") {
+      rf_lio_options.source_voxel_size = 0.35;
+      rf_lio_options.max_source_points = 7000;
+      rf_lio_options.voxel_size = 0.8;
+      rf_lio_options.max_icp_iterations = 40;
+      rf_lio_options.range_image_width = 1024;
+      rf_lio_options.range_image_height = 80;
+      rf_lio_options.foreground_margin = 1.0;
+      rf_lio_options.max_removal_fraction = 0.25;
+      rf_lio_options.min_keep_points = 2200;
+      rf_lio_options.local_map_radius = 80.0;
+      rf_lio_options.map_cleanup_interval = 6;
+      continue;
+    }
+    if (arg == "--rf-lio-foreground-margin") {
+      if (i + 1 >= argc) { std::cerr << "--rf-lio-foreground-margin requires a value" << std::endl; return 1; }
+      rf_lio_options.foreground_margin = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--rf-lio-max-removal-fraction") {
+      if (i + 1 >= argc) { std::cerr << "--rf-lio-max-removal-fraction requires a value" << std::endl; return 1; }
+      rf_lio_options.max_removal_fraction = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--bievr-lio-fast-profile") {
       // bump-image は平面ベースなので密な入力が必要 (疎だと平面が形成されない)。
       bievr_lio_options.source_voxel_size = 0.3;
@@ -13280,6 +13434,22 @@ int main(int argc, char** argv) {
               << std::endl;
     results.push_back(runIDLIO(pcd_dirs, gt, frame_timestamps, imu_samples,
                                id_lio_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "rf_lio")) {
+    std::cout << "Running RF-LIO..." << std::endl;
+    std::cout << std::setprecision(3)
+              << "  source_voxel_size=" << rf_lio_options.source_voxel_size
+              << " voxel_size=" << rf_lio_options.voxel_size
+              << " range_image=" << rf_lio_options.range_image_width << "x"
+              << rf_lio_options.range_image_height
+              << " foreground_margin=" << rf_lio_options.foreground_margin
+              << " max_removal_fraction="
+              << rf_lio_options.max_removal_fraction
+              << " imu=" << (imu_samples.empty() ? "absent" : "present")
+              << std::endl;
+    results.push_back(runRFLIO(pcd_dirs, gt, frame_timestamps, imu_samples,
+                               rf_lio_options));
   }
 
   if (isMethodEnabled(selected_methods, "bievr_lio")) {

@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-12 (V-LOAM2015/TC-VLO/AD-VLO/TC-MVLO 97-100手法目実装 §00.52g — 100 methods 到達、2D は一旦停止)**
+> **最終更新: 2026-06-12 (RF-LIO 101手法目実装 §00.52h — removal-first dynamic LIO、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -105,14 +105,14 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 | Item | Value |
 |------|-------|
 | Branch | `main` |
-| vs `origin/main` | **ahead 1** (100手法目まで local commit、push 未実行) |
-| 実装済み from-paper 論文数 | **59 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO + TC-LVGF + OPL-LVIO + V-LOAM2015 + TC-VLO + AD-VLO + TC-MVLO; 2D papers 43–50 は停止中) |
-| `docs/methods.json` | **100 手法** |
+| vs `origin/main` | **ahead 1** (RF-LIO 101手法目、push 未実行) |
+| 実装済み from-paper 論文数 | **60 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO + RF-LIO + TC-LVGF + OPL-LVIO + V-LOAM2015 + TC-VLO + AD-VLO + TC-MVLO; 2D papers 43–50 は停止中) |
+| `docs/methods.json` | **101 手法** |
 | 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
-| 直近完了 (3D) | **V-LOAM2015 / TC-VLO / AD-VLO / TC-MVLO (97-100手法目)** — LiDAR-visual adapter family、KITTI seq00/07 full 完走 |
-| その前 (3D) | **OPL-LVIO (96手法目)** — optimized point-line LVIO、KITTI seq00/07 full 完走 |
+| 直近完了 (3D) | **RF-LIO (101手法目)** — removal-first dynamic LIO、KITTI seq00/07 full 完走 |
+| その前 (3D) | **V-LOAM2015 / TC-VLO / AD-VLO / TC-MVLO (97-100手法目)** — LiDAR-visual adapter family、KITTI seq00/07 full 完走 |
 | 2D 直近 (停止中) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
 | PG-LIO (42本目) | NCLT honest negative → **保留** (§00.52) |
 
@@ -775,6 +775,36 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **docs**: README from-paper 表へ 4 行追加、`docs/methods.json` 100 手法、
   各 module README と再現 artifact を追加。
   **状態**: 実装 + harness + methods.json (100 手法) + seq00/07 full artifact + docs 更新済。
+
+### 00.52h RF-LIO (101手法目 / 3D dynamic LiDAR-inertial from-paper, 2026-06-12) — **実装 + seq00/07 full 完了**
+
+- **論文**: Chenglong Qian et al., "RF-LIO: Removal-First Tightly-coupled Lidar
+  Inertial Odometry in High Dynamic Environments", IROS 2021 / arXiv:2206.09463。
+  LIO-SAM 系の tightly coupled LIO に adaptive multi-resolution range image の
+  removal-first dynamic object filtering を入れ、scan-match 前に moving foreground を落とす。
+- ✅ **実装**: `papers/rf_lio/` — (1) 前フレーム static scan を予測 current sensor frame へ投影、
+  (2) fine/mid/coarse の multi-resolution range image、(3) 2 解像度以上で predicted surface より
+  近い点を foreground candidate として registration 前に除去、(4) removal cap / min keep guard、
+  (5) `id_lio` backend の indexed dynamic map / delayed removal / IMU gyro prior を再利用。
+- **主な逸脱**: full LIO-SAM factor graph / submap optimization / tightly coupled IMU backend は範囲外。
+  KITTI Odometry PCD は `imu.csv` が無いので constant-velocity fallback。adaptive range image は
+  compact previous-scan foreground test として実装。
+- ✅ **テスト**: `test_rf_lio` 4 cases PASS (first map / foreground removal-first /
+  short translation tracking / IMU prior pass-through)。
+- ✅ **KITTI seq07 short smoke (108f, dense)**:
+  ATE **0.399 m** / RPE **0.592%** / **21.1 FPS**。短窓では removal-first が良好。
+- ✅ **KITTI seq00 full (4541f, `--no-gt-seed --rf-lio-dense-profile`)**:
+  ATE **22.52 m** / RPE **1.351%** / 0.019 deg/m / **6.56 FPS**。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_rf_lio.json`
+- ✅ **KITTI seq07 full (1101f, `--no-gt-seed --rf-lio-dense-profile`)**:
+  ATE **4.81 m** / RPE **1.272%** / 0.018 deg/m / **11.06 FPS**。
+  Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_rf_lio.json`
+- 所見: removal-first は active (seq00 **273** 点/frame、seq07 **246** 点/frame 除去) だが、
+  mostly static な KITTI では useful foreground も削り、ID-LIO (1.111/0.999%) より悪化。
+  paper の狙いは high dynamic scene なので、KITTI では stable-but-below-baseline の honest negative。
+- ✅ **docs**: README from-paper 表へ RF-LIO 行追加、`docs/methods.json` 101 手法、
+  `papers/rf_lio/README.md` と seq00/07 artifact を追加。
+  **状態**: 実装 + harness + methods.json (101 手法) + seq00/07 full artifact + docs 更新済。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 
@@ -2228,12 +2258,12 @@ To refresh all of them: `python3 evaluation/scripts/refresh_study_docs.py`.
 
 ## 12. What Cursor / Codex Should Do Next
 
-This is the operational handoff. **Default path: 3D LiDAR from-paper campaign (§00.2 / §00.52g).**
+This is the operational handoff. **Default path: 3D LiDAR from-paper campaign (§00.2 / §00.52h).**
 Pick a single path and finish it before switching.
 
 ### Priority A (active): 3D LiDAR / visual / IMU from-paper campaign
 
-1. **Next action**: commit/push the 100-method milestone if still local; otherwise survey and
+1. **Next action**: commit/push the RF-LIO 101-method milestone if still local; otherwise survey and
    implement the next author-code-free LiDAR-visual or LiDAR-inertial paper that can be scoped
    into the existing KITTI PCD harness.
 2. **Keep the unit of work stable**: module under `papers/<method>/`, CMake integration,

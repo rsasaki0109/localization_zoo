@@ -1,4 +1,4 @@
-# Reproducibility Report — 41 LiDAR odometry papers with no public code
+# Reproducibility Report — 42 LiDAR odometry papers with no public code
 
 **What happens when you reimplement more than forty LiDAR odometry / LIO papers that
 ship no reference implementation, and run them all under one protocol?**
@@ -41,7 +41,7 @@ and each module's README records its per-method deviations.
 | **Competitive, mechanism auxiliary** | LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
 | **Near-redundant on KITTI** (mechanism correct, no effect) | MCC-LO, GMM-LO, Student-T-LO, GNC-LO, PCR-DAT |
 | **Trade-off exposed** | LiDAR-IBA (ATE↓ / RPE↑), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
-| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO |
+| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO |
 | **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, D²-LIO, DegenSense, DiLO, PL-LOAM, VLOM, InTEn-LOAM, UA-LIO |
 
 The full per-method numbers are in the README's from-paper table;
@@ -100,6 +100,12 @@ drift on KITTI seq 00/07. The caveat is equally clear: range-image visual
 proxies and line residuals remain auxiliary to the scan-to-map point-to-plane
 core, so they still trail the strongest open LiDAR-only baseline on this
 benchmark.
+
+RF-LIO adds the same lesson for dynamic removal: adaptive multi-resolution
+range-image foreground removal works mechanically and removes about **246-273
+points/frame**, but on mostly static KITTI it degrades drift to **1.35 % / 1.27
+%** versus the delayed-removal ID-LIO baseline. The mechanism is designed for
+high-dynamic scenes, not for this static urban benchmark.
 
 ## Finding 3 — A third of the methods degrade or diverge, reproducibly
 

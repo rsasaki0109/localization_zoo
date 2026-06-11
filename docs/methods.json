@@ -1315,6 +1315,24 @@
       ]
     },
     {
+      "name": "RF-LIO",
+      "family": "Removal-first dynamic LiDAR-inertial odometry",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR",
+        "IMU"
+      ],
+      "href": "papers/rf_lio",
+      "summary": "Removal-first LiDAR-inertial odometry: adaptive multi-resolution range images reject likely foreground dynamic points before scan-to-map optimization, then an indexed dynamic map backend handles delayed removal and IMU gyro-prior support; KITTI Odometry runs use constant-velocity fallback because imu.csv is absent (Qian et al., IROS 2021 / arXiv:2206.09463).",
+      "tags": [
+        "odometry",
+        "dynamic",
+        "removal-first",
+        "range-image",
+        "lidar-inertial"
+      ]
+    },
+    {
       "name": "TC-LVGF",
       "family": "LiDAR-visual geometric fusion",
       "scope": "Paper reimplementation",

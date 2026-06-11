@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>100 methods</b> · <b>71 paper reimplementations</b> · <b>41 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>101 methods</b> · <b>72 paper reimplementations</b> · <b>42 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -73,7 +73,7 @@ broken port._
 ### From-paper reimplementations (no public reference code) — KITTI full
 
 > **📋 [Reproducibility Report](docs/reproducibility_report.md)** — what
-> happens when you reimplement 41 papers that ship no code: which claims
+> happens when you reimplement 42 papers that ship no code: which claims
 > reproduce, which mechanisms go silent on KITTI, which diverge, and the
 > recurring implementation lessons.
 
@@ -120,6 +120,7 @@ RPE is drift %/100 m; ATE in parens.
 | ID-LIO | 1.111% <sub>(15 m)</sub> | 0.999% <sub>(5 m)</sub> | Sensors 2023 |
 | ELO | 1.124% <sub>(23 m)</sub> | 0.981% <sub>(4 m)</sub> | IEEE RA-L 2021 |
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
+| RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |
 | DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
@@ -146,7 +147,9 @@ point-to-plane core. The newer LiDAR-visual adapter family
 is stable at ~0.90–1.07% drift and far better than pseudo-image visual front
 ends; AD-VLO/TC-MVLO improve ATE within the group, while OPL-LVIO keeps the best
 seq07 RPE. Still, pseudo-visual residuals remain secondary to the
-point-to-plane core. Honest negatives:
+point-to-plane core. **RF-LIO** confirms the same KITTI pattern for dynamic
+removal: its removal-first range-image filter is active, but on mostly static
+KITTI it removes useful foreground structure and trails ID-LIO. Honest negatives:
 DiLO (direct, 18–19% drift), Spectral-LO
 (ICP-free BEV phase-correlation, fastest at ~14 FPS but coarse ~12–14%),
 **PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),

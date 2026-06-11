@@ -141,7 +141,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 },
             },
         },
-        "remaining_work": "Add a curved-object or non-urban dataset check before promoting to T0.",
+        "remaining_work": "Synthetic curved-object stress is committed; add public curved-object or non-urban dataset validation before promoting to T0.",
     },
 ]
 
@@ -338,12 +338,17 @@ def build_bundle() -> dict[str, Any]:
                     "name": "M-GCLO synthetic non-flat ground stress",
                     "artifact": "docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json",
                     "claim_limit": "Mechanism stress only; public non-flat dataset validation is still required before promoting M-GCLO to T0.",
+                },
+                {
+                    "name": "Quadric-LO synthetic curved-object stress",
+                    "artifact": "docs/benchmarks/quadric_curved_stress/quadric_curved_stress_summary.json",
+                    "claim_limit": "Mechanism stress only; public curved-object or non-urban dataset validation is still required before promoting Quadric-LO to T0.",
                 }
             ],
             "remaining_before_full_manuscript_table": [
                 "RF-LIO/ID-LIO public high-dynamic dataset validation",
                 "M-GCLO public non-flat dataset validation",
-                "Quadric-LO curved-object or non-urban dataset check",
+                "Quadric-LO public curved-object or non-urban dataset validation",
             ],
         },
         "paper_table_rows": table_rows,

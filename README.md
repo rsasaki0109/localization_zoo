@@ -179,6 +179,12 @@ annealing). Its sigma-schedule ablation is committed as
 on KITTI (~0.5-0.6% of correspondences), and disabling it keeps RPE within
 ~1.5% while improving throughput by 1.6-1.8x
 ([`quadric_lo_plane_fallback_ablation.json`](docs/benchmarks/kitti_full_new_methods/quadric_lo_plane_fallback_ablation.json)).
+A synthetic orchard-like curved-object stress confirms the same boundary:
+fallback-on uses ~1242 quadric vs ~12 plane correspondences/frame, and fallback
+off keeps drift effectively unchanged (0.612% → 0.609%)
+([`quadric_curved_stress_summary.json`](docs/benchmarks/quadric_curved_stress/quadric_curved_stress_summary.json)).
+This is supporting mechanism evidence; public curved-object or non-urban
+validation is still needed for a T0 manuscript claim.
 
 Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
 mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP

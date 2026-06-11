@@ -83,9 +83,14 @@ or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
 - **Quadric-LO** (arXiv 2023): point-to-quadric residuals beat KISS-ICP on both
   sequences. The committed plane-fallback ablation shows fallback is rare on
   KITTI (about 0.5-0.6 % of used correspondences); disabling it keeps RPE within
-  ~1.5 % while improving throughput by 1.6-1.8x. The evidence is therefore
-  dominated by the quadric path, but still needs a curved-object or non-urban
-  dataset check before a T0 claim.
+  ~1.5 % while improving throughput by 1.6-1.8x. The orchard-like synthetic
+  curved-object stress makes the same mechanism boundary explicit: fallback-on
+  uses about **1242 quadric** vs **12 plane** correspondences/frame, and
+  disabling fallback keeps drift effectively unchanged (**0.612 % → 0.609 %**).
+  Artifact:
+  [`quadric_curved_stress_summary.json`](benchmarks/quadric_curved_stress/quadric_curved_stress_summary.json).
+  This is still supporting synthetic evidence; public curved-object or
+  non-urban validation is needed before a T0 claim.
 
 ## Finding 2 — On geometry-rich, IMU-free KITTI, robust estimation goes silent
 

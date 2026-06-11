@@ -21,6 +21,7 @@ dogfooding_results/
 experiments/results/runs/
 evaluation/fixtures/dynamic_object_stress*/
 evaluation/fixtures/nonflat_ground_stress*/
+evaluation/fixtures/quadric_curved_stress*/
 
 # Downloaded public datasets (e.g. MulRan ParkingLot under data/)
 /data/

@@ -1,0 +1,33 @@
+{
+  "pcd_dir": "evaluation/fixtures/quadric_curved_stress",
+  "gt_csv": "evaluation/fixtures/quadric_curved_stress/gt.csv",
+  "num_frames": 60,
+  "trajectory_length_m": 20.157925,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 0.018757,
+      "rpe_trans_pct": 0.118534,
+      "rpe_rot_deg_per_m": 0.001999,
+      "frames": 60,
+      "time_ms": 454.852333,
+      "fps": 131.910943,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "Quadric-LO",
+      "status": "ok",
+      "ate_m": 0.068929,
+      "rpe_trans_pct": 0.611652,
+      "rpe_rot_deg_per_m": 0.013907,
+      "frames": 60,
+      "time_ms": 21022.023521,
+      "fps": 2.854150,
+      "seed_fallback_rate_pct": null,
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=1242/12 plane_fallback_ratio=0.0094"
+    }
+  ]
+}

@@ -164,6 +164,12 @@ ground-factor ablation keeps translational RPE similar or lower, but disabling
 ground more than doubles ATE on seq00/07 and worsens rotational drift; the
 paired raw artifacts are committed as
 [`m_gclo_ground_factor_ablation.json`](docs/benchmarks/kitti_full_new_methods/m_gclo_ground_factor_ablation.json).
+A synthetic rolling-ground stress exercises the intended non-flat mechanism:
+M-GCLO ground on tracks at 0.116 m ATE / 0.500% drift, while ground off worsens
+to 0.150 m / 0.675%
+([`m_gclo_nonflat_ground_stress_summary.json`](docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json)).
+This is supporting mechanism evidence; public non-flat validation is still
+needed for a T0 manuscript claim.
 **KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.510%)
 and beats KISS-ICP on both sequences — at a heavy throughput cost
 (~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine

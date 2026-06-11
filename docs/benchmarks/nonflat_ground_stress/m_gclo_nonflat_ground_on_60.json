@@ -1,0 +1,33 @@
+{
+  "pcd_dir": "evaluation/fixtures/nonflat_ground_stress",
+  "gt_csv": "evaluation/fixtures/nonflat_ground_stress/gt.csv",
+  "num_frames": 60,
+  "trajectory_length_m": 21.301054,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 22.159251,
+      "rpe_trans_pct": 180.223576,
+      "rpe_rot_deg_per_m": 0.028065,
+      "frames": 60,
+      "time_ms": 525.910287,
+      "fps": 114.087900,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "M-GCLO",
+      "status": "ok",
+      "ate_m": 0.116132,
+      "rpe_trans_pct": 0.499712,
+      "rpe_rot_deg_per_m": 0.002823,
+      "frames": 60,
+      "time_ms": 3585.042644,
+      "fps": 16.736203,
+      "seed_fallback_rate_pct": null,
+      "note": "M-GCLO: multiple-ground point-to-plane constraints (vertical accuracy) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=1278/241"
+    }
+  ]
+}

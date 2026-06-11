@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "benchmark": "synthetic_nonflat_ground_stress",
+  "generated_by": "evaluation/scripts/run_m_gclo_nonflat_stress.py",
+  "fixture_generator": "evaluation/scripts/generate_nonflat_ground_stress_fixture.py",
+  "scope": {
+    "frames": 60,
+    "trajectory_length_m": 21.301054,
+    "fixture": "evaluation/fixtures/nonflat_ground_stress",
+    "claim_limit": "Synthetic non-flat mechanism stress only; public non-flat dataset validation is still required before promoting M-GCLO to T0."
+  },
+  "artifacts": {
+    "ground_on_with_kiss": "docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_on_60.json",
+    "ground_off": "docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_off_60.json"
+  },
+  "protocol": {
+    "ground_on_command": "./build/evaluation/pcd_dogfooding evaluation/fixtures/nonflat_ground_stress evaluation/fixtures/nonflat_ground_stress/gt.csv 60 --methods m_gclo,kiss_icp --no-gt-seed --summary-json docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_on_60.json",
+    "ground_off_command": "./build/evaluation/pcd_dogfooding evaluation/fixtures/nonflat_ground_stress evaluation/fixtures/nonflat_ground_stress/gt.csv 60 --methods m_gclo --no-gt-seed --m-gclo-no-ground --summary-json docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_off_60.json"
+  },
+  "kiss_sanity_reference": {
+    "ate_m": 22.159251,
+    "rpe_trans_pct": 180.223576,
+    "rpe_rot_deg_per_m": 0.028065,
+    "frames": 60,
+    "fps": 114.0879
+  },
+  "m_gclo": {
+    "ground_on": {
+      "metrics": {
+        "ate_m": 0.116132,
+        "rpe_trans_pct": 0.499712,
+        "rpe_rot_deg_per_m": 0.002823,
+        "frames": 60,
+        "fps": 16.736203
+      },
+      "correspondences": {
+        "ground_per_frame": 1278.0,
+        "nonground_per_frame": 241.0
+      },
+      "note": "M-GCLO: multiple-ground point-to-plane constraints (vertical accuracy) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=1278/241"
+    },
+    "ground_off": {
+      "metrics": {
+        "ate_m": 0.149619,
+        "rpe_trans_pct": 0.674768,
+        "rpe_rot_deg_per_m": 0.020621,
+        "frames": 60,
+        "fps": 11.516178
+      },
+      "correspondences": {
+        "ground_per_frame": 1288.0,
+        "nonground_per_frame": 231.0
+      },
+      "note": "M-GCLO: ground factor disabled (non-ground NDT only; classified ground held out) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=1288/231"
+    },
+    "ground_off_minus_on": {
+      "ate_m_abs_delta": 0.033487,
+      "ate_m_relative_pct": 28.835290875899837,
+      "rpe_trans_pct_abs_delta": 0.17505600000000004,
+      "rpe_trans_pct_relative_pct": 35.031378073770504,
+      "rpe_rot_deg_per_m_abs_delta": 0.017798,
+      "rpe_rot_deg_per_m_relative_pct": 630.464045341835
+    }
+  },
+  "conclusion": "On the synthetic rolling-ground stress, M-GCLO tracks the non-flat trajectory while KISS-ICP fails on the simple repeated geometry. Disabling the classified ground factor worsens M-GCLO ATE, translational RPE, and rotational RPE, so the multiple-ground path is active and beneficial under this non-flat mechanism stress."
+}

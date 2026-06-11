@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "evaluation/fixtures/nonflat_ground_stress",
+  "gt_csv": "evaluation/fixtures/nonflat_ground_stress/gt.csv",
+  "num_frames": 60,
+  "trajectory_length_m": 21.301054,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "M-GCLO",
+      "status": "ok",
+      "ate_m": 0.149619,
+      "rpe_trans_pct": 0.674768,
+      "rpe_rot_deg_per_m": 0.020621,
+      "frames": 60,
+      "time_ms": 5210.061690,
+      "fps": 11.516178,
+      "seed_fallback_rate_pct": null,
+      "note": "M-GCLO: ground factor disabled (non-ground NDT only; classified ground held out) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=1288/231"
+    }
+  ]
+}

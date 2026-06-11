@@ -107,7 +107,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 },
             },
         },
-        "remaining_work": "Add one non-flat dataset check before promoting to T0.",
+        "remaining_work": "Synthetic non-flat stress is committed; add public non-flat dataset validation before promoting to T0.",
     },
     {
         "id": "quadric_lo",
@@ -333,11 +333,16 @@ def build_bundle() -> dict[str, Any]:
                     "name": "RF-LIO/ID-LIO synthetic dynamic-object stress",
                     "artifact": "docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json",
                     "claim_limit": "Mechanism stress only; public high-dynamic dataset validation is still required before manuscript-level dynamic-scene claims.",
+                },
+                {
+                    "name": "M-GCLO synthetic non-flat ground stress",
+                    "artifact": "docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json",
+                    "claim_limit": "Mechanism stress only; public non-flat dataset validation is still required before promoting M-GCLO to T0.",
                 }
             ],
             "remaining_before_full_manuscript_table": [
                 "RF-LIO/ID-LIO public high-dynamic dataset validation",
-                "M-GCLO non-flat dataset check",
+                "M-GCLO public non-flat dataset validation",
                 "Quadric-LO curved-object or non-urban dataset check",
             ],
         },

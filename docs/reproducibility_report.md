@@ -74,6 +74,12 @@ or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
   KITTI protocol: disabling ground keeps translational RPE similar or lower
   (0.833 % seq 00, 0.600 % seq 07), but ATE more than doubles on both
   sequences and rotational drift worsens.
+  A dataset-free rolling-ground stress now exercises the intended non-flat
+  regime: M-GCLO tracks the 60-frame trajectory at **0.116 m** ATE and
+  **0.500 %** drift with ground constraints, while disabling ground worsens to
+  **0.150 m** and **0.675 %**. KISS-ICP is intentionally a sanity/failure
+  reference on this repeated synthetic geometry (22.159 m ATE). Artifact:
+  [`m_gclo_nonflat_ground_stress_summary.json`](benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json).
 - **Quadric-LO** (arXiv 2023): point-to-quadric residuals beat KISS-ICP on both
   sequences. The committed plane-fallback ablation shows fallback is rare on
   KITTI (about 0.5-0.6 % of used correspondences); disabling it keeps RPE within

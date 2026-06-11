@@ -54,7 +54,7 @@ positive or negative evidence.
 |---|---|---|---|
 | I-LOAM | T0 evidence candidate | Intensity weighting shows a controlled 18-20% drift reduction on KITTI with committed seq00/07 on/off raw artifacts. | Locked in the frozen evidence bundle; keep paired commands/artifacts stable. |
 | KC-LO | T0 evidence candidate | Correspondence-free kernel correlation beats KISS-ICP on seq00/07, and the committed sigma-schedule ablation records the runtime/accuracy trade-off. | Locked in the frozen evidence bundle; keep annealed/fixed-sigma artifacts stable. |
-| M-GCLO | T1+ evidence candidate | Ground-factor off ablation is committed: disabling ground keeps translational RPE similar or lower, but more than doubles ATE and worsens rotational drift on seq00/07. | Add one non-flat dataset check before promoting to T0. |
+| M-GCLO | T1+ evidence candidate | Ground-factor off ablation is committed on KITTI, and synthetic rolling-ground stress shows ground on improves ATE/RPE versus ground off. | Add public non-flat dataset validation before promoting to T0. |
 | Quadric-LO | T1+ evidence candidate | Plane-fallback ablation is committed: fallback is rare (~0.5-0.6% of correspondences), and disabling it keeps RPE within ~1.5% while improving throughput by 1.6-1.8x. | Add a curved-object or non-urban dataset check before promoting to T0. |
 | LiDAR-visual adapters | T2 | They show pseudo-visual residuals are stable but auxiliary on KITTI PCD. | Do not call these paper-grade until real RGB / camera synchronization is used or the paper claim is reframed as a KITTI-PCD adapter study. |
 | RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active on KITTI and in the committed synthetic dynamic-object stress. RF-LIO reduces the synthetic failure severity versus ID-LIO, but both remain far from the KISS sanity reference. | Add a public high-dynamic dataset before making manuscript-level dynamic-scene claims. |
@@ -73,10 +73,11 @@ It freezes four methods for now: I-LOAM and KC-LO as T0 evidence candidates,
 plus M-GCLO and Quadric-LO as T1+ evidence. The bundle records the seq00/07
 main result rows, paired-ablation summaries, raw artifact paths, and relative
 reproduce commands. It also points to the RF-LIO/ID-LIO synthetic
-dynamic-object stress summary as supporting, non-paper-grade evidence. It is
-intentionally not the final 8-12 method manuscript table yet; RF-LIO/ID-LIO
-public high-dynamic validation, M-GCLO non-flat validation, and a Quadric-LO
-curved-object/non-urban check remain open.
+dynamic-object stress and M-GCLO synthetic non-flat ground stress summaries as
+supporting, non-paper-grade evidence. It is intentionally not the final 8-12
+method manuscript table yet; RF-LIO/ID-LIO public high-dynamic validation,
+M-GCLO public non-flat validation, and a Quadric-LO curved-object/non-urban
+check remain open.
 
 ## Immediate Roadmap
 

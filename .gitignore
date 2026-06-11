@@ -20,6 +20,7 @@ ros2/install/
 dogfooding_results/
 experiments/results/runs/
 evaluation/fixtures/dynamic_object_stress*/
+evaluation/fixtures/nonflat_ground_stress*/
 
 # Downloaded public datasets (e.g. MulRan ParkingLot under data/)
 /data/

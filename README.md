@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>101 methods</b> · <b>72 paper reimplementations</b> · <b>42 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>101 methods</b> · <b>73 paper reimplementations</b> · <b>42 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -38,12 +38,33 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 ## Why Localization Zoo?
 
 Many localization papers do not ship reusable reference implementations.
-This repository collects paper-oriented C++ implementations behind a unified API, with ROS 2 nodes and evaluation tools that are ready to run.
+This repository collects paper-oriented C++ implementations behind a unified
+API, with ROS 2 nodes and evaluation tools that are ready to run. The next
+research track is a stricter paper-ready subset with claim tiers and ablations:
+[paper-ready reproducibility plan](docs/paper_ready_reproducibility.md).
 
 - **Pure C++**: ROS-independent core libraries for research, education, and embedded use
 - **ROS 2 Humble**: Ready-to-run nodes via `ros2 run`
 - **Built-in benchmarking**: Compare methods immediately after build
 - **Degeneracy-aware methods**: Includes RELEAD and X-ICP for constrained environments
+- **Claim tiers**: Separate faithful reproduction, mechanism evidence, adapters, and compact baselines
+
+## Paper-Ready Claim Boundary
+
+Localization Zoo is intentionally broad, but manuscript-level claims should use
+a narrower evidence set:
+
+- **Breadth catalog**: all 101 methods share the same API, tests, and benchmark
+  harness; this includes paper reimplementations, derived variants, hybrids, and
+  compact baselines.
+- **Paper-ready subset**: only methods that satisfy the tier checklist and
+  paired-ablation requirements in
+  [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md)
+  should be treated as reproduction evidence.
+- **Strongest current candidates**: I-LOAM, KC-LO, M-GCLO, and Quadric-LO.
+  LiDAR-visual adapters and dynamic-filtering LIO ports remain
+  adapter/mechanism evidence until real RGB, synchronized camera, IMU, or
+  dynamic-scene gaps are closed.
 
 <!-- LEADERBOARD:START -->
 ## Leaderboard — odometry, RPE [drift %/100 m], lower is better
@@ -205,7 +226,12 @@ This repository mixes three levels of implementation scope:
 
 Methods already labeled `Derived` or `Hybrid` are intentionally adapted versions.
 Some paper-named entries still use compact or simplified internals today, especially `NDT`, `KISS-ICP`, and `DLIO`. Check each method README for current scope and deviations.
-The tracked claim boundary for original-paper reproduction is summarized separately in [`docs/reproduction_status.md`](docs/reproduction_status.md); benchmark usefulness and paper-result reproducibility are not treated as the same thing in this repository.
+The tracked claim boundary for original-paper reproduction is summarized in
+[`docs/reproduction_status.md`](docs/reproduction_status.md), and the stricter
+paper-ready promotion criteria live in
+[`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md).
+Benchmark usefulness and paper-result reproducibility are not treated as the
+same thing in this repository.
 
 ---
 

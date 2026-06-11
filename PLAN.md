@@ -1,35 +1,38 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-12 (RF-LIO 101手法目実装 §00.52h — removal-first dynamic LIO、2D は一旦停止)**
+> **最終更新: 2026-06-12 (paper-ready reproducibility cleanup §00.52i — claim tiers / README boundary、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
 > 最初に本ファイルを読み、その次に:
 > 1. [`README.md`](README.md)
-> 2. [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) — **2D scan odometry リーダーボード (停止中/背景)**
-> 3. [`docs/index.html`](docs/index.html)
-> 4. [`docs/methods.json`](docs/methods.json)
-> 5. [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md)
-> 6. [`evaluation/src/scan_dogfooding.cpp`](evaluation/src/scan_dogfooding.cpp)
-> 7. [`evaluation/scripts/demo_localization_zoo.sh`](evaluation/scripts/demo_localization_zoo.sh)
-> 8. [`evaluation/scripts/generate_demo_report.py`](evaluation/scripts/generate_demo_report.py)
-> 9. [`evaluation/scripts/validate_demo_artifacts.py`](evaluation/scripts/validate_demo_artifacts.py)
-> 10. [`evaluation/scripts/validate_showcase.py`](evaluation/scripts/validate_showcase.py)
-> 11. [`experiments/results/index.json`](experiments/results/index.json)
-> 12. [`docs/status_taxonomy.md`](docs/status_taxonomy.md)
-> 13. [`docs/budget_profiles.md`](docs/budget_profiles.md)
-> 14. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
-> 15. [`evaluation/src/multimodal_dogfooding.cpp`](evaluation/src/multimodal_dogfooding.cpp)
+> 2. [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md)
+> 3. [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) — **2D scan odometry リーダーボード (停止中/背景)**
+> 4. [`docs/index.html`](docs/index.html)
+> 5. [`docs/methods.json`](docs/methods.json)
+> 6. [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md)
+> 7. [`evaluation/src/scan_dogfooding.cpp`](evaluation/src/scan_dogfooding.cpp)
+> 8. [`evaluation/scripts/demo_localization_zoo.sh`](evaluation/scripts/demo_localization_zoo.sh)
+> 9. [`evaluation/scripts/generate_demo_report.py`](evaluation/scripts/generate_demo_report.py)
+> 10. [`evaluation/scripts/validate_demo_artifacts.py`](evaluation/scripts/validate_demo_artifacts.py)
+> 11. [`evaluation/scripts/validate_showcase.py`](evaluation/scripts/validate_showcase.py)
+> 12. [`experiments/results/index.json`](experiments/results/index.json)
+> 13. [`docs/status_taxonomy.md`](docs/status_taxonomy.md)
+> 14. [`docs/budget_profiles.md`](docs/budget_profiles.md)
+> 15. [`evaluation/src/pcd_dogfooding.cpp`](evaluation/src/pcd_dogfooding.cpp)
+> 16. [`evaluation/src/multimodal_dogfooding.cpp`](evaluation/src/multimodal_dogfooding.cpp)
 
 ---
 
-## 00. Latest Handoff: From-Paper Reimplementation Campaign (2026-06-12 更新)
+## 00. Latest Handoff: Paper-Ready Reproducibility Cleanup (2026-06-12 更新)
 
 > **これが最新・最優先の handoff。**
 >
-> **2026-06-12 現時点のアクティブ方向は 3D LiDAR from-paper KITTI キャンペーン。**
+> **2026-06-12 現時点のアクティブ方向は paper-ready reproducibility hardening。**
 > ユーザ指示「2d ha ittan iran!」により、2D LiDAR scan odometry は一旦停止。
-> 3D Velodyne 系の著者コード無し論文を、KITTI seq00/seq07 full で正直評価する流れを優先。
+> 新規手法追加より、既存の 101 手法を claim tier で分け、論文で主張できる T0/T1 subset と
+> adapter / compact baseline を明確に分離する。README は breadth を見せるが、manuscript-level
+> claim は [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md) に従う。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。
@@ -105,12 +108,13 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 | Item | Value |
 |------|-------|
 | Branch | `main` |
-| vs `origin/main` | **ahead 1** (RF-LIO 101手法目、push 未実行) |
+| vs `origin/main` | **ahead 1** after paper-ready cleanup commit if not pushed |
 | 実装済み from-paper 論文数 | **60 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO + RF-LIO + TC-LVGF + OPL-LVIO + V-LOAM2015 + TC-VLO + AD-VLO + TC-MVLO; 2D papers 43–50 は停止中) |
 | `docs/methods.json` | **101 手法** |
 | 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
+| 直近完了 | **paper-ready reproducibility cleanup** — claim tiers + README boundary |
 | 直近完了 (3D) | **RF-LIO (101手法目)** — removal-first dynamic LIO、KITTI seq00/07 full 完走 |
 | その前 (3D) | **V-LOAM2015 / TC-VLO / AD-VLO / TC-MVLO (97-100手法目)** — LiDAR-visual adapter family、KITTI seq00/07 full 完走 |
 | 2D 直近 (停止中) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
@@ -805,6 +809,29 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **docs**: README from-paper 表へ RF-LIO 行追加、`docs/methods.json` 101 手法、
   `papers/rf_lio/README.md` と seq00/07 artifact を追加。
   **状態**: 実装 + harness + methods.json (101 手法) + seq00/07 full artifact + docs 更新済。
+
+### 00.52i Paper-ready reproducibility cleanup (2026-06-12) — **claim tiers + README boundary**
+
+ユーザー指示: **「ronbun wo daseru kurai ni saigen zissou wo tyanto sasete, readme mo seibi sitai」**。
+新規手法追加を一段止め、論文に出せる再現実装 subset と広い catalog を切り分ける。
+
+- ✅ **新規 docs**: [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md)
+  を追加。T0 paper-grade / T1 mechanism-grade / T2 adapter-grade / T3 smoke-concept の
+  claim tier、paper-grade checklist、README claim policy を定義。
+- ✅ **README claim boundary**: 101 手法の breadth catalog と、manuscript-level claim に使う
+  paper-ready subset を分離。`73 paper reimplementations` / `42 papers with no public author code`
+  の表示を現在の `docs/methods.json` と同期。
+- ✅ **reproducibility report**: [`docs/reproducibility_report.md`](docs/reproducibility_report.md)
+  から paper-ready plan へ導線を追加。
+- **T0/T1 近傍候補**:
+  - I-LOAM: intensity on/off の full artifact と paired commands を増やす。
+  - KC-LO: sigma schedule ablation と runtime/accuracy trade-off を追加。
+  - M-GCLO: ground-factor off ablation と non-flat dataset check を追加。
+  - Quadric-LO: plane-fallback ablation と fallback ratio を追加。
+  - RF-LIO/ID-LIO: KITTI だけで paper claim しない。dynamic dataset または synthetic dynamic-object
+    benchmark を追加してから昇格判断。
+- **次の既定動作**: 新規 102 手法目ではなく、8-12 method の frozen paper table と paired ablation を
+  作る。README は breadth、論文本文は T0/T1 subset、T2/T3 は appendix catalog。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 
@@ -2119,7 +2146,8 @@ These align with `smoke_200f_120s` and `practical_full_300s` profiles in [`docs/
 
 ### 7.1 The honest claim today
 
-Per [`docs/reproduction_status.md`](docs/reproduction_status.md):
+Per [`docs/reproduction_status.md`](docs/reproduction_status.md) and the stricter
+promotion bar in [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md):
 
 | Method | Claim level | Why |
 |--------|------------|-----|
@@ -2130,7 +2158,9 @@ Per [`docs/reproduction_status.md`](docs/reproduction_status.md):
 | `ndt` | `ported` | Pre-KITTI; modern NDT codebases differ materially. |
 | `ct_lio` | `ported` | Intentionally custom integration; no single paper-faithful target. |
 
-The repo is **not** yet entitled to say "paper results reproduced" generally. The claim-level scheme makes that boundary explicit.
+The repo is **not** entitled to say "paper results reproduced" generally. The
+claim-level scheme makes that boundary explicit, while the paper-ready plan
+defines which methods can be promoted into a manuscript table.
 
 ### 7.2 What is already better
 
@@ -2258,24 +2288,33 @@ To refresh all of them: `python3 evaluation/scripts/refresh_study_docs.py`.
 
 ## 12. What Cursor / Codex Should Do Next
 
-This is the operational handoff. **Default path: 3D LiDAR from-paper campaign (§00.2 / §00.52h).**
+This is the operational handoff. **Default path: paper-ready reproducibility hardening (§00.52i), not new-method churn.**
 Pick a single path and finish it before switching.
 
-### Priority A (active): 3D LiDAR / visual / IMU from-paper campaign
+### Priority A (active): paper-ready reproducibility hardening
 
-1. **Next action**: commit/push the RF-LIO 101-method milestone if still local; otherwise survey and
-   implement the next author-code-free LiDAR-visual or LiDAR-inertial paper that can be scoped
-   into the existing KITTI PCD harness.
-2. **Keep the unit of work stable**: module under `papers/<method>/`, CMake integration,
-   `pcd_dogfooding` selector, focused unit tests, KITTI seq00/07 full artifacts,
-   README leaderboard row, `docs/methods.json`, method README, and this PLAN.
-3. **Respect current user direction**: 2D scan odometry is paused unless explicitly resumed.
-4. **Verify docs after README/index edits**:
+1. **Next action**: add paired ablations for the frozen core subset:
+   I-LOAM intensity on/off full artifacts, KC-LO sigma schedule, M-GCLO ground-factor off,
+   Quadric-LO plane-fallback, and RF-LIO/ID-LIO dynamic-object stress.
+2. **Create a paper bundle**: a single manifest under `docs/benchmarks/` or `experiments/results/`
+   that regenerates the frozen 8-12 method table from raw JSON.
+3. **Keep claims tiered**: README may advertise breadth; paper/manuscript language should use only
+   T0/T1 methods from [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md).
+4. **Respect current user direction**: 2D scan odometry is paused unless explicitly resumed.
+5. **Verify docs after README/index edits**:
    ```bash
    python3 evaluation/scripts/validate_showcase.py --root .
    ```
 
-### Priority B (paused): 2D scan odometry campaign
+### Priority B: 3D LiDAR / visual / IMU from-paper campaign
+
+1. Resume new author-code-free 3D method implementation only after the paper-ready subset has a
+   credible ablation table, or when the user explicitly asks for another "tugi".
+2. Keep the unit of work stable: module under `papers/<method>/`, CMake integration,
+   `pcd_dogfooding` selector, focused unit tests, KITTI seq00/07 full artifacts,
+   README leaderboard row, `docs/methods.json`, method README, and this PLAN.
+
+### Priority C (paused): 2D scan odometry campaign
 
 1. **Commit + push** pending work if user asks:
    - IDC (`361a592`), CSM-DT (`3fc5be0`), markdown hub (§00.59 files).
@@ -2290,12 +2329,12 @@ Pick a single path and finish it before switching.
 5. **Docs**: keep [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) as canonical;
    README top-level table stays a 1-screen summary linking to the hub.
 
-### Priority C: OSS showcase / regression (parallel, low effort)
+### Priority D: OSS showcase / regression (parallel, low effort)
 
 1. After README/index.html edits: `python3 evaluation/scripts/validate_showcase.py --root .`
 2. Demo path: `bash evaluation/scripts/demo_localization_zoo.sh`
 
-### Priority D (blocked): KITTI Odometry full reruns
+### Priority E (blocked): KITTI Odometry full reruns
 
 Blocked only by data.
 
@@ -2310,7 +2349,7 @@ Blocked only by data.
    ```
 3. Run 108-frame manifests first, then full-sequence manifests.
 
-### Priority E (on hold): 3D PG-LIO improvement
+### Priority F (on hold): 3D PG-LIO improvement
 
 NCLT 600 honest negative (33% drift). Do not prioritize over 2D unless user redirects.
 
@@ -2318,7 +2357,7 @@ NCLT 600 honest negative (33% drift). Do not prioritize over 2D unless user redi
 
 - Treat paper 50 MbICP as unstarted
 - Resume 2D campaign without user direction
-- Paper drafting / prose generation
+- Paper drafting / prose generation before the ablation table exists
 - PR / branch cleanup unrelated to current task
 - Broad refactor that touches the stable contract
 - Force push / git config changes

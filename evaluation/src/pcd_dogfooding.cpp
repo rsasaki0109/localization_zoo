@@ -2082,6 +2082,11 @@ struct CTICPDogfoodingOptions {
   double cauchy_loss_param = -1.0;
   // <=0 で N_corr 全数 (現状)。正値で sqrt(min(N_corr, cap) * β)。
   int regularizer_n_cap = 0;
+  bool auto_regularizer_cap = false;
+  int auto_regularizer_low_cap = 30;
+  int auto_regularizer_warmup_frames = 20;
+  double auto_regularizer_max_step = 0.8;
+  double auto_regularizer_min_rot_per_meter = 0.05;
 
   // Pick 2 / Gap A: closest-neighbor reference + larger PCA neighborhood.
   bool use_closest_neighbor_reference = false;
@@ -7522,6 +7527,7 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   Eigen::Matrix4d T_prev_prev_world = world_anchor;
 
   size_t gated_rollbacks = 0;
+  size_t auto_regularizer_cap_frames = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto scan = limitLoadedScan(loadTimedPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -7581,6 +7587,26 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
       init.begin_pose = init.end_pose = prev.end_pose;
       T_seed_world = T_prev_world;
     }
+
+    int active_regularizer_cap = options.regularizer_n_cap;
+    if (options.auto_regularizer_cap &&
+        i >= static_cast<size_t>(options.auto_regularizer_warmup_frames)) {
+      const double prev_step_m =
+          poseTranslationDelta(T_prev_world, T_prev_prev_world);
+      const double prev_rot_rad =
+          poseRotationDelta(T_prev_world, T_prev_prev_world);
+      const double rot_per_meter =
+          prev_rot_rad / std::max(prev_step_m, 1e-6);
+      const bool turn_like =
+          prev_step_m <= options.auto_regularizer_max_step &&
+          rot_per_meter >= options.auto_regularizer_min_rot_per_meter;
+      if (turn_like) {
+        active_regularizer_cap = options.auto_regularizer_low_cap;
+        ++auto_regularizer_cap_frames;
+      }
+    }
+    reg.setRegularizerNCap(active_regularizer_cap);
+
     auto result = reg.registerFrame(timed, init, &prev);
 
     Eigen::Matrix4d T_refined = frame_to_matrix(result.frame);
@@ -7641,6 +7667,16 @@ MethodResult runCTICP(const std::vector<std::string>& pcd_dirs,
   } else {
     res.note = "Anchor matches first GT pose; subsequent frames rely on CT-ICP's "
                "own continuous-time motion prior (no GT seed).";
+  }
+  if (options.auto_regularizer_cap) {
+    std::ostringstream oss;
+    oss << res.note << " Auto regularizer cap enabled: low_cap="
+        << options.auto_regularizer_low_cap
+        << ", warmup_frames=" << options.auto_regularizer_warmup_frames
+        << ", step<=" << options.auto_regularizer_max_step
+        << "m, rot/m>=" << options.auto_regularizer_min_rot_per_meter
+        << ", capped_frames=" << auto_regularizer_cap_frames << ".";
+    res.note = oss.str();
   }
   return res;
 }
@@ -8865,6 +8901,7 @@ int main(int argc, char** argv) {
               << " [--ct-icp-dense-profile]"
               << " [--ct-icp-voxel-resolution X]"
               << " [--ct-icp-max-iterations N]"
+              << " [--ct-icp-auto-regularizer-cap]"
               << " [--ct-icp-ndt-keyframe-interval N]"
               << " [--ct-icp-ndt-max-correction-translation M]"
               << " [--ct-icp-ndt-max-correction-rotation-rad R]"
@@ -12152,6 +12189,32 @@ int main(int argc, char** argv) {
       ct_icp_options.regularizer_n_cap = std::stoi(argv[++i]);
       continue;
     }
+    if (arg == "--ct-icp-auto-regularizer-cap") {
+      ct_icp_options.auto_regularizer_cap = true;
+      continue;
+    }
+    if (arg == "--ct-icp-auto-regularizer-low-cap") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.auto_regularizer_low_cap =
+          std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-icp-auto-regularizer-warmup-frames") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.auto_regularizer_warmup_frames =
+          std::max(2, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--ct-icp-auto-regularizer-max-step") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.auto_regularizer_max_step = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--ct-icp-auto-regularizer-min-rot-per-meter") {
+      if (i + 1 >= argc) { std::cerr << arg << " requires value\n"; return 1; }
+      ct_icp_options.auto_regularizer_min_rot_per_meter = std::stod(argv[++i]);
+      continue;
+    }
     // Pick 2 (Gap A+C): paper-aligned mapping & correspondence anchor.
     if (arg == "--ct-icp-paper-mapping") {
       // Bundle: closest-neighbor reference + PCA over 20 + min_distance 0.1.
@@ -13613,6 +13676,10 @@ int main(int argc, char** argv) {
               << (ct_icp_options.multi_scale_correspondences ? "on" : "off")
               << " normal_cholesky="
               << (ct_icp_options.use_normal_cholesky_solver ? "on" : "off")
+              << " regularizer_n_cap="
+              << ct_icp_options.regularizer_n_cap
+              << " auto_regularizer_cap="
+              << (ct_icp_options.auto_regularizer_cap ? "on" : "off")
               << std::endl;
     results.push_back(runCTICP(pcd_dirs, gt, ct_icp_options, ct_icp_gt_seed));
   }

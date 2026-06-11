@@ -121,6 +121,8 @@ public:
   const VoxelHashMap& map() const { return voxel_map_; }
   size_t mapSize() const { return voxel_map_.size(); }
 
+  void setRegularizerNCap(int cap) { params_.regularizer_n_cap = cap; }
+
 private:
   /// ボクセルキーポイントにダウンサンプリング
   std::vector<TimedPoint> subsampleKeypoints(

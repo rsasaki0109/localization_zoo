@@ -455,12 +455,17 @@ Setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETU
 ### Docker (no local dependencies)
 
 ```bash
-# Runs the full demo and writes report.html + JSON summaries to ./zoo-demo/
+# Runs the quick demo and writes report.html + JSON summaries to ./zoo-demo/
 docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest
 
-# Pass demo options after the image name, e.g. a quicker method profile
+# Pass demo options after the image name, e.g. broader method coverage
 docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest \
-  bash evaluation/scripts/docker_demo_entrypoint.sh --profile quick
+  bash evaluation/scripts/docker_demo_entrypoint.sh --profile broad
+
+# Build and smoke-test the image locally
+docker build -t localization_zoo:local .
+docker run --rm -v "$PWD/zoo-demo:/out" localization_zoo:local \
+  bash evaluation/scripts/docker_demo_entrypoint.sh --profile quick --frames 2 --no-multimodal
 ```
 
 ### Native build

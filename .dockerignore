@@ -4,6 +4,11 @@ data/
 Testing/
 experiments/results/
 .git/
+/A-LOAM/
+/ct_icp/
+/ros2/build/
+/ros2/install/
+/ros2/log/
 *.bag
 *.db3
 __pycache__/

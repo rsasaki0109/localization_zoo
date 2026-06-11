@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "method": "KC-LO",
+  "paper": "Tsin and Kanade, A Correlation-Based Approach to Robust Point Set Registration, ECCV 2004",
+  "claim": "Kernel correlation can register point sets without hard correspondences; coarse-to-fine sigma annealing broadens convergence.",
+  "protocol": {
+    "dataset": "KITTI Odometry full sequences",
+    "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+    "profile": "--kc-lo-dense-profile",
+    "variants": {
+      "annealed": "sigma_init=1.5, sigma_min=0.4, sigma anneal factor 0.7",
+      "fixed_sigma": "--kc-lo-no-anneal after --kc-lo-dense-profile; sigma_init=sigma_min=0.4"
+    }
+  },
+  "pairs": [
+    {
+      "sequence": "00",
+      "frames": 4541,
+      "annealed": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_kc_lo.json",
+        "rpe_trans_pct": 0.841902,
+        "ate_m": 14.215286,
+        "fps": 1.392318
+      },
+      "fixed_sigma": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json",
+        "rpe_trans_pct": 0.83745,
+        "ate_m": 13.404514,
+        "fps": 2.645573
+      },
+      "delta_fixed_vs_annealed": {
+        "rpe_trans_pct_abs": -0.004452,
+        "rpe_trans_pct_rel": -0.528803,
+        "ate_m_rel": -5.703522,
+        "fps_rel": 90.012124
+      }
+    },
+    {
+      "sequence": "07",
+      "frames": 1101,
+      "annealed": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_kc_lo.json",
+        "rpe_trans_pct": 0.514327,
+        "ate_m": 0.830931,
+        "fps": 1.391265
+      },
+      "fixed_sigma": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json",
+        "rpe_trans_pct": 0.509921,
+        "ate_m": 0.858036,
+        "fps": 3.116626
+      },
+      "delta_fixed_vs_annealed": {
+        "rpe_trans_pct_abs": -0.004406,
+        "rpe_trans_pct_rel": -0.856653,
+        "ate_m_rel": 3.262004,
+        "fps_rel": 124.013829
+      }
+    }
+  ],
+  "conclusion": "Under KITTI full-sequence odometry with constant-velocity prediction, fixed fine sigma keeps KC-LO accuracy within 1% RPE of the annealed profile while improving throughput by about 1.9x on seq00 and 2.2x on seq07. The kernel-correlation mechanism is the main positive signal; sigma annealing appears to be a convergence-safety knob rather than necessary for this well-initialized protocol."
+}

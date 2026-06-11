@@ -52,24 +52,50 @@ KITTI full (no GT seed, `--kc-lo-dense-profile`):
 
 | seq | RPE drift | ATE | FPS | 参照 KISS-ICP (同データ) |
 |---|---:|---:|---:|---|
-| 00 (4541 fr) | **0.842%** | 14.22 m | 1.4 | 0.872% / 12.0 m |
-| 07 (1101 fr) | **0.514%** | 0.83 m | 1.4 | 0.618% / 1.8 m |
+| 00 (4541 fr) | **0.837%** | 13.40 m | 2.6 | 0.872% / 12.0 m |
+| 07 (1101 fr) | **0.510%** | 0.86 m | 3.1 | 0.618% / 1.8 m |
 
 **所見 (positive)**: KC-LO は **両 seq で KISS-ICP の drift (RPE) を下回り**、
-**seq07 RPE 0.514% は leaderboard 全体の新トップ** (これまでの Adaptive-ICP 0.569% を
+**seq07 RPE 0.510% は leaderboard 全体の新トップ** (これまでの Adaptive-ICP 0.569% を
 上回る)。seq07 ATE 0.83 m も KISS-ICP 1.8 m を大きく下回る。seq00 は RPE↓ だが ATE は
-14.2 m と KISS-ICP 12.0 m をやや上回る (honest な RPE↓/ATE↑ split)。
+13.4 m と KISS-ICP 12.0 m をやや上回る (honest な RPE↓/ATE↑ split)。
 
 「整備済み KITTI では全機構が point-to-plane に退化する」という本キャンペーンの恒例
-パターンを破る数少ない例。対応点を取らない密度相関 + σ アニーリングは、離散最近傍
-対応のノイズ・誤対応に頑健で、結果的に低 drift を達成する。
+パターンを破る数少ない例。対応点を取らない密度相関は、離散最近傍対応のノイズ・誤対応に
+頑健で、結果的に低 drift を達成する。σ schedule は下の ablation で分離する。
 
-**代償は速度**: カーネル相関は各点で多数の近傍モデル点の親和度を総和するため低速
-(~1.4 FPS、KISS-ICP の 1/8 程度)。`--kc-lo-sigma-init` を下げると半径が縮み高速化するが
-収束域は狭まる (CV 予測が良好な本パイプラインでは σ_init=1.5 で精度を保ったまま約 2 倍)。
+**代償は速度**: カーネル相関は各点で多数の近傍モデル点の親和度を総和するため低速。
+ただし KITTI full の constant-velocity 予測下では、coarse-to-fine annealing を切って
+σ=0.4 m 固定にしても RPE は 1% 未満の差で、速度は約 1.9-2.2 倍になる。
+
+### Sigma schedule ablation
+
+| seq | Annealed σ 1.5→0.4 | Fixed σ=0.4 (`--kc-lo-no-anneal`) | Δ RPE | Speed-up |
+|---|---:|---:|---:|---:|
+| 00 | 0.841902% / 1.39 FPS | **0.837450% / 2.65 FPS** | -0.53% rel | 1.90× |
+| 07 | 0.514327% / 1.39 FPS | **0.509921% / 3.12 FPS** | -0.86% rel | 2.24× |
+
+Honest interpretation: the paper's correspondence-free kernel-correlation
+mechanism is the positive signal on KITTI; σ annealing is a convergence-safety
+knob. With strong frame-to-frame velocity prediction, the fixed fine kernel is
+already inside the basin and is preferable for this protocol.
+
+Raw artifacts:
+
+- [`seq00_kc_lo.json`](../../docs/benchmarks/kitti_full_new_methods/seq00_kc_lo.json)
+  and [`seq00_kc_lo_no_anneal.json`](../../docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json)
+- [`seq07_kc_lo.json`](../../docs/benchmarks/kitti_full_new_methods/seq07_kc_lo.json)
+  and [`seq07_kc_lo_no_anneal.json`](../../docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json)
+- Paired summary:
+  [`kc_lo_sigma_schedule_ablation.json`](../../docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json)
 
 ```
 pcd_dogfooding <seq_pcd_dir> <seq_gt_csv> \
   --methods kc_lo --kc-lo-dense-profile --no-gt-seed \
   --summary-json results.json
+
+# fixed-sigma ablation; put --kc-lo-no-anneal after --kc-lo-dense-profile
+pcd_dogfooding <seq_pcd_dir> <seq_gt_csv> \
+  --methods kc_lo --kc-lo-dense-profile --kc-lo-no-anneal --no-gt-seed \
+  --summary-json results_no_anneal.json
 ```

@@ -60,9 +60,11 @@ or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
   seq 00 and −19.7 % on seq 07**, even though KITTI intensity is uncalibrated.
   The paired raw artifacts are committed in
   [`i_loam_intensity_ablation.json`](benchmarks/kitti_full_new_methods/i_loam_intensity_ablation.json).
-- **KC-LO** (ECCV 2004): correspondence-free kernel correlation with σ
-  annealing leads seq 07 (0.514 %) and beats KISS-ICP on both sequences — at
-  ~1.4 FPS, an honest 8× throughput cost.
+- **KC-LO** (ECCV 2004): correspondence-free kernel correlation leads seq 07
+  (0.510 %) and beats KISS-ICP on both sequences. The sigma-schedule ablation
+  shows that fixed σ=0.4 m keeps RPE within 1 % of the annealed profile while
+  improving throughput from ~1.4 FPS to 2.6-3.1 FPS; annealing is a convergence
+  safety knob here, not the main positive signal.
 - **M-GCLO** (ISPRS Ann. 2024) leads seq 00 drift (0.835 %) via multiple
   ground-plane constraints, with the predicted trade-off: local drift drops
   while absolute trajectory error grows (19 m ATE) — ground constraints anchor

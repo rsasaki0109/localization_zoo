@@ -12,7 +12,8 @@ mechanism* actually mattering; a third degrade or diverge; and the rest are
 correct mechanisms that go silent on this benchmark.** The pattern of *which*
 bucket each method lands in is itself the most useful finding.
 
-Related pages: [reproduction status for established methods](reproduction_status.md)
+Related pages: [paper-ready reproducibility plan](paper_ready_reproducibility.md)
+· [reproduction status for established methods](reproduction_status.md)
 · [experiment log](experiments.md) · [README leaderboard](../README.md).
 
 ## Protocol

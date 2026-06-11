@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "benchmark": "synthetic_quadric_curved_object_stress",
+  "generated_by": "evaluation/scripts/run_quadric_curved_stress.py",
+  "fixture_generator": "evaluation/scripts/generate_quadric_curved_stress_fixture.py",
+  "scope": {
+    "frames": 60,
+    "trajectory_length_m": 20.157925,
+    "fixture": "evaluation/fixtures/quadric_curved_stress",
+    "claim_limit": "Synthetic curved-object/non-urban mechanism stress only; public curved-object or non-urban dataset validation is still required before promoting Quadric-LO to T0."
+  },
+  "artifacts": {
+    "fallback_on_with_kiss": "docs/benchmarks/quadric_curved_stress/quadric_curved_fallback_on_60.json",
+    "fallback_off": "docs/benchmarks/quadric_curved_stress/quadric_curved_fallback_off_60.json"
+  },
+  "protocol": {
+    "fallback_on_command": "./build/evaluation/pcd_dogfooding evaluation/fixtures/quadric_curved_stress evaluation/fixtures/quadric_curved_stress/gt.csv 60 --methods quadric_lo,kiss_icp --no-gt-seed --summary-json docs/benchmarks/quadric_curved_stress/quadric_curved_fallback_on_60.json",
+    "fallback_off_command": "./build/evaluation/pcd_dogfooding evaluation/fixtures/quadric_curved_stress evaluation/fixtures/quadric_curved_stress/gt.csv 60 --methods quadric_lo --no-gt-seed --quadric-lo-no-plane-fallback --summary-json docs/benchmarks/quadric_curved_stress/quadric_curved_fallback_off_60.json"
+  },
+  "kiss_sanity_reference": {
+    "ate_m": 0.018757,
+    "rpe_trans_pct": 0.118534,
+    "rpe_rot_deg_per_m": 0.001999,
+    "frames": 60,
+    "fps": 131.910943
+  },
+  "quadric_lo": {
+    "fallback_on": {
+      "metrics": {
+        "ate_m": 0.068929,
+        "rpe_trans_pct": 0.611652,
+        "rpe_rot_deg_per_m": 0.013907,
+        "frames": 60,
+        "fps": 2.85415
+      },
+      "correspondences": {
+        "quadric_per_frame": 1242.0,
+        "plane_per_frame": 12.0,
+        "plane_fallback_ratio": 0.0094
+      },
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=1242/12 plane_fallback_ratio=0.0094"
+    },
+    "fallback_off": {
+      "metrics": {
+        "ate_m": 0.069924,
+        "rpe_trans_pct": 0.608845,
+        "rpe_rot_deg_per_m": 0.015174,
+        "frames": 60,
+        "fps": 3.135881
+      },
+      "correspondences": {
+        "quadric_per_frame": 1245.0,
+        "plane_per_frame": 0.0,
+        "plane_fallback_ratio": 0.0
+      },
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback disabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=1245/0 plane_fallback_ratio=0.0000"
+    },
+    "fallback_off_minus_on": {
+      "ate_m_abs_delta": 0.0009949999999999959,
+      "ate_m_relative_pct": 1.4435143408434705,
+      "rpe_trans_pct_abs_delta": -0.002807000000000004,
+      "rpe_trans_pct_relative_pct": -0.4589210858462008,
+      "rpe_rot_deg_per_m_abs_delta": 0.0012670000000000008,
+      "rpe_rot_deg_per_m_relative_pct": 9.110519882073783
+    }
+  },
+  "conclusion": "On the synthetic orchard-like curved-object stress, Quadric-LO uses almost exclusively point-to-quadric constraints. Disabling plane fallback keeps ATE and RPE effectively unchanged, confirming that the evidence is dominated by the quadric path rather than by the point-to-plane fallback. KISS-ICP remains the sanity reference on this easy synthetic odometry geometry."
+}

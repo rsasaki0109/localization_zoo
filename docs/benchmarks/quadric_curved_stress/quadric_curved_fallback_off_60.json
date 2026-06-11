@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "evaluation/fixtures/quadric_curved_stress",
+  "gt_csv": "evaluation/fixtures/quadric_curved_stress/gt.csv",
+  "num_frames": 60,
+  "trajectory_length_m": 20.157925,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "Quadric-LO",
+      "status": "ok",
+      "ate_m": 0.069924,
+      "rpe_trans_pct": 0.608845,
+      "rpe_rot_deg_per_m": 0.015174,
+      "frames": 60,
+      "time_ms": 19133.379791,
+      "fps": 3.135881,
+      "seed_fallback_rate_pct": null,
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback disabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=1245/0 plane_fallback_ratio=0.0000"
+    }
+  ]
+}

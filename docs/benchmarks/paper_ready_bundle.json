@@ -35,12 +35,17 @@
         "name": "M-GCLO synthetic non-flat ground stress",
         "artifact": "docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json",
         "claim_limit": "Mechanism stress only; public non-flat dataset validation is still required before promoting M-GCLO to T0."
+      },
+      {
+        "name": "Quadric-LO synthetic curved-object stress",
+        "artifact": "docs/benchmarks/quadric_curved_stress/quadric_curved_stress_summary.json",
+        "claim_limit": "Mechanism stress only; public curved-object or non-urban dataset validation is still required before promoting Quadric-LO to T0."
       }
     ],
     "remaining_before_full_manuscript_table": [
       "RF-LIO/ID-LIO public high-dynamic dataset validation",
       "M-GCLO public non-flat dataset validation",
-      "Quadric-LO curved-object or non-urban dataset check"
+      "Quadric-LO public curved-object or non-urban dataset validation"
     ]
   },
   "paper_table_rows": [
@@ -650,7 +655,7 @@
         ],
         "conclusion": "Plane fallback is rare on KITTI seq00/07 (about 0.5-0.6% of used correspondences). Disabling it keeps Quadric-LO accuracy within about 1.5% translational RPE while improving throughput by 1.6-1.8x, so the committed KITTI evidence is dominated by the point-to-quadric path rather than the fallback."
       },
-      "remaining_work": "Add a curved-object or non-urban dataset check before promoting to T0."
+      "remaining_work": "Synthetic curved-object stress is committed; add public curved-object or non-urban dataset validation before promoting to T0."
     }
   ]
 }

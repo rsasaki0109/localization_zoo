@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "method": "M-GCLO",
+  "paper": "Yang et al., M-GCLO: Multiple Ground Constrained LiDAR Odometry, ISPRS Annals X-1-2024",
+  "claim": "Multiple ground point-to-plane constraints improve vertical and attitude stability when fused with non-ground NDT correspondences.",
+  "protocol": {
+    "dataset": "KITTI Odometry full sequences",
+    "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+    "profile": "--m-gclo-dense-profile",
+    "variants": {
+      "ground_on": "default multiple-ground point-to-plane constraints plus non-ground NDT",
+      "ground_off": "--m-gclo-no-ground after --m-gclo-dense-profile; classified ground correspondences are held out of the optimizer"
+    }
+  },
+  "pairs": [
+    {
+      "sequence": "00",
+      "frames": 4541,
+      "ground_on": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json",
+        "rpe_trans_pct": 0.835367,
+        "rpe_rot_deg_per_m": 0.007618,
+        "ate_m": 19.143798,
+        "fps": 3.412171
+      },
+      "ground_off": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_m_gclo_no_ground.json",
+        "rpe_trans_pct": 0.833008,
+        "rpe_rot_deg_per_m": 0.01051,
+        "ate_m": 46.934202,
+        "fps": 5.849377
+      },
+      "delta_ground_off_vs_on": {
+        "rpe_trans_pct_abs": -0.002359,
+        "rpe_trans_pct_rel": -0.282391,
+        "rpe_rot_deg_per_m_rel": 37.96272,
+        "ate_m_rel": 145.166617,
+        "fps_rel": 71.426842
+      }
+    },
+    {
+      "sequence": "07",
+      "frames": 1101,
+      "ground_on": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json",
+        "rpe_trans_pct": 0.670573,
+        "rpe_rot_deg_per_m": 0.010557,
+        "ate_m": 2.023877,
+        "fps": 3.666932
+      },
+      "ground_off": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_m_gclo_no_ground.json",
+        "rpe_trans_pct": 0.600358,
+        "rpe_rot_deg_per_m": 0.011158,
+        "ate_m": 5.316227,
+        "fps": 5.679105
+      },
+      "delta_ground_off_vs_on": {
+        "rpe_trans_pct_abs": -0.070215,
+        "rpe_trans_pct_rel": -10.470896,
+        "rpe_rot_deg_per_m_rel": 5.692905,
+        "ate_m_rel": 162.6754,
+        "fps_rel": 54.873475
+      }
+    }
+  ],
+  "conclusion": "The ground factor is not needed to minimize local translational RPE on KITTI seq00/07, but disabling it increases rotational drift and more than doubles ATE on both sequences. Under this protocol, M-GCLO's multiple-ground constraint behaves as a stability/anchoring term rather than a pure translational-drift reducer."
+}

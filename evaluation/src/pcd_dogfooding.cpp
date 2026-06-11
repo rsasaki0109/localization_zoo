@@ -1604,6 +1604,7 @@ struct MGcloDogfoodingOptions {
   int max_iterations = 20;
   double ground_normal_threshold = 0.85;
   double ground_height_offset = -0.5;
+  bool ground_constraints = true;
   double ground_weight = 2.0;
   double nonground_weight = 1.0;
   double ground_planarity = 0.3;
@@ -5853,7 +5854,8 @@ MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
   params.max_iterations = options.max_iterations;
   params.ground_normal_threshold = options.ground_normal_threshold;
   params.ground_height_offset = options.ground_height_offset;
-  params.ground_weight = options.ground_weight;
+  params.ground_weight =
+      options.ground_constraints ? options.ground_weight : 0.0;
   params.nonground_weight = options.nonground_weight;
   params.ground_planarity = options.ground_planarity;
   params.distribution_regularization = options.distribution_regularization;
@@ -5889,9 +5891,13 @@ MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
   std::snprintf(buf, sizeof(buf), "%.0f/%.0f",
                 n > 0 ? static_cast<double>(n_ground_sum) / n : 0.0,
                 n > 0 ? static_cast<double>(n_nonground_sum) / n : 0.0);
+  const std::string ground_mode =
+      options.ground_constraints
+          ? "multiple-ground point-to-plane constraints (vertical accuracy)"
+          : "ground factor disabled (non-ground NDT only; classified ground held out)";
   res.note =
-      "M-GCLO: multiple-ground point-to-plane constraints (vertical accuracy) + "
-      "non-ground point-to-distribution (NDT) with per-point range-uncertainty "
+      "M-GCLO: " + ground_mode +
+      " + non-ground point-to-distribution (NDT) with per-point range-uncertainty "
       "weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=" +
       std::string(buf);
   return res;
@@ -10972,6 +10978,10 @@ int main(int argc, char** argv) {
       m_gclo_options.ground_weight = std::stod(argv[++i]);
       continue;
     }
+    if (arg == "--m-gclo-no-ground") {
+      m_gclo_options.ground_constraints = false;
+      continue;
+    }
     if (arg == "--m-gclo-ground-normal-threshold") {
       if (i + 1 >= argc) { std::cerr << "--m-gclo-ground-normal-threshold requires a value" << std::endl; return 1; }
       m_gclo_options.ground_normal_threshold = std::stod(argv[++i]);
@@ -13093,6 +13103,8 @@ int main(int argc, char** argv) {
     std::cout << "Running M-GCLO..." << std::endl;
     std::cout << "  source_voxel_size=" << m_gclo_options.source_voxel_size
               << " voxel_size=" << m_gclo_options.voxel_size
+              << " ground_constraints="
+              << m_gclo_options.ground_constraints
               << " ground_weight=" << m_gclo_options.ground_weight
               << " ground_normal_threshold="
               << m_gclo_options.ground_normal_threshold << std::endl;

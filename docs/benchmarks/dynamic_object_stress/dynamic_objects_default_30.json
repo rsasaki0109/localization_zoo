@@ -1,0 +1,45 @@
+{
+  "pcd_dir": "evaluation/fixtures/dynamic_object_stress",
+  "gt_csv": "evaluation/fixtures/dynamic_object_stress/gt.csv",
+  "num_frames": 30,
+  "trajectory_length_m": 11.020000,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 0.040450,
+      "rpe_trans_pct": 0.316912,
+      "rpe_rot_deg_per_m": 0.002087,
+      "frames": 30,
+      "time_ms": 308.024240,
+      "fps": 97.394932,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "ID-LIO",
+      "status": "ok",
+      "ate_m": 130.549154,
+      "rpe_trans_pct": 2717.515544,
+      "rpe_rot_deg_per_m": 0.208793,
+      "frames": 30,
+      "time_ms": 1085.991108,
+      "fps": 27.624536,
+      "seed_fallback_rate_pct": null,
+      "note": "Indexed-point dynamic scan-to-map: pseudo-occupancy dynamic detection and delayed removal; no imu.csv so constant-velocity fallback. dynamic/frame=78.566667 corr/frame=1180.600000 removed_sum/frame=2703.366667"
+    },
+    {
+      "name": "RF-LIO",
+      "status": "ok",
+      "ate_m": 49.932244,
+      "rpe_trans_pct": 1025.023244,
+      "rpe_rot_deg_per_m": 0.101449,
+      "frames": 30,
+      "time_ms": 1474.409231,
+      "fps": 20.347133,
+      "seed_fallback_rate_pct": null,
+      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=214.266667 candidates/frame=214.266667 kept/frame=2549.233333 backend_dynamic/frame=43.333333 corr/frame=1366.400000 backend_removed_sum/frame=1803.300000"
+    }
+  ]
+}

@@ -183,7 +183,13 @@ ends; AD-VLO/TC-MVLO improve ATE within the group, while OPL-LVIO keeps the best
 seq07 RPE. Still, pseudo-visual residuals remain secondary to the
 point-to-plane core. **RF-LIO** confirms the same KITTI pattern for dynamic
 removal: its removal-first range-image filter is active, but on mostly static
-KITTI it removes useful foreground structure and trails ID-LIO. Honest negatives:
+KITTI it removes useful foreground structure and trails ID-LIO. A committed
+synthetic dynamic-object stress now exercises the intended high-dynamic path:
+ID-LIO degrades from 0.676 m clean ATE to 130.549 m with crossing foreground
+boxes, RF-LIO degrades from 2.487 m to 49.932 m, and a conservative RF removal
+cap improves that to 41.632 m
+([`rf_id_lio_dynamic_object_stress_summary.json`](docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json)).
+This is mechanism stress evidence, not a public dynamic-dataset claim. Honest negatives:
 DiLO (direct, 18–19% drift), Spectral-LO
 (ICP-free BEV phase-correlation, fastest at ~14 FPS but coarse ~12–14%),
 **PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),

@@ -328,8 +328,15 @@ def build_bundle() -> dict[str, Any]:
             "paired_ablation_summaries": len(methods),
             "t0_evidence_candidates": ["I-LOAM", "KC-LO"],
             "t1_plus_evidence_candidates": ["M-GCLO", "Quadric-LO"],
+            "supporting_synthetic_stress_checks": [
+                {
+                    "name": "RF-LIO/ID-LIO synthetic dynamic-object stress",
+                    "artifact": "docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json",
+                    "claim_limit": "Mechanism stress only; public high-dynamic dataset validation is still required before manuscript-level dynamic-scene claims.",
+                }
+            ],
             "remaining_before_full_manuscript_table": [
-                "RF-LIO/ID-LIO dynamic-object stress",
+                "RF-LIO/ID-LIO public high-dynamic dataset validation",
                 "M-GCLO non-flat dataset check",
                 "Quadric-LO curved-object or non-urban dataset check",
             ],

@@ -57,7 +57,7 @@ positive or negative evidence.
 | M-GCLO | T1+ evidence candidate | Ground-factor off ablation is committed: disabling ground keeps translational RPE similar or lower, but more than doubles ATE and worsens rotational drift on seq00/07. | Add one non-flat dataset check before promoting to T0. |
 | Quadric-LO | T1+ evidence candidate | Plane-fallback ablation is committed: fallback is rare (~0.5-0.6% of correspondences), and disabling it keeps RPE within ~1.5% while improving throughput by 1.6-1.8x. | Add a curved-object or non-urban dataset check before promoting to T0. |
 | LiDAR-visual adapters | T2 | They show pseudo-visual residuals are stable but auxiliary on KITTI PCD. | Do not call these paper-grade until real RGB / camera synchronization is used or the paper claim is reframed as a KITTI-PCD adapter study. |
-| RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active but degrade on mostly static KITTI. | Add a truly dynamic dataset or synthetic dynamic-object benchmark before making paper-level claims. |
+| RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active on KITTI and in the committed synthetic dynamic-object stress. RF-LIO reduces the synthetic failure severity versus ID-LIO, but both remain far from the KISS sanity reference. | Add a public high-dynamic dataset before making manuscript-level dynamic-scene claims. |
 
 ## Frozen Evidence Bundle
 
@@ -72,9 +72,11 @@ python3 evaluation/scripts/build_paper_ready_bundle.py --check
 It freezes four methods for now: I-LOAM and KC-LO as T0 evidence candidates,
 plus M-GCLO and Quadric-LO as T1+ evidence. The bundle records the seq00/07
 main result rows, paired-ablation summaries, raw artifact paths, and relative
-reproduce commands. It is intentionally not the final 8-12 method manuscript
-table yet; RF-LIO/ID-LIO dynamic stress, M-GCLO non-flat validation, and a
-Quadric-LO curved-object/non-urban check remain open.
+reproduce commands. It also points to the RF-LIO/ID-LIO synthetic
+dynamic-object stress summary as supporting, non-paper-grade evidence. It is
+intentionally not the final 8-12 method manuscript table yet; RF-LIO/ID-LIO
+public high-dynamic validation, M-GCLO non-flat validation, and a Quadric-LO
+curved-object/non-urban check remain open.
 
 ## Immediate Roadmap
 
@@ -82,8 +84,9 @@ Quadric-LO curved-object/non-urban check remain open.
    of all 101 methods.
 2. **Promote only T0/T1 methods** into the main paper claim; keep T2/T3 in an
    appendix-style catalog.
-3. **Add paired ablations** for RF-LIO; I-LOAM, KC-LO, M-GCLO, and
-   Quadric-LO now have committed seq00/07 paired artifacts.
+3. **Add public dynamic validation** for RF-LIO/ID-LIO; the synthetic stress is
+   committed, while I-LOAM, KC-LO, M-GCLO, and Quadric-LO now have seq00/07
+   paired artifacts.
 4. **Regenerate README and reproducibility report** from raw JSON artifacts
    where possible, rather than hand-editing values.
 5. **Extend the frozen bundle** from the current 4-method seed to the final

@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "evaluation/fixtures/dynamic_object_stress",
+  "gt_csv": "evaluation/fixtures/dynamic_object_stress/gt.csv",
+  "num_frames": 30,
+  "trajectory_length_m": 11.020000,
+  "timestamp_source": "frame_timestamps.csv",
+  "methods": [
+    {
+      "name": "RF-LIO",
+      "status": "ok",
+      "ate_m": 41.632002,
+      "rpe_trans_pct": 835.618764,
+      "rpe_rot_deg_per_m": 0.077599,
+      "frames": 30,
+      "time_ms": 1216.395661,
+      "fps": 24.663028,
+      "seed_fallback_rate_pct": null,
+      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=149.733333 candidates/frame=167.933333 kept/frame=2613.766667 backend_dynamic/frame=52.900000 corr/frame=1401.533333 backend_removed_sum/frame=1714.666667"
+    }
+  ]
+}

@@ -38,8 +38,8 @@ RUN test -f build/evaluation/pcd_dogfooding && \
     test -f build/evaluation/synthetic_benchmark && \
     test -f build/evaluation/multimodal_dogfooding && echo "BUILD OK"
 
-# Default: one-command demo (synthetic benchmark + committed real-data fixtures,
-# writes report.html; mount /out to keep the report on the host).
+# Default: quick one-command demo (synthetic benchmark + committed real-data
+# fixtures, writes report.html; mount /out to keep the report on the host).
 # For the docs refresh pipeline instead, run:
 #   docker run ... python3 evaluation/scripts/refresh_study_docs.py
-CMD ["bash", "evaluation/scripts/docker_demo_entrypoint.sh"]
+CMD ["bash", "evaluation/scripts/docker_demo_entrypoint.sh", "--profile", "quick"]

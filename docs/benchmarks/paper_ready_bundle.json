@@ -1,0 +1,490 @@
+{
+  "schema_version": 1,
+  "bundle_id": "paper_ready_core_2026_06_12",
+  "frozen_date": "2026-06-12",
+  "generated_by": "evaluation/scripts/build_paper_ready_bundle.py",
+  "scope": {
+    "dataset": "KITTI Odometry full sequences",
+    "sequences": [
+      "00",
+      "07"
+    ],
+    "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+    "artifact_root": "docs/benchmarks/kitti_full_new_methods",
+    "claim_policy": "Use only tiered T0/T1 evidence for manuscript claims; keep adapters and compact baselines outside the main claim table."
+  },
+  "status": {
+    "frozen_methods": 3,
+    "paper_table_rows": 6,
+    "paired_ablation_summaries": 3,
+    "t0_evidence_candidates": [
+      "I-LOAM",
+      "KC-LO"
+    ],
+    "t1_plus_evidence_candidates": [
+      "M-GCLO"
+    ],
+    "remaining_before_full_manuscript_table": [
+      "Quadric-LO plane-fallback ablation",
+      "RF-LIO/ID-LIO dynamic-object stress",
+      "M-GCLO non-flat dataset check"
+    ]
+  },
+  "paper_table_rows": [
+    {
+      "method": "I-LOAM",
+      "tier": "T0 evidence candidate",
+      "sequence": "00",
+      "variant": "dense_mapping_on",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_i_loam.json",
+      "ate_m": 12.748,
+      "rpe_trans_pct": 0.899,
+      "rpe_rot_deg_per_m": null,
+      "fps": 3.0,
+      "frames": 4542
+    },
+    {
+      "method": "I-LOAM",
+      "tier": "T0 evidence candidate",
+      "sequence": "07",
+      "variant": "dense_mapping_on",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_i_loam.json",
+      "ate_m": 1.667,
+      "rpe_trans_pct": 0.575,
+      "rpe_rot_deg_per_m": null,
+      "fps": 3.1,
+      "frames": 1102
+    },
+    {
+      "method": "KC-LO",
+      "tier": "T0 evidence candidate",
+      "sequence": "00",
+      "variant": "fixed_sigma",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json",
+      "ate_m": 13.404514,
+      "rpe_trans_pct": 0.83745,
+      "rpe_rot_deg_per_m": 0.005498,
+      "fps": 2.645573,
+      "frames": 4541
+    },
+    {
+      "method": "KC-LO",
+      "tier": "T0 evidence candidate",
+      "sequence": "07",
+      "variant": "fixed_sigma",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json",
+      "ate_m": 0.858036,
+      "rpe_trans_pct": 0.509921,
+      "rpe_rot_deg_per_m": 0.004749,
+      "fps": 3.116626,
+      "frames": 1101
+    },
+    {
+      "method": "M-GCLO",
+      "tier": "T1+ evidence candidate",
+      "sequence": "00",
+      "variant": "ground_on",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json",
+      "ate_m": 19.143798,
+      "rpe_trans_pct": 0.835367,
+      "rpe_rot_deg_per_m": 0.007618,
+      "fps": 3.412171,
+      "frames": 4541
+    },
+    {
+      "method": "M-GCLO",
+      "tier": "T1+ evidence candidate",
+      "sequence": "07",
+      "variant": "ground_on",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json",
+      "ate_m": 2.023877,
+      "rpe_trans_pct": 0.670573,
+      "rpe_rot_deg_per_m": 0.010557,
+      "fps": 3.666932,
+      "frames": 1101
+    }
+  ],
+  "methods": [
+    {
+      "id": "i_loam",
+      "method": "I-LOAM",
+      "selector": "i_loam",
+      "tier": "T0 evidence candidate",
+      "paper": "Park, Jang, and Kim, I-LOAM: Intensity Enhanced LiDAR Odometry and Mapping, UR 2020",
+      "claim": "LiDAR reflectance improves LOAM odometry when used for correspondence search and residual weighting.",
+      "mechanism": "LiDAR reflectance in LOAM correspondence search and residual weighting.",
+      "paper_result": {
+        "variant": "dense_mapping_on",
+        "role": "main KITTI odometry row",
+        "sequences": [
+          {
+            "sequence": "00",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_i_loam.json",
+            "metrics": {
+              "ate_m": 12.748,
+              "rpe_trans_pct": 0.899,
+              "rpe_rot_deg_per_m": null,
+              "fps": 3.0,
+              "frames": 4542
+            },
+            "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods i_loam --no-gt-seed --i-loam-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_i_loam.json"
+          },
+          {
+            "sequence": "07",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_i_loam.json",
+            "metrics": {
+              "ate_m": 1.667,
+              "rpe_trans_pct": 0.575,
+              "rpe_rot_deg_per_m": null,
+              "fps": 3.1,
+              "frames": 1102
+            },
+            "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods i_loam --no-gt-seed --i-loam-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_i_loam.json"
+          }
+        ]
+      },
+      "ablation": {
+        "summary_artifact": "docs/benchmarks/kitti_full_new_methods/i_loam_intensity_ablation.json",
+        "protocol": {
+          "dataset": "KITTI Odometry full sequences",
+          "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+          "ablation_flags": {
+            "intensity_on": "--i-loam-no-mapping",
+            "intensity_off": "--i-loam-no-mapping --i-loam-no-intensity"
+          },
+          "reason_for_no_mapping": "Mapping is disabled to isolate the paper-specific intensity correspondence and residual weighting in scan-to-scan odometry."
+        },
+        "pairs": [
+          {
+            "sequence": "00",
+            "frames": 4541,
+            "variants": {
+              "intensity_off": {
+                "role": "geometric baseline",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_intensity.json",
+                "metrics": {
+                  "ate_m": 76.028538,
+                  "rpe_trans_pct": 3.185596,
+                  "rpe_rot_deg_per_m": 0.031033,
+                  "fps": 8.377143,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods i_loam --no-gt-seed --i-loam-no-mapping --i-loam-no-intensity --summary-json docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_intensity.json"
+              },
+              "intensity_on": {
+                "role": "paper mechanism enabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_mapping.json",
+                "metrics": {
+                  "ate_m": 49.432759,
+                  "rpe_trans_pct": 2.606375,
+                  "rpe_rot_deg_per_m": 0.028292,
+                  "fps": 8.523841,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods i_loam --no-gt-seed --i-loam-no-mapping --summary-json docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_mapping.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.579221,
+              "rpe_trans_pct_rel": -18.1825,
+              "ate_m_rel": -34.981311
+            }
+          },
+          {
+            "sequence": "07",
+            "frames": 1101,
+            "variants": {
+              "intensity_off": {
+                "role": "geometric baseline",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_intensity.json",
+                "metrics": {
+                  "ate_m": 18.502306,
+                  "rpe_trans_pct": 3.806092,
+                  "rpe_rot_deg_per_m": 0.035577,
+                  "fps": 8.882216,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods i_loam --no-gt-seed --i-loam-no-mapping --i-loam-no-intensity --summary-json docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_intensity.json"
+              },
+              "intensity_on": {
+                "role": "paper mechanism enabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_mapping.json",
+                "metrics": {
+                  "ate_m": 15.132579,
+                  "rpe_trans_pct": 3.055169,
+                  "rpe_rot_deg_per_m": 0.034206,
+                  "fps": 8.583119,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods i_loam --no-gt-seed --i-loam-no-mapping --summary-json docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_mapping.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.750923,
+              "rpe_trans_pct_rel": -19.729502,
+              "ate_m_rel": -18.21247
+            }
+          }
+        ],
+        "conclusion": "The I-LOAM intensity path reduces scan-to-scan RPE drift by 18.2% on seq00 and 19.7% on seq07 under identical preprocessing, with active intensity weights around 0.76-0.77."
+      },
+      "remaining_work": "Add to manuscript table with the committed scan-to-scan intensity ablation locked."
+    },
+    {
+      "id": "kc_lo",
+      "method": "KC-LO",
+      "selector": "kc_lo",
+      "tier": "T0 evidence candidate",
+      "paper": "Tsin and Kanade, A Correlation-Based Approach to Robust Point Set Registration, ECCV 2004",
+      "claim": "Kernel correlation can register point sets without hard correspondences; coarse-to-fine sigma annealing broadens convergence.",
+      "mechanism": "Correspondence-free kernel correlation with optional coarse-to-fine sigma schedule.",
+      "paper_result": {
+        "variant": "fixed_sigma",
+        "role": "main KITTI odometry row",
+        "sequences": [
+          {
+            "sequence": "00",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json",
+            "metrics": {
+              "ate_m": 13.404514,
+              "rpe_trans_pct": 0.83745,
+              "rpe_rot_deg_per_m": 0.005498,
+              "fps": 2.645573,
+              "frames": 4541
+            },
+            "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --kc-lo-no-anneal --summary-json docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json"
+          },
+          {
+            "sequence": "07",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json",
+            "metrics": {
+              "ate_m": 0.858036,
+              "rpe_trans_pct": 0.509921,
+              "rpe_rot_deg_per_m": 0.004749,
+              "fps": 3.116626,
+              "frames": 1101
+            },
+            "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --kc-lo-no-anneal --summary-json docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json"
+          }
+        ]
+      },
+      "ablation": {
+        "summary_artifact": "docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json",
+        "protocol": {
+          "dataset": "KITTI Odometry full sequences",
+          "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+          "profile": "--kc-lo-dense-profile",
+          "variants": {
+            "annealed": "sigma_init=1.5, sigma_min=0.4, sigma anneal factor 0.7",
+            "fixed_sigma": "--kc-lo-no-anneal after --kc-lo-dense-profile; sigma_init=sigma_min=0.4"
+          }
+        },
+        "pairs": [
+          {
+            "sequence": "00",
+            "frames": 4541,
+            "variants": {
+              "annealed": {
+                "role": "coarse-to-fine sigma schedule",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_kc_lo.json",
+                "metrics": {
+                  "ate_m": 14.215286,
+                  "rpe_trans_pct": 0.841902,
+                  "rpe_rot_deg_per_m": 0.005548,
+                  "fps": 1.392318,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_kc_lo.json"
+              },
+              "fixed_sigma": {
+                "role": "fixed fine sigma",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json",
+                "metrics": {
+                  "ate_m": 13.404514,
+                  "rpe_trans_pct": 0.83745,
+                  "rpe_rot_deg_per_m": 0.005498,
+                  "fps": 2.645573,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --kc-lo-no-anneal --summary-json docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.004452,
+              "rpe_trans_pct_rel": -0.528803,
+              "ate_m_rel": -5.703522,
+              "fps_rel": 90.012124
+            }
+          },
+          {
+            "sequence": "07",
+            "frames": 1101,
+            "variants": {
+              "annealed": {
+                "role": "coarse-to-fine sigma schedule",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_kc_lo.json",
+                "metrics": {
+                  "ate_m": 0.830931,
+                  "rpe_trans_pct": 0.514327,
+                  "rpe_rot_deg_per_m": 0.004873,
+                  "fps": 1.391265,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_kc_lo.json"
+              },
+              "fixed_sigma": {
+                "role": "fixed fine sigma",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json",
+                "metrics": {
+                  "ate_m": 0.858036,
+                  "rpe_trans_pct": 0.509921,
+                  "rpe_rot_deg_per_m": 0.004749,
+                  "fps": 3.116626,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --kc-lo-no-anneal --summary-json docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.004406,
+              "rpe_trans_pct_rel": -0.856653,
+              "ate_m_rel": 3.262004,
+              "fps_rel": 124.013829
+            }
+          }
+        ],
+        "conclusion": "Under KITTI full-sequence odometry with constant-velocity prediction, fixed fine sigma keeps KC-LO accuracy within 1% RPE of the annealed profile while improving throughput by about 1.9x on seq00 and 2.2x on seq07. The kernel-correlation mechanism is the main positive signal; sigma annealing appears to be a convergence-safety knob rather than necessary for this well-initialized protocol."
+      },
+      "remaining_work": "Add to manuscript table with fixed-sigma and annealed artifacts locked."
+    },
+    {
+      "id": "m_gclo",
+      "method": "M-GCLO",
+      "selector": "m_gclo",
+      "tier": "T1+ evidence candidate",
+      "paper": "Yang et al., M-GCLO: Multiple Ground Constrained LiDAR Odometry, ISPRS Annals X-1-2024",
+      "claim": "Multiple ground point-to-plane constraints improve vertical and attitude stability when fused with non-ground NDT correspondences.",
+      "mechanism": "Multiple ground point-to-plane constraints fused with non-ground NDT.",
+      "paper_result": {
+        "variant": "ground_on",
+        "role": "paper mechanism enabled",
+        "sequences": [
+          {
+            "sequence": "00",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json",
+            "metrics": {
+              "ate_m": 19.143798,
+              "rpe_trans_pct": 0.835367,
+              "rpe_rot_deg_per_m": 0.007618,
+              "fps": 3.412171,
+              "frames": 4541
+            },
+            "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json"
+          },
+          {
+            "sequence": "07",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json",
+            "metrics": {
+              "ate_m": 2.023877,
+              "rpe_trans_pct": 0.670573,
+              "rpe_rot_deg_per_m": 0.010557,
+              "fps": 3.666932,
+              "frames": 1101
+            },
+            "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json"
+          }
+        ]
+      },
+      "ablation": {
+        "summary_artifact": "docs/benchmarks/kitti_full_new_methods/m_gclo_ground_factor_ablation.json",
+        "protocol": {
+          "dataset": "KITTI Odometry full sequences",
+          "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+          "profile": "--m-gclo-dense-profile",
+          "variants": {
+            "ground_on": "default multiple-ground point-to-plane constraints plus non-ground NDT",
+            "ground_off": "--m-gclo-no-ground after --m-gclo-dense-profile; classified ground correspondences are held out of the optimizer"
+          }
+        },
+        "pairs": [
+          {
+            "sequence": "00",
+            "frames": 4541,
+            "variants": {
+              "ground_on": {
+                "role": "paper mechanism enabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json",
+                "metrics": {
+                  "ate_m": 19.143798,
+                  "rpe_trans_pct": 0.835367,
+                  "rpe_rot_deg_per_m": 0.007618,
+                  "fps": 3.412171,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json"
+              },
+              "ground_off": {
+                "role": "ground factor disabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_m_gclo_no_ground.json",
+                "metrics": {
+                  "ate_m": 46.934202,
+                  "rpe_trans_pct": 0.833008,
+                  "rpe_rot_deg_per_m": 0.01051,
+                  "fps": 5.849377,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --m-gclo-no-ground --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo_no_ground.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.002359,
+              "rpe_trans_pct_rel": -0.282391,
+              "rpe_rot_deg_per_m_rel": 37.96272,
+              "ate_m_rel": 145.166617,
+              "fps_rel": 71.426842
+            }
+          },
+          {
+            "sequence": "07",
+            "frames": 1101,
+            "variants": {
+              "ground_on": {
+                "role": "paper mechanism enabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json",
+                "metrics": {
+                  "ate_m": 2.023877,
+                  "rpe_trans_pct": 0.670573,
+                  "rpe_rot_deg_per_m": 0.010557,
+                  "fps": 3.666932,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json"
+              },
+              "ground_off": {
+                "role": "ground factor disabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_m_gclo_no_ground.json",
+                "metrics": {
+                  "ate_m": 5.316227,
+                  "rpe_trans_pct": 0.600358,
+                  "rpe_rot_deg_per_m": 0.011158,
+                  "fps": 5.679105,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --m-gclo-no-ground --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo_no_ground.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.070215,
+              "rpe_trans_pct_rel": -10.470896,
+              "rpe_rot_deg_per_m_rel": 5.692905,
+              "ate_m_rel": 162.6754,
+              "fps_rel": 54.873475
+            }
+          }
+        ],
+        "conclusion": "The ground factor is not needed to minimize local translational RPE on KITTI seq00/07, but disabling it increases rotational drift and more than doubles ATE on both sequences. Under this protocol, M-GCLO's multiple-ground constraint behaves as a stability/anchoring term rather than a pure translational-drift reducer."
+      },
+      "remaining_work": "Add one non-flat dataset check before promoting to T0."
+    }
+  ]
+}

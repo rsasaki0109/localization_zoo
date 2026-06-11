@@ -6853,11 +6853,16 @@ MethodResult runKcLo(const std::vector<std::string>& pcd_dirs,
   char buf[64];
   std::snprintf(buf, sizeof(buf), "%.3f",
                 n > 0 ? weight_sum / static_cast<double>(n) : 0.0);
+  const bool annealed = options.kc_sigma_init > options.kc_sigma * 1.0001;
+  std::ostringstream note;
+  note << "KC-LO: correspondence-free kernel-correlation (Renyi quadratic entropy) "
+       << "soft point-to-point with "
+       << (annealed ? "coarse-to-fine sigma annealing" : "fixed sigma (no annealing)")
+       << "; sigma_init=" << options.kc_sigma_init
+       << " sigma_min=" << options.kc_sigma
+       << "; CV prior, no GT seed. mean_weight=" << buf;
   res.note =
-      "KC-LO: correspondence-free kernel-correlation (Renyi quadratic entropy) "
-      "soft point-to-point with sigma annealing; CV prior, no GT seed. "
-      "mean_weight=" +
-      std::string(buf);
+      note.str();
   return res;
 }
 

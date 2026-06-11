@@ -106,7 +106,7 @@ RPE is drift %/100 m; ATE in parens.
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
 | M-GCLO | **0.835%** <sub>(19 m)</sub> | 0.671% <sub>(2 m)</sub> | ISPRS Ann. 2024 |
-| KC-LO | 0.842% <sub>(14 m)</sub> | **0.514%** <sub>(1 m)</sub> | ECCV 2004 |
+| KC-LO | 0.837% <sub>(13 m)</sub> | **0.510%** <sub>(1 m)</sub> | ECCV 2004 |
 | **I-LOAM** | **0.899%** <sub>(13 m)</sub> | **0.575%** <sub>(2 m)</sub> | UR 2020 |
 | LODESTAR | 0.848% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
 | Terrain-RBF-LIO | 0.849% <sub>(8 m)</sub> | 0.587% <sub>(1 m)</sub> | arXiv:2509.26222 |
@@ -158,8 +158,11 @@ The top ten (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on seq-00**,
 and all but M-GCLO (0.671% seq-07) also beat it on **seq-07** — well clear of
 CT-ICP. **M-GCLO** leads seq-00 drift (0.835%) via
 multiple-ground-plane constraints (higher ATE — an honest RPE/ATE split).
-**KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.514%)
-and beats KISS-ICP on both sequences — at a heavy throughput cost (~1.4 FPS).
+**KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.510%)
+and beats KISS-ICP on both sequences — at a heavy throughput cost
+(~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine
+annealing). Its sigma-schedule ablation is committed as
+[`kc_lo_sigma_schedule_ablation.json`](docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json).
 
 Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
 mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP

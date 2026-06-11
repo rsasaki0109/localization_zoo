@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-12 (I-LOAM paper-ready ablation artifacts §00.52j、2D は一旦停止)**
+> **最終更新: 2026-06-12 (KC-LO sigma schedule ablation artifacts §00.52k、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,7 +24,7 @@
 
 ---
 
-## 00. Latest Handoff: I-LOAM Paper-Ready Ablation Artifacts (2026-06-12 更新)
+## 00. Latest Handoff: KC-LO Sigma Schedule Ablation Artifacts (2026-06-12 更新)
 
 > **これが最新・最優先の handoff。**
 >
@@ -33,8 +33,8 @@
 > 新規手法追加より、既存の 101 手法を claim tier で分け、論文で主張できる T0/T1 subset と
 > adapter / compact baseline を明確に分離する。README は breadth を見せるが、manuscript-level
 > claim は [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md) に従う。
-> 直近では I-LOAM の seq00/07 intensity on/off full raw artifacts を追加し、T0 evidence candidate
-> としての最初の穴を塞いだ (§00.52j)。
+> 直近では I-LOAM の intensity on/off に続き、KC-LO の sigma schedule ablation も seq00/07 full
+> raw artifacts 付きで追加した (§00.52j/§00.52k)。T0 evidence candidate は I-LOAM と KC-LO。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。
@@ -110,13 +110,13 @@ preview** に `docs/assets/social_card.png` をアップロード。未設定だ
 | Item | Value |
 |------|-------|
 | Branch | `main` |
-| vs `origin/main` | **ahead 2** after I-LOAM ablation commit if not pushed |
+| vs `origin/main` | **ahead 3** after KC-LO ablation commit if not pushed |
 | 実装済み from-paper 論文数 | **60 本** (3D 再開: Mesh-LOAM + ELO + ID-LIO + RF-LIO + TC-LVGF + OPL-LVIO + V-LOAM2015 + TC-VLO + AD-VLO + TC-MVLO; 2D papers 43–50 は停止中) |
 | `docs/methods.json` | **101 手法** |
 | 2D scan matchers | **8 法** — `rf2o,pl_icp,csm,kinematic_icp,psm,ndt_2d,idc,mb_icp` |
 | 2D fixtures (committed) | 5 — intel/fr079/mit (Bonn) + rf2o_smoke + rf2o_corridor |
 | 2D リーダーボード hub | [`docs/benchmarks/scan2d/README.md`](docs/benchmarks/scan2d/README.md) |
-| 直近完了 | **I-LOAM paper-ready ablation artifacts** — seq00/07 intensity on/off raw JSON + paired summary |
+| 直近完了 | **KC-LO sigma schedule ablation artifacts** — seq00/07 annealed vs fixed-sigma raw JSON + paired summary |
 | 直近完了 (3D) | **RF-LIO (101手法目)** — removal-first dynamic LIO、KITTI seq00/07 full 完走 |
 | その前 (3D) | **V-LOAM2015 / TC-VLO / AD-VLO / TC-MVLO (97-100手法目)** — LiDAR-visual adapter family、KITTI seq00/07 full 完走 |
 | 2D 直近 (停止中) | **MbICP (50本目)** + 8-method canonical benchmark refresh |
@@ -174,8 +174,9 @@ a2817ff Add fr079 and MIT public 2D scan fixtures with multi-dataset benchmarks.
   ATE 10.0 m は KISS-ICP 12.0 m を上回る (順位トリミング機構自体はユニットテストで有効)。
 - **対応点を取らない密度相関 (KC) は KITTI で恒例パターンを破り positive**: KC-LO(31) の
   カーネル相関 (Renyi 二次エントロピー) + σ アニーリングは両 seq で KISS-ICP の drift を
-  下回り、seq07 RPE 0.514% は leaderboard 全体トップ。離散最近傍対応のノイズに頑健な soft
-  point-to-point が効く。代償は速度 (~1.4 FPS、近傍親和度の総和が重い)。
+  下回り、fixed-sigma ablation 後の seq07 RPE **0.510%** は leaderboard 全体トップ。
+  離散最近傍対応のノイズに頑健な soft point-to-point が効く。KITTI + CV 予測では
+  fixed σ=0.4 が annealed σ 1.5→0.4 と同等精度で **1.9-2.2x** 速い。
 - **反射強度は KITTI でも対応の曖昧性解消に効く (intensity ablation positive)**: I-LOAM(32)
   の強度拡張対応 + 強度重みは、同一の幾何パイプライン (強度 OFF) 比で drift を両 seq -18〜20%、
   ATE を最大 -35% 改善。KITTI の未校正・粗い 8-bit 強度でも、強度を**主信号ではなく対応コスト
@@ -283,10 +284,18 @@ NDT のボクセル離散化のいずれも用いない新ファミリ。
   `--kc-lo-{fast,dense}-profile`/`--kc-lo-sigma`/`--kc-lo-sigma-init`/`--kc-lo-no-anneal` /
   dispatch / method-list 文字列 2 箇所)、`docs/methods.json` (71手法)、module README、
   seq00/07 ベンチ JSON。
-- 結果: **seq00 RPE 0.842% / ATE 14.22 m、seq07 RPE 0.514% / ATE 0.83 m (両 seq 1.4 FPS)**
+- 結果 (best fixed-sigma profile): **seq00 RPE 0.837% / ATE 13.40 m / 2.65 FPS、
+  seq07 RPE 0.510% / ATE 0.86 m / 3.12 FPS**
   — **positive**: 両 seq で KISS-ICP (同データ 0.872%/0.618%) の drift を上回り、**seq07 RPE
-  0.514% は leaderboard 全体トップ** (旧 Adaptive-ICP 0.569% 超え)。seq00 は RPE↓/ATE↑ split。
-  恒例の「全機構が point-to-plane に退化」を破る数少ない例。**代償は速度** (~1.4 FPS)。
+  0.510% は leaderboard 全体トップ** (旧 Adaptive-ICP 0.569% 超え)。seq00 は RPE↓/ATE↑ split。
+  恒例の「全機構が point-to-plane に退化」を破る数少ない例。
+- sigma schedule ablation: annealed σ 1.5→0.4 は seq00 **0.842% / 1.39 FPS**、
+  seq07 **0.514% / 1.39 FPS**。fixed σ=0.4 (`--kc-lo-no-anneal`) は RPE が同等か僅かに良く、
+  速度が **1.9-2.2x**。KITTI + CV 予測では kernel-correlation が主効果で、annealing は
+  convergence safety knob。
+  Artifacts: `docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json`,
+  `docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json`,
+  `docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json`。
 - **完了**: seq00/07 ベンチ JSON、README leaderboard 行 (M-GCLO と LODESTAR の間、seq07
   トップ更新)、module README、methods.json (71手法)、memory 追記、commit。
 
@@ -831,8 +840,8 @@ shortlist (OdoNet / NHC-Net / NN-ZUPT) は **完了**。Intensity / LiDAR-visual
 - ✅ **reproducibility report**: [`docs/reproducibility_report.md`](docs/reproducibility_report.md)
   から paper-ready plan へ導線を追加。
 - **T0/T1 近傍候補**:
-  - I-LOAM: intensity on/off の full artifact と paired commands を増やす。
-  - KC-LO: sigma schedule ablation と runtime/accuracy trade-off を追加。
+  - I-LOAM: intensity on/off の full artifact と paired commands を追加済み (§00.52j)。
+  - KC-LO: sigma schedule ablation と runtime/accuracy trade-off を追加済み (§00.52k)。
   - M-GCLO: ground-factor off ablation と non-flat dataset check を追加。
   - Quadric-LO: plane-fallback ablation と fallback ratio を追加。
   - RF-LIO/ID-LIO: KITTI だけで paper claim しない。dynamic dataset または synthetic dynamic-object
@@ -861,7 +870,34 @@ paper-ready hardening の 1 本目として、I-LOAM の intensity on/off full-s
   `docs/benchmarks/kitti_full_new_methods/i_loam_intensity_ablation.json`
 - ✅ **docs**: README ablation 節、`papers/i_loam/README.md` reproduce commands、
   `docs/paper_ready_reproducibility.md`、`docs/reproducibility_report.md` を更新。
-- **次**: KC-LO sigma schedule ablation、または paper bundle manifest で I-LOAM を frozen table に固定。
+- **次**: paper bundle manifest で I-LOAM / KC-LO を frozen table に固定、または M-GCLO ablation。
+
+### 00.52k KC-LO sigma schedule ablation artifacts (2026-06-12) — **seq00/07 full raw JSON 完了**
+
+paper-ready hardening の 2 本目として、KC-LO の coarse-to-fine sigma annealing と fixed fine sigma を
+seq00/07 full で比較し、runtime/accuracy trade-off を raw artifact 付きにした。
+
+- ✅ **seq00 full**:
+  - annealed σ 1.5→0.4: RPE **0.841902%**, ATE **14.215286 m**, FPS **1.39**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_kc_lo.json`
+  - fixed σ=0.4: RPE **0.837450%**, ATE **13.404514 m**, FPS **2.65**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json`
+  - delta fixed vs annealed: RPE **-0.53% relative**, FPS **+90.0%**。
+- ✅ **seq07 full**:
+  - annealed σ 1.5→0.4: RPE **0.514327%**, ATE **0.830931 m**, FPS **1.39**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_kc_lo.json`
+  - fixed σ=0.4: RPE **0.509921%**, ATE **0.858036 m**, FPS **3.12**。
+    Artifact: `docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json`
+  - delta fixed vs annealed: RPE **-0.86% relative**, FPS **+124.0%**。
+- ✅ **paired summary**:
+  `docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json`
+- ✅ **code metadata fix**: `evaluation/src/pcd_dogfooding.cpp` の KC-LO note を修正し、
+  future artifact が `fixed sigma (no annealing)` / `coarse-to-fine sigma annealing` を正しく記録。
+- ✅ **docs**: README KC-LO row を fixed-sigma best に更新、`papers/kc_lo/README.md` に
+  ablation table と reproduce command 追加、paper-ready plan / reproducibility report 更新。
+- **所見**: KITTI full + constant-velocity prediction では、kernel-correlation 自体が主効果。
+  σ annealing は大域収束の保険で、well-initialized odometry では fixed fine σ が速くて同等精度。
+- **次**: M-GCLO ground-factor off ablation、または I-LOAM/KC-LO を frozen paper bundle に固定。
 
 ### 00.52 PG-LIO (42本目, NCC photometric + geometric + IMU 2026-06-09)
 
@@ -2324,9 +2360,9 @@ Pick a single path and finish it before switching.
 ### Priority A (active): paper-ready reproducibility hardening
 
 1. **Next action**: add paired ablations for the frozen core subset:
-   KC-LO sigma schedule, M-GCLO ground-factor off, Quadric-LO plane-fallback,
-   and RF-LIO/ID-LIO dynamic-object stress. I-LOAM intensity on/off full artifacts
-   are already committed in §00.52j.
+   M-GCLO ground-factor off, Quadric-LO plane-fallback, and RF-LIO/ID-LIO
+   dynamic-object stress. I-LOAM intensity on/off and KC-LO sigma schedule
+   full artifacts are already committed in §00.52j/§00.52k.
 2. **Create a paper bundle**: a single manifest under `docs/benchmarks/` or `experiments/results/`
    that regenerates the frozen 8-12 method table from raw JSON.
 3. **Keep claims tiered**: README may advertise breadth; paper/manuscript language should use only

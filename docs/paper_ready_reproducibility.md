@@ -54,7 +54,7 @@ positive or negative evidence.
 |---|---|---|---|
 | I-LOAM | T0 evidence candidate | Intensity weighting shows a controlled 18-20% drift reduction on KITTI with committed seq00/07 on/off raw artifacts. | Add it to the frozen paper bundle and keep the paired commands/artifacts locked. |
 | KC-LO | T0 evidence candidate | Correspondence-free kernel correlation beats KISS-ICP on seq00/07, and the committed sigma-schedule ablation records the runtime/accuracy trade-off. | Add it to the frozen paper bundle and keep the annealed/fixed-sigma artifacts locked. |
-| M-GCLO | T1 candidate | Multiple ground constraints produce the expected RPE/ATE trade-off. | Add ground-factor off ablation and one non-flat dataset check. |
+| M-GCLO | T1+ evidence candidate | Ground-factor off ablation is committed: disabling ground keeps translational RPE similar or lower, but more than doubles ATE and worsens rotational drift on seq00/07. | Add one non-flat dataset check before promoting to T0. |
 | Quadric-LO | T1 candidate | Quadric residuals are competitive but expensive. | Add plane-fallback ablation and report fallback ratio by sequence. |
 | LiDAR-visual adapters | T2 | They show pseudo-visual residuals are stable but auxiliary on KITTI PCD. | Do not call these paper-grade until real RGB / camera synchronization is used or the paper claim is reframed as a KITTI-PCD adapter study. |
 | RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active but degrade on mostly static KITTI. | Add a truly dynamic dataset or synthetic dynamic-object benchmark before making paper-level claims. |
@@ -65,8 +65,8 @@ positive or negative evidence.
    of all 101 methods.
 2. **Promote only T0/T1 methods** into the main paper claim; keep T2/T3 in an
    appendix-style catalog.
-3. **Add paired ablations** for M-GCLO, Quadric-LO, and RF-LIO; I-LOAM and
-   KC-LO now have committed seq00/07 paired artifacts.
+3. **Add paired ablations** for Quadric-LO and RF-LIO; I-LOAM, KC-LO, and
+   M-GCLO now have committed seq00/07 paired artifacts.
 4. **Regenerate README and reproducibility report** from raw JSON artifacts
    where possible, rather than hand-editing values.
 5. **Add a `paper` benchmark bundle** that runs the frozen table and emits a

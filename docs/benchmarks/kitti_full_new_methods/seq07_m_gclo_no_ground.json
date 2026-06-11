@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq07_full",
+  "gt_csv": "data/kitti_pcd/seq07_gt.csv",
+  "num_frames": 1101,
+  "trajectory_length_m": 694.390333,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "M-GCLO",
+      "status": "ok",
+      "ate_m": 5.316227,
+      "rpe_trans_pct": 0.600358,
+      "rpe_rot_deg_per_m": 0.011158,
+      "frames": 1101,
+      "time_ms": 193868.585542,
+      "fps": 5.679105,
+      "seed_fallback_rate_pct": null,
+      "note": "M-GCLO: ground factor disabled (non-ground NDT only; classified ground held out) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=891/1946"
+    }
+  ]
+}

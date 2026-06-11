@@ -213,6 +213,9 @@ Eigen::Matrix4d MGcloPipeline::runRegistration(
           c.mean.z() < sensor_z + params_.ground_height_offset;
 
       if (is_ground) {
+        ++n_ground;
+        if (params_.ground_weight <= 0.0) continue;
+
         // 地面 point-to-plane (鉛直精度を拘束する複数地面平面)。
         const double e = c.normal.dot(src[k] - c.mean);
         if (std::abs(e) > kernel) continue;
@@ -224,7 +227,6 @@ Eigen::Matrix4d MGcloPipeline::runRegistration(
         const Eigen::Matrix<double, 1, 6> Jr = c.normal.transpose() * J;
         A += w * Jr.transpose() * Jr;
         b -= w * Jr.transpose() * e;
-        ++n_ground;
         ++used;
       } else {
         // 非地面 point-to-distribution (NDT Mahalanobis)。

@@ -65,10 +65,12 @@ or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
   shows that fixed σ=0.4 m keeps RPE within 1 % of the annealed profile while
   improving throughput from ~1.4 FPS to 2.6-3.1 FPS; annealing is a convergence
   safety knob here, not the main positive signal.
-- **M-GCLO** (ISPRS Ann. 2024) leads seq 00 drift (0.835 %) via multiple
-  ground-plane constraints, with the predicted trade-off: local drift drops
-  while absolute trajectory error grows (19 m ATE) — ground constraints anchor
-  the local frame, not the global one.
+- **M-GCLO** (ISPRS Ann. 2024) leads the paper-mechanism seq 00 row
+  (0.835 %) via multiple ground-plane constraints. The committed ground-factor
+  ablation shows the mechanism is mostly an anchoring/stability term under this
+  KITTI protocol: disabling ground keeps translational RPE similar or lower
+  (0.833 % seq 00, 0.600 % seq 07), but ATE more than doubles on both
+  sequences and rotational drift worsens.
 - **Quadric-LO** (arXiv 2023): point-to-quadric residuals beat KISS-ICP on both
   sequences, but quadric fitting is expensive (0.62 FPS) and on plane-dominated
   KITTI most surfels fall back to planes anyway.
@@ -157,9 +159,10 @@ one divergence before being learned:
    estimates drift from the mode over thousands of frames; SVN-ICP stays
    healthy by extracting a Gauss-Newton MAP estimate and using the particle
    spread only for uncertainty (which does correctly grow in corridors).
-5. **Ground/terrain constraints trade RPE for ATE.** They suppress local
-   z-drift and can worsen global trajectory error (M-GCLO, LiDAR-IBA's FEJ
-   shows the same split).
+5. **Ground/terrain constraints trade local drift, attitude, and ATE.**
+   M-GCLO's ground-factor ablation shows that KITTI translational RPE alone can
+   miss the mechanism: ground off is similar or lower in translational RPE, but
+   worse in ATE and rotational drift. LiDAR-IBA's FEJ shows a related split.
 6. **Intensity helps as a weight, not as a metric.** I-LOAM's
    correspondence-level injection reproduces (−18–20 %); fusing intensity into
    the distance metric is at best weakly effective (MCGICP-LO, ICPSC-LO learns

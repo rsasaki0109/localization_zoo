@@ -157,7 +157,11 @@ RPE is drift %/100 m; ATE in parens.
 The top ten (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on seq-00**,
 and all but M-GCLO (0.671% seq-07) also beat it on **seq-07** — well clear of
 CT-ICP. **M-GCLO** leads seq-00 drift (0.835%) via
-multiple-ground-plane constraints (higher ATE — an honest RPE/ATE split).
+multiple-ground-plane constraints (higher ATE — an honest RPE/ATE split). Its
+ground-factor ablation keeps translational RPE similar or lower, but disabling
+ground more than doubles ATE on seq00/07 and worsens rotational drift; the
+paired raw artifacts are committed as
+[`m_gclo_ground_factor_ablation.json`](docs/benchmarks/kitti_full_new_methods/m_gclo_ground_factor_ablation.json).
 **KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.510%)
 and beats KISS-ICP on both sequences — at a heavy throughput cost
 (~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine

@@ -70,6 +70,10 @@ target_link_libraries(pcd_dogfooding PRIVATE
   elo
   tc_lvgf
   opl_lvio
+  v_loam15
+  tc_vlo
+  ad_vlo
+  tc_mvlo
   tricp_lo
   kc_lo
   i_loam

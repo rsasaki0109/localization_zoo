@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -37,6 +37,10 @@
 #include "elo/elo.h"
 #include "tc_lvgf/tc_lvgf.h"
 #include "opl_lvio/opl_lvio.h"
+#include "v_loam15/v_loam15.h"
+#include "tc_vlo/tc_vlo.h"
+#include "ad_vlo/ad_vlo.h"
+#include "tc_mvlo/tc_mvlo.h"
 #include "tricp_lo/tricp_lo.h"
 #include "kc_lo/kc_lo.h"
 #include "i_loam/i_loam.h"
@@ -238,7 +242,10 @@ bool isSupportedMethod(const std::string& method) {
          method == "student_t_lo" || method == "spectral_lo" ||
          method == "gmm_lo" || method == "gnc_lo" || method == "mcc_lo" ||
          method == "imls_slam" || method == "mesh_loam" || method == "elo" ||
-         method == "tc_lvgf" || method == "opl_lvio" || method == "tricp_lo" || method == "kc_lo" ||
+         method == "tc_lvgf" || method == "opl_lvio" ||
+         method == "v_loam15" || method == "tc_vlo" ||
+         method == "ad_vlo" || method == "tc_mvlo" ||
+         method == "tricp_lo" || method == "kc_lo" ||
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
          method == "mcgicp" ||          method == "icpsc" || method == "vlom" ||
          method == "odonet" || method == "nhc_net" || method == "nn_zupt" ||
@@ -1827,6 +1834,62 @@ struct OplLvioDogfoodingOptions {
   double local_map_radius = 70.0;
   int map_cleanup_interval = 4;
 };
+
+struct VisualLidarAdapterDogfoodingOptions {
+  double source_voxel_size = 0.45;
+  size_t max_source_points = 5500;
+  double voxel_size = 1.0;
+  double registration_voxel_size = 0.9;
+  int max_registration_points = 4200;
+  int image_width = 1024;
+  int image_height = 64;
+  int max_icp_iterations = 24;
+  double max_correspondence_dist = 2.0;
+  int min_visual_points = 12;
+  int max_visual_points = 300;
+  int min_visual_lines = 4;
+  int max_lidar_lines = 180;
+  int max_visual_lines = 120;
+  double local_map_radius = 70.0;
+  int map_cleanup_interval = 4;
+};
+
+bool applyVisualLidarAdapterProfileArg(
+    const std::string& arg, const std::string& flag_prefix,
+    VisualLidarAdapterDogfoodingOptions* options) {
+  if (arg == "--" + flag_prefix + "-fast-profile") {
+    options->source_voxel_size = 0.55;
+    options->max_source_points = 3500;
+    options->voxel_size = 1.1;
+    options->registration_voxel_size = 1.0;
+    options->max_registration_points = 2800;
+    options->image_width = 768;
+    options->image_height = 64;
+    options->max_icp_iterations = 18;
+    options->max_lidar_lines = 120;
+    options->max_visual_lines = 80;
+    options->local_map_radius = 55.0;
+    options->map_cleanup_interval = 3;
+    return true;
+  }
+  if (arg == "--" + flag_prefix + "-dense-profile") {
+    options->source_voxel_size = 0.35;
+    options->max_source_points = 7000;
+    options->voxel_size = 0.8;
+    options->registration_voxel_size = 0.7;
+    options->max_registration_points = 5500;
+    options->image_width = 1024;
+    options->image_height = 80;
+    options->max_icp_iterations = 32;
+    options->max_visual_points = 420;
+    options->max_lidar_lines = 220;
+    options->max_visual_lines = 160;
+    options->local_map_radius = 80.0;
+    options->map_cleanup_interval = 5;
+    return true;
+  }
+  return false;
+}
 
 struct TricpLoDogfoodingOptions {
   double source_voxel_size = 0.5;
@@ -6576,6 +6639,100 @@ MethodResult runOplLvio(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+void applyVisualLidarAdapterOptions(
+    const VisualLidarAdapterDogfoodingOptions& options,
+    localization_zoo::opl_lvio::OplLvioParams* params) {
+  params->voxel_size = options.voxel_size;
+  params->registration_voxel_size = options.registration_voxel_size;
+  params->max_registration_points = options.max_registration_points;
+  params->image_width = options.image_width;
+  params->image_height = options.image_height;
+  params->max_icp_iterations = options.max_icp_iterations;
+  params->max_correspondence_dist = options.max_correspondence_dist;
+  params->min_visual_points = options.min_visual_points;
+  params->max_visual_points = options.max_visual_points;
+  params->min_visual_lines = options.min_visual_lines;
+  params->max_lidar_lines = options.max_lidar_lines;
+  params->max_visual_lines = options.max_visual_lines;
+  params->local_map_radius = options.local_map_radius;
+  params->map_cleanup_interval = options.map_cleanup_interval;
+}
+
+template <typename PipelineT, typename ParamsT>
+MethodResult runVisualLidarAdapter(
+    const std::vector<std::string>& pcd_dirs,
+    const std::vector<Eigen::Matrix4d>& gt,
+    const VisualLidarAdapterDogfoodingOptions& options,
+    const std::string& result_name,
+    const std::string& progress_name,
+    const std::string& note_prefix) {
+  MethodResult res;
+  res.name = result_name;
+
+  ParamsT params;
+  applyVisualLidarAdapterOptions(options, &params.backend);
+  PipelineT pipeline(params);
+  pipeline.setInitialPose(gt.empty() ? Eigen::Matrix4d::Identity() : gt.front());
+
+  long long visual_points_total = 0;
+  long long visual_lines_total = 0;
+  long long fused_lines_total = 0;
+  long long plane_corr_total = 0;
+  long long point_corr_total = 0;
+  long long line_corr_total = 0;
+  long fallback_frames = 0;
+  double point_scale_sum = 0.0;
+  double line_scale_sum = 0.0;
+  double residual_sum = 0.0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); ++i) {
+    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                                         options.source_voxel_size),
+                                 options.max_source_points);
+    if (pts_local.empty()) continue;
+    const auto result = pipeline.registerFrame(pts_local);
+    visual_points_total += result.backend.num_visual_points;
+    visual_lines_total += result.backend.num_visual_lines;
+    fused_lines_total += result.backend.num_fused_lines;
+    plane_corr_total += result.backend.num_plane_correspondences;
+    point_corr_total += result.backend.num_point_correspondences;
+    line_corr_total += result.backend.num_line_correspondences;
+    point_scale_sum += result.backend.point_weight_scale;
+    line_scale_sum += result.backend.line_weight_scale;
+    residual_sum += result.backend.mean_abs_residual;
+    if (result.backend.lidar_fallback) ++fallback_frames;
+    res.poses.push_back(result.pose);
+    if (i % 10 == 0) {
+      std::cerr << "\r  [" << progress_name << "] " << i << "/"
+                << pcd_dirs.size() << " map=" << pipeline.mapSize()
+                << " lines=" << pipeline.lineMapSize()
+                << " fallback=" << fallback_frames;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  const double denom = std::max<size_t>(1, res.poses.size());
+  res.note =
+      note_prefix + " visual_points/frame=" +
+      std::to_string(static_cast<double>(visual_points_total) / denom) +
+      " visual_lines/frame=" +
+      std::to_string(static_cast<double>(visual_lines_total) / denom) +
+      " fused_lines/frame=" +
+      std::to_string(static_cast<double>(fused_lines_total) / denom) +
+      " plane_corr/frame=" +
+      std::to_string(static_cast<double>(plane_corr_total) / denom) +
+      " point_corr/frame=" +
+      std::to_string(static_cast<double>(point_corr_total) / denom) +
+      " line_corr/frame=" +
+      std::to_string(static_cast<double>(line_corr_total) / denom) +
+      " point_scale/frame=" + std::to_string(point_scale_sum / denom) +
+      " line_scale/frame=" + std::to_string(line_scale_sum / denom) +
+      " fallback_frames=" + std::to_string(fallback_frames) +
+      " mean|residual|=" + std::to_string(residual_sum / denom);
+  return res;
+}
+
 MethodResult runTricpLo(const std::vector<std::string>& pcd_dirs,
                         const std::vector<Eigen::Matrix4d>& gt,
                         const TricpLoDogfoodingOptions& options) {
@@ -8497,7 +8654,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -8685,6 +8842,10 @@ int main(int argc, char** argv) {
   EloDogfoodingOptions elo_options;
   TcLvgfDogfoodingOptions tc_lvgf_options;
   OplLvioDogfoodingOptions opl_lvio_options;
+  VisualLidarAdapterDogfoodingOptions v_loam15_options;
+  VisualLidarAdapterDogfoodingOptions tc_vlo_options;
+  VisualLidarAdapterDogfoodingOptions ad_vlo_options;
+  VisualLidarAdapterDogfoodingOptions tc_mvlo_options;
   TricpLoDogfoodingOptions tricp_lo_options;
   KcLoDogfoodingOptions kc_lo_options;
   DegenSenseDogfoodingOptions degen_sense_options;
@@ -11130,6 +11291,12 @@ int main(int argc, char** argv) {
       opl_lvio_options.min_visual_points = std::stoi(argv[++i]);
       continue;
     }
+    if (applyVisualLidarAdapterProfileArg(arg, "v-loam15", &v_loam15_options) ||
+        applyVisualLidarAdapterProfileArg(arg, "tc-vlo", &tc_vlo_options) ||
+        applyVisualLidarAdapterProfileArg(arg, "ad-vlo", &ad_vlo_options) ||
+        applyVisualLidarAdapterProfileArg(arg, "tc-mvlo", &tc_mvlo_options)) {
+      continue;
+    }
     // --- imls_slam ---
     if (arg == "--imls-slam-fast-profile") {
       imls_slam_options.source_voxel_size = 0.5;
@@ -12903,6 +13070,70 @@ int main(int argc, char** argv) {
               << " min_visual_points=" << opl_lvio_options.min_visual_points
               << std::endl;
     results.push_back(runOplLvio(pcd_dirs, gt, opl_lvio_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "v_loam15")) {
+    std::cout << "Running V-LOAM2015..." << std::endl;
+    std::cout << std::setprecision(3)
+              << "  source_voxel_size=" << v_loam15_options.source_voxel_size
+              << " voxel_size=" << v_loam15_options.voxel_size
+              << " image=" << v_loam15_options.image_width << "x"
+              << v_loam15_options.image_height << std::endl;
+    results.push_back(runVisualLidarAdapter<
+                      localization_zoo::v_loam15::VLoam15Pipeline,
+                      localization_zoo::v_loam15::VLoam15Params>(
+        pcd_dirs, gt, v_loam15_options, "V-LOAM2015", "V-LOAM2015",
+        "V-LOAM2015: visual-lidar odometry port with range-image "
+        "pseudo-visual bootstrapping and LiDAR scan-to-map refinement; "
+        "global mapping/loop closure are out of scope on KITTI PCD."));
+  }
+
+  if (isMethodEnabled(selected_methods, "tc_vlo")) {
+    std::cout << "Running TC-VLO..." << std::endl;
+    std::cout << std::setprecision(3)
+              << "  source_voxel_size=" << tc_vlo_options.source_voxel_size
+              << " voxel_size=" << tc_vlo_options.voxel_size
+              << " image=" << tc_vlo_options.image_width << "x"
+              << tc_vlo_options.image_height << std::endl;
+    results.push_back(runVisualLidarAdapter<
+                      localization_zoo::tc_vlo::TcVloPipeline,
+                      localization_zoo::tc_vlo::TcVloParams>(
+        pcd_dirs, gt, tc_vlo_options, "TC-VLO", "TC-VLO",
+        "TC-VLO: tightly coupled vision-lidar odometry port with separate "
+        "visual point and LiDAR voxel maps jointly optimized through "
+        "plane, point, and line residuals."));
+  }
+
+  if (isMethodEnabled(selected_methods, "ad_vlo")) {
+    std::cout << "Running AD-VLO..." << std::endl;
+    std::cout << std::setprecision(3)
+              << "  source_voxel_size=" << ad_vlo_options.source_voxel_size
+              << " voxel_size=" << ad_vlo_options.voxel_size
+              << " image=" << ad_vlo_options.image_width << "x"
+              << ad_vlo_options.image_height << std::endl;
+    results.push_back(runVisualLidarAdapter<
+                      localization_zoo::ad_vlo::AdVloPipeline,
+                      localization_zoo::ad_vlo::AdVloParams>(
+        pcd_dirs, gt, ad_vlo_options, "AD-VLO", "AD-VLO",
+        "AD-VLO: direct visual-laser odometry port with occlusion-aware "
+        "range discontinuity gating, planar patch emphasis, and LiDAR "
+        "scan-to-map refinement."));
+  }
+
+  if (isMethodEnabled(selected_methods, "tc_mvlo")) {
+    std::cout << "Running TC-MVLO..." << std::endl;
+    std::cout << std::setprecision(3)
+              << "  source_voxel_size=" << tc_mvlo_options.source_voxel_size
+              << " voxel_size=" << tc_mvlo_options.voxel_size
+              << " image=" << tc_mvlo_options.image_width << "x"
+              << tc_mvlo_options.image_height << std::endl;
+    results.push_back(runVisualLidarAdapter<
+                      localization_zoo::tc_mvlo::TcMvloPipeline,
+                      localization_zoo::tc_mvlo::TcMvloParams>(
+        pcd_dirs, gt, tc_mvlo_options, "TC-MVLO", "TC-MVLO",
+        "TC-MVLO: tightly coupled monocular visual-lidar odometry port "
+        "using range-image visual points, fused visual/LiDAR line support, "
+        "and LiDAR scan-to-map constraints; loop closure is out of scope."));
   }
 
   if (isMethodEnabled(selected_methods, "tricp_lo")) {

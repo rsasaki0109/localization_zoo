@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq00_full",
+  "gt_csv": "data/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "AD-VLO",
+      "status": "ok",
+      "ate_m": 12.946048,
+      "rpe_trans_pct": 1.051946,
+      "rpe_rot_deg_per_m": 0.011124,
+      "frames": 4541,
+      "time_ms": 556891.198234,
+      "fps": 8.154196,
+      "seed_fallback_rate_pct": null,
+      "note": "AD-VLO: direct visual-laser odometry port with occlusion-aware range discontinuity gating, planar patch emphasis, and LiDAR scan-to-map refinement. visual_points/frame=83.371284 visual_lines/frame=38.400793 fused_lines/frame=237.813477 plane_corr/frame=3686.901123 point_corr/frame=76.453204 line_corr/frame=228.750055 point_scale/frame=0.755171 line_scale/frame=1.375834 fallback_frames=1 mean|residual|=0.184763"
+    }
+  ]
+}

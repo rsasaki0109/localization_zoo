@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq00_full",
+  "gt_csv": "data/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "TC-VLO",
+      "status": "ok",
+      "ate_m": 12.014441,
+      "rpe_trans_pct": 1.060283,
+      "rpe_rot_deg_per_m": 0.010821,
+      "frames": 4541,
+      "time_ms": 594659.346321,
+      "fps": 7.636305,
+      "seed_fallback_rate_pct": null,
+      "note": "TC-VLO: tightly coupled vision-lidar odometry port with separate visual point and LiDAR voxel maps jointly optimized through plane, point, and line residuals. visual_points/frame=94.784629 visual_lines/frame=56.136534 fused_lines/frame=245.013653 plane_corr/frame=3687.843647 point_corr/frame=87.662189 line_corr/frame=235.561550 point_scale/frame=0.776014 line_scale/frame=1.321403 fallback_frames=0 mean|residual|=0.185711"
+    }
+  ]
+}

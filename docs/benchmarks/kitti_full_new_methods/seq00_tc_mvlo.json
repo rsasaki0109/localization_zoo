@@ -1,0 +1,21 @@
+{
+  "pcd_dir": "data/kitti_pcd/seq00_full",
+  "gt_csv": "data/kitti_pcd/seq00_gt.csv",
+  "num_frames": 4541,
+  "trajectory_length_m": 3723.242184,
+  "timestamp_source": "sampled GT timestamps",
+  "methods": [
+    {
+      "name": "TC-MVLO",
+      "status": "ok",
+      "ate_m": 10.824595,
+      "rpe_trans_pct": 1.054323,
+      "rpe_rot_deg_per_m": 0.010835,
+      "frames": 4541,
+      "time_ms": 567399.563791,
+      "fps": 8.003179,
+      "seed_fallback_rate_pct": null,
+      "note": "TC-MVLO: tightly coupled monocular visual-lidar odometry port using range-image visual points, fused visual/LiDAR line support, and LiDAR scan-to-map constraints; loop closure is out of scope. visual_points/frame=94.784629 visual_lines/frame=56.136534 fused_lines/frame=245.013653 plane_corr/frame=3687.755120 point_corr/frame=87.653601 line_corr/frame=235.657124 point_scale/frame=0.778912 line_scale/frame=1.313326 fallback_frames=0 mean|residual|=0.186027"
+    }
+  ]
+}

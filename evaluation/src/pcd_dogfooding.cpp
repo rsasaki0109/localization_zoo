@@ -227,6 +227,18 @@ std::vector<double> parsePositiveDoubleList(const std::string& csv) {
   return values;
 }
 
+std::vector<int> parsePositiveIntList(const std::string& csv) {
+  std::vector<int> values;
+  std::istringstream ss(csv);
+  std::string token;
+  while (std::getline(ss, token, ',')) {
+    token = trimCsvToken(token);
+    if (token.empty()) continue;
+    values.push_back(std::max(1, std::stoi(token)));
+  }
+  return values;
+}
+
 bool isSupportedMethod(const std::string& method) {
   return method == "litamin2" || method == "gicp" || method == "ndt" ||
          method == "fixed_map_ndt" || method == "kiss_icp" || method == "genz_icp" ||
@@ -958,7 +970,9 @@ struct LiTAMIN2DogfoodingOptions {
   double covariance_gradient_weight = 1.0;
   bool enable_line_search = false;
   double line_search_min_step = 0.0625;
+  bool scan_to_scan = false;
   std::vector<double> coarse_to_fine_voxel_resolutions;
+  std::vector<int> coarse_to_fine_iterations;
   int num_threads =
       static_cast<int>(std::max(1u, std::thread::hardware_concurrency() / 2));
   size_t max_source_points = 2500;
@@ -967,6 +981,8 @@ struct LiTAMIN2DogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  double max_motion_translation_delta = -1.0;
+  double max_motion_rotation_delta_rad = -1.0;
   double min_cov_eigenvalue = 1e-3;
   int correspondence_search_radius = 0;
   double max_correspondence_distance = 0.0;
@@ -3049,15 +3065,20 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = options.use_cov_cost ? "LiTAMIN2" : "LiTAMIN2-ICP";
 
-  std::vector<double> voxel_schedule = options.coarse_to_fine_voxel_resolutions;
-  if (voxel_schedule.empty()) {
-    voxel_schedule.push_back(options.voxel_resolution);
-  }
-  auto makeParams = [&](double voxel_resolution) {
+  auto stageIterations = [&](size_t stage_index) {
+    if (options.coarse_to_fine_iterations.empty()) {
+      return options.max_iterations;
+    }
+    if (stage_index < options.coarse_to_fine_iterations.size()) {
+      return options.coarse_to_fine_iterations[stage_index];
+    }
+    return options.coarse_to_fine_iterations.back();
+  };
+  auto makeParams = [&](double voxel_resolution, size_t stage_index) {
     LiTAMIN2Params params;
     params.voxel_resolution = voxel_resolution;
     params.min_points_per_voxel = options.min_points_per_voxel;
-    params.max_iterations = options.max_iterations;
+    params.max_iterations = stageIterations(stage_index);
     params.use_cov_cost = options.use_cov_cost;
     params.optimize_covariance_cost = options.optimize_covariance_cost;
     params.covariance_gradient_weight = options.covariance_gradient_weight;
@@ -3069,6 +3090,112 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     params.max_correspondence_distance = options.max_correspondence_distance;
     return params;
   };
+  auto isAcceptableResult = [&](const RegistrationResult& result,
+                                const Eigen::Matrix4d& seed) {
+    return (result.converged || result.num_iterations >= 3) &&
+           isReasonableRefinement(result.transformation, seed,
+                                  options.max_seed_translation_delta,
+                                  options.max_seed_rotation_delta_rad);
+  };
+  auto isMotionConsistent = [&](const Eigen::Matrix4d& candidate_pose,
+                                const Eigen::Matrix4d& anchor_pose,
+                                const Eigen::Matrix4d& expected_relative) {
+    if (options.max_motion_translation_delta < 0.0 &&
+        options.max_motion_rotation_delta_rad < 0.0) {
+      return true;
+    }
+    const Eigen::Matrix4d candidate_relative =
+        anchor_pose.inverse() * candidate_pose;
+    if (options.max_motion_translation_delta >= 0.0 &&
+        poseTranslationDelta(candidate_relative, expected_relative) >
+            options.max_motion_translation_delta) {
+      return false;
+    }
+    if (options.max_motion_rotation_delta_rad >= 0.0 &&
+        poseRotationDelta(candidate_relative, expected_relative) >
+            options.max_motion_rotation_delta_rad) {
+      return false;
+    }
+    return true;
+  };
+
+  std::vector<double> voxel_schedule = options.coarse_to_fine_voxel_resolutions;
+  if (voxel_schedule.empty()) {
+    voxel_schedule.push_back(options.voxel_resolution);
+  }
+
+  if (options.scan_to_scan) {
+    Eigen::Matrix4d T_est = gt[0];
+    Eigen::Matrix4d last_relative = Eigen::Matrix4d::Identity();
+    std::vector<Eigen::Vector3d> previous_scan;
+    res.poses.push_back(T_est);
+
+    auto t0 = Clock::now();
+    for (size_t i = 0; i < pcd_dirs.size(); i++) {
+      auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.5),
+                                   options.max_source_points);
+      if (pts_local.empty()) continue;
+
+      if (i == 0) {
+        previous_scan = pts_local;
+        continue;
+      }
+
+      std::vector<std::unique_ptr<LiTAMIN2Registration>> registrations;
+      registrations.reserve(voxel_schedule.size());
+      for (size_t stage_index = 0; stage_index < voxel_schedule.size();
+           stage_index++) {
+        auto reg = std::make_unique<LiTAMIN2Registration>(
+            makeParams(voxel_schedule[stage_index], stage_index));
+        reg->setTarget(previous_scan);
+        registrations.push_back(std::move(reg));
+      }
+
+      const Eigen::Matrix4d T_prev_est = T_est;
+      const Eigen::Matrix4d T_relative_seed =
+          no_gt_seed ? last_relative
+                     : applySeedPerturbation(gt[i - 1].inverse() * gt[i],
+                                             options.seed_perturbation);
+      Eigen::Matrix4d T_stage_seed = T_relative_seed;
+      RegistrationResult final_result;
+      for (auto& reg : registrations) {
+        const auto stage_result = reg->align(pts_local, T_stage_seed);
+        final_result = stage_result;
+        if (isAcceptableResult(stage_result, T_stage_seed)) {
+          T_stage_seed = stage_result.transformation;
+        }
+      }
+
+      Eigen::Matrix4d T_relative = T_relative_seed;
+      if (isAcceptableResult(final_result, T_relative_seed) &&
+          isMotionConsistent(final_result.transformation,
+                             Eigen::Matrix4d::Identity(), T_relative_seed)) {
+        T_relative = final_result.transformation;
+      }
+      T_est = T_prev_est * T_relative;
+      last_relative = T_relative;
+      previous_scan = pts_local;
+      res.poses.push_back(T_est);
+
+      if (i % 10 == 0)
+        std::cerr << "\r  [LiTAMIN2 scan-to-scan] " << i << "/"
+                  << pcd_dirs.size();
+    }
+    std::cerr << std::endl;
+    res.time_ms =
+        std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+    res.note =
+        no_gt_seed
+            ? "Uses scan-to-scan LiTAMIN2 with previous relative transform as initial guess."
+            : "Uses scan-to-scan LiTAMIN2 with GT relative transform initialization.";
+    if (!no_gt_seed) {
+      res.note += seedPerturbationNote(options.seed_perturbation);
+    }
+    if (voxel_schedule.size() > 1) {
+      res.note += " Uses LiTAMIN2 coarse-to-fine voxel schedule.";
+    }
+    return res;
+  }
 
   std::vector<std::unique_ptr<LiTAMIN2Registration>> registrations;
   std::vector<Eigen::Vector3d> map_points;
@@ -3079,9 +3206,10 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   auto rebuildTargets = [&]() {
     registrations.clear();
     registrations.reserve(voxel_schedule.size());
-    for (double voxel_resolution : voxel_schedule) {
+    for (size_t stage_index = 0; stage_index < voxel_schedule.size();
+         stage_index++) {
       auto reg = std::make_unique<LiTAMIN2Registration>(
-          makeParams(voxel_resolution));
+          makeParams(voxel_schedule[stage_index], stage_index));
       reg->setTarget(map_points);
       registrations.push_back(std::move(reg));
     }
@@ -3106,22 +3234,23 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
             ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
             : applySeedPerturbation(gt[i], options.seed_perturbation);
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
+    const Eigen::Matrix4d expected_relative =
+        no_gt_seed ? T_prev_prev_est.inverse() * T_prev_est_snapshot
+                   : gt[i - 1].inverse() * gt[i];
+
     Eigen::Matrix4d T_stage_seed = T_init_guess;
     RegistrationResult final_result;
     for (auto& reg : registrations) {
       const auto stage_result = reg->align(pts_local, T_stage_seed);
       final_result = stage_result;
-      if ((stage_result.converged || stage_result.num_iterations >= 3) &&
-          isReasonableRefinement(stage_result.transformation, T_stage_seed,
-                                 options.max_seed_translation_delta,
-                                 options.max_seed_rotation_delta_rad)) {
+      if (isAcceptableResult(stage_result, T_stage_seed)) {
         T_stage_seed = stage_result.transformation;
       }
     }
-    if ((final_result.converged || final_result.num_iterations >= 3) &&
-        isReasonableRefinement(final_result.transformation, T_init_guess,
-                               options.max_seed_translation_delta,
-                               options.max_seed_rotation_delta_rad)) {
+
+    if (isAcceptableResult(final_result, T_init_guess) &&
+        isMotionConsistent(final_result.transformation, T_prev_est_snapshot,
+                           expected_relative)) {
       T_est = final_result.transformation;
     } else {
       T_est = T_init_guess;
@@ -8902,10 +9031,19 @@ int main(int argc, char** argv) {
               << " [--litamin2-covariance-gradient-weight X]"
               << " [--litamin2-line-search]"
               << " [--litamin2-line-search-min-step X]"
+              << " [--litamin2-scan-to-scan]"
               << " [--litamin2-coarse-to-fine-voxels csv]"
+              << " [--litamin2-coarse-to-fine-iterations csv]"
               << " [--litamin2-voxel-resolution X]"
               << " [--litamin2-max-iterations N]"
               << " [--litamin2-max-source-points N]"
+              << " [--litamin2-refresh-interval N]"
+              << " [--litamin2-map-max-points N]"
+              << " [--litamin2-map-radius X]"
+              << " [--litamin2-max-seed-translation-delta X]"
+              << " [--litamin2-max-seed-rotation-delta X]"
+              << " [--litamin2-max-motion-translation-delta X]"
+              << " [--litamin2-max-motion-rotation-delta X]"
               << " [--litamin2-min-cov-eigenvalue X]"
               << " [--litamin2-correspondence-search-radius N]"
               << " [--litamin2-max-correspondence-distance X]"
@@ -9296,6 +9434,10 @@ int main(int argc, char** argv) {
           1e-4, 1.0);
       continue;
     }
+    if (arg == "--litamin2-scan-to-scan") {
+      litamin2_options.scan_to_scan = true;
+      continue;
+    }
     if (arg == "--litamin2-coarse-to-fine-voxels") {
       if (i + 1 >= argc) {
         std::cerr << "--litamin2-coarse-to-fine-voxels requires a comma-separated list"
@@ -9310,6 +9452,22 @@ int main(int argc, char** argv) {
       litamin2_options.coarse_to_fine_voxel_resolutions =
           parsePositiveDoubleList(arg.substr(
               std::string("--litamin2-coarse-to-fine-voxels=").size()));
+      continue;
+    }
+    if (arg == "--litamin2-coarse-to-fine-iterations") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-coarse-to-fine-iterations requires a comma-separated list"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.coarse_to_fine_iterations =
+          parsePositiveIntList(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--litamin2-coarse-to-fine-iterations=", 0) == 0) {
+      litamin2_options.coarse_to_fine_iterations =
+          parsePositiveIntList(arg.substr(
+              std::string("--litamin2-coarse-to-fine-iterations=").size()));
       continue;
     }
     if (arg == "--litamin2-voxel-resolution") {
@@ -9354,6 +9512,113 @@ int main(int argc, char** argv) {
       litamin2_options.max_source_points = static_cast<size_t>(std::max(
           1, std::stoi(arg.substr(
                  std::string("--litamin2-max-source-points=").size()))));
+      continue;
+    }
+    if (arg == "--litamin2-refresh-interval") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-refresh-interval requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.refresh_interval =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--litamin2-refresh-interval=", 0) == 0) {
+      litamin2_options.refresh_interval = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--litamin2-refresh-interval=").size()))));
+      continue;
+    }
+    if (arg == "--litamin2-map-max-points") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-map-max-points requires an integer value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.map_max_points =
+          static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      continue;
+    }
+    if (arg.rfind("--litamin2-map-max-points=", 0) == 0) {
+      litamin2_options.map_max_points = static_cast<size_t>(std::max(
+          1, std::stoi(arg.substr(
+                 std::string("--litamin2-map-max-points=").size()))));
+      continue;
+    }
+    if (arg == "--litamin2-map-radius") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-map-radius requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.map_radius = std::max(1.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-map-radius=", 0) == 0) {
+      litamin2_options.map_radius = std::max(
+          1.0, std::stod(arg.substr(
+                   std::string("--litamin2-map-radius=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-max-seed-translation-delta") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-max-seed-translation-delta requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.max_seed_translation_delta =
+          std::max(0.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-max-seed-translation-delta=", 0) == 0) {
+      litamin2_options.max_seed_translation_delta = std::max(
+          0.0, std::stod(arg.substr(
+                   std::string("--litamin2-max-seed-translation-delta=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-max-seed-rotation-delta") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-max-seed-rotation-delta requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.max_seed_rotation_delta_rad =
+          std::max(0.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-max-seed-rotation-delta=", 0) == 0) {
+      litamin2_options.max_seed_rotation_delta_rad = std::max(
+          0.0, std::stod(arg.substr(
+                   std::string("--litamin2-max-seed-rotation-delta=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-max-motion-translation-delta") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-max-motion-translation-delta requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.max_motion_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--litamin2-max-motion-translation-delta=", 0) == 0) {
+      litamin2_options.max_motion_translation_delta = std::stod(arg.substr(
+          std::string("--litamin2-max-motion-translation-delta=").size()));
+      continue;
+    }
+    if (arg == "--litamin2-max-motion-rotation-delta") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-max-motion-rotation-delta requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.max_motion_rotation_delta_rad = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--litamin2-max-motion-rotation-delta=", 0) == 0) {
+      litamin2_options.max_motion_rotation_delta_rad = std::stod(arg.substr(
+          std::string("--litamin2-max-motion-rotation-delta=").size()));
       continue;
     }
     if (arg == "--litamin2-min-cov-eigenvalue") {
@@ -13029,6 +13294,17 @@ int main(int argc, char** argv) {
     std::cout << "  voxel_resolution=" << litamin2_options.voxel_resolution
               << " max_iterations=" << litamin2_options.max_iterations
               << " max_source_points=" << litamin2_options.max_source_points
+              << " refresh_interval=" << litamin2_options.refresh_interval
+              << " map_max_points=" << litamin2_options.map_max_points
+              << " map_radius=" << litamin2_options.map_radius
+              << " max_seed_translation_delta="
+              << litamin2_options.max_seed_translation_delta
+              << " max_seed_rotation_delta="
+              << litamin2_options.max_seed_rotation_delta_rad
+              << " max_motion_translation_delta="
+              << litamin2_options.max_motion_translation_delta
+              << " max_motion_rotation_delta="
+              << litamin2_options.max_motion_rotation_delta_rad
               << " min_cov_eigenvalue="
               << litamin2_options.min_cov_eigenvalue
               << " correspondence_search_radius="
@@ -13044,8 +13320,12 @@ int main(int argc, char** argv) {
               << (litamin2_options.enable_line_search ? "on" : "off")
               << " line_search_min_step="
               << litamin2_options.line_search_min_step
+              << " scan_to_scan="
+              << (litamin2_options.scan_to_scan ? "on" : "off")
               << " coarse_to_fine_levels="
               << litamin2_options.coarse_to_fine_voxel_resolutions.size()
+              << " coarse_to_fine_iteration_levels="
+              << litamin2_options.coarse_to_fine_iterations.size()
               << " num_threads=" << litamin2_options.num_threads << std::endl;
     results.push_back(runLiTAMIN2(pcd_dirs, gt, litamin2_options, no_gt_seed));
   }

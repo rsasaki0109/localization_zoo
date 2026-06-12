@@ -45,7 +45,33 @@
 > paper default には未昇格。続けて `--litamin2-coarse-to-fine-voxels 3.0,2.0,1.0` も
 > 実装・full 評価した。108-frame seq02 smoke は RPE 11.969 % から 0.670 % へ大きく改善したが、
 > full seq02/08 が悪化し、seq02/05/07/08 幾何平均 RPE は 1.185 % に悪化した。
-> 次は adaptive stage acceptance / map refresh、または upstream LiTAMIN2 との差分照合が妥当。
+> 追加で LiTAMIN2 の `refresh_interval` / `map_radius` / `map_max_points` /
+> seed acceptance gate を CLI sweep 可能にした。短窓では refresh1 が seq07 に効くが、
+> full seq02 では `--litamin2-refresh-interval 1` が RPE 4.412 %、tight seed gate が
+> RPE 2.306 % で、coarse-to-fine default の 2.348 % から十分には戻らない。
+> さらに `--litamin2-coarse-to-fine-iterations` で段ごとの反復数を sweep 可能にした。
+> full seq02 は `3,3,6` で ATE 48.589 m / RPE 1.224 % / 89.5 FPS、
+> `2,2,8` で ATE 55.516 m / RPE 0.976 % / 88.0 FPS まで戻るため、粗段の
+> over-iteration が long drift の主因候補。ただし `2,2,8` を full seq05/07/08 に
+> 横展開すると ATE は大きく改善する一方で RPE は seq05 0.630 %、
+> seq07 0.782 %、seq08 1.386 % に悪化し、seq02/05/07/08 幾何平均 RPE も
+> baseline 0.806 % から 0.903 % に悪化した。ATE/RPE trade-off が強いため
+> default にはしない。upstream 非公式実装も確認し、KITTI例は直前scanをtargetにする
+> scan-to-scan + relative pose accumulation で、dogfooding の scan-to-map +
+> GT/velocity seed + local map refresh とは運用が違う。covariance shape cost の更新項は
+> upstream point-to-voxel でもコメントアウトされており、現defaultの
+> `optimize_covariance_cost=false` は整合。`--litamin2-scan-to-scan` も opt-in 追加済み。
+> seq02 108-frame は ATE 1.395 m / RPE 2.568 % (GT relative seed)、
+> ATE 1.474 m / RPE 2.774 % (no-GT) で動くが、full seq02 は
+> ATE 445 m / RPE 21.8-24.4 % までdriftするため default にはしない。
+> 軌跡一貫性を見る `--litamin2-max-motion-translation-delta` /
+> `--litamin2-max-motion-rotation-delta` も opt-in 追加済み。coarse-to-fine default に
+> `0.25 / 0.05` を足すと seq02/05/07/08 full ATE は
+> 0.957 / 0.957 / 0.714 / 0.978 m まで下がるが、RPE は
+> 1.352 / 1.321 / 1.111 / 1.359 % で、幾何平均 RPE は baseline 0.806 %
+> から 1.282 % に悪化。ATE重視診断には有用だが RPE default にはしない。
+> 次は scan-to-map local-map policy の upstream 風 ablation、または paper claim を
+> ATE/RPEで分離して整理するのが妥当。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。

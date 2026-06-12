@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-12 (Quadric-LO plane-fallback ablation §00.52n、2D は一旦停止)**
+> **最終更新: 2026-06-13 (LiTAMIN2 covariance-gradient damping sweep、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,23 +24,26 @@
 
 ---
 
-## 00. Latest Handoff: Quadric-LO Plane-Fallback Ablation (2026-06-12 更新)
+## 00. Latest Handoff: LiTAMIN2 Covariance-Gradient Damping Sweep (2026-06-13 更新)
 
 > **これが最新・最優先の handoff。**
 >
-> **2026-06-12 現時点のアクティブ方向は paper-ready reproducibility hardening。**
+> **2026-06-13 現時点のアクティブ方向は paper-ready reproducibility hardening。**
 > ユーザ指示「2d ha ittan iran!」により、2D LiDAR scan odometry は一旦停止。
 > 新規手法追加より、既存の 101 手法を claim tier で分け、論文で主張できる T0/T1 subset と
 > adapter / compact baseline を明確に分離する。README は breadth を見せるが、manuscript-level
 > claim は [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md) に従う。
-> 直近では I-LOAM intensity on/off、KC-LO sigma schedule に続き、M-GCLO ground-factor off
-> ablation も seq00/07 full raw artifacts 付きで追加した (§00.52j〜§00.52l)。
-> さらに `docs/benchmarks/paper_ready_bundle.json` を生成する
-> `evaluation/scripts/build_paper_ready_bundle.py` を追加し、I-LOAM / KC-LO / M-GCLO の
-> frozen seed bundle を固定した (§00.52m)。直近では Quadric-LO plane-fallback off ablation も
-> seq00/07 full raw artifacts 付きで追加し、bundle を 4 methods / 8 rows / 4 ablations に拡張した
-> (§00.52n)。T0 evidence candidate は I-LOAM と KC-LO。M-GCLO と Quadric-LO は T1+
-> evidence candidate。
+> 直近は LiTAMIN2 の論文再現ギャップを詰めるため、
+> `papers/litamin2/src/litamin2_registration.cpp` と
+> `evaluation/src/pcd_dogfooding.cpp` に covariance-gradient / covariance floor /
+> line-search の opt-in knob を追加し、KITTI Odometry seq02/05/07/08 full の
+> correspondence/covariance matrix を `experiments/pending/` と `experiments/results/` に追加した。
+> raw `--litamin2-covariance-gradient` は seq02 full で ATE 384.474 m / RPE 5.679 % まで崩れ、
+> 幾何平均 RPE も 1.451 % に悪化。`--litamin2-covariance-gradient-weight 0.1` と
+> `--litamin2-line-search` は崩壊を止め、seq02/05/07/08 幾何平均 RPE を baseline 0.80645 %
+> から 0.80581 % へ微改善したが、seq02 ATE が 50.622 m から 81.961 m に悪化するため
+> paper default には未昇格。次は adaptive correspondence/covariance behavior、coarse-to-fine
+> schedule、または upstream LiTAMIN2 との差分照合が妥当。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。

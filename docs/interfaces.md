@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-06-02T11:18:16+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -400,6 +400,10 @@ The runner is responsible for:
 | CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base | `ready` | `experiments/pending/ct_icp_kitti_simplified_cross_seq_05_matrix.json` | `ct_icp` | `map_50_c2f_plus_corr_4` | `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json` |
 | CT-ICP seq 07 full: simplified map=50+c2f probe | `ready` | `experiments/pending/ct_icp_kitti_simplified_cross_seq_07_matrix.json` | `ct_icp` | `current_winner` | `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json` |
 | CT-ICP seq 08 full: simplified map=50+c2f probe | `ready` | `experiments/pending/ct_icp_kitti_simplified_cross_seq_08_matrix.json` | `ct_icp` | `simplified_seq_00_pattern` | `experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json` |
+| LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full) | `ready` | `experiments/pending/litamin2_kitti_seq_02_full_correspondence_matrix.json` | `litamin2` | `cov_floor_1e_4` | `experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json` |
+| LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full) | `ready` | `experiments/pending/litamin2_kitti_seq_05_full_correspondence_matrix.json` | `litamin2` | `cov_floor_1e_4` | `experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json` |
+| LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full) | `ready` | `experiments/pending/litamin2_kitti_seq_07_full_correspondence_matrix.json` | `litamin2` | `cov_floor_1e_4` | `experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json` |
+| LiTAMIN2 correspondence sweep on KITTI Odometry 08 (full) | `ready` | `experiments/pending/litamin2_kitti_seq_08_full_correspondence_matrix.json` | `litamin2` | `cov_floor_1e_4` | `experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `experiments/point_lio_hdl_400_reference_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_hdl_400_reference_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/point_lio_kitti_raw_0009_full_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/point_lio_kitti_raw_0009_matrix.json` | `point_lio` | `fast` | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |

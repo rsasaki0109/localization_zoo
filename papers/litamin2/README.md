@@ -45,6 +45,10 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
 | λ | 1e-6 | Frobenius正規化パラメータ |
 | σ_ICP | 0.5 | ICPロバスト重みの閾値 |
 | σ_Cov | 3.0 | 共分散ロバスト重みの閾値 |
+| min_cov_eigenvalue | 1e-3 | ボクセル共分散の最小固有値 |
+| optimize_covariance_cost | false | 共分散形状コストの回転勾配を更新式へ入れるか |
+| covariance_gradient_weight | 1.0 | 共分散形状コスト更新項の追加重み |
+| enable_line_search | false | 更新後コストでステップ幅を縮小するか |
 | correspondence_search_radius | 0 | 対応探索の近傍ボクセル半径 |
 | max_correspondence_distance | 0.0 m | 対応点距離上限。0で無効 |
 
@@ -56,9 +60,28 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
 - `pcd_dogfooding` では `--litamin2-correspondence-search-radius` と
   `--litamin2-max-correspondence-distance` で対応探索の広さと距離gateを
   sweepできる。デフォルトは従来互換の同一ボクセル探索。
-- KITTI seq02 の 200-frame no-GT smoke では、tuned profile
+- KITTI seq02 の no-GT sweep では、tuned profile
   (`--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`) に
   `--litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
-  を追加すると ATE 22.522 m / drift 2.330 m/100m から
-  ATE 1.042 m / drift 0.730 m/100m に改善した。一方 seq05/07/08 の
-  short smoke では改善しないため、まだデフォルト昇格はしていない。
+  を追加すると、200-frame smoke で ATE 22.522 m / drift 2.330 m/100m から
+  ATE 1.042 m / drift 0.730 m/100m に改善した。full sequence でも
+  ATE 50.622 m / RPE 0.975 % から ATE 44.005 m / RPE 0.936 % に
+  改善したが、FPS は 67.7 から 39.3 に落ちる。full-sequence
+  横展開では seq05 も ATE/RPE 改善、seq07 は悪化、seq08 は ATE 改善
+  だが RPE 悪化だった。seq02/05/07/08 の幾何平均 RPE は baseline
+  0.806 % に対して gate付きが 0.810 % で微悪化するため、まだ
+  デフォルト昇格はしていない。
+- `--litamin2-min-cov-eigenvalue 1e-4` も sweep可能。seq02/05/07/08
+  full の幾何平均 RPE は baseline 0.806 % に対して 0.807 % と
+  横ばいだが、FPS は改善しやすい。論文再現の精度 default はまだ
+  従来値 1e-3 のまま。
+- `--litamin2-covariance-gradient` は、論文式の共分散形状コストを
+  回転更新へ入れる opt-in 実装。108-frame smoke では seq02/05 に
+  改善傾向があったが、full sequence では seq02 が ATE 384.474 m /
+  RPE 5.679 %、seq05 が ATE 9.654 m / RPE 0.684 %、seq07 が
+  ATE 5.237 m / RPE 0.845 %、seq08 が ATE 18.694 m / RPE 1.351 %
+  で、seq02/05/07/08 の幾何平均 RPE は 1.451 % に悪化した。
+  `--litamin2-covariance-gradient-weight 0.1 --litamin2-line-search` まで
+  弱めると full の幾何平均 RPE は 0.806 % まで戻るが、seq02 ATE が
+  50.622 m から 81.961 m に悪化する。重み設計とステップ制御がまだ
+  trade-off を持つため default にはしない。

@@ -88,6 +88,31 @@ TEST(LiTAMIN2, RotationAndTranslation) {
   EXPECT_LT(trans_err, 1.0);
 }
 
+TEST(LiTAMIN2, LineSearchKeepsSmallTranslationStable) {
+  std::mt19937 rng(42);
+  auto target = generateTestCloud(10000, rng);
+
+  Eigen::Matrix4d T_gt = Eigen::Matrix4d::Identity();
+  T_gt(0, 3) = 1.0;
+  T_gt(1, 3) = 0.5;
+  T_gt(2, 3) = 0.1;
+  auto source = transform(target, T_gt);
+
+  LiTAMIN2Params params;
+  params.voxel_resolution = 3.0;
+  params.use_cov_cost = true;
+  params.enable_line_search = true;
+
+  LiTAMIN2Registration reg(params);
+  reg.setTarget(target);
+  auto result = reg.align(source);
+
+  auto [angle_err, trans_err] = poseError(result.transformation, T_gt.inverse());
+  EXPECT_LT(angle_err, 1.0);
+  EXPECT_LT(trans_err, 0.5);
+  EXPECT_TRUE(result.converged);
+}
+
 TEST(LiTAMIN2, VoxelReduction) {
   std::mt19937 rng(42);
   int n = 50000;
@@ -117,4 +142,20 @@ TEST(LiTAMIN2, NearestVoxelLookupCanUseNeighborCells) {
   ASSERT_NE(nearest, nullptr);
   EXPECT_LT((nearest->mean - Eigen::Vector3d(0.2167, 0.2167, 0.2)).norm(),
             1e-3);
+}
+
+TEST(LiTAMIN2, VoxelCovarianceEigenvalueFloorIsConfigurable) {
+  std::vector<Eigen::Vector3d> points = {
+      Eigen::Vector3d(0.0, 0.0, 0.0),
+      Eigen::Vector3d(0.1, 0.0, 0.0),
+      Eigen::Vector3d(0.2, 0.0, 0.0),
+  };
+
+  GaussianVoxelMap vmap(1.0, 1, 0.05);
+  vmap.createFromPoints(points);
+  auto voxel = vmap.lookup(Eigen::Vector3d(0.1, 0.0, 0.0));
+  ASSERT_NE(voxel, nullptr);
+
+  Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> solver(voxel->cov);
+  EXPECT_GE(solver.eigenvalues().minCoeff(), 0.05 - 1e-9);
 }

@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-06-02T11:18:16+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -327,6 +327,10 @@ _Generated at 2026-06-02T11:18:16+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP seq 05 full: c2f σ×2 vs corr=4 on map=50 base | `ready` | `map_50_c2f_plus_corr_4` | 7.762 | 20.6 | `experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json` |
 | CT-ICP seq 07 full: simplified map=50+c2f probe | `ready` | `current_winner` | 1.607 | 20.3 | `experiments/results/ct_icp_kitti_simplified_cross_seq_07_matrix.json` |
 | CT-ICP seq 08 full: simplified map=50+c2f probe | `ready` | `simplified_seq_00_pattern` | 27.850 | 19.4 | `experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json` |
+| LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full) | `ready` | `cov_floor_1e_4` | 44.005 | 91.8 | `experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json` |
+| LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full) | `ready` | `cov_floor_1e_4` | 6.069 | 93.4 | `experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json` |
+| LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full) | `ready` | `cov_floor_1e_4` | 1.964 | 106.9 | `experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json` |
+| LiTAMIN2 correspondence sweep on KITTI Odometry 08 (full) | `ready` | `cov_floor_1e_4` | 18.327 | 94.2 | `experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json` |
 | Point-LIO on the public HDL-400 reference window | `ready` | `fast` | 17.929 | 69.9 | `experiments/results/point_lio_hdl_400_reference_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.384 | 113.1 | `experiments/results/point_lio_kitti_raw_0009_full_matrix.json` |
 | Point-LIO on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.890 | 117.4 | `experiments/results/point_lio_kitti_raw_0009_matrix.json` |
@@ -19352,6 +19356,390 @@ _Generated at 2026-06-02T11:18:16+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 2.10 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
+
+
+## LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full)
+
+- **Problem ID**: `litamin2_correspondence_kitti_seq_02_full`
+- **Question**: Does neighbor-voxel correspondence search close the seq02 no-GT failure without changing the tuned voxel and iteration profile?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, rpe_rot_deg_per_m, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Tuned baseline: voxel 1.0 + iter 12 | paper-parity baseline | 50.622 | 67.7 | 80.3 | 3.45 | 3.95 | Keep as reference variant |
+| Neighbor voxels: radius 1 | wider correspondence search | 46.495 | 38.7 | 68.4 | 2.85 | 3.55 | Keep as reference variant |
+| Neighbor voxels: radius 1 + 1.5 m gate | guarded wider correspondence search | 44.005 | 39.3 | 71.4 | 2.25 | 3.15 | Keep as reference variant |
+| Covariance floor: 1e-4 | covariance regularization sweep | 51.895 | 91.8 | 92.4 | 2.85 | 3.55 | Adopt as current default |
+| Covariance-shape gradient | paper-mechanism probe | 384.474 | 82.7 | 50.8 | 3.10 | 3.70 | Keep as reference variant |
+| Covariance-shape gradient: 0.1x + line search | damped paper-mechanism probe | 81.961 | 87.1 | 74.2 | 2.15 | 3.05 | Keep as reference variant |
+
+### Observations
+
+1. `cov_floor_1e_4` is the current default for this problem.
+2. `cov_floor_1e_4` is the fastest observed variant at 91.8 FPS.
+3. `radius1_distance_gate_1_5m` is the most accurate observed variant at 44.005 m ATE.
+
+### Variant Notes
+
+#### `tuned_voxel1_iter12`
+
+- Intent: Keep the established LiTAMIN2 no-GT tuned profile as the control.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/tuned_voxel1_iter12/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/tuned_voxel1_iter12/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/tuned_voxel1_iter12/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `radius1_no_distance_gate`
+
+- Intent: Test whether same-voxel correspondence pruning is the seq02 failure mode.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/radius1_no_distance_gate/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/radius1_no_distance_gate/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/radius1_no_distance_gate/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `radius1_distance_gate_1_5m`
+
+- Intent: Retain the seq02 correspondence recovery while limiting distant Gaussian matches.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/radius1_distance_gate_1_5m/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/radius1_distance_gate_1_5m/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/radius1_distance_gate_1_5m/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `cov_floor_1e_4`
+
+- Intent: Test whether a weaker voxel covariance eigenvalue floor closes the residual paper gap.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-min-cov-eigenvalue 1e-4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/cov_floor_1e_4/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-min-cov-eigenvalue 1e-4`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/cov_floor_1e_4/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/cov_floor_1e_4/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `covariance_gradient`
+
+- Intent: Test the missing covariance-shape residual derivative in the Gauss-Newton update.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/covariance_gradient/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/covariance_gradient/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/covariance_gradient/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `covariance_gradient_w0_1_linesearch`
+
+- Intent: Test whether a damped covariance-shape update avoids the full-sequence instability of the raw derivative.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient --litamin2-covariance-gradient-weight 0.1 --litamin2-line-search`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient --litamin2-covariance-gradient-weight 0.1 --litamin2-line-search`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full)
+
+- **Problem ID**: `litamin2_correspondence_kitti_seq_05_full`
+- **Question**: Does the seq02 neighbor-voxel correspondence profile transfer to sequence 05 without changing the tuned voxel and iteration profile?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, rpe_rot_deg_per_m, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Tuned baseline: voxel 1.0 + iter 12 | paper-parity baseline | 7.350 | 62.4 | 74.7 | 3.45 | 3.95 | Keep as reference variant |
+| Neighbor voxels: radius 1 | wider correspondence search | 6.148 | 41.2 | 71.4 | 2.85 | 3.55 | Keep as reference variant |
+| Neighbor voxels: radius 1 + 1.5 m gate | guarded wider correspondence search | 6.069 | 41.5 | 72.2 | 2.25 | 3.15 | Keep as reference variant |
+| Covariance floor: 1e-4 | covariance regularization sweep | 6.565 | 93.4 | 96.2 | 2.85 | 3.55 | Adopt as current default |
+| Covariance-shape gradient | paper-mechanism probe | 9.654 | 75.4 | 71.8 | 3.10 | 3.70 | Keep as reference variant |
+| Covariance-shape gradient: 0.1x + line search | damped paper-mechanism probe | 9.000 | 79.5 | 76.2 | 2.15 | 3.05 | Keep as reference variant |
+
+### Observations
+
+1. `cov_floor_1e_4` is the current default for this problem.
+2. `cov_floor_1e_4` is the fastest observed variant at 93.4 FPS.
+3. `radius1_distance_gate_1_5m` is the most accurate observed variant at 6.069 m ATE.
+
+### Variant Notes
+
+#### `tuned_voxel1_iter12`
+
+- Intent: Keep the established LiTAMIN2 no-GT tuned profile as the control.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/tuned_voxel1_iter12/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/tuned_voxel1_iter12/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/tuned_voxel1_iter12/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `radius1_no_distance_gate`
+
+- Intent: Test whether same-voxel correspondence pruning is also limiting seq05.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/radius1_no_distance_gate/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/radius1_no_distance_gate/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/radius1_no_distance_gate/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `radius1_distance_gate_1_5m`
+
+- Intent: Check whether the seq02 guarded correspondence profile transfers to seq05.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/radius1_distance_gate_1_5m/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/radius1_distance_gate_1_5m/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/radius1_distance_gate_1_5m/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `cov_floor_1e_4`
+
+- Intent: Test whether a weaker voxel covariance eigenvalue floor closes the residual paper gap.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-min-cov-eigenvalue 1e-4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/cov_floor_1e_4/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-min-cov-eigenvalue 1e-4`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/cov_floor_1e_4/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/cov_floor_1e_4/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `covariance_gradient`
+
+- Intent: Test the missing covariance-shape residual derivative in the Gauss-Newton update.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/covariance_gradient/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/covariance_gradient/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/covariance_gradient/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `covariance_gradient_w0_1_linesearch`
+
+- Intent: Test whether a damped covariance-shape update avoids the full-sequence instability of the raw derivative.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient --litamin2-covariance-gradient-weight 0.1 --litamin2-line-search`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient --litamin2-covariance-gradient-weight 0.1 --litamin2-line-search`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full)
+
+- **Problem ID**: `litamin2_correspondence_kitti_seq_07_full`
+- **Question**: Does the seq02 neighbor-voxel correspondence profile transfer to sequence 07 without changing the tuned voxel and iteration profile?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, rpe_rot_deg_per_m, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Tuned baseline: voxel 1.0 + iter 12 | paper-parity baseline | 1.964 | 75.5 | 85.3 | 3.45 | 3.95 | Keep as active challenger |
+| Neighbor voxels: radius 1 | wider correspondence search | 2.524 | 48.2 | 61.5 | 2.85 | 3.55 | Keep as reference variant |
+| Neighbor voxels: radius 1 + 1.5 m gate | guarded wider correspondence search | 2.315 | 45.7 | 63.8 | 2.25 | 3.15 | Keep as reference variant |
+| Covariance floor: 1e-4 | covariance regularization sweep | 2.202 | 106.9 | 94.6 | 2.85 | 3.55 | Adopt as current default |
+| Covariance-shape gradient | paper-mechanism probe | 5.237 | 81.8 | 57.0 | 3.10 | 3.70 | Keep as reference variant |
+| Covariance-shape gradient: 0.1x + line search | damped paper-mechanism probe | 2.186 | 69.3 | 77.3 | 2.15 | 3.05 | Keep as reference variant |
+
+### Observations
+
+1. `cov_floor_1e_4` is the current default for this problem.
+2. `cov_floor_1e_4` is the fastest observed variant at 106.9 FPS.
+3. `tuned_voxel1_iter12` is the most accurate observed variant at 1.964 m ATE.
+
+### Variant Notes
+
+#### `tuned_voxel1_iter12`
+
+- Intent: Keep the established LiTAMIN2 no-GT tuned profile as the control.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/tuned_voxel1_iter12/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/tuned_voxel1_iter12/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/tuned_voxel1_iter12/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `radius1_no_distance_gate`
+
+- Intent: Test whether same-voxel correspondence pruning is also limiting seq07.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/radius1_no_distance_gate/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/radius1_no_distance_gate/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/radius1_no_distance_gate/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `radius1_distance_gate_1_5m`
+
+- Intent: Check whether the seq02 guarded correspondence profile transfers to seq07.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/radius1_distance_gate_1_5m/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/radius1_distance_gate_1_5m/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/radius1_distance_gate_1_5m/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `cov_floor_1e_4`
+
+- Intent: Test whether a weaker voxel covariance eigenvalue floor closes the residual paper gap.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-min-cov-eigenvalue 1e-4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/cov_floor_1e_4/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-min-cov-eigenvalue 1e-4`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/cov_floor_1e_4/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/cov_floor_1e_4/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `covariance_gradient`
+
+- Intent: Test the missing covariance-shape residual derivative in the Gauss-Newton update.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/covariance_gradient/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/covariance_gradient/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/covariance_gradient/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `covariance_gradient_w0_1_linesearch`
+
+- Intent: Test whether a damped covariance-shape update avoids the full-sequence instability of the raw derivative.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient --litamin2-covariance-gradient-weight 0.1 --litamin2-line-search`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient --litamin2-covariance-gradient-weight 0.1 --litamin2-line-search`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+
+## LiTAMIN2 correspondence sweep on KITTI Odometry 08 (full)
+
+- **Problem ID**: `litamin2_correspondence_kitti_seq_08_full`
+- **Question**: Does the seq02 neighbor-voxel correspondence profile transfer to sequence 08 without changing the tuned voxel and iteration profile?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `litamin2`
+- **Shared metrics**: ate_m, fps, rpe_trans_pct, rpe_rot_deg_per_m, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Tuned baseline: voxel 1.0 + iter 12 | paper-parity baseline | 22.875 | 68.5 | 76.4 | 3.45 | 3.95 | Keep as reference variant |
+| Neighbor voxels: radius 1 | wider correspondence search | 18.327 | 39.6 | 71.0 | 2.85 | 3.55 | Keep as reference variant |
+| Neighbor voxels: radius 1 + 1.5 m gate | guarded wider correspondence search | 19.519 | 38.8 | 67.5 | 2.25 | 3.15 | Keep as reference variant |
+| Covariance floor: 1e-4 | covariance regularization sweep | 19.672 | 94.2 | 96.6 | 2.85 | 3.55 | Adopt as current default |
+| Covariance-shape gradient | paper-mechanism probe | 18.694 | 79.2 | 91.0 | 3.10 | 3.70 | Keep as active challenger |
+| Covariance-shape gradient: 0.1x + line search | damped paper-mechanism probe | 23.144 | 83.7 | 84.0 | 2.15 | 3.05 | Keep as reference variant |
+
+### Observations
+
+1. `cov_floor_1e_4` is the current default for this problem.
+2. `cov_floor_1e_4` is the fastest observed variant at 94.2 FPS.
+3. `radius1_no_distance_gate` is the most accurate observed variant at 18.327 m ATE.
+
+### Variant Notes
+
+#### `tuned_voxel1_iter12`
+
+- Intent: Keep the established LiTAMIN2 no-GT tuned profile as the control.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/tuned_voxel1_iter12/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/tuned_voxel1_iter12/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/tuned_voxel1_iter12/run.log`
+- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `radius1_no_distance_gate`
+
+- Intent: Test whether same-voxel correspondence pruning is also limiting seq08.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/radius1_no_distance_gate/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/radius1_no_distance_gate/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/radius1_no_distance_gate/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `radius1_distance_gate_1_5m`
+
+- Intent: Check whether the seq02 guarded correspondence profile transfers to seq08.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/radius1_distance_gate_1_5m/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/radius1_distance_gate_1_5m/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/radius1_distance_gate_1_5m/run.log`
+- Readability proxy: 2.25 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.15 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `cov_floor_1e_4`
+
+- Intent: Test whether a weaker voxel covariance eigenvalue floor closes the residual paper gap.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-min-cov-eigenvalue 1e-4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/cov_floor_1e_4/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-min-cov-eigenvalue 1e-4`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/cov_floor_1e_4/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/cov_floor_1e_4/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `covariance_gradient`
+
+- Intent: Test the missing covariance-shape residual derivative in the Gauss-Newton update.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/covariance_gradient/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/covariance_gradient/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/covariance_gradient/run.log`
+- Readability proxy: 3.10 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.70 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `covariance_gradient_w0_1_linesearch`
+
+- Intent: Test whether a damped covariance-shape update avoids the full-sequence instability of the raw derivative.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient --litamin2-covariance-gradient-weight 0.1 --litamin2-line-search`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-covariance-gradient --litamin2-covariance-gradient-weight 0.1 --litamin2-line-search`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/covariance_gradient_w0_1_linesearch/run.log`
+- Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## Point-LIO on the public HDL-400 reference window

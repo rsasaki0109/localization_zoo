@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T11:18:16+00:00",
+  "generated_at": "2026-06-12T23:38:03+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2889,6 +2889,42 @@
       "manifest_path": "experiments/pending/ct_icp_kitti_simplified_cross_seq_08_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_simplified_cross_seq_08_matrix.json",
       "current_default": "simplified_seq_00_pattern"
+    },
+    {
+      "problem_id": "litamin2_correspondence_kitti_seq_02_full",
+      "title": "LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/litamin2_kitti_seq_02_full_correspondence_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json",
+      "current_default": "cov_floor_1e_4"
+    },
+    {
+      "problem_id": "litamin2_correspondence_kitti_seq_05_full",
+      "title": "LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/litamin2_kitti_seq_05_full_correspondence_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json",
+      "current_default": "cov_floor_1e_4"
+    },
+    {
+      "problem_id": "litamin2_correspondence_kitti_seq_07_full",
+      "title": "LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/litamin2_kitti_seq_07_full_correspondence_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json",
+      "current_default": "cov_floor_1e_4"
+    },
+    {
+      "problem_id": "litamin2_correspondence_kitti_seq_08_full",
+      "title": "LiTAMIN2 correspondence sweep on KITTI Odometry 08 (full)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/pending/litamin2_kitti_seq_08_full_correspondence_matrix.json",
+      "aggregate_path": "experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json",
+      "current_default": "cov_floor_1e_4"
     },
     {
       "problem_id": "point_lio_hdl_400_reference",

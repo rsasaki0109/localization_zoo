@@ -56,9 +56,11 @@ struct GaussianVoxel {
 /// 正規分布ボクセルマップ
 class GaussianVoxelMap {
 public:
-  explicit GaussianVoxelMap(double resolution, int min_points_per_voxel = 3)
+  explicit GaussianVoxelMap(double resolution, int min_points_per_voxel = 3,
+                            double min_cov_eigenvalue = 1e-3)
       : resolution_(resolution),
-        min_points_per_voxel_(min_points_per_voxel) {}
+        min_points_per_voxel_(min_points_per_voxel),
+        min_cov_eigenvalue_(min_cov_eigenvalue) {}
 
   /// 点群と各点の共分散からボクセルマップを構築
   void create(const std::vector<Eigen::Vector3d>& points,
@@ -138,9 +140,8 @@ public:
 
       Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> solver(cov);
       Eigen::Vector3d eigenvalues = solver.eigenvalues();
-      constexpr double kMinEigenvalue = 1e-3;
       for (int axis = 0; axis < 3; axis++) {
-        eigenvalues(axis) = std::max(eigenvalues(axis), kMinEigenvalue);
+        eigenvalues(axis) = std::max(eigenvalues(axis), min_cov_eigenvalue_);
       }
       voxel->cov = solver.eigenvectors() * eigenvalues.asDiagonal() *
                    solver.eigenvectors().transpose();
@@ -213,6 +214,7 @@ private:
 
   double resolution_;
   int min_points_per_voxel_;
+  double min_cov_eigenvalue_;
   std::unordered_map<Eigen::Vector3i, std::shared_ptr<GaussianVoxel>,
                      Vector3iHash>
       voxels_;

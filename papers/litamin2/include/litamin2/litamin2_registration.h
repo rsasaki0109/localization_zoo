@@ -30,7 +30,12 @@ struct LiTAMIN2Params {
   double sigma_icp = 0.5;              // ICPロバスト重みの閾値
   double sigma_cov = 3.0;              // 共分散ロバスト重みの閾値
   bool use_cov_cost = true;            // 共分散コストを使用するか
+  bool optimize_covariance_cost = false; // 共分散コストを最適化更新に入れるか
+  double covariance_gradient_weight = 1.0; // 共分散更新項の追加重み
+  bool enable_line_search = false;      // 更新後コストでステップ幅を縮小するか
+  double line_search_min_step = 0.0625; // line searchの最小ステップ倍率
   int num_threads = 1;                 // OpenMPスレッド数
+  double min_cov_eigenvalue = 1e-3;     // ボクセル共分散の最小固有値
   int correspondence_search_radius = 0; // 対応探索の近傍ボクセル半径
   double max_correspondence_distance = 0.0; // 対応点距離上限 [m], 0で無効
 };

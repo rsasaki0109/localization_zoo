@@ -941,6 +941,10 @@ struct LiTAMIN2DogfoodingOptions {
   int min_points_per_voxel = 1;
   int max_iterations = 6;
   bool use_cov_cost = true;
+  bool optimize_covariance_cost = false;
+  double covariance_gradient_weight = 1.0;
+  bool enable_line_search = false;
+  double line_search_min_step = 0.0625;
   int num_threads =
       static_cast<int>(std::max(1u, std::thread::hardware_concurrency() / 2));
   size_t max_source_points = 2500;
@@ -949,6 +953,7 @@ struct LiTAMIN2DogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  double min_cov_eigenvalue = 1e-3;
   int correspondence_search_radius = 0;
   double max_correspondence_distance = 0.0;
   SeedPerturbation seed_perturbation;
@@ -3035,7 +3040,12 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   params.min_points_per_voxel = options.min_points_per_voxel;
   params.max_iterations = options.max_iterations;
   params.use_cov_cost = options.use_cov_cost;
+  params.optimize_covariance_cost = options.optimize_covariance_cost;
+  params.covariance_gradient_weight = options.covariance_gradient_weight;
+  params.enable_line_search = options.enable_line_search;
+  params.line_search_min_step = options.line_search_min_step;
   params.num_threads = options.num_threads;
+  params.min_cov_eigenvalue = options.min_cov_eigenvalue;
   params.correspondence_search_radius = options.correspondence_search_radius;
   params.max_correspondence_distance = options.max_correspondence_distance;
   LiTAMIN2Registration reg(params);
@@ -8841,9 +8851,14 @@ int main(int argc, char** argv) {
               << " [--summary-json path]"
               << " [--litamin2-paper-profile]"
               << " [--litamin2-icp-only]"
+              << " [--litamin2-covariance-gradient]"
+              << " [--litamin2-covariance-gradient-weight X]"
+              << " [--litamin2-line-search]"
+              << " [--litamin2-line-search-min-step X]"
               << " [--litamin2-voxel-resolution X]"
               << " [--litamin2-max-iterations N]"
               << " [--litamin2-max-source-points N]"
+              << " [--litamin2-min-cov-eigenvalue X]"
               << " [--litamin2-correspondence-search-radius N]"
               << " [--litamin2-max-correspondence-distance X]"
               << " [--litamin2-num-threads N]"
@@ -9192,6 +9207,47 @@ int main(int argc, char** argv) {
       litamin2_options.use_cov_cost = false;
       continue;
     }
+    if (arg == "--litamin2-covariance-gradient") {
+      litamin2_options.optimize_covariance_cost = true;
+      continue;
+    }
+    if (arg == "--litamin2-covariance-gradient-weight") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-covariance-gradient-weight requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.covariance_gradient_weight =
+          std::max(0.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-covariance-gradient-weight=", 0) == 0) {
+      litamin2_options.covariance_gradient_weight = std::max(
+          0.0, std::stod(arg.substr(
+                     std::string("--litamin2-covariance-gradient-weight=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-line-search") {
+      litamin2_options.enable_line_search = true;
+      continue;
+    }
+    if (arg == "--litamin2-line-search-min-step") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-line-search-min-step requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.line_search_min_step =
+          std::clamp(std::stod(argv[++i]), 1e-4, 1.0);
+      continue;
+    }
+    if (arg.rfind("--litamin2-line-search-min-step=", 0) == 0) {
+      litamin2_options.line_search_min_step = std::clamp(
+          std::stod(arg.substr(
+              std::string("--litamin2-line-search-min-step=").size())),
+          1e-4, 1.0);
+      continue;
+    }
     if (arg == "--litamin2-voxel-resolution") {
       if (i + 1 >= argc) {
         std::cerr << "--litamin2-voxel-resolution requires a numeric value"
@@ -9234,6 +9290,22 @@ int main(int argc, char** argv) {
       litamin2_options.max_source_points = static_cast<size_t>(std::max(
           1, std::stoi(arg.substr(
                  std::string("--litamin2-max-source-points=").size()))));
+      continue;
+    }
+    if (arg == "--litamin2-min-cov-eigenvalue") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-min-cov-eigenvalue requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.min_cov_eigenvalue =
+          std::max(1e-12, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-min-cov-eigenvalue=", 0) == 0) {
+      litamin2_options.min_cov_eigenvalue = std::max(
+          1e-12, std::stod(arg.substr(
+                     std::string("--litamin2-min-cov-eigenvalue=").size())));
       continue;
     }
     if (arg == "--litamin2-correspondence-search-radius") {
@@ -12893,11 +12965,21 @@ int main(int argc, char** argv) {
     std::cout << "  voxel_resolution=" << litamin2_options.voxel_resolution
               << " max_iterations=" << litamin2_options.max_iterations
               << " max_source_points=" << litamin2_options.max_source_points
+              << " min_cov_eigenvalue="
+              << litamin2_options.min_cov_eigenvalue
               << " correspondence_search_radius="
               << litamin2_options.correspondence_search_radius
               << " max_correspondence_distance="
               << litamin2_options.max_correspondence_distance
               << " use_cov_cost=" << (litamin2_options.use_cov_cost ? "on" : "off")
+              << " covariance_gradient="
+              << (litamin2_options.optimize_covariance_cost ? "on" : "off")
+              << " covariance_gradient_weight="
+              << litamin2_options.covariance_gradient_weight
+              << " line_search="
+              << (litamin2_options.enable_line_search ? "on" : "off")
+              << " line_search_min_step="
+              << litamin2_options.line_search_min_step
               << " num_threads=" << litamin2_options.num_threads << std::endl;
     results.push_back(runLiTAMIN2(pcd_dirs, gt, litamin2_options, no_gt_seed));
   }

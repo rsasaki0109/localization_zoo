@@ -1,6 +1,7 @@
 #include "litamin2/litamin2_registration.h"
 
 #include <Eigen/Dense>
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -34,19 +35,29 @@ Eigen::Matrix3d expSO3(const Eigen::Vector3d& omega) {
          (1.0 - std::cos(theta)) * K * K;
 }
 
+Eigen::Vector3d skewTraceJacobian(const Eigen::Matrix3d& m) {
+  Eigen::Vector3d j;
+  j.x() = (m(1, 2) - m(2, 1));
+  j.y() = (-m(0, 2) + m(2, 0));
+  j.z() = (m(0, 1) - m(1, 0));
+  return j;
+}
+
 }  // namespace
 
 void LiTAMIN2Registration::setTarget(
     const std::vector<Eigen::Vector3d>& target_points) {
   target_voxel_map_ = std::make_unique<GaussianVoxelMap>(
-      params_.voxel_resolution, params_.min_points_per_voxel);
+      params_.voxel_resolution, params_.min_points_per_voxel,
+      params_.min_cov_eigenvalue);
   target_voxel_map_->createFromPoints(target_points, params_.num_threads);
 }
 
 void LiTAMIN2Registration::buildSourceVoxelMap(
     const std::vector<Eigen::Vector3d>& source_points) {
   source_voxel_map_ = std::make_unique<GaussianVoxelMap>(
-      params_.voxel_resolution, params_.min_points_per_voxel);
+      params_.voxel_resolution, params_.min_points_per_voxel,
+      params_.min_cov_eigenvalue);
   source_voxel_map_->createFromPoints(source_points, params_.num_threads);
 }
 
@@ -141,14 +152,21 @@ double LiTAMIN2Registration::linearize(
 
       double w_cov = 0.0;
       double E_cov = 0.0;
+      double cov_residual = 0.0;
+      Eigen::Vector3d J_cov = Eigen::Vector3d::Zero();
       if (params_.use_cov_cost) {
         const Eigen::Matrix3d Cp_inv = Cp.inverse();
         const Eigen::Matrix3d Cq_inv = Cq.inverse();
-        const double trace1 = (R * Cp_inv * R.transpose() * Cq).trace();
+        const Eigen::Matrix3d RCpInvRT = R * Cp_inv * R.transpose();
+        const double trace1 = (RCpInvRT * Cq).trace();
         const double trace2 = (Cq_inv * RCpRT).trace();
-        const double cov_residual = trace1 + trace2 - 6.0;
+        cov_residual = trace1 + trace2 - 6.0;
         E_cov = cov_residual * cov_residual;
         w_cov = 1.0 - E_cov / (E_cov + sigma_cov_sq);
+        const Eigen::Matrix3d cov_jacobian_matrix =
+            RCpInvRT * Cq - Cq * RCpInvRT +
+            RCpRT * Cq_inv - Cq_inv * RCpRT;
+        J_cov = skewTraceJacobian(cov_jacobian_matrix);
       }
 
       error_local += w_icp * E_icp + w_cov * E_cov;
@@ -160,6 +178,11 @@ double LiTAMIN2Registration::linearize(
       const Eigen::Matrix<double, 3, 1> C_qp_error = C_qp * error;
       H_local += w_icp * J.transpose() * C_qp * J;
       b_local += w_icp * J.transpose() * C_qp_error;
+      if (params_.use_cov_cost && params_.optimize_covariance_cost) {
+        const double cov_weight = params_.covariance_gradient_weight * w_cov;
+        H_local.block<3, 3>(0, 0) += cov_weight * J_cov * J_cov.transpose();
+        b_local.head<3>() += cov_weight * J_cov * cov_residual;
+      }
     }
 #ifdef _OPENMP
   }
@@ -225,18 +248,55 @@ RegistrationResult LiTAMIN2Registration::align(
     // ガウスニュートン更新: H δ = -b
     Eigen::Matrix<double, 6, 1> delta = H.ldlt().solve(-b_vec);
 
-    // 更新を適用
-    Eigen::Matrix3d dR = expSO3(delta.head<3>());
-    Eigen::Vector3d dt = delta.tail<3>();
+    Eigen::Matrix<double, 6, 1> accepted_delta = delta;
+    double accepted_error = error;
+    Eigen::Matrix3d accepted_R;
+    Eigen::Vector3d accepted_t;
 
-    R = dR * R;
-    t = dR * t + dt;
+    if (params_.enable_line_search) {
+      bool accepted = false;
+      const double min_step =
+          std::clamp(params_.line_search_min_step, 1e-4, 1.0);
+      for (double step = 1.0; step + 1e-12 >= min_step; step *= 0.5) {
+        const Eigen::Matrix<double, 6, 1> candidate_delta = step * delta;
+        const Eigen::Matrix3d candidate_dR =
+            expSO3(candidate_delta.head<3>());
+        const Eigen::Vector3d candidate_dt = candidate_delta.tail<3>();
+        const Eigen::Matrix3d candidate_R = candidate_dR * R;
+        const Eigen::Vector3d candidate_t = candidate_dR * t + candidate_dt;
+
+        Eigen::Matrix<double, 6, 6> candidate_H;
+        Eigen::Matrix<double, 6, 1> candidate_b;
+        const double candidate_error = linearize(
+            candidate_R, candidate_t, corrs, candidate_H, candidate_b);
+        if (candidate_error < accepted_error) {
+          accepted = true;
+          accepted_delta = candidate_delta;
+          accepted_error = candidate_error;
+          accepted_R = candidate_R;
+          accepted_t = candidate_t;
+          break;
+        }
+      }
+
+      if (accepted) {
+        R = accepted_R;
+        t = accepted_t;
+      } else {
+        accepted_delta.setZero();
+      }
+    } else {
+      const Eigen::Matrix3d dR = expSO3(delta.head<3>());
+      const Eigen::Vector3d dt = delta.tail<3>();
+      R = dR * R;
+      t = dR * t + dt;
+    }
 
     result.num_iterations = iter + 1;
-    result.final_error = error;
+    result.final_error = accepted_error;
 
     // 収束判定
-    if (isConverged(delta)) {
+    if (isConverged(accepted_delta)) {
       result.converged = true;
       break;
     }

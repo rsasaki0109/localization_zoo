@@ -140,6 +140,36 @@ python3 evaluation/scripts/run_lidar_degradation_health.py \
   --min-keyframe-correspondences 1000
 ```
 
+Run LiTAMIN2 on the same GT-free selected windows with the dedicated window
+runner:
+
+```bash
+cmake --build build --target litamin2_window_odometry -j2
+
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/fog_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/fog_200/litamin2_health \
+  --method litamin2 \
+  --max-step-translation 2.0 \
+  --max-step-yaw-deg 20 \
+  --min-used-path-length 0.25
+
+python3 evaluation/scripts/run_lidar_degradation_health.py \
+  experiments/results/lidar_degeneracy/tunnel_geom_2700_200/window_selection/degradation_windows.json \
+  experiments/results/lidar_degeneracy/tunnel_geom_2700_200/litamin2_health \
+  --method litamin2 \
+  --max-step-translation 2.0 \
+  --max-step-yaw-deg 20 \
+  --min-used-path-length 0.25
+```
+
+Current LiTAMIN2 GT-free health results:
+
+- `fog_200`: 3/3 selected windows accepted and converged; max used path
+  1.036 m; policy pass 3/3.
+- `tunnel_geom_2700_200`: 4/4 selected windows accepted and converged; max
+  used path 3.035 m; policy pass 4/4.
+
 For CT-ICP, use the dedicated window runner. It reports the internal CT-ICP
 convergence bit separately from the accepted gate, because the dogfooding
 pipeline has historically used the refined transform even when the internal

@@ -19,6 +19,7 @@ GEOMETRY_ICP = REPO_ROOT / "evaluation" / "scripts" / "geometry_icp_odometry_dem
 INTENSITY_BEV = REPO_ROOT / "evaluation" / "scripts" / "intensity_bev_odometry_demo.py"
 KISS_KEYFRAME = REPO_ROOT / "build" / "evaluation" / "kiss_keyframe_odometry"
 CT_ICP_WINDOW = REPO_ROOT / "build" / "evaluation" / "ct_icp_window_odometry"
+LITAMIN2_WINDOW = REPO_ROOT / "build" / "evaluation" / "litamin2_window_odometry"
 
 
 def parse_args() -> argparse.Namespace:
@@ -32,11 +33,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--method",
-        choices=["geometry_icp", "intensity_bev", "kiss_keyframe", "ct_icp"],
+        choices=["geometry_icp", "intensity_bev", "kiss_keyframe", "ct_icp", "litamin2"],
         default="geometry_icp",
     )
     parser.add_argument("--kiss-binary", type=Path, default=KISS_KEYFRAME)
     parser.add_argument("--ct-icp-binary", type=Path, default=CT_ICP_WINDOW)
+    parser.add_argument("--litamin2-binary", type=Path, default=LITAMIN2_WINDOW)
     parser.add_argument("--max-points", type=int, default=5000)
     parser.add_argument("--voxel-size", type=float, default=0.75)
     parser.add_argument("--min-range", type=float, default=0.2)
@@ -137,6 +139,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ct-icp-require-convergence", action="store_true")
     parser.add_argument("--ct-icp-max-seed-translation-delta", type=float, default=2.0)
     parser.add_argument("--ct-icp-max-seed-rotation-delta-rad", type=float, default=0.25)
+    parser.add_argument("--litamin2-source-voxel-size", type=float, default=0.75)
+    parser.add_argument("--litamin2-max-source-points", type=int, default=1000)
+    parser.add_argument("--litamin2-voxel-resolution", type=float, default=1.0)
+    parser.add_argument("--litamin2-max-iterations", type=int, default=8)
+    parser.add_argument("--litamin2-map-max-points", type=int, default=12000)
+    parser.add_argument("--litamin2-refresh-interval", type=int, default=3)
+    parser.add_argument("--litamin2-map-radius", type=float, default=45.0)
+    parser.add_argument("--litamin2-correspondence-search-radius", type=int, default=0)
+    parser.add_argument("--litamin2-max-correspondence-distance", type=float, default=0.0)
+    parser.add_argument("--litamin2-icp-only", action="store_true")
+    parser.add_argument("--litamin2-require-convergence", action="store_true")
+    parser.add_argument("--litamin2-max-seed-translation-delta", type=float, default=2.0)
+    parser.add_argument("--litamin2-max-seed-rotation-delta-rad", type=float, default=0.25)
     parser.add_argument("--progress-every", type=int, default=0)
     return parser.parse_args()
 
@@ -371,6 +386,71 @@ def run_ct_icp(
     return result_path
 
 
+def run_litamin2(
+    args: argparse.Namespace,
+    sequence_pcd_dir: Path,
+    name: str,
+    row: dict[str, Any],
+    output_dir: Path,
+) -> Path:
+    result_path = (
+        output_dir
+        / "results"
+        / f"{name}_{int(row['start']):04d}_{int(row['end']):04d}_litamin2.json"
+    )
+    result_path.parent.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        str(args.litamin2_binary),
+        str(sequence_pcd_dir),
+        "-",
+        str(result_path),
+        str(int(row["frames"])),
+        "--start-frame",
+        str(int(row["start"])),
+        "--source-voxel-size",
+        str(args.litamin2_source_voxel_size),
+        "--max-source-points",
+        str(args.litamin2_max_source_points),
+        "--voxel-resolution",
+        str(args.litamin2_voxel_resolution),
+        "--max-iterations",
+        str(args.litamin2_max_iterations),
+        "--map-max-points",
+        str(args.litamin2_map_max_points),
+        "--refresh-interval",
+        str(args.litamin2_refresh_interval),
+        "--map-radius",
+        str(args.litamin2_map_radius),
+        "--min-range",
+        str(args.min_range),
+        "--max-range",
+        str(args.max_range),
+        "--z-min",
+        str(args.z_min),
+        "--z-max",
+        str(args.z_max),
+        "--max-step-translation",
+        str(args.max_step_translation),
+        "--max-step-yaw-deg",
+        str(args.max_step_yaw_deg),
+        "--max-seed-translation-delta",
+        str(args.litamin2_max_seed_translation_delta),
+        "--max-seed-rotation-delta-rad",
+        str(args.litamin2_max_seed_rotation_delta_rad),
+        "--correspondence-search-radius",
+        str(args.litamin2_correspondence_search_radius),
+        "--max-correspondence-distance",
+        str(args.litamin2_max_correspondence_distance),
+    ]
+    if args.litamin2_icp_only:
+        cmd.append("--icp-only")
+    if args.litamin2_require_convergence:
+        cmd.append("--require-convergence")
+    print("[run] " + " ".join(cmd))
+    subprocess.run(cmd, cwd=REPO_ROOT, check=True)
+    return result_path
+
+
 def finite(values: list[float]) -> list[float]:
     return [value for value in values if math.isfinite(value)]
 
@@ -478,12 +558,14 @@ def summarize_result(
     ]
     yaws = [abs(float(pair.get("used_yaw_curr_to_prev_deg", 0.0))) for pair in pairs]
     ct_icp_refinement_gates = [
-        bool(pair["refinement_gate"]) for pair in pairs if "refinement_gate" in pair
+        bool(pair["refinement_gate"])
+        for pair in pairs
+        if method == "ct_icp" and "refinement_gate" in pair
     ]
     ct_icp_iterations = [
         float(pair["iterations"])
         for pair in pairs
-        if optional_float(pair.get("iterations")) is not None
+        if method == "ct_icp" and optional_float(pair.get("iterations")) is not None
     ]
     nonfinite_pose_count = sum(
         not all(math.isfinite(float(pose[key])) for key in ("x_m", "y_m", "yaw_deg"))
@@ -622,6 +704,8 @@ def main() -> int:
             result_path = run_kiss_keyframe(args, sequence_pcd_dir, name, row, args.output_dir)
         elif args.method == "ct_icp":
             result_path = run_ct_icp(args, sequence_pcd_dir, name, row, args.output_dir)
+        elif args.method == "litamin2":
+            result_path = run_litamin2(args, sequence_pcd_dir, name, row, args.output_dir)
         else:
             raise ValueError(f"Unsupported method: {args.method}")
         rows.append(
@@ -686,6 +770,19 @@ def main() -> int:
             "ct_icp_require_convergence": args.ct_icp_require_convergence,
             "ct_icp_max_seed_translation_delta": args.ct_icp_max_seed_translation_delta,
             "ct_icp_max_seed_rotation_delta_rad": args.ct_icp_max_seed_rotation_delta_rad,
+            "litamin2_source_voxel_size": args.litamin2_source_voxel_size,
+            "litamin2_max_source_points": args.litamin2_max_source_points,
+            "litamin2_voxel_resolution": args.litamin2_voxel_resolution,
+            "litamin2_max_iterations": args.litamin2_max_iterations,
+            "litamin2_map_max_points": args.litamin2_map_max_points,
+            "litamin2_refresh_interval": args.litamin2_refresh_interval,
+            "litamin2_map_radius": args.litamin2_map_radius,
+            "litamin2_correspondence_search_radius": args.litamin2_correspondence_search_radius,
+            "litamin2_max_correspondence_distance": args.litamin2_max_correspondence_distance,
+            "litamin2_icp_only": args.litamin2_icp_only,
+            "litamin2_require_convergence": args.litamin2_require_convergence,
+            "litamin2_max_seed_translation_delta": args.litamin2_max_seed_translation_delta,
+            "litamin2_max_seed_rotation_delta_rad": args.litamin2_max_seed_rotation_delta_rad,
         },
         "windows": rows,
     }

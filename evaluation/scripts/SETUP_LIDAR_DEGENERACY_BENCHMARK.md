@@ -170,6 +170,17 @@ Current LiTAMIN2 GT-free health results:
 - `tunnel_geom_2700_200`: 4/4 selected windows accepted and converged; max
   used path 3.035 m; policy pass 4/4.
 
+LiTAMIN2 stress-sensitivity sweep:
+
+- Summary: `experiments/results/lidar_degeneracy/litamin2_stress_sensitivity/summary.md`
+- Variants: default, `--litamin2-icp-only`,
+  `--litamin2-correspondence-search-radius 1`, seed gate 0.5 m / 0.1 rad,
+  and step gate 0.5 m / 10 deg.
+- Result: ICP-only, tight seed gate, and tight step gate matched default on
+  both sequences. Radius-1 changed path length but only introduced one
+  `fog_200` nominal `low_used_path` flag, so it is a false-alarm trade-off
+  rather than a useful stress detector.
+
 For CT-ICP, use the dedicated window runner. It reports the internal CT-ICP
 convergence bit separately from the accepted gate, because the dogfooding
 pipeline has historically used the refined transform even when the internal

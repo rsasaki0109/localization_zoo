@@ -93,10 +93,17 @@
 > `fog_200` は 3/3 selected windows accepted/converged、policy pass 3/3、
 > max used path 1.036 m。`tunnel_geom_2700_200` は 4/4 accepted/converged、
 > policy pass 4/4、max used path 3.035 m。
+> 追加で stress sensitivity sweep を実行し、
+> [`experiments/results/lidar_degeneracy/litamin2_stress_sensitivity/summary.md`](experiments/results/lidar_degeneracy/litamin2_stress_sensitivity/summary.md)
+> に集計した。variant は default / `--litamin2-icp-only` /
+> `--litamin2-correspondence-search-radius 1` / seed gate 0.5 m・0.1 rad /
+> step gate 0.5 m・10 deg。ICP-only、tight seed、tight step は default と同じく
+> fog/tunnel 全 selected windows accepted/converged で health flag なし。radius1 は
+> tunnel の max path を 3.035 m -> 2.810 m に下げたが、fog nominal baseline に
+> `low_used_path` false alarm を1件作るだけで、stress-only failure signal にはならなかった。
 > これは GT無しの短窓 health であり paper-level accuracy claim ではない。
 > 次は LiTAMIN2 の degeneracy health を README / paper-ready docs に「GT-free robustness probe」として
-> 位置づけるか、fog/tunnel で `--litamin2-icp-only` / correspondence radius / stricter seed gate を
-> sweep して stress-unflagged の感度を上げるのが妥当。
+> 位置づけるか、外部 GT / pose source が取れる dataset で実誤差 calibration へ進むのが妥当。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。

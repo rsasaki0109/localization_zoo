@@ -49,6 +49,15 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
 | optimize_covariance_cost | false | 共分散形状コストの回転勾配を更新式へ入れるか |
 | covariance_gradient_weight | 1.0 | 共分散形状コスト更新項の追加重み |
 | enable_line_search | false | 更新後コストでステップ幅を縮小するか |
+| scan_to_scan | false | 直前scanをtargetにする非公式実装風の相対pose積算 |
+| coarse_to_fine_voxels | unset | coarse-to-fine voxel schedule。例: 3.0,2.0,1.0 |
+| coarse_to_fine_iterations | unset | coarse-to-fine 各段の反復数。短い場合は最後の値を再利用 |
+| refresh_interval | 3 | target map 再構築間隔 |
+| map_radius | 45.0 m | map に保持する近傍半径 |
+| max_seed_translation_delta | 2.0 m | 初期値からの refinement acceptance gate |
+| max_seed_rotation_delta | 0.25 rad | 初期値からの refinement acceptance gate |
+| max_motion_translation_delta | disabled | frame-to-frame motion consistency gate |
+| max_motion_rotation_delta | disabled | frame-to-frame motion consistency gate |
 | correspondence_search_radius | 0 | 対応探索の近傍ボクセル半径 |
 | max_correspondence_distance | 0.0 m | 対応点距離上限。0で無効 |
 
@@ -57,6 +66,19 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
 - この実装はSLAMフロントエンド (オドメトリ) の点群レジストレーション部分を再現
 - ループクロージャ・グラフ最適化は含まない
 - 公式実装は未公開。非公式実装 (https://github.com/bzdfzfer/litamin2) を参考
+- 非公式実装のKITTI例は、current scan を source、直前scanを target とする
+  scan-to-scan registration を行い、`swapSourceAndTarget()` しながら相対poseを積算する。
+  `pcd_dogfooding` のLiTAMIN2はscan-to-map + GT/velocity seed + local map refresh で
+  評価しているため、論文/非公式実装との差分には registration 式だけでなく
+  フロントエンド運用差が含まれる。
+  これを確認するため `--litamin2-scan-to-scan` を opt-in で追加した。
+  KITTI seq02 108-frame では ATE 1.395 m / RPE 2.568 % (GT relative seed)、
+  ATE 1.474 m / RPE 2.774 % (no-GT, previous relative seed) まで動くが、
+  full seq02 では ATE 445 m / RPE 21.8-24.4 % までdriftするため、
+  long-trajectory default にはしない。
+- 非公式 point-to-voxel 実装では covariance shape cost の最適化項はコメントアウトされ、
+  ICP側のKL Mahalanobis costが主に使われている。これは本実装の
+  `optimize_covariance_cost=false` default と整合する。
 - `pcd_dogfooding` では `--litamin2-correspondence-search-radius` と
   `--litamin2-max-correspondence-distance` で対応探索の広さと距離gateを
   sweepできる。デフォルトは従来互換の同一ボクセル探索。
@@ -90,5 +112,25 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
   108-frame smoke では seq02 RPE が 11.969 % から 0.670 % へ大きく
   改善したが、full sequence では seq02/08 が悪化し、seq02/05/07/08
   の幾何平均 RPE は baseline 0.806 % に対して 1.185 % だった。
-  schedule 自体は再現可能になったが、長距離では段間 acceptance と
-  map refresh の制御が足りないため default にはしない。
+  `--litamin2-refresh-interval 1` と tighter seed gate
+  (`--litamin2-max-seed-translation-delta 1.0 --litamin2-max-seed-rotation-delta 0.15`)
+  も full seq02 で確認したが、それぞれ RPE 4.412 % / 2.306 % で
+  改善しなかった。`--litamin2-coarse-to-fine-iterations 3,3,6` は full seq02 を
+  ATE 48.589 m / RPE 1.224 % / 89.5 FPS まで戻し、`2,2,8` は
+  RPE 0.976 % と baseline 並みに戻ったが、ATE は 55.516 m で悪化した。
+  `2,2,8` を seq05/07/08 full に横展開すると ATE は seq05 7.350 -> 1.454 m、
+  seq07 1.964 -> 0.625 m、seq08 22.875 -> 1.244 m と大きく下がる一方、
+  RPE は seq05 0.626 -> 0.630 %、seq07 0.535 -> 0.782 %、
+  seq08 1.295 -> 1.386 % に悪化し、seq02/05/07/08 の幾何平均 RPE も
+  0.806 -> 0.903 % に悪化した。
+  schedule 自体と段ごとの iteration sweep は再現可能になったが、長距離では
+  粗段の over-iteration が drift を誘発しやすく、ATE/RPE trade-off も大きいため
+  全体 default にはしない。
+- `--litamin2-max-motion-translation-delta` /
+  `--litamin2-max-motion-rotation-delta` は、candidate の frame-to-frame
+  motion を GT relative motion (GT-seeded) または直前推定motion (no-GT) と比較する
+  opt-in gate。`0.25 / 0.05` を coarse-to-fine default に足すと、
+  seq02/05/07/08 full の ATE は 0.957 / 0.957 / 0.714 / 0.978 m まで
+  下がるが、RPE は 1.352 / 1.321 / 1.111 / 1.359 % となり、幾何平均 RPE は
+  baseline 0.806 % に対して 1.282 % へ悪化する。ATE重視の診断ノブとしては
+  有用だが、RPE主張の default にはしない。

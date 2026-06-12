@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-13 (LiTAMIN2 scan-to-map local-map policy sweep、2D は一旦停止)**
+> **最終更新: 2026-06-13 (LiTAMIN2 NTNU LiDAR degeneracy health、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,7 +24,7 @@
 
 ---
 
-## 00. Latest Handoff: LiTAMIN2 Scan-to-Map Local-Map Policy Sweep (2026-06-13 更新)
+## 00. Latest Handoff: LiTAMIN2 NTNU LiDAR Degeneracy Health (2026-06-13 更新)
 
 > **これが最新・最優先の handoff。**
 >
@@ -83,8 +83,20 @@
 > RPE 1.208 / 0.762 / 0.635 / 1.456 %、幾何平均 RPE 0.961 %。
 > ATE診断用の有力 knob だが、baseline RPE 0.806 % と `2,2,8 + refresh` RPE 0.903 % に
 > 届かないため default にはしない。
-> 次は paper claim を ATE/RPEで分離して整理するか、local-map keyframe しきい値を
-> RPE重視で sweep するのが妥当。
+> ユーザ提案の `https://github.com/ntnu-arl/lidar_degeneracy_datasets` 評価にも着手。
+> 既存の [`evaluation/scripts/SETUP_LIDAR_DEGENERACY_BENCHMARK.md`](evaluation/scripts/SETUP_LIDAR_DEGENERACY_BENCHMARK.md)
+> / `experiments/results/lidar_degeneracy/` pipeline に LiTAMIN2 を追加するため、
+> `evaluation/src/litamin2_window_odometry.cpp` を新設し、
+> `evaluation/scripts/run_lidar_degradation_health.py --method litamin2` と
+> `evaluation/scripts/summarize_lidar_degeneracy_health.py` に配線した。
+> 既存抽出済みの NTNU selected windows で GT-free health check を実行済み:
+> `fog_200` は 3/3 selected windows accepted/converged、policy pass 3/3、
+> max used path 1.036 m。`tunnel_geom_2700_200` は 4/4 accepted/converged、
+> policy pass 4/4、max used path 3.035 m。
+> これは GT無しの短窓 health であり paper-level accuracy claim ではない。
+> 次は LiTAMIN2 の degeneracy health を README / paper-ready docs に「GT-free robustness probe」として
+> 位置づけるか、fog/tunnel で `--litamin2-icp-only` / correspondence radius / stricter seed gate を
+> sweep して stress-unflagged の感度を上げるのが妥当。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。

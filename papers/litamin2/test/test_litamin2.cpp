@@ -101,3 +101,20 @@ TEST(LiTAMIN2, VoxelReduction) {
   double reduction = 100.0 * (1.0 - static_cast<double>(vmap.size()) / n);
   EXPECT_GT(reduction, 80.0);
 }
+
+TEST(LiTAMIN2, NearestVoxelLookupCanUseNeighborCells) {
+  std::vector<Eigen::Vector3d> points = {
+      Eigen::Vector3d(0.2, 0.2, 0.2),
+      Eigen::Vector3d(0.25, 0.2, 0.2),
+      Eigen::Vector3d(0.2, 0.25, 0.2),
+  };
+
+  GaussianVoxelMap vmap(1.0, 1);
+  vmap.createFromPoints(points);
+
+  EXPECT_EQ(vmap.lookup(Eigen::Vector3d(1.05, 0.2, 0.2)), nullptr);
+  auto nearest = vmap.lookupNearest(Eigen::Vector3d(1.05, 0.2, 0.2), 1);
+  ASSERT_NE(nearest, nullptr);
+  EXPECT_LT((nearest->mean - Eigen::Vector3d(0.2167, 0.2167, 0.2)).norm(),
+            1e-3);
+}

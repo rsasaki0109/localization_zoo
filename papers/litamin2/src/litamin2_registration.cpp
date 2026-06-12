@@ -60,12 +60,21 @@ LiTAMIN2Registration::updateCorrespondences(const Eigen::Matrix3d& R,
   corrs.reserve(source_voxel_map_->size());
 
   for (auto& [coord, src_voxel] : source_voxel_map_->voxels()) {
+    (void)coord;
     // ソースボクセルの重心を変換
     Eigen::Vector3d transformed_mean = R * src_voxel->mean + t;
 
     // 変換後の座標でターゲットボクセルを検索
-    auto tgt_voxel = target_voxel_map_->lookup(transformed_mean);
+    auto tgt_voxel = target_voxel_map_->lookupNearest(
+        transformed_mean, params_.correspondence_search_radius);
     if (tgt_voxel) {
+      if (params_.max_correspondence_distance > 0.0) {
+        const double max_dist_sq = params_.max_correspondence_distance *
+                                   params_.max_correspondence_distance;
+        if ((tgt_voxel->mean - transformed_mean).squaredNorm() > max_dist_sq) {
+          continue;
+        }
+      }
       corrs.emplace_back(src_voxel, tgt_voxel);
     }
   }

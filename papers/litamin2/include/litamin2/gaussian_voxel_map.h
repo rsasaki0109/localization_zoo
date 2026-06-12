@@ -164,6 +164,38 @@ public:
     return nullptr;
   }
 
+  /// 座標から近傍ボクセル内の最近傍ガウス分布を検索
+  std::shared_ptr<GaussianVoxel> lookupNearest(const Eigen::Vector3d& point,
+                                               int search_radius) const {
+    if (search_radius <= 0) {
+      return lookup(point);
+    }
+
+    const Eigen::Vector3i center = pointToVoxel(point);
+    std::shared_ptr<GaussianVoxel> best;
+    double best_distance_sq = 0.0;
+
+    for (int dx = -search_radius; dx <= search_radius; dx++) {
+      for (int dy = -search_radius; dy <= search_radius; dy++) {
+        for (int dz = -search_radius; dz <= search_radius; dz++) {
+          const Eigen::Vector3i coord =
+              center + Eigen::Vector3i(dx, dy, dz);
+          auto it = voxels_.find(coord);
+          if (it == voxels_.end()) {
+            continue;
+          }
+          const double distance_sq = (it->second->mean - point).squaredNorm();
+          if (!best || distance_sq < best_distance_sq) {
+            best = it->second;
+            best_distance_sq = distance_sq;
+          }
+        }
+      }
+    }
+
+    return best;
+  }
+
   /// 全ボクセルのイテレーション用
   const auto& voxels() const { return voxels_; }
 

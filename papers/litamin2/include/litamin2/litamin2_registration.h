@@ -31,6 +31,8 @@ struct LiTAMIN2Params {
   double sigma_cov = 3.0;              // 共分散ロバスト重みの閾値
   bool use_cov_cost = true;            // 共分散コストを使用するか
   int num_threads = 1;                 // OpenMPスレッド数
+  int correspondence_search_radius = 0; // 対応探索の近傍ボクセル半径
+  double max_correspondence_distance = 0.0; // 対応点距離上限 [m], 0で無効
 };
 
 /// LiTAMIN2 点群レジストレーション

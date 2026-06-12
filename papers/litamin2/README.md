@@ -45,9 +45,20 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
 | λ | 1e-6 | Frobenius正規化パラメータ |
 | σ_ICP | 0.5 | ICPロバスト重みの閾値 |
 | σ_Cov | 3.0 | 共分散ロバスト重みの閾値 |
+| correspondence_search_radius | 0 | 対応探索の近傍ボクセル半径 |
+| max_correspondence_distance | 0.0 m | 対応点距離上限。0で無効 |
 
 ## 実装ノート
 
 - この実装はSLAMフロントエンド (オドメトリ) の点群レジストレーション部分を再現
 - ループクロージャ・グラフ最適化は含まない
 - 公式実装は未公開。非公式実装 (https://github.com/bzdfzfer/litamin2) を参考
+- `pcd_dogfooding` では `--litamin2-correspondence-search-radius` と
+  `--litamin2-max-correspondence-distance` で対応探索の広さと距離gateを
+  sweepできる。デフォルトは従来互換の同一ボクセル探索。
+- KITTI seq02 の 200-frame no-GT smoke では、tuned profile
+  (`--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12`) に
+  `--litamin2-correspondence-search-radius 1 --litamin2-max-correspondence-distance 1.5`
+  を追加すると ATE 22.522 m / drift 2.330 m/100m から
+  ATE 1.042 m / drift 0.730 m/100m に改善した。一方 seq05/07/08 の
+  short smoke では改善しないため、まだデフォルト昇格はしていない。

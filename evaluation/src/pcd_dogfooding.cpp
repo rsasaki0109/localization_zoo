@@ -949,6 +949,8 @@ struct LiTAMIN2DogfoodingOptions {
   double map_radius = 45.0;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
+  int correspondence_search_radius = 0;
+  double max_correspondence_distance = 0.0;
   SeedPerturbation seed_perturbation;
 };
 
@@ -3034,6 +3036,8 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   params.max_iterations = options.max_iterations;
   params.use_cov_cost = options.use_cov_cost;
   params.num_threads = options.num_threads;
+  params.correspondence_search_radius = options.correspondence_search_radius;
+  params.max_correspondence_distance = options.max_correspondence_distance;
   LiTAMIN2Registration reg(params);
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];  // 初期推定にGTを使用
@@ -8840,6 +8844,8 @@ int main(int argc, char** argv) {
               << " [--litamin2-voxel-resolution X]"
               << " [--litamin2-max-iterations N]"
               << " [--litamin2-max-source-points N]"
+              << " [--litamin2-correspondence-search-radius N]"
+              << " [--litamin2-max-correspondence-distance X]"
               << " [--litamin2-num-threads N]"
               << " [--gicp-fast-profile]"
               << " [--gicp-dense-profile]"
@@ -9228,6 +9234,40 @@ int main(int argc, char** argv) {
       litamin2_options.max_source_points = static_cast<size_t>(std::max(
           1, std::stoi(arg.substr(
                  std::string("--litamin2-max-source-points=").size()))));
+      continue;
+    }
+    if (arg == "--litamin2-correspondence-search-radius") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-correspondence-search-radius requires an "
+                     "integer value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.correspondence_search_radius =
+          std::max(0, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-correspondence-search-radius=", 0) == 0) {
+      litamin2_options.correspondence_search_radius = std::max(
+          0, std::stoi(arg.substr(
+                 std::string("--litamin2-correspondence-search-radius=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-max-correspondence-distance") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-max-correspondence-distance requires a "
+                     "numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.max_correspondence_distance =
+          std::max(0.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-max-correspondence-distance=", 0) == 0) {
+      litamin2_options.max_correspondence_distance = std::max(
+          0.0, std::stod(arg.substr(
+                   std::string("--litamin2-max-correspondence-distance=").size())));
       continue;
     }
     if (arg == "--litamin2-num-threads") {
@@ -12853,6 +12893,10 @@ int main(int argc, char** argv) {
     std::cout << "  voxel_resolution=" << litamin2_options.voxel_resolution
               << " max_iterations=" << litamin2_options.max_iterations
               << " max_source_points=" << litamin2_options.max_source_points
+              << " correspondence_search_radius="
+              << litamin2_options.correspondence_search_radius
+              << " max_correspondence_distance="
+              << litamin2_options.max_correspondence_distance
               << " use_cov_cost=" << (litamin2_options.use_cov_cost ? "on" : "off")
               << " num_threads=" << litamin2_options.num_threads << std::endl;
     results.push_back(runLiTAMIN2(pcd_dirs, gt, litamin2_options, no_gt_seed));

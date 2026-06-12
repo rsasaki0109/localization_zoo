@@ -1,0 +1,454 @@
+{
+  "title": "LiTAMIN2 stress sensitivity on NTNU LiDAR degeneracy selected windows",
+  "note": "GT-free short-window health check; flags are robustness probes, not accuracy claims.",
+  "rows": [
+    {
+      "sequence": "fog_200",
+      "variant": "default",
+      "description": "baseline LiTAMIN2 window health",
+      "summary_path": "experiments/results/lidar_degeneracy/fog_200/litamin2_health/odometry_health_summary.json",
+      "windows": 3,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 1.0364677239110092,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 0,
+          "end": 29,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.25520093276193345,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.8634537910480032,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 115,
+          "end": 144,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.0364677239110092,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "fog_200",
+      "variant": "icp_only",
+      "description": "covariance-shape term disabled",
+      "summary_path": "experiments/results/lidar_degeneracy/fog_200/litamin2_icp_only_health/odometry_health_summary.json",
+      "windows": 3,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 1.0364677239110092,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 0,
+          "end": 29,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.25520093276193345,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.8634537910480032,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 115,
+          "end": 144,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.0364677239110092,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "fog_200",
+      "variant": "radius1",
+      "description": "neighbor voxel correspondence radius 1",
+      "summary_path": "experiments/results/lidar_degeneracy/fog_200/litamin2_radius1_health/odometry_health_summary.json",
+      "windows": 3,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 1,
+      "max_used_path_length_m": 1.3372900249091566,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 0,
+          "end": 29,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.23126423094245596,
+          "flags": [
+            "low_used_path"
+          ]
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.3372900249091566,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 115,
+          "end": 144,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.7474057486667053,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "fog_200",
+      "variant": "tight_seed",
+      "description": "seed gate 0.5 m / 0.1 rad",
+      "summary_path": "experiments/results/lidar_degeneracy/fog_200/litamin2_tight_seed_health/odometry_health_summary.json",
+      "windows": 3,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 1.0364677239110092,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 0,
+          "end": 29,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.25520093276193345,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.8634537910480032,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 115,
+          "end": 144,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.0364677239110092,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "fog_200",
+      "variant": "tight_step",
+      "description": "step gate 0.5 m / 10 deg",
+      "summary_path": "experiments/results/lidar_degeneracy/fog_200/litamin2_tight_step_health/odometry_health_summary.json",
+      "windows": 3,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 1.0364677239110092,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 0,
+          "end": 29,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.25520093276193345,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.8634537910480032,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 115,
+          "end": 144,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.0364677239110092,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "variant": "default",
+      "description": "baseline LiTAMIN2 window health",
+      "summary_path": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/litamin2_health/odometry_health_summary.json",
+      "windows": 4,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 3.034623993560164,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 5,
+          "end": 34,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.815175601394779,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 3.034623993560164,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 80,
+          "end": 109,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.595495267703463,
+          "flags": []
+        },
+        {
+          "name": "geometry_degeneracy",
+          "start": 90,
+          "end": 119,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.0002352234244685,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "variant": "icp_only",
+      "description": "covariance-shape term disabled",
+      "summary_path": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/litamin2_icp_only_health/odometry_health_summary.json",
+      "windows": 4,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 3.034623993560164,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 5,
+          "end": 34,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.815175601394779,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 3.034623993560164,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 80,
+          "end": 109,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.595495267703463,
+          "flags": []
+        },
+        {
+          "name": "geometry_degeneracy",
+          "start": 90,
+          "end": 119,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.0002352234244685,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "variant": "radius1",
+      "description": "neighbor voxel correspondence radius 1",
+      "summary_path": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/litamin2_radius1_health/odometry_health_summary.json",
+      "windows": 4,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 2.810139356111554,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 5,
+          "end": 34,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.3201674347969283,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 2.810139356111554,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 80,
+          "end": 109,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.181713982486516,
+          "flags": []
+        },
+        {
+          "name": "geometry_degeneracy",
+          "start": 90,
+          "end": 119,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.19253814504143,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "variant": "tight_seed",
+      "description": "seed gate 0.5 m / 0.1 rad",
+      "summary_path": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/litamin2_tight_seed_health/odometry_health_summary.json",
+      "windows": 4,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 3.034623993560164,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 5,
+          "end": 34,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.815175601394779,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 3.034623993560164,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 80,
+          "end": 109,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.595495267703463,
+          "flags": []
+        },
+        {
+          "name": "geometry_degeneracy",
+          "start": 90,
+          "end": 119,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.0002352234244685,
+          "flags": []
+        }
+      ]
+    },
+    {
+      "sequence": "tunnel_geom_2700_200",
+      "variant": "tight_step",
+      "description": "step gate 0.5 m / 10 deg",
+      "summary_path": "experiments/results/lidar_degeneracy/tunnel_geom_2700_200/litamin2_tight_step_health/odometry_health_summary.json",
+      "windows": 4,
+      "mean_acceptance": 1.0,
+      "mean_convergence": 1.0,
+      "flagged_windows": 0,
+      "max_used_path_length_m": 3.034623993560164,
+      "window_results": [
+        {
+          "name": "baseline",
+          "start": 5,
+          "end": 34,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 0.815175601394779,
+          "flags": []
+        },
+        {
+          "name": "degraded",
+          "start": 170,
+          "end": 199,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 3.034623993560164,
+          "flags": []
+        },
+        {
+          "name": "point_count_tail",
+          "start": 80,
+          "end": 109,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.595495267703463,
+          "flags": []
+        },
+        {
+          "name": "geometry_degeneracy",
+          "start": 90,
+          "end": 119,
+          "accepted_rate": 1.0,
+          "converged_rate": 1.0,
+          "used_path_length_m": 1.0002352234244685,
+          "flags": []
+        }
+      ]
+    }
+  ],
+  "decision": "No tested knob improved stress sensitivity without trade-off. ICP-only, tight seed, and tight step matched default; radius1 introduced one fog nominal low-used-path false alarm."
+}

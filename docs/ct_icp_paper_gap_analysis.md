@@ -101,6 +101,16 @@ Smoke evidence:
 | KITTI seq07 first 200, default | 0.610 | 0.525 | 0 |
 | KITTI seq07 first 200, `--ct-icp-auto-regularizer-cap` | 0.599 | 0.431 | 51 |
 
-The full-sequence cap sweep remains the stronger evidence, but the 200-frame
-check confirms the non-oracle gate moves the metric in the intended direction
-without touching GT during the run.
+Cross-sequence 200-frame smoke:
+
+| Seq | Default ATE | Auto-cap ATE | Default drift | Auto-cap drift | Capped frames | Verdict |
+|---|---:|---:|---:|---:|---:|---|
+| 02 | 1.570 | 1.688 | 1.198 | 1.157 | 1 | RPE-only win; ATE regresses |
+| 05 | 0.839 | 0.798 | 1.627 | 1.559 | 33 | ATE/RPE win |
+| 07 | 0.610 | 0.599 | 0.525 | 0.431 | 51 | ATE/RPE win |
+| 08 | 14.037 | 14.031 | 7.305 | 7.199 | 39 | small ATE/RPE win |
+
+The full-sequence cap sweep remains the stronger evidence. The 200-frame checks
+show the non-oracle gate consistently improves drift on these four sequences,
+but seq02's ATE regression means this should remain opt-in/RPE-prioritized
+rather than replacing the default profile.

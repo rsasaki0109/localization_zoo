@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-13 (LiTAMIN2 covariance-gradient damping sweep、2D は一旦停止)**
+> **最終更新: 2026-06-13 (LiTAMIN2 scan-to-map local-map policy sweep、2D は一旦停止)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,7 +24,7 @@
 
 ---
 
-## 00. Latest Handoff: LiTAMIN2 Covariance-Gradient Damping Sweep (2026-06-13 更新)
+## 00. Latest Handoff: LiTAMIN2 Scan-to-Map Local-Map Policy Sweep (2026-06-13 更新)
 
 > **これが最新・最優先の handoff。**
 >
@@ -70,8 +70,21 @@
 > 0.957 / 0.957 / 0.714 / 0.978 m まで下がるが、RPE は
 > 1.352 / 1.321 / 1.111 / 1.359 % で、幾何平均 RPE は baseline 0.806 %
 > から 1.282 % に悪化。ATE重視診断には有用だが RPE default にはしない。
-> 次は scan-to-map local-map policy の upstream 風 ablation、または paper claim を
-> ATE/RPEで分離して整理するのが妥当。
+> 今回さらに scan-to-map local-map policy を CLI sweep 可能にした。
+> `--litamin2-local-map-policy refresh|accumulate|keyframe` を追加し、default `refresh` は
+> 従来互換、`accumulate` は全 frame を rolling map に貯め target 再構築だけを間引く、
+> `keyframe` は `--litamin2-keyframe-translation` / `--litamin2-keyframe-rotation` 到達時に
+> map 追加と target 再構築を行い、periodic refresh でも同じ処理を行う。
+> KITTI seq02 108-frame の coarse-to-fine smoke は
+> refresh ATE 0.556 m / RPE 0.683 %、accumulate 0.554 / 0.698、keyframe 0.526 / 0.692。
+> full seq02 は `2,2,8 + keyframe` が ATE 1.245 m / RPE 1.208 % となり、
+> `2,2,8 + refresh` の ATE 55.516 m / RPE 0.976 % に対して ATE/RPE trade-off がさらに明確。
+> seq02/05/07/08 full の `2,2,8 + keyframe` は ATE 1.245 / 1.522 / 0.812 / 1.317 m、
+> RPE 1.208 / 0.762 / 0.635 / 1.456 %、幾何平均 RPE 0.961 %。
+> ATE診断用の有力 knob だが、baseline RPE 0.806 % と `2,2,8 + refresh` RPE 0.903 % に
+> 届かないため default にはしない。
+> 次は paper claim を ATE/RPEで分離して整理するか、local-map keyframe しきい値を
+> RPE重視で sweep するのが妥当。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。

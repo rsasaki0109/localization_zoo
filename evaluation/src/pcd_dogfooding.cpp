@@ -962,6 +962,8 @@ std::string seedPerturbationNote(const SeedPerturbation& perturb) {
 }
 
 struct LiTAMIN2DogfoodingOptions {
+  enum class LocalMapPolicy { RefreshOnly, Accumulate, Keyframe };
+
   double voxel_resolution = 2.0;
   int min_points_per_voxel = 1;
   int max_iterations = 6;
@@ -979,6 +981,9 @@ struct LiTAMIN2DogfoodingOptions {
   size_t map_max_points = 45000;
   size_t refresh_interval = 3;
   double map_radius = 45.0;
+  LocalMapPolicy local_map_policy = LocalMapPolicy::RefreshOnly;
+  double keyframe_translation = 1.0;
+  double keyframe_rotation_rad = 0.15;
   double max_seed_translation_delta = 2.0;
   double max_seed_rotation_delta_rad = 0.25;
   double max_motion_translation_delta = -1.0;
@@ -988,6 +993,39 @@ struct LiTAMIN2DogfoodingOptions {
   double max_correspondence_distance = 0.0;
   SeedPerturbation seed_perturbation;
 };
+
+std::string litamin2LocalMapPolicyName(
+    LiTAMIN2DogfoodingOptions::LocalMapPolicy policy) {
+  using Policy = LiTAMIN2DogfoodingOptions::LocalMapPolicy;
+  switch (policy) {
+    case Policy::RefreshOnly:
+      return "refresh";
+    case Policy::Accumulate:
+      return "accumulate";
+    case Policy::Keyframe:
+      return "keyframe";
+  }
+  return "refresh";
+}
+
+bool parseLitamin2LocalMapPolicy(
+    const std::string& value,
+    LiTAMIN2DogfoodingOptions::LocalMapPolicy* policy) {
+  using Policy = LiTAMIN2DogfoodingOptions::LocalMapPolicy;
+  if (value == "refresh" || value == "refresh-only") {
+    *policy = Policy::RefreshOnly;
+    return true;
+  }
+  if (value == "accumulate" || value == "rolling") {
+    *policy = Policy::Accumulate;
+    return true;
+  }
+  if (value == "keyframe") {
+    *policy = Policy::Keyframe;
+    return true;
+  }
+  return false;
+}
 
 struct GICPDogfoodingOptions {
   double source_voxel_size = 1.0;
@@ -3201,6 +3239,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];  // 初期推定にGTを使用
   Eigen::Matrix4d T_prev_prev_est = gt[0];
+  Eigen::Matrix4d T_last_map_insert = gt[0];
   res.poses.push_back(T_est);
 
   auto rebuildTargets = [&]() {
@@ -3224,6 +3263,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     if (i == 0) {
       addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
                      options.map_radius);
+      T_last_map_insert = T_est;
       rebuildTargets();
       continue;
     }
@@ -3258,9 +3298,39 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     T_prev_prev_est = T_prev_est_snapshot;
     res.poses.push_back(T_est);
 
-    if (shouldRefreshTargetMap(i, options.refresh_interval)) {
+    bool added_to_map = false;
+    bool should_rebuild = false;
+    using Policy = LiTAMIN2DogfoodingOptions::LocalMapPolicy;
+    switch (options.local_map_policy) {
+      case Policy::RefreshOnly:
+        if (shouldRefreshTargetMap(i, options.refresh_interval)) {
+          added_to_map = true;
+          should_rebuild = true;
+        }
+        break;
+      case Policy::Accumulate:
+        added_to_map = true;
+        should_rebuild = shouldRefreshTargetMap(i, options.refresh_interval);
+        break;
+      case Policy::Keyframe: {
+        const bool moved_enough =
+            poseTranslationDelta(T_est, T_last_map_insert) >=
+                options.keyframe_translation ||
+            poseRotationDelta(T_est, T_last_map_insert) >=
+                options.keyframe_rotation_rad;
+        if (moved_enough || shouldRefreshTargetMap(i, options.refresh_interval)) {
+          added_to_map = true;
+          should_rebuild = true;
+        }
+        break;
+      }
+    }
+    if (added_to_map) {
       addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
                      options.map_radius);
+      T_last_map_insert = T_est;
+    }
+    if (should_rebuild) {
       rebuildTargets();
     }
 
@@ -3282,6 +3352,8 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   if (voxel_schedule.size() > 1) {
     res.note += " Uses LiTAMIN2 coarse-to-fine voxel schedule.";
   }
+  res.note += " Local-map policy=" +
+              litamin2LocalMapPolicyName(options.local_map_policy) + ".";
   return res;
 }
 
@@ -9040,6 +9112,9 @@ int main(int argc, char** argv) {
               << " [--litamin2-refresh-interval N]"
               << " [--litamin2-map-max-points N]"
               << " [--litamin2-map-radius X]"
+              << " [--litamin2-local-map-policy refresh|accumulate|keyframe]"
+              << " [--litamin2-keyframe-translation X]"
+              << " [--litamin2-keyframe-rotation X]"
               << " [--litamin2-max-seed-translation-delta X]"
               << " [--litamin2-max-seed-rotation-delta X]"
               << " [--litamin2-max-motion-translation-delta X]"
@@ -9559,6 +9634,62 @@ int main(int argc, char** argv) {
       litamin2_options.map_radius = std::max(
           1.0, std::stod(arg.substr(
                    std::string("--litamin2-map-radius=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-local-map-policy") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-local-map-policy requires refresh, accumulate, or keyframe"
+                  << std::endl;
+        return 1;
+      }
+      if (!parseLitamin2LocalMapPolicy(argv[++i],
+                                       &litamin2_options.local_map_policy)) {
+        std::cerr << "Unsupported --litamin2-local-map-policy value"
+                  << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg.rfind("--litamin2-local-map-policy=", 0) == 0) {
+      if (!parseLitamin2LocalMapPolicy(
+              arg.substr(std::string("--litamin2-local-map-policy=").size()),
+              &litamin2_options.local_map_policy)) {
+        std::cerr << "Unsupported --litamin2-local-map-policy value"
+                  << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg == "--litamin2-keyframe-translation") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-keyframe-translation requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.keyframe_translation =
+          std::max(0.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-keyframe-translation=", 0) == 0) {
+      litamin2_options.keyframe_translation = std::max(
+          0.0, std::stod(arg.substr(
+                   std::string("--litamin2-keyframe-translation=").size())));
+      continue;
+    }
+    if (arg == "--litamin2-keyframe-rotation") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-keyframe-rotation requires a numeric value"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.keyframe_rotation_rad =
+          std::max(0.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg.rfind("--litamin2-keyframe-rotation=", 0) == 0) {
+      litamin2_options.keyframe_rotation_rad = std::max(
+          0.0, std::stod(arg.substr(
+                   std::string("--litamin2-keyframe-rotation=").size())));
       continue;
     }
     if (arg == "--litamin2-max-seed-translation-delta") {
@@ -13297,6 +13428,12 @@ int main(int argc, char** argv) {
               << " refresh_interval=" << litamin2_options.refresh_interval
               << " map_max_points=" << litamin2_options.map_max_points
               << " map_radius=" << litamin2_options.map_radius
+              << " local_map_policy="
+              << litamin2LocalMapPolicyName(litamin2_options.local_map_policy)
+              << " keyframe_translation="
+              << litamin2_options.keyframe_translation
+              << " keyframe_rotation="
+              << litamin2_options.keyframe_rotation_rad
               << " max_seed_translation_delta="
               << litamin2_options.max_seed_translation_delta
               << " max_seed_rotation_delta="

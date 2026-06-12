@@ -54,6 +54,9 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
 | coarse_to_fine_iterations | unset | coarse-to-fine 各段の反復数。短い場合は最後の値を再利用 |
 | refresh_interval | 3 | target map 再構築間隔 |
 | map_radius | 45.0 m | map に保持する近傍半径 |
+| local_map_policy | refresh | scan-to-map local map の追加/再構築方針 (`refresh`, `accumulate`, `keyframe`) |
+| keyframe_translation | 1.0 m | `keyframe` policy の追加しきい値 |
+| keyframe_rotation | 0.15 rad | `keyframe` policy の追加しきい値 |
 | max_seed_translation_delta | 2.0 m | 初期値からの refinement acceptance gate |
 | max_seed_rotation_delta | 0.25 rad | 初期値からの refinement acceptance gate |
 | max_motion_translation_delta | disabled | frame-to-frame motion consistency gate |
@@ -126,6 +129,22 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
   schedule 自体と段ごとの iteration sweep は再現可能になったが、長距離では
   粗段の over-iteration が drift を誘発しやすく、ATE/RPE trade-off も大きいため
   全体 default にはしない。
+- `--litamin2-local-map-policy` は scan-to-map target map の運用差を切り分ける
+  opt-in 実装。default の `refresh` は従来互換で、refresh frame だけを map に追加して
+  target を再構築する。`accumulate` は全 frame を rolling map に貯め、target 再構築だけを
+  `refresh_interval` で間引く。`keyframe` は `--litamin2-keyframe-translation` /
+  `--litamin2-keyframe-rotation` 到達時、または periodic refresh 時に map 追加と
+  target 再構築を行う。
+  KITTI seq02 108-frame の coarse-to-fine smoke では `refresh` が ATE 0.556 m /
+  RPE 0.683 %、`accumulate` が 0.554 m / 0.698 %、`keyframe` が
+  0.526 m / 0.692 % で、ATE は keyframe が少し良いが RPE は refresh が良い。
+  full seq02 では `2,2,8 + keyframe` が ATE 1.245 m / RPE 1.208 % となり、
+  `2,2,8 + refresh` の ATE 55.516 m / RPE 0.976 % と比べて ATE/RPE trade-off が
+  さらに明確になった。seq02/05/07/08 full の `2,2,8 + keyframe` は
+  ATE 1.245 / 1.522 / 0.812 / 1.317 m、RPE 1.208 / 0.762 / 0.635 /
+  1.456 %、幾何平均 RPE 0.961 %。ATE重視診断として有用だが、
+  RPE は baseline 0.806 % と `2,2,8 + refresh` 0.903 % に届かないため
+  default にはしない。
 - `--litamin2-max-motion-translation-delta` /
   `--litamin2-max-motion-rotation-delta` は、candidate の frame-to-frame
   motion を GT relative motion (GT-seeded) または直前推定motion (no-GT) と比較する

@@ -42,8 +42,10 @@
 > 幾何平均 RPE も 1.451 % に悪化。`--litamin2-covariance-gradient-weight 0.1` と
 > `--litamin2-line-search` は崩壊を止め、seq02/05/07/08 幾何平均 RPE を baseline 0.80645 %
 > から 0.80581 % へ微改善したが、seq02 ATE が 50.622 m から 81.961 m に悪化するため
-> paper default には未昇格。次は adaptive correspondence/covariance behavior、coarse-to-fine
-> schedule、または upstream LiTAMIN2 との差分照合が妥当。
+> paper default には未昇格。続けて `--litamin2-coarse-to-fine-voxels 3.0,2.0,1.0` も
+> 実装・full 評価した。108-frame seq02 smoke は RPE 11.969 % から 0.670 % へ大きく改善したが、
+> full seq02/08 が悪化し、seq02/05/07/08 幾何平均 RPE は 1.185 % に悪化した。
+> 次は adaptive stage acceptance / map refresh、または upstream LiTAMIN2 との差分照合が妥当。
 >
 > §0 (2026-06-02 の OSS Showcase) 以降は依然有効な背景 (showcase/demo/CI、3D benchmark 履歴、
 > recipe 由来) で、2D の詳細は **§00.6c〜§00.66** を背景として読むこと。

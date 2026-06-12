@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-13T00:09:50+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -19378,6 +19378,7 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 | Covariance floor: 1e-4 | covariance regularization sweep | 51.895 | 91.8 | 92.4 | 2.85 | 3.55 | Adopt as current default |
 | Covariance-shape gradient | paper-mechanism probe | 384.474 | 82.7 | 50.8 | 3.10 | 3.70 | Keep as reference variant |
 | Covariance-shape gradient: 0.1x + line search | damped paper-mechanism probe | 81.961 | 87.1 | 74.2 | 2.15 | 3.05 | Keep as reference variant |
+| Coarse-to-fine voxels: 3.0 -> 2.0 -> 1.0 | paper-schedule probe | 102.942 | 64.5 | 56.5 | 2.85 | 3.55 | Keep as reference variant |
 
 ### Observations
 
@@ -19453,6 +19454,17 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
+#### `coarse_to_fine_3_2_1`
+
+- Intent: Test whether the paper-like coarse-to-fine voxel schedule closes the remaining no-GT drift gap.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_02_full_correspondence_matrix/coarse_to_fine_3_2_1/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule.
+
 
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full)
 
@@ -19474,6 +19486,7 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 | Covariance floor: 1e-4 | covariance regularization sweep | 6.565 | 93.4 | 96.2 | 2.85 | 3.55 | Adopt as current default |
 | Covariance-shape gradient | paper-mechanism probe | 9.654 | 75.4 | 71.8 | 3.10 | 3.70 | Keep as reference variant |
 | Covariance-shape gradient: 0.1x + line search | damped paper-mechanism probe | 9.000 | 79.5 | 76.2 | 2.15 | 3.05 | Keep as reference variant |
+| Coarse-to-fine voxels: 3.0 -> 2.0 -> 1.0 | paper-schedule probe | 7.217 | 70.4 | 79.7 | 2.85 | 3.55 | Keep as reference variant |
 
 ### Observations
 
@@ -19549,6 +19562,17 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
+#### `coarse_to_fine_3_2_1`
+
+- Intent: Test whether the paper-like coarse-to-fine voxel schedule closes the remaining no-GT drift gap.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_05_full_correspondence_matrix/coarse_to_fine_3_2_1/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule.
+
 
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full)
 
@@ -19570,6 +19594,7 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 | Covariance floor: 1e-4 | covariance regularization sweep | 2.202 | 106.9 | 94.6 | 2.85 | 3.55 | Adopt as current default |
 | Covariance-shape gradient | paper-mechanism probe | 5.237 | 81.8 | 57.0 | 3.10 | 3.70 | Keep as reference variant |
 | Covariance-shape gradient: 0.1x + line search | damped paper-mechanism probe | 2.186 | 69.3 | 77.3 | 2.15 | 3.05 | Keep as reference variant |
+| Coarse-to-fine voxels: 3.0 -> 2.0 -> 1.0 | paper-schedule probe | 2.242 | 70.8 | 76.9 | 2.85 | 3.55 | Keep as reference variant |
 
 ### Observations
 
@@ -19645,6 +19670,17 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
+#### `coarse_to_fine_3_2_1`
+
+- Intent: Test whether the paper-like coarse-to-fine voxel schedule closes the remaining no-GT drift gap.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/coarse_to_fine_3_2_1/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule.
+
 
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 08 (full)
 
@@ -19666,6 +19702,7 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 | Covariance floor: 1e-4 | covariance regularization sweep | 19.672 | 94.2 | 96.6 | 2.85 | 3.55 | Adopt as current default |
 | Covariance-shape gradient | paper-mechanism probe | 18.694 | 79.2 | 91.0 | 3.10 | 3.70 | Keep as active challenger |
 | Covariance-shape gradient: 0.1x + line search | damped paper-mechanism probe | 23.144 | 83.7 | 84.0 | 2.15 | 3.05 | Keep as reference variant |
+| Coarse-to-fine voxels: 3.0 -> 2.0 -> 1.0 | paper-schedule probe | 39.472 | 59.4 | 54.8 | 2.85 | 3.55 | Keep as reference variant |
 
 ### Observations
 
@@ -19740,6 +19777,17 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 2.15 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 3.05 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
+
+#### `coarse_to_fine_3_2_1`
+
+- Intent: Test whether the paper-like coarse-to-fine voxel schedule closes the remaining no-GT drift gap.
+- CLI args: `--no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0`
+- Summary: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json`
+- Log: `experiments/results/runs/litamin2_kitti_seq_08_full_correspondence_matrix/coarse_to_fine_3_2_1/run.log`
+- Readability proxy: 2.85 / 5.00. Adds extra tuning knobs and therefore more command complexity.
+- Extensibility proxy: 3.55 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule.
 
 
 ## Point-LIO on the public HDL-400 reference window

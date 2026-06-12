@@ -111,6 +111,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <thread>
@@ -212,6 +213,18 @@ std::vector<std::string> splitMethodList(const std::string& csv) {
     if (!token.empty()) methods.push_back(token);
   }
   return methods;
+}
+
+std::vector<double> parsePositiveDoubleList(const std::string& csv) {
+  std::vector<double> values;
+  std::istringstream ss(csv);
+  std::string token;
+  while (std::getline(ss, token, ',')) {
+    token = trimCsvToken(token);
+    if (token.empty()) continue;
+    values.push_back(std::max(1e-6, std::stod(token)));
+  }
+  return values;
 }
 
 bool isSupportedMethod(const std::string& method) {
@@ -945,6 +958,7 @@ struct LiTAMIN2DogfoodingOptions {
   double covariance_gradient_weight = 1.0;
   bool enable_line_search = false;
   double line_search_min_step = 0.0625;
+  std::vector<double> coarse_to_fine_voxel_resolutions;
   int num_threads =
       static_cast<int>(std::max(1u, std::thread::hardware_concurrency() / 2));
   size_t max_source_points = 2500;
@@ -3035,24 +3049,43 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   MethodResult res;
   res.name = options.use_cov_cost ? "LiTAMIN2" : "LiTAMIN2-ICP";
 
-  LiTAMIN2Params params;
-  params.voxel_resolution = options.voxel_resolution;
-  params.min_points_per_voxel = options.min_points_per_voxel;
-  params.max_iterations = options.max_iterations;
-  params.use_cov_cost = options.use_cov_cost;
-  params.optimize_covariance_cost = options.optimize_covariance_cost;
-  params.covariance_gradient_weight = options.covariance_gradient_weight;
-  params.enable_line_search = options.enable_line_search;
-  params.line_search_min_step = options.line_search_min_step;
-  params.num_threads = options.num_threads;
-  params.min_cov_eigenvalue = options.min_cov_eigenvalue;
-  params.correspondence_search_radius = options.correspondence_search_radius;
-  params.max_correspondence_distance = options.max_correspondence_distance;
-  LiTAMIN2Registration reg(params);
+  std::vector<double> voxel_schedule = options.coarse_to_fine_voxel_resolutions;
+  if (voxel_schedule.empty()) {
+    voxel_schedule.push_back(options.voxel_resolution);
+  }
+  auto makeParams = [&](double voxel_resolution) {
+    LiTAMIN2Params params;
+    params.voxel_resolution = voxel_resolution;
+    params.min_points_per_voxel = options.min_points_per_voxel;
+    params.max_iterations = options.max_iterations;
+    params.use_cov_cost = options.use_cov_cost;
+    params.optimize_covariance_cost = options.optimize_covariance_cost;
+    params.covariance_gradient_weight = options.covariance_gradient_weight;
+    params.enable_line_search = options.enable_line_search;
+    params.line_search_min_step = options.line_search_min_step;
+    params.num_threads = options.num_threads;
+    params.min_cov_eigenvalue = options.min_cov_eigenvalue;
+    params.correspondence_search_radius = options.correspondence_search_radius;
+    params.max_correspondence_distance = options.max_correspondence_distance;
+    return params;
+  };
+
+  std::vector<std::unique_ptr<LiTAMIN2Registration>> registrations;
   std::vector<Eigen::Vector3d> map_points;
   Eigen::Matrix4d T_est = gt[0];  // 初期推定にGTを使用
   Eigen::Matrix4d T_prev_prev_est = gt[0];
   res.poses.push_back(T_est);
+
+  auto rebuildTargets = [&]() {
+    registrations.clear();
+    registrations.reserve(voxel_schedule.size());
+    for (double voxel_resolution : voxel_schedule) {
+      auto reg = std::make_unique<LiTAMIN2Registration>(
+          makeParams(voxel_resolution));
+      reg->setTarget(map_points);
+      registrations.push_back(std::move(reg));
+    }
+  };
 
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
@@ -3063,7 +3096,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     if (i == 0) {
       addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
                      options.map_radius);
-      reg.setTarget(map_points);
+      rebuildTargets();
       continue;
     }
 
@@ -3073,12 +3106,23 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
             ? (i >= 2 ? velocityModelPrediction(T_est, T_prev_prev_est) : T_est)
             : applySeedPerturbation(gt[i], options.seed_perturbation);
     const Eigen::Matrix4d T_prev_est_snapshot = T_est;
-    const auto result = reg.align(pts_local, T_init_guess);
-    if ((result.converged || result.num_iterations >= 3) &&
-        isReasonableRefinement(result.transformation, T_init_guess,
+    Eigen::Matrix4d T_stage_seed = T_init_guess;
+    RegistrationResult final_result;
+    for (auto& reg : registrations) {
+      const auto stage_result = reg->align(pts_local, T_stage_seed);
+      final_result = stage_result;
+      if ((stage_result.converged || stage_result.num_iterations >= 3) &&
+          isReasonableRefinement(stage_result.transformation, T_stage_seed,
+                                 options.max_seed_translation_delta,
+                                 options.max_seed_rotation_delta_rad)) {
+        T_stage_seed = stage_result.transformation;
+      }
+    }
+    if ((final_result.converged || final_result.num_iterations >= 3) &&
+        isReasonableRefinement(final_result.transformation, T_init_guess,
                                options.max_seed_translation_delta,
                                options.max_seed_rotation_delta_rad)) {
-      T_est = result.transformation;
+      T_est = final_result.transformation;
     } else {
       T_est = T_init_guess;
     }
@@ -3088,7 +3132,7 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
     if (shouldRefreshTargetMap(i, options.refresh_interval)) {
       addPointsToMap(map_points, pts_local, T_est, options.map_max_points,
                      options.map_radius);
-      reg.setTarget(map_points);
+      rebuildTargets();
     }
 
     if (i % 10 == 0)
@@ -3105,6 +3149,9 @@ MethodResult runLiTAMIN2(const std::vector<std::string>& pcd_dirs,
   }
   if (!options.use_cov_cost) {
     res.note += " Covariance-shape term disabled.";
+  }
+  if (voxel_schedule.size() > 1) {
+    res.note += " Uses LiTAMIN2 coarse-to-fine voxel schedule.";
   }
   return res;
 }
@@ -8855,6 +8902,7 @@ int main(int argc, char** argv) {
               << " [--litamin2-covariance-gradient-weight X]"
               << " [--litamin2-line-search]"
               << " [--litamin2-line-search-min-step X]"
+              << " [--litamin2-coarse-to-fine-voxels csv]"
               << " [--litamin2-voxel-resolution X]"
               << " [--litamin2-max-iterations N]"
               << " [--litamin2-max-source-points N]"
@@ -9246,6 +9294,22 @@ int main(int argc, char** argv) {
           std::stod(arg.substr(
               std::string("--litamin2-line-search-min-step=").size())),
           1e-4, 1.0);
+      continue;
+    }
+    if (arg == "--litamin2-coarse-to-fine-voxels") {
+      if (i + 1 >= argc) {
+        std::cerr << "--litamin2-coarse-to-fine-voxels requires a comma-separated list"
+                  << std::endl;
+        return 1;
+      }
+      litamin2_options.coarse_to_fine_voxel_resolutions =
+          parsePositiveDoubleList(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--litamin2-coarse-to-fine-voxels=", 0) == 0) {
+      litamin2_options.coarse_to_fine_voxel_resolutions =
+          parsePositiveDoubleList(arg.substr(
+              std::string("--litamin2-coarse-to-fine-voxels=").size()));
       continue;
     }
     if (arg == "--litamin2-voxel-resolution") {
@@ -12980,6 +13044,8 @@ int main(int argc, char** argv) {
               << (litamin2_options.enable_line_search ? "on" : "off")
               << " line_search_min_step="
               << litamin2_options.line_search_min_step
+              << " coarse_to_fine_levels="
+              << litamin2_options.coarse_to_fine_voxel_resolutions.size()
               << " num_threads=" << litamin2_options.num_threads << std::endl;
     results.push_back(runLiTAMIN2(pcd_dirs, gt, litamin2_options, no_gt_seed));
   }

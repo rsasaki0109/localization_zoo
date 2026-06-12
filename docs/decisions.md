@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-06-13T00:09:50+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -3882,7 +3882,7 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 02 (full)
 
 - Current default: `cov_floor_1e_4`.
-- Reference variants: `tuned_voxel1_iter12`, `radius1_no_distance_gate`, `radius1_distance_gate_1_5m`, `covariance_gradient`, `covariance_gradient_w0_1_linesearch`.
+- Reference variants: `tuned_voxel1_iter12`, `radius1_no_distance_gate`, `radius1_distance_gate_1_5m`, `covariance_gradient`, `covariance_gradient_w0_1_linesearch`, `coarse_to_fine_3_2_1`.
 - Aggregate result: `experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json`
 
 | Variant | Decision | Why |
@@ -3893,11 +3893,12 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 | cov_floor_1e_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | covariance_gradient | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | covariance_gradient_w0_1_linesearch | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| coarse_to_fine_3_2_1 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 05 (full)
 
 - Current default: `cov_floor_1e_4`.
-- Reference variants: `tuned_voxel1_iter12`, `radius1_no_distance_gate`, `radius1_distance_gate_1_5m`, `covariance_gradient`, `covariance_gradient_w0_1_linesearch`.
+- Reference variants: `tuned_voxel1_iter12`, `radius1_no_distance_gate`, `radius1_distance_gate_1_5m`, `covariance_gradient`, `covariance_gradient_w0_1_linesearch`, `coarse_to_fine_3_2_1`.
 - Aggregate result: `experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json`
 
 | Variant | Decision | Why |
@@ -3908,12 +3909,13 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 | cov_floor_1e_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | covariance_gradient | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | covariance_gradient_w0_1_linesearch | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| coarse_to_fine_3_2_1 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 07 (full)
 
 - Current default: `cov_floor_1e_4`.
 - Active challengers: `tuned_voxel1_iter12`.
-- Reference variants: `radius1_no_distance_gate`, `radius1_distance_gate_1_5m`, `covariance_gradient`, `covariance_gradient_w0_1_linesearch`.
+- Reference variants: `radius1_no_distance_gate`, `radius1_distance_gate_1_5m`, `covariance_gradient`, `covariance_gradient_w0_1_linesearch`, `coarse_to_fine_3_2_1`.
 - Aggregate result: `experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json`
 
 | Variant | Decision | Why |
@@ -3924,12 +3926,13 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 | cov_floor_1e_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | covariance_gradient | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | covariance_gradient_w0_1_linesearch | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| coarse_to_fine_3_2_1 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## LiTAMIN2 correspondence sweep on KITTI Odometry 08 (full)
 
 - Current default: `cov_floor_1e_4`.
 - Active challengers: `covariance_gradient`.
-- Reference variants: `tuned_voxel1_iter12`, `radius1_no_distance_gate`, `radius1_distance_gate_1_5m`, `covariance_gradient_w0_1_linesearch`.
+- Reference variants: `tuned_voxel1_iter12`, `radius1_no_distance_gate`, `radius1_distance_gate_1_5m`, `covariance_gradient_w0_1_linesearch`, `coarse_to_fine_3_2_1`.
 - Aggregate result: `experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json`
 
 | Variant | Decision | Why |
@@ -3940,6 +3943,7 @@ _Generated at 2026-06-12T23:38:03+00:00 by `evaluation/scripts/run_experiment_ma
 | cov_floor_1e_4 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | covariance_gradient | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | covariance_gradient_w0_1_linesearch | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| coarse_to_fine_3_2_1 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## Point-LIO on the public HDL-400 reference window
 

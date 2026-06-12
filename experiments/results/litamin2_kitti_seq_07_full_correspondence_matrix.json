@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-12T23:38:03+00:00",
+  "generated_at": "2026-06-13T00:09:50+00:00",
   "manifest_path": "experiments/pending/litamin2_kitti_seq_07_full_correspondence_matrix.json",
   "problem": {
     "id": "litamin2_correspondence_kitti_seq_07_full",
@@ -229,6 +229,39 @@
       "readability_score": 2.15,
       "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
       "extensibility_score": 3.05,
+      "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "coarse_to_fine_3_2_1",
+      "label": "Coarse-to-fine voxels: 3.0 -> 2.0 -> 1.0",
+      "design_style": "paper-schedule probe",
+      "intent": "Test whether the paper-like coarse-to-fine voxel schedule closes the remaining no-GT drift gap.",
+      "args": [
+        "--no-gt-seed",
+        "--litamin2-voxel-resolution",
+        "1.0",
+        "--litamin2-max-iterations",
+        "12",
+        "--litamin2-coarse-to-fine-voxels",
+        "3.0,2.0,1.0"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods litamin2 --summary-json experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json --no-gt-seed --litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --litamin2-coarse-to-fine-voxels 3.0,2.0,1.0",
+      "summary_path": "experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/coarse_to_fine_3_2_1/summary.json",
+      "log_path": "experiments/results/runs/litamin2_kitti_seq_07_full_correspondence_matrix/coarse_to_fine_3_2_1/run.log",
+      "status": "ok",
+      "ate_m": 2.242392,
+      "rpe_trans_pct": 0.529735,
+      "rpe_rot_deg_per_m": 0.006386,
+      "fps": 70.793594,
+      "time_ms": 15552.254585,
+      "frames": 1101,
+      "note": "Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Uses LiTAMIN2 coarse-to-fine voxel schedule.",
+      "benchmark_score": 76.9,
+      "readability_score": 2.85,
+      "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
+      "extensibility_score": 3.55,
       "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
       "decision": "Keep as reference variant",
       "decision_reason": "Useful for comparison, but not strong enough to replace the current default."

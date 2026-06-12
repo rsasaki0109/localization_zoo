@@ -85,3 +85,10 @@ w_Cov = 1 - E_Cov / (E_Cov + σ_Cov^2)    (σ_Cov = 3)
   弱めると full の幾何平均 RPE は 0.806 % まで戻るが、seq02 ATE が
   50.622 m から 81.961 m に悪化する。重み設計とステップ制御がまだ
   trade-off を持つため default にはしない。
+- `--litamin2-coarse-to-fine-voxels 3.0,2.0,1.0` は、3段の
+  voxel schedule を coarse から fine へ順に適用する opt-in 実装。
+  108-frame smoke では seq02 RPE が 11.969 % から 0.670 % へ大きく
+  改善したが、full sequence では seq02/08 が悪化し、seq02/05/07/08
+  の幾何平均 RPE は baseline 0.806 % に対して 1.185 % だった。
+  schedule 自体は再現可能になったが、長距離では段間 acceptance と
+  map refresh の制御が足りないため default にはしない。

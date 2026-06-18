@@ -668,6 +668,71 @@ td {
   color: var(--gold);
 }
 
+.note-cell {
+  display: grid;
+  gap: 8px;
+  min-width: 260px;
+}
+
+.note-text {
+  margin: 0;
+}
+
+.row-details {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.row-details summary {
+  width: fit-content;
+  cursor: pointer;
+  color: var(--blue);
+  font-weight: 800;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 5px 10px;
+  margin: 8px 0;
+}
+
+.details-grid dt {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.details-grid dd {
+  margin: 0;
+  min-width: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.artifact-link {
+  color: var(--blue);
+  font-weight: 800;
+}
+
+.method-artifact {
+  margin: 7px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.detail-command {
+  margin: 8px 0 0;
+  max-width: 34rem;
+  padding: 8px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-subtle);
+  color: var(--ink);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
 .search-box {
   display: grid;
   gap: 6px;

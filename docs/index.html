@@ -301,7 +301,8 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
             generated_at: data.generated_at,
             artifact: "docs/benchmarks/latest/results.json",
             method_artifact: method.artifact || null,
-            runtime_profile: "latest_snapshot"
+            runtime_profile: "latest_snapshot",
+            command: data.command || ""
           }));
 
         if (paperBundle && Array.isArray(paperBundle.paper_table_rows)) {
@@ -377,6 +378,57 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           return frames;
         }
         return `${frames} / ${fmt(method.trajectory_length_m, 1)} m`;
+      }
+
+      function artifactHref(path) {
+        if (!path) {
+          return "";
+        }
+        if (path.startsWith("docs/")) {
+          return `./${path.slice("docs/".length)}`;
+        }
+        return path;
+      }
+
+      function renderBenchmarkDetails(method) {
+        const wrap = el("div", "note-cell");
+        if (method.note) {
+          wrap.appendChild(el("p", "note-text", method.note));
+        }
+
+        const details = el("details", "row-details");
+        details.appendChild(el("summary", "", "Details"));
+
+        const meta = el("dl", "details-grid");
+        const items = [
+          ["Group", method.comparison_group_id],
+          ["Scope", method.scope],
+          ["Role", method.result_role],
+          ["Rank", method.rank_metric || "unranked"],
+          ["Generated", method.generated_at],
+          ["Timestamp", method.timestamp_source],
+          ["Runtime", method.runtime_profile]
+        ];
+        items.forEach(([label, value]) => {
+          if (value === null || value === undefined || value === "") return;
+          meta.appendChild(el("dt", "", label));
+          meta.appendChild(el("dd", "", value));
+        });
+        details.appendChild(meta);
+
+        if (method.artifact) {
+          const link = el("a", "artifact-link", "Raw artifact");
+          link.href = artifactHref(method.artifact);
+          details.appendChild(link);
+        }
+        if (method.method_artifact) {
+          details.appendChild(el("p", "method-artifact", `Method artifact: ${method.method_artifact}`));
+        }
+        if (method.command) {
+          details.appendChild(el("pre", "detail-command", method.command));
+        }
+        wrap.appendChild(details);
+        return wrap;
       }
 
       function findMethod(name) {
@@ -780,13 +832,15 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
               { text: coverageText(method) },
               { text: fmt(method.time_ms, 1) },
               { text: fmt(method.fps, 1) },
-              { text: method.note || "" }
+              { node: renderBenchmarkDetails(method) }
             ];
             cells.forEach((value) => {
               const cell = document.createElement("td");
               if (value.className) {
                 const pill = el("span", value.className, value.text);
                 cell.appendChild(pill);
+              } else if (value.node) {
+                cell.appendChild(value.node);
               } else {
                 cell.textContent = value.text;
               }

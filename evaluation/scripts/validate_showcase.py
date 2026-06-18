@@ -38,6 +38,9 @@ INDEX_REQUIRED_SNIPPETS = [
     "Benchmark Groups",
     "rank_metric",
     "Coverage",
+    "renderBenchmarkDetails",
+    "Raw artifact",
+    "detail-command",
     "Overview only. Points from different datasets",
     "demo_localization_zoo.sh",
     "social_card.png",
@@ -158,6 +161,7 @@ def public_benchmark_rows(results: dict, paper_bundle: dict) -> list[dict]:
             "artifact": "docs/benchmarks/latest/results.json",
             "method_artifact": method.get("artifact"),
             "runtime_profile": "latest_snapshot",
+            "command": results.get("command", ""),
         }
         rows.append(row)
 

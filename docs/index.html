@@ -108,6 +108,7 @@
             <thead>
               <tr>
                 <th>Method</th>
+                <th>Benchmark</th>
                 <th>Status</th>
                 <th>Policy</th>
                 <th>ATE [m]</th>
@@ -182,6 +183,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
 
     <script>
       const dataPath = "./benchmarks/latest/results.json";
+      const paperBundlePath = "./benchmarks/paper_ready_bundle.json";
       const repoBase = "https://github.com/rsasaki0109/localization_zoo";
 
       const catalogPath = "./methods.json";
@@ -260,6 +262,53 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
 
       function isPublicBenchmarkMethod(method) {
         return ["ok", "skipped"].includes(method.status);
+      }
+
+      function latestBenchmarkLabel(data) {
+        const name = data.dataset && data.dataset.name ? data.dataset.name : "Latest";
+        if (name.includes("Autoware Istanbul")) {
+          return "Autoware 108";
+        }
+        return name;
+      }
+
+      function publicBenchmarkRows(data, paperBundle) {
+        const rows = data.methods
+          .filter(isPublicBenchmarkMethod)
+          .map((method) => ({
+            ...method,
+            benchmark_label: latestBenchmarkLabel(data)
+          }));
+
+        const baseline = data.strict_smoke_baseline;
+        if (baseline && Array.isArray(baseline.methods)) {
+          baseline.methods.forEach((method) => {
+            rows.push({
+              ...method,
+              frames: method.frames || baseline.frames,
+              time_ms: method.time_ms,
+              benchmark_label: "KITTI 07 smoke",
+              note: `${baseline.dataset}; ${method.note || baseline.note || ""}`
+            });
+          });
+        }
+
+        if (paperBundle && Array.isArray(paperBundle.paper_table_rows)) {
+          paperBundle.paper_table_rows.forEach((row) => {
+            rows.push({
+              name: row.method,
+              status: "ok",
+              evaluation_policy: "odometry_only",
+              ate_m: row.ate_m,
+              frames: row.frames,
+              fps: row.fps,
+              benchmark_label: `KITTI ${row.sequence} full`,
+              note: `${row.tier}; ${row.variant}`
+            });
+          });
+        }
+
+        return rows;
       }
 
       function findMethod(name) {
@@ -485,11 +534,12 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         target.appendChild(rows);
       }
 
-      function renderBenchmark(data) {
+      function renderBenchmark(data, paperBundle = null) {
         document.getElementById("title").textContent = data.dataset.name;
         document.getElementById("generated-at").textContent =
           `Generated ${new Date(data.generated_at).toLocaleString()}`;
         document.getElementById("hero-dataset").textContent = data.dataset.name;
+        const tableRows = publicBenchmarkRows(data, paperBundle);
 
         const metrics = document.getElementById("dataset-metrics");
         clear(metrics);
@@ -526,6 +576,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         if (fastest) {
           metrics.appendChild(addMetric("Fastest", `${fastest.name} ${fmt(fastest.fps, 1)} FPS`));
         }
+        metrics.appendChild(addMetric("Published Rows", String(tableRows.length)));
 
         document.getElementById("command").textContent = data.command || "";
         const plot = document.getElementById("hero-trajectory");
@@ -550,20 +601,21 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
 
         const body = document.getElementById("results-body");
         clear(body);
-        if (methods.length === 0) {
+        if (tableRows.length === 0) {
           const row = document.createElement("tr");
           const cell = document.createElement("td");
-          cell.colSpan = 8;
+          cell.colSpan = 9;
           cell.textContent = "No benchmark report is stored in this repository yet.";
           row.appendChild(cell);
           body.appendChild(row);
         } else {
-          methods.forEach((method) => {
+          tableRows.forEach((method) => {
             const row = document.createElement("tr");
             row.classList.add(methodStatusClass(method));
 
             const cells = [
               { text: method.name },
+              { text: method.benchmark_label || "-" },
               { text: statusLabel(method.status), className: `status-pill ${methodStatusClass(method)}` },
               { text: policyLabel(policyOf(method)) },
               { text: fmt(method.ate_m, 3) },
@@ -601,14 +653,20 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         })
         .catch(renderCatalogError);
 
-      fetch(dataPath)
+      const benchmarkData = fetch(dataPath)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Missing ${dataPath}`);
           }
           return response.json();
-        })
-        .then(renderBenchmark)
+        });
+
+      const paperBundleData = fetch(paperBundlePath)
+        .then((response) => response.ok ? response.json() : null)
+        .catch(() => null);
+
+      Promise.all([benchmarkData, paperBundleData])
+        .then(([data, paperBundle]) => renderBenchmark(data, paperBundle))
         .catch((error) => {
           document.getElementById("title").textContent = "No benchmark report yet";
           document.getElementById("hero-best").textContent = "Benchmark artifact not found";

@@ -28,6 +28,7 @@ README_REQUIRED_SNIPPETS = [
 INDEX_REQUIRED_SNIPPETS = [
     'const catalogPath = "./methods.json"',
     'const dataPath = "./benchmarks/latest/results.json"',
+    'const paperBundlePath = "./benchmarks/paper_ready_bundle.json"',
     "Method Explorer",
     "demo_localization_zoo.sh",
     "social_card.png",
@@ -164,6 +165,10 @@ def validate_benchmark_snapshot(root: Path) -> None:
     plot = results.get("artifacts", {}).get("trajectory_plot")
     if plot:
         require_file(root / "docs/benchmarks/latest" / plot)
+
+    paper_bundle = load_json(root / "docs/benchmarks/paper_ready_bundle.json")
+    if not paper_bundle.get("paper_table_rows"):
+        raise SystemExit("paper-ready benchmark bundle has no paper_table_rows")
 
 
 def validate_scan2d_benchmarks(root: Path) -> None:

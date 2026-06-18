@@ -442,12 +442,6 @@ h3 {
   border-top: 1px solid var(--line);
 }
 
-.invalidated-leaderboard {
-  margin-top: 15px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-}
-
 .leaderboard-section-title {
   margin: 0 0 2px;
   color: var(--muted);
@@ -468,11 +462,6 @@ h3 {
   background: var(--surface-subtle);
 }
 
-.leaderboard-row.invalidated {
-  grid-template-columns: 34px minmax(0, 1fr) auto;
-  background: #fff7f8;
-}
-
 .rank {
   display: inline-grid;
   place-items: center;
@@ -489,11 +478,6 @@ h3 {
   color: var(--gold);
 }
 
-.leaderboard-row.invalidated .rank {
-  background: var(--rose-soft);
-  color: var(--rose);
-}
-
 .method {
   font-weight: 800;
 }
@@ -506,18 +490,6 @@ h3 {
 
 .leaderboard-row.reference .ate {
   color: var(--gold);
-}
-
-.leaderboard-row.invalidated .ate {
-  color: var(--rose);
-}
-
-.leaderboard-reason {
-  grid-column: 2 / 4;
-  margin: -6px 0 1px;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.45;
 }
 
 .smoke-baseline {
@@ -617,10 +589,6 @@ td {
   font-variant-numeric: tabular-nums;
 }
 
-tbody tr.status-invalidated {
-  background: #fff7f8;
-}
-
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -637,11 +605,6 @@ tbody tr.status-invalidated {
 .status-pill.status-ok {
   background: var(--teal-soft);
   color: #0f3f3b;
-}
-
-.status-pill.status-invalidated {
-  background: var(--rose-soft);
-  color: var(--rose);
 }
 
 .status-pill.status-skipped {
@@ -932,16 +895,11 @@ code {
     text-overflow: ellipsis;
   }
 
-  .leaderboard-row,
-  .leaderboard-row.invalidated {
+  .leaderboard-row {
     grid-template-columns: 30px minmax(0, 1fr);
   }
 
   .leaderboard-row .ate {
-    grid-column: 2;
-  }
-
-  .leaderboard-reason {
     grid-column: 2;
   }
 

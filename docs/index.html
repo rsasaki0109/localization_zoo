@@ -95,10 +95,9 @@
               </div>
             </div>
             <p class="leaderboard-note">
-              First-pose anchored odometry only. Rows with invalidated metrics are audit-only and never ranked.
+              First-pose anchored odometry only. GT-seeded references are shown separately.
             </p>
             <div id="leaderboard" class="leaderboard"></div>
-            <div id="invalidated-leaderboard" class="leaderboard invalidated-leaderboard"></div>
             <div id="reference-leaderboard" class="leaderboard reference-leaderboard"></div>
             <div id="smoke-baseline" class="smoke-baseline"></div>
           </article>
@@ -246,7 +245,6 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           gt_seeded_reference: "GT-seeded ref",
           odometry_only: "Odometry",
           not_run: "Not run",
-          invalidated: "Invalidated",
           unspecified: "Unspecified"
         };
         return labels[policy] || policy;
@@ -258,6 +256,10 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
 
       function methodStatusClass(method) {
         return `status-${String(method.status || "unknown").replace(/_/g, "-")}`;
+      }
+
+      function isPublicBenchmarkMethod(method) {
+        return ["ok", "skipped"].includes(method.status);
       }
 
       function findMethod(name) {
@@ -446,26 +448,6 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         });
       }
 
-      function renderInvalidated(target, methods) {
-        clear(target);
-        if (methods.length === 0) {
-          return;
-        }
-        target.appendChild(el("p", "leaderboard-section-title", "Invalidated odometry rows, audit-only"));
-        methods.forEach((method) => {
-          const row = el("div", "leaderboard-row invalidated");
-          row.appendChild(el("span", "rank", "!"));
-          row.appendChild(el("span", "method", method.name));
-          const value = method.invalidated_ate_m !== undefined
-            ? `was ${fmt(method.invalidated_ate_m, 3)} m`
-            : "invalidated";
-          row.appendChild(el("span", "ate", value));
-          const reason = el("p", "leaderboard-reason", method.invalidation_reason || method.note || "Metric invalidated.");
-          row.appendChild(reason);
-          target.appendChild(row);
-        });
-      }
-
       function renderSmokeBaseline(target, baseline) {
         clear(target);
         if (!baseline || !Array.isArray(baseline.methods) || baseline.methods.length === 0) {
@@ -515,10 +497,10 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         metrics.appendChild(addMetric("Trajectory", `${fmt(data.dataset.trajectory_length_m, 1)} m`));
         metrics.appendChild(addMetric("Timestamp Source", data.dataset.timestamp_source || "-"));
 
-        const ok = data.methods.filter((method) => method.status === "ok");
+        const methods = data.methods.filter(isPublicBenchmarkMethod);
+        const ok = methods.filter((method) => method.status === "ok");
         const odometryOk = ok.filter((method) => policyOf(method) === "odometry_only");
         const seededOk = ok.filter((method) => policyOf(method) === "gt_seeded_reference");
-        const invalidated = data.methods.filter((method) => method.status === "invalidated");
         const bestOdometry = odometryOk
           .slice()
           .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
@@ -556,7 +538,6 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
 
         const leaderboard = document.getElementById("leaderboard");
         renderRanking(leaderboard, odometryOk, "No odometry-only benchmark report is stored in this snapshot.");
-        renderInvalidated(document.getElementById("invalidated-leaderboard"), invalidated);
         renderRanking(
           document.getElementById("reference-leaderboard"),
           seededOk,
@@ -565,11 +546,11 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         );
         renderSmokeBaseline(document.getElementById("smoke-baseline"), data.strict_smoke_baseline);
 
-        renderScatter(data.methods);
+        renderScatter(methods);
 
         const body = document.getElementById("results-body");
         clear(body);
-        if (data.methods.length === 0) {
+        if (methods.length === 0) {
           const row = document.createElement("tr");
           const cell = document.createElement("td");
           cell.colSpan = 8;
@@ -577,7 +558,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           row.appendChild(cell);
           body.appendChild(row);
         } else {
-          data.methods.forEach((method) => {
+          methods.forEach((method) => {
             const row = document.createElement("tr");
             row.classList.add(methodStatusClass(method));
 

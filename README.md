@@ -328,16 +328,9 @@ GT-seeded scan-to-map references (not ranked against odometry):
 | GICP | OK | 0.994 | 3.1 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
 | LiTAMIN2 | OK | 1.213 | 21.0 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
 
-Odometry-only rows from this Autoware snapshot are invalidated. They were
-generated before strict GT/frame association was enforced, so the old ATE values
-are retained only as an audit trail and must not be ranked until this exact
-Autoware window is rerun with the corrected evaluator.
-
-| Method | Status | ATE [m] | FPS | Notes |
-|--------|--------|---------|-----|-------|
-| CT-ICP | INVALIDATED | - | 1.3 | Previous `75.075 m` value used the legacy evaluator path and requires rerun on the same Autoware window |
-| KISS-ICP | INVALIDATED | - | 3.2 | Previous `183.178 m` value used the legacy evaluator path and requires rerun on the same Autoware window |
-| CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |
+Odometry-only results are not published for this Autoware snapshot until the
+same window is rerun with strict GT/frame association. CT-LIO is also omitted
+because the bag window does not contain IMU data, so `imu.csv` was not generated.
 
 Current strict-evaluator smoke baseline, reproduced locally on KITTI Odometry
 seq07 first 108 frames (`60.7 m`, exact frame-ID association):

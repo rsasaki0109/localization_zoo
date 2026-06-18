@@ -95,7 +95,7 @@
               </div>
             </div>
             <p class="leaderboard-note">
-              First-pose anchored odometry only. GT-seeded references are shown separately.
+              First-pose anchored odometry across published benchmark rows. GT-seeded references are shown separately.
             </p>
             <div id="leaderboard" class="leaderboard"></div>
             <div id="reference-leaderboard" class="leaderboard reference-leaderboard"></div>
@@ -466,7 +466,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           point.href = `${repoBase}/search?q=${encodeURIComponent(method.name)}&type=code`;
           point.style.left = `${x}%`;
           point.style.top = `${y}%`;
-          point.title = `${method.name}: ${fmt(method.ate_m, 3)} m, ${fmt(method.fps, 1)} FPS`;
+          point.title = `${method.benchmark_label || "Benchmark"} / ${method.name}: ${fmt(method.ate_m, 3)} m, ${fmt(method.fps, 1)} FPS`;
           point.appendChild(el("span", "dot"));
           point.appendChild(el("span", "point-label", method.name));
           plot.appendChild(point);
@@ -491,7 +491,10 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         ranked.forEach((method, index) => {
           const row = el("div", reference ? "leaderboard-row reference" : "leaderboard-row");
           row.appendChild(el("span", "rank", String(index + 1)));
-          row.appendChild(el("span", "method", method.name));
+          const methodLabel = method.benchmark_label
+            ? `${method.name} · ${method.benchmark_label}`
+            : method.name;
+          row.appendChild(el("span", "method", methodLabel));
           row.appendChild(el("span", "ate", `${fmt(method.ate_m, 3)} m`));
           target.appendChild(row);
         });
@@ -547,8 +550,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         metrics.appendChild(addMetric("Trajectory", `${fmt(data.dataset.trajectory_length_m, 1)} m`));
         metrics.appendChild(addMetric("Timestamp Source", data.dataset.timestamp_source || "-"));
 
-        const methods = data.methods.filter(isPublicBenchmarkMethod);
-        const ok = methods.filter((method) => method.status === "ok");
+        const ok = tableRows.filter((method) => method.status === "ok");
         const odometryOk = ok.filter((method) => policyOf(method) === "odometry_only");
         const seededOk = ok.filter((method) => policyOf(method) === "gt_seeded_reference");
         const bestOdometry = odometryOk
@@ -597,7 +599,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         );
         renderSmokeBaseline(document.getElementById("smoke-baseline"), data.strict_smoke_baseline);
 
-        renderScatter(methods);
+        renderScatter(tableRows);
 
         const body = document.getElementById("results-body");
         clear(body);

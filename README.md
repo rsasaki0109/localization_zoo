@@ -305,14 +305,31 @@ Refreshing the experiment/publication docs and the matrix runner is documented i
 
 ## Benchmark
 
-### Real LiDAR Data
+GitHub Pages is a current valid result catalog, not one global leaderboard.
+Results are comparable only within the same dataset, sequence/window,
+initialization policy, and runtime profile. Superseded or invalidated values are
+not displayed on the public page; audit history stays in Git history and PRs.
+
+Current published groups:
+
+| Group | Role | Ranking policy | Source |
+|---|---|---|---|
+| KITTI Odometry seq00 full | Odometry full sequence | Ranked within seq00 by translational RPE [%/100 m] | [`docs/benchmarks/paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json) |
+| KITTI Odometry seq07 full | Odometry full sequence | Ranked within seq07 by translational RPE [%/100 m] | [`docs/benchmarks/paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json) |
+| KITTI Odometry seq07 108-frame smoke | Regression smoke | Unranked; exact frame-ID association check only | [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json) |
+| Autoware Istanbul 108-frame snapshot | GT-seeded scan-to-map references | Reference-only; not ranked against odometry | [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json) |
+
+Absolute ATE is reported as a diagnostic, but it is not sorted globally across
+different sequence lengths or windows. The Pages map starts filtered to one
+benchmark group; the All-results view is overview-only and not a comparison.
+
+### Autoware Istanbul 108-frame snapshot
 
 One real-data snapshot from the Autoware Istanbul localization bag. This run
-mixes two evaluation policies, so it is **not** a single ATE leaderboard:
-GT-seeded scan-to-map methods use the reference pose as a per-frame initial
-guess, while odometry-only methods are anchored only to the first pose and
-accumulate drift. GitHub Pages serves the latest from
-[`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
+publishes GT-seeded scan-to-map references only. These methods use the reference
+pose as a per-frame initial guess, so their ATE measures seed adherence and
+local map registration behavior, not standalone odometry. They are not ranked
+against first-pose-anchored KITTI odometry.
 
 - Topic: `/localization/util/downsample/pointcloud`
 - Window: frames `10200-10307`
@@ -329,11 +346,16 @@ GT-seeded scan-to-map references (not ranked against odometry):
 | LiTAMIN2 | OK | 1.213 | 21.0 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
 
 Odometry-only results are not published for this Autoware snapshot until the
-same window is rerun with strict GT/frame association. CT-LIO is also omitted
-because the bag window does not contain IMU data, so `imu.csv` was not generated.
+same window is rerun with strict GT/frame association. CT-LIO is listed as not
+run because the bag window does not contain IMU data, so `imu.csv` was not
+generated.
+
+### KITTI seq07 strict smoke baseline
 
 Current strict-evaluator smoke baseline, reproduced locally on KITTI Odometry
-seq07 first 108 frames (`60.7 m`, exact frame-ID association):
+seq07 first 108 frames (`60.7 m`, exact frame-ID association). This is a
+regression check, not an official KITTI leaderboard score, and it is not used in
+the main odometry ranking:
 
 | Method | Status | ATE [m] | RPE [%/100m] | FPS | Notes |
 |--------|--------|---------|--------------|-----|-------|

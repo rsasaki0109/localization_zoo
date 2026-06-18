@@ -66,7 +66,7 @@
       <section class="panel" id="benchmark">
         <div class="panel-head">
           <div>
-            <p class="eyebrow">Latest Run</p>
+            <p class="eyebrow">Current Benchmark Results</p>
             <h2 id="title">Loading benchmark...</h2>
           </div>
           <p class="stamp" id="generated-at"></p>
@@ -82,8 +82,11 @@
                 <p class="eyebrow">Accuracy vs Throughput</p>
                 <h3>Benchmark Map</h3>
               </div>
-              <span class="axis-note">ATE uses log scale; seeded refs marked</span>
+              <span class="axis-note">ATE uses log scale; filter by benchmark</span>
             </div>
+            <div class="benchmark-filter" id="benchmark-map-filters"></div>
+            <p class="map-note" id="benchmark-map-note"></p>
+            <div class="map-legend" id="benchmark-map-legend"></div>
             <div class="scatter" id="scatter"></div>
           </article>
 
@@ -91,11 +94,11 @@
             <div class="tool-head">
               <div>
                 <p class="eyebrow">Leaderboard</p>
-                <h3>Odometry ATE Ranking</h3>
+                <h3>Odometry Results by Benchmark</h3>
               </div>
             </div>
             <p class="leaderboard-note">
-              First-pose anchored odometry across published benchmark rows. GT-seeded references are shown separately.
+              Rankings are computed only within the same benchmark group. Smoke checks and GT-seeded references are shown separately.
             </p>
             <div id="leaderboard" class="leaderboard"></div>
             <div id="reference-leaderboard" class="leaderboard reference-leaderboard"></div>
@@ -112,8 +115,9 @@
                 <th>Status</th>
                 <th>Policy</th>
                 <th>ATE [m]</th>
+                <th>RPE [%/100 m]</th>
                 <th>Frames</th>
-                <th>Time [ms]</th>
+                <th>Total elapsed [ms]</th>
                 <th>FPS</th>
                 <th>Note</th>
               </tr>
@@ -193,6 +197,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
       const state = {
         family: "All",
         signal: "All",
+        benchmarkGroup: "",
         track: "quick",
         query: ""
       };
@@ -277,21 +282,11 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           .filter(isPublicBenchmarkMethod)
           .map((method) => ({
             ...method,
-            benchmark_label: latestBenchmarkLabel(data)
+            benchmark_label: latestBenchmarkLabel(data),
+            comparison_group_id: "autoware_108_reference",
+            result_role: "reference_snapshot",
+            rankable: false
           }));
-
-        const baseline = data.strict_smoke_baseline;
-        if (baseline && Array.isArray(baseline.methods)) {
-          baseline.methods.forEach((method) => {
-            rows.push({
-              ...method,
-              frames: method.frames || baseline.frames,
-              time_ms: method.time_ms,
-              benchmark_label: "KITTI 07 smoke",
-              note: `${baseline.dataset}; ${method.note || baseline.note || ""}`
-            });
-          });
-        }
 
         if (paperBundle && Array.isArray(paperBundle.paper_table_rows)) {
           paperBundle.paper_table_rows.forEach((row) => {
@@ -303,12 +298,48 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
               frames: row.frames,
               fps: row.fps,
               benchmark_label: `KITTI ${row.sequence} full`,
+              comparison_group_id: `kitti_${row.sequence}_full`,
+              result_role: "paper_ready_full",
+              rankable: true,
+              rpe_trans_pct: row.rpe_trans_pct,
               note: `${row.tier}; ${row.variant}`
             });
           });
         }
 
         return rows;
+      }
+
+      function benchmarkGroupLabel(groupId) {
+        const labels = {
+          autoware_108_reference: "Autoware 108 refs",
+          kitti_07_smoke: "KITTI 07 smoke",
+          kitti_00_full: "KITTI 00 full",
+          kitti_07_full: "KITTI 07 full"
+        };
+        return labels[groupId] || groupId.replace(/_/g, " ");
+      }
+
+      function rankableOdometryRows(rows) {
+        return rows.filter((method) =>
+          method.rankable &&
+          method.status === "ok" &&
+          policyOf(method) === "odometry_only" &&
+          method.rpe_trans_pct !== null &&
+          method.rpe_trans_pct !== undefined
+        );
+      }
+
+      function benchmarkGroupIds(rows) {
+        return Array.from(new Set(
+          rows
+            .filter((method) => method.status === "ok" && method.ate_m !== null && method.fps)
+            .map((method) => method.comparison_group_id)
+        ));
+      }
+
+      function benchmarkGroupClass(groupId) {
+        return String(groupId || "unknown").replace(/[^a-z0-9_-]/gi, "-");
       }
 
       function findMethod(name) {
@@ -439,12 +470,70 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         grid.appendChild(el("p", "empty", `Method catalog unavailable: ${error.message}`));
       }
 
+      function renderBenchmarkMapFilters(rows) {
+        const target = document.getElementById("benchmark-map-filters");
+        clear(target);
+        const groups = benchmarkGroupIds(rows);
+        if (!state.benchmarkGroup || (!groups.includes(state.benchmarkGroup) && state.benchmarkGroup !== "all")) {
+          state.benchmarkGroup = groups.find((group) => group.includes("_full")) || groups[0] || "";
+        }
+        groups.forEach((groupId) => {
+          const button = el("button", "chip-button", benchmarkGroupLabel(groupId));
+          button.type = "button";
+          if (state.benchmarkGroup === groupId) button.classList.add("active");
+          button.addEventListener("click", () => {
+            state.benchmarkGroup = groupId;
+            renderBenchmarkMapFilters(rows);
+            renderScatter(rows);
+          });
+          target.appendChild(button);
+        });
+        if (groups.length > 1) {
+          const button = el("button", "chip-button", "All results");
+          button.type = "button";
+          if (state.benchmarkGroup === "all") button.classList.add("active");
+          button.addEventListener("click", () => {
+            state.benchmarkGroup = "all";
+            renderBenchmarkMapFilters(rows);
+            renderScatter(rows);
+          });
+          target.appendChild(button);
+        }
+        renderBenchmarkMapLegend(rows);
+      }
+
+      function renderBenchmarkMapLegend(rows) {
+        const target = document.getElementById("benchmark-map-legend");
+        clear(target);
+        benchmarkGroupIds(rows).forEach((groupId) => {
+          const item = el("span", "legend-item");
+          item.appendChild(el("i", `legend-dot ${benchmarkGroupClass(groupId)}`));
+          item.appendChild(document.createTextNode(benchmarkGroupLabel(groupId)));
+          target.appendChild(item);
+        });
+        const odometry = el("span", "legend-item");
+        odometry.appendChild(el("i", "legend-dot shape-odometry"));
+        odometry.appendChild(document.createTextNode("circle: odometry"));
+        target.appendChild(odometry);
+        const reference = el("span", "legend-item");
+        reference.appendChild(el("i", "legend-dot shape-reference"));
+        reference.appendChild(document.createTextNode("square: GT-seeded ref"));
+        target.appendChild(reference);
+      }
+
       function renderScatter(methods) {
         const scatter = document.getElementById("scatter");
+        const note = document.getElementById("benchmark-map-note");
         clear(scatter);
-        const ok = methods.filter((method) => method.status === "ok" && method.ate_m !== null && method.fps);
+        const selected = state.benchmarkGroup === "all"
+          ? methods
+          : methods.filter((method) => method.comparison_group_id === state.benchmarkGroup);
+        note.textContent = state.benchmarkGroup === "all"
+          ? "Overview only. Points from different datasets, sequence lengths, policies, or runtime environments are not directly comparable."
+          : `${benchmarkGroupLabel(state.benchmarkGroup)} only. Compare points within this group.`;
+        const ok = selected.filter((method) => method.status === "ok" && method.ate_m !== null && method.fps);
         if (ok.length === 0) {
-          scatter.appendChild(el("p", "empty", "No FPS and ATE pairs in this snapshot."));
+          scatter.appendChild(el("p", "empty", "No FPS and ATE pairs in this benchmark group."));
           return;
         }
 
@@ -461,6 +550,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         ok.forEach((method) => {
           const point = el("a", "point");
           point.classList.add(policyOf(method));
+          point.classList.add(benchmarkGroupClass(method.comparison_group_id));
           const x = 10 + (Number(method.fps) / maxFps) * 78;
           const y = 10 + ((Math.log10(Math.max(Number(method.ate_m), 0.001)) - minLog) / spread) * 74;
           point.href = `${repoBase}/search?q=${encodeURIComponent(method.name)}&type=code`;
@@ -490,13 +580,37 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         }
         ranked.forEach((method, index) => {
           const row = el("div", reference ? "leaderboard-row reference" : "leaderboard-row");
-          row.appendChild(el("span", "rank", String(index + 1)));
+          row.appendChild(el("span", "rank", reference ? "ref" : String(index + 1)));
           const methodLabel = method.benchmark_label
             ? `${method.name} · ${method.benchmark_label}`
             : method.name;
           row.appendChild(el("span", "method", methodLabel));
           row.appendChild(el("span", "ate", `${fmt(method.ate_m, 3)} m`));
           target.appendChild(row);
+        });
+      }
+
+      function renderOdometryRankings(target, rows) {
+        clear(target);
+        const rankedRows = rankableOdometryRows(rows);
+        const groupIds = Array.from(new Set(rankedRows.map((method) => method.comparison_group_id)));
+        if (groupIds.length === 0) {
+          target.appendChild(el("p", "empty", "No full-sequence odometry rankings are stored in this snapshot."));
+          return;
+        }
+        groupIds.sort().forEach((groupId) => {
+          const groupRows = rankedRows.filter((method) => method.comparison_group_id === groupId);
+          target.appendChild(el("p", "leaderboard-section-title", `${benchmarkGroupLabel(groupId)} · ranked by translational RPE`));
+          groupRows
+            .slice()
+            .sort((a, b) => Number(a.rpe_trans_pct) - Number(b.rpe_trans_pct))
+            .forEach((method, index) => {
+              const row = el("div", "leaderboard-row");
+              row.appendChild(el("span", "rank", String(index + 1)));
+              row.appendChild(el("span", "method", method.name));
+              row.appendChild(el("span", "ate", `${fmt(method.rpe_trans_pct, 3)}% RPE`));
+              target.appendChild(row);
+            });
         });
       }
 
@@ -540,9 +654,10 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
       function renderBenchmark(data, paperBundle = null) {
         document.getElementById("title").textContent = data.dataset.name;
         document.getElementById("generated-at").textContent =
-          `Generated ${new Date(data.generated_at).toLocaleString()}`;
+          `Latest snapshot generated ${new Date(data.generated_at).toLocaleString()}`;
         document.getElementById("hero-dataset").textContent = data.dataset.name;
         const tableRows = publicBenchmarkRows(data, paperBundle);
+        const latestMethods = data.methods.filter(isPublicBenchmarkMethod);
 
         const metrics = document.getElementById("dataset-metrics");
         clear(metrics);
@@ -550,16 +665,16 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         metrics.appendChild(addMetric("Trajectory", `${fmt(data.dataset.trajectory_length_m, 1)} m`));
         metrics.appendChild(addMetric("Timestamp Source", data.dataset.timestamp_source || "-"));
 
-        const ok = tableRows.filter((method) => method.status === "ok");
-        const odometryOk = ok.filter((method) => policyOf(method) === "odometry_only");
-        const seededOk = ok.filter((method) => policyOf(method) === "gt_seeded_reference");
-        const bestOdometry = odometryOk
+        const latestOk = latestMethods.filter((method) => method.status === "ok");
+        const latestOdometryOk = latestOk.filter((method) => policyOf(method) === "odometry_only");
+        const seededOk = latestOk.filter((method) => policyOf(method) === "gt_seeded_reference");
+        const bestOdometry = latestOdometryOk
           .slice()
           .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
         const bestSeeded = seededOk
           .slice()
           .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
-        const fastest = ok
+        const fastest = latestOk
           .filter((method) => method.fps)
           .slice()
           .sort((a, b) => Number(b.fps) - Number(a.fps))[0];
@@ -576,9 +691,11 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           metrics.appendChild(addMetric("Best GT-Seeded Ref", `${bestSeeded.name} ${fmt(bestSeeded.ate_m, 3)} m`));
         }
         if (fastest) {
-          metrics.appendChild(addMetric("Fastest", `${fastest.name} ${fmt(fastest.fps, 1)} FPS`));
+          metrics.appendChild(addMetric("Fastest Snapshot Ref", `${fastest.name} ${fmt(fastest.fps, 1)} FPS`));
         }
-        metrics.appendChild(addMetric("Published Rows", String(tableRows.length)));
+        const measuredRuns = tableRows.filter((method) => method.status === "ok").length;
+        metrics.appendChild(addMetric("Measured Runs", String(measuredRuns)));
+        metrics.appendChild(addMetric("Benchmark Groups", String(benchmarkGroupIds(tableRows).length)));
 
         document.getElementById("command").textContent = data.command || "";
         const plot = document.getElementById("hero-trajectory");
@@ -590,7 +707,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         }
 
         const leaderboard = document.getElementById("leaderboard");
-        renderRanking(leaderboard, odometryOk, "No odometry-only benchmark report is stored in this snapshot.");
+        renderOdometryRankings(leaderboard, tableRows);
         renderRanking(
           document.getElementById("reference-leaderboard"),
           seededOk,
@@ -599,6 +716,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         );
         renderSmokeBaseline(document.getElementById("smoke-baseline"), data.strict_smoke_baseline);
 
+        renderBenchmarkMapFilters(tableRows);
         renderScatter(tableRows);
 
         const body = document.getElementById("results-body");
@@ -606,7 +724,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         if (tableRows.length === 0) {
           const row = document.createElement("tr");
           const cell = document.createElement("td");
-          cell.colSpan = 9;
+          cell.colSpan = 10;
           cell.textContent = "No benchmark report is stored in this repository yet.";
           row.appendChild(cell);
           body.appendChild(row);
@@ -621,6 +739,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
               { text: statusLabel(method.status), className: `status-pill ${methodStatusClass(method)}` },
               { text: policyLabel(policyOf(method)) },
               { text: fmt(method.ate_m, 3) },
+              { text: fmt(method.rpe_trans_pct, 3) },
               { text: method.frames || "-" },
               { text: fmt(method.time_ms, 1) },
               { text: fmt(method.fps, 1) },

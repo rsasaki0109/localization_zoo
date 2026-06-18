@@ -30,6 +30,11 @@ INDEX_REQUIRED_SNIPPETS = [
     'const dataPath = "./benchmarks/latest/results.json"',
     'const paperBundlePath = "./benchmarks/paper_ready_bundle.json"',
     "Method Explorer",
+    "Odometry Results by Benchmark",
+    "rankableOdometryRows",
+    "renderOdometryRankings",
+    "Benchmark Groups",
+    "Overview only. Points from different datasets",
     "demo_localization_zoo.sh",
     "social_card.png",
 ]
@@ -167,8 +172,22 @@ def validate_benchmark_snapshot(root: Path) -> None:
         require_file(root / "docs/benchmarks/latest" / plot)
 
     paper_bundle = load_json(root / "docs/benchmarks/paper_ready_bundle.json")
-    if not paper_bundle.get("paper_table_rows"):
+    paper_rows = paper_bundle.get("paper_table_rows")
+    if not paper_rows:
         raise SystemExit("paper-ready benchmark bundle has no paper_table_rows")
+    for row in paper_rows:
+        missing = [
+            field
+            for field in ("method", "sequence", "frames", "ate_m", "rpe_trans_pct", "fps", "artifact")
+            if row.get(field) is None
+        ]
+        if missing:
+            raise SystemExit(f"paper-ready row missing required fields: {row.get('method')} {missing}")
+
+    smoke = results.get("strict_smoke_baseline", {})
+    for method in smoke.get("methods", []):
+        if method.get("status") == "invalidated":
+            raise SystemExit(f"strict smoke baseline contains invalidated method: {method.get('name')}")
 
 
 def validate_scan2d_benchmarks(root: Path) -> None:

@@ -328,19 +328,36 @@ GT-seeded scan-to-map references (not ranked against odometry):
 | GICP | OK | 0.994 | 3.1 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
 | LiTAMIN2 | OK | 1.213 | 21.0 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
 
-Odometry-only, first-pose anchored:
+Odometry-only rows from this Autoware snapshot are invalidated. They were
+generated before strict GT/frame association was enforced, so the old ATE values
+are retained only as an audit trail and must not be ranked until this exact
+Autoware window is rerun with the corrected evaluator.
 
 | Method | Status | ATE [m] | FPS | Notes |
 |--------|--------|---------|-----|-------|
-| CT-ICP | OK | 75.075 | 1.3 | Odometry-only; ATE is measured after anchoring to the first GT pose |
-| KISS-ICP | OK | 183.178 | 3.2 | Odometry-only; ATE is measured after anchoring to the first GT pose |
+| CT-ICP | INVALIDATED | - | 1.3 | Previous `75.075 m` value used the legacy evaluator path and requires rerun on the same Autoware window |
+| KISS-ICP | INVALIDATED | - | 3.2 | Previous `183.178 m` value used the legacy evaluator path and requires rerun on the same Autoware window |
 | CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |
+
+Current strict-evaluator smoke baseline, reproduced locally on KITTI Odometry
+seq07 first 108 frames (`60.7 m`, exact frame-ID association):
+
+| Method | Status | ATE [m] | RPE [%/100m] | FPS | Notes |
+|--------|--------|---------|--------------|-----|-------|
+| KISS-ICP | OK | 0.138 | 0.553 | 37.7 | Odometry-only; corrected smoke baseline, not an official KITTI score |
+| CT-ICP | OK | 0.421 | 0.863 | 23.7 | Odometry-only; corrected smoke baseline, not an official KITTI score |
 
 ![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
 
 `./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path>`
 evaluates sequential PCD datasets against a shared trajectory CSV. The selector list
 and per-method flag families are generated in [`docs/interfaces.md`](docs/interfaces.md).
+GT association is strict by default: integer frame timelines are joined by exact
+frame ID, non-integer timelines are associated by timestamp within
+`--association-max-dt`, and silent sampled-GT fallback is only available through
+`--association-mode legacy-auto`. `dogfooding_results/gt.txt` is a mutable
+last-run artifact and is refused as canonical GT unless
+`--allow-legacy-gt-artifact` is passed explicitly.
 
 Dataset-prep helpers (KITTI Odometry, KITTI Raw, ROS 1/2 bag extraction, HDL-400) live
 under [`evaluation/scripts/`](evaluation/scripts/). For KITTI Odometry public sequences:

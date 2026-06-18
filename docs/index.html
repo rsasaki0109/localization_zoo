@@ -82,7 +82,7 @@
                 <p class="eyebrow">Accuracy vs Throughput</p>
                 <h3>Benchmark Map</h3>
               </div>
-              <span class="axis-note">ATE uses log scale</span>
+              <span class="axis-note">ATE uses log scale; seeded refs marked</span>
             </div>
             <div class="scatter" id="scatter"></div>
           </article>
@@ -91,10 +91,14 @@
             <div class="tool-head">
               <div>
                 <p class="eyebrow">Leaderboard</p>
-                <h3>ATE Ranking</h3>
+                <h3>Odometry ATE Ranking</h3>
               </div>
             </div>
+            <p class="leaderboard-note">
+              First-pose anchored odometry only. GT-seeded scan-to-map references are listed separately.
+            </p>
             <div id="leaderboard" class="leaderboard"></div>
+            <div id="reference-leaderboard" class="leaderboard reference-leaderboard"></div>
           </article>
         </div>
 
@@ -104,6 +108,7 @@
               <tr>
                 <th>Method</th>
                 <th>Status</th>
+                <th>Policy</th>
                 <th>ATE [m]</th>
                 <th>Frames</th>
                 <th>Time [ms]</th>
@@ -218,6 +223,30 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         item.appendChild(el("span", "", label));
         item.appendChild(el("strong", "", value));
         return item;
+      }
+
+      function policyOf(method) {
+        if (method.evaluation_policy) {
+          return method.evaluation_policy;
+        }
+        const note = (method.note || "").toLowerCase();
+        if (note.includes("gt-seeded") || note.includes("ground-truth pose")) {
+          return "gt_seeded_reference";
+        }
+        if (note.includes("odometry-only") || note.includes("first gt pose")) {
+          return "odometry_only";
+        }
+        return method.status === "skipped" ? "not_run" : "unspecified";
+      }
+
+      function policyLabel(policy) {
+        const labels = {
+          gt_seeded_reference: "GT-seeded ref",
+          odometry_only: "Odometry",
+          not_run: "Not run",
+          unspecified: "Unspecified"
+        };
+        return labels[policy] || policy;
       }
 
       function findMethod(name) {
@@ -369,6 +398,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
 
         ok.forEach((method) => {
           const point = el("a", "point");
+          point.classList.add(policyOf(method));
           const x = 10 + (Number(method.fps) / maxFps) * 78;
           const y = 10 + ((Math.log10(Math.max(Number(method.ate_m), 0.001)) - minLog) / spread) * 74;
           point.href = `${repoBase}/search?q=${encodeURIComponent(method.name)}&type=code`;
@@ -381,6 +411,28 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         });
 
         scatter.appendChild(plot);
+      }
+
+      function renderRanking(target, methods, emptyText, reference = false) {
+        clear(target);
+        const ranked = methods
+          .slice()
+          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))
+          .slice(0, 8);
+        if (ranked.length === 0) {
+          target.appendChild(el("p", "empty", emptyText));
+          return;
+        }
+        if (reference) {
+          target.appendChild(el("p", "leaderboard-section-title", "GT-seeded references, not ranked with odometry"));
+        }
+        ranked.forEach((method, index) => {
+          const row = el("div", reference ? "leaderboard-row reference" : "leaderboard-row");
+          row.appendChild(el("span", "rank", String(index + 1)));
+          row.appendChild(el("span", "method", method.name));
+          row.appendChild(el("span", "ate", `${fmt(method.ate_m, 3)} m`));
+          target.appendChild(row);
+        });
       }
 
       function renderBenchmark(data) {
@@ -396,7 +448,12 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         metrics.appendChild(addMetric("Timestamp Source", data.dataset.timestamp_source || "-"));
 
         const ok = data.methods.filter((method) => method.status === "ok");
-        const best = ok
+        const odometryOk = ok.filter((method) => policyOf(method) === "odometry_only");
+        const seededOk = ok.filter((method) => policyOf(method) === "gt_seeded_reference");
+        const bestOdometry = odometryOk
+          .slice()
+          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
+        const bestSeeded = seededOk
           .slice()
           .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
         const fastest = ok
@@ -404,9 +461,16 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           .slice()
           .sort((a, b) => Number(b.fps) - Number(a.fps))[0];
 
-        if (best) {
-          metrics.appendChild(addMetric("Best ATE", `${best.name} ${fmt(best.ate_m, 3)} m`));
-          document.getElementById("hero-best").textContent = `${best.name} leads at ${fmt(best.ate_m, 3)} m ATE`;
+        if (bestOdometry) {
+          metrics.appendChild(addMetric("Best Odometry ATE", `${bestOdometry.name} ${fmt(bestOdometry.ate_m, 3)} m`));
+          document.getElementById("hero-best").textContent =
+            `${bestOdometry.name} leads odometry at ${fmt(bestOdometry.ate_m, 3)} m ATE`;
+        } else if (bestSeeded) {
+          document.getElementById("hero-best").textContent =
+            `GT-seeded reference: ${bestSeeded.name} ${fmt(bestSeeded.ate_m, 3)} m ATE`;
+        }
+        if (bestSeeded) {
+          metrics.appendChild(addMetric("Best GT-Seeded Ref", `${bestSeeded.name} ${fmt(bestSeeded.ate_m, 3)} m`));
         }
         if (fastest) {
           metrics.appendChild(addMetric("Fastest", `${fastest.name} ${fmt(fastest.fps, 1)} FPS`));
@@ -422,22 +486,13 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         }
 
         const leaderboard = document.getElementById("leaderboard");
-        clear(leaderboard);
-        const ranked = ok
-          .slice()
-          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))
-          .slice(0, 8);
-        if (ranked.length === 0) {
-          leaderboard.appendChild(el("p", "empty", "No benchmark report is stored in this repository yet."));
-        } else {
-          ranked.forEach((method, index) => {
-            const row = el("div", "leaderboard-row");
-            row.appendChild(el("span", "rank", String(index + 1)));
-            row.appendChild(el("span", "method", method.name));
-            row.appendChild(el("span", "ate", `${fmt(method.ate_m, 3)} m`));
-            leaderboard.appendChild(row);
-          });
-        }
+        renderRanking(leaderboard, odometryOk, "No odometry-only benchmark report is stored in this snapshot.");
+        renderRanking(
+          document.getElementById("reference-leaderboard"),
+          seededOk,
+          "No GT-seeded reference methods in this snapshot.",
+          true
+        );
 
         renderScatter(data.methods);
 
@@ -446,7 +501,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         if (data.methods.length === 0) {
           const row = document.createElement("tr");
           const cell = document.createElement("td");
-          cell.colSpan = 7;
+          cell.colSpan = 8;
           cell.textContent = "No benchmark report is stored in this repository yet.";
           row.appendChild(cell);
           body.appendChild(row);
@@ -456,6 +511,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
             [
               method.name,
               method.status.toUpperCase(),
+              policyLabel(policyOf(method)),
               fmt(method.ate_m, 3),
               method.frames || "-",
               fmt(method.time_ms, 1),

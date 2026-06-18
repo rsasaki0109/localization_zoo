@@ -26,7 +26,9 @@ A LiDAR-(IMU) scan-to-map odometry with the paper's three contributions:
    LiDAR solution is blended with the IMU motion prediction using a weight `1/S`:
    `t = (1 − 1/S_t)·t_IMU + (1/S_t)·t_LiDAR` for translation and the
    corresponding SLERP for rotation. Higher degeneracy ⇒ more IMU, less reliance
-   on the degraded LiDAR estimate.
+   on the degraded LiDAR estimate. Compensation is applied only when a real IMU
+   packet was integrated for the frame; no-IMU runs still report degeneracy but
+   do not blend toward the constant-velocity fallback prediction.
 
 ## Current Scope
 
@@ -34,6 +36,9 @@ A LiDAR-(IMU) scan-to-map odometry with the paper's three contributions:
 - point-to-plane registration with a constant-velocity + IMU-gyro rotation prior
   (online gyro-bias correction); falls back to constant velocity without IMU
 - exposes the degeneracy factors and the per-frame degenerate flag in the result
+- without `imu.csv`, the KITTI dogfooding path is LiDAR-only scan-to-map with
+  degeneracy diagnostics; compensation is disabled because constant velocity is
+  not an inertial reference
 
 ## Deviations / Not Included Yet
 

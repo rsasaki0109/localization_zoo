@@ -175,7 +175,7 @@ Eigen::Matrix4d D2LIOPipeline::runICP(
     const std::vector<Eigen::Vector3d>& source,
     const Eigen::Matrix4d& initial_guess, const Eigen::Matrix4d& prediction,
     double t_rel, double theta_rel, const Eigen::Matrix3d& imu_rot_info,
-    D2LIOResult* result) {
+    bool enable_degeneracy_prior, D2LIOResult* result) {
   Eigen::Matrix4d T = initial_guess;
   const double sin_half = std::sin(0.5 * theta_rel);
   const double cauchy_sq = std::max(params_.cauchy_scale * params_.cauchy_scale,
@@ -261,6 +261,8 @@ Eigen::Matrix4d D2LIOPipeline::runICP(
         const double l = lam(k);
         if (l >= kappa) continue;
         ++(*deg_count);
+        if (!enable_degeneracy_prior || params_.imu_prior_weight <= 0.0)
+          continue;
         const Eigen::Vector3d v = V.col(k);
         // 退化度 g = (κ - λ)/κ ∈ (0,1]。IMU 情報を方向 v に射影して強度を決める。
         const double g = (kappa - l) / kappa;
@@ -347,10 +349,11 @@ D2LIOResult D2LIOPipeline::registerFrame(
 
   const double t_rel = last_delta_.block<3, 1>(0, 3).norm();
   const double theta_rel = logSO3(imu_delta_R).norm();
+  const bool enable_degeneracy_prior = result.used_imu;
 
   const Eigen::Matrix4d new_pose =
       runICP(registration_points, prediction, prediction, t_rel, theta_rel,
-             imu_rot_info, &result);
+             imu_rot_info, enable_degeneracy_prior, &result);
 
   last_delta_ = pose_.inverse() * new_pose;
 

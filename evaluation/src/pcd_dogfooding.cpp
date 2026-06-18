@@ -5907,11 +5907,11 @@ MethodResult runD2LIO(const std::vector<std::string>& pcd_dirs,
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
       (imu_frames > 0
-           ? "Directional-degeneracy LiDAR-IMU scan-to-submap (GT-seeded init; "
+           ? "Directional-degeneracy LiDAR-IMU scan-to-submap (first-pose anchored; "
              "adaptive per-point outlier gate + IMU-prior degeneracy "
              "regularization)."
            : "Scan-to-submap, constant-velocity fallback (no imu.csv; "
-             "GT-seeded init).") +
+             "first-pose anchored; degeneracy prior diagnostics-only).") +
       std::string(" deg_dirs/frame rot=") +
       std::to_string(deg_rot_total) + " trans=" +
       std::to_string(deg_trans_total);
@@ -7618,10 +7618,10 @@ MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
   res.note =
       (imu_frames > 0
            ? "Degeneracy-factor sensing (condition number) + adaptive "
-             "MAD-outlier detection + IMU/LiDAR fusion compensation (GT-seeded "
-             "init)."
+             "MAD-outlier detection + IMU/LiDAR fusion compensation "
+             "(first-pose anchored)."
            : "Degeneracy sensing, constant-velocity fallback (no imu.csv; "
-             "GT-seeded init).") +
+             "first-pose anchored; compensation diagnostics-only).") +
       std::string(" degenerate_frames=") + std::to_string(degen_frames);
   return res;
 }

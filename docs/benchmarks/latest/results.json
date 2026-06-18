@@ -10,6 +10,35 @@
   },
   "command": "./build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108 dogfooding_results/autoware_istanbul_open_108_gt.csv --methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp",
   "evaluation_policy_note": "This snapshot mixes GT-seeded scan-to-map references with odometry-only methods. GT-seeded references use the ground-truth pose as a per-frame initialization and must not be ranked against first-pose-anchored odometry by ATE. The odometry-only CT-ICP and KISS-ICP rows from this 2026-04-02 snapshot are invalidated because they were produced before strict GT/frame association was enforced and require rerun on the same Autoware window.",
+  "strict_smoke_baseline": {
+    "title": "KITTI seq07 strict smoke baseline",
+    "dataset": "KITTI Odometry seq07 first 108 frames",
+    "frames": 108,
+    "trajectory_length_m": 60.7,
+    "association_mode": "exact_frame_id",
+    "gt_source": "experiments/reference_data/kitti_seq_07_108_gt.csv",
+    "note": "Corrected strict-evaluator baseline with exact frame-ID association. This is a regression smoke window, not an official KITTI leaderboard score.",
+    "methods": [
+      {
+        "name": "KISS-ICP",
+        "status": "ok",
+        "evaluation_policy": "odometry_only",
+        "ate_m": 0.138191,
+        "rpe_trans_pct": 0.553029,
+        "fps": 37.7,
+        "note": "Corrected smoke baseline; not an official KITTI score."
+      },
+      {
+        "name": "CT-ICP",
+        "status": "ok",
+        "evaluation_policy": "odometry_only",
+        "ate_m": 0.421357,
+        "rpe_trans_pct": 0.862859,
+        "fps": 23.7,
+        "note": "Corrected smoke baseline; not an official KITTI score."
+      }
+    ]
+  },
   "artifacts": {
     "trajectory_plot": "trajectory.png"
   },

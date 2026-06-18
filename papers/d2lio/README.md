@@ -30,7 +30,10 @@ and IMU preintegration, with D²-LIO's three contributions:
    added, with strength scaled by the degeneracy gap, the IMU information
    projected onto that direction, and `λ_max` — an approximation of the paper's
    `W = (AᵀA·P)⁻¹` hybrid weight. On well-conditioned scenes no direction is
-   flagged and the regularizer stays dormant (no bias).
+   flagged and the regularizer stays dormant (no bias). The prior is applied
+   only when a real IMU packet was integrated for the frame; no-IMU runs still
+   report the degenerate directions but do not regularize toward the
+   constant-velocity fallback prediction.
 
 ## Current Scope
 
@@ -49,3 +52,6 @@ and IMU preintegration, with D²-LIO's three contributions:
   translation covariance is not gravity/bias-corrected in this compact pipeline)
 - no full tightly-coupled IEKF / sliding-window back-end — IMU enters as a
   rotation prior plus the degeneracy regularizer, not a joint state estimator
+- without `imu.csv`, the KITTI dogfooding path is LiDAR-only scan-to-submap with
+  degeneracy diagnostics; directional regularization is disabled because the
+  constant-velocity fallback is not an inertial measurement

@@ -63,8 +63,9 @@ a narrower evidence set:
   should be treated as reproduction evidence. The current frozen evidence
   manifest is
   [`docs/benchmarks/paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
-- **Strongest current candidates**: I-LOAM, KC-LO, M-GCLO, and Quadric-LO.
-  LiDAR-visual adapters and dynamic-filtering LIO ports remain
+- **Strongest current candidates**: I-LOAM, KC-LO, DegenSense, D2-LIO, M-GCLO,
+  and Quadric-LO. DegenSense/D2-LIO are KITTI no-IMU fallback evidence, not full
+  LIO claims; LiDAR-visual adapters and dynamic-filtering LIO ports remain
   adapter/mechanism evidence until real RGB, synchronized camera, IMU, or
   dynamic-scene gaps are closed.
 
@@ -107,9 +108,10 @@ RPE is drift %/100 m; ATE in parens.
 
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
-| M-GCLO | **0.835%** <sub>(19 m)</sub> | 0.671% <sub>(2 m)</sub> | ISPRS Ann. 2024 |
+| DegenSense | **0.811%** <sub>(12 m)</sub> | 0.558% <sub>(1 m)</sub> | arXiv:2412.07513 |
+| D2-LIO | 0.814% <sub>(11 m)</sub> | 0.541% <sub>(1 m)</sub> | arXiv:2508.14355 |
+| M-GCLO | 0.835% <sub>(19 m)</sub> | 0.671% <sub>(2 m)</sub> | ISPRS Ann. 2024 |
 | KC-LO | 0.837% <sub>(13 m)</sub> | **0.510%** <sub>(1 m)</sub> | ECCV 2004 |
-| **I-LOAM** | **0.899%** <sub>(13 m)</sub> | **0.575%** <sub>(2 m)</sub> | UR 2020 |
 | LODESTAR | 0.848% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
 | Terrain-RBF-LIO | 0.849% <sub>(8 m)</sub> | 0.587% <sub>(1 m)</sub> | arXiv:2509.26222 |
 | DALI-SLAM | 0.849% <sub>(8 m)</sub> | 0.600% <sub>(1 m)</sub> | ISPRS JPRS 2025 |
@@ -119,6 +121,7 @@ RPE is drift %/100 m; ATE in parens.
 | Quadric-LO | 0.867% <sub>(15 m)</sub> | 0.598% <sub>(2 m)</sub> | arXiv:2304.14190 |
 | Adaptive-ICP | 0.870% <sub>(11 m)</sub> | 0.569% <sub>(1 m)</sub> | arXiv:2509.22058 |
 | MCC-LO | 0.892% <sub>(13 m)</sub> | 0.611% <sub>(2 m)</sub> | PLOS ONE 2018 |
+| **I-LOAM** | **0.899%** <sub>(13 m)</sub> | **0.575%** <sub>(2 m)</sub> | UR 2020 |
 | Mesh-LOAM | 0.901% <sub>(13 m)</sub> | 0.616% <sub>(1 m)</sub> | IEEE T-IV 2024 |
 | NHC-LIO | 0.902% <sub>(18 m)</sub> | 0.608% <sub>(3 m)</sub> | IEEE Sens. J. 2023 |
 | SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
@@ -145,8 +148,6 @@ RPE is drift %/100 m; ATE in parens.
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
-| D2-LIO | 5.794% <sub>(106 m)</sub> | 0.804% <sub>(2 m)</sub> | arXiv:2508.14355 |
-| DegenSense | 9.931% <sub>(417 m)</sub> | 9.940% <sub>(39 m)</sub> | arXiv:2412.07513 |
 | Spectral-LO | 12.029% <sub>(113 m)</sub> | 13.671% <sub>(47 m)</sub> | arXiv:2005.02042 |
 | DiLO | 18.305% <sub>(226 m)</sub> | 18.966% <sub>(159 m)</sub> | ETRI J. 2021 |
 | **PL-LOAM** | **143.211%** <sub>(3016 m)</sub> | **116.899%** <sub>(271 m)</sub> | ICRA 2020 |
@@ -156,10 +157,14 @@ RPE is drift %/100 m; ATE in parens.
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-The top ten (M-GCLO through Adaptive-ICP) **match or beat KISS-ICP on seq-00**,
-and all but M-GCLO (0.671% seq-07) also beat it on **seq-07** — well clear of
-CT-ICP. **M-GCLO** leads seq-00 drift (0.835%) via
-multiple-ground-plane constraints (higher ATE — an honest RPE/ATE split). Its
+The top ten (DegenSense through Intensity-Flow) **match or beat KISS-ICP on
+seq-00**, and all of them also beat it on **seq-07** — well clear of CT-ICP.
+**DegenSense** and **D2-LIO** now run as LiDAR-only no-IMU fallbacks on KITTI:
+degeneracy sensing remains diagnostic, but IMU compensation/regularization is
+disabled unless a real IMU packet is integrated, avoiding the previous
+constant-velocity over-constraint. **M-GCLO** remains the strongest explicit
+ground-factor row (0.835% seq00) via multiple-ground-plane constraints (higher
+ATE — an honest RPE/ATE split). Its
 ground-factor ablation keeps translational RPE similar or lower, but disabling
 ground more than doubles ATE on seq00/07 and worsens rotational drift; the
 paired raw artifacts are committed as
@@ -207,7 +212,7 @@ DiLO (direct, 18–19% drift), Spectral-LO
 **PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),
 **VLOM** (scale-corrected visual bootstrap A-LOAM on pseudo-image, ~91–154% drift),
 **InTEn-LOAM** (cylindrical intensity LO without DOR/mapping, ~53–67% drift),
-R-VoxelMap (diverges seq 07), UA-LIO/DegenSense. Per-method caveats live in the
+R-VoxelMap (diverges seq 07), and UA-LIO. Per-method caveats live in the
 module READMEs; raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->

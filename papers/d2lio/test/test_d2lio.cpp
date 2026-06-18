@@ -119,5 +119,42 @@ TEST(D2LIO, DegeneracyDetectorFiresOnUnconstrainedDirection) {
     EXPECT_TRUE(result.converged);
     if (result.degenerate_trans_dirs > 0) fired = true;
   }
-  EXPECT_TRUE(fired);  // x 無拘束方向で退化正則化が発火する。
+  EXPECT_TRUE(fired);  // x 無拘束方向で退化検出が発火する。
+}
+
+TEST(D2LIO, NoImuDegeneracyPriorDoesNotUseConstantVelocityFallback) {
+  std::mt19937 rng(42);
+  const auto scene = makeScene(rng);
+
+  auto run = [&](double imu_prior_weight) {
+    D2LIOParams params;
+    params.voxel_size = 1.0;
+    params.max_icp_iterations = 40;
+    params.degeneracy_ratio = 1.1;  // force diagnostic firing in every block
+    params.imu_prior_weight = imu_prior_weight;
+    D2LIOPipeline pipeline(params);
+
+    int degenerate_dirs = 0;
+    const std::vector<Eigen::Vector3d> path = {
+        Eigen::Vector3d(0, 0, 1), Eigen::Vector3d(1, 0, 1),
+        Eigen::Vector3d(1, 0, 1), Eigen::Vector3d(1, 0, 1)};
+    for (const auto& t : path) {
+      std::vector<Eigen::Vector3d> scan;
+      for (const auto& p : scene) {
+        const Eigen::Vector3d ps = p - t;
+        if (ps.norm() > 3 && ps.norm() < 30) scan.push_back(ps);
+      }
+      const auto result = pipeline.registerFrame(scan, {});
+      EXPECT_TRUE(result.converged);
+      EXPECT_FALSE(result.used_imu);
+      degenerate_dirs += result.degenerate_rot_dirs + result.degenerate_trans_dirs;
+    }
+    return std::make_pair(pipeline.pose(), degenerate_dirs);
+  };
+
+  const auto no_prior = run(0.0);
+  const auto huge_prior = run(1e6);
+  EXPECT_GT(no_prior.second, 0);
+  EXPECT_GT(huge_prior.second, 0);
+  EXPECT_TRUE(no_prior.first.isApprox(huge_prior.first, 1e-9));
 }

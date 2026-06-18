@@ -13,6 +13,8 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT = REPO_ROOT / "docs" / "benchmarks" / "paper_ready_bundle.json"
 KITTI_ROOT = "data/kitti_pcd"
+FROZEN_DATE = "2026-06-18"
+BUNDLE_ID = "paper_ready_core_2026_06_18"
 
 
 METHOD_CONFIGS: list[dict[str, Any]] = [
@@ -77,6 +79,44 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
             },
         },
         "remaining_work": "Add to manuscript table with fixed-sigma and annealed artifacts locked.",
+    },
+    {
+        "id": "degen_sense",
+        "selector": "degen_sense",
+        "method": "DegenSense",
+        "tier": "T1 evidence candidate",
+        "paper": "A Real-time Degeneracy Sensing and Compensation Method for Enhanced LiDAR SLAM",
+        "claim": "Condition-number degeneracy sensing is stable on KITTI; compensation is gated to real IMU packets.",
+        "mechanism": "Degeneracy-factor sensing with IMU/LiDAR compensation disabled on no-IMU KITTI so the constant-velocity fallback is diagnostic only.",
+        "paper_result": {
+            "variant": "no_imu_diagnostics_only",
+            "role": "competitive no-IMU KITTI fallback",
+            "flags": [],
+            "artifacts": {
+                "00": "docs/benchmarks/kitti_full_new_methods/seq00_degen_sense.json",
+                "07": "docs/benchmarks/kitti_full_new_methods/seq07_degen_sense.json",
+            },
+        },
+        "remaining_work": "Validate the compensation path on a synchronized LiDAR-IMU benchmark before making full LIO claims.",
+    },
+    {
+        "id": "d2lio",
+        "selector": "d2lio",
+        "method": "D2-LIO",
+        "tier": "T1 evidence candidate",
+        "paper": "D²-LIO: Enhanced Optimization for LiDAR-IMU Odometry Considering Directional Degeneracy",
+        "claim": "Directional degeneracy diagnostics are stable on KITTI; the directional prior is gated to real IMU packets.",
+        "mechanism": "Adaptive outlier gating plus Hessian eigen-direction diagnostics, with IMU prior regularization disabled on no-IMU KITTI.",
+        "paper_result": {
+            "variant": "no_imu_diagnostics_only",
+            "role": "competitive no-IMU KITTI fallback",
+            "flags": [],
+            "artifacts": {
+                "00": "docs/benchmarks/kitti_full_new_methods/seq00_d2lio.json",
+                "07": "docs/benchmarks/kitti_full_new_methods/seq07_d2lio.json",
+            },
+        },
+        "remaining_work": "Validate the IMU-prior regularization path on a synchronized LiDAR-IMU benchmark before making full LIO claims.",
     },
     {
         "id": "m_gclo",
@@ -233,10 +273,13 @@ def command_for(selector: str, sequence: str, flags: list[str], artifact_rel: st
 
 
 def build_method_entry(config: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    summary_rel = config["ablation"]["summary"]
-    summary = load_json(summary_rel)
-    if summary.get("method") != config["method"]:
-        raise SystemExit(f"method mismatch in {summary_rel}: {summary.get('method')}")
+    ablation_config = config.get("ablation")
+    summary_rel = ablation_config.get("summary") if ablation_config else None
+    summary: dict[str, Any] = {}
+    if summary_rel:
+        summary = load_json(summary_rel)
+        if summary.get("method") != config["method"]:
+            raise SystemExit(f"method mismatch in {summary_rel}: {summary.get('method')}")
 
     paper_sequences: list[dict[str, Any]] = []
     table_rows: list[dict[str, Any]] = []
@@ -266,7 +309,7 @@ def build_method_entry(config: dict[str, Any]) -> tuple[dict[str, Any], list[dic
             "rank_metric": "rpe_trans_pct",
             "trajectory_length_m": dataset["trajectory_length_m"],
             "timestamp_source": dataset["timestamp_source"],
-            "generated_at": "2026-06-12",
+            "generated_at": FROZEN_DATE,
             "runtime_profile": paper_result["variant"],
             "command": command,
             **metrics,
@@ -281,56 +324,68 @@ def build_method_entry(config: dict[str, Any]) -> tuple[dict[str, Any], list[dic
         })
 
     ablation_pairs: list[dict[str, Any]] = []
-    variant_configs = config["ablation"]["variants"]
-    delta_key = config["ablation"]["delta_key"]
-    for pair in summary.get("pairs", []):
-        sequence = str(pair["sequence"])
-        variants: dict[str, Any] = {}
-        for variant_name, variant_config in variant_configs.items():
-            variant = pair[variant_name]
-            artifact_rel = variant["artifact"]
-            raw = method_payload(artifact_rel)
-            for key in ("ate_m", "rpe_trans_pct", "rpe_rot_deg_per_m", "fps"):
-                if key in variant and key in raw:
-                    assert_close(f"{artifact_rel}:{key}", variant[key], raw[key])
-            if "frames" in pair and "frames" in raw:
-                assert_close(f"{artifact_rel}:frames", pair["frames"], raw["frames"], tol=0.0)
-            variants[variant_name] = {
-                "role": variant_config["role"],
-                "artifact": artifact_rel,
-                "metrics": metrics_from_method(raw),
-                "command": command_for(
-                    config["selector"], sequence, variant_config["flags"], artifact_rel
-                ),
-            }
-        ablation_pairs.append({
-            "sequence": sequence,
-            "frames": pair.get("frames"),
-            "variants": variants,
-            "delta": pair.get(delta_key, {}),
-        })
+    if ablation_config:
+        variant_configs = ablation_config["variants"]
+        delta_key = ablation_config["delta_key"]
+        for pair in summary.get("pairs", []):
+            sequence = str(pair["sequence"])
+            variants: dict[str, Any] = {}
+            for variant_name, variant_config in variant_configs.items():
+                variant = pair[variant_name]
+                artifact_rel = variant["artifact"]
+                raw = method_payload(artifact_rel)
+                for key in ("ate_m", "rpe_trans_pct", "rpe_rot_deg_per_m", "fps"):
+                    if key in variant and key in raw:
+                        assert_close(f"{artifact_rel}:{key}", variant[key], raw[key])
+                if "frames" in pair and "frames" in raw:
+                    assert_close(f"{artifact_rel}:frames", pair["frames"], raw["frames"], tol=0.0)
+                variants[variant_name] = {
+                    "role": variant_config["role"],
+                    "artifact": artifact_rel,
+                    "metrics": metrics_from_method(raw),
+                    "command": command_for(
+                        config["selector"], sequence, variant_config["flags"], artifact_rel
+                    ),
+                }
+            ablation_pairs.append({
+                "sequence": sequence,
+                "frames": pair.get("frames"),
+                "variants": variants,
+                "delta": pair.get(delta_key, {}),
+            })
 
     method_entry = {
         "id": config["id"],
         "method": config["method"],
         "selector": config["selector"],
         "tier": config["tier"],
-        "paper": summary.get("paper"),
-        "claim": summary.get("claim"),
+        "paper": summary.get("paper", config.get("paper")),
+        "claim": summary.get("claim", config.get("claim")),
         "mechanism": config["mechanism"],
         "paper_result": {
             "variant": paper_result["variant"],
             "role": paper_result["role"],
             "sequences": paper_sequences,
         },
-        "ablation": {
+        "remaining_work": config["remaining_work"],
+    }
+    if ablation_config:
+        method_entry["ablation"] = {
             "summary_artifact": summary_rel,
             "protocol": summary.get("protocol", {}),
             "pairs": ablation_pairs,
             "conclusion": summary.get("conclusion"),
-        },
-        "remaining_work": config["remaining_work"],
-    }
+        }
+    else:
+        method_entry["ablation"] = {
+            "summary_artifact": None,
+            "protocol": {
+                "type": "no paired ablation in frozen bundle",
+                "claim_limit": "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation.",
+            },
+            "pairs": [],
+            "conclusion": config.get("claim"),
+        }
     return method_entry, table_rows
 
 
@@ -344,22 +399,25 @@ def build_bundle() -> dict[str, Any]:
 
     return {
         "schema_version": 1,
-        "bundle_id": "paper_ready_core_2026_06_12",
-        "frozen_date": "2026-06-12",
+        "bundle_id": BUNDLE_ID,
+        "frozen_date": FROZEN_DATE,
         "generated_by": "evaluation/scripts/build_paper_ready_bundle.py",
         "scope": {
             "dataset": "KITTI Odometry full sequences",
             "sequences": ["00", "07"],
             "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
             "artifact_root": "docs/benchmarks/kitti_full_new_methods",
-            "claim_policy": "Use only tiered T0/T1 evidence for manuscript claims; keep adapters and compact baselines outside the main claim table.",
+            "claim_policy": "Use only tiered T0/T1 evidence for manuscript claims; no-IMU fallback rows are KITTI odometry evidence, not full LIO claims.",
         },
         "status": {
             "frozen_methods": len(methods),
             "paper_table_rows": len(table_rows),
-            "paired_ablation_summaries": len(methods),
+            "paired_ablation_summaries": sum(
+                1 for config in METHOD_CONFIGS if config.get("ablation")
+            ),
             "t0_evidence_candidates": ["I-LOAM", "KC-LO"],
             "t1_plus_evidence_candidates": ["M-GCLO", "Quadric-LO"],
+            "competitive_no_imu_fallbacks": ["DegenSense", "D2-LIO"],
             "supporting_synthetic_stress_checks": [
                 {
                     "name": "RF-LIO/ID-LIO synthetic dynamic-object stress",

@@ -42,11 +42,11 @@ and each module's README records its per-method deviations.
 | Verdict | Methods |
 |---|---|
 | **Claim reproduces** | I-LOAM, KC-LO, M-GCLO, Quadric-LO, Adaptive-ICP, TrICP-LO (partial) |
-| **Competitive, mechanism auxiliary** | LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
+| **Competitive, mechanism auxiliary** | DegenSense, D²-LIO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
 | **Near-redundant on KITTI** (mechanism correct, no effect) | MCC-LO, GMM-LO, Student-T-LO, GNC-LO, PCR-DAT |
 | **Trade-off exposed** | LiDAR-IBA (ATE↓ / RPE↑), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
 | **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO |
-| **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, D²-LIO, DegenSense, DiLO, PL-LOAM, VLOM, InTEn-LOAM, UA-LIO |
+| **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, DiLO, PL-LOAM, VLOM, InTEn-LOAM, UA-LIO |
 
 The full per-method numbers are in the README's from-paper table;
 this report focuses on *why* each method lands where it does.
@@ -54,8 +54,14 @@ this report focuses on *why* each method lands where it does.
 ## Finding 1 — Several no-code papers beat the strongest open baselines
 
 The headline positive result: **the top ten from-paper reimplementations match
-or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
+or beat KISS-ICP on seq 00**, and all ten also beat it on seq 07.
 
+- **DegenSense / D²-LIO** are now competitive no-IMU KITTI fallbacks
+  (0.811-0.814 % on seq 00, 0.541-0.558 % on seq 07). The key fix was
+  methodological: degeneracy sensing is still reported, but compensation or
+  directional regularization is applied only when a real IMU packet is present.
+  The previous constant-velocity fallback was not an inertial reference and
+  over-constrained weak directions.
 - **I-LOAM** (UR 2020) is the cleanest reproduction in the repository. Its
   central claim — injecting LiDAR reflectance into LOAM's correspondence and
   residual weighting cuts drift — survives a controlled ablation: running the
@@ -159,10 +165,6 @@ Honest negatives, kept in the leaderboard rather than dropped:
 - **Spectral-LO** (12–14 %): FFT phase-correlation odometry runs at ~14 FPS
   with zero divergence — honest fast-but-coarse; BEV cell quantization
   (~0.47 m) is the structural floor.
-- **DegenSense** (9.9 %): degeneracy *compensation* actively hurts when the
-  scene is not degenerate and the IMU half of the design is absent.
-- **D²-LIO** (5.8 % seq 00 vs 0.8 % seq 07): adaptive gating constants that the
-  paper leaves unspecified do not transfer across sequences.
 - **R-VoxelMap** diverges on seq 07; **UA-LIO** diverges on both; **IMLS-SLAM**
   on a voxelized map degenerates to plain point-to-plane (1.0 %) — the implicit
   surface needs the native point density the paper assumes.

@@ -346,6 +346,47 @@ h3 {
   min-height: 310px;
 }
 
+.benchmark-filter,
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.benchmark-filter {
+  margin: -3px 0 10px;
+}
+
+.map-note {
+  margin: -2px 0 10px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.map-legend {
+  margin: 0 0 12px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 760;
+  line-height: 1.25;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 1px rgba(15, 118, 110, 0.45);
+}
+
 .scatter-plot {
   position: relative;
   height: 310px;
@@ -397,14 +438,38 @@ h3 {
   box-shadow: 0 0 0 1px rgba(159, 18, 57, 0.45);
 }
 
-.point:nth-of-type(3n) .dot {
+.legend-dot.kitti_00_full,
+.point.kitti_00_full .dot {
   background: var(--blue);
   box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.45);
 }
 
-.point:nth-of-type(3n + 1) .dot {
+.legend-dot.kitti_07_full,
+.point.kitti_07_full .dot {
   background: var(--teal);
   box-shadow: 0 0 0 1px rgba(15, 118, 110, 0.45);
+}
+
+.legend-dot.kitti_07_smoke,
+.point.kitti_07_smoke .dot {
+  background: var(--rose);
+  box-shadow: 0 0 0 1px rgba(159, 18, 57, 0.45);
+}
+
+.legend-dot.autoware_108_reference,
+.point.autoware_108_reference .dot {
+  background: var(--gold);
+  box-shadow: 0 0 0 1px rgba(161, 98, 7, 0.45);
+}
+
+.legend-dot.shape-reference,
+.scatter-plot .point.gt_seeded_reference .dot {
+  border-radius: 3px;
+}
+
+.legend-dot.shape-odometry,
+.scatter-plot .point.odometry_only .dot {
+  border-radius: 50%;
 }
 
 .point-label {
@@ -412,16 +477,6 @@ h3 {
   border: 1px solid rgba(216, 222, 232, 0.85);
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.86);
-}
-
-.scatter-plot .point.gt_seeded_reference .dot {
-  background: var(--gold);
-  box-shadow: 0 0 0 1px rgba(161, 98, 7, 0.45);
-}
-
-.scatter-plot .point.odometry_only .dot {
-  background: var(--teal);
-  box-shadow: 0 0 0 1px rgba(15, 118, 110, 0.45);
 }
 
 .leaderboard {
@@ -476,6 +531,7 @@ h3 {
 .leaderboard-row.reference .rank {
   background: var(--gold-soft);
   color: var(--gold);
+  font-size: 0.64rem;
 }
 
 .method {

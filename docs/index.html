@@ -116,7 +116,7 @@
                 <th>Policy</th>
                 <th>ATE [m]</th>
                 <th>RPE [%/100 m]</th>
-                <th>Frames</th>
+                <th>Coverage</th>
                 <th>Total elapsed [ms]</th>
                 <th>FPS</th>
                 <th>Note</th>
@@ -277,15 +277,31 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         return name;
       }
 
+      function latestSequenceOrWindow(data) {
+        const name = data.dataset && data.dataset.name ? data.dataset.name : "";
+        const match = name.match(/frames\s+([0-9-]+)/i);
+        return match ? match[1] : "latest";
+      }
+
       function publicBenchmarkRows(data, paperBundle) {
         const rows = data.methods
           .filter(isPublicBenchmarkMethod)
           .map((method) => ({
             ...method,
+            benchmark_id: "autoware_istanbul",
             benchmark_label: latestBenchmarkLabel(data),
             comparison_group_id: "autoware_108_reference",
-            result_role: "reference_snapshot",
-            rankable: false
+            sequence_or_window: latestSequenceOrWindow(data),
+            scope: "snapshot",
+            result_role: method.status === "ok" ? "reference_snapshot" : "not_run",
+            rankable: false,
+            rank_metric: null,
+            trajectory_length_m: data.dataset.trajectory_length_m,
+            timestamp_source: data.dataset.timestamp_source || null,
+            generated_at: data.generated_at,
+            artifact: "docs/benchmarks/latest/results.json",
+            method_artifact: method.artifact || null,
+            runtime_profile: "latest_snapshot"
           }));
 
         if (paperBundle && Array.isArray(paperBundle.paper_table_rows)) {
@@ -293,15 +309,27 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
             rows.push({
               name: row.method,
               status: "ok",
-              evaluation_policy: "odometry_only",
+              evaluation_policy: row.evaluation_policy || "odometry_only",
               ate_m: row.ate_m,
+              time_ms: row.time_ms,
               frames: row.frames,
               fps: row.fps,
-              benchmark_label: `KITTI ${row.sequence} full`,
-              comparison_group_id: `kitti_${row.sequence}_full`,
-              result_role: "paper_ready_full",
-              rankable: true,
+              benchmark_id: row.benchmark_id || "kitti_odometry",
+              benchmark_label: row.benchmark_label || `KITTI ${row.sequence} full`,
+              comparison_group_id: row.comparison_group_id || `kitti_${row.sequence}_full`,
+              sequence_or_window: row.sequence_or_window || row.sequence,
+              scope: row.scope || "full_sequence",
+              result_role: row.result_role || "paper_ready_full",
+              rankable: row.rankable !== false,
+              rank_metric: row.rank_metric || "rpe_trans_pct",
+              trajectory_length_m: row.trajectory_length_m,
+              timestamp_source: row.timestamp_source || null,
+              generated_at: row.generated_at || paperBundle.frozen_date,
+              artifact: row.artifact,
+              runtime_profile: row.runtime_profile || row.variant,
               rpe_trans_pct: row.rpe_trans_pct,
+              rpe_rot_deg_per_m: row.rpe_rot_deg_per_m,
+              command: row.command,
               note: `${row.tier}; ${row.variant}`
             });
           });
@@ -325,6 +353,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           method.rankable &&
           method.status === "ok" &&
           policyOf(method) === "odometry_only" &&
+          method.rank_metric === "rpe_trans_pct" &&
           method.rpe_trans_pct !== null &&
           method.rpe_trans_pct !== undefined
         );
@@ -340,6 +369,14 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
 
       function benchmarkGroupClass(groupId) {
         return String(groupId || "unknown").replace(/[^a-z0-9_-]/gi, "-");
+      }
+
+      function coverageText(method) {
+        const frames = method.frames ? `${method.frames} fr` : "-";
+        if (!method.trajectory_length_m) {
+          return frames;
+        }
+        return `${frames} / ${fmt(method.trajectory_length_m, 1)} m`;
       }
 
       function findMethod(name) {
@@ -740,7 +777,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
               { text: policyLabel(policyOf(method)) },
               { text: fmt(method.ate_m, 3) },
               { text: fmt(method.rpe_trans_pct, 3) },
-              { text: method.frames || "-" },
+              { text: coverageText(method) },
               { text: fmt(method.time_ms, 1) },
               { text: fmt(method.fps, 1) },
               { text: method.note || "" }

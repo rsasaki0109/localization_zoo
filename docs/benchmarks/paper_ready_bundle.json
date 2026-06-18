@@ -55,9 +55,25 @@
       "sequence": "00",
       "variant": "dense_mapping_on",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_i_loam.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 00 full",
+      "comparison_group_id": "kitti_00_full",
+      "sequence_or_window": "00",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 3723.242184,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-06-12",
+      "runtime_profile": "dense_mapping_on",
+      "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods i_loam --no-gt-seed --i-loam-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_i_loam.json",
       "ate_m": 12.748,
       "rpe_trans_pct": 0.899,
       "rpe_rot_deg_per_m": null,
+      "time_ms": 1513723.0,
       "fps": 3.0,
       "frames": 4542
     },
@@ -67,9 +83,25 @@
       "sequence": "07",
       "variant": "dense_mapping_on",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_i_loam.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 07 full",
+      "comparison_group_id": "kitti_07_full",
+      "sequence_or_window": "07",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 694.390333,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-06-12",
+      "runtime_profile": "dense_mapping_on",
+      "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods i_loam --no-gt-seed --i-loam-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_i_loam.json",
       "ate_m": 1.667,
       "rpe_trans_pct": 0.575,
       "rpe_rot_deg_per_m": null,
+      "time_ms": 355567.6,
       "fps": 3.1,
       "frames": 1102
     },
@@ -79,9 +111,25 @@
       "sequence": "00",
       "variant": "fixed_sigma",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 00 full",
+      "comparison_group_id": "kitti_00_full",
+      "sequence_or_window": "00",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 3723.242184,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-06-12",
+      "runtime_profile": "fixed_sigma",
+      "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --kc-lo-no-anneal --summary-json docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json",
       "ate_m": 13.404514,
       "rpe_trans_pct": 0.83745,
       "rpe_rot_deg_per_m": 0.005498,
+      "time_ms": 1716452.417216,
       "fps": 2.645573,
       "frames": 4541
     },
@@ -91,9 +139,25 @@
       "sequence": "07",
       "variant": "fixed_sigma",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 07 full",
+      "comparison_group_id": "kitti_07_full",
+      "sequence_or_window": "07",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 694.390333,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-06-12",
+      "runtime_profile": "fixed_sigma",
+      "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --kc-lo-no-anneal --summary-json docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json",
       "ate_m": 0.858036,
       "rpe_trans_pct": 0.509921,
       "rpe_rot_deg_per_m": 0.004749,
+      "time_ms": 353266.588754,
       "fps": 3.116626,
       "frames": 1101
     },
@@ -103,9 +167,25 @@
       "sequence": "00",
       "variant": "ground_on",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 00 full",
+      "comparison_group_id": "kitti_00_full",
+      "sequence_or_window": "00",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 3723.242184,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-06-12",
+      "runtime_profile": "ground_on",
+      "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json",
       "ate_m": 19.143798,
       "rpe_trans_pct": 0.835367,
       "rpe_rot_deg_per_m": 0.007618,
+      "time_ms": 1330824.086595,
       "fps": 3.412171,
       "frames": 4541
     },
@@ -115,9 +195,25 @@
       "sequence": "07",
       "variant": "ground_on",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 07 full",
+      "comparison_group_id": "kitti_07_full",
+      "sequence_or_window": "07",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 694.390333,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-06-12",
+      "runtime_profile": "ground_on",
+      "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq07_full kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json",
       "ate_m": 2.023877,
       "rpe_trans_pct": 0.670573,
       "rpe_rot_deg_per_m": 0.010557,
+      "time_ms": 300251.039695,
       "fps": 3.666932,
       "frames": 1101
     },
@@ -127,9 +223,25 @@
       "sequence": "00",
       "variant": "plane_fallback_on",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 00 full",
+      "comparison_group_id": "kitti_00_full",
+      "sequence_or_window": "00",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 3723.242184,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-06-12",
+      "runtime_profile": "plane_fallback_on",
+      "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json",
       "ate_m": 14.736361,
       "rpe_trans_pct": 0.867316,
       "rpe_rot_deg_per_m": 0.00764,
+      "time_ms": 7351516.13178,
       "fps": 0.617696,
       "frames": 4541
     },
@@ -139,9 +251,25 @@
       "sequence": "07",
       "variant": "plane_fallback_on",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 07 full",
+      "comparison_group_id": "kitti_07_full",
+      "sequence_or_window": "07",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 694.390333,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-06-12",
+      "runtime_profile": "plane_fallback_on",
+      "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq07_full kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json",
       "ate_m": 2.129764,
       "rpe_trans_pct": 0.597674,
       "rpe_rot_deg_per_m": 0.006249,
+      "time_ms": 1644404.18287,
       "fps": 0.669543,
       "frames": 1101
     }
@@ -162,10 +290,12 @@
           {
             "sequence": "00",
             "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_i_loam.json",
+            "trajectory_length_m": 3723.242184,
             "metrics": {
               "ate_m": 12.748,
               "rpe_trans_pct": 0.899,
               "rpe_rot_deg_per_m": null,
+              "time_ms": 1513723.0,
               "fps": 3.0,
               "frames": 4542
             },
@@ -174,10 +304,12 @@
           {
             "sequence": "07",
             "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_i_loam.json",
+            "trajectory_length_m": 694.390333,
             "metrics": {
               "ate_m": 1.667,
               "rpe_trans_pct": 0.575,
               "rpe_rot_deg_per_m": null,
+              "time_ms": 355567.6,
               "fps": 3.1,
               "frames": 1102
             },
@@ -208,6 +340,7 @@
                   "ate_m": 76.028538,
                   "rpe_trans_pct": 3.185596,
                   "rpe_rot_deg_per_m": 0.031033,
+                  "time_ms": 542070.248113,
                   "fps": 8.377143,
                   "frames": 4541
                 },
@@ -220,6 +353,7 @@
                   "ate_m": 49.432759,
                   "rpe_trans_pct": 2.606375,
                   "rpe_rot_deg_per_m": 0.028292,
+                  "time_ms": 532741.019158,
                   "fps": 8.523841,
                   "frames": 4541
                 },
@@ -243,6 +377,7 @@
                   "ate_m": 18.502306,
                   "rpe_trans_pct": 3.806092,
                   "rpe_rot_deg_per_m": 0.035577,
+                  "time_ms": 123955.550689,
                   "fps": 8.882216,
                   "frames": 1101
                 },
@@ -255,6 +390,7 @@
                   "ate_m": 15.132579,
                   "rpe_trans_pct": 3.055169,
                   "rpe_rot_deg_per_m": 0.034206,
+                  "time_ms": 128275.05026,
                   "fps": 8.583119,
                   "frames": 1101
                 },
@@ -287,10 +423,12 @@
           {
             "sequence": "00",
             "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json",
+            "trajectory_length_m": 3723.242184,
             "metrics": {
               "ate_m": 13.404514,
               "rpe_trans_pct": 0.83745,
               "rpe_rot_deg_per_m": 0.005498,
+              "time_ms": 1716452.417216,
               "fps": 2.645573,
               "frames": 4541
             },
@@ -299,10 +437,12 @@
           {
             "sequence": "07",
             "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json",
+            "trajectory_length_m": 694.390333,
             "metrics": {
               "ate_m": 0.858036,
               "rpe_trans_pct": 0.509921,
               "rpe_rot_deg_per_m": 0.004749,
+              "time_ms": 353266.588754,
               "fps": 3.116626,
               "frames": 1101
             },
@@ -333,6 +473,7 @@
                   "ate_m": 14.215286,
                   "rpe_trans_pct": 0.841902,
                   "rpe_rot_deg_per_m": 0.005548,
+                  "time_ms": 3261466.573916,
                   "fps": 1.392318,
                   "frames": 4541
                 },
@@ -345,6 +486,7 @@
                   "ate_m": 13.404514,
                   "rpe_trans_pct": 0.83745,
                   "rpe_rot_deg_per_m": 0.005498,
+                  "time_ms": 1716452.417216,
                   "fps": 2.645573,
                   "frames": 4541
                 },
@@ -369,6 +511,7 @@
                   "ate_m": 0.830931,
                   "rpe_trans_pct": 0.514327,
                   "rpe_rot_deg_per_m": 0.004873,
+                  "time_ms": 791365.928448,
                   "fps": 1.391265,
                   "frames": 1101
                 },
@@ -381,6 +524,7 @@
                   "ate_m": 0.858036,
                   "rpe_trans_pct": 0.509921,
                   "rpe_rot_deg_per_m": 0.004749,
+                  "time_ms": 353266.588754,
                   "fps": 3.116626,
                   "frames": 1101
                 },
@@ -414,26 +558,30 @@
           {
             "sequence": "00",
             "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json",
+            "trajectory_length_m": 3723.242184,
             "metrics": {
               "ate_m": 19.143798,
               "rpe_trans_pct": 0.835367,
               "rpe_rot_deg_per_m": 0.007618,
+              "time_ms": 1330824.086595,
               "fps": 3.412171,
               "frames": 4541
             },
-            "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json"
+            "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json"
           },
           {
             "sequence": "07",
             "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json",
+            "trajectory_length_m": 694.390333,
             "metrics": {
               "ate_m": 2.023877,
               "rpe_trans_pct": 0.670573,
               "rpe_rot_deg_per_m": 0.010557,
+              "time_ms": 300251.039695,
               "fps": 3.666932,
               "frames": 1101
             },
-            "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json"
+            "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq07_full kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json"
           }
         ]
       },
@@ -460,10 +608,11 @@
                   "ate_m": 19.143798,
                   "rpe_trans_pct": 0.835367,
                   "rpe_rot_deg_per_m": 0.007618,
+                  "time_ms": 1330824.086595,
                   "fps": 3.412171,
                   "frames": 4541
                 },
-                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json"
+                "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json"
               },
               "ground_off": {
                 "role": "ground factor disabled",
@@ -472,6 +621,7 @@
                   "ate_m": 46.934202,
                   "rpe_trans_pct": 0.833008,
                   "rpe_rot_deg_per_m": 0.01051,
+                  "time_ms": 776321.988143,
                   "fps": 5.849377,
                   "frames": 4541
                 },
@@ -497,10 +647,11 @@
                   "ate_m": 2.023877,
                   "rpe_trans_pct": 0.670573,
                   "rpe_rot_deg_per_m": 0.010557,
+                  "time_ms": 300251.039695,
                   "fps": 3.666932,
                   "frames": 1101
                 },
-                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json"
+                "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq07_full kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json"
               },
               "ground_off": {
                 "role": "ground factor disabled",
@@ -509,6 +660,7 @@
                   "ate_m": 5.316227,
                   "rpe_trans_pct": 0.600358,
                   "rpe_rot_deg_per_m": 0.011158,
+                  "time_ms": 193868.585542,
                   "fps": 5.679105,
                   "frames": 1101
                 },
@@ -543,26 +695,30 @@
           {
             "sequence": "00",
             "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json",
+            "trajectory_length_m": 3723.242184,
             "metrics": {
               "ate_m": 14.736361,
               "rpe_trans_pct": 0.867316,
               "rpe_rot_deg_per_m": 0.00764,
+              "time_ms": 7351516.13178,
               "fps": 0.617696,
               "frames": 4541
             },
-            "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json"
+            "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json"
           },
           {
             "sequence": "07",
             "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json",
+            "trajectory_length_m": 694.390333,
             "metrics": {
               "ate_m": 2.129764,
               "rpe_trans_pct": 0.597674,
               "rpe_rot_deg_per_m": 0.006249,
+              "time_ms": 1644404.18287,
               "fps": 0.669543,
               "frames": 1101
             },
-            "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json"
+            "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq07_full kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json"
           }
         ]
       },
@@ -589,10 +745,11 @@
                   "ate_m": 14.736361,
                   "rpe_trans_pct": 0.867316,
                   "rpe_rot_deg_per_m": 0.00764,
+                  "time_ms": 7351516.13178,
                   "fps": 0.617696,
                   "frames": 4541
                 },
-                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq00_full data/kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json"
+                "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json"
               },
               "plane_fallback_off": {
                 "role": "plane fallback disabled",
@@ -601,6 +758,7 @@
                   "ate_m": 12.894692,
                   "rpe_trans_pct": 0.879792,
                   "rpe_rot_deg_per_m": 0.007823,
+                  "time_ms": 4009680.283852,
                   "fps": 1.132509,
                   "frames": 4541
                 },
@@ -626,10 +784,11 @@
                   "ate_m": 2.129764,
                   "rpe_trans_pct": 0.597674,
                   "rpe_rot_deg_per_m": 0.006249,
+                  "time_ms": 1644404.18287,
                   "fps": 0.669543,
                   "frames": 1101
                 },
-                "command": "./build/evaluation/pcd_dogfooding data/kitti_pcd/seq07_full data/kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json"
+                "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq07_full kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json"
               },
               "plane_fallback_off": {
                 "role": "plane fallback disabled",
@@ -638,6 +797,7 @@
                   "ate_m": 2.146722,
                   "rpe_trans_pct": 0.589873,
                   "rpe_rot_deg_per_m": 0.006165,
+                  "time_ms": 1035997.813512,
                   "fps": 1.062744,
                   "frames": 1101
                 },

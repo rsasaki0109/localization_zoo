@@ -150,6 +150,7 @@ METRIC_KEYS = [
     "ate_m",
     "rpe_trans_pct",
     "rpe_rot_deg_per_m",
+    "time_ms",
     "fps",
     "frames",
 ]
@@ -178,6 +179,19 @@ def method_payload(artifact_rel: str) -> dict[str, Any]:
     if method.get("status") != "ok":
         raise SystemExit(f"artifact is not ok: {artifact_rel}")
     return method
+
+
+def dataset_metadata(artifact_rel: str) -> dict[str, Any]:
+    data = load_json(artifact_rel)
+    required = ("num_frames", "trajectory_length_m", "timestamp_source")
+    missing = [key for key in required if data.get(key) is None]
+    if missing:
+        raise SystemExit(f"artifact missing dataset metadata: {artifact_rel} {missing}")
+    return {
+        "frames": data["num_frames"],
+        "trajectory_length_m": data["trajectory_length_m"],
+        "timestamp_source": data["timestamp_source"],
+    }
 
 
 def dataset_paths(artifact_rel: str, sequence: str) -> tuple[str, str]:
@@ -230,22 +244,40 @@ def build_method_entry(config: dict[str, Any]) -> tuple[dict[str, Any], list[dic
     for sequence, artifact_rel in sorted(paper_result["artifacts"].items()):
         method = method_payload(artifact_rel)
         metrics = metrics_from_method(method)
+        dataset = dataset_metadata(artifact_rel)
+        command = command_for(
+            config["selector"], sequence, paper_result["flags"], artifact_rel
+        )
         row = {
             "method": config["method"],
             "tier": config["tier"],
             "sequence": sequence,
             "variant": paper_result["variant"],
             "artifact": artifact_rel,
+            "benchmark_id": "kitti_odometry",
+            "benchmark_label": f"KITTI {sequence} full",
+            "comparison_group_id": f"kitti_{sequence}_full",
+            "sequence_or_window": sequence,
+            "scope": "full_sequence",
+            "result_role": "paper_ready_full",
+            "evaluation_policy": "odometry_only",
+            "initialization_policy": "first_pose_anchored",
+            "rankable": True,
+            "rank_metric": "rpe_trans_pct",
+            "trajectory_length_m": dataset["trajectory_length_m"],
+            "timestamp_source": dataset["timestamp_source"],
+            "generated_at": "2026-06-12",
+            "runtime_profile": paper_result["variant"],
+            "command": command,
             **metrics,
         }
         table_rows.append(row)
         paper_sequences.append({
             "sequence": sequence,
             "artifact": artifact_rel,
+            "trajectory_length_m": dataset["trajectory_length_m"],
             "metrics": metrics,
-            "command": command_for(
-                config["selector"], sequence, paper_result["flags"], artifact_rel
-            ),
+            "command": command,
         })
 
     ablation_pairs: list[dict[str, Any]] = []

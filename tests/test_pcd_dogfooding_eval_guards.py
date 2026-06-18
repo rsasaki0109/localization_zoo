@@ -30,6 +30,17 @@ def make_pcd_dirs(root: Path, count: int) -> None:
         (frame_dir / "cloud.pcd").write_text("", encoding="utf-8")
 
 
+def make_graph_pcd_dir(root: Path, name: str, timestamp: int) -> None:
+    frame_dir = root / name
+    frame_dir.mkdir(parents=True)
+    (frame_dir / "cloud.pcd").write_text("", encoding="utf-8")
+    (frame_dir / "trajectory.csv").write_text(
+        "frame_idx,timestamp\n"
+        f"{timestamp},{timestamp}\n",
+        encoding="utf-8",
+    )
+
+
 @unittest.skipUnless(PCD_DOGFOODING.exists(), "pcd_dogfooding binary not built")
 class PcdDogfoodingEvalGuardsTest(unittest.TestCase):
     def test_rejects_malformed_kitti_gt_line(self) -> None:
@@ -97,6 +108,41 @@ class PcdDogfoodingEvalGuardsTest(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("Missing GT pose for frame_id 1", result.stdout)
             self.assertIn("refusing silent GT sampling fallback", result.stdout)
+
+    def test_sorts_numeric_pcd_directory_names_by_frame_id(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            pcd_dir = tmp_path / "numeric_sort_pcd"
+            pcd_dir.mkdir()
+            make_graph_pcd_dir(pcd_dir, "1", 1)
+            make_graph_pcd_dir(pcd_dir, "10", 10)
+            make_graph_pcd_dir(pcd_dir, "2", 2)
+            gt_path = tmp_path / "gt.csv"
+            gt_path.write_text(
+                "timestamp,lidar_pose.x,lidar_pose.y,lidar_pose.z,"
+                "lidar_pose.roll,lidar_pose.pitch,lidar_pose.yaw\n"
+                "1,0,0,0,0,0,0\n"
+                "2,1,0,0,0,0,0\n"
+                "10,2,0,0,0,0,0\n",
+                encoding="utf-8",
+            )
+            summary_path = tmp_path / "summary.json"
+
+            result = run_pcd_dogfooding(
+                str(pcd_dir),
+                str(gt_path),
+                "--methods",
+                "ct_lio",
+                "--summary-json",
+                str(summary_path),
+                cwd=tmp_path,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stdout)
+            summary = json.loads(summary_path.read_text(encoding="utf-8"))
+            self.assertEqual(summary["timestamp_source"], "graph/trajectory.csv")
+            self.assertEqual(summary["association_mode"], "exact_frame_id")
+            self.assertEqual(summary["frames"]["timestamp_range"], [1.0, 10.0])
 
     def test_summary_json_records_evaluation_provenance(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

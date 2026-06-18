@@ -745,6 +745,25 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr toPclXYZICloud(
   return cloud;
 }
 
+bool parseNonNegativeIntegerBasename(const fs::path& path,
+                                     unsigned long long* value) {
+  const std::string name = path.filename().string();
+  if (name.empty()) return false;
+
+  unsigned long long parsed = 0;
+  for (unsigned char c : name) {
+    if (!std::isdigit(c)) return false;
+    const unsigned long long digit = static_cast<unsigned long long>(c - '0');
+    if (parsed >
+        (std::numeric_limits<unsigned long long>::max() - digit) / 10) {
+      return false;
+    }
+    parsed = parsed * 10 + digit;
+  }
+  if (value) *value = parsed;
+  return true;
+}
+
 std::vector<std::string> listPCDDirs(const std::string& dir) {
   std::vector<std::string> dirs;
   for (auto& entry : fs::directory_iterator(dir)) {
@@ -753,7 +772,24 @@ std::vector<std::string> listPCDDirs(const std::string& dir) {
       if (fs::exists(pcd_path)) dirs.push_back(entry.path().string());
     }
   }
-  std::sort(dirs.begin(), dirs.end());
+  bool all_numeric = !dirs.empty();
+  for (const auto& pcd_dir : dirs) {
+    all_numeric =
+        all_numeric && parseNonNegativeIntegerBasename(fs::path(pcd_dir), nullptr);
+  }
+  if (all_numeric) {
+    std::sort(dirs.begin(), dirs.end(),
+              [](const std::string& lhs, const std::string& rhs) {
+                unsigned long long lhs_frame = 0;
+                unsigned long long rhs_frame = 0;
+                parseNonNegativeIntegerBasename(fs::path(lhs), &lhs_frame);
+                parseNonNegativeIntegerBasename(fs::path(rhs), &rhs_frame);
+                if (lhs_frame != rhs_frame) return lhs_frame < rhs_frame;
+                return lhs < rhs;
+              });
+  } else {
+    std::sort(dirs.begin(), dirs.end());
+  }
   return dirs;
 }
 

@@ -103,9 +103,11 @@
 #include <Eigen/Geometry>
 
 #include <algorithm>
+#include <array>
 #include <cctype>
 #include <chrono>
 #include <cmath>
+#include <cstdint>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -9401,6 +9403,179 @@ std::string artifactStemFromPath(const std::string& path_string) {
   return sanitizeArtifactStem(stem);
 }
 
+uint32_t sha256RotateRight(uint32_t value, uint32_t bits) {
+  return (value >> bits) | (value << (32U - bits));
+}
+
+std::string sha256File(const std::string& path) {
+  std::ifstream file(path, std::ios::binary);
+  if (!file) {
+    throw std::runtime_error("Failed to open file for SHA-256: " + path);
+  }
+
+  std::vector<uint8_t> data;
+  char ch = 0;
+  while (file.get(ch)) {
+    data.push_back(static_cast<uint8_t>(ch));
+  }
+  const uint64_t bit_len = static_cast<uint64_t>(data.size()) * 8ULL;
+  data.push_back(0x80U);
+  while ((data.size() % 64U) != 56U) {
+    data.push_back(0U);
+  }
+  for (int shift = 56; shift >= 0; shift -= 8) {
+    data.push_back(static_cast<uint8_t>((bit_len >> shift) & 0xffU));
+  }
+
+  std::array<uint32_t, 8> h = {
+      0x6a09e667U, 0xbb67ae85U, 0x3c6ef372U, 0xa54ff53aU,
+      0x510e527fU, 0x9b05688cU, 0x1f83d9abU, 0x5be0cd19U};
+  static const std::array<uint32_t, 64> k = {
+      0x428a2f98U, 0x71374491U, 0xb5c0fbcfU, 0xe9b5dba5U,
+      0x3956c25bU, 0x59f111f1U, 0x923f82a4U, 0xab1c5ed5U,
+      0xd807aa98U, 0x12835b01U, 0x243185beU, 0x550c7dc3U,
+      0x72be5d74U, 0x80deb1feU, 0x9bdc06a7U, 0xc19bf174U,
+      0xe49b69c1U, 0xefbe4786U, 0x0fc19dc6U, 0x240ca1ccU,
+      0x2de92c6fU, 0x4a7484aaU, 0x5cb0a9dcU, 0x76f988daU,
+      0x983e5152U, 0xa831c66dU, 0xb00327c8U, 0xbf597fc7U,
+      0xc6e00bf3U, 0xd5a79147U, 0x06ca6351U, 0x14292967U,
+      0x27b70a85U, 0x2e1b2138U, 0x4d2c6dfcU, 0x53380d13U,
+      0x650a7354U, 0x766a0abbU, 0x81c2c92eU, 0x92722c85U,
+      0xa2bfe8a1U, 0xa81a664bU, 0xc24b8b70U, 0xc76c51a3U,
+      0xd192e819U, 0xd6990624U, 0xf40e3585U, 0x106aa070U,
+      0x19a4c116U, 0x1e376c08U, 0x2748774cU, 0x34b0bcb5U,
+      0x391c0cb3U, 0x4ed8aa4aU, 0x5b9cca4fU, 0x682e6ff3U,
+      0x748f82eeU, 0x78a5636fU, 0x84c87814U, 0x8cc70208U,
+      0x90befffaU, 0xa4506cebU, 0xbef9a3f7U, 0xc67178f2U};
+
+  for (size_t offset = 0; offset < data.size(); offset += 64U) {
+    std::array<uint32_t, 64> w = {};
+    for (size_t i = 0; i < 16; i++) {
+      const size_t j = offset + i * 4U;
+      w[i] = (static_cast<uint32_t>(data[j]) << 24U) |
+             (static_cast<uint32_t>(data[j + 1]) << 16U) |
+             (static_cast<uint32_t>(data[j + 2]) << 8U) |
+             static_cast<uint32_t>(data[j + 3]);
+    }
+    for (size_t i = 16; i < 64; i++) {
+      const uint32_t s0 = sha256RotateRight(w[i - 15], 7U) ^
+                          sha256RotateRight(w[i - 15], 18U) ^
+                          (w[i - 15] >> 3U);
+      const uint32_t s1 = sha256RotateRight(w[i - 2], 17U) ^
+                          sha256RotateRight(w[i - 2], 19U) ^
+                          (w[i - 2] >> 10U);
+      w[i] = w[i - 16] + s0 + w[i - 7] + s1;
+    }
+
+    uint32_t a = h[0];
+    uint32_t b = h[1];
+    uint32_t c = h[2];
+    uint32_t d = h[3];
+    uint32_t e = h[4];
+    uint32_t f = h[5];
+    uint32_t g = h[6];
+    uint32_t hh = h[7];
+
+    for (size_t i = 0; i < 64; i++) {
+      const uint32_t s1 = sha256RotateRight(e, 6U) ^
+                          sha256RotateRight(e, 11U) ^
+                          sha256RotateRight(e, 25U);
+      const uint32_t ch_bits = (e & f) ^ ((~e) & g);
+      const uint32_t temp1 = hh + s1 + ch_bits + k[i] + w[i];
+      const uint32_t s0 = sha256RotateRight(a, 2U) ^
+                          sha256RotateRight(a, 13U) ^
+                          sha256RotateRight(a, 22U);
+      const uint32_t maj = (a & b) ^ (a & c) ^ (b & c);
+      const uint32_t temp2 = s0 + maj;
+
+      hh = g;
+      g = f;
+      f = e;
+      e = d + temp1;
+      d = c;
+      c = b;
+      b = a;
+      a = temp1 + temp2;
+    }
+
+    h[0] += a;
+    h[1] += b;
+    h[2] += c;
+    h[3] += d;
+    h[4] += e;
+    h[5] += f;
+    h[6] += g;
+    h[7] += hh;
+  }
+
+  std::ostringstream out;
+  out << std::hex << std::setfill('0');
+  for (const uint32_t word : h) {
+    out << std::setw(8) << word;
+  }
+  return out.str();
+}
+
+std::string readFirstLineTrimmed(const fs::path& path) {
+  std::ifstream file(path);
+  std::string line;
+  if (!std::getline(file, line)) return "";
+  return trimCsvToken(line);
+}
+
+std::string readPackedGitRef(const fs::path& git_dir,
+                             const std::string& ref_name) {
+  std::ifstream file(git_dir / "packed-refs");
+  std::string line;
+  while (std::getline(file, line)) {
+    line = trimCsvToken(line);
+    if (line.empty() || line[0] == '#' || line[0] == '^') continue;
+    std::istringstream ss(line);
+    std::string commit;
+    std::string ref;
+    ss >> commit >> ref;
+    if (ref == ref_name) return commit;
+  }
+  return "";
+}
+
+std::string evaluatorGitCommit() {
+  std::error_code ec;
+  fs::path dir = fs::current_path(ec);
+  if (ec) return "";
+
+  while (true) {
+    const fs::path marker = dir / ".git";
+    fs::path git_dir;
+    if (fs::is_directory(marker, ec) && !ec) {
+      git_dir = marker;
+    } else if (fs::is_regular_file(marker, ec) && !ec) {
+      const std::string gitdir_line = readFirstLineTrimmed(marker);
+      const std::string prefix = "gitdir:";
+      if (gitdir_line.rfind(prefix, 0) == 0) {
+        git_dir = trimCsvToken(gitdir_line.substr(prefix.size()));
+        if (git_dir.is_relative()) git_dir = dir / git_dir;
+      }
+    }
+
+    if (!git_dir.empty()) {
+      const std::string head = readFirstLineTrimmed(git_dir / "HEAD");
+      const std::string ref_prefix = "ref:";
+      if (head.rfind(ref_prefix, 0) == 0) {
+        const std::string ref_name = trimCsvToken(head.substr(ref_prefix.size()));
+        std::string commit = readFirstLineTrimmed(git_dir / ref_name);
+        if (commit.empty()) commit = readPackedGitRef(git_dir, ref_name);
+        return commit;
+      }
+      return head;
+    }
+
+    if (dir == dir.parent_path()) break;
+    dir = dir.parent_path();
+  }
+  return "";
+}
+
 void writeJsonNumberOrNull(std::ostream& out, double value) {
   if (std::isfinite(value)) {
     out << std::fixed << std::setprecision(6) << value;
@@ -9409,22 +9584,75 @@ void writeJsonNumberOrNull(std::ostream& out, double value) {
   }
 }
 
+void writeJsonStringOrNull(std::ostream& out, const std::string& value) {
+  if (value.empty()) {
+    out << "null";
+  } else {
+    out << "\"" << jsonEscape(value) << "\"";
+  }
+}
+
+void writeJsonRangeOrNull(std::ostream& out, double first, double last) {
+  if (std::isfinite(first) && std::isfinite(last)) {
+    out << "[";
+    writeJsonNumberOrNull(out, first);
+    out << ", ";
+    writeJsonNumberOrNull(out, last);
+    out << "]";
+  } else {
+    out << "null";
+  }
+}
+
 void writeSummaryJson(const std::string& path,
                       const std::string& pcd_dir,
                       const std::string& gt_csv,
+                      const std::string& gt_sha256,
+                      const std::string& evaluated_gt_path,
+                      const std::string& legacy_gt_path,
+                      bool legacy_gt_written,
+                      const std::string& evaluation_manifest_path,
+                      const std::string& evaluator_git_commit,
+                      size_t total_pcd_frames,
                       size_t num_frames,
+                      size_t raw_gt_pose_count,
+                      const std::vector<double>& frame_timestamps,
+                      const std::vector<GTPose>& gt_poses_raw,
+                      const GTAssociation& gt_association,
                       double trajectory_length_m,
                       FrameTimestampSource frame_timestamp_source,
                       const std::string& gt_format,
                       TimeDomain gt_time_domain,
-                      const std::string& association_mode,
                       double association_max_dt,
                       const std::vector<MethodResult>& results) {
   std::ofstream out(path);
+  const size_t used_gt_pose_count =
+      gt_association.gt_indices.empty() ? gt_association.poses.size()
+                                        : gt_association.gt_indices.size();
+  const bool has_frame_timestamps = !frame_timestamps.empty();
+  const bool has_raw_gt = !gt_poses_raw.empty();
+  const bool has_associated_indices = !gt_association.gt_indices.empty();
+  double associated_first_ts = std::numeric_limits<double>::quiet_NaN();
+  double associated_last_ts = std::numeric_limits<double>::quiet_NaN();
+  size_t associated_first_index = 0;
+  size_t associated_last_index = 0;
+  if (has_associated_indices) {
+    associated_first_index = gt_association.gt_indices.front();
+    associated_last_index = gt_association.gt_indices.back();
+    associated_first_ts = gt_poses_raw[associated_first_index].timestamp;
+    associated_last_ts = gt_poses_raw[associated_last_index].timestamp;
+  }
+  const double rpe_segment_length_m = rpeSegmentLengthM(trajectory_length_m);
+
   out << "{\n";
+  out << "  \"schema_version\": 2,\n";
   out << "  \"pcd_dir\": \"" << jsonEscape(pcd_dir) << "\",\n";
   out << "  \"gt_csv\": \"" << jsonEscape(gt_csv) << "\",\n";
+  out << "  \"gt_sha256\": \"" << jsonEscape(gt_sha256) << "\",\n";
+  out << "  \"total_pcd_frames\": " << total_pcd_frames << ",\n";
   out << "  \"num_frames\": " << num_frames << ",\n";
+  out << "  \"raw_gt_pose_count\": " << raw_gt_pose_count << ",\n";
+  out << "  \"used_gt_pose_count\": " << used_gt_pose_count << ",\n";
   out << "  \"trajectory_length_m\": " << std::fixed << std::setprecision(6)
       << trajectory_length_m << ",\n";
   out << "  \"timestamp_source\": \""
@@ -9433,10 +9661,84 @@ void writeSummaryJson(const std::string& path,
   out << "  \"gt_time_domain\": \""
       << jsonEscape(timeDomainName(gt_time_domain)) << "\",\n";
   out << "  \"association_mode\": \""
-      << jsonEscape(association_mode) << "\",\n";
+      << jsonEscape(gt_association.mode) << "\",\n";
   out << "  \"association_max_dt_s\": ";
   writeJsonNumberOrNull(out, association_max_dt);
   out << ",\n";
+  out << "  \"evaluator_git_commit\": ";
+  writeJsonStringOrNull(out, evaluator_git_commit);
+  out << ",\n";
+  out << "  \"artifacts\": {\n";
+  out << "    \"evaluated_gt_path\": \""
+      << jsonEscape(evaluated_gt_path) << "\",\n";
+  out << "    \"legacy_gt_path\": \"" << jsonEscape(legacy_gt_path) << "\",\n";
+  out << "    \"legacy_gt_written\": "
+      << (legacy_gt_written ? "true" : "false") << ",\n";
+  out << "    \"evaluation_manifest_path\": \""
+      << jsonEscape(evaluation_manifest_path) << "\"\n";
+  out << "  },\n";
+  out << "  \"frames\": {\n";
+  out << "    \"timestamp_source\": \""
+      << jsonEscape(frameTimestampSourceName(frame_timestamp_source)) << "\",\n";
+  out << "    \"timestamp_count\": " << frame_timestamps.size() << ",\n";
+  out << "    \"timestamp_all_integer\": "
+      << (allFiniteIntegers(frame_timestamps) ? "true" : "false") << ",\n";
+  out << "    \"timestamp_range\": ";
+  if (has_frame_timestamps) {
+    writeJsonRangeOrNull(out, frame_timestamps.front(), frame_timestamps.back());
+  } else {
+    out << "null";
+  }
+  out << "\n";
+  out << "  },\n";
+  out << "  \"gt\": {\n";
+  out << "    \"source\": \"" << jsonEscape(gt_csv) << "\",\n";
+  out << "    \"sha256\": \"" << jsonEscape(gt_sha256) << "\",\n";
+  out << "    \"format\": \"" << jsonEscape(gt_format) << "\",\n";
+  out << "    \"time_domain\": \""
+      << jsonEscape(timeDomainName(gt_time_domain)) << "\",\n";
+  out << "    \"raw_pose_count\": " << raw_gt_pose_count << ",\n";
+  out << "    \"raw_timestamp_range\": ";
+  if (has_raw_gt) {
+    writeJsonRangeOrNull(out, gt_poses_raw.front().timestamp,
+                         gt_poses_raw.back().timestamp);
+  } else {
+    out << "null";
+  }
+  out << "\n";
+  out << "  },\n";
+  out << "  \"association\": {\n";
+  out << "    \"mode\": \"" << jsonEscape(gt_association.mode) << "\",\n";
+  out << "    \"max_dt_s\": ";
+  writeJsonNumberOrNull(out, association_max_dt);
+  out << ",\n";
+  out << "    \"used_gt_pose_count\": " << used_gt_pose_count << ",\n";
+  out << "    \"associated_gt_index_range\": ";
+  if (has_associated_indices) {
+    out << "[" << associated_first_index << ", " << associated_last_index << "]";
+  } else {
+    out << "null";
+  }
+  out << ",\n";
+  out << "    \"associated_gt_timestamp_range\": ";
+  writeJsonRangeOrNull(out, associated_first_ts, associated_last_ts);
+  out << ",\n";
+  out << "    \"gt_normalization\": \"first_associated_gt_inverse_applied_before_metrics\"\n";
+  out << "  },\n";
+  out << "  \"metric_config\": {\n";
+  out << "    \"ate\": {\n";
+  out << "      \"alignment\": \"none\",\n";
+  out << "      \"definition\": \"absolute_position_rmse_m\"\n";
+  out << "    },\n";
+  out << "    \"rpe\": {\n";
+  out << "      \"alignment\": \"none\",\n";
+  out << "      \"segment_length_m\": ";
+  writeJsonNumberOrNull(out, rpe_segment_length_m);
+  out << ",\n";
+  out << "      \"translation_unit\": \"percent\",\n";
+  out << "      \"rotation_unit\": \"deg_per_m\"\n";
+  out << "    }\n";
+  out << "  },\n";
   out << "  \"methods\": [\n";
   for (size_t i = 0; i < results.size(); i++) {
     const auto& r = results[i];
@@ -13808,6 +14110,13 @@ int main(int argc, char** argv) {
     std::cerr << "No GT poses loaded from " << gt_csv << std::endl;
     return 1;
   }
+  std::string gt_sha256;
+  try {
+    gt_sha256 = sha256File(gt_csv);
+  } catch (const std::exception& e) {
+    std::cerr << "Failed to hash GT file: " << e.what() << std::endl;
+    return 1;
+  }
   if (isGlobalDogfoodingGtArtifact(gt_csv) && !allow_legacy_gt_artifact) {
     std::cerr
         << "Refusing dogfooding_results/gt.txt as canonical GT: this is a "
@@ -14908,14 +15217,19 @@ int main(int argc, char** argv) {
   const std::string artifact_stem = artifactStemFromPath(pcd_dir);
   const fs::path evaluated_gt_path =
       fs::path("dogfooding_results") / (artifact_stem + "_evaluated_gt.txt");
+  const fs::path evaluation_manifest_path =
+      fs::path("dogfooding_results") /
+      (artifact_stem + "_evaluation_manifest.json");
   savePosesKITTI(gt, evaluated_gt_path.string());
   const fs::path legacy_gt_path = fs::path("dogfooding_results") / "gt.txt";
+  bool legacy_gt_written = false;
   if (pathsEquivalentIfBothExist(fs::path(gt_csv), legacy_gt_path)) {
     std::cerr
         << "Warning: not overwriting legacy GT artifact because it is also "
         << "the input GT path: " << legacy_gt_path.string() << std::endl;
   } else {
     savePosesKITTI(gt, legacy_gt_path.string());
+    legacy_gt_written = true;
   }
 
   // 結果表示
@@ -14990,14 +15304,31 @@ int main(int argc, char** argv) {
     }
   }
 
-  if (!summary_json_path.empty()) {
-    writeSummaryJson(summary_json_path, pcd_dir, gt_csv, pcd_dirs.size(), dist,
-                     frame_timestamp_source, gt_format, gt_time_domain,
-                     gt_association.mode, association_max_dt, results);
+  const std::string evaluator_commit = evaluatorGitCommit();
+  writeSummaryJson(evaluation_manifest_path.string(), pcd_dir, gt_csv,
+                   gt_sha256, evaluated_gt_path.string(),
+                   legacy_gt_path.string(), legacy_gt_written,
+                   evaluation_manifest_path.string(), evaluator_commit,
+                   total_pcd_frames, pcd_dirs.size(), gt_poses_raw.size(),
+                   frame_timestamps, gt_poses_raw, gt_association, dist,
+                   frame_timestamp_source, gt_format, gt_time_domain,
+                   association_max_dt, results);
+
+  if (!summary_json_path.empty() &&
+      !pathsEquivalentIfBothExist(fs::path(summary_json_path),
+                                  evaluation_manifest_path)) {
+    writeSummaryJson(summary_json_path, pcd_dir, gt_csv, gt_sha256,
+                     evaluated_gt_path.string(), legacy_gt_path.string(),
+                     legacy_gt_written, evaluation_manifest_path.string(),
+                     evaluator_commit, total_pcd_frames, pcd_dirs.size(),
+                     gt_poses_raw.size(), frame_timestamps, gt_poses_raw,
+                     gt_association, dist, frame_timestamp_source, gt_format,
+                     gt_time_domain, association_max_dt, results);
   }
 
   std::cout << "\nResults saved to dogfooding_results/"
-            << " (evaluated GT: " << evaluated_gt_path.string() << ")"
+            << " (evaluated GT: " << evaluated_gt_path.string()
+            << ", manifest: " << evaluation_manifest_path.string() << ")"
             << std::endl;
   return 0;
 }

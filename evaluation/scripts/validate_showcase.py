@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
+import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -34,6 +36,8 @@ INDEX_REQUIRED_SNIPPETS = [
     "rankableOdometryRows",
     "renderOdometryRankings",
     "Benchmark Groups",
+    "rank_metric",
+    "Coverage",
     "Overview only. Points from different datasets",
     "demo_localization_zoo.sh",
     "social_card.png",
@@ -48,6 +52,26 @@ METHOD_REQUIRED_FIELDS = {
     "summary",
     "tags",
 }
+
+PUBLIC_ROW_REQUIRED_FIELDS = {
+    "name",
+    "status",
+    "benchmark_id",
+    "benchmark_label",
+    "comparison_group_id",
+    "sequence_or_window",
+    "scope",
+    "result_role",
+    "evaluation_policy",
+    "rankable",
+    "rank_metric",
+    "frames",
+    "trajectory_length_m",
+    "generated_at",
+    "artifact",
+}
+
+RANKABLE_PUBLIC_GROUPS = {"kitti_00_full", "kitti_07_full"}
 
 
 class HtmlCheckParser(HTMLParser):
@@ -76,6 +100,133 @@ def require_file(path: Path) -> None:
         raise SystemExit(f"missing file: {path}")
     if path.is_file() and path.stat().st_size == 0:
         raise SystemExit(f"empty file: {path}")
+
+
+def finite_number(value: object) -> bool:
+    if value is None or isinstance(value, bool):
+        return False
+    try:
+        return math.isfinite(float(value))
+    except (TypeError, ValueError):
+        return False
+
+
+def policy_of(method: dict) -> str:
+    if method.get("evaluation_policy"):
+        return str(method["evaluation_policy"])
+    note = str(method.get("note", "")).lower()
+    if "gt-seeded" in note or "ground-truth pose" in note:
+        return "gt_seeded_reference"
+    if "odometry-only" in note or "first gt pose" in note:
+        return "odometry_only"
+    return "not_run" if method.get("status") == "skipped" else "unspecified"
+
+
+def latest_benchmark_label(results: dict) -> str:
+    name = str(results.get("dataset", {}).get("name", "Latest"))
+    if "Autoware Istanbul" in name:
+        return "Autoware 108"
+    return name
+
+
+def latest_sequence_or_window(results: dict) -> str:
+    name = str(results.get("dataset", {}).get("name", ""))
+    match = re.search(r"frames\s+([0-9-]+)", name, flags=re.IGNORECASE)
+    return match.group(1) if match else "latest"
+
+
+def public_benchmark_rows(results: dict, paper_bundle: dict) -> list[dict]:
+    dataset = results.get("dataset", {})
+    rows: list[dict] = []
+    for method in results.get("methods", []):
+        if method.get("status") not in {"ok", "skipped"}:
+            continue
+        row = {
+            **method,
+            "benchmark_id": "autoware_istanbul",
+            "benchmark_label": latest_benchmark_label(results),
+            "comparison_group_id": "autoware_108_reference",
+            "sequence_or_window": latest_sequence_or_window(results),
+            "scope": "snapshot",
+            "result_role": "reference_snapshot" if method.get("status") == "ok" else "not_run",
+            "evaluation_policy": policy_of(method),
+            "rankable": False,
+            "rank_metric": None,
+            "trajectory_length_m": dataset.get("trajectory_length_m"),
+            "timestamp_source": dataset.get("timestamp_source"),
+            "generated_at": results.get("generated_at"),
+            "artifact": "docs/benchmarks/latest/results.json",
+            "method_artifact": method.get("artifact"),
+            "runtime_profile": "latest_snapshot",
+        }
+        rows.append(row)
+
+    for source in paper_bundle.get("paper_table_rows", []):
+        row = {
+            "name": source.get("method"),
+            "status": "ok",
+            "note": f"{source.get('tier')}; {source.get('variant')}",
+            **source,
+        }
+        rows.append(row)
+    return rows
+
+
+def validate_public_result_rows(root: Path, results: dict, paper_bundle: dict) -> None:
+    rows = public_benchmark_rows(results, paper_bundle)
+    if not rows:
+        raise SystemExit("public benchmark rows are empty")
+
+    rankable: list[dict] = []
+    for row in rows:
+        label = f"{row.get('benchmark_label')} / {row.get('name')}"
+        missing = [field for field in PUBLIC_ROW_REQUIRED_FIELDS if field not in row]
+        if missing:
+            raise SystemExit(f"public row missing fields: {label} {missing}")
+        if row.get("status") in {"invalidated", "superseded"}:
+            raise SystemExit(f"public row exposes invalidated/superseded value: {label}")
+        if row.get("result_role") == "regression_smoke":
+            raise SystemExit(f"smoke row leaked into public benchmark rows: {label}")
+        if row.get("status") == "ok":
+            for field in ("frames", "trajectory_length_m", "ate_m"):
+                if not finite_number(row.get(field)) or float(row[field]) <= 0.0:
+                    raise SystemExit(f"public row has invalid {field}: {label} {row.get(field)}")
+            if row.get("fps") is not None and not finite_number(row.get("fps")):
+                raise SystemExit(f"public row has invalid fps: {label} {row.get('fps')}")
+            require_file(root / str(row["artifact"]))
+        if row.get("rankable"):
+            rankable.append(row)
+            if row.get("status") != "ok":
+                raise SystemExit(f"rankable row is not OK: {label}")
+            if row.get("comparison_group_id") not in RANKABLE_PUBLIC_GROUPS:
+                raise SystemExit(f"rankable row has unsupported group: {label}")
+            if row.get("scope") != "full_sequence":
+                raise SystemExit(f"rankable row is not full-sequence: {label}")
+            if row.get("result_role") != "paper_ready_full":
+                raise SystemExit(f"rankable row has non-paper-ready role: {label}")
+            if row.get("evaluation_policy") != "odometry_only":
+                raise SystemExit(f"rankable row has non-odometry policy: {label}")
+            if row.get("rank_metric") != "rpe_trans_pct":
+                raise SystemExit(f"rankable row is not ranked by RPE: {label}")
+            if not finite_number(row.get("rpe_trans_pct")):
+                raise SystemExit(f"rankable row missing RPE: {label}")
+        else:
+            if row.get("rank_metric") is not None and row.get("result_role") != "not_run":
+                raise SystemExit(f"unranked row unexpectedly has a rank metric: {label}")
+
+    rankable_groups = {row["comparison_group_id"] for row in rankable}
+    if rankable_groups != RANKABLE_PUBLIC_GROUPS:
+        raise SystemExit(f"rankable groups mismatch: {sorted(rankable_groups)}")
+
+    for group in rankable_groups:
+        group_rows = [row for row in rankable if row["comparison_group_id"] == group]
+        policies = {row["evaluation_policy"] for row in group_rows}
+        scopes = {row["scope"] for row in group_rows}
+        metrics = {row["rank_metric"] for row in group_rows}
+        if len(group_rows) < 2:
+            raise SystemExit(f"rankable group has too few rows: {group}")
+        if policies != {"odometry_only"} or scopes != {"full_sequence"} or metrics != {"rpe_trans_pct"}:
+            raise SystemExit(f"rankable group is semantically mixed: {group}")
 
 
 def validate_readme(root: Path) -> None:
@@ -188,6 +339,8 @@ def validate_benchmark_snapshot(root: Path) -> None:
     for method in smoke.get("methods", []):
         if method.get("status") == "invalidated":
             raise SystemExit(f"strict smoke baseline contains invalidated method: {method.get('name')}")
+
+    validate_public_result_rows(root, results, paper_bundle)
 
 
 def validate_scan2d_benchmarks(root: Path) -> None:

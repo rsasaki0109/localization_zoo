@@ -307,9 +307,11 @@ Refreshing the experiment/publication docs and the matrix runner is documented i
 
 ### Real LiDAR Data
 
-One real-data snapshot from the Autoware Istanbul localization bag (last full
-multi-method run; speed-oriented profile, GT-seeded scan-to-map methods fall back to
-the seed pose on weak updates). GitHub Pages serves the latest from
+One real-data snapshot from the Autoware Istanbul localization bag. This run
+mixes two evaluation policies, so it is **not** a single ATE leaderboard:
+GT-seeded scan-to-map methods use the reference pose as a per-frame initial
+guess, while odometry-only methods are anchored only to the first pose and
+accumulate drift. GitHub Pages serves the latest from
 [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json).
 
 - Topic: `/localization/util/downsample/pointcloud`
@@ -318,11 +320,18 @@ the seed pose on weak updates). GitHub Pages serves the latest from
 - Reference poses: `reference_pose_full.csv`
 - Scan density: `940-1380` points per frame, `1128.7` average
 
+GT-seeded scan-to-map references (not ranked against odometry):
+
 | Method | Status | ATE [m] | FPS | Notes |
 |--------|--------|---------|-----|-------|
 | NDT | OK | 0.109 | 1.2 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
-| LiTAMIN2 | OK | 1.213 | 21.0 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
 | GICP | OK | 0.994 | 3.1 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
+| LiTAMIN2 | OK | 1.213 | 21.0 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
+
+Odometry-only, first-pose anchored:
+
+| Method | Status | ATE [m] | FPS | Notes |
+|--------|--------|---------|-----|-------|
 | CT-ICP | OK | 75.075 | 1.3 | Odometry-only; ATE is measured after anchoring to the first GT pose |
 | KISS-ICP | OK | 183.178 | 3.2 | Odometry-only; ATE is measured after anchoring to the first GT pose |
 | CT-LIO | SKIPPED | - | - | The bag window does not contain IMU data, so `imu.csv` was not generated |

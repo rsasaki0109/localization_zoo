@@ -414,9 +414,40 @@ h3 {
   background: rgba(255, 255, 255, 0.86);
 }
 
+.scatter-plot .point.gt_seeded_reference .dot {
+  background: var(--gold);
+  box-shadow: 0 0 0 1px rgba(161, 98, 7, 0.45);
+}
+
+.scatter-plot .point.odometry_only .dot {
+  background: var(--teal);
+  box-shadow: 0 0 0 1px rgba(15, 118, 110, 0.45);
+}
+
 .leaderboard {
   display: grid;
   gap: 9px;
+}
+
+.leaderboard-note {
+  margin: -4px 0 13px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.reference-leaderboard {
+  margin-top: 15px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.leaderboard-section-title {
+  margin: 0 0 2px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
 }
 
 .leaderboard-row {
@@ -442,6 +473,11 @@ h3 {
   font-weight: 850;
 }
 
+.leaderboard-row.reference .rank {
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+
 .method {
   font-weight: 800;
 }
@@ -450,6 +486,10 @@ h3 {
   color: var(--teal);
   font-variant-numeric: tabular-nums;
   font-weight: 800;
+}
+
+.leaderboard-row.reference .ate {
+  color: var(--gold);
 }
 
 .table-wrap {
@@ -464,7 +504,7 @@ h3 {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 860px;
+  min-width: 960px;
 }
 
 th,

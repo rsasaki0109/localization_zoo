@@ -9,6 +9,7 @@
     "timestamp_source": "dogfooding_results/autoware_istanbul_open_108/frame_timestamps.csv"
   },
   "command": "./build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108 dogfooding_results/autoware_istanbul_open_108_gt.csv --methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp",
+  "evaluation_policy_note": "This snapshot mixes GT-seeded scan-to-map references with odometry-only methods. GT-seeded references use the ground-truth pose as a per-frame initialization and must not be ranked against first-pose-anchored odometry by ATE.",
   "artifacts": {
     "trajectory_plot": "trajectory.png"
   },
@@ -16,6 +17,7 @@
     {
       "name": "NDT",
       "status": "ok",
+      "evaluation_policy": "gt_seeded_reference",
       "ate_m": 0.10894153495243093,
       "frames": 108,
       "artifact": "NDT.txt",
@@ -26,6 +28,7 @@
     {
       "name": "GICP",
       "status": "ok",
+      "evaluation_policy": "gt_seeded_reference",
       "ate_m": 0.9938568367888175,
       "frames": 108,
       "artifact": "GICP.txt",
@@ -36,6 +39,7 @@
     {
       "name": "LiTAMIN2",
       "status": "ok",
+      "evaluation_policy": "gt_seeded_reference",
       "ate_m": 1.213390963360373,
       "frames": 108,
       "artifact": "LiTAMIN2.txt",
@@ -46,6 +50,7 @@
     {
       "name": "CT-ICP",
       "status": "ok",
+      "evaluation_policy": "odometry_only",
       "ate_m": 75.07512734080186,
       "frames": 108,
       "artifact": "CT_ICP.txt",
@@ -56,6 +61,7 @@
     {
       "name": "KISS-ICP",
       "status": "ok",
+      "evaluation_policy": "odometry_only",
       "ate_m": 183.17813132166822,
       "frames": 108,
       "artifact": "KISS_ICP.txt",
@@ -66,6 +72,7 @@
     {
       "name": "CT-LIO",
       "status": "skipped",
+      "evaluation_policy": "not_run",
       "ate_m": null,
       "frames": 0,
       "note": "The source bag window does not include IMU data, so imu.csv was not generated.",

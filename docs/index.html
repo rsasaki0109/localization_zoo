@@ -95,10 +95,12 @@
               </div>
             </div>
             <p class="leaderboard-note">
-              First-pose anchored odometry only. GT-seeded scan-to-map references are listed separately.
+              First-pose anchored odometry only. Rows with invalidated metrics are audit-only and never ranked.
             </p>
             <div id="leaderboard" class="leaderboard"></div>
+            <div id="invalidated-leaderboard" class="leaderboard invalidated-leaderboard"></div>
             <div id="reference-leaderboard" class="leaderboard reference-leaderboard"></div>
+            <div id="smoke-baseline" class="smoke-baseline"></div>
           </article>
         </div>
 
@@ -244,9 +246,18 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
           gt_seeded_reference: "GT-seeded ref",
           odometry_only: "Odometry",
           not_run: "Not run",
+          invalidated: "Invalidated",
           unspecified: "Unspecified"
         };
         return labels[policy] || policy;
+      }
+
+      function statusLabel(status) {
+        return (status || "unknown").replace(/_/g, " ").toUpperCase();
+      }
+
+      function methodStatusClass(method) {
+        return `status-${String(method.status || "unknown").replace(/_/g, "-")}`;
       }
 
       function findMethod(name) {
@@ -435,6 +446,63 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         });
       }
 
+      function renderInvalidated(target, methods) {
+        clear(target);
+        if (methods.length === 0) {
+          return;
+        }
+        target.appendChild(el("p", "leaderboard-section-title", "Invalidated odometry rows, audit-only"));
+        methods.forEach((method) => {
+          const row = el("div", "leaderboard-row invalidated");
+          row.appendChild(el("span", "rank", "!"));
+          row.appendChild(el("span", "method", method.name));
+          const value = method.invalidated_ate_m !== undefined
+            ? `was ${fmt(method.invalidated_ate_m, 3)} m`
+            : "invalidated";
+          row.appendChild(el("span", "ate", value));
+          const reason = el("p", "leaderboard-reason", method.invalidation_reason || method.note || "Metric invalidated.");
+          row.appendChild(reason);
+          target.appendChild(row);
+        });
+      }
+
+      function renderSmokeBaseline(target, baseline) {
+        clear(target);
+        if (!baseline || !Array.isArray(baseline.methods) || baseline.methods.length === 0) {
+          return;
+        }
+        const head = el("div", "smoke-head");
+        const title = el("div");
+        title.appendChild(el("p", "leaderboard-section-title", baseline.title || "Strict evaluator smoke baseline"));
+        title.appendChild(el("p", "smoke-note", baseline.note || ""));
+        head.appendChild(title);
+        const datasetBits = [
+          baseline.dataset,
+          baseline.frames ? `${baseline.frames} frames` : "",
+          baseline.trajectory_length_m ? `${fmt(baseline.trajectory_length_m, 1)} m` : ""
+        ].filter(Boolean);
+        head.appendChild(el("span", "smoke-meta", datasetBits.join(" / ")));
+        target.appendChild(head);
+
+        const rows = el("div", "smoke-grid");
+        baseline.methods
+          .slice()
+          .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))
+          .forEach((method) => {
+            const row = el("div", "smoke-row");
+            row.appendChild(el("strong", "", method.name));
+            row.appendChild(el("span", "", `${fmt(method.ate_m, 3)} m ATE`));
+            if (method.rpe_trans_pct !== undefined) {
+              row.appendChild(el("span", "", `${fmt(method.rpe_trans_pct, 3)}% RPE`));
+            }
+            if (method.fps !== undefined) {
+              row.appendChild(el("span", "", `${fmt(method.fps, 1)} FPS`));
+            }
+            rows.appendChild(row);
+          });
+        target.appendChild(rows);
+      }
+
       function renderBenchmark(data) {
         document.getElementById("title").textContent = data.dataset.name;
         document.getElementById("generated-at").textContent =
@@ -450,6 +518,7 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         const ok = data.methods.filter((method) => method.status === "ok");
         const odometryOk = ok.filter((method) => policyOf(method) === "odometry_only");
         const seededOk = ok.filter((method) => policyOf(method) === "gt_seeded_reference");
+        const invalidated = data.methods.filter((method) => method.status === "invalidated");
         const bestOdometry = odometryOk
           .slice()
           .sort((a, b) => Number(a.ate_m) - Number(b.ate_m))[0];
@@ -487,12 +556,14 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
 
         const leaderboard = document.getElementById("leaderboard");
         renderRanking(leaderboard, odometryOk, "No odometry-only benchmark report is stored in this snapshot.");
+        renderInvalidated(document.getElementById("invalidated-leaderboard"), invalidated);
         renderRanking(
           document.getElementById("reference-leaderboard"),
           seededOk,
           "No GT-seeded reference methods in this snapshot.",
           true
         );
+        renderSmokeBaseline(document.getElementById("smoke-baseline"), data.strict_smoke_baseline);
 
         renderScatter(data.methods);
 
@@ -508,18 +579,26 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         } else {
           data.methods.forEach((method) => {
             const row = document.createElement("tr");
-            [
-              method.name,
-              method.status.toUpperCase(),
-              policyLabel(policyOf(method)),
-              fmt(method.ate_m, 3),
-              method.frames || "-",
-              fmt(method.time_ms, 1),
-              fmt(method.fps, 1),
-              method.note || ""
-            ].forEach((value) => {
+            row.classList.add(methodStatusClass(method));
+
+            const cells = [
+              { text: method.name },
+              { text: statusLabel(method.status), className: `status-pill ${methodStatusClass(method)}` },
+              { text: policyLabel(policyOf(method)) },
+              { text: fmt(method.ate_m, 3) },
+              { text: method.frames || "-" },
+              { text: fmt(method.time_ms, 1) },
+              { text: fmt(method.fps, 1) },
+              { text: method.note || "" }
+            ];
+            cells.forEach((value) => {
               const cell = document.createElement("td");
-              cell.textContent = value;
+              if (value.className) {
+                const pill = el("span", value.className, value.text);
+                cell.appendChild(pill);
+              } else {
+                cell.textContent = value.text;
+              }
               row.appendChild(cell);
             });
             body.appendChild(row);

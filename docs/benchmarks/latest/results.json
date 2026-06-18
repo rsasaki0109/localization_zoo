@@ -9,7 +9,7 @@
     "timestamp_source": "dogfooding_results/autoware_istanbul_open_108/frame_timestamps.csv"
   },
   "command": "./build/evaluation/pcd_dogfooding dogfooding_results/autoware_istanbul_open_108 dogfooding_results/autoware_istanbul_open_108_gt.csv --methods litamin2,gicp,ndt,kiss_icp,ct_lio,ct_icp",
-  "evaluation_policy_note": "This snapshot mixes GT-seeded scan-to-map references with odometry-only methods. GT-seeded references use the ground-truth pose as a per-frame initialization and must not be ranked against first-pose-anchored odometry by ATE.",
+  "evaluation_policy_note": "This snapshot mixes GT-seeded scan-to-map references with odometry-only methods. GT-seeded references use the ground-truth pose as a per-frame initialization and must not be ranked against first-pose-anchored odometry by ATE. The odometry-only CT-ICP and KISS-ICP rows from this 2026-04-02 snapshot are invalidated because they were produced before strict GT/frame association was enforced and require rerun on the same Autoware window.",
   "artifacts": {
     "trajectory_plot": "trajectory.png"
   },
@@ -49,23 +49,27 @@
     },
     {
       "name": "CT-ICP",
-      "status": "ok",
+      "status": "invalidated",
       "evaluation_policy": "odometry_only",
-      "ate_m": 75.07512734080186,
+      "ate_m": null,
+      "invalidated_ate_m": 75.07512734080186,
+      "invalidation_reason": "Produced before strict GT/frame association was enforced; requires rerun on the same Autoware window.",
       "frames": 108,
       "artifact": "CT_ICP.txt",
-      "note": "Odometry-only. ATE is measured after anchoring the trajectory to the first GT pose. Current snapshot uses lighter CT-ICP optimization settings.",
+      "note": "Invalidated odometry-only row. The previous 75.075 m ATE is retained only for audit and must not be ranked until rerun with strict association on the same Autoware window.",
       "time_ms": 86287.7,
       "fps": 1.3
     },
     {
       "name": "KISS-ICP",
-      "status": "ok",
+      "status": "invalidated",
       "evaluation_policy": "odometry_only",
-      "ate_m": 183.17813132166822,
+      "ate_m": null,
+      "invalidated_ate_m": 183.17813132166822,
+      "invalidation_reason": "Produced before strict GT/frame association was enforced; requires rerun on the same Autoware window.",
       "frames": 108,
       "artifact": "KISS_ICP.txt",
-      "note": "Odometry-only. ATE is measured after anchoring the trajectory to the first GT pose. Current snapshot uses local-map pruning.",
+      "note": "Invalidated odometry-only row. The previous 183.178 m ATE is retained only for audit and must not be ranked until rerun with strict association on the same Autoware window.",
       "time_ms": 33738.3,
       "fps": 3.2
     },

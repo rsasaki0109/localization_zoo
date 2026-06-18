@@ -113,7 +113,9 @@
 #include <limits>
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 #include <string>
+#include <system_error>
 #include <thread>
 #include <vector>
 
@@ -134,6 +136,115 @@ struct GTPose {
     return T;
   }
 };
+
+enum class TimeDomain {
+  kFrameIndex,
+  kSeconds,
+  kUnknown,
+};
+
+std::string timeDomainName(TimeDomain domain) {
+  switch (domain) {
+    case TimeDomain::kFrameIndex:
+      return "frame_index";
+    case TimeDomain::kSeconds:
+      return "seconds";
+    case TimeDomain::kUnknown:
+      return "unknown";
+  }
+  return "unknown";
+}
+
+void rotationMatrixToRpy(const Eigen::Matrix3d& R, double& roll,
+                         double& pitch, double& yaw) {
+  const double sinp = std::clamp(-R(2, 0), -1.0, 1.0);
+  if (std::abs(sinp) >= 1.0) {
+    pitch = std::copysign(M_PI / 2.0, sinp);
+    roll = 0.0;
+    yaw = std::atan2(-R(0, 1), R(0, 2));
+  } else {
+    pitch = std::asin(sinp);
+    roll = std::atan2(R(2, 1), R(2, 2));
+    yaw = std::atan2(R(1, 0), R(0, 0));
+  }
+}
+
+double parseFiniteDoubleToken(const std::string& token,
+                              const std::string& path,
+                              size_t line_number,
+                              size_t column_number) {
+  std::istringstream ss(token);
+  double value = 0.0;
+  if (!(ss >> value)) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number << ":" << column_number
+        << ": expected finite numeric value, got '" << token << "'";
+    throw std::runtime_error(msg.str());
+  }
+  ss >> std::ws;
+  if (!ss.eof() || !std::isfinite(value)) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number << ":" << column_number
+        << ": expected finite numeric value, got '" << token << "'";
+    throw std::runtime_error(msg.str());
+  }
+  return value;
+}
+
+void validateRotationMatrix(const Eigen::Matrix3d& R,
+                            const std::string& path,
+                            size_t line_number) {
+  if (!R.allFinite()) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number
+        << ": KITTI pose rotation contains NaN or Inf";
+    throw std::runtime_error(msg.str());
+  }
+  const double det = R.determinant();
+  const double orthogonality_error =
+      (R.transpose() * R - Eigen::Matrix3d::Identity()).norm();
+  if (det <= 0.0 || std::abs(det - 1.0) > 1e-3 ||
+      orthogonality_error > 1e-3) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number
+        << ": KITTI pose rotation is not a valid SO(3) matrix"
+        << " (det=" << det
+        << ", orthogonality_error=" << orthogonality_error << ")";
+    throw std::runtime_error(msg.str());
+  }
+}
+
+void parseKittiPoseLine(const std::string& line,
+                        size_t index,
+                        const std::string& path,
+                        size_t line_number,
+                        GTPose& pose) {
+  std::istringstream ss(line);
+  std::vector<double> vals;
+  std::string token;
+  while (ss >> token) {
+    vals.push_back(
+        parseFiniteDoubleToken(token, path, line_number, vals.size() + 1));
+  }
+  if (vals.size() != 12) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number
+        << ": expected KITTI 3x4 pose with 12 values, got "
+        << vals.size();
+    throw std::runtime_error(msg.str());
+  }
+
+  Eigen::Matrix3d R;
+  R << vals[0], vals[1], vals[2],
+       vals[4], vals[5], vals[6],
+       vals[8], vals[9], vals[10];
+  validateRotationMatrix(R, path, line_number);
+  pose.timestamp = static_cast<double>(index);
+  pose.x = vals[3];
+  pose.y = vals[7];
+  pose.z = vals[11];
+  rotationMatrixToRpy(R, pose.roll, pose.pitch, pose.yaw);
+}
 
 struct ImuSampleCsv {
   double timestamp = 0.0;
@@ -284,11 +395,21 @@ bool isMethodEnabled(const std::vector<std::string>& methods,
   return std::find(methods.begin(), methods.end(), method) != methods.end();
 }
 
-std::vector<GTPose> loadGTPoses(const std::string& csv_path) {
+std::vector<GTPose> loadGTPoses(const std::string& csv_path,
+                                TimeDomain* time_domain = nullptr,
+                                std::string* format = nullptr) {
+  if (time_domain) *time_domain = TimeDomain::kUnknown;
+  if (format) *format = "unknown";
+
   std::vector<GTPose> poses;
   std::ifstream file(csv_path);
+  if (!file.is_open()) {
+    throw std::runtime_error("Failed to open GT file: " + csv_path);
+  }
+
   std::string line;
-  std::getline(file, line);  // skip header
+  if (!std::getline(file, line)) return poses;
+  size_t line_number = 1;
 
   // ヘッダからカラムインデックスを取得
   std::istringstream header_ss(line);
@@ -308,24 +429,65 @@ std::vector<GTPose> loadGTPoses(const std::string& csv_path) {
     if (cols[i] == "lidar_pose.yaw") idx_yaw = i;
   }
 
+  if (idx_x < 0) {
+    GTPose gp;
+    parseKittiPoseLine(line, poses.size(), csv_path, line_number, gp);
+    poses.push_back(gp);
+    while (std::getline(file, line)) {
+      line_number++;
+      parseKittiPoseLine(line, poses.size(), csv_path, line_number, gp);
+      poses.push_back(gp);
+    }
+    if (time_domain) *time_domain = TimeDomain::kFrameIndex;
+    if (format) *format = "kitti_3x4";
+    return poses;
+  }
+
+  if (idx_y < 0 || idx_z < 0 || idx_roll < 0 || idx_pitch < 0 ||
+      idx_yaw < 0) {
+    std::ostringstream msg;
+    msg << csv_path << ":1"
+        << ": GT CSV requires lidar_pose.x/y/z/roll/pitch/yaw columns";
+    throw std::runtime_error(msg.str());
+  }
+
   while (std::getline(file, line)) {
+    line_number++;
     std::istringstream ss(line);
     std::vector<std::string> vals;
     std::string token;
     while (std::getline(ss, token, ',')) vals.push_back(trimCsvToken(token));
 
-    if (idx_x >= 0 && idx_x < (int)vals.size()) {
-      GTPose gp;
-      gp.timestamp = idx_ts >= 0 ? std::stod(vals[idx_ts]) : poses.size();
-      gp.x = std::stod(vals[idx_x]);
-      gp.y = std::stod(vals[idx_y]);
-      gp.z = std::stod(vals[idx_z]);
-      gp.roll = std::stod(vals[idx_roll]);
-      gp.pitch = std::stod(vals[idx_pitch]);
-      gp.yaw = std::stod(vals[idx_yaw]);
-      poses.push_back(gp);
+    const int max_idx =
+        std::max({idx_ts, idx_x, idx_y, idx_z, idx_roll, idx_pitch, idx_yaw});
+    if (max_idx >= static_cast<int>(vals.size())) {
+      std::ostringstream msg;
+      msg << csv_path << ":" << line_number
+          << ": expected at least " << (max_idx + 1)
+          << " CSV columns, got " << vals.size();
+      throw std::runtime_error(msg.str());
     }
+
+    GTPose gp;
+    gp.timestamp = idx_ts >= 0
+                       ? parseFiniteDoubleToken(vals[idx_ts], csv_path,
+                                                line_number, idx_ts + 1)
+                       : static_cast<double>(poses.size());
+    gp.x = parseFiniteDoubleToken(vals[idx_x], csv_path, line_number, idx_x + 1);
+    gp.y = parseFiniteDoubleToken(vals[idx_y], csv_path, line_number, idx_y + 1);
+    gp.z = parseFiniteDoubleToken(vals[idx_z], csv_path, line_number, idx_z + 1);
+    gp.roll =
+        parseFiniteDoubleToken(vals[idx_roll], csv_path, line_number, idx_roll + 1);
+    gp.pitch = parseFiniteDoubleToken(vals[idx_pitch], csv_path, line_number,
+                                      idx_pitch + 1);
+    gp.yaw =
+        parseFiniteDoubleToken(vals[idx_yaw], csv_path, line_number, idx_yaw + 1);
+    poses.push_back(gp);
   }
+  if (time_domain) {
+    *time_domain = idx_ts >= 0 ? TimeDomain::kSeconds : TimeDomain::kFrameIndex;
+  }
+  if (format) *format = "csv_lidar_pose";
   return poses;
 }
 
@@ -695,6 +857,216 @@ FrameGapStats computeFrameGapStats(const std::vector<double>& frame_timestamps) 
   return stats;
 }
 
+bool isNearInteger(double value) {
+  return std::isfinite(value) && std::abs(value - std::round(value)) <= 1e-6;
+}
+
+bool allFiniteIntegers(const std::vector<double>& values) {
+  if (values.empty()) return false;
+  return std::all_of(values.begin(), values.end(), isNearInteger);
+}
+
+bool allGTTimestampsFiniteIntegers(const std::vector<GTPose>& gt_poses_raw) {
+  if (gt_poses_raw.empty()) return false;
+  return std::all_of(gt_poses_raw.begin(), gt_poses_raw.end(),
+                     [](const GTPose& pose) {
+                       return isNearInteger(pose.timestamp);
+                     });
+}
+
+void requireStrictlyIncreasing(const std::vector<double>& values,
+                               const std::string& label) {
+  if (values.empty()) {
+    throw std::runtime_error(label + " is empty");
+  }
+  for (size_t i = 0; i < values.size(); i++) {
+    if (!std::isfinite(values[i])) {
+      std::ostringstream msg;
+      msg << label << " contains NaN/Inf at index " << i;
+      throw std::runtime_error(msg.str());
+    }
+    if (i > 0 && values[i] <= values[i - 1]) {
+      std::ostringstream msg;
+      msg << label << " must be strictly increasing; index " << i - 1
+          << "=" << values[i - 1] << ", index " << i << "=" << values[i];
+      throw std::runtime_error(msg.str());
+    }
+  }
+}
+
+std::vector<double> gtTimestampVector(const std::vector<GTPose>& gt_poses_raw) {
+  std::vector<double> gt_times;
+  gt_times.reserve(gt_poses_raw.size());
+  for (const auto& gp : gt_poses_raw) gt_times.push_back(gp.timestamp);
+  return gt_times;
+}
+
+struct GTAssociation {
+  std::vector<Eigen::Matrix4d> poses;
+  std::string mode;
+  std::vector<size_t> gt_indices;
+};
+
+std::vector<Eigen::Matrix4d> buildAssociatedGTMatrices(
+    const std::vector<GTPose>& gt_poses_raw,
+    const std::vector<size_t>& indices) {
+  std::vector<Eigen::Matrix4d> gt;
+  if (indices.empty()) return gt;
+  const Eigen::Matrix4d T0_inv =
+      gt_poses_raw[indices.front()].toMatrix().inverse();
+  gt.reserve(indices.size());
+  for (size_t idx : indices) {
+    if (idx >= gt_poses_raw.size()) {
+      throw std::runtime_error("GT association index out of range");
+    }
+    gt.push_back(T0_inv * gt_poses_raw[idx].toMatrix());
+  }
+  return gt;
+}
+
+GTAssociation associateByExactFrameId(
+    const std::vector<double>& frame_timestamps,
+    const std::vector<GTPose>& gt_poses_raw) {
+  requireStrictlyIncreasing(frame_timestamps, "frame_timestamps");
+  const auto gt_times = gtTimestampVector(gt_poses_raw);
+  requireStrictlyIncreasing(gt_times, "GT timestamps");
+
+  if (!allFiniteIntegers(frame_timestamps) ||
+      !allGTTimestampsFiniteIntegers(gt_poses_raw)) {
+    throw std::runtime_error(
+        "exact frame-ID association requires integer frame IDs in both "
+        "frame_timestamps and GT");
+  }
+
+  GTAssociation association;
+  association.mode = "exact_frame_id";
+  association.gt_indices.reserve(frame_timestamps.size());
+
+  size_t gt_cursor = 0;
+  for (size_t i = 0; i < frame_timestamps.size(); i++) {
+    const long long frame_id = static_cast<long long>(std::llround(frame_timestamps[i]));
+    while (gt_cursor < gt_poses_raw.size() &&
+           static_cast<long long>(std::llround(gt_poses_raw[gt_cursor].timestamp)) <
+               frame_id) {
+      gt_cursor++;
+    }
+    if (gt_cursor >= gt_poses_raw.size() ||
+        static_cast<long long>(std::llround(gt_poses_raw[gt_cursor].timestamp)) !=
+            frame_id) {
+      std::ostringstream msg;
+      msg << "Missing GT pose for frame_id " << frame_id
+          << " at processed frame " << i
+          << "; refusing silent GT sampling fallback";
+      throw std::runtime_error(msg.str());
+    }
+    association.gt_indices.push_back(gt_cursor);
+  }
+
+  association.poses = buildAssociatedGTMatrices(gt_poses_raw,
+                                               association.gt_indices);
+  return association;
+}
+
+GTAssociation associateByTimestamp(
+    const std::vector<double>& frame_timestamps,
+    const std::vector<GTPose>& gt_poses_raw,
+    double max_dt) {
+  if (!std::isfinite(max_dt) || max_dt < 0.0) {
+    throw std::runtime_error("--association-max-dt must be finite and >= 0");
+  }
+  requireStrictlyIncreasing(frame_timestamps, "frame_timestamps");
+  const auto gt_times = gtTimestampVector(gt_poses_raw);
+  requireStrictlyIncreasing(gt_times, "GT timestamps");
+
+  GTAssociation association;
+  association.mode = "timestamp";
+  association.gt_indices.reserve(frame_timestamps.size());
+
+  for (size_t i = 0; i < frame_timestamps.size(); i++) {
+    const double ts = frame_timestamps[i];
+    auto it = std::lower_bound(gt_times.begin(), gt_times.end(), ts);
+    size_t idx = 0;
+    if (it == gt_times.end()) {
+      idx = gt_times.size() - 1;
+    } else if (it == gt_times.begin()) {
+      idx = 0;
+    } else {
+      const size_t hi = static_cast<size_t>(it - gt_times.begin());
+      const size_t lo = hi - 1;
+      idx = std::abs(gt_times[hi] - ts) < std::abs(gt_times[lo] - ts) ? hi : lo;
+    }
+    const double dt = std::abs(gt_times[idx] - ts);
+    if (dt > max_dt) {
+      std::ostringstream msg;
+      msg << "No GT timestamp within " << max_dt
+          << " s for processed frame " << i
+          << " (frame timestamp=" << ts
+          << ", nearest GT timestamp=" << gt_times[idx]
+          << ", dt=" << dt << ")";
+      throw std::runtime_error(msg.str());
+    }
+    association.gt_indices.push_back(idx);
+  }
+
+  association.poses = buildAssociatedGTMatrices(gt_poses_raw,
+                                               association.gt_indices);
+  return association;
+}
+
+GTAssociation associateGTPoseMatrices(
+    const std::vector<GTPose>& gt_poses_raw,
+    const std::vector<double>& frame_timestamps,
+    double max_dt) {
+  if (gt_poses_raw.empty()) throw std::runtime_error("GT poses are empty");
+  if (frame_timestamps.empty()) {
+    throw std::runtime_error(
+        "No frame timestamps available for strict GT association. Provide "
+        "frame_timestamps.csv/graph timestamps, or explicitly use "
+        "--association-mode legacy-auto for old sampled-GT behavior.");
+  }
+
+  const bool frame_ids = allFiniteIntegers(frame_timestamps);
+  const bool gt_ids = allGTTimestampsFiniteIntegers(gt_poses_raw);
+  if (frame_ids && gt_ids) {
+    return associateByExactFrameId(frame_timestamps, gt_poses_raw);
+  }
+  return associateByTimestamp(frame_timestamps, gt_poses_raw, max_dt);
+}
+
+std::vector<double> sampleFrameTimestamps(const std::vector<GTPose>& gt_poses_raw,
+                                          size_t num_frames,
+                                          size_t total_pcd_frames);
+
+std::vector<Eigen::Matrix4d> sampleGTPoseMatrices(
+    const std::vector<GTPose>& gt_poses_raw,
+    const std::vector<double>& frame_timestamps);
+
+GTAssociation associateByLegacySampling(
+    const std::vector<GTPose>& gt_poses_raw,
+    size_t num_frames,
+    size_t total_pcd_frames) {
+  GTAssociation association;
+  association.mode = "legacy_sampled_gt";
+  const auto sampled_timestamps =
+      sampleFrameTimestamps(gt_poses_raw, num_frames, total_pcd_frames);
+  association.poses = sampleGTPoseMatrices(gt_poses_raw, sampled_timestamps);
+  return association;
+}
+
+bool isGlobalDogfoodingGtArtifact(const std::string& gt_csv) {
+  const fs::path path(gt_csv);
+  return path.filename() == "gt.txt" &&
+         path.parent_path().filename() == "dogfooding_results";
+}
+
+bool pathsEquivalentIfBothExist(const fs::path& lhs, const fs::path& rhs) {
+  std::error_code ec;
+  if (!fs::exists(lhs, ec) || ec) return false;
+  if (!fs::exists(rhs, ec) || ec) return false;
+  const bool equivalent = fs::equivalent(lhs, rhs, ec);
+  return !ec && equivalent;
+}
+
 std::string frameTimestampSourceName(FrameTimestampSource source) {
   switch (source) {
     case FrameTimestampSource::kFrameTimestampCsv:
@@ -825,6 +1197,7 @@ std::vector<double> sampleFrameTimestamps(const std::vector<GTPose>& gt_poses_ra
                                           size_t total_pcd_frames) {
   std::vector<double> timestamps;
   timestamps.reserve(num_frames);
+  if (gt_poses_raw.empty()) return timestamps;
   for (size_t i = 0; i < num_frames; i++) {
     int gt_idx = frameToGTIndex(i, total_pcd_frames, gt_poses_raw.size());
     timestamps.push_back(gt_poses_raw[gt_idx].timestamp);
@@ -9012,6 +9385,22 @@ void savePosesKITTI(const std::vector<Eigen::Matrix4d>& poses, const std::string
   }
 }
 
+std::string sanitizeArtifactStem(std::string stem) {
+  for (char& c : stem) {
+    const unsigned char uc = static_cast<unsigned char>(c);
+    if (!std::isalnum(uc) && c != '_' && c != '-') c = '_';
+  }
+  if (stem.empty()) return "dataset";
+  return stem;
+}
+
+std::string artifactStemFromPath(const std::string& path_string) {
+  const fs::path path(path_string);
+  std::string stem = path.filename().string();
+  if (stem.empty()) stem = path.parent_path().filename().string();
+  return sanitizeArtifactStem(stem);
+}
+
 void writeJsonNumberOrNull(std::ostream& out, double value) {
   if (std::isfinite(value)) {
     out << std::fixed << std::setprecision(6) << value;
@@ -9026,6 +9415,10 @@ void writeSummaryJson(const std::string& path,
                       size_t num_frames,
                       double trajectory_length_m,
                       FrameTimestampSource frame_timestamp_source,
+                      const std::string& gt_format,
+                      TimeDomain gt_time_domain,
+                      const std::string& association_mode,
+                      double association_max_dt,
                       const std::vector<MethodResult>& results) {
   std::ofstream out(path);
   out << "{\n";
@@ -9036,6 +9429,14 @@ void writeSummaryJson(const std::string& path,
       << trajectory_length_m << ",\n";
   out << "  \"timestamp_source\": \""
       << jsonEscape(frameTimestampSourceName(frame_timestamp_source)) << "\",\n";
+  out << "  \"gt_format\": \"" << jsonEscape(gt_format) << "\",\n";
+  out << "  \"gt_time_domain\": \""
+      << jsonEscape(timeDomainName(gt_time_domain)) << "\",\n";
+  out << "  \"association_mode\": \""
+      << jsonEscape(association_mode) << "\",\n";
+  out << "  \"association_max_dt_s\": ";
+  writeJsonNumberOrNull(out, association_max_dt);
+  out << ",\n";
   out << "  \"methods\": [\n";
   for (size_t i = 0; i < results.size(); i++) {
     const auto& r = results[i];
@@ -9097,6 +9498,9 @@ int main(int argc, char** argv) {
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
+              << " [--association-mode strict|legacy-auto]"
+              << " [--association-max-dt seconds]"
+              << " [--allow-legacy-gt-artifact]"
               << " [--litamin2-paper-profile]"
               << " [--litamin2-icp-only]"
               << " [--litamin2-covariance-gradient]"
@@ -9247,6 +9651,9 @@ int main(int argc, char** argv) {
   int ct_lio_max_frames_in_map = 10;
   int ct_lio_max_iterations = 6;
   std::string summary_json_path;
+  bool legacy_auto_association = false;
+  bool allow_legacy_gt_artifact = false;
+  double association_max_dt = 0.05;
   int ct_lio_fixed_lag_window = 1;
   double ct_lio_fixed_lag_velocity_weight = 0.0;
   double ct_lio_fixed_lag_gyro_bias_scale = 0.25;
@@ -9350,6 +9757,55 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-gt-seed") {
       ct_icp_gt_seed = true;
+      continue;
+    }
+    if (arg == "--allow-legacy-gt-artifact") {
+      allow_legacy_gt_artifact = true;
+      continue;
+    }
+    if (arg == "--association-mode") {
+      if (i + 1 >= argc) {
+        std::cerr << "--association-mode requires strict or legacy-auto"
+                  << std::endl;
+        return 1;
+      }
+      const std::string mode = argv[++i];
+      if (mode == "strict") {
+        legacy_auto_association = false;
+      } else if (mode == "legacy-auto") {
+        legacy_auto_association = true;
+      } else {
+        std::cerr << "Unsupported --association-mode: " << mode
+                  << " (supported: strict, legacy-auto)" << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg.rfind("--association-mode=", 0) == 0) {
+      const std::string mode =
+          arg.substr(std::string("--association-mode=").size());
+      if (mode == "strict") {
+        legacy_auto_association = false;
+      } else if (mode == "legacy-auto") {
+        legacy_auto_association = true;
+      } else {
+        std::cerr << "Unsupported --association-mode: " << mode
+                  << " (supported: strict, legacy-auto)" << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg == "--association-max-dt") {
+      if (i + 1 >= argc) {
+        std::cerr << "--association-max-dt requires seconds" << std::endl;
+        return 1;
+      }
+      association_max_dt = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--association-max-dt=", 0) == 0) {
+      association_max_dt =
+          std::stod(arg.substr(std::string("--association-max-dt=").size()));
       continue;
     }
     if (arg == "--seed-perturb-x") {
@@ -13339,7 +13795,32 @@ int main(int argc, char** argv) {
   if (max_frames > 0 && max_frames < (int)pcd_dirs.size())
     pcd_dirs.resize(max_frames);
 
-  auto gt_poses_raw = loadGTPoses(gt_csv);
+  TimeDomain gt_time_domain = TimeDomain::kUnknown;
+  std::string gt_format = "unknown";
+  std::vector<GTPose> gt_poses_raw;
+  try {
+    gt_poses_raw = loadGTPoses(gt_csv, &gt_time_domain, &gt_format);
+  } catch (const std::exception& e) {
+    std::cerr << "Failed to load GT poses: " << e.what() << std::endl;
+    return 1;
+  }
+  if (gt_poses_raw.empty()) {
+    std::cerr << "No GT poses loaded from " << gt_csv << std::endl;
+    return 1;
+  }
+  if (isGlobalDogfoodingGtArtifact(gt_csv) && !allow_legacy_gt_artifact) {
+    std::cerr
+        << "Refusing dogfooding_results/gt.txt as canonical GT: this is a "
+        << "mutable last-run artifact. Use dataset-specific reference GT, or "
+        << "explicitly pass --allow-legacy-gt-artifact after verifying "
+        << "provenance." << std::endl;
+    return 1;
+  }
+  if (isGlobalDogfoodingGtArtifact(gt_csv) && allow_legacy_gt_artifact) {
+    std::cerr
+        << "Warning: using mutable dogfooding_results/gt.txt because "
+        << "--allow-legacy-gt-artifact was set." << std::endl;
+  }
   auto frame_timestamps = loadFrameTimestampsFromCsv(pcd_dir, pcd_dirs.size());
   FrameTimestampSource frame_timestamp_source =
       FrameTimestampSource::kFrameTimestampCsv;
@@ -13347,24 +13828,48 @@ int main(int argc, char** argv) {
     frame_timestamps = loadFrameTimestampsFromGraph(pcd_dirs);
     frame_timestamp_source = FrameTimestampSource::kGraphTrajectory;
   }
-  if (frame_timestamps.empty()) {
-    frame_timestamps =
-        sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
-    frame_timestamp_source = FrameTimestampSource::kSampledGT;
-  }
   auto frame_gap_stats = computeFrameGapStats(frame_timestamps);
-  if (frame_timestamp_source == FrameTimestampSource::kFrameTimestampCsv &&
-      frame_gap_stats.valid &&
-      frame_gap_stats.median_gap > 0.5) {
-    // Some preprocessed sequences provide sparse/keyframe timestamps that do not
-    // line up with the dense scan sequence expected by most methods. When that
-    // happens, fall back to index-based GT sampling to keep evaluation aligned.
-    frame_timestamps =
-        sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
-    frame_timestamp_source = FrameTimestampSource::kSampledGT;
-    frame_gap_stats = computeFrameGapStats(frame_timestamps);
+  GTAssociation gt_association;
+  try {
+    if (frame_timestamps.empty() && legacy_auto_association) {
+      frame_timestamps =
+          sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
+      frame_timestamp_source = FrameTimestampSource::kSampledGT;
+      frame_gap_stats = computeFrameGapStats(frame_timestamps);
+      gt_association = associateByLegacySampling(
+          gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
+    } else if (legacy_auto_association) {
+      try {
+        gt_association =
+            associateGTPoseMatrices(gt_poses_raw, frame_timestamps,
+                                    association_max_dt);
+      } catch (const std::exception& strict_error) {
+        std::cerr << "Warning: strict GT association failed under "
+                  << "--association-mode legacy-auto: " << strict_error.what()
+                  << "; falling back to sampled GT timestamps." << std::endl;
+        frame_timestamps = sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(),
+                                                 total_pcd_frames);
+        frame_timestamp_source = FrameTimestampSource::kSampledGT;
+        frame_gap_stats = computeFrameGapStats(frame_timestamps);
+        gt_association = associateByLegacySampling(
+            gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
+      }
+    } else {
+      gt_association =
+          associateGTPoseMatrices(gt_poses_raw, frame_timestamps,
+                                  association_max_dt);
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Failed to associate GT poses: " << e.what() << std::endl;
+    return 1;
   }
-  auto gt = sampleGTPoseMatrices(gt_poses_raw, frame_timestamps);
+  auto gt = gt_association.poses;
+  if (gt.size() != pcd_dirs.size()) {
+    std::cerr << "Associated GT pose count (" << gt.size()
+              << ") does not match PCD frame count (" << pcd_dirs.size()
+              << ")" << std::endl;
+    return 1;
+  }
 
   std::cout << "========================================" << std::endl;
   std::cout << "  PCD Dogfooding" << std::endl;
@@ -13386,6 +13891,10 @@ int main(int argc, char** argv) {
 
   std::cout << "Timestamp source: " << frameTimestampSourceName(frame_timestamp_source)
             << std::endl;
+  std::cout << "GT format: " << gt_format
+            << " (time_domain=" << timeDomainName(gt_time_domain) << ")"
+            << std::endl;
+  std::cout << "GT association: " << gt_association.mode << std::endl;
   if (frame_gap_stats.valid) {
     std::cout << "Frame gap [s]: min=" << std::fixed << std::setprecision(3)
               << frame_gap_stats.min_gap
@@ -14395,6 +14904,20 @@ int main(int argc, char** argv) {
     }
   }
 
+  fs::create_directories("dogfooding_results");
+  const std::string artifact_stem = artifactStemFromPath(pcd_dir);
+  const fs::path evaluated_gt_path =
+      fs::path("dogfooding_results") / (artifact_stem + "_evaluated_gt.txt");
+  savePosesKITTI(gt, evaluated_gt_path.string());
+  const fs::path legacy_gt_path = fs::path("dogfooding_results") / "gt.txt";
+  if (pathsEquivalentIfBothExist(fs::path(gt_csv), legacy_gt_path)) {
+    std::cerr
+        << "Warning: not overwriting legacy GT artifact because it is also "
+        << "the input GT path: " << legacy_gt_path.string() << std::endl;
+  } else {
+    savePosesKITTI(gt, legacy_gt_path.string());
+  }
+
   // 結果表示
   std::cout << "\n========================================" << std::endl;
   std::cout << "  RESULTS (Real Data)" << std::endl;
@@ -14409,9 +14932,6 @@ int main(int argc, char** argv) {
             << std::setw(12) << "FPS"
             << std::endl;
   std::cout << std::string(102, '-') << std::endl;
-
-  fs::create_directories("dogfooding_results");
-  savePosesKITTI(gt, "dogfooding_results/gt.txt");
 
   for (auto& r : results) {
     if (r.skipped) {
@@ -14472,9 +14992,12 @@ int main(int argc, char** argv) {
 
   if (!summary_json_path.empty()) {
     writeSummaryJson(summary_json_path, pcd_dir, gt_csv, pcd_dirs.size(), dist,
-                     frame_timestamp_source, results);
+                     frame_timestamp_source, gt_format, gt_time_domain,
+                     gt_association.mode, association_max_dt, results);
   }
 
-  std::cout << "\nResults saved to dogfooding_results/" << std::endl;
+  std::cout << "\nResults saved to dogfooding_results/"
+            << " (evaluated GT: " << evaluated_gt_path.string() << ")"
+            << std::endl;
   return 0;
 }

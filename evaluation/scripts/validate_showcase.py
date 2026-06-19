@@ -343,6 +343,21 @@ def validate_benchmark_snapshot(root: Path) -> None:
     validate_public_result_rows(root, results, paper_bundle)
 
 
+def validate_kitti_full_artifact_notes(root: Path) -> None:
+    artifact_dir = root / "docs/benchmarks/kitti_full_new_methods"
+    for path in sorted(artifact_dir.glob("seq[0-9][0-9]_*.json")):
+        artifact = load_json(path)
+        for method in artifact.get("methods", []):
+            if method.get("status") != "ok":
+                continue
+            note = str(method.get("note", "")).lower()
+            if "gt-seeded init" in note or "gt-seeded initialization" in note:
+                raise SystemExit(
+                    f"KITTI full artifact claims GT-seeded init: "
+                    f"{path.relative_to(root)} / {method.get('name')}"
+                )
+
+
 def validate_scan2d_benchmarks(root: Path) -> None:
     bundle_path = root / "docs/benchmarks/scan2d/public_bundle.json"
     bundle = load_json(bundle_path)
@@ -441,6 +456,7 @@ def main() -> None:
     validate_pages_index(root)
     validate_method_catalog(root)
     validate_benchmark_snapshot(root)
+    validate_kitti_full_artifact_notes(root)
     validate_scan2d_benchmarks(root)
     validate_demo(root, Path(args.demo_dir), args.demo_mode)
     print("showcase valid")

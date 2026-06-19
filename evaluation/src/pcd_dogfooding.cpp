@@ -7742,10 +7742,10 @@ MethodResult runVibrationLIO(const std::vector<std::string>& pcd_dirs,
   res.note =
       (imu_frames > 0
            ? "Post-undistortion uncertainty LIO: IMU-MAD vibration intensity "
-             "-> per-point covariance, Mahalanobis point-to-plane (GT-seeded "
-             "init)."
+             "-> per-point covariance, Mahalanobis point-to-plane "
+             "(first-pose anchored; no per-frame GT seed)."
            : "Uncertainty-weighted point-to-plane, no vibration estimate (no "
-             "imu.csv; GT-seeded init).") +
+             "imu.csv; first-pose anchored; no per-frame GT seed).") +
       std::string(" mean_vib_omega=") +
       std::to_string(imu_frames > 0 ? vib_sum / imu_frames : 0.0);
   return res;
@@ -8000,9 +8000,9 @@ MethodResult runUALIO(const std::vector<std::string>& pcd_dirs,
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = (imu_frames > 0
                   ? "Uncertainty-aware D2D LIO: per-point covariance + ground "
-                    "constraint (GT-seeded init)."
+                    "constraint (first-pose anchored; no per-frame GT seed)."
                   : "D2D + ground constraint, constant-velocity (no imu.csv; "
-                    "GT-seeded init).") +
+                    "first-pose anchored; no per-frame GT seed).") +
              std::string(" ground_cells=") + std::to_string(ground_total);
   return res;
 }

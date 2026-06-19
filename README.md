@@ -15,11 +15,11 @@
   </p>
   <p align="center">
     <a href="https://rsasaki0109.github.io/localization_zoo/">
-      <img src="docs/assets/hero_seq00.gif" alt="KITTI seq00 top-down trajectories: KC-LO, KISS-ICP, TrICP-LO vs ground truth, no GT seed" width="900">
+      <img src="docs/assets/grid_seq07.png" alt="KITTI seq07 trajectory gallery: 15 localization methods, each path colored by distance from ground truth, no GT seed, ordered by RPE drift" width="960">
     </a>
   </p>
   <p align="center">
-    <sub>KITTI seq00 odometry, no GT seed — paper reimplementations tracked against ground truth.</sub>
+    <sub>KITTI seq07 odometry, no GT seed — all current trajectories on one shared drift-colored scale.</sub>
   </p>
   <p align="center">
     <a href="https://rsasaki0109.github.io/localization_zoo/"><b>↪ Open the interactive benchmark and method explorer</b></a>
@@ -262,12 +262,11 @@ Top-down trajectories on KITTI seq07 (1101 frames, `--no-gt-seed`), each path
 clipped at 3 m) on a shared scale and ordered by RPE drift. This surfaces *where*
 each method drifts — the top tier all hug GT, so the raw paths look identical;
 the color reveals the difference. **KC-LO** leads; NDT / SuMa run fully warm —
-honest no-GT-seed failures, not cropping. Regenerate with
+honest no-GT-seed failures, not cropping. The same figure is featured at the
+top of this README. Regenerate with
 [`evaluation/scripts/plot_trajectory_diff.py`](evaluation/scripts/plot_trajectory_diff.py).
-
-<p align="center">
-  <img src="docs/assets/grid_seq07.png" alt="KITTI seq07 trajectory gallery: 15 localization methods, each path colored by distance from ground truth, no GT seed, ordered by RPE drift" width="960">
-</p>
+The earlier animated seq00 hero remains available as
+[`docs/assets/hero_seq00.gif`](docs/assets/hero_seq00.gif).
 
 ## Scope Note
 

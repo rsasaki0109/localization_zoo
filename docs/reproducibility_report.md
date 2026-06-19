@@ -183,11 +183,11 @@ Honest negatives, kept in the leaderboard rather than dropped:
   (1.13% / 0.97% RPE on seq00/07), but this KITTI run has no IMU packets, so it
   is only evidence for the D2D + ground scan-to-map fallback, not the full LIO
   state estimator.
-- **R-VoxelMap** no longer diverges on seq 07 after low-correspondence recovery
-  falls back to scan-to-scan ICP, but it remains a degradation case
-  (**58.33 % / 35.81 %** RPE). **IMLS-SLAM** on a voxelized map degenerates to
-  plain point-to-plane (1.0 %) — the implicit surface needs the native point
-  density the paper assumes.
+- **R-VoxelMap** no longer diverges on seq 07 after low-correspondence and
+  map/fallback-disagreement recovery fall back to scan-to-scan ICP, but seq 00
+  remains a degradation case (**45.77 % / 3.27 %** RPE). **IMLS-SLAM** on a
+  voxelized map degenerates to plain point-to-plane (1.0 %) — the implicit
+  surface needs the native point density the paper assumes.
 
 ## Finding 4 — Recurring implementation lessons
 

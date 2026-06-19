@@ -26,6 +26,21 @@ Eigen::Matrix3d expSO3(const Eigen::Vector3d& w) {
          (1.0 - std::cos(t)) * K * K;
 }
 
+double rotationAngle(const Eigen::Matrix3d& R) {
+  const double tr = std::clamp((R.trace() - 1.0) * 0.5, -1.0, 1.0);
+  return std::acos(tr);
+}
+
+bool relativeMotionWithin(const Eigen::Matrix4d& reference,
+                          const Eigen::Matrix4d& candidate,
+                          double max_translation, double max_rotation) {
+  if (!candidate.array().isFinite().all()) return false;
+  const Eigen::Matrix4d rel = reference.inverse() * candidate;
+  const double trans = rel.block<3, 1>(0, 3).norm();
+  const double angle = rotationAngle(rel.block<3, 3>(0, 0));
+  return trans <= max_translation && angle <= max_rotation;
+}
+
 /// 点集合に平面を最小二乗フィットし、平面性 (λ0<ratio·λ2) なら平面を返す。
 bool fitPlane(const std::vector<Eigen::Vector3d>& pts, double planarity_ratio,
               Plane& out) {
@@ -333,14 +348,9 @@ std::vector<Eigen::Vector3d> RVoxelMapPipeline::transformToWorld(
 
 bool RVoxelMapPipeline::registrationMotionOk(
     const Eigen::Matrix4d& reference, const Eigen::Matrix4d& candidate) const {
-  if (!candidate.array().isFinite().all()) return false;
-  const Eigen::Matrix4d rel = candidate * reference.inverse();
-  const double trans = rel.block<3, 1>(0, 3).norm();
-  const Eigen::Matrix3d R = rel.block<3, 3>(0, 0);
-  const double tr = std::clamp((R.trace() - 1.0) * 0.5, -1.0, 1.0);
-  const double angle = std::acos(tr);
-  return trans <= params_.max_registration_translation &&
-         angle <= params_.max_registration_rotation;
+  return relativeMotionWithin(reference, candidate,
+                              params_.max_registration_translation,
+                              params_.max_registration_rotation);
 }
 
 Eigen::Matrix4d RVoxelMapPipeline::runScanToScanICP(
@@ -477,6 +487,36 @@ RVoxelMapResult RVoxelMapPipeline::registerFrame(
                               params_.enable_scan_to_scan_fallback;
   if (accepted && safety_enabled) {
     accepted = registrationMotionOk(prediction, accepted_pose);
+  }
+
+  const bool validate_map_with_fallback =
+      accepted && params_.enable_scan_to_scan_fallback &&
+      (params_.max_map_fallback_translation_delta > 0.0 ||
+       params_.max_map_fallback_rotation_delta > 0.0);
+  if (validate_map_with_fallback) {
+    double fallback_ratio = 0.0;
+    const Eigen::Matrix4d fallback_pose =
+        runScanToScanICP(reg, prediction, &fallback_ratio);
+    const double max_translation =
+        params_.max_map_fallback_translation_delta > 0.0
+            ? params_.max_map_fallback_translation_delta
+            : std::numeric_limits<double>::infinity();
+    const double max_rotation =
+        params_.max_map_fallback_rotation_delta > 0.0
+            ? params_.max_map_fallback_rotation_delta
+            : std::numeric_limits<double>::infinity();
+    const bool fallback_ok =
+        fallback_ratio >= params_.min_fallback_matched_ratio &&
+        registrationMotionOk(prediction, fallback_pose);
+    const bool map_agrees_with_fallback =
+        relativeMotionWithin(fallback_pose, accepted_pose, max_translation,
+                             max_rotation);
+    if (fallback_ok && !map_agrees_with_fallback) {
+      accepted_pose = fallback_pose;
+      result.used_fallback = true;
+      result.fallback_disagreement = true;
+      result.fallback_matched_ratio = fallback_ratio;
+    }
   }
 
   if (!accepted && params_.enable_scan_to_scan_fallback) {

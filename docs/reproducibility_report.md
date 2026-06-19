@@ -172,9 +172,10 @@ Honest negatives, kept in the leaderboard rather than dropped:
   simplified tracker, not only the missing camera, is the bottleneck.
   Reproducing these papers requires the full ORB-SLAM2-class stack they build
   on.
-- **Spectral-LO** (~10 %): FFT phase-correlation odometry runs at ~25–27 FPS
-  with zero divergence — honest fast-but-coarse; the tighter 40 m BEV window
-  improves RPE, while absolute ATE remains higher than scan-to-map methods.
+- **Spectral-LO** (~4–7 %): FFT phase-correlation odometry runs at ~29–30 FPS
+  with zero divergence after fixing the current-to-reference de-rotation sign —
+  honest fast-but-coarse; the 45 m BEV window improves both RPE and ATE, while
+  accuracy remains well behind scan-to-map methods.
 - **UA-LIO** no longer diverges under strict exact-frame association
   (1.13% / 0.97% RPE on seq00/07), but this KITTI run has no IMU packets, so it
   is only evidence for the D2D + ground scan-to-map fallback, not the full LIO

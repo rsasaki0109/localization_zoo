@@ -242,8 +242,9 @@ SpectralLoResult SpectralLoPipeline::registerFrame(
 
   const double yaw = estimateYaw(ref_bev_, bev);
 
-  // 推定 yaw で点群を de-rotate してから並進を推定 (画像補間でなく点群回転)。
-  const double cz = std::cos(-yaw), sz = std::sin(-yaw);
+  // 推定 yaw で current 点群を reference 向きへ回してから並進を推定
+  // (画像補間でなく点群回転)。T_rel は cur->ref なので +yaw を使う。
+  const double cz = std::cos(yaw), sz = std::sin(yaw);
   std::vector<Eigen::Vector3d> derot(frame.size());
   for (size_t i = 0; i < frame.size(); i++) {
     const auto& p = frame[i];

@@ -92,3 +92,23 @@ TEST(SpectralLo, RecoversYaw) {
   const double recovered = std::atan2(res.pose(1, 0), res.pose(0, 0));
   EXPECT_NEAR(recovered, yaw, 2.5 * M_PI / 180.0);
 }
+
+// (4) 実走に近い「前進 + yaw」を同時に含む motion で、de-rotation の符号を固定する。
+TEST(SpectralLo, RecoversForwardTranslationWithYaw) {
+  SpectralLoPipeline pipe(testParams());
+  const auto scene = makeScene();
+  pipe.registerFrame(scene);
+
+  const double yaw = 3.0 * M_PI / 180.0;
+  Eigen::Matrix4d m = Eigen::Matrix4d::Identity();
+  m.block<3, 3>(0, 0) << std::cos(yaw), -std::sin(yaw), 0, std::sin(yaw),
+      std::cos(yaw), 0, 0, 0, 1;
+  m(0, 3) = 3.0;
+  const auto res = pipe.registerFrame(transformAll(scene, m.inverse()));
+
+  const double recovered_yaw = std::atan2(res.pose(1, 0), res.pose(0, 0));
+  EXPECT_TRUE(res.converged);
+  EXPECT_NEAR(recovered_yaw, yaw, 2.5 * M_PI / 180.0);
+  EXPECT_NEAR(res.pose(0, 3), 3.0, 1.0);
+  EXPECT_NEAR(res.pose(1, 3), 0.0, 0.75);
+}

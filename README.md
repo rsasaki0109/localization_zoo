@@ -148,7 +148,7 @@ RPE is drift %/100 m; ATE in parens.
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
-| Spectral-LO | 12.029% <sub>(113 m)</sub> | 13.671% <sub>(47 m)</sub> | arXiv:2005.02042 |
+| Spectral-LO | 10.730% <sub>(128 m)</sub> | 10.232% <sub>(55 m)</sub> | arXiv:2005.02042 |
 | DiLO | 18.305% <sub>(226 m)</sub> | 18.966% <sub>(159 m)</sub> | ETRI J. 2021 |
 | **PL-LOAM** | **143.211%** <sub>(3016 m)</sub> | **116.899%** <sub>(271 m)</sub> | ICRA 2020 |
 | **VLOM** | **91.465%** <sub>(249 m)</sub> | **153.868%** <sub>(439 m)</sub> | arXiv:2304.08978 |
@@ -208,7 +208,7 @@ cap improves that to 41.632 m
 ([`rf_id_lio_dynamic_object_stress_summary.json`](docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json)).
 This is mechanism stress evidence, not a public dynamic-dataset claim. Honest negatives:
 DiLO (direct, 18–19% drift), Spectral-LO
-(ICP-free BEV phase-correlation, fastest at ~14 FPS but coarse ~12–14%),
+(ICP-free BEV phase-correlation, fast at ~25–27 FPS but coarse ~10%),
 **PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),
 **VLOM** (scale-corrected visual bootstrap A-LOAM on pseudo-image, ~91–154% drift),
 **InTEn-LOAM** (cylindrical intensity LO without DOR/mapping, ~53–67% drift),

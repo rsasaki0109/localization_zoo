@@ -130,6 +130,7 @@ RPE is drift %/100 m; ATE in parens.
 | NHC-LIO | 0.902% <sub>(18 m)</sub> | 0.608% <sub>(3 m)</sub> | IEEE Sens. J. 2023 |
 | SVN-ICP | 0.912% <sub>(14 m)</sub> | 0.607% <sub>(3 m)</sub> | arXiv:2509.08069 |
 | ICPSC-LO | 0.912% <sub>(19 m)</sub> | 0.660% <sub>(4 m)</sub> | JAG 2023 |
+| VLOM | 0.914% <sub>(10 m)</sub> | 0.605% <sub>(3 m)</sub> | arXiv:2304.08978 |
 | TrICP-LO | 0.931% <sub>(10 m)</sub> | 0.662% <sub>(2 m)</sub> | IVC 2005 |
 | GMM-LO | 0.941% <sub>(14 m)</sub> | 0.657% <sub>(1 m)</sub> | arXiv:1807.02587 |
 | MCGICP-LO | 0.940% <sub>(20 m)</sub> | 0.774% <sub>(5 m)</sub> | RAS 2017 |
@@ -157,7 +158,6 @@ RPE is drift %/100 m; ATE in parens.
 | **InTEn-LOAM** | **52.695%** <sub>(1459 m)</sub> | **67.497%** <sub>(448 m)</sub> | RS 2022/23 |
 | **R-VoxelMap** | **58.328%** <sub>(1872 m)</sub> | **35.809%** <sub>(103 m)</sub> | arXiv:2601.12377 |
 | **PL-LOAM** | **90.098%** <sub>(278 m)</sub> | **87.386%** <sub>(128 m)</sub> | ICRA 2020 |
-| **VLOM** | **89.152%** <sub>(315 m)</sub> | **81.599%** <sub>(141 m)</sub> | arXiv:2304.08978 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
@@ -200,8 +200,11 @@ point-to-plane core. The newer LiDAR-visual adapter family
 (**OPL-LVIO**, **AD-VLO**, **TC-MVLO**, **TC-LVGF**, **TC-VLO**, **V-LOAM2015**)
 is stable at ~0.90–1.07% drift and far better than older pseudo-image visual
 front ends; AD-VLO/TC-MVLO improve ATE within the group, while OPL-LVIO keeps
-the best seq07 RPE. Still, pseudo-visual residuals remain secondary to the
-point-to-plane core. **RF-LIO** confirms the same KITTI pattern for dynamic
+the best seq07 RPE. **VLOM** now lands in the same band after disabling visual
+bootstrap on LiDAR-only pseudo-images: the A-LOAM core remains active, scale
+correction stays enabled, and the RGB bootstrap path is still available via
+`--vlom-enable-bootstrap`. Still, pseudo-visual residuals remain secondary to
+the point-to-plane core. **RF-LIO** confirms the same KITTI pattern for dynamic
 removal: its removal-first range-image filter is active, but on mostly static
 KITTI it removes useful foreground structure and trails ID-LIO. A committed
 synthetic dynamic-object stress now exercises the intended high-dynamic path:
@@ -217,8 +220,6 @@ is no longer a degradation case. Honest negatives: Spectral-LO
 **InTEn-LOAM** (cylindrical intensity LO without DOR/mapping, ~53–67% drift),
 **PL-LOAM** (LiDAR-visual point+line on LiDAR-intensity pseudo-image without
 RGB, ~87–90% drift after the intensity-rendered feature fix),
-**VLOM** (scale-corrected visual bootstrap A-LOAM on LiDAR-intensity pseudo-image,
-~82–89% drift; seq07 fixed, seq00 ATE worsens),
 and **R-VoxelMap** (recursive plane voxel map, no longer diverges but still
 ~36–58% drift after low-match recovery). Per-method caveats live in the
 module READMEs; raw JSON:

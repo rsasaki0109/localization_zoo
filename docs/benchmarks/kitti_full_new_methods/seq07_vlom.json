@@ -13,7 +13,7 @@
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
   "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "639adcf97154d130670fefc68688a1631b87f60a",
+  "evaluator_git_commit": "f78ebe33f3bc167eefba16e9143c57fe7aa7232f",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -58,14 +58,14 @@
     {
       "name": "VLOM",
       "status": "ok",
-      "ate_m": 140.878074,
-      "rpe_trans_pct": 81.599359,
-      "rpe_rot_deg_per_m": 1.237977,
+      "ate_m": 2.505243,
+      "rpe_trans_pct": 0.605313,
+      "rpe_rot_deg_per_m": 0.005820,
       "frames": 1101,
-      "time_ms": 665048.059971,
-      "fps": 1.655519,
+      "time_ms": 345383.265558,
+      "fps": 3.187763,
       "seed_fallback_rate_pct": null,
-      "note": "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM; eval=intensity-pseudo-image; no GT seed. mean_scale=1.000 bootstrap_frames=1099 rgb_frames=0 intensity_dilation_radius=2"
+      "note": "VLOM (arXiv:2304.08978): scale-corrected A-LOAM with optional visual bootstrap; eval=intensity-pseudo-image; bootstrap=off scale_correction=on; no GT seed. mean_scale=1.000 bootstrap_frames=0 rgb_frames=0 intensity_dilation_radius=2"
     }
   ]
 }

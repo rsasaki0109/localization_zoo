@@ -9,6 +9,13 @@
 namespace localization_zoo {
 namespace inten_loam {
 
+template <typename T>
+inline void EigenQuaternionRotatePoint(const T* eigen_q, const T* point,
+                                       T* result) {
+  const T ceres_q[4] = {eigen_q[3], eigen_q[0], eigen_q[1], eigen_q[2]};
+  ceres::QuaternionRotatePoint(ceres_q, point, result);
+}
+
 struct EdgeFactor {
   EdgeFactor(const Eigen::Vector3d& curr, const Eigen::Vector3d& last_a,
              const Eigen::Vector3d& last_b, double s, double weight)
@@ -20,7 +27,7 @@ struct EdgeFactor {
     T lpa[3] = {T(last_a_.x()), T(last_a_.y()), T(last_a_.z())};
     T lpb[3] = {T(last_b_.x()), T(last_b_.y()), T(last_b_.z())};
     T p[3];
-    ceres::QuaternionRotatePoint(q, cp, p);
+    EigenQuaternionRotatePoint(q, cp, p);
     p[0] += T(s_) * t[0];
     p[1] += T(s_) * t[1];
     p[2] += T(s_) * t[2];
@@ -60,7 +67,7 @@ struct PlaneFactor {
   bool operator()(const T* q, const T* t, T* residual) const {
     T cp[3] = {T(curr_.x()), T(curr_.y()), T(curr_.z())};
     T p[3];
-    ceres::QuaternionRotatePoint(q, cp, p);
+    EigenQuaternionRotatePoint(q, cp, p);
     p[0] += T(s_) * t[0];
     p[1] += T(s_) * t[1];
     p[2] += T(s_) * t[2];
@@ -103,7 +110,7 @@ struct IntensityBsplineFactor {
   bool operator()(const T* q, const T* t, T* residual) const {
     T p[3] = {T(source_.x()), T(source_.y()), T(source_.z())};
     T pt[3];
-    ceres::QuaternionRotatePoint(q, p, pt);
+    EigenQuaternionRotatePoint(q, p, pt);
     pt[0] += t[0];
     pt[1] += t[1];
     pt[2] += t[2];

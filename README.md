@@ -145,7 +145,6 @@ RPE is drift %/100 m; ATE in parens.
 | TC-VLO | 1.060% <sub>(12 m)</sub> | 0.925% <sub>(4 m)</sub> | IV 2019 |
 | BIEVR-LIO | 1.063% <sub>(25 m)</sub> | 0.873% <sub>(4 m)</sub> | arXiv:2604.14421 |
 | V-LOAM2015 | 1.066% <sub>(14 m)</sub> | 0.910% <sub>(4 m)</sub> | ICRA 2015 |
-| R-VoxelMap | 1.076% <sub>(20 m)</sub> | _diverges_ | arXiv:2601.12377 |
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | ID-LIO | 1.111% <sub>(15 m)</sub> | 0.999% <sub>(5 m)</sub> | Sensors 2023 |
 | ELO | 1.124% <sub>(23 m)</sub> | 0.981% <sub>(4 m)</sub> | IEEE RA-L 2021 |
@@ -156,6 +155,7 @@ RPE is drift %/100 m; ATE in parens.
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | Spectral-LO | 10.730% <sub>(128 m)</sub> | 10.232% <sub>(55 m)</sub> | arXiv:2005.02042 |
 | **InTEn-LOAM** | **52.695%** <sub>(1459 m)</sub> | **67.497%** <sub>(448 m)</sub> | RS 2022/23 |
+| **R-VoxelMap** | **58.328%** <sub>(1872 m)</sub> | **35.809%** <sub>(103 m)</sub> | arXiv:2601.12377 |
 | **PL-LOAM** | **90.098%** <sub>(278 m)</sub> | **87.386%** <sub>(128 m)</sub> | ICRA 2020 |
 | **VLOM** | **89.152%** <sub>(315 m)</sub> | **81.599%** <sub>(141 m)</sub> | arXiv:2304.08978 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
@@ -219,7 +219,8 @@ is no longer a degradation case. Honest negatives: Spectral-LO
 RGB, ~87–90% drift after the intensity-rendered feature fix),
 **VLOM** (scale-corrected visual bootstrap A-LOAM on LiDAR-intensity pseudo-image,
 ~82–89% drift; seq07 fixed, seq00 ATE worsens),
-and R-VoxelMap (diverges seq 07). Per-method caveats live in the
+and **R-VoxelMap** (recursive plane voxel map, no longer diverges but still
+~36–58% drift after low-match recovery). Per-method caveats live in the
 module READMEs; raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->

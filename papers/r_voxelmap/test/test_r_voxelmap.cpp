@@ -81,3 +81,34 @@ TEST(RVoxelMap, MultiFrameTracksTranslation) {
       (pipeline.pose().block<3, 1>(0, 3) - Eigen::Vector3d(1.5, 0, 0)).norm();
   EXPECT_LT(err, 1.0);
 }
+
+TEST(RVoxelMap, ScanToScanFallbackTracksWhenMapMatchIsRejected) {
+  std::mt19937 rng(7);
+  RVoxelMapParams params;
+  params.voxel_size = 1.0;
+  params.max_icp_iterations = 20;
+  params.min_map_matched_ratio = 1.1;  // force the recovery path
+  params.enable_scan_to_scan_fallback = true;
+  params.min_fallback_matched_ratio = 0.05;
+  RVoxelMapPipeline pipeline(params);
+
+  const auto scene = makeScene(rng);
+  for (int f = 0; f < 2; ++f) {
+    const Eigen::Vector3d t(f * 0.5, 0, 0);
+    std::vector<Eigen::Vector3d> scan;
+    for (const auto& p : scene) {
+      const Eigen::Vector3d ps = p - t;
+      if (ps.norm() > 1 && ps.norm() < 25) scan.push_back(ps);
+    }
+    const auto result = pipeline.registerFrame(scan);
+    if (f == 1) {
+      EXPECT_TRUE(result.converged);
+      EXPECT_TRUE(result.used_fallback);
+      EXPECT_GT(result.fallback_matched_ratio, 0.1);
+    }
+  }
+
+  const double err =
+      (pipeline.pose().block<3, 1>(0, 3) - Eigen::Vector3d(0.5, 0, 0)).norm();
+  EXPECT_LT(err, 0.5);
+}

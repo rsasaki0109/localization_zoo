@@ -78,7 +78,7 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 
 | Method | Seq 00 | Seq 02 | Seq 05 | Seq 07 | Seq 08 |
 |---|---:|---:|---:|---:|---:|
-|  | _4542 fr_ | _4661 fr_ | _2761 fr_ | _1101 fr_ | _4071 fr_ |
+|  | _4541 fr_ | _4661 fr_ | _2761 fr_ | _1101 fr_ | _4071 fr_ |
 | LeGO-LOAM | **0.84%** <sub>(12 m)</sub> | **0.88%** <sub>(42 m)</sub> | 0.52% <sub>(5 m)</sub> | **0.53%** <sub>(3 m)</sub> | 1.37% <sub>(19 m)</sub> |
 | A-LOAM | 0.90% <sub>(19 m)</sub> | 0.93% <sub>(51 m)</sub> | **0.51%** <sub>(5 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.39% <sub>(19 m)</sub> |
 | KISS-ICP | 0.86% <sub>(21 m)</sub> | 0.94% <sub>(39 m)</sub> | 0.62% <sub>(6 m)</sub> | 0.61% <sub>(2 m)</sub> | **1.34%** <sub>(19 m)</sub> |
@@ -155,9 +155,9 @@ RPE is drift %/100 m; ATE in parens.
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | Spectral-LO | 4.052% <sub>(61 m)</sub> | 7.165% <sub>(34 m)</sub> | arXiv:2005.02042 |
-| **InTEn-LOAM** | **52.695%** <sub>(1459 m)</sub> | **67.497%** <sub>(448 m)</sub> | RS 2022/23 |
+| **InTEn-LOAM** | **52.504%** <sub>(1461 m)</sub> | **67.235%** <sub>(432 m)</sub> | RS 2022/23 |
 | **R-VoxelMap** | **58.328%** <sub>(1872 m)</sub> | **35.809%** <sub>(103 m)</sub> | arXiv:2601.12377 |
-| **PL-LOAM** | **90.098%** <sub>(278 m)</sub> | **87.386%** <sub>(128 m)</sub> | ICRA 2020 |
+| **PL-LOAM** | **90.100%** <sub>(278 m)</sub> | **87.377%** <sub>(128 m)</sub> | ICRA 2020 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
@@ -217,7 +217,7 @@ This is mechanism stress evidence, not a public dynamic-dataset claim.
 bounded 1-pixel projective lookup; it remains below the scan-to-map leaders but
 is no longer a degradation case. Honest negatives: Spectral-LO
 (ICP-free BEV phase-correlation, fast at ~29–30 FPS but still coarse ~4–7%),
-**InTEn-LOAM** (cylindrical intensity LO without DOR/mapping, ~53–67% drift),
+**InTEn-LOAM** (cylindrical intensity LO with TVF/DOR but no mapping, ~53–67% drift),
 **PL-LOAM** (LiDAR-visual point+line on LiDAR-intensity pseudo-image without
 RGB, ~87–90% drift after the intensity-rendered feature fix),
 and **R-VoxelMap** (recursive plane voxel map, no longer diverges but still

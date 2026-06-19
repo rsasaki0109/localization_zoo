@@ -55,7 +55,7 @@ Bundles: `docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_ablation.
 
 | Variant | Drift | ATE [m] | Notes |
 |---------|------:|--------:|-------|
-| **no_mapping** (scan-to-scan) | **52.7%** | 1459 | baseline; matches original eval |
+| **no_mapping** (scan-to-scan) | **52.5%** | 1461 | baseline main artifact |
 | mapping_only (no TVF/DOR) | 60.6% | 826 | mapping **hurts** drift on long seq |
 | no_dor | 60.6% | 864 | |
 | full (TVF+DOR+mapping) | 68.4% | 531 | best ATE but worse drift |
@@ -66,15 +66,15 @@ Bundles: `docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_ablation.
 
 | Variant | Drift | ATE [m] | Notes |
 |---------|------:|--------:|-------|
-| **no_mapping** (scan-to-scan) | **67.4%** | 442 | baseline; matches original 67.5% |
+| **no_mapping** (scan-to-scan) | **67.2%** | 432 | baseline main artifact |
 | mapping_only / no_tvf_no_dor | 67.9% | 308 | mapping ≈ neutral on drift |
 | no_dor | 67.9% | 301 | |
 | full / no_tvf / no_intensity | 71.7% | 200–218 | TVF+mapping **hurts** drift |
 
 **Honest negative — ablation findings.** Scan-to-scan (`--inten-loam-no-mapping`)
 remains the best **drift** config on both full sequences. Scan-to-map mapping
-lowers ATE on seq07 (442→~300 m) but does not improve RPE drift; on long seq00
-mapping **increases** drift (52.7%→60.6%). TVF/DOR/intensity with mapping do not
+lowers ATE on seq07 (432→~300 m) but does not improve RPE drift; on long seq00
+mapping **increases** drift (52.5%→60.6%). TVF/DOR/intensity with mapping do not
 rescue KITTI odometry (~53–72% drift vs paper ~0.54%). The 200-frame prefix
 (56.5% with mapping) was **not representative** of full-sequence behavior.
 

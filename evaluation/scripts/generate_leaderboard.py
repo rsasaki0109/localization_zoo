@@ -39,7 +39,7 @@ END_MARKER = "<!-- LEADERBOARD:END -->"
 # Leaderboard columns: the five canonical KITTI Odometry full sequences (the
 # broadest, densest multi-method coverage and the most recognized benchmark).
 COLUMNS = [
-    ("dogfooding_results/kitti_seq_00_full", "Seq 00", "4542 fr"),
+    ("dogfooding_results/kitti_seq_00_full", "Seq 00", "4541 fr"),
     ("dogfooding_results/kitti_seq_02_full", "Seq 02", "4661 fr"),
     ("dogfooding_results/kitti_seq_05_full", "Seq 05", "2761 fr"),
     ("dogfooding_results/kitti_seq_07_full", "Seq 07", "1101 fr"),

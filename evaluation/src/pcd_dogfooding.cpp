@@ -2176,7 +2176,7 @@ struct SpectralLoDogfoodingOptions {
   double source_voxel_size = 0.0;  // full cloud (BEV ラスタに密度が要る)
   size_t max_source_points = 200000;
   int bev_size = 256;
-  double bev_range = 60.0;
+  double bev_range = 40.0;
   double max_range = 80.0;
   double z_min = -3.0;
   double z_max = 3.0;

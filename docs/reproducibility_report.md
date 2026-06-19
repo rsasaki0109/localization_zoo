@@ -162,9 +162,9 @@ Honest negatives, kept in the leaderboard rather than dropped:
 - **DiLO** (18–19 %): direct projective alignment is the fastest method in the
   repo (25–32 FPS) but frame-to-keyframe composition accumulates drift that
   scan-to-map methods do not.
-- **Spectral-LO** (12–14 %): FFT phase-correlation odometry runs at ~14 FPS
-  with zero divergence — honest fast-but-coarse; BEV cell quantization
-  (~0.47 m) is the structural floor.
+- **Spectral-LO** (~10 %): FFT phase-correlation odometry runs at ~25–27 FPS
+  with zero divergence — honest fast-but-coarse; the tighter 40 m BEV window
+  improves RPE, while absolute ATE remains higher than scan-to-map methods.
 - **R-VoxelMap** diverges on seq 07; **UA-LIO** diverges on both; **IMLS-SLAM**
   on a voxelized map degenerates to plain point-to-plane (1.0 %) — the implicit
   surface needs the native point density the paper assumes.

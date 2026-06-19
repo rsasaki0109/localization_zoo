@@ -78,10 +78,36 @@ STABLE_FULL_SEQUENCE_ARTIFACTS = {
         "00": {
             "path": "docs/benchmarks/kitti_full_new_methods/seq00_ua_lio.json",
             "frames": 4541,
+            "max_rpe_trans_pct": 2.0,
         },
         "07": {
             "path": "docs/benchmarks/kitti_full_new_methods/seq07_ua_lio.json",
             "frames": 1101,
+            "max_rpe_trans_pct": 2.0,
+        },
+    },
+    "PL-LOAM": {
+        "00": {
+            "path": "docs/benchmarks/kitti_full_new_methods/seq00_pl_loam.json",
+            "frames": 4541,
+            "max_rpe_trans_pct": 100.0,
+        },
+        "07": {
+            "path": "docs/benchmarks/kitti_full_new_methods/seq07_pl_loam.json",
+            "frames": 1101,
+            "max_rpe_trans_pct": 100.0,
+        },
+    },
+    "InTEn-LOAM": {
+        "00": {
+            "path": "docs/benchmarks/kitti_full_new_methods/seq00_inten_loam.json",
+            "frames": 4541,
+            "max_rpe_trans_pct": 70.0,
+        },
+        "07": {
+            "path": "docs/benchmarks/kitti_full_new_methods/seq07_inten_loam.json",
+            "frames": 1101,
+            "max_rpe_trans_pct": 70.0,
         },
     },
 }
@@ -394,6 +420,12 @@ def validate_stable_full_sequence_artifacts(root: Path) -> None:
             for field in ("ate_m", "rpe_trans_pct", "fps"):
                 if not finite_number(method.get(field)) or float(method[field]) <= 0.0:
                     raise SystemExit(f"{label} has invalid {field}: {method.get(field)}")
+            max_rpe = spec.get("max_rpe_trans_pct")
+            if max_rpe is not None and float(method["rpe_trans_pct"]) > float(max_rpe):
+                raise SystemExit(
+                    f"{label} exceeds stable RPE guard: "
+                    f"{method['rpe_trans_pct']} > {max_rpe}"
+                )
 
 
 def validate_scan2d_benchmarks(root: Path) -> None:

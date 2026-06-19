@@ -1910,6 +1910,10 @@ struct RVoxelMapDogfoodingOptions {
   double max_iteration_translation = 0.0;
   double max_iteration_rotation = 0.0;
   double min_map_matched_ratio = 0.0;
+  double max_registration_translation = 3.0;
+  double max_registration_rotation = 0.5;
+  double max_map_fallback_translation_delta = 0.0;
+  double max_map_fallback_rotation_delta = 0.0;
   bool enable_scan_to_scan_fallback = false;
   double fallback_max_correspondence_dist = 1.5;
   double min_fallback_matched_ratio = 0.05;
@@ -6021,6 +6025,12 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
   params.max_iteration_translation = options.max_iteration_translation;
   params.max_iteration_rotation = options.max_iteration_rotation;
   params.min_map_matched_ratio = options.min_map_matched_ratio;
+  params.max_registration_translation = options.max_registration_translation;
+  params.max_registration_rotation = options.max_registration_rotation;
+  params.max_map_fallback_translation_delta =
+      options.max_map_fallback_translation_delta;
+  params.max_map_fallback_rotation_delta =
+      options.max_map_fallback_rotation_delta;
   params.enable_scan_to_scan_fallback =
       options.enable_scan_to_scan_fallback;
   params.fallback_max_correspondence_dist =
@@ -6036,6 +6046,7 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
   int matched_n = 0;
   double fallback_sum = 0.0;
   int fallback_count = 0;
+  int fallback_disagreement_count = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -6048,6 +6059,7 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
     if (result.used_fallback) {
       fallback_sum += result.fallback_matched_ratio;
       ++fallback_count;
+      if (result.fallback_disagreement) ++fallback_disagreement_count;
     }
     res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
     if (i % 10 == 0) {
@@ -6070,8 +6082,14 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
       std::string(options.enable_scan_to_scan_fallback
                       ? "; scan-to-scan fallback on low map correspondence"
                       : "") +
+      std::string(options.max_map_fallback_translation_delta > 0.0 ||
+                          options.max_map_fallback_rotation_delta > 0.0
+                      ? " and map/fallback disagreement"
+                      : "") +
       "). mean_matched_ratio=" + std::to_string(mean_matched) +
       " fallback_rate_pct=" + std::to_string(fallback_rate) +
+      " fallback_disagreement_count=" +
+      std::to_string(fallback_disagreement_count) +
       " mean_fallback_ratio=" + std::to_string(mean_fallback);
   return res;
 }
@@ -12182,6 +12200,10 @@ int main(int argc, char** argv) {
       r_voxelmap_options.max_iteration_translation = 0.5;
       r_voxelmap_options.max_iteration_rotation = 0.1;
       r_voxelmap_options.min_map_matched_ratio = 0.03;
+      r_voxelmap_options.max_registration_translation = 1.0;
+      r_voxelmap_options.max_registration_rotation = 0.20;
+      r_voxelmap_options.max_map_fallback_translation_delta = 0.20;
+      r_voxelmap_options.max_map_fallback_rotation_delta = 0.04;
       r_voxelmap_options.enable_scan_to_scan_fallback = true;
       r_voxelmap_options.local_map_radius = 80.0;
       r_voxelmap_options.map_cleanup_interval = 6;
@@ -12190,6 +12212,26 @@ int main(int argc, char** argv) {
     if (arg == "--r-voxelmap-max-depth") {
       if (i + 1 >= argc) { std::cerr << "--r-voxelmap-max-depth requires a value" << std::endl; return 1; }
       r_voxelmap_options.max_depth = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--r-voxelmap-max-registration-translation") {
+      if (i + 1 >= argc) { std::cerr << "--r-voxelmap-max-registration-translation requires a value" << std::endl; return 1; }
+      r_voxelmap_options.max_registration_translation = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--r-voxelmap-max-registration-rotation") {
+      if (i + 1 >= argc) { std::cerr << "--r-voxelmap-max-registration-rotation requires a value" << std::endl; return 1; }
+      r_voxelmap_options.max_registration_rotation = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--r-voxelmap-map-fallback-translation-delta") {
+      if (i + 1 >= argc) { std::cerr << "--r-voxelmap-map-fallback-translation-delta requires a value" << std::endl; return 1; }
+      r_voxelmap_options.max_map_fallback_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--r-voxelmap-map-fallback-rotation-delta") {
+      if (i + 1 >= argc) { std::cerr << "--r-voxelmap-map-fallback-rotation-delta requires a value" << std::endl; return 1; }
+      r_voxelmap_options.max_map_fallback_rotation_delta = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--damm-loam-fast-profile") {
@@ -14650,6 +14692,9 @@ int main(int argc, char** argv) {
               << " max_depth=" << r_voxelmap_options.max_depth
               << " inlier_dist=" << r_voxelmap_options.inlier_dist
               << " max_iterations=" << r_voxelmap_options.max_icp_iterations
+              << " map_fallback_delta="
+              << r_voxelmap_options.max_map_fallback_translation_delta << "m/"
+              << r_voxelmap_options.max_map_fallback_rotation_delta << "rad"
               << std::endl;
     results.push_back(runRVoxelMap(pcd_dirs, gt, r_voxelmap_options));
   }

@@ -110,6 +110,8 @@ struct RVoxelMapParams {
   double min_map_matched_ratio = 0.0;
   double max_registration_translation = 3.0;
   double max_registration_rotation = 0.5;
+  double max_map_fallback_translation_delta = 0.0;
+  double max_map_fallback_rotation_delta = 0.0;
 
   bool enable_scan_to_scan_fallback = false;
   int fallback_max_iterations = 12;
@@ -126,6 +128,7 @@ struct RVoxelMapResult {
   int iterations = 0;
   double matched_ratio = 0.0;  ///< 平面対応が取れた点の割合
   bool used_fallback = false;
+  bool fallback_disagreement = false;
   double fallback_matched_ratio = 0.0;
 };
 

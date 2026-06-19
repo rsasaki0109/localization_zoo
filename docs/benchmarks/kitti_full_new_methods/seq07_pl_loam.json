@@ -3,19 +3,19 @@
   "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
   "num_frames": 1101,
   "trajectory_length_m": 694.390333,
-  "timestamp_source": "sampled GT timestamps",
+  "timestamp_source": "frame_timestamps.csv",
   "methods": [
     {
       "name": "PL-LOAM",
       "status": "ok",
-      "ate_m": 271.307647,
-      "rpe_trans_pct": 116.899078,
-      "rpe_rot_deg_per_m": 1.312456,
+      "ate_m": 128.005568,
+      "rpe_trans_pct": 87.38642,
+      "rpe_rot_deg_per_m": 1.229366,
       "frames": 1102,
-      "time_ms": 10123.145,
-      "fps": 108.862,
+      "time_ms": 19426.83762,
+      "fps": 56.72565,
       "seed_fallback_rate_pct": null,
-      "note": "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with depth priors in PL-BA on KITTI-projected pseudo-image; no GT seed. mean_scale_correction=1.005 mean_depth_prior_residual=3.70"
+      "note": "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with depth priors in PL-BA; no GT seed. eval=intensity-pseudo-image mean_scale_correction=0.987883 mean_depth_prior_residual=1.808264 intensity_dilation_radius=2 rgb_frames=0"
     }
   ]
 }

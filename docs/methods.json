@@ -1076,7 +1076,7 @@
         "Camera"
       ],
       "href": "papers/pl_loam",
-      "summary": "PL-LOAM (ICRA 2020): LiDAR-monocular point+line visual odometry with robust LiDAR depth extraction and depth-prior point-line bundle adjustment plus scale correction. KITTI Odometry eval uses LiDAR-projected pseudo-images (no RGB in odometry benchmark).",
+      "summary": "PL-LOAM (ICRA 2020): LiDAR-monocular point+line visual odometry with robust LiDAR depth extraction and depth-prior point-line bundle adjustment plus scale correction. KITTI Odometry eval uses LiDAR-intensity pseudo-images with LiDAR depth priors because RGB is absent from the odometry benchmark.",
       "tags": [
         "odometry",
         "lidar-visual",

@@ -147,9 +147,25 @@ def _table(cells, methods, metric):
     return "\n".join(lines)
 
 
-def render_block(cells: dict) -> str:
+PRESERVED_SECTION_MARKER = "\n### From-paper reimplementations"
+
+
+def extract_preserved_section(readme: str) -> str:
+    """Keep manually curated sections that live below the generated odometry table."""
+    if START_MARKER not in readme or END_MARKER not in readme:
+        return ""
+    inner = readme.split(START_MARKER, 1)[1].split(END_MARKER, 1)[0]
+    if PRESERVED_SECTION_MARKER not in inner:
+        return ""
+    return inner[inner.index(PRESERVED_SECTION_MARKER):].strip()
+
+
+def render_block(cells: dict, preserved_section: str = "") -> str:
     odom_table = _table(cells, ODOMETRY, "rpe")
     explorer = "https://rsasaki0109.github.io/localization_zoo/"
+    preserved = ""
+    if preserved_section:
+        preserved = "\n\n" + preserved_section.strip()
     return f"""{START_MARKER}
 ## Leaderboard — odometry, RPE [drift %/100 m], lower is better
 
@@ -169,6 +185,7 @@ broken port._
 > (`--no-gt-seed` → 87% RPE, the worst tracker), while GICP's larger ATE is real
 > registration. They need a GT prior and aren't standalone odometry, so they are
 > not ranked.
+{preserved}
 {END_MARKER}"""
 
 
@@ -192,13 +209,13 @@ def main() -> int:
     args = parser.parse_args()
 
     cells = collect_cells()
-    block = render_block(cells)
+    readme = README_PATH.read_text()
+    block = render_block(cells, extract_preserved_section(readme))
 
     if args.print_only:
         print(block)
         return 0
 
-    readme = README_PATH.read_text()
     updated = inject(readme, block)
 
     if args.check:

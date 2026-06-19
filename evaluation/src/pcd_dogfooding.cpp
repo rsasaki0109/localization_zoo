@@ -1589,6 +1589,8 @@ struct PlLoamDogfoodingOptions {
   bool use_depth_prior = true;
   bool use_line_features = true;
   bool use_scale_correction = true;
+  bool use_intensity_pseudo_image = true;
+  int intensity_dilation_radius = 2;
   double depth_prior_weight = 1.0;
   int ceres_max_iterations = 12;
   /// KITTI Raw RGB root (drive_*_sync dir). Empty → pseudo-image.
@@ -4273,6 +4275,8 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   params.use_depth_prior = options.use_depth_prior;
   params.use_line_features = options.use_line_features;
   params.use_scale_correction = options.use_scale_correction;
+  params.use_intensity_pseudo_image = options.use_intensity_pseudo_image;
+  params.intensity_dilation_radius = options.intensity_dilation_radius;
   params.depth_prior_weight = options.depth_prior_weight;
   params.ceres_max_iterations = options.ceres_max_iterations;
   params.use_rgb_features = options.use_rgb;
@@ -4349,9 +4353,14 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   res.note =
       std::string("PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with "
                   "depth priors in PL-BA; no GT seed. eval=") +
-      (options.use_rgb ? "KITTI-Raw-RGB" : "pseudo-image") +
+      (options.use_rgb ? "KITTI-Raw-RGB"
+                       : (options.use_intensity_pseudo_image
+                              ? "intensity-pseudo-image"
+                              : "depth-pseudo-image")) +
       " mean_scale_correction=" + std::to_string(mean_scale) +
       " mean_depth_prior_residual=" + std::to_string(mean_depth_res) +
+      " intensity_dilation_radius=" +
+      std::to_string(options.intensity_dilation_radius) +
       " rgb_frames=" + std::to_string(rgb_frames);
   return res;
 }
@@ -9972,6 +9981,8 @@ int main(int argc, char** argv) {
               << " [--ct-lio-fixed-lag-history-decay W]"
               << " [--ct-lio-fixed-lag-outer-iterations N]"
               << " [--ct-lio-fixed-lag-smoother]"
+              << " [--pl-loam-depth-pseudo-image]"
+              << " [--pl-loam-intensity-dilation N]"
               << " [--seed-perturb-x M] [--seed-perturb-y M]"
               << " [--seed-perturb-z M] [--seed-perturb-yaw-deg DEG]"
               << " [--no-gt-seed] [--ct-icp-gt-seed]" << std::endl;
@@ -10871,6 +10882,14 @@ int main(int argc, char** argv) {
     }
     if (arg == "--pl-loam-no-scale") {
       pl_loam_options.use_scale_correction = false;
+      continue;
+    }
+    if (arg == "--pl-loam-depth-pseudo-image") {
+      pl_loam_options.use_intensity_pseudo_image = false;
+      continue;
+    }
+    if (arg == "--pl-loam-intensity-dilation" && i + 1 < argc) {
+      pl_loam_options.intensity_dilation_radius = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--pl-loam-stride" && i + 1 < argc) {

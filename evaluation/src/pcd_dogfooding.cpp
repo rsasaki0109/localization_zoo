@@ -6939,7 +6939,9 @@ MethodResult runSpectralLo(const std::vector<std::string>& pcd_dirs,
   res.note =
       "Spectral-LO: frequency-domain BEV odometry; Fourier-Mellin log-polar "
       "phase correlation for yaw + phase-only correlation for translation "
-      "(3-DoF, z held); no ICP, no GT seed. mean_translation_peak=" +
+      "(3-DoF, z held); no ICP, no GT seed. bev_size=" +
+      std::to_string(options.bev_size) + " bev_range=" +
+      std::to_string(options.bev_range) + " mean_translation_peak=" +
       std::string(buf);
   return res;
 }

@@ -45,8 +45,8 @@ and each module's README records its per-method deviations.
 | **Competitive, mechanism auxiliary** | DegenSense, D²-LIO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
 | **Near-redundant on KITTI** (mechanism correct, no effect) | MCC-LO, GMM-LO, Student-T-LO, GNC-LO, PCR-DAT |
 | **Trade-off exposed** | LiDAR-IBA (ATE↓ / RPE↑), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
-| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO |
-| **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, DiLO, PL-LOAM, VLOM, InTEn-LOAM |
+| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO, DiLO |
+| **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, PL-LOAM, VLOM, InTEn-LOAM |
 
 The full per-method numbers are in the README's from-paper table;
 this report focuses on *why* each method lands where it does.
@@ -137,6 +137,12 @@ points/frame**, but on mostly static KITTI it degrades drift to **1.35 % / 1.27
 %** versus the delayed-removal ID-LIO baseline. The mechanism is designed for
 high-dynamic scenes, not for this static urban benchmark.
 
+DiLO is now stable rather than a degradation case after adding bounded 1-pixel
+projective lookup in the spherical range image. It runs at **1.20 % / 1.53 %**
+RPE on KITTI seq 00/07 while staying fast (~65 FPS), but still trails the best
+scan-to-map rows because it remains a direct frame-to-keyframe front-end rather
+than a persistent local-map estimator.
+
 The committed synthetic dynamic-object stress makes that caveat reproducible
 without external data. `evaluation/scripts/run_dynamic_object_stress.py`
 generates clean and crossing-object fixtures, then writes
@@ -159,9 +165,6 @@ Honest negatives, kept in the leaderboard rather than dropped:
   drift — the simplified visual tracker, not the missing camera, is the
   bottleneck. Reproducing these papers requires the full ORB-SLAM2-class
   stack they build on.
-- **DiLO** (18–19 %): direct projective alignment is the fastest method in the
-  repo (25–32 FPS) but frame-to-keyframe composition accumulates drift that
-  scan-to-map methods do not.
 - **Spectral-LO** (~10 %): FFT phase-correlation odometry runs at ~25–27 FPS
   with zero divergence — honest fast-but-coarse; the tighter 40 m BEV window
   improves RPE, while absolute ATE remains higher than scan-to-map methods.

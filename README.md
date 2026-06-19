@@ -146,11 +146,11 @@ RPE is drift %/100 m; ATE in parens.
 | ID-LIO | 1.111% <sub>(15 m)</sub> | 0.999% <sub>(5 m)</sub> | Sensors 2023 |
 | ELO | 1.124% <sub>(23 m)</sub> | 0.981% <sub>(4 m)</sub> | IEEE RA-L 2021 |
 | UA-LIO | 1.132% <sub>(33 m)</sub> | 0.967% <sub>(3 m)</sub> | IEEE TIM 2025 |
+| DiLO | 1.200% <sub>(39 m)</sub> | 1.533% <sub>(7 m)</sub> | ETRI J. 2021 |
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | Spectral-LO | 10.730% <sub>(128 m)</sub> | 10.232% <sub>(55 m)</sub> | arXiv:2005.02042 |
-| DiLO | 18.305% <sub>(226 m)</sub> | 18.966% <sub>(159 m)</sub> | ETRI J. 2021 |
 | **PL-LOAM** | **143.211%** <sub>(3016 m)</sub> | **116.899%** <sub>(271 m)</sub> | ICRA 2020 |
 | **VLOM** | **91.465%** <sub>(249 m)</sub> | **153.868%** <sub>(439 m)</sub> | arXiv:2304.08978 |
 | **InTEn-LOAM** | **52.695%** <sub>(1459 m)</sub> | **67.497%** <sub>(448 m)</sub> | RS 2022/23 |
@@ -206,8 +206,10 @@ ID-LIO degrades from 0.676 m clean ATE to 130.549 m with crossing foreground
 boxes, RF-LIO degrades from 2.487 m to 49.932 m, and a conservative RF removal
 cap improves that to 41.632 m
 ([`rf_id_lio_dynamic_object_stress_summary.json`](docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json)).
-This is mechanism stress evidence, not a public dynamic-dataset claim. Honest negatives:
-DiLO (direct, 18–19% drift), Spectral-LO
+This is mechanism stress evidence, not a public dynamic-dataset claim.
+**DiLO** is now a stable direct-SRI row (1.20% / 1.53% at ~65 FPS) after
+bounded 1-pixel projective lookup; it remains below the scan-to-map leaders but
+is no longer a degradation case. Honest negatives: Spectral-LO
 (ICP-free BEV phase-correlation, fast at ~25–27 FPS but coarse ~10%),
 **PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),
 **VLOM** (scale-corrected visual bootstrap A-LOAM on pseudo-image, ~91–154% drift),

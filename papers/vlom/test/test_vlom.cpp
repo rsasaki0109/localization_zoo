@@ -43,6 +43,13 @@ TEST(Vlom, CamVeloRoundtrip) {
   EXPECT_NEAR(T_cam2(0, 3), T_cam(0, 3), 1e-3);
 }
 
+TEST(Vlom, DefaultsToIntensityPseudoImageForKittiOdometry) {
+  const VlomParams params;
+  EXPECT_TRUE(params.visual.use_intensity_pseudo_image);
+  EXPECT_EQ(params.visual.intensity_dilation_radius, 2);
+  EXPECT_FALSE(params.visual.use_rgb_features);
+}
+
 TEST(Vlom, ClearResetsState) {
   Vlom pipeline;
   pipeline.clear();

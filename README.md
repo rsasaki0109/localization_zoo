@@ -157,7 +157,7 @@ RPE is drift %/100 m; ATE in parens.
 | Spectral-LO | 10.730% <sub>(128 m)</sub> | 10.232% <sub>(55 m)</sub> | arXiv:2005.02042 |
 | **InTEn-LOAM** | **52.695%** <sub>(1459 m)</sub> | **67.497%** <sub>(448 m)</sub> | RS 2022/23 |
 | **PL-LOAM** | **90.098%** <sub>(278 m)</sub> | **87.386%** <sub>(128 m)</sub> | ICRA 2020 |
-| **VLOM** | **91.465%** <sub>(249 m)</sub> | **153.868%** <sub>(439 m)</sub> | arXiv:2304.08978 |
+| **VLOM** | **89.152%** <sub>(315 m)</sub> | **81.599%** <sub>(141 m)</sub> | arXiv:2304.08978 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
@@ -217,7 +217,8 @@ is no longer a degradation case. Honest negatives: Spectral-LO
 **InTEn-LOAM** (cylindrical intensity LO without DOR/mapping, ~53–67% drift),
 **PL-LOAM** (LiDAR-visual point+line on LiDAR-intensity pseudo-image without
 RGB, ~87–90% drift after the intensity-rendered feature fix),
-**VLOM** (scale-corrected visual bootstrap A-LOAM on pseudo-image, ~91–154% drift),
+**VLOM** (scale-corrected visual bootstrap A-LOAM on LiDAR-intensity pseudo-image,
+~82–89% drift; seq07 fixed, seq00 ATE worsens),
 and R-VoxelMap (diverges seq 07). Per-method caveats live in the
 module READMEs; raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).

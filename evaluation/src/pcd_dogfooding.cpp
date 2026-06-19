@@ -1646,6 +1646,8 @@ struct VlomDogfoodingOptions {
   int scale_correction_interval = 5;
   double mad_outlier_k = 2.5;
   bool enable_mapping = true;
+  bool use_intensity_pseudo_image = true;
+  int intensity_dilation_radius = 2;
 
   int n_scans = 64;
   float scan_period = 0.1f;
@@ -4579,6 +4581,8 @@ MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
   params.visual.max_point_features = options.max_point_features;
   params.visual.max_line_features = options.max_line_features;
   params.visual.use_rgb_features = options.use_rgb;
+  params.visual.use_intensity_pseudo_image = options.use_intensity_pseudo_image;
+  params.visual.intensity_dilation_radius = options.intensity_dilation_radius;
   if (options.use_rgb) {
     params.visual.camera =
         options.rgb_half_res
@@ -4671,14 +4675,18 @@ MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  char note_buf[160];
+  char note_buf[240];
   std::snprintf(
       note_buf, sizeof(note_buf),
       "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM; "
-      "eval=%s; no GT seed. mean_scale=%.3f bootstrap_frames=%ld rgb_frames=%ld",
-      options.use_rgb ? "KITTI-Raw-RGB" : "pseudo-image",
+      "eval=%s; no GT seed. mean_scale=%.3f bootstrap_frames=%ld rgb_frames=%ld"
+      " intensity_dilation_radius=%d",
+      options.use_rgb ? "KITTI-Raw-RGB"
+                      : (options.use_intensity_pseudo_image
+                             ? "intensity-pseudo-image"
+                             : "depth-pseudo-image"),
       scale_frames ? scale_acc / static_cast<double>(scale_frames) : 1.0,
-      bootstrap_frames, rgb_frames);
+      bootstrap_frames, rgb_frames, options.intensity_dilation_radius);
   res.note = note_buf;
   return res;
 }
@@ -9983,6 +9991,8 @@ int main(int argc, char** argv) {
               << " [--ct-lio-fixed-lag-smoother]"
               << " [--pl-loam-depth-pseudo-image]"
               << " [--pl-loam-intensity-dilation N]"
+              << " [--vlom-depth-pseudo-image]"
+              << " [--vlom-intensity-dilation N]"
               << " [--seed-perturb-x M] [--seed-perturb-y M]"
               << " [--seed-perturb-z M] [--seed-perturb-yaw-deg DEG]"
               << " [--no-gt-seed] [--ct-icp-gt-seed]" << std::endl;
@@ -11023,6 +11033,14 @@ int main(int argc, char** argv) {
     }
     if (arg == "--vlom-no-scale") {
       vlom_options.enable_scale_correction = false;
+      continue;
+    }
+    if (arg == "--vlom-depth-pseudo-image") {
+      vlom_options.use_intensity_pseudo_image = false;
+      continue;
+    }
+    if (arg == "--vlom-intensity-dilation" && i + 1 < argc) {
+      vlom_options.intensity_dilation_radius = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--vlom-rgb-root" && i + 1 < argc) {

@@ -44,7 +44,7 @@ and each module's README records its per-method deviations.
 | **Claim reproduces** | I-LOAM, KC-LO, M-GCLO, Quadric-LO, Adaptive-ICP, TrICP-LO (partial) |
 | **Competitive, mechanism auxiliary** | DegenSense, D²-LIO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
 | **Near-redundant on KITTI** (mechanism correct, no effect) | MCC-LO, GMM-LO, Student-T-LO, GNC-LO, PCR-DAT |
-| **Trade-off exposed** | LiDAR-IBA (ATE↓ / RPE↑), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
+| **Trade-off exposed** | LiDAR-IBA (RPE↓ / ATE↑ with no-BA profile), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
 | **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, VLOM, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO, DiLO |
 | **Degrades / high drift** | IMLS-SLAM, R-VoxelMap, PL-LOAM, InTEn-LOAM |
 
@@ -53,8 +53,8 @@ this report focuses on *why* each method lands where it does.
 
 ## Finding 1 — Several no-code papers beat the strongest open baselines
 
-The headline positive result: **the top ten from-paper reimplementations match
-or beat KISS-ICP on seq 00**, and all ten also beat it on seq 07.
+The headline positive result: **the strongest from-paper reimplementations match
+or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
 
 - **DegenSense / D²-LIO** are now competitive no-IMU KITTI fallbacks
   (0.811-0.814 % on seq 00, 0.541-0.558 % on seq 07). The key fix was
@@ -74,6 +74,11 @@ or beat KISS-ICP on seq 00**, and all ten also beat it on seq 07.
   shows that fixed σ=0.4 m keeps RPE within 1 % of the annealed profile while
   improving throughput from ~1.4 FPS to 2.6-3.1 FPS; annealing is a convergence
   safety knob here, not the main positive signal.
+- **LiDAR-IBA** now uses the no-BA KITTI profile for the public full-sequence
+  artifacts. Disabling sliding-window BA cuts translational RPE to **0.841 % /
+  0.633 %** and raises throughput to about **3.1 FPS**, but whole-run ATE
+  worsens to **11.34 m / 1.34 m**. This is a local-drift/throughput win, not a
+  global-consistency win.
 - **M-GCLO** (ISPRS Ann. 2024) leads the paper-mechanism seq 00 row
   (0.835 %) via multiple ground-plane constraints. The committed ground-factor
   ablation shows the mechanism is mostly an anchoring/stability term under this
@@ -215,7 +220,8 @@ one divergence before being learned:
 5. **Ground/terrain constraints trade local drift, attitude, and ATE.**
    M-GCLO's ground-factor ablation shows that KITTI translational RPE alone can
    miss the mechanism: ground off is similar or lower in translational RPE, but
-   worse in ATE and rotational drift. LiDAR-IBA's FEJ shows a related split.
+   worse in ATE and rotational drift. LiDAR-IBA's no-BA profile shows a related
+   split: lower RPE and higher throughput, but worse ATE.
 6. **Intensity helps as a weight, not as a metric.** I-LOAM's
    correspondence-level injection reproduces (−18–20 %); fusing intensity into
    the distance metric is at best weakly effective (MCGICP-LO, ICPSC-LO learns

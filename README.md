@@ -116,6 +116,7 @@ RPE is drift %/100 m; ATE in parens.
 | D2-LIO | 0.814% <sub>(11 m)</sub> | 0.541% <sub>(1 m)</sub> | arXiv:2508.14355 |
 | M-GCLO | 0.835% <sub>(19 m)</sub> | 0.671% <sub>(2 m)</sub> | ISPRS Ann. 2024 |
 | KC-LO | 0.837% <sub>(13 m)</sub> | **0.510%** <sub>(1 m)</sub> | ECCV 2004 |
+| LiDAR-IBA | 0.841% <sub>(11 m)</sub> | 0.633% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | LODESTAR | 0.848% <sub>(7 m)</sub> | 0.598% <sub>(1 m)</sub> | arXiv:2511.09142 |
 | Terrain-RBF-LIO | 0.849% <sub>(8 m)</sub> | 0.587% <sub>(1 m)</sub> | arXiv:2509.26222 |
 | DALI-SLAM | 0.849% <sub>(8 m)</sub> | 0.600% <sub>(1 m)</sub> | ISPRS JPRS 2025 |
@@ -153,7 +154,6 @@ RPE is drift %/100 m; ATE in parens.
 | DiLO | 1.200% <sub>(39 m)</sub> | 1.533% <sub>(7 m)</sub> | ETRI J. 2021 |
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
-| LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | Spectral-LO | 2.901% <sub>(67 m)</sub> | 4.127% <sub>(27 m)</sub> | arXiv:2005.02042 |
 | **InTEn-LOAM** | **19.450%** <sub>(309 m)</sub> | **29.550%** <sub>(227 m)</sub> | RS 2022/23 |
 | **R-VoxelMap** | **45.769%** <sub>(894 m)</sub> | **3.267%** <sub>(11 m)</sub> | arXiv:2601.12377 |
@@ -161,8 +161,8 @@ RPE is drift %/100 m; ATE in parens.
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-The top ten (DegenSense through Intensity-Flow) **match or beat KISS-ICP on
-seq-00**, and all of them also beat it on **seq-07** — well clear of CT-ICP.
+The strongest rows (DegenSense through CUBE-LIO) **match or beat KISS-ICP on
+seq-00**, and most also beat it on **seq-07** — well clear of CT-ICP.
 **DegenSense** and **D2-LIO** now run as LiDAR-only no-IMU fallbacks on KITTI:
 degeneracy sensing remains diagnostic, but IMU compensation/regularization is
 disabled unless a real IMU packet is integrated, avoiding the previous
@@ -183,6 +183,10 @@ and beats KISS-ICP on both sequences — at a heavy throughput cost
 (~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine
 annealing). Its sigma-schedule ablation is committed as
 [`kc_lo_sigma_schedule_ablation.json`](docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json).
+**LiDAR-IBA** is now reported with the no-BA KITTI profile: disabling the sliding
+window BA improves translational RPE to 0.841% / 0.633% and raises throughput to
+~3.1 FPS, while whole-run ATE worsens. This is an honest local-drift vs
+global-drift trade-off, not a universal accuracy win.
 **Quadric-LO** is also frozen in the paper-ready bundle: plane fallback is rare
 on KITTI (~0.5-0.6% of correspondences), and disabling it keeps RPE within
 ~1.5% while improving throughput by 1.6-1.8x

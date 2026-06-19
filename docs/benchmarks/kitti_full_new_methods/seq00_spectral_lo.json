@@ -13,7 +13,7 @@
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
   "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "fdc19dd1512c77ae165fb1cc2a90fe2f2c85c7f4",
+  "evaluator_git_commit": "5c2fd6b1c6125f107d83600314c2800c6a8cfd83",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_00_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -58,14 +58,14 @@
     {
       "name": "Spectral-LO",
       "status": "ok",
-      "ate_m": 61.148006,
-      "rpe_trans_pct": 4.051638,
-      "rpe_rot_deg_per_m": 0.040852,
+      "ate_m": 66.647804,
+      "rpe_trans_pct": 2.900530,
+      "rpe_rot_deg_per_m": 0.033678,
       "frames": 4541,
-      "time_ms": 156822.673413,
-      "fps": 28.956272,
+      "time_ms": 461188.004687,
+      "fps": 9.846310,
       "seed_fallback_rate_pct": null,
-      "note": "Spectral-LO: frequency-domain BEV odometry; Fourier-Mellin log-polar phase correlation for yaw + phase-only correlation for translation (3-DoF, z held); no ICP, no GT seed. mean_translation_peak=0.602"
+      "note": "Spectral-LO: frequency-domain BEV odometry; Fourier-Mellin log-polar phase correlation for yaw + phase-only correlation for translation (3-DoF, z held); no ICP, no GT seed. bev_size=512 bev_range=45.000000 mean_translation_peak=0.528"
     }
   ]
 }

@@ -45,8 +45,8 @@ and each module's README records its per-method deviations.
 | **Competitive, mechanism auxiliary** | DegenSense, D²-LIO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
 | **Near-redundant on KITTI** (mechanism correct, no effect) | MCC-LO, GMM-LO, Student-T-LO, GNC-LO, PCR-DAT |
 | **Trade-off exposed** | LiDAR-IBA (ATE↓ / RPE↑), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
-| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO |
-| **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, DiLO, PL-LOAM, VLOM, InTEn-LOAM, UA-LIO |
+| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO |
+| **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, DiLO, PL-LOAM, VLOM, InTEn-LOAM |
 
 The full per-method numbers are in the README's from-paper table;
 this report focuses on *why* each method lands where it does.
@@ -165,7 +165,11 @@ Honest negatives, kept in the leaderboard rather than dropped:
 - **Spectral-LO** (~10 %): FFT phase-correlation odometry runs at ~25–27 FPS
   with zero divergence — honest fast-but-coarse; the tighter 40 m BEV window
   improves RPE, while absolute ATE remains higher than scan-to-map methods.
-- **R-VoxelMap** diverges on seq 07; **UA-LIO** diverges on both; **IMLS-SLAM**
+- **UA-LIO** no longer diverges under strict exact-frame association
+  (1.13% / 0.97% RPE on seq00/07), but this KITTI run has no IMU packets, so it
+  is only evidence for the D2D + ground scan-to-map fallback, not the full LIO
+  state estimator.
+- **R-VoxelMap** diverges on seq 07; **IMLS-SLAM**
   on a voxelized map degenerates to plain point-to-plane (1.0 %) — the implicit
   surface needs the native point density the paper assumes.
 

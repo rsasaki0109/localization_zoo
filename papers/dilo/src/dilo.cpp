@@ -117,7 +117,34 @@ SphericalRangeImage::Pixel SphericalRangeImage::lookup(
     const Eigen::Vector3d& p) const {
   int r, c;
   if (pixels_.empty() || !project(p, &r, &c)) return Pixel();
-  return pixels_[idx(r, c)];
+  const Pixel& exact = pixels_[idx(r, c)];
+  if (params_.lookup_radius <= 0) return exact;
+
+  Pixel best;
+  double best_dist = std::numeric_limits<double>::infinity();
+  const int radius = params_.lookup_radius;
+  const double max_lookup_dist_sq =
+      params_.max_lookup_point_distance > 0.0
+          ? params_.max_lookup_point_distance * params_.max_lookup_point_distance
+          : std::numeric_limits<double>::infinity();
+  for (int dr = -radius; dr <= radius; ++dr) {
+    const int rr = r + dr;
+    if (rr < 0 || rr >= params_.height) continue;
+    for (int dc = -radius; dc <= radius; ++dc) {
+      int cc = c + dc;
+      cc = ((cc % params_.width) + params_.width) % params_.width;
+      const Pixel& candidate = pixels_[idx(rr, cc)];
+      if (!candidate.valid || !candidate.has_normal) continue;
+      const double dist = (candidate.point - p).squaredNorm();
+      if (dist > max_lookup_dist_sq) continue;
+      if (dist < best_dist) {
+        best = candidate;
+        best_dist = dist;
+      }
+    }
+  }
+  if (best.valid) return best;
+  return exact;
 }
 
 // ============================================================
@@ -215,6 +242,8 @@ DiloResult DiloPipeline::registerFrame(
   sp.width = params_.sri_width;
   sp.fov_up_deg = params_.fov_up_deg;
   sp.fov_down_deg = params_.fov_down_deg;
+  sp.lookup_radius = params_.lookup_radius;
+  sp.max_lookup_point_distance = params_.max_lookup_point_distance;
   sp.min_range = params_.min_range;
   sp.max_range = params_.max_range;
 

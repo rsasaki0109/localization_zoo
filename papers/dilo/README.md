@@ -22,7 +22,8 @@ odometry based on spherical range images for autonomous driving**
 
 2. **Projective data association** — 現在スキャン点 `p` を相対姿勢でキーフレーム座標
    `p' = T_rel·p` に移し、SRI へ投影した画素の点 `q`・法線 `n` を対応とする
-   (最近傍探索なし)。
+   (最近傍探索なし)。実データでは投影丸めと小さな初期値誤差で exact pixel の対応が
+   落ちやすいため、既定では 1px 近傍だけを調べ、3D 距離 1.5m 以内の候補に限定する。
 
 3. **Direct alignment** — point-to-plane 残差 `e = n·(p' − q)` を Gauss-Newton で
    最小化。各反復で再投影する (direct)。Cauchy ロバスト核併用。
@@ -36,6 +37,8 @@ IMU は使わず、初期相対姿勢は等速予測で与える。
 
 - `sri_height` / `sri_width` (既定 64 / 900): SRI 解像度。
 - `fov_up_deg` / `fov_down_deg` (既定 2.0 / −24.8): 仰角 FOV (KITTI HDL-64E)。
+- `lookup_radius` / `max_lookup_point_distance` (既定 1px / 1.5m): SRI 近傍
+  projective association の上限。`lookup_radius=0` で exact-pixel のみ。
 - `initial_threshold` (既定 1.0 m): point-to-plane 残差の外れ値しきい値。
 - `robust_scale` (既定 0.5): Cauchy 核スケール。
 - `keyframe_translation` / `keyframe_rotation_deg` (既定 2.0 m / 10°): キーフレーム
@@ -47,12 +50,17 @@ IMU は使わず、初期相対姿勢は等速予測で与える。
 
 1. `SphericalRangeImageProjectsAndNormals` — SRI 投影と法線推定が機能する。
 2. `RecoversKnownTranslation` — projective association で既知並進を direct に回復。
-3. `KeyframeUpdatesOnLargeMotion` — 相対運動がしきい値超でキーフレーム更新。
+3. `TracksConsecutiveMotion` — 連続フレームの小さな並進を累積追従する。
 
 ## KITTI full での所見
 
 KITTI full (no GT seed) では SRI 投影による対応付けが毎フレーム機能し、最近傍探索
-なしで direct alignment が走る。frame-to-keyframe 構成 (持続的グローバルマップを
-持たない) のため、scan-to-map の voxel 手法より drift が出やすいのが honest な
-トレードオフ。探索を投影に置換する direct 機構の正しさはユニットテストで担保し、
-リーダーボードへは odometry RPE を honest に反映する。
+なしで direct alignment が走る。bounded 1px lookup を入れた current default は
+seq00 **1.200%** (ATE 38.7m, 64.5 FPS) / seq07 **1.533%** (ATE 7.2m, 65.0 FPS)。
+旧 exact-pixel lookup は seq00 18.305% / seq07 18.966% まで drift したため、実運用
+では投影近傍探索が load-bearing。
+
+frame-to-keyframe 構成 (持続的グローバルマップを持たない) のため、scan-to-map の
+voxel 手法より drift が出やすいのが honest なトレードオフ。探索を投影に置換する
+direct 機構の正しさはユニットテストで担保し、リーダーボードへは odometry RPE を
+honest に反映する。

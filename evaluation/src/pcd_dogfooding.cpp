@@ -2131,6 +2131,8 @@ struct DiloDogfoodingOptions {
   int sri_width = 1024;
   double fov_up_deg = 2.0;
   double fov_down_deg = -24.8;
+  int lookup_radius = 1;
+  double max_lookup_point_distance = 1.5;
   int max_iterations = 30;
   double initial_threshold = 1.0;
   double robust_scale = 0.5;
@@ -6664,6 +6666,8 @@ MethodResult runDilo(const std::vector<std::string>& pcd_dirs,
   params.sri_width = options.sri_width;
   params.fov_up_deg = options.fov_up_deg;
   params.fov_down_deg = options.fov_down_deg;
+  params.lookup_radius = options.lookup_radius;
+  params.max_lookup_point_distance = options.max_lookup_point_distance;
   params.max_iterations = options.max_iterations;
   params.initial_threshold = options.initial_threshold;
   params.robust_scale = options.robust_scale;
@@ -6695,11 +6699,15 @@ MethodResult runDilo(const std::vector<std::string>& pcd_dirs,
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   char buf[32];
   std::snprintf(buf, sizeof(buf), "%ld", n_kf);
+  char lookup_buf[96];
+  std::snprintf(lookup_buf, sizeof(lookup_buf),
+                " lookup_radius=%d lookup_max_dist=%.2f",
+                options.lookup_radius, options.max_lookup_point_distance);
   res.note =
       "DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image "
       "projective data association (no NN search) + point-to-plane GN; "
-      "constant-velocity prior, no GT seed. keyframes=" +
-      std::string(buf);
+      "constant-velocity prior, no GT seed." +
+      std::string(lookup_buf) + " keyframes=" + std::string(buf);
   return res;
 }
 
@@ -12475,6 +12483,16 @@ int main(int argc, char** argv) {
       dilo_options.sri_width = std::stoi(argv[++i]);
       continue;
     }
+    if (arg == "--dilo-lookup-radius") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-lookup-radius requires a value" << std::endl; return 1; }
+      dilo_options.lookup_radius = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-lookup-max-dist") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-lookup-max-dist requires a value" << std::endl; return 1; }
+      dilo_options.max_lookup_point_distance = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--dilo-initial-threshold") {
       if (i + 1 >= argc) { std::cerr << "--dilo-initial-threshold requires a value" << std::endl; return 1; }
       dilo_options.initial_threshold = std::stod(argv[++i]);
@@ -14678,6 +14696,8 @@ int main(int argc, char** argv) {
     std::cout << "  source_voxel_size=" << dilo_options.source_voxel_size
               << " sri=" << dilo_options.sri_height << "x"
               << dilo_options.sri_width
+              << " lookup_radius=" << dilo_options.lookup_radius
+              << " lookup_max_dist=" << dilo_options.max_lookup_point_distance
               << " keyframe_translation=" << dilo_options.keyframe_translation
               << std::endl;
     results.push_back(runDilo(pcd_dirs, gt, dilo_options));

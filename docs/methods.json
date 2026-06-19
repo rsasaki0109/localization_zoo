@@ -1272,7 +1272,7 @@
         "LiDAR"
       ],
       "href": "papers/dilo",
-      "summary": "Direct LiDAR odometry on spherical range images: frame-to-keyframe alignment via projective data association (no nearest-neighbor search) with image-based point-to-plane residuals. Fast (25-32 FPS) but the frame-to-keyframe design drifts/diverges on long KITTI sequences without a persistent map (Han et al., ETRI Journal 2021).",
+      "summary": "Direct LiDAR odometry on spherical range images: frame-to-keyframe alignment via bounded projective data association (no nearest-neighbor search) with image-based point-to-plane residuals. Fast (~65 FPS) and stable after 1px lookup gating, but still less accurate than persistent scan-to-map local-map methods (Han et al., ETRI Journal 2021).",
       "tags": [
         "odometry",
         "range-image",

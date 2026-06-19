@@ -45,8 +45,8 @@ and each module's README records its per-method deviations.
 | **Competitive, mechanism auxiliary** | DegenSense, D²-LIO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
 | **Near-redundant on KITTI** (mechanism correct, no effect) | MCC-LO, GMM-LO, Student-T-LO, GNC-LO, PCR-DAT |
 | **Trade-off exposed** | LiDAR-IBA (ATE↓ / RPE↑), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
-| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO, DiLO |
-| **Degrades / high drift** | IMLS-SLAM, R-VoxelMap, PL-LOAM, VLOM, InTEn-LOAM |
+| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, VLOM, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO, DiLO |
+| **Degrades / high drift** | IMLS-SLAM, R-VoxelMap, PL-LOAM, InTEn-LOAM |
 
 The full per-method numbers are in the README's from-paper table;
 this report focuses on *why* each method lands where it does.
@@ -125,14 +125,16 @@ falsify them, only report their silence.
 
 The LiDAR-visual adapter wave (**OPL-LVIO**, **AD-VLO**, **TC-MVLO**,
 **TC-LVGF**, **TC-VLO**, **V-LOAM2015**) is more positive than the older
-pseudo-image PL-LOAM/VLOM attempts: all six run stably around **0.90-1.07 %**
-drift on KITTI seq 00/07. PL-LOAM and VLOM both improve after rendering LiDAR
-intensity instead of raw depth gradients into their pseudo-images, but they
-still land at **90.10 % / 87.39 %** and **89.15 % / 81.60 %** drift,
-respectively. VLOM's seq 07 catastrophe is fixed, while seq 00 ATE gets worse;
-the caveat is equally clear: range-image visual proxies and line residuals
-remain auxiliary to the scan-to-map point-to-plane core, so they still trail the
-strongest open LiDAR-only baseline on this benchmark.
+pseudo-image PL-LOAM attempt: all six run stably around **0.90-1.07 %**
+drift on KITTI seq 00/07. **VLOM** now also sits in this band
+(**0.91 % / 0.61 %**, ATE **9.52 m / 2.51 m**) after disabling visual
+bootstrap for LiDAR-only pseudo-images while keeping A-LOAM mapping and scale
+correction active. PL-LOAM improves after rendering LiDAR intensity instead of
+raw depth gradients into its pseudo-image, but still lands at
+**90.10 % / 87.39 %** drift. The caveat is equally clear: range-image visual
+proxies and line residuals remain auxiliary to the scan-to-map point-to-plane
+core, so they still trail the strongest open LiDAR-only baseline on this
+benchmark.
 
 RF-LIO adds the same lesson for dynamic removal: adaptive multi-resolution
 range-image foreground removal works mechanically and removes about **246-273
@@ -162,14 +164,15 @@ Honest negatives, kept in the leaderboard rather than dropped:
 
 - **InTEn-LOAM** (~53–67 % drift): enabling its mapping stage *increases*
   seq 00 drift from 52.7 % to 68.4 % in this port.
-- **PL-LOAM / VLOM** (LiDAR-visual, ~82–90 % drift): on KITTI Odometry there is
+- **PL-LOAM** (LiDAR-visual, ~87-90 % drift): on KITTI Odometry there is
   no RGB. LiDAR-intensity pseudo-images are much better than the earlier
-  depth-gradient front-ends: PL-LOAM drops from ~117-143 % to
-  **87.39-90.10 %**, and VLOM drops from **91.46 / 153.87 %** to
-  **89.15 / 81.60 %**. They remain degradation cases; VLOM's seq 00 ATE even
-  worsens from 249 m to 315 m while RPE improves. Crucially, rerunning the
-  visual front-end on KITTI Raw *with real RGB* still yields ~99 % drift — the
-  simplified tracker, not only the missing camera, is the bottleneck.
+  depth-gradient front-end, dropping PL-LOAM from ~117-143 % to
+  **87.39-90.10 %**, but it remains a degradation case. VLOM exposed the
+  related failure mode: pseudo-image visual bootstrap was injecting a bad
+  motion prior, and disabling that path drops VLOM to **0.91 % / 0.61 %**.
+  Crucially, rerunning the visual front-end on KITTI Raw *with real RGB* still
+  yields ~99 % drift for the simplified PL-LOAM/VLOM tracker — the simplified
+  tracker, not only the missing camera, is the bottleneck.
   Reproducing these papers requires the full ORB-SLAM2-class stack they build
   on.
 - **Spectral-LO** (~4–7 %): FFT phase-correlation odometry runs at ~29–30 FPS

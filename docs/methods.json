@@ -1137,7 +1137,7 @@
         "Camera"
       ],
       "href": "papers/vlom",
-      "summary": "Scale-correction VLOM (arXiv:2304.08978): loosely coupled monocular VO with LiDAR depth scale correction and visual bootstrapping for A-LOAM odometry+mapping. KITTI Odometry eval uses a LiDAR-intensity pseudo-image because RGB is absent from the odometry benchmark.",
+      "summary": "Scale-correction VLOM (arXiv:2304.08978): loosely coupled monocular VO with LiDAR depth scale correction and visual bootstrapping for A-LOAM odometry+mapping. KITTI Odometry eval keeps A-LOAM mapping and scale correction active but disables visual bootstrap on LiDAR-intensity pseudo-images because RGB is absent from the odometry benchmark.",
       "tags": [
         "odometry",
         "lidar-visual",

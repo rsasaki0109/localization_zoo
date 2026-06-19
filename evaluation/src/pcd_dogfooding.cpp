@@ -1641,7 +1641,7 @@ struct VlomDogfoodingOptions {
   size_t visual_input_stride = 2;
   int max_point_features = 280;
   int max_line_features = 64;
-  bool enable_visual_bootstrap = true;
+  bool enable_visual_bootstrap = false;
   bool enable_scale_correction = true;
   int scale_correction_interval = 5;
   double mad_outlier_k = 2.5;
@@ -4299,7 +4299,6 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   PlLoam pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
-  res.poses.push_back(world_anchor);
 
   double scale_acc = 0.0;
   double depth_res_acc = 0.0;
@@ -4405,7 +4404,6 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
   InTenLoam pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
-  res.poses.push_back(world_anchor);
 
   double int_res_acc = 0.0;
   long valid_frames = 0;
@@ -4684,16 +4682,19 @@ MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  char note_buf[240];
+  char note_buf[320];
   std::snprintf(
       note_buf, sizeof(note_buf),
-      "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM; "
-      "eval=%s; no GT seed. mean_scale=%.3f bootstrap_frames=%ld rgb_frames=%ld"
-      " intensity_dilation_radius=%d",
+      "VLOM (arXiv:2304.08978): scale-corrected A-LOAM with optional visual "
+      "bootstrap; eval=%s; bootstrap=%s scale_correction=%s; no GT seed. "
+      "mean_scale=%.3f bootstrap_frames=%ld rgb_frames=%ld "
+      "intensity_dilation_radius=%d",
       options.use_rgb ? "KITTI-Raw-RGB"
                       : (options.use_intensity_pseudo_image
                              ? "intensity-pseudo-image"
                              : "depth-pseudo-image"),
+      options.enable_visual_bootstrap ? "on" : "off",
+      options.enable_scale_correction ? "on" : "off",
       scale_frames ? scale_acc / static_cast<double>(scale_frames) : 1.0,
       bootstrap_frames, rgb_frames, options.intensity_dilation_radius);
   res.note = note_buf;
@@ -10027,6 +10028,9 @@ int main(int argc, char** argv) {
               << " [--ct-lio-fixed-lag-smoother]"
               << " [--pl-loam-depth-pseudo-image]"
               << " [--pl-loam-intensity-dilation N]"
+              << " [--vlom-enable-bootstrap]"
+              << " [--vlom-no-bootstrap]"
+              << " [--vlom-no-scale]"
               << " [--vlom-depth-pseudo-image]"
               << " [--vlom-intensity-dilation N]"
               << " [--seed-perturb-x M] [--seed-perturb-y M]"
@@ -11065,6 +11069,10 @@ int main(int argc, char** argv) {
     }
     if (arg == "--vlom-no-bootstrap") {
       vlom_options.enable_visual_bootstrap = false;
+      continue;
+    }
+    if (arg == "--vlom-enable-bootstrap") {
+      vlom_options.enable_visual_bootstrap = true;
       continue;
     }
     if (arg == "--vlom-no-scale") {

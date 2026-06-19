@@ -73,6 +73,19 @@ PUBLIC_ROW_REQUIRED_FIELDS = {
 
 RANKABLE_PUBLIC_GROUPS = {"kitti_00_full", "kitti_07_full"}
 
+STABLE_FULL_SEQUENCE_ARTIFACTS = {
+    "UA-LIO": {
+        "00": {
+            "path": "docs/benchmarks/kitti_full_new_methods/seq00_ua_lio.json",
+            "frames": 4541,
+        },
+        "07": {
+            "path": "docs/benchmarks/kitti_full_new_methods/seq07_ua_lio.json",
+            "frames": 1101,
+        },
+    },
+}
+
 
 class HtmlCheckParser(HTMLParser):
     def __init__(self) -> None:
@@ -358,6 +371,31 @@ def validate_kitti_full_artifact_notes(root: Path) -> None:
                 )
 
 
+def validate_stable_full_sequence_artifacts(root: Path) -> None:
+    for method_name, sequences in STABLE_FULL_SEQUENCE_ARTIFACTS.items():
+        for sequence, spec in sequences.items():
+            artifact_rel = spec["path"]
+            artifact = load_json(root / artifact_rel)
+            methods = artifact.get("methods", [])
+            if len(methods) != 1:
+                raise SystemExit(f"{artifact_rel} must contain exactly one method")
+            method = methods[0]
+            label = f"{method_name} seq{sequence}"
+            if method.get("name") != method_name:
+                raise SystemExit(f"{label} artifact has wrong method: {method.get('name')}")
+            if method.get("status") != "ok":
+                raise SystemExit(f"{label} is not stable OK: {method.get('status')}")
+            if artifact.get("schema_version") != 2:
+                raise SystemExit(f"{label} artifact is not schema v2")
+            if artifact.get("association_mode") != "exact_frame_id":
+                raise SystemExit(f"{label} does not use exact frame association")
+            if method.get("frames") != spec["frames"] or artifact.get("num_frames") != spec["frames"]:
+                raise SystemExit(f"{label} frame count changed from {spec['frames']}")
+            for field in ("ate_m", "rpe_trans_pct", "fps"):
+                if not finite_number(method.get(field)) or float(method[field]) <= 0.0:
+                    raise SystemExit(f"{label} has invalid {field}: {method.get(field)}")
+
+
 def validate_scan2d_benchmarks(root: Path) -> None:
     bundle_path = root / "docs/benchmarks/scan2d/public_bundle.json"
     bundle = load_json(bundle_path)
@@ -457,6 +495,7 @@ def main() -> None:
     validate_method_catalog(root)
     validate_benchmark_snapshot(root)
     validate_kitti_full_artifact_notes(root)
+    validate_stable_full_sequence_artifacts(root)
     validate_scan2d_benchmarks(root)
     validate_demo(root, Path(args.demo_dir), args.demo_mode)
     print("showcase valid")

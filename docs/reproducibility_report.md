@@ -131,7 +131,7 @@ drift on KITTI seq 00/07. **VLOM** now also sits in this band
 bootstrap for LiDAR-only pseudo-images while keeping A-LOAM mapping and scale
 correction active. PL-LOAM improves after rendering LiDAR intensity instead of
 raw depth gradients into its pseudo-image, but still lands at
-**90.10 % / 87.39 %** drift. The caveat is equally clear: range-image visual
+**90.10 % / 87.38 %** drift. The caveat is equally clear: range-image visual
 proxies and line residuals remain auxiliary to the scan-to-map point-to-plane
 core, so they still trail the strongest open LiDAR-only baseline on this
 benchmark.
@@ -163,11 +163,11 @@ replacement for a public high-dynamic dataset.
 Honest negatives, kept in the leaderboard rather than dropped:
 
 - **InTEn-LOAM** (~53–67 % drift): enabling its mapping stage *increases*
-  seq 00 drift from 52.7 % to 68.4 % in this port.
+  seq 00 drift from 52.5 % to 68.4 % in this port.
 - **PL-LOAM** (LiDAR-visual, ~87-90 % drift): on KITTI Odometry there is
   no RGB. LiDAR-intensity pseudo-images are much better than the earlier
   depth-gradient front-end, dropping PL-LOAM from ~117-143 % to
-  **87.39-90.10 %**, but it remains a degradation case. VLOM exposed the
+  **87.38-90.10 %**, but it remains a degradation case. VLOM exposed the
   related failure mode: pseudo-image visual bootstrap was injecting a bad
   motion prior, and disabling that path drops VLOM to **0.91 % / 0.61 %**.
   Crucially, rerunning the visual front-end on KITTI Raw *with real RGB* still

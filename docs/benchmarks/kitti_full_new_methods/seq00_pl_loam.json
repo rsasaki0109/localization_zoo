@@ -1,19 +1,69 @@
 {
+  "schema_version": 2,
   "pcd_dir": "dogfooding_results/kitti_seq_00_full",
   "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+  "gt_sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+  "total_pcd_frames": 4541,
   "num_frames": 4541,
+  "raw_gt_pose_count": 4541,
+  "used_gt_pose_count": 4541,
   "trajectory_length_m": 3723.242184,
   "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "3673313a703fe596c8b997ab3ba64fdd99702b99",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_00_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_00_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 4541,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 4540.000000]
+  },
+  "gt": {
+    "source": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 4541,
+    "raw_timestamp_range": [0.000000, 4540.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 4541,
+    "associated_gt_index_range": [0, 4540],
+    "associated_gt_timestamp_range": [0.000000, 4540.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
   "methods": [
     {
       "name": "PL-LOAM",
       "status": "ok",
-      "ate_m": 277.895102,
-      "rpe_trans_pct": 90.097691,
-      "rpe_rot_deg_per_m": 1.152547,
-      "frames": 4542,
-      "time_ms": 82061.256475,
-      "fps": 55.348897,
+      "ate_m": 277.901350,
+      "rpe_trans_pct": 90.099671,
+      "rpe_rot_deg_per_m": 1.152915,
+      "frames": 4541,
+      "time_ms": 89912.638487,
+      "fps": 50.504580,
       "seed_fallback_rate_pct": null,
       "note": "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with depth priors in PL-BA; no GT seed. eval=intensity-pseudo-image mean_scale_correction=0.985184 mean_depth_prior_residual=2.068976 intensity_dilation_radius=2 rgb_frames=0"
     }

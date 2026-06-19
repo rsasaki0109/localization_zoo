@@ -73,8 +73,8 @@ and state reset on `clear()`.
 
 | Sequence | RPE drift | ATE |
 |---|---:|---:|
-| Seq 00 _(4541 fr)_ | **90.098%** | 278 m |
-| Seq 07 _(1101 fr)_ | **87.386%** | 128 m |
+| Seq 00 _(4541 fr)_ | **90.100%** | 278 m |
+| Seq 07 _(1101 fr)_ | **87.377%** | 128 m |
 
 **Honest negative on this benchmark path.** PL-LOAM's paper pipeline expects real
 monocular RGB + synchronized LiDAR (KITTI Raw). The Odometry benchmark here has

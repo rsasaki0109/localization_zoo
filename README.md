@@ -91,8 +91,12 @@ LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
 broken port._
 
 > **No GT-seeded methods here.** NDT / LiTAMIN2 / GICP use the ground-truth pose
-> as the per-frame initial guess, so their ATE is seed adherence, not tracking
-> (NDT `--no-gt-seed` → 87% RPE). They need a GT prior and aren't ranked.
+> as the per-frame initial guess, so their ATE is seed adherence, not tracking —
+> and the ranking even inverts: NDT's 0.02 m comes from *not* registering
+> (`--no-gt-seed` → 87% RPE, the worst tracker), while GICP's larger ATE is real
+> registration. They need a GT prior and aren't standalone odometry, so they are
+> not ranked.
+
 
 ### From-paper reimplementations (no public reference code) — KITTI full
 
@@ -151,9 +155,9 @@ RPE is drift %/100 m; ATE in parens.
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
 | Spectral-LO | 10.730% <sub>(128 m)</sub> | 10.232% <sub>(55 m)</sub> | arXiv:2005.02042 |
-| **PL-LOAM** | **143.211%** <sub>(3016 m)</sub> | **116.899%** <sub>(271 m)</sub> | ICRA 2020 |
-| **VLOM** | **91.465%** <sub>(249 m)</sub> | **153.868%** <sub>(439 m)</sub> | arXiv:2304.08978 |
 | **InTEn-LOAM** | **52.695%** <sub>(1459 m)</sub> | **67.497%** <sub>(448 m)</sub> | RS 2022/23 |
+| **PL-LOAM** | **90.098%** <sub>(278 m)</sub> | **87.386%** <sub>(128 m)</sub> | ICRA 2020 |
+| **VLOM** | **91.465%** <sub>(249 m)</sub> | **153.868%** <sub>(439 m)</sub> | arXiv:2304.08978 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
@@ -164,10 +168,9 @@ degeneracy sensing remains diagnostic, but IMU compensation/regularization is
 disabled unless a real IMU packet is integrated, avoiding the previous
 constant-velocity over-constraint. **M-GCLO** remains the strongest explicit
 ground-factor row (0.835% seq00) via multiple-ground-plane constraints (higher
-ATE — an honest RPE/ATE split). Its
-ground-factor ablation keeps translational RPE similar or lower, but disabling
-ground more than doubles ATE on seq00/07 and worsens rotational drift; the
-paired raw artifacts are committed as
+ATE — an honest RPE/ATE split). Its ground-factor ablation keeps translational
+RPE similar or lower, but disabling ground more than doubles ATE on seq00/07 and
+worsens rotational drift; the paired raw artifacts are committed as
 [`m_gclo_ground_factor_ablation.json`](docs/benchmarks/kitti_full_new_methods/m_gclo_ground_factor_ablation.json).
 A synthetic rolling-ground stress exercises the intended non-flat mechanism:
 M-GCLO ground on tracks at 0.116 m ATE / 0.500% drift, while ground off worsens
@@ -195,9 +198,9 @@ Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
 mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP
 point-to-plane core. The newer LiDAR-visual adapter family
 (**OPL-LVIO**, **AD-VLO**, **TC-MVLO**, **TC-LVGF**, **TC-VLO**, **V-LOAM2015**)
-is stable at ~0.90–1.07% drift and far better than pseudo-image visual front
-ends; AD-VLO/TC-MVLO improve ATE within the group, while OPL-LVIO keeps the best
-seq07 RPE. Still, pseudo-visual residuals remain secondary to the
+is stable at ~0.90–1.07% drift and far better than older pseudo-image visual
+front ends; AD-VLO/TC-MVLO improve ATE within the group, while OPL-LVIO keeps
+the best seq07 RPE. Still, pseudo-visual residuals remain secondary to the
 point-to-plane core. **RF-LIO** confirms the same KITTI pattern for dynamic
 removal: its removal-first range-image filter is active, but on mostly static
 KITTI it removes useful foreground structure and trails ID-LIO. A committed
@@ -211,9 +214,10 @@ This is mechanism stress evidence, not a public dynamic-dataset claim.
 bounded 1-pixel projective lookup; it remains below the scan-to-map leaders but
 is no longer a degradation case. Honest negatives: Spectral-LO
 (ICP-free BEV phase-correlation, fast at ~25–27 FPS but coarse ~10%),
-**PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),
-**VLOM** (scale-corrected visual bootstrap A-LOAM on pseudo-image, ~91–154% drift),
 **InTEn-LOAM** (cylindrical intensity LO without DOR/mapping, ~53–67% drift),
+**PL-LOAM** (LiDAR-visual point+line on LiDAR-intensity pseudo-image without
+RGB, ~87–90% drift after the intensity-rendered feature fix),
+**VLOM** (scale-corrected visual bootstrap A-LOAM on pseudo-image, ~91–154% drift),
 and R-VoxelMap (diverges seq 07). Per-method caveats live in the
 module READMEs; raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).

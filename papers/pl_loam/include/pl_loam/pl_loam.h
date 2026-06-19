@@ -89,6 +89,10 @@ struct PlLoamParams {
   bool use_scale_correction = true;
   /// When true, visual features come from real RGB (GrayscaleImage) not depth map.
   bool use_rgb_features = false;
+  /// For KITTI odometry without RGB, detect visual features on LiDAR intensity
+  /// rendered into the pseudo-image. Depth priors still come from RangeImage::depth.
+  bool use_intensity_pseudo_image = true;
+  int intensity_dilation_radius = 2;
   double depth_prior_weight = 1.0;
   double reproj_sigma_px = 2.0;
   double line_sigma_px = 2.5;
@@ -131,6 +135,8 @@ class PlLoam {
   static RangeImage buildRangeImage(const std::vector<Eigen::Vector3d>& points,
                                     const std::vector<float>& intensity,
                                     const CameraModel& camera);
+  static GrayscaleImage buildIntensityImage(const RangeImage& image,
+                                            int dilation_radius);
   /// 近傍パッチのロバスト中央値深度 (論文の点深度抽出の簡約版)。
   static bool extractPointDepth(const RangeImage& image,
                                 const Eigen::Vector2d& uv, int patch_radius,

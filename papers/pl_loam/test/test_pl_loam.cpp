@@ -50,6 +50,29 @@ TEST(PlLoam, ExtractPointDepthUsesPatchMedian) {
   EXPECT_NEAR(depth, 12.5, 0.01);
 }
 
+TEST(PlLoam, BuildIntensityImageDensifiesSparseReturns) {
+  RangeImage img;
+  img.width = 24;
+  img.height = 16;
+  img.depth.assign(static_cast<size_t>(img.width * img.height), 0.0f);
+  img.intensity.assign(static_cast<size_t>(img.width * img.height), 0.0f);
+  const int low_idx = 8 * img.width + 8;
+  const int high_idx = 8 * img.width + 14;
+  img.depth[static_cast<size_t>(low_idx)] = 12.0f;
+  img.intensity[static_cast<size_t>(low_idx)] = 0.1f;
+  img.depth[static_cast<size_t>(high_idx)] = 12.0f;
+  img.intensity[static_cast<size_t>(high_idx)] = 0.9f;
+
+  const GrayscaleImage gray = PlLoam::buildIntensityImage(img, 1);
+  ASSERT_EQ(gray.width, img.width);
+  ASSERT_EQ(gray.height, img.height);
+  ASSERT_EQ(gray.pixels.size(), img.depth.size());
+  EXPECT_GT(gray.pixels[static_cast<size_t>(high_idx)],
+            gray.pixels[static_cast<size_t>(low_idx)]);
+  EXPECT_GT(gray.pixels[static_cast<size_t>(7 * img.width + 14)], 0);
+  EXPECT_EQ(gray.pixels.front(), 0);
+}
+
 TEST(PlLoam, ScaleCorrectionMedianRatio) {
   const std::vector<double> lidar = {10.0, 20.0, 30.0};
   const std::vector<double> visual = {5.0, 10.0, 15.0};

@@ -46,37 +46,37 @@ InTEn-LOAM exploits **geometric + intensity + temporal** information in LiDAR sw
 Ablation flags: `--inten-loam-no-intensity`, `--inten-loam-no-tvf`,
 `--inten-loam-no-dor`, `--inten-loam-no-mapping`.
 
-## Result (KITTI Odometry full, `--no-gt-seed`, `--inten-loam-dense-profile`)
+## Result (KITTI Odometry full, `--no-gt-seed`)
+
+Current main artifacts:
+`docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam.json`.
+
+The 2026-06-19 evaluator build fixes the Ceres/Eigen quaternion layout used by
+the geometric and intensity residuals. Earlier artifacts interpreted Eigen
+`{x,y,z,w}` parameter blocks as Ceres `{w,x,y,z}` inside
+`QuaternionRotatePoint`, so the identity initial guess was not actually
+identity inside the residuals.
+
+| Sequence | Variant | Drift | ATE [m] | Notes |
+|----------|---------|------:|--------:|-------|
+| 00 (4541 frames) | **no_mapping** (scan-to-scan) | **19.450%** | 309 | current main artifact |
+| 07 (1101 frames) | **no_mapping** (scan-to-scan) | **29.550%** | 227 | current main artifact |
+
+### Historical pre-fix ablation
 
 Ablation script: `evaluation/scripts/run_inten_loam_ablation.py`
 Bundles: `docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_ablation.json`
 
-### Seq 00 (4541 frames)
+Those ablation bundles predate the quaternion-layout fix and should be rerun
+before using exact mapping/intensity deltas. They remain useful only as the
+historical reason that the public main artifact used scan-to-scan
+`--inten-loam-no-mapping`.
 
-| Variant | Drift | ATE [m] | Notes |
-|---------|------:|--------:|-------|
-| **no_mapping** (scan-to-scan) | **52.5%** | 1461 | baseline main artifact |
-| mapping_only (no TVF/DOR) | 60.6% | 826 | mapping **hurts** drift on long seq |
-| no_dor | 60.6% | 864 | |
-| full (TVF+DOR+mapping) | 68.4% | 531 | best ATE but worse drift |
-| no_intensity | 68.3% | 512 | intensity neutral with mapping |
-| no_tvf | 68.2% | 573 | |
-
-### Seq 07 (1101 frames)
-
-| Variant | Drift | ATE [m] | Notes |
-|---------|------:|--------:|-------|
-| **no_mapping** (scan-to-scan) | **67.2%** | 432 | baseline main artifact |
-| mapping_only / no_tvf_no_dor | 67.9% | 308 | mapping ≈ neutral on drift |
-| no_dor | 67.9% | 301 | |
-| full / no_tvf / no_intensity | 71.7% | 200–218 | TVF+mapping **hurts** drift |
-
-**Honest negative — ablation findings.** Scan-to-scan (`--inten-loam-no-mapping`)
-remains the best **drift** config on both full sequences. Scan-to-map mapping
-lowers ATE on seq07 (432→~300 m) but does not improve RPE drift; on long seq00
-mapping **increases** drift (52.5%→60.6%). TVF/DOR/intensity with mapping do not
-rescue KITTI odometry (~53–72% drift vs paper ~0.54%). The 200-frame prefix
-(56.5% with mapping) was **not representative** of full-sequence behavior.
+**Honest negative.** The quaternion fix makes InTEn-LOAM substantially less
+wrong on KITTI, but the simplified from-paper port is still far from the paper's
+reported ~0.54% drift and remains a high-drift row. The scan-to-map mapping,
+TVF/DOR, and intensity ablations need a post-fix rerun before making current
+variant claims.
 
 ## Cross-dataset (`--no-gt-seed`)
 
@@ -100,7 +100,7 @@ Single run (default = TVF+DOR+mapping ON):
 ```sh
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
   experiments/reference_data/kitti_seq_07_full_gt.csv \
-  --methods inten_loam --no-gt-seed --inten-loam-dense-profile
+  --methods inten_loam --no-gt-seed
 ```
 
 Scan-to-scan baseline:
@@ -108,10 +108,11 @@ Scan-to-scan baseline:
 ```sh
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
   experiments/reference_data/kitti_seq_07_full_gt.csv \
-  --methods inten_loam --no-gt-seed --inten-loam-dense-profile --inten-loam-no-mapping
+  --methods inten_loam --no-gt-seed --inten-loam-no-mapping
 ```
 
 ## Tests
 
 `test_inten_loam`: cylindrical projection validity; reflector labeling pipeline;
-intensity residual scaling; short-sequence pipeline stability; `clear()` reset.
+intensity residual scaling; Eigen/Ceres quaternion layout in residual factors;
+short-sequence pipeline stability; `clear()` reset.

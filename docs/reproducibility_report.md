@@ -162,8 +162,11 @@ replacement for a public high-dynamic dataset.
 
 Honest negatives, kept in the leaderboard rather than dropped:
 
-- **InTEn-LOAM** (~53–67 % drift): enabling its mapping stage *increases*
-  seq 00 drift from 52.5 % to 68.4 % in this port.
+- **InTEn-LOAM** (~19–30 % drift after the 2026-06-19 quaternion-layout fix):
+  the scan-to-scan artifact is substantially less wrong than the earlier
+  ~53–67 % row, but the simplified port remains a high-drift negative. The
+  mapping/intensity ablation bundle predates the fix and needs a current rerun
+  before making exact variant claims.
 - **PL-LOAM** (LiDAR-visual, ~87-90 % drift): on KITTI Odometry there is
   no RGB. LiDAR-intensity pseudo-images are much better than the earlier
   depth-gradient front-end, dropping PL-LOAM from ~117-143 % to

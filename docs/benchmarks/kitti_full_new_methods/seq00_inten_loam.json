@@ -13,7 +13,7 @@
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
   "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "3673313a703fe596c8b997ab3ba64fdd99702b99",
+  "evaluator_git_commit": "399e5eea8cbe1b00595f0c69a10db7ae5132574d",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_00_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -58,12 +58,12 @@
     {
       "name": "InTEn-LOAM",
       "status": "ok",
-      "ate_m": 1460.657271,
-      "rpe_trans_pct": 52.504023,
-      "rpe_rot_deg_per_m": 1.081785,
+      "ate_m": 309.290171,
+      "rpe_trans_pct": 19.450171,
+      "rpe_rot_deg_per_m": 0.128259,
       "frames": 4541,
-      "time_ms": 70233.313019,
-      "fps": 64.655928,
+      "time_ms": 93689.752024,
+      "fps": 48.468481,
       "seed_fallback_rate_pct": null,
       "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=off mapping_updates=0 mean_intensity_residual=3.734677"
     }

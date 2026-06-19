@@ -110,6 +110,18 @@ STABLE_FULL_SEQUENCE_ARTIFACTS = {
             "max_rpe_trans_pct": 70.0,
         },
     },
+    "R-VoxelMap": {
+        "00": {
+            "path": "docs/benchmarks/kitti_full_new_methods/seq00_r_voxelmap.json",
+            "frames": 4541,
+            "max_rpe_trans_pct": 50.0,
+        },
+        "07": {
+            "path": "docs/benchmarks/kitti_full_new_methods/seq07_r_voxelmap.json",
+            "frames": 1101,
+            "max_rpe_trans_pct": 5.0,
+        },
+    },
 }
 
 

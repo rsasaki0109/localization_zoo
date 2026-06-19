@@ -13,7 +13,7 @@
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
   "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "9fbccb72cc5feb1c75aece97cc40c26ea3271745",
+  "evaluator_git_commit": "675857e444839b3d367621fce7e1fce65e4388a7",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -58,14 +58,14 @@
     {
       "name": "R-VoxelMap",
       "status": "ok",
-      "ate_m": 103.498217,
-      "rpe_trans_pct": 35.808715,
-      "rpe_rot_deg_per_m": 0.275054,
+      "ate_m": 11.129664,
+      "rpe_trans_pct": 3.266813,
+      "rpe_rot_deg_per_m": 0.028387,
       "frames": 1101,
-      "time_ms": 143845.157835,
-      "fps": 7.654064,
+      "time_ms": 134395.588516,
+      "fps": 8.192233,
       "seed_fallback_rate_pct": null,
-      "note": "Recursive plane-fitting voxel map (outlier detect-and-reuse octree; no GT seed; anchor matches first GT pose; scan-to-scan fallback on low map correspondence). mean_matched_ratio=0.855631 fallback_rate_pct=0.090827 mean_fallback_ratio=0.995534"
+      "note": "Recursive plane-fitting voxel map (outlier detect-and-reuse octree; no GT seed; anchor matches first GT pose; scan-to-scan fallback on low map correspondence and map/fallback disagreement). mean_matched_ratio=0.920987 fallback_rate_pct=4.268847 fallback_disagreement_count=46 mean_fallback_ratio=0.977234"
     }
   ]
 }

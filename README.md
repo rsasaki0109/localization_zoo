@@ -145,6 +145,7 @@ RPE is drift %/100 m; ATE in parens.
 | Vibration-LIO | 1.082% <sub>(15 m)</sub> | 0.781% <sub>(3 m)</sub> | arXiv:2507.04311 |
 | ID-LIO | 1.111% <sub>(15 m)</sub> | 0.999% <sub>(5 m)</sub> | Sensors 2023 |
 | ELO | 1.124% <sub>(23 m)</sub> | 0.981% <sub>(4 m)</sub> | IEEE RA-L 2021 |
+| UA-LIO | 1.132% <sub>(33 m)</sub> | 0.967% <sub>(3 m)</sub> | IEEE TIM 2025 |
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
@@ -153,7 +154,6 @@ RPE is drift %/100 m; ATE in parens.
 | **PL-LOAM** | **143.211%** <sub>(3016 m)</sub> | **116.899%** <sub>(271 m)</sub> | ICRA 2020 |
 | **VLOM** | **91.465%** <sub>(249 m)</sub> | **153.868%** <sub>(439 m)</sub> | arXiv:2304.08978 |
 | **InTEn-LOAM** | **52.695%** <sub>(1459 m)</sub> | **67.497%** <sub>(448 m)</sub> | RS 2022/23 |
-| UA-LIO | _diverges_ | _diverges_ | IEEE TIM 2025 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
@@ -212,7 +212,7 @@ DiLO (direct, 18–19% drift), Spectral-LO
 **PL-LOAM** (LiDAR-visual point+line on pseudo-image without RGB, ~117–143% drift),
 **VLOM** (scale-corrected visual bootstrap A-LOAM on pseudo-image, ~91–154% drift),
 **InTEn-LOAM** (cylindrical intensity LO without DOR/mapping, ~53–67% drift),
-R-VoxelMap (diverges seq 07), and UA-LIO. Per-method caveats live in the
+and R-VoxelMap (diverges seq 07). Per-method caveats live in the
 module READMEs; raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->

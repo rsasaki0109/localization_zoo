@@ -31,6 +31,21 @@ A LiDAR-inertial scan-to-map odometry with UA-LIO's three ideas:
   velocity fallback without IMU
 - reports the number of ground-constrained cells per frame
 
+## KITTI Odometry Result
+
+Strict exact-frame KITTI full rerun (`--no-gt-seed`, no `imu.csv`) is stable:
+
+| Sequence | RPE drift | ATE | FPS | Note |
+|---|---:|---:|---:|---|
+| Seq 00 _(4541 fr)_ | **1.132%** | 32.5 m | 87.7 | D2D + ground, constant-velocity fallback |
+| Seq 07 _(1101 fr)_ | **0.967%** | 3.2 m | 95.2 | D2D + ground, constant-velocity fallback |
+
+This is a LiDAR-only fallback measurement because the KITTI dogfooding trees do
+not include IMU packets. It should not be read as reproducing the paper's full
+tightly-coupled LIO claim; it does show that the Gaussian D2D weighting and
+ground constraint no longer diverge on full KITTI 00/07 under the strict
+frame-association evaluator.
+
 ## Deviations / Not Included Yet
 
 - a full **IESKF** tightly-coupled state update is approximated by the

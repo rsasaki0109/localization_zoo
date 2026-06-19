@@ -153,7 +153,7 @@ RPE is drift %/100 m; ATE in parens.
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | LiDAR-IBA | 2.001% <sub>(8 m)</sub> | 1.474% <sub>(1 m)</sub> | arXiv:2602.06380 |
-| Spectral-LO | 10.730% <sub>(128 m)</sub> | 10.232% <sub>(55 m)</sub> | arXiv:2005.02042 |
+| Spectral-LO | 4.052% <sub>(61 m)</sub> | 7.165% <sub>(34 m)</sub> | arXiv:2005.02042 |
 | **InTEn-LOAM** | **52.695%** <sub>(1459 m)</sub> | **67.497%** <sub>(448 m)</sub> | RS 2022/23 |
 | **R-VoxelMap** | **58.328%** <sub>(1872 m)</sub> | **35.809%** <sub>(103 m)</sub> | arXiv:2601.12377 |
 | **PL-LOAM** | **90.098%** <sub>(278 m)</sub> | **87.386%** <sub>(128 m)</sub> | ICRA 2020 |
@@ -213,7 +213,7 @@ This is mechanism stress evidence, not a public dynamic-dataset claim.
 **DiLO** is now a stable direct-SRI row (1.20% / 1.53% at ~65 FPS) after
 bounded 1-pixel projective lookup; it remains below the scan-to-map leaders but
 is no longer a degradation case. Honest negatives: Spectral-LO
-(ICP-free BEV phase-correlation, fast at ~25–27 FPS but coarse ~10%),
+(ICP-free BEV phase-correlation, fast at ~29–30 FPS but still coarse ~4–7%),
 **InTEn-LOAM** (cylindrical intensity LO without DOR/mapping, ~53–67% drift),
 **PL-LOAM** (LiDAR-visual point+line on LiDAR-intensity pseudo-image without
 RGB, ~87–90% drift after the intensity-rendered feature fix),

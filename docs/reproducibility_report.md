@@ -46,7 +46,7 @@ and each module's README records its per-method deviations.
 | **Near-redundant on KITTI** (mechanism correct, no effect) | MCC-LO, GMM-LO, Student-T-LO, GNC-LO, PCR-DAT |
 | **Trade-off exposed** | LiDAR-IBA (ATE↓ / RPE↑), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
 | **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO, DiLO |
-| **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, PL-LOAM, VLOM, InTEn-LOAM |
+| **Degrades / high drift** | IMLS-SLAM, R-VoxelMap, PL-LOAM, VLOM, InTEn-LOAM |
 
 The full per-method numbers are in the README's from-paper table;
 this report focuses on *why* each method lands where it does.
@@ -179,9 +179,11 @@ Honest negatives, kept in the leaderboard rather than dropped:
   (1.13% / 0.97% RPE on seq00/07), but this KITTI run has no IMU packets, so it
   is only evidence for the D2D + ground scan-to-map fallback, not the full LIO
   state estimator.
-- **R-VoxelMap** diverges on seq 07; **IMLS-SLAM**
-  on a voxelized map degenerates to plain point-to-plane (1.0 %) — the implicit
-  surface needs the native point density the paper assumes.
+- **R-VoxelMap** no longer diverges on seq 07 after low-correspondence recovery
+  falls back to scan-to-scan ICP, but it remains a degradation case
+  (**58.33 % / 35.81 %** RPE). **IMLS-SLAM** on a voxelized map degenerates to
+  plain point-to-plane (1.0 %) — the implicit surface needs the native point
+  density the paper assumes.
 
 ## Finding 4 — Recurring implementation lessons
 

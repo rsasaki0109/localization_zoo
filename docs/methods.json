@@ -877,7 +877,7 @@
         "LiDAR"
       ],
       "href": "papers/r_voxelmap",
-      "summary": "Recursive octree plane fitting with outlier detect-and-reuse, plane-variance-weighted point-to-plane (arXiv:2601.12377).",
+      "summary": "Recursive octree plane fitting with outlier detect-and-reuse, plane-variance-weighted point-to-plane, and low-correspondence scan-to-scan recovery for the strict KITTI evaluator (arXiv:2601.12377).",
       "tags": [
         "odometry",
         "plane",

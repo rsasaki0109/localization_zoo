@@ -1904,6 +1904,15 @@ struct RVoxelMapDogfoodingOptions {
   int max_depth = 2;
   int max_icp_iterations = 30;
   double max_correspondence_dist = 2.0;
+  double max_plane_weight = 10000.0;
+  double icp_damping = 0.0;
+  double huber_residual = 0.0;
+  double max_iteration_translation = 0.0;
+  double max_iteration_rotation = 0.0;
+  double min_map_matched_ratio = 0.0;
+  bool enable_scan_to_scan_fallback = false;
+  double fallback_max_correspondence_dist = 1.5;
+  double min_fallback_matched_ratio = 0.05;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -6005,6 +6014,17 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
   params.max_depth = options.max_depth;
   params.max_icp_iterations = options.max_icp_iterations;
   params.max_correspondence_dist = options.max_correspondence_dist;
+  params.max_plane_weight = options.max_plane_weight;
+  params.icp_damping = options.icp_damping;
+  params.huber_residual = options.huber_residual;
+  params.max_iteration_translation = options.max_iteration_translation;
+  params.max_iteration_rotation = options.max_iteration_rotation;
+  params.min_map_matched_ratio = options.min_map_matched_ratio;
+  params.enable_scan_to_scan_fallback =
+      options.enable_scan_to_scan_fallback;
+  params.fallback_max_correspondence_dist =
+      options.fallback_max_correspondence_dist;
+  params.min_fallback_matched_ratio = options.min_fallback_matched_ratio;
   params.local_map_radius = options.local_map_radius;
   params.map_cleanup_interval = options.map_cleanup_interval;
   RVoxelMapPipeline pipeline(params);
@@ -6013,6 +6033,8 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
 
   double matched_sum = 0.0;
   int matched_n = 0;
+  double fallback_sum = 0.0;
+  int fallback_count = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -6022,6 +6044,10 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
     const auto result = pipeline.registerFrame(pts_local);
     matched_sum += result.matched_ratio;
     ++matched_n;
+    if (result.used_fallback) {
+      fallback_sum += result.fallback_matched_ratio;
+      ++fallback_count;
+    }
     res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
     if (i % 10 == 0) {
       std::cerr << "\r  [R-VoxelMap] " << i << "/" << pcd_dirs.size()
@@ -6032,10 +6058,20 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   const double mean_matched = matched_n > 0 ? matched_sum / matched_n : 0.0;
+  const double fallback_rate =
+      matched_n > 0 ? 100.0 * static_cast<double>(fallback_count) / matched_n
+                    : 0.0;
+  const double mean_fallback =
+      fallback_count > 0 ? fallback_sum / fallback_count : 0.0;
   res.note =
       "Recursive plane-fitting voxel map (outlier detect-and-reuse octree; no "
-      "GT seed; anchor matches first GT pose). mean_matched_ratio=" +
-      std::to_string(mean_matched);
+      "GT seed; anchor matches first GT pose" +
+      std::string(options.enable_scan_to_scan_fallback
+                      ? "; scan-to-scan fallback on low map correspondence"
+                      : "") +
+      "). mean_matched_ratio=" + std::to_string(mean_matched) +
+      " fallback_rate_pct=" + std::to_string(fallback_rate) +
+      " mean_fallback_ratio=" + std::to_string(mean_fallback);
   return res;
 }
 
@@ -12131,7 +12167,14 @@ int main(int argc, char** argv) {
       r_voxelmap_options.max_source_points = 6000;
       r_voxelmap_options.voxel_size = 0.8;
       r_voxelmap_options.max_icp_iterations = 40;
-      r_voxelmap_options.max_depth = 3;
+      r_voxelmap_options.max_depth = 2;
+      r_voxelmap_options.max_plane_weight = 100.0;
+      r_voxelmap_options.icp_damping = 1e-3;
+      r_voxelmap_options.huber_residual = 0.5;
+      r_voxelmap_options.max_iteration_translation = 0.5;
+      r_voxelmap_options.max_iteration_rotation = 0.1;
+      r_voxelmap_options.min_map_matched_ratio = 0.03;
+      r_voxelmap_options.enable_scan_to_scan_fallback = true;
       r_voxelmap_options.local_map_radius = 80.0;
       r_voxelmap_options.map_cleanup_interval = 6;
       continue;

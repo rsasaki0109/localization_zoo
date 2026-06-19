@@ -65,7 +65,7 @@
       "time_ms": 51765.442332,
       "fps": 87.722616,
       "seed_fallback_rate_pct": null,
-      "note": "D2D + ground constraint, constant-velocity (no imu.csv; GT-seeded init). ground_cells=4177692"
+      "note": "D2D + ground constraint, constant-velocity (no imu.csv; first-pose anchored; no per-frame GT seed). ground_cells=4177692"
     }
   ]
 }

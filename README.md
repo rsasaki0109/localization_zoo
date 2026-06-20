@@ -15,11 +15,11 @@
   </p>
   <p align="center">
     <a href="https://rsasaki0109.github.io/localization_zoo/">
-      <img src="docs/assets/grid_seq07.png" alt="KITTI seq07 trajectory gallery: 15 localization methods, each path colored by distance from ground truth, no GT seed, ordered by RPE drift" width="960">
+      <img src="docs/assets/grid_seq07.png" alt="KITTI seq07 full-sequence trajectory comparison, with paths colored by position error from ground truth and ranked by RPE drift" width="960">
     </a>
   </p>
   <p align="center">
-    <sub>KITTI seq07 odometry, no GT seed — all current trajectories on one shared drift-colored scale.</sub>
+    <sub>KITTI seq07 odometry, no GT seed — current promoted trajectories on one shared drift-colored scale.</sub>
   </p>
   <p align="center">
     <a href="https://rsasaki0109.github.io/localization_zoo/"><b>↪ Open the interactive benchmark and method explorer</b></a>
@@ -253,17 +253,18 @@ channel. Raw artifacts:
 and the paired summary
 [`i_loam_intensity_ablation.json`](docs/benchmarks/kitti_full_new_methods/i_loam_intensity_ablation.json).
 
-### Trajectory gallery — KITTI seq07, all methods, one figure
+### Trajectory gallery — KITTI seq07, current promoted trajectories
 
-Top-down trajectories on KITTI seq07 (1101 frames, `--no-gt-seed`), each path
-**colored by its distance from ground truth** (cool = on-track, warm = drifting,
-clipped at 3 m) on a shared scale and ordered by RPE drift. This surfaces *where*
-each method drifts — the top tier all hug GT, so the raw paths look identical;
-the color reveals the difference. **KC-LO** leads; NDT / SuMa run fully warm —
-honest no-GT-seed failures, not cropping. The same figure is featured at the
-top of this README. Regenerate with
-[`evaluation/scripts/plot_trajectory_diff.py`](evaluation/scripts/plot_trajectory_diff.py).
-The earlier animated seq00 hero remains available as
+Top-down trajectories on KITTI seq07 full (1101 frames, `--no-gt-seed`), each
+path **colored by its distance from ground truth** (cool = on-track, warm =
+drifting, clipped at 3 m) on a shared scale and ordered by RPE drift. The README
+hero uses only trajectory files with exactly 1101 poses, so stale seq00/seq08 or
+108-frame leftovers from mutable `dogfooding_results/` are rejected. Regenerate
+with
+[`evaluation/scripts/plot_readme_seq07_trajectories.py`](evaluation/scripts/plot_readme_seq07_trajectories.py).
+The older generic plotting helper remains available as
+[`evaluation/scripts/plot_trajectory_diff.py`](evaluation/scripts/plot_trajectory_diff.py),
+and the animated seq00 hero remains available as
 [`docs/assets/hero_seq00.gif`](docs/assets/hero_seq00.gif).
 
 ## Scope Note

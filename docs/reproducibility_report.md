@@ -48,8 +48,9 @@ and each module's README records its per-method deviations.
 | **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, VLOM, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO, DiLO |
 | **Degrades / high drift** | IMLS-SLAM, R-VoxelMap, PL-LOAM, InTEn-LOAM |
 
-The full per-method numbers are in the README's from-paper table;
-this report focuses on *why* each method lands where it does.
+The README table promotes the stable current rows. High-drift and degradation
+runs remain here, in the module READMEs, and in the raw JSON artifacts so the
+failure evidence stays auditable without occupying the front-page ranking.
 
 ## Finding 1 — Several no-code papers beat the strongest open baselines
 
@@ -165,7 +166,7 @@ replacement for a public high-dynamic dataset.
 
 ## Finding 3 — A third of the methods degrade or diverge, reproducibly
 
-Honest negatives, kept in the leaderboard rather than dropped:
+Honest negatives, kept in the reproducibility record rather than deleted:
 
 - **InTEn-LOAM** (~19–30 % drift after the 2026-06-19 quaternion-layout fix):
   the scan-to-scan artifact is substantially less wrong than the earlier
@@ -251,8 +252,8 @@ open baselines once reimplemented. But the expected value is asymmetric: the
 most common outcome is a correct mechanism whose benefit does not survive
 contact with a well-conditioned benchmark, and the second most common is
 divergence caused by untransferable constants. A shared harness that keeps
-honest negatives on the leaderboard is what makes those two outcomes visible
-at all — single-method repositories structurally cannot report them.
+honest negatives in the reproducibility record is what makes those two outcomes
+visible at all — single-method repositories structurally cannot report them.
 
 ---
 

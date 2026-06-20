@@ -105,10 +105,12 @@ broken port._
 > reproduce, which mechanisms go silent on KITTI, which diverge, and the
 > recurring implementation lessons.
 
-Papers with **no public author code**, run as pure odometry on KITTI full
-sequences (first-pose anchor, `--no-gt-seed`, dense profile unless a method README
-calls out a CPU profile; no IMU, so LIO methods use constant-velocity fallback).
-RPE is drift %/100 m; ATE in parens.
+Promoted results from papers with **no public author code**, run as pure
+odometry on KITTI full sequences (first-pose anchor, `--no-gt-seed`, dense
+profile unless a method README calls out a CPU profile; no IMU, so LIO methods
+use constant-velocity fallback). RPE is drift %/100 m; ATE in parens. Severe
+high-drift/degradation experiments are kept in the reproducibility report and
+raw artifacts, but are not promoted in this README table.
 
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
@@ -155,9 +157,6 @@ RPE is drift %/100 m; ATE in parens.
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
 | Spectral-LO | 2.901% <sub>(67 m)</sub> | 4.127% <sub>(27 m)</sub> | arXiv:2005.02042 |
-| **InTEn-LOAM** | **19.450%** <sub>(309 m)</sub> | **29.550%** <sub>(227 m)</sub> | RS 2022/23 |
-| **R-VoxelMap** | **45.769%** <sub>(894 m)</sub> | **3.267%** <sub>(11 m)</sub> | arXiv:2601.12377 |
-| **PL-LOAM** | **89.731%** <sub>(275 m)</sub> | **84.782%** <sub>(142 m)</sub> | ICRA 2020 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
@@ -221,16 +220,9 @@ This is mechanism stress evidence, not a public dynamic-dataset claim.
 bounded 1-pixel projective lookup; it remains below the scan-to-map leaders but
 is no longer a degradation case. Honest negatives: Spectral-LO
 (ICP-free BEV phase-correlation, high-resolution 512 BEV profile improves to
-~2.9–4.1% drift but drops to ~10 FPS and remains below scan-to-map methods),
-**InTEn-LOAM** (cylindrical intensity LO with TVF/DOR but no mapping, improved
-after the Eigen/Ceres quaternion-layout fix but still coarse at ~19–30% drift),
-**PL-LOAM** (LiDAR-visual point+line on LiDAR-intensity pseudo-image without
-RGB, ~85–90% drift after the intensity-rendered feature and quaternion-layout
-fixes; seq00 uses no line residuals because the corrected line factors remain
-unstable on the long run),
-and **R-VoxelMap** (recursive plane voxel map, map/fallback disagreement
-recovery fixes the seq07 runaway to 3.27% RPE but seq00 still drifts 45.77%).
-Per-method caveats live in the module READMEs; raw JSON:
+~2.9–4.1% drift but drops to ~10 FPS and remains below scan-to-map methods).
+More severe degradation rows are excluded from the README table and documented
+in the reproducibility report, module READMEs, and raw JSON:
 [`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
 

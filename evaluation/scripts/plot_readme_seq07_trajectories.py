@@ -41,7 +41,6 @@ METHODS = [
     ("IMLS_SLAM", "IMLS-SLAM", "docs/benchmarks/kitti_full_new_methods/seq07_imls_slam.json"),
     ("SuMa", "SuMa", "docs/benchmarks/kitti_full_new_methods/seq07_suma.json"),
     ("GNC_LO", "GNC-LO", "docs/benchmarks/kitti_full_new_methods/seq07_gnc_lo.json"),
-    ("Spectral_LO", "Spectral-LO", "docs/benchmarks/kitti_full_new_methods/seq07_spectral_lo.json"),
 ]
 
 REQUIRED = {"KC-LO", "D2-LIO", "DegenSense", "Adaptive-ICP", "I-LOAM"}

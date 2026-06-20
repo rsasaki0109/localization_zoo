@@ -135,11 +135,11 @@ drift on KITTI seq 00/07. **VLOM** now also sits in this band
 (**0.91 % / 0.61 %**, ATE **9.52 m / 2.51 m**) after disabling visual
 bootstrap for LiDAR-only pseudo-images while keeping A-LOAM mapping and scale
 correction active. PL-LOAM improves after rendering LiDAR intensity instead of
-raw depth gradients into its pseudo-image, but still lands at
-**90.10 % / 87.38 %** drift. The caveat is equally clear: range-image visual
-proxies and line residuals remain auxiliary to the scan-to-map point-to-plane
-core, so they still trail the strongest open LiDAR-only baseline on this
-benchmark.
+raw depth gradients into its pseudo-image and after fixing the Eigen/Ceres
+quaternion layout in PL-BA factors, but still lands at **89.73 % / 84.78 %**
+drift. The caveat is equally clear: range-image visual proxies and line
+residuals remain auxiliary to the scan-to-map point-to-plane core, so they still
+trail the strongest open LiDAR-only baseline on this benchmark.
 
 RF-LIO adds the same lesson for dynamic removal: adaptive multi-resolution
 range-image foreground removal works mechanically and removes about **246-273
@@ -172,12 +172,14 @@ Honest negatives, kept in the leaderboard rather than dropped:
   ~53–67 % row, but the simplified port remains a high-drift negative. The
   mapping/intensity ablation bundle predates the fix and needs a current rerun
   before making exact variant claims.
-- **PL-LOAM** (LiDAR-visual, ~87-90 % drift): on KITTI Odometry there is
+- **PL-LOAM** (LiDAR-visual, ~85-90 % drift): on KITTI Odometry there is
   no RGB. LiDAR-intensity pseudo-images are much better than the earlier
-  depth-gradient front-end, dropping PL-LOAM from ~117-143 % to
-  **87.38-90.10 %**, but it remains a degradation case. VLOM exposed the
-  related failure mode: pseudo-image visual bootstrap was injecting a bad
-  motion prior, and disabling that path drops VLOM to **0.91 % / 0.61 %**.
+  depth-gradient front-end, and the 2026-06-20 Eigen/Ceres quaternion-layout
+  fix drops PL-LOAM to **89.73 % / 84.78 %**, but it remains a degradation
+  case. Seq00's best current artifact disables line factors because corrected
+  line endpoint residuals remain unstable on the long pseudo-image run. VLOM
+  exposed the related failure mode: pseudo-image visual bootstrap was injecting
+  a bad motion prior, and disabling that path drops VLOM to **0.91 % / 0.61 %**.
   Crucially, rerunning the visual front-end on KITTI Raw *with real RGB* still
   yields ~99 % drift for the simplified PL-LOAM/VLOM tracker — the simplified
   tracker, not only the missing camera, is the bottleneck.

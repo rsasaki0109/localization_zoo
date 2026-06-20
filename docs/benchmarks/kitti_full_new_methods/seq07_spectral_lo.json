@@ -12,8 +12,8 @@
   "gt_format": "csv_lidar_pose",
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
-  "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "5c2fd6b1c6125f107d83600314c2800c6a8cfd83",
+  "association_max_dt_s": 0.05,
+  "evaluator_git_commit": "fef1a12fa017963635ebe4e10b9413bc1a5c1bb6",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -24,7 +24,10 @@
     "timestamp_source": "frame_timestamps.csv",
     "timestamp_count": 1101,
     "timestamp_all_integer": true,
-    "timestamp_range": [0.000000, 1100.000000]
+    "timestamp_range": [
+      0.0,
+      1100.0
+    ]
   },
   "gt": {
     "source": "experiments/reference_data/kitti_seq_07_full_gt.csv",
@@ -32,14 +35,23 @@
     "format": "csv_lidar_pose",
     "time_domain": "seconds",
     "raw_pose_count": 1101,
-    "raw_timestamp_range": [0.000000, 1100.000000]
+    "raw_timestamp_range": [
+      0.0,
+      1100.0
+    ]
   },
   "association": {
     "mode": "exact_frame_id",
-    "max_dt_s": 0.050000,
+    "max_dt_s": 0.05,
     "used_gt_pose_count": 1101,
-    "associated_gt_index_range": [0, 1100],
-    "associated_gt_timestamp_range": [0.000000, 1100.000000],
+    "associated_gt_index_range": [
+      0,
+      1100
+    ],
+    "associated_gt_timestamp_range": [
+      0.0,
+      1100.0
+    ],
     "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
   },
   "metric_config": {
@@ -49,7 +61,7 @@
     },
     "rpe": {
       "alignment": "none",
-      "segment_length_m": 100.000000,
+      "segment_length_m": 100.0,
       "translation_unit": "percent",
       "rotation_unit": "deg_per_m"
     }
@@ -58,14 +70,14 @@
     {
       "name": "Spectral-LO",
       "status": "ok",
-      "ate_m": 27.304983,
-      "rpe_trans_pct": 4.126913,
+      "ate_m": 27.37832,
+      "rpe_trans_pct": 3.939322,
       "rpe_rot_deg_per_m": 0.042763,
       "frames": 1101,
-      "time_ms": 104567.429101,
-      "fps": 10.529091,
+      "time_ms": 151491.109128,
+      "fps": 7.267753,
       "seed_fallback_rate_pct": null,
-      "note": "Spectral-LO: frequency-domain BEV odometry; Fourier-Mellin log-polar phase correlation for yaw + phase-only correlation for translation (3-DoF, z held); no ICP, no GT seed. bev_size=512 bev_range=35.000000 mean_translation_peak=0.510"
+      "note": "Spectral-LO: frequency-domain BEV odometry; Fourier-Mellin log-polar phase correlation for yaw + phase-only correlation for translation with one residual translation-refinement POC pass (3-DoF, z held); no ICP, no GT seed. bev_size=512 bev_range=35.000000 translation_refinement_iters=1 mean_translation_peak=0.587"
     }
   ]
 }

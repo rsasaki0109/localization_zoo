@@ -157,7 +157,7 @@ raw artifacts, but are not promoted in this README table.
 | DiLO | 1.200% <sub>(39 m)</sub> | 1.533% <sub>(7 m)</sub> | ETRI J. 2021 |
 | PCR-DAT | 1.239% <sub>(11 m)</sub> | 1.040% <sub>(4 m)</sub> | ISR 2024 |
 | RF-LIO | 1.351% <sub>(23 m)</sub> | 1.272% <sub>(5 m)</sub> | IROS 2021 |
-| Spectral-LO | 2.901% <sub>(67 m)</sub> | 4.127% <sub>(27 m)</sub> | arXiv:2005.02042 |
+| Spectral-LO | 2.901% <sub>(67 m)</sub> | 3.939% <sub>(27 m)</sub> | arXiv:2005.02042 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 

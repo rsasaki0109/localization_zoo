@@ -39,6 +39,9 @@ struct SpectralLoParams {
 
   /// frame-to-keyframe にするキーフレーム並進しきい値 [m] (0=毎フレーム frame-to-frame)。
   double keyframe_translation = 0.0;
+  /// Translation POC を residual image 上でもう一度だけ評価する回数。
+  int translation_refinement_iterations = 0;
+  double max_translation_refinement_m = 1.5;
 };
 
 struct SpectralLoResult {

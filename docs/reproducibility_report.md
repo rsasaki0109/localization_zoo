@@ -186,7 +186,7 @@ Honest negatives, kept in the reproducibility record rather than deleted:
   tracker, not only the missing camera, is the bottleneck.
   Reproducing these papers requires the full ORB-SLAM2-class stack they build
   on.
-- **Spectral-LO** (~2.9–4.1 %): FFT phase-correlation odometry improves with a
+- **Spectral-LO** (~2.9–3.9 %): FFT phase-correlation odometry improves with a
   high-resolution 512 BEV profile after fixing the current-to-reference
   de-rotation sign. It remains honest coarse odometry: speed drops from the
   earlier ~29–30 FPS 256-BEV profile to ~10 FPS, and accuracy is still behind

@@ -10,6 +10,11 @@ namespace {
 
 constexpr double kPi = 3.14159265358979323846;
 
+double signedShift(double shift, int n) {
+  if (shift > n / 2) shift -= n;
+  return shift;
+}
+
 // 2D FFT (in-place, row-major n×n)。inverse=true で 1/n² 正規化。
 void fft2d(std::vector<std::complex<double>>& g, int n, bool inverse) {
   std::vector<std::complex<double>> line(n);
@@ -55,7 +60,8 @@ double parabolicOffset(double m1, double p0, double p1) {
 // 位相相関: a と b の正規化相互パワースペクトルを逆 FFT し、ピーク位置 (符号付き
 // 行/列シフト) と正規化相関ピーク値を返す。b が a を (dr, dc) だけ巡回シフトした
 // ものなら、ピークは (dr, dc) に立つ。
-Eigen::Vector2d phaseCorrelation(const Image& a, const Image& b, double* peak_val) {
+Eigen::Vector2d phaseCorrelation(const Image& a, const Image& b,
+                                 double* peak_val) {
   const int n = a.n;
   auto Fa = fft2dForward(a);
   auto Fb = fft2dForward(b);
@@ -74,6 +80,7 @@ Eigen::Vector2d phaseCorrelation(const Image& a, const Image& b, double* peak_va
       const double v = R[static_cast<size_t>(r) * n + c].real();
       if (v > best) { best = v; pr = r; pc = c; }
     }
+
   if (peak_val) *peak_val = best;
 
   auto val = [&](int r, int c) {
@@ -84,9 +91,8 @@ Eigen::Vector2d phaseCorrelation(const Image& a, const Image& b, double* peak_va
   const double dr = parabolicOffset(val(pr - 1, pc), val(pr, pc), val(pr + 1, pc));
   const double dc = parabolicOffset(val(pr, pc - 1), val(pr, pc), val(pr, pc + 1));
 
-  double sr = pr + dr, sc = pc + dc;
-  if (sr > n / 2) sr -= n;
-  if (sc > n / 2) sc -= n;
+  double sr = signedShift(pr + dr, n);
+  double sc = signedShift(pc + dc, n);
   return Eigen::Vector2d(sr, sc);
 }
 
@@ -217,8 +223,8 @@ double SpectralLoPipeline::estimateYaw(const Image& ref, const Image& cur) const
 Eigen::Vector2d SpectralLoPipeline::estimateTranslation(const Image& ref,
                                                         const Image& cur,
                                                         double* peak) const {
-  const Eigen::Vector2d sh = phaseCorrelation(ref, cur, peak);
   const double cell = 2.0 * params_.bev_range / params_.bev_size;
+  const Eigen::Vector2d sh = phaseCorrelation(ref, cur, peak);
   // sh = (行=y シフト, 列=x シフト)。位相相関ピークは ref→cur の BEV シフトを表し、
   // それが ref フレームでのセンサ並進に対応する。並進 = sh*cell。
   const double tx = sh(1) * cell;
@@ -252,7 +258,26 @@ SpectralLoResult SpectralLoPipeline::registerFrame(
   }
   const Image bev_rot = rasterizeBev(derot);
   double tpeak = 0.0;
-  const Eigen::Vector2d t = estimateTranslation(ref_bev_, bev_rot, &tpeak);
+  Eigen::Vector2d t =
+      estimateTranslation(ref_bev_, bev_rot, &tpeak);
+  for (int iter = 0; iter < params_.translation_refinement_iterations; ++iter) {
+    std::vector<Eigen::Vector3d> aligned(frame.size());
+    for (size_t i = 0; i < frame.size(); i++) {
+      const auto& p = frame[i];
+      aligned[i] = Eigen::Vector3d(cz * p.x() - sz * p.y() + t.x(),
+                                   sz * p.x() + cz * p.y() + t.y(), p.z());
+    }
+    const Image bev_aligned = rasterizeBev(aligned);
+    double residual_peak = 0.0;
+    const Eigen::Vector2d residual =
+        estimateTranslation(ref_bev_, bev_aligned, &residual_peak);
+    if (!residual.allFinite() ||
+        residual.norm() > params_.max_translation_refinement_m) {
+      break;
+    }
+    t += residual;
+    tpeak = residual_peak;
+  }
 
   // ref フレームから見た相対変換 T_rel (cur 座標 → ref 座標)。
   Eigen::Matrix4d T_rel = Eigen::Matrix4d::Identity();

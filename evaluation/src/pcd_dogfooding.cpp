@@ -2203,6 +2203,8 @@ struct SpectralLoDogfoodingOptions {
   int logpolar_radii = 256;
   double max_yaw_deg = 30.0;
   double keyframe_translation = 0.0;
+  int translation_refinement_iterations = 0;
+  double max_translation_refinement_m = 1.5;
 };
 
 struct GmmLoDogfoodingOptions {
@@ -6915,6 +6917,9 @@ MethodResult runSpectralLo(const std::vector<std::string>& pcd_dirs,
   params.logpolar_radii = options.logpolar_radii;
   params.max_yaw_deg = options.max_yaw_deg;
   params.keyframe_translation = options.keyframe_translation;
+  params.translation_refinement_iterations =
+      options.translation_refinement_iterations;
+  params.max_translation_refinement_m = options.max_translation_refinement_m;
   SpectralLoPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -6945,7 +6950,10 @@ MethodResult runSpectralLo(const std::vector<std::string>& pcd_dirs,
       "phase correlation for yaw + phase-only correlation for translation "
       "(3-DoF, z held); no ICP, no GT seed. bev_size=" +
       std::to_string(options.bev_size) + " bev_range=" +
-      std::to_string(options.bev_range) + " mean_translation_peak=" +
+      std::to_string(options.bev_range) +
+      " translation_refinement_iters=" +
+      std::to_string(options.translation_refinement_iterations) +
+      " mean_translation_peak=" +
       std::string(buf);
   return res;
 }
@@ -12727,6 +12735,16 @@ int main(int argc, char** argv) {
       spectral_lo_options.keyframe_translation = std::stod(argv[++i]);
       continue;
     }
+    if (arg == "--spectral-lo-translation-refinement-iters") {
+      if (i + 1 >= argc) { std::cerr << "--spectral-lo-translation-refinement-iters requires a value" << std::endl; return 1; }
+      spectral_lo_options.translation_refinement_iterations = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--spectral-lo-max-translation-refinement") {
+      if (i + 1 >= argc) { std::cerr << "--spectral-lo-max-translation-refinement requires a value" << std::endl; return 1; }
+      spectral_lo_options.max_translation_refinement_m = std::stod(argv[++i]);
+      continue;
+    }
     // --- gmm_lo ---
     if (arg == "--gmm-lo-fast-profile") {
       gmm_lo_options.source_voxel_size = 0.5;
@@ -14867,7 +14885,10 @@ int main(int argc, char** argv) {
     std::cout << "Running Spectral-LO..." << std::endl;
     std::cout << "  bev_size=" << spectral_lo_options.bev_size
               << " bev_range=" << spectral_lo_options.bev_range
-              << " max_yaw_deg=" << spectral_lo_options.max_yaw_deg << std::endl;
+              << " max_yaw_deg=" << spectral_lo_options.max_yaw_deg
+              << " translation_refinement_iters="
+              << spectral_lo_options.translation_refinement_iterations
+              << std::endl;
     results.push_back(runSpectralLo(pcd_dirs, gt, spectral_lo_options));
   }
 

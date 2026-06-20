@@ -39,6 +39,7 @@ METHODS = [
     ("GMM_LO", "GMM-LO", "docs/benchmarks/kitti_full_new_methods/seq07_gmm_lo.json"),
     ("TrICP_LO", "TrICP-LO", "docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json"),
     ("IMLS_SLAM", "IMLS-SLAM", "docs/benchmarks/kitti_full_new_methods/seq07_imls_slam.json"),
+    ("SuMa", "SuMa", "docs/benchmarks/kitti_full_new_methods/seq07_suma.json"),
     ("GNC_LO", "GNC-LO", "docs/benchmarks/kitti_full_new_methods/seq07_gnc_lo.json"),
     ("Spectral_LO", "Spectral-LO", "docs/benchmarks/kitti_full_new_methods/seq07_spectral_lo.json"),
 ]

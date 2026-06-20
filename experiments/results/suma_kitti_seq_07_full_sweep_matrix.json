@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-06-20T02:57:58Z",
+  "manifest_path": "experiments/suma_kitti_seq_07_full_sweep_matrix.json",
+  "problem": {
+    "id": "suma_kitti_seq_07_full_sweep",
+    "title": "SuMa on KITTI Odometry seq07 full sequence",
+    "question": "Does constant-velocity pose prediction stabilize SuMa on KITTI seq07 full sequence?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+      "trajectory_length_m": 694.390333
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "rpe_rot_deg_per_m",
+      "fps"
+    ],
+    "association_mode": "exact_frame_id",
+    "metric_config": {
+      "ate": {
+        "alignment": "none",
+        "definition": "absolute_position_rmse_m"
+      },
+      "rpe": {
+        "alignment": "none",
+        "segment_length_m": 100.0,
+        "translation_unit": "percent",
+        "rotation_unit": "deg_per_m"
+      }
+    }
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "extra_args": [
+      "--no-gt-seed"
+    ]
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "Run the same SuMa motion-prediction build across the remaining KITTI full sequences before promoting multi-sequence claims.",
+  "baseline_before_patch": {
+    "default": {
+      "ate_m": 52.942938,
+      "rpe_trans_pct": 10.022589,
+      "fps": 73.2
+    },
+    "dense_profile": {
+      "ate_m": 53.067406,
+      "rpe_trans_pct": 15.250096,
+      "fps": 36.6
+    }
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "default",
+      "design_style": "balanced",
+      "intent": "Repository default hyperparameters with constant-velocity pose prediction.",
+      "args": [
+        "--no-gt-seed"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --no-gt-seed --summary-json experiments/results/runs/suma_kitti_seq_07_full_sweep_matrix/default/summary.json",
+      "summary_path": "experiments/results/runs/suma_kitti_seq_07_full_sweep_matrix/default/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_seq_07_full_sweep_matrix/default/run.log",
+      "status": "ok",
+      "ate_m": 2.737589,
+      "rpe_trans_pct": 2.351981,
+      "rpe_rot_deg_per_m": 0.030101,
+      "fps": 94.550366,
+      "time_ms": 11644.587408,
+      "frames": 1101,
+      "note": "Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).",
+      "trajectory_length_m": 694.390333,
+      "decision": "Keep as fast reference variant",
+      "decision_reason": "Faster and lower ATE, but higher RPE than the dense profile."
+    },
+    {
+      "id": "dense_profile",
+      "label": "dense profile",
+      "design_style": "accuracy",
+      "intent": "Denser SuMa profile; slower but best full-sequence RPE after motion prediction.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods suma --no-gt-seed --summary-json experiments/results/runs/suma_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json --suma-dense-profile",
+      "summary_path": "experiments/results/runs/suma_kitti_seq_07_full_sweep_matrix/dense_profile/summary.json",
+      "log_path": "experiments/results/runs/suma_kitti_seq_07_full_sweep_matrix/dense_profile/run.log",
+      "status": "ok",
+      "ate_m": 3.970935,
+      "rpe_trans_pct": 0.944163,
+      "rpe_rot_deg_per_m": 0.008807,
+      "fps": 44.646944,
+      "time_ms": 24660.142548,
+      "frames": 1101,
+      "note": "Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).",
+      "trajectory_length_m": 694.390333,
+      "decision": "Adopt as current RPE variant",
+      "decision_reason": "Best full-sequence RPE on KITTI seq07."
+    }
+  ]
+}

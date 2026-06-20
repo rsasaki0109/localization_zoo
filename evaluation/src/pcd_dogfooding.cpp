@@ -9085,7 +9085,9 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note = "Surfel-based mapping (no GT seed; anchor matches first GT pose).";
+  res.note =
+      "Surfel-based mapping with constant-velocity prediction (no GT seed; "
+      "anchor matches first GT pose).";
   return res;
 }
 

@@ -4373,6 +4373,10 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
                               : "depth-pseudo-image")) +
       " mean_scale_correction=" + std::to_string(mean_scale) +
       " mean_depth_prior_residual=" + std::to_string(mean_depth_res) +
+      " depth_prior=" + std::string(options.use_depth_prior ? "on" : "off") +
+      " line_features=" + std::string(options.use_line_features ? "on" : "off") +
+      " scale_correction=" +
+      std::string(options.use_scale_correction ? "on" : "off") +
       " intensity_dilation_radius=" +
       std::to_string(options.intensity_dilation_radius) +
       " rgb_frames=" + std::to_string(rgb_frames);

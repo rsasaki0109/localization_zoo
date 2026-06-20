@@ -1,5 +1,7 @@
 #include "pl_loam/pl_loam.h"
+#include "pl_loam/factors.h"
 
+#include <Eigen/Geometry>
 #include <gtest/gtest.h>
 
 #include <cmath>
@@ -78,6 +80,28 @@ TEST(PlLoam, ScaleCorrectionMedianRatio) {
   const std::vector<double> visual = {5.0, 10.0, 15.0};
   EXPECT_NEAR(PlLoam::scaleCorrectionFactor(lidar, visual), 2.0, 1e-6);
   EXPECT_DOUBLE_EQ(PlLoam::scaleCorrectionFactor({}, {}), 1.0);
+}
+
+TEST(PlLoam, ReprojectionFactorUsesEigenQuaternionLayout) {
+  const Eigen::Vector3d point_prev(1.0, 0.0, 5.0);
+  const Eigen::AngleAxisd yaw(M_PI / 2.0, Eigen::Vector3d::UnitZ());
+  const Eigen::Quaterniond q_eigen(yaw);
+  const Eigen::Vector3d point_curr = yaw * point_prev;
+  const double fx = 100.0;
+  const double fy = 100.0;
+  const double cx = 50.0;
+  const double cy = 40.0;
+  const Eigen::Vector2d obs(fx * point_curr.x() / point_curr.z() + cx,
+                            fy * point_curr.y() / point_curr.z() + cy);
+
+  const double q[4] = {q_eigen.x(), q_eigen.y(), q_eigen.z(), q_eigen.w()};
+  const double t[3] = {0.0, 0.0, 0.0};
+  double residual[2] = {1.0, 1.0};
+  const PointReprojFactor factor(point_prev, obs, fx, fy, cx, cy, 1.0);
+
+  ASSERT_TRUE(factor(q, t, residual));
+  EXPECT_NEAR(residual[0], 0.0, 1e-9);
+  EXPECT_NEAR(residual[1], 0.0, 1e-9);
 }
 
 TEST(PlLoam, OptimizeRelativePoseRecoversTranslation) {

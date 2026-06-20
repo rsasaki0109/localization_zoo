@@ -13,7 +13,7 @@
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
   "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "3673313a703fe596c8b997ab3ba64fdd99702b99",
+  "evaluator_git_commit": "2b9faaa007f0f4cdca39f3266ebeed30b6202c21",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -58,14 +58,14 @@
     {
       "name": "PL-LOAM",
       "status": "ok",
-      "ate_m": 128.008195,
-      "rpe_trans_pct": 87.376908,
-      "rpe_rot_deg_per_m": 1.232607,
+      "ate_m": 142.420742,
+      "rpe_trans_pct": 84.782288,
+      "rpe_rot_deg_per_m": 0.862526,
       "frames": 1101,
-      "time_ms": 21073.701291,
-      "fps": 52.245212,
+      "time_ms": 19608.500725,
+      "fps": 56.149117,
       "seed_fallback_rate_pct": null,
-      "note": "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with depth priors in PL-BA; no GT seed. eval=intensity-pseudo-image mean_scale_correction=0.987883 mean_depth_prior_residual=1.808264 intensity_dilation_radius=2 rgb_frames=0"
+      "note": "PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with depth priors in PL-BA; no GT seed. eval=intensity-pseudo-image mean_scale_correction=0.987883 mean_depth_prior_residual=1.808264 depth_prior=on line_features=on scale_correction=on intensity_dilation_radius=2 rgb_frames=0"
     }
   ]
 }

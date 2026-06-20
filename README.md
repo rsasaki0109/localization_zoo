@@ -157,7 +157,7 @@ RPE is drift %/100 m; ATE in parens.
 | Spectral-LO | 2.901% <sub>(67 m)</sub> | 4.127% <sub>(27 m)</sub> | arXiv:2005.02042 |
 | **InTEn-LOAM** | **19.450%** <sub>(309 m)</sub> | **29.550%** <sub>(227 m)</sub> | RS 2022/23 |
 | **R-VoxelMap** | **45.769%** <sub>(894 m)</sub> | **3.267%** <sub>(11 m)</sub> | arXiv:2601.12377 |
-| **PL-LOAM** | **90.100%** <sub>(278 m)</sub> | **87.377%** <sub>(128 m)</sub> | ICRA 2020 |
+| **PL-LOAM** | **89.731%** <sub>(275 m)</sub> | **84.782%** <sub>(142 m)</sub> | ICRA 2020 |
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
@@ -225,7 +225,9 @@ is no longer a degradation case. Honest negatives: Spectral-LO
 **InTEn-LOAM** (cylindrical intensity LO with TVF/DOR but no mapping, improved
 after the Eigen/Ceres quaternion-layout fix but still coarse at ~19–30% drift),
 **PL-LOAM** (LiDAR-visual point+line on LiDAR-intensity pseudo-image without
-RGB, ~87–90% drift after the intensity-rendered feature fix),
+RGB, ~85–90% drift after the intensity-rendered feature and quaternion-layout
+fixes; seq00 uses no line residuals because the corrected line factors remain
+unstable on the long run),
 and **R-VoxelMap** (recursive plane voxel map, map/fallback disagreement
 recovery fixes the seq07 runaway to 3.27% RPE but seq00 still drifts 45.77%).
 Per-method caveats live in the module READMEs; raw JSON:
@@ -342,56 +344,12 @@ Absolute ATE is reported as a diagnostic, but it is not sorted globally across
 different sequence lengths or windows. The Pages map starts filtered to one
 benchmark group; the All-results view is overview-only and not a comparison.
 
-### Autoware Istanbul 108-frame snapshot
-
-One real-data snapshot from the Autoware Istanbul localization bag. This run
-publishes GT-seeded scan-to-map references only. These methods use the reference
-pose as a per-frame initial guess, so their ATE measures seed adherence and
-local map registration behavior, not standalone odometry. They are not ranked
-against first-pose-anchored KITTI odometry.
-
-- Topic: `/localization/util/downsample/pointcloud`
-- Window: frames `10200-10307`
-- Sequence length: `108` frames, `302.1 m`, `10.70 s`
-- Reference poses: `reference_pose_full.csv`
-- Scan density: `940-1380` points per frame, `1128.7` average
-
-GT-seeded scan-to-map references (not ranked against odometry):
-
-| Method | Status | ATE [m] | FPS | Notes |
-|--------|--------|---------|-----|-------|
-| NDT | OK | 0.109 | 1.2 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
-| GICP | OK | 0.994 | 3.1 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile |
-| LiTAMIN2 | OK | 1.213 | 21.0 | GT-seeded scan-to-map init with weak-update fallback; current snapshot uses a recent/local-map profile plus OpenMP parallelism |
-
-Odometry-only results are not published for this Autoware snapshot until the
-same window is rerun with strict GT/frame association. CT-LIO is listed as not
-run because the bag window does not contain IMU data, so `imu.csv` was not
-generated.
-
-### KITTI seq07 strict smoke baseline
-
-Current strict-evaluator smoke baseline, reproduced locally on KITTI Odometry
-seq07 first 108 frames (`60.7 m`, exact frame-ID association). This is a
-regression check, not an official KITTI leaderboard score, and it is not used in
-the main odometry ranking:
-
-| Method | Status | ATE [m] | RPE [%/100m] | FPS | Notes |
-|--------|--------|---------|--------------|-----|-------|
-| KISS-ICP | OK | 0.138 | 0.553 | 37.7 | Odometry-only; corrected smoke baseline, not an official KITTI score |
-| CT-ICP | OK | 0.421 | 0.863 | 23.7 | Odometry-only; corrected smoke baseline, not an official KITTI score |
-
-![Autoware Istanbul benchmark](docs/benchmarks/latest/trajectory.png)
-
-`./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] --methods <selector> --summary-json <path>`
-evaluates sequential PCD datasets against a shared trajectory CSV. The selector list
-and per-method flag families are generated in [`docs/interfaces.md`](docs/interfaces.md).
-GT association is strict by default: integer frame timelines are joined by exact
-frame ID, non-integer timelines are associated by timestamp within
-`--association-max-dt`, and silent sampled-GT fallback is only available through
-`--association-mode legacy-auto`. `dogfooding_results/gt.txt` is a mutable
-last-run artifact and is refused as canonical GT unless
-`--allow-legacy-gt-artifact` is passed explicitly.
+Detailed Autoware snapshot rows, KITTI smoke baselines, and evaluator provenance
+live in the [interactive benchmark explorer](https://rsasaki0109.github.io/localization_zoo/)
+and committed JSON artifacts. The shared LiDAR evaluator is
+`pcd_dogfooding`; method selectors and flags are generated in
+[`docs/interfaces.md`](docs/interfaces.md), and benchmark methodology notes live
+in [`docs/dogfooding_methodology.md`](docs/dogfooding_methodology.md).
 
 Dataset-prep helpers (KITTI Odometry, KITTI Raw, ROS 1/2 bag extraction, HDL-400) live
 under [`evaluation/scripts/`](evaluation/scripts/). For KITTI Odometry public sequences:

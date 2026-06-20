@@ -57,13 +57,19 @@ Ablation flags: `--pl-loam-no-depth-prior`, `--pl-loam-no-lines`,
 ## Tests
 
 `test_pl_loam` covers: patch median depth extraction; intensity pseudo-image
-densification; scale-correction median ratio; depth-prior PL-BA convergence on
-synthetic correspondences; short-sequence tracking on LiDAR-rendered features;
-and state reset on `clear()`.
+densification; scale-correction median ratio; Eigen/Ceres quaternion layout in
+PL-BA residuals; depth-prior PL-BA convergence on synthetic correspondences;
+short-sequence tracking on LiDAR-rendered features; and state reset on
+`clear()`.
 
 ## Reproduce
 
 ```sh
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full \
+  experiments/reference_data/kitti_seq_00_full_gt.csv \
+  --methods pl_loam --no-gt-seed --pl-loam-intensity-dilation 2 \
+  --pl-loam-no-lines
+
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
   experiments/reference_data/kitti_seq_07_full_gt.csv \
   --methods pl_loam --no-gt-seed --pl-loam-intensity-dilation 2
@@ -71,18 +77,23 @@ and state reset on `clear()`.
 
 ## Result (KITTI Odometry, `--no-gt-seed`, intensity pseudo-image eval)
 
-| Sequence | RPE drift | ATE |
-|---|---:|---:|
-| Seq 00 _(4541 fr)_ | **90.100%** | 278 m |
-| Seq 07 _(1101 fr)_ | **87.377%** | 128 m |
+| Sequence | Profile | RPE drift | ATE |
+|---|---|---:|---:|
+| Seq 00 _(4541 fr)_ | intensity pseudo-image, line factors off | **89.731%** | 275 m |
+| Seq 07 _(1101 fr)_ | intensity pseudo-image, line factors on | **84.782%** | 142 m |
 
 **Honest negative on this benchmark path.** PL-LOAM's paper pipeline expects real
 monocular RGB + synchronized LiDAR (KITTI Raw). The Odometry benchmark here has
 velodyne only, so visual features come from a LiDAR-intensity pseudo-image while
 depth priors still come from projected LiDAR depth. This fixes the older
-depth-gradient feature starvation (previously ~117–143% drift), but without a
-full visual front-end the tracker is still far from the paper's ~0.6–1.0% KITTI
-drift. Scale correction stays near 1.0 (mean ≈ 0.985–0.988) while depth-prior
+depth-gradient feature starvation (previously ~117–143% drift), and the
+2026-06-20 pass also fixes the PL-BA residual quaternion layout
+(`Eigen::Quaterniond::coeffs()` is `{x,y,z,w}`, while Ceres rotation helpers
+expect `{w,x,y,z}`). RPE improves from 90.100% / 87.377% to 89.731% / 84.782%,
+but this is still far from the paper's ~0.6–1.0% KITTI drift. Seq00's best
+stable artifact disables line factors; with the corrected rotation convention,
+line endpoint residuals are still too brittle on the long pseudo-image run.
+Scale correction stays near 1.0 (mean ≈ 0.985–0.988) while depth-prior
 residuals remain large (≈1.8–2.1 m), indicating the visual front-end — not the
 LiDAR depth stage alone — is the bottleneck on pseudo-images.
 

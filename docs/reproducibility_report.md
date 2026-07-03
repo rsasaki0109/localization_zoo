@@ -168,11 +168,14 @@ replacement for a public high-dynamic dataset.
 
 Honest negatives, kept in the reproducibility record rather than deleted:
 
-- **InTEn-LOAM** (~19–30 % drift after the 2026-06-19 quaternion-layout fix):
-  the scan-to-scan artifact is substantially less wrong than the earlier
-  ~53–67 % row, but the simplified port remains a high-drift negative. The
-  mapping/intensity ablation bundle predates the fix and needs a current rerun
-  before making exact variant claims.
+- **InTEn-LOAM** (post-fix 2026-07-03 ablation, `--inten-loam-dense-profile`):
+  default full pipeline stays high-drift but stable on seq00 (**63.0 %** /
+  455 m) and seq07 (**64.6 %** / 126 m). seq07 scan-to-scan without mapping
+  is the least-bad local row (**29.6 %**), but seq00 scan-to-scan diverges
+  (**218 %** / 13265 m). Mapping without TVF/DOR is worse on seq00
+  (**4362 %**). Intensity on/off is near-redundant on both sequences. Raw
+  bundles: `docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_ablation.json`.
+  Not promoted to the README from-paper table.
 - **PL-LOAM** (LiDAR-visual, ~85-90 % drift): on KITTI Odometry there is
   no RGB. LiDAR-intensity pseudo-images are much better than the earlier
   depth-gradient front-end, and the 2026-06-20 Eigen/Ceres quaternion-layout

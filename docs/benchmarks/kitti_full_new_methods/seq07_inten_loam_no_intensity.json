@@ -1,19 +1,69 @@
 {
-  "pcd_dir": "localization_zoo/dogfooding_results/kitti_seq_07_full",
-  "gt_csv": "localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "schema_version": 2,
+  "pcd_dir": "/home/sasaki/workspace/old_~2026/loc_zoo_ws/localization_zoo/dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "/home/sasaki/workspace/old_~2026/loc_zoo_ws/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "gt_sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+  "total_pcd_frames": 1101,
   "num_frames": 1101,
+  "raw_gt_pose_count": 1101,
+  "used_gt_pose_count": 1101,
   "trajectory_length_m": 694.390333,
-  "timestamp_source": "sampled GT timestamps",
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "929725aa6b97d8a66fb928d8a75560fdac14831d",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_07_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 1101,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 1100.000000]
+  },
+  "gt": {
+    "source": "/home/sasaki/workspace/old_~2026/loc_zoo_ws/localization_zoo/experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 1101,
+    "raw_timestamp_range": [0.000000, 1100.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 1101,
+    "associated_gt_index_range": [0, 1100],
+    "associated_gt_timestamp_range": [0.000000, 1100.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
   "methods": [
     {
       "name": "InTEn-LOAM",
       "status": "ok",
-      "ate_m": 217.716064,
-      "rpe_trans_pct": 71.691249,
-      "rpe_rot_deg_per_m": 1.177190,
-      "frames": 1102,
-      "time_ms": 225102.606934,
-      "fps": 4.895545,
+      "ate_m": 124.200961,
+      "rpe_trans_pct": 63.510648,
+      "rpe_rot_deg_per_m": 0.448537,
+      "frames": 1101,
+      "time_ms": 105928.850159,
+      "fps": 10.393769,
       "seed_fallback_rate_pct": null,
       "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=550 mean_intensity_residual=0.000000"
     }

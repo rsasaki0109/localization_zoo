@@ -83,5 +83,23 @@ On the 60-frame stress, ground constraints track at **0.116 m** ATE and
 **0.500%** drift with about **1278 ground correspondences/frame**. Disabling the
 ground factor worsens to **0.150 m** ATE and **0.675%** drift, with rotational
 RPE rising from **0.0028** to **0.0206 deg/m**. This confirms the multiple-ground
-path is active and useful on non-flat synthetic terrain, but it remains a
-mechanism stress rather than public dataset validation.
+path is active and useful on non-flat synthetic terrain.
+
+## Public KITTI seq08 validation
+
+Hilly public KITTI Odometry seq08 full (4071 frames, no GT seed):
+
+```bash
+python3 evaluation/scripts/run_m_gclo_kitti_seq08_validation.py
+```
+
+| Variant | RPE | ATE | Artifact |
+|---|---:|---:|---|
+| ground on | 1.354% | 21.1 m | [`m_gclo_ground_on.json`](../../docs/benchmarks/kitti_seq08_public/m_gclo_ground_on.json) |
+| ground off | 1.353% | 52.6 m | [`m_gclo_ground_off.json`](../../docs/benchmarks/kitti_seq08_public/m_gclo_ground_off.json) |
+
+Paired summary: [`m_gclo_kitti_seq08_validation_summary.json`](../../docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json).
+Disabling the ground factor leaves translational RPE unchanged but worsens
+whole-run ATE by about 149% on this hilly public sequence — consistent with the
+seq00/07 ground-factor ablation. Dedicated off-road / multi-beam benchmarks such
+as MulRan remain open before T0 promotion.

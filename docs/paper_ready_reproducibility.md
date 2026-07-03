@@ -58,7 +58,7 @@ positive or negative evidence.
 | D2-LIO | T1 evidence candidate | Directional degeneracy diagnostics are competitive as a no-IMU KITTI fallback once the IMU prior is gated to real IMU packets. | Validate directional IMU regularization on a synchronized LiDAR-IMU benchmark before making full LIO claims. |
 | M-GCLO | T1+ evidence candidate | Ground-factor off ablation is committed on KITTI, and synthetic rolling-ground stress shows ground on improves ATE/RPE versus ground off. | Add public non-flat dataset validation before promoting to T0. |
 | Quadric-LO | T1+ evidence candidate | Plane-fallback ablation is committed on KITTI, and synthetic orchard-like curved-object stress confirms the point-to-quadric path dominates (>99% quadric correspondences). | Add public curved-object or non-urban dataset validation before promoting to T0. |
-| LiDAR-IBA | T1 evidence candidate | Stereographic plane front-end is competitive on KITTI under the committed no-BA odometry profile. | Commit paired BA on/off ablation JSON before T0 promotion or BA trade-off claims. |
+| LiDAR-IBA | T1 evidence candidate | Stereographic plane front-end is competitive on KITTI; committed no-BA profile beats BA-on for RPE on IMU-free seq00/07 with paired ablation JSON. | Validate BA + IMU on a synchronized LiDAR-IMU benchmark before full LIO claims. |
 | TrICP-LO | T1 evidence candidate | LTS trimmed point-to-plane odometry is near KISS-ICP on seq00/07; FRMSD overlap sticks to the min_overlap floor on clean KITTI. | Commit fixed-overlap vs auto-overlap ablation JSON before T0 promotion. |
 | LiDAR-visual adapters | T2 | They show pseudo-visual residuals are stable but auxiliary on KITTI PCD. | Do not call these paper-grade until real RGB / camera synchronization is used or the paper claim is reframed as a KITTI-PCD adapter study. |
 | RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active on KITTI and in the committed synthetic dynamic-object stress. RF-LIO reduces the synthetic failure severity versus ID-LIO, but both remain far from the KISS sanity reference. | Add a public high-dynamic dataset before making manuscript-level dynamic-scene claims. |
@@ -80,11 +80,11 @@ evidence. The bundle records the seq00/07 main result rows, paired-ablation
 summaries where available, raw artifact paths, and relative reproduce commands.
 It also points to the RF-LIO/ID-LIO synthetic dynamic-object stress, M-GCLO
 synthetic non-flat ground stress, and Quadric-LO synthetic curved-object stress
-summaries as supporting, non-paper-grade evidence. LiDAR-IBA and TrICP-LO are
-included without paired ablation JSON yet; their remaining_work fields call out
-BA on/off and overlap ablations respectively. RF-LIO/ID-LIO public high-dynamic
-validation, M-GCLO public non-flat validation, and Quadric-LO public
-curved-object/non-urban validation remain open before a full 12-method table.
+summaries as supporting, non-paper-grade evidence. LiDAR-IBA now includes a
+committed BA on/off ablation; TrICP-LO still lacks overlap ablation JSON.
+RF-LIO/ID-LIO public high-dynamic validation, M-GCLO public non-flat validation,
+and Quadric-LO public curved-object/non-urban validation remain open before a
+full 12-method table.
 
 ## Immediate Roadmap
 

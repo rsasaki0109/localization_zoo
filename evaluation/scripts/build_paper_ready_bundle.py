@@ -183,7 +183,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 },
             },
         },
-        "remaining_work": "Synthetic curved-object stress is committed; add public curved-object or non-urban dataset validation before promoting to T0.",
+        "remaining_work": "Synthetic curved-object stress and KITTI seq02 public validation are committed; add dedicated orchard or non-urban multi-beam benchmarks before promoting to T0.",
     },
     {
         "id": "lidar_iba",
@@ -507,10 +507,17 @@ def build_bundle() -> dict[str, Any]:
                     "claim_limit": "Mechanism stress only; public curved-object or non-urban dataset validation is still required before promoting Quadric-LO to T0.",
                 }
             ],
+            "supporting_public_validation_checks": [
+                {
+                    "name": "Quadric-LO KITTI seq02 public plane-fallback on/off validation",
+                    "artifact": "docs/benchmarks/kitti_seq02_public/quadric_lo_kitti_seq02_validation_summary.json",
+                    "claim_limit": "Public residential KITTI seq02 check only; dedicated orchard or non-urban multi-beam benchmarks remain open before T0 promotion.",
+                },
+            ],
             "remaining_before_full_manuscript_table": [
                 "RF-LIO/ID-LIO public high-dynamic dataset validation",
                 "M-GCLO public non-flat dataset validation",
-                "Quadric-LO public curved-object or non-urban dataset validation",
+                "Quadric-LO dedicated orchard or non-urban multi-beam validation (partial KITTI seq02 residential check committed)",
             ],
         },
         "paper_table_rows": table_rows,

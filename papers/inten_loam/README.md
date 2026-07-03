@@ -48,8 +48,11 @@ Ablation flags: `--inten-loam-no-intensity`, `--inten-loam-no-tvf`,
 
 ## Result (KITTI Odometry full, `--no-gt-seed`)
 
-Current main artifacts:
-`docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam.json`.
+Post-fix ablation artifacts (2026-07-03, quaternion-layout fix applied):
+`docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_ablation.json`
+
+Canonical default-pipeline artifacts (TVF+DOR+mapping, dense profile):
+`docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam.json`
 
 The 2026-06-19 evaluator build fixes the Ceres/Eigen quaternion layout used by
 the geometric and intensity residuals. Earlier artifacts interpreted Eigen
@@ -57,26 +60,35 @@ the geometric and intensity residuals. Earlier artifacts interpreted Eigen
 `QuaternionRotatePoint`, so the identity initial guess was not actually
 identity inside the residuals.
 
-| Sequence | Variant | Drift | ATE [m] | Notes |
-|----------|---------|------:|--------:|-------|
-| 00 (4541 frames) | **no_mapping** (scan-to-scan) | **19.450%** | 309 | current main artifact |
-| 07 (1101 frames) | **no_mapping** (scan-to-scan) | **29.550%** | 227 | current main artifact |
+### Post-fix ablation (7 variants, `--inten-loam-dense-profile`)
 
-### Historical pre-fix ablation
+| Sequence | Variant | Drift | ATE [m] | FPS | Notes |
+|----------|---------|------:|--------:|----:|-------|
+| 07 (1101 fr) | **no_mapping** | **29.597%** | 129 | 39.7 | best seq07 RPE |
+| 07 | mapping_only | 50.131% | 143 | 14.1 | TVF/DOR off |
+| 07 | no_dor | 52.318% | 109 | 13.3 | |
+| 07 | no_intensity | 63.511% | 124 | 10.4 | intensity near-redundant |
+| 07 | **full** (default) | 64.599% | 126 | 10.3 | TVF+DOR+mapping |
+| 07 | no_tvf | 69.874% | 96 | 10.9 | |
+| 00 (4541 fr) | **full** (default) | **63.008%** | 455 | 10.6 | best stable seq00 row |
+| 00 | no_intensity | 68.624% | 423 | 11.1 | |
+| 00 | no_tvf | 71.336% | 349 | 11.0 | |
+| 00 | no_mapping | 218.170% | 13265 | 47.5 | severe divergence |
+| 00 | no_dor | 299.979% | 11569 | 15.5 | severe divergence |
+| 00 | mapping_only | 4362.094% | 223579 | 21.3 | severe divergence |
+| 00 | no_tvf_no_dor | 4362.094% | 223579 | 21.6 | severe divergence |
 
-Ablation script: `evaluation/scripts/run_inten_loam_ablation.py`
-Bundles: `docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_ablation.json`
+Per-variant raw JSON:
+`docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_{variant}.json`.
 
-Those ablation bundles predate the quaternion-layout fix and should be rerun
-before using exact mapping/intensity deltas. They remain useful only as the
-historical reason that the public main artifact used scan-to-scan
-`--inten-loam-no-mapping`.
-
-**Honest negative.** The quaternion fix makes InTEn-LOAM substantially less
-wrong on KITTI, but the simplified from-paper port is still far from the paper's
-reported ~0.54% drift and remains a high-drift row. The scan-to-map mapping,
-TVF/DOR, and intensity ablations need a post-fix rerun before making current
-variant claims.
+**Honest negative (T3).** Post-fix, InTEn-LOAM remains far from the paper's
+reported ~0.54% drift on KITTI. seq07 scan-to-scan without mapping is the
+least-bad local row (~30% RPE), but seq00 scan-to-scan diverges catastrophically
+while the default full pipeline stays merely high-drift (~63% RPE). Mapping +
+TVF/DOR without each other is unstable on seq00. Intensity on/off is
+near-redundant on both sequences. **Not promoted to the README from-paper
+leaderboard** (high-drift policy); raw artifacts and ablation bundles are kept
+for reproducibility.
 
 ## Cross-dataset (`--no-gt-seed`)
 
@@ -95,20 +107,21 @@ Full ablation (7 variants × seq00 + seq07):
 python3 evaluation/scripts/run_inten_loam_ablation.py --sequence seq07 --sequence seq00
 ```
 
-Single run (default = TVF+DOR+mapping ON):
+Single run (default = TVF+DOR+mapping ON, dense profile):
 
 ```sh
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
   experiments/reference_data/kitti_seq_07_full_gt.csv \
-  --methods inten_loam --no-gt-seed
+  --methods inten_loam --no-gt-seed --inten-loam-dense-profile
 ```
 
-Scan-to-scan baseline:
+Scan-to-scan ablation (seq07 least-bad RPE; seq00 diverges on long runs):
 
 ```sh
 ./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full \
   experiments/reference_data/kitti_seq_07_full_gt.csv \
-  --methods inten_loam --no-gt-seed --inten-loam-no-mapping
+  --methods inten_loam --no-gt-seed --inten-loam-dense-profile \
+  --inten-loam-no-mapping
 ```
 
 ## Tests

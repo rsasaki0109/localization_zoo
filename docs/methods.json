@@ -1091,7 +1091,7 @@
         "LiDAR"
       ],
       "href": "papers/inten_loam",
-      "summary": "InTEn-LOAM (RS 2022/23): cylindrical range+intensity images for adaptive ground/facade/edge/reflector features, joint geometric + B-spline intensity scan registration. Temporal DOR and mapping deferred in this port.",
+      "summary": "InTEn-LOAM (RS 2022/23): cylindrical range+intensity FEF, B-spline intensity registration, simplified TVF/DOR, and scan-to-map mapping. KITTI post-fix ablation (2026-07-03) is high-drift / honest negative.",
       "tags": [
         "odometry",
         "intensity",

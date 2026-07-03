@@ -12,8 +12,8 @@
   "gt_format": "csv_lidar_pose",
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
-  "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "399e5eea8cbe1b00595f0c69a10db7ae5132574d",
+  "association_max_dt_s": 0.05,
+  "evaluator_git_commit": "929725aa6b97d8a66fb928d8a75560fdac14831d",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -24,7 +24,10 @@
     "timestamp_source": "frame_timestamps.csv",
     "timestamp_count": 1101,
     "timestamp_all_integer": true,
-    "timestamp_range": [0.000000, 1100.000000]
+    "timestamp_range": [
+      0.0,
+      1100.0
+    ]
   },
   "gt": {
     "source": "experiments/reference_data/kitti_seq_07_full_gt.csv",
@@ -32,14 +35,23 @@
     "format": "csv_lidar_pose",
     "time_domain": "seconds",
     "raw_pose_count": 1101,
-    "raw_timestamp_range": [0.000000, 1100.000000]
+    "raw_timestamp_range": [
+      0.0,
+      1100.0
+    ]
   },
   "association": {
     "mode": "exact_frame_id",
-    "max_dt_s": 0.050000,
+    "max_dt_s": 0.05,
     "used_gt_pose_count": 1101,
-    "associated_gt_index_range": [0, 1100],
-    "associated_gt_timestamp_range": [0.000000, 1100.000000],
+    "associated_gt_index_range": [
+      0,
+      1100
+    ],
+    "associated_gt_timestamp_range": [
+      0.0,
+      1100.0
+    ],
     "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
   },
   "metric_config": {
@@ -49,7 +61,7 @@
     },
     "rpe": {
       "alignment": "none",
-      "segment_length_m": 100.000000,
+      "segment_length_m": 100.0,
       "translation_unit": "percent",
       "rotation_unit": "deg_per_m"
     }
@@ -58,14 +70,14 @@
     {
       "name": "InTEn-LOAM",
       "status": "ok",
-      "ate_m": 226.781784,
-      "rpe_trans_pct": 29.550054,
-      "rpe_rot_deg_per_m": 0.265516,
+      "ate_m": 125.582745,
+      "rpe_trans_pct": 64.599303,
+      "rpe_rot_deg_per_m": 0.432667,
       "frames": 1101,
-      "time_ms": 18137.528605,
-      "fps": 60.702868,
+      "time_ms": 106809.564756,
+      "fps": 10.308066,
       "seed_fallback_rate_pct": null,
-      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=off mapping_updates=0 mean_intensity_residual=3.849910"
+      "note": "InTEn-LOAM (Li et al., RS 2022/23): cylindrical FEF + intensity registration + TVF/DOR/mapping; no GT seed. tvf=on dor=on mapping=on mapping_updates=550 mean_intensity_residual=3.416181"
     }
   ]
 }

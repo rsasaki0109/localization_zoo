@@ -13,8 +13,8 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT = REPO_ROOT / "docs" / "benchmarks" / "paper_ready_bundle.json"
 KITTI_ROOT = "data/kitti_pcd"
-FROZEN_DATE = "2026-06-18"
-BUNDLE_ID = "paper_ready_core_2026_06_18"
+FROZEN_DATE = "2026-07-03"
+BUNDLE_ID = "paper_ready_core_2026_07_03"
 
 
 METHOD_CONFIGS: list[dict[str, Any]] = [
@@ -182,6 +182,44 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
             },
         },
         "remaining_work": "Synthetic curved-object stress is committed; add public curved-object or non-urban dataset validation before promoting to T0.",
+    },
+    {
+        "id": "lidar_iba",
+        "selector": "lidar_iba",
+        "method": "LiDAR-IBA",
+        "tier": "T1 evidence candidate",
+        "paper": "Li et al., A Consistency-Improved LiDAR(-Inertial) Bundle Adjustment, arXiv:2602.06380",
+        "claim": "Stereographic plane parameterization is stable on KITTI; the committed no-BA profile optimizes local RPE over sliding-window BA on this IMU-free protocol.",
+        "mechanism": "Stereographic plane-normal front-end with optional sliding-window plane BA and FEJ gauge fix.",
+        "paper_result": {
+            "variant": "no_ba_dense",
+            "role": "main KITTI odometry row",
+            "flags": ["--lidar-iba-no-ba"],
+            "artifacts": {
+                "00": "docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json",
+                "07": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
+            },
+        },
+        "remaining_work": "Commit paired BA on/off artifacts before making BA trade-off claims in the frozen bundle.",
+    },
+    {
+        "id": "tricp_lo",
+        "selector": "tricp_lo",
+        "method": "TrICP-LO",
+        "tier": "T1 evidence candidate",
+        "paper": "Chetverikov et al., The Trimmed Iterative Closest Point Algorithm, ICPR 2002 / Image Vis. Comput. 2005",
+        "claim": "Least-trimmed-squares point-to-plane odometry is competitive with KISS-ICP on KITTI; FRMSD overlap sticks to the min_overlap floor on clean driving data.",
+        "mechanism": "Rank-based trimmed point-to-plane ICP with FRMSD automatic overlap estimation.",
+        "paper_result": {
+            "variant": "dense_auto_overlap",
+            "role": "main KITTI odometry row",
+            "flags": ["--tricp-lo-dense-profile"],
+            "artifacts": {
+                "00": "docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo.json",
+                "07": "docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json",
+            },
+        },
+        "remaining_work": "Commit fixed-overlap vs auto-overlap ablation JSON before promoting trimming/overlap claims to T0.",
     },
 ]
 
@@ -416,6 +454,7 @@ def build_bundle() -> dict[str, Any]:
                 1 for config in METHOD_CONFIGS if config.get("ablation")
             ),
             "t0_evidence_candidates": ["I-LOAM", "KC-LO"],
+            "t1_evidence_candidates": ["LiDAR-IBA", "TrICP-LO"],
             "t1_plus_evidence_candidates": ["M-GCLO", "Quadric-LO"],
             "competitive_no_imu_fallbacks": ["DegenSense", "D2-LIO"],
             "supporting_synthetic_stress_checks": [

@@ -98,6 +98,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
             },
         },
         "remaining_work": "Validate the compensation path on a synchronized LiDAR-IMU benchmark before making full LIO claims.",
+        "no_ablation_claim_limit": "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation.",
     },
     {
         "id": "d2lio",
@@ -117,6 +118,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
             },
         },
         "remaining_work": "Validate the IMU-prior regularization path on a synchronized LiDAR-IMU benchmark before making full LIO claims.",
+        "no_ablation_claim_limit": "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation.",
     },
     {
         "id": "m_gclo",
@@ -189,7 +191,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
         "method": "LiDAR-IBA",
         "tier": "T1 evidence candidate",
         "paper": "Li et al., A Consistency-Improved LiDAR(-Inertial) Bundle Adjustment, arXiv:2602.06380",
-        "claim": "Stereographic plane parameterization is stable on KITTI; the committed no-BA profile optimizes local RPE over sliding-window BA on this IMU-free protocol.",
+        "claim": "Stereographic plane-normal front-end is competitive on KITTI seq00/07 under the committed no-BA odometry profile (IMU-free protocol).",
         "mechanism": "Stereographic plane-normal front-end with optional sliding-window plane BA and FEJ gauge fix.",
         "paper_result": {
             "variant": "no_ba_dense",
@@ -201,6 +203,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
             },
         },
         "remaining_work": "Commit paired BA on/off artifacts before making BA trade-off claims in the frozen bundle.",
+        "no_ablation_claim_limit": "Paired BA on/off ablation is not yet in the frozen bundle; the main row uses the no-BA KITTI profile only.",
     },
     {
         "id": "tricp_lo",
@@ -220,6 +223,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
             },
         },
         "remaining_work": "Commit fixed-overlap vs auto-overlap ablation JSON before promoting trimming/overlap claims to T0.",
+        "no_ablation_claim_limit": "Fixed-overlap vs auto-overlap ablation is not yet in the frozen bundle; the main row uses dense auto-overlap only.",
     },
 ]
 
@@ -419,7 +423,10 @@ def build_method_entry(config: dict[str, Any]) -> tuple[dict[str, Any], list[dic
             "summary_artifact": None,
             "protocol": {
                 "type": "no paired ablation in frozen bundle",
-                "claim_limit": "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation.",
+                "claim_limit": config.get(
+                    "no_ablation_claim_limit",
+                    "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation.",
+                ),
             },
             "pairs": [],
             "conclusion": config.get("claim"),

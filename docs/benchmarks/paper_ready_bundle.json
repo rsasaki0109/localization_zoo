@@ -1161,7 +1161,7 @@
       "selector": "lidar_iba",
       "tier": "T1 evidence candidate",
       "paper": "Li et al., A Consistency-Improved LiDAR(-Inertial) Bundle Adjustment, arXiv:2602.06380",
-      "claim": "Stereographic plane parameterization is stable on KITTI; the committed no-BA profile optimizes local RPE over sliding-window BA on this IMU-free protocol.",
+      "claim": "Stereographic plane-normal front-end is competitive on KITTI seq00/07 under the committed no-BA odometry profile (IMU-free protocol).",
       "mechanism": "Stereographic plane-normal front-end with optional sliding-window plane BA and FEJ gauge fix.",
       "paper_result": {
         "variant": "no_ba_dense",
@@ -1202,10 +1202,10 @@
         "summary_artifact": null,
         "protocol": {
           "type": "no paired ablation in frozen bundle",
-          "claim_limit": "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation."
+          "claim_limit": "Paired BA on/off ablation is not yet in the frozen bundle; the main row uses the no-BA KITTI profile only."
         },
         "pairs": [],
-        "conclusion": "Stereographic plane parameterization is stable on KITTI; the committed no-BA profile optimizes local RPE over sliding-window BA on this IMU-free protocol."
+        "conclusion": "Stereographic plane-normal front-end is competitive on KITTI seq00/07 under the committed no-BA odometry profile (IMU-free protocol)."
       }
     },
     {
@@ -1255,7 +1255,7 @@
         "summary_artifact": null,
         "protocol": {
           "type": "no paired ablation in frozen bundle",
-          "claim_limit": "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation."
+          "claim_limit": "Fixed-overlap vs auto-overlap ablation is not yet in the frozen bundle; the main row uses dense auto-overlap only."
         },
         "pairs": [],
         "conclusion": "Least-trimmed-squares point-to-plane odometry is competitive with KISS-ICP on KITTI; FRMSD overlap sticks to the min_overlap floor on clean driving data."

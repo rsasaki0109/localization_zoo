@@ -198,11 +198,11 @@ and beats KISS-ICP on both sequences — at a heavy throughput cost
 (~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine
 annealing). Its sigma-schedule ablation is committed as
 [`kc_lo_sigma_schedule_ablation.json`](docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json).
-**LiDAR-IBA** is reported with the committed no-BA KITTI odometry profile
-(0.841% / 0.633% RPE, ~3.1 FPS on seq00/07). A paired BA on/off ablation is
-still pending before making BA trade-off claims in the frozen bundle; see
-[`papers/lidar_iba/README.md`](papers/lidar_iba/README.md) for the documented
-local-drift vs global-drift discussion.
+**LiDAR-IBA** uses the committed no-BA KITTI odometry profile (0.841% / 0.633%
+RPE). A paired BA on/off ablation is now committed: enabling sliding-window plane
+BA lowers ATE slightly but worsens RPE by about 1.4–1.9 percentage points and
+cuts throughput by ~24–29%
+([`lidar_iba_ba_ablation.json`](docs/benchmarks/kitti_full_new_methods/lidar_iba_ba_ablation.json)).
 **Quadric-LO** is also frozen in the paper-ready bundle: plane fallback is rare
 on KITTI (~0.5-0.6% of correspondences), and disabling it keeps RPE within
 ~1.5% while improving throughput by 1.6-1.8x

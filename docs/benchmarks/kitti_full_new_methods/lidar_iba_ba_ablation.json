@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "method": "LiDAR-IBA",
+  "paper": "Li et al., A Consistency-Improved LiDAR(-Inertial) Bundle Adjustment, arXiv:2602.06380",
+  "claim": "On IMU-free KITTI odometry, sliding-window plane BA improves whole-run ATE slightly but worsens translational RPE and throughput versus the committed no-BA profile.",
+  "protocol": {
+    "dataset": "KITTI Odometry full sequences",
+    "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+    "profile": "default fast profile (source_voxel_size=0.5, voxel_size=1.0)",
+    "variants": {
+      "no_ba": "stereographic plane front-end only; --lidar-iba-no-ba",
+      "ba_on": "sliding-window plane BA with FEJ enabled (default enable_ba=1)"
+    }
+  },
+  "pairs": [
+    {
+      "sequence": "00",
+      "frames": 4541,
+      "no_ba": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json",
+        "rpe_trans_pct": 0.840696,
+        "ate_m": 11.34221,
+        "fps": 3.091415
+      },
+      "ba_on": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba_ba_on.json",
+        "rpe_trans_pct": 2.280321,
+        "ate_m": 10.925455,
+        "fps": 2.201455
+      },
+      "delta_ba_on_vs_no_ba": {
+        "rpe_trans_pct_abs": 1.439625,
+        "rpe_trans_pct_rel": 171.241,
+        "ate_m_rel": -3.676,
+        "fps_rel": -28.789
+      }
+    },
+    {
+      "sequence": "07",
+      "frames": 1101,
+      "no_ba": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
+        "rpe_trans_pct": 0.632904,
+        "ate_m": 1.339334,
+        "fps": 3.094183
+      },
+      "ba_on": {
+        "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba_ba_on.json",
+        "rpe_trans_pct": 2.529706,
+        "ate_m": 1.148249,
+        "fps": 2.339561
+      },
+      "delta_ba_on_vs_no_ba": {
+        "rpe_trans_pct_abs": 1.896802,
+        "rpe_trans_pct_rel": 299.698,
+        "ate_m_rel": -14.266,
+        "fps_rel": -24.386
+      }
+    }
+  ],
+  "conclusion": "Under IMU-free KITTI full-sequence odometry with constant-velocity prediction, enabling sliding-window plane BA worsens translational RPE by about 1.4–1.9 percentage points while lowering ATE by roughly 3–14% and cutting throughput by about 24–29%. The frozen bundle therefore keeps the no-BA profile as the main KITTI row; BA remains implemented and unit-tested but is not the default public claim on this protocol."
+}

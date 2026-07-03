@@ -224,7 +224,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
         "method": "TrICP-LO",
         "tier": "T1 evidence candidate",
         "paper": "Chetverikov et al., The Trimmed Iterative Closest Point Algorithm, ICPR 2002 / Image Vis. Comput. 2005",
-        "claim": "Least-trimmed-squares point-to-plane odometry is competitive with KISS-ICP on KITTI; FRMSD overlap sticks to the min_overlap floor on clean driving data.",
+        "claim": "Least-trimmed-squares point-to-plane odometry is competitive with KISS-ICP on KITTI; FRMSD auto-overlap sticks to the min_overlap floor and fixed overlap 0.900 is only a marginal RPE change.",
         "mechanism": "Rank-based trimmed point-to-plane ICP with FRMSD automatic overlap estimation.",
         "paper_result": {
             "variant": "dense_auto_overlap",
@@ -235,8 +235,21 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 "07": "docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json",
             },
         },
-        "remaining_work": "Commit fixed-overlap vs auto-overlap ablation JSON before promoting trimming/overlap claims to T0.",
-        "no_ablation_claim_limit": "Fixed-overlap vs auto-overlap ablation is not yet in the frozen bundle; the main row uses dense auto-overlap only.",
+        "ablation": {
+            "summary": "docs/benchmarks/kitti_full_new_methods/tricp_lo_overlap_ablation.json",
+            "delta_key": "delta_fixed_vs_auto_overlap",
+            "variants": {
+                "auto_overlap": {
+                    "role": "committed KITTI main row",
+                    "flags": ["--tricp-lo-dense-profile"],
+                },
+                "fixed_overlap": {
+                    "role": "fixed overlap_ratio=0.900",
+                    "flags": ["--tricp-lo-dense-profile", "--tricp-lo-fixed-overlap"],
+                },
+            },
+        },
+        "remaining_work": "Add a high-outlier or non-overlap stress set before promoting FRMSD overlap claims beyond clean KITTI odometry.",
     },
 ]
 

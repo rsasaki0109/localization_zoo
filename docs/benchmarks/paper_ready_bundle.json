@@ -16,7 +16,7 @@
   "status": {
     "frozen_methods": 8,
     "paper_table_rows": 16,
-    "paired_ablation_summaries": 5,
+    "paired_ablation_summaries": 6,
     "t0_evidence_candidates": [
       "I-LOAM",
       "KC-LO"
@@ -1296,7 +1296,7 @@
       "selector": "tricp_lo",
       "tier": "T1 evidence candidate",
       "paper": "Chetverikov et al., The Trimmed Iterative Closest Point Algorithm, ICPR 2002 / Image Vis. Comput. 2005",
-      "claim": "Least-trimmed-squares point-to-plane odometry is competitive with KISS-ICP on KITTI; FRMSD overlap sticks to the min_overlap floor on clean driving data.",
+      "claim": "On clean KITTI odometry, FRMSD auto-overlap sticks to the min_overlap floor (0.800); fixed overlap at the default 0.900 is within ~0.02 pt RPE of auto but trades throughput and does not consistently improve whole-run ATE.",
       "mechanism": "Rank-based trimmed point-to-plane ICP with FRMSD automatic overlap estimation.",
       "paper_result": {
         "variant": "dense_auto_overlap",
@@ -1332,15 +1332,97 @@
           }
         ]
       },
-      "remaining_work": "Commit fixed-overlap vs auto-overlap ablation JSON before promoting trimming/overlap claims to T0.",
+      "remaining_work": "Add a high-outlier or non-overlap stress set before promoting FRMSD overlap claims beyond clean KITTI odometry.",
       "ablation": {
-        "summary_artifact": null,
+        "summary_artifact": "docs/benchmarks/kitti_full_new_methods/tricp_lo_overlap_ablation.json",
         "protocol": {
-          "type": "no paired ablation in frozen bundle",
-          "claim_limit": "Fixed-overlap vs auto-overlap ablation is not yet in the frozen bundle; the main row uses dense auto-overlap only."
+          "dataset": "KITTI Odometry full sequences",
+          "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+          "profile": "--tricp-lo-dense-profile",
+          "variants": {
+            "auto_overlap": "FRMSD automatic overlap estimation (default)",
+            "fixed_overlap": "--tricp-lo-fixed-overlap with default overlap_ratio=0.900"
+          }
         },
-        "pairs": [],
-        "conclusion": "Least-trimmed-squares point-to-plane odometry is competitive with KISS-ICP on KITTI; FRMSD overlap sticks to the min_overlap floor on clean driving data."
+        "pairs": [
+          {
+            "sequence": "00",
+            "frames": 4541,
+            "variants": {
+              "auto_overlap": {
+                "role": "committed KITTI main row",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo.json",
+                "metrics": {
+                  "ate_m": 10.042527,
+                  "rpe_trans_pct": 0.93058,
+                  "rpe_rot_deg_per_m": 0.008522,
+                  "time_ms": 805107.148507,
+                  "fps": 5.640243,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods tricp_lo --no-gt-seed --tricp-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo.json"
+              },
+              "fixed_overlap": {
+                "role": "fixed overlap_ratio=0.900",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo_fixed_overlap.json",
+                "metrics": {
+                  "ate_m": 13.89265,
+                  "rpe_trans_pct": 0.907112,
+                  "rpe_rot_deg_per_m": 0.008597,
+                  "time_ms": 866450.778824,
+                  "fps": 5.240921,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods tricp_lo --no-gt-seed --tricp-lo-dense-profile --tricp-lo-fixed-overlap --summary-json docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo_fixed_overlap.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.023468,
+              "rpe_trans_pct_rel": -2.521,
+              "ate_m_rel": 38.337,
+              "fps_rel": -7.079
+            }
+          },
+          {
+            "sequence": "07",
+            "frames": 1101,
+            "variants": {
+              "auto_overlap": {
+                "role": "committed KITTI main row",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json",
+                "metrics": {
+                  "ate_m": 2.000762,
+                  "rpe_trans_pct": 0.662055,
+                  "rpe_rot_deg_per_m": 0.009798,
+                  "time_ms": 176984.133724,
+                  "fps": 6.220897,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods tricp_lo --no-gt-seed --tricp-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json"
+              },
+              "fixed_overlap": {
+                "role": "fixed overlap_ratio=0.900",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo_fixed_overlap.json",
+                "metrics": {
+                  "ate_m": 1.880303,
+                  "rpe_trans_pct": 0.638555,
+                  "rpe_rot_deg_per_m": 0.008236,
+                  "time_ms": 292470.241775,
+                  "fps": 3.764486,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods tricp_lo --no-gt-seed --tricp-lo-dense-profile --tricp-lo-fixed-overlap --summary-json docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo_fixed_overlap.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": -0.0235,
+              "rpe_trans_pct_rel": -3.55,
+              "ate_m_rel": -6.021,
+              "fps_rel": -39.489
+            }
+          }
+        ],
+        "conclusion": "FRMSD auto-overlap on KITTI full sequences sticks to mean overlap 0.800, so the committed auto row behaves like a fixed 80% trim on clean driving data. Switching to fixed overlap 0.900 improves translational RPE by about 0.02 percentage points on seq00/07 but cuts throughput by 7-39% and worsens seq00 whole-run ATE by about 38%. The frozen bundle therefore keeps dense auto-overlap as the main KITTI row."
       }
     }
   ]

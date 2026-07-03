@@ -70,8 +70,18 @@ KITTI full (no GT seed, `--tricp-lo-dense-profile`):
 FRMSD は「ノイズで残差大の良点」を「非オーバーラップ」と誤認し ξ を縮め続ける (FICP を
 高オーバーラップ odometry に適用した際の既知の弱点)。結果として TrICP は実質「最良 80%
 分位を採る固定トリム = ロバスト分位 point-to-plane」として動作し、KISS-ICP に肉薄する。
-LTS の順位トリミング機構そのものは有効 (ユニットテスト参照)。`--tricp-lo-overlap` /
-`--tricp-lo-lambda` でアブレーション可能。
+LTS の順位トリミング機構そのものは有効 (ユニットテスト参照)。
+
+### Overlap ablation (auto vs fixed ξ=0.900)
+
+| seq | auto RPE | fixed RPE | auto ATE | fixed ATE | Artifacts |
+|---|---:|---:|---:|---:|---|
+| 00 | 0.931% | 0.907% | 10.04 m | 13.89 m | [`auto`](../../docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo.json) / [`fixed`](../../docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo_fixed_overlap.json) |
+| 07 | 0.662% | 0.639% | 2.00 m | 1.88 m | [`auto`](../../docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json) / [`fixed`](../../docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo_fixed_overlap.json) |
+
+Paired summary: [`tricp_lo_overlap_ablation.json`](../../docs/benchmarks/kitti_full_new_methods/tricp_lo_overlap_ablation.json).
+Fixed overlap improves RPE by about 0.02 pt but cuts throughput and does not consistently
+improve whole-run ATE; the frozen bundle keeps dense auto-overlap as the main row.
 
 ```
 pcd_dogfooding <seq_pcd_dir> <seq_gt_csv> \

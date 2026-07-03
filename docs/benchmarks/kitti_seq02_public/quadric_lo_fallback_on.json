@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+  "gt_sha256": "cff6c0266c14016bb512f2e6d8fcdda4796bc1d4c9c97ba0f4cff32805106683",
+  "total_pcd_frames": 4661,
+  "num_frames": 4661,
+  "raw_gt_pose_count": 4661,
+  "used_gt_pose_count": 4661,
+  "trajectory_length_m": 5067.016162,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "63465e0bcbc7a8aebeb9795b4575817e894e7058",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_02_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_02_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 4661,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 4660.000000]
+  },
+  "gt": {
+    "source": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "sha256": "cff6c0266c14016bb512f2e6d8fcdda4796bc1d4c9c97ba0f4cff32805106683",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 4661,
+    "raw_timestamp_range": [0.000000, 4660.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 4661,
+    "associated_gt_index_range": [0, 4660],
+    "associated_gt_timestamp_range": [0.000000, 4660.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 51.325635,
+      "rpe_trans_pct": 0.952647,
+      "rpe_rot_deg_per_m": 0.007138,
+      "frames": 4661,
+      "time_ms": 320832.944087,
+      "fps": 14.527810,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "Quadric-LO",
+      "status": "ok",
+      "ate_m": 30.983461,
+      "rpe_trans_pct": 0.932910,
+      "rpe_rot_deg_per_m": 0.006145,
+      "frames": 4661,
+      "time_ms": 4857276.854738,
+      "fps": 0.959591,
+      "seed_fallback_rate_pct": null,
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2863/19 plane_fallback_ratio=0.0066"
+    }
+  ]
+}

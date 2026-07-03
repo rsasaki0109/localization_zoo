@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "benchmark": "kitti_odometry_seq02_public_validation",
+  "generated_by": "evaluation/scripts/run_quadric_lo_kitti_seq02_validation.py",
+  "scope": {
+    "dataset": "KITTI Odometry sequence 02 full",
+    "frames": 4661,
+    "trajectory_length_m": 5067.016162,
+    "claim_limit": "Public residential KITTI seq02 check with vegetation and suburban scenery; not a substitute for dedicated orchard or non-urban multi-beam benchmarks."
+  },
+  "artifacts": {
+    "fallback_on_with_kiss": "docs/benchmarks/kitti_seq02_public/quadric_lo_fallback_on.json",
+    "fallback_off": "docs/benchmarks/kitti_seq02_public/quadric_lo_fallback_off.json"
+  },
+  "protocol": {
+    "fallback_on_command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods quadric_lo,kiss_icp --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_seq02_public/quadric_lo_fallback_on.json",
+    "fallback_off_command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --quadric-lo-no-plane-fallback --summary-json docs/benchmarks/kitti_seq02_public/quadric_lo_fallback_off.json"
+  },
+  "kiss_sanity_reference": {
+    "ate_m": 51.325635,
+    "rpe_trans_pct": 0.952647,
+    "rpe_rot_deg_per_m": 0.007138,
+    "frames": 4661,
+    "fps": 14.52781
+  },
+  "quadric_lo": {
+    "fallback_on": {
+      "metrics": {
+        "ate_m": 30.983461,
+        "rpe_trans_pct": 0.93291,
+        "rpe_rot_deg_per_m": 0.006145,
+        "frames": 4661,
+        "fps": 0.959591
+      },
+      "correspondences": {
+        "quadric_per_frame": 2863.0,
+        "plane_per_frame": 19.0,
+        "plane_fallback_ratio": 0.00659264399722415
+      },
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback enabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2863/19 plane_fallback_ratio=0.0066"
+    },
+    "fallback_off": {
+      "metrics": {
+        "ate_m": 57.060449,
+        "rpe_trans_pct": 1.446074,
+        "rpe_rot_deg_per_m": 0.007834,
+        "frames": 4661,
+        "fps": 1.07839
+      },
+      "correspondences": {
+        "quadric_per_frame": 2862.0,
+        "plane_per_frame": 0.0,
+        "plane_fallback_ratio": 0.0
+      },
+      "note": "Quadric-LO: quadric-surface (implicit q=xAx+bx+c) representation with point-to-quadric Taubin-distance residuals and plane fallback disabled; constant-velocity prior, no GT seed. mean_quadric/plane_corr=2862/0 plane_fallback_ratio=0.0000"
+    },
+    "fallback_off_minus_on": {
+      "ate_m_abs_delta": 26.076988,
+      "ate_m_relative_pct": 84.16421909740814,
+      "rpe_trans_pct_abs_delta": 0.5131640000000001,
+      "rpe_trans_pct_relative_pct": 55.00680665873451,
+      "rpe_rot_deg_per_m_abs_delta": 0.0016890000000000004,
+      "rpe_rot_deg_per_m_relative_pct": 27.48576078112287
+    }
+  },
+  "conclusion": "On public KITTI Odometry seq02 full (residential/suburban driving), Quadric-LO uses point-to-quadric constraints for 99.3% of correspondences (2863 quadric vs 19 plane corr/frame). Unlike the near-neutral seq00/07 highway ablation, disabling plane fallback on seq02 worsens RPE by +55.0% and ATE by +84.2% (0.933% / 30.98 m vs 1.446% / 57.06 m), showing that the rare plane fallback carries more weight on this vegetation-rich suburban sequence even though the quadric path dominates correspondence counts. Dedicated orchard or non-urban multi-beam benchmarks remain open before T0 promotion."
+}

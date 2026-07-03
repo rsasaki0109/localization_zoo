@@ -57,7 +57,7 @@ positive or negative evidence.
 | DegenSense | T1 evidence candidate | Degeneracy sensing is competitive as a no-IMU KITTI fallback once compensation is gated to real IMU packets. | Validate the IMU compensation path on a synchronized LiDAR-IMU benchmark before making full LIO claims. |
 | D2-LIO | T1 evidence candidate | Directional degeneracy diagnostics are competitive as a no-IMU KITTI fallback once the IMU prior is gated to real IMU packets. | Validate directional IMU regularization on a synchronized LiDAR-IMU benchmark before making full LIO claims. |
 | M-GCLO | T1+ evidence candidate | Ground-factor off ablation is committed on KITTI seq00/07, synthetic rolling-ground stress shows ground on wins, and public hilly KITTI seq08 shows ATE +149% with ground off at similar RPE. | Add dedicated off-road / multi-beam non-flat benchmarks such as MulRan before promoting to T0. |
-| Quadric-LO | T1+ evidence candidate | Plane-fallback ablation is committed on KITTI, and synthetic orchard-like curved-object stress confirms the point-to-quadric path dominates (>99% quadric correspondences). | Add public curved-object or non-urban dataset validation before promoting to T0. |
+| Quadric-LO | T1+ evidence candidate | Plane-fallback ablation is committed on KITTI seq00/07, synthetic curved-object stress confirms quadric-path dominance, and public residential KITTI seq02 shows >99% quadric correspondences though rare plane fallback carries more weight than on highway sequences. | Add dedicated orchard or non-urban multi-beam benchmarks before promoting to T0. |
 | LiDAR-IBA | T1 evidence candidate | Stereographic plane front-end is competitive on KITTI; committed no-BA profile beats BA-on for RPE on IMU-free seq00/07 with paired ablation JSON. | Validate BA + IMU on a synchronized LiDAR-IMU benchmark before full LIO claims. |
 | TrICP-LO | T1 evidence candidate | LTS trimmed point-to-plane odometry is near KISS-ICP on seq00/07; paired overlap ablation shows FRMSD auto sticks to ξ=0.800 on clean KITTI. | Add high-outlier/non-overlap stress before promoting FRMSD overlap claims beyond clean KITTI. |
 | LiDAR-visual adapters | T2 | They show pseudo-visual residuals are stable but auxiliary on KITTI PCD. | Do not call these paper-grade until real RGB / camera synchronization is used or the paper claim is reframed as a KITTI-PCD adapter study. |
@@ -79,12 +79,13 @@ competitive no-IMU fallback evidence, plus M-GCLO and Quadric-LO as T1+
 evidence. The bundle records the seq00/07 main result rows, paired-ablation
 summaries where available, raw artifact paths, and relative reproduce commands.
 It also points to the RF-LIO/ID-LIO synthetic dynamic-object stress, M-GCLO
-synthetic non-flat ground stress, and Quadric-LO synthetic curved-object stress
-summaries as supporting, non-paper-grade evidence. LiDAR-IBA and TrICP-LO now
-include committed BA on/off and auto vs fixed-overlap ablations respectively.
-RF-LIO/ID-LIO public high-dynamic validation, M-GCLO public non-flat validation,
-and Quadric-LO public curved-object/non-urban validation remain open before a
-full 12-method table.
+synthetic non-flat ground stress, Quadric-LO synthetic curved-object stress,
+M-GCLO KITTI seq08 public validation, and Quadric-LO KITTI seq02 public
+validation summaries as supporting, non-paper-grade evidence. LiDAR-IBA and
+TrICP-LO now include committed BA on/off and auto vs fixed-overlap ablations
+respectively. RF-LIO/ID-LIO public high-dynamic validation and dedicated
+off-road / orchard multi-beam benchmarks for M-GCLO and Quadric-LO remain open
+before a full 12-method table.
 
 ## Immediate Roadmap
 

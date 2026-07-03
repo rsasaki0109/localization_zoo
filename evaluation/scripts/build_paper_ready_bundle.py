@@ -191,10 +191,10 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
         "method": "LiDAR-IBA",
         "tier": "T1 evidence candidate",
         "paper": "Li et al., A Consistency-Improved LiDAR(-Inertial) Bundle Adjustment, arXiv:2602.06380",
-        "claim": "Stereographic plane-normal front-end is competitive on KITTI seq00/07 under the committed no-BA odometry profile (IMU-free protocol).",
+        "claim": "Stereographic plane-normal front-end is competitive on KITTI; sliding-window BA is implemented but the committed no-BA profile is better for translational RPE on this IMU-free protocol.",
         "mechanism": "Stereographic plane-normal front-end with optional sliding-window plane BA and FEJ gauge fix.",
         "paper_result": {
-            "variant": "no_ba_dense",
+            "variant": "no_ba",
             "role": "main KITTI odometry row",
             "flags": ["--lidar-iba-no-ba"],
             "artifacts": {
@@ -202,8 +202,21 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 "07": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
             },
         },
-        "remaining_work": "Commit paired BA on/off artifacts before making BA trade-off claims in the frozen bundle.",
-        "no_ablation_claim_limit": "Paired BA on/off ablation is not yet in the frozen bundle; the main row uses the no-BA KITTI profile only.",
+        "ablation": {
+            "summary": "docs/benchmarks/kitti_full_new_methods/lidar_iba_ba_ablation.json",
+            "delta_key": "delta_ba_on_vs_no_ba",
+            "variants": {
+                "no_ba": {
+                    "role": "committed KITTI main row",
+                    "flags": ["--lidar-iba-no-ba"],
+                },
+                "ba_on": {
+                    "role": "sliding-window plane BA enabled",
+                    "flags": [],
+                },
+            },
+        },
+        "remaining_work": "Validate the BA + IMU path on a synchronized LiDAR-IMU benchmark before making full LIO claims.",
     },
     {
         "id": "tricp_lo",

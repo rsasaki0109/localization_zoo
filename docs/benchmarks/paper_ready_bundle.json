@@ -16,7 +16,7 @@
   "status": {
     "frozen_methods": 8,
     "paper_table_rows": 16,
-    "paired_ablation_summaries": 5,
+    "paired_ablation_summaries": 6,
     "t0_evidence_candidates": [
       "I-LOAM",
       "KC-LO"
@@ -397,7 +397,7 @@
       "method": "LiDAR-IBA",
       "tier": "T1 evidence candidate",
       "sequence": "00",
-      "variant": "no_ba_dense",
+      "variant": "no_ba",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json",
       "benchmark_id": "kitti_odometry",
       "benchmark_label": "KITTI 00 full",
@@ -412,7 +412,7 @@
       "trajectory_length_m": 3723.242184,
       "timestamp_source": "frame_timestamps.csv",
       "generated_at": "2026-07-03",
-      "runtime_profile": "no_ba_dense",
+      "runtime_profile": "no_ba",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lidar_iba --no-gt-seed --lidar-iba-no-ba --summary-json docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json",
       "ate_m": 11.34221,
       "rpe_trans_pct": 0.840696,
@@ -425,7 +425,7 @@
       "method": "LiDAR-IBA",
       "tier": "T1 evidence candidate",
       "sequence": "07",
-      "variant": "no_ba_dense",
+      "variant": "no_ba",
       "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
       "benchmark_id": "kitti_odometry",
       "benchmark_label": "KITTI 07 full",
@@ -440,7 +440,7 @@
       "trajectory_length_m": 694.390333,
       "timestamp_source": "frame_timestamps.csv",
       "generated_at": "2026-07-03",
-      "runtime_profile": "no_ba_dense",
+      "runtime_profile": "no_ba",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lidar_iba --no-gt-seed --lidar-iba-no-ba --summary-json docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
       "ate_m": 1.339334,
       "rpe_trans_pct": 0.632904,
@@ -1161,10 +1161,10 @@
       "selector": "lidar_iba",
       "tier": "T1 evidence candidate",
       "paper": "Li et al., A Consistency-Improved LiDAR(-Inertial) Bundle Adjustment, arXiv:2602.06380",
-      "claim": "Stereographic plane-normal front-end is competitive on KITTI seq00/07 under the committed no-BA odometry profile (IMU-free protocol).",
+      "claim": "On IMU-free KITTI odometry, sliding-window plane BA improves whole-run ATE slightly but worsens translational RPE and throughput versus the committed no-BA profile.",
       "mechanism": "Stereographic plane-normal front-end with optional sliding-window plane BA and FEJ gauge fix.",
       "paper_result": {
-        "variant": "no_ba_dense",
+        "variant": "no_ba",
         "role": "main KITTI odometry row",
         "sequences": [
           {
@@ -1197,15 +1197,97 @@
           }
         ]
       },
-      "remaining_work": "Commit paired BA on/off artifacts before making BA trade-off claims in the frozen bundle.",
+      "remaining_work": "Validate the BA + IMU path on a synchronized LiDAR-IMU benchmark before making full LIO claims.",
       "ablation": {
-        "summary_artifact": null,
+        "summary_artifact": "docs/benchmarks/kitti_full_new_methods/lidar_iba_ba_ablation.json",
         "protocol": {
-          "type": "no paired ablation in frozen bundle",
-          "claim_limit": "Paired BA on/off ablation is not yet in the frozen bundle; the main row uses the no-BA KITTI profile only."
+          "dataset": "KITTI Odometry full sequences",
+          "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+          "profile": "default fast profile (source_voxel_size=0.5, voxel_size=1.0)",
+          "variants": {
+            "no_ba": "stereographic plane front-end only; --lidar-iba-no-ba",
+            "ba_on": "sliding-window plane BA with FEJ enabled (default enable_ba=1)"
+          }
         },
-        "pairs": [],
-        "conclusion": "Stereographic plane-normal front-end is competitive on KITTI seq00/07 under the committed no-BA odometry profile (IMU-free protocol)."
+        "pairs": [
+          {
+            "sequence": "00",
+            "frames": 4541,
+            "variants": {
+              "no_ba": {
+                "role": "committed KITTI main row",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json",
+                "metrics": {
+                  "ate_m": 11.34221,
+                  "rpe_trans_pct": 0.840696,
+                  "rpe_rot_deg_per_m": 0.007282,
+                  "time_ms": 1468906.708726,
+                  "fps": 3.091415,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lidar_iba --no-gt-seed --lidar-iba-no-ba --summary-json docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json"
+              },
+              "ba_on": {
+                "role": "sliding-window plane BA enabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba_ba_on.json",
+                "metrics": {
+                  "ate_m": 10.925455,
+                  "rpe_trans_pct": 2.280321,
+                  "rpe_rot_deg_per_m": 0.029667,
+                  "time_ms": 2062727.101668,
+                  "fps": 2.201455,
+                  "frames": 4541
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lidar_iba --no-gt-seed --summary-json docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba_ba_on.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": 1.439625,
+              "rpe_trans_pct_rel": 171.241,
+              "ate_m_rel": -3.676,
+              "fps_rel": -28.789
+            }
+          },
+          {
+            "sequence": "07",
+            "frames": 1101,
+            "variants": {
+              "no_ba": {
+                "role": "committed KITTI main row",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
+                "metrics": {
+                  "ate_m": 1.339334,
+                  "rpe_trans_pct": 0.632904,
+                  "rpe_rot_deg_per_m": 0.006034,
+                  "time_ms": 355828.999793,
+                  "fps": 3.094183,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lidar_iba --no-gt-seed --lidar-iba-no-ba --summary-json docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json"
+              },
+              "ba_on": {
+                "role": "sliding-window plane BA enabled",
+                "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba_ba_on.json",
+                "metrics": {
+                  "ate_m": 1.148249,
+                  "rpe_trans_pct": 2.529706,
+                  "rpe_rot_deg_per_m": 0.02225,
+                  "time_ms": 470601.113794,
+                  "fps": 2.339561,
+                  "frames": 1101
+                },
+                "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lidar_iba --no-gt-seed --summary-json docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba_ba_on.json"
+              }
+            },
+            "delta": {
+              "rpe_trans_pct_abs": 1.896802,
+              "rpe_trans_pct_rel": 299.698,
+              "ate_m_rel": -14.266,
+              "fps_rel": -24.386
+            }
+          }
+        ],
+        "conclusion": "Under IMU-free KITTI full-sequence odometry with constant-velocity prediction, enabling sliding-window plane BA worsens translational RPE by about 1.4\u20131.9 percentage points while lowering ATE by roughly 3\u201314% and cutting throughput by about 24\u201329%. The frozen bundle therefore keeps the no-BA profile as the main KITTI row; BA remains implemented and unit-tested but is not the default public claim on this protocol."
       }
     },
     {

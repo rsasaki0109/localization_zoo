@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+  "gt_sha256": "9b8c82625159ae78919926bf52fde49e7278fa08abe1fab196346e5c0306ae60",
+  "total_pcd_frames": 4071,
+  "num_frames": 4071,
+  "raw_gt_pose_count": 4071,
+  "used_gt_pose_count": 4071,
+  "trajectory_length_m": 3222.022838,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "63465e0bcbc7a8aebeb9795b4575817e894e7058",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_08_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_08_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 4071,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 4070.000000]
+  },
+  "gt": {
+    "source": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+    "sha256": "9b8c82625159ae78919926bf52fde49e7278fa08abe1fab196346e5c0306ae60",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 4071,
+    "raw_timestamp_range": [0.000000, 4070.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 4071,
+    "associated_gt_index_range": [0, 4070],
+    "associated_gt_timestamp_range": [0.000000, 4070.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 22.157159,
+      "rpe_trans_pct": 1.349521,
+      "rpe_rot_deg_per_m": 0.006203,
+      "frames": 4071,
+      "time_ms": 255259.799784,
+      "fps": 15.948457,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "M-GCLO",
+      "status": "ok",
+      "ate_m": 21.147690,
+      "rpe_trans_pct": 1.354410,
+      "rpe_rot_deg_per_m": 0.007003,
+      "frames": 4071,
+      "time_ms": 1097524.400093,
+      "fps": 3.709257,
+      "seed_fallback_rate_pct": null,
+      "note": "M-GCLO: multiple-ground point-to-plane constraints (vertical accuracy) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=1072/2205"
+    }
+  ]
+}

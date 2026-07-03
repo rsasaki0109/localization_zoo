@@ -63,11 +63,13 @@ a narrower evidence set:
   should be treated as reproduction evidence. The current frozen evidence
   manifest is
   [`docs/benchmarks/paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
-- **Strongest current candidates**: I-LOAM, KC-LO, DegenSense, D2-LIO, M-GCLO,
-  and Quadric-LO. DegenSense/D2-LIO are KITTI no-IMU fallback evidence, not full
-  LIO claims; LiDAR-visual adapters and dynamic-filtering LIO ports remain
-  adapter/mechanism evidence until real RGB, synchronized camera, IMU, or
-  dynamic-scene gaps are closed.
+- **Frozen paper-ready bundle (8 methods)**: I-LOAM and KC-LO (T0 candidates);
+  LiDAR-IBA and TrICP-LO (T1); DegenSense and D2-LIO (competitive no-IMU KITTI
+  fallback rows, not full LIO claims); M-GCLO and Quadric-LO (T1+). Manifest:
+  [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
+  LiDAR-visual adapters and dynamic-filtering LIO ports remain adapter/mechanism
+  evidence until real RGB, synchronized camera, IMU, or dynamic-scene gaps are
+  closed.
 
 <!-- LEADERBOARD:START -->
 ## Leaderboard — odometry, RPE [drift %/100 m], lower is better
@@ -112,6 +114,15 @@ profile unless a method README calls out a CPU profile; no IMU, so LIO methods
 use constant-velocity fallback). RPE is drift %/100 m; ATE in parens. Severe
 high-drift/degradation experiments are kept in the reproducibility report and
 raw artifacts, but are not promoted in this README table.
+
+> **Catalog vs. endorsement.** This table ranks **current KITTI odometry rows**
+> under one shared protocol. It is **not** a claim that every listed method is a
+> faithful paper reproduction. Only the eight methods in
+> [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json) are
+> tracked for manuscript-level evidence; tier definitions live in
+> [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md).
+> Methods without a tier badge here should be read as benchmark catalog entries,
+> not as validated reproductions of the original papers.
 
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
@@ -161,8 +172,12 @@ raw artifacts, but are not promoted in this README table.
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-The strongest rows (DegenSense through CUBE-LIO) **match or beat KISS-ICP on
-seq-00**, and most also beat it on **seq-07** — well clear of CT-ICP.
+The top rows (DegenSense through CUBE-LIO) **match or beat KISS-ICP on seq-00
+under this IMU-free odometry protocol**, and most also beat it on **seq-07** —
+well clear of CT-ICP. That is a **shared-harness benchmark result**, not a blanket
+claim that each paper's central mechanism was isolated or reproduced one-to-one.
+See the catalog-vs-endorsement note above and the frozen bundle for the narrower
+manuscript-facing subset.
 **DegenSense** and **D2-LIO** now run as LiDAR-only no-IMU fallbacks on KITTI:
 degeneracy sensing remains diagnostic, but IMU compensation/regularization is
 disabled unless a real IMU packet is integrated, avoiding the previous
@@ -183,10 +198,11 @@ and beats KISS-ICP on both sequences — at a heavy throughput cost
 (~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine
 annealing). Its sigma-schedule ablation is committed as
 [`kc_lo_sigma_schedule_ablation.json`](docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json).
-**LiDAR-IBA** is now reported with the no-BA KITTI profile: disabling the sliding
-window BA improves translational RPE to 0.841% / 0.633% and raises throughput to
-~3.1 FPS, while whole-run ATE worsens. This is an honest local-drift vs
-global-drift trade-off, not a universal accuracy win.
+**LiDAR-IBA** is reported with the committed no-BA KITTI odometry profile
+(0.841% / 0.633% RPE, ~3.1 FPS on seq00/07). A paired BA on/off ablation is
+still pending before making BA trade-off claims in the frozen bundle; see
+[`papers/lidar_iba/README.md`](papers/lidar_iba/README.md) for the documented
+local-drift vs global-drift discussion.
 **Quadric-LO** is also frozen in the paper-ready bundle: plane fallback is rare
 on KITTI (~0.5-0.6% of correspondences), and disabling it keeps RPE within
 ~1.5% while improving throughput by 1.6-1.8x

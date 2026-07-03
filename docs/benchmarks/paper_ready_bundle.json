@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "bundle_id": "paper_ready_core_2026_06_18",
-  "frozen_date": "2026-06-18",
+  "bundle_id": "paper_ready_core_2026_07_03",
+  "frozen_date": "2026-07-03",
   "generated_by": "evaluation/scripts/build_paper_ready_bundle.py",
   "scope": {
     "dataset": "KITTI Odometry full sequences",
@@ -14,12 +14,16 @@
     "claim_policy": "Use only tiered T0/T1 evidence for manuscript claims; no-IMU fallback rows are KITTI odometry evidence, not full LIO claims."
   },
   "status": {
-    "frozen_methods": 6,
-    "paper_table_rows": 12,
+    "frozen_methods": 8,
+    "paper_table_rows": 16,
     "paired_ablation_summaries": 4,
     "t0_evidence_candidates": [
       "I-LOAM",
       "KC-LO"
+    ],
+    "t1_evidence_candidates": [
+      "LiDAR-IBA",
+      "TrICP-LO"
     ],
     "t1_plus_evidence_candidates": [
       "M-GCLO",
@@ -71,7 +75,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 3723.242184,
       "timestamp_source": "sampled GT timestamps",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "dense_mapping_on",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods i_loam --no-gt-seed --i-loam-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_i_loam.json",
       "ate_m": 12.748,
@@ -99,7 +103,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 694.390333,
       "timestamp_source": "sampled GT timestamps",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "dense_mapping_on",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods i_loam --no-gt-seed --i-loam-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_i_loam.json",
       "ate_m": 1.667,
@@ -127,7 +131,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 3723.242184,
       "timestamp_source": "sampled GT timestamps",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "fixed_sigma",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --kc-lo-no-anneal --summary-json docs/benchmarks/kitti_full_new_methods/seq00_kc_lo_no_anneal.json",
       "ate_m": 13.404514,
@@ -155,7 +159,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 694.390333,
       "timestamp_source": "sampled GT timestamps",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "fixed_sigma",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods kc_lo --no-gt-seed --kc-lo-dense-profile --kc-lo-no-anneal --summary-json docs/benchmarks/kitti_full_new_methods/seq07_kc_lo_no_anneal.json",
       "ate_m": 0.858036,
@@ -183,7 +187,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 3723.242184,
       "timestamp_source": "frame_timestamps.csv",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "no_imu_diagnostics_only",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods degen_sense --no-gt-seed --summary-json docs/benchmarks/kitti_full_new_methods/seq00_degen_sense.json",
       "ate_m": 11.840263,
@@ -211,7 +215,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 694.390333,
       "timestamp_source": "frame_timestamps.csv",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "no_imu_diagnostics_only",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods degen_sense --no-gt-seed --summary-json docs/benchmarks/kitti_full_new_methods/seq07_degen_sense.json",
       "ate_m": 1.129734,
@@ -239,7 +243,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 3723.242184,
       "timestamp_source": "frame_timestamps.csv",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "no_imu_diagnostics_only",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods d2lio --no-gt-seed --summary-json docs/benchmarks/kitti_full_new_methods/seq00_d2lio.json",
       "ate_m": 10.579332,
@@ -267,7 +271,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 694.390333,
       "timestamp_source": "frame_timestamps.csv",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "no_imu_diagnostics_only",
       "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods d2lio --no-gt-seed --summary-json docs/benchmarks/kitti_full_new_methods/seq07_d2lio.json",
       "ate_m": 1.068164,
@@ -295,7 +299,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 3723.242184,
       "timestamp_source": "sampled GT timestamps",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "ground_on",
       "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full kitti_pcd/seq00_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_m_gclo.json",
       "ate_m": 19.143798,
@@ -323,7 +327,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 694.390333,
       "timestamp_source": "sampled GT timestamps",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "ground_on",
       "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq07_full kitti_pcd/seq07_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_m_gclo.json",
       "ate_m": 2.023877,
@@ -351,7 +355,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 3723.242184,
       "timestamp_source": "sampled GT timestamps",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "plane_fallback_on",
       "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq00_full kitti_pcd/seq00_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_quadric_lo.json",
       "ate_m": 14.736361,
@@ -379,7 +383,7 @@
       "rank_metric": "rpe_trans_pct",
       "trajectory_length_m": 694.390333,
       "timestamp_source": "sampled GT timestamps",
-      "generated_at": "2026-06-18",
+      "generated_at": "2026-07-03",
       "runtime_profile": "plane_fallback_on",
       "command": "./build/evaluation/pcd_dogfooding kitti_pcd/seq07_full kitti_pcd/seq07_gt.csv --methods quadric_lo --no-gt-seed --quadric-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_quadric_lo.json",
       "ate_m": 2.129764,
@@ -387,6 +391,118 @@
       "rpe_rot_deg_per_m": 0.006249,
       "time_ms": 1644404.18287,
       "fps": 0.669543,
+      "frames": 1101
+    },
+    {
+      "method": "LiDAR-IBA",
+      "tier": "T1 evidence candidate",
+      "sequence": "00",
+      "variant": "no_ba_dense",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 00 full",
+      "comparison_group_id": "kitti_00_full",
+      "sequence_or_window": "00",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 3723.242184,
+      "timestamp_source": "frame_timestamps.csv",
+      "generated_at": "2026-07-03",
+      "runtime_profile": "no_ba_dense",
+      "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lidar_iba --no-gt-seed --lidar-iba-no-ba --summary-json docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json",
+      "ate_m": 11.34221,
+      "rpe_trans_pct": 0.840696,
+      "rpe_rot_deg_per_m": 0.007282,
+      "time_ms": 1468906.708726,
+      "fps": 3.091415,
+      "frames": 4541
+    },
+    {
+      "method": "LiDAR-IBA",
+      "tier": "T1 evidence candidate",
+      "sequence": "07",
+      "variant": "no_ba_dense",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 07 full",
+      "comparison_group_id": "kitti_07_full",
+      "sequence_or_window": "07",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 694.390333,
+      "timestamp_source": "frame_timestamps.csv",
+      "generated_at": "2026-07-03",
+      "runtime_profile": "no_ba_dense",
+      "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lidar_iba --no-gt-seed --lidar-iba-no-ba --summary-json docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
+      "ate_m": 1.339334,
+      "rpe_trans_pct": 0.632904,
+      "rpe_rot_deg_per_m": 0.006034,
+      "time_ms": 355828.999793,
+      "fps": 3.094183,
+      "frames": 1101
+    },
+    {
+      "method": "TrICP-LO",
+      "tier": "T1 evidence candidate",
+      "sequence": "00",
+      "variant": "dense_auto_overlap",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 00 full",
+      "comparison_group_id": "kitti_00_full",
+      "sequence_or_window": "00",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 3723.242184,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-07-03",
+      "runtime_profile": "dense_auto_overlap",
+      "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods tricp_lo --no-gt-seed --tricp-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo.json",
+      "ate_m": 10.042527,
+      "rpe_trans_pct": 0.93058,
+      "rpe_rot_deg_per_m": 0.008522,
+      "time_ms": 805107.148507,
+      "fps": 5.640243,
+      "frames": 4541
+    },
+    {
+      "method": "TrICP-LO",
+      "tier": "T1 evidence candidate",
+      "sequence": "07",
+      "variant": "dense_auto_overlap",
+      "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json",
+      "benchmark_id": "kitti_odometry",
+      "benchmark_label": "KITTI 07 full",
+      "comparison_group_id": "kitti_07_full",
+      "sequence_or_window": "07",
+      "scope": "full_sequence",
+      "result_role": "paper_ready_full",
+      "evaluation_policy": "odometry_only",
+      "initialization_policy": "first_pose_anchored",
+      "rankable": true,
+      "rank_metric": "rpe_trans_pct",
+      "trajectory_length_m": 694.390333,
+      "timestamp_source": "sampled GT timestamps",
+      "generated_at": "2026-07-03",
+      "runtime_profile": "dense_auto_overlap",
+      "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods tricp_lo --no-gt-seed --tricp-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json",
+      "ate_m": 2.000762,
+      "rpe_trans_pct": 0.662055,
+      "rpe_rot_deg_per_m": 0.009798,
+      "time_ms": 176984.133724,
+      "fps": 6.220897,
       "frames": 1101
     }
   ],
@@ -1037,6 +1153,112 @@
           }
         ],
         "conclusion": "Plane fallback is rare on KITTI seq00/07 (about 0.5-0.6% of used correspondences). Disabling it keeps Quadric-LO accuracy within about 1.5% translational RPE while improving throughput by 1.6-1.8x, so the committed KITTI evidence is dominated by the point-to-quadric path rather than the fallback."
+      }
+    },
+    {
+      "id": "lidar_iba",
+      "method": "LiDAR-IBA",
+      "selector": "lidar_iba",
+      "tier": "T1 evidence candidate",
+      "paper": "Li et al., A Consistency-Improved LiDAR(-Inertial) Bundle Adjustment, arXiv:2602.06380",
+      "claim": "Stereographic plane-normal front-end is competitive on KITTI seq00/07 under the committed no-BA odometry profile (IMU-free protocol).",
+      "mechanism": "Stereographic plane-normal front-end with optional sliding-window plane BA and FEJ gauge fix.",
+      "paper_result": {
+        "variant": "no_ba_dense",
+        "role": "main KITTI odometry row",
+        "sequences": [
+          {
+            "sequence": "00",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json",
+            "trajectory_length_m": 3723.242184,
+            "metrics": {
+              "ate_m": 11.34221,
+              "rpe_trans_pct": 0.840696,
+              "rpe_rot_deg_per_m": 0.007282,
+              "time_ms": 1468906.708726,
+              "fps": 3.091415,
+              "frames": 4541
+            },
+            "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lidar_iba --no-gt-seed --lidar-iba-no-ba --summary-json docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json"
+          },
+          {
+            "sequence": "07",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json",
+            "trajectory_length_m": 694.390333,
+            "metrics": {
+              "ate_m": 1.339334,
+              "rpe_trans_pct": 0.632904,
+              "rpe_rot_deg_per_m": 0.006034,
+              "time_ms": 355828.999793,
+              "fps": 3.094183,
+              "frames": 1101
+            },
+            "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lidar_iba --no-gt-seed --lidar-iba-no-ba --summary-json docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json"
+          }
+        ]
+      },
+      "remaining_work": "Commit paired BA on/off artifacts before making BA trade-off claims in the frozen bundle.",
+      "ablation": {
+        "summary_artifact": null,
+        "protocol": {
+          "type": "no paired ablation in frozen bundle",
+          "claim_limit": "Paired BA on/off ablation is not yet in the frozen bundle; the main row uses the no-BA KITTI profile only."
+        },
+        "pairs": [],
+        "conclusion": "Stereographic plane-normal front-end is competitive on KITTI seq00/07 under the committed no-BA odometry profile (IMU-free protocol)."
+      }
+    },
+    {
+      "id": "tricp_lo",
+      "method": "TrICP-LO",
+      "selector": "tricp_lo",
+      "tier": "T1 evidence candidate",
+      "paper": "Chetverikov et al., The Trimmed Iterative Closest Point Algorithm, ICPR 2002 / Image Vis. Comput. 2005",
+      "claim": "Least-trimmed-squares point-to-plane odometry is competitive with KISS-ICP on KITTI; FRMSD overlap sticks to the min_overlap floor on clean driving data.",
+      "mechanism": "Rank-based trimmed point-to-plane ICP with FRMSD automatic overlap estimation.",
+      "paper_result": {
+        "variant": "dense_auto_overlap",
+        "role": "main KITTI odometry row",
+        "sequences": [
+          {
+            "sequence": "00",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo.json",
+            "trajectory_length_m": 3723.242184,
+            "metrics": {
+              "ate_m": 10.042527,
+              "rpe_trans_pct": 0.93058,
+              "rpe_rot_deg_per_m": 0.008522,
+              "time_ms": 805107.148507,
+              "fps": 5.640243,
+              "frames": 4541
+            },
+            "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods tricp_lo --no-gt-seed --tricp-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq00_tricp_lo.json"
+          },
+          {
+            "sequence": "07",
+            "artifact": "docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json",
+            "trajectory_length_m": 694.390333,
+            "metrics": {
+              "ate_m": 2.000762,
+              "rpe_trans_pct": 0.662055,
+              "rpe_rot_deg_per_m": 0.009798,
+              "time_ms": 176984.133724,
+              "fps": 6.220897,
+              "frames": 1101
+            },
+            "command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods tricp_lo --no-gt-seed --tricp-lo-dense-profile --summary-json docs/benchmarks/kitti_full_new_methods/seq07_tricp_lo.json"
+          }
+        ]
+      },
+      "remaining_work": "Commit fixed-overlap vs auto-overlap ablation JSON before promoting trimming/overlap claims to T0.",
+      "ablation": {
+        "summary_artifact": null,
+        "protocol": {
+          "type": "no paired ablation in frozen bundle",
+          "claim_limit": "Fixed-overlap vs auto-overlap ablation is not yet in the frozen bundle; the main row uses dense auto-overlap only."
+        },
+        "pairs": [],
+        "conclusion": "Least-trimmed-squares point-to-plane odometry is competitive with KISS-ICP on KITTI; FRMSD overlap sticks to the min_overlap floor on clean driving data."
       }
     }
   ]

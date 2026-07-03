@@ -149,7 +149,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 },
             },
         },
-        "remaining_work": "Synthetic non-flat stress is committed; add public non-flat dataset validation before promoting to T0.",
+        "remaining_work": "Synthetic non-flat stress and KITTI seq08 public validation are committed; add dedicated off-road / multi-beam non-flat benchmarks such as MulRan before promoting to T0.",
     },
     {
         "id": "quadric_lo",
@@ -499,15 +499,20 @@ def build_bundle() -> dict[str, Any]:
                 {
                     "name": "M-GCLO synthetic non-flat ground stress",
                     "artifact": "docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json",
-                    "claim_limit": "Mechanism stress only; public non-flat dataset validation is still required before promoting M-GCLO to T0.",
+                    "claim_limit": "Mechanism stress only; dedicated off-road / multi-beam non-flat benchmarks such as MulRan are still required before promoting M-GCLO to T0.",
                 },
                 {
                     "name": "Quadric-LO synthetic curved-object stress",
                     "artifact": "docs/benchmarks/quadric_curved_stress/quadric_curved_stress_summary.json",
-                    "claim_limit": "Mechanism stress only; public curved-object or non-urban dataset validation is still required before promoting Quadric-LO to T0.",
+                    "claim_limit": "Mechanism stress only; dedicated orchard or non-urban multi-beam benchmarks are still required before promoting Quadric-LO to T0.",
                 }
             ],
             "supporting_public_validation_checks": [
+                {
+                    "name": "M-GCLO KITTI seq08 public ground on/off validation",
+                    "artifact": "docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json",
+                    "claim_limit": "Public hilly KITTI seq08 check only; dedicated off-road / multi-beam non-flat benchmarks such as MulRan remain open before T0 promotion.",
+                },
                 {
                     "name": "Quadric-LO KITTI seq02 public plane-fallback on/off validation",
                     "artifact": "docs/benchmarks/kitti_seq02_public/quadric_lo_kitti_seq02_validation_summary.json",
@@ -516,7 +521,7 @@ def build_bundle() -> dict[str, Any]:
             ],
             "remaining_before_full_manuscript_table": [
                 "RF-LIO/ID-LIO public high-dynamic dataset validation",
-                "M-GCLO public non-flat dataset validation",
+                "M-GCLO dedicated off-road / multi-beam non-flat validation (partial KITTI seq08 hilly check committed)",
                 "Quadric-LO dedicated orchard or non-urban multi-beam validation (partial KITTI seq02 residential check committed)",
             ],
         },

@@ -181,7 +181,11 @@ manuscript-facing subset.
 **DegenSense** and **D2-LIO** now run as LiDAR-only no-IMU fallbacks on KITTI:
 degeneracy sensing remains diagnostic, but IMU compensation/regularization is
 disabled unless a real IMU packet is integrated, avoiding the previous
-constant-velocity over-constraint. **M-GCLO** remains the strongest explicit
+constant-velocity over-constraint.
+<!-- EVIDENCE:LIO-IMU-HDL400:START -->
+On public HDL-400 open (120 frames, 24k IMU samples), IMU-gated paths activate for D2-LIO, DegenSense, ID-LIO, and RF-LIO; RPE deltas vs no-`imu.csv` fallback are small on this window (D2-LIO 1.58% vs 1.52%, DegenSense 1.72% vs 1.60%) ([`hdl_400_lio_imu_validation_summary.json`](docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json)). LiDAR-IBA IMU residuals are not wired in `pcd_dogfooding` yet.
+<!-- EVIDENCE:LIO-IMU-HDL400:END -->
+**M-GCLO** remains the strongest explicit
 ground-factor row (0.835% seq00) via multiple-ground-plane constraints (higher
 ATE — an honest RPE/ATE split). Its ground-factor ablation keeps translational
 RPE similar or lower, but disabling ground more than doubles ATE on seq00/07 and

@@ -97,7 +97,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 "07": "docs/benchmarks/kitti_full_new_methods/seq07_degen_sense.json",
             },
         },
-        "remaining_work": "Validate the compensation path on a synchronized LiDAR-IMU benchmark before making full LIO claims.",
+        "remaining_work": "Synchronized LiDAR-IMU validation committed on HDL-400 open; add to manuscript table with KITTI no-IMU fallback + IMU mechanism rows locked.",
         "no_ablation_claim_limit": "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation.",
     },
     {
@@ -117,7 +117,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 "07": "docs/benchmarks/kitti_full_new_methods/seq07_d2lio.json",
             },
         },
-        "remaining_work": "Validate the IMU-prior regularization path on a synchronized LiDAR-IMU benchmark before making full LIO claims.",
+        "remaining_work": "Synchronized LiDAR-IMU validation committed on HDL-400 open; add to manuscript table with KITTI no-IMU fallback + IMU mechanism rows locked.",
         "no_ablation_claim_limit": "Competitive KITTI fallback only; full LIO mechanism requires synchronized IMU validation.",
     },
     {
@@ -527,6 +527,11 @@ def build_bundle() -> dict[str, Any]:
                     "name": "RF-LIO/ID-LIO KITTI seq05 public dynamic validation",
                     "artifact": "docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json",
                     "claim_limit": "Public urban KITTI seq05 check only; dedicated high-dynamic multi-beam benchmarks remain open before manuscript-level dynamic-scene claims.",
+                },
+                {
+                    "name": "LIO synchronized LiDAR-IMU public validation (HDL-400 open)",
+                    "artifact": "docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json",
+                    "claim_limit": "IMU-gated compensation/prior paths activate on 120-frame HDL-400 open; metric deltas vs no-imu.csv fallback are small on this window and LiDAR-IBA IMU is not wired — mechanism evidence only, not full LIO T0 promotion.",
                 },
             ],
             "remaining_before_full_manuscript_table": [

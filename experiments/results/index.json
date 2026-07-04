@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T00:09:50+00:00",
+  "generated_at": "2026-07-04T23:09:41+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1251,6 +1251,42 @@
       "manifest_path": "experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json",
       "current_default": "dense"
+    },
+    {
+      "problem_id": "imu_dead_reckoning_aiding_ablation_kitti_raw_0009_full",
+      "title": "IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json",
+      "aggregate_path": "experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json",
+      "current_default": "zupt_kitti_0009_full"
+    },
+    {
+      "problem_id": "imu_dead_reckoning_aiding_ablation_kitti_raw_0009",
+      "title": "IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json",
+      "aggregate_path": "experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json",
+      "current_default": "zupt_kitti_0009"
+    },
+    {
+      "problem_id": "imu_dead_reckoning_aiding_ablation_nclt_2013_01_10_full",
+      "title": "IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json",
+      "aggregate_path": "experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json",
+      "current_default": "zupt_full"
+    },
+    {
+      "problem_id": "imu_dead_reckoning_aiding_ablation_nclt_2013_01_10",
+      "title": "IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json",
+      "aggregate_path": "experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json",
+      "current_default": "zupt"
     },
     {
       "problem_id": "isc_loam_hdl_400_reference",

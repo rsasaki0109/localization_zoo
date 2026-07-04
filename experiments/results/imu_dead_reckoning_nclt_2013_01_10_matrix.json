@@ -1,0 +1,140 @@
+{
+  "generated_at": "2026-07-04T15:32:37+00:00",
+  "manifest_path": "experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json",
+  "problem": {
+    "id": "imu_dead_reckoning_aiding_ablation_nclt_2013_01_10",
+    "title": "IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window",
+    "question": "IMU-DR is a pure strapdown IMU-only dead-reckoning baseline (no LiDAR, no GT seed) added for family context alongside OdoNet/NHC-Net/NN-ZUPT. How much does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift on a 24s NCLT ground-vehicle window? Expected to drift badly relative to LiDAR/LIO methods -- this documents the baseline honestly, not a tuned result.",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+      "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "imu_dead_reckoning",
+    "primary_method": "IMU-DR"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+    "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default_dr",
+      "label": "Default (pure strapdown DR, midpoint, no ZUPT)",
+      "design_style": "balanced",
+      "intent": "Repository default: 2.0s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 9.071 m / RPE 170.6%/100m on the 11.5 m / ~24 s window -- unaided IMU dead reckoning drifts to roughly 80% of the trajectory length in RMSE, as expected for a baseline with no external aiding.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/default_dr/summary.json",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/default_dr/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/default_dr/run.log",
+      "status": "ok",
+      "ate_m": 9.07104,
+      "rpe_trans_pct": 170.617194,
+      "rpe_rot_deg_per_m": 3.536675,
+      "fps": 1360852.801089,
+      "time_ms": 0.08818,
+      "frames": 120,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.",
+      "benchmark_score": 64.32,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "zupt",
+      "label": "+ ZUPT",
+      "design_style": "ablation",
+      "intent": "Enable zero-velocity updates. ATE 9.071 -> 2.887 m (-68%), RPE 170.6% -> 30.6%/100m (-82%). zupt_frames=481/1051 IMU samples inside the integration window were gated as stationary -- this short window has the vehicle at rest for a large fraction of the time, so ZUPT is the single most effective aid tested here. Do not read this as representative of a continuously-moving trajectory.",
+      "args": [
+        "--imu-dr-zupt"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/zupt/summary.json --imu-dr-zupt",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/zupt/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/zupt/run.log",
+      "status": "ok",
+      "ate_m": 2.887291,
+      "rpe_trans_pct": 30.606609,
+      "rpe_rot_deg_per_m": 3.536675,
+      "fps": 1054259.207197,
+      "time_ms": 0.113824,
+      "frames": 120,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 zupt_frames=481; no GT seed.",
+      "benchmark_score": 87.5,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "euler",
+      "label": "Forward Euler (vs default midpoint)",
+      "design_style": "ablation",
+      "intent": "Swap midpoint integration for forward Euler, all else default. ATE 9.071 -> 10.280 m (+13%), RPE 170.6% -> 198.9%/100m (+17%). Midpoint is mildly better as expected, but the gap is small next to ZUPT/gyro-bias -- integration scheme is a second-order effect at ~5 Hz effective IMU rate over 24 s.",
+      "args": [
+        "--imu-dr-euler"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/euler/summary.json --imu-dr-euler",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/euler/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/euler/run.log",
+      "status": "ok",
+      "ate_m": 10.280414,
+      "rpe_trans_pct": 198.899316,
+      "rpe_rot_deg_per_m": 3.552025,
+      "fps": 1405827.153551,
+      "time_ms": 0.085359,
+      "frames": 120,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.",
+      "benchmark_score": 64.04,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "no_gyro_bias",
+      "label": "No static-init gyro-bias estimation",
+      "design_style": "ablation",
+      "intent": "Disable the 2.0s static-init gyro-bias estimate, all else default. ATE 9.071 -> 24.676 m (+172%), RPE 170.6% -> 482.0%/100m (+183%) -- by far the largest degradation of the three ablations. Uncorrected gyro bias integrates into heading error which then aliases into large position drift; static-init bias estimation is the most load-bearing aid of the three, more so than ZUPT on this window.",
+      "args": [
+        "--imu-dr-no-gyro-bias"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/no_gyro_bias/summary.json --imu-dr-no-gyro-bias",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/no_gyro_bias/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/no_gyro_bias/run.log",
+      "status": "ok",
+      "ate_m": 24.676444,
+      "rpe_trans_pct": 482.02751,
+      "rpe_rot_deg_per_m": 3.600323,
+      "fps": 1258838.092441,
+      "time_ms": 0.095326,
+      "frames": 120,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.",
+      "benchmark_score": 50.62,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

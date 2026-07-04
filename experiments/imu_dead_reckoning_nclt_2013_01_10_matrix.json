@@ -1,0 +1,58 @@
+{
+    "schema_version": 1,
+    "problem": {
+        "id": "imu_dead_reckoning_aiding_ablation_nclt_2013_01_10",
+        "title": "IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window",
+        "question": "IMU-DR is a pure strapdown IMU-only dead-reckoning baseline (no LiDAR, no GT seed) added for family context alongside OdoNet/NHC-Net/NN-ZUPT. How much does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift on a 24s NCLT ground-vehicle window? Expected to drift badly relative to LiDAR/LIO methods -- this documents the baseline honestly, not a tuned result.",
+        "dataset": {
+            "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+            "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv"
+        },
+        "same_metrics": [
+            "ate_m",
+            "rpe_trans_pct",
+            "fps"
+        ]
+    },
+    "stable_interface": {
+        "binary": "build/evaluation/pcd_dogfooding",
+        "methods": "imu_dead_reckoning",
+        "primary_method": "IMU-DR"
+    },
+    "variants": [
+        {
+            "id": "default_dr",
+            "label": "Default (pure strapdown DR, midpoint, no ZUPT)",
+            "design_style": "balanced",
+            "intent": "Repository default: 2.0s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 9.071 m / RPE 170.6%/100m on the 11.5 m / ~24 s window -- unaided IMU dead reckoning drifts to roughly 80% of the trajectory length in RMSE, as expected for a baseline with no external aiding.",
+            "args": []
+        },
+        {
+            "id": "zupt",
+            "label": "+ ZUPT",
+            "design_style": "ablation",
+            "intent": "Enable zero-velocity updates. ATE 9.071 -> 2.887 m (-68%), RPE 170.6% -> 30.6%/100m (-82%). zupt_frames=481/1051 IMU samples inside the integration window were gated as stationary -- this short window has the vehicle at rest for a large fraction of the time, so ZUPT is the single most effective aid tested here. Do not read this as representative of a continuously-moving trajectory.",
+            "args": [
+                "--imu-dr-zupt"
+            ]
+        },
+        {
+            "id": "euler",
+            "label": "Forward Euler (vs default midpoint)",
+            "design_style": "ablation",
+            "intent": "Swap midpoint integration for forward Euler, all else default. ATE 9.071 -> 10.280 m (+13%), RPE 170.6% -> 198.9%/100m (+17%). Midpoint is mildly better as expected, but the gap is small next to ZUPT/gyro-bias -- integration scheme is a second-order effect at ~5 Hz effective IMU rate over 24 s.",
+            "args": [
+                "--imu-dr-euler"
+            ]
+        },
+        {
+            "id": "no_gyro_bias",
+            "label": "No static-init gyro-bias estimation",
+            "design_style": "ablation",
+            "intent": "Disable the 2.0s static-init gyro-bias estimate, all else default. ATE 9.071 -> 24.676 m (+172%), RPE 170.6% -> 482.0%/100m (+183%) -- by far the largest degradation of the three ablations. Uncorrected gyro bias integrates into heading error which then aliases into large position drift; static-init bias estimation is the most load-bearing aid of the three, more so than ZUPT on this window.",
+            "args": [
+                "--imu-dr-no-gyro-bias"
+            ]
+        }
+    ]
+}

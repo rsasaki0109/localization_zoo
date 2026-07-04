@@ -1,0 +1,59 @@
+{
+    "schema_version": 1,
+    "problem": {
+        "id": "imu_dead_reckoning_aiding_ablation_nclt_2013_01_10_full",
+        "title": "IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames)",
+        "question": "How does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift for a pure strapdown IMU-only dead-reckoning baseline over a full ~17-minute NCLT session (1138.8 m trajectory), vs. the earlier 120-frame (~24 s) window? Expected to drift catastrophically over this duration with no external aiding -- this documents the baseline honestly, not a tuned result.",
+        "dataset": {
+            "pcd_dir": "/media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full",
+            "gt_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv",
+            "pcd_dir_note": "pcd_dir lives on removable media (/media/sasaki/aiueo, external SSD) because the ~6.3 GB full-session ASCII PCD export does not fit on this machine's root filesystem (~18 GB free). If the drive is not mounted, re-export with: python3 evaluation/scripts/prepare_nclt_inputs.py --velodyne-dir data/nclt_2013_01_10/2013-01-10/velodyne_sync --ground-truth data/nclt_2013_01_10/groundtruth_2013-01-10.csv --ms25 data/nclt_2013_01_10/2013-01-10/ms25.csv --date 2013-01-10 --max-frames -1 --output-root <ssd path>/dogfooding_results --reference-data-dir experiments/reference_data (stem becomes nclt_2013_01_10_full)."
+        },
+        "same_metrics": [
+            "ate_m",
+            "rpe_trans_pct",
+            "fps"
+        ]
+    },
+    "stable_interface": {
+        "binary": "build/evaluation/pcd_dogfooding",
+        "methods": "imu_dead_reckoning",
+        "primary_method": "IMU-DR"
+    },
+    "variants": [
+        {
+            "id": "default_dr_full",
+            "label": "Default (pure strapdown DR, midpoint, no ZUPT) -- full session",
+            "design_style": "balanced",
+            "intent": "Repository default over the full 5105-frame / ~17 min (1021.7 s) / 1138.8 m session: 2.0 s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 288700.449 m / RPE 67435.005%/100m (zupt_frames=0) -- roughly 250x the trajectory length in RMSE. Uncorrected gyro bias and accel-frame errors compound quadratically over the full session (unlike the 120-frame/~24 s window's 9.071 m), so ATE grows to hundreds of km. This is the expected honest failure mode of unaided IMU dead reckoning over long horizons (not a NaN/overflow bug -- values stay finite and physically explicable).",
+            "args": []
+        },
+        {
+            "id": "zupt_full",
+            "label": "+ ZUPT -- full session",
+            "design_style": "ablation",
+            "intent": "Enable zero-velocity updates over the full session. ATE 288700.449 -> 14531.743 m (-94.97%), RPE 67435.005 -> 2859.304%/100m (-95.76%). zupt_frames=3984/48122 IMU samples (~8.3%) gated stationary -- much lower than the 120-frame window's ~46% (481/1051), so this session is mostly continuous motion, yet ZUPT still removes ~95% of the ATE/RPE by repeatedly re-zeroing the velocity error that would otherwise integrate into position drift between resets. Confirms the 120-frame window's ZUPT effectiveness was directionally right even though its stationary fraction was unrepresentative.",
+            "args": [
+                "--imu-dr-zupt"
+            ]
+        },
+        {
+            "id": "euler_full",
+            "label": "Forward Euler (vs default midpoint) -- full session",
+            "design_style": "ablation",
+            "intent": "Swap midpoint integration for forward Euler, all else default, over the full session. ATE 288700.449 -> 291892.627 m (+1.11%), RPE 67435.005 -> 68484.744%/100m (+1.56%). Even over ~17 minutes the integration-scheme gap stays a small second-order effect next to ZUPT/gyro-bias -- consistent with the 120-frame window's finding that midpoint vs. Euler barely matters relative to the other two aids.",
+            "args": [
+                "--imu-dr-euler"
+            ]
+        },
+        {
+            "id": "no_gyro_bias_full",
+            "label": "No static-init gyro-bias estimation -- full session",
+            "design_style": "ablation",
+            "intent": "Disable the 2.0 s static-init gyro-bias estimate, all else default, over the full session. ATE 288700.449 -> 672302.751 m (+132.9%), RPE 67435.005 -> 139392.868%/100m (+106.7%) -- by far the largest degradation of the three ablations, same ordering as the 120-frame window (+172%/+183% there). Uncorrected gyro bias integrates into heading error that compounds for the full ~17 minutes instead of ~24 seconds, confirming static-init gyro-bias estimation as the single most load-bearing aid at any timescale tested.",
+            "args": [
+                "--imu-dr-no-gyro-bias"
+            ]
+        }
+    ]
+}

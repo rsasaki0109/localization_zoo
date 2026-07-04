@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-06-13T00:09:50+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-04T23:09:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -145,6 +145,10 @@ _Generated at 2026-06-13T00:09:50+00:00 by `evaluation/scripts/run_experiment_ma
 | HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 5.057 | 13.9 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
 | HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `dense` | 0.180 | 21.9 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
 | HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `dense` | 1.373 | 14.5 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `zupt_kitti_0009_full` | 5958.011 | 3899236.0 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 214.400 | 3234728.0 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `zupt_full` | 14531.743 | 1116254.9 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1405827.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
@@ -8560,6 +8564,294 @@ _Generated at 2026-06-13T00:09:50+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: NDT odometry with pose-graph optimization and ScanContext loop closure (no GT seed; anchor matches first GT pose).
+
+
+## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)
+
+- **Problem ID**: `imu_dead_reckoning_aiding_ablation_kitti_raw_0009_full`
+- **Question**: How does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift for a pure strapdown IMU-only dead-reckoning baseline over the full 443-frame (~44.2 s, 332.4 m) KITTI Raw drive 0009 sequence, vs. the 200-frame window? Same OXTS-derived imu.csv caveats as the 200-frame window (effective ~9.7 Hz rate, synthetic index-unit timeline) apply here too.
+- **Status**: `ready`
+- **Dataset PCD directory**: `/media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `imu_dead_reckoning`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps
+- **Aggregate result**: `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, full 443-frame sequence | balanced | 91821.017 | 3728579.6 | 51.1 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT -- KITTI Raw 0009, full sequence | ablation | 5958.011 | 3489452.9 | 94.8 | 4.65 | 4.75 | Adopt as current default |
+| Forward Euler (vs default midpoint) -- KITTI Raw 0009, full sequence | ablation | 92462.565 | 3301141.6 | 45.5 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation -- KITTI Raw 0009, full sequence | ablation | 11794.635 | 3899236.0 | 75.3 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `zupt_kitti_0009_full` is the current default for this problem.
+2. `no_gyro_bias_kitti_0009_full` is the fastest observed variant at 3899236.0 FPS.
+3. `zupt_kitti_0009_full` is the most accurate observed variant at 5958.011 m ATE.
+
+### Variant Notes
+
+#### `default_dr_kitti_0009_full`
+
+- Intent: Repository default over the full 443-frame (~44.2 s, 332.4 m) sequence: 2.0 s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 91821.017 m / RPE 51751.724%/100m (zupt_frames=0), roughly 276x the trajectory length. Same two dataset-specific factors as the 200-frame window apply: the vehicle is moving (~10.7 m/s) at frame 0, not stationary, and the imu.csv synthetic index-unit timeline makes the strapdown integrator use a clamped dt=0.5 s/step vs. the real ~0.103 s inter-frame interval (harness-reported frame gap: min=median=mean=max=1.000 s, before the pipeline's own max_dt=0.5 s clamp). Over ~44 s this compounds to a much larger absolute ATE than the 200-frame window's 9769.887 m, as expected.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/summary.json`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+
+#### `zupt_kitti_0009_full`
+
+- Intent: Enable zero-velocity updates. ATE 91821.017 -> 5958.011 m (-93.51%), RPE 51751.724 -> 4510.478%/100m (-91.28%). zupt_frames=344/442 IMU samples (~77.8%) gated stationary, vs. an actual measured stationary fraction (OXTS ground speed < 0.5 m/s) of only ~9.7% (43/443, concentrated near the end of the drive where the vehicle slows for what looks like an intersection). So roughly 8 out of every 9 ZUPT triggers are false positives on cruising, not real stops -- consistent with the 200-frame window's more extreme finding (0% actual stationary there) -- yet ZUPT remains the single most effective aid at both window sizes, again by bounding velocity-error growth via frequent resets rather than by correctly detecting rest.
+- CLI args: `--imu-dr-zupt`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/zupt_kitti_0009_full/summary.json --imu-dr-zupt`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/zupt_kitti_0009_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/zupt_kitti_0009_full/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 zupt_frames=344; no GT seed.
+
+#### `euler_kitti_0009_full`
+
+- Intent: Swap midpoint integration for forward Euler, all else default. ATE 91821.017 -> 92462.565 m (+0.70%), RPE 51751.724 -> 52137.410%/100m (+0.74%). Same conclusion as the 200-frame window and both NCLT windows: integration scheme is a small second-order effect next to ZUPT/gyro-bias at any window size tested so far, on either dataset.
+- CLI args: `--imu-dr-euler`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/euler_kitti_0009_full/summary.json --imu-dr-euler`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/euler_kitti_0009_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/euler_kitti_0009_full/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+
+#### `no_gyro_bias_kitti_0009_full`
+
+- Intent: Disable the 2.0 s static-init gyro-bias estimate, all else default. ATE 91821.017 -> 11794.635 m (-87.15%), RPE 51751.724 -> 6491.912%/100m (-87.46%) -- again an IMPROVEMENT, confirming the 200-frame window's finding (there: -87.36%/-86.49%) rather than an aggregation artifact of the shorter window. This is the opposite ordering from both NCLT windows (where disabling gyro-bias estimation was the largest degradation, +133%/+107% on the NCLT full session). Same honest explanation as the 200-frame window: on this dataset the ~3-sample (~0.3 s real-time) static-init window is taken while the vehicle is already moving at ~10.7 m/s, so the 'bias' it estimates is contaminated by real angular rate rather than sensor bias, making the correction actively harmful; the built-in static-init gate (which only checks gyro std against a 0.05 rad/s gate) does not catch this because the vehicle's yaw rate -- not its forward velocity -- happened to be low during this segment.
+- CLI args: `--imu-dr-no-gyro-bias`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/no_gyro_bias_kitti_0009_full/summary.json --imu-dr-no-gyro-bias`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/no_gyro_bias_kitti_0009_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/no_gyro_bias_kitti_0009_full/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+
+
+## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS)
+
+- **Problem ID**: `imu_dead_reckoning_aiding_ablation_kitti_raw_0009`
+- **Question**: How does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift for a pure strapdown IMU-only dead-reckoning baseline on the first 200 frames (~19.9 s) of KITTI Raw drive 0009, using the OXTS-derived imu.csv from evaluation/scripts/kitti_oxts_imu_for_dogfooding.py? Unlike NCLT, KITTI Raw sync OXTS is effectively ~9.7 Hz (one packet per LiDAR frame) and the exporter's imu.csv stamps live on the same synthetic per-frame-index timeline as frame_timestamps.csv (not real seconds) -- both are honest caveats documented below, not tuned around.
+- **Status**: `ready`
+- **Dataset PCD directory**: `/media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200`
+- **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `imu_dead_reckoning`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps
+- **Aggregate result**: `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, 200-frame window | balanced | 9769.887 | 3138633.4 | 49.6 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 214.400 | 3056234.7 | 97.2 | 4.65 | 4.75 | Adopt as current default |
+| Forward Euler (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9930.599 | 3234728.0 | 51.1 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 1235.339 | 2873480.6 | 53.1 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `zupt_kitti_0009` is the current default for this problem.
+2. `euler_kitti_0009` is the fastest observed variant at 3234728.0 FPS.
+3. `zupt_kitti_0009` is the most accurate observed variant at 214.400 m ATE.
+
+### Variant Notes
+
+#### `default_dr_kitti_0009`
+
+- Intent: Repository default on the first 200 frames (~19.9 s, 186.97 m trajectory) of KITTI Raw drive 0009: 2.0 s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 9769.887 m / RPE 7580.498%/100m (zupt_frames=0), roughly 52x the trajectory length. Two dataset-specific factors make this worse than a naive unaided-DR expectation: (1) the vehicle is already cruising at ~10.7 m/s at frame 0 (min speed over this window: 1.339 m/s, i.e. **never** stationary), so the 2.0 s static-init window is not static; (2) the exporter's imu.csv stamps are spaced 1.0 index-unit apart (harness-reported frame gap: min=median=mean=max=1.000 s), so the strapdown integrator's dt is clamped to max_dt=0.5 s per step vs. the real ~0.103 s inter-frame interval (~4.8x too large per step) -- a structural property of this KITTI-Raw-to-dogfooding fixture (shared by every imu.csv-consuming method here), not something tuned for this run.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/default_dr_kitti_0009/summary.json`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/default_dr_kitti_0009/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/default_dr_kitti_0009/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+
+#### `zupt_kitti_0009`
+
+- Intent: Enable zero-velocity updates. ATE 9769.887 -> 214.400 m (-97.81%), RPE 7580.498 -> 172.926%/100m (-97.72%). zupt_frames=174/199 IMU samples (~87.4%) gated stationary -- yet OXTS ground speed **never drops below 1.339 m/s** anywhere in this 200-frame window (verified from oxts vf/vl), so essentially all of these ZUPT triggers are false positives on low-yaw-rate, roughly-constant-velocity cruising, not real stops. The gyro/accel-norm gate cannot distinguish 'stationary' from 'cruising straight at near-constant speed' -- a sharper version of the NCLT full-session caveat (there, ZUPT still corresponded to some genuine low-speed fraction; here it corresponds to essentially none) -- yet it still removes ~98% of the drift by repeatedly re-zeroing velocity error before it compounds through position.
+- CLI args: `--imu-dr-zupt`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/zupt_kitti_0009/summary.json --imu-dr-zupt`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/zupt_kitti_0009/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/zupt_kitti_0009/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 zupt_frames=174; no GT seed.
+
+#### `euler_kitti_0009`
+
+- Intent: Swap midpoint integration for forward Euler, all else default. ATE 9769.887 -> 9930.599 m (+1.64%), RPE 7580.498 -> 7725.910%/100m (+1.92%). Consistent with NCLT: integration scheme is a small second-order effect next to ZUPT/gyro-bias, even under this dataset's much larger dt/static-init mismatches.
+- CLI args: `--imu-dr-euler`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/euler_kitti_0009/summary.json --imu-dr-euler`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/euler_kitti_0009/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/euler_kitti_0009/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+
+#### `no_gyro_bias_kitti_0009`
+
+- Intent: Disable the 2.0 s static-init gyro-bias estimate, all else default. ATE 9769.887 -> 1235.339 m (-87.36%), RPE 7580.498 -> 1024.241%/100m (-86.49%) -- an IMPROVEMENT, the opposite ordering from NCLT (where disabling gyro-bias estimation was the single largest degradation, +172%/+183% on the NCLT window). Honest explanation: the static-init window here spans only ~3 IMU samples (stamps 0.5/1.5/2.5 index-units apart, ~0.3 s of real time at ~9.7 Hz) while the vehicle is already moving at ~10.7 m/s -- the 'gyro bias' estimated from 3 samples of a moving, possibly slightly-turning vehicle is contaminated by real angular rate, not sensor bias, so applying it as a bias correction is actively harmful. This is a genuine, reproducible finding on this dataset (same ordering held in the full-session run below), not an aggregation artifact -- and it is the mirror image of the static-init gate's blind spot: the built-in stationarity check only gates on gyro std, so it never flagged that the window was non-static (the vehicle's yaw rate happened to be low during this straight-cruise segment even though its forward velocity was not zero).
+- CLI args: `--imu-dr-no-gyro-bias`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/no_gyro_bias_kitti_0009/summary.json --imu-dr-no-gyro-bias`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/no_gyro_bias_kitti_0009/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/no_gyro_bias_kitti_0009/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+
+
+## IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames)
+
+- **Problem ID**: `imu_dead_reckoning_aiding_ablation_nclt_2013_01_10_full`
+- **Question**: How does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift for a pure strapdown IMU-only dead-reckoning baseline over a full ~17-minute NCLT session (1138.8 m trajectory), vs. the earlier 120-frame (~24 s) window? Expected to drift catastrophically over this duration with no external aiding -- this documents the baseline honestly, not a tuned result.
+- **Status**: `ready`
+- **Dataset PCD directory**: `/media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full`
+- **Reference CSV**: `experiments/reference_data/nclt_2013_01_10_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `imu_dead_reckoning`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps
+- **Aggregate result**: `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (pure strapdown DR, midpoint, no ZUPT) -- full session | balanced | 288700.449 | 1095010.7 | 51.6 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT -- full session | ablation | 14531.743 | 798152.2 | 85.8 | 4.65 | 4.75 | Adopt as current default |
+| Forward Euler (vs default midpoint) -- full session | ablation | 291892.627 | 1116254.9 | 52.5 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation -- full session | ablation | 672302.751 | 1112120.0 | 50.9 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `zupt_full` is the current default for this problem.
+2. `euler_full` is the fastest observed variant at 1116254.9 FPS.
+3. `zupt_full` is the most accurate observed variant at 14531.743 m ATE.
+
+### Variant Notes
+
+#### `default_dr_full`
+
+- Intent: Repository default over the full 5105-frame / ~17 min (1021.7 s) / 1138.8 m session: 2.0 s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 288700.449 m / RPE 67435.005%/100m (zupt_frames=0) -- roughly 250x the trajectory length in RMSE. Uncorrected gyro bias and accel-frame errors compound quadratically over the full session (unlike the 120-frame/~24 s window's 9.071 m), so ATE grows to hundreds of km. This is the expected honest failure mode of unaided IMU dead reckoning over long horizons (not a NaN/overflow bug -- values stay finite and physically explicable).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/default_dr_full/summary.json`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/default_dr_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/default_dr_full/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+
+#### `zupt_full`
+
+- Intent: Enable zero-velocity updates over the full session. ATE 288700.449 -> 14531.743 m (-94.97%), RPE 67435.005 -> 2859.304%/100m (-95.76%). zupt_frames=3984/48122 IMU samples (~8.3%) gated stationary -- much lower than the 120-frame window's ~46% (481/1051), so this session is mostly continuous motion, yet ZUPT still removes ~95% of the ATE/RPE by repeatedly re-zeroing the velocity error that would otherwise integrate into position drift between resets. Confirms the 120-frame window's ZUPT effectiveness was directionally right even though its stationary fraction was unrepresentative.
+- CLI args: `--imu-dr-zupt`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/zupt_full/summary.json --imu-dr-zupt`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/zupt_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/zupt_full/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 zupt_frames=3984; no GT seed.
+
+#### `euler_full`
+
+- Intent: Swap midpoint integration for forward Euler, all else default, over the full session. ATE 288700.449 -> 291892.627 m (+1.11%), RPE 67435.005 -> 68484.744%/100m (+1.56%). Even over ~17 minutes the integration-scheme gap stays a small second-order effect next to ZUPT/gyro-bias -- consistent with the 120-frame window's finding that midpoint vs. Euler barely matters relative to the other two aids.
+- CLI args: `--imu-dr-euler`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/euler_full/summary.json --imu-dr-euler`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/euler_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/euler_full/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+
+#### `no_gyro_bias_full`
+
+- Intent: Disable the 2.0 s static-init gyro-bias estimate, all else default, over the full session. ATE 288700.449 -> 672302.751 m (+132.9%), RPE 67435.005 -> 139392.868%/100m (+106.7%) -- by far the largest degradation of the three ablations, same ordering as the 120-frame window (+172%/+183% there). Uncorrected gyro bias integrates into heading error that compounds for the full ~17 minutes instead of ~24 seconds, confirming static-init gyro-bias estimation as the single most load-bearing aid at any timescale tested.
+- CLI args: `--imu-dr-no-gyro-bias`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/no_gyro_bias_full/summary.json --imu-dr-no-gyro-bias`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/no_gyro_bias_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/no_gyro_bias_full/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+
+
+## IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window
+
+- **Problem ID**: `imu_dead_reckoning_aiding_ablation_nclt_2013_01_10`
+- **Question**: IMU-DR is a pure strapdown IMU-only dead-reckoning baseline (no LiDAR, no GT seed) added for family context alongside OdoNet/NHC-Net/NN-ZUPT. How much does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift on a 24s NCLT ground-vehicle window? Expected to drift badly relative to LiDAR/LIO methods -- this documents the baseline honestly, not a tuned result.
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/nclt_2013_01_10_120`
+- **Reference CSV**: `experiments/reference_data/nclt_2013_01_10_120_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `imu_dead_reckoning`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps
+- **Aggregate result**: `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default (pure strapdown DR, midpoint, no ZUPT) | balanced | 9.071 | 1360852.8 | 64.3 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT | ablation | 2.887 | 1054259.2 | 87.5 | 4.65 | 4.75 | Adopt as current default |
+| Forward Euler (vs default midpoint) | ablation | 10.280 | 1405827.2 | 64.0 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation | ablation | 24.676 | 1258838.1 | 50.6 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `zupt` is the current default for this problem.
+2. `euler` is the fastest observed variant at 1405827.2 FPS.
+3. `zupt` is the most accurate observed variant at 2.887 m ATE.
+
+### Variant Notes
+
+#### `default_dr`
+
+- Intent: Repository default: 2.0s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 9.071 m / RPE 170.6%/100m on the 11.5 m / ~24 s window -- unaided IMU dead reckoning drifts to roughly 80% of the trajectory length in RMSE, as expected for a baseline with no external aiding.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/default_dr/summary.json`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/default_dr/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/default_dr/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+
+#### `zupt`
+
+- Intent: Enable zero-velocity updates. ATE 9.071 -> 2.887 m (-68%), RPE 170.6% -> 30.6%/100m (-82%). zupt_frames=481/1051 IMU samples inside the integration window were gated as stationary -- this short window has the vehicle at rest for a large fraction of the time, so ZUPT is the single most effective aid tested here. Do not read this as representative of a continuously-moving trajectory.
+- CLI args: `--imu-dr-zupt`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/zupt/summary.json --imu-dr-zupt`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/zupt/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/zupt/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 zupt_frames=481; no GT seed.
+
+#### `euler`
+
+- Intent: Swap midpoint integration for forward Euler, all else default. ATE 9.071 -> 10.280 m (+13%), RPE 170.6% -> 198.9%/100m (+17%). Midpoint is mildly better as expected, but the gap is small next to ZUPT/gyro-bias -- integration scheme is a second-order effect at ~5 Hz effective IMU rate over 24 s.
+- CLI args: `--imu-dr-euler`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/euler/summary.json --imu-dr-euler`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/euler/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/euler/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+
+#### `no_gyro_bias`
+
+- Intent: Disable the 2.0s static-init gyro-bias estimate, all else default. ATE 9.071 -> 24.676 m (+172%), RPE 170.6% -> 482.0%/100m (+183%) -- by far the largest degradation of the three ablations. Uncorrected gyro bias integrates into heading error which then aliases into large position drift; static-init bias estimation is the most load-bearing aid of the three, more so than ZUPT on this window.
+- CLI args: `--imu-dr-no-gyro-bias`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/no_gyro_bias/summary.json --imu-dr-no-gyro-bias`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/no_gyro_bias/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/no_gyro_bias/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
 
 
 ## ISC-LOAM on the public HDL-400 reference window

@@ -1,0 +1,7 @@
+add_library(imu_dead_reckoning src/imu_dead_reckoning.cpp)
+target_include_directories(imu_dead_reckoning PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(imu_dead_reckoning PUBLIC Eigen3::Eigen)
+
+add_executable(test_imu_dead_reckoning test/test_imu_dead_reckoning.cpp)
+target_link_libraries(test_imu_dead_reckoning PRIVATE imu_dead_reckoning GTest::gtest_main)
+add_test(NAME test_imu_dead_reckoning COMMAND test_imu_dead_reckoning)

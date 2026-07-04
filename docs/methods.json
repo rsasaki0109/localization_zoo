@@ -1190,6 +1190,21 @@
       ]
     },
     {
+      "name": "IMU Dead Reckoning",
+      "family": "IMU dead reckoning",
+      "scope": "Compact baseline",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/imu_dead_reckoning",
+      "summary": "Pure strapdown IMU-only dead reckoning: static-window gyro-bias/gravity init, midpoint gyro integration, and double integration of specific force, with no LiDAR, NHC, or ZUPT unless opted in. The unaided lower-bound reference for the LIO/OdoNet/NHC-Net/NN-ZUPT family; not a paper reimplementation.",
+      "tags": [
+        "imu",
+        "dead-reckoning",
+        "baseline"
+      ]
+    },
+    {
       "name": "SVN-ICP",
       "family": "Uncertainty",
       "scope": "Paper reimplementation",

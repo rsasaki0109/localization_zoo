@@ -86,6 +86,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   odonet
   nhc_net
   nn_zupt
+  imu_dead_reckoning
   cube_lio
   rko_lio
   fr_lio

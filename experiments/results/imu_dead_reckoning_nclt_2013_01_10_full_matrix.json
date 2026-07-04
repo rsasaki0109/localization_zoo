@@ -1,0 +1,141 @@
+{
+  "generated_at": "2026-07-04T20:20:10+00:00",
+  "manifest_path": "experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json",
+  "problem": {
+    "id": "imu_dead_reckoning_aiding_ablation_nclt_2013_01_10_full",
+    "title": "IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames)",
+    "question": "How does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift for a pure strapdown IMU-only dead-reckoning baseline over a full ~17-minute NCLT session (1138.8 m trajectory), vs. the earlier 120-frame (~24 s) window? Expected to drift catastrophically over this duration with no external aiding -- this documents the baseline honestly, not a tuned result.",
+    "dataset": {
+      "pcd_dir": "/media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full",
+      "gt_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv",
+      "pcd_dir_note": "pcd_dir lives on removable media (/media/sasaki/aiueo, external SSD) because the ~6.3 GB full-session ASCII PCD export does not fit on this machine's root filesystem (~18 GB free). If the drive is not mounted, re-export with: python3 evaluation/scripts/prepare_nclt_inputs.py --velodyne-dir data/nclt_2013_01_10/2013-01-10/velodyne_sync --ground-truth data/nclt_2013_01_10/groundtruth_2013-01-10.csv --ms25 data/nclt_2013_01_10/2013-01-10/ms25.csv --date 2013-01-10 --max-frames -1 --output-root <ssd path>/dogfooding_results --reference-data-dir experiments/reference_data (stem becomes nclt_2013_01_10_full)."
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps"
+    ]
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "imu_dead_reckoning",
+    "primary_method": "IMU-DR"
+  },
+  "dataset": {
+    "pcd_dir": "/media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full",
+    "gt_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "default_dr_full",
+      "label": "Default (pure strapdown DR, midpoint, no ZUPT) -- full session",
+      "design_style": "balanced",
+      "intent": "Repository default over the full 5105-frame / ~17 min (1021.7 s) / 1138.8 m session: 2.0 s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 288700.449 m / RPE 67435.005%/100m (zupt_frames=0) -- roughly 250x the trajectory length in RMSE. Uncorrected gyro bias and accel-frame errors compound quadratically over the full session (unlike the 120-frame/~24 s window's 9.071 m), so ATE grows to hundreds of km. This is the expected honest failure mode of unaided IMU dead reckoning over long horizons (not a NaN/overflow bug -- values stay finite and physically explicable).",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/default_dr_full/summary.json",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/default_dr_full/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/default_dr_full/run.log",
+      "status": "ok",
+      "ate_m": 288700.449374,
+      "rpe_trans_pct": 67435.004997,
+      "rpe_rot_deg_per_m": 0.087023,
+      "fps": 1095010.676622,
+      "time_ms": 4.662055,
+      "frames": 5105,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.",
+      "benchmark_score": 51.57,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "zupt_full",
+      "label": "+ ZUPT -- full session",
+      "design_style": "ablation",
+      "intent": "Enable zero-velocity updates over the full session. ATE 288700.449 -> 14531.743 m (-94.97%), RPE 67435.005 -> 2859.304%/100m (-95.76%). zupt_frames=3984/48122 IMU samples (~8.3%) gated stationary -- much lower than the 120-frame window's ~46% (481/1051), so this session is mostly continuous motion, yet ZUPT still removes ~95% of the ATE/RPE by repeatedly re-zeroing the velocity error that would otherwise integrate into position drift between resets. Confirms the 120-frame window's ZUPT effectiveness was directionally right even though its stationary fraction was unrepresentative.",
+      "args": [
+        "--imu-dr-zupt"
+      ],
+      "command": "build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/zupt_full/summary.json --imu-dr-zupt",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/zupt_full/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/zupt_full/run.log",
+      "status": "ok",
+      "ate_m": 14531.742757,
+      "rpe_trans_pct": 2859.30379,
+      "rpe_rot_deg_per_m": 0.087023,
+      "fps": 798152.226782,
+      "time_ms": 6.396023,
+      "frames": 5105,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 zupt_frames=3984; no GT seed.",
+      "benchmark_score": 85.75,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+    },
+    {
+      "id": "euler_full",
+      "label": "Forward Euler (vs default midpoint) -- full session",
+      "design_style": "ablation",
+      "intent": "Swap midpoint integration for forward Euler, all else default, over the full session. ATE 288700.449 -> 291892.627 m (+1.11%), RPE 67435.005 -> 68484.744%/100m (+1.56%). Even over ~17 minutes the integration-scheme gap stays a small second-order effect next to ZUPT/gyro-bias -- consistent with the 120-frame window's finding that midpoint vs. Euler barely matters relative to the other two aids.",
+      "args": [
+        "--imu-dr-euler"
+      ],
+      "command": "build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/euler_full/summary.json --imu-dr-euler",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/euler_full/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/euler_full/run.log",
+      "status": "ok",
+      "ate_m": 291892.626693,
+      "rpe_trans_pct": 68484.743817,
+      "rpe_rot_deg_per_m": 0.08748,
+      "fps": 1116254.94607,
+      "time_ms": 4.573328,
+      "frames": 5105,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.",
+      "benchmark_score": 52.49,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "no_gyro_bias_full",
+      "label": "No static-init gyro-bias estimation -- full session",
+      "design_style": "ablation",
+      "intent": "Disable the 2.0 s static-init gyro-bias estimate, all else default, over the full session. ATE 288700.449 -> 672302.751 m (+132.9%), RPE 67435.005 -> 139392.868%/100m (+106.7%) -- by far the largest degradation of the three ablations, same ordering as the 120-frame window (+172%/+183% there). Uncorrected gyro bias integrates into heading error that compounds for the full ~17 minutes instead of ~24 seconds, confirming static-init gyro-bias estimation as the single most load-bearing aid at any timescale tested.",
+      "args": [
+        "--imu-dr-no-gyro-bias"
+      ],
+      "command": "build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/no_gyro_bias_full/summary.json --imu-dr-no-gyro-bias",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/no_gyro_bias_full/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/no_gyro_bias_full/run.log",
+      "status": "ok",
+      "ate_m": 672302.751383,
+      "rpe_trans_pct": 139392.867799,
+      "rpe_rot_deg_per_m": 0.205085,
+      "fps": 1112119.994806,
+      "time_ms": 4.590332,
+      "frames": 5105,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.",
+      "benchmark_score": 50.9,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    }
+  ]
+}

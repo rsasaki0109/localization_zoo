@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-06-13 (LiTAMIN2 NTNU LiDAR degeneracy health、2D は一旦停止)**
+> **最終更新: 2026-07-05 (IMU Dead Reckoning 追加 — 102本目、compact baseline)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,9 +24,142 @@
 
 ---
 
-## 00. Latest Handoff: LiTAMIN2 NTNU LiDAR Degeneracy Health (2026-06-13 更新)
+## 00. Latest Handoff: IMU Dead Reckoning Compact Baseline (2026-07-05 更新)
 
 > **これが最新・最優先の handoff。**
+>
+> **`imu_dead_reckoning` (102本目) を追加した。** ただしこれは論文再現ではなく
+> **compact baseline** — LIO / OdoNet / NHC-Net / NN-ZUPT ファミリーの「無補助 IMU
+> dead reckoning 下限」参照実装で、claim tier は
+> [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md) の
+> **T3 smoke / concept** ("This is a compact baseline or concept port.")。新規論文の
+> from-paper 実装ではないため、README の「73 paper reimplementations」は変えていない
+> (breadth の「102 methods」のみ +1)。
+> 中身: static-window init (先頭 2.0 s から gyro bias 推定 + gravity alignment) →
+> midpoint quaternion 姿勢積分 (`--imu-dr-euler` で forward Euler に切替可能) →
+> specific force の二重積分。opt-in ablation knob として
+> `--imu-dr-zupt` / `--imu-dr-euler` / `--imu-dr-no-gyro-bias` /
+> `--imu-dr-static-init-sec` を追加。`evaluation/src/pcd_dogfooding.cpp` に
+> method `imu_dead_reckoning` として配線済み (`imu.csv` が無い dataset では自動 skip)。
+> `papers/imu_dead_reckoning/{include,src,test}` 新設、gtest 5件
+> (`ctest -R imu_dead_reckoning` で green): `StaticWithKnownBiasHasNoDrift`,
+> `ConstantYawRateNoTranslation`, `ConstantWorldAccelerationMatchesAnalytic`,
+> `ZuptResetsVelocityAndLimitsTailDrift`, `IntegrateTrajectoryFrameSampling`。
+>
+> **評価は NCLT 2013-01-10 の 120-frame window のみ**
+> (`dogfooding_results/nclt_2013_01_10_120`, ms25 IMU ~47 Hz, 軌跡長 11.5 m, ~24 s)。
+> repro: `./build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120
+> experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning`。
+> 結果 (ATE m / RPE %/100m): default (pure DR) **9.071 / 170.617** (zupt_frames=0)、
+> `--imu-dr-zupt` **2.887 / 30.607** (zupt_frames=481/1051 — この短い window は停止区間の
+> 割合が大きいため ZUPT の ATE 改善は**継続走行を代表しない**、over-claim 禁止)、
+> `--imu-dr-euler` **10.280 / 198.899**、`--imu-dr-no-gyro-bias` **24.676 / 482.028**
+> (全 ablation 中で最大の劣化 — static-init gyro-bias 推定が最も load-bearing)。
+> 同じ window での family context: OdoNet **138.872 / 1842.230**
+> (KITTI Raw OXTS 学習済み CNN 重みが NCLT の ms25 IMU に対して out-of-domain)、
+> NHC-Net **4.295 / 102.938**、NN-ZUPT **3.799 / 96.164**。
+> matrix manifest: [`experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json)、
+> aggregate: [`experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json)。
+> `run_experiment_matrix.py` により `docs/experiments.md` / `docs/decisions.md` /
+> `docs/interfaces.md` / `experiments/results/index.json` は additive に更新済み。
+> **注意**: runner の自動 heuristic が `docs/decisions.md` 上で `zupt` variant を
+> "Adopt as current default" とラベルしたが、これは shared ATE/RPE スコアだけを見た
+> 機械的判定であり、手法自体の実際の default は pure DR (ZUPT off) のまま変わらない
+> (module README にその旨を明記)。
+> full NCLT session の書き出しは、評価時点でディスク残 18 GB / 使用率 97% に対し
+> 約 3.6 GB 必要になるため見送った (120-frame window のみ)。
+>
+> **2026-07-05 追記: full-session (5105 frames, ~17分/1021.7s, 1138.8 m) 評価を実施した。**
+> ローカル disk が依然 18 GB しか無いため、`/media/sasaki/aiueo` (外付け SSD, 1.6 TB free)
+> に `dogfooding_results/nclt_2013_01_10_full` (実測 6.3 GB、想定より大きい) を書き出し。
+> `experiments/reference_data/nclt_2013_01_10_full_gt.csv` は既存ファイルと byte-identical
+> (md5 `ff32d5666754fc1fb95333a3835752f4`) だったため差分なし。IMU-DR は点群を読まない
+> (imu.csv + frame_timestamps.csv のみ使用) ため、full-session 4 variant (family run 込み)
+> の実行は数秒〜2分で完了 (export 自体は 6m45s)。結果 (ATE m / RPE %/100m):
+> default **288700.449 / 67435.005** (zupt_frames=0、軌跡長の約250倍)、
+> `--imu-dr-zupt` **14531.743 / 2859.304** (-94.97%/-95.76%、zupt_frames=3984/48122≈8.3% —
+> 120-frame window の ~46% より大幅に低いが、それでも ZUPT が drift の大半を除去。
+> 「stationary 時間が長いから効く」ではなく「稀なリセットで速度誤差の蓄積を打ち切る」効果と判明)、
+> `--imu-dr-euler` **291892.627 / 68484.744** (+1.11%/+1.56%、依然として二次的な効果)、
+> `--imu-dr-no-gyro-bias` **672302.751 / 139392.868** (+132.9%/+106.7%、全 ablation 中で
+> 最大の劣化、120-frame window と同じ順位)。4 run とも NaN/オーバーフロー無しで有限値
+> (hundreds-of-km は非現実的な bug ではなく、無補正 gyro heading drift が ~17分で複利的に
+> 蓄積した honest な結果)。manifest:
+> [`experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json`](experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json)、
+> aggregate:
+> [`experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json`](experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json)、
+> `run_experiment_matrix.py --merge-existing-index` で additive に反映 (generate_leaderboard.py は未使用)。
+> **注意**: full-session の pcd_dir は removable media (`/media/sasaki/aiueo`) 上にあり、
+> ドライブが未マウントだと再現できない — 再エクスポート手順は module README
+> (`papers/imu_dead_reckoning/README.md`) の Limitations に記載。
+>
+> ドキュメント更新: `papers/imu_dead_reckoning/README.md` (新規)、`docs/methods.json`
+> に `IMU Dead Reckoning` エントリ追加 (scope: Compact baseline, signals: [IMU])、
+> README.md の badge/breadth カウントを 101→102 に更新 (paper reimplementations の
+> 73 は不変)。`experiments/families.json` は**あえて変更していない** — 同ファイルには
+> そもそも `nn_zupt` / `odonet` / `nhc_net` (IMU dead reckoning ファミリー) のエントリが
+> 存在せず、budget-profile 付き KITTI/LIO/VIO ファミリーだけを対象にした registry
+> (`docs/budget_profiles.md` / `docs/status_taxonomy.md` から参照) と見られるため、
+> 前例のない family を追加すると逆に registry の一貫性を崩す。次に触るときは
+> このファイルの scope をまず明確化すること。
+>
+> 次にやるとよいこと: (1) [2026-07-05 完了] NCLT full-session (外付け SSD 経由) で
+> 継続走行での ZUPT 効果を再検証済み — 上記追記参照、
+> (2) [2026-07-05 完了] 第二データセットとして KITTI Raw OXTS の `imu.csv` を
+> `evaluation/scripts/kitti_oxts_imu_for_dogfooding.py` で用意し評価済み — 下記追記参照、
+> (3) OdoNet/NHC-Net/NN-ZUPT との DR family 比較を README か
+> `docs/paper_ready_reproducibility.md` 側の比較表に昇格するか検討する
+> (現状は module README 止まり)、(4) full-session の family run (OdoNet/NHC-Net/NN-ZUPT)
+> も同時に測定済み (OdoNet ATE 1397.891 m / RPE 753.600%, NHC-Net 279.794 m / 84.226%,
+> NN-ZUPT 257.397 m / 82.813%; family JSON は SSD 上の
+> `full_family.json` に保存のみで repo にはコミットしていない — 必要なら別 matrix manifest化を検討)。
+>
+> **2026-07-05 追記: KITTI Raw drive 2011_09_26_0009 (OXTS) を第二データセットとして
+> 評価した。** `s3.eu-central-1.amazonaws.com/avg-kitti` の公開・無認証ミラーから
+> sync (1.79 GB) + calib (4 KB) を `/media/sasaki/aiueo/loc_zoo/kitti_raw_download`
+> にダウンロードし、`kitti_raw_to_benchmark.py --write-imu-csv` で 200-frame window
+> と full (443 frames) を `/media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_{200,full}`
+> にエクスポート。GT は既存コミット済み `experiments/reference_data/kitti_raw_0009_{200,full}_gt.csv`
+> と md5 一致 (差分なし)。**OXTS レート**: sync パッケージは 1 Velodyne フレームにつき
+> 1 OXTS パケット (447 サンプル/443 フレーム、~46.2s) = 実効 **~9.7 Hz** のみ (100Hz は
+> 別の `_extract` パッケージのみ)。100Hz variant は検討したが、`frame_timestamps.csv` の
+> `timestamp` 列が Velodyne ファイルの位置インデックスであり、GT 対応もそのインデックス
+> を直接使うため、`imu.csv` を実秒に変換すると GT 対応が壊れる — 既存の
+> `kitti_raw_0009*` 系の全リーダーボードエントリに影響するため見送り、正直に理由を記録。
+> **さらに深刻な単位ミスマッチ**: `imu.csv` のスタンプも同じ位置インデックス上にあり
+> (1.0 単位間隔)、harness は `Frame gap [s]: min=median=mean=max=1.000` と報告する —
+> strapdown 積分の dt が (max_dt=0.5s でクランプされた) 0.5s/step になり、実際の
+> ~0.103s/step の約4.8倍。static-init window (2.0s 設定) も実質 ~3 サンプル
+> (~0.3s 実時間) にしかならない。**static-init 前提の破綻**: drive 0009 は t=0 で
+> 既に ~10.7 m/s で巡航中 (200-frame window では最低速度 1.339 m/s、一度も静止せず)。
+> gyro std ゲート (0.05 rad/s) はこの区間の低ヨーレートのため発火せず、並進運動による
+> 静止仮定違反を検知できない盲点を確認。**ZUPT 誤検出**: 200-frame window で
+> ZUPT が 174/199 (~87%) 発火するが実速度は一度も 0.5 m/s を下回らず (ほぼ全て偽陽性)、
+> full でも 344/442 (~78%) 発火 vs 実静止割合 ~9.7% (43/443)。それでも ZUPT は両
+> window で最大の改善効果 (200f: -97.81%/-97.72%, full: -93.51%/-91.28%)。
+> **gyro-bias reversal (新知見)**: NCLT では no-gyro-bias が最大の劣化要因だったが、
+> KITTI Raw 0009 では逆に改善 (200f: -87.36%/-86.49%, full: -87.15%/-87.46%、両window
+> で再現) — ~3サンプルの static-init window が巡航中の実角速度で汚染されるため。
+> family context (OdoNet/NHC-Net/NN-ZUPT) は in-domain (KITTI-OXTS 訓練済み) で
+> IMU-DR を 1-2桁上回る (200f: 856/122/123m, full: 1723/181/186m)。ただし訓練に
+> drive 0009 自体が含まれていたか記録が無く (val drive は 0056 のみ既知)、
+> train/eval overlap の可能性は否定できないため正直に記録。**副次発見**: drive 0009
+> の sync パッケージは Velodyne フレーム 177-180 (native index) が欠落しているが
+> OXTS は欠落なし (447 vs 443) — `kitti_raw_to_benchmark.py` が両方を native frame
+> number ではなく position で index するため、position 177 以降 (~60%) は GT pose と
+> point cloud が ~4 フレームずれるという既存 (今回発見、今回導入ではない) バグを
+> 発見。IMU-only 手法 (imu_dead_reckoning/odonet/nhc_net/nn_zupt) には影響しないが
+> (GT と imu.csv は共に OXTS-native で自己整合)、`kitti_raw_0009*` を使う全 scan-matching
+> 手法のリーダーボードに影響しうる — 共有 exporter の修正は本 pass の scope 外なので
+> 次に触る人向けに `papers/imu_dead_reckoning/README.md` の Limitations に記載のみ。
+> manifest: `experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json` (200-frame),
+> `experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` (full)、
+> `run_experiment_matrix.py --merge-existing-index` で additive に反映
+> (generate_leaderboard.py は未使用)。
+>
+> LiTAMIN2 NTNU LiDAR degeneracy health (2026-06-13 時点) 以降は依然有効な背景
+> (paper-ready reproducibility hardening 方針、continuous-time LIO tuning 履歴) として
+> 以下に残す。
 >
 > **2026-06-13 現時点のアクティブ方向は paper-ready reproducibility hardening。**
 > ユーザ指示「2d ha ittan iran!」により、2D LiDAR scan odometry は一旦停止。

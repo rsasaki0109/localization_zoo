@@ -25,6 +25,8 @@ SNIPPETS = {
     / "docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json",
     "EVIDENCE:LIO-IMU-HDL400": REPO_ROOT
     / "docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json",
+    "EVIDENCE:LIO-IMU-NCLT": REPO_ROOT
+    / "docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json",
 }
 
 
@@ -105,6 +107,24 @@ def lio_imu_hdl400_block(summary: dict) -> str:
     )
 
 
+def lio_imu_nclt_block(summary: dict) -> str:
+    degen = summary["methods"]["DegenSense"]
+    kiss = summary["kiss_sanity_reference"]
+    artifact = (
+        "docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json"
+    )
+    ate_delta = degen["imu_off_minus_on"].get("ate_m_relative_pct")
+    return (
+        "Public NCLT 2013-01-10 (120 frames, MS25 IMU) confirms IMU-gated paths and shows "
+        "DegenSense compensation lowering ATE from "
+        f"{degen['imu_off']['metrics']['ate_m']:.2f} m to "
+        f"{degen['imu_on']['metrics']['ate_m']:.2f} m "
+        f"(~{abs(ate_delta or 0):.0f}% worse without IMU); KISS-ICP sanity is poor on this "
+        f"window ({kiss['rpe_trans_pct']:.0f}% RPE) so the row is mechanism evidence only "
+        f"([`nclt_2013_01_10_120_lio_imu_validation_summary.json`]({artifact}))."
+    )
+
+
 def render_block(name: str, summary_path: Path) -> str:
     summary = load_json(summary_path)
     if name == "EVIDENCE:M-GCLO-SEQ08":
@@ -117,6 +137,8 @@ def render_block(name: str, summary_path: Path) -> str:
         return m_gclo_mulran_block(summary)
     if name == "EVIDENCE:LIO-IMU-HDL400":
         return lio_imu_hdl400_block(summary)
+    if name == "EVIDENCE:LIO-IMU-NCLT":
+        return lio_imu_nclt_block(summary)
     raise KeyError(name)
 
 

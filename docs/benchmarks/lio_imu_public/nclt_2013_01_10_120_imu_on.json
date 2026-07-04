@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/nclt_2013_01_10_120",
+  "gt_csv": "experiments/reference_data/nclt_2013_01_10_120_gt.csv",
+  "gt_sha256": "08575ad343b9e9bdcf04fff53000fcb24d98af244f3074af2f2ec01d0dd6695c",
+  "total_pcd_frames": 120,
+  "num_frames": 120,
+  "raw_gt_pose_count": 120,
+  "used_gt_pose_count": 120,
+  "trajectory_length_m": 11.503238,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "timestamp",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "ffde2c1cc83977ac30bbe519901ae0f7587bee56",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/nclt_2013_01_10_120_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/nclt_2013_01_10_120_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 120,
+    "timestamp_all_integer": false,
+    "timestamp_range": [1357847238.332442, 1357847262.129768]
+  },
+  "gt": {
+    "source": "experiments/reference_data/nclt_2013_01_10_120_gt.csv",
+    "sha256": "08575ad343b9e9bdcf04fff53000fcb24d98af244f3074af2f2ec01d0dd6695c",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 120,
+    "raw_timestamp_range": [1357847238.332442, 1357847262.129768]
+  },
+  "association": {
+    "mode": "timestamp",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 120,
+    "associated_gt_index_range": [0, 119],
+    "associated_gt_timestamp_range": [1357847238.332442, 1357847262.129768],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 5.751619,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 3.077187,
+      "rpe_trans_pct": 86.033921,
+      "rpe_rot_deg_per_m": 4.009735,
+      "frames": 120,
+      "time_ms": 9825.148956,
+      "fps": 12.213555,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "D2-LIO",
+      "status": "ok",
+      "ate_m": 0.152940,
+      "rpe_trans_pct": 3.875179,
+      "rpe_rot_deg_per_m": 0.186071,
+      "frames": 120,
+      "time_ms": 45497.182243,
+      "fps": 2.637526,
+      "seed_fallback_rate_pct": null,
+      "note": "Directional-degeneracy LiDAR-IMU scan-to-submap (first-pose anchored; adaptive per-point outlier gate + IMU-prior degeneracy regularization). deg_dirs/frame rot=0 trans=0"
+    },
+    {
+      "name": "DegenSense",
+      "status": "ok",
+      "ate_m": 0.162318,
+      "rpe_trans_pct": 3.463916,
+      "rpe_rot_deg_per_m": 0.185817,
+      "frames": 120,
+      "time_ms": 41241.684590,
+      "fps": 2.909677,
+      "seed_fallback_rate_pct": null,
+      "note": "Degeneracy-factor sensing (condition number) + adaptive MAD-outlier detection + IMU/LiDAR fusion compensation (first-pose anchored). degenerate_frames=41"
+    },
+    {
+      "name": "ID-LIO",
+      "status": "ok",
+      "ate_m": 0.661710,
+      "rpe_trans_pct": 6.986746,
+      "rpe_rot_deg_per_m": 0.150235,
+      "frames": 120,
+      "time_ms": 13687.438998,
+      "fps": 8.767162,
+      "seed_fallback_rate_pct": null,
+      "note": "Indexed-point dynamic LIO: pseudo-occupancy dynamic detection, delayed removal, and IMU gyro prior. dynamic/frame=364.483333 corr/frame=2410.008333 removed_sum/frame=3342.633333"
+    },
+    {
+      "name": "RF-LIO",
+      "status": "ok",
+      "ate_m": 0.270190,
+      "rpe_trans_pct": 4.974765,
+      "rpe_rot_deg_per_m": 0.162775,
+      "frames": 120,
+      "time_ms": 13151.728129,
+      "fps": 9.124276,
+      "seed_fallback_rate_pct": null,
+      "note": "RF-LIO removal-first LIO: adaptive multi-resolution range-image foreground removal before indexed dynamic LIO, with IMU gyro prior. removal_first/frame=438.591667 candidates/frame=438.591667 kept/frame=5495.150000 backend_dynamic/frame=303.075000 corr/frame=2091.341667 backend_removed_sum/frame=17505.375000"
+    },
+    {
+      "name": "DLIO",
+      "status": "ok",
+      "ate_m": 2.458587,
+      "rpe_trans_pct": 53.136813,
+      "rpe_rot_deg_per_m": 0.293808,
+      "frames": 120,
+      "time_ms": 17175.227205,
+      "fps": 6.986807,
+      "seed_fallback_rate_pct": null,
+      "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed)."
+    }
+  ]
+}

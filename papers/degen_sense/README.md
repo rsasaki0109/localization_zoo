@@ -66,5 +66,19 @@ python3 evaluation/scripts/run_lio_imu_public_validation.py --dataset hdl_400
 Paired summary: [`hdl_400_lio_imu_validation_summary.json`](../../docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json).
 
 IMU/LiDAR fusion compensation activates when `imu.csv` is present; metric deltas
-vs the no-IMU fallback are small on this short window — mechanism evidence, not a
+vs the no-IMU fallback are small on HDL-400 open but NCLT 2013-01-10 shows ATE
+0.16 m with IMU vs 0.24 m without (~45% worse off) — mechanism evidence, not a
 full LIO T0 claim.
+
+## Public synchronized LiDAR-IMU validation (NCLT 2013-01-10)
+
+```bash
+python3 evaluation/scripts/prepare_nclt_inputs.py \
+  --velodyne-dir data/nclt_2013_01_10/2013-01-10/velodyne_sync \
+  --ground-truth data/nclt_2013_01_10/groundtruth_2013-01-10.csv \
+  --ms25 data/nclt_2013_01_10/2013-01-10/ms25.csv \
+  --date 2013-01-10 --max-frames 120
+python3 evaluation/scripts/run_lio_imu_public_validation.py --dataset nclt_2013_01_10_120
+```
+
+Paired summary: [`nclt_2013_01_10_120_lio_imu_validation_summary.json`](../../docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json).

@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "benchmark": "lio_imu_public_validation",
+  "generated_by": "evaluation/scripts/run_lio_imu_public_validation.py",
+  "scope": {
+    "dataset": "NCLT 2013-01-10 120-frame window (Velodyne + MS25 IMU)",
+    "dataset_key": "nclt_2013_01_10_120",
+    "frames": 120,
+    "trajectory_length_m": 11.503238,
+    "imu_samples": 1100,
+    "claim_limit": "Synchronized LiDAR-IMU odometry check on public NCLT velodyne_sync + MS25 IMU; supports IMU mechanism evidence but does not by itself promote methods to full LIO T0 without broader coverage."
+  },
+  "artifacts": {
+    "imu_on": "docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_imu_on.json",
+    "imu_off": "docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_imu_off.json"
+  },
+  "protocol": {
+    "seed": "first-pose anchor, --no-gt-seed velocity prediction after frame 0",
+    "association_mode": "strict",
+    "imu_on_command": "./build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv 120 --methods d2lio,degen_sense,id_lio,rf_lio,dlio,kiss_icp --no-gt-seed --id-lio-dense-profile --rf-lio-dense-profile --association-mode strict --summary-json docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_imu_on.json",
+    "imu_off_command": "Run the same command on a temporary PCD tree without imu.csv (see runner); output -> docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_imu_off.json"
+  },
+  "kiss_sanity_reference": {
+    "ate_m": 3.077187,
+    "rpe_trans_pct": 86.033921,
+    "rpe_rot_deg_per_m": 4.009735,
+    "frames": 120,
+    "fps": 12.213555
+  },
+  "methods": {
+    "D2-LIO": {
+      "imu_on": {
+        "metrics": {
+          "ate_m": 0.15294,
+          "rpe_trans_pct": 3.875179,
+          "rpe_rot_deg_per_m": 0.186071,
+          "frames": 120,
+          "fps": 2.637526
+        },
+        "imu_path_active": true,
+        "note": "Directional-degeneracy LiDAR-IMU scan-to-submap (first-pose anchored; adaptive per-point outlier gate + IMU-prior degeneracy regularization). deg_dirs/frame rot=0 trans=0"
+      },
+      "imu_off": {
+        "metrics": {
+          "ate_m": 0.156329,
+          "rpe_trans_pct": 3.896672,
+          "rpe_rot_deg_per_m": 0.186948,
+          "frames": 120,
+          "fps": 3.005085
+        },
+        "imu_path_active": false,
+        "note": "Scan-to-submap, constant-velocity fallback (no imu.csv; first-pose anchored; degeneracy prior diagnostics-only). deg_dirs/frame rot=0 trans=0"
+      },
+      "imu_off_minus_on": {
+        "ate_m_abs_delta": 0.003389000000000003,
+        "ate_m_relative_pct": 2.2159016607820083,
+        "rpe_trans_pct_abs_delta": 0.021492999999999984,
+        "rpe_trans_pct_relative_pct": 0.5546324440754862,
+        "rpe_rot_deg_per_m_abs_delta": 0.0008770000000000167,
+        "rpe_rot_deg_per_m_relative_pct": 0.4713254617861014
+      }
+    },
+    "DegenSense": {
+      "imu_on": {
+        "metrics": {
+          "ate_m": 0.162318,
+          "rpe_trans_pct": 3.463916,
+          "rpe_rot_deg_per_m": 0.185817,
+          "frames": 120,
+          "fps": 2.909677
+        },
+        "imu_path_active": true,
+        "note": "Degeneracy-factor sensing (condition number) + adaptive MAD-outlier detection + IMU/LiDAR fusion compensation (first-pose anchored). degenerate_frames=41"
+      },
+      "imu_off": {
+        "metrics": {
+          "ate_m": 0.235693,
+          "rpe_trans_pct": 3.797645,
+          "rpe_rot_deg_per_m": 0.186243,
+          "frames": 120,
+          "fps": 3.396058
+        },
+        "imu_path_active": false,
+        "note": "Degeneracy sensing, constant-velocity fallback (no imu.csv; first-pose anchored; compensation diagnostics-only). degenerate_frames=47"
+      },
+      "imu_off_minus_on": {
+        "ate_m_abs_delta": 0.07337500000000002,
+        "ate_m_relative_pct": 45.204475166032125,
+        "rpe_trans_pct_abs_delta": 0.33372899999999994,
+        "rpe_trans_pct_relative_pct": 9.63444263659973,
+        "rpe_rot_deg_per_m_abs_delta": 0.00042599999999998195,
+        "rpe_rot_deg_per_m_relative_pct": 0.22925781817593757
+      }
+    },
+    "ID-LIO": {
+      "imu_on": {
+        "metrics": {
+          "ate_m": 0.66171,
+          "rpe_trans_pct": 6.986746,
+          "rpe_rot_deg_per_m": 0.150235,
+          "frames": 120,
+          "fps": 8.767162
+        },
+        "imu_path_active": true,
+        "note": "Indexed-point dynamic LIO: pseudo-occupancy dynamic detection, delayed removal, and IMU gyro prior. dynamic/frame=364.483333 corr/frame=2410.008333 removed_sum/frame=3342.633333"
+      },
+      "imu_off": {
+        "metrics": {
+          "ate_m": 0.671939,
+          "rpe_trans_pct": 7.186723,
+          "rpe_rot_deg_per_m": 0.144501,
+          "frames": 120,
+          "fps": 10.118455
+        },
+        "imu_path_active": false,
+        "note": "Indexed-point dynamic scan-to-map: pseudo-occupancy dynamic detection and delayed removal; no imu.csv so constant-velocity fallback. dynamic/frame=365.875000 corr/frame=2412.550000 removed_sum/frame=3264.816667"
+      },
+      "imu_off_minus_on": {
+        "ate_m_abs_delta": 0.010228999999999933,
+        "ate_m_relative_pct": 1.5458433452720879,
+        "rpe_trans_pct_abs_delta": 0.19997699999999963,
+        "rpe_trans_pct_relative_pct": 2.8622337208193858,
+        "rpe_rot_deg_per_m_abs_delta": -0.005734000000000017,
+        "rpe_rot_deg_per_m_relative_pct": -3.816687190068903
+      }
+    },
+    "RF-LIO": {
+      "imu_on": {
+        "metrics": {
+          "ate_m": 0.27019,
+          "rpe_trans_pct": 4.974765,
+          "rpe_rot_deg_per_m": 0.162775,
+          "frames": 120,
+          "fps": 9.124276
+        },
+        "imu_path_active": true,
+        "note": "RF-LIO removal-first LIO: adaptive multi-resolution range-image foreground removal before indexed dynamic LIO, with IMU gyro prior. removal_first/frame=438.591667 candidates/frame=438.591667 kept/frame=5495.150000 backend_dynamic/frame=303.075000 corr/frame=2091.341667 backend_removed_sum/frame=17505.375000"
+      },
+      "imu_off": {
+        "metrics": {
+          "ate_m": 0.249626,
+          "rpe_trans_pct": 4.724114,
+          "rpe_rot_deg_per_m": 0.165084,
+          "frames": 120,
+          "fps": 9.343378
+        },
+        "imu_path_active": false,
+        "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=434.025000 candidates/frame=434.025000 kept/frame=5499.716667 backend_dynamic/frame=279.675000 corr/frame=2107.241667 backend_removed_sum/frame=17130.900000"
+      },
+      "imu_off_minus_on": {
+        "ate_m_abs_delta": -0.020564,
+        "ate_m_relative_pct": -7.610940449313445,
+        "rpe_trans_pct_abs_delta": -0.2506509999999995,
+        "rpe_trans_pct_relative_pct": -5.038449052367288,
+        "rpe_rot_deg_per_m_abs_delta": 0.0023090000000000055,
+        "rpe_rot_deg_per_m_relative_pct": 1.418522500383969
+      }
+    },
+    "DLIO": {
+      "imu_on": {
+        "metrics": {
+          "ate_m": 2.458587,
+          "rpe_trans_pct": 53.136813,
+          "rpe_rot_deg_per_m": 0.293808,
+          "frames": 120,
+          "fps": 6.986807
+        },
+        "imu_path_active": true,
+        "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed)."
+      },
+      "imu_off": {
+        "metrics": {
+          "ate_m": 0.140756,
+          "rpe_trans_pct": 3.663806,
+          "rpe_rot_deg_per_m": 0.166403,
+          "frames": 120,
+          "fps": 8.700511
+        },
+        "imu_path_active": false,
+        "note": "Direct LiDAR-inertial odometry: GICP scan-to-map plus IMU preintegration prior between scans when imu.csv and per-frame timestamps align; otherwise LiDAR motion prior only (no GT seed)."
+      },
+      "imu_off_minus_on": {
+        "ate_m_abs_delta": -2.317831,
+        "ate_m_relative_pct": -94.27492295371283,
+        "rpe_trans_pct_abs_delta": -49.473006999999996,
+        "rpe_trans_pct_relative_pct": -93.10495719794109,
+        "rpe_rot_deg_per_m_abs_delta": -0.12740500000000002,
+        "rpe_rot_deg_per_m_relative_pct": -43.363352937973104
+      }
+    }
+  },
+  "conclusion": "On NCLT 2013-01-10 120-frame window (Velodyne + MS25 IMU) (120 frames, 1100 IMU samples), IMU-gated paths activate for D2-LIO (True), DegenSense (True), ID-LIO (True), and RF-LIO (True). DegenSense IMU compensation lowers ATE from 0.24 m to 0.16 m (~45% worse without IMU); D2-LIO RPE 3.88% vs 3.90% without. KISS-ICP sanity is poor on this window (86% RPE) so the row is mechanism evidence, not a leaderboard claim. LiDAR-IBA IMU is not wired in pcd_dogfooding yet."
+}

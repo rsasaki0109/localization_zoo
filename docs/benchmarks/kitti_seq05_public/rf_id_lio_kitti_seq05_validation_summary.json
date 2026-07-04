@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "benchmark": "kitti_odometry_seq05_public_validation",
+  "generated_by": "evaluation/scripts/run_rf_id_lio_kitti_seq05_validation.py",
+  "scope": {
+    "dataset": "KITTI Odometry sequence 05 full",
+    "frames": 2761,
+    "trajectory_length_m": 2205.20184,
+    "claim_limit": "Public urban KITTI seq05 check with more city traffic than seq00/07; not a substitute for dedicated high-dynamic multi-beam benchmarks."
+  },
+  "artifacts": {
+    "default_methods": "docs/benchmarks/kitti_seq05_public/rf_id_lio_default.json",
+    "rf_lio_conservative": "docs/benchmarks/kitti_seq05_public/rf_lio_conservative.json"
+  },
+  "protocol": {
+    "default_command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods id_lio,rf_lio,kiss_icp --no-gt-seed --summary-json docs/benchmarks/kitti_seq05_public/rf_id_lio_default.json",
+    "rf_lio_conservative_command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods rf_lio --no-gt-seed --rf-lio-foreground-margin 1.5 --rf-lio-max-removal-fraction 0.08 --summary-json docs/benchmarks/kitti_seq05_public/rf_lio_conservative.json"
+  },
+  "kiss_sanity_reference": {
+    "ate_m": 5.893262,
+    "rpe_trans_pct": 0.617404,
+    "rpe_rot_deg_per_m": 0.004812,
+    "frames": 2761,
+    "fps": 22.351073
+  },
+  "methods": {
+    "id_lio": {
+      "metrics": {
+        "ate_m": 13.443844,
+        "rpe_trans_pct": 0.701623,
+        "rpe_rot_deg_per_m": 0.013457,
+        "frames": 2761,
+        "fps": 8.467873
+      },
+      "dynamic_statistics": {
+        "dynamic_per_frame": 313.123506,
+        "correspondences_per_frame": 2355.119522,
+        "removed_sum_per_frame": 334147.129663
+      },
+      "note": "Indexed-point dynamic scan-to-map: pseudo-occupancy dynamic detection and delayed removal; no imu.csv so constant-velocity fallback. dynamic/frame=313.123506 corr/frame=2355.119522 removed_sum/frame=334147.129663"
+    },
+    "rf_lio_default": {
+      "metrics": {
+        "ate_m": 24.32651,
+        "rpe_trans_pct": 1.004586,
+        "rpe_rot_deg_per_m": 0.020567,
+        "frames": 2761,
+        "fps": 7.331318
+      },
+      "dynamic_statistics": {
+        "removal_first_per_frame": 210.78305,
+        "candidates_per_frame": 210.78305,
+        "kept_per_frame": 4289.21695,
+        "backend_dynamic_per_frame": 274.204636,
+        "correspondences_per_frame": 2184.345527,
+        "backend_removed_sum_per_frame": 545292.499819
+      },
+      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=210.783050 candidates/frame=210.783050 kept/frame=4289.216950 backend_dynamic/frame=274.204636 corr/frame=2184.345527 backend_removed_sum/frame=545292.499819"
+    },
+    "rf_lio_conservative": {
+      "metrics": {
+        "ate_m": 24.192824,
+        "rpe_trans_pct": 0.992533,
+        "rpe_rot_deg_per_m": 0.01962,
+        "frames": 2761,
+        "fps": 6.817313
+      },
+      "dynamic_statistics": {
+        "removal_first_per_frame": 158.940239,
+        "candidates_per_frame": 158.940239,
+        "kept_per_frame": 4341.059761,
+        "backend_dynamic_per_frame": 280.836291,
+        "correspondences_per_frame": 2203.469395,
+        "backend_removed_sum_per_frame": 550353.636364
+      },
+      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=158.940239 candidates/frame=158.940239 kept/frame=4341.059761 backend_dynamic/frame=280.836291 corr/frame=2203.469395 backend_removed_sum/frame=550353.636364",
+      "conservative_vs_default": {
+        "ate_m_abs_delta": -0.1336859999999973,
+        "ate_m_relative_pct": -0.5495486200034337,
+        "rpe_trans_pct_abs_delta": -0.01205299999999998,
+        "rpe_trans_pct_relative_pct": -1.1997977276211276,
+        "rpe_rot_deg_per_m_abs_delta": -0.0009469999999999999,
+        "rpe_rot_deg_per_m_relative_pct": -4.604463460883941
+      }
+    },
+    "rf_lio_default_minus_id_lio": {
+      "ate_m_abs_delta": 10.882665999999999,
+      "ate_m_relative_pct": 80.94906486567382,
+      "rpe_trans_pct_abs_delta": 0.302963,
+      "rpe_trans_pct_relative_pct": 43.18031193390182,
+      "rpe_rot_deg_per_m_abs_delta": 0.007109999999999998,
+      "rpe_rot_deg_per_m_relative_pct": 52.83495578509325
+    }
+  },
+  "conclusion": "On public KITTI Odometry seq05 full (urban driving), both dynamic paths stay active (ID-LIO dynamic/frame 313, RF-LIO removal_first/frame 211). Default RF-LIO RPE is 1.005% vs ID-LIO 0.702% (+43.2% relative) and KISS-ICP 0.617%. Conservative RF removal changes RPE by -1.2% vs default RF-LIO. This records mechanism behavior on a more dynamic public KITTI sequence but does not replace dedicated high-dynamic multi-beam benchmarks for manuscript-level dynamic-scene claims."
+}

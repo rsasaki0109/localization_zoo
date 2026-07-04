@@ -78,3 +78,9 @@ On the 30-frame stress, ID-LIO goes from **0.676 m** clean ATE to
 **130.549 m** with moving foreground boxes (`dynamic/frame=78.6`). This confirms
 the pseudo-occupancy path is strongly active, but also records a hard failure
 boundary for this compact LiDAR-only port.
+
+Public urban KITTI seq05 validation (paired with RF-LIO):
+[`rf_id_lio_kitti_seq05_validation_summary.json`](../../docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json).
+On seq05 full, ID-LIO reaches **0.702%** RPE vs RF-LIO default **1.005%** and
+KISS-ICP **0.617%**; both dynamic paths remain active but this is still a
+public KITTI proxy, not a dedicated high-dynamic benchmark.

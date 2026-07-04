@@ -494,7 +494,7 @@ def build_bundle() -> dict[str, Any]:
                 {
                     "name": "RF-LIO/ID-LIO synthetic dynamic-object stress",
                     "artifact": "docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json",
-                    "claim_limit": "Mechanism stress only; public high-dynamic dataset validation is still required before manuscript-level dynamic-scene claims.",
+                    "claim_limit": "Mechanism stress only; dedicated high-dynamic multi-beam benchmarks are still required before manuscript-level dynamic-scene claims.",
                 },
                 {
                     "name": "M-GCLO synthetic non-flat ground stress",
@@ -518,9 +518,14 @@ def build_bundle() -> dict[str, Any]:
                     "artifact": "docs/benchmarks/kitti_seq02_public/quadric_lo_kitti_seq02_validation_summary.json",
                     "claim_limit": "Public residential KITTI seq02 check only; dedicated orchard or non-urban multi-beam benchmarks remain open before T0 promotion.",
                 },
+                {
+                    "name": "RF-LIO/ID-LIO KITTI seq05 public dynamic validation",
+                    "artifact": "docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json",
+                    "claim_limit": "Public urban KITTI seq05 check only; dedicated high-dynamic multi-beam benchmarks remain open before manuscript-level dynamic-scene claims.",
+                },
             ],
             "remaining_before_full_manuscript_table": [
-                "RF-LIO/ID-LIO public high-dynamic dataset validation",
+                "RF-LIO/ID-LIO dedicated high-dynamic multi-beam validation (partial KITTI seq05 urban check committed)",
                 "M-GCLO dedicated off-road / multi-beam non-flat validation (partial KITTI seq08 hilly check committed)",
                 "Quadric-LO dedicated orchard or non-urban multi-beam validation (partial KITTI seq02 residential check committed)",
             ],

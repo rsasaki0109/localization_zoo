@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>101 methods</b> · <b>73 paper reimplementations</b> · <b>42 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>102 methods</b> · <b>73 paper reimplementations</b> · <b>42 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -54,7 +54,7 @@ research track is a stricter paper-ready subset with claim tiers and ablations:
 Localization Zoo is intentionally broad, but manuscript-level claims should use
 a narrower evidence set:
 
-- **Breadth catalog**: all 101 methods share the same API, tests, and benchmark
+- **Breadth catalog**: all 102 methods share the same API, tests, and benchmark
   harness; this includes paper reimplementations, derived variants, hybrids, and
   compact baselines.
 - **Paper-ready subset**: only methods that satisfy the tier checklist and

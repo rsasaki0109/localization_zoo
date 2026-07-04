@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -52,6 +52,7 @@
 #include "odonet/odonet.h"
 #include "nhc_net/nhc_net.h"
 #include "nn_zupt/nn_zupt.h"
+#include "imu_dead_reckoning/imu_dead_reckoning.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "id_lio/id_lio.h"
@@ -389,6 +390,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
          method == "mcgicp" ||          method == "icpsc" || method == "vlom" ||
          method == "odonet" || method == "nhc_net" || method == "nn_zupt" ||
+         method == "imu_dead_reckoning" ||
          method == "clins";
 }
 
@@ -4925,6 +4927,82 @@ MethodResult runNnZupt(const std::vector<Eigen::Matrix4d>& gt,
       "NN-ZUPT (Meas. Sci. Technol. 2023): CNN zero-velocity detection + ZUPT/NHC "
       "DR; no GT seed. nn_frames=%ld zupt_frames=%ld threshold=%d",
       nn_frames, zupt_frames, options.use_threshold_detector ? 1 : 0);
+  res.note = note_buf;
+  return res;
+}
+
+struct ImuDeadReckoningDogfoodingOptions {
+  double static_init_duration_s = 2.0;
+  bool estimate_gyro_bias = true;
+  bool midpoint_integration = true;
+  bool enable_zupt = false;
+  double zupt_gyro_threshold = 0.05;
+  double zupt_accel_tolerance = 0.8;
+};
+
+MethodResult runImuDeadReckoning(
+    const std::vector<Eigen::Matrix4d>& gt,
+    const std::vector<double>& frame_timestamps,
+    const std::vector<ImuSampleCsv>& imu_samples,
+    const ImuDeadReckoningDogfoodingOptions& options) {
+  using namespace localization_zoo::imu_dead_reckoning;
+  MethodResult res;
+  res.name = "IMU-DR";
+
+  if (imu_samples.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note =
+        "imu.csv not found. IMU dead reckoning requires synchronized IMU "
+        "samples.";
+    return res;
+  }
+
+  std::vector<ImuReading> imu;
+  imu.reserve(imu_samples.size());
+  for (const auto& s : imu_samples) {
+    ImuReading r;
+    r.stamp = s.timestamp;
+    r.gyro = s.gyro;
+    r.accel = s.accel;
+    imu.push_back(r);
+  }
+
+  ImuDeadReckoningParams params;
+  params.static_init_duration_s = options.static_init_duration_s;
+  params.estimate_gyro_bias = options.estimate_gyro_bias;
+  params.midpoint_integration = options.midpoint_integration;
+  params.enable_zupt = options.enable_zupt;
+  params.zupt_gyro_threshold = options.zupt_gyro_threshold;
+  params.zupt_accel_tolerance = options.zupt_accel_tolerance;
+
+  long zupt_frames = 0;
+  std::string error;
+  auto t0 = Clock::now();
+  const auto rel_poses = integrateImuTrajectory(imu, frame_timestamps, params,
+                                                &zupt_frames, &error);
+  if (rel_poses.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note = error.empty() ? "IMU dead reckoning integration failed." : error;
+    return res;
+  }
+
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  for (const auto& T : rel_poses) {
+    res.poses.push_back(anchorRelativePose(world_anchor, T));
+  }
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char note_buf[320];
+  std::snprintf(
+      note_buf, sizeof(note_buf),
+      "IMU-DR baseline: unaided strapdown INS, static init %.1fs, "
+      "midpoint=%d zupt=%d zupt_frames=%ld; no GT seed.%s%s",
+      options.static_init_duration_s, options.midpoint_integration ? 1 : 0,
+      options.enable_zupt ? 1 : 0, zupt_frames,
+      error.empty() ? "" : " ", error.c_str());
   res.note = note_buf;
   return res;
 }
@@ -9943,7 +10021,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -10132,6 +10210,7 @@ int main(int argc, char** argv) {
   OdoNetDogfoodingOptions odonet_options;
   NhcNetDogfoodingOptions nhc_net_options;
   NnZuptDogfoodingOptions nn_zupt_options;
+  ImuDeadReckoningDogfoodingOptions imu_dead_reckoning_options;
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
@@ -11202,6 +11281,31 @@ int main(int argc, char** argv) {
     }
     if (arg == "--nn-zupt-prob" && i + 1 < argc) {
       nn_zupt_options.stop_prob_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    // --- imu_dead_reckoning ---
+    if (arg == "--imu-dr-static-init-sec" && i + 1 < argc) {
+      imu_dead_reckoning_options.static_init_duration_s = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-no-gyro-bias") {
+      imu_dead_reckoning_options.estimate_gyro_bias = false;
+      continue;
+    }
+    if (arg == "--imu-dr-euler") {
+      imu_dead_reckoning_options.midpoint_integration = false;
+      continue;
+    }
+    if (arg == "--imu-dr-zupt") {
+      imu_dead_reckoning_options.enable_zupt = true;
+      continue;
+    }
+    if (arg == "--imu-dr-zupt-gyro-threshold" && i + 1 < argc) {
+      imu_dead_reckoning_options.zupt_gyro_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-zupt-accel-tolerance" && i + 1 < argc) {
+      imu_dead_reckoning_options.zupt_accel_tolerance = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--floam-fast-profile") {
@@ -15161,6 +15265,16 @@ int main(int argc, char** argv) {
               << std::endl;
     results.push_back(
         runNnZupt(gt, frame_timestamps, imu_samples, nn_zupt_options));
+  }
+  if (isMethodEnabled(selected_methods, "imu_dead_reckoning")) {
+    std::cout << "\n=== IMU-DR ===" << std::endl;
+    std::cout << "  static_init_sec="
+              << imu_dead_reckoning_options.static_init_duration_s
+              << " midpoint=" << imu_dead_reckoning_options.midpoint_integration
+              << " zupt=" << imu_dead_reckoning_options.enable_zupt
+              << std::endl;
+    results.push_back(runImuDeadReckoning(gt, frame_timestamps, imu_samples,
+                                          imu_dead_reckoning_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {

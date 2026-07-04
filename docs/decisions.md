@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-06-13T00:09:50+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-04T20:20:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1671,6 +1671,32 @@ _Generated at 2026-06-13T00:09:50+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames)
+
+- Current default: `zupt_full`.
+- Reference variants: `default_dr_full`, `euler_full`, `no_gyro_bias_full`.
+- Aggregate result: `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_dr_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| zupt_full | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| euler_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_gyro_bias_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window
+
+- Current default: `zupt`.
+- Reference variants: `default_dr`, `euler`, `no_gyro_bias`.
+- Aggregate result: `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_dr | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| zupt | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| euler | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_gyro_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## ISC-LOAM on the public HDL-400 reference window
 

@@ -125,7 +125,8 @@ public:
   explicit MGcloPipeline(const MGcloParams& params = MGcloParams());
 
   void setInitialPose(const Eigen::Matrix4d& pose) { pose_ = pose; }
-  MGcloResult registerFrame(const std::vector<Eigen::Vector3d>& frame);
+  MGcloResult registerFrame(const std::vector<Eigen::Vector3d>& frame,
+                            const Eigen::Matrix4d* init_guess = nullptr);
 
   const Eigen::Matrix4d& pose() const { return pose_; }
   size_t mapSize() const { return local_map_.size(); }

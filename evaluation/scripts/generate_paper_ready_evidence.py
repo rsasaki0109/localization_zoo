@@ -74,14 +74,30 @@ def rf_id_lio_seq05_block(summary: dict) -> str:
 
 
 def m_gclo_mulran_block(summary: dict) -> str:
-    kiss = summary["kiss_sanity_reference"]
-    mg = summary["m_gclo"]
-    on = mg["ground_on"]["metrics"]
-    off = mg["ground_off"]["metrics"]
     artifact = (
         "docs/benchmarks/mulran_parkinglot_public/"
         "m_gclo_mulran_parkinglot_validation_summary.json"
     )
+    if "protocols" in summary:
+        no_gt = summary["protocols"]["no-gt-seed"]
+        gt = summary["protocols"]["gt-seed"]
+        kiss = no_gt["kiss_sanity_reference"] or {}
+        mg_gt_on = gt["m_gclo"]["ground_on"]["metrics"]
+        mg_gt_off = gt["m_gclo"]["ground_off"]["metrics"]
+        delta = gt["m_gclo"]["ground_off_minus_on"]
+        return (
+            "Public MulRan ParkingLot full (1176 Ouster frames): no-gt-seed odometry diverges "
+            f"(~{kiss.get('rpe_trans_pct', 0):.0f}% KISS-ICP RPE). GT-seeded M-GCLO stays "
+            f"stable (~{mg_gt_on['rpe_trans_pct']:.2f}% RPE); ground off improves ATE from "
+            f"{mg_gt_on['ate_m']:.2f} m to {mg_gt_off['ate_m']:.2f} m "
+            f"(~{abs(delta.get('ate_m_relative_pct', 0) or 0):.0f}% delta) — oracle-init "
+            f"mechanism evidence, not blind odometry "
+            f"([`m_gclo_mulran_parkinglot_validation_summary.json`]({artifact}))."
+        )
+    kiss = summary["kiss_sanity_reference"]
+    mg = summary["m_gclo"]
+    on = mg["ground_on"]["metrics"]
+    off = mg["ground_off"]["metrics"]
     return (
         "Public MulRan ParkingLot full (1176 Ouster frames) is committed, but shared "
         f"no-gt-seed odometry diverges (~{kiss['rpe_trans_pct']:.0f}% RPE for KISS-ICP and "

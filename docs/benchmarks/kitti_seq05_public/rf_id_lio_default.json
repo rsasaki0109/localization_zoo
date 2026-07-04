@@ -13,7 +13,7 @@
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
   "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "df40c4a2b5b3805fc650449f1758614731eaec3b",
+  "evaluator_git_commit": "659cb9c07aef5a6f07b3b0fdaf35f69904d79116",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_05_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -62,34 +62,34 @@
       "rpe_trans_pct": 0.617404,
       "rpe_rot_deg_per_m": 0.004812,
       "frames": 2761,
-      "time_ms": 123528.746298,
-      "fps": 22.351073,
+      "time_ms": 144279.656016,
+      "fps": 19.136447,
       "seed_fallback_rate_pct": null,
       "note": ""
     },
     {
       "name": "ID-LIO",
       "status": "ok",
-      "ate_m": 13.443844,
-      "rpe_trans_pct": 0.701623,
-      "rpe_rot_deg_per_m": 0.013457,
+      "ate_m": 12.483442,
+      "rpe_trans_pct": 0.711723,
+      "rpe_rot_deg_per_m": 0.011010,
       "frames": 2761,
-      "time_ms": 326055.892784,
-      "fps": 8.467873,
+      "time_ms": 456510.731847,
+      "fps": 6.048051,
       "seed_fallback_rate_pct": null,
-      "note": "Indexed-point dynamic scan-to-map: pseudo-occupancy dynamic detection and delayed removal; no imu.csv so constant-velocity fallback. dynamic/frame=313.123506 corr/frame=2355.119522 removed_sum/frame=334147.129663"
+      "note": "Indexed-point dynamic scan-to-map: pseudo-occupancy dynamic detection and delayed removal; no imu.csv so constant-velocity fallback. dynamic/frame=455.320174 corr/frame=3121.945310 removed_sum/frame=289929.269830"
     },
     {
       "name": "RF-LIO",
       "status": "ok",
-      "ate_m": 24.326510,
-      "rpe_trans_pct": 1.004586,
-      "rpe_rot_deg_per_m": 0.020567,
+      "ate_m": 18.052151,
+      "rpe_trans_pct": 0.961128,
+      "rpe_rot_deg_per_m": 0.016724,
       "frames": 2761,
-      "time_ms": 376603.497055,
-      "fps": 7.331318,
+      "time_ms": 541840.033298,
+      "fps": 5.095600,
       "seed_fallback_rate_pct": null,
-      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=210.783050 candidates/frame=210.783050 kept/frame=4289.216950 backend_dynamic/frame=274.204636 corr/frame=2184.345527 backend_removed_sum/frame=545292.499819"
+      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=272.869975 candidates/frame=272.869975 kept/frame=6727.130025 backend_dynamic/frame=424.967403 corr/frame=2859.649402 backend_removed_sum/frame=596646.650489"
     }
   ]
 }

@@ -191,11 +191,14 @@ A synthetic rolling-ground stress exercises the intended non-flat mechanism:
 M-GCLO ground on tracks at 0.116 m ATE / 0.500% drift, while ground off worsens
 to 0.150 m / 0.675%
 ([`m_gclo_nonflat_ground_stress_summary.json`](docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json)).
+<!-- EVIDENCE:M-GCLO-SEQ08:START -->
 Public hilly KITTI seq08 full shows the same anchoring pattern: ground off
 leaves RPE ~1.35% unchanged but worsens ATE by about 149%
 ([`m_gclo_kitti_seq08_validation_summary.json`](docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json)).
-Dedicated off-road / multi-beam benchmarks such as MulRan remain open before a
-T0 manuscript claim.
+<!-- EVIDENCE:M-GCLO-SEQ08:END -->
+<!-- EVIDENCE:M-GCLO-MULRAN:START -->
+Public MulRan ParkingLot full (1176 Ouster frames) is committed, but shared no-gt-seed odometry diverges (~103% RPE for KISS-ICP and M-GCLO); ground off changes RPE from 103.264% to 103.260% with negligible ATE delta — inconclusive for T0 ([`m_gclo_mulran_parkinglot_validation_summary.json`](docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json)).
+<!-- EVIDENCE:M-GCLO-MULRAN:END -->
 **KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.510%)
 and beats KISS-ICP on both sequences — at a heavy throughput cost
 (~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine
@@ -214,11 +217,13 @@ A synthetic orchard-like curved-object stress confirms the same boundary:
 fallback-on uses ~1242 quadric vs ~12 plane correspondences/frame, and fallback
 off keeps drift effectively unchanged (0.612% → 0.609%)
 ([`quadric_curved_stress_summary.json`](docs/benchmarks/quadric_curved_stress/quadric_curved_stress_summary.json)).
+<!-- EVIDENCE:QUADRIC-SEQ02:START -->
 Public residential KITTI seq02 full still uses >99% quadric correspondences, but
 disabling plane fallback worsens RPE by about 55% and ATE by about 84% — the rare
 fallback carries more weight on suburban/vegetation-rich driving than on highway
 seq00/07
 ([`quadric_lo_kitti_seq02_validation_summary.json`](docs/benchmarks/kitti_seq02_public/quadric_lo_kitti_seq02_validation_summary.json)).
+<!-- EVIDENCE:QUADRIC-SEQ02:END -->
 Dedicated orchard or non-urban multi-beam benchmarks remain open before a T0
 manuscript claim.
 
@@ -240,9 +245,11 @@ ID-LIO degrades from 0.676 m clean ATE to 130.549 m with crossing foreground
 boxes, RF-LIO degrades from 2.487 m to 49.932 m, and a conservative RF removal
 cap improves that to 41.632 m
 ([`rf_id_lio_dynamic_object_stress_summary.json`](docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json)).
+<!-- EVIDENCE:RF-ID-LIO-SEQ05:START -->
 Public urban KITTI seq05 full keeps both paths active but RF-LIO default still
-trails ID-LIO (1.005% vs 0.702% RPE) and KISS-ICP (0.617%)
+trails ID-LIO (0.961% vs 0.712% RPE) and KISS-ICP (0.617%)
 ([`rf_id_lio_kitti_seq05_validation_summary.json`](docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json)).
+<!-- EVIDENCE:RF-ID-LIO-SEQ05:END -->
 Dedicated high-dynamic multi-beam benchmarks remain open before manuscript-level
 dynamic-scene claims.
 **DiLO** is now a stable direct-SRI row (1.20% / 1.53% at ~65 FPS) after

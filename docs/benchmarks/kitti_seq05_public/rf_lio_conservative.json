@@ -13,7 +13,7 @@
   "gt_time_domain": "seconds",
   "association_mode": "exact_frame_id",
   "association_max_dt_s": 0.050000,
-  "evaluator_git_commit": "df40c4a2b5b3805fc650449f1758614731eaec3b",
+  "evaluator_git_commit": "659cb9c07aef5a6f07b3b0fdaf35f69904d79116",
   "artifacts": {
     "evaluated_gt_path": "dogfooding_results/kitti_seq_05_full_evaluated_gt.txt",
     "legacy_gt_path": "dogfooding_results/gt.txt",
@@ -58,14 +58,14 @@
     {
       "name": "RF-LIO",
       "status": "ok",
-      "ate_m": 24.192824,
-      "rpe_trans_pct": 0.992533,
-      "rpe_rot_deg_per_m": 0.019620,
+      "ate_m": 16.760702,
+      "rpe_trans_pct": 0.965741,
+      "rpe_rot_deg_per_m": 0.016439,
       "frames": 2761,
-      "time_ms": 404998.290553,
-      "fps": 6.817313,
+      "time_ms": 415196.068181,
+      "fps": 6.649870,
       "seed_fallback_rate_pct": null,
-      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=158.940239 candidates/frame=158.940239 kept/frame=4341.059761 backend_dynamic/frame=280.836291 corr/frame=2203.469395 backend_removed_sum/frame=550353.636364"
+      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=221.851503 candidates/frame=221.851503 kept/frame=6778.148497 backend_dynamic/frame=431.249909 corr/frame=2876.451648 backend_removed_sum/frame=601685.323071"
     }
   ]
 }

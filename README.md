@@ -496,6 +496,18 @@ Setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETU
 | **[R2LIVE](papers/r2live/)** | Derived | Compact visual-lidar-inertial SLAM combining FAST-LIO2 odometry and visual landmark factors | - |
 | **[FAST-LIO-SLAM](papers/fast_lio_slam/)** | Derived | Lightweight graph SLAM with FAST-LIO2 front-end, Scan Context, and GICP loop closures | - |
 
+### IMU Dead Reckoning / Aided INS
+
+IMU-only methods (no LiDAR registration); evaluated on NCLT 2013-01-10 and
+KITTI Raw drive 0009 with `imu.csv` inputs, not on the KITTI LiDAR leaderboard.
+
+| Paper | Venue | Key Idea | Reference |
+|-------|-------|----------|-----------|
+| **[IMU Dead Reckoning](papers/imu_dead_reckoning/)** | Baseline | Unaided strapdown INS with static-window gyro-bias/gravity init — the IMU-only lower-bound reference for the LIO family | - |
+| **[OdoNet](papers/odonet/)** | IEEE Sens. J. 2022 | 1D-CNN pseudo-odometer speed aiding for strapdown INS with NHC/ZUPT | [Paper](https://arxiv.org/abs/2109.03091) |
+| **[NN-ZUPT](papers/nn_zupt/)** | Meas. Sci. Technol. 2023 | CNN zero-velocity detection driving ZUPT corrections for vehicle INS | [Paper](https://doi.org/10.1088/1361-6501/acabde) |
+| **[NHC-Net](papers/nhc_net/)** | GPS Solutions 2023 | Motion-state CNN with adaptive non-holonomic constraints for vehicle dead reckoning | - |
+
 ### Place Recognition / Loop Closure
 
 | Paper | Venue | Key Idea | Reference |

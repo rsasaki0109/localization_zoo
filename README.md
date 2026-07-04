@@ -240,7 +240,11 @@ ID-LIO degrades from 0.676 m clean ATE to 130.549 m with crossing foreground
 boxes, RF-LIO degrades from 2.487 m to 49.932 m, and a conservative RF removal
 cap improves that to 41.632 m
 ([`rf_id_lio_dynamic_object_stress_summary.json`](docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json)).
-This is mechanism stress evidence, not a public dynamic-dataset claim.
+Public urban KITTI seq05 full keeps both paths active but RF-LIO default still
+trails ID-LIO (1.005% vs 0.702% RPE) and KISS-ICP (0.617%)
+([`rf_id_lio_kitti_seq05_validation_summary.json`](docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json)).
+Dedicated high-dynamic multi-beam benchmarks remain open before manuscript-level
+dynamic-scene claims.
 **DiLO** is now a stable direct-SRI row (1.20% / 1.53% at ~65 FPS) after
 bounded 1-pixel projective lookup; it remains below the scan-to-map leaders but
 is no longer a degradation case. Honest negatives: Spectral-LO

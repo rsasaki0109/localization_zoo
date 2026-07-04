@@ -61,7 +61,7 @@ positive or negative evidence.
 | LiDAR-IBA | T1 evidence candidate | Stereographic plane front-end is competitive on KITTI; committed no-BA profile beats BA-on for RPE on IMU-free seq00/07 with paired ablation JSON. | Validate BA + IMU on a synchronized LiDAR-IMU benchmark before full LIO claims. |
 | TrICP-LO | T1 evidence candidate | LTS trimmed point-to-plane odometry is near KISS-ICP on seq00/07; paired overlap ablation shows FRMSD auto sticks to ξ=0.800 on clean KITTI. | Add high-outlier/non-overlap stress before promoting FRMSD overlap claims beyond clean KITTI. |
 | LiDAR-visual adapters | T2 | They show pseudo-visual residuals are stable but auxiliary on KITTI PCD. | Do not call these paper-grade until real RGB / camera synchronization is used or the paper claim is reframed as a KITTI-PCD adapter study. |
-| RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active on KITTI and in the committed synthetic dynamic-object stress. RF-LIO reduces the synthetic failure severity versus ID-LIO, but both remain far from the KISS sanity reference. | Add a public high-dynamic dataset before making manuscript-level dynamic-scene claims. |
+| RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active on KITTI and in synthetic dynamic-object stress; public urban KITTI seq05 shows both paths active but RF-LIO still trails ID-LIO and KISS-ICP. | Add dedicated high-dynamic multi-beam benchmarks before manuscript-level dynamic-scene claims. |
 
 ## Frozen Evidence Bundle
 
@@ -80,12 +80,13 @@ evidence. The bundle records the seq00/07 main result rows, paired-ablation
 summaries where available, raw artifact paths, and relative reproduce commands.
 It also points to the RF-LIO/ID-LIO synthetic dynamic-object stress, M-GCLO
 synthetic non-flat ground stress, Quadric-LO synthetic curved-object stress,
-M-GCLO KITTI seq08 public validation, and Quadric-LO KITTI seq02 public
-validation summaries as supporting, non-paper-grade evidence. LiDAR-IBA and
-TrICP-LO now include committed BA on/off and auto vs fixed-overlap ablations
-respectively. RF-LIO/ID-LIO public high-dynamic validation and dedicated
-off-road / orchard multi-beam benchmarks for M-GCLO and Quadric-LO remain open
-before a full 12-method table.
+M-GCLO KITTI seq08 public validation, Quadric-LO KITTI seq02 public
+validation, and RF-LIO/ID-LIO KITTI seq05 public validation summaries as
+supporting, non-paper-grade evidence. LiDAR-IBA and TrICP-LO now include
+committed BA on/off and auto vs fixed-overlap ablations respectively. Dedicated
+high-dynamic multi-beam benchmarks for RF-LIO/ID-LIO and off-road / orchard
+multi-beam benchmarks for M-GCLO and Quadric-LO remain open before a full
+12-method table.
 
 ## Immediate Roadmap
 

@@ -101,5 +101,23 @@ python3 evaluation/scripts/run_m_gclo_kitti_seq08_validation.py
 Paired summary: [`m_gclo_kitti_seq08_validation_summary.json`](../../docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json).
 Disabling the ground factor leaves translational RPE unchanged but worsens
 whole-run ATE by about 149% on this hilly public sequence — consistent with the
-seq00/07 ground-factor ablation. Dedicated off-road / multi-beam benchmarks such
-as MulRan remain open before T0 promotion.
+seq00/07 ground-factor ablation.
+
+## Public MulRan ParkingLot validation
+
+Off-road Ouster full (1176 frames). No-gt-seed odometry diverges; GT-seeded M-GCLO
+uses per-frame GT initialization (`gt_seeded_frames` in the note):
+
+```bash
+python3 evaluation/scripts/run_m_gclo_mulran_parkinglot_validation.py --seed-protocol gt-seed
+```
+
+| Protocol | Variant | RPE | ATE |
+|---|---|---:|---:|
+| no-gt-seed | ground on | 103.3% | 74.2 m |
+| GT-seed | ground on | 2.49% | 2.38 m |
+| GT-seed | ground off | 2.44% | 1.93 m |
+
+Paired summary: [`m_gclo_mulran_parkinglot_validation_summary.json`](../../docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json).
+GT-seed stabilizes tracking but ground off slightly improves ATE on this sequence
+(oracle-init mechanism evidence, not blind odometry).

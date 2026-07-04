@@ -6603,7 +6603,8 @@ MethodResult runSmallMighty(const std::vector<std::string>& pcd_dirs,
 
 MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
-                      const MGcloDogfoodingOptions& options) {
+                      const MGcloDogfoodingOptions& options,
+                      bool no_gt_seed = false) {
   using namespace localization_zoo::m_gclo;
   MethodResult res;
   res.name = "M-GCLO";
@@ -6631,13 +6632,21 @@ MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
 
   long n_ground_sum = 0, n_nonground_sum = 0, n = 0;
+  int seeded_frames = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
                                          options.source_voxel_size),
                                  options.max_source_points);
     if (pts_local.empty()) continue;
-    const auto result = pipeline.registerFrame(pts_local);
+    Eigen::Matrix4d rel_guess;
+    const Eigen::Matrix4d* init_guess = nullptr;
+    if (!no_gt_seed && i > 0 && i < gt.size()) {
+      rel_guess = world_anchor.inverse() * gt[i];
+      init_guess = &rel_guess;
+      ++seeded_frames;
+    }
+    const auto result = pipeline.registerFrame(pts_local, init_guess);
     n_ground_sum += result.num_ground;
     n_nonground_sum += result.num_nonground;
     ++n;
@@ -6660,8 +6669,14 @@ MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
   res.note =
       "M-GCLO: " + ground_mode +
       " + non-ground point-to-distribution (NDT) with per-point range-uncertainty "
-      "weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=" +
-      std::string(buf);
+      "weighting; " +
+      (no_gt_seed
+           ? "constant-velocity prior, no GT seed."
+           : "GT-seeded scan-to-map initialization with constant-velocity fallback.") +
+      " mean_ground/nonground_corr=" + std::string(buf);
+  if (!no_gt_seed && seeded_frames > 0) {
+    res.note += " gt_seeded_frames=" + std::to_string(seeded_frames) + ".";
+  }
   return res;
 }
 
@@ -14834,7 +14849,7 @@ int main(int argc, char** argv) {
               << " ground_weight=" << m_gclo_options.ground_weight
               << " ground_normal_threshold="
               << m_gclo_options.ground_normal_threshold << std::endl;
-    results.push_back(runMGclo(pcd_dirs, gt, m_gclo_options));
+    results.push_back(runMGclo(pcd_dirs, gt, m_gclo_options, no_gt_seed));
   }
 
   if (isMethodEnabled(selected_methods, "quadric_lo")) {

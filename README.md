@@ -204,7 +204,7 @@ leaves RPE ~1.35% unchanged but worsens ATE by about 149%
 ([`m_gclo_kitti_seq08_validation_summary.json`](docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json)).
 <!-- EVIDENCE:M-GCLO-SEQ08:END -->
 <!-- EVIDENCE:M-GCLO-MULRAN:START -->
-Public MulRan ParkingLot full (1176 Ouster frames) is committed, but shared no-gt-seed odometry diverges (~103% RPE for KISS-ICP and M-GCLO); ground off changes RPE from 103.264% to 103.260% with negligible ATE delta — inconclusive for T0 ([`m_gclo_mulran_parkinglot_validation_summary.json`](docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json)).
+Public MulRan ParkingLot full (1176 Ouster frames): no-gt-seed odometry diverges (~103% KISS-ICP RPE). GT-seeded M-GCLO stays stable (~2.49% RPE); ground off improves ATE from 2.38 m to 1.93 m (~19% delta) — oracle-init mechanism evidence, not blind odometry ([`m_gclo_mulran_parkinglot_validation_summary.json`](docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json)).
 <!-- EVIDENCE:M-GCLO-MULRAN:END -->
 **KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.510%)
 and beats KISS-ICP on both sequences — at a heavy throughput cost

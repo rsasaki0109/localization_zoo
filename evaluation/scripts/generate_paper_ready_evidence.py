@@ -23,6 +23,8 @@ SNIPPETS = {
     / "docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json",
     "EVIDENCE:M-GCLO-MULRAN": REPO_ROOT
     / "docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json",
+    "EVIDENCE:LIO-IMU-HDL400": REPO_ROOT
+    / "docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json",
 }
 
 
@@ -87,6 +89,22 @@ def m_gclo_mulran_block(summary: dict) -> str:
     )
 
 
+def lio_imu_hdl400_block(summary: dict) -> str:
+    d2 = summary["methods"]["D2-LIO"]
+    degen = summary["methods"]["DegenSense"]
+    artifact = "docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json"
+    return (
+        "On public HDL-400 open (120 frames, 24k IMU samples), IMU-gated paths activate "
+        "for D2-LIO, DegenSense, ID-LIO, and RF-LIO; RPE deltas vs no-`imu.csv` fallback "
+        f"are small on this window (D2-LIO {d2['imu_on']['metrics']['rpe_trans_pct']:.2f}% "
+        f"vs {d2['imu_off']['metrics']['rpe_trans_pct']:.2f}%, DegenSense "
+        f"{degen['imu_on']['metrics']['rpe_trans_pct']:.2f}% vs "
+        f"{degen['imu_off']['metrics']['rpe_trans_pct']:.2f}%) "
+        f"([`hdl_400_lio_imu_validation_summary.json`]({artifact})). "
+        "LiDAR-IBA IMU residuals are not wired in `pcd_dogfooding` yet."
+    )
+
+
 def render_block(name: str, summary_path: Path) -> str:
     summary = load_json(summary_path)
     if name == "EVIDENCE:M-GCLO-SEQ08":
@@ -97,6 +115,8 @@ def render_block(name: str, summary_path: Path) -> str:
         return rf_id_lio_seq05_block(summary)
     if name == "EVIDENCE:M-GCLO-MULRAN":
         return m_gclo_mulran_block(summary)
+    if name == "EVIDENCE:LIO-IMU-HDL400":
+        return lio_imu_hdl400_block(summary)
     raise KeyError(name)
 
 

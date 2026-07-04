@@ -49,3 +49,22 @@ A LiDAR-(IMU) scan-to-map odometry with the paper's three contributions:
   rather than a filter update
 - parameters the paper leaves open (MAD multiplier, buffer length, fusion-weight
   floor) are exposed with repo-consistent defaults
+
+## Public synchronized LiDAR-IMU validation (HDL-400 open)
+
+120-frame public HDL-400 open window with `imu.csv` + `frame_timestamps.csv`:
+
+```bash
+python3 evaluation/scripts/run_lio_imu_public_validation.py --dataset hdl_400
+```
+
+| Variant | RPE | ATE | IMU path |
+|---|---:|---:|---|
+| DegenSense IMU on | 1.72% | 0.19 m | active |
+| DegenSense no `imu.csv` | 1.60% | 0.19 m | fallback |
+
+Paired summary: [`hdl_400_lio_imu_validation_summary.json`](../../docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json).
+
+IMU/LiDAR fusion compensation activates when `imu.csv` is present; metric deltas
+vs the no-IMU fallback are small on this short window — mechanism evidence, not a
+full LIO T0 claim.

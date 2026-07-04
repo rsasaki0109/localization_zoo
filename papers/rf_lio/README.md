@@ -115,3 +115,18 @@ Both dynamic paths stay active on urban seq05, but default RF-LIO still trails
 ID-LIO and KISS-ICP; conservative removal barely moves RPE (~−1.2% vs default).
 Dedicated high-dynamic multi-beam benchmarks remain open before manuscript-level
 dynamic-scene claims.
+
+## Public synchronized LiDAR-IMU validation (HDL-400 open)
+
+120-frame public HDL-400 open window with `imu.csv`:
+
+```bash
+python3 evaluation/scripts/run_lio_imu_public_validation.py --dataset hdl_400
+```
+
+| Method | RPE (IMU on) | RPE (no `imu.csv`) | IMU path |
+|---|---:|---:|---|
+| ID-LIO | 1.43% | 1.35% | gyro prior when `imu.csv` present |
+| RF-LIO | 1.41% | 1.45% | gyro prior when `imu.csv` present |
+
+Paired summary: [`hdl_400_lio_imu_validation_summary.json`](../../docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json).

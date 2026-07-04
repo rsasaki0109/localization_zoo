@@ -16,6 +16,10 @@ DEFAULT_BIN = REPO_ROOT / "build" / "evaluation" / "pcd_dogfooding"
 BENCH_DIR = REPO_ROOT / "docs" / "benchmarks" / "kitti_seq05_public"
 PCD_DIR = REPO_ROOT / "dogfooding_results" / "kitti_seq_05_full"
 GT_CSV = REPO_ROOT / "experiments" / "reference_data" / "kitti_seq_05_full_gt.csv"
+DENSE_PROFILE_FLAGS = [
+    "--id-lio-dense-profile",
+    "--rf-lio-dense-profile",
+]
 RF_CONSERVATIVE_FLAGS = [
     "--rf-lio-foreground-margin",
     "1.5",
@@ -122,12 +126,15 @@ def build_summary(
                 "./build/evaluation/pcd_dogfooding "
                 f"{rel(PCD_DIR)} {rel(GT_CSV)} "
                 "--methods id_lio,rf_lio,kiss_icp --no-gt-seed "
-                f"--summary-json {rel(default_json)}"
+                + " ".join(DENSE_PROFILE_FLAGS)
+                + f" --summary-json {rel(default_json)}"
             ),
             "rf_lio_conservative_command": (
                 "./build/evaluation/pcd_dogfooding "
                 f"{rel(PCD_DIR)} {rel(GT_CSV)} "
                 "--methods rf_lio --no-gt-seed "
+                + " ".join(DENSE_PROFILE_FLAGS)
+                + " "
                 + " ".join(RF_CONSERVATIVE_FLAGS)
                 + f" --summary-json {rel(rf_conservative_json)}"
             ),
@@ -196,6 +203,7 @@ def main() -> int:
                 "--methods",
                 "id_lio,rf_lio,kiss_icp",
                 "--no-gt-seed",
+                *DENSE_PROFILE_FLAGS,
                 "--summary-json",
                 rel(default_json),
             ]
@@ -208,6 +216,7 @@ def main() -> int:
                 "--methods",
                 "rf_lio",
                 "--no-gt-seed",
+                *DENSE_PROFILE_FLAGS,
                 *RF_CONSERVATIVE_FLAGS,
                 "--summary-json",
                 rel(rf_conservative_json),

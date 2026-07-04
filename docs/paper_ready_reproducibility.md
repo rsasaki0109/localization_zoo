@@ -56,12 +56,12 @@ positive or negative evidence.
 | KC-LO | T0 evidence candidate | Correspondence-free kernel correlation beats KISS-ICP on seq00/07, and the committed sigma-schedule ablation records the runtime/accuracy trade-off. | Locked in the frozen evidence bundle; keep annealed/fixed-sigma artifacts stable. |
 | DegenSense | T1 evidence candidate | Degeneracy sensing is competitive as a no-IMU KITTI fallback once compensation is gated to real IMU packets. | Validate the IMU compensation path on a synchronized LiDAR-IMU benchmark before making full LIO claims. |
 | D2-LIO | T1 evidence candidate | Directional degeneracy diagnostics are competitive as a no-IMU KITTI fallback once the IMU prior is gated to real IMU packets. | Validate directional IMU regularization on a synchronized LiDAR-IMU benchmark before making full LIO claims. |
-| M-GCLO | T1+ evidence candidate | Ground-factor off ablation is committed on KITTI seq00/07, synthetic rolling-ground stress shows ground on wins, and public hilly KITTI seq08 shows ATE +149% with ground off at similar RPE. | Add dedicated off-road / multi-beam non-flat benchmarks such as MulRan before promoting to T0. |
+| M-GCLO | T1+ evidence candidate | Ground-factor off ablation is committed on KITTI seq00/07, synthetic rolling-ground stress shows ground on wins, public hilly KITTI seq08 shows ATE +149% with ground off at similar RPE, and MulRan ParkingLot is committed but no-gt-seed odometry diverges (~103% RPE) so the ground ablation is inconclusive there. | GT-seeded or IMU-backed MulRan protocol before promoting to T0. |
 | Quadric-LO | T1+ evidence candidate | Plane-fallback ablation is committed on KITTI seq00/07, synthetic curved-object stress confirms quadric-path dominance, and public residential KITTI seq02 shows >99% quadric correspondences though rare plane fallback carries more weight than on highway sequences. | Add dedicated orchard or non-urban multi-beam benchmarks before promoting to T0. |
 | LiDAR-IBA | T1 evidence candidate | Stereographic plane front-end is competitive on KITTI; committed no-BA profile beats BA-on for RPE on IMU-free seq00/07 with paired ablation JSON. | Validate BA + IMU on a synchronized LiDAR-IMU benchmark before full LIO claims. |
 | TrICP-LO | T1 evidence candidate | LTS trimmed point-to-plane odometry is near KISS-ICP on seq00/07; paired overlap ablation shows FRMSD auto sticks to ξ=0.800 on clean KITTI. | Add high-outlier/non-overlap stress before promoting FRMSD overlap claims beyond clean KITTI. |
 | LiDAR-visual adapters | T2 | They show pseudo-visual residuals are stable but auxiliary on KITTI PCD. | Do not call these paper-grade until real RGB / camera synchronization is used or the paper claim is reframed as a KITTI-PCD adapter study. |
-| RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active on KITTI and in synthetic dynamic-object stress; public urban KITTI seq05 shows both paths active but RF-LIO still trails ID-LIO and KISS-ICP. | Add dedicated high-dynamic multi-beam benchmarks before manuscript-level dynamic-scene claims. |
+| RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active on KITTI and in synthetic dynamic-object stress; public urban KITTI seq05 dense-profile check shows both paths active but RF-LIO still trails ID-LIO and KISS-ICP. | Add dedicated high-dynamic multi-beam benchmarks before manuscript-level dynamic-scene claims. |
 
 ## Frozen Evidence Bundle
 
@@ -80,13 +80,15 @@ evidence. The bundle records the seq00/07 main result rows, paired-ablation
 summaries where available, raw artifact paths, and relative reproduce commands.
 It also points to the RF-LIO/ID-LIO synthetic dynamic-object stress, M-GCLO
 synthetic non-flat ground stress, Quadric-LO synthetic curved-object stress,
-M-GCLO KITTI seq08 public validation, Quadric-LO KITTI seq02 public
+M-GCLO KITTI seq08 public validation, M-GCLO MulRan ParkingLot public validation,
+Quadric-LO KITTI seq02 public
 validation, and RF-LIO/ID-LIO KITTI seq05 public validation summaries as
 supporting, non-paper-grade evidence. LiDAR-IBA and TrICP-LO now include
 committed BA on/off and auto vs fixed-overlap ablations respectively. Dedicated
-high-dynamic multi-beam benchmarks for RF-LIO/ID-LIO and off-road / orchard
-multi-beam benchmarks for M-GCLO and Quadric-LO remain open before a full
-12-method table.
+high-dynamic multi-beam benchmarks for RF-LIO/ID-LIO and orchard
+multi-beam benchmarks for Quadric-LO remain open before a full
+12-method table. MulRan ParkingLot is committed for M-GCLO but shared
+no-gt-seed odometry diverges there, leaving the ground ablation inconclusive.
 
 ## Immediate Roadmap
 

@@ -149,7 +149,7 @@ METHOD_CONFIGS: list[dict[str, Any]] = [
                 },
             },
         },
-        "remaining_work": "Synthetic non-flat stress and KITTI seq08 public validation are committed; add dedicated off-road / multi-beam non-flat benchmarks such as MulRan before promoting to T0.",
+        "remaining_work": "Synthetic non-flat stress, KITTI seq08, and MulRan ParkingLot public validation are committed; MulRan no-gt-seed odometry diverges so ground on/off is inconclusive — GT-seeded or IMU-backed MulRan protocol remains open before promoting to T0.",
     },
     {
         "id": "quadric_lo",
@@ -511,7 +511,12 @@ def build_bundle() -> dict[str, Any]:
                 {
                     "name": "M-GCLO KITTI seq08 public ground on/off validation",
                     "artifact": "docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json",
-                    "claim_limit": "Public hilly KITTI seq08 check only; dedicated off-road / multi-beam non-flat benchmarks such as MulRan remain open before T0 promotion.",
+                    "claim_limit": "Public hilly KITTI seq08 check only; MulRan ParkingLot is committed separately but no-gt-seed odometry diverges there.",
+                },
+                {
+                    "name": "M-GCLO MulRan ParkingLot public ground on/off validation",
+                    "artifact": "docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json",
+                    "claim_limit": "Dedicated off-road / multi-beam check committed, but shared no-gt-seed odometry diverges (~103% RPE); ground on/off delta is inconclusive and does not support T0 promotion.",
                 },
                 {
                     "name": "Quadric-LO KITTI seq02 public plane-fallback on/off validation",
@@ -525,8 +530,8 @@ def build_bundle() -> dict[str, Any]:
                 },
             ],
             "remaining_before_full_manuscript_table": [
-                "RF-LIO/ID-LIO dedicated high-dynamic multi-beam validation (partial KITTI seq05 urban check committed)",
-                "M-GCLO dedicated off-road / multi-beam non-flat validation (partial KITTI seq08 hilly check committed)",
+                "RF-LIO/ID-LIO dedicated high-dynamic multi-beam validation (partial KITTI seq05 urban dense-profile check committed)",
+                "M-GCLO dedicated off-road / multi-beam non-flat validation (KITTI seq08 + MulRan ParkingLot committed; MulRan no-gt-seed tracking failure leaves ground ablation inconclusive)",
                 "Quadric-LO dedicated orchard or non-urban multi-beam validation (partial KITTI seq02 residential check committed)",
             ],
         },

@@ -105,14 +105,57 @@
 >
 > 次にやるとよいこと: (1) [2026-07-05 完了] NCLT full-session (外付け SSD 経由) で
 > 継続走行での ZUPT 効果を再検証済み — 上記追記参照、
-> (2) 第二データセットとして KITTI Raw OXTS の `imu.csv` を
-> `evaluation/scripts/kitti_oxts_imu_for_dogfooding.py` で用意し評価する、
+> (2) [2026-07-05 完了] 第二データセットとして KITTI Raw OXTS の `imu.csv` を
+> `evaluation/scripts/kitti_oxts_imu_for_dogfooding.py` で用意し評価済み — 下記追記参照、
 > (3) OdoNet/NHC-Net/NN-ZUPT との DR family 比較を README か
 > `docs/paper_ready_reproducibility.md` 側の比較表に昇格するか検討する
 > (現状は module README 止まり)、(4) full-session の family run (OdoNet/NHC-Net/NN-ZUPT)
 > も同時に測定済み (OdoNet ATE 1397.891 m / RPE 753.600%, NHC-Net 279.794 m / 84.226%,
 > NN-ZUPT 257.397 m / 82.813%; family JSON は SSD 上の
 > `full_family.json` に保存のみで repo にはコミットしていない — 必要なら別 matrix manifest化を検討)。
+>
+> **2026-07-05 追記: KITTI Raw drive 2011_09_26_0009 (OXTS) を第二データセットとして
+> 評価した。** `s3.eu-central-1.amazonaws.com/avg-kitti` の公開・無認証ミラーから
+> sync (1.79 GB) + calib (4 KB) を `/media/sasaki/aiueo/loc_zoo/kitti_raw_download`
+> にダウンロードし、`kitti_raw_to_benchmark.py --write-imu-csv` で 200-frame window
+> と full (443 frames) を `/media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_{200,full}`
+> にエクスポート。GT は既存コミット済み `experiments/reference_data/kitti_raw_0009_{200,full}_gt.csv`
+> と md5 一致 (差分なし)。**OXTS レート**: sync パッケージは 1 Velodyne フレームにつき
+> 1 OXTS パケット (447 サンプル/443 フレーム、~46.2s) = 実効 **~9.7 Hz** のみ (100Hz は
+> 別の `_extract` パッケージのみ)。100Hz variant は検討したが、`frame_timestamps.csv` の
+> `timestamp` 列が Velodyne ファイルの位置インデックスであり、GT 対応もそのインデックス
+> を直接使うため、`imu.csv` を実秒に変換すると GT 対応が壊れる — 既存の
+> `kitti_raw_0009*` 系の全リーダーボードエントリに影響するため見送り、正直に理由を記録。
+> **さらに深刻な単位ミスマッチ**: `imu.csv` のスタンプも同じ位置インデックス上にあり
+> (1.0 単位間隔)、harness は `Frame gap [s]: min=median=mean=max=1.000` と報告する —
+> strapdown 積分の dt が (max_dt=0.5s でクランプされた) 0.5s/step になり、実際の
+> ~0.103s/step の約4.8倍。static-init window (2.0s 設定) も実質 ~3 サンプル
+> (~0.3s 実時間) にしかならない。**static-init 前提の破綻**: drive 0009 は t=0 で
+> 既に ~10.7 m/s で巡航中 (200-frame window では最低速度 1.339 m/s、一度も静止せず)。
+> gyro std ゲート (0.05 rad/s) はこの区間の低ヨーレートのため発火せず、並進運動による
+> 静止仮定違反を検知できない盲点を確認。**ZUPT 誤検出**: 200-frame window で
+> ZUPT が 174/199 (~87%) 発火するが実速度は一度も 0.5 m/s を下回らず (ほぼ全て偽陽性)、
+> full でも 344/442 (~78%) 発火 vs 実静止割合 ~9.7% (43/443)。それでも ZUPT は両
+> window で最大の改善効果 (200f: -97.81%/-97.72%, full: -93.51%/-91.28%)。
+> **gyro-bias reversal (新知見)**: NCLT では no-gyro-bias が最大の劣化要因だったが、
+> KITTI Raw 0009 では逆に改善 (200f: -87.36%/-86.49%, full: -87.15%/-87.46%、両window
+> で再現) — ~3サンプルの static-init window が巡航中の実角速度で汚染されるため。
+> family context (OdoNet/NHC-Net/NN-ZUPT) は in-domain (KITTI-OXTS 訓練済み) で
+> IMU-DR を 1-2桁上回る (200f: 856/122/123m, full: 1723/181/186m)。ただし訓練に
+> drive 0009 自体が含まれていたか記録が無く (val drive は 0056 のみ既知)、
+> train/eval overlap の可能性は否定できないため正直に記録。**副次発見**: drive 0009
+> の sync パッケージは Velodyne フレーム 177-180 (native index) が欠落しているが
+> OXTS は欠落なし (447 vs 443) — `kitti_raw_to_benchmark.py` が両方を native frame
+> number ではなく position で index するため、position 177 以降 (~60%) は GT pose と
+> point cloud が ~4 フレームずれるという既存 (今回発見、今回導入ではない) バグを
+> 発見。IMU-only 手法 (imu_dead_reckoning/odonet/nhc_net/nn_zupt) には影響しないが
+> (GT と imu.csv は共に OXTS-native で自己整合)、`kitti_raw_0009*` を使う全 scan-matching
+> 手法のリーダーボードに影響しうる — 共有 exporter の修正は本 pass の scope 外なので
+> 次に触る人向けに `papers/imu_dead_reckoning/README.md` の Limitations に記載のみ。
+> manifest: `experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json` (200-frame),
+> `experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` (full)、
+> `run_experiment_matrix.py --merge-existing-index` で additive に反映
+> (generate_leaderboard.py は未使用)。
 >
 > LiTAMIN2 NTNU LiDAR degeneracy health (2026-06-13 時点) 以降は依然有効な背景
 > (paper-ready reproducibility hardening 方針、continuous-time LIO tuning 履歴) として

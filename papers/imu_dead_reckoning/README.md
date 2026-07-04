@@ -109,6 +109,138 @@ dominant single aid at both scales, just for a different reason (bounding
 velocity-error growth between infrequent resets rather than reflecting mostly
 parked time).
 
+## Result (KITTI Raw drive 2011_09_26_0009, OXTS)
+
+Second dataset, using the established KITTI Raw fixture lineage
+(`evaluation/scripts/kitti_raw_to_benchmark.py` +
+`evaluation/scripts/kitti_oxts_imu_for_dogfooding.py`). Drive + calib
+downloaded from the public, unauthenticated
+`s3.eu-central-1.amazonaws.com/avg-kitti` mirror (`2011_09_26_drive_0009_sync.zip`,
+1.79 GB; `2011_09_26_calib.zip`, 4 KB) to
+`/media/sasaki/aiueo/loc_zoo/kitti_raw_download` (external SSD; local disk had
+~16 GB free). GT for both windows was independently regenerated from the raw
+drive and verified byte-identical (md5) to the already-committed
+`experiments/reference_data/kitti_raw_0009_200_gt.csv` /
+`kitti_raw_0009_full_gt.csv`, so no GT changes were needed.
+
+**OXTS rate finding**: the sync package's `oxts/data/*.txt` is one packet per
+Velodyne frame (447 OXTS samples vs. 443 retained Velodyne frames over
+~46.2 s), i.e. **~9.7 Hz effective**, not the 100 Hz raw OXTS rate (that only
+exists in the separate, unsynced `_extract` package). `--write-imu-csv` writes
+one midpoint IMU row per LiDAR interval, so this is sparse for a strapdown DR
+baseline -- worse than NCLT's ms25 ~47 Hz. A 100 Hz variant from the
+`_extract` package's `oxts/timestamps.txt` was considered but **not built**:
+`frame_timestamps.csv`'s `timestamp` column is the Velodyne file's positional
+index (0, 1, 2, ...), not real time, and `pcd_dogfooding`'s GT association for
+this fixture directly compares `imu.csv` stamps against those same integer
+indices -- so `imu.csv` cannot be expressed in real seconds without breaking
+GT association or the sample-selection walk in `integrateImuTrajectory`.
+Rescaling would require changing `frame_timestamps.csv`/GT semantics shared by
+every other method's `kitti_raw_0009*` leaderboard entry, well outside this
+task's scope. Documented here rather than attempted.
+
+**Deeper unit/timescale caveat (more important than the rate alone)**: because
+`imu.csv` stamps live on that same synthetic per-frame-index timeline (rows
+spaced exactly 1.0 index-unit apart: `0.5, 1.5, 2.5, ...`), the harness reports
+`Frame gap [s]: min=median=mean=max=1.000` and IMU-DR's literal double
+integration (`dt = imu.stamp[i] - imu.stamp[i-1]`, clamped to
+`max_dt=0.5 s`) runs with an effective step of **0.5 s** per ~0.103 s of real
+elapsed time (~4.8x too large per step) -- a structural property of this
+fixture (shared by every `imu.csv`-consuming method here, tolerable for
+LIO-style methods that use IMU as a soft prior, but not innocuous for a
+literal-physics DR baseline). The 2.0 s `static_init_duration_s` window is
+similarly compressed to only **~3 IMU samples (~0.3 s real time)** instead of
+a genuine 2 s average.
+
+**Static-init validity finding**: KITTI drive 0009 is a moving car, and the
+static-init assumption is violated in the most direct way possible -- OXTS
+forward speed at frame 0 is **~10.7 m/s** (already cruising), and over the
+200-frame window the vehicle's speed **never drops below 1.339 m/s**. Despite
+this, the pipeline's static-init warning (gated on gyro std vs. a 0.05 rad/s
+threshold) **did not fire** on either window: the check only looks at
+rotational noise, and this particular cruise segment happened to have low yaw
+rate, so a real translational-motion violation of "static" produced no
+warning. This is a genuine blind spot in the built-in stationarity check for
+wheeled-vehicle data, not a bug in this evaluation.
+
+**ZUPT false positives**: on the 200-frame window, ZUPT fires on 174/199
+(~87%) of IMU samples even though ground-truth OXTS speed **never falls below
+1.339 m/s** anywhere in that window (i.e. essentially 100% of ZUPT triggers
+are false positives on low-yaw-rate cruising, not real stops). On the full
+443-frame sequence, ZUPT fires on 344/442 (~78%) of samples vs. an actual
+measured stationary fraction of only ~9.7% (43/443, concentrated near the end
+where the vehicle slows for what looks like an intersection) -- roughly 8 out
+of 9 triggers are false positives there too. The gyro/accel-norm gate cannot
+distinguish "stationary" from "cruising straight at near-constant speed."
+Despite this, ZUPT remains the single most effective aid at both window
+sizes (see tables below), by bounding velocity-error growth via frequent
+resets rather than by correctly detecting rest.
+
+**Gyro-bias reversal (new, dataset-specific finding)**: unlike both NCLT
+windows (where disabling static-init gyro-bias estimation was by far the
+*worst* ablation, +133%/+172% ATE), on KITTI Raw 0009 disabling it is an
+*improvement* on both windows (-87% ATE at 200 frames, -87% ATE at 443
+frames). Honest explanation: the ~3-sample (~0.3 s real-time) static-init
+window here is taken while the vehicle is already moving at ~10.7 m/s, so the
+"bias" it estimates is contaminated by real angular rate rather than pure
+sensor bias -- applying it as a correction is actively harmful. This
+reproduces consistently across both window sizes, so it is a real dataset
+effect, not an aggregation artifact of one window.
+
+| Variant (200-frame window, ~19.9 s, 186.97 m) | ATE (m) | RPE (%/100m) | Notes |
+|---|---|---|---|
+| Default (pure DR, midpoint, no ZUPT) | 9769.887 | 7580.498 | zupt_frames=0; ~52x trajectory length. |
+| `--imu-dr-zupt` | 214.400 | 172.926 | -97.81%/-97.72%; zupt_frames=174/199 (~87%) but OXTS speed never < 1.339 m/s here -- essentially all false positives. |
+| `--imu-dr-euler` | 9930.599 | 7725.910 | +1.64%/+1.92%; still a small second-order effect. |
+| `--imu-dr-no-gyro-bias` | 1235.339 | 1024.241 | -87.36%/-86.49% -- **improvement**, opposite ordering from NCLT; see gyro-bias reversal finding above. |
+
+| Variant (full 443-frame sequence, ~44.2 s, 332.42 m) | ATE (m) | RPE (%/100m) | Notes |
+|---|---|---|---|
+| Default (pure DR, midpoint, no ZUPT) | 91821.017 | 51751.724 | zupt_frames=0; ~276x trajectory length. |
+| `--imu-dr-zupt` | 5958.011 | 4510.478 | -93.51%/-91.28%; zupt_frames=344/442 (~78%) vs. ~9.7% actual stationary fraction. |
+| `--imu-dr-euler` | 92462.565 | 52137.410 | +0.70%/+0.75%; still second-order. |
+| `--imu-dr-no-gyro-bias` | 11794.635 | 6491.912 | -87.15%/-87.46% -- confirms the 200-frame window's reversal, not an artifact. |
+
+Manifests:
+[`experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json`](../../experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json),
+[`experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json`](../../experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json);
+aggregates:
+[`experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json`](../../experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json),
+[`experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json`](../../experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json).
+As with NCLT, the experiment-matrix runner's automatic heuristic labels
+`zupt` "current default" in both aggregates purely on the shared ATE/RPE
+score; the method's actual repository default remains ZUPT-off pure dead
+reckoning -- see the ZUPT false-positive finding above for why this
+particular number should not be read as a general recommendation.
+
+Family context on the same windows (IMU-only DR methods; not on the KITTI
+point-cloud leaderboard). Note: OdoNet/NHC-Net/NN-ZUPT were all trained on
+KITTI Raw OXTS data (`papers/{odonet,nhc_net,nn_zupt}/scripts/build_kitti_*_dataset.py`,
+default `--val-drive 2011_09_26_drive_0056_sync`) -- this is the first
+in-domain KITTI Raw OXTS evaluation for these methods (previous results were
+cross-sensor transfer to HDL-400/NCLT). Whether drive 0009 itself was part of
+the original training corpus is **not recorded** (only the held-out val drive
+is documented); some train/eval overlap for these three methods cannot be
+ruled out, unlike IMU-DR which is never trained:
+
+| Method (200-frame window) | ATE (m) | RPE (%/100m) | Notes |
+|---|---|---|---|
+| OdoNet | 855.668 | 883.201 | cnn_frames=150 zupt_frames=49; KITTI-OXTS-trained weights, in-domain sensor. |
+| NHC-Net | 121.881 | 99.144 | vmsc_frames=150 zupt_frames=0. |
+| NN-ZUPT | 122.547 | 99.982 | nn_frames=150 zupt_frames=0. |
+
+| Method (full 443-frame sequence) | ATE (m) | RPE (%/100m) | Notes |
+|---|---|---|---|
+| OdoNet | 1723.136 | 982.819 | cnn_frames=393 zupt_frames=49. |
+| NHC-Net | 180.504 | 88.481 | vmsc_frames=393 zupt_frames=0. |
+| NN-ZUPT | 186.050 | 93.636 | nn_frames=393 zupt_frames=0. |
+
+All three learned-aid methods beat pure IMU-DR by 1-2 orders of magnitude
+here (in-domain sensor, unlike the NCLT cross-sensor transfer where OdoNet
+was a honest negative) -- consistent with the family's design intent, and a
+useful sanity check that the learned aids are not simply broken on this
+drive.
+
 ## Limitations / scope notes
 
 - Full-session export lives on removable media (`/media/sasaki/aiueo`, an
@@ -119,10 +251,25 @@ parked time).
   (stem becomes `nclt_2013_01_10_full`; the regenerated GT CSV was verified
   byte-identical, md5 `ff32d5666754fc1fb95333a3835752f4`, to the one already
   committed at `experiments/reference_data/nclt_2013_01_10_full_gt.csv`).
-- No KITTI evaluation: KITTI Odometry trees have no IMU, so the method
-  **skips** there (like OdoNet / NHC-Net / NN-ZUPT). KITTI Raw OXTS has
-  `imu.csv` via `evaluation/scripts/kitti_oxts_imu_for_dogfooding.py` but was
-  not run as part of this pass.
+- KITTI **Odometry** trees have no IMU, so the method **skips** there (like
+  OdoNet / NHC-Net / NN-ZUPT). KITTI **Raw** OXTS is now evaluated (see
+  above) via `evaluation/scripts/kitti_oxts_imu_for_dogfooding.py`.
+- KITTI Raw drive 0009's downloaded sync package is missing Velodyne frames
+  177-180 (native indices) in the middle of the sequence while OXTS has no
+  such gap (447 contiguous OXTS samples vs. 443 retained Velodyne files).
+  Discovered while preparing this evaluation. Because
+  `kitti_raw_to_benchmark.py` indexes both point clouds and OXTS poses by
+  *position* in their respective (gap-compacted for Velodyne, gap-free for
+  OXTS) file lists rather than by native frame number, every exported frame
+  from position 177 onward pairs its GT pose with a point cloud captured ~4
+  native frames (~0.4 s) later than the OXTS sample says — a pre-existing
+  GT-to-point-cloud skew affecting the scan-matching entries of the whole
+  `kitti_raw_0009*` fixture family (dozens of methods), **not** something
+  this pass introduced. It does **not** affect IMU-DR/OdoNet/NHC-Net/NN-ZUPT:
+  their GT and `imu.csv` are both purely OXTS-native and positionally
+  consistent with each other regardless of the Velodyne gap. Fixing the
+  shared exporter is out of scope for this pass (would touch every existing
+  `kitti_raw_0009` leaderboard entry); flagged here for whoever picks it up.
 - FPS numbers reported by the harness for this method are not meaningful
   next to point-cloud registration methods — there is no per-frame
   scan-matching cost, only IMU integration between frame timestamps.

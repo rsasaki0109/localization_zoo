@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-07-04T20:20:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-04T23:09:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1671,6 +1671,32 @@ _Generated at 2026-07-04T20:20:10+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)
+
+- Current default: `zupt_kitti_0009_full`.
+- Reference variants: `default_dr_kitti_0009_full`, `euler_kitti_0009_full`, `no_gyro_bias_kitti_0009_full`.
+- Aggregate result: `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_dr_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| zupt_kitti_0009_full | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| euler_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_gyro_bias_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS)
+
+- Current default: `zupt_kitti_0009`.
+- Reference variants: `default_dr_kitti_0009`, `euler_kitti_0009`, `no_gyro_bias_kitti_0009`.
+- Aggregate result: `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default_dr_kitti_0009 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| zupt_kitti_0009 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| euler_kitti_0009 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_gyro_bias_kitti_0009 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames)
 

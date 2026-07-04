@@ -41,7 +41,7 @@ DATASETS: dict[str, dict[str, Any]] = {
         / "reference_data"
         / "nclt_2013_01_10_120_gt.csv",
         "frames": 120,
-        "association_mode": "timestamp",
+        "association_mode": "strict",
         "claim_limit": (
             "Synchronized LiDAR-IMU odometry check on public NCLT velodyne_sync "
             "+ MS25 IMU; supports IMU mechanism evidence but does not by itself "
@@ -129,6 +129,53 @@ def make_no_imu_tree(source_dir: Path) -> Path:
     return temp_root
 
 
+def build_conclusion(
+    dataset_key: str,
+    cfg: dict[str, Any],
+    on_data: dict[str, Any],
+    pcd_dir: Path,
+    d2: dict[str, Any],
+    degen: dict[str, Any],
+    idlio: dict[str, Any],
+    rflio: dict[str, Any],
+    kiss: dict[str, Any],
+) -> str:
+    frames = on_data.get("num_frames")
+    imu_n = imu_sample_count(pcd_dir)
+    base = (
+        f"On {cfg['label']} ({frames} frames, {imu_n} IMU samples), IMU-gated paths "
+        f"activate for D2-LIO ({d2['imu_on']['imu_path_active']}), DegenSense "
+        f"({degen['imu_on']['imu_path_active']}), ID-LIO "
+        f"({idlio['imu_on']['imu_path_active']}), and RF-LIO "
+        f"({rflio['imu_on']['imu_path_active']}). "
+    )
+    if dataset_key == "nclt_2013_01_10_120":
+        degen_ate_delta = degen["imu_off_minus_on"].get("ate_m_relative_pct")
+        return (
+            base
+            + f"DegenSense IMU compensation lowers ATE from "
+            f"{degen['imu_off']['metrics']['ate_m']:.2f} m to "
+            f"{degen['imu_on']['metrics']['ate_m']:.2f} m "
+            f"(~{abs(degen_ate_delta or 0):.0f}% worse without IMU); D2-LIO RPE "
+            f"{d2['imu_on']['metrics']['rpe_trans_pct']:.2f}% vs "
+            f"{d2['imu_off']['metrics']['rpe_trans_pct']:.2f}% without. "
+            f"KISS-ICP sanity is poor on this window ({kiss['rpe_trans_pct']:.0f}% RPE) "
+            "so the row is mechanism evidence, not a leaderboard claim. "
+            "LiDAR-IBA IMU is not wired in pcd_dogfooding yet."
+        )
+    return (
+        base
+        + f"D2-LIO RPE {d2['imu_on']['metrics']['rpe_trans_pct']:.3f}% with IMU vs "
+        f"{d2['imu_off']['metrics']['rpe_trans_pct']:.3f}% without; DegenSense "
+        f"{degen['imu_on']['metrics']['rpe_trans_pct']:.3f}% vs "
+        f"{degen['imu_off']['metrics']['rpe_trans_pct']:.3f}%. "
+        "LiDAR-IBA IMU residuals are not wired in pcd_dogfooding yet — "
+        "BA-on/off KITTI ablation remains the committed IMU-free evidence. "
+        "This closes the synchronized LiDAR-IMU validation gap for compensation "
+        "and prior paths at T1 mechanism level, not full manuscript LIO claims."
+    )
+
+
 def build_summary(
     dataset_key: str,
     imu_on_json: Path,
@@ -206,21 +253,16 @@ def build_summary(
         },
         "kiss_sanity_reference": metric_subset(kiss),
         "methods": method_blocks,
-        "conclusion": (
-            f"On {cfg['label']} ({on_data.get('num_frames')} frames, "
-            f"{imu_sample_count(cfg['pcd_dir'])} IMU samples), IMU-gated paths "
-            f"activate for D2-LIO ({d2['imu_on']['imu_path_active']}), DegenSense "
-            f"({degen['imu_on']['imu_path_active']}), ID-LIO "
-            f"({idlio['imu_on']['imu_path_active']}), and RF-LIO "
-            f"({rflio['imu_on']['imu_path_active']}). "
-            f"D2-LIO RPE {d2['imu_on']['metrics']['rpe_trans_pct']:.3f}% with IMU vs "
-            f"{d2['imu_off']['metrics']['rpe_trans_pct']:.3f}% without; DegenSense "
-            f"{degen['imu_on']['metrics']['rpe_trans_pct']:.3f}% vs "
-            f"{degen['imu_off']['metrics']['rpe_trans_pct']:.3f}%. "
-            "LiDAR-IBA IMU residuals are not wired in pcd_dogfooding yet — "
-            "BA-on/off KITTI ablation remains the committed IMU-free evidence. "
-            "This closes the synchronized LiDAR-IMU validation gap for compensation "
-            "and prior paths at T1 mechanism level, not full manuscript LIO claims."
+        "conclusion": build_conclusion(
+            dataset_key,
+            cfg,
+            on_data,
+            cfg["pcd_dir"],
+            method_blocks["D2-LIO"],
+            method_blocks["DegenSense"],
+            method_blocks["ID-LIO"],
+            method_blocks["RF-LIO"],
+            metric_subset(kiss),
         ),
     }
     output.write_text(json.dumps(summary, indent=2) + "\n")

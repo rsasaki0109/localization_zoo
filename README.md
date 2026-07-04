@@ -185,6 +185,9 @@ constant-velocity over-constraint.
 <!-- EVIDENCE:LIO-IMU-HDL400:START -->
 On public HDL-400 open (120 frames, 24k IMU samples), IMU-gated paths activate for D2-LIO, DegenSense, ID-LIO, and RF-LIO; RPE deltas vs no-`imu.csv` fallback are small on this window (D2-LIO 1.58% vs 1.52%, DegenSense 1.72% vs 1.60%) ([`hdl_400_lio_imu_validation_summary.json`](docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json)). LiDAR-IBA IMU residuals are not wired in `pcd_dogfooding` yet.
 <!-- EVIDENCE:LIO-IMU-HDL400:END -->
+<!-- EVIDENCE:LIO-IMU-NCLT:START -->
+Public NCLT 2013-01-10 (120 frames, MS25 IMU) confirms IMU-gated paths and shows DegenSense compensation lowering ATE from 0.24 m to 0.16 m (~45% worse without IMU); KISS-ICP sanity is poor on this window (86% RPE) so the row is mechanism evidence only ([`nclt_2013_01_10_120_lio_imu_validation_summary.json`](docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json)).
+<!-- EVIDENCE:LIO-IMU-NCLT:END -->
 **M-GCLO** remains the strongest explicit
 ground-factor row (0.835% seq00) via multiple-ground-plane constraints (higher
 ATE — an honest RPE/ATE split). Its ground-factor ablation keeps translational

@@ -533,6 +533,11 @@ def build_bundle() -> dict[str, Any]:
                     "artifact": "docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json",
                     "claim_limit": "IMU-gated compensation/prior paths activate on 120-frame HDL-400 open; metric deltas vs no-imu.csv fallback are small on this window and LiDAR-IBA IMU is not wired — mechanism evidence only, not full LIO T0 promotion.",
                 },
+                {
+                    "name": "LIO synchronized LiDAR-IMU public validation (NCLT 2013-01-10)",
+                    "artifact": "docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json",
+                    "claim_limit": "Public NCLT velodyne_sync + MS25 IMU check; DegenSense IMU compensation improves ATE vs no-imu.csv fallback but KISS sanity is poor on this window — mechanism evidence only, not full LIO T0 promotion.",
+                },
             ],
             "remaining_before_full_manuscript_table": [
                 "RF-LIO/ID-LIO dedicated high-dynamic multi-beam validation (partial KITTI seq05 urban dense-profile check committed)",

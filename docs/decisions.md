@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 

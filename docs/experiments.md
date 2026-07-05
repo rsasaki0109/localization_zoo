@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -146,9 +146,9 @@ _Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_ma
 | HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `dense` | 0.180 | 21.9 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
 | HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `dense` | 1.373 | 14.5 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `nhc_zupt_kitti_0009_full` | 1063.760 | 3899236.0 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` |
-| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 205.442 | 3234728.0 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
-| IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1198865.3 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
-| IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1405827.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 205.442 | 3711952.5 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.323 | 30.5 | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.321 | 35.6 | `experiments/results/isc_loam_kitti_raw_0009_matrix.json` |
@@ -8586,7 +8586,7 @@ _Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_ma
 | No static-init gyro-bias estimation -- KITTI Raw 0009, full sequence | ablation | 11794.635 | 3899236.0 | 54.5 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC -- KITTI Raw 0009, full sequence | ablation | 31967.399 | 3231996.0 | 43.1 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC + ZUPT -- KITTI Raw 0009, full sequence | ablation | 1063.760 | 3177084.8 | 90.7 | 4.30 | 4.50 | Adopt as current default |
-| + static-init accel-bias estimation -- KITTI Raw 0009, full sequence | ablation | 91821.017 | 3586289.5 | 46.6 | 4.65 | 4.75 | Keep as reference variant |
+| + static-init accel-bias estimation -- KITTI Raw 0009, full sequence | ablation | 90422.524 | 2721029.9 | 35.5 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
@@ -8688,18 +8688,18 @@ _Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, 200-frame window | balanced | 9769.887 | 3138633.4 | 49.6 | 5.00 | 5.00 | Keep as reference variant |
-| + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 214.400 | 3056234.7 | 95.2 | 4.65 | 4.75 | Adopt as current default |
-| Forward Euler (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9930.599 | 3234728.0 | 51.0 | 4.65 | 4.75 | Keep as reference variant |
-| No static-init gyro-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 1235.339 | 2873480.6 | 52.7 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC -- KITTI Raw 0009, 200-frame window | ablation | 7887.422 | 2860534.6 | 45.5 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 205.442 | 2592319.0 | 90.1 | 4.30 | 4.50 | Keep as active challenger |
-| + static-init accel-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 9769.887 | 2994863.8 | 47.3 | 4.65 | 4.75 | Keep as reference variant |
+| Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, 200-frame window | balanced | 9769.887 | 3138633.4 | 43.3 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 214.400 | 3056234.7 | 89.1 | 4.65 | 4.75 | Adopt as current default |
+| Forward Euler (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9930.599 | 3234728.0 | 44.6 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 1235.339 | 2873480.6 | 47.0 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC -- KITTI Raw 0009, 200-frame window | ablation | 7887.422 | 2860534.6 | 39.8 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 205.442 | 2592319.0 | 84.9 | 4.30 | 4.50 | Keep as active challenger |
+| + static-init accel-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 9626.068 | 3711952.5 | 51.1 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `zupt_kitti_0009` is the current default for this problem.
-2. `euler_kitti_0009` is the fastest observed variant at 3234728.0 FPS.
+2. `accel_bias_kitti_0009` is the fastest observed variant at 3711952.5 FPS.
 3. `nhc_zupt_kitti_0009` is the most accurate observed variant at 205.442 m ATE.
 
 ### Variant Notes
@@ -8796,18 +8796,18 @@ _Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (pure strapdown DR, midpoint, no ZUPT) -- full session | balanced | 288700.449 | 1095010.7 | 47.3 | 5.00 | 5.00 | Keep as reference variant |
-| + ZUPT -- full session | ablation | 14531.743 | 798152.2 | 66.3 | 4.65 | 4.75 | Keep as reference variant |
-| Forward Euler (vs default midpoint) -- full session | ablation | 291892.627 | 1116254.9 | 48.2 | 4.65 | 4.75 | Keep as reference variant |
-| No static-init gyro-bias estimation -- full session | ablation | 672302.751 | 1112120.0 | 47.1 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC -- full session | ablation | 46003.188 | 932269.4 | 49.3 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC + ZUPT -- full session | ablation | 9605.455 | 800357.3 | 83.4 | 4.30 | 4.50 | Adopt as current default |
-| + static-init accel-bias estimation -- full session | ablation | 288700.449 | 1198865.3 | 51.7 | 4.65 | 4.75 | Keep as reference variant |
+| Default (pure strapdown DR, midpoint, no ZUPT) -- full session | balanced | 288700.449 | 1095010.7 | 42.1 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT -- full session | ablation | 14531.743 | 798152.2 | 62.5 | 4.65 | 4.75 | Keep as reference variant |
+| Forward Euler (vs default midpoint) -- full session | ablation | 291892.627 | 1116254.9 | 42.9 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation -- full session | ablation | 672302.751 | 1112120.0 | 41.8 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC -- full session | ablation | 46003.188 | 932269.4 | 44.9 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC + ZUPT -- full session | ablation | 9605.455 | 800357.3 | 79.5 | 4.30 | 4.50 | Adopt as current default |
+| + static-init accel-bias estimation -- full session | ablation | 288751.377 | 1354057.2 | 51.7 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `nhc_zupt_full` is the current default for this problem.
-2. `accel_bias_full` is the fastest observed variant at 1198865.3 FPS.
+2. `accel_bias_full` is the fastest observed variant at 1354057.2 FPS.
 3. `nhc_zupt_full` is the most accurate observed variant at 9605.455 m ATE.
 
 ### Variant Notes
@@ -8904,18 +8904,18 @@ _Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (pure strapdown DR, midpoint, no ZUPT) | balanced | 9.071 | 1360852.8 | 64.3 | 5.00 | 5.00 | Keep as reference variant |
-| + ZUPT | ablation | 2.887 | 1054259.2 | 87.5 | 4.65 | 4.75 | Adopt as current default |
-| Forward Euler (vs default midpoint) | ablation | 10.280 | 1405827.2 | 64.0 | 4.65 | 4.75 | Keep as reference variant |
-| No static-init gyro-bias estimation | ablation | 24.676 | 1258838.1 | 50.6 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC (non-holonomic constraints) | ablation | 9.156 | 899732.3 | 47.8 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC + ZUPT | ablation | 3.717 | 888178.3 | 70.4 | 4.30 | 4.50 | Keep as reference variant |
-| + static-init accel-bias estimation | ablation | 9.071 | 1004495.1 | 51.6 | 4.65 | 4.75 | Keep as reference variant |
+| Default (pure strapdown DR, midpoint, no ZUPT) | balanced | 9.071 | 1360852.8 | 60.5 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT | ablation | 2.887 | 1054259.2 | 84.5 | 4.65 | 4.75 | Adopt as current default |
+| Forward Euler (vs default midpoint) | ablation | 10.280 | 1405827.2 | 60.1 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation | ablation | 24.676 | 1258838.1 | 47.1 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC (non-holonomic constraints) | ablation | 9.156 | 899732.3 | 45.2 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC + ZUPT | ablation | 3.717 | 888178.3 | 67.9 | 4.30 | 4.50 | Keep as reference variant |
+| + static-init accel-bias estimation | ablation | 9.075 | 1525979.8 | 65.9 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `zupt` is the current default for this problem.
-2. `euler` is the fastest observed variant at 1405827.2 FPS.
+2. `accel_bias` is the fastest observed variant at 1525979.8 FPS.
 3. `zupt` is the most accurate observed variant at 2.887 m ATE.
 
 ### Variant Notes

@@ -78,11 +78,18 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
   }
 
   const double accel_mean_norm = accel_mean.norm();
-  gravity_magnitude_ = params_.gravity_from_static_norm ? accel_mean_norm
-                                                        : kStandardGravity;
   const Eigen::Vector3d accel_dir =
       accel_mean_norm > 1e-9 ? (accel_mean / accel_mean_norm).eval()
                              : Eigen::Vector3d::UnitZ();
+
+  // With accel-bias estimation on, the deviation of the static accel norm
+  // from a known gravity magnitude IS the bias signal, so gravity must come
+  // from a fixed reference (standard gravity) rather than the static norm --
+  // otherwise g_w absorbs the whole static mean and the residual is zero by
+  // construction (accel_mean - accel_dir * accel_mean_norm == 0).
+  const bool use_static_norm =
+      params_.gravity_from_static_norm && !params_.estimate_accel_bias;
+  gravity_magnitude_ = use_static_norm ? accel_mean_norm : kStandardGravity;
 
   // Initial roll/pitch aligns the measured static specific-force direction
   // with the world +z axis; yaw is left at zero (no magnetometer). The
@@ -93,13 +100,13 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
 
   // g_w is derived (not hard-coded to +z/-z) so both IMU gravity sign
   // conventions work: it is defined as exactly the quantity that makes the
-  // static-window specific force cancel, R_ * accel_mean - g_w = 0.
+  // bias-corrected static specific force cancel, R_ * (accel_mean - b) = g_w.
   g_w_ = R_ * (accel_dir * gravity_magnitude_);
 
   if (params_.estimate_accel_bias) {
-    // Residual after roll/pitch alignment against nominal vertical gravity.
-    const Eigen::Vector3d expected_static =
-        R_.transpose() * (Eigen::Vector3d::UnitZ() * gravity_magnitude_);
+    // Residual of the static mean against the fixed-magnitude gravity vector
+    // rotated into the body frame: any leftover is attributed to accel bias.
+    const Eigen::Vector3d expected_static = accel_dir * gravity_magnitude_;
     accel_bias_ = accel_mean - expected_static;
   } else {
     accel_bias_.setZero();

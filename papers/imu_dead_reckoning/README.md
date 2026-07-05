@@ -67,7 +67,7 @@ aggregate result:
 | `--imu-dr-no-gyro-bias` | 24.676 | 482.028 | Largest degradation of any ablation tested — static-window gyro-bias estimation is the single most load-bearing component of this baseline. |
 | `--imu-dr-nhc` | 9.156 | 156.297 | Hard NHC alone: ~same ATE as default, mild RPE improvement (-8%). Lateral velocity stripping is a second-order effect on this short window. |
 | `--imu-dr-nhc --imu-dr-zupt` | 3.717 | 18.521 | NHC+ZUPT stacks on this window: slightly worse ATE than ZUPT alone (2.887 m) but much better RPE (18.5% vs 30.6%). |
-| `--imu-dr-accel-bias` | 9.071 | 170.617 | Identical to default — with `gravity_from_static_norm=true` (repository default), static gravity alignment already absorbs the measurable accel bias on this window. |
+| `--imu-dr-accel-bias` | 9.075 | 170.704 | +0.04%/+0.05% — negligible. Estimating accel bias against fixed standard gravity finds almost no residual here: NCLT's ms25 static accel norm is very close to 9.80665, so there is little bias to remove. |
 
 Family context on the same window (IMU-only dead-reckoning methods, for
 scale — none of these are LiDAR/LIO and should not be read against the KITTI
@@ -102,7 +102,7 @@ the local disk had ~18 GB free at evaluation time.
 | `--imu-dr-no-gyro-bias` | 672302.751 | 139392.868 | +132.9% ATE / +106.7% RPE vs. default -- again the largest degradation of the three ablations, confirming static-init gyro-bias estimation as the single most load-bearing aid at any timescale tested. |
 | `--imu-dr-nhc` | 46003.188 | 16267.197 | -84.1% ATE / -75.9% RPE vs. default. NHC alone is the second-most effective single aid on the full session after ZUPT, by suppressing lateral velocity drift that double integration would otherwise accumulate. |
 | `--imu-dr-nhc --imu-dr-zupt` | 9605.455 | 1901.379 | -96.7% ATE / -97.2% RPE vs. default; **beats ZUPT alone** (14531.743 m / 2859.304%) on both metrics — the two classical vehicle aids stack on continuous-motion data. |
-| `--imu-dr-accel-bias` | 288700.449 | 67435.005 | Identical to default (same explanation as the 120-frame window). |
+| `--imu-dr-accel-bias` | 288751.377 | 67446.881 | +0.02%/+0.02% — negligible, same explanation as the 120-frame window (ms25 static norm ≈ standard gravity, little accel bias to remove). |
 
 All seven runs returned finite, physically explicable numbers (no NaNs, no
 `1e6`+ km positions) -- the hundreds-of-km ATE is the expected honest failure
@@ -211,7 +211,7 @@ effect, not an aggregation artifact of one window.
 | `--imu-dr-no-gyro-bias` | 1235.339 | 1024.241 | -87.36%/-86.49% -- **improvement**, opposite ordering from NCLT; see gyro-bias reversal finding above. |
 | `--imu-dr-nhc` | 7887.422 | 6393.419 | -19.3%/-15.7% vs. default; NHC helps even on this sparse ~9.7 Hz OXTS fixture. |
 | `--imu-dr-nhc --imu-dr-zupt` | 205.442 | 172.342 | Comparable to ZUPT alone (214.400 m / 172.926%); NHC does not materially change the ZUPT-dominated outcome on this window. |
-| `--imu-dr-accel-bias` | 9769.887 | 7580.498 | Identical to default. |
+| `--imu-dr-accel-bias` | 9626.068 | 7468.717 | -1.47%/-1.47% — a small but real improvement here, unlike NCLT: the OXTS-derived accel has a measurable static residual against standard gravity that this ablation removes. |
 
 | Variant (full 443-frame sequence, ~44.2 s, 332.42 m) | ATE (m) | RPE (%/100m) | Notes |
 |---|---|---|---|
@@ -221,7 +221,7 @@ effect, not an aggregation artifact of one window.
 | `--imu-dr-no-gyro-bias` | 11794.635 | 6491.912 | -87.15%/-87.46% -- confirms the 200-frame window's reversal, not an artifact. |
 | `--imu-dr-nhc` | 31967.399 | 18546.068 | -65.2%/-64.2% vs. default. |
 | `--imu-dr-nhc --imu-dr-zupt` | 1063.760 | 827.371 | -98.8%/-98.4% vs. default; **beats ZUPT alone** (5958.011 m / 4510.478%) — same stacking effect as the NCLT full session. |
-| `--imu-dr-accel-bias` | 91821.017 | 51751.724 | Identical to default. |
+| `--imu-dr-accel-bias` | 90422.524 | 50966.134 | -1.52%/-1.52% — confirms the 200-frame window's small improvement, not an artifact. |
 
 Manifests:
 [`experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json`](../../experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json),

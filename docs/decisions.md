@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-07-04T23:09:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -1674,21 +1674,25 @@ _Generated at 2026-07-04T23:09:41+00:00 by `evaluation/scripts/run_experiment_ma
 
 ## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS)
 
-- Current default: `zupt_kitti_0009_full`.
-- Reference variants: `default_dr_kitti_0009_full`, `euler_kitti_0009_full`, `no_gyro_bias_kitti_0009_full`.
+- Current default: `nhc_zupt_kitti_0009_full`.
+- Reference variants: `default_dr_kitti_0009_full`, `zupt_kitti_0009_full`, `euler_kitti_0009_full`, `no_gyro_bias_kitti_0009_full`, `nhc_kitti_0009_full`, `accel_bias_kitti_0009_full`.
 - Aggregate result: `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default_dr_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| zupt_kitti_0009_full | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| zupt_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | euler_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_gyro_bias_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| nhc_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| nhc_zupt_kitti_0009_full | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| accel_bias_kitti_0009_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS)
 
 - Current default: `zupt_kitti_0009`.
-- Reference variants: `default_dr_kitti_0009`, `euler_kitti_0009`, `no_gyro_bias_kitti_0009`.
+- Active challengers: `nhc_zupt_kitti_0009`.
+- Reference variants: `default_dr_kitti_0009`, `euler_kitti_0009`, `no_gyro_bias_kitti_0009`, `nhc_kitti_0009`, `accel_bias_kitti_0009`.
 - Aggregate result: `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json`
 
 | Variant | Decision | Why |
@@ -1697,24 +1701,30 @@ _Generated at 2026-07-04T23:09:41+00:00 by `evaluation/scripts/run_experiment_ma
 | zupt_kitti_0009 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | euler_kitti_0009 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_gyro_bias_kitti_0009 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| nhc_kitti_0009 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| nhc_zupt_kitti_0009 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| accel_bias_kitti_0009 | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames)
 
-- Current default: `zupt_full`.
-- Reference variants: `default_dr_full`, `euler_full`, `no_gyro_bias_full`.
+- Current default: `nhc_zupt_full`.
+- Reference variants: `default_dr_full`, `zupt_full`, `euler_full`, `no_gyro_bias_full`, `nhc_full`, `accel_bias_full`.
 - Aggregate result: `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json`
 
 | Variant | Decision | Why |
 |---------|----------|-----|
 | default_dr_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
-| zupt_full | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| zupt_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | euler_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_gyro_bias_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| nhc_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| nhc_zupt_full | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| accel_bias_full | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window
 
 - Current default: `zupt`.
-- Reference variants: `default_dr`, `euler`, `no_gyro_bias`.
+- Reference variants: `default_dr`, `euler`, `no_gyro_bias`, `nhc`, `nhc_zupt`, `accel_bias`.
 - Aggregate result: `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json`
 
 | Variant | Decision | Why |
@@ -1723,6 +1733,9 @@ _Generated at 2026-07-04T23:09:41+00:00 by `evaluation/scripts/run_experiment_ma
 | zupt | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | euler | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | no_gyro_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| nhc | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| nhc_zupt | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| accel_bias | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
 ## ISC-LOAM on the public HDL-400 reference window
 

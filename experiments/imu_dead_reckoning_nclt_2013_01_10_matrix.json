@@ -53,6 +53,34 @@
             "args": [
                 "--imu-dr-no-gyro-bias"
             ]
+        },
+        {
+            "id": "nhc",
+            "label": "+ NHC (non-holonomic constraints)",
+            "design_style": "ablation",
+            "intent": "Enable hard NHC: project body velocity onto the forward axis after each IMU step (same cheap vehicle constraint used inside OdoNet/NN-ZUPT, but without any learned aid).",
+            "args": [
+                "--imu-dr-nhc"
+            ]
+        },
+        {
+            "id": "nhc_zupt",
+            "label": "+ NHC + ZUPT",
+            "design_style": "ablation",
+            "intent": "Combine NHC with zero-velocity updates to test whether the two classical vehicle aids stack on top of each other on this window.",
+            "args": [
+                "--imu-dr-nhc",
+                "--imu-dr-zupt"
+            ]
+        },
+        {
+            "id": "accel_bias",
+            "label": "+ static-init accel-bias estimation",
+            "design_style": "ablation",
+            "intent": "Estimate accelerometer bias from the static-init window residual after gravity alignment (symmetric ablation to gyro-bias estimation).",
+            "args": [
+                "--imu-dr-accel-bias"
+            ]
         }
     ]
 }

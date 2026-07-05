@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-07-04T23:09:41+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-04T23:44:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -218,9 +218,9 @@ The runner is responsible for:
 | HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `experiments/hdl_graph_slam_mcd_kth_day_06_matrix.json` | `hdl_graph_slam` | `fast` | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
 | HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `experiments/hdl_graph_slam_mcd_ntu_day_02_matrix.json` | `hdl_graph_slam` | `dense` | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
 | HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `experiments/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` | `hdl_graph_slam` | `dense` | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
-| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` | `imu_dead_reckoning` | `zupt_kitti_0009_full` | `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` | `imu_dead_reckoning` | `nhc_zupt_kitti_0009_full` | `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json` | `imu_dead_reckoning` | `zupt_kitti_0009` | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
-| IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` | `imu_dead_reckoning` | `zupt_full` | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` | `imu_dead_reckoning` | `nhc_zupt_full` | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json` | `imu_dead_reckoning` | `zupt` | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `experiments/isc_loam_hdl_400_reference_matrix.json` | `isc_loam` | `fast` | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
 | ISC-LOAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/isc_loam_kitti_raw_0009_full_matrix.json` | `isc_loam` | `fast` | `experiments/results/isc_loam_kitti_raw_0009_full_matrix.json` |

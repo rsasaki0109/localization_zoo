@@ -54,6 +54,34 @@
             "args": [
                 "--imu-dr-no-gyro-bias"
             ]
+        },
+        {
+            "id": "nhc_kitti_0009",
+            "label": "+ NHC -- KITTI Raw 0009, 200-frame window",
+            "design_style": "ablation",
+            "intent": "Enable hard NHC on the KITTI Raw 0009 200-frame window.",
+            "args": [
+                "--imu-dr-nhc"
+            ]
+        },
+        {
+            "id": "nhc_zupt_kitti_0009",
+            "label": "+ NHC + ZUPT -- KITTI Raw 0009, 200-frame window",
+            "design_style": "ablation",
+            "intent": "Combine NHC with ZUPT on the KITTI Raw 0009 200-frame window.",
+            "args": [
+                "--imu-dr-nhc",
+                "--imu-dr-zupt"
+            ]
+        },
+        {
+            "id": "accel_bias_kitti_0009",
+            "label": "+ static-init accel-bias estimation -- KITTI Raw 0009, 200-frame window",
+            "design_style": "ablation",
+            "intent": "Estimate accelerometer bias from the static-init window on KITTI Raw 0009.",
+            "args": [
+                "--imu-dr-accel-bias"
+            ]
         }
     ]
 }

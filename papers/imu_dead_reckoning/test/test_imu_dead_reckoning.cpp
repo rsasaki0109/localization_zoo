@@ -197,3 +197,75 @@ TEST(ImuDeadReckoning, IntegrateTrajectoryFrameSampling) {
   ASSERT_EQ(poses.size(), frame_timestamps.size());
   EXPECT_TRUE(poses.front().isApprox(Eigen::Matrix4d::Identity()));
 }
+
+// Inject lateral body velocity via a brief y-acceleration impulse; with NHC
+// enabled the lateral component should be stripped each step so tail position
+// drift stays much smaller than without NHC.
+TEST(ImuDeadReckoning, NhcSuppressesLateralVelocity) {
+  const Eigen::Vector3d accel_static(0.0, 0.0, kGravity);
+  const double dt = 0.01;
+  const double impulse_duration = 0.2;
+  const double tail_duration = 2.0;
+
+  auto run = [&](bool enable_nhc) {
+    ImuDeadReckoningParams params;
+    params.enable_nhc = enable_nhc;
+    ImuDeadReckoningPipeline pipe(params);
+
+    const int init_steps =
+        static_cast<int>(params.static_init_duration_s / dt) + 1;
+    double t = 0.0;
+    for (int i = 0; i < init_steps; ++i) {
+      pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_static));
+      t += dt;
+    }
+
+    const int impulse_steps = static_cast<int>(impulse_duration / dt);
+    const Eigen::Vector3d accel_impulse(0.0, 2.0, kGravity);
+    for (int i = 0; i < impulse_steps; ++i) {
+      pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_impulse));
+      t += dt;
+    }
+
+    const double y_after_impulse = pipe.pose()(1, 3);
+    const int tail_steps = static_cast<int>(tail_duration / dt);
+    for (int i = 0; i < tail_steps; ++i) {
+      pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_static));
+      t += dt;
+    }
+    return std::abs(pipe.pose()(1, 3) - y_after_impulse);
+  };
+
+  const double tail_drift_nhc_on = run(true);
+  const double tail_drift_nhc_off = run(false);
+  EXPECT_GT(tail_drift_nhc_off, 0.05);
+  EXPECT_LT(tail_drift_nhc_on, 0.2 * tail_drift_nhc_off);
+}
+
+// A constant accelerometer bias orthogonal to gravity should be absorbed when
+// estimate_accel_bias is enabled, keeping position near zero on an otherwise
+// static segment after init.
+TEST(ImuDeadReckoning, AccelBiasEstimationRemovesStaticBias) {
+  const Eigen::Vector3d gyro_bias(0.01, -0.02, 0.015);
+  const Eigen::Vector3d accel_bias(0.05, -0.03, 0.02);
+  const Eigen::Vector3d accel_static =
+      Eigen::Vector3d(0.0, 0.0, kGravity) + accel_bias;
+  const double dt = 0.02;
+  const int total_steps = static_cast<int>(10.0 / dt);
+
+  auto run = [&](bool estimate_accel_bias) {
+    ImuDeadReckoningParams params;
+    params.gravity_from_static_norm = false;
+    params.estimate_accel_bias = estimate_accel_bias;
+    ImuDeadReckoningPipeline pipe(params);
+    for (int i = 0; i < total_steps; ++i) {
+      pipe.processImu(makeReading(i * dt, gyro_bias, accel_static));
+    }
+    return pipe.pose().block<3, 1>(0, 3).norm();
+  };
+
+  const double drift_with = run(true);
+  const double drift_without = run(false);
+  EXPECT_GT(drift_without, 0.1);
+  EXPECT_LT(drift_with, 0.01);
+}

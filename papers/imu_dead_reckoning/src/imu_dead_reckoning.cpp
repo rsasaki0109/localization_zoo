@@ -30,6 +30,7 @@ void ImuDeadReckoningPipeline::reset() {
   v_.setZero();
   p_.setZero();
   gyro_bias_.setZero();
+  accel_bias_.setZero();
   g_w_.setZero();
   gravity_magnitude_ = kStandardGravity;
   static_initialized_ = false;
@@ -95,9 +96,49 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
   // static-window specific force cancel, R_ * accel_mean - g_w = 0.
   g_w_ = R_ * (accel_dir * gravity_magnitude_);
 
+  if (params_.estimate_accel_bias) {
+    // Residual after roll/pitch alignment against nominal vertical gravity.
+    const Eigen::Vector3d expected_static =
+        R_.transpose() * (Eigen::Vector3d::UnitZ() * gravity_magnitude_);
+    accel_bias_ = accel_mean - expected_static;
+  } else {
+    accel_bias_.setZero();
+  }
+
   v_.setZero();
   p_.setZero();
   static_initialized_ = true;
+}
+
+Eigen::Vector3d ImuDeadReckoningPipeline::bodyForwardAxis() const {
+  Eigen::Vector3d axis = Eigen::Vector3d::Zero();
+  if (params_.forward_axis >= 0 && params_.forward_axis < 3) {
+    axis[params_.forward_axis] = 1.0;
+  } else {
+    axis.x() = 1.0;
+  }
+  return axis;
+}
+
+void ImuDeadReckoningPipeline::applyNhc(Eigen::Vector3d* v_body, double dt,
+                                          bool* nhc_active) const {
+  if (!params_.enable_nhc || v_body == nullptr) return;
+  const Eigen::Vector3d fwd = bodyForwardAxis();
+  const double v_forward = v_body->dot(fwd);
+  const Eigen::Vector3d target = v_forward * fwd;
+  if (params_.nhc_gain <= 0.0) {
+    if ((target - *v_body).norm() > 1e-12) {
+      *v_body = target;
+      if (nhc_active) *nhc_active = true;
+    }
+    return;
+  }
+  const double alpha = std::min(1.0, params_.nhc_gain * dt);
+  const Eigen::Vector3d updated = (1.0 - alpha) * (*v_body) + alpha * target;
+  if ((updated - *v_body).norm() > 1e-12) {
+    *v_body = updated;
+    if (nhc_active) *nhc_active = true;
+  }
 }
 
 void ImuDeadReckoningPipeline::initializeStatic(
@@ -153,7 +194,8 @@ ImuDeadReckoningStepStats ImuDeadReckoningPipeline::processImu(
 
   R_ = R_ * expSO3(gyro_for_integration * dt);
 
-  const Eigen::Vector3d accel_w = R_ * imu.accel - g_w_;
+  const Eigen::Vector3d accel_corrected = imu.accel - accel_bias_;
+  const Eigen::Vector3d accel_w = R_ * accel_corrected - g_w_;
   p_ += v_ * dt + 0.5 * accel_w * dt * dt;
   v_ += accel_w * dt;
 
@@ -179,6 +221,12 @@ ImuDeadReckoningStepStats ImuDeadReckoningPipeline::processImu(
         stats.zupt_active = true;
       }
     }
+  }
+
+  if (params_.enable_nhc && !stats.zupt_active) {
+    Eigen::Vector3d v_body = R_.transpose() * v_;
+    applyNhc(&v_body, dt, &stats.nhc_active);
+    v_ = R_ * v_body;
   }
 
   return stats;

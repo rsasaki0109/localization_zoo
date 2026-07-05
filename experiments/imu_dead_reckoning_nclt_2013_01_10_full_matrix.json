@@ -54,6 +54,34 @@
             "args": [
                 "--imu-dr-no-gyro-bias"
             ]
+        },
+        {
+            "id": "nhc_full",
+            "label": "+ NHC -- full session",
+            "design_style": "ablation",
+            "intent": "Enable hard NHC over the full session: project body velocity onto the forward axis after each IMU step.",
+            "args": [
+                "--imu-dr-nhc"
+            ]
+        },
+        {
+            "id": "nhc_zupt_full",
+            "label": "+ NHC + ZUPT -- full session",
+            "design_style": "ablation",
+            "intent": "Combine NHC with zero-velocity updates over the full ~17 min session.",
+            "args": [
+                "--imu-dr-nhc",
+                "--imu-dr-zupt"
+            ]
+        },
+        {
+            "id": "accel_bias_full",
+            "label": "+ static-init accel-bias estimation -- full session",
+            "design_style": "ablation",
+            "intent": "Estimate accelerometer bias from the static-init window residual after gravity alignment.",
+            "args": [
+                "--imu-dr-accel-bias"
+            ]
         }
     ]
 }

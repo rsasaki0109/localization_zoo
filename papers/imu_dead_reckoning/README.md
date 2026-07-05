@@ -30,13 +30,18 @@ default:
 | `--imu-dr-static-init-sec <s>` | Override the static-init window length (default 2.0 s). |
 | `--imu-dr-zupt-gyro-threshold <rad/s>` | ZUPT gyro-norm gate (default 0.05). |
 | `--imu-dr-zupt-accel-tolerance <m/s^2>` | ZUPT `\|\|a\| - g\|` gate (default 0.8). |
+| `--imu-dr-nhc` | Enable non-holonomic constraints (zero lateral/vertical body velocity; forward-only). |
+| `--imu-dr-nhc-gain <gain>` | Soft NHC pull strength (default 0 = hard projection). |
+| `--imu-dr-forward-axis <0\|1\|2>` | Body forward axis index (default 0 = x, KITTI Velodyne). |
+| `--imu-dr-accel-bias` | Estimate accelerometer bias from the static-init window. |
 
 ## Tests
 
-`test_imu_dead_reckoning` (5 cases, `ctest -R imu_dead_reckoning`):
+`test_imu_dead_reckoning` (7 cases, `ctest -R imu_dead_reckoning`):
 `StaticWithKnownBiasHasNoDrift`, `ConstantYawRateNoTranslation`,
 `ConstantWorldAccelerationMatchesAnalytic`,
-`ZuptResetsVelocityAndLimitsTailDrift`, `IntegrateTrajectoryFrameSampling`.
+`ZuptResetsVelocityAndLimitsTailDrift`, `IntegrateTrajectoryFrameSampling`,
+`NhcSuppressesLateralVelocity`, `AccelBiasEstimationRemovesStaticBias`.
 
 ## Reproduce (requires `imu.csv`)
 
@@ -46,8 +51,8 @@ default:
   --methods imu_dead_reckoning
 ```
 
-Add `--imu-dr-zupt` / `--imu-dr-euler` / `--imu-dr-no-gyro-bias` to run an
-ablation variant. Full manifest:
+Add `--imu-dr-zupt` / `--imu-dr-euler` / `--imu-dr-no-gyro-bias` /
+`--imu-dr-nhc` / `--imu-dr-accel-bias` to run an ablation variant. Full manifest:
 [`experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](../../experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json),
 aggregate result:
 [`experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](../../experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json).
@@ -60,6 +65,9 @@ aggregate result:
 | `--imu-dr-zupt` | 2.887 | 30.607 | zupt_frames=481/1051 IMU samples gated stationary — this short window has the vehicle at rest for a large fraction of the time, so the ATE/RPE win is **not representative of continuous motion** and should not be overclaimed. |
 | `--imu-dr-euler` | 10.280 | 198.899 | Forward Euler vs default midpoint; integration scheme is a second-order effect next to ZUPT/gyro-bias. |
 | `--imu-dr-no-gyro-bias` | 24.676 | 482.028 | Largest degradation of any ablation tested — static-window gyro-bias estimation is the single most load-bearing component of this baseline. |
+| `--imu-dr-nhc` | 9.156 | 156.297 | Hard NHC alone: ~same ATE as default, mild RPE improvement (-8%). Lateral velocity stripping is a second-order effect on this short window. |
+| `--imu-dr-nhc --imu-dr-zupt` | 3.717 | 18.521 | NHC+ZUPT stacks on this window: slightly worse ATE than ZUPT alone (2.887 m) but much better RPE (18.5% vs 30.6%). |
+| `--imu-dr-accel-bias` | 9.071 | 170.617 | Identical to default — with `gravity_from_static_norm=true` (repository default), static gravity alignment already absorbs the measurable accel bias on this window. |
 
 Family context on the same window (IMU-only dead-reckoning methods, for
 scale — none of these are LiDAR/LIO and should not be read against the KITTI
@@ -92,8 +100,11 @@ the local disk had ~18 GB free at evaluation time.
 | `--imu-dr-zupt` | 14531.743 | 2859.304 | -94.97% ATE / -95.76% RPE vs. default. zupt_frames=3984/48122 IMU samples (~8.3%) gated stationary -- much lower than the 120-frame window's ~46%, so this session is mostly continuous motion, yet ZUPT still removes ~95% of the drift by repeatedly re-zeroing velocity error before it integrates into position error. |
 | `--imu-dr-euler` | 291892.627 | 68484.744 | +1.11% ATE / +1.56% RPE vs. default. Integration scheme stays a small second-order effect even over ~17 minutes, same conclusion as the 120-frame window. |
 | `--imu-dr-no-gyro-bias` | 672302.751 | 139392.868 | +132.9% ATE / +106.7% RPE vs. default -- again the largest degradation of the three ablations, confirming static-init gyro-bias estimation as the single most load-bearing aid at any timescale tested. |
+| `--imu-dr-nhc` | 46003.188 | 16267.197 | -84.1% ATE / -75.9% RPE vs. default. NHC alone is the second-most effective single aid on the full session after ZUPT, by suppressing lateral velocity drift that double integration would otherwise accumulate. |
+| `--imu-dr-nhc --imu-dr-zupt` | 9605.455 | 1901.379 | -96.7% ATE / -97.2% RPE vs. default; **beats ZUPT alone** (14531.743 m / 2859.304%) on both metrics — the two classical vehicle aids stack on continuous-motion data. |
+| `--imu-dr-accel-bias` | 288700.449 | 67435.005 | Identical to default (same explanation as the 120-frame window). |
 
-All four runs returned finite, physically explicable numbers (no NaNs, no
+All seven runs returned finite, physically explicable numbers (no NaNs, no
 `1e6`+ km positions) -- the hundreds-of-km ATE is the expected honest failure
 mode of unaided IMU-only dead reckoning compounding over ~17 minutes with no
 external aiding, not a bug. Full-session manifest:
@@ -108,6 +119,11 @@ stationary fraction is only ~8.3% (3984/48122) -- but ZUPT is *still* the
 dominant single aid at both scales, just for a different reason (bounding
 velocity-error growth between infrequent resets rather than reflecting mostly
 parked time).
+
+On this full session the runner's automatic heuristic now labels `nhc_zupt`
+"current default" (it beats ZUPT alone on both metrics); as with the other
+windows this is a score-based label only -- the repository default remains
+pure dead reckoning with all aids off.
 
 ## Result (KITTI Raw drive 2011_09_26_0009, OXTS)
 
@@ -193,6 +209,9 @@ effect, not an aggregation artifact of one window.
 | `--imu-dr-zupt` | 214.400 | 172.926 | -97.81%/-97.72%; zupt_frames=174/199 (~87%) but OXTS speed never < 1.339 m/s here -- essentially all false positives. |
 | `--imu-dr-euler` | 9930.599 | 7725.910 | +1.64%/+1.92%; still a small second-order effect. |
 | `--imu-dr-no-gyro-bias` | 1235.339 | 1024.241 | -87.36%/-86.49% -- **improvement**, opposite ordering from NCLT; see gyro-bias reversal finding above. |
+| `--imu-dr-nhc` | 7887.422 | 6393.419 | -19.3%/-15.7% vs. default; NHC helps even on this sparse ~9.7 Hz OXTS fixture. |
+| `--imu-dr-nhc --imu-dr-zupt` | 205.442 | 172.342 | Comparable to ZUPT alone (214.400 m / 172.926%); NHC does not materially change the ZUPT-dominated outcome on this window. |
+| `--imu-dr-accel-bias` | 9769.887 | 7580.498 | Identical to default. |
 
 | Variant (full 443-frame sequence, ~44.2 s, 332.42 m) | ATE (m) | RPE (%/100m) | Notes |
 |---|---|---|---|
@@ -200,6 +219,9 @@ effect, not an aggregation artifact of one window.
 | `--imu-dr-zupt` | 5958.011 | 4510.478 | -93.51%/-91.28%; zupt_frames=344/442 (~78%) vs. ~9.7% actual stationary fraction. |
 | `--imu-dr-euler` | 92462.565 | 52137.410 | +0.70%/+0.75%; still second-order. |
 | `--imu-dr-no-gyro-bias` | 11794.635 | 6491.912 | -87.15%/-87.46% -- confirms the 200-frame window's reversal, not an artifact. |
+| `--imu-dr-nhc` | 31967.399 | 18546.068 | -65.2%/-64.2% vs. default. |
+| `--imu-dr-nhc --imu-dr-zupt` | 1063.760 | 827.371 | -98.8%/-98.4% vs. default; **beats ZUPT alone** (5958.011 m / 4510.478%) — same stacking effect as the NCLT full session. |
+| `--imu-dr-accel-bias` | 91821.017 | 51751.724 | Identical to default. |
 
 Manifests:
 [`experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json`](../../experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json),
@@ -207,10 +229,11 @@ Manifests:
 aggregates:
 [`experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json`](../../experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json),
 [`experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json`](../../experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json).
-As with NCLT, the experiment-matrix runner's automatic heuristic labels
-`zupt` "current default" in both aggregates purely on the shared ATE/RPE
-score; the method's actual repository default remains ZUPT-off pure dead
-reckoning -- see the ZUPT false-positive finding above for why this
+As with NCLT, the experiment-matrix runner's automatic heuristic labels an
+aided variant "current default" in both aggregates purely on the shared
+ATE/RPE score (`zupt_kitti_0009` on the 200-frame window, `nhc_zupt` on the
+full sequence); the method's actual repository default remains ZUPT-off pure
+dead reckoning -- see the ZUPT false-positive finding above for why this
 particular number should not be read as a general recommendation.
 
 Family context on the same windows (IMU-only DR methods; not on the KITTI

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-04T23:09:41+00:00",
+  "generated_at": "2026-07-04T23:44:14+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1259,7 +1259,7 @@
       "blocker": "",
       "manifest_path": "experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json",
-      "current_default": "zupt_kitti_0009_full"
+      "current_default": "nhc_zupt_kitti_0009_full"
     },
     {
       "problem_id": "imu_dead_reckoning_aiding_ablation_kitti_raw_0009",
@@ -1277,7 +1277,7 @@
       "blocker": "",
       "manifest_path": "experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json",
       "aggregate_path": "experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json",
-      "current_default": "zupt_full"
+      "current_default": "nhc_zupt_full"
     },
     {
       "problem_id": "imu_dead_reckoning_aiding_ablation_nclt_2013_01_10",

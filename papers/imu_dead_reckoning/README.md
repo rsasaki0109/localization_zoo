@@ -26,6 +26,7 @@ default:
 |---|---|
 | `--imu-dr-zupt` | Enable zero-velocity updates (zeroes velocity when a windowed gyro/accel-norm gate detects "stationary"). |
 | `--imu-dr-euler` | Forward Euler instead of the default midpoint gyro integration. |
+| `--imu-dr-rk4` | Classical RK4 attitude integration (overrides midpoint/Euler), re-orthonormalized onto SO(3) each step. |
 | `--imu-dr-no-gyro-bias` | Skip static-window gyro-bias estimation (bias stays zero). |
 | `--imu-dr-static-init-sec <s>` | Override the static-init window length (default 2.0 s). |
 | `--imu-dr-zupt-gyro-threshold <rad/s>` | ZUPT gyro-norm gate (default 0.05). |
@@ -37,11 +38,12 @@ default:
 
 ## Tests
 
-`test_imu_dead_reckoning` (7 cases, `ctest -R imu_dead_reckoning`):
+`test_imu_dead_reckoning` (8 cases, `ctest -R imu_dead_reckoning`):
 `StaticWithKnownBiasHasNoDrift`, `ConstantYawRateNoTranslation`,
 `ConstantWorldAccelerationMatchesAnalytic`,
 `ZuptResetsVelocityAndLimitsTailDrift`, `IntegrateTrajectoryFrameSampling`,
-`NhcSuppressesLateralVelocity`, `AccelBiasEstimationRemovesStaticBias`.
+`NhcSuppressesLateralVelocity`, `Rk4ConstantYawRateMatchesAnalytic`,
+`AccelBiasEstimationRemovesStaticBias`.
 
 ## Reproduce (requires `imu.csv`)
 
@@ -51,8 +53,9 @@ default:
   --methods imu_dead_reckoning
 ```
 
-Add `--imu-dr-zupt` / `--imu-dr-euler` / `--imu-dr-no-gyro-bias` /
-`--imu-dr-nhc` / `--imu-dr-accel-bias` to run an ablation variant. Full manifest:
+Add `--imu-dr-zupt` / `--imu-dr-euler` / `--imu-dr-rk4` /
+`--imu-dr-no-gyro-bias` / `--imu-dr-nhc` / `--imu-dr-accel-bias` to run an
+ablation variant. Full manifest:
 [`experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](../../experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json),
 aggregate result:
 [`experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](../../experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json).
@@ -64,6 +67,7 @@ aggregate result:
 | Default (pure DR, midpoint, no ZUPT) | 9.071 | 170.617 | Repository default; zupt_frames=0. |
 | `--imu-dr-zupt` | 2.887 | 30.607 | zupt_frames=481/1051 IMU samples gated stationary — this short window has the vehicle at rest for a large fraction of the time, so the ATE/RPE win is **not representative of continuous motion** and should not be overclaimed. |
 | `--imu-dr-euler` | 10.280 | 198.899 | Forward Euler vs default midpoint; integration scheme is a second-order effect next to ZUPT/gyro-bias. |
+| `--imu-dr-rk4` | 9.072 | 170.644 | +0.01% vs default — RK4 and midpoint are indistinguishable here; both are high-order, so the win over Euler is the whole integration-scheme effect and RK4 adds nothing beyond midpoint. |
 | `--imu-dr-no-gyro-bias` | 24.676 | 482.028 | Largest degradation of any ablation tested — static-window gyro-bias estimation is the single most load-bearing component of this baseline. |
 | `--imu-dr-nhc` | 9.156 | 156.297 | Hard NHC alone: ~same ATE as default, mild RPE improvement (-8%). Lateral velocity stripping is a second-order effect on this short window. |
 | `--imu-dr-nhc --imu-dr-zupt` | 3.717 | 18.521 | NHC+ZUPT stacks on this window: slightly worse ATE than ZUPT alone (2.887 m) but much better RPE (18.5% vs 30.6%). |
@@ -99,6 +103,7 @@ the local disk had ~18 GB free at evaluation time.
 | Default (pure DR, midpoint, no ZUPT) | 288700.449 | 67435.005 | zupt_frames=0; ~250x the 1138.8 m trajectory length in RMSE -- uncorrected gyro bias/heading error compounds for the full ~17 min instead of the window's ~24 s. |
 | `--imu-dr-zupt` | 14531.743 | 2859.304 | -94.97% ATE / -95.76% RPE vs. default. zupt_frames=3984/48122 IMU samples (~8.3%) gated stationary -- much lower than the 120-frame window's ~46%, so this session is mostly continuous motion, yet ZUPT still removes ~95% of the drift by repeatedly re-zeroing velocity error before it integrates into position error. |
 | `--imu-dr-euler` | 291892.627 | 68484.744 | +1.11% ATE / +1.56% RPE vs. default. Integration scheme stays a small second-order effect even over ~17 minutes, same conclusion as the 120-frame window. |
+| `--imu-dr-rk4` | 290555.090 | 67867.846 | +0.64% ATE / +0.64% RPE vs. default — between default midpoint and Euler, and much closer to midpoint. Over ~17 min the tiny per-step differences compound slightly, but RK4 still buys nothing meaningful over the default midpoint scheme. |
 | `--imu-dr-no-gyro-bias` | 672302.751 | 139392.868 | +132.9% ATE / +106.7% RPE vs. default -- again the largest degradation of the three ablations, confirming static-init gyro-bias estimation as the single most load-bearing aid at any timescale tested. |
 | `--imu-dr-nhc` | 46003.188 | 16267.197 | -84.1% ATE / -75.9% RPE vs. default. NHC alone is the second-most effective single aid on the full session after ZUPT, by suppressing lateral velocity drift that double integration would otherwise accumulate. |
 | `--imu-dr-nhc --imu-dr-zupt` | 9605.455 | 1901.379 | -96.7% ATE / -97.2% RPE vs. default; **beats ZUPT alone** (14531.743 m / 2859.304%) on both metrics — the two classical vehicle aids stack on continuous-motion data. |
@@ -208,6 +213,7 @@ effect, not an aggregation artifact of one window.
 | Default (pure DR, midpoint, no ZUPT) | 9769.887 | 7580.498 | zupt_frames=0; ~52x trajectory length. |
 | `--imu-dr-zupt` | 214.400 | 172.926 | -97.81%/-97.72%; zupt_frames=174/199 (~87%) but OXTS speed never < 1.339 m/s here -- essentially all false positives. |
 | `--imu-dr-euler` | 9930.599 | 7725.910 | +1.64%/+1.92%; still a small second-order effect. |
+| `--imu-dr-rk4` | 9769.961 | 7580.559 | +0.00%/+0.00% vs default — indistinguishable from midpoint. |
 | `--imu-dr-no-gyro-bias` | 1235.339 | 1024.241 | -87.36%/-86.49% -- **improvement**, opposite ordering from NCLT; see gyro-bias reversal finding above. |
 | `--imu-dr-nhc` | 7887.422 | 6393.419 | -19.3%/-15.7% vs. default; NHC helps even on this sparse ~9.7 Hz OXTS fixture. |
 | `--imu-dr-nhc --imu-dr-zupt` | 205.442 | 172.342 | Comparable to ZUPT alone (214.400 m / 172.926%); NHC does not materially change the ZUPT-dominated outcome on this window. |
@@ -218,6 +224,7 @@ effect, not an aggregation artifact of one window.
 | Default (pure DR, midpoint, no ZUPT) | 91821.017 | 51751.724 | zupt_frames=0; ~276x trajectory length. |
 | `--imu-dr-zupt` | 5958.011 | 4510.478 | -93.51%/-91.28%; zupt_frames=344/442 (~78%) vs. ~9.7% actual stationary fraction. |
 | `--imu-dr-euler` | 92462.565 | 52137.410 | +0.70%/+0.75%; still second-order. |
+| `--imu-dr-rk4` | 91824.522 | 51753.936 | +0.00%/+0.00% vs default — indistinguishable from midpoint, confirms the 200-frame window. |
 | `--imu-dr-no-gyro-bias` | 11794.635 | 6491.912 | -87.15%/-87.46% -- confirms the 200-frame window's reversal, not an artifact. |
 | `--imu-dr-nhc` | 31967.399 | 18546.068 | -65.2%/-64.2% vs. default. |
 | `--imu-dr-nhc --imu-dr-zupt` | 1063.760 | 827.371 | -98.8%/-98.4% vs. default; **beats ZUPT alone** (5958.011 m / 4510.478%) — same stacking effect as the NCLT full session. |

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T02:03:25+00:00",
+  "generated_at": "2026-07-05T03:00:40+00:00",
   "manifest_path": "experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json",
   "problem": {
     "id": "imu_dead_reckoning_aiding_ablation_kitti_raw_0009_full",
@@ -103,6 +103,33 @@
       "frames": 443,
       "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.",
       "benchmark_score": 42.91,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "rk4_kitti_0009_full",
+      "label": "RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, full sequence",
+      "design_style": "ablation",
+      "intent": "Classical RK4 on the attitude ODE with re-orthonormalization each step, over the full 443-frame sequence. Higher-order integration-scheme ablation alongside forward Euler.",
+      "args": [
+        "--imu-dr-rk4"
+      ],
+      "command": "build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/summary.json --imu-dr-rk4",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/run.log",
+      "status": "ok",
+      "ate_m": 91824.52205,
+      "rpe_trans_pct": 51753.935983,
+      "rpe_rot_deg_per_m": 0.693276,
+      "fps": 1115647.012307,
+      "time_ms": 0.397079,
+      "frames": 443,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 rk4=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.",
+      "benchmark_score": 14.89,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,

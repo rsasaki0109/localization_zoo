@@ -242,6 +242,40 @@ TEST(ImuDeadReckoning, NhcSuppressesLateralVelocity) {
   EXPECT_LT(tail_drift_nhc_on, 0.2 * tail_drift_nhc_off);
 }
 
+// RK4 attitude integration should track a constant yaw rate to analytic
+// precision, matching the midpoint scheme's guarantee on the same signal.
+TEST(ImuDeadReckoning, Rk4ConstantYawRateMatchesAnalytic) {
+  ImuDeadReckoningParams params;
+  params.rk4_integration = true;
+  ImuDeadReckoningPipeline pipe(params);
+
+  const Eigen::Vector3d accel_static(0.0, 0.0, kGravity);
+  const double dt = 0.01;
+  const int init_steps =
+      static_cast<int>(params.static_init_duration_s / dt) + 1;
+  for (int i = 0; i < init_steps; ++i) {
+    pipe.processImu(makeReading(i * dt, Eigen::Vector3d::Zero(), accel_static));
+  }
+
+  const double omega = 0.5;
+  const double duration = 5.0;
+  const int steps = static_cast<int>(duration / dt);
+  double t = init_steps * dt;
+  for (int i = 0; i < steps; ++i) {
+    t += dt;
+    pipe.processImu(
+        makeReading(t, Eigen::Vector3d(0.0, 0.0, omega), accel_static));
+  }
+
+  const Eigen::Matrix4d T = pipe.pose();
+  const Eigen::Matrix3d R = T.block<3, 3>(0, 0);
+  const double yaw = std::atan2(R(1, 0), R(0, 0));
+  EXPECT_NEAR(yaw, omega * duration, 1e-3);
+  // Still a proper rotation after RK4 + re-orthonormalization.
+  EXPECT_NEAR((R.transpose() * R - Eigen::Matrix3d::Identity()).norm(), 0.0,
+              1e-9);
+}
+
 // A constant accelerometer bias orthogonal to gravity should be absorbed when
 // estimate_accel_bias is enabled, keeping position near zero on an otherwise
 // static segment after init.

@@ -47,6 +47,15 @@
             ]
         },
         {
+            "id": "rk4_kitti_0009",
+            "label": "RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, 200-frame window",
+            "design_style": "ablation",
+            "intent": "Classical RK4 on the attitude ODE with re-orthonormalization each step. Higher-order integration-scheme ablation alongside forward Euler.",
+            "args": [
+                "--imu-dr-rk4"
+            ]
+        },
+        {
             "id": "no_gyro_bias_kitti_0009",
             "label": "No static-init gyro-bias estimation -- KITTI Raw 0009, 200-frame window",
             "design_style": "ablation",

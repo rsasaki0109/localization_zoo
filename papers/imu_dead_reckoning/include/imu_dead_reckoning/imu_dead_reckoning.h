@@ -25,6 +25,7 @@ struct ImuDeadReckoningParams {
 
   // Propagation.
   bool midpoint_integration = true;  // gyro midpoint rule; false = forward Euler.
+  bool rk4_integration = false;      // RK4 attitude ODE; overrides midpoint/Euler.
   double max_dt = 0.5;               // clamp dt across sample gaps.
 
   // Opt-in aids (default OFF: pure dead reckoning).

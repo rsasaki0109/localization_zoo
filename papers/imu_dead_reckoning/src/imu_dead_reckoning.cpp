@@ -1,5 +1,7 @@
 #include "imu_dead_reckoning/imu_dead_reckoning.h"
 
+#include <Eigen/SVD>
+
 #include <cmath>
 #include <cstdio>
 
@@ -17,6 +19,40 @@ Eigen::Matrix3d expSO3(const Eigen::Vector3d& w) {
   K << 0, -a.z(), a.y(), a.z(), 0, -a.x(), -a.y(), a.x(), 0;
   return Eigen::Matrix3d::Identity() + std::sin(t) * K +
          (1.0 - std::cos(t)) * K * K;
+}
+
+Eigen::Matrix3d skew(const Eigen::Vector3d& w) {
+  Eigen::Matrix3d K;
+  K << 0, -w.z(), w.y(), w.z(), 0, -w.x(), -w.y(), w.x(), 0;
+  return K;
+}
+
+// Nearest rotation matrix (SVD projection onto SO(3)) to clean up the small
+// non-orthogonality that explicit RK4 leaves after each step.
+Eigen::Matrix3d orthonormalize(const Eigen::Matrix3d& M) {
+  Eigen::JacobiSVD<Eigen::Matrix3d> svd(
+      M, Eigen::ComputeFullU | Eigen::ComputeFullV);
+  Eigen::Matrix3d U = svd.matrixU();
+  const Eigen::Matrix3d V = svd.matrixV();
+  if ((U * V.transpose()).determinant() < 0.0) U.col(2) *= -1.0;
+  return U * V.transpose();
+}
+
+// Classical RK4 for the attitude ODE dR/dt = R * skew(omega(t)), with omega
+// interpolated linearly between the previous (w0) and current (w1) corrected
+// gyro over the step. Result is re-orthonormalized back onto SO(3).
+Eigen::Matrix3d rk4Rotation(const Eigen::Matrix3d& R0, const Eigen::Vector3d& w0,
+                            const Eigen::Vector3d& w1, double dt) {
+  const Eigen::Matrix3d Omega0 = skew(w0);
+  const Eigen::Matrix3d OmegaMid = skew(0.5 * (w0 + w1));
+  const Eigen::Matrix3d Omega1 = skew(w1);
+  const Eigen::Matrix3d k1 = R0 * Omega0;
+  const Eigen::Matrix3d k2 = (R0 + 0.5 * dt * k1) * OmegaMid;
+  const Eigen::Matrix3d k3 = (R0 + 0.5 * dt * k2) * OmegaMid;
+  const Eigen::Matrix3d k4 = (R0 + dt * k3) * Omega1;
+  const Eigen::Matrix3d R =
+      R0 + (dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4);
+  return orthonormalize(R);
 }
 
 }  // namespace
@@ -192,14 +228,17 @@ ImuDeadReckoningStepStats ImuDeadReckoningPipeline::processImu(
   last_stamp_ = imu.stamp;
 
   const Eigen::Vector3d gyro_corrected = imu.gyro - gyro_bias_;
-  const Eigen::Vector3d gyro_for_integration =
-      params_.midpoint_integration && has_prev_gyro_
-          ? Eigen::Vector3d(0.5 * (gyro_corrected + prev_gyro_corrected_))
-          : gyro_corrected;
+  if (params_.rk4_integration && has_prev_gyro_) {
+    R_ = rk4Rotation(R_, prev_gyro_corrected_, gyro_corrected, dt);
+  } else {
+    const Eigen::Vector3d gyro_for_integration =
+        params_.midpoint_integration && has_prev_gyro_
+            ? Eigen::Vector3d(0.5 * (gyro_corrected + prev_gyro_corrected_))
+            : gyro_corrected;
+    R_ = R_ * expSO3(gyro_for_integration * dt);
+  }
   prev_gyro_corrected_ = gyro_corrected;
   has_prev_gyro_ = true;
-
-  R_ = R_ * expSO3(gyro_for_integration * dt);
 
   const Eigen::Vector3d accel_corrected = imu.accel - accel_bias_;
   const Eigen::Vector3d accel_w = R_ * accel_corrected - g_w_;

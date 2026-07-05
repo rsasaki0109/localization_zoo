@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T02:03:25+00:00",
+  "generated_at": "2026-07-05T03:00:40+00:00",
   "manifest_path": "experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json",
   "problem": {
     "id": "imu_dead_reckoning_aiding_ablation_nclt_2013_01_10",
@@ -102,6 +102,33 @@
       "frames": 120,
       "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.",
       "benchmark_score": 60.11,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+    },
+    {
+      "id": "rk4",
+      "label": "RK4 attitude integration (vs default midpoint)",
+      "design_style": "ablation",
+      "intent": "Swap the exp-map midpoint gyro integration for a classical RK4 on the attitude ODE dR/dt = R*skew(omega) with linearly-interpolated omega, re-orthonormalized onto SO(3) each step. A higher-order integration-scheme ablation alongside forward Euler.",
+      "args": [
+        "--imu-dr-rk4"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/rk4/summary.json --imu-dr-rk4",
+      "summary_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/rk4/summary.json",
+      "log_path": "experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/rk4/run.log",
+      "status": "ok",
+      "ate_m": 9.072071,
+      "rpe_trans_pct": 170.643938,
+      "rpe_rot_deg_per_m": 3.536784,
+      "fps": 177532.651213,
+      "time_ms": 0.675932,
+      "frames": 120,
+      "note": "IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 rk4=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.",
+      "benchmark_score": 21.73,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,

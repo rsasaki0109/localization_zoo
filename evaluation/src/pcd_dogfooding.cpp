@@ -4936,6 +4936,7 @@ struct ImuDeadReckoningDogfoodingOptions {
   bool estimate_gyro_bias = true;
   bool estimate_accel_bias = false;
   bool midpoint_integration = true;
+  bool rk4_integration = false;
   bool enable_zupt = false;
   double zupt_gyro_threshold = 0.05;
   double zupt_accel_tolerance = 0.8;
@@ -4977,6 +4978,7 @@ MethodResult runImuDeadReckoning(
   params.estimate_gyro_bias = options.estimate_gyro_bias;
   params.estimate_accel_bias = options.estimate_accel_bias;
   params.midpoint_integration = options.midpoint_integration;
+  params.rk4_integration = options.rk4_integration;
   params.enable_zupt = options.enable_zupt;
   params.zupt_gyro_threshold = options.zupt_gyro_threshold;
   params.zupt_accel_tolerance = options.zupt_accel_tolerance;
@@ -5007,9 +5009,10 @@ MethodResult runImuDeadReckoning(
   std::snprintf(
       note_buf, sizeof(note_buf),
       "IMU-DR baseline: unaided strapdown INS, static init %.1fs, "
-      "midpoint=%d zupt=%d nhc=%d zupt_frames=%ld; no GT seed.%s%s",
+      "midpoint=%d rk4=%d zupt=%d nhc=%d zupt_frames=%ld; no GT seed.%s%s",
       options.static_init_duration_s, options.midpoint_integration ? 1 : 0,
-      options.enable_zupt ? 1 : 0, options.enable_nhc ? 1 : 0, zupt_frames,
+      options.rk4_integration ? 1 : 0, options.enable_zupt ? 1 : 0,
+      options.enable_nhc ? 1 : 0, zupt_frames,
       error.empty() ? "" : " ", error.c_str());
   res.note = note_buf;
   return res;
@@ -11306,6 +11309,10 @@ int main(int argc, char** argv) {
     }
     if (arg == "--imu-dr-euler") {
       imu_dead_reckoning_options.midpoint_integration = false;
+      continue;
+    }
+    if (arg == "--imu-dr-rk4") {
+      imu_dead_reckoning_options.rk4_integration = true;
       continue;
     }
     if (arg == "--imu-dr-zupt") {

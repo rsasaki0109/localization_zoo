@@ -46,6 +46,15 @@
             ]
         },
         {
+            "id": "rk4",
+            "label": "RK4 attitude integration (vs default midpoint)",
+            "design_style": "ablation",
+            "intent": "Swap the exp-map midpoint gyro integration for a classical RK4 on the attitude ODE dR/dt = R*skew(omega) with linearly-interpolated omega, re-orthonormalized onto SO(3) each step. A higher-order integration-scheme ablation alongside forward Euler.",
+            "args": [
+                "--imu-dr-rk4"
+            ]
+        },
+        {
             "id": "no_gyro_bias",
             "label": "No static-init gyro-bias estimation",
             "design_style": "ablation",

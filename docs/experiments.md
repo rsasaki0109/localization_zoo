@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -8583,6 +8583,7 @@ _Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_ma
 | Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, full 443-frame sequence | balanced | 91821.017 | 3728579.6 | 48.4 | 5.00 | 5.00 | Keep as reference variant |
 | + ZUPT -- KITTI Raw 0009, full sequence | ablation | 5958.011 | 3489452.9 | 53.7 | 4.65 | 4.75 | Keep as reference variant |
 | Forward Euler (vs default midpoint) -- KITTI Raw 0009, full sequence | ablation | 92462.565 | 3301141.6 | 42.9 | 4.65 | 4.75 | Keep as reference variant |
+| RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, full sequence | ablation | 91824.522 | 1115647.0 | 14.9 | 4.65 | 4.75 | Keep as reference variant |
 | No static-init gyro-bias estimation -- KITTI Raw 0009, full sequence | ablation | 11794.635 | 3899236.0 | 54.5 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC -- KITTI Raw 0009, full sequence | ablation | 31967.399 | 3231996.0 | 43.1 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC + ZUPT -- KITTI Raw 0009, full sequence | ablation | 1063.760 | 3177084.8 | 90.7 | 4.30 | 4.50 | Adopt as current default |
@@ -8628,6 +8629,17 @@ _Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+
+#### `rk4_kitti_0009_full`
+
+- Intent: Classical RK4 on the attitude ODE with re-orthonormalization each step, over the full 443-frame sequence. Higher-order integration-scheme ablation alongside forward Euler.
+- CLI args: `--imu-dr-rk4`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/summary.json --imu-dr-rk4`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 rk4=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `no_gyro_bias_kitti_0009_full`
 
@@ -8691,6 +8703,7 @@ _Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_ma
 | Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, 200-frame window | balanced | 9769.887 | 3138633.4 | 43.3 | 5.00 | 5.00 | Keep as reference variant |
 | + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 214.400 | 3056234.7 | 89.1 | 4.65 | 4.75 | Adopt as current default |
 | Forward Euler (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9930.599 | 3234728.0 | 44.6 | 4.65 | 4.75 | Keep as reference variant |
+| RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9769.961 | 1030216.2 | 14.9 | 4.65 | 4.75 | Keep as reference variant |
 | No static-init gyro-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 1235.339 | 2873480.6 | 47.0 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC -- KITTI Raw 0009, 200-frame window | ablation | 7887.422 | 2860534.6 | 39.8 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 205.442 | 2592319.0 | 84.9 | 4.30 | 4.50 | Keep as active challenger |
@@ -8736,6 +8749,17 @@ _Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+
+#### `rk4_kitti_0009`
+
+- Intent: Classical RK4 on the attitude ODE with re-orthonormalization each step. Higher-order integration-scheme ablation alongside forward Euler.
+- CLI args: `--imu-dr-rk4`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/rk4_kitti_0009/summary.json --imu-dr-rk4`
+- Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/rk4_kitti_0009/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/rk4_kitti_0009/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 rk4=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `no_gyro_bias_kitti_0009`
 
@@ -8799,6 +8823,7 @@ _Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_ma
 | Default (pure strapdown DR, midpoint, no ZUPT) -- full session | balanced | 288700.449 | 1095010.7 | 42.1 | 5.00 | 5.00 | Keep as reference variant |
 | + ZUPT -- full session | ablation | 14531.743 | 798152.2 | 62.5 | 4.65 | 4.75 | Keep as reference variant |
 | Forward Euler (vs default midpoint) -- full session | ablation | 291892.627 | 1116254.9 | 42.9 | 4.65 | 4.75 | Keep as reference variant |
+| RK4 attitude integration (vs default midpoint) -- full session | ablation | 290555.090 | 174601.0 | 8.1 | 4.65 | 4.75 | Keep as reference variant |
 | No static-init gyro-bias estimation -- full session | ablation | 672302.751 | 1112120.0 | 41.8 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC -- full session | ablation | 46003.188 | 932269.4 | 44.9 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC + ZUPT -- full session | ablation | 9605.455 | 800357.3 | 79.5 | 4.30 | 4.50 | Adopt as current default |
@@ -8844,6 +8869,17 @@ _Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+
+#### `rk4_full`
+
+- Intent: Classical RK4 on the attitude ODE with re-orthonormalization each step, over the full ~17 min session. Higher-order integration-scheme ablation alongside forward Euler.
+- CLI args: `--imu-dr-rk4`
+- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/nclt_2013_01_10_full experiments/reference_data/nclt_2013_01_10_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/rk4_full/summary.json --imu-dr-rk4`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/rk4_full/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_full_matrix/rk4_full/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 rk4=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `no_gyro_bias_full`
 
@@ -8907,6 +8943,7 @@ _Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_ma
 | Default (pure strapdown DR, midpoint, no ZUPT) | balanced | 9.071 | 1360852.8 | 60.5 | 5.00 | 5.00 | Keep as reference variant |
 | + ZUPT | ablation | 2.887 | 1054259.2 | 84.5 | 4.65 | 4.75 | Adopt as current default |
 | Forward Euler (vs default midpoint) | ablation | 10.280 | 1405827.2 | 60.1 | 4.65 | 4.75 | Keep as reference variant |
+| RK4 attitude integration (vs default midpoint) | ablation | 9.072 | 177532.7 | 21.7 | 4.65 | 4.75 | Keep as reference variant |
 | No static-init gyro-bias estimation | ablation | 24.676 | 1258838.1 | 47.1 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC (non-holonomic constraints) | ablation | 9.156 | 899732.3 | 45.2 | 4.65 | 4.75 | Keep as reference variant |
 | + NHC + ZUPT | ablation | 3.717 | 888178.3 | 67.9 | 4.30 | 4.50 | Keep as reference variant |
@@ -8952,6 +8989,17 @@ _Generated at 2026-07-05T02:03:25+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+
+#### `rk4`
+
+- Intent: Swap the exp-map midpoint gyro integration for a classical RK4 on the attitude ODE dR/dt = R*skew(omega) with linearly-interpolated omega, re-orthonormalized onto SO(3) each step. A higher-order integration-scheme ablation alongside forward Euler.
+- CLI args: `--imu-dr-rk4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/nclt_2013_01_10_120 experiments/reference_data/nclt_2013_01_10_120_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/rk4/summary.json --imu-dr-rk4`
+- Summary: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/rk4/summary.json`
+- Log: `experiments/results/runs/imu_dead_reckoning_nclt_2013_01_10_matrix/rk4/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 rk4=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `no_gyro_bias`
 

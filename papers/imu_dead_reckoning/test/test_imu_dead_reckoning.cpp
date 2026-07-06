@@ -242,6 +242,34 @@ TEST(ImuDeadReckoning, NhcSuppressesLateralVelocity) {
   EXPECT_LT(tail_drift_nhc_on, 0.2 * tail_drift_nhc_off);
 }
 
+// ZUPT and accel-bias estimation combined: the stationary gate must compare
+// the bias-corrected accel norm against the fixed gravity magnitude, so a
+// large constant accel bias (which pushes the raw norm outside the ZUPT
+// accel tolerance) must not prevent zero-velocity detection on a static
+// segment.
+TEST(ImuDeadReckoning, ZuptGateUsesBiasCorrectedAccelNorm) {
+  ImuDeadReckoningParams params;
+  params.enable_zupt = true;
+  params.estimate_accel_bias = true;
+  ImuDeadReckoningPipeline pipe(params);
+
+  // Raw static norm is ~10.81, ~1.0 above standard gravity -- outside the
+  // 0.8 m/s^2 ZUPT tolerance unless the estimated bias is subtracted first.
+  const Eigen::Vector3d accel_bias(0.0, 0.0, 1.0);
+  const Eigen::Vector3d accel_static =
+      Eigen::Vector3d(0.0, 0.0, kGravity) + accel_bias;
+  const double dt = 0.02;
+  const int total_steps = static_cast<int>(10.0 / dt);
+
+  long zupt = 0;
+  for (int i = 0; i < total_steps; ++i) {
+    const auto stats = pipe.processImu(
+        makeReading(i * dt, Eigen::Vector3d::Zero(), accel_static));
+    if (stats.zupt_active) ++zupt;
+  }
+  EXPECT_GT(zupt, 0);
+}
+
 // RK4 attitude integration should track a constant yaw rate to analytic
 // precision, matching the midpoint scheme's guarantee on the same signal.
 TEST(ImuDeadReckoning, Rk4ConstantYawRateMatchesAnalytic) {

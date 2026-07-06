@@ -247,7 +247,12 @@ ImuDeadReckoningStepStats ImuDeadReckoningPipeline::processImu(
 
   if (params_.enable_zupt) {
     gyro_norm_window_.push_back(gyro_corrected.norm());
-    accel_norm_window_.push_back(imu.accel.norm());
+    // Bias-corrected norm keeps the stationary gate consistent with
+    // gravity_magnitude_: with accel-bias estimation on, gravity is fixed to
+    // standard gravity and the corrected static norm equals it by
+    // construction; with estimation off the bias is zero and this reduces to
+    // the raw norm as before.
+    accel_norm_window_.push_back(accel_corrected.norm());
     while (static_cast<int>(gyro_norm_window_.size()) > params_.zupt_window) {
       gyro_norm_window_.pop_front();
       accel_norm_window_.pop_front();

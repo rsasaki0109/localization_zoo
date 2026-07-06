@@ -38,12 +38,12 @@ default:
 
 ## Tests
 
-`test_imu_dead_reckoning` (8 cases, `ctest -R imu_dead_reckoning`):
+`test_imu_dead_reckoning` (9 cases, `ctest -R imu_dead_reckoning`):
 `StaticWithKnownBiasHasNoDrift`, `ConstantYawRateNoTranslation`,
 `ConstantWorldAccelerationMatchesAnalytic`,
 `ZuptResetsVelocityAndLimitsTailDrift`, `IntegrateTrajectoryFrameSampling`,
-`NhcSuppressesLateralVelocity`, `Rk4ConstantYawRateMatchesAnalytic`,
-`AccelBiasEstimationRemovesStaticBias`.
+`NhcSuppressesLateralVelocity`, `ZuptGateUsesBiasCorrectedAccelNorm`,
+`Rk4ConstantYawRateMatchesAnalytic`, `AccelBiasEstimationRemovesStaticBias`.
 
 ## Reproduce (requires `imu.csv`)
 

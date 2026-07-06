@@ -25,6 +25,7 @@ struct ImuDeadReckoningParams {
 
   // Propagation.
   bool midpoint_integration = true;  // gyro midpoint rule; false = forward Euler.
+  bool rk4_integration = false;      // RK4 attitude ODE; overrides midpoint/Euler.
   double max_dt = 0.5;               // clamp dt across sample gaps.
 
   // Opt-in aids (default OFF: pure dead reckoning).
@@ -32,10 +33,22 @@ struct ImuDeadReckoningParams {
   double zupt_gyro_threshold = 0.05;    // rad/s, window mean gyro norm.
   double zupt_accel_tolerance = 0.8;    // m/s^2, | |a| - g | window gate.
   int zupt_window = 10;                 // samples.
+
+  /// Non-holonomic constraint: damp lateral/vertical body velocity toward zero
+  /// (vehicle cannot slide sideways). Hard projection when nhc_gain <= 0;
+  /// soft exponential pull when nhc_gain > 0 (same dt-scaled form as NHC-Net).
+  bool enable_nhc = false;
+  double nhc_gain = 0.0;  // 0 = hard forward-only projection.
+  int forward_axis = 0;   // body axis index for forward (0=x, KITTI Velodyne).
+
+  /// Estimate accelerometer bias from the static window residual after gravity
+  /// alignment (captures scale/orthogonal bias not absorbed by g_w init).
+  bool estimate_accel_bias = false;
 };
 
 struct ImuDeadReckoningStepStats {
   bool zupt_active = false;
+  bool nhc_active = false;
 };
 
 /// Pure strapdown IMU-only dead reckoning: the unaided "lower bound" baseline
@@ -66,6 +79,8 @@ public:
 
 private:
   void finalizeStaticInit(const std::vector<ImuReading>& window);
+  void applyNhc(Eigen::Vector3d* v_body, double dt, bool* nhc_active) const;
+  Eigen::Vector3d bodyForwardAxis() const;
 
   ImuDeadReckoningParams params_;
 
@@ -74,6 +89,7 @@ private:
   Eigen::Vector3d p_ = Eigen::Vector3d::Zero();
 
   Eigen::Vector3d gyro_bias_ = Eigen::Vector3d::Zero();
+  Eigen::Vector3d accel_bias_ = Eigen::Vector3d::Zero();
   // World-frame gravity vector g_w subtracted during propagation:
   // a_w = R * a - g_w, derived from the static window so it is self
   // consistent regardless of the IMU's own gravity sign convention.

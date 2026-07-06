@@ -47,12 +47,49 @@
             ]
         },
         {
+            "id": "rk4_kitti_0009_full",
+            "label": "RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, full sequence",
+            "design_style": "ablation",
+            "intent": "Classical RK4 on the attitude ODE with re-orthonormalization each step, over the full 443-frame sequence. Higher-order integration-scheme ablation alongside forward Euler.",
+            "args": [
+                "--imu-dr-rk4"
+            ]
+        },
+        {
             "id": "no_gyro_bias_kitti_0009_full",
             "label": "No static-init gyro-bias estimation -- KITTI Raw 0009, full sequence",
             "design_style": "ablation",
             "intent": "Disable the 2.0 s static-init gyro-bias estimate, all else default. ATE 91821.017 -> 11794.635 m (-87.15%), RPE 51751.724 -> 6491.912%/100m (-87.46%) -- again an IMPROVEMENT, confirming the 200-frame window's finding (there: -87.36%/-86.49%) rather than an aggregation artifact of the shorter window. This is the opposite ordering from both NCLT windows (where disabling gyro-bias estimation was the largest degradation, +133%/+107% on the NCLT full session). Same honest explanation as the 200-frame window: on this dataset the ~3-sample (~0.3 s real-time) static-init window is taken while the vehicle is already moving at ~10.7 m/s, so the 'bias' it estimates is contaminated by real angular rate rather than sensor bias, making the correction actively harmful; the built-in static-init gate (which only checks gyro std against a 0.05 rad/s gate) does not catch this because the vehicle's yaw rate -- not its forward velocity -- happened to be low during this segment.",
             "args": [
                 "--imu-dr-no-gyro-bias"
+            ]
+        },
+        {
+            "id": "nhc_kitti_0009_full",
+            "label": "+ NHC -- KITTI Raw 0009, full sequence",
+            "design_style": "ablation",
+            "intent": "Enable hard NHC over the full 443-frame KITTI Raw 0009 sequence.",
+            "args": [
+                "--imu-dr-nhc"
+            ]
+        },
+        {
+            "id": "nhc_zupt_kitti_0009_full",
+            "label": "+ NHC + ZUPT -- KITTI Raw 0009, full sequence",
+            "design_style": "ablation",
+            "intent": "Combine NHC with ZUPT over the full KITTI Raw 0009 sequence.",
+            "args": [
+                "--imu-dr-nhc",
+                "--imu-dr-zupt"
+            ]
+        },
+        {
+            "id": "accel_bias_kitti_0009_full",
+            "label": "+ static-init accel-bias estimation -- KITTI Raw 0009, full sequence",
+            "design_style": "ablation",
+            "intent": "Estimate accelerometer bias from the static-init window on the full KITTI Raw 0009 sequence.",
+            "args": [
+                "--imu-dr-accel-bias"
             ]
         }
     ]

@@ -1,5 +1,7 @@
 #include "imu_dead_reckoning/imu_dead_reckoning.h"
 
+#include <Eigen/SVD>
+
 #include <cmath>
 #include <cstdio>
 
@@ -19,6 +21,40 @@ Eigen::Matrix3d expSO3(const Eigen::Vector3d& w) {
          (1.0 - std::cos(t)) * K * K;
 }
 
+Eigen::Matrix3d skew(const Eigen::Vector3d& w) {
+  Eigen::Matrix3d K;
+  K << 0, -w.z(), w.y(), w.z(), 0, -w.x(), -w.y(), w.x(), 0;
+  return K;
+}
+
+// Nearest rotation matrix (SVD projection onto SO(3)) to clean up the small
+// non-orthogonality that explicit RK4 leaves after each step.
+Eigen::Matrix3d orthonormalize(const Eigen::Matrix3d& M) {
+  Eigen::JacobiSVD<Eigen::Matrix3d> svd(
+      M, Eigen::ComputeFullU | Eigen::ComputeFullV);
+  Eigen::Matrix3d U = svd.matrixU();
+  const Eigen::Matrix3d V = svd.matrixV();
+  if ((U * V.transpose()).determinant() < 0.0) U.col(2) *= -1.0;
+  return U * V.transpose();
+}
+
+// Classical RK4 for the attitude ODE dR/dt = R * skew(omega(t)), with omega
+// interpolated linearly between the previous (w0) and current (w1) corrected
+// gyro over the step. Result is re-orthonormalized back onto SO(3).
+Eigen::Matrix3d rk4Rotation(const Eigen::Matrix3d& R0, const Eigen::Vector3d& w0,
+                            const Eigen::Vector3d& w1, double dt) {
+  const Eigen::Matrix3d Omega0 = skew(w0);
+  const Eigen::Matrix3d OmegaMid = skew(0.5 * (w0 + w1));
+  const Eigen::Matrix3d Omega1 = skew(w1);
+  const Eigen::Matrix3d k1 = R0 * Omega0;
+  const Eigen::Matrix3d k2 = (R0 + 0.5 * dt * k1) * OmegaMid;
+  const Eigen::Matrix3d k3 = (R0 + 0.5 * dt * k2) * OmegaMid;
+  const Eigen::Matrix3d k4 = (R0 + dt * k3) * Omega1;
+  const Eigen::Matrix3d R =
+      R0 + (dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4);
+  return orthonormalize(R);
+}
+
 }  // namespace
 
 ImuDeadReckoningPipeline::ImuDeadReckoningPipeline(
@@ -30,6 +66,7 @@ void ImuDeadReckoningPipeline::reset() {
   v_.setZero();
   p_.setZero();
   gyro_bias_.setZero();
+  accel_bias_.setZero();
   g_w_.setZero();
   gravity_magnitude_ = kStandardGravity;
   static_initialized_ = false;
@@ -77,11 +114,18 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
   }
 
   const double accel_mean_norm = accel_mean.norm();
-  gravity_magnitude_ = params_.gravity_from_static_norm ? accel_mean_norm
-                                                        : kStandardGravity;
   const Eigen::Vector3d accel_dir =
       accel_mean_norm > 1e-9 ? (accel_mean / accel_mean_norm).eval()
                              : Eigen::Vector3d::UnitZ();
+
+  // With accel-bias estimation on, the deviation of the static accel norm
+  // from a known gravity magnitude IS the bias signal, so gravity must come
+  // from a fixed reference (standard gravity) rather than the static norm --
+  // otherwise g_w absorbs the whole static mean and the residual is zero by
+  // construction (accel_mean - accel_dir * accel_mean_norm == 0).
+  const bool use_static_norm =
+      params_.gravity_from_static_norm && !params_.estimate_accel_bias;
+  gravity_magnitude_ = use_static_norm ? accel_mean_norm : kStandardGravity;
 
   // Initial roll/pitch aligns the measured static specific-force direction
   // with the world +z axis; yaw is left at zero (no magnetometer). The
@@ -92,12 +136,52 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
 
   // g_w is derived (not hard-coded to +z/-z) so both IMU gravity sign
   // conventions work: it is defined as exactly the quantity that makes the
-  // static-window specific force cancel, R_ * accel_mean - g_w = 0.
+  // bias-corrected static specific force cancel, R_ * (accel_mean - b) = g_w.
   g_w_ = R_ * (accel_dir * gravity_magnitude_);
+
+  if (params_.estimate_accel_bias) {
+    // Residual of the static mean against the fixed-magnitude gravity vector
+    // rotated into the body frame: any leftover is attributed to accel bias.
+    const Eigen::Vector3d expected_static = accel_dir * gravity_magnitude_;
+    accel_bias_ = accel_mean - expected_static;
+  } else {
+    accel_bias_.setZero();
+  }
 
   v_.setZero();
   p_.setZero();
   static_initialized_ = true;
+}
+
+Eigen::Vector3d ImuDeadReckoningPipeline::bodyForwardAxis() const {
+  Eigen::Vector3d axis = Eigen::Vector3d::Zero();
+  if (params_.forward_axis >= 0 && params_.forward_axis < 3) {
+    axis[params_.forward_axis] = 1.0;
+  } else {
+    axis.x() = 1.0;
+  }
+  return axis;
+}
+
+void ImuDeadReckoningPipeline::applyNhc(Eigen::Vector3d* v_body, double dt,
+                                          bool* nhc_active) const {
+  if (!params_.enable_nhc || v_body == nullptr) return;
+  const Eigen::Vector3d fwd = bodyForwardAxis();
+  const double v_forward = v_body->dot(fwd);
+  const Eigen::Vector3d target = v_forward * fwd;
+  if (params_.nhc_gain <= 0.0) {
+    if ((target - *v_body).norm() > 1e-12) {
+      *v_body = target;
+      if (nhc_active) *nhc_active = true;
+    }
+    return;
+  }
+  const double alpha = std::min(1.0, params_.nhc_gain * dt);
+  const Eigen::Vector3d updated = (1.0 - alpha) * (*v_body) + alpha * target;
+  if ((updated - *v_body).norm() > 1e-12) {
+    *v_body = updated;
+    if (nhc_active) *nhc_active = true;
+  }
 }
 
 void ImuDeadReckoningPipeline::initializeStatic(
@@ -144,22 +228,31 @@ ImuDeadReckoningStepStats ImuDeadReckoningPipeline::processImu(
   last_stamp_ = imu.stamp;
 
   const Eigen::Vector3d gyro_corrected = imu.gyro - gyro_bias_;
-  const Eigen::Vector3d gyro_for_integration =
-      params_.midpoint_integration && has_prev_gyro_
-          ? Eigen::Vector3d(0.5 * (gyro_corrected + prev_gyro_corrected_))
-          : gyro_corrected;
+  if (params_.rk4_integration && has_prev_gyro_) {
+    R_ = rk4Rotation(R_, prev_gyro_corrected_, gyro_corrected, dt);
+  } else {
+    const Eigen::Vector3d gyro_for_integration =
+        params_.midpoint_integration && has_prev_gyro_
+            ? Eigen::Vector3d(0.5 * (gyro_corrected + prev_gyro_corrected_))
+            : gyro_corrected;
+    R_ = R_ * expSO3(gyro_for_integration * dt);
+  }
   prev_gyro_corrected_ = gyro_corrected;
   has_prev_gyro_ = true;
 
-  R_ = R_ * expSO3(gyro_for_integration * dt);
-
-  const Eigen::Vector3d accel_w = R_ * imu.accel - g_w_;
+  const Eigen::Vector3d accel_corrected = imu.accel - accel_bias_;
+  const Eigen::Vector3d accel_w = R_ * accel_corrected - g_w_;
   p_ += v_ * dt + 0.5 * accel_w * dt * dt;
   v_ += accel_w * dt;
 
   if (params_.enable_zupt) {
     gyro_norm_window_.push_back(gyro_corrected.norm());
-    accel_norm_window_.push_back(imu.accel.norm());
+    // Bias-corrected norm keeps the stationary gate consistent with
+    // gravity_magnitude_: with accel-bias estimation on, gravity is fixed to
+    // standard gravity and the corrected static norm equals it by
+    // construction; with estimation off the bias is zero and this reduces to
+    // the raw norm as before.
+    accel_norm_window_.push_back(accel_corrected.norm());
     while (static_cast<int>(gyro_norm_window_.size()) > params_.zupt_window) {
       gyro_norm_window_.pop_front();
       accel_norm_window_.pop_front();
@@ -179,6 +272,12 @@ ImuDeadReckoningStepStats ImuDeadReckoningPipeline::processImu(
         stats.zupt_active = true;
       }
     }
+  }
+
+  if (params_.enable_nhc && !stats.zupt_active) {
+    Eigen::Vector3d v_body = R_.transpose() * v_;
+    applyNhc(&v_body, dt, &stats.nhc_active);
+    v_ = R_ * v_body;
   }
 
   return stats;

@@ -4934,10 +4934,15 @@ MethodResult runNnZupt(const std::vector<Eigen::Matrix4d>& gt,
 struct ImuDeadReckoningDogfoodingOptions {
   double static_init_duration_s = 2.0;
   bool estimate_gyro_bias = true;
+  bool estimate_accel_bias = false;
   bool midpoint_integration = true;
+  bool rk4_integration = false;
   bool enable_zupt = false;
   double zupt_gyro_threshold = 0.05;
   double zupt_accel_tolerance = 0.8;
+  bool enable_nhc = false;
+  double nhc_gain = 0.0;
+  int forward_axis = 0;
 };
 
 MethodResult runImuDeadReckoning(
@@ -4971,10 +4976,15 @@ MethodResult runImuDeadReckoning(
   ImuDeadReckoningParams params;
   params.static_init_duration_s = options.static_init_duration_s;
   params.estimate_gyro_bias = options.estimate_gyro_bias;
+  params.estimate_accel_bias = options.estimate_accel_bias;
   params.midpoint_integration = options.midpoint_integration;
+  params.rk4_integration = options.rk4_integration;
   params.enable_zupt = options.enable_zupt;
   params.zupt_gyro_threshold = options.zupt_gyro_threshold;
   params.zupt_accel_tolerance = options.zupt_accel_tolerance;
+  params.enable_nhc = options.enable_nhc;
+  params.nhc_gain = options.nhc_gain;
+  params.forward_axis = options.forward_axis;
 
   long zupt_frames = 0;
   std::string error;
@@ -4999,9 +5009,10 @@ MethodResult runImuDeadReckoning(
   std::snprintf(
       note_buf, sizeof(note_buf),
       "IMU-DR baseline: unaided strapdown INS, static init %.1fs, "
-      "midpoint=%d zupt=%d zupt_frames=%ld; no GT seed.%s%s",
+      "midpoint=%d rk4=%d zupt=%d nhc=%d zupt_frames=%ld; no GT seed.%s%s",
       options.static_init_duration_s, options.midpoint_integration ? 1 : 0,
-      options.enable_zupt ? 1 : 0, zupt_frames,
+      options.rk4_integration ? 1 : 0, options.enable_zupt ? 1 : 0,
+      options.enable_nhc ? 1 : 0, zupt_frames,
       error.empty() ? "" : " ", error.c_str());
   res.note = note_buf;
   return res;
@@ -11292,8 +11303,16 @@ int main(int argc, char** argv) {
       imu_dead_reckoning_options.estimate_gyro_bias = false;
       continue;
     }
+    if (arg == "--imu-dr-accel-bias") {
+      imu_dead_reckoning_options.estimate_accel_bias = true;
+      continue;
+    }
     if (arg == "--imu-dr-euler") {
       imu_dead_reckoning_options.midpoint_integration = false;
+      continue;
+    }
+    if (arg == "--imu-dr-rk4") {
+      imu_dead_reckoning_options.rk4_integration = true;
       continue;
     }
     if (arg == "--imu-dr-zupt") {
@@ -11306,6 +11325,18 @@ int main(int argc, char** argv) {
     }
     if (arg == "--imu-dr-zupt-accel-tolerance" && i + 1 < argc) {
       imu_dead_reckoning_options.zupt_accel_tolerance = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-nhc") {
+      imu_dead_reckoning_options.enable_nhc = true;
+      continue;
+    }
+    if (arg == "--imu-dr-nhc-gain" && i + 1 < argc) {
+      imu_dead_reckoning_options.nhc_gain = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-forward-axis" && i + 1 < argc) {
+      imu_dead_reckoning_options.forward_axis = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--floam-fast-profile") {

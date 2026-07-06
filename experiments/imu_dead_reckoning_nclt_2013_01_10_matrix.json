@@ -46,12 +46,49 @@
             ]
         },
         {
+            "id": "rk4",
+            "label": "RK4 attitude integration (vs default midpoint)",
+            "design_style": "ablation",
+            "intent": "Swap the exp-map midpoint gyro integration for a classical RK4 on the attitude ODE dR/dt = R*skew(omega) with linearly-interpolated omega, re-orthonormalized onto SO(3) each step. A higher-order integration-scheme ablation alongside forward Euler.",
+            "args": [
+                "--imu-dr-rk4"
+            ]
+        },
+        {
             "id": "no_gyro_bias",
             "label": "No static-init gyro-bias estimation",
             "design_style": "ablation",
             "intent": "Disable the 2.0s static-init gyro-bias estimate, all else default. ATE 9.071 -> 24.676 m (+172%), RPE 170.6% -> 482.0%/100m (+183%) -- by far the largest degradation of the three ablations. Uncorrected gyro bias integrates into heading error which then aliases into large position drift; static-init bias estimation is the most load-bearing aid of the three, more so than ZUPT on this window.",
             "args": [
                 "--imu-dr-no-gyro-bias"
+            ]
+        },
+        {
+            "id": "nhc",
+            "label": "+ NHC (non-holonomic constraints)",
+            "design_style": "ablation",
+            "intent": "Enable hard NHC: project body velocity onto the forward axis after each IMU step (same cheap vehicle constraint used inside OdoNet/NN-ZUPT, but without any learned aid).",
+            "args": [
+                "--imu-dr-nhc"
+            ]
+        },
+        {
+            "id": "nhc_zupt",
+            "label": "+ NHC + ZUPT",
+            "design_style": "ablation",
+            "intent": "Combine NHC with zero-velocity updates to test whether the two classical vehicle aids stack on top of each other on this window.",
+            "args": [
+                "--imu-dr-nhc",
+                "--imu-dr-zupt"
+            ]
+        },
+        {
+            "id": "accel_bias",
+            "label": "+ static-init accel-bias estimation",
+            "design_style": "ablation",
+            "intent": "Estimate accelerometer bias from the static-init window residual after gravity alignment (symmetric ablation to gyro-bias estimation).",
+            "args": [
+                "--imu-dr-accel-bias"
             ]
         }
     ]

@@ -1197,7 +1197,7 @@
         "IMU"
       ],
       "href": "papers/imu_dead_reckoning",
-      "summary": "Pure strapdown IMU-only dead reckoning: static-window gyro-bias/gravity init, midpoint gyro integration, and double integration of specific force, with no LiDAR, NHC, or ZUPT unless opted in. The unaided lower-bound reference for the LIO/OdoNet/NHC-Net/NN-ZUPT family; not a paper reimplementation.",
+      "summary": "Pure strapdown IMU-only dead reckoning: static-window gyro-bias/gravity init, midpoint gyro integration, and double integration of specific force, with no LiDAR or learned aiding unless opted in. Optional classical vehicle aids (ZUPT, NHC, accel-bias estimation) are ablation flags. The unaided lower-bound reference for the LIO/OdoNet/NHC-Net/NN-ZUPT family; not a paper reimplementation.",
       "tags": [
         "imu",
         "dead-reckoning",

@@ -47,12 +47,49 @@
             ]
         },
         {
+            "id": "rk4_full",
+            "label": "RK4 attitude integration (vs default midpoint) -- full session",
+            "design_style": "ablation",
+            "intent": "Classical RK4 on the attitude ODE with re-orthonormalization each step, over the full ~17 min session. Higher-order integration-scheme ablation alongside forward Euler.",
+            "args": [
+                "--imu-dr-rk4"
+            ]
+        },
+        {
             "id": "no_gyro_bias_full",
             "label": "No static-init gyro-bias estimation -- full session",
             "design_style": "ablation",
             "intent": "Disable the 2.0 s static-init gyro-bias estimate, all else default, over the full session. ATE 288700.449 -> 672302.751 m (+132.9%), RPE 67435.005 -> 139392.868%/100m (+106.7%) -- by far the largest degradation of the three ablations, same ordering as the 120-frame window (+172%/+183% there). Uncorrected gyro bias integrates into heading error that compounds for the full ~17 minutes instead of ~24 seconds, confirming static-init gyro-bias estimation as the single most load-bearing aid at any timescale tested.",
             "args": [
                 "--imu-dr-no-gyro-bias"
+            ]
+        },
+        {
+            "id": "nhc_full",
+            "label": "+ NHC -- full session",
+            "design_style": "ablation",
+            "intent": "Enable hard NHC over the full session: project body velocity onto the forward axis after each IMU step.",
+            "args": [
+                "--imu-dr-nhc"
+            ]
+        },
+        {
+            "id": "nhc_zupt_full",
+            "label": "+ NHC + ZUPT -- full session",
+            "design_style": "ablation",
+            "intent": "Combine NHC with zero-velocity updates over the full ~17 min session.",
+            "args": [
+                "--imu-dr-nhc",
+                "--imu-dr-zupt"
+            ]
+        },
+        {
+            "id": "accel_bias_full",
+            "label": "+ static-init accel-bias estimation -- full session",
+            "design_style": "ablation",
+            "intent": "Estimate accelerometer bias from the static-init window residual after gravity alignment.",
+            "args": [
+                "--imu-dr-accel-bias"
             ]
         }
     ]

@@ -474,6 +474,45 @@ percent where they are in-domain (KITTI). This is the useful, non-overclaimed
 takeaway: a well-posed classical filter recovers most of what a trained CNN aid
 buys on this problem.
 
+### Is the ESKF's covariance trustworthy? (NEES consistency)
+
+Good point estimates are not the same as trustworthy uncertainty. The
+`eskf_consistency` tool checks the filter's *self-reported* covariance against
+the actual error on a full session via the Normalized Estimation Error Squared,
+`NEES_i = e_i^T P_pos_i^-1 e_i` (`e_i` = filter minus GT position). For a
+consistent 3-DOF filter NEES is chi-square with 3 DOF, so mean NEES ≈ 3
+(ANEES ≈ 1) and ~95% of frames fall at or below the chi²₃ 95% point (7.815).
+
+| NCLT full, ESKF zupt+leveling | RMS pos err (m) | mean NEES | ANEES | frames ≤ χ²₉₅ |
+|---|---|---|---|---|
+| Default tuning (point-accuracy-optimal) | 254.3 | 147.2 | 49.1 | 8.1% |
+| Consistency-tuned (`zupt-sigma 1.2 sigma-accel 2.0 sigma-gyro 0.06`) | 271.4 | 3.36 | 1.12 | 96.9% |
+
+**The default ESKF is badly overconfident** — ANEES ≈ 49 (KITTI full is far
+worse, ANEES ≈ 4400) and only ~8% of frames lie within the 95% band. This is
+the expected honest failure of a *loosely-coupled, IMU-only* filter: with no
+absolute position measurement, true position error grows unbounded, but the
+default process/measurement noise (tuned for the best point estimate) keeps
+`P_pos` far too small, so the reported 3σ is orders of magnitude under the real
+error. **Trust the default ESKF's trajectory, not its covariance.**
+
+**It can be made statistically consistent by honest noise-retuning** — raising
+the ZUPT/accel/gyro noise brings mean NEES to ≈3 (ANEES 1.12) and ~97% coverage
+at only +7% ATE (254 → 271 m). This is the classic point-accuracy-vs-calibration
+trade-off, made explicit on real data rather than hidden: the default is shipped
+(best ATE), and the tool + this table document the covariance caveat and the
+retune that fixes it. Regenerate with:
+
+```sh
+build/papers/imu_dead_reckoning/eskf_consistency \
+  dogfooding_results/nclt_2013_01_10_full \
+  experiments/reference_data/nclt_2013_01_10_full_gt.csv
+python3 papers/imu_dead_reckoning/tools/plot_eskf_consistency.py \
+  nees_default.csv nees_tuned.csv papers/imu_dead_reckoning/figures/eskf_consistency.png
+```
+
+![ESKF NEES consistency](figures/eskf_consistency.png)
+
 ### A heading update was tried and rejected (course-over-ground)
 
 The one attitude d.o.f. the ESKF leaves weakly observed is **yaw** (leveling

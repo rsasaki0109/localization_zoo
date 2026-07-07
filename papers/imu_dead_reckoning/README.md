@@ -440,6 +440,34 @@ This resolves the former "no EKF" limitation note: there is now a proper
 loosely-coupled error-state filter, still IMU-only (no LiDAR), as an opt-in
 mode.
 
+### Visualizing the win: pure DR vs. ESKF vs. GT
+
+![ESKF trajectory](figures/eskf_trajectory.png)
+
+The top-down trajectories make the order-of-magnitude nature of the win
+concrete. **Left column, full extent:** unaided pure dead reckoning spirals off
+to **~650 km** (NCLT) / **~152 km** (KITTI) — the ground truth and ESKF collapse
+to an indistinguishable dot at that scale, the honest signature of unbounded
+IMU-only integration. **Right column, zoomed to the GT scale (±250 m):** the
+ESKF stays local, in the right neighbourhood of a ~1 km trajectory.
+
+Read honestly, the win is **bounded vs. unbounded**, not precise tracking: the
+axis scale collapses from ±600,000 m to ±250 m — roughly a 2500x improvement at
+zero training cost — but IMU-only the ESKF is still a coarse tracker (XY RMSE
+254 m / 185 m, with the ZUPT-snap excursions visible as spikes). That is exactly
+what the NEES analysis quantifies: the estimate is far better than pure DR and
+best-in-class among these IMU-only methods, yet it is not a substitute for a
+LiDAR/GNSS-aided solution. Regenerate with:
+
+```sh
+build/papers/imu_dead_reckoning/dump_trajectory \
+  dogfooding_results/nclt_2013_01_10_full \
+  experiments/reference_data/nclt_2013_01_10_full_gt.csv traj_nclt.csv
+python3 papers/imu_dead_reckoning/tools/plot_trajectory.py \
+  papers/imu_dead_reckoning/figures/eskf_trajectory.png \
+  "NCLT 2013-01-10 full:traj_nclt.csv" "KITTI 0009 full:traj_kitti.csv"
+```
+
 ### ESKF vs. the learned family, full sessions (untrained vs. KITTI-trained CNNs)
 
 The family tables above are on short windows. Now that the ESKF exists, the

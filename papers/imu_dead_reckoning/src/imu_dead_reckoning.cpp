@@ -1,7 +1,9 @@
 #include "imu_dead_reckoning/imu_dead_reckoning.h"
 
+#include <Eigen/Dense>
 #include <Eigen/SVD>
 
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 
@@ -10,6 +12,13 @@ namespace imu_dead_reckoning {
 namespace {
 
 constexpr double kStandardGravity = 9.80665;
+
+// Error-state block offsets in the 15-vector (dp, dv, dtheta, db_g, db_a).
+constexpr int kIP = 0;   // position error.
+constexpr int kIV = 3;   // velocity error.
+constexpr int kITh = 6;  // attitude error (body frame).
+constexpr int kIBg = 9;  // gyro-bias error.
+constexpr int kIBa = 12; // accel-bias error.
 
 Eigen::Matrix3d expSO3(const Eigen::Vector3d& w) {
   const double t = w.norm();
@@ -70,6 +79,7 @@ void ImuDeadReckoningPipeline::reset() {
   g_w_.setZero();
   gravity_magnitude_ = kStandardGravity;
   static_initialized_ = false;
+  static_gate_tripped_ = false;
   static_buffer_.clear();
   warning_.clear();
   has_last_stamp_ = false;
@@ -78,6 +88,8 @@ void ImuDeadReckoningPipeline::reset() {
   prev_gyro_corrected_.setZero();
   gyro_norm_window_.clear();
   accel_norm_window_.clear();
+  P_.setZero();
+  eskf_initialized_ = false;
 }
 
 void ImuDeadReckoningPipeline::finalizeStaticInit(
@@ -97,14 +109,51 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
   const Eigen::Vector3d gyro_mean = gyro_sum / n;
   const Eigen::Vector3d accel_mean = accel_sum / n;
 
-  gyro_bias_ = params_.estimate_gyro_bias ? gyro_mean : Eigen::Vector3d::Zero();
-
+  // Window noise statistics: gyro std (rotational motion) and the std of the
+  // accel norm (road vibration / longitudinal speed changes). Both are near
+  // zero for a truly parked IMU. Note neither can flag a constant-velocity
+  // cruise -- that is fundamentally unobservable from IMU alone.
   double gyro_var_sum = 0.0;
+  double accel_norm_mean = 0.0;
   for (const auto& r : window) {
     gyro_var_sum += (r.gyro - gyro_mean).squaredNorm();
+    accel_norm_mean += r.accel.norm();
   }
   const double gyro_std = std::sqrt(gyro_var_sum / n);
-  if (gyro_std > params_.static_gyro_std_gate) {
+  accel_norm_mean /= n;
+  double accel_norm_var = 0.0;
+  for (const auto& r : window) {
+    const double d = r.accel.norm() - accel_norm_mean;
+    accel_norm_var += d * d;
+  }
+  const double accel_norm_std = std::sqrt(accel_norm_var / n);
+
+  // Static-init quality gate: decide whether the window's mean is trustworthy
+  // as a bias estimate. Off by default -> always trust (original behaviour).
+  const int n_samples = static_cast<int>(window.size());
+  const bool gate_too_few =
+      params_.motion_gated_static_init && n_samples < params_.min_static_samples;
+  const bool gate_gyro_hot =
+      params_.motion_gated_static_init && gyro_std > params_.static_gyro_std_gate;
+  const bool gate_accel_hot = params_.motion_gated_static_init &&
+                              accel_norm_std > params_.static_accel_std_gate;
+  static_gate_tripped_ = gate_too_few || gate_gyro_hot || gate_accel_hot;
+  const bool trust_bias = !static_gate_tripped_;
+
+  gyro_bias_ = (params_.estimate_gyro_bias && trust_bias)
+                   ? gyro_mean
+                   : Eigen::Vector3d::Zero();
+
+  if (static_gate_tripped_) {
+    char buf[256];
+    std::snprintf(
+        buf, sizeof(buf),
+        "static-init quality gate tripped (%s%s%ssamples=%d gyro_std=%.4f "
+        "accel_std=%.3f): bias estimation auto-skipped",
+        gate_too_few ? "too-few-samples " : "", gate_gyro_hot ? "gyro-hot " : "",
+        gate_accel_hot ? "accel-hot " : "", n_samples, gyro_std, accel_norm_std);
+    warning_ = buf;
+  } else if (gyro_std > params_.static_gyro_std_gate) {
     char buf[192];
     std::snprintf(buf, sizeof(buf),
                   "static-init gyro std %.4f rad/s exceeds gate %.4f rad/s "
@@ -123,8 +172,13 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
   // from a fixed reference (standard gravity) rather than the static norm --
   // otherwise g_w absorbs the whole static mean and the residual is zero by
   // construction (accel_mean - accel_dir * accel_mean_norm == 0).
+  // When the quality gate distrusts the window, accel-bias estimation is
+  // skipped below, so gravity falls back to the static norm just like the
+  // estimate-off path (|a| ~= g holds even at constant velocity).
+  const bool estimate_accel_bias_effective =
+      params_.estimate_accel_bias && trust_bias;
   const bool use_static_norm =
-      params_.gravity_from_static_norm && !params_.estimate_accel_bias;
+      params_.gravity_from_static_norm && !estimate_accel_bias_effective;
   gravity_magnitude_ = use_static_norm ? accel_mean_norm : kStandardGravity;
 
   // Initial roll/pitch aligns the measured static specific-force direction
@@ -139,7 +193,7 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
   // bias-corrected static specific force cancel, R_ * (accel_mean - b) = g_w.
   g_w_ = R_ * (accel_dir * gravity_magnitude_);
 
-  if (params_.estimate_accel_bias) {
+  if (estimate_accel_bias_effective) {
     // Residual of the static mean against the fixed-magnitude gravity vector
     // rotated into the body frame: any leftover is attributed to accel bias.
     const Eigen::Vector3d expected_static = accel_dir * gravity_magnitude_;
@@ -151,6 +205,82 @@ void ImuDeadReckoningPipeline::finalizeStaticInit(
   v_.setZero();
   p_.setZero();
   static_initialized_ = true;
+
+  if (params_.enable_eskf) initEskf();
+}
+
+void ImuDeadReckoningPipeline::initEskf() {
+  P_.setZero();
+  const auto sq = [](double s) { return s * s; };
+  P_.block<3, 3>(kIP, kIP) =
+      sq(params_.eskf_init_sigma_pos) * Eigen::Matrix3d::Identity();
+  P_.block<3, 3>(kIV, kIV) =
+      sq(params_.eskf_init_sigma_vel) * Eigen::Matrix3d::Identity();
+  P_.block<3, 3>(kITh, kITh) =
+      sq(params_.eskf_init_sigma_att) * Eigen::Matrix3d::Identity();
+  P_.block<3, 3>(kIBg, kIBg) =
+      sq(params_.eskf_init_sigma_bias_gyro) * Eigen::Matrix3d::Identity();
+  P_.block<3, 3>(kIBa, kIBa) =
+      sq(params_.eskf_init_sigma_bias_accel) * Eigen::Matrix3d::Identity();
+  eskf_initialized_ = true;
+}
+
+// First-order error-state propagation with body-frame attitude error
+// (R_true = R_nom * Exp(dtheta)). The nominal state (R_, v_, p_) is integrated
+// by the shared strapdown code; here only the covariance advances.
+void ImuDeadReckoningPipeline::eskfPropagate(const Eigen::Vector3d& gyro_corrected,
+                                             const Eigen::Vector3d& accel_corrected,
+                                             double dt) {
+  Eigen::Matrix<double, 15, 15> F =
+      Eigen::Matrix<double, 15, 15>::Identity();
+  // dp/dv
+  F.block<3, 3>(kIP, kIV) = Eigen::Matrix3d::Identity() * dt;
+  // dv/dtheta = -R [a]_x dt ; dv/db_a = -R dt
+  F.block<3, 3>(kIV, kITh) = -R_ * skew(accel_corrected) * dt;
+  F.block<3, 3>(kIV, kIBa) = -R_ * dt;
+  // dtheta/dtheta = I - [w]_x dt ; dtheta/db_g = -I dt
+  F.block<3, 3>(kITh, kITh) =
+      Eigen::Matrix3d::Identity() - skew(gyro_corrected) * dt;
+  F.block<3, 3>(kITh, kIBg) = -Eigen::Matrix3d::Identity() * dt;
+
+  // Process noise: white accel/gyro drive dv/dtheta; biases random-walk.
+  const auto sq = [](double s) { return s * s; };
+  Eigen::Matrix<double, 15, 15> Q =
+      Eigen::Matrix<double, 15, 15>::Zero();
+  Q.block<3, 3>(kIV, kIV) =
+      sq(params_.eskf_sigma_accel) * dt * dt * Eigen::Matrix3d::Identity();
+  Q.block<3, 3>(kITh, kITh) =
+      sq(params_.eskf_sigma_gyro) * dt * dt * Eigen::Matrix3d::Identity();
+  Q.block<3, 3>(kIBg, kIBg) =
+      sq(params_.eskf_sigma_bias_gyro) * dt * Eigen::Matrix3d::Identity();
+  Q.block<3, 3>(kIBa, kIBa) =
+      sq(params_.eskf_sigma_bias_accel) * dt * Eigen::Matrix3d::Identity();
+
+  P_ = F * P_ * F.transpose() + Q;
+  P_ = 0.5 * (P_ + P_.transpose());  // keep symmetric.
+}
+
+void ImuDeadReckoningPipeline::eskfUpdate(const Eigen::MatrixXd& H,
+                                          const Eigen::VectorXd& innovation,
+                                          const Eigen::MatrixXd& meas_cov) {
+  const Eigen::MatrixXd S = H * P_ * H.transpose() + meas_cov;
+  const Eigen::MatrixXd K = P_ * H.transpose() * S.inverse();
+  const Eigen::Matrix<double, 15, 1> dx = K * innovation;
+
+  // Inject the error into the nominal state.
+  p_ += dx.segment<3>(kIP);
+  v_ += dx.segment<3>(kIV);
+  R_ = R_ * expSO3(dx.segment<3>(kITh));  // body-frame error injection.
+  R_ = orthonormalize(R_);
+  gyro_bias_ += dx.segment<3>(kIBg);
+  accel_bias_ += dx.segment<3>(kIBa);
+
+  // Joseph-form covariance update (numerically stable, stays PSD).
+  const Eigen::Matrix<double, 15, 15> I =
+      Eigen::Matrix<double, 15, 15>::Identity();
+  const Eigen::Matrix<double, 15, 15> IKH = I - K * H;
+  P_ = IKH * P_ * IKH.transpose() + K * meas_cov * K.transpose();
+  P_ = 0.5 * (P_ + P_.transpose());
 }
 
 Eigen::Vector3d ImuDeadReckoningPipeline::bodyForwardAxis() const {
@@ -245,7 +375,13 @@ ImuDeadReckoningStepStats ImuDeadReckoningPipeline::processImu(
   p_ += v_ * dt + 0.5 * accel_w * dt * dt;
   v_ += accel_w * dt;
 
-  if (params_.enable_zupt) {
+  // Shared stationary detection: the windowed gyro/accel-norm gate that ZUPT,
+  // leveling and ZARU all key off. Computed once, consumed by either the hard
+  // aids or the ESKF measurement updates below.
+  const bool needs_gate = params_.enable_zupt || params_.enable_leveling ||
+                          params_.enable_zaru;
+  bool still = false;
+  if (needs_gate) {
     gyro_norm_window_.push_back(gyro_corrected.norm());
     // Bias-corrected norm keeps the stationary gate consistent with
     // gravity_magnitude_: with accel-bias estimation on, gravity is fixed to
@@ -264,20 +400,109 @@ ImuDeadReckoningStepStats ImuDeadReckoningPipeline::processImu(
       for (double a : accel_norm_window_) accel_sum += a;
       const double gyro_mean = gyro_sum / params_.zupt_window;
       const double accel_mean = accel_sum / params_.zupt_window;
-      const bool still = gyro_mean < params_.zupt_gyro_threshold &&
-                          std::abs(accel_mean - gravity_magnitude_) <
-                              params_.zupt_accel_tolerance;
-      if (still) {
-        v_.setZero();
-        stats.zupt_active = true;
-      }
+      still = gyro_mean < params_.zupt_gyro_threshold &&
+              std::abs(accel_mean - gravity_magnitude_) <
+                  params_.zupt_accel_tolerance;
     }
   }
 
-  if (params_.enable_nhc && !stats.zupt_active) {
-    Eigen::Vector3d v_body = R_.transpose() * v_;
-    applyNhc(&v_body, dt, &stats.nhc_active);
-    v_ = R_ * v_body;
+  if (!params_.enable_eskf) {
+    // --- Hard-aid path (default): direct resets / projections. ---
+    if (still) {
+      if (params_.enable_zupt) {
+        v_.setZero();
+        stats.zupt_active = true;
+      }
+      if (params_.enable_leveling) {
+        // The bias-corrected specific force measures +gravity when static;
+        // rotate a gain-limited fraction of the way that maps its current
+        // world-frame direction onto g_w. FromTwoVectors yields a horizontal
+        // axis, so yaw is left untouched (accel carries no heading).
+        const Eigen::Vector3d measured_g_w = R_ * accel_corrected;
+        if (measured_g_w.norm() > 1e-9 && g_w_.norm() > 1e-9) {
+          const Eigen::Quaterniond q = Eigen::Quaterniond::FromTwoVectors(
+              measured_g_w.normalized(), g_w_.normalized());
+          const Eigen::AngleAxisd aa(q);
+          const double gain =
+              std::min(1.0, std::max(0.0, params_.leveling_gain));
+          R_ = Eigen::AngleAxisd(gain * aa.angle(), aa.axis())
+                   .toRotationMatrix() *
+               R_;
+          stats.leveling_active = true;
+        }
+      }
+      if (params_.enable_zaru) {
+        // True angular rate is zero while stationary, so the raw gyro is a
+        // direct bias sample; low-pass the running bias toward it.
+        const double gain = std::min(1.0, std::max(0.0, params_.zaru_gain));
+        gyro_bias_ = (1.0 - gain) * gyro_bias_ + gain * imu.gyro;
+        stats.zaru_active = true;
+      }
+    }
+
+    if (params_.enable_nhc && !stats.zupt_active) {
+      Eigen::Vector3d v_body = R_.transpose() * v_;
+      applyNhc(&v_body, dt, &stats.nhc_active);
+      v_ = R_ * v_body;
+    }
+    return stats;
+  }
+
+  // --- ESKF path: covariance propagation + gain-weighted measurement updates.
+  // The aid flags select which measurements are applied. ZARU is subsumed (the
+  // filter estimates gyro bias online), so it is ignored here.
+  if (!eskf_initialized_) initEskf();
+  eskfPropagate(gyro_corrected, accel_corrected, dt);
+
+  if (params_.enable_zupt && still) {
+    // Zero-velocity update: world velocity should be 0.
+    Eigen::MatrixXd H = Eigen::MatrixXd::Zero(3, 15);
+    H.block<3, 3>(0, kIV) = Eigen::Matrix3d::Identity();
+    const Eigen::VectorXd innovation = -v_;  // z - h = 0 - v.
+    const Eigen::MatrixXd Rm =
+        params_.eskf_zupt_sigma * params_.eskf_zupt_sigma *
+        Eigen::Matrix3d::Identity();
+    eskfUpdate(H, innovation, Rm);
+    stats.zupt_active = true;
+    stats.eskf_update = true;
+  }
+
+  if (params_.enable_leveling && still) {
+    // Gravity update: a_m = R^T g_w + b_a when static. Corrects roll/pitch AND
+    // accel bias, gain-weighted (yaw stays unobservable through g_w).
+    const Eigen::Vector3d predicted = R_.transpose() * g_w_;
+    Eigen::MatrixXd H = Eigen::MatrixXd::Zero(3, 15);
+    H.block<3, 3>(0, kITh) = skew(predicted);
+    H.block<3, 3>(0, kIBa) = Eigen::Matrix3d::Identity();
+    const Eigen::VectorXd innovation = accel_corrected - predicted;
+    const Eigen::MatrixXd Rm =
+        params_.eskf_leveling_sigma * params_.eskf_leveling_sigma *
+        Eigen::Matrix3d::Identity();
+    eskfUpdate(H, innovation, Rm);
+    stats.leveling_active = true;
+    stats.eskf_update = true;
+  }
+
+  if (params_.enable_nhc && !(params_.enable_zupt && still)) {
+    // Non-holonomic constraint: the two body-velocity components orthogonal to
+    // the forward axis should be ~0. Selection S picks those two rows.
+    int f = params_.forward_axis;
+    if (f < 0 || f > 2) f = 0;
+    Eigen::Matrix<double, 2, 3> S = Eigen::Matrix<double, 2, 3>::Zero();
+    int row = 0;
+    for (int ax = 0; ax < 3; ++ax) {
+      if (ax != f) S(row++, ax) = 1.0;
+    }
+    const Eigen::Vector3d v_body = R_.transpose() * v_;
+    Eigen::MatrixXd H = Eigen::MatrixXd::Zero(2, 15);
+    H.block<2, 3>(0, kIV) = S * R_.transpose();
+    H.block<2, 3>(0, kITh) = S * skew(v_body);
+    const Eigen::VectorXd innovation = -(S * v_body);  // z - h = 0 - S v_body.
+    const Eigen::MatrixXd Rm = params_.eskf_nhc_sigma * params_.eskf_nhc_sigma *
+                               Eigen::Matrix2d::Identity();
+    eskfUpdate(H, innovation, Rm);
+    stats.nhc_active = true;
+    stats.eskf_update = true;
   }
 
   return stats;

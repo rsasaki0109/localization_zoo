@@ -4935,14 +4935,27 @@ struct ImuDeadReckoningDogfoodingOptions {
   double static_init_duration_s = 2.0;
   bool estimate_gyro_bias = true;
   bool estimate_accel_bias = false;
+  bool motion_gated_static_init = false;
+  int min_static_samples = 5;
+  double static_accel_std_gate = 0.5;
   bool midpoint_integration = true;
   bool rk4_integration = false;
   bool enable_zupt = false;
   double zupt_gyro_threshold = 0.05;
   double zupt_accel_tolerance = 0.8;
+  bool enable_leveling = false;
+  double leveling_gain = 0.05;
+  bool enable_zaru = false;
+  double zaru_gain = 0.01;
   bool enable_nhc = false;
   double nhc_gain = 0.0;
   int forward_axis = 0;
+  bool enable_eskf = false;
+  double eskf_sigma_accel = 0.2;
+  double eskf_sigma_gyro = 0.02;
+  double eskf_zupt_sigma = 0.02;
+  double eskf_nhc_sigma = 0.1;
+  double eskf_leveling_sigma = 0.3;
 };
 
 MethodResult runImuDeadReckoning(
@@ -4977,14 +4990,27 @@ MethodResult runImuDeadReckoning(
   params.static_init_duration_s = options.static_init_duration_s;
   params.estimate_gyro_bias = options.estimate_gyro_bias;
   params.estimate_accel_bias = options.estimate_accel_bias;
+  params.motion_gated_static_init = options.motion_gated_static_init;
+  params.min_static_samples = options.min_static_samples;
+  params.static_accel_std_gate = options.static_accel_std_gate;
   params.midpoint_integration = options.midpoint_integration;
   params.rk4_integration = options.rk4_integration;
   params.enable_zupt = options.enable_zupt;
   params.zupt_gyro_threshold = options.zupt_gyro_threshold;
   params.zupt_accel_tolerance = options.zupt_accel_tolerance;
+  params.enable_leveling = options.enable_leveling;
+  params.leveling_gain = options.leveling_gain;
+  params.enable_zaru = options.enable_zaru;
+  params.zaru_gain = options.zaru_gain;
   params.enable_nhc = options.enable_nhc;
   params.nhc_gain = options.nhc_gain;
   params.forward_axis = options.forward_axis;
+  params.enable_eskf = options.enable_eskf;
+  params.eskf_sigma_accel = options.eskf_sigma_accel;
+  params.eskf_sigma_gyro = options.eskf_sigma_gyro;
+  params.eskf_zupt_sigma = options.eskf_zupt_sigma;
+  params.eskf_nhc_sigma = options.eskf_nhc_sigma;
+  params.eskf_leveling_sigma = options.eskf_leveling_sigma;
 
   long zupt_frames = 0;
   std::string error;
@@ -5005,14 +5031,16 @@ MethodResult runImuDeadReckoning(
   }
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  char note_buf[320];
+  char note_buf[384];
   std::snprintf(
       note_buf, sizeof(note_buf),
       "IMU-DR baseline: unaided strapdown INS, static init %.1fs, "
-      "midpoint=%d rk4=%d zupt=%d nhc=%d zupt_frames=%ld; no GT seed.%s%s",
-      options.static_init_duration_s, options.midpoint_integration ? 1 : 0,
-      options.rk4_integration ? 1 : 0, options.enable_zupt ? 1 : 0,
-      options.enable_nhc ? 1 : 0, zupt_frames,
+      "eskf=%d midpoint=%d rk4=%d zupt=%d lvl=%d zaru=%d nhc=%d "
+      "zupt_frames=%ld; no GT seed.%s%s",
+      options.static_init_duration_s, options.enable_eskf ? 1 : 0,
+      options.midpoint_integration ? 1 : 0, options.rk4_integration ? 1 : 0,
+      options.enable_zupt ? 1 : 0, options.enable_leveling ? 1 : 0,
+      options.enable_zaru ? 1 : 0, options.enable_nhc ? 1 : 0, zupt_frames,
       error.empty() ? "" : " ", error.c_str());
   res.note = note_buf;
   return res;
@@ -11307,6 +11335,18 @@ int main(int argc, char** argv) {
       imu_dead_reckoning_options.estimate_accel_bias = true;
       continue;
     }
+    if (arg == "--imu-dr-motion-gated-init") {
+      imu_dead_reckoning_options.motion_gated_static_init = true;
+      continue;
+    }
+    if (arg == "--imu-dr-min-static-samples" && i + 1 < argc) {
+      imu_dead_reckoning_options.min_static_samples = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-static-accel-std-gate" && i + 1 < argc) {
+      imu_dead_reckoning_options.static_accel_std_gate = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--imu-dr-euler") {
       imu_dead_reckoning_options.midpoint_integration = false;
       continue;
@@ -11325,6 +11365,46 @@ int main(int argc, char** argv) {
     }
     if (arg == "--imu-dr-zupt-accel-tolerance" && i + 1 < argc) {
       imu_dead_reckoning_options.zupt_accel_tolerance = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-leveling") {
+      imu_dead_reckoning_options.enable_leveling = true;
+      continue;
+    }
+    if (arg == "--imu-dr-leveling-gain" && i + 1 < argc) {
+      imu_dead_reckoning_options.leveling_gain = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-zaru") {
+      imu_dead_reckoning_options.enable_zaru = true;
+      continue;
+    }
+    if (arg == "--imu-dr-zaru-gain" && i + 1 < argc) {
+      imu_dead_reckoning_options.zaru_gain = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf") {
+      imu_dead_reckoning_options.enable_eskf = true;
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-sigma-accel" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_sigma_accel = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-sigma-gyro" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_sigma_gyro = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-zupt-sigma" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_zupt_sigma = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-nhc-sigma" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_nhc_sigma = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-leveling-sigma" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_leveling_sigma = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--imu-dr-nhc") {

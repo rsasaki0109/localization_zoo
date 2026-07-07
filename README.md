@@ -503,7 +503,7 @@ KITTI Raw drive 0009 with `imu.csv` inputs, not on the KITTI LiDAR leaderboard.
 
 | Paper | Venue | Key Idea | Reference |
 |-------|-------|----------|-----------|
-| **[IMU Dead Reckoning](papers/imu_dead_reckoning/)** | Baseline | Unaided strapdown INS with static-window gyro-bias/gravity init — the IMU-only lower-bound reference for the LIO family | - |
+| **[IMU Dead Reckoning](papers/imu_dead_reckoning/)** | Baseline | Strapdown INS lower-bound for the LIO family, with opt-in classical aids (ZUPT / NHC / attitude leveling / ZARU), a motion-gated static-init quality gate, and a 15-state error-state Kalman filter (`--imu-dr-eskf`) mode | - |
 | **[OdoNet](papers/odonet/)** | IEEE Sens. J. 2022 | 1D-CNN pseudo-odometer speed aiding for strapdown INS with NHC/ZUPT | [Paper](https://arxiv.org/abs/2109.03091) |
 | **[NN-ZUPT](papers/nn_zupt/)** | Meas. Sci. Technol. 2023 | CNN zero-velocity detection driving ZUPT corrections for vehicle INS | [Paper](https://doi.org/10.1088/1361-6501/acabde) |
 | **[NHC-Net](papers/nhc_net/)** | GPS Solutions 2023 | Motion-state CNN with adaptive non-holonomic constraints for vehicle dead reckoning | - |

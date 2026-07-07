@@ -304,6 +304,301 @@ TEST(ImuDeadReckoning, Rk4ConstantYawRateMatchesAnalytic) {
               1e-9);
 }
 
+// Motion-gated static init: a start window that is NOT truly static (its accel
+// norm oscillates with "road vibration") carries a contaminated mean gyro that
+// must NOT be trusted as a bias. With the quality gate on, bias estimation is
+// auto-skipped (matching a manual --no-gyro-bias run); with it off the bogus
+// bias is applied and rotates the subsequent trajectory.
+TEST(ImuDeadReckoning, MotionGatedStaticInitSkipsContaminatedBias) {
+  const double dt = 0.02;
+  const int init_steps = 130;  // 2.6 s > static_init_duration_s, ~130 samples.
+  const int post_steps = 200;
+  // Non-static window: constant gyro offset (looks like bias, is really motion)
+  // + oscillating accel norm (vibration) that trips the accel-std gate. gyro
+  // std is 0 so only the accel gate fires -- exercises that path specifically.
+  const Eigen::Vector3d contaminated_gyro(0.0, 0.0, 0.1);
+
+  auto run = [&](bool motion_gated, bool estimate_gyro_bias, bool* tripped) {
+    ImuDeadReckoningParams params;
+    params.motion_gated_static_init = motion_gated;
+    params.estimate_gyro_bias = estimate_gyro_bias;
+    ImuDeadReckoningPipeline pipe(params);
+    double t = 0.0;
+    for (int i = 0; i < init_steps; ++i) {
+      const double wobble = (i % 2 == 0) ? 1.0 : -1.0;  // +/-1 m/s^2 on |a|.
+      pipe.processImu(makeReading(
+          t, contaminated_gyro, Eigen::Vector3d(0.0, 0.0, kGravity + wobble)));
+      t += dt;
+    }
+    if (tripped) *tripped = pipe.staticGateTripped();
+    for (int i = 0; i < post_steps; ++i) {
+      pipe.processImu(
+          makeReading(t, Eigen::Vector3d::Zero(), Eigen::Vector3d(0, 0, kGravity)));
+      t += dt;
+    }
+    const Eigen::Matrix3d R = pipe.pose().block<3, 3>(0, 0);
+    return std::atan2(R(1, 0), R(0, 0));
+  };
+
+  bool tripped_gated = false, tripped_ungated = false, tripped_manual = false;
+  const double yaw_gated = run(true, true, &tripped_gated);
+  const double yaw_manual = run(false, false, &tripped_manual);   // reference.
+  const double yaw_applied = run(false, true, &tripped_ungated);  // bad bias.
+
+  EXPECT_TRUE(tripped_gated);
+  EXPECT_FALSE(tripped_ungated);
+  EXPECT_FALSE(tripped_manual);
+  // Gate auto-does what a manual --no-gyro-bias run does: identical trajectory.
+  EXPECT_NEAR(yaw_gated, yaw_manual, 1e-9);
+  // Without the gate the contaminated bias rotates the whole tail trajectory
+  // the other way, well clear of the gated/manual result.
+  EXPECT_GT(std::abs(yaw_applied), 0.3);
+  EXPECT_GT(std::abs(yaw_applied - yaw_manual), 0.3);
+}
+
+// Motion-gated static init: a genuinely static window (constant accel = g, low
+// gyro noise) must PASS the gate so the real gyro bias is still estimated and
+// removed -- the gate must not fire on legitimately parked starts.
+TEST(ImuDeadReckoning, MotionGatedStaticInitPassesOnTrulyStatic) {
+  ImuDeadReckoningParams params;
+  params.motion_gated_static_init = true;
+  ImuDeadReckoningPipeline pipe(params);
+
+  const Eigen::Vector3d gyro_bias(0.01, -0.02, 0.015);
+  const Eigen::Vector3d accel_static(0.0, 0.0, kGravity);
+  const double dt = 0.02;
+  const int total_steps = static_cast<int>(10.0 / dt);
+  for (int i = 0; i < total_steps; ++i) {
+    pipe.processImu(makeReading(i * dt, gyro_bias, accel_static));
+  }
+
+  EXPECT_FALSE(pipe.staticGateTripped());
+  // Real bias absorbed -> no drift, same guarantee as the ungated static test.
+  const Eigen::Vector3d p = pipe.pose().block<3, 1>(0, 3);
+  EXPECT_NEAR(p.norm(), 0.0, 1e-6);
+}
+
+// ZUPT-time attitude leveling: after a spurious pitch error is injected into
+// the estimator's orientation (gyro rotates R while the body-frame accel keeps
+// reading gravity straight down -- i.e. a pure estimator tilt), a stationary
+// tail with leveling on should pull roll/pitch back toward level, while
+// without leveling the tilt just persists (zero gyro -> no attitude change).
+TEST(ImuDeadReckoning, LevelingCorrectsAttitudeTiltWhenStationary) {
+  const double dt = 0.02;
+  const Eigen::Vector3d accel_down(0.0, 0.0, kGravity);  // body-frame gravity.
+
+  auto tilt_of = [](const Eigen::Matrix3d& R) {
+    // Angle between the body z axis expressed in world and world +z.
+    const Eigen::Vector3d bz = (R * Eigen::Vector3d::UnitZ()).normalized();
+    return std::acos(std::max(-1.0, std::min(1.0, bz.dot(Eigen::Vector3d::UnitZ()))));
+  };
+
+  auto run = [&](bool enable_leveling) {
+    ImuDeadReckoningParams params;
+    params.enable_leveling = enable_leveling;
+    params.leveling_gain = 0.2;
+    ImuDeadReckoningPipeline pipe(params);
+
+    double t = 0.0;
+    const int init_steps =
+        static_cast<int>(params.static_init_duration_s / dt) + 5;
+    for (int i = 0; i < init_steps; ++i) {
+      pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_down));
+      t += dt;
+    }
+    // Inject an estimator tilt: rotate R about body y for a short burst whose
+    // gyro is well above the ZUPT gate, so leveling does NOT fire mid-burst.
+    for (int i = 0; i < 20; ++i) {
+      pipe.processImu(makeReading(t, Eigen::Vector3d(0.0, 0.5, 0.0), accel_down));
+      t += dt;
+    }
+    const double tilt_after_burst = tilt_of(pipe.pose().block<3, 3>(0, 0));
+    // Stationary tail: gate warms up over zupt_window then leveling can act.
+    for (int i = 0; i < 400; ++i) {
+      pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_down));
+      t += dt;
+    }
+    return std::make_pair(tilt_after_burst, tilt_of(pipe.pose().block<3, 3>(0, 0)));
+  };
+
+  const auto with_lvl = run(true);
+  const auto without_lvl = run(false);
+  // Both injected the same tilt.
+  EXPECT_GT(with_lvl.first, 0.1);
+  EXPECT_NEAR(with_lvl.first, without_lvl.first, 1e-9);
+  // Without leveling the tilt persists through the static tail (zero gyro ->
+  // no attitude change; only a tiny midpoint carry-over from the last burst
+  // sample, so it stays essentially unchanged rather than being corrected).
+  EXPECT_GT(without_lvl.second, 0.9 * without_lvl.first);
+  // With leveling it is pulled back toward level.
+  EXPECT_LT(with_lvl.second, 0.2 * with_lvl.first);
+}
+
+// ZARU (zero angular rate update): with static-init bias estimation disabled,
+// a constant gyro bias below the ZUPT gate would otherwise integrate into an
+// unbounded yaw drift. ZARU samples the raw gyro while stationary and low-passes
+// the running bias toward it, so the corrected rate -> 0 and yaw stops growing.
+TEST(ImuDeadReckoning, ZaruTracksGyroBiasAndStopsYawDrift) {
+  const double dt = 0.02;
+  const Eigen::Vector3d gyro_bias(0.0, 0.0, 0.03);  // below zupt_gyro_threshold.
+  const Eigen::Vector3d accel_down(0.0, 0.0, kGravity);
+
+  auto final_yaw = [&](bool enable_zaru) {
+    ImuDeadReckoningParams params;
+    params.estimate_gyro_bias = false;  // init leaves the bias in place.
+    params.enable_zaru = enable_zaru;
+    params.zaru_gain = 0.05;
+    ImuDeadReckoningPipeline pipe(params);
+    const int total_steps = static_cast<int>(12.0 / dt);
+    for (int i = 0; i < total_steps; ++i) {
+      pipe.processImu(makeReading(i * dt, gyro_bias, accel_down));
+    }
+    const Eigen::Matrix3d R = pipe.pose().block<3, 3>(0, 0);
+    return std::atan2(R(1, 0), R(0, 0));
+  };
+
+  const double yaw_off = final_yaw(false);
+  const double yaw_on = final_yaw(true);
+  EXPECT_GT(std::abs(yaw_off), 0.15);              // uncorrected bias drifts.
+  EXPECT_LT(std::abs(yaw_on), 0.2 * std::abs(yaw_off));  // ZARU bounds it.
+}
+
+// ESKF mode, zero-velocity update: a motion segment builds velocity, then a
+// segment that reads "static" should let the ZUPT measurement update pull the
+// velocity error toward zero and bound tail drift -- the Kalman-weighted
+// analogue of the hard ZUPT reset. Covariance must stay finite throughout.
+TEST(ImuDeadReckoning, EskfZuptLimitsTailDrift) {
+  const Eigen::Vector3d accel_static(0.0, 0.0, kGravity);
+  const double dt = 0.01;
+
+  auto run = [&](bool eskf_zupt, long* frames) {
+    ImuDeadReckoningParams params;
+    if (eskf_zupt) {
+      params.enable_eskf = true;
+      params.enable_zupt = true;
+    }
+    ImuDeadReckoningPipeline pipe(params);
+    const int init_steps =
+        static_cast<int>(params.static_init_duration_s / dt) + 1;
+    double t = 0.0;
+    for (int i = 0; i < init_steps; ++i) {
+      pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_static));
+      t += dt;
+    }
+    const Eigen::Vector3d accel_motion(1.0, 0.0, kGravity);
+    for (int i = 0; i < 100; ++i) {  // 1 s of +x accel.
+      pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_motion));
+      t += dt;
+    }
+    const double tail_start_x = pipe.pose()(0, 3);
+    long zupt = 0;
+    for (int i = 0; i < 300; ++i) {  // 3 s static tail.
+      const auto s =
+          pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_static));
+      if (s.zupt_active) ++zupt;
+      t += dt;
+    }
+    if (frames) *frames = zupt;
+    // Covariance must remain finite.
+    EXPECT_TRUE(pipe.covariance().allFinite());
+    return pipe.pose()(0, 3) - tail_start_x;
+  };
+
+  long frames_on = 0, frames_off = 0;
+  const double drift_eskf = run(true, &frames_on);
+  const double drift_dr = run(false, &frames_off);
+  EXPECT_GT(frames_on, 0);
+  EXPECT_EQ(frames_off, 0);
+  EXPECT_GT(std::abs(drift_dr), 0.5);
+  EXPECT_LT(std::abs(drift_eskf), 0.2 * std::abs(drift_dr));
+}
+
+// ESKF mode, gravity update: an injected estimator tilt should be corrected by
+// the leveling (accel) measurement update during a stationary tail, just like
+// the hard leveling aid but gain-weighted by the covariance.
+TEST(ImuDeadReckoning, EskfLevelingCorrectsTilt) {
+  const double dt = 0.02;
+  const Eigen::Vector3d accel_down(0.0, 0.0, kGravity);
+  auto tilt_of = [](const Eigen::Matrix3d& R) {
+    const Eigen::Vector3d bz = (R * Eigen::Vector3d::UnitZ()).normalized();
+    return std::acos(std::max(-1.0, std::min(1.0, bz.dot(Eigen::Vector3d::UnitZ()))));
+  };
+
+  ImuDeadReckoningParams params;
+  params.enable_eskf = true;
+  params.enable_leveling = true;
+  ImuDeadReckoningPipeline pipe(params);
+  double t = 0.0;
+  const int init_steps =
+      static_cast<int>(params.static_init_duration_s / dt) + 5;
+  for (int i = 0; i < init_steps; ++i) {
+    pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_down));
+    t += dt;
+  }
+  for (int i = 0; i < 20; ++i) {  // tilt burst above the ZUPT gate.
+    pipe.processImu(makeReading(t, Eigen::Vector3d(0.0, 0.5, 0.0), accel_down));
+    t += dt;
+  }
+  const double tilt_after_burst = tilt_of(pipe.pose().block<3, 3>(0, 0));
+  for (int i = 0; i < 400; ++i) {
+    pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_down));
+    t += dt;
+  }
+  const double tilt_final = tilt_of(pipe.pose().block<3, 3>(0, 0));
+  EXPECT_GT(tilt_after_burst, 0.1);
+  EXPECT_LT(tilt_final, 0.3 * tilt_after_burst);
+  EXPECT_TRUE(pipe.covariance().allFinite());
+}
+
+// ESKF measurement updates must reduce the filter's own uncertainty: after a
+// static segment with ZUPT + leveling, the velocity and roll/pitch covariance
+// blocks should shrink below their initial values (information was gained).
+TEST(ImuDeadReckoning, EskfUpdatesShrinkCovariance) {
+  ImuDeadReckoningParams params;
+  params.enable_eskf = true;
+  params.enable_zupt = true;
+  params.enable_leveling = true;
+  ImuDeadReckoningPipeline pipe(params);
+  const Eigen::Vector3d accel_static(0.0, 0.0, kGravity);
+  const double dt = 0.02;
+
+  // Advance just past init so P is seeded, capture it, then run a static tail.
+  const int init_steps = static_cast<int>(params.static_init_duration_s / dt) + 2;
+  for (int i = 0; i < init_steps; ++i) {
+    pipe.processImu(makeReading(i * dt, Eigen::Vector3d::Zero(), accel_static));
+  }
+  const double vel_var_init = pipe.covariance().block<3, 3>(3, 3).trace();
+  double t = init_steps * dt;
+  for (int i = 0; i < 400; ++i) {
+    pipe.processImu(makeReading(t, Eigen::Vector3d::Zero(), accel_static));
+    t += dt;
+  }
+  const Eigen::Matrix<double, 15, 15> P = pipe.covariance();
+  EXPECT_TRUE(P.allFinite());
+  // Velocity uncertainty shrinks under repeated ZUPT.
+  const double vel_var_final = P.block<3, 3>(3, 3).trace();
+  EXPECT_LT(vel_var_final, vel_var_init);
+  // Roll/pitch (x,y attitude) uncertainty shrinks under leveling.
+  const double rp_var = P(6, 6) + P(7, 7);
+  const double rp_var_init =
+      params.eskf_init_sigma_att * params.eskf_init_sigma_att * 2.0;
+  EXPECT_LT(rp_var, rp_var_init);
+  // Covariance stays symmetric PSD-ish: diagonal non-negative.
+  for (int i = 0; i < 15; ++i) EXPECT_GE(P(i, i), 0.0);
+}
+
+// Covariance is only populated in ESKF mode; the default pipeline leaves it
+// zero (no filter running).
+TEST(ImuDeadReckoning, CovarianceZeroWhenEskfOff) {
+  ImuDeadReckoningParams params;
+  ImuDeadReckoningPipeline pipe(params);
+  const Eigen::Vector3d accel_static(0.0, 0.0, kGravity);
+  for (int i = 0; i < 300; ++i) {
+    pipe.processImu(makeReading(i * 0.02, Eigen::Vector3d::Zero(), accel_static));
+  }
+  EXPECT_EQ(pipe.covariance().norm(), 0.0);
+}
+
 // A constant accelerometer bias orthogonal to gravity should be absorbed when
 // estimate_accel_bias is enabled, keeping position near zero on an otherwise
 // static segment after init.

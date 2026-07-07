@@ -29,8 +29,21 @@ default:
 | `--imu-dr-rk4` | Classical RK4 attitude integration (overrides midpoint/Euler), re-orthonormalized onto SO(3) each step. |
 | `--imu-dr-no-gyro-bias` | Skip static-window gyro-bias estimation (bias stays zero). |
 | `--imu-dr-static-init-sec <s>` | Override the static-init window length (default 2.0 s). |
+| `--imu-dr-motion-gated-init` | Static-init **quality gate**: if the init window fails a stationarity check (too few samples, or gyro/accel-norm std over threshold), auto-skip gyro/accel-bias estimation instead of applying a bias estimated from non-static data. Auto-fixes the KITTI gyro-bias reversal without a manual `--imu-dr-no-gyro-bias`. |
+| `--imu-dr-min-static-samples <n>` | Minimum samples for a trusted static window (default 5). |
+| `--imu-dr-static-accel-std-gate <m/s^2>` | Accel-norm std gate for the quality check (default 0.5). |
 | `--imu-dr-zupt-gyro-threshold <rad/s>` | ZUPT gyro-norm gate (default 0.05). |
 | `--imu-dr-zupt-accel-tolerance <m/s^2>` | ZUPT `\|\|a\| - g\|` gate (default 0.8). |
+| `--imu-dr-leveling` | Attitude leveling on detected-stationary samples: re-align roll/pitch toward the world gravity vector (yaw untouched). Attacks the dominant attitude-drift error. Shares the ZUPT stationary gate but does not require `--imu-dr-zupt`. |
+| `--imu-dr-leveling-gain <0..1>` | Fraction of the roll/pitch error corrected per stationary sample (default 0.05). |
+| `--imu-dr-zaru` | Zero Angular Rate Update: low-pass the running gyro bias toward the raw gyro on detected-stationary samples (online bias tracking). |
+| `--imu-dr-zaru-gain <0..1>` | ZARU low-pass rate (default 0.01). |
+| `--imu-dr-eskf` | **Error-State Kalman Filter mode.** Propagates a 15-state error covariance alongside the strapdown nominal state and re-interprets the aid flags as gain-weighted measurement updates instead of hard resets (`--imu-dr-zupt` → zero-velocity update, `--imu-dr-leveling` → gravity/accel update on roll/pitch + accel bias, `--imu-dr-nhc` → lateral/vertical body-velocity update). Estimates gyro/accel bias online; ZARU is subsumed and ignored. |
+| `--imu-dr-eskf-sigma-accel <m/s^2>` | ESKF accel process-noise density (default 0.2). |
+| `--imu-dr-eskf-sigma-gyro <rad/s>` | ESKF gyro process-noise density (default 0.02). |
+| `--imu-dr-eskf-zupt-sigma <m/s>` | ESKF ZUPT velocity measurement noise (default 0.02). |
+| `--imu-dr-eskf-leveling-sigma <m/s^2>` | ESKF gravity/leveling measurement noise (default 0.3). |
+| `--imu-dr-eskf-nhc-sigma <m/s>` | ESKF NHC lateral/vertical measurement noise (default 0.1). |
 | `--imu-dr-nhc` | Enable non-holonomic constraints (zero lateral/vertical body velocity; forward-only). |
 | `--imu-dr-nhc-gain <gain>` | Soft NHC pull strength (default 0 = hard projection). |
 | `--imu-dr-forward-axis <0\|1\|2>` | Body forward axis index (default 0 = x, KITTI Velodyne). |
@@ -38,12 +51,18 @@ default:
 
 ## Tests
 
-`test_imu_dead_reckoning` (9 cases, `ctest -R imu_dead_reckoning`):
+`test_imu_dead_reckoning` (17 cases, `ctest -R imu_dead_reckoning`):
 `StaticWithKnownBiasHasNoDrift`, `ConstantYawRateNoTranslation`,
 `ConstantWorldAccelerationMatchesAnalytic`,
 `ZuptResetsVelocityAndLimitsTailDrift`, `IntegrateTrajectoryFrameSampling`,
 `NhcSuppressesLateralVelocity`, `ZuptGateUsesBiasCorrectedAccelNorm`,
-`Rk4ConstantYawRateMatchesAnalytic`, `AccelBiasEstimationRemovesStaticBias`.
+`Rk4ConstantYawRateMatchesAnalytic`, `AccelBiasEstimationRemovesStaticBias`,
+`MotionGatedStaticInitSkipsContaminatedBias`,
+`MotionGatedStaticInitPassesOnTrulyStatic`,
+`LevelingCorrectsAttitudeTiltWhenStationary`,
+`ZaruTracksGyroBiasAndStopsYawDrift`, `EskfZuptLimitsTailDrift`,
+`EskfLevelingCorrectsTilt`, `EskfUpdatesShrinkCovariance`,
+`CovarianceZeroWhenEskfOff`.
 
 ## Reproduce (requires `imu.csv`)
 
@@ -54,8 +73,13 @@ default:
 ```
 
 Add `--imu-dr-zupt` / `--imu-dr-euler` / `--imu-dr-rk4` /
-`--imu-dr-no-gyro-bias` / `--imu-dr-nhc` / `--imu-dr-accel-bias` to run an
-ablation variant. Full manifest:
+`--imu-dr-no-gyro-bias` / `--imu-dr-motion-gated-init` / `--imu-dr-leveling` /
+`--imu-dr-zaru` / `--imu-dr-nhc` / `--imu-dr-accel-bias` to run a hard-aid
+ablation variant. The best hard-aid stack is
+`--imu-dr-zupt --imu-dr-nhc --imu-dr-leveling`; the best overall configuration
+on the full sessions is the **ESKF**,
+`--imu-dr-eskf --imu-dr-zupt --imu-dr-leveling` (~10x lower ATE than the hard
+stack on NCLT full — see the ESKF result below). Full manifest:
 [`experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](../../experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json),
 aggregate result:
 [`experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](../../experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json).
@@ -208,6 +232,36 @@ sensor bias -- applying it as a correction is actively harmful. This
 reproduces consistently across both window sizes, so it is a real dataset
 effect, not an aggregation artifact of one window.
 
+**Motion-gated static init auto-fix (`--imu-dr-motion-gated-init`)**: the
+reversal above previously required the operator to *know* that KITTI needs a
+manual `--imu-dr-no-gyro-bias` while NCLT must keep it. The quality gate
+removes that foot-gun. On the compressed KITTI timeline the static window holds
+only **3 IMU samples** (`static_init_duration_s / clamped-dt`), so the
+`min_static_samples` check trips and bias estimation is auto-skipped; the note
+string records exactly why (`static-init quality gate tripped (too-few-samples
+samples=3 gyro_std=0.0241 accel_std=0.447)`). The result is bit-for-bit the
+manual `--imu-dr-no-gyro-bias` number on both windows, with no manual flag:
+
+| Window | Default (bias applied) | `--imu-dr-no-gyro-bias` | `--imu-dr-motion-gated-init` |
+|---|---|---|---|
+| KITTI 0009, 200-frame | ATE 9769.887 | ATE 1235.339 (-87.4%) | ATE **1235.339** (gate tripped, auto) |
+| KITTI 0009, 443-frame | ATE 91821.017 | ATE 11794.635 (-87.2%) | ATE **11794.635** (gate tripped, auto) |
+
+Crucially the gate is **asymmetric in the right direction**: on NCLT
+2013-01-10 (ms25 ~47 Hz → ~94 samples in the 2 s window, genuinely parked at
+start with low gyro/accel std) the gate does **not** trip, so the
+load-bearing gyro-bias estimate is preserved and the 120-frame ATE stays
+9.071 m (identical to default), rather than degrading to the 24.676 m of a
+blanket `--imu-dr-no-gyro-bias`. The gate keeps bias where it helps (NCLT) and
+drops it where it hurts (KITTI), decided per-run from the window itself.
+
+Honest scope of the gate: it catches an *unusably short/sparse averaging
+window* and *rotational or vibration motion* in the init window. It cannot flag
+a **constant-velocity cruise** — that is fundamentally unobservable from IMU
+alone (specific force ≈ gravity whether parked or cruising straight at constant
+speed). On KITTI it happens to fire via the sample-count check rather than by
+detecting the cruise, and that limitation is stated rather than papered over.
+
 | Variant (200-frame window, ~19.9 s, 186.97 m) | ATE (m) | RPE (%/100m) | Notes |
 |---|---|---|---|
 | Default (pure DR, midpoint, no ZUPT) | 9769.887 | 7580.498 | zupt_frames=0; ~52x trajectory length. |
@@ -271,6 +325,121 @@ was a honest negative) -- consistent with the family's design intent, and a
 useful sanity check that the learned aids are not simply broken on this
 drive.
 
+## Result: attitude leveling + ZARU (`--imu-dr-leveling`, `--imu-dr-zaru`)
+
+Attitude error is the dominant DR drift source (disabling gyro-bias init is the
+worst ablation at every timescale), so the natural next aid attacks attitude
+directly: on detected-stationary samples the bias-corrected accelerometer
+measures gravity, so **leveling** re-aligns roll/pitch toward the world gravity
+vector (yaw is left untouched -- accel carries no heading). **ZARU** additionally
+re-samples the raw gyro as an online bias estimate during those same stationary
+windows. Both share the ZUPT stationary gate; leveling does not require the ZUPT
+velocity reset to be on.
+
+**Leveling is a large win on the full sessions** (the representative
+continuous-motion case), on top of both ZUPT and ZUPT+NHC:
+
+| Config | NCLT full ATE (m) | NCLT full RPE (%) | KITTI 0009 full ATE (m) | KITTI full RPE (%) |
+|---|---|---|---|---|
+| `--imu-dr-zupt` | 14531.743 | 2859.304 | 5958.011 | 4510.478 |
+| `--imu-dr-zupt --imu-dr-leveling` | 3255.078 (**-77.6%**) | 422.763 (**-85.2%**) | 727.445 (**-87.8%**) | 500.364 (**-88.9%**) |
+| `--imu-dr-zupt --imu-dr-nhc` (prev. best stack) | 9605.455 | 1901.379 | 1063.760 | 827.371 |
+| `--imu-dr-zupt --imu-dr-nhc --imu-dr-leveling` | **2775.244** | **334.515** | **283.032** | **158.087** |
+
+`zupt+nhc+leveling` is the **best aided configuration on both full datasets**,
+beating the previous best single stack (`zupt+nhc`) by -71% (NCLT) / -73%
+(KITTI) ATE. Mechanism: ZUPT/NHC bound velocity error, but residual attitude
+error keeps leaking gravity into the world-frame acceleration between resets;
+leveling continuously trims that attitude error during the frequent brief
+stops, so the gravity subtraction stays accurate and much less spurious
+acceleration is integrated. The win is robust to the leveling gain -- both
+datasets improve monotonically from gain 0.02 up through 0.5 with no divergence
+(e.g. KITTI full `zupt+nhc+leveling` ATE 567 → 283 → 151 → 133 for gain
+0.02/0.05/0.2/0.5). The default is a conservative **0.05** (already -78%/-88%);
+higher gains help further on these two datasets but the default is left
+un-tuned rather than fit to them.
+
+**The short 120-frame window disagrees, and that is the honest caveat.** On the
+mostly-stationary (~46%) NCLT 120-frame window, ZUPT alone is already near
+optimal (ATE 2.887) and leveling on top slightly *worsens* RPE (2.879 m /
+41.6% vs 2.887 m / 30.6%). Leveling-*only* (no ZUPT) on that window nearly
+matches ZUPT (2.892 m / 32.3%) because attitude correction alone suppresses
+most of the gravity-leakage velocity growth when the platform is parked half
+the time -- but leveling-only collapses on continuous motion (KITTI 200:
+3141 m) because without a velocity reset it cannot bound the velocity error it
+is not correcting. So leveling's value is real but **conditional on ZUPT being
+present** to bound velocity, and its benefit grows with trajectory length /
+continuous-motion fraction; the tiny short-window RPE regression is a
+small-window artifact, not the operating point that matters.
+
+**ZARU is an honest negative on NCLT and only a mild help on KITTI.** On NCLT
+(120-window and full) ZARU *worsens* results (full: 19400 m vs 14531 m for ZUPT
+alone) because NCLT's static-init already yields a good, stable gyro bias, so
+re-sampling it online -- including during ZUPT false positives -- just injects
+noise into a bias that was already correct. On KITTI 200 it helps modestly
+(191.8 m vs 214.4 m for ZUPT alone), where the compressed 3-sample static init
+gives a poor initial bias that online tracking partially repairs. It is shipped
+as an opt-in knob and left **off by default**; leveling is the aid that
+generalizes, ZARU is dataset-dependent and documented as such rather than
+promoted.
+
+## Result: Error-State Kalman Filter (`--imu-dr-eskf`)
+
+The aids above are hand-weighted heuristics: ZUPT hard-zeroes velocity, NHC hard-
+projects it, leveling nudges attitude by a fixed gain. The principled version
+carries a **15-state error covariance** (`dp, dv, dtheta, db_g, db_a`, body-frame
+attitude error) alongside the same strapdown nominal state and turns each aid
+into a **covariance-weighted measurement update**: ZUPT → a zero-velocity update,
+leveling → a gravity (accelerometer) update on roll/pitch *and* accel bias, NHC →
+a lateral/vertical body-velocity update. Because the filter tracks cross-
+correlations, a single measurement type informs the whole state — e.g. repeated
+ZUPTs observe gyro/accel bias and attitude through the coupling, so the filter
+estimates bias online and ZARU becomes unnecessary (it is ignored in this mode).
+The aid flags select which updates run; `--imu-dr-eskf` only switches the
+mechanism.
+
+**The ESKF decisively beats the best hand-tuned hard-aid stack on both full
+sessions** — roughly an order of magnitude on NCLT:
+
+| Config | NCLT full ATE (m) | NCLT full RPE (%) | KITTI 0009 full ATE (m) | KITTI full RPE (%) |
+|---|---|---|---|---|
+| best HARD stack (`zupt+nhc+leveling`) | 2775.244 | 334.515 | 283.032 | 158.087 |
+| `--imu-dr-eskf --imu-dr-zupt` | 254.573 | 83.725 | 168.787 | 160.573 |
+| `--imu-dr-eskf --imu-dr-zupt --imu-dr-leveling` | **253.997** (**-90.8%**) | **83.384** | 171.959 | 159.078 |
+| `--imu-dr-eskf --imu-dr-zupt --imu-dr-nhc --imu-dr-leveling` | 261.955 | 82.052 | 185.732 | **98.619** |
+
+On NCLT full the ESKF cuts ATE from 2775 m to ~254 m (**-90.8%**) and RPE from
+334% to ~83%; on KITTI full it roughly halves the hard-stack ATE (283 → 169 m)
+and the full-measurement ESKF gives the best RPE of any configuration tested
+(98.6%). Strikingly, **ESKF with ZUPT alone is already within ~0.2% of the full
+ESKF measurement set on NCLT** (254.6 vs 254.0 m): the covariance propagates the
+zero-velocity information into attitude and bias corrections on its own, which is
+exactly the advantage a filter has over independent hard resets. Adding NHC helps
+RPE on KITTI (continuous cruise, where the non-holonomic constraint is most
+informative) but is near-neutral on NCLT.
+
+**The result is robust to the noise parameters, not a tuned fit.** On NCLT full
+the ESKF ATE stays 253–254 m as the ZUPT measurement sigma is swept over a 40x
+range (0.005 → 0.2 m/s) and 248–255 m as the accel process-noise density is
+swept over a 20x range (0.05 → 1.0 m/s^2). The defaults are order-of-magnitude
+automotive-MEMS values, left un-tuned.
+
+**Honest caveat — the short 120-frame window disagrees, for the same reason as
+leveling.** On the mostly-parked NCLT 120-frame window the hard ZUPT reset
+(ATE 2.887 m) slightly beats ESKF-ZUPT (3.438 m): when the platform is parked
+half the time and the trajectory is ~24 s, the hard reset is already near
+optimal and the filter's covariance is still in its transient, so the Kalman
+weighting costs a little. The ESKF's advantage is a *drift-accumulation* effect
+that only compounds into a 10x win over the minutes-long full sessions that
+represent real continuous operation. As everywhere else in this baseline, the
+repository default stays pure dead reckoning (all aids and the ESKF off); the
+ESKF is an opt-in mode, documented with the window where it loses as well as the
+sessions where it wins big.
+
+This resolves the former "no EKF" limitation note: there is now a proper
+loosely-coupled error-state filter, still IMU-only (no LiDAR), as an opt-in
+mode.
+
 ## Limitations / scope notes
 
 - Full-session export lives on removable media (`/media/sasaki/aiueo`, an
@@ -303,7 +472,12 @@ drive.
 - FPS numbers reported by the harness for this method are not meaningful
   next to point-cloud registration methods — there is no per-frame
   scan-matching cost, only IMU integration between frame timestamps.
-- This is a lower-bound reference, not a tuned filter: no EKF, no
-  loosely/tightly-coupled fusion, no learned aiding. Compare against
-  OdoNet/NHC-Net/NN-ZUPT (same strapdown core plus a trained CNN aid) for
-  how much a cheap learned aid buys over this baseline.
+- The **default** is a lower-bound reference (pure dead reckoning, all aids
+  off). Beyond it there are now two escalating tiers, both opt-in and still
+  IMU-only (no LiDAR): the classical hard aids (ZUPT / NHC / leveling / ZARU)
+  and the `--imu-dr-eskf` loosely-coupled error-state Kalman filter that
+  subsumes them as covariance-weighted updates. There is still no
+  tightly-coupled fusion and no learned aiding — compare against
+  OdoNet/NHC-Net/NN-ZUPT (same strapdown core plus a trained CNN aid) for how
+  much a cheap learned aid buys over this baseline, and note the ESKF already
+  closes much of that gap on the full sessions with no training.

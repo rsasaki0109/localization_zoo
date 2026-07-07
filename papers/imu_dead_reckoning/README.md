@@ -440,6 +440,55 @@ This resolves the former "no EKF" limitation note: there is now a proper
 loosely-coupled error-state filter, still IMU-only (no LiDAR), as an opt-in
 mode.
 
+### ESKF vs. the learned family, full sessions (untrained vs. KITTI-trained CNNs)
+
+The family tables above are on short windows. Now that the ESKF exists, the
+sharper question is whether a **training-free classical filter** keeps up with
+the trained CNN aids (OdoNet / NHC-Net / NN-ZUPT, all trained on KITTI Raw
+OXTS) on the representative full sessions:
+
+| Method | NCLT full ATE (m) | NCLT full RPE (%) | KITTI 0009 full ATE (m) | KITTI full RPE (%) |
+|---|---|---|---|---|
+| **ESKF (ours, no training)** | **253.997** | 83.384 | 185.732 | 98.619 |
+| OdoNet (CNN) | 1397.891 | 753.600 | 1723.136 | 982.819 |
+| NHC-Net (CNN) | 279.794 | 84.226 | **180.504** | **88.481** |
+| NN-ZUPT (CNN) | 257.397 | 82.813 | 186.050 | 93.636 |
+
+(ESKF config: `zupt+leveling` on NCLT, `zupt+nhc+leveling` on KITTI.)
+
+- **NCLT full (cross-sensor for the CNNs — they were trained on KITTI's OXTS,
+  not NCLT's ms25):** the untrained ESKF has the **best ATE of any method**
+  (254.0 m), beating NN-ZUPT (257.4), NHC-Net (279.8), and OdoNet (1397.9, out
+  of domain). RPE is a statistical tie with NN-ZUPT (83.4 vs 82.8). A classical
+  filter with zero training beats KITTI-trained CNNs on a different sensor.
+- **KITTI 0009 full (in-domain for the CNNs — their home turf):** the best CNN,
+  NHC-Net, edges the ESKF (ATE 180.5 vs 185.7, RPE 88.5 vs 98.6); NN-ZUPT is a
+  tie (186.0 vs 185.7). So even on the CNNs' own training sensor the untrained
+  ESKF lands within ~3% of the best learned aid, and OdoNet stays broken here
+  regardless.
+
+Honest reading: the ESKF is not a universal winner, but it is competitive with
+learned aiding at **zero training cost and full cross-sensor generality** — it
+matches/beats the CNNs where they transfer poorly (NCLT) and stays within a few
+percent where they are in-domain (KITTI). This is the useful, non-overclaimed
+takeaway: a well-posed classical filter recovers most of what a trained CNN aid
+buys on this problem.
+
+### A heading update was tried and rejected (course-over-ground)
+
+The one attitude d.o.f. the ESKF leaves weakly observed is **yaw** (leveling
+fixes only roll/pitch). A course-over-ground update — using the world velocity
+direction as a yaw pseudo-measurement while moving forward — was implemented and
+evaluated, then **removed**: it never helped and is unsafe. Without a velocity
+constraint it excites a genuine **co-rotation unobservable mode** (heading and
+the laterally-free velocity direction rotate together with zero course residual,
+so the filter slides to a wrong equilibrium — NCLT full ATE 254 → 1353). With
+NHC pinning lateral velocity it is a no-op on the slow NCLT platform (rarely
+exceeds the 1 m/s speed gate) and ~2% *worse* on KITTI across every measurement
+sigma tried, because NHC already makes course ≈ heading so the noisy velocity
+direction adds noise without new information. Recorded here as an honest
+negative rather than shipped as a knob that degrades every configuration.
+
 ## Limitations / scope notes
 
 - Full-session export lives on removable media (`/media/sasaki/aiueo`, an

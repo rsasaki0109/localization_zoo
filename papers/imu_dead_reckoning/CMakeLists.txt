@@ -9,3 +9,7 @@ add_test(NAME test_imu_dead_reckoning COMMAND test_imu_dead_reckoning)
 # Offline ESKF consistency (NEES) analysis over a dogfooding fixture.
 add_executable(eskf_consistency tools/eskf_consistency.cpp)
 target_link_libraries(eskf_consistency PRIVATE imu_dead_reckoning Eigen3::Eigen)
+
+# Top-down trajectory dump (GT / pure DR / ESKF) for plotting.
+add_executable(dump_trajectory tools/dump_trajectory.cpp)
+target_link_libraries(dump_trajectory PRIVATE imu_dead_reckoning Eigen3::Eigen)

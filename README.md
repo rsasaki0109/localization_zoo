@@ -540,12 +540,21 @@ docker run --rm -v "$PWD/zoo-demo:/out" localization_zoo:local \
 # Dependencies (Ubuntu 22.04)
 sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev
 
+# Reproducible Python versions used by CI and Docker
+python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install -r requirements-lock.txt
+
 # One-command demo: build + synthetic benchmark + broad real-data fixture suite
 bash evaluation/scripts/demo_localization_zoo.sh
 
 # Open the generated report
 xdg-open experiments/results/runs/demo_localization_zoo/report.html
 ```
+
+`requirements.txt` records the supported minimum Python package versions for
+library users. Use `requirements-lock.txt` when regenerating committed reports,
+figures, or benchmark artifacts so the environment matches CI and Docker.
 
 Manual build and test path:
 

@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
+  "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+  "gt_sha256": "cef5ad5ce793d48b69cce20d45e7ee0f78d721f60207aef93b7a48fa2fb2b358",
+  "total_pcd_frames": 1176,
+  "num_frames": 1176,
+  "raw_gt_pose_count": 1176,
+  "used_gt_pose_count": 1176,
+  "trajectory_length_m": 431.740852,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "timestamp",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "1037d6cae076f60c4abdb1321c1f4827353eebfb",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/mulran_parkinglot_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/mulran_parkinglot_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 1176,
+    "timestamp_all_integer": false,
+    "timestamp_range": [1565944761.445227, 1565944878.937284]
+  },
+  "gt": {
+    "source": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+    "sha256": "cef5ad5ce793d48b69cce20d45e7ee0f78d721f60207aef93b7a48fa2fb2b358",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 1176,
+    "raw_timestamp_range": [1565944761.445227, 1565944878.937284]
+  },
+  "association": {
+    "mode": "timestamp",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 1176,
+    "associated_gt_index_range": [0, 1175],
+    "associated_gt_timestamp_range": [1565944761.445227, 1565944878.937284],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "M-GCLO",
+      "status": "ok",
+      "ate_m": 1.931863,
+      "rpe_trans_pct": 2.435010,
+      "rpe_rot_deg_per_m": 0.047884,
+      "frames": 1175,
+      "time_ms": 910809.022197,
+      "fps": 1.290062,
+      "seed_fallback_rate_pct": null,
+      "note": "M-GCLO: ground factor disabled (non-ground NDT only; classified ground held out) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; GT-seeded scan-to-map initialization with constant-velocity fallback. mean_ground/nonground_corr=620/3248 gt_seeded_frames=1174."
+    }
+  ]
+}

@@ -285,7 +285,8 @@ Eigen::Matrix4d MGcloPipeline::runRegistration(
 }
 
 MGcloResult MGcloPipeline::registerFrame(
-    const std::vector<Eigen::Vector3d>& frame) {
+    const std::vector<Eigen::Vector3d>& frame,
+    const Eigen::Matrix4d* init_guess) {
   MGcloResult result;
 
   auto filtered = rangeFilter(frame);
@@ -301,7 +302,7 @@ MGcloResult MGcloPipeline::registerFrame(
     return result;
   }
 
-  const Eigen::Matrix4d base = predict();
+  const Eigen::Matrix4d base = init_guess ? *init_guess : predict();
   const Eigen::Matrix4d new_pose = runRegistration(reg, base, &result);
 
   const Eigen::Matrix4d delta = pose_.inverse() * new_pose;

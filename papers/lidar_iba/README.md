@@ -61,6 +61,40 @@ parameters here are chosen for KITTI, not taken from the paper.
 | `stereo_radius_margin` | δ in ‖u‖≤1+δ | 0.2 |
 | `lidar_sigma` | point noise σ (weight 1/σ) | 0.05 |
 
+## KITTI benchmark profile
+
+The public KITTI full-sequence artifacts use `--lidar-iba-no-ba`. On this
+IMU-free protocol, the sliding-window BA lowers whole-run ATE in some runs but
+hurts the primary translational RPE metric and costs about 3x throughput. The
+committed no-BA profile keeps the stereographic plane front-end and FEJ-tested
+BA implementation available, but reports the stronger local-drift setting.
+
+| Sequence | Frames | ATE [m] | RPE [%/100 m] | RPE rot [deg/m] | FPS | Artifact |
+|---|---:|---:|---:|---:|---:|---|
+| seq00 | 4541 | 11.342 | 0.841 | 0.007 | 3.09 | [`seq00_lidar_iba.json`](../../docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json) |
+| seq07 | 1101 | 1.339 | 0.633 | 0.006 | 3.09 | [`seq07_lidar_iba.json`](../../docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json) |
+
+### BA on/off ablation (IMU-free KITTI)
+
+| Sequence | no-BA RPE | BA-on RPE | Δ RPE | no-BA ATE | BA-on ATE | Artifacts |
+|---|---:|---:|---:|---:|---:|---|
+| seq00 | 0.841% | 2.280% | +1.44 pt | 11.34 m | 10.93 m | [`no-BA`](../../docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json) / [`BA-on`](../../docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba_ba_on.json) |
+| seq07 | 0.633% | 2.530% | +1.90 pt | 1.34 m | 1.15 m | [`no-BA`](../../docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba.json) / [`BA-on`](../../docs/benchmarks/kitti_full_new_methods/seq07_lidar_iba_ba_on.json) |
+
+Paired summary: [`lidar_iba_ba_ablation.json`](../../docs/benchmarks/kitti_full_new_methods/lidar_iba_ba_ablation.json).
+Sliding-window BA slightly lowers whole-run ATE but worsens translational RPE and
+throughput on this constant-velocity protocol; the frozen bundle keeps no-BA as
+the main KITTI row.
+
+Reproduction command shape:
+
+```bash
+./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full \
+  experiments/reference_data/kitti_seq_00_full_gt.csv 0 \
+  --methods lidar_iba --no-gt-seed --lidar-iba-no-ba \
+  --summary-json docs/benchmarks/kitti_full_new_methods/seq00_lidar_iba.json
+```
+
 ## Tests
 
 `test_lidar_iba` covers: stereographic round-trip with unit-norm guarantee

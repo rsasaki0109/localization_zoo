@@ -1,6 +1,8 @@
 #include "inten_loam/inten_loam.h"
 #include "inten_loam/factors.h"
 
+#include "common/ceres_compat.h"
+
 #include <ceres/ceres.h>
 #include <Eigen/Dense>
 #include <pcl/kdtree/kdtree_flann.h>
@@ -516,6 +518,9 @@ bool InTenLoam::optimizeFrame(
   double para_q[4] = {q_last_curr_.x(), q_last_curr_.y(), q_last_curr_.z(),
                       q_last_curr_.w()};
   double para_t[3] = {t_last_curr_.x(), t_last_curr_.y(), t_last_curr_.z()};
+  problem.AddParameterBlock(para_q, 4);
+  localization_zoo::SetEigenQuaternionManifold(problem, para_q);
+  problem.AddParameterBlock(para_t, 3);
 
   size_t geom_count = 0;
   auto geom_edges = findGeomMatches(curr_edges, last_edges);

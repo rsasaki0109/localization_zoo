@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "benchmark": "kitti_odometry_seq08_public_validation",
+  "generated_by": "evaluation/scripts/run_m_gclo_kitti_seq08_validation.py",
+  "scope": {
+    "dataset": "KITTI Odometry sequence 08 full",
+    "frames": 4071,
+    "trajectory_length_m": 3222.022838,
+    "claim_limit": "Public-sequence mechanism check on hilly KITTI seq08; not a substitute for dedicated off-road / multi-beam non-flat benchmarks such as MulRan."
+  },
+  "artifacts": {
+    "ground_on_with_kiss": "docs/benchmarks/kitti_seq08_public/m_gclo_ground_on.json",
+    "ground_off": "docs/benchmarks/kitti_seq08_public/m_gclo_ground_off.json"
+  },
+  "protocol": {
+    "ground_on_command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods m_gclo,kiss_icp --no-gt-seed --m-gclo-dense-profile --summary-json docs/benchmarks/kitti_seq08_public/m_gclo_ground_on.json",
+    "ground_off_command": "./build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods m_gclo --no-gt-seed --m-gclo-dense-profile --m-gclo-no-ground --summary-json docs/benchmarks/kitti_seq08_public/m_gclo_ground_off.json"
+  },
+  "kiss_sanity_reference": {
+    "ate_m": 22.157159,
+    "rpe_trans_pct": 1.349521,
+    "rpe_rot_deg_per_m": 0.006203,
+    "frames": 4071,
+    "fps": 15.948457
+  },
+  "m_gclo": {
+    "ground_on": {
+      "metrics": {
+        "ate_m": 21.14769,
+        "rpe_trans_pct": 1.35441,
+        "rpe_rot_deg_per_m": 0.007003,
+        "frames": 4071,
+        "fps": 3.709257
+      },
+      "correspondences": {
+        "ground_per_frame": 1072.0,
+        "nonground_per_frame": 2205.0
+      },
+      "note": "M-GCLO: multiple-ground point-to-plane constraints (vertical accuracy) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=1072/2205"
+    },
+    "ground_off": {
+      "metrics": {
+        "ate_m": 52.563054,
+        "rpe_trans_pct": 1.352684,
+        "rpe_rot_deg_per_m": 0.009725,
+        "frames": 4071,
+        "fps": 3.953949
+      },
+      "correspondences": {
+        "ground_per_frame": 941.0,
+        "nonground_per_frame": 2337.0
+      },
+      "note": "M-GCLO: ground factor disabled (non-ground NDT only; classified ground held out) + non-ground point-to-distribution (NDT) with per-point range-uncertainty weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=941/2337"
+    },
+    "ground_off_minus_on": {
+      "ate_m_abs_delta": 31.415364,
+      "ate_m_relative_pct": 148.5522248529272,
+      "rpe_trans_pct_abs_delta": -0.0017259999999998943,
+      "rpe_trans_pct_relative_pct": -0.12743556234817333,
+      "rpe_rot_deg_per_m_abs_delta": 0.0027219999999999996,
+      "rpe_rot_deg_per_m_relative_pct": 38.86905611880622
+    }
+  },
+  "conclusion": "On public KITTI Odometry seq08 full, disabling the classified ground factor leaves translational RPE nearly unchanged (1.354% vs 1.353%), but whole-run ATE worsens by about 148.6% (21.15 m vs 52.56 m) and rotational RPE rises by about 38.9%. This matches the seq00/07 KITTI ablation pattern: multiple-ground constraints anchor global/attitude stability on hilly public driving data, even when local translational drift stays near KISS-ICP. Dedicated off-road / multi-beam non-flat benchmarks such as MulRan remain open before T0 promotion."
+}

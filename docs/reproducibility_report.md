@@ -42,20 +42,27 @@ and each module's README records its per-method deviations.
 | Verdict | Methods |
 |---|---|
 | **Claim reproduces** | I-LOAM, KC-LO, M-GCLO, Quadric-LO, Adaptive-ICP, TrICP-LO (partial) |
-| **Competitive, mechanism auxiliary** | LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
+| **Competitive, mechanism auxiliary** | DegenSense, D²-LIO, LODESTAR, Terrain-RBF-LIO, DALI-SLAM, DAMM-LOAM, CUBE-LIO, Intensity-Flow, ICPSC-LO, MCGICP-LO, SVN-ICP, Small-but-Mighty, NHC-LIO |
 | **Near-redundant on KITTI** (mechanism correct, no effect) | MCC-LO, GMM-LO, Student-T-LO, GNC-LO, PCR-DAT |
-| **Trade-off exposed** | LiDAR-IBA (ATE↓ / RPE↑), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
-| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO |
-| **Degrades or diverges** | IMLS-SLAM, R-VoxelMap, D²-LIO, DegenSense, DiLO, PL-LOAM, VLOM, InTEn-LOAM, UA-LIO |
+| **Trade-off exposed** | LiDAR-IBA (RPE↓ / ATE↑ with no-BA profile), M-GCLO (RPE↓ / ATE↑), Spectral-LO (speed vs accuracy) |
+| **Stable but below open baseline** | OPL-LVIO, AD-VLO, TC-MVLO, TC-LVGF, TC-VLO, V-LOAM2015, VLOM, CT-VoxelMap, Vibration-LIO, BIEVR-LIO, RF-LIO, UA-LIO, DiLO |
+| **Degrades / high drift** | IMLS-SLAM, R-VoxelMap, PL-LOAM, InTEn-LOAM |
 
-The full per-method numbers are in the README's from-paper table;
-this report focuses on *why* each method lands where it does.
+The README table promotes the stable current rows. High-drift and degradation
+runs remain here, in the module READMEs, and in the raw JSON artifacts so the
+failure evidence stays auditable without occupying the front-page ranking.
 
 ## Finding 1 — Several no-code papers beat the strongest open baselines
 
-The headline positive result: **the top ten from-paper reimplementations match
+The headline positive result: **the strongest from-paper reimplementations match
 or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
 
+- **DegenSense / D²-LIO** are now competitive no-IMU KITTI fallbacks
+  (0.811-0.814 % on seq 00, 0.541-0.558 % on seq 07). The key fix was
+  methodological: degeneracy sensing is still reported, but compensation or
+  directional regularization is applied only when a real IMU packet is present.
+  The previous constant-velocity fallback was not an inertial reference and
+  over-constrained weak directions.
 - **I-LOAM** (UR 2020) is the cleanest reproduction in the repository. Its
   central claim — injecting LiDAR reflectance into LOAM's correspondence and
   residual weighting cuts drift — survives a controlled ablation: running the
@@ -68,6 +75,11 @@ or beat KISS-ICP on seq 00**, and most also beat it on seq 07.
   shows that fixed σ=0.4 m keeps RPE within 1 % of the annealed profile while
   improving throughput from ~1.4 FPS to 2.6-3.1 FPS; annealing is a convergence
   safety knob here, not the main positive signal.
+- **LiDAR-IBA** now uses the no-BA KITTI profile for the public full-sequence
+  artifacts. Disabling sliding-window BA cuts translational RPE to **0.841 % /
+  0.633 %** and raises throughput to about **3.1 FPS**, but whole-run ATE
+  worsens to **11.34 m / 1.34 m**. This is a local-drift/throughput win, not a
+  global-consistency win.
 - **M-GCLO** (ISPRS Ann. 2024) leads the paper-mechanism seq 00 row
   (0.835 %) via multiple ground-plane constraints. The committed ground-factor
   ablation shows the mechanism is mostly an anchoring/stability term under this
@@ -119,17 +131,28 @@ falsify them, only report their silence.
 
 The LiDAR-visual adapter wave (**OPL-LVIO**, **AD-VLO**, **TC-MVLO**,
 **TC-LVGF**, **TC-VLO**, **V-LOAM2015**) is more positive than the older
-pseudo-image PL-LOAM/VLOM attempts: all six run stably around **0.90-1.07 %**
-drift on KITTI seq 00/07. The caveat is equally clear: range-image visual
-proxies and line residuals remain auxiliary to the scan-to-map point-to-plane
-core, so they still trail the strongest open LiDAR-only baseline on this
-benchmark.
+pseudo-image PL-LOAM attempt: all six run stably around **0.90-1.07 %**
+drift on KITTI seq 00/07. **VLOM** now also sits in this band
+(**0.91 % / 0.61 %**, ATE **9.52 m / 2.51 m**) after disabling visual
+bootstrap for LiDAR-only pseudo-images while keeping A-LOAM mapping and scale
+correction active. PL-LOAM improves after rendering LiDAR intensity instead of
+raw depth gradients into its pseudo-image and after fixing the Eigen/Ceres
+quaternion layout in PL-BA factors, but still lands at **89.73 % / 84.78 %**
+drift. The caveat is equally clear: range-image visual proxies and line
+residuals remain auxiliary to the scan-to-map point-to-plane core, so they still
+trail the strongest open LiDAR-only baseline on this benchmark.
 
 RF-LIO adds the same lesson for dynamic removal: adaptive multi-resolution
 range-image foreground removal works mechanically and removes about **246-273
 points/frame**, but on mostly static KITTI it degrades drift to **1.35 % / 1.27
 %** versus the delayed-removal ID-LIO baseline. The mechanism is designed for
 high-dynamic scenes, not for this static urban benchmark.
+
+DiLO is now stable rather than a degradation case after adding bounded 1-pixel
+projective lookup in the spherical range image. It runs at **1.20 % / 1.53 %**
+RPE on KITTI seq 00/07 while staying fast (~65 FPS), but still trails the best
+scan-to-map rows because it remains a direct frame-to-keyframe front-end rather
+than a persistent local-map estimator.
 
 The committed synthetic dynamic-object stress makes that caveat reproducible
 without external data. `evaluation/scripts/run_dynamic_object_stress.py`
@@ -143,28 +166,42 @@ replacement for a public high-dynamic dataset.
 
 ## Finding 3 — A third of the methods degrade or diverge, reproducibly
 
-Honest negatives, kept in the leaderboard rather than dropped:
+Honest negatives, kept in the reproducibility record rather than deleted:
 
-- **InTEn-LOAM** (~53–67 % drift): enabling its mapping stage *increases*
-  seq 00 drift from 52.7 % to 68.4 % in this port.
-- **PL-LOAM / VLOM** (LiDAR-visual, ~91–154 % drift): on KITTI Odometry there
-  is no RGB, and a depth-gradient pseudo-image cannot feed a visual front-end.
-  Crucially, rerunning both on KITTI Raw *with real RGB* still yields ~99 %
-  drift — the simplified visual tracker, not the missing camera, is the
-  bottleneck. Reproducing these papers requires the full ORB-SLAM2-class
-  stack they build on.
-- **DiLO** (18–19 %): direct projective alignment is the fastest method in the
-  repo (25–32 FPS) but frame-to-keyframe composition accumulates drift that
-  scan-to-map methods do not.
-- **Spectral-LO** (12–14 %): FFT phase-correlation odometry runs at ~14 FPS
-  with zero divergence — honest fast-but-coarse; BEV cell quantization
-  (~0.47 m) is the structural floor.
-- **DegenSense** (9.9 %): degeneracy *compensation* actively hurts when the
-  scene is not degenerate and the IMU half of the design is absent.
-- **D²-LIO** (5.8 % seq 00 vs 0.8 % seq 07): adaptive gating constants that the
-  paper leaves unspecified do not transfer across sequences.
-- **R-VoxelMap** diverges on seq 07; **UA-LIO** diverges on both; **IMLS-SLAM**
-  on a voxelized map degenerates to plain point-to-plane (1.0 %) — the implicit
+- **InTEn-LOAM** (post-fix 2026-07-03 ablation, `--inten-loam-dense-profile`):
+  default full pipeline stays high-drift but stable on seq00 (**63.0 %** /
+  455 m) and seq07 (**64.6 %** / 126 m). seq07 scan-to-scan without mapping
+  is the least-bad local row (**29.6 %**), but seq00 scan-to-scan diverges
+  (**218 %** / 13265 m). Mapping without TVF/DOR is worse on seq00
+  (**4362 %**). Intensity on/off is near-redundant on both sequences. Raw
+  bundles: `docs/benchmarks/kitti_full_new_methods/seq{00,07}_inten_loam_ablation.json`.
+  Not promoted to the README from-paper table.
+- **PL-LOAM** (LiDAR-visual, ~85-90 % drift): on KITTI Odometry there is
+  no RGB. LiDAR-intensity pseudo-images are much better than the earlier
+  depth-gradient front-end, and the 2026-06-20 Eigen/Ceres quaternion-layout
+  fix drops PL-LOAM to **89.73 % / 84.78 %**, but it remains a degradation
+  case. Seq00's best current artifact disables line factors because corrected
+  line endpoint residuals remain unstable on the long pseudo-image run. VLOM
+  exposed the related failure mode: pseudo-image visual bootstrap was injecting
+  a bad motion prior, and disabling that path drops VLOM to **0.91 % / 0.61 %**.
+  Crucially, rerunning the visual front-end on KITTI Raw *with real RGB* still
+  yields ~99 % drift for the simplified PL-LOAM/VLOM tracker — the simplified
+  tracker, not only the missing camera, is the bottleneck.
+  Reproducing these papers requires the full ORB-SLAM2-class stack they build
+  on.
+- **Spectral-LO** (~2.9–3.9 %): FFT phase-correlation odometry improves with a
+  high-resolution 512 BEV profile after fixing the current-to-reference
+  de-rotation sign. It remains honest coarse odometry: speed drops from the
+  earlier ~29–30 FPS 256-BEV profile to ~10 FPS, and accuracy is still behind
+  scan-to-map methods.
+- **UA-LIO** no longer diverges under strict exact-frame association
+  (1.13% / 0.97% RPE on seq00/07), but this KITTI run has no IMU packets, so it
+  is only evidence for the D2D + ground scan-to-map fallback, not the full LIO
+  state estimator.
+- **R-VoxelMap** no longer diverges on seq 07 after low-correspondence and
+  map/fallback-disagreement recovery fall back to scan-to-scan ICP, but seq 00
+  remains a degradation case (**45.77 % / 3.27 %** RPE). **IMLS-SLAM** on a
+  voxelized map degenerates to plain point-to-plane (1.0 %) — the implicit
   surface needs the native point density the paper assumes.
 
 ## Finding 4 — Recurring implementation lessons
@@ -189,7 +226,8 @@ one divergence before being learned:
 5. **Ground/terrain constraints trade local drift, attitude, and ATE.**
    M-GCLO's ground-factor ablation shows that KITTI translational RPE alone can
    miss the mechanism: ground off is similar or lower in translational RPE, but
-   worse in ATE and rotational drift. LiDAR-IBA's FEJ shows a related split.
+   worse in ATE and rotational drift. LiDAR-IBA's no-BA profile shows a related
+   split: lower RPE and higher throughput, but worse ATE.
 6. **Intensity helps as a weight, not as a metric.** I-LOAM's
    correspondence-level injection reproduces (−18–20 %); fusing intensity into
    the distance metric is at best weakly effective (MCGICP-LO, ICPSC-LO learns
@@ -217,8 +255,8 @@ open baselines once reimplemented. But the expected value is asymmetric: the
 most common outcome is a correct mechanism whose benefit does not survive
 contact with a well-conditioned benchmark, and the second most common is
 divergence caused by untransferable constants. A shared harness that keeps
-honest negatives on the leaderboard is what makes those two outcomes visible
-at all — single-method repositories structurally cannot report them.
+honest negatives in the reproducibility record is what makes those two outcomes
+visible at all — single-method repositories structurally cannot report them.
 
 ---
 

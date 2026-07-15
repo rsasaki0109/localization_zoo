@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <unordered_map>
 
 namespace localization_zoo {
 namespace r_voxelmap {
@@ -23,6 +24,21 @@ Eigen::Matrix3d expSO3(const Eigen::Vector3d& w) {
   Eigen::Matrix3d K = skew(w / t);
   return Eigen::Matrix3d::Identity() + std::sin(t) * K +
          (1.0 - std::cos(t)) * K * K;
+}
+
+double rotationAngle(const Eigen::Matrix3d& R) {
+  const double tr = std::clamp((R.trace() - 1.0) * 0.5, -1.0, 1.0);
+  return std::acos(tr);
+}
+
+bool relativeMotionWithin(const Eigen::Matrix4d& reference,
+                          const Eigen::Matrix4d& candidate,
+                          double max_translation, double max_rotation) {
+  if (!candidate.array().isFinite().all()) return false;
+  const Eigen::Matrix4d rel = reference.inverse() * candidate;
+  const double trans = rel.block<3, 1>(0, 3).norm();
+  const double angle = rotationAngle(rel.block<3, 3>(0, 0));
+  return trans <= max_translation && angle <= max_rotation;
 }
 
 /// 点集合に平面を最小二乗フィットし、平面性 (λ0<ratio·λ2) なら平面を返す。
@@ -271,7 +287,12 @@ Eigen::Matrix4d RVoxelMapPipeline::runICP(
       const double r = pl.normal.dot(p_world - pl.centroid);
       if (std::abs(r) > params_.max_correspondence_dist) continue;
       // 平面分散で重み付け (薄い平面ほど信頼)。
-      const double w = 1.0 / std::max(pl.plane_variance, 1e-4);
+      double w = std::min(params_.max_plane_weight,
+                          1.0 / std::max(pl.plane_variance, 1e-4));
+      const double abs_r = std::abs(r);
+      if (params_.huber_residual > 0.0 && abs_r > params_.huber_residual) {
+        w *= params_.huber_residual / abs_r;
+      }
 
       Eigen::Matrix<double, 3, 6> J;
       J.block<3, 3>(0, 0) = -skew(p_world);
@@ -285,13 +306,154 @@ Eigen::Matrix4d RVoxelMapPipeline::runICP(
     if (count < 10) break;
     last_ratio = static_cast<double>(count) / source.size();
 
+    const double diag_mean =
+        JtJ.diagonal().cwiseAbs().mean();
+    const double damping =
+        params_.icp_damping * std::max(1.0, diag_mean);
+    JtJ.diagonal().array() += damping;
+
     const Eigen::Matrix<double, 6, 1> delta = JtJ.ldlt().solve(-Jtb);
     if (!delta.allFinite()) break;
+    Eigen::Matrix<double, 6, 1> limited_delta = delta;
+    const double rot_norm = limited_delta.head<3>().norm();
+    if (params_.max_iteration_rotation > 0.0 &&
+        rot_norm > params_.max_iteration_rotation) {
+      limited_delta.head<3>() *= params_.max_iteration_rotation / rot_norm;
+    }
+    const double trans_norm = limited_delta.tail<3>().norm();
+    if (params_.max_iteration_translation > 0.0 &&
+        trans_norm > params_.max_iteration_translation) {
+      limited_delta.tail<3>() *=
+          params_.max_iteration_translation / trans_norm;
+    }
     Eigen::Matrix4d dT = Eigen::Matrix4d::Identity();
-    dT.block<3, 3>(0, 0) = expSO3(delta.head<3>());
-    dT.block<3, 1>(0, 3) = delta.tail<3>();
+    dT.block<3, 3>(0, 0) = expSO3(limited_delta.head<3>());
+    dT.block<3, 1>(0, 3) = limited_delta.tail<3>();
     T = dT * T;
-    if (delta.norm() < params_.convergence_criterion) break;
+    if (limited_delta.norm() < params_.convergence_criterion) break;
+  }
+
+  if (matched_ratio_out) *matched_ratio_out = last_ratio;
+  return T;
+}
+
+std::vector<Eigen::Vector3d> RVoxelMapPipeline::transformToWorld(
+    const std::vector<Eigen::Vector3d>& pts, const Eigen::Matrix4d& pose) const {
+  const Eigen::Matrix3d R = pose.block<3, 3>(0, 0);
+  const Eigen::Vector3d t = pose.block<3, 1>(0, 3);
+  std::vector<Eigen::Vector3d> w(pts.size());
+  for (size_t i = 0; i < pts.size(); i++) w[i] = R * pts[i] + t;
+  return w;
+}
+
+bool RVoxelMapPipeline::registrationMotionOk(
+    const Eigen::Matrix4d& reference, const Eigen::Matrix4d& candidate) const {
+  return relativeMotionWithin(reference, candidate,
+                              params_.max_registration_translation,
+                              params_.max_registration_rotation);
+}
+
+Eigen::Matrix4d RVoxelMapPipeline::runScanToScanICP(
+    const std::vector<Eigen::Vector3d>& source,
+    const Eigen::Matrix4d& initial_guess, double* matched_ratio_out) const {
+  if (last_scan_world_.empty() || source.empty()) {
+    if (matched_ratio_out) *matched_ratio_out = 0.0;
+    return initial_guess;
+  }
+
+  const double max_dist = params_.fallback_max_correspondence_dist;
+  const double max_dist_sq = max_dist * max_dist;
+  const double cell = std::max(0.25, max_dist);
+  std::unordered_map<Eigen::Vector3i, std::vector<int>, VoxelHash> grid;
+  grid.reserve(last_scan_world_.size());
+  auto keyOf = [cell](const Eigen::Vector3d& p) {
+    return Eigen::Vector3i(static_cast<int>(std::floor(p.x() / cell)),
+                           static_cast<int>(std::floor(p.y() / cell)),
+                           static_cast<int>(std::floor(p.z() / cell)));
+  };
+  for (int i = 0; i < static_cast<int>(last_scan_world_.size()); ++i) {
+    grid[keyOf(last_scan_world_[i])].push_back(i);
+  }
+
+  Eigen::Matrix4d T = initial_guess;
+  double last_ratio = 0.0;
+  for (int iter = 0; iter < params_.fallback_max_iterations; ++iter) {
+    const auto source_world = transformToWorld(source, T);
+    std::vector<Eigen::Vector3d> src_corr;
+    std::vector<Eigen::Vector3d> tgt_corr;
+    src_corr.reserve(source_world.size());
+    tgt_corr.reserve(source_world.size());
+
+    for (const auto& p : source_world) {
+      const Eigen::Vector3i key = keyOf(p);
+      double best = max_dist_sq;
+      int best_idx = -1;
+      for (int dx = -1; dx <= 1; ++dx)
+        for (int dy = -1; dy <= 1; ++dy)
+          for (int dz = -1; dz <= 1; ++dz) {
+            auto it = grid.find(key + Eigen::Vector3i(dx, dy, dz));
+            if (it == grid.end()) continue;
+            for (const int idx : it->second) {
+              const double d = (last_scan_world_[idx] - p).squaredNorm();
+              if (d < best) {
+                best = d;
+                best_idx = idx;
+              }
+            }
+          }
+      if (best_idx >= 0) {
+        src_corr.push_back(p);
+        tgt_corr.push_back(last_scan_world_[best_idx]);
+      }
+    }
+
+    last_ratio = static_cast<double>(src_corr.size()) /
+                 static_cast<double>(source.size());
+    if (src_corr.size() < 20) break;
+
+    Eigen::Vector3d src_mean = Eigen::Vector3d::Zero();
+    Eigen::Vector3d tgt_mean = Eigen::Vector3d::Zero();
+    for (size_t i = 0; i < src_corr.size(); ++i) {
+      src_mean += src_corr[i];
+      tgt_mean += tgt_corr[i];
+    }
+    src_mean /= static_cast<double>(src_corr.size());
+    tgt_mean /= static_cast<double>(tgt_corr.size());
+
+    Eigen::Matrix3d H = Eigen::Matrix3d::Zero();
+    for (size_t i = 0; i < src_corr.size(); ++i) {
+      H += (src_corr[i] - src_mean) * (tgt_corr[i] - tgt_mean).transpose();
+    }
+    Eigen::JacobiSVD<Eigen::Matrix3d> svd(
+        H, Eigen::ComputeFullU | Eigen::ComputeFullV);
+    Eigen::Matrix3d R_delta = svd.matrixV() * svd.matrixU().transpose();
+    if (R_delta.determinant() < 0.0) {
+      Eigen::Matrix3d V = svd.matrixV();
+      V.col(2) *= -1.0;
+      R_delta = V * svd.matrixU().transpose();
+    }
+    Eigen::Vector3d t_delta = tgt_mean - R_delta * src_mean;
+
+    Eigen::AngleAxisd aa(R_delta);
+    double angle = std::abs(aa.angle());
+    if (params_.max_iteration_rotation > 0.0 &&
+        angle > params_.max_iteration_rotation) {
+      R_delta = Eigen::AngleAxisd(
+                    params_.max_iteration_rotation,
+                    aa.axis().normalized()).toRotationMatrix();
+      angle = params_.max_iteration_rotation;
+    }
+    const double trans_norm = t_delta.norm();
+    if (params_.max_iteration_translation > 0.0 &&
+        trans_norm > params_.max_iteration_translation) {
+      t_delta *= params_.max_iteration_translation / trans_norm;
+    }
+
+    Eigen::Matrix4d dT = Eigen::Matrix4d::Identity();
+    dT.block<3, 3>(0, 0) = R_delta;
+    dT.block<3, 1>(0, 3) = t_delta;
+    T = dT * T;
+    if (t_delta.norm() + angle < params_.convergence_criterion) break;
   }
 
   if (matched_ratio_out) *matched_ratio_out = last_ratio;
@@ -307,16 +469,9 @@ RVoxelMapResult RVoxelMapPipeline::registerFrame(
   auto reg = voxelDownsample(downsampled, params_.voxel_size);
   if (reg.empty()) reg = downsampled;
 
-  auto toWorld = [&](const std::vector<Eigen::Vector3d>& pts) {
-    Eigen::Matrix3d R = pose_.block<3, 3>(0, 0);
-    Eigen::Vector3d t = pose_.block<3, 1>(0, 3);
-    std::vector<Eigen::Vector3d> w(pts.size());
-    for (size_t i = 0; i < pts.size(); i++) w[i] = R * pts[i] + t;
-    return w;
-  };
-
   if (frame_count_ == 0) {
-    map_.addPoints(toWorld(downsampled));
+    last_scan_world_ = transformToWorld(reg, pose_);
+    map_.addPoints(transformToWorld(downsampled, pose_));
     frame_count_++;
     result.pose = pose_;
     result.converged = true;
@@ -326,19 +481,75 @@ RVoxelMapResult RVoxelMapPipeline::registerFrame(
   const Eigen::Matrix4d prediction = pose_ * last_delta_;
   double matched_ratio = 0.0;
   const Eigen::Matrix4d new_pose = runICP(reg, prediction, &matched_ratio);
+  Eigen::Matrix4d accepted_pose = new_pose;
+  bool accepted = matched_ratio >= params_.min_map_matched_ratio;
+  const bool safety_enabled = params_.min_map_matched_ratio > 0.0 ||
+                              params_.enable_scan_to_scan_fallback;
+  if (accepted && safety_enabled) {
+    accepted = registrationMotionOk(prediction, accepted_pose);
+  }
 
-  last_delta_ = pose_.inverse() * new_pose;
-  pose_ = new_pose;
+  const bool validate_map_with_fallback =
+      accepted && params_.enable_scan_to_scan_fallback &&
+      (params_.max_map_fallback_translation_delta > 0.0 ||
+       params_.max_map_fallback_rotation_delta > 0.0);
+  if (validate_map_with_fallback) {
+    double fallback_ratio = 0.0;
+    const Eigen::Matrix4d fallback_pose =
+        runScanToScanICP(reg, prediction, &fallback_ratio);
+    const double max_translation =
+        params_.max_map_fallback_translation_delta > 0.0
+            ? params_.max_map_fallback_translation_delta
+            : std::numeric_limits<double>::infinity();
+    const double max_rotation =
+        params_.max_map_fallback_rotation_delta > 0.0
+            ? params_.max_map_fallback_rotation_delta
+            : std::numeric_limits<double>::infinity();
+    const bool fallback_ok =
+        fallback_ratio >= params_.min_fallback_matched_ratio &&
+        registrationMotionOk(prediction, fallback_pose);
+    const bool map_agrees_with_fallback =
+        relativeMotionWithin(fallback_pose, accepted_pose, max_translation,
+                             max_rotation);
+    if (fallback_ok && !map_agrees_with_fallback) {
+      accepted_pose = fallback_pose;
+      result.used_fallback = true;
+      result.fallback_disagreement = true;
+      result.fallback_matched_ratio = fallback_ratio;
+    }
+  }
 
-  map_.addPoints(toWorld(downsampled));
+  if (!accepted && params_.enable_scan_to_scan_fallback) {
+    double fallback_ratio = 0.0;
+    const Eigen::Matrix4d fallback_pose =
+        runScanToScanICP(reg, prediction, &fallback_ratio);
+    if (fallback_ratio >= params_.min_fallback_matched_ratio &&
+        registrationMotionOk(prediction, fallback_pose)) {
+      accepted_pose = fallback_pose;
+      accepted = true;
+      result.used_fallback = true;
+      result.fallback_matched_ratio = fallback_ratio;
+    }
+  }
+
+  if (!accepted) {
+    accepted_pose = prediction;
+  }
+
+  last_delta_ = pose_.inverse() * accepted_pose;
+  pose_ = accepted_pose;
+
+  if (accepted) {
+    map_.addPoints(transformToWorld(downsampled, pose_));
+    last_scan_world_ = transformToWorld(reg, pose_);
+  }
   if (params_.local_map_radius > 0.0 && params_.map_cleanup_interval > 0 &&
       (frame_count_ % params_.map_cleanup_interval) == 0) {
     map_.pruneFarVoxels(pose_.block<3, 1>(0, 3), params_.local_map_radius);
   }
 
   result.pose = pose_;
-  result.converged = (pose_.array().isFinite().all() &&
-                      (new_pose - prediction).cwiseAbs().maxCoeff() < 1e3);
+  result.converged = accepted && pose_.array().isFinite().all();
   result.iterations = params_.max_icp_iterations;
   result.matched_ratio = matched_ratio;
   frame_count_++;

@@ -119,3 +119,41 @@ TEST(DegenSense, DegeneracyFactorDiscriminatesDegenerateScene) {
   EXPECT_GT(ground_max, 1.0);
   EXPECT_GT(ground_max, box_max * 2.0);  // 退化シーンの条件数が明確に大
 }
+
+TEST(DegenSense, NoImuCompensationDoesNotUseConstantVelocityFallback) {
+  std::mt19937 rng(42);
+  const auto scene = makeRoom(rng);
+
+  auto run = [&](double min_fusion_weight) {
+    DegenSenseParams params;
+    params.voxel_size = 1.0;
+    params.max_icp_iterations = 40;
+    params.warmup_frames = 1;
+    params.mad_k = -1e9;  // force degeneracy after the warmup frame
+    params.min_fusion_weight = min_fusion_weight;
+    DegenSensePipeline pipeline(params);
+
+    bool saw_degenerate = false;
+    const std::vector<Eigen::Vector3d> path = {
+        Eigen::Vector3d(0, 0, 0), Eigen::Vector3d(1, 0, 0),
+        Eigen::Vector3d(1, 0, 0), Eigen::Vector3d(1, 0, 0)};
+    for (const auto& t : path) {
+      std::vector<Eigen::Vector3d> scan;
+      for (const auto& p : scene) {
+        const Eigen::Vector3d ps = p - t;
+        if (ps.norm() > 1 && ps.norm() < 25) scan.push_back(ps);
+      }
+      const auto result = pipeline.registerFrame(scan, {});
+      EXPECT_TRUE(result.converged);
+      EXPECT_FALSE(result.used_imu);
+      saw_degenerate = saw_degenerate || result.degenerate;
+    }
+    return std::make_pair(pipeline.pose(), saw_degenerate);
+  };
+
+  const auto low_weight = run(0.0);
+  const auto high_weight = run(1.0);
+  EXPECT_TRUE(low_weight.second);
+  EXPECT_TRUE(high_weight.second);
+  EXPECT_TRUE(low_weight.first.isApprox(high_weight.first, 1e-9));
+}

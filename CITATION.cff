@@ -13,7 +13,8 @@ abstract: >-
   and odometry papers behind a unified API, with ROS 2 nodes and built-in
   evaluation tools. It emphasizes from-paper reimplementations of methods that
   ship no public author code, benchmarked honestly on the KITTI Odometry
-  dataset.
+  dataset with explicit claim tiers separating catalog breadth from paper-ready
+  reproduction evidence.
 version: "1.0.0"
 date-released: "2026-06-11"
 keywords:

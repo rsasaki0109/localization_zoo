@@ -21,9 +21,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Python dependencies
-COPY requirements.txt /tmp/requirements.txt
-RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
+# Python dependencies. The image uses the same locked versions as CI so that
+# generated benchmark figures and reports do not drift between rebuilds.
+COPY requirements-lock.txt /tmp/requirements-lock.txt
+RUN pip3 install --no-cache-dir -r /tmp/requirements-lock.txt
 
 WORKDIR /workspace
 COPY . /workspace

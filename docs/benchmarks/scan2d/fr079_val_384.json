@@ -1,6 +1,6 @@
 {
-  "scan_dir": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/evaluation/fixtures/fr079_val_384",
-  "gt_csv": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/evaluation/fixtures/fr079_val_384/gt.csv",
+  "scan_dir": "localization_zoo/evaluation/fixtures/fr079_val_384",
+  "gt_csv": "localization_zoo/evaluation/fixtures/fr079_val_384/gt.csv",
   "num_frames": 384,
   "trajectory_length_m": 373.138,
   "rpe_segment_length_m": 100.000,

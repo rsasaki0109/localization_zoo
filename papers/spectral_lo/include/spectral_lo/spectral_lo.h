@@ -22,7 +22,7 @@ struct SpectralLoParams {
   /// BEV 画像サイズ (2 の冪)。
   int bev_size = 256;
   /// BEV の半径 [m] (中心からの片側スパン)。セル = 2*bev_range/bev_size。
-  double bev_range = 60.0;
+  double bev_range = 40.0;
   double max_range = 80.0;
   double min_range = 1.0;
   /// この高さ範囲 [m] の点のみ BEV に投影 (地面/天井ノイズの抑制)。
@@ -39,6 +39,9 @@ struct SpectralLoParams {
 
   /// frame-to-keyframe にするキーフレーム並進しきい値 [m] (0=毎フレーム frame-to-frame)。
   double keyframe_translation = 0.0;
+  /// Translation POC を residual image 上でもう一度だけ評価する回数。
+  int translation_refinement_iterations = 0;
+  double max_translation_refinement_m = 1.5;
 };
 
 struct SpectralLoResult {

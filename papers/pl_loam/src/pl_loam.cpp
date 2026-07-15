@@ -109,6 +109,70 @@ RangeImage PlLoam::buildRangeImage(const std::vector<Eigen::Vector3d>& points,
   return img;
 }
 
+GrayscaleImage PlLoam::buildIntensityImage(const RangeImage& image,
+                                           int dilation_radius) {
+  GrayscaleImage gray;
+  gray.width = image.width;
+  gray.height = image.height;
+  const size_t n = static_cast<size_t>(gray.width * gray.height);
+  gray.pixels.assign(n, 0);
+  if (image.width <= 0 || image.height <= 0 || image.depth.size() != n ||
+      image.intensity.size() != n) {
+    gray.pixels.clear();
+    return gray;
+  }
+
+  std::vector<float> valid_intensity;
+  valid_intensity.reserve(n / 8 + 1);
+  for (size_t i = 0; i < n; ++i) {
+    const float d = image.depth[i];
+    const float value = image.intensity[i];
+    if (d > 0.0f && std::isfinite(value)) valid_intensity.push_back(value);
+  }
+  if (valid_intensity.empty()) {
+    gray.pixels.clear();
+    return gray;
+  }
+
+  std::sort(valid_intensity.begin(), valid_intensity.end());
+  const size_t lo_idx = valid_intensity.size() / 20;
+  const size_t hi_idx = valid_intensity.size() - 1 - valid_intensity.size() / 20;
+  const float lo = valid_intensity[lo_idx];
+  const float hi = valid_intensity[hi_idx];
+  const bool has_range = hi > lo + 1e-6f;
+  const int radius = std::max(0, dilation_radius);
+  const int radius_sq = radius * radius;
+
+  for (int y = 0; y < image.height; ++y) {
+    for (int x = 0; x < image.width; ++x) {
+      const int idx = pixelIndex(x, y, image.width);
+      if (image.depth[idx] <= 0.0f || !std::isfinite(image.intensity[idx])) {
+        continue;
+      }
+      uint8_t value = 180;
+      if (has_range) {
+        const double normalized =
+            std::clamp((static_cast<double>(image.intensity[idx]) - lo) /
+                           static_cast<double>(hi - lo),
+                       0.0, 1.0);
+        value = static_cast<uint8_t>(std::lround(32.0 + 223.0 * normalized));
+      }
+      for (int dy = -radius; dy <= radius; ++dy) {
+        for (int dx = -radius; dx <= radius; ++dx) {
+          if (dx * dx + dy * dy > radius_sq) continue;
+          const int u = x + dx;
+          const int v = y + dy;
+          if (!inImage(u, v, image.width, image.height)) continue;
+          uint8_t& dst =
+              gray.pixels[static_cast<size_t>(pixelIndex(u, v, image.width))];
+          dst = std::max(dst, value);
+        }
+      }
+    }
+  }
+  return gray;
+}
+
 bool PlLoam::extractPointDepth(const RangeImage& image,
                                const Eigen::Vector2d& uv, int patch_radius,
                                double min_depth, double max_depth,
@@ -667,8 +731,19 @@ PlLoamResult PlLoam::process(const std::vector<Eigen::Vector3d>& points,
       buildRangeImage(subsampled, sub_intensity, params_.camera);
 
   std::vector<PointFeature> points_feat;
-  detectPointFeatures(image, params_.max_point_features, params_.harris_block,
-                      params_.harris_k, &points_feat);
+  GrayscaleImage intensity_image;
+  if (params_.use_intensity_pseudo_image) {
+    intensity_image =
+        buildIntensityImage(image, params_.intensity_dilation_radius);
+  }
+  if (!intensity_image.empty()) {
+    detectPointFeaturesGrayscale(intensity_image, params_.max_point_features,
+                                 params_.harris_block, params_.harris_k,
+                                 &points_feat);
+  } else {
+    detectPointFeatures(image, params_.max_point_features, params_.harris_block,
+                        params_.harris_k, &points_feat);
+  }
   for (auto& f : points_feat) {
     f.has_depth = extractPointDepth(image, f.uv, params_.patch_radius,
                                     params_.min_depth, params_.max_depth,
@@ -677,7 +752,12 @@ PlLoamResult PlLoam::process(const std::vector<Eigen::Vector3d>& points,
 
   std::vector<LineFeature> lines_feat;
   if (params_.use_line_features) {
-    detectLineFeatures(image, params_.max_line_features, &lines_feat);
+    if (!intensity_image.empty()) {
+      detectLineFeaturesGrayscale(intensity_image, params_.max_line_features,
+                                  &lines_feat);
+    } else {
+      detectLineFeatures(image, params_.max_line_features, &lines_feat);
+    }
     for (auto& l : lines_feat) {
       extractLineDepths(image, &l, params_.patch_radius, params_.min_depth,
                         params_.max_depth);

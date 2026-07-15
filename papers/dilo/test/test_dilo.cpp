@@ -68,6 +68,41 @@ TEST(Dilo, SphericalRangeImageProjectsAndNormals) {
   EXPECT_LT(px.normal.x(), -0.5);
 }
 
+TEST(Dilo, SphericalRangeImageLookupRadiusRecoversNeighborPixel) {
+  const auto pointAt = [](double yaw_deg, double pitch_deg, double range) {
+    const double yaw = yaw_deg * M_PI / 180.0;
+    const double pitch = pitch_deg * M_PI / 180.0;
+    return Eigen::Vector3d(range * std::cos(pitch) * std::cos(yaw),
+                           range * std::cos(pitch) * std::sin(yaw),
+                           range * std::sin(pitch));
+  };
+
+  std::vector<Eigen::Vector3d> patch = {
+      pointAt(0.0, 0.0, 10.0), pointAt(1.0, 0.0, 10.0),
+      pointAt(0.0, -1.0, 10.0)};
+
+  SphericalRangeImage::Params exact_params;
+  exact_params.height = 90;
+  exact_params.width = 360;
+  exact_params.fov_up_deg = 45.0;
+  exact_params.fov_down_deg = -45.0;
+  exact_params.lookup_radius = 0;
+
+  SphericalRangeImage exact;
+  exact.build(patch, exact_params);
+  EXPECT_FALSE(exact.lookup(pointAt(-0.6, 0.0, 10.0)).valid);
+
+  SphericalRangeImage::Params neighbor_params = exact_params;
+  neighbor_params.lookup_radius = 1;
+  neighbor_params.max_lookup_point_distance = 1.5;
+
+  SphericalRangeImage neighbor;
+  neighbor.build(patch, neighbor_params);
+  const auto px = neighbor.lookup(pointAt(-0.6, 0.0, 10.0));
+  EXPECT_TRUE(px.valid);
+  EXPECT_TRUE(px.has_normal);
+}
+
 // (2) projective data association で既知の並進を direct alignment 回復する。
 TEST(Dilo, RecoversKnownTranslation) {
   DiloPipeline pipe(baseParams());

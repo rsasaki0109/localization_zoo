@@ -1,21 +1,83 @@
 {
-  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq00_full",
-  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq00_gt.csv",
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+  "gt_sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+  "total_pcd_frames": 4541,
   "num_frames": 4541,
+  "raw_gt_pose_count": 4541,
+  "used_gt_pose_count": 4541,
   "trajectory_length_m": 3723.242184,
-  "timestamp_source": "sampled GT timestamps",
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.05,
+  "evaluator_git_commit": "91d48c3b70c014442ea8fe46379543ae9fa93384",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_00_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_00_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 4541,
+    "timestamp_all_integer": true,
+    "timestamp_range": [
+      0.0,
+      4540.0
+    ]
+  },
+  "gt": {
+    "source": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 4541,
+    "raw_timestamp_range": [
+      0.0,
+      4540.0
+    ]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.05,
+    "used_gt_pose_count": 4541,
+    "associated_gt_index_range": [
+      0,
+      4540
+    ],
+    "associated_gt_timestamp_range": [
+      0.0,
+      4540.0
+    ],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.0,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
   "methods": [
     {
       "name": "D2-LIO",
       "status": "ok",
-      "ate_m": 106.236840,
-      "rpe_trans_pct": 5.794076,
-      "rpe_rot_deg_per_m": 0.102637,
+      "ate_m": 10.579332,
+      "rpe_trans_pct": 0.814498,
+      "rpe_rot_deg_per_m": 0.007108,
       "frames": 4541,
-      "time_ms": 6135707.799501,
-      "fps": 0.740094,
+      "time_ms": 1088735.400346,
+      "fps": 4.170894,
       "seed_fallback_rate_pct": null,
-      "note": "Scan-to-submap, constant-velocity fallback (no imu.csv; GT-seeded init). deg_dirs/frame rot=4365 trans=0"
+      "note": "Scan-to-submap, constant-velocity fallback (no imu.csv; first-pose anchored; degeneracy prior diagnostics-only). deg_dirs/frame rot=4186 trans=0"
     }
   ]
 }

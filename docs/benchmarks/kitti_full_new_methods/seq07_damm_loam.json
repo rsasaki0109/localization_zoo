@@ -1,6 +1,6 @@
 {
-  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
-  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
   "num_frames": 1101,
   "trajectory_length_m": 694.390333,
   "timestamp_source": "sampled GT timestamps",

@@ -161,12 +161,21 @@ bool Vlom::processVisual(const std::vector<Eigen::Vector3d>& points,
       gray != nullptr && !gray->empty() &&
       gray->width == params_.visual.camera.width &&
       gray->height == params_.visual.camera.height;
+  pl_loam::GrayscaleImage intensity_image;
+  if (!use_rgb && params_.visual.use_intensity_pseudo_image) {
+    intensity_image = pl_loam::PlLoam::buildIntensityImage(
+        depth_image, params_.visual.intensity_dilation_radius);
+  }
 
   std::vector<pl_loam::PointFeature> points_feat;
   if (use_rgb) {
     pl_loam::PlLoam::detectPointFeaturesGrayscale(
         *gray, params_.visual.max_point_features, params_.visual.harris_block,
         params_.visual.harris_k, &points_feat);
+  } else if (!intensity_image.empty()) {
+    pl_loam::PlLoam::detectPointFeaturesGrayscale(
+        intensity_image, params_.visual.max_point_features,
+        params_.visual.harris_block, params_.visual.harris_k, &points_feat);
   } else {
     pl_loam::PlLoam::detectPointFeatures(
         depth_image, params_.visual.max_point_features,
@@ -183,6 +192,9 @@ bool Vlom::processVisual(const std::vector<Eigen::Vector3d>& points,
     if (use_rgb) {
       pl_loam::PlLoam::detectLineFeaturesGrayscale(
           *gray, params_.visual.max_line_features, &lines_feat);
+    } else if (!intensity_image.empty()) {
+      pl_loam::PlLoam::detectLineFeaturesGrayscale(
+          intensity_image, params_.visual.max_line_features, &lines_feat);
     } else {
       pl_loam::PlLoam::detectLineFeatures(depth_image,
                                           params_.visual.max_line_features,

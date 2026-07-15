@@ -34,6 +34,23 @@ scan-to-map odometry front-end (built on the project's voxel loop):
   per-voxel re-fit cost
 - least-squares plane fit with an inlier-distance gate as a light substitute for
   the paper's RANSAC fit (keeps it deterministic and fast)
+- dense KITTI profile enables a scan-to-scan recovery path when recursive map
+  correspondences fall below the support threshold or when map ICP disagrees
+  with scan-to-scan motion beyond the configured gate
+
+## Result (KITTI Odometry, strict exact-frame association)
+
+Command profile: `--no-gt-seed --r-voxelmap-dense-profile`.
+
+| Seq | Drift | ATE | FPS | map match | recovery |
+|-----|------:|----:|----:|----------:|---------:|
+| seq00 | **45.8%** | 894 m | 16.3 | 0.802 | 3.08% |
+| seq07 | **3.27%** | 11 m | 8.2 | 0.921 | 4.27% |
+
+**Honest negative.** Low-correspondence plus map/fallback-disagreement recovery
+prevents the seq07 runaway failure seen with strict frame association, but
+seq00 still accumulates large long-range drift. The result should be read as
+"runaway suppressed", not as a reproduced R-VoxelMap score.
 
 ## Deviations / Not Included Yet
 

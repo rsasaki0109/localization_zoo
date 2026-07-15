@@ -82,3 +82,24 @@ keeps ATE/RPE effectively unchanged (**0.0689 m / 0.6117%** to
 **0.0699 m / 0.6088%**), confirming the point-to-quadric path dominates this
 curved synthetic scene. This remains mechanism stress evidence, not public
 curved-object/non-urban dataset validation.
+
+## Public KITTI seq02 validation
+
+Residential/suburban public KITTI Odometry seq02 full (4661 frames, no GT seed):
+
+```bash
+python3 evaluation/scripts/run_quadric_lo_kitti_seq02_validation.py
+```
+
+| Variant | RPE | ATE | Artifact |
+|---|---:|---:|---|
+| fallback on (+ KISS) | 0.933% | 31.0 m | [`quadric_lo_fallback_on.json`](../../docs/benchmarks/kitti_seq02_public/quadric_lo_fallback_on.json) |
+| fallback off | 1.446% | 57.1 m | [`quadric_lo_fallback_off.json`](../../docs/benchmarks/kitti_seq02_public/quadric_lo_fallback_off.json) |
+
+Paired summary: [`quadric_lo_kitti_seq02_validation_summary.json`](../../docs/benchmarks/kitti_seq02_public/quadric_lo_kitti_seq02_validation_summary.json).
+Fallback-on uses **2863 quadric / 19 plane** correspondences/frame (>99% quadric).
+Unlike the near-neutral seq00/07 highway ablation, disabling plane fallback on
+seq02 worsens RPE by about **55%** and ATE by about **84%**, showing the rare
+plane fallback carries more weight on this vegetation-rich suburban sequence.
+Dedicated orchard or non-urban multi-beam benchmarks remain open before T0
+promotion.

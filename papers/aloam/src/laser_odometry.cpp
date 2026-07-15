@@ -226,6 +226,7 @@ OdometryResult LaserOdometry::process(const FeatureCloud& features) {
     options.linear_solver_type = ceres::DENSE_QR;
     options.max_num_iterations = params_.ceres_max_iterations;
     options.minimizer_progress_to_stdout = false;
+    options.logging_type = ceres::SILENT;
 
     ceres::Solver::Summary summary;
     ceres::Solve(options, &problem, &summary);

@@ -50,7 +50,7 @@ def build_windows(rows: list[list[float]], window: int = 50):
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--kitti-root", default="/media/sasaki/aiueo/ai_coding_ws/_kitti/2011_09_26")
+    parser.add_argument("--kitti-root", default="_kitti/2011_09_26")
     parser.add_argument("--output", default="papers/nn_zupt/data/kitti_nn_zupt_dataset.npz")
     parser.add_argument("--window", type=int, default=50)
     parser.add_argument("--stop-threshold", type=float, default=0.5)

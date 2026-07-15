@@ -26,7 +26,9 @@ A LiDAR-(IMU) scan-to-map odometry with the paper's three contributions:
    LiDAR solution is blended with the IMU motion prediction using a weight `1/S`:
    `t = (1 − 1/S_t)·t_IMU + (1/S_t)·t_LiDAR` for translation and the
    corresponding SLERP for rotation. Higher degeneracy ⇒ more IMU, less reliance
-   on the degraded LiDAR estimate.
+   on the degraded LiDAR estimate. Compensation is applied only when a real IMU
+   packet was integrated for the frame; no-IMU runs still report degeneracy but
+   do not blend toward the constant-velocity fallback prediction.
 
 ## Current Scope
 
@@ -34,6 +36,9 @@ A LiDAR-(IMU) scan-to-map odometry with the paper's three contributions:
 - point-to-plane registration with a constant-velocity + IMU-gyro rotation prior
   (online gyro-bias correction); falls back to constant velocity without IMU
 - exposes the degeneracy factors and the per-frame degenerate flag in the result
+- without `imu.csv`, the KITTI dogfooding path is LiDAR-only scan-to-map with
+  degeneracy diagnostics; compensation is disabled because constant velocity is
+  not an inertial reference
 
 ## Deviations / Not Included Yet
 
@@ -44,3 +49,36 @@ A LiDAR-(IMU) scan-to-map odometry with the paper's three contributions:
   rather than a filter update
 - parameters the paper leaves open (MAD multiplier, buffer length, fusion-weight
   floor) are exposed with repo-consistent defaults
+
+## Public synchronized LiDAR-IMU validation (HDL-400 open)
+
+120-frame public HDL-400 open window with `imu.csv` + `frame_timestamps.csv`:
+
+```bash
+python3 evaluation/scripts/run_lio_imu_public_validation.py --dataset hdl_400
+```
+
+| Variant | RPE | ATE | IMU path |
+|---|---:|---:|---|
+| DegenSense IMU on | 1.72% | 0.19 m | active |
+| DegenSense no `imu.csv` | 1.60% | 0.19 m | fallback |
+
+Paired summary: [`hdl_400_lio_imu_validation_summary.json`](../../docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json).
+
+IMU/LiDAR fusion compensation activates when `imu.csv` is present; metric deltas
+vs the no-IMU fallback are small on HDL-400 open but NCLT 2013-01-10 shows ATE
+0.16 m with IMU vs 0.24 m without (~45% worse off) — mechanism evidence, not a
+full LIO T0 claim.
+
+## Public synchronized LiDAR-IMU validation (NCLT 2013-01-10)
+
+```bash
+python3 evaluation/scripts/prepare_nclt_inputs.py \
+  --velodyne-dir data/nclt_2013_01_10/2013-01-10/velodyne_sync \
+  --ground-truth data/nclt_2013_01_10/groundtruth_2013-01-10.csv \
+  --ms25 data/nclt_2013_01_10/2013-01-10/ms25.csv \
+  --date 2013-01-10 --max-frames 120
+python3 evaluation/scripts/run_lio_imu_public_validation.py --dataset nclt_2013_01_10_120
+```
+
+Paired summary: [`nclt_2013_01_10_120_lio_imu_validation_summary.json`](../../docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json).

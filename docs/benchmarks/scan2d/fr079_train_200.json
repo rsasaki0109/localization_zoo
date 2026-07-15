@@ -1,6 +1,6 @@
 {
-  "scan_dir": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/evaluation/fixtures/fr079_train_200",
-  "gt_csv": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/evaluation/fixtures/fr079_train_200/gt.csv",
+  "scan_dir": "localization_zoo/evaluation/fixtures/fr079_train_200",
+  "gt_csv": "localization_zoo/evaluation/fixtures/fr079_train_200/gt.csv",
   "num_frames": 200,
   "trajectory_length_m": 26.775,
   "rpe_segment_length_m": 13.387,

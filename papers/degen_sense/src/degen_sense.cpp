@@ -294,15 +294,16 @@ DegenSenseResult DegenSensePipeline::registerFrame(
   const bool deg_trans = isDegenerate(S_t, trans_history_);
   result.degenerate = deg_rot || deg_trans;
 
-  // (3) 退化時は IMU 予測と LiDAR 解を 1/S で融合して補償。
+  // (3) 退化時は、実 IMU がある場合だけ IMU 予測と LiDAR 解を 1/S で融合して補償。
+  // no-IMU では退化診断だけを残し、等速予測を inertial reference として扱わない。
   Eigen::Matrix4d fused = lidar_pose;
-  if (deg_trans) {
+  if (result.used_imu && deg_trans) {
     const double w = std::clamp(1.0 / S_t, params_.min_fusion_weight, 1.0);
     fused.block<3, 1>(0, 3) =
         (1.0 - w) * prediction.block<3, 1>(0, 3) +
         w * lidar_pose.block<3, 1>(0, 3);
   }
-  if (deg_rot) {
+  if (result.used_imu && deg_rot) {
     const double w = std::clamp(1.0 / S_R, params_.min_fusion_weight, 1.0);
     const Eigen::Quaterniond q_imu(prediction.block<3, 3>(0, 0));
     const Eigen::Quaterniond q_lidar(lidar_pose.block<3, 3>(0, 0));

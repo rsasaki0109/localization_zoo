@@ -1,5 +1,5 @@
 {
-  "degradation_windows_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/fog_200/window_selection/degradation_windows.json",
+  "degradation_windows_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/fog_200/window_selection/degradation_windows.json",
   "sequence_pcd_dir": "dogfooding_results/lidar_degeneracy_fog_200",
   "method": "ct_icp",
   "parameters": {
@@ -67,7 +67,7 @@
         "range_p95_drop_vs_baseline": 0.003268338790344605,
         "obscurant_score": 0.005603434076427771
       },
-      "result_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_ceres/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json",
+      "result_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_ceres/fog_200/ct_icp_health/results/baseline_0000_0029_ct_icp.json",
       "frames": 30,
       "pairs": 29,
       "runtime_s": 0.280089,
@@ -124,7 +124,7 @@
         "range_p95_drop_vs_baseline": 0.24931965362230157,
         "obscurant_score": 0.9111439385987401
       },
-      "result_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_ceres/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
+      "result_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_ceres/fog_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "frames": 30,
       "pairs": 29,
       "runtime_s": 0.219307,
@@ -181,7 +181,7 @@
         "range_p95_drop_vs_baseline": 0.038425942415591496,
         "obscurant_score": 0.5209874970401371
       },
-      "result_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_ceres/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
+      "result_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_ceres/fog_200/ct_icp_health/results/point_count_tail_0115_0144_ct_icp.json",
       "frames": 30,
       "pairs": 29,
       "runtime_s": 0.249204,

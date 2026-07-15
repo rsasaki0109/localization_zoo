@@ -1,6 +1,6 @@
 {
-  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
-  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "pcd_dir": "kitti_pcd/seq07_full",
+  "gt_csv": "kitti_pcd/seq07_gt.csv",
   "num_frames": 1101,
   "trajectory_length_m": 694.390333,
   "timestamp_source": "sampled GT timestamps",
@@ -15,7 +15,7 @@
       "time_ms": 630933.670001,
       "fps": 1.745033,
       "seed_fallback_rate_pct": null,
-      "note": "Uncertainty-weighted point-to-plane, no vibration estimate (no imu.csv; GT-seeded init). mean_vib_omega=0.000000"
+      "note": "Uncertainty-weighted point-to-plane, no vibration estimate (no imu.csv; first-pose anchored; no per-frame GT seed). mean_vib_omega=0.000000"
     }
   ]
 }

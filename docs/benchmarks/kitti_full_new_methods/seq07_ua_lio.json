@@ -1,21 +1,71 @@
 {
-  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
-  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "gt_sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+  "total_pcd_frames": 1101,
   "num_frames": 1101,
+  "raw_gt_pose_count": 1101,
+  "used_gt_pose_count": 1101,
   "trajectory_length_m": 694.390333,
-  "timestamp_source": "sampled GT timestamps",
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "6d2138dfd7a08ffb5df65246206e689697d00e8c",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_07_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 1101,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 1100.000000]
+  },
+  "gt": {
+    "source": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 1101,
+    "raw_timestamp_range": [0.000000, 1100.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 1101,
+    "associated_gt_index_range": [0, 1100],
+    "associated_gt_timestamp_range": [0.000000, 1100.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
   "methods": [
     {
       "name": "UA-LIO",
       "status": "ok",
-      "ate_m": 321181.967943,
-      "rpe_trans_pct": 74003.427021,
-      "rpe_rot_deg_per_m": 1.007231,
+      "ate_m": 3.154723,
+      "rpe_trans_pct": 0.967480,
+      "rpe_rot_deg_per_m": 0.009614,
       "frames": 1101,
-      "time_ms": 50486.052277,
-      "fps": 21.808003,
+      "time_ms": 11559.281806,
+      "fps": 95.248132,
       "seed_fallback_rate_pct": null,
-      "note": "D2D + ground constraint, constant-velocity (no imu.csv; GT-seeded init). ground_cells=23"
+      "note": "D2D + ground constraint, constant-velocity (no imu.csv; first-pose anchored; no per-frame GT seed). ground_cells=1019730"
     }
   ]
 }

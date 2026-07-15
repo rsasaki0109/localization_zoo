@@ -102,6 +102,21 @@ struct RVoxelMapParams {
   int max_icp_iterations = 100;
   double convergence_criterion = 0.001;
   double max_correspondence_dist = 2.0;
+  double max_plane_weight = 10000.0;
+  double icp_damping = 0.0;
+  double huber_residual = 0.0;
+  double max_iteration_translation = 0.0;
+  double max_iteration_rotation = 0.0;
+  double min_map_matched_ratio = 0.0;
+  double max_registration_translation = 3.0;
+  double max_registration_rotation = 0.5;
+  double max_map_fallback_translation_delta = 0.0;
+  double max_map_fallback_rotation_delta = 0.0;
+
+  bool enable_scan_to_scan_fallback = false;
+  int fallback_max_iterations = 12;
+  double fallback_max_correspondence_dist = 1.5;
+  double min_fallback_matched_ratio = 0.05;
 
   double local_map_radius = 0.0;
   int map_cleanup_interval = 0;
@@ -112,6 +127,9 @@ struct RVoxelMapResult {
   bool converged = false;
   int iterations = 0;
   double matched_ratio = 0.0;  ///< 平面対応が取れた点の割合
+  bool used_fallback = false;
+  bool fallback_disagreement = false;
+  double fallback_matched_ratio = 0.0;
 };
 
 /// R-VoxelMap (arXiv:2601.12377) の再帰的平面ボクセルマップ odometry。
@@ -132,11 +150,20 @@ private:
   Eigen::Matrix4d runICP(const std::vector<Eigen::Vector3d>& source,
                          const Eigen::Matrix4d& initial_guess,
                          double* matched_ratio_out);
+  Eigen::Matrix4d runScanToScanICP(
+      const std::vector<Eigen::Vector3d>& source,
+      const Eigen::Matrix4d& initial_guess, double* matched_ratio_out) const;
+  std::vector<Eigen::Vector3d> transformToWorld(
+      const std::vector<Eigen::Vector3d>& pts,
+      const Eigen::Matrix4d& pose) const;
+  bool registrationMotionOk(const Eigen::Matrix4d& reference,
+                            const Eigen::Matrix4d& candidate) const;
 
   RVoxelMapParams params_;
   RecursiveVoxelMap map_;
   Eigen::Matrix4d pose_ = Eigen::Matrix4d::Identity();
   Eigen::Matrix4d last_delta_ = Eigen::Matrix4d::Identity();
+  std::vector<Eigen::Vector3d> last_scan_world_;
   int frame_count_ = 0;
 };
 

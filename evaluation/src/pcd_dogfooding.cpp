@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -52,6 +52,7 @@
 #include "odonet/odonet.h"
 #include "nhc_net/nhc_net.h"
 #include "nn_zupt/nn_zupt.h"
+#include "imu_dead_reckoning/imu_dead_reckoning.h"
 #include "degen_sense/degen_sense.h"
 #include "vibration_lio/vibration_lio.h"
 #include "id_lio/id_lio.h"
@@ -103,9 +104,11 @@
 #include <Eigen/Geometry>
 
 #include <algorithm>
+#include <array>
 #include <cctype>
 #include <chrono>
 #include <cmath>
+#include <cstdint>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -113,7 +116,9 @@
 #include <limits>
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 #include <string>
+#include <system_error>
 #include <thread>
 #include <vector>
 
@@ -134,6 +139,115 @@ struct GTPose {
     return T;
   }
 };
+
+enum class TimeDomain {
+  kFrameIndex,
+  kSeconds,
+  kUnknown,
+};
+
+std::string timeDomainName(TimeDomain domain) {
+  switch (domain) {
+    case TimeDomain::kFrameIndex:
+      return "frame_index";
+    case TimeDomain::kSeconds:
+      return "seconds";
+    case TimeDomain::kUnknown:
+      return "unknown";
+  }
+  return "unknown";
+}
+
+void rotationMatrixToRpy(const Eigen::Matrix3d& R, double& roll,
+                         double& pitch, double& yaw) {
+  const double sinp = std::clamp(-R(2, 0), -1.0, 1.0);
+  if (std::abs(sinp) >= 1.0) {
+    pitch = std::copysign(M_PI / 2.0, sinp);
+    roll = 0.0;
+    yaw = std::atan2(-R(0, 1), R(0, 2));
+  } else {
+    pitch = std::asin(sinp);
+    roll = std::atan2(R(2, 1), R(2, 2));
+    yaw = std::atan2(R(1, 0), R(0, 0));
+  }
+}
+
+double parseFiniteDoubleToken(const std::string& token,
+                              const std::string& path,
+                              size_t line_number,
+                              size_t column_number) {
+  std::istringstream ss(token);
+  double value = 0.0;
+  if (!(ss >> value)) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number << ":" << column_number
+        << ": expected finite numeric value, got '" << token << "'";
+    throw std::runtime_error(msg.str());
+  }
+  ss >> std::ws;
+  if (!ss.eof() || !std::isfinite(value)) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number << ":" << column_number
+        << ": expected finite numeric value, got '" << token << "'";
+    throw std::runtime_error(msg.str());
+  }
+  return value;
+}
+
+void validateRotationMatrix(const Eigen::Matrix3d& R,
+                            const std::string& path,
+                            size_t line_number) {
+  if (!R.allFinite()) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number
+        << ": KITTI pose rotation contains NaN or Inf";
+    throw std::runtime_error(msg.str());
+  }
+  const double det = R.determinant();
+  const double orthogonality_error =
+      (R.transpose() * R - Eigen::Matrix3d::Identity()).norm();
+  if (det <= 0.0 || std::abs(det - 1.0) > 1e-3 ||
+      orthogonality_error > 1e-3) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number
+        << ": KITTI pose rotation is not a valid SO(3) matrix"
+        << " (det=" << det
+        << ", orthogonality_error=" << orthogonality_error << ")";
+    throw std::runtime_error(msg.str());
+  }
+}
+
+void parseKittiPoseLine(const std::string& line,
+                        size_t index,
+                        const std::string& path,
+                        size_t line_number,
+                        GTPose& pose) {
+  std::istringstream ss(line);
+  std::vector<double> vals;
+  std::string token;
+  while (ss >> token) {
+    vals.push_back(
+        parseFiniteDoubleToken(token, path, line_number, vals.size() + 1));
+  }
+  if (vals.size() != 12) {
+    std::ostringstream msg;
+    msg << path << ":" << line_number
+        << ": expected KITTI 3x4 pose with 12 values, got "
+        << vals.size();
+    throw std::runtime_error(msg.str());
+  }
+
+  Eigen::Matrix3d R;
+  R << vals[0], vals[1], vals[2],
+       vals[4], vals[5], vals[6],
+       vals[8], vals[9], vals[10];
+  validateRotationMatrix(R, path, line_number);
+  pose.timestamp = static_cast<double>(index);
+  pose.x = vals[3];
+  pose.y = vals[7];
+  pose.z = vals[11];
+  rotationMatrixToRpy(R, pose.roll, pose.pitch, pose.yaw);
+}
 
 struct ImuSampleCsv {
   double timestamp = 0.0;
@@ -276,6 +390,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "i_loam" || method == "pl_loam" || method == "inten_loam" ||
          method == "mcgicp" ||          method == "icpsc" || method == "vlom" ||
          method == "odonet" || method == "nhc_net" || method == "nn_zupt" ||
+         method == "imu_dead_reckoning" ||
          method == "clins";
 }
 
@@ -284,11 +399,21 @@ bool isMethodEnabled(const std::vector<std::string>& methods,
   return std::find(methods.begin(), methods.end(), method) != methods.end();
 }
 
-std::vector<GTPose> loadGTPoses(const std::string& csv_path) {
+std::vector<GTPose> loadGTPoses(const std::string& csv_path,
+                                TimeDomain* time_domain = nullptr,
+                                std::string* format = nullptr) {
+  if (time_domain) *time_domain = TimeDomain::kUnknown;
+  if (format) *format = "unknown";
+
   std::vector<GTPose> poses;
   std::ifstream file(csv_path);
+  if (!file.is_open()) {
+    throw std::runtime_error("Failed to open GT file: " + csv_path);
+  }
+
   std::string line;
-  std::getline(file, line);  // skip header
+  if (!std::getline(file, line)) return poses;
+  size_t line_number = 1;
 
   // ヘッダからカラムインデックスを取得
   std::istringstream header_ss(line);
@@ -308,24 +433,65 @@ std::vector<GTPose> loadGTPoses(const std::string& csv_path) {
     if (cols[i] == "lidar_pose.yaw") idx_yaw = i;
   }
 
+  if (idx_x < 0) {
+    GTPose gp;
+    parseKittiPoseLine(line, poses.size(), csv_path, line_number, gp);
+    poses.push_back(gp);
+    while (std::getline(file, line)) {
+      line_number++;
+      parseKittiPoseLine(line, poses.size(), csv_path, line_number, gp);
+      poses.push_back(gp);
+    }
+    if (time_domain) *time_domain = TimeDomain::kFrameIndex;
+    if (format) *format = "kitti_3x4";
+    return poses;
+  }
+
+  if (idx_y < 0 || idx_z < 0 || idx_roll < 0 || idx_pitch < 0 ||
+      idx_yaw < 0) {
+    std::ostringstream msg;
+    msg << csv_path << ":1"
+        << ": GT CSV requires lidar_pose.x/y/z/roll/pitch/yaw columns";
+    throw std::runtime_error(msg.str());
+  }
+
   while (std::getline(file, line)) {
+    line_number++;
     std::istringstream ss(line);
     std::vector<std::string> vals;
     std::string token;
     while (std::getline(ss, token, ',')) vals.push_back(trimCsvToken(token));
 
-    if (idx_x >= 0 && idx_x < (int)vals.size()) {
-      GTPose gp;
-      gp.timestamp = idx_ts >= 0 ? std::stod(vals[idx_ts]) : poses.size();
-      gp.x = std::stod(vals[idx_x]);
-      gp.y = std::stod(vals[idx_y]);
-      gp.z = std::stod(vals[idx_z]);
-      gp.roll = std::stod(vals[idx_roll]);
-      gp.pitch = std::stod(vals[idx_pitch]);
-      gp.yaw = std::stod(vals[idx_yaw]);
-      poses.push_back(gp);
+    const int max_idx =
+        std::max({idx_ts, idx_x, idx_y, idx_z, idx_roll, idx_pitch, idx_yaw});
+    if (max_idx >= static_cast<int>(vals.size())) {
+      std::ostringstream msg;
+      msg << csv_path << ":" << line_number
+          << ": expected at least " << (max_idx + 1)
+          << " CSV columns, got " << vals.size();
+      throw std::runtime_error(msg.str());
     }
+
+    GTPose gp;
+    gp.timestamp = idx_ts >= 0
+                       ? parseFiniteDoubleToken(vals[idx_ts], csv_path,
+                                                line_number, idx_ts + 1)
+                       : static_cast<double>(poses.size());
+    gp.x = parseFiniteDoubleToken(vals[idx_x], csv_path, line_number, idx_x + 1);
+    gp.y = parseFiniteDoubleToken(vals[idx_y], csv_path, line_number, idx_y + 1);
+    gp.z = parseFiniteDoubleToken(vals[idx_z], csv_path, line_number, idx_z + 1);
+    gp.roll =
+        parseFiniteDoubleToken(vals[idx_roll], csv_path, line_number, idx_roll + 1);
+    gp.pitch = parseFiniteDoubleToken(vals[idx_pitch], csv_path, line_number,
+                                      idx_pitch + 1);
+    gp.yaw =
+        parseFiniteDoubleToken(vals[idx_yaw], csv_path, line_number, idx_yaw + 1);
+    poses.push_back(gp);
   }
+  if (time_domain) {
+    *time_domain = idx_ts >= 0 ? TimeDomain::kSeconds : TimeDomain::kFrameIndex;
+  }
+  if (format) *format = "csv_lidar_pose";
   return poses;
 }
 
@@ -581,6 +747,25 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr toPclXYZICloud(
   return cloud;
 }
 
+bool parseNonNegativeIntegerBasename(const fs::path& path,
+                                     unsigned long long* value) {
+  const std::string name = path.filename().string();
+  if (name.empty()) return false;
+
+  unsigned long long parsed = 0;
+  for (unsigned char c : name) {
+    if (!std::isdigit(c)) return false;
+    const unsigned long long digit = static_cast<unsigned long long>(c - '0');
+    if (parsed >
+        (std::numeric_limits<unsigned long long>::max() - digit) / 10) {
+      return false;
+    }
+    parsed = parsed * 10 + digit;
+  }
+  if (value) *value = parsed;
+  return true;
+}
+
 std::vector<std::string> listPCDDirs(const std::string& dir) {
   std::vector<std::string> dirs;
   for (auto& entry : fs::directory_iterator(dir)) {
@@ -589,7 +774,24 @@ std::vector<std::string> listPCDDirs(const std::string& dir) {
       if (fs::exists(pcd_path)) dirs.push_back(entry.path().string());
     }
   }
-  std::sort(dirs.begin(), dirs.end());
+  bool all_numeric = !dirs.empty();
+  for (const auto& pcd_dir : dirs) {
+    all_numeric =
+        all_numeric && parseNonNegativeIntegerBasename(fs::path(pcd_dir), nullptr);
+  }
+  if (all_numeric) {
+    std::sort(dirs.begin(), dirs.end(),
+              [](const std::string& lhs, const std::string& rhs) {
+                unsigned long long lhs_frame = 0;
+                unsigned long long rhs_frame = 0;
+                parseNonNegativeIntegerBasename(fs::path(lhs), &lhs_frame);
+                parseNonNegativeIntegerBasename(fs::path(rhs), &rhs_frame);
+                if (lhs_frame != rhs_frame) return lhs_frame < rhs_frame;
+                return lhs < rhs;
+              });
+  } else {
+    std::sort(dirs.begin(), dirs.end());
+  }
   return dirs;
 }
 
@@ -693,6 +895,216 @@ FrameGapStats computeFrameGapStats(const std::vector<double>& frame_timestamps) 
     stats.median_gap = sorted_gaps[mid];
   }
   return stats;
+}
+
+bool isNearInteger(double value) {
+  return std::isfinite(value) && std::abs(value - std::round(value)) <= 1e-6;
+}
+
+bool allFiniteIntegers(const std::vector<double>& values) {
+  if (values.empty()) return false;
+  return std::all_of(values.begin(), values.end(), isNearInteger);
+}
+
+bool allGTTimestampsFiniteIntegers(const std::vector<GTPose>& gt_poses_raw) {
+  if (gt_poses_raw.empty()) return false;
+  return std::all_of(gt_poses_raw.begin(), gt_poses_raw.end(),
+                     [](const GTPose& pose) {
+                       return isNearInteger(pose.timestamp);
+                     });
+}
+
+void requireStrictlyIncreasing(const std::vector<double>& values,
+                               const std::string& label) {
+  if (values.empty()) {
+    throw std::runtime_error(label + " is empty");
+  }
+  for (size_t i = 0; i < values.size(); i++) {
+    if (!std::isfinite(values[i])) {
+      std::ostringstream msg;
+      msg << label << " contains NaN/Inf at index " << i;
+      throw std::runtime_error(msg.str());
+    }
+    if (i > 0 && values[i] <= values[i - 1]) {
+      std::ostringstream msg;
+      msg << label << " must be strictly increasing; index " << i - 1
+          << "=" << values[i - 1] << ", index " << i << "=" << values[i];
+      throw std::runtime_error(msg.str());
+    }
+  }
+}
+
+std::vector<double> gtTimestampVector(const std::vector<GTPose>& gt_poses_raw) {
+  std::vector<double> gt_times;
+  gt_times.reserve(gt_poses_raw.size());
+  for (const auto& gp : gt_poses_raw) gt_times.push_back(gp.timestamp);
+  return gt_times;
+}
+
+struct GTAssociation {
+  std::vector<Eigen::Matrix4d> poses;
+  std::string mode;
+  std::vector<size_t> gt_indices;
+};
+
+std::vector<Eigen::Matrix4d> buildAssociatedGTMatrices(
+    const std::vector<GTPose>& gt_poses_raw,
+    const std::vector<size_t>& indices) {
+  std::vector<Eigen::Matrix4d> gt;
+  if (indices.empty()) return gt;
+  const Eigen::Matrix4d T0_inv =
+      gt_poses_raw[indices.front()].toMatrix().inverse();
+  gt.reserve(indices.size());
+  for (size_t idx : indices) {
+    if (idx >= gt_poses_raw.size()) {
+      throw std::runtime_error("GT association index out of range");
+    }
+    gt.push_back(T0_inv * gt_poses_raw[idx].toMatrix());
+  }
+  return gt;
+}
+
+GTAssociation associateByExactFrameId(
+    const std::vector<double>& frame_timestamps,
+    const std::vector<GTPose>& gt_poses_raw) {
+  requireStrictlyIncreasing(frame_timestamps, "frame_timestamps");
+  const auto gt_times = gtTimestampVector(gt_poses_raw);
+  requireStrictlyIncreasing(gt_times, "GT timestamps");
+
+  if (!allFiniteIntegers(frame_timestamps) ||
+      !allGTTimestampsFiniteIntegers(gt_poses_raw)) {
+    throw std::runtime_error(
+        "exact frame-ID association requires integer frame IDs in both "
+        "frame_timestamps and GT");
+  }
+
+  GTAssociation association;
+  association.mode = "exact_frame_id";
+  association.gt_indices.reserve(frame_timestamps.size());
+
+  size_t gt_cursor = 0;
+  for (size_t i = 0; i < frame_timestamps.size(); i++) {
+    const long long frame_id = static_cast<long long>(std::llround(frame_timestamps[i]));
+    while (gt_cursor < gt_poses_raw.size() &&
+           static_cast<long long>(std::llround(gt_poses_raw[gt_cursor].timestamp)) <
+               frame_id) {
+      gt_cursor++;
+    }
+    if (gt_cursor >= gt_poses_raw.size() ||
+        static_cast<long long>(std::llround(gt_poses_raw[gt_cursor].timestamp)) !=
+            frame_id) {
+      std::ostringstream msg;
+      msg << "Missing GT pose for frame_id " << frame_id
+          << " at processed frame " << i
+          << "; refusing silent GT sampling fallback";
+      throw std::runtime_error(msg.str());
+    }
+    association.gt_indices.push_back(gt_cursor);
+  }
+
+  association.poses = buildAssociatedGTMatrices(gt_poses_raw,
+                                               association.gt_indices);
+  return association;
+}
+
+GTAssociation associateByTimestamp(
+    const std::vector<double>& frame_timestamps,
+    const std::vector<GTPose>& gt_poses_raw,
+    double max_dt) {
+  if (!std::isfinite(max_dt) || max_dt < 0.0) {
+    throw std::runtime_error("--association-max-dt must be finite and >= 0");
+  }
+  requireStrictlyIncreasing(frame_timestamps, "frame_timestamps");
+  const auto gt_times = gtTimestampVector(gt_poses_raw);
+  requireStrictlyIncreasing(gt_times, "GT timestamps");
+
+  GTAssociation association;
+  association.mode = "timestamp";
+  association.gt_indices.reserve(frame_timestamps.size());
+
+  for (size_t i = 0; i < frame_timestamps.size(); i++) {
+    const double ts = frame_timestamps[i];
+    auto it = std::lower_bound(gt_times.begin(), gt_times.end(), ts);
+    size_t idx = 0;
+    if (it == gt_times.end()) {
+      idx = gt_times.size() - 1;
+    } else if (it == gt_times.begin()) {
+      idx = 0;
+    } else {
+      const size_t hi = static_cast<size_t>(it - gt_times.begin());
+      const size_t lo = hi - 1;
+      idx = std::abs(gt_times[hi] - ts) < std::abs(gt_times[lo] - ts) ? hi : lo;
+    }
+    const double dt = std::abs(gt_times[idx] - ts);
+    if (dt > max_dt) {
+      std::ostringstream msg;
+      msg << "No GT timestamp within " << max_dt
+          << " s for processed frame " << i
+          << " (frame timestamp=" << ts
+          << ", nearest GT timestamp=" << gt_times[idx]
+          << ", dt=" << dt << ")";
+      throw std::runtime_error(msg.str());
+    }
+    association.gt_indices.push_back(idx);
+  }
+
+  association.poses = buildAssociatedGTMatrices(gt_poses_raw,
+                                               association.gt_indices);
+  return association;
+}
+
+GTAssociation associateGTPoseMatrices(
+    const std::vector<GTPose>& gt_poses_raw,
+    const std::vector<double>& frame_timestamps,
+    double max_dt) {
+  if (gt_poses_raw.empty()) throw std::runtime_error("GT poses are empty");
+  if (frame_timestamps.empty()) {
+    throw std::runtime_error(
+        "No frame timestamps available for strict GT association. Provide "
+        "frame_timestamps.csv/graph timestamps, or explicitly use "
+        "--association-mode legacy-auto for old sampled-GT behavior.");
+  }
+
+  const bool frame_ids = allFiniteIntegers(frame_timestamps);
+  const bool gt_ids = allGTTimestampsFiniteIntegers(gt_poses_raw);
+  if (frame_ids && gt_ids) {
+    return associateByExactFrameId(frame_timestamps, gt_poses_raw);
+  }
+  return associateByTimestamp(frame_timestamps, gt_poses_raw, max_dt);
+}
+
+std::vector<double> sampleFrameTimestamps(const std::vector<GTPose>& gt_poses_raw,
+                                          size_t num_frames,
+                                          size_t total_pcd_frames);
+
+std::vector<Eigen::Matrix4d> sampleGTPoseMatrices(
+    const std::vector<GTPose>& gt_poses_raw,
+    const std::vector<double>& frame_timestamps);
+
+GTAssociation associateByLegacySampling(
+    const std::vector<GTPose>& gt_poses_raw,
+    size_t num_frames,
+    size_t total_pcd_frames) {
+  GTAssociation association;
+  association.mode = "legacy_sampled_gt";
+  const auto sampled_timestamps =
+      sampleFrameTimestamps(gt_poses_raw, num_frames, total_pcd_frames);
+  association.poses = sampleGTPoseMatrices(gt_poses_raw, sampled_timestamps);
+  return association;
+}
+
+bool isGlobalDogfoodingGtArtifact(const std::string& gt_csv) {
+  const fs::path path(gt_csv);
+  return path.filename() == "gt.txt" &&
+         path.parent_path().filename() == "dogfooding_results";
+}
+
+bool pathsEquivalentIfBothExist(const fs::path& lhs, const fs::path& rhs) {
+  std::error_code ec;
+  if (!fs::exists(lhs, ec) || ec) return false;
+  if (!fs::exists(rhs, ec) || ec) return false;
+  const bool equivalent = fs::equivalent(lhs, rhs, ec);
+  return !ec && equivalent;
 }
 
 std::string frameTimestampSourceName(FrameTimestampSource source) {
@@ -825,6 +1237,7 @@ std::vector<double> sampleFrameTimestamps(const std::vector<GTPose>& gt_poses_ra
                                           size_t total_pcd_frames) {
   std::vector<double> timestamps;
   timestamps.reserve(num_frames);
+  if (gt_poses_raw.empty()) return timestamps;
   for (size_t i = 0; i < num_frames; i++) {
     int gt_idx = frameToGTIndex(i, total_pcd_frames, gt_poses_raw.size());
     timestamps.push_back(gt_poses_raw[gt_idx].timestamp);
@@ -1178,6 +1591,8 @@ struct PlLoamDogfoodingOptions {
   bool use_depth_prior = true;
   bool use_line_features = true;
   bool use_scale_correction = true;
+  bool use_intensity_pseudo_image = true;
+  int intensity_dilation_radius = 2;
   double depth_prior_weight = 1.0;
   int ceres_max_iterations = 12;
   /// KITTI Raw RGB root (drive_*_sync dir). Empty → pseudo-image.
@@ -1228,11 +1643,13 @@ struct VlomDogfoodingOptions {
   size_t visual_input_stride = 2;
   int max_point_features = 280;
   int max_line_features = 64;
-  bool enable_visual_bootstrap = true;
+  bool enable_visual_bootstrap = false;
   bool enable_scale_correction = true;
   int scale_correction_interval = 5;
   double mad_outlier_k = 2.5;
   bool enable_mapping = true;
+  bool use_intensity_pseudo_image = true;
+  int intensity_dilation_radius = 2;
 
   int n_scans = 64;
   float scan_period = 0.1f;
@@ -1489,6 +1906,19 @@ struct RVoxelMapDogfoodingOptions {
   int max_depth = 2;
   int max_icp_iterations = 30;
   double max_correspondence_dist = 2.0;
+  double max_plane_weight = 10000.0;
+  double icp_damping = 0.0;
+  double huber_residual = 0.0;
+  double max_iteration_translation = 0.0;
+  double max_iteration_rotation = 0.0;
+  double min_map_matched_ratio = 0.0;
+  double max_registration_translation = 3.0;
+  double max_registration_rotation = 0.5;
+  double max_map_fallback_translation_delta = 0.0;
+  double max_map_fallback_rotation_delta = 0.0;
+  bool enable_scan_to_scan_fallback = false;
+  double fallback_max_correspondence_dist = 1.5;
+  double min_fallback_matched_ratio = 0.05;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
 };
@@ -1720,6 +2150,8 @@ struct DiloDogfoodingOptions {
   int sri_width = 1024;
   double fov_up_deg = 2.0;
   double fov_down_deg = -24.8;
+  int lookup_radius = 1;
+  double max_lookup_point_distance = 1.5;
   int max_iterations = 30;
   double initial_threshold = 1.0;
   double robust_scale = 0.5;
@@ -1765,7 +2197,7 @@ struct SpectralLoDogfoodingOptions {
   double source_voxel_size = 0.0;  // full cloud (BEV ラスタに密度が要る)
   size_t max_source_points = 200000;
   int bev_size = 256;
-  double bev_range = 60.0;
+  double bev_range = 40.0;
   double max_range = 80.0;
   double z_min = -3.0;
   double z_max = 3.0;
@@ -1773,6 +2205,8 @@ struct SpectralLoDogfoodingOptions {
   int logpolar_radii = 256;
   double max_yaw_deg = 30.0;
   double keyframe_translation = 0.0;
+  int translation_refinement_iterations = 0;
+  double max_translation_refinement_m = 1.5;
 };
 
 struct GmmLoDogfoodingOptions {
@@ -3860,6 +4294,8 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   params.use_depth_prior = options.use_depth_prior;
   params.use_line_features = options.use_line_features;
   params.use_scale_correction = options.use_scale_correction;
+  params.use_intensity_pseudo_image = options.use_intensity_pseudo_image;
+  params.intensity_dilation_radius = options.intensity_dilation_radius;
   params.depth_prior_weight = options.depth_prior_weight;
   params.ceres_max_iterations = options.ceres_max_iterations;
   params.use_rgb_features = options.use_rgb;
@@ -3871,7 +4307,6 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   PlLoam pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
-  res.poses.push_back(world_anchor);
 
   double scale_acc = 0.0;
   double depth_res_acc = 0.0;
@@ -3936,9 +4371,18 @@ MethodResult runPlLoam(const std::vector<std::string>& pcd_dirs,
   res.note =
       std::string("PL-LOAM (Huang et al., ICRA 2020): LiDAR-monocular point+line VO with "
                   "depth priors in PL-BA; no GT seed. eval=") +
-      (options.use_rgb ? "KITTI-Raw-RGB" : "pseudo-image") +
+      (options.use_rgb ? "KITTI-Raw-RGB"
+                       : (options.use_intensity_pseudo_image
+                              ? "intensity-pseudo-image"
+                              : "depth-pseudo-image")) +
       " mean_scale_correction=" + std::to_string(mean_scale) +
       " mean_depth_prior_residual=" + std::to_string(mean_depth_res) +
+      " depth_prior=" + std::string(options.use_depth_prior ? "on" : "off") +
+      " line_features=" + std::string(options.use_line_features ? "on" : "off") +
+      " scale_correction=" +
+      std::string(options.use_scale_correction ? "on" : "off") +
+      " intensity_dilation_radius=" +
+      std::to_string(options.intensity_dilation_radius) +
       " rgb_frames=" + std::to_string(rgb_frames);
   return res;
 }
@@ -3972,7 +4416,6 @@ MethodResult runInTenLoam(const std::vector<std::string>& pcd_dirs,
   InTenLoam pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
-  res.poses.push_back(world_anchor);
 
   double int_res_acc = 0.0;
   long valid_frames = 0;
@@ -4157,6 +4600,8 @@ MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
   params.visual.max_point_features = options.max_point_features;
   params.visual.max_line_features = options.max_line_features;
   params.visual.use_rgb_features = options.use_rgb;
+  params.visual.use_intensity_pseudo_image = options.use_intensity_pseudo_image;
+  params.visual.intensity_dilation_radius = options.intensity_dilation_radius;
   if (options.use_rgb) {
     params.visual.camera =
         options.rgb_half_res
@@ -4249,14 +4694,21 @@ MethodResult runVlom(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  char note_buf[160];
+  char note_buf[320];
   std::snprintf(
       note_buf, sizeof(note_buf),
-      "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM; "
-      "eval=%s; no GT seed. mean_scale=%.3f bootstrap_frames=%ld rgb_frames=%ld",
-      options.use_rgb ? "KITTI-Raw-RGB" : "pseudo-image",
+      "VLOM (arXiv:2304.08978): scale-corrected A-LOAM with optional visual "
+      "bootstrap; eval=%s; bootstrap=%s scale_correction=%s; no GT seed. "
+      "mean_scale=%.3f bootstrap_frames=%ld rgb_frames=%ld "
+      "intensity_dilation_radius=%d",
+      options.use_rgb ? "KITTI-Raw-RGB"
+                      : (options.use_intensity_pseudo_image
+                             ? "intensity-pseudo-image"
+                             : "depth-pseudo-image"),
+      options.enable_visual_bootstrap ? "on" : "off",
+      options.enable_scale_correction ? "on" : "off",
       scale_frames ? scale_acc / static_cast<double>(scale_frames) : 1.0,
-      bootstrap_frames, rgb_frames);
+      bootstrap_frames, rgb_frames, options.intensity_dilation_radius);
   res.note = note_buf;
   return res;
 }
@@ -4475,6 +4927,121 @@ MethodResult runNnZupt(const std::vector<Eigen::Matrix4d>& gt,
       "NN-ZUPT (Meas. Sci. Technol. 2023): CNN zero-velocity detection + ZUPT/NHC "
       "DR; no GT seed. nn_frames=%ld zupt_frames=%ld threshold=%d",
       nn_frames, zupt_frames, options.use_threshold_detector ? 1 : 0);
+  res.note = note_buf;
+  return res;
+}
+
+struct ImuDeadReckoningDogfoodingOptions {
+  double static_init_duration_s = 2.0;
+  bool estimate_gyro_bias = true;
+  bool estimate_accel_bias = false;
+  bool motion_gated_static_init = false;
+  int min_static_samples = 5;
+  double static_accel_std_gate = 0.5;
+  bool midpoint_integration = true;
+  bool rk4_integration = false;
+  bool enable_zupt = false;
+  double zupt_gyro_threshold = 0.05;
+  double zupt_accel_tolerance = 0.8;
+  bool enable_leveling = false;
+  double leveling_gain = 0.05;
+  bool enable_zaru = false;
+  double zaru_gain = 0.01;
+  bool enable_nhc = false;
+  double nhc_gain = 0.0;
+  int forward_axis = 0;
+  bool enable_eskf = false;
+  double eskf_sigma_accel = 0.2;
+  double eskf_sigma_gyro = 0.02;
+  double eskf_zupt_sigma = 0.02;
+  double eskf_nhc_sigma = 0.1;
+  double eskf_leveling_sigma = 0.3;
+};
+
+MethodResult runImuDeadReckoning(
+    const std::vector<Eigen::Matrix4d>& gt,
+    const std::vector<double>& frame_timestamps,
+    const std::vector<ImuSampleCsv>& imu_samples,
+    const ImuDeadReckoningDogfoodingOptions& options) {
+  using namespace localization_zoo::imu_dead_reckoning;
+  MethodResult res;
+  res.name = "IMU-DR";
+
+  if (imu_samples.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note =
+        "imu.csv not found. IMU dead reckoning requires synchronized IMU "
+        "samples.";
+    return res;
+  }
+
+  std::vector<ImuReading> imu;
+  imu.reserve(imu_samples.size());
+  for (const auto& s : imu_samples) {
+    ImuReading r;
+    r.stamp = s.timestamp;
+    r.gyro = s.gyro;
+    r.accel = s.accel;
+    imu.push_back(r);
+  }
+
+  ImuDeadReckoningParams params;
+  params.static_init_duration_s = options.static_init_duration_s;
+  params.estimate_gyro_bias = options.estimate_gyro_bias;
+  params.estimate_accel_bias = options.estimate_accel_bias;
+  params.motion_gated_static_init = options.motion_gated_static_init;
+  params.min_static_samples = options.min_static_samples;
+  params.static_accel_std_gate = options.static_accel_std_gate;
+  params.midpoint_integration = options.midpoint_integration;
+  params.rk4_integration = options.rk4_integration;
+  params.enable_zupt = options.enable_zupt;
+  params.zupt_gyro_threshold = options.zupt_gyro_threshold;
+  params.zupt_accel_tolerance = options.zupt_accel_tolerance;
+  params.enable_leveling = options.enable_leveling;
+  params.leveling_gain = options.leveling_gain;
+  params.enable_zaru = options.enable_zaru;
+  params.zaru_gain = options.zaru_gain;
+  params.enable_nhc = options.enable_nhc;
+  params.nhc_gain = options.nhc_gain;
+  params.forward_axis = options.forward_axis;
+  params.enable_eskf = options.enable_eskf;
+  params.eskf_sigma_accel = options.eskf_sigma_accel;
+  params.eskf_sigma_gyro = options.eskf_sigma_gyro;
+  params.eskf_zupt_sigma = options.eskf_zupt_sigma;
+  params.eskf_nhc_sigma = options.eskf_nhc_sigma;
+  params.eskf_leveling_sigma = options.eskf_leveling_sigma;
+
+  long zupt_frames = 0;
+  std::string error;
+  auto t0 = Clock::now();
+  const auto rel_poses = integrateImuTrajectory(imu, frame_timestamps, params,
+                                                &zupt_frames, &error);
+  if (rel_poses.empty()) {
+    res.skipped = true;
+    res.status = "skipped";
+    res.note = error.empty() ? "IMU dead reckoning integration failed." : error;
+    return res;
+  }
+
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  for (const auto& T : rel_poses) {
+    res.poses.push_back(anchorRelativePose(world_anchor, T));
+  }
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  char note_buf[384];
+  std::snprintf(
+      note_buf, sizeof(note_buf),
+      "IMU-DR baseline: unaided strapdown INS, static init %.1fs, "
+      "eskf=%d midpoint=%d rk4=%d zupt=%d lvl=%d zaru=%d nhc=%d "
+      "zupt_frames=%ld; no GT seed.%s%s",
+      options.static_init_duration_s, options.enable_eskf ? 1 : 0,
+      options.midpoint_integration ? 1 : 0, options.rk4_integration ? 1 : 0,
+      options.enable_zupt ? 1 : 0, options.enable_leveling ? 1 : 0,
+      options.enable_zaru ? 1 : 0, options.enable_nhc ? 1 : 0, zupt_frames,
+      error.empty() ? "" : " ", error.c_str());
   res.note = note_buf;
   return res;
 }
@@ -5496,11 +6063,11 @@ MethodResult runD2LIO(const std::vector<std::string>& pcd_dirs,
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note =
       (imu_frames > 0
-           ? "Directional-degeneracy LiDAR-IMU scan-to-submap (GT-seeded init; "
+           ? "Directional-degeneracy LiDAR-IMU scan-to-submap (first-pose anchored; "
              "adaptive per-point outlier gate + IMU-prior degeneracy "
              "regularization)."
            : "Scan-to-submap, constant-velocity fallback (no imu.csv; "
-             "GT-seeded init).") +
+             "first-pose anchored; degeneracy prior diagnostics-only).") +
       std::string(" deg_dirs/frame rot=") +
       std::to_string(deg_rot_total) + " trans=" +
       std::to_string(deg_trans_total);
@@ -5575,6 +6142,23 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
   params.max_depth = options.max_depth;
   params.max_icp_iterations = options.max_icp_iterations;
   params.max_correspondence_dist = options.max_correspondence_dist;
+  params.max_plane_weight = options.max_plane_weight;
+  params.icp_damping = options.icp_damping;
+  params.huber_residual = options.huber_residual;
+  params.max_iteration_translation = options.max_iteration_translation;
+  params.max_iteration_rotation = options.max_iteration_rotation;
+  params.min_map_matched_ratio = options.min_map_matched_ratio;
+  params.max_registration_translation = options.max_registration_translation;
+  params.max_registration_rotation = options.max_registration_rotation;
+  params.max_map_fallback_translation_delta =
+      options.max_map_fallback_translation_delta;
+  params.max_map_fallback_rotation_delta =
+      options.max_map_fallback_rotation_delta;
+  params.enable_scan_to_scan_fallback =
+      options.enable_scan_to_scan_fallback;
+  params.fallback_max_correspondence_dist =
+      options.fallback_max_correspondence_dist;
+  params.min_fallback_matched_ratio = options.min_fallback_matched_ratio;
   params.local_map_radius = options.local_map_radius;
   params.map_cleanup_interval = options.map_cleanup_interval;
   RVoxelMapPipeline pipeline(params);
@@ -5583,6 +6167,9 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
 
   double matched_sum = 0.0;
   int matched_n = 0;
+  double fallback_sum = 0.0;
+  int fallback_count = 0;
+  int fallback_disagreement_count = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
@@ -5592,6 +6179,11 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
     const auto result = pipeline.registerFrame(pts_local);
     matched_sum += result.matched_ratio;
     ++matched_n;
+    if (result.used_fallback) {
+      fallback_sum += result.fallback_matched_ratio;
+      ++fallback_count;
+      if (result.fallback_disagreement) ++fallback_disagreement_count;
+    }
     res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
     if (i % 10 == 0) {
       std::cerr << "\r  [R-VoxelMap] " << i << "/" << pcd_dirs.size()
@@ -5602,10 +6194,26 @@ MethodResult runRVoxelMap(const std::vector<std::string>& pcd_dirs,
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   const double mean_matched = matched_n > 0 ? matched_sum / matched_n : 0.0;
+  const double fallback_rate =
+      matched_n > 0 ? 100.0 * static_cast<double>(fallback_count) / matched_n
+                    : 0.0;
+  const double mean_fallback =
+      fallback_count > 0 ? fallback_sum / fallback_count : 0.0;
   res.note =
       "Recursive plane-fitting voxel map (outlier detect-and-reuse octree; no "
-      "GT seed; anchor matches first GT pose). mean_matched_ratio=" +
-      std::to_string(mean_matched);
+      "GT seed; anchor matches first GT pose" +
+      std::string(options.enable_scan_to_scan_fallback
+                      ? "; scan-to-scan fallback on low map correspondence"
+                      : "") +
+      std::string(options.max_map_fallback_translation_delta > 0.0 ||
+                          options.max_map_fallback_rotation_delta > 0.0
+                      ? " and map/fallback disagreement"
+                      : "") +
+      "). mean_matched_ratio=" + std::to_string(mean_matched) +
+      " fallback_rate_pct=" + std::to_string(fallback_rate) +
+      " fallback_disagreement_count=" +
+      std::to_string(fallback_disagreement_count) +
+      " mean_fallback_ratio=" + std::to_string(mean_fallback);
   return res;
 }
 
@@ -6112,7 +6720,8 @@ MethodResult runSmallMighty(const std::vector<std::string>& pcd_dirs,
 
 MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
                       const std::vector<Eigen::Matrix4d>& gt,
-                      const MGcloDogfoodingOptions& options) {
+                      const MGcloDogfoodingOptions& options,
+                      bool no_gt_seed = false) {
   using namespace localization_zoo::m_gclo;
   MethodResult res;
   res.name = "M-GCLO";
@@ -6140,13 +6749,21 @@ MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
 
   long n_ground_sum = 0, n_nonground_sum = 0, n = 0;
+  int seeded_frames = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
                                          options.source_voxel_size),
                                  options.max_source_points);
     if (pts_local.empty()) continue;
-    const auto result = pipeline.registerFrame(pts_local);
+    Eigen::Matrix4d rel_guess;
+    const Eigen::Matrix4d* init_guess = nullptr;
+    if (!no_gt_seed && i > 0 && i < gt.size()) {
+      rel_guess = world_anchor.inverse() * gt[i];
+      init_guess = &rel_guess;
+      ++seeded_frames;
+    }
+    const auto result = pipeline.registerFrame(pts_local, init_guess);
     n_ground_sum += result.num_ground;
     n_nonground_sum += result.num_nonground;
     ++n;
@@ -6169,8 +6786,14 @@ MethodResult runMGclo(const std::vector<std::string>& pcd_dirs,
   res.note =
       "M-GCLO: " + ground_mode +
       " + non-ground point-to-distribution (NDT) with per-point range-uncertainty "
-      "weighting; constant-velocity prior, no GT seed. mean_ground/nonground_corr=" +
-      std::string(buf);
+      "weighting; " +
+      (no_gt_seed
+           ? "constant-velocity prior, no GT seed."
+           : "GT-seeded scan-to-map initialization with constant-velocity fallback.") +
+      " mean_ground/nonground_corr=" + std::string(buf);
+  if (!no_gt_seed && seeded_frames > 0) {
+    res.note += " gt_seeded_frames=" + std::to_string(seeded_frames) + ".";
+  }
   return res;
 }
 
@@ -6253,6 +6876,8 @@ MethodResult runDilo(const std::vector<std::string>& pcd_dirs,
   params.sri_width = options.sri_width;
   params.fov_up_deg = options.fov_up_deg;
   params.fov_down_deg = options.fov_down_deg;
+  params.lookup_radius = options.lookup_radius;
+  params.max_lookup_point_distance = options.max_lookup_point_distance;
   params.max_iterations = options.max_iterations;
   params.initial_threshold = options.initial_threshold;
   params.robust_scale = options.robust_scale;
@@ -6284,11 +6909,15 @@ MethodResult runDilo(const std::vector<std::string>& pcd_dirs,
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   char buf[32];
   std::snprintf(buf, sizeof(buf), "%ld", n_kf);
+  char lookup_buf[96];
+  std::snprintf(lookup_buf, sizeof(lookup_buf),
+                " lookup_radius=%d lookup_max_dist=%.2f",
+                options.lookup_radius, options.max_lookup_point_distance);
   res.note =
       "DiLO: direct frame-to-keyframe LiDAR odometry via spherical-range-image "
       "projective data association (no NN search) + point-to-plane GN; "
-      "constant-velocity prior, no GT seed. keyframes=" +
-      std::string(buf);
+      "constant-velocity prior, no GT seed." +
+      std::string(lookup_buf) + " keyframes=" + std::string(buf);
   return res;
 }
 
@@ -6420,6 +7049,9 @@ MethodResult runSpectralLo(const std::vector<std::string>& pcd_dirs,
   params.logpolar_radii = options.logpolar_radii;
   params.max_yaw_deg = options.max_yaw_deg;
   params.keyframe_translation = options.keyframe_translation;
+  params.translation_refinement_iterations =
+      options.translation_refinement_iterations;
+  params.max_translation_refinement_m = options.max_translation_refinement_m;
   SpectralLoPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
@@ -6448,7 +7080,12 @@ MethodResult runSpectralLo(const std::vector<std::string>& pcd_dirs,
   res.note =
       "Spectral-LO: frequency-domain BEV odometry; Fourier-Mellin log-polar "
       "phase correlation for yaw + phase-only correlation for translation "
-      "(3-DoF, z held); no ICP, no GT seed. mean_translation_peak=" +
+      "(3-DoF, z held); no ICP, no GT seed. bev_size=" +
+      std::to_string(options.bev_size) + " bev_range=" +
+      std::to_string(options.bev_range) +
+      " translation_refinement_iters=" +
+      std::to_string(options.translation_refinement_iterations) +
+      " mean_translation_peak=" +
       std::string(buf);
   return res;
 }
@@ -7207,10 +7844,10 @@ MethodResult runDegenSense(const std::vector<std::string>& pcd_dirs,
   res.note =
       (imu_frames > 0
            ? "Degeneracy-factor sensing (condition number) + adaptive "
-             "MAD-outlier detection + IMU/LiDAR fusion compensation (GT-seeded "
-             "init)."
+             "MAD-outlier detection + IMU/LiDAR fusion compensation "
+             "(first-pose anchored)."
            : "Degeneracy sensing, constant-velocity fallback (no imu.csv; "
-             "GT-seeded init).") +
+             "first-pose anchored; compensation diagnostics-only).") +
       std::string(" degenerate_frames=") + std::to_string(degen_frames);
   return res;
 }
@@ -7270,10 +7907,10 @@ MethodResult runVibrationLIO(const std::vector<std::string>& pcd_dirs,
   res.note =
       (imu_frames > 0
            ? "Post-undistortion uncertainty LIO: IMU-MAD vibration intensity "
-             "-> per-point covariance, Mahalanobis point-to-plane (GT-seeded "
-             "init)."
+             "-> per-point covariance, Mahalanobis point-to-plane "
+             "(first-pose anchored; no per-frame GT seed)."
            : "Uncertainty-weighted point-to-plane, no vibration estimate (no "
-             "imu.csv; GT-seeded init).") +
+             "imu.csv; first-pose anchored; no per-frame GT seed).") +
       std::string(" mean_vib_omega=") +
       std::to_string(imu_frames > 0 ? vib_sum / imu_frames : 0.0);
   return res;
@@ -7528,9 +8165,9 @@ MethodResult runUALIO(const std::vector<std::string>& pcd_dirs,
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
   res.note = (imu_frames > 0
                   ? "Uncertainty-aware D2D LIO: per-point covariance + ground "
-                    "constraint (GT-seeded init)."
+                    "constraint (first-pose anchored; no per-frame GT seed)."
                   : "D2D + ground constraint, constant-velocity (no imu.csv; "
-                    "GT-seeded init).") +
+                    "first-pose anchored; no per-frame GT seed).") +
              std::string(" ground_cells=") + std::to_string(ground_total);
   return res;
 }
@@ -8588,7 +9225,9 @@ MethodResult runSuMa(const std::vector<std::string>& pcd_dirs,
   }
   std::cerr << std::endl;
   res.time_ms = std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
-  res.note = "Surfel-based mapping (no GT seed; anchor matches first GT pose).";
+  res.note =
+      "Surfel-based mapping with constant-velocity prediction (no GT seed; "
+      "anchor matches first GT pose).";
   return res;
 }
 
@@ -9012,6 +9651,195 @@ void savePosesKITTI(const std::vector<Eigen::Matrix4d>& poses, const std::string
   }
 }
 
+std::string sanitizeArtifactStem(std::string stem) {
+  for (char& c : stem) {
+    const unsigned char uc = static_cast<unsigned char>(c);
+    if (!std::isalnum(uc) && c != '_' && c != '-') c = '_';
+  }
+  if (stem.empty()) return "dataset";
+  return stem;
+}
+
+std::string artifactStemFromPath(const std::string& path_string) {
+  const fs::path path(path_string);
+  std::string stem = path.filename().string();
+  if (stem.empty()) stem = path.parent_path().filename().string();
+  return sanitizeArtifactStem(stem);
+}
+
+uint32_t sha256RotateRight(uint32_t value, uint32_t bits) {
+  return (value >> bits) | (value << (32U - bits));
+}
+
+std::string sha256File(const std::string& path) {
+  std::ifstream file(path, std::ios::binary);
+  if (!file) {
+    throw std::runtime_error("Failed to open file for SHA-256: " + path);
+  }
+
+  std::vector<uint8_t> data;
+  char ch = 0;
+  while (file.get(ch)) {
+    data.push_back(static_cast<uint8_t>(ch));
+  }
+  const uint64_t bit_len = static_cast<uint64_t>(data.size()) * 8ULL;
+  data.push_back(0x80U);
+  while ((data.size() % 64U) != 56U) {
+    data.push_back(0U);
+  }
+  for (int shift = 56; shift >= 0; shift -= 8) {
+    data.push_back(static_cast<uint8_t>((bit_len >> shift) & 0xffU));
+  }
+
+  std::array<uint32_t, 8> h = {
+      0x6a09e667U, 0xbb67ae85U, 0x3c6ef372U, 0xa54ff53aU,
+      0x510e527fU, 0x9b05688cU, 0x1f83d9abU, 0x5be0cd19U};
+  static const std::array<uint32_t, 64> k = {
+      0x428a2f98U, 0x71374491U, 0xb5c0fbcfU, 0xe9b5dba5U,
+      0x3956c25bU, 0x59f111f1U, 0x923f82a4U, 0xab1c5ed5U,
+      0xd807aa98U, 0x12835b01U, 0x243185beU, 0x550c7dc3U,
+      0x72be5d74U, 0x80deb1feU, 0x9bdc06a7U, 0xc19bf174U,
+      0xe49b69c1U, 0xefbe4786U, 0x0fc19dc6U, 0x240ca1ccU,
+      0x2de92c6fU, 0x4a7484aaU, 0x5cb0a9dcU, 0x76f988daU,
+      0x983e5152U, 0xa831c66dU, 0xb00327c8U, 0xbf597fc7U,
+      0xc6e00bf3U, 0xd5a79147U, 0x06ca6351U, 0x14292967U,
+      0x27b70a85U, 0x2e1b2138U, 0x4d2c6dfcU, 0x53380d13U,
+      0x650a7354U, 0x766a0abbU, 0x81c2c92eU, 0x92722c85U,
+      0xa2bfe8a1U, 0xa81a664bU, 0xc24b8b70U, 0xc76c51a3U,
+      0xd192e819U, 0xd6990624U, 0xf40e3585U, 0x106aa070U,
+      0x19a4c116U, 0x1e376c08U, 0x2748774cU, 0x34b0bcb5U,
+      0x391c0cb3U, 0x4ed8aa4aU, 0x5b9cca4fU, 0x682e6ff3U,
+      0x748f82eeU, 0x78a5636fU, 0x84c87814U, 0x8cc70208U,
+      0x90befffaU, 0xa4506cebU, 0xbef9a3f7U, 0xc67178f2U};
+
+  for (size_t offset = 0; offset < data.size(); offset += 64U) {
+    std::array<uint32_t, 64> w = {};
+    for (size_t i = 0; i < 16; i++) {
+      const size_t j = offset + i * 4U;
+      w[i] = (static_cast<uint32_t>(data[j]) << 24U) |
+             (static_cast<uint32_t>(data[j + 1]) << 16U) |
+             (static_cast<uint32_t>(data[j + 2]) << 8U) |
+             static_cast<uint32_t>(data[j + 3]);
+    }
+    for (size_t i = 16; i < 64; i++) {
+      const uint32_t s0 = sha256RotateRight(w[i - 15], 7U) ^
+                          sha256RotateRight(w[i - 15], 18U) ^
+                          (w[i - 15] >> 3U);
+      const uint32_t s1 = sha256RotateRight(w[i - 2], 17U) ^
+                          sha256RotateRight(w[i - 2], 19U) ^
+                          (w[i - 2] >> 10U);
+      w[i] = w[i - 16] + s0 + w[i - 7] + s1;
+    }
+
+    uint32_t a = h[0];
+    uint32_t b = h[1];
+    uint32_t c = h[2];
+    uint32_t d = h[3];
+    uint32_t e = h[4];
+    uint32_t f = h[5];
+    uint32_t g = h[6];
+    uint32_t hh = h[7];
+
+    for (size_t i = 0; i < 64; i++) {
+      const uint32_t s1 = sha256RotateRight(e, 6U) ^
+                          sha256RotateRight(e, 11U) ^
+                          sha256RotateRight(e, 25U);
+      const uint32_t ch_bits = (e & f) ^ ((~e) & g);
+      const uint32_t temp1 = hh + s1 + ch_bits + k[i] + w[i];
+      const uint32_t s0 = sha256RotateRight(a, 2U) ^
+                          sha256RotateRight(a, 13U) ^
+                          sha256RotateRight(a, 22U);
+      const uint32_t maj = (a & b) ^ (a & c) ^ (b & c);
+      const uint32_t temp2 = s0 + maj;
+
+      hh = g;
+      g = f;
+      f = e;
+      e = d + temp1;
+      d = c;
+      c = b;
+      b = a;
+      a = temp1 + temp2;
+    }
+
+    h[0] += a;
+    h[1] += b;
+    h[2] += c;
+    h[3] += d;
+    h[4] += e;
+    h[5] += f;
+    h[6] += g;
+    h[7] += hh;
+  }
+
+  std::ostringstream out;
+  out << std::hex << std::setfill('0');
+  for (const uint32_t word : h) {
+    out << std::setw(8) << word;
+  }
+  return out.str();
+}
+
+std::string readFirstLineTrimmed(const fs::path& path) {
+  std::ifstream file(path);
+  std::string line;
+  if (!std::getline(file, line)) return "";
+  return trimCsvToken(line);
+}
+
+std::string readPackedGitRef(const fs::path& git_dir,
+                             const std::string& ref_name) {
+  std::ifstream file(git_dir / "packed-refs");
+  std::string line;
+  while (std::getline(file, line)) {
+    line = trimCsvToken(line);
+    if (line.empty() || line[0] == '#' || line[0] == '^') continue;
+    std::istringstream ss(line);
+    std::string commit;
+    std::string ref;
+    ss >> commit >> ref;
+    if (ref == ref_name) return commit;
+  }
+  return "";
+}
+
+std::string evaluatorGitCommit() {
+  std::error_code ec;
+  fs::path dir = fs::current_path(ec);
+  if (ec) return "";
+
+  while (true) {
+    const fs::path marker = dir / ".git";
+    fs::path git_dir;
+    if (fs::is_directory(marker, ec) && !ec) {
+      git_dir = marker;
+    } else if (fs::is_regular_file(marker, ec) && !ec) {
+      const std::string gitdir_line = readFirstLineTrimmed(marker);
+      const std::string prefix = "gitdir:";
+      if (gitdir_line.rfind(prefix, 0) == 0) {
+        git_dir = trimCsvToken(gitdir_line.substr(prefix.size()));
+        if (git_dir.is_relative()) git_dir = dir / git_dir;
+      }
+    }
+
+    if (!git_dir.empty()) {
+      const std::string head = readFirstLineTrimmed(git_dir / "HEAD");
+      const std::string ref_prefix = "ref:";
+      if (head.rfind(ref_prefix, 0) == 0) {
+        const std::string ref_name = trimCsvToken(head.substr(ref_prefix.size()));
+        std::string commit = readFirstLineTrimmed(git_dir / ref_name);
+        if (commit.empty()) commit = readPackedGitRef(git_dir, ref_name);
+        return commit;
+      }
+      return head;
+    }
+
+    if (dir == dir.parent_path()) break;
+    dir = dir.parent_path();
+  }
+  return "";
+}
+
 void writeJsonNumberOrNull(std::ostream& out, double value) {
   if (std::isfinite(value)) {
     out << std::fixed << std::setprecision(6) << value;
@@ -9020,22 +9848,161 @@ void writeJsonNumberOrNull(std::ostream& out, double value) {
   }
 }
 
+void writeJsonStringOrNull(std::ostream& out, const std::string& value) {
+  if (value.empty()) {
+    out << "null";
+  } else {
+    out << "\"" << jsonEscape(value) << "\"";
+  }
+}
+
+void writeJsonRangeOrNull(std::ostream& out, double first, double last) {
+  if (std::isfinite(first) && std::isfinite(last)) {
+    out << "[";
+    writeJsonNumberOrNull(out, first);
+    out << ", ";
+    writeJsonNumberOrNull(out, last);
+    out << "]";
+  } else {
+    out << "null";
+  }
+}
+
 void writeSummaryJson(const std::string& path,
                       const std::string& pcd_dir,
                       const std::string& gt_csv,
+                      const std::string& gt_sha256,
+                      const std::string& evaluated_gt_path,
+                      const std::string& legacy_gt_path,
+                      bool legacy_gt_written,
+                      const std::string& evaluation_manifest_path,
+                      const std::string& evaluator_git_commit,
+                      size_t total_pcd_frames,
                       size_t num_frames,
+                      size_t raw_gt_pose_count,
+                      const std::vector<double>& frame_timestamps,
+                      const std::vector<GTPose>& gt_poses_raw,
+                      const GTAssociation& gt_association,
                       double trajectory_length_m,
                       FrameTimestampSource frame_timestamp_source,
+                      const std::string& gt_format,
+                      TimeDomain gt_time_domain,
+                      double association_max_dt,
                       const std::vector<MethodResult>& results) {
   std::ofstream out(path);
+  const size_t used_gt_pose_count =
+      gt_association.gt_indices.empty() ? gt_association.poses.size()
+                                        : gt_association.gt_indices.size();
+  const bool has_frame_timestamps = !frame_timestamps.empty();
+  const bool has_raw_gt = !gt_poses_raw.empty();
+  const bool has_associated_indices = !gt_association.gt_indices.empty();
+  double associated_first_ts = std::numeric_limits<double>::quiet_NaN();
+  double associated_last_ts = std::numeric_limits<double>::quiet_NaN();
+  size_t associated_first_index = 0;
+  size_t associated_last_index = 0;
+  if (has_associated_indices) {
+    associated_first_index = gt_association.gt_indices.front();
+    associated_last_index = gt_association.gt_indices.back();
+    associated_first_ts = gt_poses_raw[associated_first_index].timestamp;
+    associated_last_ts = gt_poses_raw[associated_last_index].timestamp;
+  }
+  const double rpe_segment_length_m = rpeSegmentLengthM(trajectory_length_m);
+
   out << "{\n";
+  out << "  \"schema_version\": 2,\n";
   out << "  \"pcd_dir\": \"" << jsonEscape(pcd_dir) << "\",\n";
   out << "  \"gt_csv\": \"" << jsonEscape(gt_csv) << "\",\n";
+  out << "  \"gt_sha256\": \"" << jsonEscape(gt_sha256) << "\",\n";
+  out << "  \"total_pcd_frames\": " << total_pcd_frames << ",\n";
   out << "  \"num_frames\": " << num_frames << ",\n";
+  out << "  \"raw_gt_pose_count\": " << raw_gt_pose_count << ",\n";
+  out << "  \"used_gt_pose_count\": " << used_gt_pose_count << ",\n";
   out << "  \"trajectory_length_m\": " << std::fixed << std::setprecision(6)
       << trajectory_length_m << ",\n";
   out << "  \"timestamp_source\": \""
       << jsonEscape(frameTimestampSourceName(frame_timestamp_source)) << "\",\n";
+  out << "  \"gt_format\": \"" << jsonEscape(gt_format) << "\",\n";
+  out << "  \"gt_time_domain\": \""
+      << jsonEscape(timeDomainName(gt_time_domain)) << "\",\n";
+  out << "  \"association_mode\": \""
+      << jsonEscape(gt_association.mode) << "\",\n";
+  out << "  \"association_max_dt_s\": ";
+  writeJsonNumberOrNull(out, association_max_dt);
+  out << ",\n";
+  out << "  \"evaluator_git_commit\": ";
+  writeJsonStringOrNull(out, evaluator_git_commit);
+  out << ",\n";
+  out << "  \"artifacts\": {\n";
+  out << "    \"evaluated_gt_path\": \""
+      << jsonEscape(evaluated_gt_path) << "\",\n";
+  out << "    \"legacy_gt_path\": \"" << jsonEscape(legacy_gt_path) << "\",\n";
+  out << "    \"legacy_gt_written\": "
+      << (legacy_gt_written ? "true" : "false") << ",\n";
+  out << "    \"evaluation_manifest_path\": \""
+      << jsonEscape(evaluation_manifest_path) << "\"\n";
+  out << "  },\n";
+  out << "  \"frames\": {\n";
+  out << "    \"timestamp_source\": \""
+      << jsonEscape(frameTimestampSourceName(frame_timestamp_source)) << "\",\n";
+  out << "    \"timestamp_count\": " << frame_timestamps.size() << ",\n";
+  out << "    \"timestamp_all_integer\": "
+      << (allFiniteIntegers(frame_timestamps) ? "true" : "false") << ",\n";
+  out << "    \"timestamp_range\": ";
+  if (has_frame_timestamps) {
+    writeJsonRangeOrNull(out, frame_timestamps.front(), frame_timestamps.back());
+  } else {
+    out << "null";
+  }
+  out << "\n";
+  out << "  },\n";
+  out << "  \"gt\": {\n";
+  out << "    \"source\": \"" << jsonEscape(gt_csv) << "\",\n";
+  out << "    \"sha256\": \"" << jsonEscape(gt_sha256) << "\",\n";
+  out << "    \"format\": \"" << jsonEscape(gt_format) << "\",\n";
+  out << "    \"time_domain\": \""
+      << jsonEscape(timeDomainName(gt_time_domain)) << "\",\n";
+  out << "    \"raw_pose_count\": " << raw_gt_pose_count << ",\n";
+  out << "    \"raw_timestamp_range\": ";
+  if (has_raw_gt) {
+    writeJsonRangeOrNull(out, gt_poses_raw.front().timestamp,
+                         gt_poses_raw.back().timestamp);
+  } else {
+    out << "null";
+  }
+  out << "\n";
+  out << "  },\n";
+  out << "  \"association\": {\n";
+  out << "    \"mode\": \"" << jsonEscape(gt_association.mode) << "\",\n";
+  out << "    \"max_dt_s\": ";
+  writeJsonNumberOrNull(out, association_max_dt);
+  out << ",\n";
+  out << "    \"used_gt_pose_count\": " << used_gt_pose_count << ",\n";
+  out << "    \"associated_gt_index_range\": ";
+  if (has_associated_indices) {
+    out << "[" << associated_first_index << ", " << associated_last_index << "]";
+  } else {
+    out << "null";
+  }
+  out << ",\n";
+  out << "    \"associated_gt_timestamp_range\": ";
+  writeJsonRangeOrNull(out, associated_first_ts, associated_last_ts);
+  out << ",\n";
+  out << "    \"gt_normalization\": \"first_associated_gt_inverse_applied_before_metrics\"\n";
+  out << "  },\n";
+  out << "  \"metric_config\": {\n";
+  out << "    \"ate\": {\n";
+  out << "      \"alignment\": \"none\",\n";
+  out << "      \"definition\": \"absolute_position_rmse_m\"\n";
+  out << "    },\n";
+  out << "    \"rpe\": {\n";
+  out << "      \"alignment\": \"none\",\n";
+  out << "      \"segment_length_m\": ";
+  writeJsonNumberOrNull(out, rpe_segment_length_m);
+  out << ",\n";
+  out << "      \"translation_unit\": \"percent\",\n";
+  out << "      \"rotation_unit\": \"deg_per_m\"\n";
+  out << "    }\n";
+  out << "  },\n";
   out << "  \"methods\": [\n";
   for (size_t i = 0; i < results.size(); i++) {
     const auto& r = results[i];
@@ -9093,10 +10060,13 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
+              << " [--association-mode strict|legacy-auto]"
+              << " [--association-max-dt seconds]"
+              << " [--allow-legacy-gt-artifact]"
               << " [--litamin2-paper-profile]"
               << " [--litamin2-icp-only]"
               << " [--litamin2-covariance-gradient]"
@@ -9222,6 +10192,13 @@ int main(int argc, char** argv) {
               << " [--ct-lio-fixed-lag-history-decay W]"
               << " [--ct-lio-fixed-lag-outer-iterations N]"
               << " [--ct-lio-fixed-lag-smoother]"
+              << " [--pl-loam-depth-pseudo-image]"
+              << " [--pl-loam-intensity-dilation N]"
+              << " [--vlom-enable-bootstrap]"
+              << " [--vlom-no-bootstrap]"
+              << " [--vlom-no-scale]"
+              << " [--vlom-depth-pseudo-image]"
+              << " [--vlom-intensity-dilation N]"
               << " [--seed-perturb-x M] [--seed-perturb-y M]"
               << " [--seed-perturb-z M] [--seed-perturb-yaw-deg DEG]"
               << " [--no-gt-seed] [--ct-icp-gt-seed]" << std::endl;
@@ -9247,6 +10224,9 @@ int main(int argc, char** argv) {
   int ct_lio_max_frames_in_map = 10;
   int ct_lio_max_iterations = 6;
   std::string summary_json_path;
+  bool legacy_auto_association = false;
+  bool allow_legacy_gt_artifact = false;
+  double association_max_dt = 0.05;
   int ct_lio_fixed_lag_window = 1;
   double ct_lio_fixed_lag_velocity_weight = 0.0;
   double ct_lio_fixed_lag_gyro_bias_scale = 0.25;
@@ -9269,6 +10249,7 @@ int main(int argc, char** argv) {
   OdoNetDogfoodingOptions odonet_options;
   NhcNetDogfoodingOptions nhc_net_options;
   NnZuptDogfoodingOptions nn_zupt_options;
+  ImuDeadReckoningDogfoodingOptions imu_dead_reckoning_options;
   LeGOLOAMDogfoodingOptions lego_loam_options;
   MULLSDogfoodingOptions mulls_options;
   NDTDogfoodingOptions ndt_options;
@@ -9350,6 +10331,55 @@ int main(int argc, char** argv) {
     }
     if (arg == "--ct-icp-gt-seed") {
       ct_icp_gt_seed = true;
+      continue;
+    }
+    if (arg == "--allow-legacy-gt-artifact") {
+      allow_legacy_gt_artifact = true;
+      continue;
+    }
+    if (arg == "--association-mode") {
+      if (i + 1 >= argc) {
+        std::cerr << "--association-mode requires strict or legacy-auto"
+                  << std::endl;
+        return 1;
+      }
+      const std::string mode = argv[++i];
+      if (mode == "strict") {
+        legacy_auto_association = false;
+      } else if (mode == "legacy-auto") {
+        legacy_auto_association = true;
+      } else {
+        std::cerr << "Unsupported --association-mode: " << mode
+                  << " (supported: strict, legacy-auto)" << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg.rfind("--association-mode=", 0) == 0) {
+      const std::string mode =
+          arg.substr(std::string("--association-mode=").size());
+      if (mode == "strict") {
+        legacy_auto_association = false;
+      } else if (mode == "legacy-auto") {
+        legacy_auto_association = true;
+      } else {
+        std::cerr << "Unsupported --association-mode: " << mode
+                  << " (supported: strict, legacy-auto)" << std::endl;
+        return 1;
+      }
+      continue;
+    }
+    if (arg == "--association-max-dt") {
+      if (i + 1 >= argc) {
+        std::cerr << "--association-max-dt requires seconds" << std::endl;
+        return 1;
+      }
+      association_max_dt = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg.rfind("--association-max-dt=", 0) == 0) {
+      association_max_dt =
+          std::stod(arg.substr(std::string("--association-max-dt=").size()));
       continue;
     }
     if (arg == "--seed-perturb-x") {
@@ -10071,6 +11101,14 @@ int main(int argc, char** argv) {
       pl_loam_options.use_scale_correction = false;
       continue;
     }
+    if (arg == "--pl-loam-depth-pseudo-image") {
+      pl_loam_options.use_intensity_pseudo_image = false;
+      continue;
+    }
+    if (arg == "--pl-loam-intensity-dilation" && i + 1 < argc) {
+      pl_loam_options.intensity_dilation_radius = std::stoi(argv[++i]);
+      continue;
+    }
     if (arg == "--pl-loam-stride" && i + 1 < argc) {
       pl_loam_options.input_stride = static_cast<size_t>(std::stoul(argv[++i]));
       continue;
@@ -10200,8 +11238,20 @@ int main(int argc, char** argv) {
       vlom_options.enable_visual_bootstrap = false;
       continue;
     }
+    if (arg == "--vlom-enable-bootstrap") {
+      vlom_options.enable_visual_bootstrap = true;
+      continue;
+    }
     if (arg == "--vlom-no-scale") {
       vlom_options.enable_scale_correction = false;
+      continue;
+    }
+    if (arg == "--vlom-depth-pseudo-image") {
+      vlom_options.use_intensity_pseudo_image = false;
+      continue;
+    }
+    if (arg == "--vlom-intensity-dilation" && i + 1 < argc) {
+      vlom_options.intensity_dilation_radius = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--vlom-rgb-root" && i + 1 < argc) {
@@ -10270,6 +11320,103 @@ int main(int argc, char** argv) {
     }
     if (arg == "--nn-zupt-prob" && i + 1 < argc) {
       nn_zupt_options.stop_prob_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    // --- imu_dead_reckoning ---
+    if (arg == "--imu-dr-static-init-sec" && i + 1 < argc) {
+      imu_dead_reckoning_options.static_init_duration_s = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-no-gyro-bias") {
+      imu_dead_reckoning_options.estimate_gyro_bias = false;
+      continue;
+    }
+    if (arg == "--imu-dr-accel-bias") {
+      imu_dead_reckoning_options.estimate_accel_bias = true;
+      continue;
+    }
+    if (arg == "--imu-dr-motion-gated-init") {
+      imu_dead_reckoning_options.motion_gated_static_init = true;
+      continue;
+    }
+    if (arg == "--imu-dr-min-static-samples" && i + 1 < argc) {
+      imu_dead_reckoning_options.min_static_samples = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-static-accel-std-gate" && i + 1 < argc) {
+      imu_dead_reckoning_options.static_accel_std_gate = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-euler") {
+      imu_dead_reckoning_options.midpoint_integration = false;
+      continue;
+    }
+    if (arg == "--imu-dr-rk4") {
+      imu_dead_reckoning_options.rk4_integration = true;
+      continue;
+    }
+    if (arg == "--imu-dr-zupt") {
+      imu_dead_reckoning_options.enable_zupt = true;
+      continue;
+    }
+    if (arg == "--imu-dr-zupt-gyro-threshold" && i + 1 < argc) {
+      imu_dead_reckoning_options.zupt_gyro_threshold = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-zupt-accel-tolerance" && i + 1 < argc) {
+      imu_dead_reckoning_options.zupt_accel_tolerance = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-leveling") {
+      imu_dead_reckoning_options.enable_leveling = true;
+      continue;
+    }
+    if (arg == "--imu-dr-leveling-gain" && i + 1 < argc) {
+      imu_dead_reckoning_options.leveling_gain = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-zaru") {
+      imu_dead_reckoning_options.enable_zaru = true;
+      continue;
+    }
+    if (arg == "--imu-dr-zaru-gain" && i + 1 < argc) {
+      imu_dead_reckoning_options.zaru_gain = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf") {
+      imu_dead_reckoning_options.enable_eskf = true;
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-sigma-accel" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_sigma_accel = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-sigma-gyro" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_sigma_gyro = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-zupt-sigma" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_zupt_sigma = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-nhc-sigma" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_nhc_sigma = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-eskf-leveling-sigma" && i + 1 < argc) {
+      imu_dead_reckoning_options.eskf_leveling_sigma = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-nhc") {
+      imu_dead_reckoning_options.enable_nhc = true;
+      continue;
+    }
+    if (arg == "--imu-dr-nhc-gain" && i + 1 < argc) {
+      imu_dead_reckoning_options.nhc_gain = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--imu-dr-forward-axis" && i + 1 < argc) {
+      imu_dead_reckoning_options.forward_axis = std::stoi(argv[++i]);
       continue;
     }
     if (arg == "--floam-fast-profile") {
@@ -11292,7 +12439,18 @@ int main(int argc, char** argv) {
       r_voxelmap_options.max_source_points = 6000;
       r_voxelmap_options.voxel_size = 0.8;
       r_voxelmap_options.max_icp_iterations = 40;
-      r_voxelmap_options.max_depth = 3;
+      r_voxelmap_options.max_depth = 2;
+      r_voxelmap_options.max_plane_weight = 100.0;
+      r_voxelmap_options.icp_damping = 1e-3;
+      r_voxelmap_options.huber_residual = 0.5;
+      r_voxelmap_options.max_iteration_translation = 0.5;
+      r_voxelmap_options.max_iteration_rotation = 0.1;
+      r_voxelmap_options.min_map_matched_ratio = 0.03;
+      r_voxelmap_options.max_registration_translation = 1.0;
+      r_voxelmap_options.max_registration_rotation = 0.20;
+      r_voxelmap_options.max_map_fallback_translation_delta = 0.20;
+      r_voxelmap_options.max_map_fallback_rotation_delta = 0.04;
+      r_voxelmap_options.enable_scan_to_scan_fallback = true;
       r_voxelmap_options.local_map_radius = 80.0;
       r_voxelmap_options.map_cleanup_interval = 6;
       continue;
@@ -11300,6 +12458,26 @@ int main(int argc, char** argv) {
     if (arg == "--r-voxelmap-max-depth") {
       if (i + 1 >= argc) { std::cerr << "--r-voxelmap-max-depth requires a value" << std::endl; return 1; }
       r_voxelmap_options.max_depth = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--r-voxelmap-max-registration-translation") {
+      if (i + 1 >= argc) { std::cerr << "--r-voxelmap-max-registration-translation requires a value" << std::endl; return 1; }
+      r_voxelmap_options.max_registration_translation = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--r-voxelmap-max-registration-rotation") {
+      if (i + 1 >= argc) { std::cerr << "--r-voxelmap-max-registration-rotation requires a value" << std::endl; return 1; }
+      r_voxelmap_options.max_registration_rotation = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--r-voxelmap-map-fallback-translation-delta") {
+      if (i + 1 >= argc) { std::cerr << "--r-voxelmap-map-fallback-translation-delta requires a value" << std::endl; return 1; }
+      r_voxelmap_options.max_map_fallback_translation_delta = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--r-voxelmap-map-fallback-rotation-delta") {
+      if (i + 1 >= argc) { std::cerr << "--r-voxelmap-map-fallback-rotation-delta requires a value" << std::endl; return 1; }
+      r_voxelmap_options.max_map_fallback_rotation_delta = std::stod(argv[++i]);
       continue;
     }
     if (arg == "--damm-loam-fast-profile") {
@@ -11681,6 +12859,16 @@ int main(int argc, char** argv) {
       dilo_options.sri_width = std::stoi(argv[++i]);
       continue;
     }
+    if (arg == "--dilo-lookup-radius") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-lookup-radius requires a value" << std::endl; return 1; }
+      dilo_options.lookup_radius = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--dilo-lookup-max-dist") {
+      if (i + 1 >= argc) { std::cerr << "--dilo-lookup-max-dist requires a value" << std::endl; return 1; }
+      dilo_options.max_lookup_point_distance = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--dilo-initial-threshold") {
       if (i + 1 >= argc) { std::cerr << "--dilo-initial-threshold requires a value" << std::endl; return 1; }
       dilo_options.initial_threshold = std::stod(argv[++i]);
@@ -11775,6 +12963,16 @@ int main(int argc, char** argv) {
     if (arg == "--spectral-lo-keyframe-translation") {
       if (i + 1 >= argc) { std::cerr << "--spectral-lo-keyframe-translation requires a value" << std::endl; return 1; }
       spectral_lo_options.keyframe_translation = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--spectral-lo-translation-refinement-iters") {
+      if (i + 1 >= argc) { std::cerr << "--spectral-lo-translation-refinement-iters requires a value" << std::endl; return 1; }
+      spectral_lo_options.translation_refinement_iterations = std::stoi(argv[++i]);
+      continue;
+    }
+    if (arg == "--spectral-lo-max-translation-refinement") {
+      if (i + 1 >= argc) { std::cerr << "--spectral-lo-max-translation-refinement requires a value" << std::endl; return 1; }
+      spectral_lo_options.max_translation_refinement_m = std::stod(argv[++i]);
       continue;
     }
     // --- gmm_lo ---
@@ -13339,7 +14537,39 @@ int main(int argc, char** argv) {
   if (max_frames > 0 && max_frames < (int)pcd_dirs.size())
     pcd_dirs.resize(max_frames);
 
-  auto gt_poses_raw = loadGTPoses(gt_csv);
+  TimeDomain gt_time_domain = TimeDomain::kUnknown;
+  std::string gt_format = "unknown";
+  std::vector<GTPose> gt_poses_raw;
+  try {
+    gt_poses_raw = loadGTPoses(gt_csv, &gt_time_domain, &gt_format);
+  } catch (const std::exception& e) {
+    std::cerr << "Failed to load GT poses: " << e.what() << std::endl;
+    return 1;
+  }
+  if (gt_poses_raw.empty()) {
+    std::cerr << "No GT poses loaded from " << gt_csv << std::endl;
+    return 1;
+  }
+  std::string gt_sha256;
+  try {
+    gt_sha256 = sha256File(gt_csv);
+  } catch (const std::exception& e) {
+    std::cerr << "Failed to hash GT file: " << e.what() << std::endl;
+    return 1;
+  }
+  if (isGlobalDogfoodingGtArtifact(gt_csv) && !allow_legacy_gt_artifact) {
+    std::cerr
+        << "Refusing dogfooding_results/gt.txt as canonical GT: this is a "
+        << "mutable last-run artifact. Use dataset-specific reference GT, or "
+        << "explicitly pass --allow-legacy-gt-artifact after verifying "
+        << "provenance." << std::endl;
+    return 1;
+  }
+  if (isGlobalDogfoodingGtArtifact(gt_csv) && allow_legacy_gt_artifact) {
+    std::cerr
+        << "Warning: using mutable dogfooding_results/gt.txt because "
+        << "--allow-legacy-gt-artifact was set." << std::endl;
+  }
   auto frame_timestamps = loadFrameTimestampsFromCsv(pcd_dir, pcd_dirs.size());
   FrameTimestampSource frame_timestamp_source =
       FrameTimestampSource::kFrameTimestampCsv;
@@ -13347,24 +14577,48 @@ int main(int argc, char** argv) {
     frame_timestamps = loadFrameTimestampsFromGraph(pcd_dirs);
     frame_timestamp_source = FrameTimestampSource::kGraphTrajectory;
   }
-  if (frame_timestamps.empty()) {
-    frame_timestamps =
-        sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
-    frame_timestamp_source = FrameTimestampSource::kSampledGT;
-  }
   auto frame_gap_stats = computeFrameGapStats(frame_timestamps);
-  if (frame_timestamp_source == FrameTimestampSource::kFrameTimestampCsv &&
-      frame_gap_stats.valid &&
-      frame_gap_stats.median_gap > 0.5) {
-    // Some preprocessed sequences provide sparse/keyframe timestamps that do not
-    // line up with the dense scan sequence expected by most methods. When that
-    // happens, fall back to index-based GT sampling to keep evaluation aligned.
-    frame_timestamps =
-        sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
-    frame_timestamp_source = FrameTimestampSource::kSampledGT;
-    frame_gap_stats = computeFrameGapStats(frame_timestamps);
+  GTAssociation gt_association;
+  try {
+    if (frame_timestamps.empty() && legacy_auto_association) {
+      frame_timestamps =
+          sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
+      frame_timestamp_source = FrameTimestampSource::kSampledGT;
+      frame_gap_stats = computeFrameGapStats(frame_timestamps);
+      gt_association = associateByLegacySampling(
+          gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
+    } else if (legacy_auto_association) {
+      try {
+        gt_association =
+            associateGTPoseMatrices(gt_poses_raw, frame_timestamps,
+                                    association_max_dt);
+      } catch (const std::exception& strict_error) {
+        std::cerr << "Warning: strict GT association failed under "
+                  << "--association-mode legacy-auto: " << strict_error.what()
+                  << "; falling back to sampled GT timestamps." << std::endl;
+        frame_timestamps = sampleFrameTimestamps(gt_poses_raw, pcd_dirs.size(),
+                                                 total_pcd_frames);
+        frame_timestamp_source = FrameTimestampSource::kSampledGT;
+        frame_gap_stats = computeFrameGapStats(frame_timestamps);
+        gt_association = associateByLegacySampling(
+            gt_poses_raw, pcd_dirs.size(), total_pcd_frames);
+      }
+    } else {
+      gt_association =
+          associateGTPoseMatrices(gt_poses_raw, frame_timestamps,
+                                  association_max_dt);
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Failed to associate GT poses: " << e.what() << std::endl;
+    return 1;
   }
-  auto gt = sampleGTPoseMatrices(gt_poses_raw, frame_timestamps);
+  auto gt = gt_association.poses;
+  if (gt.size() != pcd_dirs.size()) {
+    std::cerr << "Associated GT pose count (" << gt.size()
+              << ") does not match PCD frame count (" << pcd_dirs.size()
+              << ")" << std::endl;
+    return 1;
+  }
 
   std::cout << "========================================" << std::endl;
   std::cout << "  PCD Dogfooding" << std::endl;
@@ -13386,6 +14640,10 @@ int main(int argc, char** argv) {
 
   std::cout << "Timestamp source: " << frameTimestampSourceName(frame_timestamp_source)
             << std::endl;
+  std::cout << "GT format: " << gt_format
+            << " (time_domain=" << timeDomainName(gt_time_domain) << ")"
+            << std::endl;
+  std::cout << "GT association: " << gt_association.mode << std::endl;
   if (frame_gap_stats.valid) {
     std::cout << "Frame gap [s]: min=" << std::fixed << std::setprecision(3)
               << frame_gap_stats.min_gap
@@ -13690,6 +14948,9 @@ int main(int argc, char** argv) {
               << " max_depth=" << r_voxelmap_options.max_depth
               << " inlier_dist=" << r_voxelmap_options.inlier_dist
               << " max_iterations=" << r_voxelmap_options.max_icp_iterations
+              << " map_fallback_delta="
+              << r_voxelmap_options.max_map_fallback_translation_delta << "m/"
+              << r_voxelmap_options.max_map_fallback_rotation_delta << "rad"
               << std::endl;
     results.push_back(runRVoxelMap(pcd_dirs, gt, r_voxelmap_options));
   }
@@ -13803,7 +15064,7 @@ int main(int argc, char** argv) {
               << " ground_weight=" << m_gclo_options.ground_weight
               << " ground_normal_threshold="
               << m_gclo_options.ground_normal_threshold << std::endl;
-    results.push_back(runMGclo(pcd_dirs, gt, m_gclo_options));
+    results.push_back(runMGclo(pcd_dirs, gt, m_gclo_options, no_gt_seed));
   }
 
   if (isMethodEnabled(selected_methods, "quadric_lo")) {
@@ -13824,6 +15085,8 @@ int main(int argc, char** argv) {
     std::cout << "  source_voxel_size=" << dilo_options.source_voxel_size
               << " sri=" << dilo_options.sri_height << "x"
               << dilo_options.sri_width
+              << " lookup_radius=" << dilo_options.lookup_radius
+              << " lookup_max_dist=" << dilo_options.max_lookup_point_distance
               << " keyframe_translation=" << dilo_options.keyframe_translation
               << std::endl;
     results.push_back(runDilo(pcd_dirs, gt, dilo_options));
@@ -13852,7 +15115,10 @@ int main(int argc, char** argv) {
     std::cout << "Running Spectral-LO..." << std::endl;
     std::cout << "  bev_size=" << spectral_lo_options.bev_size
               << " bev_range=" << spectral_lo_options.bev_range
-              << " max_yaw_deg=" << spectral_lo_options.max_yaw_deg << std::endl;
+              << " max_yaw_deg=" << spectral_lo_options.max_yaw_deg
+              << " translation_refinement_iters="
+              << spectral_lo_options.translation_refinement_iterations
+              << std::endl;
     results.push_back(runSpectralLo(pcd_dirs, gt, spectral_lo_options));
   }
 
@@ -14110,6 +15376,16 @@ int main(int argc, char** argv) {
               << std::endl;
     results.push_back(
         runNnZupt(gt, frame_timestamps, imu_samples, nn_zupt_options));
+  }
+  if (isMethodEnabled(selected_methods, "imu_dead_reckoning")) {
+    std::cout << "\n=== IMU-DR ===" << std::endl;
+    std::cout << "  static_init_sec="
+              << imu_dead_reckoning_options.static_init_duration_s
+              << " midpoint=" << imu_dead_reckoning_options.midpoint_integration
+              << " zupt=" << imu_dead_reckoning_options.enable_zupt
+              << std::endl;
+    results.push_back(runImuDeadReckoning(gt, frame_timestamps, imu_samples,
+                                          imu_dead_reckoning_options));
   }
 
   if (isMethodEnabled(selected_methods, "degen_sense")) {
@@ -14395,6 +15671,25 @@ int main(int argc, char** argv) {
     }
   }
 
+  fs::create_directories("dogfooding_results");
+  const std::string artifact_stem = artifactStemFromPath(pcd_dir);
+  const fs::path evaluated_gt_path =
+      fs::path("dogfooding_results") / (artifact_stem + "_evaluated_gt.txt");
+  const fs::path evaluation_manifest_path =
+      fs::path("dogfooding_results") /
+      (artifact_stem + "_evaluation_manifest.json");
+  savePosesKITTI(gt, evaluated_gt_path.string());
+  const fs::path legacy_gt_path = fs::path("dogfooding_results") / "gt.txt";
+  bool legacy_gt_written = false;
+  if (pathsEquivalentIfBothExist(fs::path(gt_csv), legacy_gt_path)) {
+    std::cerr
+        << "Warning: not overwriting legacy GT artifact because it is also "
+        << "the input GT path: " << legacy_gt_path.string() << std::endl;
+  } else {
+    savePosesKITTI(gt, legacy_gt_path.string());
+    legacy_gt_written = true;
+  }
+
   // 結果表示
   std::cout << "\n========================================" << std::endl;
   std::cout << "  RESULTS (Real Data)" << std::endl;
@@ -14409,9 +15704,6 @@ int main(int argc, char** argv) {
             << std::setw(12) << "FPS"
             << std::endl;
   std::cout << std::string(102, '-') << std::endl;
-
-  fs::create_directories("dogfooding_results");
-  savePosesKITTI(gt, "dogfooding_results/gt.txt");
 
   for (auto& r : results) {
     if (r.skipped) {
@@ -14470,11 +15762,31 @@ int main(int argc, char** argv) {
     }
   }
 
-  if (!summary_json_path.empty()) {
-    writeSummaryJson(summary_json_path, pcd_dir, gt_csv, pcd_dirs.size(), dist,
-                     frame_timestamp_source, results);
+  const std::string evaluator_commit = evaluatorGitCommit();
+  writeSummaryJson(evaluation_manifest_path.string(), pcd_dir, gt_csv,
+                   gt_sha256, evaluated_gt_path.string(),
+                   legacy_gt_path.string(), legacy_gt_written,
+                   evaluation_manifest_path.string(), evaluator_commit,
+                   total_pcd_frames, pcd_dirs.size(), gt_poses_raw.size(),
+                   frame_timestamps, gt_poses_raw, gt_association, dist,
+                   frame_timestamp_source, gt_format, gt_time_domain,
+                   association_max_dt, results);
+
+  if (!summary_json_path.empty() &&
+      !pathsEquivalentIfBothExist(fs::path(summary_json_path),
+                                  evaluation_manifest_path)) {
+    writeSummaryJson(summary_json_path, pcd_dir, gt_csv, gt_sha256,
+                     evaluated_gt_path.string(), legacy_gt_path.string(),
+                     legacy_gt_written, evaluation_manifest_path.string(),
+                     evaluator_commit, total_pcd_frames, pcd_dirs.size(),
+                     gt_poses_raw.size(), frame_timestamps, gt_poses_raw,
+                     gt_association, dist, frame_timestamp_source, gt_format,
+                     gt_time_domain, association_max_dt, results);
   }
 
-  std::cout << "\nResults saved to dogfooding_results/" << std::endl;
+  std::cout << "\nResults saved to dogfooding_results/"
+            << " (evaluated GT: " << evaluated_gt_path.string()
+            << ", manifest: " << evaluation_manifest_path.string() << ")"
+            << std::endl;
   return 0;
 }

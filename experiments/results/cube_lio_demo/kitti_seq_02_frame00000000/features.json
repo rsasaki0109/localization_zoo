@@ -1,5 +1,5 @@
 {
-  "pcd": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108/00000000/cloud.pcd",
+  "pcd": "$workspace/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108/00000000/cloud.pcd",
   "frame_index": null,
   "n_features": 5198,
   "features": [

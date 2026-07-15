@@ -1,16 +1,16 @@
 {
-  "comparison_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/method_health_comparison/method_health_comparison.json",
+  "comparison_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/method_health_comparison/method_health_comparison.json",
   "sequence_gt_status": {
     "fog_200": {
       "gt_csv": null,
       "gt_csv_exists": false,
-      "topic_audit": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/data/lidar_degeneracy_datasets/fog_topics.json",
+      "topic_audit": "$workspace/arxiv/localization_zoo/data/lidar_degeneracy_datasets/fog_topics.json",
       "pose_like_topics": []
     },
     "tunnel_geom_2700_200": {
       "gt_csv": null,
       "gt_csv_exists": false,
-      "topic_audit": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/data/lidar_degeneracy_datasets/tunnel_topics.json",
+      "topic_audit": "$workspace/arxiv/localization_zoo/data/lidar_degeneracy_datasets/tunnel_topics.json",
       "pose_like_topics": []
     }
   },

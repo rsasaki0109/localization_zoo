@@ -1,21 +1,71 @@
 {
+  "schema_version": 2,
   "pcd_dir": "dogfooding_results/kitti_seq_07_full",
   "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "gt_sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+  "total_pcd_frames": 1101,
   "num_frames": 1101,
+  "raw_gt_pose_count": 1101,
+  "used_gt_pose_count": 1101,
   "trajectory_length_m": 694.390333,
-  "timestamp_source": "sampled GT timestamps",
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "f78ebe33f3bc167eefba16e9143c57fe7aa7232f",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_07_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 1101,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 1100.000000]
+  },
+  "gt": {
+    "source": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 1101,
+    "raw_timestamp_range": [0.000000, 1100.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 1101,
+    "associated_gt_index_range": [0, 1100],
+    "associated_gt_timestamp_range": [0.000000, 1100.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
   "methods": [
     {
       "name": "VLOM",
       "status": "ok",
-      "ate_m": 439.410599,
-      "rpe_trans_pct": 153.867980,
-      "rpe_rot_deg_per_m": 1.188767,
+      "ate_m": 2.505243,
+      "rpe_trans_pct": 0.605313,
+      "rpe_rot_deg_per_m": 0.005820,
       "frames": 1101,
-      "time_ms": 460475.460250,
-      "fps": 2.391007,
+      "time_ms": 345383.265558,
+      "fps": 3.187763,
       "seed_fallback_rate_pct": null,
-      "note": "VLOM (arXiv:2304.08978): scale correction + visual-bootstrapped A-LOAM on LiDAR-rendered pseudo-image; no GT seed. mean_scale=1.003 bootstrap_frames=172"
+      "note": "VLOM (arXiv:2304.08978): scale-corrected A-LOAM with optional visual bootstrap; eval=intensity-pseudo-image; bootstrap=off scale_correction=on; no GT seed. mean_scale=1.000 bootstrap_frames=0 rgb_frames=0 intensity_dilation_radius=2"
     }
   ]
 }

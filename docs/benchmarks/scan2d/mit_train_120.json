@@ -1,6 +1,6 @@
 {
-  "scan_dir": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/evaluation/fixtures/mit_train_120",
-  "gt_csv": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/evaluation/fixtures/mit_train_120/gt.csv",
+  "scan_dir": "localization_zoo/evaluation/fixtures/mit_train_120",
+  "gt_csv": "localization_zoo/evaluation/fixtures/mit_train_120/gt.csv",
   "num_frames": 120,
   "trajectory_length_m": 150.385,
   "rpe_segment_length_m": 100.000,

@@ -83,5 +83,41 @@ On the 60-frame stress, ground constraints track at **0.116 m** ATE and
 **0.500%** drift with about **1278 ground correspondences/frame**. Disabling the
 ground factor worsens to **0.150 m** ATE and **0.675%** drift, with rotational
 RPE rising from **0.0028** to **0.0206 deg/m**. This confirms the multiple-ground
-path is active and useful on non-flat synthetic terrain, but it remains a
-mechanism stress rather than public dataset validation.
+path is active and useful on non-flat synthetic terrain.
+
+## Public KITTI seq08 validation
+
+Hilly public KITTI Odometry seq08 full (4071 frames, no GT seed):
+
+```bash
+python3 evaluation/scripts/run_m_gclo_kitti_seq08_validation.py
+```
+
+| Variant | RPE | ATE | Artifact |
+|---|---:|---:|---|
+| ground on | 1.354% | 21.1 m | [`m_gclo_ground_on.json`](../../docs/benchmarks/kitti_seq08_public/m_gclo_ground_on.json) |
+| ground off | 1.353% | 52.6 m | [`m_gclo_ground_off.json`](../../docs/benchmarks/kitti_seq08_public/m_gclo_ground_off.json) |
+
+Paired summary: [`m_gclo_kitti_seq08_validation_summary.json`](../../docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json).
+Disabling the ground factor leaves translational RPE unchanged but worsens
+whole-run ATE by about 149% on this hilly public sequence — consistent with the
+seq00/07 ground-factor ablation.
+
+## Public MulRan ParkingLot validation
+
+Off-road Ouster full (1176 frames). No-gt-seed odometry diverges; GT-seeded M-GCLO
+uses per-frame GT initialization (`gt_seeded_frames` in the note):
+
+```bash
+python3 evaluation/scripts/run_m_gclo_mulran_parkinglot_validation.py --seed-protocol gt-seed
+```
+
+| Protocol | Variant | RPE | ATE |
+|---|---|---:|---:|
+| no-gt-seed | ground on | 103.3% | 74.2 m |
+| GT-seed | ground on | 2.49% | 2.38 m |
+| GT-seed | ground off | 2.44% | 1.93 m |
+
+Paired summary: [`m_gclo_mulran_parkinglot_validation_summary.json`](../../docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json).
+GT-seed stabilizes tracking but ground off slightly improves ATE on this sequence
+(oracle-init mechanism evidence, not blind odometry).

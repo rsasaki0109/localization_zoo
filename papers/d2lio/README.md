@@ -30,7 +30,10 @@ and IMU preintegration, with D²-LIO's three contributions:
    added, with strength scaled by the degeneracy gap, the IMU information
    projected onto that direction, and `λ_max` — an approximation of the paper's
    `W = (AᵀA·P)⁻¹` hybrid weight. On well-conditioned scenes no direction is
-   flagged and the regularizer stays dormant (no bias).
+   flagged and the regularizer stays dormant (no bias). The prior is applied
+   only when a real IMU packet was integrated for the frame; no-IMU runs still
+   report the degenerate directions but do not regularize toward the
+   constant-velocity fallback prediction.
 
 ## Current Scope
 
@@ -49,3 +52,25 @@ and IMU preintegration, with D²-LIO's three contributions:
   translation covariance is not gravity/bias-corrected in this compact pipeline)
 - no full tightly-coupled IEKF / sliding-window back-end — IMU enters as a
   rotation prior plus the degeneracy regularizer, not a joint state estimator
+- without `imu.csv`, the KITTI dogfooding path is LiDAR-only scan-to-map with
+  degeneracy diagnostics; directional regularization is disabled because the
+  constant-velocity fallback is not an inertial measurement
+
+## Public synchronized LiDAR-IMU validation (HDL-400 open)
+
+120-frame public HDL-400 open window with `imu.csv` + `frame_timestamps.csv`:
+
+```bash
+python3 evaluation/scripts/run_lio_imu_public_validation.py --dataset hdl_400
+```
+
+| Variant | RPE | ATE | IMU path |
+|---|---:|---:|---|
+| D2-LIO IMU on | 1.58% | 0.17 m | active |
+| D2-LIO no `imu.csv` | 1.52% | 0.17 m | fallback |
+
+Paired summary: [`hdl_400_lio_imu_validation_summary.json`](../../docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json).
+
+IMU-prior regularization activates when `imu.csv` is present; metric deltas vs
+the no-IMU fallback are small on this short window — mechanism evidence, not a
+full LIO T0 claim.

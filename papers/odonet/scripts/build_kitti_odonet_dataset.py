@@ -65,7 +65,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--kitti-root",
-        default="/media/sasaki/aiueo/ai_coding_ws/_kitti/2011_09_26",
+        default="_kitti/2011_09_26",
         help="KITTI raw date folder containing drive_*_sync dirs.",
     )
     parser.add_argument(

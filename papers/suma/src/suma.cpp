@@ -325,9 +325,10 @@ SuMaResult SuMa::process(const aloam::PointCloudConstPtr& cloud) {
     return result;
   }
 
-  PoseState predicted_pose;
-  predicted_pose.q = q_w_curr_;
-  predicted_pose.t = t_w_curr_;
+  PoseState prior_pose;
+  prior_pose.q = q_w_curr_;
+  prior_pose.t = t_w_curr_;
+  const PoseState predicted_pose = composePose(prior_pose, last_motion_);
 
   double parameters[7] = {predicted_pose.q.x(), predicted_pose.q.y(),
                           predicted_pose.q.z(), predicted_pose.q.w(),
@@ -410,6 +411,7 @@ SuMaResult SuMa::process(const aloam::PointCloudConstPtr& cloud) {
     options.linear_solver_type = ceres::DENSE_QR;
     options.max_num_iterations = params_.ceres_max_iterations;
     options.minimizer_progress_to_stdout = false;
+    options.logging_type = ceres::SILENT;
 
     ceres::Solver::Summary summary;
     ceres::Solve(options, &problem, &summary);

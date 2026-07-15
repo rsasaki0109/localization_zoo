@@ -1,6 +1,6 @@
 {
-  "scan_dir": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/evaluation/fixtures/intel_train_150",
-  "gt_csv": "/media/sasaki/aiueo/ai_coding_ws/localization_zoo/evaluation/fixtures/intel_train_150/gt.csv",
+  "scan_dir": "localization_zoo/evaluation/fixtures/intel_train_150",
+  "gt_csv": "localization_zoo/evaluation/fixtures/intel_train_150/gt.csv",
   "num_frames": 150,
   "trajectory_length_m": 153.652,
   "rpe_segment_length_m": 100.000,

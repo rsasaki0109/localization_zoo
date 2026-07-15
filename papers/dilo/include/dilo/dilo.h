@@ -22,6 +22,8 @@ public:
     double fov_down_deg = -24.8;  // 仰角下限 (KITTI HDL-64E 既定)
     double min_range = 1.0;
     double max_range = 100.0;
+    int lookup_radius = 1;    // projective association の近傍探索半径 [px]
+    double max_lookup_point_distance = 1.5;  // 近傍画素候補の 3D 距離 gate [m]
   };
 
   struct Pixel {
@@ -60,6 +62,8 @@ struct DiloParams {
   int sri_width = 900;
   double fov_up_deg = 2.0;
   double fov_down_deg = -24.8;
+  int lookup_radius = 1;
+  double max_lookup_point_distance = 1.5;
   int max_iterations = 30;
   double convergence_criterion = 0.001;
   double initial_threshold = 1.0;  // point-to-plane 残差の外れ値しきい値 (m)

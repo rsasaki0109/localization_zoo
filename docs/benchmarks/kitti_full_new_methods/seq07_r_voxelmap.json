@@ -1,21 +1,71 @@
 {
-  "pcd_dir": "/media/sasaki/aiueo/kitti_pcd/seq07_full",
-  "gt_csv": "/media/sasaki/aiueo/kitti_pcd/seq07_gt.csv",
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/kitti_seq_07_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+  "gt_sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+  "total_pcd_frames": 1101,
   "num_frames": 1101,
+  "raw_gt_pose_count": 1101,
+  "used_gt_pose_count": 1101,
   "trajectory_length_m": 694.390333,
-  "timestamp_source": "sampled GT timestamps",
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "675857e444839b3d367621fce7e1fce65e4388a7",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_07_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_07_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 1101,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 1100.000000]
+  },
+  "gt": {
+    "source": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 1101,
+    "raw_timestamp_range": [0.000000, 1100.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 1101,
+    "associated_gt_index_range": [0, 1100],
+    "associated_gt_timestamp_range": [0.000000, 1100.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
   "methods": [
     {
       "name": "R-VoxelMap",
       "status": "ok",
-      "ate_m": 7686.992170,
-      "rpe_trans_pct": 1758.777080,
-      "rpe_rot_deg_per_m": 1.015692,
+      "ate_m": 11.129664,
+      "rpe_trans_pct": 3.266813,
+      "rpe_rot_deg_per_m": 0.028387,
       "frames": 1101,
-      "time_ms": 60864.834009,
-      "fps": 18.089263,
+      "time_ms": 134395.588516,
+      "fps": 8.192233,
       "seed_fallback_rate_pct": null,
-      "note": "Recursive plane-fitting voxel map (outlier detect-and-reuse octree; no GT seed; anchor matches first GT pose). mean_matched_ratio=0.000011"
+      "note": "Recursive plane-fitting voxel map (outlier detect-and-reuse octree; no GT seed; anchor matches first GT pose; scan-to-scan fallback on low map correspondence and map/fallback disagreement). mean_matched_ratio=0.920987 fallback_rate_pct=4.268847 fallback_disagreement_count=46 mean_fallback_ratio=0.977234"
     }
   ]
 }

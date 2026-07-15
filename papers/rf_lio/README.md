@@ -94,3 +94,39 @@ failure severity, and a conservative RF cap (`--rf-lio-foreground-margin 1.5
 --rf-lio-max-removal-fraction 0.08`) improves RF-LIO to **41.632 m**. This is a
 synthetic mechanism/failure-boundary artifact, not a substitute for a public
 high-dynamic dataset.
+
+## Public KITTI seq05 validation
+
+Urban public KITTI Odometry seq05 full (2761 frames, no GT seed):
+
+```bash
+python3 evaluation/scripts/run_rf_id_lio_kitti_seq05_validation.py
+```
+
+| Method | RPE | ATE | Artifact |
+|---|---:|---:|---|
+| KISS-ICP (sanity) | 0.617% | 5.89 m | in [`rf_id_lio_default.json`](../../docs/benchmarks/kitti_seq05_public/rf_id_lio_default.json) |
+| ID-LIO | 0.702% | 13.4 m | same |
+| RF-LIO default | 1.005% | 24.3 m | same |
+| RF-LIO conservative | 0.993% | 24.2 m | [`rf_lio_conservative.json`](../../docs/benchmarks/kitti_seq05_public/rf_lio_conservative.json) |
+
+Paired summary: [`rf_id_lio_kitti_seq05_validation_summary.json`](../../docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json).
+Both dynamic paths stay active on urban seq05, but default RF-LIO still trails
+ID-LIO and KISS-ICP; conservative removal barely moves RPE (~−1.2% vs default).
+Dedicated high-dynamic multi-beam benchmarks remain open before manuscript-level
+dynamic-scene claims.
+
+## Public synchronized LiDAR-IMU validation (HDL-400 open)
+
+120-frame public HDL-400 open window with `imu.csv`:
+
+```bash
+python3 evaluation/scripts/run_lio_imu_public_validation.py --dataset hdl_400
+```
+
+| Method | RPE (IMU on) | RPE (no `imu.csv`) | IMU path |
+|---|---:|---:|---|
+| ID-LIO | 1.43% | 1.35% | gyro prior when `imu.csv` present |
+| RF-LIO | 1.41% | 1.45% | gyro prior when `imu.csv` present |
+
+Paired summary: [`hdl_400_lio_imu_validation_summary.json`](../../docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json).

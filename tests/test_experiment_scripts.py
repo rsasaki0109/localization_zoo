@@ -282,6 +282,10 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_generate_reproduction_status_module",
             "evaluation/scripts/generate_reproduction_status.py",
         )
+        cls.leaderboard_module = load_script_module(
+            "test_generate_leaderboard_module",
+            "evaluation/scripts/generate_leaderboard.py",
+        )
         cls.lidar_action_plan_module = load_script_module(
             "test_generate_lidar_degeneracy_action_plan_module",
             "evaluation/scripts/generate_lidar_degeneracy_action_plan.py",
@@ -650,6 +654,27 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
                 ["python3", "evaluation/scripts/generate_leaderboard.py"],
             ],
         )
+
+    def test_generate_leaderboard_preserves_from_paper_section(self) -> None:
+        readme = textwrap.dedent(
+            """
+            intro
+            <!-- LEADERBOARD:START -->
+            old generated table
+
+            ### From-paper reimplementations (no public reference code) — KITTI full
+
+            curated paper rows stay here
+            <!-- LEADERBOARD:END -->
+            outro
+            """
+        )
+
+        preserved = self.leaderboard_module.extract_preserved_section(readme)
+        self.assertIn("curated paper rows stay here", preserved)
+        block = self.leaderboard_module.render_block({}, preserved)
+        self.assertIn("### From-paper reimplementations", block)
+        self.assertIn("curated paper rows stay here", block)
 
     def test_refresh_study_docs_omits_reuse_flags_for_rerun(self) -> None:
         commands: list[list[str]] = []

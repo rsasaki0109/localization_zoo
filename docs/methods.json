@@ -877,7 +877,7 @@
         "LiDAR"
       ],
       "href": "papers/r_voxelmap",
-      "summary": "Recursive octree plane fitting with outlier detect-and-reuse, plane-variance-weighted point-to-plane (arXiv:2601.12377).",
+      "summary": "Recursive octree plane fitting with outlier detect-and-reuse, plane-variance-weighted point-to-plane, and low-correspondence scan-to-scan recovery for the strict KITTI evaluator (arXiv:2601.12377).",
       "tags": [
         "odometry",
         "plane",
@@ -1076,7 +1076,7 @@
         "Camera"
       ],
       "href": "papers/pl_loam",
-      "summary": "PL-LOAM (ICRA 2020): LiDAR-monocular point+line visual odometry with robust LiDAR depth extraction and depth-prior point-line bundle adjustment plus scale correction. KITTI Odometry eval uses LiDAR-projected pseudo-images (no RGB in odometry benchmark).",
+      "summary": "PL-LOAM (ICRA 2020): LiDAR-monocular point+line visual odometry with robust LiDAR depth extraction and depth-prior point-line bundle adjustment plus scale correction. KITTI Odometry eval uses LiDAR-intensity pseudo-images with LiDAR depth priors because RGB is absent from the odometry benchmark.",
       "tags": [
         "odometry",
         "lidar-visual",
@@ -1091,7 +1091,7 @@
         "LiDAR"
       ],
       "href": "papers/inten_loam",
-      "summary": "InTEn-LOAM (RS 2022/23): cylindrical range+intensity images for adaptive ground/facade/edge/reflector features, joint geometric + B-spline intensity scan registration. Temporal DOR and mapping deferred in this port.",
+      "summary": "InTEn-LOAM (RS 2022/23): cylindrical range+intensity FEF, B-spline intensity registration, simplified TVF/DOR, and scan-to-map mapping. KITTI post-fix ablation (2026-07-03) is high-drift / honest negative.",
       "tags": [
         "odometry",
         "intensity",
@@ -1137,7 +1137,7 @@
         "Camera"
       ],
       "href": "papers/vlom",
-      "summary": "Scale-correction VLOM (arXiv:2304.08978): loosely coupled monocular VO with LiDAR depth scale correction and visual bootstrapping for A-LOAM odometry+mapping. Pseudo-image eval on KITTI Odometry.",
+      "summary": "Scale-correction VLOM (arXiv:2304.08978): loosely coupled monocular VO with LiDAR depth scale correction and visual bootstrapping for A-LOAM odometry+mapping. KITTI Odometry eval keeps A-LOAM mapping and scale correction active but disables visual bootstrap on LiDAR-intensity pseudo-images because RGB is absent from the odometry benchmark.",
       "tags": [
         "odometry",
         "lidar-visual",
@@ -1187,6 +1187,21 @@
         "imu",
         "deep-learning",
         "zupt"
+      ]
+    },
+    {
+      "name": "IMU Dead Reckoning",
+      "family": "IMU dead reckoning",
+      "scope": "Compact baseline",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/imu_dead_reckoning",
+      "summary": "Pure strapdown IMU-only dead reckoning: static-window gyro-bias/gravity init, midpoint gyro integration, and double integration of specific force, with no LiDAR or learned aiding unless opted in. Optional classical vehicle aids (ZUPT, NHC, accel-bias estimation) are ablation flags. The unaided lower-bound reference for the LIO/OdoNet/NHC-Net/NN-ZUPT family; not a paper reimplementation.",
+      "tags": [
+        "imu",
+        "dead-reckoning",
+        "baseline"
       ]
     },
     {
@@ -1272,7 +1287,7 @@
         "LiDAR"
       ],
       "href": "papers/dilo",
-      "summary": "Direct LiDAR odometry on spherical range images: frame-to-keyframe alignment via projective data association (no nearest-neighbor search) with image-based point-to-plane residuals. Fast (25-32 FPS) but the frame-to-keyframe design drifts/diverges on long KITTI sequences without a persistent map (Han et al., ETRI Journal 2021).",
+      "summary": "Direct LiDAR odometry on spherical range images: frame-to-keyframe alignment via bounded projective data association (no nearest-neighbor search) with image-based point-to-plane residuals. Fast (~65 FPS) and stable after 1px lookup gating, but still less accurate than persistent scan-to-map local-map methods (Han et al., ETRI Journal 2021).",
       "tags": [
         "odometry",
         "range-image",

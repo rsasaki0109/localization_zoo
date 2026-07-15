@@ -1,6 +1,6 @@
 {
-  "pcd_dir": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_05_108",
-  "gt_csv": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_05_108_gt.csv",
+  "pcd_dir": "$workspace/arxiv/localization_zoo/dogfooding_results/kitti_seq_05_108",
+  "gt_csv": "$workspace/arxiv/localization_zoo/experiments/reference_data/kitti_seq_05_108_gt.csv",
   "num_frames": 108,
   "trajectory_length_m": 98.914374,
   "timestamp_source": "sampled GT timestamps",

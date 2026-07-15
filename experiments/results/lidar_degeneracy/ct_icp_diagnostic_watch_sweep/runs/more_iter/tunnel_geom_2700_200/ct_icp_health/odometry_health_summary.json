@@ -1,5 +1,5 @@
 {
-  "degradation_windows_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/tunnel_geom_2700_200/window_selection/degradation_windows.json",
+  "degradation_windows_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/tunnel_geom_2700_200/window_selection/degradation_windows.json",
   "sequence_pcd_dir": "dogfooding_results/lidar_degeneracy_tunnel_geom_2700_200",
   "method": "ct_icp",
   "parameters": {
@@ -69,7 +69,7 @@
         "range_p95_drop_vs_baseline": 0.0029832025412482865,
         "obscurant_score": 0.001530284341535515
       },
-      "result_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_iter/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json",
+      "result_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_iter/tunnel_geom_2700_200/ct_icp_health/results/baseline_0005_0034_ct_icp.json",
       "frames": 30,
       "pairs": 29,
       "runtime_s": 0.995575,
@@ -128,7 +128,7 @@
         "range_p95_drop_vs_baseline": -0.25578188872582075,
         "obscurant_score": 0.2273055096004576
       },
-      "result_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_iter/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
+      "result_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_iter/tunnel_geom_2700_200/ct_icp_health/results/degraded_0170_0199_ct_icp.json",
       "frames": 30,
       "pairs": 29,
       "runtime_s": 0.868711,
@@ -187,7 +187,7 @@
         "range_p95_drop_vs_baseline": -0.2077458375829393,
         "obscurant_score": 0.03473030865987037
       },
-      "result_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_iter/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json",
+      "result_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_iter/tunnel_geom_2700_200/ct_icp_health/results/point_count_tail_0080_0109_ct_icp.json",
       "frames": 30,
       "pairs": 29,
       "runtime_s": 0.874224,
@@ -246,7 +246,7 @@
         "range_p95_drop_vs_baseline": -0.2254440203290775,
         "obscurant_score": 0.04458085640109688
       },
-      "result_json": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_iter/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json",
+      "result_json": "$workspace/arxiv/localization_zoo/experiments/results/lidar_degeneracy/ct_icp_diagnostic_watch_sweep/runs/more_iter/tunnel_geom_2700_200/ct_icp_health/results/geometry_degeneracy_0090_0119_ct_icp.json",
       "frames": 30,
       "pairs": 29,
       "runtime_s": 0.893416,

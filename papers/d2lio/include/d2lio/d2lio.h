@@ -135,12 +135,13 @@ private:
   std::vector<Eigen::Vector3d> rangeFilter(
       const std::vector<Eigen::Vector3d>& points) const;
 
-  /// 退化対応 point-to-plane ICP。prediction は IMU prior の引き戻し先。
+  /// 退化対応 point-to-plane ICP。prediction は実 IMU prior がある場合の引き戻し先。
   Eigen::Matrix4d runICP(const std::vector<Eigen::Vector3d>& source,
                          const Eigen::Matrix4d& initial_guess,
                          const Eigen::Matrix4d& prediction, double t_rel,
                          double theta_rel,
                          const Eigen::Matrix3d& imu_rot_info,
+                         bool enable_degeneracy_prior,
                          D2LIOResult* result);
 
   D2LIOParams params_;

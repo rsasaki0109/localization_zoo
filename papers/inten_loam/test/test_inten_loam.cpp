@@ -1,4 +1,5 @@
 #include "inten_loam/inten_loam.h"
+#include "inten_loam/factors.h"
 
 #include <gtest/gtest.h>
 
@@ -58,6 +59,30 @@ TEST(InTenLoam, ReflectorLabelOnHighIntensity) {
 TEST(InTenLoam, IntensityResidualScalesWithSigma) {
   EXPECT_NEAR(InTenLoam::intensityResidual(0.8, 0.5, 0.1), 3.0, 1e-6);
   EXPECT_DOUBLE_EQ(InTenLoam::intensityResidual(0.5, 0.5, 0.1), 0.0);
+}
+
+TEST(InTenLoam, FactorsUseEigenQuaternionLayout) {
+  const Eigen::Vector3d line_a(0.0, 0.0, 0.0);
+  const Eigen::Vector3d line_b(2.0, 0.0, 0.0);
+  const double identity_q[4] = {0.0, 0.0, 0.0, 1.0};
+  const double zero_t[3] = {0.0, 0.0, 0.0};
+
+  double residual[3] = {};
+  EdgeFactor on_line(Eigen::Vector3d(1.0, 0.0, 0.0), line_a, line_b, 1.0, 1.0);
+  ASSERT_TRUE(on_line(identity_q, zero_t, residual));
+  EXPECT_NEAR(residual[0], 0.0, 1e-12);
+  EXPECT_NEAR(residual[1], 0.0, 1e-12);
+  EXPECT_NEAR(residual[2], 0.0, 1e-12);
+
+  const double s = std::sqrt(0.5);
+  const double z_90_q[4] = {0.0, 0.0, s, s};
+  EdgeFactor rotated_to_line(Eigen::Vector3d(1.0, 0.0, 0.0),
+                             Eigen::Vector3d(0.0, 1.0, 0.0),
+                             Eigen::Vector3d(0.0, 2.0, 0.0), 1.0, 1.0);
+  ASSERT_TRUE(rotated_to_line(z_90_q, zero_t, residual));
+  EXPECT_NEAR(residual[0], 0.0, 1e-12);
+  EXPECT_NEAR(residual[1], 0.0, 1e-12);
+  EXPECT_NEAR(residual[2], 0.0, 1e-12);
 }
 
 TEST(InTenLoam, TracksShortSequence) {

@@ -7,6 +7,13 @@
 namespace localization_zoo {
 namespace pl_loam {
 
+template <typename T>
+inline void EigenQuaternionRotatePoint(const T* eigen_q, const T* point,
+                                       T* result) {
+  const T ceres_q[4] = {eigen_q[3], eigen_q[0], eigen_q[1], eigen_q[2]};
+  ceres::QuaternionRotatePoint(ceres_q, point, result);
+}
+
 /// 3D 点 (prev カメラ) の再投影残差。
 struct PointReprojFactor {
   PointReprojFactor(const Eigen::Vector3d& point_prev_cam,
@@ -24,7 +31,7 @@ struct PointReprojFactor {
   bool operator()(const T* q, const T* t, T* residual) const {
     T p[3] = {T(point_.x()), T(point_.y()), T(point_.z())};
     T p_cam[3];
-    ceres::QuaternionRotatePoint(q, p, p_cam);
+    EigenQuaternionRotatePoint(q, p, p_cam);
     p_cam[0] += t[0];
     p_cam[1] += t[1];
     p_cam[2] += t[2];
@@ -63,7 +70,7 @@ struct PointDepthPriorFactor {
   bool operator()(const T* q, const T* t, T* residual) const {
     T p[3] = {T(point_.x()), T(point_.y()), T(point_.z())};
     T p_cam[3];
-    ceres::QuaternionRotatePoint(q, p, p_cam);
+    EigenQuaternionRotatePoint(q, p, p_cam);
     p_cam[2] += t[2];
     if (p_cam[2] < T(0.1)) {
       residual[0] = T(0);
@@ -100,7 +107,7 @@ struct LineEndpointReprojFactor {
   bool operator()(const T* q, const T* t, T* residual) const {
     T p[3] = {T(point_.x()), T(point_.y()), T(point_.z())};
     T p_cam[3];
-    ceres::QuaternionRotatePoint(q, p, p_cam);
+    EigenQuaternionRotatePoint(q, p, p_cam);
     p_cam[0] += t[0];
     p_cam[1] += t[1];
     p_cam[2] += t[2];

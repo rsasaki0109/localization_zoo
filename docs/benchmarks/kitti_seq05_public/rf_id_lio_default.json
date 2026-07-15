@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/kitti_seq_05_full",
+  "gt_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+  "gt_sha256": "1746feac2f00ee1302520f4d1d0b285a83e3c6faab4b3be96ccd103374c2ce92",
+  "total_pcd_frames": 2761,
+  "num_frames": 2761,
+  "raw_gt_pose_count": 2761,
+  "used_gt_pose_count": 2761,
+  "trajectory_length_m": 2205.201840,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "exact_frame_id",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "659cb9c07aef5a6f07b3b0fdaf35f69904d79116",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/kitti_seq_05_full_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/kitti_seq_05_full_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 2761,
+    "timestamp_all_integer": true,
+    "timestamp_range": [0.000000, 2760.000000]
+  },
+  "gt": {
+    "source": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+    "sha256": "1746feac2f00ee1302520f4d1d0b285a83e3c6faab4b3be96ccd103374c2ce92",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 2761,
+    "raw_timestamp_range": [0.000000, 2760.000000]
+  },
+  "association": {
+    "mode": "exact_frame_id",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 2761,
+    "associated_gt_index_range": [0, 2760],
+    "associated_gt_timestamp_range": [0.000000, 2760.000000],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "KISS-ICP",
+      "status": "ok",
+      "ate_m": 5.893262,
+      "rpe_trans_pct": 0.617404,
+      "rpe_rot_deg_per_m": 0.004812,
+      "frames": 2761,
+      "time_ms": 144279.656016,
+      "fps": 19.136447,
+      "seed_fallback_rate_pct": null,
+      "note": ""
+    },
+    {
+      "name": "ID-LIO",
+      "status": "ok",
+      "ate_m": 12.483442,
+      "rpe_trans_pct": 0.711723,
+      "rpe_rot_deg_per_m": 0.011010,
+      "frames": 2761,
+      "time_ms": 456510.731847,
+      "fps": 6.048051,
+      "seed_fallback_rate_pct": null,
+      "note": "Indexed-point dynamic scan-to-map: pseudo-occupancy dynamic detection and delayed removal; no imu.csv so constant-velocity fallback. dynamic/frame=455.320174 corr/frame=3121.945310 removed_sum/frame=289929.269830"
+    },
+    {
+      "name": "RF-LIO",
+      "status": "ok",
+      "ate_m": 18.052151,
+      "rpe_trans_pct": 0.961128,
+      "rpe_rot_deg_per_m": 0.016724,
+      "frames": 2761,
+      "time_ms": 541840.033298,
+      "fps": 5.095600,
+      "seed_fallback_rate_pct": null,
+      "note": "RF-LIO removal-first scan-to-map: adaptive multi-resolution range-image foreground removal before indexed dynamic scan-to-map; no imu.csv so constant-velocity fallback. removal_first/frame=272.869975 candidates/frame=272.869975 kept/frame=6727.130025 backend_dynamic/frame=424.967403 corr/frame=2859.649402 backend_removed_sum/frame=596646.650489"
+    }
+  ]
+}

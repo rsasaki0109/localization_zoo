@@ -49,7 +49,7 @@
         "z_m": 0.0,
         "yaw_deg": 0.0
       },
-      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 0.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp0p000/summary.json",
+      "command": "$workspace/arxiv/localization_zoo/build/evaluation/pcd_dogfooding $workspace/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 $workspace/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 0.0 --summary-json $workspace/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp0p000/summary.json",
       "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp0p000/summary.json",
       "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp0p000/run.log",
       "methods": [
@@ -75,7 +75,7 @@
         "z_m": 0.0,
         "yaw_deg": 2.0
       },
-      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 2.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp2p000/summary.json",
+      "command": "$workspace/arxiv/localization_zoo/build/evaluation/pcd_dogfooding $workspace/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 $workspace/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 2.0 --summary-json $workspace/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp2p000/summary.json",
       "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp2p000/summary.json",
       "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp2p000/run.log",
       "methods": [
@@ -101,7 +101,7 @@
         "z_m": 0.0,
         "yaw_deg": 5.0
       },
-      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 5.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp5p000/summary.json",
+      "command": "$workspace/arxiv/localization_zoo/build/evaluation/pcd_dogfooding $workspace/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 $workspace/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 5.0 --summary-json $workspace/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp5p000/summary.json",
       "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp5p000/summary.json",
       "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp5p000/run.log",
       "methods": [
@@ -127,7 +127,7 @@
         "z_m": 0.0,
         "yaw_deg": 10.0
       },
-      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 10.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp10p000/summary.json",
+      "command": "$workspace/arxiv/localization_zoo/build/evaluation/pcd_dogfooding $workspace/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 $workspace/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 10.0 --summary-json $workspace/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp10p000/summary.json",
       "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp10p000/summary.json",
       "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp10p000/run.log",
       "methods": [
@@ -153,7 +153,7 @@
         "z_m": 0.0,
         "yaw_deg": 15.0
       },
-      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 15.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp15p000/summary.json",
+      "command": "$workspace/arxiv/localization_zoo/build/evaluation/pcd_dogfooding $workspace/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 $workspace/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 15.0 --summary-json $workspace/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp15p000/summary.json",
       "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp15p000/summary.json",
       "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp15p000/run.log",
       "methods": [
@@ -179,7 +179,7 @@
         "z_m": 0.0,
         "yaw_deg": 20.0
       },
-      "command": "/media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/build/evaluation/pcd_dogfooding /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 20.0 --summary-json /media/autoware/aa/ai_coding_ws/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp20p000/summary.json",
+      "command": "$workspace/arxiv/localization_zoo/build/evaluation/pcd_dogfooding $workspace/arxiv/localization_zoo/dogfooding_results/kitti_seq_02_108 $workspace/arxiv/localization_zoo/experiments/reference_data/kitti_seq_02_108_gt.csv 108 --methods ndt --ndt-resolution 0.5 --ndt-max-iterations 12 --seed-perturb-x 0.0 --seed-perturb-y 0.0 --seed-perturb-z 0.0 --seed-perturb-yaw-deg 20.0 --summary-json $workspace/arxiv/localization_zoo/experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp20p000/summary.json",
       "summary_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp20p000/summary.json",
       "log_path": "experiments/results/convergence_basin/ndt_t1_kitti_seq_02_108_yaw_fine/xp0p000_yp0p000_zp0p000_yawp20p000/run.log",
       "methods": [

@@ -59,13 +59,61 @@ unzipped alongside the map `.ply` files.
 
 ## Data Format
 
-The sequence zips contain ROS2 bags (per the Zenodo description: PointCloud2,
-IMU, and Livox-format messages). Exact topic names/types TBD after first
-inspection — record them here once known. The `rosbags` Python package already
-used by `extract_ouster_packet_lidar_imu.py` reads ROS2 bags too, so the
-extraction path should mirror the NTNU one: bag -> dogfooding PCD layout
-(`NNNNNNNN/cloud.pcd`, `frame_timestamps.csv`, `imu.csv`) plus a GT CSV
-converted from the TUM file.
+`indoor_easy_01.zip` was CRC-checked and inspected on 2026-07-16. It contains a
+ROS2 sqlite bag (`metadata.yaml` + one 4.39 GB `.db3`) with 139.320 s duration:
+
+| Topic | Type | Messages | Approx. rate | Observed payload |
+|---|---|---:|---:|---|
+| `/points2/decompressed` | `sensor_msgs/msg/PointCloud2` | 2,027 | 14.5 Hz | 167,488 points/frame; float32 `x/y/z` at offsets 0/4/8; `point_step=12`; no intensity or per-point time |
+| `/points2/compressed` | `sensor_msgs/msg/PointCloud2` | 2,027 | 14.5 Hz | Same advertised fields and frame shape; use the decompressed topic |
+| `/imu` | `sensor_msgs/msg/Imu` | 28,981 | 208 Hz | Standard angular velocity and linear acceleration |
+| `/tf_static` | `tf2_msgs/msg/TFMessage` | 2 | - | Static sensor transforms |
+| `/tf` | `tf2_msgs/msg/TFMessage` | 0 | - | Empty |
+
+The indoor cloud is an Azure Kinect depth frame rather than a rotating scan, so
+the missing per-point time is expected. The ROS2 extractor adds zero intensity
+for PointXYZI consumer compatibility but does not invent per-point time;
+CT-ICP's runner then uses its documented index-time fallback.
+
+### Clock-domain check
+
+The PointCloud2 header stamps and TUM GT stamps share Unix epoch seconds and are
+exactly one-to-one for `indoor_easy_01`: both have 2,027 entries, with matching
+first (`1693718238.937876`) and last (`1693718378.314670`) stamps. No clock
+offset or nearest-neighbor resampling is needed. The sqlite receive timestamp
+for the first cloud is about 0.216 s later than its header stamp and must not be
+used for GT association. IMU header stamps cover `1693718239.113426` through
+`1693718378.318311`.
+
+### Extraction
+
+```bash
+/root/lz-venv/bin/python3 evaluation/scripts/extract_ros2_lidar_imu.py \
+  --bag data/hard_pcl_localization/indoor_easy_01 \
+  --pointcloud-topic /points2/decompressed --imu-topic /imu \
+  --output-dir dogfooding_results/hard_pcl_localization/indoor_easy_01
+
+/root/lz-venv/bin/python3 evaluation/scripts/tum_to_gt_csv.py \
+  --input data/hard_pcl_localization/gt/gt/traj_lidar_indoor_easy_01.txt \
+  --output experiments/reference_data/hard_pcl_indoor_easy_01_gt.csv
+
+# The X-ICP/DegenSense and older window runner JSON writers leave ATE null.
+# Apply the same GT-backed planar ATE/RPE evaluation to every result JSON:
+/root/lz-venv/bin/python3 evaluation/scripts/evaluate_window_odometry_gt.py \
+  --result experiments/results/hard_pcl_localization/indoor_easy_01/result.json
+
+# Or run all six default configurations and attach GT metrics in one command:
+/root/lz-venv/bin/python3 evaluation/scripts/run_hard_pcl_odometry_benchmark.py \
+  --pcd-dir dogfooding_results/hard_pcl_localization/indoor_easy_01 \
+  --gt-csv experiments/reference_data/hard_pcl_indoor_easy_01_gt.csv \
+  --output-dir experiments/results/hard_pcl_localization/indoor_easy_01/full \
+  --jobs 6
+```
+
+`extract_ros2_lidar_imu.py` writes the dogfooding layout
+(`NNNNNNNN/cloud.pcd`, `frame_timestamps.csv`, `imu.csv`). Inspect outdoor bags
+separately before extraction: their Livox MID360 custom-message path is not
+established by this indoor inspection.
 
 ## Completion Target
 
@@ -85,10 +133,10 @@ Run all 8 sequences through the benchmark harness:
 ## Status
 
 - [x] gt.zip + 4 maps downloaded and inspected (TUM format confirmed)
-- [ ] indoor_easy_01 / indoor_hard_01 downloaded (in progress)
-- [ ] bag inspection: topics, message types, clock domain vs GT stamps
-- [ ] ROS2 extraction path into dogfooding PCD layout
-- [ ] TUM -> dogfooding GT CSV converter
-- [ ] first odometry slice (indoor_easy_01 baseline vs indoor_hard_01)
+- [x] indoor_easy_01 downloaded, CRC-checked, and extracted; indoor_hard_01 resumable download in progress
+- [x] indoor bag inspection: topics, message types, and clock domain vs GT stamps
+- [x] ROS2 PointCloud2 + IMU extraction path into dogfooding PCD layout
+- [x] TUM -> dogfooding GT CSV converter
+- [ ] first odometry slice: indoor_easy_01 full baseline complete; indoor_hard_01 download pending
 - [ ] fixed-map false-lock slice (kidnap sequences)
 - [ ] remaining sequence downloads (indoor_easy_02, indoor_kidnap_01/02, outdoor parts)

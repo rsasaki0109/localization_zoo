@@ -60,15 +60,22 @@ def parse_args() -> argparse.Namespace:
 
 
 def resolve_typestore(name: str):
-    mapping = {
-        "foxy": Stores.ROS2_FOXY,
-        "galactic": Stores.ROS2_GALACTIC,
-        "humble": Stores.ROS2_HUMBLE,
-        "iron": Stores.ROS2_IRON,
-        "jazzy": Stores.ROS2_JAZZY,
-        "latest": Stores.LATEST,
-    }
-    return get_typestore(mapping[name])
+    store_name = {
+        "foxy": "ROS2_FOXY",
+        "galactic": "ROS2_GALACTIC",
+        "humble": "ROS2_HUMBLE",
+        "iron": "ROS2_IRON",
+        "jazzy": "ROS2_JAZZY",
+        "latest": "LATEST",
+    }[name]
+    store = getattr(Stores, store_name, None)
+    if store is None:
+        available = ", ".join(member.name for member in Stores)
+        raise RuntimeError(
+            f"This rosbags version has no {store_name} typestore. "
+            f"Available stores: {available}"
+        )
+    return get_typestore(store)
 
 
 def resolve_db3_files(path: Path) -> list[Path]:
@@ -106,11 +113,18 @@ def extract_points(msg) -> tuple[np.ndarray, list[str]]:
     source_dtype = make_field_dtype(msg)
     count = int(msg.width) * int(msg.height)
     source = np.frombuffer(msg.data, dtype=source_dtype, count=count)
-    names = list(source_dtype.names)
+    names = ["x", "y", "z", "intensity"]
+    if "time" in source_dtype.names:
+        names.append("time")
     packed_dtype = np.dtype([(name, FIELD_SPECS[name]) for name in names])
     packed = np.empty(count, dtype=packed_dtype)
-    for name in names:
+    for name in ("x", "y", "z"):
         packed[name] = source[name]
+    packed["intensity"] = (
+        source["intensity"] if "intensity" in source_dtype.names else 0.0
+    )
+    if "time" in source_dtype.names:
+        packed["time"] = source["time"]
     return packed, names
 
 

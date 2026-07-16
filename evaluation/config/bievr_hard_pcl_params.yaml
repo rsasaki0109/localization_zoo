@@ -1,0 +1,29 @@
+map:
+  pixel_size_m: 0.05
+  voxel_size_m: 0.5
+  normal_tolerance_deg: 3
+  smooth: true
+  weighted: true
+  max_size: 1500000
+  frame: "odom"
+
+preprocess:
+  downsample_resolution_m: 0.1
+  informed_sampling: true
+
+optimization:
+  huber_delta: 0.1
+
+imu:
+  window_s: 10
+  t_init: 0.2
+  frame: "imu"
+
+debug:
+  publish_all_clouds: false
+  timing: false
+  log: false
+  dashboard: false
+  trajectory_path: ""
+
+max_num_threads: 4

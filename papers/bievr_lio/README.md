@@ -10,6 +10,9 @@
 - This directory remains a from-paper reimplementation. Do not treat its
   results as equivalent to upstream: it lacks upstream's map-informed
   dual-resolution sampling and inertial sliding-window backend.
+- The unmodified upstream core is evaluated separately through
+  `evaluation/external/bievr_lio_adapter`; on Hard PCL `indoor_easy_01` it
+  achieves 0.422 m planar ATE, while the local implementation diverges.
 
 ## What This Repository Implements
 

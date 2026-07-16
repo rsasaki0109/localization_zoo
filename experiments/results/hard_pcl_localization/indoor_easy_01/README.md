@@ -42,10 +42,14 @@ on this easy sequence:
 The bump constraint is almost never active. This is a negative result for the
 local simplified reproduction, not for upstream BIEVR-LIO: the local version
 has neither the upstream 5 cm map-informed dual-resolution sampling nor its IMU
-sliding-window backend. The upstream ROS2 implementation should be tested as a
-separate recovery baseline after adding simultaneous-frame support for Koide's
-XYZ-only Azure Kinect PointCloud2 messages; integration notes and the candidate
-LiDAR-to-IMU calibration are in the SETUP document.
+sliding-window backend.
+
+The official upstream core has now been evaluated through the standalone
+PCD/IMU adapter. It associates 2,021 poses and achieves 0.422 m ATE-XY,
+0.0033 m/frame RPE-XY, and a 76.26 m estimated path versus 77.29 m GT. No pose
+exceeds 1 m planar error. The initial three clouds are before IMU recording and
+are removed by upstream's own synchronizer; the remaining timestamp
+associations are within 1.2 microseconds.
 
 ## Reproduction
 

@@ -104,10 +104,19 @@ localization-accuracy certificate.
 
 The repository's simplified from-paper BIEVR front-end diverges even on easy
 (3D ATE 4.97 km default, 3.29 km dense; bump constraints active on roughly
-0.1% of points). This does not test the newly published upstream system, which
-adds map-informed fine sampling and an IMU backend. See the setup document and
-the easy-sequence README for the upstream integration gap and negative-result
-provenance.
+0.1% of points). The official upstream core gives a very different result:
+
+| Sequence | ATE-XY (m) | RPE-XY (m/f) | Estimated path (m) | GT path (m) |
+|---|---:|---:|---:|---:|
+| indoor_easy_01 | **0.422** | **0.0033** | 76.26 | 77.29 |
+| indoor_hard_01 | 8,882.579 | 21.947 | 28,754.33 | 114.71 |
+
+This confirms that upstream map-informed sampling plus the inertial backend
+materially improves nominal tracking; the local simplified reproduction was
+not representative. It also sharpens the recovery boundary: the official
+system remains accurate throughout easy but diverges during hard, crossing
+1/10/100 m error at associated frames 943/1,124/1,228. BIEVR-LIO is therefore a
+strong odometry baseline, not a global-lock or kidnap-recovery proof.
 
 ## Fixed-map kidnap result
 

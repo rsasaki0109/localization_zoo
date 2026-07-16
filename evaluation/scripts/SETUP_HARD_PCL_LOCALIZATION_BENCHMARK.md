@@ -160,30 +160,31 @@ build/evaluation/pcd_dogfooding \
 have been extracted: indoor frame counts are 2,027, 1,967, 2,379, 2,154, and
 1,609; outdoor frame counts are 5,147, 5,127, and 4,017.
 
-## BIEVR-LIO Follow-up
+## Upstream BIEVR-LIO integration
 
 [BIEVR-LIO](https://github.com/ethz-asl/BIEVR-LIO) (inspected at commit
-`21121698f273d6fbfffca57546b940edb1de2ff0`) is a strong next baseline for this
-dataset. Unlike the current publish-gate methods, it attempts to recover the
+`21121698f273d6fbfffca57546b940edb1de2ff0`) is evaluated as a recovery
+baseline. Unlike the current publish-gate methods, it attempts to recover the
 weak geometric constraints themselves: a 0.5 m voxel stores a 0.05 m
 voxel-oriented bump image, and map-informed sampling concentrates registration
 on voxels with informative fine geometry. Its core is ROS-independent and its
 ROS2 `process_bag` entry point already accepts PointCloud2 + Imu bags.
 
-Two integration requirements must be handled explicitly:
+The integration handles two requirements explicitly:
 
 1. The upstream PointCloud2 conversion rejects clouds without a `t`, `time`, or
    `timestamp` field. Koide indoor clouds are Azure Kinect depth frames with
-   only float32 `x/y/z`; an adapter should treat the whole depth frame as
+   only float32 `x/y/z`; the adapter treats the whole depth frame as
    simultaneous (`time=0`) rather than fabricate rotating-LiDAR firing order.
 2. Upstream installs Ceres 2.2.0, while the current WSL benchmark clone uses
-   Ceres 2.0.0. Build BIEVR-LIO in a separate colcon/Docker workspace; do not
-   replace the working Localization Zoo Ceres installation.
+   Ceres 2.0.0. `setup_bievr_lio_upstream.sh` installs 2.2 under
+   `/root/bievr_lio_deps/ceres-2.2`; it does not replace the working
+   Localization Zoo Ceres installation.
 
 The indoor bag provides the required calibration through `/tf_static`.
 PointCloud2 uses `depth_camera_link`, IMU uses `imu_link`, and inversion of the
 recorded `T_depth_camera_link_imu_link` gives this candidate
-`T_IMU_LIDAR` (verify the TF convention in an initial stationary run):
+`T_IMU_LIDAR`:
 
 ```yaml
 topics:
@@ -199,10 +200,28 @@ lidar:
   max_range_m: 10.0
 ```
 
-Upstream can write TUM directly via `debug.trajectory_path`, so its output can
-be evaluated against the same converted GT. BIEVR-LIO is a recovery baseline,
-not merely another degeneracy signal: compare it against the unchanged six-run
-matrix before considering integration into the triage policy.
+The adapter feeds extracted PCD/IMU data into the unmodified upstream
+ROS-independent `Pipeline` and `Synchronizer`. Upstream logs `T_W_I`; evaluation
+converts it to LiDAR pose with `T_W_L = T_W_I * T_I_L` before timestamp
+association and initial-pose alignment.
+
+```bash
+evaluation/scripts/setup_bievr_lio_upstream.sh
+evaluation/scripts/run_bievr_lio_hard_pcl.sh indoor_easy_01 100
+evaluation/scripts/run_bievr_lio_hard_pcl.sh indoor_easy_01
+evaluation/scripts/run_bievr_lio_hard_pcl.sh indoor_hard_01
+```
+
+| Sequence | Associated poses | ATE-XY (m) | RPE-XY (m/f) | Estimated / GT path (m) |
+|---|---:|---:|---:|---:|
+| `indoor_easy_01` | 2,021 | **0.422** | **0.0033** | 76.26 / 77.29 |
+| `indoor_hard_01` | 2,373 | 8,882.579 | 21.947 | 28,754.33 / 114.71 |
+
+The easy result validates the adapter and calibration and is substantially
+better than the six existing defaults. The hard run crosses 1 m error at
+associated frame 943, 10 m at 1,124, and 100 m at 1,228, then diverges. Upstream
+BIEVR-LIO recovers weak geometry in the nominal sequence but does not provide a
+general relocalization guarantee under this hard trajectory.
 
 ## Completion Target
 
@@ -235,3 +254,4 @@ Run all 8 sequences through the benchmark harness:
 - [x] outdoor hard/kidnap fast-method GT benchmarks
 - [x] outdoor_kidnap provided-map false-lock trace and three-sequence guard replay
 - [x] remaining long-running outdoor DegenSense configurations
+- [x] upstream BIEVR-LIO core adapter, isolated Ceres 2.2 build, easy/hard full evaluation

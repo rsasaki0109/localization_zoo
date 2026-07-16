@@ -1,0 +1,13 @@
+topics:
+  pointcloud: "/points2/decompressed"
+  imu: "/imu"
+
+calibration:
+  translation: [-0.05089043, 0.00331340, 0.00087367]
+  rotation: [0.00293580, 0.09906371, -0.99507676,
+             -0.99999529, -0.00059868, -0.00300991,
+             -0.00089391, 0.99508091, 0.09906149]
+
+lidar:
+  min_range_m: 0.3
+  max_range_m: 10.0

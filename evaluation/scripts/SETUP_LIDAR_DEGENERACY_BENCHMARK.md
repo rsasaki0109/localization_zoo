@@ -707,10 +707,21 @@ these baselines, but only visibly at trajectory scale, not in short-window
 per-pair health gates. Full data:
 `experiments/results/lidar_degeneracy/tunnel_full/full_trajectory_comparison.md`.
 
-Follow-up not yet done: run RELEAD / X-ICP (degeneracy-aware methods) over
-`tunnel_full` and compare drift against these three baselines, and test
-fixed-map NDT false-lock behavior on tunnel geometry (requires building a
-reference map first).
+Follow-up (done): X-ICP and DegenSense (with/without IMU) now run over the
+same `tunnel_full` sequence via the new `xicp_window_odometry` and
+`degen_sense_window_odometry` runners. Headline: X-ICP flags degeneracy on
+99.8% of frames (the runtime signal every baseline lacks) but nets only
+33.1 m; DegenSense+IMU achieves the best net displacement (115.4 m, still
+<25% of truth) while its adaptive median+MAD detector flags only 14% of
+frames because chronic degeneracy shifts its own baseline. Detection is
+achievable from LiDAR alone; recovery needs a sensor that observes the
+degenerate direction. Full numbers and analysis:
+`experiments/results/lidar_degeneracy/tunnel_full/full_trajectory_comparison.md`.
+
+Still open: RELEAD's constrained-ESIKF frontend over tunnel_full, and
+fixed-map NDT false-lock on tunnel geometry (the Koide hard-localization
+dataset with shipped maps + GT is the designated venue; see
+`SETUP_HARD_PCL_LOCALIZATION_BENCHMARK.md`).
 
 ## Stop Line
 

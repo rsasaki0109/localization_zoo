@@ -63,6 +63,151 @@ positive or negative evidence.
 | LiDAR-visual adapters | T2 | They show pseudo-visual residuals are stable but auxiliary on KITTI PCD. | Do not call these paper-grade until real RGB / camera synchronization is used or the paper claim is reframed as a KITTI-PCD adapter study. |
 | RF-LIO / ID-LIO | T1/T2 | Dynamic filtering mechanisms are active on KITTI and in synthetic dynamic-object stress; public urban KITTI seq05 dense-profile check shows both paths active but RF-LIO still trails ID-LIO and KISS-ICP; IMU gyro priors activate on public HDL-400 open with small metric deltas vs no-`imu.csv` fallback. | Add dedicated high-dynamic multi-beam benchmarks before manuscript-level dynamic-scene claims. |
 
+## IMU Dead Reckoning Family Comparison (T3)
+
+[`imu_dead_reckoning`](../papers/imu_dead_reckoning/README.md) (102nd method)
+is not a paper-ready candidate -- it is **T3 smoke / concept** per the tier
+table above: "This is a compact baseline or concept port." It is the unaided
+strapdown IMU-only dead-reckoning lower bound for the LIO family, and the
+useful evidence it provides is comparative, not a manuscript claim: three
+existing from-paper methods -- **OdoNet**, **NHC-Net**, and **NN-ZUPT** --
+share the same strapdown core plus a trained CNN aid, so running all four on
+the same window shows what a cheap learned aid buys over unaided dead
+reckoning. This section promotes that comparison out of the module README
+(previously the only place it lived) so the claim boundary is visible at the
+top level. None of these four methods are LiDAR/LIO, none are on the KITTI
+point-cloud leaderboard, and IMU-DR's own ZUPT/gyro-bias ablations below are
+diagnostic, not a recommended configuration -- the method's repository
+default stays pure, unaided dead reckoning throughout.
+
+### NCLT 2013-01-10 (ms25 IMU, ground vehicle)
+
+**120-frame window** (11.5 m trajectory, ~24 s). Manifest:
+[`experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](../experiments/imu_dead_reckoning_nclt_2013_01_10_matrix.json),
+aggregate:
+[`experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json`](../experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json).
+
+| Method | ATE (m) | RPE (%/100m) | Notes |
+|---|---|---|---|
+| IMU-DR default (pure DR, midpoint, ZUPT off) | 9.071 | 170.617 | Repository default; zupt_frames=0. |
+| IMU-DR + ZUPT | 2.887 | 30.607 | zupt_frames=481/1051 (~46%) -- this short window is mostly stationary, so the ATE/RPE gain is **not representative of continuous driving**; do not overclaim from this row. |
+| IMU-DR forward Euler | 10.280 | 198.899 | Integration scheme is a second-order effect next to ZUPT/gyro-bias. |
+| IMU-DR no gyro-bias | 24.676 | 482.028 | Largest degradation of any ablation on this window -- static-init gyro-bias estimation is the single most load-bearing component. |
+| OdoNet | 138.872 | 1842.230 | KITTI-Raw-OXTS-trained CNN weights, out-of-domain here (NCLT's ms25 IMU vs. the KITTI OXTS sensor it was trained on). |
+| NHC-Net | 4.295 | 102.938 | Same strapdown core plus a trained non-holonomic-constraint aid. |
+| NN-ZUPT | 3.799 | 96.164 | Same strapdown core plus a trained ZUPT-detector aid. |
+
+**Full session** (5105 frames, ~17 min / 1021.7 s, 1138.8 m). Manifest:
+[`experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json`](../experiments/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json),
+aggregate:
+[`experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json`](../experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json).
+
+| Method | ATE (m) | RPE (%/100m) | Notes |
+|---|---|---|---|
+| IMU-DR default | 288700.449 | 67435.005 | zupt_frames=0; honest unaided gyro-drift compounding over ~17 min -- not a bug. |
+| IMU-DR + ZUPT | 14531.743 | 2859.304 | -94.97%/-95.76% vs. default; zupt_frames=3984/48122 (~8.3%) -- rare resets truncating velocity-error accumulation, not "mostly stationary" as on the 120-frame window. |
+| IMU-DR forward Euler | 291892.627 | 68484.744 | +1.11%/+1.56% vs. default -- still a second-order effect over the full session. |
+| IMU-DR no gyro-bias | 672302.751 | 139392.868 | +132.9%/+106.7% vs. default -- confirms gyro-bias init as the most load-bearing aid at any timescale tested. |
+| OdoNet | 1397.891 | 753.600 | |
+| NHC-Net | 279.794 | 84.226 | |
+| NN-ZUPT | 257.397 | 82.813 | |
+
+> **Provenance note (full-session family JSON).** The full-session family
+> run above (`full_family.json`, OdoNet/NHC-Net/NN-ZUPT) was generated and
+> saved only on a now-defunct machine's external SSD (`/media/sasaki/aiueo`)
+> and was **never committed to this repository** -- there is no
+> `experiments/*_full_family*_matrix.json` in this repo, in git history, or
+> anywhere referencing that filename except PLAN.md's prose. A search for it
+> (2026-07-16) covered this Windows checkout, the `E:` external drive
+> (`E:\datasets`, `E:\old`, `E:\tmp`, and a full recursive scan of `E:\`),
+> and the WSL2 Ubuntu-22.04 clone at `/root/localization_zoo` -- no copy was
+> found anywhere. The ATE/RPE values above are recorded numbers carried
+> forward honestly from PLAN.md and the module README's committed prose,
+> **not** a reconstructed or fabricated manifest. Re-export instructions for
+> the underlying `pcd_dir` these three methods need are in the module
+> README's
+> [Limitations](../papers/imu_dead_reckoning/README.md#limitations--scope-notes)
+> section; regenerating `full_family.json` itself additionally requires
+> re-running `odonet` / `nhc_net` / `nn_zupt` against the re-exported
+> `nclt_2013_01_10_full` fixture and the same GT CSV.
+
+### KITTI Raw drive 2011_09_26_0009 (OXTS, ~9.7 Hz effective)
+
+Second dataset. Manifests:
+[`experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json`](../experiments/imu_dead_reckoning_kitti_raw_0009_matrix.json)
+(200-frame window),
+[`experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json`](../experiments/imu_dead_reckoning_kitti_raw_0009_full_matrix.json)
+(full 443-frame sequence); aggregates:
+[`experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json`](../experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json),
+[`experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json`](../experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json).
+
+**Unit-mismatch caveat**: the exporter's `imu.csv` stamps live on the same
+synthetic per-frame positional-index timeline as `frame_timestamps.csv` (not
+real seconds), so the strapdown integrator's `dt` is clamped to `max_dt=0.5 s`
+per step vs. the real ~0.103 s inter-frame interval (~4.8x too large). The
+2.0 s static-init window is similarly compressed to only ~3 real IMU samples.
+**Static-init assumption is broken**: drive 0009 is already cruising at
+~10.7 m/s at frame 0 and never drops below 1.339 m/s in the 200-frame window,
+so the "static" init is taken while moving. **ZUPT fires almost entirely on
+false positives** (200-frame: 174/199, ~87%; full: 344/442, ~78%, vs. an
+actual stationary fraction of only ~9.7%) yet is still the single largest
+improvement at both window sizes. **The gyro-bias ablation reverses vs.
+NCLT**: disabling static-init gyro-bias estimation *improves* results here
+(the opposite of NCLT, where it is the worst ablation), because the ~3-sample
+static window is contaminated by real angular rate from the moving vehicle
+rather than measuring pure sensor bias.
+
+**200-frame window** (~19.9 s, 186.97 m):
+
+| Method | ATE (m) | RPE (%/100m) | Notes |
+|---|---|---|---|
+| IMU-DR default | 9769.887 | 7580.498 | zupt_frames=0. |
+| IMU-DR + ZUPT | 214.400 | 172.926 | -97.81%/-97.72% vs. default; zupt_frames=174/199 (~87%) but OXTS speed never < 1.339 m/s here -- essentially all false positives, still the largest single gain. |
+| IMU-DR no gyro-bias | 1235.339 | 1024.241 | -87.36%/-86.49% -- an **improvement**, reversed vs. NCLT (see caveat above). |
+| OdoNet | 855.668 | 883.201 | In-domain sensor here (KITTI-OXTS-trained weights on a KITTI-OXTS drive). |
+| NHC-Net | 121.881 | 99.144 | |
+| NN-ZUPT | 122.547 | 99.982 | |
+
+**Full sequence** (443 frames, ~44.2 s, 332.42 m):
+
+| Method | ATE (m) | RPE (%/100m) | Notes |
+|---|---|---|---|
+| IMU-DR default | 91821.017 | 51751.724 | zupt_frames=0. |
+| IMU-DR + ZUPT | 5958.011 | 4510.478 | -93.51%/-91.28% vs. default; zupt_frames=344/442 (~78%) vs. ~9.7% actual stationary fraction. |
+| IMU-DR no gyro-bias | 11794.635 | 6491.912 | -87.15%/-87.46% -- confirms the 200-frame window's reversal, not an artifact. |
+| OdoNet | 1723.136 | 982.819 | |
+| NHC-Net | 180.504 | 88.481 | |
+| NN-ZUPT | 186.050 | 93.636 | |
+
+All three learned-aid methods beat pure IMU-DR by 1-2 orders of magnitude on
+this in-domain sensor (unlike the NCLT cross-sensor transfer, where OdoNet was
+an honest negative). However, OdoNet/NHC-Net/NN-ZUPT were trained on KITTI Raw
+OXTS data with `--val-drive 2011_09_26_drive_0056_sync` as the documented
+held-out drive; whether drive 0009 itself was part of the original training
+corpus **is not recorded**, so some train/eval overlap for these three methods
+cannot be ruled out here -- recorded honestly rather than presented as a clean
+held-out result. IMU-DR itself is never trained, so this caveat does not apply
+to its rows.
+
+> **Footnote (KITTI Raw exporter revision in progress).** A concurrent pass
+> is fixing a frame-indexing bug in `kitti_raw_to_benchmark.py` (GT pose vs.
+> point-cloud pairing skew from Velodyne frame position 177 onward on this
+> drive, documented in the module README's Limitations). The IMU-only rows
+> above are cited as-is because GT and `imu.csv` are both purely OXTS-native
+> and positionally self-consistent regardless of that bug, but
+> scan-matching / LiDAR comparisons on the `kitti_raw_0009*` fixture family
+> are excluded from this table until that exporter fix lands.
+
+The module README carries the full ablation surface for `imu_dead_reckoning`
+beyond this family comparison -- RK4 integration, hard-aid stacking
+(ZUPT+NHC+leveling), the opt-in ESKF (which beats the hand-tuned hard-aid
+stack by ~90% ATE on NCLT full and is competitive with the trained CNN family
+at zero training cost), and NEES covariance-consistency analysis. See
+[`papers/imu_dead_reckoning/README.md`](../papers/imu_dead_reckoning/README.md)
+for that detail; this section exists to keep the family-comparison numbers
+visible at the paper-ready-reproducibility level rather than buried in a
+module README.
+
 ## Frozen Evidence Bundle
 
 The current manuscript-facing seed bundle is

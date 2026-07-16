@@ -7,6 +7,14 @@ top of the same strapdown core). Claim tier **T3 smoke / concept** per
 [`docs/paper_ready_reproducibility.md`](../../docs/paper_ready_reproducibility.md):
 "This is a compact baseline or concept port."
 
+The family comparison against OdoNet / NHC-Net / NN-ZUPT (same strapdown core
+plus a trained CNN aid) that used to live only in this README is now also
+promoted into
+[`docs/paper_ready_reproducibility.md`](../../docs/paper_ready_reproducibility.md#imu-dead-reckoning-family-comparison-t3)
+as a top-level comparison table, alongside a provenance note on the lost
+`full_family.json` full-session family run (see
+[Limitations](#limitations--scope-notes) below).
+
 ## Core idea
 
 1. **Static-window init** (first 2.0 s by default) — gyro bias estimated from
@@ -99,7 +107,9 @@ aggregate result:
 
 Family context on the same window (IMU-only dead-reckoning methods, for
 scale — none of these are LiDAR/LIO and should not be read against the KITTI
-point-cloud leaderboard):
+point-cloud leaderboard). This table plus the full-session and KITTI Raw 0009
+family tables below are also promoted into a top-level comparison section in
+[`docs/paper_ready_reproducibility.md`](../../docs/paper_ready_reproducibility.md#imu-dead-reckoning-family-comparison-t3):
 
 | Method | ATE (m) | RPE (%/100m) | Notes |
 |---|---|---|---|
@@ -566,6 +576,20 @@ negative rather than shipped as a knob that degrades every configuration.
   (stem becomes `nclt_2013_01_10_full`; the regenerated GT CSV was verified
   byte-identical, md5 `ff32d5666754fc1fb95333a3835752f4`, to the one already
   committed at `experiments/reference_data/nclt_2013_01_10_full_gt.csv`).
+- The NCLT full-session **family** run (OdoNet/NHC-Net/NN-ZUPT,
+  `full_family.json`, whose aggregate numbers appear in the full-session
+  family table above and in
+  [`docs/paper_ready_reproducibility.md`](../../docs/paper_ready_reproducibility.md#imu-dead-reckoning-family-comparison-t3))
+  was likewise generated and saved only on that external SSD and was lost
+  when the machine was decommissioned -- there is no committed
+  `experiments/*_full_family*_matrix.json` for it, and a 2026-07-16 search of
+  this repo, the `E:` external drive, and the WSL2 Ubuntu-22.04 clone found
+  no surviving copy. The ATE/RPE numbers are preserved (in PLAN.md and the
+  tables here) but the raw per-run JSON is gone. Regenerate by re-exporting
+  the `pcd_dir` per the instructions above, then running `--methods
+  odonet,nhc_net,nn_zupt` (see `papers/odonet/`, `papers/nhc_net/`,
+  `papers/nn_zupt/` for build/train prerequisites) against
+  `nclt_2013_01_10_full` and the same GT CSV.
 - KITTI **Odometry** trees have no IMU, so the method **skips** there (like
   OdoNet / NHC-Net / NN-ZUPT). KITTI **Raw** OXTS is now evaluated (see
   above) via `evaluation/scripts/kitti_oxts_imu_for_dogfooding.py`.

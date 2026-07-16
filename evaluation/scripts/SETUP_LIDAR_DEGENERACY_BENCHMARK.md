@@ -718,10 +718,159 @@ achievable from LiDAR alone; recovery needs a sensor that observes the
 degenerate direction. Full numbers and analysis:
 `experiments/results/lidar_degeneracy/tunnel_full/full_trajectory_comparison.md`.
 
-Still open: RELEAD's constrained-ESIKF frontend over tunnel_full, and
-fixed-map NDT false-lock on tunnel geometry (the Koide hard-localization
-dataset with shipped maps + GT is the designated venue; see
-`SETUP_HARD_PCL_LOCALIZATION_BENCHMARK.md`).
+Follow-up (done): RELEAD's constrained-ESIKF frontend (`papers/relead`) now
+runs over `tunnel_full` too, via a new `relead_window_odometry` runner
+(mirrors `xicp_window_odometry`'s map/KdTree correspondence building and
+step/refinement gate, but drives RELEAD's `CESIKF` instead of X-ICP's
+Gauss-Newton solver):
+
+```bash
+cmake --build build --target relead_window_odometry -j2
+
+./build/evaluation/relead_window_odometry \
+  dogfooding_results/lidar_degeneracy_tunnel_full - \
+  experiments/results/lidar_degeneracy/tunnel_full/relead_imu_full_trajectory.json \
+  -1 --start-frame 0 --max-source-points 300 \
+  --max-step-translation 2.0 --max-step-yaw-deg 20
+
+./build/evaluation/relead_window_odometry \
+  dogfooding_results/lidar_degeneracy_tunnel_full - \
+  experiments/results/lidar_degeneracy/tunnel_full/relead_no_imu_full_trajectory.json \
+  -1 --start-frame 0 --no-imu --max-source-points 300 \
+  --max-step-translation 2.0 --max-step-yaw-deg 20
+```
+
+`--max-source-points` is reduced from X-ICP's 2500 default to 300 because
+`CESIKF::update()` inverts a dense `n x n` Kalman innovation covariance
+(one row per correspondence), an O(n^3) cost per frame rather than the
+O(n) Gauss-Newton cost X-ICP/CT-ICP use. Headline: both RELEAD
+configurations are worse than every other method tested on tunnel_full.
+Fed real VN100 IMU through `predict()`, RELEAD rejects almost every frame
+(11/3240, 0.3% accepted) and the trajectory is essentially frozen (1.8 m
+net) -- diagnosed as covariance inflation across many `predict()` calls
+between infrequent accepted updates, verified against directly-integrated
+gyro data showing <0.05 deg of real rotation per 0.1 s frame while rejected
+single-shot ESIKF corrections swung ~20 deg. With a velocity-model seed
+instead of IMU, RELEAD accepts 100% of pairs but produces the single worst
+path-length-to-net-displacement ratio of any method (826.9 m path, longer
+than the true tunnel, for only 6.7 m net -- a near-random-walk). RELEAD's
+own SVD-ratio degeneracy detector never fires on this data in either
+configuration, so both runs really exercise its *unconstrained* ESIKF core.
+No algorithm code was changed in `papers/relead` to produce these numbers,
+only the runner. Full analysis:
+`experiments/results/lidar_degeneracy/tunnel_full/full_trajectory_comparison.md`.
+
+## Full-Trajectory Drift (fog_full)
+
+Same full-trajectory treatment as `tunnel_full`, applied to the full
+`fog.bag` (1729 LiDAR frames, ~173 s) -- all eight configurations
+(`kiss_keyframe_odometry`, `litamin2_window_odometry`,
+`ct_icp_window_odometry`, `xicp_window_odometry`,
+`degen_sense_window_odometry` with/without IMU,
+`relead_window_odometry` with/without IMU) run continuously in GT-free
+mode with the same step gates:
+
+```bash
+python3 evaluation/scripts/extract_ouster_packet_lidar_imu.py \
+  --bag data/lidar_degeneracy_datasets/fog.bag \
+  --output-dir dogfooding_results/lidar_degeneracy_fog_full \
+  --max-frames -1 \
+  --skip-incomplete
+
+./build/evaluation/kiss_keyframe_odometry \
+  dogfooding_results/lidar_degeneracy_fog_full - \
+  experiments/results/lidar_degeneracy/fog_full/kiss_keyframe_full_trajectory.json \
+  -1 --start-frame 0 --max-step-translation 2.0 --max-step-yaw-deg 20 \
+  --min-correspondences 80
+
+./build/evaluation/litamin2_window_odometry \
+  dogfooding_results/lidar_degeneracy_fog_full - \
+  experiments/results/lidar_degeneracy/fog_full/litamin2_full_trajectory.json \
+  -1 --start-frame 0 --max-step-translation 2.0 --max-step-yaw-deg 20
+
+./build/evaluation/ct_icp_window_odometry \
+  dogfooding_results/lidar_degeneracy_fog_full - \
+  experiments/results/lidar_degeneracy/fog_full/ct_icp_full_trajectory.json \
+  -1 --start-frame 0 --refinement-gate --multi-scale --normal-cholesky \
+  --max-step-translation 2.0 --max-step-yaw-deg 20
+
+./build/evaluation/xicp_window_odometry \
+  dogfooding_results/lidar_degeneracy_fog_full - \
+  experiments/results/lidar_degeneracy/fog_full/xicp_full_trajectory.json \
+  -1 --start-frame 0 --max-step-translation 2.0 --max-step-yaw-deg 20
+
+./build/evaluation/degen_sense_window_odometry \
+  dogfooding_results/lidar_degeneracy_fog_full - \
+  experiments/results/lidar_degeneracy/fog_full/degen_sense_full_trajectory.json \
+  -1 --start-frame 0 --max-step-translation 2.0 --max-step-yaw-deg 20
+
+./build/evaluation/degen_sense_window_odometry \
+  dogfooding_results/lidar_degeneracy_fog_full - \
+  experiments/results/lidar_degeneracy/fog_full/degen_sense_noimu_full_trajectory.json \
+  -1 --start-frame 0 --no-imu --max-step-translation 2.0 --max-step-yaw-deg 20
+
+./build/evaluation/relead_window_odometry \
+  dogfooding_results/lidar_degeneracy_fog_full - \
+  experiments/results/lidar_degeneracy/fog_full/relead_imu_full_trajectory.json \
+  -1 --start-frame 0 --max-source-points 300 \
+  --max-step-translation 2.0 --max-step-yaw-deg 20
+
+./build/evaluation/relead_window_odometry \
+  dogfooding_results/lidar_degeneracy_fog_full - \
+  experiments/results/lidar_degeneracy/fog_full/relead_no_imu_full_trajectory.json \
+  -1 --start-frame 0 --no-imu --max-source-points 300 \
+  --max-step-translation 2.0 --max-step-yaw-deg 20
+```
+
+Unlike `tunnel_full` (an 8 m wide, ~500 m straight tunnel with a known
+target shape), the fog sequence is an indoor corridor flight through
+obscurant fog with no advertised reference trajectory, so results are
+interpreted relatively (method vs. method, fog vs. tunnel for the same
+method), never as error against a known path. Headline differences from
+tunnel: CT-ICP is far worse on fog (refinement gate passes only 21.1% of
+pairs, vs. 100% on tunnel), matching the earlier `fog_200` short-window
+finding that fog is a sharper correction-instability stress for CT-ICP than
+tunnel geometry. X-ICP's acceptance drops from 100% (tunnel) to 47.3%
+(fog) while its degeneracy-flag rate stays high (84.5%), and its net
+displacement (5.0 m) is the worst of all eight methods on fog. DegenSense's
+flag rate is *higher* on fog (18-21%) than tunnel (14-15%), the opposite of
+tunnel's pattern -- consistent with DegenSense's adaptive detector tracking
+transient obscurant spikes well but chronic tunnel degeneracy poorly.
+RELEAD+IMU fails the same way on fog as on tunnel (1.1% accepted, frozen
+trajectory), reinforcing that this is a property of RELEAD's implementation
+interacting with real IMU data, not a tunnel-specific artifact. RELEAD
+without IMU is mid-pack on fog (100% accepted, 81.9% converged, 15.9 m net)
+rather than the worst-of-all-methods outlier it is on tunnel, since fog's
+geometry is less self-similar than the tunnel's. Full numbers and analysis:
+`experiments/results/lidar_degeneracy/fog_full/full_trajectory_comparison.md`.
+
+## Cross-Dataset Triage Transferability
+
+The GT-calibrated `lidar_degeneracy_triage_v4` policy (calibrated on the
+Koide Hard PCL dataset; see `SETUP_HARD_PCL_LOCALIZATION_BENCHMARK.md` and
+`experiments/results/hard_pcl_localization/risk_gt_calibration/risk_gt_calibration.md`)
+was applied unmodified (no re-tuning) to the `tunnel_full` and `fog_full`
+full-trajectory rows above, as a transferability check rather than an
+accuracy claim (NTNU still has no GT). Verdict: the policy transfers
+usefully to fog-type (sensing-degradation) stress -- its
+`low_acceptance`/`low_convergence` flags correctly separate CT-ICP/X-ICP/
+RELEAD+IMU's genuine fog struggles from the methods that hold up -- but
+does **not** transfer to tunnel-type (geometric self-similarity) stress:
+LiTAMIN2 and X-ICP, both known-bad tunnel baselines (large net-displacement
+error with 100% locally-healthy pairs), are marked `pass`/`ok_no_risk`
+because the policy's reason vocabulary has no trajectory-shape signal (net
+displacement vs. path length, accumulated yaw-rate variance) -- only
+per-pair accepted/converged rates, which never degrade on tunnel's
+baselines. Full analysis and repro commands:
+`experiments/results/lidar_degeneracy/risk_gt_calibration/ntnu_cross_dataset.md`.
+
+Still open: fixed-map NDT false-lock on tunnel geometry (the Koide
+hard-localization dataset with shipped maps + GT is the designated venue;
+see `SETUP_HARD_PCL_LOCALIZATION_BENCHMARK.md`), and adding a
+trajectory-level triage reason (net displacement / path length ratio, or
+accumulated yaw-rate variance) to `lidar_degeneracy_triage_v4` to close the
+tunnel transferability gap identified above -- ideally calibrated against a
+GT-backed dataset that exhibits the same chronic-degeneracy failure mode.
 
 ## Stop Line
 

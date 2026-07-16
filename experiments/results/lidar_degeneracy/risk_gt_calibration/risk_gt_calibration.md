@@ -83,3 +83,13 @@ Stress-window rows only.
 - Policy decisions are pre-GT triage labels: `fail` for hard local failure, `investigate` for unresolved cross-method disagreement, `watch` for calibrated local confidence downgrades and medium risk, and `pass` for rows with no active risk reason.
 - Reason drilldown separates local failure signals from cross-method disagreement so the strongest triage signals can be checked first when GT arrives.
 - The script is ready to rerun with external GT via `--gt-csv fog_200=... --gt-csv tunnel_geom_2700_200=...`.
+- This policy has since been GT-calibrated for real on the Koide Hard PCL
+  dataset: `experiments/results/hard_pcl_localization/risk_gt_calibration/risk_gt_calibration.md`.
+  That GT-calibrated policy has in turn been applied unmodified to the NTNU
+  `tunnel_full` / `fog_full` full-trajectory runs as a transferability
+  check (not an accuracy claim, since NTNU still has no GT): see
+  `ntnu_cross_dataset.md` in this directory. Verdict: it transfers to
+  fog-type (sensing-degradation) stress but not to tunnel-type (geometric
+  self-similarity) stress, because the policy's reason vocabulary has no
+  trajectory-shape signal and the tunnel's failure mode only shows up at
+  the trajectory level.

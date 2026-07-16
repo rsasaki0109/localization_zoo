@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "results_dir": "experiments/results/lidar_degeneracy"
+  },
+  "sequences": [
+    {
+      "sequence": "tunnel_full",
+      "windows": [
+        {
+          "name": "full",
+          "start": 0,
+          "end": 3240,
+          "expected_stress": "chronic_degeneracy",
+          "methods": {
+            "ct_icp": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.11944444444444445,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "low_convergence",
+              "risk_flags": "low_convergence",
+              "trajectory_path_length_m": 474.7117733094226,
+              "trajectory_net_displacement_m": 79.02677902231054,
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_full/ct_icp_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null
+              },
+              "path_vs_all_median": 1.347030512766309,
+              "path_vs_healthy_median": 1.2735638982033832,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_imu": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 372.7427999326132,
+              "trajectory_net_displacement_m": 115.3891199423345,
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_full/degen_sense_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null,
+                "num_pairs": 3240,
+                "num_accepted": 3240,
+                "num_used_imu": 3240,
+                "num_degenerate": 453
+              },
+              "path_vs_all_median": 1.0576858488738297,
+              "path_vs_healthy_median": 1.0,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_no_imu": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 457.26270414749797,
+              "trajectory_net_displacement_m": 105.25445595771934,
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_full/degen_sense_noimu_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null,
+                "num_pairs": 3240,
+                "num_accepted": 3240,
+                "num_used_imu": 0,
+                "num_degenerate": 497
+              },
+              "path_vs_all_median": 1.2975174610536402,
+              "path_vs_healthy_median": 1.226751272540113,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 106.23308447037303,
+              "trajectory_net_displacement_m": 23.985418624698298,
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_full/kiss_keyframe_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null
+              },
+              "path_vs_all_median": 0.30144440119794436,
+              "path_vs_healthy_median": 0.28500371969513166,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "litamin2": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 273.0473880858474,
+              "trajectory_net_displacement_m": 63.037696967297855,
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_full/litamin2_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null
+              },
+              "path_vs_all_median": 0.7747925875498395,
+              "path_vs_healthy_median": 0.7325356469265419,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "relead_imu": {
+              "accepted_rate": 0.0033950617283950617,
+              "converged_rate": 0.0,
+              "health_state": "fail",
+              "risk_state": "fail",
+              "flags": "low_acceptance,low_convergence",
+              "risk_flags": "low_acceptance,low_convergence",
+              "trajectory_path_length_m": 7.513085578245256,
+              "trajectory_net_displacement_m": 1.8228767343630232,
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_full/relead_imu_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null,
+                "num_pairs": 3240,
+                "num_accepted": 11,
+                "num_used_imu": 3240,
+                "num_degenerate": 0
+              },
+              "path_vs_all_median": 0.021318947807777044,
+              "path_vs_healthy_median": 0.020156219193512306,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "relead_no_imu": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.9435185185185185,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 826.9001534853652,
+              "trajectory_net_displacement_m": 6.688454942828127,
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_full/relead_no_imu_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null,
+                "num_pairs": 3240,
+                "num_accepted": 3240,
+                "num_used_imu": 0,
+                "num_degenerate": 0
+              },
+              "path_vs_all_median": 2.3463916430610716,
+              "path_vs_healthy_median": 2.2184201911743364,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "xicp": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.7910493827160494,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 332.0842530708677,
+              "trajectory_net_displacement_m": 33.05477282063976,
+              "result_json": "experiments/results/lidar_degeneracy/tunnel_full/xicp_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null
+              },
+              "path_vs_all_median": 0.9423141511261705,
+              "path_vs_healthy_median": 0.8909206378524387,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "sequence": "fog_full",
+      "windows": [
+        {
+          "name": "full",
+          "start": 0,
+          "end": 1728,
+          "expected_stress": "chronic_degeneracy",
+          "methods": {
+            "ct_icp": {
+              "accepted_rate": 0.21122685185185186,
+              "converged_rate": 0.05092592592592592,
+              "health_state": "fail",
+              "risk_state": "fail",
+              "flags": "low_acceptance,low_convergence",
+              "risk_flags": "low_acceptance,low_convergence",
+              "trajectory_path_length_m": 60.96908189401434,
+              "trajectory_net_displacement_m": 12.867952461515545,
+              "result_json": "experiments/results/lidar_degeneracy/fog_full/ct_icp_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null
+              },
+              "path_vs_all_median": 0.42632038659578114,
+              "path_vs_healthy_median": 0.3019733931934035,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "degen_sense_imu": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 213.26752266554018,
+              "trajectory_net_displacement_m": 32.11375875551689,
+              "result_json": "experiments/results/lidar_degeneracy/fog_full/degen_sense_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null,
+                "num_pairs": 1728,
+                "num_accepted": 1728,
+                "num_used_imu": 1728,
+                "num_degenerate": 311
+              },
+              "path_vs_all_median": 1.4912524493832626,
+              "path_vs_healthy_median": 1.0562914099512932,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_no_imu": {
+              "accepted_rate": 0.9901620370370371,
+              "converged_rate": 1.0,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 322.8530790621135,
+              "trajectory_net_displacement_m": 42.28721593613322,
+              "result_json": "experiments/results/lidar_degeneracy/fog_full/degen_sense_noimu_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null,
+                "num_pairs": 1728,
+                "num_accepted": 1711,
+                "num_used_imu": 0,
+                "num_degenerate": 361
+              },
+              "path_vs_all_median": 2.2575188145142677,
+              "path_vs_healthy_median": 1.599057042663062,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 0.9930555555555556,
+              "converged_rate": 0.9930555555555556,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 84.33767747001914,
+              "trajectory_net_displacement_m": 21.60930495704894,
+              "result_json": "experiments/results/lidar_degeneracy/fog_full/kiss_keyframe_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null
+              },
+              "path_vs_all_median": 0.5897230226643572,
+              "path_vs_healthy_median": 0.41771556744030364,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "litamin2": {
+              "accepted_rate": 1.0,
+              "converged_rate": 1.0,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 112.28938899310309,
+              "trajectory_net_displacement_m": 36.38811298135309,
+              "result_json": "experiments/results/lidar_degeneracy/fog_full/litamin2_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null
+              },
+              "path_vs_all_median": 0.7851726520888211,
+              "path_vs_healthy_median": 0.556157428658776,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "relead_imu": {
+              "accepted_rate": 0.01099537037037037,
+              "converged_rate": 0.0,
+              "health_state": "fail",
+              "risk_state": "fail",
+              "flags": "low_acceptance,low_convergence",
+              "risk_flags": "low_acceptance,low_convergence",
+              "trajectory_path_length_m": 6.379088851973367,
+              "trajectory_net_displacement_m": 0.9338202866183621,
+              "result_json": "experiments/results/lidar_degeneracy/fog_full/relead_imu_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null,
+                "num_pairs": 1728,
+                "num_accepted": 19,
+                "num_used_imu": 1728,
+                "num_degenerate": 0
+              },
+              "path_vs_all_median": 0.04460515955004261,
+              "path_vs_healthy_median": 0.03159495019887658,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "relead_no_imu": {
+              "accepted_rate": 1.0,
+              "converged_rate": 0.8194444444444444,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 201.90216511878498,
+              "trajectory_net_displacement_m": 15.927669535926277,
+              "result_json": "experiments/results/lidar_degeneracy/fog_full/relead_no_imu_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null,
+                "num_pairs": 1728,
+                "num_accepted": 1728,
+                "num_used_imu": 0,
+                "num_degenerate": 6
+              },
+              "path_vs_all_median": 1.4117812900249054,
+              "path_vs_healthy_median": 1.0,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "xicp": {
+              "accepted_rate": 0.47280092592592593,
+              "converged_rate": 0.47627314814814814,
+              "health_state": "fail",
+              "risk_state": "fail",
+              "flags": "low_acceptance,low_convergence",
+              "risk_flags": "low_acceptance,low_convergence",
+              "trajectory_path_length_m": 173.73531829739122,
+              "trajectory_net_displacement_m": 4.9621572844374855,
+              "result_json": "experiments/results/lidar_degeneracy/fog_full/xicp_full_trajectory.json",
+              "gt_metrics": {
+                "ate_xy_m": null,
+                "step_length_rmse_m": null
+              },
+              "path_vs_all_median": 1.2148273479111789,
+              "path_vs_healthy_median": 0.8604925964769997,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "aggregates": {}
+}

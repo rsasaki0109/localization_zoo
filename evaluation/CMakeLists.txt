@@ -161,6 +161,13 @@ target_link_libraries(degen_sense_window_odometry PRIVATE
 )
 target_include_directories(degen_sense_window_odometry PRIVATE ${PCL_INCLUDE_DIRS})
 
+add_executable(relead_window_odometry src/relead_window_odometry.cpp)
+target_link_libraries(relead_window_odometry PRIVATE
+  relead
+  ${PCL_LIBRARIES}
+)
+target_include_directories(relead_window_odometry PRIVATE ${PCL_INCLUDE_DIRS})
+
 add_executable(small_gicp_pair_odometry src/small_gicp_pair_odometry.cpp)
 target_link_libraries(small_gicp_pair_odometry PRIVATE
   small_gicp

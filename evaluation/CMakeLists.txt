@@ -146,6 +146,21 @@ target_link_libraries(litamin2_window_odometry PRIVATE
 )
 target_include_directories(litamin2_window_odometry PRIVATE ${PCL_INCLUDE_DIRS})
 
+add_executable(xicp_window_odometry src/xicp_window_odometry.cpp)
+target_link_libraries(xicp_window_odometry PRIVATE
+  xicp
+  ${PCL_LIBRARIES}
+)
+target_include_directories(xicp_window_odometry PRIVATE ${PCL_INCLUDE_DIRS})
+
+add_executable(degen_sense_window_odometry src/degen_sense_window_odometry.cpp)
+target_link_libraries(degen_sense_window_odometry PRIVATE
+  degen_sense
+  imu_preintegration
+  ${PCL_LIBRARIES}
+)
+target_include_directories(degen_sense_window_odometry PRIVATE ${PCL_INCLUDE_DIRS})
+
 add_executable(small_gicp_pair_odometry src/small_gicp_pair_odometry.cpp)
 target_link_libraries(small_gicp_pair_odometry PRIVATE
   small_gicp

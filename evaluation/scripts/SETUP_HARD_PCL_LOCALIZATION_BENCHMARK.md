@@ -85,6 +85,12 @@ for the first cloud is about 0.216 s later than its header stamp and must not be
 used for GT association. IMU header stamps cover `1693718239.113426` through
 `1693718378.318311`.
 
+`indoor_hard_01` has the same schema and exact association: 2,379 LiDAR frames
+and 2,379 GT poses, from `1690354429.463785` through `1690354593.400955`.
+Its first cloud has 165,714 XYZ points, and the bag contains 44,398 IMU samples
+(about 271 Hz). Unlike the easy bag, its metadata advertises only the two cloud
+topics and IMU; it has no `/tf_static` topic.
+
 ### Extraction
 
 ```bash
@@ -115,6 +121,50 @@ used for GT association. IMU header stamps cover `1693718239.113426` through
 separately before extraction: their Livox MID360 custom-message path is not
 established by this indoor inspection.
 
+## BIEVR-LIO Follow-up
+
+[BIEVR-LIO](https://github.com/ethz-asl/BIEVR-LIO) (inspected at commit
+`21121698f273d6fbfffca57546b940edb1de2ff0`) is a strong next baseline for this
+dataset. Unlike the current publish-gate methods, it attempts to recover the
+weak geometric constraints themselves: a 0.5 m voxel stores a 0.05 m
+voxel-oriented bump image, and map-informed sampling concentrates registration
+on voxels with informative fine geometry. Its core is ROS-independent and its
+ROS2 `process_bag` entry point already accepts PointCloud2 + Imu bags.
+
+Two integration requirements must be handled explicitly:
+
+1. The upstream PointCloud2 conversion rejects clouds without a `t`, `time`, or
+   `timestamp` field. Koide indoor clouds are Azure Kinect depth frames with
+   only float32 `x/y/z`; an adapter should treat the whole depth frame as
+   simultaneous (`time=0`) rather than fabricate rotating-LiDAR firing order.
+2. Upstream installs Ceres 2.2.0, while the current WSL benchmark clone uses
+   Ceres 2.0.0. Build BIEVR-LIO in a separate colcon/Docker workspace; do not
+   replace the working Localization Zoo Ceres installation.
+
+The indoor bag provides the required calibration through `/tf_static`.
+PointCloud2 uses `depth_camera_link`, IMU uses `imu_link`, and inversion of the
+recorded `T_depth_camera_link_imu_link` gives this candidate
+`T_IMU_LIDAR` (verify the TF convention in an initial stationary run):
+
+```yaml
+topics:
+  pointcloud: "/points2/decompressed"
+  imu: "/imu"
+calibration:
+  translation: [-0.05089043, 0.00331340, 0.00087367]
+  rotation: [ 0.00293580,  0.09906371, -0.99507676,
+             -0.99999529, -0.00059868, -0.00300991,
+             -0.00089391,  0.99508091,  0.09906149]
+lidar:
+  min_range_m: 0.3
+  max_range_m: 10.0
+```
+
+Upstream can write TUM directly via `debug.trajectory_path`, so its output can
+be evaluated against the same converted GT. BIEVR-LIO is a recovery baseline,
+not merely another degeneracy signal: compare it against the unchanged six-run
+matrix before considering integration into the triage policy.
+
 ## Completion Target
 
 Run all 8 sequences through the benchmark harness:
@@ -133,10 +183,10 @@ Run all 8 sequences through the benchmark harness:
 ## Status
 
 - [x] gt.zip + 4 maps downloaded and inspected (TUM format confirmed)
-- [x] indoor_easy_01 downloaded, CRC-checked, and extracted; indoor_hard_01 resumable download in progress
+- [x] indoor_easy_01 and indoor_hard_01 downloaded, checksum/CRC-checked, and extracted
 - [x] indoor bag inspection: topics, message types, and clock domain vs GT stamps
 - [x] ROS2 PointCloud2 + IMU extraction path into dogfooding PCD layout
 - [x] TUM -> dogfooding GT CSV converter
-- [ ] first odometry slice: indoor_easy_01 full baseline complete; indoor_hard_01 download pending
+- [x] first odometry slice: indoor_easy_01 and indoor_hard_01 full trajectories, six unchanged configurations, GT-backed ATE/RPE
 - [ ] fixed-map false-lock slice (kidnap sequences)
 - [ ] remaining sequence downloads (indoor_easy_02, indoor_kidnap_01/02, outdoor parts)

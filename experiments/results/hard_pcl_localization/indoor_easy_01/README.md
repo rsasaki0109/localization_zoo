@@ -28,6 +28,25 @@ gate rather than successful tracking. These defaults must be kept unchanged for
 the hard-sequence comparison; tuning on the easy result would invalidate the
 baseline.
 
+### Existing BIEVR-LIO reproduction
+
+The repository's from-paper BIEVR-LIO front-end was also run through
+`pcd_dogfooding` after the upstream implementation was published. It diverged
+on this easy sequence:
+
+| Profile | 3D ATE (m) | Drift (m/100m) | Mean bump-constraint ratio |
+|---|---:|---:|---:|
+| default | 4,970.82 | 5,422.86 | 0.153% |
+| dense | 3,285.73 | 3,604.47 | 0.118% |
+
+The bump constraint is almost never active. This is a negative result for the
+local simplified reproduction, not for upstream BIEVR-LIO: the local version
+has neither the upstream 5 cm map-informed dual-resolution sampling nor its IMU
+sliding-window backend. The upstream ROS2 implementation should be tested as a
+separate recovery baseline after adding simultaneous-frame support for Koide's
+XYZ-only Azure Kinect PointCloud2 messages; integration notes and the candidate
+LiDAR-to-IMU calibration are in the SETUP document.
+
 ## Reproduction
 
 - Input topic: `/points2/decompressed` (`x/y/z` float32, 167,488 points/frame)

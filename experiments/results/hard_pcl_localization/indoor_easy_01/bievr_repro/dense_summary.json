@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/hard_pcl_localization/indoor_easy_01",
+  "gt_csv": "experiments/reference_data/hard_pcl_indoor_easy_01_gt.csv",
+  "gt_sha256": "7a589475121b7da393cc071ed36b98b8ec74a512782cc7efa1fce1aafad395f7",
+  "total_pcd_frames": 2027,
+  "num_frames": 2027,
+  "raw_gt_pose_count": 2027,
+  "used_gt_pose_count": 2027,
+  "trajectory_length_m": 150.435635,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "timestamp",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "0e0c517e63db681e4bd8ba9fb6f5b03e0271dca6",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/indoor_easy_01_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/indoor_easy_01_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 2027,
+    "timestamp_all_integer": false,
+    "timestamp_range": [1693718238.937876, 1693718378.314670]
+  },
+  "gt": {
+    "source": "experiments/reference_data/hard_pcl_indoor_easy_01_gt.csv",
+    "sha256": "7a589475121b7da393cc071ed36b98b8ec74a512782cc7efa1fce1aafad395f7",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 2027,
+    "raw_timestamp_range": [1693718238.937876, 1693718378.314670]
+  },
+  "association": {
+    "mode": "timestamp",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 2027,
+    "associated_gt_index_range": [0, 2026],
+    "associated_gt_timestamp_range": [1693718238.937876, 1693718378.314670],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "BIEVR-LIO",
+      "status": "ok",
+      "ate_m": 3285.729865,
+      "rpe_trans_pct": 3604.468579,
+      "rpe_rot_deg_per_m": 1.397675,
+      "frames": 2027,
+      "time_ms": 19040.429632,
+      "fps": 106.457682,
+      "seed_fallback_rate_pct": null,
+      "note": "Bump-image voxel map: oriented height image gradients add in-plane constraints (no GT seed; anchor matches first GT pose). mean_bump_ratio=0.001181"
+    }
+  ]
+}

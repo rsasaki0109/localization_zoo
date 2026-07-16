@@ -51,15 +51,35 @@ declare -A expected_md5=(
   [outdoor_kidnap_b.zip]=893ed4a732c5c0c9dc38d069e7056a69
 )
 
-for archive in "${archives[@]}"; do
-  echo "[download] $archive"
-  wget --continue --output-document "$output_dir/$archive" \
-    "$base_url/$archive/content"
-  actual_size="$(stat --format=%s "$output_dir/$archive")"
-  if [[ "$actual_size" != "${expected_sizes[$archive]}" ]]; then
-    echo "[error] $archive size=$actual_size expected=${expected_sizes[$archive]}"
-    exit 1
+download_archive() {
+  local archive="$1"
+  if command -v aria2c >/dev/null 2>&1; then
+    aria2c --continue=true --auto-file-renaming=false --file-allocation=none \
+      --max-connection-per-server=16 --split=16 --min-split-size=1M \
+      --dir="$output_dir" --out="$archive" \
+      "$base_url/$archive/content"
+  else
+    wget --continue --output-document "$output_dir/$archive" \
+      "$base_url/$archive/content"
   fi
-  echo "${expected_md5[$archive]}  $output_dir/$archive" | md5sum --check --status
-  echo "[verified] $archive size=$actual_size md5=${expected_md5[$archive]}"
+}
+
+for archive in "${archives[@]}"; do
+  for attempt in 1 2; do
+    echo "[download] $archive attempt=$attempt"
+    download_archive "$archive"
+    actual_size="$(stat --format=%s "$output_dir/$archive")"
+    if [[ "$actual_size" == "${expected_sizes[$archive]}" ]] &&
+       echo "${expected_md5[$archive]}  $output_dir/$archive" |
+         md5sum --check --status; then
+      echo "[verified] $archive size=$actual_size md5=${expected_md5[$archive]}"
+      break
+    fi
+    echo "[error] $archive size=$actual_size expected_size=${expected_sizes[$archive]} checksum_mismatch"
+    if [[ "$attempt" == 2 ]]; then
+      exit 1
+    fi
+    echo "[retry] removing invalid completed download: $output_dir/$archive"
+    rm -f -- "$output_dir/$archive" "$output_dir/$archive.aria2"
+  done
 done

@@ -4,8 +4,12 @@
 - "BIEVR-LIO: Robust LiDAR-Inertial Odometry through Bump-Image-Enhanced Voxel
   Maps", 2026
 - arXiv: https://arxiv.org/abs/2604.14421 (arXiv:2604.14421)
-- The paper states the implementation "will be open-sourced after review" —
-  **not available yet**; this is a from-paper reimplementation.
+- The authors' implementation is now available at
+  https://github.com/ethz-asl/BIEVR-LIO (BSD-3-Clause; inspected at
+  `21121698f273d6fbfffca57546b940edb1de2ff0`, 2026-07-16).
+- This directory remains a from-paper reimplementation. Do not treat its
+  results as equivalent to upstream: it lacks upstream's map-informed
+  dual-resolution sampling and inertial sliding-window backend.
 
 ## What This Repository Implements
 

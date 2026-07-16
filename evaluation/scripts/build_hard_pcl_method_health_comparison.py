@@ -17,7 +17,11 @@ DEFAULT_RESULTS = REPO_ROOT / "experiments" / "results" / "hard_pcl_localization
 DEFAULT_OUTPUT = DEFAULT_RESULTS / "method_health_comparison.json"
 SEQUENCES = (
     ("indoor_easy_01", "nominal"),
+    ("indoor_easy_02", "nominal"),
     ("indoor_hard_01", "aggressive_motion_and_degradation"),
+    ("outdoor_hard_01", "aggressive_motion_and_data_interruptions"),
+    ("outdoor_hard_02", "aggressive_motion_and_data_interruptions"),
+    ("outdoor_kidnap", "kidnap_and_data_interruptions"),
 )
 
 

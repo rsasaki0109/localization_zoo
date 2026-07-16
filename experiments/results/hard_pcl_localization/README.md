@@ -56,24 +56,49 @@ LiDAR frame, then computes planar ATE and adjacent-frame RPE from the runners'
 ## Expanded sequence coverage
 
 All eight bags are extracted. `indoor_easy_02` has the complete six-method
-matrix; the three outdoor sequences have KISS, LiTAMIN2, CT-ICP, and X-ICP
-results, with the slower DegenSense runs tracked separately.
+matrix, and the three outdoor sequences now have all six configurations.
 
-| Sequence | Frames | Best available ATE-XY (m) | Method | RPE-XY (m/f) |
+| Sequence | Frames | Lowest ATE-XY (m) | Method | RPE-XY (m/f) |
 |---|---:|---:|---|---:|
 | indoor_easy_01 | 2,027 | 8.763 | KISS keyframe | 0.076 |
 | indoor_easy_02 | 1,967 | 9.797 | KISS keyframe | 0.077 |
 | indoor_hard_01 | 2,379 | 11.729 | DegenSense no IMU | 3.679 |
-| outdoor_hard_01 | 5,147 | 157.230 | X-ICP | 0.361 |
+| outdoor_hard_01 | 5,147 | 128.088 | DegenSense + IMU | 0.293 |
 | outdoor_hard_02 | 5,127 | 105.224 | LiTAMIN2 | 0.291 |
 | outdoor_kidnap | 4,017 | 112.915 | LiTAMIN2 | 0.208 |
 
 The outdoor ATE values remain very large even though adjacent-frame RPE is
 modest. This is sustained global drift, not just isolated registration spikes,
 and reinforces that short-window gates cannot certify long-term localization.
-The low indoor-hard DegenSense-no-IMU ATE is intentionally not called “best”:
-its 3.679 m/frame RPE and 6.59 km estimated path make the scalar ATE
-misleading.
+This is a lowest-ATE table, not a robustness ranking. In particular, the low
+indoor-hard DegenSense-no-IMU ATE is misleading: its 3.679 m/frame RPE and
+6.59 km estimated path show a failed trajectory.
+
+The outdoor DegenSense results expose strong sequence dependence:
+
+| Sequence | IMU ATE / RPE-XY (m) | No-IMU ATE / RPE-XY (m) |
+|---|---:|---:|
+| outdoor_hard_01 | 128.088 / 0.293 | **530,394.694 / 560.386** |
+| outdoor_hard_02 | 264.218 / 0.952 | 160.330 / 0.504 |
+| outdoor_kidnap | 204.541 / 1.654 | 5,872.830 / 46.038 |
+
+IMU blending is not a uniform rescue: it prevents the catastrophic no-IMU
+failure on outdoor_hard_01 and outdoor_kidnap, but is worse on outdoor_hard_02.
+Conversely, no-IMU can look locally accepted for long intervals before an
+interruption/reconnection drives an enormous global error. Recovery after data
+loss therefore needs its own state and validation; it cannot be inferred from
+short-window convergence or median/MAD spike gates.
+
+## Triage calibration result
+
+The GT calibration now covers 36 method/sequence rows across both easy indoor
+sequences, indoor hard, and all three outdoor trajectories. It reveals the
+other side of the same limitation: seven outdoor rows receive the current
+runtime-proxy `pass` decision despite ATE values from 105.224 m to 264.218 m.
+High accepted/converged rates and cross-method-consistent path length can
+describe locally coherent odometry while remaining blind to accumulated global
+drift. The policy should therefore treat `pass` as “no local alarm,” not as a
+localization-accuracy certificate.
 
 ## BIEVR-LIO note
 

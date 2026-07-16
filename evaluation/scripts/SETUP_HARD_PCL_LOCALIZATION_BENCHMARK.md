@@ -234,4 +234,4 @@ Run all 8 sequences through the benchmark harness:
 - [x] indoor_easy_02 full six-method GT benchmark
 - [x] outdoor hard/kidnap fast-method GT benchmarks
 - [x] outdoor_kidnap provided-map false-lock trace and three-sequence guard replay
-- [ ] remaining long-running outdoor DegenSense configurations
+- [x] remaining long-running outdoor DegenSense configurations

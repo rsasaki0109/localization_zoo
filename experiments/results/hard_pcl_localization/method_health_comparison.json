@@ -152,6 +152,153 @@
       ]
     },
     {
+      "sequence": "indoor_easy_02",
+      "windows": [
+        {
+          "name": "full",
+          "start": 0,
+          "end": 1966,
+          "expected_stress": "nominal",
+          "methods": {
+            "ct_icp": {
+              "accepted_rate": 0.7736520854526958,
+              "converged_rate": 0.06917599186164802,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "low_convergence",
+              "risk_flags": "low_convergence",
+              "trajectory_path_length_m": 378.3107920402392,
+              "result_json": "experiments\\results\\hard_pcl_localization\\indoor_easy_02\\full\\ct_icp.json",
+              "gt_metrics": {
+                "ate_xy_m": 20.47140423856674,
+                "step_length_rmse_m": 0.28288453905153305,
+                "gt_associated_frames": 1967,
+                "rpe_translation_xy_m": 0.2969616323331624,
+                "rpe_yaw_deg": 16.78806283982046
+              },
+              "path_vs_all_median": 1.0463810300105747,
+              "path_vs_healthy_median": 0.48748280187478954,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_imu": {
+              "accepted_rate": 0.9628687690742624,
+              "converged_rate": 1.0,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 776.0495151527597,
+              "result_json": "experiments\\results\\hard_pcl_localization\\indoor_easy_02\\full\\degen_sense_imu.json",
+              "gt_metrics": {
+                "ate_xy_m": 12.789523051121718,
+                "step_length_rmse_m": 0.5336576217583826,
+                "num_pairs": 1966,
+                "num_accepted": 1893,
+                "num_used_imu": 1961,
+                "num_degenerate": 393,
+                "gt_associated_frames": 1967,
+                "rpe_translation_xy_m": 0.5484542111323751,
+                "rpe_yaw_deg": 13.132583906643886
+              },
+              "path_vs_all_median": 2.1464983502727524,
+              "path_vs_healthy_median": 1.0,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "degen_sense_no_imu": {
+              "accepted_rate": 0.3540183112919634,
+              "converged_rate": 1.0,
+              "health_state": "fail",
+              "risk_state": "fail",
+              "flags": "low_acceptance",
+              "risk_flags": "low_acceptance",
+              "trajectory_path_length_m": 4232.123658380839,
+              "result_json": "experiments\\results\\hard_pcl_localization\\indoor_easy_02\\full\\degen_sense_no_imu.json",
+              "gt_metrics": {
+                "ate_xy_m": 12.631600177022102,
+                "step_length_rmse_m": 3.116636707172562,
+                "num_pairs": 1966,
+                "num_accepted": 696,
+                "num_used_imu": 0,
+                "num_degenerate": 338,
+                "gt_associated_frames": 1967,
+                "rpe_translation_xy_m": 3.1374770409446193,
+                "rpe_yaw_deg": 90.1899559754706
+              },
+              "path_vs_all_median": 11.70575623525335,
+              "path_vs_healthy_median": 5.453419628189287,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 0.5584944048830112,
+              "converged_rate": 0.5600203458799593,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 127.43889519952671,
+              "result_json": "experiments\\results\\hard_pcl_localization\\indoor_easy_02\\full\\kiss_keyframe.json",
+              "gt_metrics": {
+                "ate_xy_m": 9.796877661925638,
+                "step_length_rmse_m": 0.057419705494319434,
+                "gt_associated_frames": 1967,
+                "rpe_translation_xy_m": 0.07705193307464549,
+                "rpe_yaw_deg": 3.829913409419217
+              },
+              "path_vs_all_median": 0.35248701656945236,
+              "path_vs_healthy_median": 0.16421490215665077,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "litamin2": {
+              "accepted_rate": 0.2726347914547304,
+              "converged_rate": 1.0,
+              "health_state": "fail",
+              "risk_state": "fail",
+              "flags": "low_acceptance",
+              "risk_flags": "low_acceptance",
+              "trajectory_path_length_m": 344.7734023213807,
+              "result_json": "experiments\\results\\hard_pcl_localization\\indoor_easy_02\\full\\litamin2.json",
+              "gt_metrics": {
+                "ate_xy_m": 12.546691937869982,
+                "step_length_rmse_m": 0.4481093049594293,
+                "gt_associated_frames": 1967,
+                "rpe_translation_xy_m": 0.4557276605942283,
+                "rpe_yaw_deg": 15.188131212677188
+              },
+              "path_vs_all_median": 0.9536189699894253,
+              "path_vs_healthy_median": 0.4442672736590971,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "xicp": {
+              "accepted_rate": 0.14547304170905392,
+              "converged_rate": 0.13224821973550355,
+              "health_state": "fail",
+              "risk_state": "fail",
+              "flags": "low_acceptance,low_convergence",
+              "risk_flags": "low_acceptance,low_convergence",
+              "trajectory_path_length_m": 151.12128292348098,
+              "result_json": "experiments\\results\\hard_pcl_localization\\indoor_easy_02\\full\\xicp.json",
+              "gt_metrics": {
+                "ate_xy_m": 15.236541633634204,
+                "step_length_rmse_m": 0.22435936546378493,
+                "gt_associated_frames": 1967,
+                "rpe_translation_xy_m": 0.23493205574616902,
+                "rpe_yaw_deg": 9.161672378547713
+              },
+              "path_vs_all_median": 0.41799083454423863,
+              "path_vs_healthy_median": 0.1947314958295333,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            }
+          }
+        }
+      ]
+    },
+    {
       "sequence": "indoor_hard_01",
       "windows": [
         {
@@ -290,6 +437,447 @@
                 "rpe_yaw_deg": 7.8974977427396285
               },
               "path_vs_all_median": 0.5246559798309364,
+              "path_vs_healthy_median": null,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "sequence": "outdoor_hard_01",
+      "windows": [
+        {
+          "name": "full",
+          "start": 0,
+          "end": 5146,
+          "expected_stress": "aggressive_motion_and_data_interruptions",
+          "methods": {
+            "ct_icp": {
+              "accepted_rate": 0.9856198989506413,
+              "converged_rate": 0.001748931208705791,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "low_convergence",
+              "risk_flags": "low_convergence",
+              "trajectory_path_length_m": 1309.7177652440998,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_01\\full\\ct_icp.json",
+              "gt_metrics": {
+                "ate_xy_m": 178.6860774879066,
+                "step_length_rmse_m": 0.2280405992857063,
+                "gt_associated_frames": 5147,
+                "rpe_translation_xy_m": 0.44039957749757896,
+                "rpe_yaw_deg": 4.139909638932482
+              },
+              "path_vs_all_median": 1.067231317918777,
+              "path_vs_healthy_median": 1.067231317918777,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_imu": {
+              "accepted_rate": 0.9895064127477653,
+              "converged_rate": 0.9957248348231637,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 1144.703770657225,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_01\\full\\degen_sense_imu.json",
+              "gt_metrics": {
+                "ate_xy_m": 128.08803559204253,
+                "step_length_rmse_m": 0.274570611293263,
+                "num_pairs": 5146,
+                "num_accepted": 5092,
+                "num_used_imu": 5119,
+                "num_degenerate": 1165,
+                "gt_associated_frames": 5147,
+                "rpe_translation_xy_m": 0.29284603457673497,
+                "rpe_yaw_deg": 1.6145768523982214
+              },
+              "path_vs_all_median": 0.932768682081223,
+              "path_vs_healthy_median": 0.932768682081223,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_no_imu": {
+              "accepted_rate": 0.6517683637776914,
+              "converged_rate": 0.9957248348231637,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 1649963.7591401162,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_01\\full\\degen_sense_no_imu.json",
+              "gt_metrics": {
+                "ate_xy_m": 530394.6943715157,
+                "step_length_rmse_m": 562.0384498510157,
+                "num_pairs": 5146,
+                "num_accepted": 3354,
+                "num_used_imu": 0,
+                "num_degenerate": 789,
+                "gt_associated_frames": 5147,
+                "rpe_translation_xy_m": 560.3863592880242,
+                "rpe_yaw_deg": 21.26012649450877
+              },
+              "path_vs_all_median": 1344.4827915708522,
+              "path_vs_healthy_median": 1344.4827915708522,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 0.8328799067236689,
+              "converged_rate": 0.9930042751651769,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 696.6207723925397,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_01\\full\\kiss_keyframe.json",
+              "gt_metrics": {
+                "ate_xy_m": 273.6658780578855,
+                "step_length_rmse_m": 0.1420172949677959,
+                "gt_associated_frames": 5147,
+                "rpe_translation_xy_m": 0.20821689682904523,
+                "rpe_yaw_deg": 3.0529290975751437
+              },
+              "path_vs_all_median": 0.5676455834524962,
+              "path_vs_healthy_median": 0.5676455834524962,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "litamin2": {
+              "accepted_rate": 0.9953361834434512,
+              "converged_rate": 0.9953361834434512,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 1103.385166246495,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_01\\full\\litamin2.json",
+              "gt_metrics": {
+                "ate_xy_m": 175.0980081067365,
+                "step_length_rmse_m": 0.18480748388741122,
+                "gt_associated_frames": 5147,
+                "rpe_translation_xy_m": 0.30338463716712816,
+                "rpe_yaw_deg": 3.6593205216855798
+              },
+              "path_vs_all_median": 0.8990999713024472,
+              "path_vs_healthy_median": 0.8990999713024472,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "xicp": {
+              "accepted_rate": 0.9930042751651769,
+              "converged_rate": 0.9298484259619122,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 1389.0502780603701,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_01\\full\\xicp.json",
+              "gt_metrics": {
+                "ate_xy_m": 157.2297747932092,
+                "step_length_rmse_m": 0.23675334420758581,
+                "gt_associated_frames": 5147,
+                "rpe_translation_xy_m": 0.3613913188881271,
+                "rpe_yaw_deg": 4.441734698751604
+              },
+              "path_vs_all_median": 1.131875888263241,
+              "path_vs_healthy_median": 1.131875888263241,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "sequence": "outdoor_hard_02",
+      "windows": [
+        {
+          "name": "full",
+          "start": 0,
+          "end": 5126,
+          "expected_stress": "aggressive_motion_and_data_interruptions",
+          "methods": {
+            "ct_icp": {
+              "accepted_rate": 0.9719079204057745,
+              "converged_rate": 0.0039016777214202106,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "low_convergence",
+              "risk_flags": "low_convergence",
+              "trajectory_path_length_m": 1177.8228661008557,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_02\\full\\ct_icp.json",
+              "gt_metrics": {
+                "ate_xy_m": 179.9556292211192,
+                "step_length_rmse_m": 0.20978236588057728,
+                "gt_associated_frames": 5127,
+                "rpe_translation_xy_m": 0.3301389758853075,
+                "rpe_yaw_deg": 2.326888696930092
+              },
+              "path_vs_all_median": 1.134908176306852,
+              "path_vs_healthy_median": 1.0,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_imu": {
+              "accepted_rate": 0.9836129535700351,
+              "converged_rate": 0.9949278189621538,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 1316.0965237300393,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_02\\full\\degen_sense_imu.json",
+              "gt_metrics": {
+                "ate_xy_m": 264.2175661526678,
+                "step_length_rmse_m": 0.9199010754336177,
+                "num_pairs": 5126,
+                "num_accepted": 5042,
+                "num_used_imu": 5100,
+                "num_degenerate": 1165,
+                "gt_associated_frames": 5127,
+                "rpe_translation_xy_m": 0.9523369130889398,
+                "rpe_yaw_deg": 6.324066462969627
+              },
+              "path_vs_all_median": 1.2681437494374024,
+              "path_vs_healthy_median": 1.117397667857251,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_no_imu": {
+              "accepted_rate": 0.981662114709325,
+              "converged_rate": 0.9949278189621538,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 1242.5438952027355,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_02\\full\\degen_sense_no_imu.json",
+              "gt_metrics": {
+                "ate_xy_m": 160.32972403149495,
+                "step_length_rmse_m": 0.43154886622542765,
+                "num_pairs": 5126,
+                "num_accepted": 5032,
+                "num_used_imu": 0,
+                "num_degenerate": 1209,
+                "gt_associated_frames": 5127,
+                "rpe_translation_xy_m": 0.5043472506153581,
+                "rpe_yaw_deg": 2.4758402876667738
+              },
+              "path_vs_all_median": 1.1972710554975738,
+              "path_vs_healthy_median": 1.054949713547451,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 0.8573936792820913,
+              "converged_rate": 0.9923917284432305,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 810.5440326822365,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_02\\full\\kiss_keyframe.json",
+              "gt_metrics": {
+                "ate_xy_m": 227.10909236591274,
+                "step_length_rmse_m": 0.11010692687487324,
+                "gt_associated_frames": 5127,
+                "rpe_translation_xy_m": 0.2790478191077033,
+                "rpe_yaw_deg": 2.878506775974439
+              },
+              "path_vs_all_median": 0.7810113697258015,
+              "path_vs_healthy_median": 0.6881714186493222,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "litamin2": {
+              "accepted_rate": 0.9937573156457277,
+              "converged_rate": 0.9947327350760827,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 890.6229039575725,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_02\\full\\litamin2.json",
+              "gt_metrics": {
+                "ate_xy_m": 105.22412464694864,
+                "step_length_rmse_m": 0.17726616774409792,
+                "gt_associated_frames": 5127,
+                "rpe_translation_xy_m": 0.29085159751820533,
+                "rpe_yaw_deg": 3.848797537597987
+              },
+              "path_vs_all_median": 0.8581725188047502,
+              "path_vs_healthy_median": 0.7561603103410198,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "xicp": {
+              "accepted_rate": 0.9939523995317987,
+              "converged_rate": 0.8966055403823644,
+              "health_state": "ok",
+              "risk_state": "ok",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 897.8038510026439,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_hard_02\\full\\xicp.json",
+              "gt_metrics": {
+                "ate_xy_m": 140.41068384498803,
+                "step_length_rmse_m": 0.13353460904459322,
+                "gt_associated_frames": 5127,
+                "rpe_translation_xy_m": 0.24703069382189513,
+                "rpe_yaw_deg": 1.9564050786871419
+              },
+              "path_vs_all_median": 0.8650918236931477,
+              "path_vs_healthy_median": 0.7622571074501163,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "sequence": "outdoor_kidnap",
+      "windows": [
+        {
+          "name": "full",
+          "start": 0,
+          "end": 4016,
+          "expected_stress": "kidnap_and_data_interruptions",
+          "methods": {
+            "ct_icp": {
+              "accepted_rate": 0.7201195219123506,
+              "converged_rate": 0.011454183266932271,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "low_convergence",
+              "risk_flags": "low_convergence",
+              "trajectory_path_length_m": 635.0343722602927,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_kidnap\\full\\ct_icp.json",
+              "gt_metrics": {
+                "ate_xy_m": 180.86154226068064,
+                "step_length_rmse_m": 0.20805898870419004,
+                "gt_associated_frames": 4017,
+                "rpe_translation_xy_m": 0.2526048804693914,
+                "rpe_yaw_deg": 1.9745970098822228
+              },
+              "path_vs_all_median": 1.1011661098243626,
+              "path_vs_healthy_median": null,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "degen_sense_imu": {
+              "accepted_rate": 0.6875,
+              "converged_rate": 0.723605577689243,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 1635.978683188519,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_kidnap\\full\\degen_sense_imu.json",
+              "gt_metrics": {
+                "ate_xy_m": 204.54099433842802,
+                "step_length_rmse_m": 1.6093567942970646,
+                "num_pairs": 4016,
+                "num_accepted": 2761,
+                "num_used_imu": 2906,
+                "num_degenerate": 702,
+                "gt_associated_frames": 4017,
+                "rpe_translation_xy_m": 1.6536989331409757,
+                "rpe_yaw_deg": 2.2498465693870338
+              },
+              "path_vs_all_median": 2.8368295654772506,
+              "path_vs_healthy_median": null,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "degen_sense_no_imu": {
+              "accepted_rate": 0.05029880478087649,
+              "converged_rate": 0.723605577689243,
+              "health_state": "fail",
+              "risk_state": "fail",
+              "flags": "low_acceptance",
+              "risk_flags": "low_acceptance",
+              "trajectory_path_length_m": 134821.90640852446,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_kidnap\\full\\degen_sense_no_imu.json",
+              "gt_metrics": {
+                "ate_xy_m": 5872.8296905645575,
+                "step_length_rmse_m": 45.86540405600446,
+                "num_pairs": 4016,
+                "num_accepted": 202,
+                "num_used_imu": 0,
+                "num_degenerate": 426,
+                "gt_associated_frames": 4017,
+                "rpe_translation_xy_m": 46.03842412488529,
+                "rpe_yaw_deg": 78.99779273135977
+              },
+              "path_vs_all_median": 233.78469053660413,
+              "path_vs_healthy_median": null,
+              "cross_method_suspicious": true,
+              "cross_method_probe": "path_disagrees_with_all_method_median"
+            },
+            "kiss_keyframe": {
+              "accepted_rate": 0.6381972111553785,
+              "converged_rate": 0.7131474103585658,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 435.5943150423993,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_kidnap\\full\\kiss_keyframe.json",
+              "gt_metrics": {
+                "ate_xy_m": 236.50795028592302,
+                "step_length_rmse_m": 0.17839109386288285,
+                "gt_associated_frames": 4017,
+                "rpe_translation_xy_m": 0.26194076556998047,
+                "rpe_yaw_deg": 1.953848778614862
+              },
+              "path_vs_all_median": 0.755331865973767,
+              "path_vs_healthy_median": null,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "litamin2": {
+              "accepted_rate": 0.7186254980079682,
+              "converged_rate": 0.7203685258964143,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 518.3508737887008,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_kidnap\\full\\litamin2.json",
+              "gt_metrics": {
+                "ate_xy_m": 112.91542125755196,
+                "step_length_rmse_m": 0.19820642043512615,
+                "gt_associated_frames": 4017,
+                "rpe_translation_xy_m": 0.2079593266278332,
+                "rpe_yaw_deg": 1.3197027914310564
+              },
+              "path_vs_all_median": 0.8988338901756375,
+              "path_vs_healthy_median": null,
+              "cross_method_suspicious": false,
+              "cross_method_probe": ""
+            },
+            "xicp": {
+              "accepted_rate": 0.7153884462151394,
+              "converged_rate": 0.6790338645418327,
+              "health_state": "diagnostic_watch",
+              "risk_state": "diagnostic_watch",
+              "flags": "",
+              "risk_flags": "",
+              "trajectory_path_length_m": 483.8861936099236,
+              "result_json": "experiments\\results\\hard_pcl_localization\\outdoor_kidnap\\full\\xicp.json",
+              "gt_metrics": {
+                "ate_xy_m": 212.1663392062408,
+                "step_length_rmse_m": 0.19638124065869267,
+                "gt_associated_frames": 4017,
+                "rpe_translation_xy_m": 0.30760832189893056,
+                "rpe_yaw_deg": 2.1476369742841688
+              },
+              "path_vs_all_median": 0.8390712388033602,
               "path_vs_healthy_median": null,
               "cross_method_suspicious": false,
               "cross_method_probe": ""

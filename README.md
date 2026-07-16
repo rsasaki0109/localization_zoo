@@ -435,6 +435,56 @@ bash evaluation/scripts/run_scan2d_benchmark.sh
 
 Setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md).
 
+### Hard Point Cloud Localization
+
+[Koide's "Hard Point Cloud Localization Dataset"](https://zenodo.org/records/10122133)
+(Zenodo 10.5281/zenodo.10122133): indoor (Azure Kinect) and outdoor (Livox
+MID360) easy/hard/kidnap sequences with TUM ground truth and provided
+environment `.ply` maps. Full tables, sequence coverage, and reproduction
+steps: [**docs/benchmarks/hard_pcl/README.md**](docs/benchmarks/hard_pcl/README.md).
+
+Full-trajectory `indoor_easy_01` vs `indoor_hard_01`, six unchanged runner defaults:
+
+| Method | Easy ATE-XY (m) | Hard ATE-XY (m) | Easy RPE-XY (m/f) | Hard RPE-XY (m/f) |
+|---|---:|---:|---:|---:|
+| KISS keyframe | **8.763** | 25.307 | **0.076** | **0.124** |
+| LiTAMIN2 | 10.815 | 17.875 | 0.358 | 0.611 |
+| CT-ICP | 18.767 | 16.795 | 0.284 | 0.350 |
+| X-ICP | 10.037 | **11.733** | 0.320 | 0.353 |
+| DegenSense + IMU | 13.201 | 617.008 | 0.567 | 8.319 |
+| DegenSense, no IMU | 11.759 | 11.729 | 2.736 | 3.679 |
+
+CT-ICP's hard ATE happens to improve, but its estimated path is 468.38 m
+against a 115.49 m GT path — not a real robustness gain. Evaluating the
+official [upstream BIEVR-LIO](https://github.com/ethz-asl/BIEVR-LIO) core as a
+recovery baseline sharpens the contrast:
+
+| Sequence | ATE-XY (m) | RPE-XY (m/f) | Estimated / GT path (m) |
+|---|---:|---:|---:|
+| `indoor_easy_01` | **0.422** | **0.0033** | 76.26 / 77.29 |
+| `indoor_hard_01` | 8,882.579 | 21.947 | 28,754.33 / 114.71 |
+
+Upstream BIEVR-LIO's map-informed sampling and inertial backend beat every
+default on easy, but it still diverges on hard — a strong odometry baseline,
+not a relocalization guarantee. Fixed-map NDT localized against the
+dataset-provided maps on all three kidnap sequences also finds a **false-lock
+publish-guard failure**: the embedded GT-free runtime guard emits 4,015
+pose/hold outputs, 3,987+ of which are wrong by GT replay (up to 183.805 m),
+and the post-hoc sequence verifier blocks publication on all three traces. A
+GT-informed replay is only error-free with pose holding disabled, at the cost
+of returning unknown/blocking on most frames — evidence that runtime
+stable-refinement signals are not proof of a correct global lock.
+
+```bash
+python3 evaluation/scripts/run_hard_pcl_odometry_benchmark.py \
+  --pcd-dir dogfooding_results/hard_pcl_localization/indoor_easy_01 \
+  --gt-csv experiments/reference_data/hard_pcl_indoor_easy_01_gt.csv \
+  --output-dir experiments/results/hard_pcl_localization/indoor_easy_01/full --jobs 6
+```
+
+Setup: [`evaluation/scripts/SETUP_HARD_PCL_LOCALIZATION_BENCHMARK.md`](evaluation/scripts/SETUP_HARD_PCL_LOCALIZATION_BENCHMARK.md).
+Full results tree: [`experiments/results/hard_pcl_localization/`](experiments/results/hard_pcl_localization/).
+
 ---
 
 ## Implementations

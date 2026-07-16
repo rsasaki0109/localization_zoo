@@ -6,13 +6,13 @@ Trace glob: `experiments\results\hard_pcl_localization\fixed_map_ndt\traces\*_tr
 
 | Traces | Frames | Raw wrong | Raw unsafe jumps | Gated pose outputs | Gated wrong outputs | Unknown frames | Block frames | Suppressed wrong | Suppressed unsafe jumps | Max published error [m] |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 2 | 3076 | 2985 | 1480 | 45 | 0 | 1550 | 1481 | 2985 | 1480 | 0.945 |
+| 3 | 5983 | 5690 | 2069 | 226 | 0 | 3687 | 2070 | 5690 | 2069 | 0.945 |
 
 | Embedded runtime outputs | Embedded wrong outputs | Embedded unknown | Embedded relock candidates | Embedded max relock streak | Embedded suppressed wrong | Embedded suppressed unsafe |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 2183 | 2155 | 893 | 0 | 0 | 830 | 455 |
+| 4015 | 3987 | 1968 | 0 | 0 | 1703 | 714 |
 
-Replay decisions: fail_closed_suppressed:2
+Replay decisions: fail_closed_suppressed:3
 
 ## Trace Reports
 
@@ -20,6 +20,7 @@ Replay decisions: fail_closed_suppressed:2
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | `indoor_kidnap_01` | `fail_closed_suppressed` | `block_publish` | 1747 | 977 | 8 | 0 | 787 | 978 | 1747 | 1264 | 509 | 0 | 0 | 5 | 5 | 0.945 | 1758 |
 | `indoor_kidnap_02` | `fail_closed_suppressed` | `block_publish` | 1238 | 503 | 37 | 0 | 763 | 503 | 1238 | 919 | 384 | 0 | 0 | 49 | 2 | 0.835 | 1155 |
+| `outdoor_kidnap` | `fail_closed_suppressed` | `block_publish` | 2705 | 589 | 181 | 0 | 2137 | 589 | 2705 | 1832 | 1075 | 0 | 0 | 515 | 3 | 0.819 | 2704 |
 
 ## Readout
 

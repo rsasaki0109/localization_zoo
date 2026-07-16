@@ -1,4 +1,4 @@
-# Hard Point Cloud Localization: first GT-backed slice
+# Hard Point Cloud Localization: GT-backed benchmark
 
 Full-trajectory comparison of Koide `indoor_easy_01` (2,027 frames) and
 `indoor_hard_01` (2,379 frames), using unchanged runner defaults. Both bags
@@ -53,6 +53,28 @@ evaluation uses the initial full SE(3) GT pose to express motion in the initial
 LiDAR frame, then computes planar ATE and adjacent-frame RPE from the runners'
 `x/y/yaw` trajectories.
 
+## Expanded sequence coverage
+
+All eight bags are extracted. `indoor_easy_02` has the complete six-method
+matrix; the three outdoor sequences have KISS, LiTAMIN2, CT-ICP, and X-ICP
+results, with the slower DegenSense runs tracked separately.
+
+| Sequence | Frames | Best available ATE-XY (m) | Method | RPE-XY (m/f) |
+|---|---:|---:|---|---:|
+| indoor_easy_01 | 2,027 | 8.763 | KISS keyframe | 0.076 |
+| indoor_easy_02 | 1,967 | 9.797 | KISS keyframe | 0.077 |
+| indoor_hard_01 | 2,379 | 11.729 | DegenSense no IMU | 3.679 |
+| outdoor_hard_01 | 5,147 | 157.230 | X-ICP | 0.361 |
+| outdoor_hard_02 | 5,127 | 105.224 | LiTAMIN2 | 0.291 |
+| outdoor_kidnap | 4,017 | 112.915 | LiTAMIN2 | 0.208 |
+
+The outdoor ATE values remain very large even though adjacent-frame RPE is
+modest. This is sustained global drift, not just isolated registration spikes,
+and reinforces that short-window gates cannot certify long-term localization.
+The low indoor-hard DegenSense-no-IMU ATE is intentionally not called “best”:
+its 3.679 m/frame RPE and 6.59 km estimated path make the scalar ATE
+misleading.
+
 ## BIEVR-LIO note
 
 The repository's simplified from-paper BIEVR front-end diverges even on easy
@@ -64,10 +86,9 @@ provenance.
 
 ## Fixed-map kidnap result
 
-The provided `map_indoor_hard.ply` was also evaluated on both indoor kidnap
+The provided indoor and outdoor kidnap maps were evaluated on all three kidnap
 sequences. CT-ICP-seeded fixed-map NDT exposes the central false-lock result:
-the embedded runtime guard emits 2,183 pose/hold outputs, and more than 99% are
-over the 1 m GT safety envelope. The sparse-trace-aware verifier blocks both
-sequences. A GT-informed replay becomes error-free only with pose holding
-disabled, at the cost of returning unknown/blocking on nearly the entire
-sequence. See `fixed_map_ndt/README.md`.
+the embedded runtime guard emits 4,015 pose/hold outputs, with 3,987 classified
+wrong by replay. The sparse-trace-aware verifier blocks all three sequences. A
+GT-informed replay becomes error-free only with pose holding disabled, at the
+cost of returning unknown/blocking on most frames. See `fixed_map_ndt/README.md`.

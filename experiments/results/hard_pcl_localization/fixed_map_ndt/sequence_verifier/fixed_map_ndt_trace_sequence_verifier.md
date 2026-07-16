@@ -6,9 +6,9 @@ Trace glob: `experiments\results\hard_pcl_localization\fixed_map_ndt\traces\*_tr
 
 | Traces | Frames | Publishable traces | Return-unknown frames | Accepted wrong-pose frames | Recovery jumps | Unsafe jumps | Max final error [m] | Max step ratio |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 2 | 3076 | 0 | 1537 | 582 | 0 | 1480 | 27.061 | 862.673 |
+| 3 | 5983 | 0 | 3673 | 739 | 0 | 2069 | 190.510 | 3331.489 |
 
-Trace decisions: block_publish:2
+Trace decisions: block_publish:3
 
 ## Trace Reports
 
@@ -16,6 +16,7 @@ Trace decisions: block_publish:2
 | --- | --- | --- | ---: | ---: | ---: | --- | --- | ---: | ---: | ---: |
 | `indoor_kidnap_01` | `block_publish` | `unsafe_transition` | 8 | 777 | 537 | 1815-2153 (339) | 1-16 (16), 68-71 (4), 73-74 (2), +2 more | 16 | 17.258 | 862.673 |
 | `indoor_kidnap_02` | `block_publish` | `unsafe_transition` | 37 | 760 | 45 | 1304-1608 (305) | 1-57 (57), 59-59 (1), 102-102 (1), +1 more | 57 | 27.061 | 535.934 |
+| `outdoor_kidnap` | `block_publish` | `unsafe_transition` | 181 | 2136 | 157 | 2916-3153 (238), 3159-3161 (3), 3331-3674 (344), +1 more | 1-114 (114), 116-202 (87) | 114 | 190.510 | 3331.489 |
 
 ## Readout
 

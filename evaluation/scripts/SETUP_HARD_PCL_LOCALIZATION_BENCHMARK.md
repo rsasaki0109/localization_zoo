@@ -91,6 +91,20 @@ Its first cloud has 165,714 XYZ points, and the bag contains 44,398 IMU samples
 (about 271 Hz). Unlike the easy bag, its metadata advertises only the two cloud
 topics and IMU; it has no `/tf_static` topic.
 
+The outdoor bags use standard PointCloud2 rather than a Livox custom message.
+Their `/livox/points` records contain float32 `x/y/z`, uint32 `t` (nanoseconds
+within the scan), float32 `intensity`, uint8 `tag`, and uint8 `line`.
+`extract_ros2_lidar_imu.py` converts `t` to a float32 PCD `time` field in
+seconds. Each outdoor trajectory is split across two bag directories; repeat
+`--bag` in chronological order to concatenate them. All three outdoor
+trajectories also have exact one-to-one cloud-header/GT stamp association:
+
+| Sequence | LiDAR / GT frames | Cloud topic |
+|---|---:|---|
+| `outdoor_hard_01` | 5,147 | `/livox/points` |
+| `outdoor_hard_02` | 5,127 | `/livox/points` |
+| `outdoor_kidnap` | 4,017 | `/livox/points` |
+
 ### Extraction
 
 ```bash
@@ -98,6 +112,14 @@ topics and IMU; it has no `/tf_static` topic.
   --bag data/hard_pcl_localization/indoor_easy_01 \
   --pointcloud-topic /points2/decompressed --imu-topic /imu \
   --output-dir dogfooding_results/hard_pcl_localization/indoor_easy_01
+
+# Split outdoor bags are concatenated by repeating --bag. The extractor keeps
+# Livox's per-point uint32 t field as PCD float time in seconds.
+/root/lz-venv/bin/python3 evaluation/scripts/extract_ros2_lidar_imu.py \
+  --bag data/hard_pcl_localization/outdoor_hard_01a \
+  --bag data/hard_pcl_localization/outdoor_hard_01b \
+  --pointcloud-topic /livox/points --imu-topic /livox/imu \
+  --output-dir dogfooding_results/hard_pcl_localization/outdoor_hard_01
 
 /root/lz-venv/bin/python3 evaluation/scripts/tum_to_gt_csv.py \
   --input data/hard_pcl_localization/gt/gt/traj_lidar_indoor_easy_01.txt \
@@ -115,6 +137,12 @@ topics and IMU; it has no `/tf_static` topic.
   --output-dir experiments/results/hard_pcl_localization/indoor_easy_01/full \
   --jobs 6
 
+# The outdoor DegenSense runs have much larger maps. Run the remaining matrix
+# sequentially to avoid WSL memory pressure. Set WINDOWS_REPO_ROOT only when a
+# separate WSL build clone should copy completed JSONs back to the host clone.
+WINDOWS_REPO_ROOT=/mnt/c/path/to/localization_zoo \
+  evaluation/scripts/run_remaining_hard_pcl_outdoor_degensense.sh
+
 # Provided-map localization (the explicit PLY option avoids rebuilding the map
 # from the evaluated sequence's GT poses):
 build/evaluation/pcd_dogfooding \
@@ -128,9 +156,9 @@ build/evaluation/pcd_dogfooding \
 ```
 
 `extract_ros2_lidar_imu.py` writes the dogfooding layout
-(`NNNNNNNN/cloud.pcd`, `frame_timestamps.csv`, `imu.csv`). Inspect outdoor bags
-separately before extraction: their Livox MID360 custom-message path is not
-established by this indoor inspection.
+(`NNNNNNNN/cloud.pcd`, `frame_timestamps.csv`, `imu.csv`). All eight sequences
+have been extracted: indoor frame counts are 2,027, 1,967, 2,379, 2,154, and
+1,609; outdoor frame counts are 5,147, 5,127, and 4,017.
 
 ## BIEVR-LIO Follow-up
 
@@ -202,3 +230,8 @@ Run all 8 sequences through the benchmark harness:
 - [x] fixed-map false-lock slice: both indoor kidnap sequences, provided PLY, CT-ICP seed, GT-labeled trace/verifier/replay
 - [x] `lidar_degeneracy_triage_v4` GT calibration populated from easy/hard full results
 - [x] remaining sequence downloads (all Zenodo archives size + MD5 verified)
+- [x] all eight bags extracted; outdoor split-bag PointCloud2 `t` conversion verified
+- [x] indoor_easy_02 full six-method GT benchmark
+- [x] outdoor hard/kidnap fast-method GT benchmarks
+- [x] outdoor_kidnap provided-map false-lock trace and three-sequence guard replay
+- [ ] remaining long-running outdoor DegenSense configurations

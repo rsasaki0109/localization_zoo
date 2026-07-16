@@ -20,13 +20,22 @@ FIELD_SPECS = {
     "intensity": "<f4",
     "time": "<f4",
 }
+SOURCE_FIELD_SPECS = {
+    **FIELD_SPECS,
+    "t": "<u4",
+}
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Extract PointCloud2 + optional IMU from ROS2 sqlite bags.",
     )
-    parser.add_argument("--bag", required=True, help="ROS2 bag directory or .db3 file.")
+    parser.add_argument(
+        "--bag",
+        action="append",
+        required=True,
+        help="ROS2 bag directory or .db3 file. Repeat to concatenate split bags.",
+    )
     parser.add_argument(
         "--pointcloud-topic",
         required=True,
@@ -84,6 +93,16 @@ def resolve_db3_files(path: Path) -> list[Path]:
     return sorted(path.glob("*.db3"))
 
 
+def resolve_db3_inputs(paths: list[str]) -> list[Path]:
+    db3_files: list[Path] = []
+    for value in paths:
+        resolved = resolve_db3_files(Path(value))
+        if not resolved:
+            raise RuntimeError(f"No .db3 files found under: {value}")
+        db3_files.extend(resolved)
+    return db3_files
+
+
 def get_topic_info(cursor: sqlite3.Cursor, topic: str):
     row = cursor.execute(
         "select id, type from topics where name = ?",
@@ -96,13 +115,17 @@ def get_topic_info(cursor: sqlite3.Cursor, topic: str):
 
 def make_field_dtype(msg) -> np.dtype:
     offsets = {field.name: field.offset for field in msg.fields}
-    names = [name for name in ("x", "y", "z", "intensity", "time") if name in offsets]
+    names = [
+        name
+        for name in ("x", "y", "z", "intensity", "time", "t")
+        if name in offsets
+    ]
     if not {"x", "y", "z"}.issubset(names):
         raise RuntimeError("PointCloud2 must contain x/y/z fields.")
     return np.dtype(
         {
             "names": names,
-            "formats": [FIELD_SPECS[name] for name in names],
+            "formats": [SOURCE_FIELD_SPECS[name] for name in names],
             "offsets": [offsets[name] for name in names],
             "itemsize": msg.point_step,
         }
@@ -114,7 +137,7 @@ def extract_points(msg) -> tuple[np.ndarray, list[str]]:
     count = int(msg.width) * int(msg.height)
     source = np.frombuffer(msg.data, dtype=source_dtype, count=count)
     names = ["x", "y", "z", "intensity"]
-    if "time" in source_dtype.names:
+    if "time" in source_dtype.names or "t" in source_dtype.names:
         names.append("time")
     packed_dtype = np.dtype([(name, FIELD_SPECS[name]) for name in names])
     packed = np.empty(count, dtype=packed_dtype)
@@ -125,6 +148,8 @@ def extract_points(msg) -> tuple[np.ndarray, list[str]]:
     )
     if "time" in source_dtype.names:
         packed["time"] = source["time"]
+    elif "t" in source_dtype.names:
+        packed["time"] = source["t"].astype(np.float32) * 1e-9
     return packed, names
 
 
@@ -269,9 +294,7 @@ def export_imu(db3_files: list[Path], topic: str, out_dir: Path, typestore) -> i
 def main() -> int:
     args = parse_args()
     out_dir = Path(args.output_dir).resolve()
-    db3_files = resolve_db3_files(Path(args.bag))
-    if not db3_files:
-        raise RuntimeError(f"No .db3 files found under: {args.bag}")
+    db3_files = resolve_db3_inputs(args.bag)
 
     typestore = resolve_typestore(args.ros_distro)
     lidar_count = export_pointclouds(

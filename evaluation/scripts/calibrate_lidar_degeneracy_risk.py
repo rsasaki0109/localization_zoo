@@ -80,6 +80,13 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def display_path(path: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path.resolve())
+
+
 def fmt(value: Any, digits: int = 3) -> str:
     if value is None:
         return "n/a"
@@ -132,10 +139,7 @@ def load_gt_xyyaw(path: Path) -> np.ndarray:
             float(row["lidar_pose.z"]),
         ]
         mats.append(mat)
-    poses = []
-    for mat in mats:
-        poses.append([mat[0, 3], mat[1, 3], math.atan2(mat[1, 0], mat[0, 0])])
-    return np.asarray(poses, dtype=np.float64)
+    return np.asarray(mats, dtype=np.float64)
 
 
 def se2_matrix(x: float, y: float, yaw: float) -> np.ndarray:
@@ -145,10 +149,23 @@ def se2_matrix(x: float, y: float, yaw: float) -> np.ndarray:
 
 
 def gt_relative_trajectory(gt: np.ndarray) -> np.ndarray:
+    if gt.ndim == 3 and gt.shape[1:] == (4, 4):
+        anchor_inv = np.linalg.inv(gt[0])
+        rel = [anchor_inv @ mat for mat in gt]
+        return np.asarray(
+            [
+                [mat[0, 3], mat[1, 3], math.atan2(mat[1, 0], mat[0, 0])]
+                for mat in rel
+            ],
+            dtype=np.float64,
+        )
     mats = [se2_matrix(float(x), float(y), float(yaw)) for x, y, yaw in gt]
     anchor_inv = np.linalg.inv(mats[0])
     rel = [anchor_inv @ mat for mat in mats]
-    return np.asarray([[mat[0, 2], mat[1, 2], math.atan2(mat[1, 0], mat[0, 0])] for mat in rel])
+    return np.asarray(
+        [[mat[0, 2], mat[1, 2], math.atan2(mat[1, 0], mat[0, 0])] for mat in rel],
+        dtype=np.float64,
+    )
 
 
 def load_result_poses(path: Path) -> np.ndarray:
@@ -410,9 +427,9 @@ def build_calibration(comparison: dict[str, Any], gt_map: dict[str, Path]) -> di
         gt_path = gt_map.get(sequence_name)
         topic_audit_path = DEFAULT_TOPIC_AUDITS.get(sequence_name)
         sequence_gt_status[sequence_name] = {
-            "gt_csv": str(gt_path) if gt_path else None,
+            "gt_csv": display_path(gt_path) if gt_path else None,
             "gt_csv_exists": bool(gt_path and gt_path.exists()),
-            "topic_audit": str(topic_audit_path) if topic_audit_path else None,
+            "topic_audit": display_path(topic_audit_path) if topic_audit_path else None,
             "pose_like_topics": pose_like_topics(topic_audit_path) if topic_audit_path else [],
         }
         if gt_path and gt_path.exists():
@@ -639,19 +656,24 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             f"{fmt(record['path_vs_all_median'])} | {', '.join(f'`{reason}`' for reason in record['risk_reasons'])} |"
         )
 
-    lines.extend(
-        [
-            "",
-            "## Readout",
-            "",
-            "- GT calibration is currently blocked by missing public pose/odom/tf for the local NTNU LiDAR degeneracy extraction.",
-            "- The comparison remains GT-free for now: local risk, diagnostic watch, and cross-method risk should be treated as triage signals, not error labels.",
-            "- Policy decisions are pre-GT triage labels: `fail` for hard local failure, `investigate` for unresolved cross-method disagreement, `watch` for calibrated local confidence downgrades and medium risk, and `pass` for rows with no active risk reason.",
-            "- Reason drilldown separates local failure signals from cross-method disagreement so the strongest triage signals can be checked first when GT arrives.",
-            "- The script is ready to rerun with external GT via `--gt-csv fog_200=... --gt-csv tunnel_geom_2700_200=...`.",
-            "",
-        ]
-    )
+    lines.extend(["", "## Readout", ""])
+    if gt_rows:
+        lines.extend(
+            [
+                "- GT-backed rows were produced. Risk buckets and policy decisions remain runtime proxy labels; compare them directly with ATE/RPE rather than treating them as error labels.",
+                "- `fail` marks hard local failure, `investigate` unresolved cross-method disagreement, `watch` calibrated confidence downgrades, and `pass` no active proxy risk.",
+                "- Reason drilldown now shows which runtime signals coincide with measured trajectory error and which apparently healthy rows still have material GT error.",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                "- GT calibration is currently blocked by missing public pose/odom/tf for the local NTNU LiDAR degeneracy extraction.",
+                "- The comparison remains GT-free for now: local risk, diagnostic watch, and cross-method risk should be treated as triage signals, not error labels.",
+                "- The script is ready to rerun with external GT via `--gt-csv fog_200=... --gt-csv tunnel_geom_2700_200=...`.",
+            ]
+        )
+    lines.append("")
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
@@ -660,7 +682,7 @@ def main() -> int:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     comparison = load_json(args.comparison_json)
     payload = build_calibration(comparison, parse_gt_map(args.gt_csv))
-    payload["comparison_json"] = str(args.comparison_json)
+    payload["comparison_json"] = display_path(args.comparison_json)
 
     output_json = args.output_dir / "risk_gt_calibration.json"
     output_md = args.output_dir / "risk_gt_calibration.md"

@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "pcd_dir": "dogfooding_results/hard_pcl_localization/indoor_kidnap_02",
+  "gt_csv": "experiments/reference_data/hard_pcl_indoor_kidnap_02_gt.csv",
+  "gt_sha256": "87c61281b06673a583cef65855473df8833acc1be16f2f7a31d7e89d1246eb74",
+  "total_pcd_frames": 1609,
+  "num_frames": 1609,
+  "raw_gt_pose_count": 1609,
+  "used_gt_pose_count": 1609,
+  "trajectory_length_m": 105.701785,
+  "timestamp_source": "frame_timestamps.csv",
+  "gt_format": "csv_lidar_pose",
+  "gt_time_domain": "seconds",
+  "association_mode": "timestamp",
+  "association_max_dt_s": 0.050000,
+  "evaluator_git_commit": "0e0c517e63db681e4bd8ba9fb6f5b03e0271dca6",
+  "artifacts": {
+    "evaluated_gt_path": "dogfooding_results/indoor_kidnap_02_evaluated_gt.txt",
+    "legacy_gt_path": "dogfooding_results/gt.txt",
+    "legacy_gt_written": true,
+    "evaluation_manifest_path": "dogfooding_results/indoor_kidnap_02_evaluation_manifest.json"
+  },
+  "frames": {
+    "timestamp_source": "frame_timestamps.csv",
+    "timestamp_count": 1609,
+    "timestamp_all_integer": false,
+    "timestamp_range": [1693731671.608465, 1693731780.547566]
+  },
+  "gt": {
+    "source": "experiments/reference_data/hard_pcl_indoor_kidnap_02_gt.csv",
+    "sha256": "87c61281b06673a583cef65855473df8833acc1be16f2f7a31d7e89d1246eb74",
+    "format": "csv_lidar_pose",
+    "time_domain": "seconds",
+    "raw_pose_count": 1609,
+    "raw_timestamp_range": [1693731671.608465, 1693731780.547566]
+  },
+  "association": {
+    "mode": "timestamp",
+    "max_dt_s": 0.050000,
+    "used_gt_pose_count": 1609,
+    "associated_gt_index_range": [0, 1608],
+    "associated_gt_timestamp_range": [1693731671.608465, 1693731780.547566],
+    "gt_normalization": "first_associated_gt_inverse_applied_before_metrics"
+  },
+  "metric_config": {
+    "ate": {
+      "alignment": "none",
+      "definition": "absolute_position_rmse_m"
+    },
+    "rpe": {
+      "alignment": "none",
+      "segment_length_m": 100.000000,
+      "translation_unit": "percent",
+      "rotation_unit": "deg_per_m"
+    }
+  },
+  "methods": [
+    {
+      "name": "FixedMap-NDT+CTICP",
+      "status": "ok",
+      "ate_m": 16.966079,
+      "rpe_trans_pct": null,
+      "rpe_rot_deg_per_m": null,
+      "frames": 1303,
+      "time_ms": 39249.200182,
+      "fps": 33.198129,
+      "seed_fallback_rate_pct": null,
+      "note": "Fixed-map NDT: target map loaded from PLY=data/hard_pcl_localization/map_indoor_hard.ply (map_points=5024). Seed source=ct_icp, accepted=59/1302, rejected=1243, seed fallbacks=305. Runtime publish policy outputs=7, holds=912, unknown=384, GT-wrong suppressed=330, GT-unsafe transitions suppressed=148. CT-ICP prior ATE=15.100m. Runtime is CT-ICP+NDT combined. Per-frame trace=experiments/results/hard_pcl_localization/indoor_kidnap_02/fixed_map_ndt_ct/trace.json."
+    }
+  ]
+}

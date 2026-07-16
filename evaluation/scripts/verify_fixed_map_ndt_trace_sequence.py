@@ -229,23 +229,28 @@ def intervals_for(
     intervals: list[dict[str, int]] = []
     start: int | None = None
     last_index: int | None = None
-    for frame in frames:
-        index = frame_index(frame)
-        if predicate(frame):
-            if start is None:
-                start = index
-            last_index = index
-            continue
+
+    def finish_interval() -> None:
+        nonlocal start, last_index
         if start is not None and last_index is not None:
             length = last_index - start + 1
             if length >= min_length:
                 intervals.append({"start": start, "end": last_index, "length": length})
         start = None
         last_index = None
-    if start is not None and last_index is not None:
-        length = last_index - start + 1
-        if length >= min_length:
-            intervals.append({"start": start, "end": last_index, "length": length})
+
+    for frame in frames:
+        index = frame_index(frame)
+        if predicate(frame):
+            if start is None or (
+                last_index is not None and index != last_index + 1
+            ):
+                finish_interval()
+                start = index
+            last_index = index
+            continue
+        finish_interval()
+    finish_interval()
     return intervals
 
 
@@ -263,6 +268,7 @@ def stable_inlier_intervals(rows: list[dict[str, Any]]) -> list[dict[str, int]]:
 
 def annotate_trace(trace: dict[str, Any], path: Path) -> dict[str, Any]:
     raw_frames = list(trace.get("frames") or [])
+    raw_frames_by_index = {frame_index(frame): frame for frame in raw_frames}
     diagnostics_rows: list[dict[str, Any]] = []
     for i, frame in enumerate(raw_frames):
         previous = raw_frames[i - 1] if i > 0 else None
@@ -291,7 +297,7 @@ def annotate_trace(trace: dict[str, Any], path: Path) -> dict[str, Any]:
     frame_rows = []
     for row in diagnostics_rows:
         classified = classify_frame(
-            raw_frames[row["frame_index"]],
+            raw_frames_by_index[row["frame_index"]],
             row,
             row["frame_index"] in stable_publishable_frames,
         )

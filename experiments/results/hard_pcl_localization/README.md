@@ -61,3 +61,13 @@ The repository's simplified from-paper BIEVR front-end diverges even on easy
 adds map-informed fine sampling and an IMU backend. See the setup document and
 the easy-sequence README for the upstream integration gap and negative-result
 provenance.
+
+## Fixed-map kidnap result
+
+The provided `map_indoor_hard.ply` was also evaluated on both indoor kidnap
+sequences. CT-ICP-seeded fixed-map NDT exposes the central false-lock result:
+the embedded runtime guard emits 2,183 pose/hold outputs, and more than 99% are
+over the 1 m GT safety envelope. The sparse-trace-aware verifier blocks both
+sequences. A GT-informed replay becomes error-free only with pose holding
+disabled, at the cost of returning unknown/blocking on nearly the entire
+sequence. See `fixed_map_ndt/README.md`.

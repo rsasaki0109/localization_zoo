@@ -94,6 +94,7 @@
 
 #define PCL_NO_PRECOMPILE
 #include <pcl/io/pcd_io.h>
+#include <pcl/io/ply_io.h>
 #include <pcl/PCLPointCloud2.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -570,6 +571,32 @@ std::vector<Eigen::Vector3d> loadPCD(const std::string& path, double leaf = 0.5)
     double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
     if (r > 1.0 && r < 80.0)
       points.emplace_back(p.x, p.y, p.z);
+  }
+  return points;
+}
+
+std::vector<Eigen::Vector3d> loadPLYMap(const std::string& path,
+                                        double leaf = 0.5) {
+  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
+  if (pcl::io::loadPLYFile<pcl::PointXYZ>(path, *cloud) == -1) return {};
+
+  pcl::PointCloud<pcl::PointXYZ>::Ptr selected = cloud;
+  pcl::PointCloud<pcl::PointXYZ> filtered;
+  if (leaf > 1e-9) {
+    pcl::VoxelGrid<pcl::PointXYZ> vg;
+    vg.setInputCloud(cloud);
+    vg.setLeafSize(leaf, leaf, leaf);
+    vg.filter(filtered);
+    selected.reset(new pcl::PointCloud<pcl::PointXYZ>(filtered));
+  }
+
+  std::vector<Eigen::Vector3d> points;
+  points.reserve(selected->size());
+  for (const auto& point : selected->points) {
+    if (std::isfinite(point.x) && std::isfinite(point.y) &&
+        std::isfinite(point.z)) {
+      points.emplace_back(point.x, point.y, point.z);
+    }
   }
   return points;
 }
@@ -2631,6 +2658,7 @@ struct CTICPNDTHybridOptions {
 
 struct FixedMapNDTOptions {
   int map_stride = 1;
+  std::string map_ply_path;
   std::string seed_source = "gt";  // gt, velocity, ct_icp, scan_context
   double scan_context_distance_threshold = 0.18;
   int scan_context_top_k = 1;
@@ -3349,6 +3377,7 @@ void writeFixedMapNDTTraceJson(const std::string& path,
   std::ofstream out(path);
   out << "{\n";
   out << "  \"trace_version\": \"fixed_map_ndt_trace_v2\",\n";
+  out << "  \"map_ply\": \"" << jsonEscape(options.map_ply_path) << "\",\n";
   out << "  \"seed_source\": \"" << jsonEscape(options.seed_source) << "\",\n";
   out << "  \"map_stride\": " << std::max(1, options.map_stride) << ",\n";
   out << "  \"scan_context_distance_threshold\": ";
@@ -5348,14 +5377,25 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
   localization_zoo::scan_context::ScanContextManager scan_context(sc_params);
   std::vector<Eigen::Matrix4d> scan_context_poses;
   const int map_stride = std::max(1, fixed_map_options.map_stride);
+  if (!fixed_map_options.map_ply_path.empty()) {
+    map_points = loadPLYMap(fixed_map_options.map_ply_path,
+                            ndt_options.source_voxel_size);
+    if (map_points.empty()) {
+      throw std::runtime_error("Failed to load fixed-map PLY: " +
+                               fixed_map_options.map_ply_path);
+    }
+    map_points = limitPoints(map_points, ndt_options.map_max_points);
+  }
   for (size_t i = 0; i < pcd_dirs.size() && i < gt.size();
        i += static_cast<size_t>(map_stride)) {
     auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
                                          ndt_options.source_voxel_size),
                                  ndt_options.max_source_points);
     if (pts_local.empty()) continue;
-    addPointsToMap(map_points, pts_local, gt[i], ndt_options.map_max_points,
-                   0.0);
+    if (fixed_map_options.map_ply_path.empty()) {
+      addPointsToMap(map_points, pts_local, gt[i], ndt_options.map_max_points,
+                     0.0);
+    }
     if (fixed_map_options.seed_source == "scan_context") {
       scan_context.addScan(pts_local);
       scan_context_poses.push_back(gt[i]);
@@ -5597,10 +5637,15 @@ MethodResult runFixedMapNDT(const std::vector<std::string>& pcd_dirs,
       ct_icp_prior.time_ms;
 
   std::ostringstream note;
-  note << "Fixed-map NDT: target map built once from GT/reference poses"
-       << " (stride=" << map_stride
-       << ", map_points=" << map_points.size()
-       << "). Seed source=" << fixed_map_options.seed_source
+  note << "Fixed-map NDT: target map ";
+  if (fixed_map_options.map_ply_path.empty()) {
+    note << "built once from GT/reference poses (stride=" << map_stride
+         << ", map_points=" << map_points.size() << ")";
+  } else {
+    note << "loaded from PLY=" << fixed_map_options.map_ply_path
+         << " (map_points=" << map_points.size() << ")";
+  }
+  note << ". Seed source=" << fixed_map_options.seed_source
        << ", accepted=" << accepted << "/" << (accepted + rejected)
        << ", rejected=" << rejected
        << ", seed fallbacks=" << fallback_seed
@@ -10135,6 +10180,7 @@ int main(int argc, char** argv) {
               << " [--ndt-resolution X]"
               << " [--ndt-max-iterations N]"
               << " [--fixed-map-ndt-seed-source gt|velocity|ct_icp|scan_context]"
+              << " [--fixed-map-ndt-map-ply path]"
               << " [--fixed-map-ndt-map-stride N]"
               << " [--fixed-map-ndt-scan-context-threshold X]"
               << " [--fixed-map-ndt-scan-context-top-k N]"
@@ -12066,6 +12112,19 @@ int main(int argc, char** argv) {
     if (arg.rfind("--ndt-map-radius=", 0) == 0) {
       ndt_options.map_radius =
           std::stod(arg.substr(std::string("--ndt-map-radius=").size()));
+      continue;
+    }
+    if (arg == "--fixed-map-ndt-map-ply") {
+      if (i + 1 >= argc) {
+        std::cerr << "--fixed-map-ndt-map-ply requires a path" << std::endl;
+        return 1;
+      }
+      fixed_map_ndt_options.map_ply_path = argv[++i];
+      continue;
+    }
+    if (arg.rfind("--fixed-map-ndt-map-ply=", 0) == 0) {
+      fixed_map_ndt_options.map_ply_path =
+          arg.substr(std::string("--fixed-map-ndt-map-ply=").size());
       continue;
     }
     if (arg == "--fixed-map-ndt-seed-source") {
@@ -14827,6 +14886,10 @@ int main(int argc, char** argv) {
               << " max_iterations=" << ndt_options.max_iterations
               << " map_max_points=" << ndt_options.map_max_points
               << " map_stride=" << fixed_map_ndt_options.map_stride
+              << " map_ply="
+              << (fixed_map_ndt_options.map_ply_path.empty()
+                      ? "(sequence-built)"
+                      : fixed_map_ndt_options.map_ply_path)
               << " seed_source=" << fixed_map_ndt_options.seed_source
               << " publish_min_stable_frames="
               << fixed_map_ndt_options.publish_min_stable_frames

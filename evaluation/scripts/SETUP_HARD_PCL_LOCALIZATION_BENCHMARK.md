@@ -114,6 +114,17 @@ topics and IMU; it has no `/tf_static` topic.
   --gt-csv experiments/reference_data/hard_pcl_indoor_easy_01_gt.csv \
   --output-dir experiments/results/hard_pcl_localization/indoor_easy_01/full \
   --jobs 6
+
+# Provided-map localization (the explicit PLY option avoids rebuilding the map
+# from the evaluated sequence's GT poses):
+build/evaluation/pcd_dogfooding \
+  dogfooding_results/hard_pcl_localization/indoor_kidnap_01 \
+  experiments/reference_data/hard_pcl_indoor_kidnap_01_gt.csv 2154 \
+  --methods fixed_map_ndt \
+  --fixed-map-ndt-map-ply data/hard_pcl_localization/map_indoor_hard.ply \
+  --fixed-map-ndt-seed-source ct_icp \
+  --fixed-map-ndt-trace-json \
+    experiments/results/hard_pcl_localization/fixed_map_ndt/traces/indoor_kidnap_01_trace.json
 ```
 
 `extract_ros2_lidar_imu.py` writes the dogfooding layout
@@ -188,5 +199,6 @@ Run all 8 sequences through the benchmark harness:
 - [x] ROS2 PointCloud2 + IMU extraction path into dogfooding PCD layout
 - [x] TUM -> dogfooding GT CSV converter
 - [x] first odometry slice: indoor_easy_01 and indoor_hard_01 full trajectories, six unchanged configurations, GT-backed ATE/RPE
-- [ ] fixed-map false-lock slice (kidnap sequences)
-- [ ] remaining sequence downloads (indoor_easy_02, indoor_kidnap_01/02, outdoor parts)
+- [x] fixed-map false-lock slice: both indoor kidnap sequences, provided PLY, CT-ICP seed, GT-labeled trace/verifier/replay
+- [x] `lidar_degeneracy_triage_v4` GT calibration populated from easy/hard full results
+- [x] remaining sequence downloads (all Zenodo archives size + MD5 verified)

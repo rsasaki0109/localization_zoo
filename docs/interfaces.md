@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -108,8 +108,8 @@ The runner is responsible for:
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `experiments/ct_icp_hdl_400_reference_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_b_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/ct_icp_istanbul_window_c_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
-| CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window | `ready` | `experiments/ct_icp_kitti_raw_0009_200_recipes_matrix.json` | `ct_icp` | `balanced_reference` | `experiments/results/ct_icp_kitti_raw_0009_200_recipes_matrix.json` |
-| CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/ct_icp_kitti_raw_0009_full_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window | `ready` | `experiments/ct_icp_kitti_raw_0009_200_recipes_matrix.json` | `ct_icp` | `cluster_d_ms_chol` | `experiments/results/ct_icp_kitti_raw_0009_200_recipes_matrix.json` |
+| CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/ct_icp_kitti_raw_0009_full_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
 | CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames) | `ready` | `experiments/ct_icp_kitti_raw_0009_full_recipes_matrix.json` | `ct_icp` | `balanced_reference` | `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json` |
 | CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/ct_icp_kitti_raw_0009_matrix.json` | `ct_icp` | `fast_window` | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/ct_icp_kitti_raw_0009_nogt_matrix.json` | `ct_icp` | `balanced_window` | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
@@ -200,7 +200,7 @@ The runner is responsible for:
 | GICP throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/gicp_istanbul_window_c_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_istanbul_window_c_matrix.json` |
 | GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/gicp_kitti_raw_0009_full_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_kitti_raw_0009_full_matrix.json` |
 | GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/gicp_kitti_raw_0009_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_kitti_raw_0009_matrix.json` |
-| GICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/gicp_kitti_raw_0009_nogt_matrix.json` | `gicp` | `dense_recent_map` | `experiments/results/gicp_kitti_raw_0009_nogt_matrix.json` |
+| GICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/gicp_kitti_raw_0009_nogt_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_kitti_raw_0009_nogt_matrix.json` |
 | GICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/gicp_kitti_raw_0061_full_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_kitti_raw_0061_full_matrix.json` |
 | GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/gicp_kitti_raw_0061_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_kitti_raw_0061_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/gicp_mcd_kth_day_06_matrix.json` | `gicp` | `fast_recent_map` | `experiments/results/gicp_mcd_kth_day_06_matrix.json` |
@@ -289,9 +289,9 @@ The runner is responsible for:
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `experiments/litamin2_istanbul_window_c_matrix.json` | `litamin2` | `paper_icp_only_half_threads` | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames) | `ready` | `experiments/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames) | `ready` | `experiments/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json` |
-| LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/litamin2_kitti_raw_0009_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_raw_0009_full_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/litamin2_kitti_raw_0009_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
-| LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/litamin2_kitti_raw_0009_nogt_matrix.json` | `litamin2` | `paper_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
+| LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/litamin2_kitti_raw_0009_full_matrix.json` | `litamin2` | `fast_cov_half_threads` | `experiments/results/litamin2_kitti_raw_0009_full_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/litamin2_kitti_raw_0009_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
+| LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/litamin2_kitti_raw_0009_nogt_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames) | `ready` | `experiments/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames) | `ready` | `experiments/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json` | `litamin2` | `cluster_t1_seeded` | `experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/litamin2_kitti_raw_0061_full_matrix.json` | `litamin2` | `fast_icp_only_half_threads` | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
@@ -332,7 +332,7 @@ The runner is responsible for:
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `experiments/lvi_sam_kitti_raw_0061_matrix.json` | `lvi_sam` | `-` | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/mulls_hdl_400_reference_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/mulls_kitti_raw_0009_full_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
-| MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/mulls_kitti_raw_0009_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
+| MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `experiments/mulls_kitti_raw_0009_matrix.json` | `mulls` | `-` | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/mulls_kitti_raw_0009_nogt_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/mulls_kitti_raw_0061_full_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/mulls_kitti_raw_0061_matrix.json` | `mulls` | `fast` | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
@@ -441,7 +441,7 @@ The runner is responsible for:
 | SuMa on the public HDL-400 reference window | `ready` | `experiments/suma_hdl_400_reference_matrix.json` | `suma` | `default` | `experiments/results/suma_hdl_400_reference_matrix.json` |
 | SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/suma_kitti_raw_0009_full_matrix.json` | `suma` | `dense` | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
 | SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/suma_kitti_raw_0009_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_raw_0009_matrix.json` |
-| SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/suma_kitti_raw_0009_nogt_matrix.json` | `suma` | `default` | `experiments/results/suma_kitti_raw_0009_nogt_matrix.json` |
+| SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/suma_kitti_raw_0009_nogt_matrix.json` | `suma` | `dense` | `experiments/results/suma_kitti_raw_0009_nogt_matrix.json` |
 | SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/suma_kitti_raw_0061_full_matrix.json` | `suma` | `fast` | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
 | SuMa on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/suma_kitti_raw_0061_matrix.json` | `suma` | `dense` | `experiments/results/suma_kitti_raw_0061_matrix.json` |
 | SuMa on MCD KTH day-06 sequence | `ready` | `experiments/suma_mcd_kth_day_06_matrix.json` | `suma` | `fast` | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
@@ -450,7 +450,7 @@ The runner is responsible for:
 | VGICP-SLAM on the public HDL-400 reference window | `ready` | `experiments/vgicp_slam_hdl_400_reference_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_hdl_400_reference_matrix.json` |
 | VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/vgicp_slam_kitti_raw_0009_full_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json` |
 | VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/vgicp_slam_kitti_raw_0009_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_kitti_raw_0009_matrix.json` |
-| VGICP-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/vgicp_slam_kitti_raw_0009_nogt_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_kitti_raw_0009_nogt_matrix.json` |
+| VGICP-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/vgicp_slam_kitti_raw_0009_nogt_matrix.json` | `vgicp_slam` | `default` | `experiments/results/vgicp_slam_kitti_raw_0009_nogt_matrix.json` |
 | VGICP SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/vgicp_slam_kitti_raw_0061_full_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json` |
 | VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/vgicp_slam_kitti_raw_0061_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_kitti_raw_0061_matrix.json` |
 | VGICP SLAM on MCD KTH day-06 sequence | `ready` | `experiments/vgicp_slam_mcd_kth_day_06_matrix.json` | `vgicp_slam` | `fast` | `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json` |
@@ -463,7 +463,7 @@ The runner is responsible for:
 | Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/voxel_gicp_hdl_400_reference_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_hdl_400_reference_matrix.json` |
 | Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/voxel_gicp_kitti_raw_0009_full_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/voxel_gicp_kitti_raw_0009_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
-| Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/voxel_gicp_kitti_raw_0009_nogt_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json` |
+| Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/voxel_gicp_kitti_raw_0009_nogt_matrix.json` | `voxel_gicp` | `fast_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/voxel_gicp_kitti_raw_0061_full_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/voxel_gicp_kitti_raw_0061_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_kitti_raw_0061_matrix.json` |
 | Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames) | `ready` | `experiments/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json` | `voxel_gicp` | `dense_seeded_reference` | `experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json` |
@@ -477,8 +477,8 @@ The runner is responsible for:
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/voxel_gicp_mcd_tuhh_night_09_matrix.json` | `voxel_gicp` | `dense_recent_map` | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |
 | X-ICP on the public HDL-400 reference window | `ready` | `experiments/xicp_hdl_400_reference_matrix.json` | `xicp` | `dense` | `experiments/results/xicp_hdl_400_reference_matrix.json` |
 | X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/xicp_kitti_raw_0009_full_matrix.json` | `xicp` | `dense` | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |
-| X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/xicp_kitti_raw_0009_matrix.json` | `xicp` | `dense` | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
-| X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/xicp_kitti_raw_0009_nogt_matrix.json` | `xicp` | `fast` | `experiments/results/xicp_kitti_raw_0009_nogt_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/xicp_kitti_raw_0009_matrix.json` | `xicp` | `default` | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `experiments/xicp_kitti_raw_0009_nogt_matrix.json` | `xicp` | `default` | `experiments/results/xicp_kitti_raw_0009_nogt_matrix.json` |
 | X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `experiments/xicp_kitti_raw_0061_full_matrix.json` | `xicp` | `fast` | `experiments/results/xicp_kitti_raw_0061_full_matrix.json` |
 | X-ICP on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `experiments/xicp_kitti_raw_0061_matrix.json` | `xicp` | `fast` | `experiments/results/xicp_kitti_raw_0061_matrix.json` |
 | X-ICP on MCD KTH day-06 sequence | `ready` | `experiments/xicp_mcd_kth_day_06_matrix.json` | `xicp` | `fast` | `experiments/results/xicp_mcd_kth_day_06_matrix.json` |

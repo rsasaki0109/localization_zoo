@@ -593,22 +593,61 @@ negative rather than shipped as a knob that degrades every configuration.
 - KITTI **Odometry** trees have no IMU, so the method **skips** there (like
   OdoNet / NHC-Net / NN-ZUPT). KITTI **Raw** OXTS is now evaluated (see
   above) via `evaluation/scripts/kitti_oxts_imu_for_dogfooding.py`.
-- KITTI Raw drive 0009's downloaded sync package is missing Velodyne frames
-  177-180 (native indices) in the middle of the sequence while OXTS has no
-  such gap (447 contiguous OXTS samples vs. 443 retained Velodyne files).
-  Discovered while preparing this evaluation. Because
-  `kitti_raw_to_benchmark.py` indexes both point clouds and OXTS poses by
-  *position* in their respective (gap-compacted for Velodyne, gap-free for
-  OXTS) file lists rather than by native frame number, every exported frame
-  from position 177 onward pairs its GT pose with a point cloud captured ~4
-  native frames (~0.4 s) later than the OXTS sample says — a pre-existing
-  GT-to-point-cloud skew affecting the scan-matching entries of the whole
-  `kitti_raw_0009*` fixture family (dozens of methods), **not** something
-  this pass introduced. It does **not** affect IMU-DR/OdoNet/NHC-Net/NN-ZUPT:
-  their GT and `imu.csv` are both purely OXTS-native and positionally
-  consistent with each other regardless of the Velodyne gap. Fixing the
-  shared exporter is out of scope for this pass (would touch every existing
-  `kitti_raw_0009` leaderboard entry); flagged here for whoever picks it up.
+- **[Fixed 2026-07-16, was open above]** KITTI Raw drive 0009's downloaded
+  sync package is missing Velodyne frames 177-180 (native indices) in the
+  middle of the sequence while OXTS has no such gap (447 contiguous OXTS
+  samples vs. 443 retained Velodyne files). `kitti_raw_to_benchmark.py` used
+  to index both point clouds and OXTS poses by *position* in their
+  respective (gap-compacted for Velodyne, gap-free for OXTS) file lists
+  rather than by native frame number, so every exported frame from position
+  177 onward paired its GT pose with a point cloud captured ~4 native frames
+  (~0.4 s) later than the OXTS sample said. The exporter now parses the
+  native frame number from each `velodyne_points/data/NNNNNNNNNN.bin` /
+  `oxts/data/NNNNNNNNNN.txt` filename and joins strictly on that index;
+  native frames present in only one stream are dropped rather than
+  silently paired with the wrong neighbor. Re-running the exporter against a
+  freshly downloaded copy of the drive: the `kitti_raw_0009_200` window goes
+  from 200 to 196 exported frames (native 177-180 have no Velodyne scan, so
+  they're dropped instead of shifting later frames in) and
+  `kitti_raw_0009_full` keeps 443 frames but now covers native indices
+  `{0..176, 181..446}` instead of the old `{0..442}` — i.e. it also gains the
+  4 native frames at the very end of the drive (443-446) that the old
+  position-capped loop never reached. GT pose *values* for every native index
+  present in both old and new files are byte-identical (both were always
+  derived the same way from the gap-free OXTS stream); only which frames are
+  included, and which point cloud each is paired with, changed. Scan-matching
+  methods on `kitti_raw_0009*` were re-run against the corrected export where
+  time allowed (200-frame window: litamin2, kiss_icp, xicp, ndt, gicp,
+  small_gicp, voxel_gicp, vgicp_slam, suma, ct_icp, plus partial aloam/balm2;
+  full window: the same set minus aloam/balm2/mulls, which time out well
+  past a few minutes per variant even at 200 frames). ATE moved by a few
+  percent up or down per variant, consistent with 4 of ~196-443 frames
+  changing pairing — see `experiments/results/*_kitti_raw_0009*_matrix.json`
+  for current numbers; SLAM/mapping-heavy methods (dlio, dlo, fast_lio2,
+  fast_lio_slam, floam, hdl_graph_slam, isc_loam, lego_loam, lins, lio_sam,
+  loam_livox, mulls, point_lio) were **not** re-run in this pass (1-4+ min
+  per variant made the full ~80-manifest sweep impractical in one sitting)
+  and still reflect pre-fix numbers.
+  **Correction to the "IMU-DR is unaffected" claim above**: that turned out
+  to be only half right. GT pose *values* and `imu.csv`'s OXTS source rows
+  are indeed untouched by the fix (both are purely OXTS-native). But
+  `kitti_oxts_imu_for_dogfooding.py` derives one IMU sample per *consecutive
+  pair of exported frames*, and the fixed exporter's frame sequence now has
+  one 5-native-index gap (176 to 181) instead of four consecutive 1-index
+  steps, plus the full window's frame set shifted as described above — so
+  `imu.csv`'s row *count and timing* did change slightly. Re-running
+  `imu_dead_reckoning` on the fixed `kitti_raw_0009_200` export shows every
+  variant's ATE shifting by a few percent (e.g. `default_dr`: 9769.887 m ->
+  9195.203 m, -5.9%; `zupt`: 214.400 m -> 210.224 m, -1.9%; `no_gyro_bias`:
+  1235.339 m -> 1170.370 m, -5.3%; see
+  `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` for the
+  full set) — small, but real, so "self-consistent regardless of the
+  Velodyne gap" should be read as "GT and `imu.csv` are both OXTS-native and
+  internally consistent with *each other*", not "numerically identical to
+  the pre-fix export." OdoNet/NHC-Net/NN-ZUPT were not re-verified (no
+  committed `kitti_raw_0009` JSON exists for them to diff against; their
+  numbers in this README are prose-only, sourced from the same decommissioned
+  external-SSD run noted elsewhere in this file).
 - FPS numbers reported by the harness for this method are not meaningful
   next to point-cloud registration methods — there is no per-frame
   scan-matching cost, only IMU integration between frame timestamps.

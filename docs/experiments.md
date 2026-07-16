@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -8,8 +8,8 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 |---------|--------|-----------------|--------------|----------|-----------|
 | A-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.146 | 13.8 | `experiments/results/aloam_hdl_400_reference_matrix.json` |
 | A-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.105 | 5.8 | `experiments/results/aloam_kitti_raw_0009_full_matrix.json` |
-| A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 3.185 | 3.4 | `experiments/results/aloam_kitti_raw_0009_matrix.json` |
-| A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 3.185 | 4.8 | `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json` |
+| A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 3.470 | 3.1 | `experiments/results/aloam_kitti_raw_0009_matrix.json` |
+| A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 3.199 | 4.2 | `experiments/results/aloam_kitti_raw_0009_nogt_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 3.654 | 6.0 | `experiments/results/aloam_kitti_raw_0061_full_matrix.json` |
 | A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.459 | 6.0 | `experiments/results/aloam_kitti_raw_0061_matrix.json` |
 | A-LOAM transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `kitti_default` | 9.521 | 4.9 | `experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json` |
@@ -22,8 +22,8 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | A-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.336 | 6.5 | `experiments/results/aloam_mcd_tuhh_night_09_matrix.json` |
 | BALM2 on the public HDL-400 reference window | `ready` | `fast` | 0.476 | 9.0 | `experiments/results/balm2_hdl_400_reference_matrix.json` |
 | BALM2 on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 3.338 | 12.7 | `experiments/results/balm2_kitti_raw_0009_full_matrix.json` |
-| BALM2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.366 | 13.7 | `experiments/results/balm2_kitti_raw_0009_matrix.json` |
-| BALM2 on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.366 | 12.6 | `experiments/results/balm2_kitti_raw_0009_nogt_matrix.json` |
+| BALM2 on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.405 | 4.4 | `experiments/results/balm2_kitti_raw_0009_matrix.json` |
+| BALM2 on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.405 | 6.3 | `experiments/results/balm2_kitti_raw_0009_nogt_matrix.json` |
 | BALM2 on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 9.533 | 11.4 | `experiments/results/balm2_kitti_raw_0061_full_matrix.json` |
 | BALM2 on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 1.883 | 13.2 | `experiments/results/balm2_kitti_raw_0061_matrix.json` |
 | BALM2 on MCD KTH day-06 sequence | `ready` | `fast` | 6.184 | 13.4 | `experiments/results/balm2_mcd_kth_day_06_matrix.json` |
@@ -35,10 +35,10 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_window` | 1.251 | 54.9 | `experiments/results/ct_icp_hdl_400_reference_matrix.json` |
 | CT-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `balanced_window` | 6.820 | 3.1 | `experiments/results/ct_icp_istanbul_window_b_matrix.json` |
 | CT-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `balanced_window` | 7.539 | 2.8 | `experiments/results/ct_icp_istanbul_window_c_matrix.json` |
-| CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window | `ready` | `balanced_reference` | 1.659 | 40.9 | `experiments/results/ct_icp_kitti_raw_0009_200_recipes_matrix.json` |
-| CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `balanced_window` | 4.673 | 44.9 | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
-| CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames) | `ready` | `balanced_reference` | 4.673 | 39.3 | `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json` |
-| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_window` | 1.659 | 49.3 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0009 200-frame short window | `ready` | `cluster_d_ms_chol` | 2.579 | 7.2 | `experiments/results/ct_icp_kitti_raw_0009_200_recipes_matrix.json` |
+| CT-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_window` | 3.871 | 12.7 | `experiments/results/ct_icp_kitti_raw_0009_full_matrix.json` |
+| CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames) | `ready` | `balanced_reference` | 4.105 | 7.4 | `experiments/results/ct_icp_kitti_raw_0009_full_recipes_matrix.json` |
+| CT-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_window` | 2.579 | 16.9 | `experiments/results/ct_icp_kitti_raw_0009_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_window` | 1.659 | 71.4 | `experiments/results/ct_icp_kitti_raw_0009_nogt_matrix.json` |
 | CT-ICP cluster A/D bake-off on KITTI Raw 0061 200-frame short window | `ready` | `fast_reference` | 0.944 | 59.4 | `experiments/results/ct_icp_kitti_raw_0061_200_recipes_matrix.json` |
 | CT-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_window` | 6.972 | 37.6 | `experiments/results/ct_icp_kitti_raw_0061_full_matrix.json` |
@@ -125,9 +125,9 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.101 | 23.3 | `experiments/results/gicp_hdl_400_reference_matrix.json` |
 | GICP throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 1.166 | 5.7 | `experiments/results/gicp_istanbul_window_b_matrix.json` |
 | GICP throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 0.982 | 4.3 | `experiments/results/gicp_istanbul_window_c_matrix.json` |
-| GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 1.170 | 23.0 | `experiments/results/gicp_kitti_raw_0009_full_matrix.json` |
-| GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 1.177 | 25.8 | `experiments/results/gicp_kitti_raw_0009_matrix.json` |
-| GICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense_recent_map` | 1.510 | 32.0 | `experiments/results/gicp_kitti_raw_0009_nogt_matrix.json` |
+| GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 1.129 | 8.4 | `experiments/results/gicp_kitti_raw_0009_full_matrix.json` |
+| GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 1.151 | 11.8 | `experiments/results/gicp_kitti_raw_0009_matrix.json` |
+| GICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_recent_map` | 1.446 | 8.6 | `experiments/results/gicp_kitti_raw_0009_nogt_matrix.json` |
 | GICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 1.055 | 22.8 | `experiments/results/gicp_kitti_raw_0061_full_matrix.json` |
 | GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.781 | 25.7 | `experiments/results/gicp_kitti_raw_0061_matrix.json` |
 | GICP throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast_recent_map` | 0.630 | 24.7 | `experiments/results/gicp_mcd_kth_day_06_matrix.json` |
@@ -145,8 +145,8 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | HDL Graph SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 5.057 | 13.9 | `experiments/results/hdl_graph_slam_mcd_kth_day_06_matrix.json` |
 | HDL Graph SLAM on MCD NTU day-02 sequence | `ready` | `dense` | 0.180 | 21.9 | `experiments/results/hdl_graph_slam_mcd_ntu_day_02_matrix.json` |
 | HDL Graph SLAM on MCD TUHH night-09 sequence | `ready` | `dense` | 1.373 | 14.5 | `experiments/results/hdl_graph_slam_mcd_tuhh_night_09_matrix.json` |
-| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `nhc_zupt_kitti_0009_full` | 1063.760 | 3899236.0 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` |
-| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 205.442 | 3711952.5 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 full sequence (443 frames, OXTS) | `ready` | `nhc_zupt_kitti_0009_full` | 1067.301 | 2692976.4 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_full_matrix.json` |
+| IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS) | `ready` | `zupt_kitti_0009` | 201.185 | 1988293.4 | `experiments/results/imu_dead_reckoning_kitti_raw_0009_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames) | `ready` | `nhc_zupt_full` | 9605.455 | 1354057.2 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_full_matrix.json` |
 | IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 120-frame window | `ready` | `zupt` | 2.887 | 1525979.8 | `experiments/results/imu_dead_reckoning_nclt_2013_01_10_matrix.json` |
 | ISC-LOAM on the public HDL-400 reference window | `ready` | `fast` | 0.161 | 37.0 | `experiments/results/isc_loam_hdl_400_reference_matrix.json` |
@@ -162,9 +162,9 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and drift trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 1.281 | 11.3 | `experiments/results/kiss_icp_hdl_400_reference_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the second repository-stored Istanbul sequence | `ready` | `dense_local_map` | 143.921 | 3.6 | `experiments/results/kiss_icp_istanbul_window_b_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the third repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 131.691 | 3.7 | `experiments/results/kiss_icp_istanbul_window_c_matrix.json` |
-| KISS-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 5.383 | 21.9 | `experiments/results/kiss_icp_kitti_raw_0009_full_matrix.json` |
-| KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 2.412 | 24.4 | `experiments/results/kiss_icp_kitti_raw_0009_matrix.json` |
-| KISS-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_recent_map` | 2.412 | 28.2 | `experiments/results/kiss_icp_kitti_raw_0009_nogt_matrix.json` |
+| KISS-ICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 3.721 | 10.8 | `experiments/results/kiss_icp_kitti_raw_0009_full_matrix.json` |
+| KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 2.360 | 18.7 | `experiments/results/kiss_icp_kitti_raw_0009_matrix.json` |
+| KISS-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_recent_map` | 2.360 | 18.2 | `experiments/results/kiss_icp_kitti_raw_0009_nogt_matrix.json` |
 | KISS-ICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 4.343 | 11.2 | `experiments/results/kiss_icp_kitti_raw_0061_full_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.679 | 28.3 | `experiments/results/kiss_icp_kitti_raw_0061_matrix.json` |
 | KISS-ICP cluster discovery on KITTI Odom seq 00 full (4542 frames) | `ready` | `fast_profile` | 11.976 | 30.6 | `experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json` |
@@ -214,11 +214,11 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | LiTAMIN2 throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_cov_half_threads` | 0.111 | 80.7 | `experiments/results/litamin2_hdl_400_reference_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_icp_only_half_threads` | 1.222 | 20.9 | `experiments/results/litamin2_istanbul_window_b_matrix.json` |
 | LiTAMIN2 throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `paper_icp_only_half_threads` | 0.741 | 21.2 | `experiments/results/litamin2_istanbul_window_c_matrix.json` |
-| LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames) | `ready` | `cluster_t1_seeded` | 0.633 | 45.0 | `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json` |
-| LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames) | `ready` | `cluster_t1_seeded` | 0.666 | 46.3 | `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json` |
-| LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_icp_only_half_threads` | 1.145 | 48.8 | `experiments/results/litamin2_kitti_raw_0009_full_matrix.json` |
-| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_cov_half_threads` | 1.053 | 34.2 | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
-| LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `paper_cov_half_threads` | 122.275 | 87.3 | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0009 200 (200 frames) | `ready` | `cluster_t1_seeded` | 0.644 | 30.0 | `experiments/results/litamin2_kitti_raw_0009_200_cluster_t1_matrix.json` |
+| LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames) | `ready` | `cluster_t1_seeded` | 0.676 | 20.6 | `experiments/results/litamin2_kitti_raw_0009_full_cluster_t1_matrix.json` |
+| LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_cov_half_threads` | 1.064 | 19.5 | `experiments/results/litamin2_kitti_raw_0009_full_matrix.json` |
+| LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_icp_only_half_threads` | 1.067 | 31.7 | `experiments/results/litamin2_kitti_raw_0009_matrix.json` |
+| LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_icp_only_half_threads` | 6.290 | 30.5 | `experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames) | `ready` | `cluster_t1_seeded` | 0.511 | 48.1 | `experiments/results/litamin2_kitti_raw_0061_200_cluster_t1_matrix.json` |
 | LiTAMIN2 cluster T1 on KITTI Raw 0061 full (707 frames) | `ready` | `cluster_t1_seeded` | 0.600 | 61.4 | `experiments/results/litamin2_kitti_raw_0061_full_cluster_t1_matrix.json` |
 | LiTAMIN2 trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_icp_only_half_threads` | 0.944 | 58.1 | `experiments/results/litamin2_kitti_raw_0061_full_matrix.json` |
@@ -259,8 +259,8 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | LVI-SAM throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/lvi_sam_kitti_raw_0061_matrix.json` |
 | MULLS throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.874 | 9.3 | `experiments/results/mulls_hdl_400_reference_matrix.json` |
 | MULLS trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 4.610 | 3.3 | `experiments/results/mulls_kitti_raw_0009_full_matrix.json` |
-| MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.651 | 3.1 | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
-| MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.651 | 3.4 | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
+| MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `skipped` | `-` | - | - | `experiments/results/mulls_kitti_raw_0009_matrix.json` |
+| MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.695 | 1.2 | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 10.173 | 3.3 | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.425 | 3.3 | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
 | MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json` |
@@ -271,9 +271,9 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | NDT throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_coarse_map` | 0.034 | 32.2 | `experiments/results/ndt_hdl_400_reference_matrix.json` |
 | NDT throughput and accuracy trade-off on the second repository-stored Istanbul sequence | `ready` | `fast_coarse_map` | 0.007 | 2.1 | `experiments/results/ndt_istanbul_window_b_matrix.json` |
 | NDT throughput and accuracy trade-off on the third repository-stored Istanbul sequence | `ready` | `fast_coarse_map` | 0.005 | 1.9 | `experiments/results/ndt_istanbul_window_c_matrix.json` |
-| NDT trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_coarse_map` | 0.255 | 30.9 | `experiments/results/ndt_kitti_raw_0009_full_matrix.json` |
-| NDT throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_coarse_map` | 0.279 | 36.1 | `experiments/results/ndt_kitti_raw_0009_matrix.json` |
-| NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_coarse_map` | 121.733 | 25.0 | `experiments/results/ndt_kitti_raw_0009_nogt_matrix.json` |
+| NDT trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_coarse_map` | 0.238 | 14.1 | `experiments/results/ndt_kitti_raw_0009_full_matrix.json` |
+| NDT throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_coarse_map` | 0.284 | 20.4 | `experiments/results/ndt_kitti_raw_0009_matrix.json` |
+| NDT trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_coarse_map` | 93.576 | 14.3 | `experiments/results/ndt_kitti_raw_0009_nogt_matrix.json` |
 | NDT trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_coarse_map` | 0.247 | 23.8 | `experiments/results/ndt_kitti_raw_0061_full_matrix.json` |
 | NDT throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_coarse_map` | 0.319 | 41.2 | `experiments/results/ndt_kitti_raw_0061_matrix.json` |
 | NDT T1 transfer on KITTI Odom seq 00 full (4542 frames) | `ready` | `t1_transfer_r03_i12` | 0.023 | 37.5 | `experiments/results/ndt_kitti_seq_00_full_sweep_matrix.json` |
@@ -350,9 +350,9 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | R2LIVE throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `skipped` | `-` | - | - | `experiments/results/r2live_kitti_raw_0061_matrix.json` |
 | RKO-LIO gyro-bias feedback gain on the NCLT 2013-01-10 window | `ready` | `no_bias_feedback` | 0.141 | 8.1 | `experiments/results/rko_lio_nclt_2013_01_10_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast_recent_map` | 0.109 | 110.3 | `experiments/results/small_gicp_hdl_400_reference_matrix.json` |
-| Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.437 | 92.4 | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
-| Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 0.471 | 83.3 | `experiments/results/small_gicp_kitti_raw_0009_matrix.json` |
-| Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_local_map` | 1.624 | 76.3 | `experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json` |
+| Small-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast_recent_map` | 0.462 | 17.3 | `experiments/results/small_gicp_kitti_raw_0009_full_matrix.json` |
+| Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast_recent_map` | 0.473 | 23.7 | `experiments/results/small_gicp_kitti_raw_0009_matrix.json` |
+| Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `balanced_local_map` | 2.071 | 22.0 | `experiments/results/small_gicp_kitti_raw_0009_nogt_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast_recent_map` | 0.959 | 82.2 | `experiments/results/small_gicp_kitti_raw_0061_full_matrix.json` |
 | Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast_recent_map` | 0.639 | 78.1 | `experiments/results/small_gicp_kitti_raw_0061_matrix.json` |
 | Small-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames) | `ready` | `fast_seeded_reference` | 0.890 | 63.3 | `experiments/results/small_gicp_kitti_seq_00_full_no_seed_matrix.json` |
@@ -366,18 +366,18 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | Small-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast_recent_map` | 0.250 | 107.2 | `experiments/results/small_gicp_mcd_tuhh_night_09_matrix.json` |
 | small_gicp seed-gate tightening on the NCLT 2013-01-10 full 5105-frame trajectory | `ready` | `gate_0_5` | 0.348 | 11.8 | `experiments/results/small_gicp_nclt_2013_01_10_matrix.json` |
 | SuMa on the public HDL-400 reference window | `ready` | `default` | 0.183 | 168.4 | `experiments/results/suma_hdl_400_reference_matrix.json` |
-| SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 5.487 | 85.5 | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
-| SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.784 | 62.9 | `experiments/results/suma_kitti_raw_0009_matrix.json` |
-| SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `default` | 2.784 | 109.4 | `experiments/results/suma_kitti_raw_0009_nogt_matrix.json` |
+| SuMa on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 4.073 | 15.9 | `experiments/results/suma_kitti_raw_0009_full_matrix.json` |
+| SuMa on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 2.245 | 19.6 | `experiments/results/suma_kitti_raw_0009_matrix.json` |
+| SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense` | 2.245 | 21.0 | `experiments/results/suma_kitti_raw_0009_nogt_matrix.json` |
 | SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 15.381 | 110.9 | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
 | SuMa on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `dense` | 1.496 | 111.2 | `experiments/results/suma_kitti_raw_0061_matrix.json` |
 | SuMa on MCD KTH day-06 sequence | `ready` | `fast` | 6.064 | 150.2 | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
 | SuMa on MCD NTU day-02 sequence | `ready` | `dense` | 0.036 | 124.1 | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |
 | SuMa on MCD TUHH night-09 sequence | `ready` | `default` | 1.317 | 178.1 | `experiments/results/suma_mcd_tuhh_night_09_matrix.json` |
 | VGICP-SLAM on the public HDL-400 reference window | `ready` | `fast` | 0.145 | 16.8 | `experiments/results/vgicp_slam_hdl_400_reference_matrix.json` |
-| VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 3.948 | 22.2 | `experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json` |
-| VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 1.772 | 23.7 | `experiments/results/vgicp_slam_kitti_raw_0009_matrix.json` |
-| VGICP-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 1.772 | 19.1 | `experiments/results/vgicp_slam_kitti_raw_0009_nogt_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 2.252 | 8.4 | `experiments/results/vgicp_slam_kitti_raw_0009_full_matrix.json` |
+| VGICP SLAM on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 1.674 | 6.2 | `experiments/results/vgicp_slam_kitti_raw_0009_matrix.json` |
+| VGICP-SLAM on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `default` | 1.674 | 5.1 | `experiments/results/vgicp_slam_kitti_raw_0009_nogt_matrix.json` |
 | VGICP SLAM on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 5.230 | 22.8 | `experiments/results/vgicp_slam_kitti_raw_0061_full_matrix.json` |
 | VGICP SLAM on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.799 | 31.0 | `experiments/results/vgicp_slam_kitti_raw_0061_matrix.json` |
 | VGICP SLAM on MCD KTH day-06 sequence | `ready` | `fast` | 6.092 | 20.8 | `experiments/results/vgicp_slam_mcd_kth_day_06_matrix.json` |
@@ -388,9 +388,9 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | VINS-Fusion trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 97.611 | 236.7 | `experiments/results/vins_fusion_kitti_raw_0061_full_matrix.json` |
 | VINS-Fusion throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 27.811 | 255.5 | `experiments/results/vins_fusion_kitti_raw_0061_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `dense_recent_map` | 0.268 | 141.1 | `experiments/results/voxel_gicp_hdl_400_reference_matrix.json` |
-| Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense_recent_map` | 0.640 | 110.1 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
-| Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense_recent_map` | 0.670 | 93.9 | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
-| Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense_recent_map` | 27.610 | 82.1 | `experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json` |
+| Voxel-GICP trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense_recent_map` | 0.614 | 27.5 | `experiments/results/voxel_gicp_kitti_raw_0009_full_matrix.json` |
+| Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense_recent_map` | 0.644 | 23.3 | `experiments/results/voxel_gicp_kitti_raw_0009_matrix.json` |
+| Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast_recent_map` | 18.235 | 24.1 | `experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `dense_recent_map` | 0.917 | 75.4 | `experiments/results/voxel_gicp_kitti_raw_0061_full_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `dense_recent_map` | 0.741 | 73.7 | `experiments/results/voxel_gicp_kitti_raw_0061_matrix.json` |
 | Voxel-GICP no-seed robustness on KITTI Odom seq 00 full (4542 frames) | `ready` | `dense_seeded_reference` | 1.047 | 95.6 | `experiments/results/voxel_gicp_kitti_seq_00_full_no_seed_matrix.json` |
@@ -403,9 +403,9 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 | Voxel-GICP throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `dense_recent_map` | 0.121 | 117.2 | `experiments/results/voxel_gicp_mcd_ntu_day_02_matrix.json` |
 | Voxel-GICP throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `dense_recent_map` | 0.286 | 116.4 | `experiments/results/voxel_gicp_mcd_tuhh_night_09_matrix.json` |
 | X-ICP on the public HDL-400 reference window | `ready` | `dense` | 0.168 | 123.9 | `experiments/results/xicp_hdl_400_reference_matrix.json` |
-| X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 0.130 | 92.9 | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |
-| X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `dense` | 0.139 | 102.8 | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
-| X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 108.748 | 81.2 | `experiments/results/xicp_kitti_raw_0009_nogt_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `dense` | 0.129 | 18.1 | `experiments/results/xicp_kitti_raw_0009_full_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `default` | 0.140 | 27.5 | `experiments/results/xicp_kitti_raw_0009_matrix.json` |
+| X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `default` | 22.317 | 24.6 | `experiments/results/xicp_kitti_raw_0009_nogt_matrix.json` |
 | X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 0.128 | 104.6 | `experiments/results/xicp_kitti_raw_0061_full_matrix.json` |
 | X-ICP on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.098 | 102.0 | `experiments/results/xicp_kitti_raw_0061_matrix.json` |
 | X-ICP on MCD KTH day-06 sequence | `ready` | `fast` | 0.305 | 84.8 | `experiments/results/xicp_mcd_kth_day_06_matrix.json` |
@@ -546,15 +546,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 3.285 | 1.5 | 71.1 | 4.65 | 4.75 | Keep as reference variant |
-| Fast | throughput-oriented | 3.433 | 3.4 | 96.4 | 4.30 | 4.50 | Adopt as current default |
-| Dense | accuracy-oriented | 3.185 | 1.7 | 75.0 | 4.30 | 4.50 | Keep as reference variant |
+| KITTI default | balanced | - | - | 0.0 | 4.65 | 4.75 | Rejected for this run |
+| Fast | throughput-oriented | 3.470 | 3.1 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | - | - | 0.0 | 4.30 | 4.50 | Rejected for this run |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 3.4 FPS.
-3. `dense` is the most accurate observed variant at 3.185 m ATE.
+2. `fast` is the fastest observed variant at 3.1 FPS.
+3. `fast` is the most accurate observed variant at 3.470 m ATE.
 
 ### Variant Notes
 
@@ -567,7 +567,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/aloam_kitti_raw_0009_matrix/kitti_default/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+- Method note: Timed out after 120 seconds.
 
 #### `fast`
 
@@ -589,7 +589,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/aloam_kitti_raw_0009_matrix/dense/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Odometry+mapping pipeline (no GT seed). KITTI assumes n_scans=64.
+- Method note: Timed out after 120 seconds.
 
 
 ## A-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
@@ -606,15 +606,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 3.285 | 2.0 | 68.9 | 4.30 | 4.50 | Keep as reference variant |
-| Fast | throughput-oriented | 3.433 | 4.8 | 96.4 | 3.95 | 4.25 | Adopt as current default |
-| Dense | accuracy-oriented | 3.185 | 2.3 | 74.0 | 3.95 | 4.25 | Keep as reference variant |
+| KITTI default | balanced | 3.290 | 1.6 | 68.5 | 4.30 | 4.50 | Keep as reference variant |
+| Fast | throughput-oriented | 3.470 | 4.2 | 96.1 | 3.95 | 4.25 | Adopt as current default |
+| Dense | accuracy-oriented | 3.199 | 2.0 | 73.8 | 3.95 | 4.25 | Keep as reference variant |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 4.8 FPS.
-3. `dense` is the most accurate observed variant at 3.185 m ATE.
+2. `fast` is the fastest observed variant at 4.2 FPS.
+3. `dense` is the most accurate observed variant at 3.199 m ATE.
 
 ### Variant Notes
 
@@ -1338,15 +1338,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 3.419 | 1.7 | 41.0 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 2.366 | 13.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 3.608 | 0.6 | 34.9 | 4.65 | 4.75 | Keep as reference variant |
+| Default | balanced | - | - | 0.0 | 5.00 | 5.00 | Rejected for this run |
+| Fast | throughput-oriented | 2.405 | 4.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | - | - | 0.0 | 4.65 | 4.75 | Rejected for this run |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 13.7 FPS.
-3. `fast` is the most accurate observed variant at 2.366 m ATE.
+2. `fast` is the fastest observed variant at 4.4 FPS.
+3. `fast` is the most accurate observed variant at 2.405 m ATE.
 
 ### Variant Notes
 
@@ -1359,7 +1359,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/balm2_kitti_raw_0009_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+- Method note: Timed out after 120 seconds.
 
 #### `fast`
 
@@ -1381,7 +1381,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/balm2_kitti_raw_0009_matrix/dense/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+- Method note: Timed out after 120 seconds.
 
 
 ## BALM2 on KITTI Raw drive 0009 (200 frames, no GT seed)
@@ -1398,15 +1398,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 3.419 | 1.7 | 41.5 | 4.65 | 4.75 | Keep as reference variant |
-| Fast | throughput-oriented | 2.366 | 12.6 | 100.0 | 4.30 | 4.50 | Adopt as current default |
-| Dense | accuracy-oriented | 3.608 | 0.7 | 35.5 | 4.30 | 4.50 | Keep as reference variant |
+| Default | balanced | - | - | 0.0 | 4.65 | 4.75 | Rejected for this run |
+| Fast | throughput-oriented | 2.405 | 6.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | - | - | 0.0 | 4.30 | 4.50 | Rejected for this run |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 12.6 FPS.
-3. `fast` is the most accurate observed variant at 2.366 m ATE.
+2. `fast` is the fastest observed variant at 6.3 FPS.
+3. `fast` is the most accurate observed variant at 2.405 m ATE.
 
 ### Variant Notes
 
@@ -1419,7 +1419,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/default/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+- Method note: Timed out after 120 seconds.
 
 #### `fast`
 
@@ -1441,7 +1441,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/balm2_kitti_raw_0009_nogt_matrix/dense/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Bundle adjustment for lidar mapping (no GT seed; anchor matches first GT pose).
+- Method note: Timed out after 120 seconds.
 
 
 ## BALM2 on KITTI Raw drive 0061 full sequence (703 frames, residential)
@@ -2118,15 +2118,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| balanced_window (current best 1.66 m) | reference | 1.659 | 40.9 | 100.0 | 5.00 | 5.00 | Adopt as current default |
-| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 2.493 | 17.9 | 55.2 | 1.00 | 2.10 | Keep as reference variant |
-| cluster D (ms_chol) | short-traj-recipe | 2.296 | 24.6 | 66.2 | 3.95 | 4.25 | Keep as reference variant |
+| balanced_window (current best 1.66 m) | reference | 2.579 | 7.2 | 99.8 | 5.00 | 5.00 | Keep as active challenger |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 2.701 | 6.7 | 94.5 | 1.00 | 2.10 | Keep as active challenger |
+| cluster D (ms_chol) | short-traj-recipe | 2.579 | 7.2 | 100.0 | 3.95 | 4.25 | Adopt as current default |
 
 ### Observations
 
-1. `balanced_reference` is the current default for this problem.
-2. `balanced_reference` is the fastest observed variant at 40.9 FPS.
-3. `balanced_reference` is the most accurate observed variant at 1.659 m ATE.
+1. `cluster_d_ms_chol` is the current default for this problem.
+2. `cluster_d_ms_chol` is the fastest observed variant at 7.2 FPS.
+3. `balanced_reference` is the most accurate observed variant at 2.579 m ATE.
 
 ### Variant Notes
 
@@ -2178,15 +2178,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 4.673 | 40.6 | 95.2 | 5.00 | 5.00 | Adopt as current default |
-| Fast window | throughput-oriented | 5.853 | 44.9 | 89.9 | 4.65 | 4.75 | Keep as active challenger |
-| Dense window | drift-oriented | 5.658 | 17.4 | 60.7 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 4.105 | 7.3 | 76.1 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 3.871 | 12.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 4.105 | 8.7 | 81.5 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `balanced_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 44.9 FPS.
-3. `balanced_window` is the most accurate observed variant at 4.673 m ATE.
+1. `fast_window` is the current default for this problem.
+2. `fast_window` is the fastest observed variant at 12.7 FPS.
+3. `fast_window` is the most accurate observed variant at 3.871 m ATE.
 
 ### Variant Notes
 
@@ -2199,7 +2199,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_matrix/balanced_window/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: No extra method note.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 #### `fast_window`
 
@@ -2210,7 +2210,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_matrix/fast_window/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 #### `dense_window`
 
@@ -2221,7 +2221,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_raw_0009_full_matrix/dense_window/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
 ## CT-ICP cluster A/D bake-off on KITTI Raw 0009 full (447 frames)
@@ -2238,15 +2238,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| balanced_window (current best 4.67 m) | reference | 4.673 | 39.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
-| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 5.479 | 18.5 | 66.2 | 1.00 | 2.10 | Keep as reference variant |
-| cluster D (ms_chol) | short-traj-recipe | 5.312 | 25.1 | 76.0 | 3.95 | 4.25 | Keep as reference variant |
+| balanced_window (current best 4.67 m) | reference | 4.105 | 7.4 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+| cluster A (map=50 + c2f σ×2) | long-traj-recipe | 4.276 | 5.6 | 85.7 | 1.00 | 2.10 | Keep as reference variant |
+| cluster D (ms_chol) | short-traj-recipe | 4.105 | 6.4 | 93.3 | 3.95 | 4.25 | Keep as active challenger |
 
 ### Observations
 
 1. `balanced_reference` is the current default for this problem.
-2. `balanced_reference` is the fastest observed variant at 39.3 FPS.
-3. `balanced_reference` is the most accurate observed variant at 4.673 m ATE.
+2. `balanced_reference` is the fastest observed variant at 7.4 FPS.
+3. `balanced_reference` is the most accurate observed variant at 4.105 m ATE.
 
 ### Variant Notes
 
@@ -2298,15 +2298,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced window | balanced | 1.659 | 29.6 | 80.1 | 5.00 | 5.00 | Keep as active challenger |
-| Fast window | throughput-oriented | 2.728 | 49.3 | 80.4 | 4.65 | 4.75 | Adopt as current default |
-| Dense window | drift-oriented | 2.653 | 18.3 | 49.9 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced window | balanced | 2.579 | 8.3 | 74.6 | 5.00 | 5.00 | Keep as reference variant |
+| Fast window | throughput-oriented | 2.692 | 16.9 | 97.9 | 4.65 | 4.75 | Adopt as current default |
+| Dense window | drift-oriented | 2.579 | 10.5 | 81.0 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_window` is the current default for this problem.
-2. `fast_window` is the fastest observed variant at 49.3 FPS.
-3. `balanced_window` is the most accurate observed variant at 1.659 m ATE.
+2. `fast_window` is the fastest observed variant at 16.9 FPS.
+3. `balanced_window` is the most accurate observed variant at 2.579 m ATE.
 
 ### Variant Notes
 
@@ -2319,7 +2319,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_raw_0009_matrix/balanced_window/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: No extra method note.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 #### `fast_window`
 
@@ -2330,7 +2330,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_raw_0009_matrix/fast_window/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 #### `dense_window`
 
@@ -2341,7 +2341,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_raw_0009_matrix/dense_window/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: No extra method note.
+- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
 ## CT-ICP trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
@@ -7468,15 +7468,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 1.378 | 12.5 | 69.7 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 1.170 | 23.0 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense recent map | accuracy-oriented | 1.261 | 7.6 | 62.9 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced local map | balanced | 1.304 | 5.9 | 78.6 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 1.129 | 8.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 1.358 | 3.8 | 64.1 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 23.0 FPS.
-3. `fast_recent_map` is the most accurate observed variant at 1.170 m ATE.
+2. `fast_recent_map` is the fastest observed variant at 8.4 FPS.
+3. `fast_recent_map` is the most accurate observed variant at 1.129 m ATE.
 
 ### Variant Notes
 
@@ -7528,15 +7528,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 1.455 | 14.1 | 67.6 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 1.177 | 25.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense recent map | accuracy-oriented | 1.358 | 7.6 | 58.1 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced local map | balanced | 1.456 | 8.2 | 74.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 1.151 | 11.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 1.445 | 4.7 | 60.0 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 25.8 FPS.
-3. `fast_recent_map` is the most accurate observed variant at 1.177 m ATE.
+2. `fast_recent_map` is the fastest observed variant at 11.8 FPS.
+3. `fast_recent_map` is the most accurate observed variant at 1.151 m ATE.
 
 ### Variant Notes
 
@@ -7588,15 +7588,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 2.206 | 16.3 | 59.7 | 4.65 | 4.75 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 14.057 | 32.0 | 55.4 | 4.30 | 4.50 | Keep as reference variant |
-| Dense recent map | accuracy-oriented | 1.510 | 10.9 | 67.1 | 4.30 | 4.50 | Adopt as current default |
+| Balanced local map | balanced | 2.231 | 6.1 | 67.7 | 4.65 | 4.75 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 2.068 | 8.6 | 85.0 | 4.30 | 4.50 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 1.446 | 5.0 | 78.9 | 4.30 | 4.50 | Keep as active challenger |
 
 ### Observations
 
-1. `dense_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 32.0 FPS.
-3. `dense_recent_map` is the most accurate observed variant at 1.510 m ATE.
+1. `fast_recent_map` is the current default for this problem.
+2. `fast_recent_map` is the fastest observed variant at 8.6 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 1.446 m ATE.
 
 ### Variant Notes
 
@@ -7609,7 +7609,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/gicp_kitti_raw_0009_nogt_matrix/balanced_local_map/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `fast_recent_map`
 
@@ -7620,7 +7620,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/gicp_kitti_raw_0009_nogt_matrix/fast_recent_map/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `dense_recent_map`
 
@@ -7631,7 +7631,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/gicp_kitti_raw_0009_nogt_matrix/dense_recent_map/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## GICP trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
@@ -8571,7 +8571,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - **Problem ID**: `imu_dead_reckoning_aiding_ablation_kitti_raw_0009_full`
 - **Question**: How does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift for a pure strapdown IMU-only dead-reckoning baseline over the full 443-frame (~44.2 s, 332.4 m) KITTI Raw drive 0009 sequence, vs. the 200-frame window? Same OXTS-derived imu.csv caveats as the 200-frame window (effective ~9.7 Hz rate, synthetic index-unit timeline) apply here too.
 - **Status**: `ready`
-- **Dataset PCD directory**: `/media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_full`
 - **Reference CSV**: `experiments/reference_data/kitti_raw_0009_full_gt.csv`
 - **Stable binary**: `build/evaluation/pcd_dogfooding`
 - **Shared method selector**: `imu_dead_reckoning`
@@ -8580,20 +8580,20 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, full 443-frame sequence | balanced | 91821.017 | 3728579.6 | 48.4 | 5.00 | 5.00 | Keep as reference variant |
-| + ZUPT -- KITTI Raw 0009, full sequence | ablation | 5958.011 | 3489452.9 | 53.7 | 4.65 | 4.75 | Keep as reference variant |
-| Forward Euler (vs default midpoint) -- KITTI Raw 0009, full sequence | ablation | 92462.565 | 3301141.6 | 42.9 | 4.65 | 4.75 | Keep as reference variant |
-| RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, full sequence | ablation | 91824.522 | 1115647.0 | 14.9 | 4.65 | 4.75 | Keep as reference variant |
-| No static-init gyro-bias estimation -- KITTI Raw 0009, full sequence | ablation | 11794.635 | 3899236.0 | 54.5 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC -- KITTI Raw 0009, full sequence | ablation | 31967.399 | 3231996.0 | 43.1 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC + ZUPT -- KITTI Raw 0009, full sequence | ablation | 1063.760 | 3177084.8 | 90.7 | 4.30 | 4.50 | Adopt as current default |
-| + static-init accel-bias estimation -- KITTI Raw 0009, full sequence | ablation | 90422.524 | 2721029.9 | 35.5 | 4.65 | 4.75 | Keep as reference variant |
+| Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, full 443-frame sequence | balanced | 91851.969 | 376448.4 | 7.6 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT -- KITTI Raw 0009, full sequence | ablation | 5994.497 | 2617012.4 | 57.5 | 4.65 | 4.75 | Keep as reference variant |
+| Forward Euler (vs default midpoint) -- KITTI Raw 0009, full sequence | ablation | 92489.724 | 2692976.4 | 50.6 | 4.65 | 4.75 | Keep as reference variant |
+| RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, full sequence | ablation | 91855.575 | 55899.7 | 1.6 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation -- KITTI Raw 0009, full sequence | ablation | 11184.985 | 1740955.3 | 37.1 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC -- KITTI Raw 0009, full sequence | ablation | 31926.115 | 1503157.3 | 29.6 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC + ZUPT -- KITTI Raw 0009, full sequence | ablation | 1067.301 | 1567725.4 | 79.1 | 4.30 | 4.50 | Adopt as current default |
+| + static-init accel-bias estimation -- KITTI Raw 0009, full sequence | ablation | 90451.005 | 2584793.5 | 48.6 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `nhc_zupt_kitti_0009_full` is the current default for this problem.
-2. `no_gyro_bias_kitti_0009_full` is the fastest observed variant at 3899236.0 FPS.
-3. `nhc_zupt_kitti_0009_full` is the most accurate observed variant at 1063.760 m ATE.
+2. `euler_kitti_0009_full` is the fastest observed variant at 2692976.4 FPS.
+3. `nhc_zupt_kitti_0009_full` is the most accurate observed variant at 1067.301 m ATE.
 
 ### Variant Notes
 
@@ -8601,89 +8601,89 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 - Intent: Repository default over the full 443-frame (~44.2 s, 332.4 m) sequence: 2.0 s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 91821.017 m / RPE 51751.724%/100m (zupt_frames=0), roughly 276x the trajectory length. Same two dataset-specific factors as the 200-frame window apply: the vehicle is moving (~10.7 m/s) at frame 0, not stationary, and the imu.csv synthetic index-unit timeline makes the strapdown integrator use a clamped dt=0.5 s/step vs. the real ~0.103 s inter-frame interval (harness-reported frame gap: min=median=mean=max=1.000 s, before the pipeline's own max_dt=0.5 s clamp). Over ~44 s this compounds to a much larger absolute ATE than the 200-frame window's 9769.887 m, as expected.
 - CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/summary.json`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/summary.json`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/default_dr_kitti_0009_full/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `zupt_kitti_0009_full`
 
 - Intent: Enable zero-velocity updates. ATE 91821.017 -> 5958.011 m (-93.51%), RPE 51751.724 -> 4510.478%/100m (-91.28%). zupt_frames=344/442 IMU samples (~77.8%) gated stationary, vs. an actual measured stationary fraction (OXTS ground speed < 0.5 m/s) of only ~9.7% (43/443, concentrated near the end of the drive where the vehicle slows for what looks like an intersection). So roughly 8 out of every 9 ZUPT triggers are false positives on cruising, not real stops -- consistent with the 200-frame window's more extreme finding (0% actual stationary there) -- yet ZUPT remains the single most effective aid at both window sizes, again by bounding velocity-error growth via frequent resets rather than by correctly detecting rest.
 - CLI args: `--imu-dr-zupt`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/zupt_kitti_0009_full/summary.json --imu-dr-zupt`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/zupt_kitti_0009_full/summary.json --imu-dr-zupt`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/zupt_kitti_0009_full/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/zupt_kitti_0009_full/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 zupt_frames=344; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=1 lvl=0 zaru=0 nhc=0 zupt_frames=344; no GT seed.
 
 #### `euler_kitti_0009_full`
 
 - Intent: Swap midpoint integration for forward Euler, all else default. ATE 91821.017 -> 92462.565 m (+0.70%), RPE 51751.724 -> 52137.410%/100m (+0.74%). Same conclusion as the 200-frame window and both NCLT windows: integration scheme is a small second-order effect next to ZUPT/gyro-bias at any window size tested so far, on either dataset.
 - CLI args: `--imu-dr-euler`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/euler_kitti_0009_full/summary.json --imu-dr-euler`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/euler_kitti_0009_full/summary.json --imu-dr-euler`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/euler_kitti_0009_full/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/euler_kitti_0009_full/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=0 rk4=0 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `rk4_kitti_0009_full`
 
 - Intent: Classical RK4 on the attitude ODE with re-orthonormalization each step, over the full 443-frame sequence. Higher-order integration-scheme ablation alongside forward Euler.
 - CLI args: `--imu-dr-rk4`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/summary.json --imu-dr-rk4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/summary.json --imu-dr-rk4`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/rk4_kitti_0009_full/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 rk4=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=1 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `no_gyro_bias_kitti_0009_full`
 
 - Intent: Disable the 2.0 s static-init gyro-bias estimate, all else default. ATE 91821.017 -> 11794.635 m (-87.15%), RPE 51751.724 -> 6491.912%/100m (-87.46%) -- again an IMPROVEMENT, confirming the 200-frame window's finding (there: -87.36%/-86.49%) rather than an aggregation artifact of the shorter window. This is the opposite ordering from both NCLT windows (where disabling gyro-bias estimation was the largest degradation, +133%/+107% on the NCLT full session). Same honest explanation as the 200-frame window: on this dataset the ~3-sample (~0.3 s real-time) static-init window is taken while the vehicle is already moving at ~10.7 m/s, so the 'bias' it estimates is contaminated by real angular rate rather than sensor bias, making the correction actively harmful; the built-in static-init gate (which only checks gyro std against a 0.05 rad/s gate) does not catch this because the vehicle's yaw rate -- not its forward velocity -- happened to be low during this segment.
 - CLI args: `--imu-dr-no-gyro-bias`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/no_gyro_bias_kitti_0009_full/summary.json --imu-dr-no-gyro-bias`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/no_gyro_bias_kitti_0009_full/summary.json --imu-dr-no-gyro-bias`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/no_gyro_bias_kitti_0009_full/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/no_gyro_bias_kitti_0009_full/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `nhc_kitti_0009_full`
 
 - Intent: Enable hard NHC over the full 443-frame KITTI Raw 0009 sequence.
 - CLI args: `--imu-dr-nhc`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_kitti_0009_full/summary.json --imu-dr-nhc`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_kitti_0009_full/summary.json --imu-dr-nhc`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_kitti_0009_full/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_kitti_0009_full/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 nhc=1 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=0 lvl=0 zaru=0 nhc=1 zupt_frames=0; no GT seed.
 
 #### `nhc_zupt_kitti_0009_full`
 
 - Intent: Combine NHC with ZUPT over the full KITTI Raw 0009 sequence.
 - CLI args: `--imu-dr-nhc --imu-dr-zupt`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_zupt_kitti_0009_full/summary.json --imu-dr-nhc --imu-dr-zupt`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_zupt_kitti_0009_full/summary.json --imu-dr-nhc --imu-dr-zupt`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_zupt_kitti_0009_full/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/nhc_zupt_kitti_0009_full/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 nhc=1 zupt_frames=344; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=1 lvl=0 zaru=0 nhc=1 zupt_frames=344; no GT seed.
 
 #### `accel_bias_kitti_0009_full`
 
 - Intent: Estimate accelerometer bias from the static-init window on the full KITTI Raw 0009 sequence.
 - CLI args: `--imu-dr-accel-bias`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/accel_bias_kitti_0009_full/summary.json --imu-dr-accel-bias`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_full experiments/reference_data/kitti_raw_0009_full_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/accel_bias_kitti_0009_full/summary.json --imu-dr-accel-bias`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/accel_bias_kitti_0009_full/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_full_matrix/accel_bias_kitti_0009_full/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 
 ## IMU-DR (pure strapdown INS) aiding ablation on KITTI Raw drive 2011_09_26_0009 (200-frame window, OXTS)
@@ -8691,7 +8691,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - **Problem ID**: `imu_dead_reckoning_aiding_ablation_kitti_raw_0009`
 - **Question**: How does each cheap aid (ZUPT, midpoint vs Euler integration, static-init gyro-bias estimation) change drift for a pure strapdown IMU-only dead-reckoning baseline on the first 200 frames (~19.9 s) of KITTI Raw drive 0009, using the OXTS-derived imu.csv from evaluation/scripts/kitti_oxts_imu_for_dogfooding.py? Unlike NCLT, KITTI Raw sync OXTS is effectively ~9.7 Hz (one packet per LiDAR frame) and the exporter's imu.csv stamps live on the same synthetic per-frame-index timeline as frame_timestamps.csv (not real seconds) -- both are honest caveats documented below, not tuned around.
 - **Status**: `ready`
-- **Dataset PCD directory**: `/media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200`
+- **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
 - **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
 - **Stable binary**: `build/evaluation/pcd_dogfooding`
 - **Shared method selector**: `imu_dead_reckoning`
@@ -8700,20 +8700,20 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, 200-frame window | balanced | 9769.887 | 3138633.4 | 43.3 | 5.00 | 5.00 | Keep as reference variant |
-| + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 214.400 | 3056234.7 | 89.1 | 4.65 | 4.75 | Adopt as current default |
-| Forward Euler (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9930.599 | 3234728.0 | 44.6 | 4.65 | 4.75 | Keep as reference variant |
-| RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9769.961 | 1030216.2 | 14.9 | 4.65 | 4.75 | Keep as reference variant |
-| No static-init gyro-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 1235.339 | 2873480.6 | 47.0 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC -- KITTI Raw 0009, 200-frame window | ablation | 7887.422 | 2860534.6 | 39.8 | 4.65 | 4.75 | Keep as reference variant |
-| + NHC + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 205.442 | 2592319.0 | 84.9 | 4.30 | 4.50 | Keep as active challenger |
-| + static-init accel-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 9626.068 | 3711952.5 | 51.1 | 4.65 | 4.75 | Keep as reference variant |
+| Default (pure strapdown DR, midpoint, no ZUPT) -- KITTI Raw 0009, 200-frame window | balanced | 9195.203 | 25723.2 | 1.7 | 5.00 | 5.00 | Keep as reference variant |
+| + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 210.224 | 1342750.9 | 81.6 | 4.65 | 4.75 | Adopt as current default |
+| Forward Euler (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9349.895 | 1687110.0 | 43.5 | 4.65 | 4.75 | Keep as reference variant |
+| RK4 attitude integration (vs default midpoint) -- KITTI Raw 0009, 200-frame window | ablation | 9195.273 | 524466.6 | 14.3 | 4.65 | 4.75 | Keep as reference variant |
+| No static-init gyro-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 1170.370 | 1988293.4 | 58.6 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC -- KITTI Raw 0009, 200-frame window | ablation | 7468.054 | 1154591.6 | 30.4 | 4.65 | 4.75 | Keep as reference variant |
+| + NHC + ZUPT -- KITTI Raw 0009, 200-frame window | ablation | 201.185 | 1035661.6 | 76.0 | 4.30 | 4.50 | Keep as active challenger |
+| + static-init accel-bias estimation -- KITTI Raw 0009, 200-frame window | ablation | 9059.896 | 1068993.7 | 28.0 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `zupt_kitti_0009` is the current default for this problem.
-2. `accel_bias_kitti_0009` is the fastest observed variant at 3711952.5 FPS.
-3. `nhc_zupt_kitti_0009` is the most accurate observed variant at 205.442 m ATE.
+2. `no_gyro_bias_kitti_0009` is the fastest observed variant at 1988293.4 FPS.
+3. `nhc_zupt_kitti_0009` is the most accurate observed variant at 201.185 m ATE.
 
 ### Variant Notes
 
@@ -8721,89 +8721,89 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 - Intent: Repository default on the first 200 frames (~19.9 s, 186.97 m trajectory) of KITTI Raw drive 0009: 2.0 s static-init gyro-bias estimation, midpoint integration, ZUPT off. ATE 9769.887 m / RPE 7580.498%/100m (zupt_frames=0), roughly 52x the trajectory length. Two dataset-specific factors make this worse than a naive unaided-DR expectation: (1) the vehicle is already cruising at ~10.7 m/s at frame 0 (min speed over this window: 1.339 m/s, i.e. **never** stationary), so the 2.0 s static-init window is not static; (2) the exporter's imu.csv stamps are spaced 1.0 index-unit apart (harness-reported frame gap: min=median=mean=max=1.000 s), so the strapdown integrator's dt is clamped to max_dt=0.5 s per step vs. the real ~0.103 s inter-frame interval (~4.8x too large per step) -- a structural property of this KITTI-Raw-to-dogfooding fixture (shared by every imu.csv-consuming method here), not something tuned for this run.
 - CLI args: `(default flags only)`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/default_dr_kitti_0009/summary.json`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/default_dr_kitti_0009/summary.json`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/default_dr_kitti_0009/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/default_dr_kitti_0009/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `zupt_kitti_0009`
 
 - Intent: Enable zero-velocity updates. ATE 9769.887 -> 214.400 m (-97.81%), RPE 7580.498 -> 172.926%/100m (-97.72%). zupt_frames=174/199 IMU samples (~87.4%) gated stationary -- yet OXTS ground speed **never drops below 1.339 m/s** anywhere in this 200-frame window (verified from oxts vf/vl), so essentially all of these ZUPT triggers are false positives on low-yaw-rate, roughly-constant-velocity cruising, not real stops. The gyro/accel-norm gate cannot distinguish 'stationary' from 'cruising straight at near-constant speed' -- a sharper version of the NCLT full-session caveat (there, ZUPT still corresponded to some genuine low-speed fraction; here it corresponds to essentially none) -- yet it still removes ~98% of the drift by repeatedly re-zeroing velocity error before it compounds through position.
 - CLI args: `--imu-dr-zupt`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/zupt_kitti_0009/summary.json --imu-dr-zupt`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/zupt_kitti_0009/summary.json --imu-dr-zupt`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/zupt_kitti_0009/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/zupt_kitti_0009/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 zupt_frames=174; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=1 lvl=0 zaru=0 nhc=0 zupt_frames=170; no GT seed.
 
 #### `euler_kitti_0009`
 
 - Intent: Swap midpoint integration for forward Euler, all else default. ATE 9769.887 -> 9930.599 m (+1.64%), RPE 7580.498 -> 7725.910%/100m (+1.92%). Consistent with NCLT: integration scheme is a small second-order effect next to ZUPT/gyro-bias, even under this dataset's much larger dt/static-init mismatches.
 - CLI args: `--imu-dr-euler`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/euler_kitti_0009/summary.json --imu-dr-euler`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/euler_kitti_0009/summary.json --imu-dr-euler`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/euler_kitti_0009/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/euler_kitti_0009/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=0 zupt=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=0 rk4=0 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `rk4_kitti_0009`
 
 - Intent: Classical RK4 on the attitude ODE with re-orthonormalization each step. Higher-order integration-scheme ablation alongside forward Euler.
 - CLI args: `--imu-dr-rk4`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/rk4_kitti_0009/summary.json --imu-dr-rk4`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/rk4_kitti_0009/summary.json --imu-dr-rk4`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/rk4_kitti_0009/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/rk4_kitti_0009/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 rk4=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=1 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `no_gyro_bias_kitti_0009`
 
 - Intent: Disable the 2.0 s static-init gyro-bias estimate, all else default. ATE 9769.887 -> 1235.339 m (-87.36%), RPE 7580.498 -> 1024.241%/100m (-86.49%) -- an IMPROVEMENT, the opposite ordering from NCLT (where disabling gyro-bias estimation was the single largest degradation, +172%/+183% on the NCLT window). Honest explanation: the static-init window here spans only ~3 IMU samples (stamps 0.5/1.5/2.5 index-units apart, ~0.3 s of real time at ~9.7 Hz) while the vehicle is already moving at ~10.7 m/s -- the 'gyro bias' estimated from 3 samples of a moving, possibly slightly-turning vehicle is contaminated by real angular rate, not sensor bias, so applying it as a bias correction is actively harmful. This is a genuine, reproducible finding on this dataset (same ordering held in the full-session run below), not an aggregation artifact -- and it is the mirror image of the static-init gate's blind spot: the built-in stationarity check only gates on gyro std, so it never flagged that the window was non-static (the vehicle's yaw rate happened to be low during this straight-cruise segment even though its forward velocity was not zero).
 - CLI args: `--imu-dr-no-gyro-bias`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/no_gyro_bias_kitti_0009/summary.json --imu-dr-no-gyro-bias`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/no_gyro_bias_kitti_0009/summary.json --imu-dr-no-gyro-bias`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/no_gyro_bias_kitti_0009/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/no_gyro_bias_kitti_0009/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 #### `nhc_kitti_0009`
 
 - Intent: Enable hard NHC on the KITTI Raw 0009 200-frame window.
 - CLI args: `--imu-dr-nhc`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/nhc_kitti_0009/summary.json --imu-dr-nhc`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/nhc_kitti_0009/summary.json --imu-dr-nhc`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/nhc_kitti_0009/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/nhc_kitti_0009/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 nhc=1 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=0 lvl=0 zaru=0 nhc=1 zupt_frames=0; no GT seed.
 
 #### `nhc_zupt_kitti_0009`
 
 - Intent: Combine NHC with ZUPT on the KITTI Raw 0009 200-frame window.
 - CLI args: `--imu-dr-nhc --imu-dr-zupt`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/nhc_zupt_kitti_0009/summary.json --imu-dr-nhc --imu-dr-zupt`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/nhc_zupt_kitti_0009/summary.json --imu-dr-nhc --imu-dr-zupt`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/nhc_zupt_kitti_0009/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/nhc_zupt_kitti_0009/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=1 nhc=1 zupt_frames=174; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=1 lvl=0 zaru=0 nhc=1 zupt_frames=170; no GT seed.
 
 #### `accel_bias_kitti_0009`
 
 - Intent: Estimate accelerometer bias from the static-init window on KITTI Raw 0009.
 - CLI args: `--imu-dr-accel-bias`
-- Command: `build/evaluation/pcd_dogfooding /media/sasaki/aiueo/loc_zoo/dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/accel_bias_kitti_0009/summary.json --imu-dr-accel-bias`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods imu_dead_reckoning --summary-json experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/accel_bias_kitti_0009/summary.json --imu-dr-accel-bias`
 - Summary: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/accel_bias_kitti_0009/summary.json`
 - Log: `experiments/results/runs/imu_dead_reckoning_kitti_raw_0009_matrix/accel_bias_kitti_0009/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, midpoint=1 zupt=0 nhc=0 zupt_frames=0; no GT seed.
+- Method note: IMU-DR baseline: unaided strapdown INS, static init 2.0s, eskf=0 midpoint=1 rk4=0 zupt=0 lvl=0 zaru=0 nhc=0 zupt_frames=0; no GT seed.
 
 
 ## IMU-DR (pure strapdown INS) aiding ablation on the NCLT 2013-01-10 full session (5105 frames)
@@ -9840,15 +9840,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 5.383 | 9.5 | 71.6 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 5.839 | 21.9 | 96.1 | 4.65 | 4.75 | Adopt as current default |
-| Dense local map | drift-oriented | 5.456 | 7.0 | 65.3 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced local map | balanced | 3.721 | 7.9 | 86.6 | 5.00 | 5.00 | Keep as active challenger |
+| Fast recent map | throughput-oriented | 4.207 | 10.8 | 94.2 | 4.65 | 4.75 | Adopt as current default |
+| Dense local map | drift-oriented | 3.794 | 4.6 | 70.1 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 21.9 FPS.
-3. `balanced_local_map` is the most accurate observed variant at 5.383 m ATE.
+2. `fast_recent_map` is the fastest observed variant at 10.8 FPS.
+3. `balanced_local_map` is the most accurate observed variant at 3.721 m ATE.
 
 ### Variant Notes
 
@@ -9900,15 +9900,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 2.412 | 12.5 | 75.6 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 2.642 | 24.4 | 95.7 | 4.65 | 4.75 | Adopt as current default |
-| Dense local map | drift-oriented | 2.480 | 7.3 | 63.5 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced local map | balanced | 2.360 | 13.1 | 85.1 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 2.578 | 18.7 | 95.8 | 4.65 | 4.75 | Adopt as current default |
+| Dense local map | drift-oriented | 2.427 | 9.8 | 74.9 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 24.4 FPS.
-3. `balanced_local_map` is the most accurate observed variant at 2.412 m ATE.
+2. `fast_recent_map` is the fastest observed variant at 18.7 FPS.
+3. `balanced_local_map` is the most accurate observed variant at 2.360 m ATE.
 
 ### Variant Notes
 
@@ -9960,15 +9960,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 2.412 | 15.1 | 76.8 | 4.65 | 4.75 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 2.642 | 28.2 | 95.7 | 4.30 | 4.50 | Adopt as current default |
-| Dense local map | drift-oriented | 2.480 | 11.7 | 69.4 | 4.30 | 4.50 | Keep as reference variant |
+| Balanced local map | balanced | 2.360 | 12.9 | 85.3 | 4.65 | 4.75 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 2.578 | 18.2 | 95.8 | 4.30 | 4.50 | Adopt as current default |
+| Dense local map | drift-oriented | 2.427 | 9.6 | 75.0 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 28.2 FPS.
-3. `balanced_local_map` is the most accurate observed variant at 2.412 m ATE.
+2. `fast_recent_map` is the fastest observed variant at 18.2 FPS.
+3. `balanced_local_map` is the most accurate observed variant at 2.360 m ATE.
 
 ### Variant Notes
 
@@ -12984,14 +12984,14 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| fast + seed | reference | 1.053 | 32.6 | 66.3 | 5.00 | 5.00 | Keep as reference variant |
-| cluster T1 + seed | transfer | 0.633 | 45.0 | 100.0 | 3.80 | 4.20 | Adopt as current default |
+| fast + seed | reference | 1.067 | 30.0 | 80.2 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.644 | 27.9 | 96.4 | 3.80 | 4.20 | Adopt as current default |
 
 ### Observations
 
 1. `cluster_t1_seeded` is the current default for this problem.
-2. `cluster_t1_seeded` is the fastest observed variant at 45.0 FPS.
-3. `cluster_t1_seeded` is the most accurate observed variant at 0.633 m ATE.
+2. `fast_seeded_reference` is the fastest observed variant at 30.0 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.644 m ATE.
 
 ### Variant Notes
 
@@ -13004,7 +13004,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/fast_seeded_reference/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Local-map policy=refresh.
 
 #### `cluster_t1_seeded`
 
@@ -13015,7 +13015,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_200_cluster_t1_matrix/cluster_t1_seeded/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Local-map policy=refresh.
 
 
 ## LiTAMIN2 cluster T1 on KITTI Raw 0009 full (447 frames)
@@ -13032,14 +13032,14 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| fast + seed | reference | 1.145 | 46.3 | 79.1 | 5.00 | 5.00 | Keep as reference variant |
-| cluster T1 + seed | transfer | 0.666 | 40.2 | 93.5 | 3.80 | 4.20 | Adopt as current default |
+| fast + seed | reference | 1.064 | 20.6 | 81.8 | 5.00 | 5.00 | Keep as reference variant |
+| cluster T1 + seed | transfer | 0.676 | 18.0 | 93.8 | 3.80 | 4.20 | Adopt as current default |
 
 ### Observations
 
 1. `cluster_t1_seeded` is the current default for this problem.
-2. `fast_seeded_reference` is the fastest observed variant at 46.3 FPS.
-3. `cluster_t1_seeded` is the most accurate observed variant at 0.666 m ATE.
+2. `fast_seeded_reference` is the fastest observed variant at 20.6 FPS.
+3. `cluster_t1_seeded` is the most accurate observed variant at 0.676 m ATE.
 
 ### Variant Notes
 
@@ -13052,7 +13052,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/fast_seeded_reference/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Local-map policy=refresh.
 
 #### `cluster_t1_seeded`
 
@@ -13063,7 +13063,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_cluster_t1_matrix/cluster_t1_seeded/run.log`
 - Readability proxy: 3.80 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 4.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Local-map policy=refresh.
 
 
 ## LiTAMIN2 trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban)
@@ -13080,16 +13080,16 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 1.145 | 37.9 | 88.8 | 5.00 | 5.00 | Keep as reference variant |
-| Fast local-map + ICP-only | single-term simplification | 1.145 | 48.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Paper-like 3m + covariance | paper-oriented | 1.438 | 43.3 | 84.2 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 1.438 | 28.1 | 68.6 | 4.30 | 4.50 | Keep as reference variant |
+| Fast local-map + covariance | throughput-oriented | 1.064 | 18.9 | 98.4 | 5.00 | 5.00 | Adopt as current default |
+| Fast local-map + ICP-only | single-term simplification | 1.064 | 18.8 | 98.4 | 4.65 | 4.75 | Keep as active challenger |
+| Paper-like 3m + covariance | paper-oriented | 1.287 | 19.5 | 91.3 | 4.65 | 4.75 | Keep as active challenger |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 1.287 | 19.3 | 91.0 | 4.30 | 4.50 | Keep as active challenger |
 
 ### Observations
 
-1. `fast_icp_only_half_threads` is the current default for this problem.
-2. `fast_icp_only_half_threads` is the fastest observed variant at 48.8 FPS.
-3. `fast_cov_half_threads` is the most accurate observed variant at 1.145 m ATE.
+1. `fast_cov_half_threads` is the current default for this problem.
+2. `paper_cov_half_threads` is the fastest observed variant at 19.5 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 1.064 m ATE.
 
 ### Variant Notes
 
@@ -13102,7 +13102,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/fast_cov_half_threads/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Local-map policy=refresh.
 
 #### `fast_icp_only_half_threads`
 
@@ -13113,7 +13113,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/fast_icp_only_half_threads/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled. Local-map policy=refresh.
 
 #### `paper_cov_half_threads`
 
@@ -13124,7 +13124,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/paper_cov_half_threads/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Local-map policy=refresh.
 
 #### `paper_icp_only_half_threads`
 
@@ -13135,7 +13135,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_full_matrix/paper_icp_only_half_threads/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled. Local-map policy=refresh.
 
 
 ## LiTAMIN2 throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)
@@ -13152,16 +13152,16 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 1.053 | 34.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
-| Fast local-map + ICP-only | single-term simplification | 1.053 | 32.6 | 97.7 | 4.65 | 4.75 | Keep as active challenger |
-| Paper-like 3m + covariance | paper-oriented | 1.397 | 30.7 | 82.6 | 4.65 | 4.75 | Keep as reference variant |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 1.397 | 31.1 | 83.2 | 4.30 | 4.50 | Keep as reference variant |
+| Fast local-map + covariance | throughput-oriented | 1.067 | 30.2 | 97.5 | 5.00 | 5.00 | Keep as active challenger |
+| Fast local-map + ICP-only | single-term simplification | 1.067 | 31.3 | 99.2 | 4.65 | 4.75 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 1.445 | 29.1 | 82.7 | 4.65 | 4.75 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 1.445 | 31.7 | 86.9 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `fast_cov_half_threads` is the current default for this problem.
-2. `fast_cov_half_threads` is the fastest observed variant at 34.2 FPS.
-3. `fast_cov_half_threads` is the most accurate observed variant at 1.053 m ATE.
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `paper_icp_only_half_threads` is the fastest observed variant at 31.7 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 1.067 m ATE.
 
 ### Variant Notes
 
@@ -13174,7 +13174,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_matrix/fast_cov_half_threads/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Local-map policy=refresh.
 
 #### `fast_icp_only_half_threads`
 
@@ -13185,7 +13185,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_matrix/fast_icp_only_half_threads/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled. Local-map policy=refresh.
 
 #### `paper_cov_half_threads`
 
@@ -13196,7 +13196,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_matrix/paper_cov_half_threads/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Local-map policy=refresh.
 
 #### `paper_icp_only_half_threads`
 
@@ -13207,7 +13207,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_matrix/paper_icp_only_half_threads/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled.
+- Method note: Uses GT-seeded scan-to-map initialization with weak-update fallback in this dogfooding tool. Covariance-shape term disabled. Local-map policy=refresh.
 
 
 ## LiTAMIN2 trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
@@ -13224,16 +13224,16 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Fast local-map + covariance | throughput-oriented | 122.280 | 63.6 | 86.4 | 4.65 | 4.75 | Keep as reference variant |
-| Fast local-map + ICP-only | single-term simplification | 122.280 | 81.7 | 96.8 | 4.30 | 4.50 | Keep as active challenger |
-| Paper-like 3m + covariance | paper-oriented | 122.275 | 87.3 | 100.0 | 4.30 | 4.50 | Adopt as current default |
-| Paper-like 3m + ICP-only | paper-oriented simplification | 122.275 | 82.7 | 97.3 | 3.95 | 4.25 | Keep as active challenger |
+| Fast local-map + covariance | throughput-oriented | 6.290 | 29.8 | 98.8 | 4.65 | 4.75 | Keep as active challenger |
+| Fast local-map + ICP-only | single-term simplification | 6.290 | 30.5 | 100.0 | 4.30 | 4.50 | Adopt as current default |
+| Paper-like 3m + covariance | paper-oriented | 115.567 | 30.3 | 52.3 | 4.30 | 4.50 | Keep as reference variant |
+| Paper-like 3m + ICP-only | paper-oriented simplification | 115.567 | 30.4 | 52.4 | 3.95 | 4.25 | Keep as reference variant |
 
 ### Observations
 
-1. `paper_cov_half_threads` is the current default for this problem.
-2. `paper_cov_half_threads` is the fastest observed variant at 87.3 FPS.
-3. `paper_cov_half_threads` is the most accurate observed variant at 122.275 m ATE.
+1. `fast_icp_only_half_threads` is the current default for this problem.
+2. `fast_icp_only_half_threads` is the fastest observed variant at 30.5 FPS.
+3. `fast_cov_half_threads` is the most accurate observed variant at 6.290 m ATE.
 
 ### Variant Notes
 
@@ -13246,7 +13246,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_cov_half_threads/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Local-map policy=refresh.
 
 #### `fast_icp_only_half_threads`
 
@@ -13257,7 +13257,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/fast_icp_only_half_threads/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed). Covariance-shape term disabled.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Covariance-shape term disabled. Local-map policy=refresh.
 
 #### `paper_cov_half_threads`
 
@@ -13268,7 +13268,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_cov_half_threads/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Local-map policy=refresh.
 
 #### `paper_icp_only_half_threads`
 
@@ -13279,7 +13279,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/litamin2_kitti_raw_0009_nogt_matrix/paper_icp_only_half_threads/run.log`
 - Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed). Covariance-shape term disabled.
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed). Covariance-shape term disabled. Local-map policy=refresh.
 
 
 ## LiTAMIN2 cluster T1 on KITTI Raw 0061 200 (200 frames)
@@ -15474,61 +15474,23 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 - **Problem ID**: `mulls_profile_tradeoff_kitti_raw_0009`
 - **Question**: Which MULLS profile should stay as the current default on KITTI Raw drive 0009 (200 frames)?
-- **Status**: `ready`
+- **Status**: `skipped`
 - **Dataset PCD directory**: `dogfooding_results/kitti_raw_0009_200`
 - **Reference CSV**: `experiments/reference_data/kitti_raw_0009_200_gt.csv`
 - **Stable binary**: `build/evaluation/pcd_dogfooding`
 - **Shared method selector**: `mulls`
 - **Shared metrics**: ate_m, fps, readability_score, extensibility_score
 - **Aggregate result**: `experiments/results/mulls_kitti_raw_0009_matrix.json`
+- **Blocker**: Timed out after 180 seconds.
+- **Next step**: Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.
 
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 2.748 | 1.1 | 65.8 | 4.65 | 4.75 | Keep as reference variant |
-| Fast | throughput-oriented | 2.651 | 3.1 | 100.0 | 4.30 | 4.50 | Adopt as current default |
-| Dense | accuracy-oriented | 2.782 | 0.9 | 62.8 | 4.30 | 4.50 | Keep as reference variant |
+### Attempted Variants
 
-### Observations
-
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 3.1 FPS.
-3. `fast` is the most accurate observed variant at 2.651 m ATE.
-
-### Variant Notes
-
-#### `kitti_default`
-
-- Intent: A-LOAM-style features + multi-metric scan-to-map (line/plane/point) baseline for HDL-64E.
-- CLI args: `--mulls-kitti-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_raw_0009_matrix/kitti_default/summary.json --mulls-kitti-profile`
-- Summary: `experiments/results/runs/mulls_kitti_raw_0009_matrix/kitti_default/summary.json`
-- Log: `experiments/results/runs/mulls_kitti_raw_0009_matrix/kitti_default/run.log`
-- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
-
-#### `fast`
-
-- Intent: Coarser voxels, lighter Ceres, shorter submap window, sparser point metric.
-- CLI args: `--mulls-kitti-profile --mulls-fast-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_raw_0009_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile`
-- Summary: `experiments/results/runs/mulls_kitti_raw_0009_matrix/fast/summary.json`
-- Log: `experiments/results/runs/mulls_kitti_raw_0009_matrix/fast/run.log`
-- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
-
-#### `dense`
-
-- Intent: Finer map voxels, more knn, deeper Ceres, longer history.
-- CLI args: `--mulls-kitti-profile --mulls-dense-profile`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_raw_0009_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
-- Summary: `experiments/results/runs/mulls_kitti_raw_0009_matrix/dense/summary.json`
-- Log: `experiments/results/runs/mulls_kitti_raw_0009_matrix/dense/run.log`
-- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
-- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
-
+| Variant | Style | Status | Note | Summary | Log |
+|---------|-------|--------|------|---------|-----|
+| KITTI default | balanced | `timeout_budget` | Timed out after 180 seconds. | `experiments/results/runs/mulls_kitti_raw_0009_matrix/kitti_default/summary.json` | `experiments/results/runs/mulls_kitti_raw_0009_matrix/kitti_default/run.log` |
+| Fast | throughput-oriented | `timeout_budget` | Timed out after 180 seconds. | `experiments/results/runs/mulls_kitti_raw_0009_matrix/fast/summary.json` | `experiments/results/runs/mulls_kitti_raw_0009_matrix/fast/run.log` |
+| Dense | accuracy-oriented | `timeout_budget` | Timed out after 180 seconds. | `experiments/results/runs/mulls_kitti_raw_0009_matrix/dense/summary.json` | `experiments/results/runs/mulls_kitti_raw_0009_matrix/dense/run.log` |
 
 ## MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed)
 
@@ -15544,15 +15506,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| KITTI default | balanced | 2.748 | 1.2 | 65.8 | 4.30 | 4.50 | Keep as reference variant |
-| Fast | throughput-oriented | 2.651 | 3.4 | 100.0 | 3.95 | 4.25 | Adopt as current default |
-| Dense | accuracy-oriented | 2.782 | 1.0 | 62.5 | 3.95 | 4.25 | Keep as reference variant |
+| KITTI default | balanced | - | - | 0.0 | 4.30 | 4.50 | Rejected for this run |
+| Fast | throughput-oriented | 2.695 | 1.2 | 100.0 | 3.95 | 4.25 | Adopt as current default |
+| Dense | accuracy-oriented | - | - | 0.0 | 3.95 | 4.25 | Rejected for this run |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 3.4 FPS.
-3. `fast` is the most accurate observed variant at 2.651 m ATE.
+2. `fast` is the fastest observed variant at 1.2 FPS.
+3. `fast` is the most accurate observed variant at 2.695 m ATE.
 
 ### Variant Notes
 
@@ -15565,7 +15527,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/mulls_kitti_raw_0009_nogt_matrix/kitti_default/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+- Method note: Timed out after 180 seconds.
 
 #### `fast`
 
@@ -15587,7 +15549,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/mulls_kitti_raw_0009_nogt_matrix/dense/run.log`
 - Readability proxy: 3.95 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.25 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+- Method note: Timed out after 180 seconds.
 
 
 ## MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
@@ -16204,15 +16166,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 0.255 | 21.1 | 84.1 | 5.00 | 5.00 | Keep as active challenger |
-| Fast coarse map | throughput-oriented | 0.307 | 30.9 | 91.5 | 4.65 | 4.75 | Adopt as current default |
-| Dense local map | accuracy-oriented | 0.291 | 14.5 | 67.3 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced local map | balanced | 0.238 | 10.5 | 87.2 | 5.00 | 5.00 | Keep as active challenger |
+| Fast coarse map | throughput-oriented | 0.299 | 14.1 | 89.8 | 4.65 | 4.75 | Adopt as current default |
+| Dense local map | accuracy-oriented | 0.289 | 8.6 | 71.6 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_coarse_map` is the current default for this problem.
-2. `fast_coarse_map` is the fastest observed variant at 30.9 FPS.
-3. `balanced_local_map` is the most accurate observed variant at 0.255 m ATE.
+2. `fast_coarse_map` is the fastest observed variant at 14.1 FPS.
+3. `balanced_local_map` is the most accurate observed variant at 0.238 m ATE.
 
 ### Variant Notes
 
@@ -16264,15 +16226,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 0.279 | 22.9 | 81.7 | 5.00 | 5.00 | Keep as active challenger |
-| Fast coarse map | throughput-oriented | 0.374 | 36.1 | 87.3 | 4.65 | 4.75 | Adopt as current default |
-| Dense local map | accuracy-oriented | 0.358 | 13.5 | 57.6 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced local map | balanced | 0.284 | 14.8 | 86.2 | 5.00 | 5.00 | Keep as active challenger |
+| Fast coarse map | throughput-oriented | 0.386 | 20.4 | 86.8 | 4.65 | 4.75 | Adopt as current default |
+| Dense local map | accuracy-oriented | 0.366 | 7.2 | 56.5 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_coarse_map` is the current default for this problem.
-2. `fast_coarse_map` is the fastest observed variant at 36.1 FPS.
-3. `balanced_local_map` is the most accurate observed variant at 0.279 m ATE.
+2. `fast_coarse_map` is the fastest observed variant at 20.4 FPS.
+3. `balanced_local_map` is the most accurate observed variant at 0.284 m ATE.
 
 ### Variant Notes
 
@@ -16324,15 +16286,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 122.662 | 22.8 | 95.2 | 4.65 | 4.75 | Keep as active challenger |
-| Fast coarse map | throughput-oriented | 122.547 | 25.0 | 99.7 | 4.30 | 4.50 | Adopt as current default |
-| Dense local map | accuracy-oriented | 121.733 | 12.2 | 74.4 | 4.30 | 4.50 | Keep as reference variant |
+| Balanced local map | balanced | 174.179 | 12.0 | 68.7 | 4.65 | 4.75 | Keep as reference variant |
+| Fast coarse map | throughput-oriented | 121.012 | 14.3 | 88.7 | 4.30 | 4.50 | Adopt as current default |
+| Dense local map | accuracy-oriented | 93.576 | 9.6 | 83.5 | 4.30 | 4.50 | Keep as active challenger |
 
 ### Observations
 
 1. `fast_coarse_map` is the current default for this problem.
-2. `fast_coarse_map` is the fastest observed variant at 25.0 FPS.
-3. `dense_local_map` is the most accurate observed variant at 121.733 m ATE.
+2. `fast_coarse_map` is the fastest observed variant at 14.3 FPS.
+3. `dense_local_map` is the most accurate observed variant at 93.576 m ATE.
 
 ### Variant Notes
 
@@ -16345,7 +16307,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/balanced_local_map/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `fast_coarse_map`
 
@@ -16356,7 +16318,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/fast_coarse_map/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `dense_local_map`
 
@@ -16367,7 +16329,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ndt_kitti_raw_0009_nogt_matrix/dense_local_map/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## NDT trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
@@ -21048,15 +21010,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 1.105 | 51.8 | 47.8 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 0.437 | 92.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense recent map | accuracy-oriented | 1.090 | 41.0 | 42.2 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced local map | balanced | 1.492 | 13.8 | 55.4 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 0.462 | 17.3 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 1.168 | 11.6 | 53.3 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 92.4 FPS.
-3. `fast_recent_map` is the most accurate observed variant at 0.437 m ATE.
+2. `fast_recent_map` is the fastest observed variant at 17.3 FPS.
+3. `fast_recent_map` is the most accurate observed variant at 0.462 m ATE.
 
 ### Variant Notes
 
@@ -21108,15 +21070,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 1.078 | 49.8 | 51.8 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 0.471 | 83.3 | 100.0 | 4.65 | 4.75 | Adopt as current default |
-| Dense recent map | accuracy-oriented | 1.091 | 38.2 | 44.5 | 4.65 | 4.75 | Keep as reference variant |
+| Balanced local map | balanced | 1.036 | 18.6 | 62.1 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 0.473 | 23.7 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 1.208 | 15.6 | 52.4 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast_recent_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 83.3 FPS.
-3. `fast_recent_map` is the most accurate observed variant at 0.471 m ATE.
+2. `fast_recent_map` is the fastest observed variant at 23.7 FPS.
+3. `fast_recent_map` is the most accurate observed variant at 0.473 m ATE.
 
 ### Variant Notes
 
@@ -21168,15 +21130,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 1.624 | 49.6 | 82.5 | 4.65 | 4.75 | Adopt as current default |
-| Fast recent map | throughput-oriented | 109.878 | 76.3 | 50.7 | 4.30 | 4.50 | Keep as reference variant |
-| Dense recent map | accuracy-oriented | 2.021 | 40.3 | 66.6 | 4.30 | 4.50 | Keep as reference variant |
+| Balanced local map | balanced | 2.275 | 18.7 | 88.0 | 4.65 | 4.75 | Adopt as current default |
+| Fast recent map | throughput-oriented | 52.512 | 22.0 | 52.0 | 4.30 | 4.50 | Keep as reference variant |
+| Dense recent map | accuracy-oriented | 2.071 | 15.9 | 86.1 | 4.30 | 4.50 | Keep as active challenger |
 
 ### Observations
 
 1. `balanced_local_map` is the current default for this problem.
-2. `fast_recent_map` is the fastest observed variant at 76.3 FPS.
-3. `balanced_local_map` is the most accurate observed variant at 1.624 m ATE.
+2. `fast_recent_map` is the fastest observed variant at 22.0 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 2.071 m ATE.
 
 ### Variant Notes
 
@@ -21189,7 +21151,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/small_gicp_kitti_raw_0009_nogt_matrix/balanced_local_map/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `fast_recent_map`
 
@@ -21200,7 +21162,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/small_gicp_kitti_raw_0009_nogt_matrix/fast_recent_map/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `dense_recent_map`
 
@@ -21211,7 +21173,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/small_gicp_kitti_raw_0009_nogt_matrix/dense_recent_map/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## Small-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
@@ -22104,15 +22066,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 14.181 | 35.0 | 39.8 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 116.600 | 85.5 | 52.4 | 4.65 | 4.75 | Keep as reference variant |
-| Dense | accuracy-oriented | 5.487 | 25.0 | 64.6 | 4.65 | 4.75 | Adopt as current default |
+| Default | balanced | 12.661 | 12.8 | 56.5 | 5.00 | 5.00 | Keep as reference variant |
+| Fast | throughput-oriented | 2181.909 | 15.9 | 50.1 | 4.65 | 4.75 | Keep as reference variant |
+| Dense | accuracy-oriented | 4.073 | 15.6 | 99.3 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `dense` is the current default for this problem.
-2. `fast` is the fastest observed variant at 85.5 FPS.
-3. `dense` is the most accurate observed variant at 5.487 m ATE.
+2. `fast` is the fastest observed variant at 15.9 FPS.
+3. `dense` is the most accurate observed variant at 4.073 m ATE.
 
 ### Variant Notes
 
@@ -22125,7 +22087,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_full_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 #### `fast`
 
@@ -22136,7 +22098,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_full_matrix/fast/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 #### `dense`
 
@@ -22147,7 +22109,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_full_matrix/dense/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 
 ## SuMa on KITTI Raw drive 0009 (200 frames, urban)
@@ -22164,15 +22126,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 3.291 | 39.7 | 73.8 | 5.00 | 5.00 | Adopt as current default |
-| Fast | throughput-oriented | 63.525 | 62.9 | 52.2 | 4.65 | 4.75 | Keep as reference variant |
-| Dense | accuracy-oriented | 2.784 | 28.1 | 72.3 | 4.65 | 4.75 | Keep as active challenger |
+| Default | balanced | 3.377 | 19.2 | 82.2 | 5.00 | 5.00 | Adopt as current default |
+| Fast | throughput-oriented | 680.139 | 19.6 | 50.2 | 4.65 | 4.75 | Keep as reference variant |
+| Dense | accuracy-oriented | 2.245 | 9.6 | 74.6 | 4.65 | 4.75 | Keep as active challenger |
 
 ### Observations
 
 1. `default` is the current default for this problem.
-2. `fast` is the fastest observed variant at 62.9 FPS.
-3. `dense` is the most accurate observed variant at 2.784 m ATE.
+2. `fast` is the fastest observed variant at 19.6 FPS.
+3. `dense` is the most accurate observed variant at 2.245 m ATE.
 
 ### Variant Notes
 
@@ -22185,7 +22147,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_matrix/default/run.log`
 - Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
 - Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 #### `fast`
 
@@ -22196,7 +22158,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_matrix/fast/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 #### `dense`
 
@@ -22207,7 +22169,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_matrix/dense/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 
 ## SuMa on KITTI Raw drive 0009 (200 frames, no GT seed)
@@ -22224,15 +22186,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 3.291 | 82.3 | 79.9 | 4.65 | 4.75 | Adopt as current default |
-| Fast | throughput-oriented | 63.525 | 109.4 | 52.2 | 4.30 | 4.50 | Keep as reference variant |
-| Dense | accuracy-oriented | 2.784 | 44.5 | 70.4 | 4.30 | 4.50 | Keep as reference variant |
+| Default | balanced | 3.377 | 18.8 | 78.1 | 4.65 | 4.75 | Keep as active challenger |
+| Fast | throughput-oriented | 680.139 | 21.0 | 50.2 | 4.30 | 4.50 | Keep as reference variant |
+| Dense | accuracy-oriented | 2.245 | 14.6 | 84.8 | 4.30 | 4.50 | Adopt as current default |
 
 ### Observations
 
-1. `default` is the current default for this problem.
-2. `fast` is the fastest observed variant at 109.4 FPS.
-3. `dense` is the most accurate observed variant at 2.784 m ATE.
+1. `dense` is the current default for this problem.
+2. `fast` is the fastest observed variant at 21.0 FPS.
+3. `dense` is the most accurate observed variant at 2.245 m ATE.
 
 ### Variant Notes
 
@@ -22245,7 +22207,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_nogt_matrix/default/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 #### `fast`
 
@@ -22256,7 +22218,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_nogt_matrix/fast/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 #### `dense`
 
@@ -22267,7 +22229,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/suma_kitti_raw_0009_nogt_matrix/dense/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 
 ## SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential)
@@ -22644,15 +22606,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 3.948 | 5.4 | 62.3 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 4.544 | 22.2 | 93.5 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 4.690 | 10.5 | 65.8 | 4.65 | 4.75 | Keep as reference variant |
+| Default | balanced | 2.252 | 6.2 | 87.0 | 5.00 | 5.00 | Keep as active challenger |
+| Fast | throughput-oriented | 2.901 | 8.4 | 88.8 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 2.952 | 4.8 | 67.0 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 22.2 FPS.
-3. `default` is the most accurate observed variant at 3.948 m ATE.
+2. `fast` is the fastest observed variant at 8.4 FPS.
+3. `default` is the most accurate observed variant at 2.252 m ATE.
 
 ### Variant Notes
 
@@ -22704,15 +22666,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 1.772 | 7.7 | 66.3 | 5.00 | 5.00 | Keep as reference variant |
-| Fast | throughput-oriented | 2.085 | 23.7 | 92.5 | 4.65 | 4.75 | Adopt as current default |
-| Dense | accuracy-oriented | 2.104 | 10.4 | 63.9 | 4.65 | 4.75 | Keep as reference variant |
+| Default | balanced | 1.674 | 5.0 | 89.8 | 5.00 | 5.00 | Keep as active challenger |
+| Fast | throughput-oriented | 1.985 | 6.2 | 92.2 | 4.65 | 4.75 | Adopt as current default |
+| Dense | accuracy-oriented | 2.033 | 4.3 | 75.6 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 23.7 FPS.
-3. `default` is the most accurate observed variant at 1.772 m ATE.
+2. `fast` is the fastest observed variant at 6.2 FPS.
+3. `default` is the most accurate observed variant at 1.674 m ATE.
 
 ### Variant Notes
 
@@ -22764,15 +22726,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default | balanced | 1.772 | 13.5 | 85.3 | 4.65 | 4.75 | Keep as active challenger |
-| Fast | throughput-oriented | 2.085 | 19.1 | 92.5 | 4.30 | 4.50 | Adopt as current default |
-| Dense | accuracy-oriented | 2.104 | 10.7 | 70.2 | 4.30 | 4.50 | Keep as reference variant |
+| Default | balanced | 1.674 | 4.4 | 92.8 | 4.65 | 4.75 | Adopt as current default |
+| Fast | throughput-oriented | 1.985 | 5.1 | 92.2 | 4.30 | 4.50 | Keep as active challenger |
+| Dense | accuracy-oriented | 2.033 | 3.2 | 72.9 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 19.1 FPS.
-3. `default` is the most accurate observed variant at 1.772 m ATE.
+1. `default` is the current default for this problem.
+2. `fast` is the fastest observed variant at 5.1 FPS.
+3. `default` is the most accurate observed variant at 1.674 m ATE.
 
 ### Variant Notes
 
@@ -23424,15 +23386,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 1.102 | 18.8 | 37.6 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 1.253 | 52.7 | 49.5 | 4.65 | 4.75 | Keep as reference variant |
-| Dense recent map | accuracy-oriented | 0.640 | 110.1 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Balanced local map | balanced | 1.090 | 7.3 | 41.3 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 1.245 | 14.8 | 51.6 | 4.65 | 4.75 | Keep as reference variant |
+| Dense recent map | accuracy-oriented | 0.614 | 27.5 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `dense_recent_map` is the current default for this problem.
-2. `dense_recent_map` is the fastest observed variant at 110.1 FPS.
-3. `dense_recent_map` is the most accurate observed variant at 0.640 m ATE.
+2. `dense_recent_map` is the fastest observed variant at 27.5 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 0.614 m ATE.
 
 ### Variant Notes
 
@@ -23484,15 +23446,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 1.054 | 16.6 | 40.6 | 5.00 | 5.00 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 1.181 | 43.1 | 51.3 | 4.65 | 4.75 | Keep as reference variant |
-| Dense recent map | accuracy-oriented | 0.670 | 93.9 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Balanced local map | balanced | 1.041 | 7.2 | 46.5 | 5.00 | 5.00 | Keep as reference variant |
+| Fast recent map | throughput-oriented | 1.168 | 15.0 | 59.7 | 4.65 | 4.75 | Keep as reference variant |
+| Dense recent map | accuracy-oriented | 0.644 | 23.3 | 100.0 | 4.65 | 4.75 | Adopt as current default |
 
 ### Observations
 
 1. `dense_recent_map` is the current default for this problem.
-2. `dense_recent_map` is the fastest observed variant at 93.9 FPS.
-3. `dense_recent_map` is the most accurate observed variant at 0.670 m ATE.
+2. `dense_recent_map` is the fastest observed variant at 23.3 FPS.
+3. `dense_recent_map` is the most accurate observed variant at 0.644 m ATE.
 
 ### Variant Notes
 
@@ -23544,15 +23506,15 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Balanced local map | balanced | 27.610 | 15.8 | 59.6 | 4.65 | 4.75 | Keep as reference variant |
-| Fast recent map | throughput-oriented | 73.691 | 40.5 | 43.4 | 4.30 | 4.50 | Keep as reference variant |
-| Dense recent map | accuracy-oriented | 52.522 | 82.1 | 76.3 | 4.30 | 4.50 | Adopt as current default |
+| Balanced local map | balanced | 18.235 | 5.7 | 61.9 | 4.65 | 4.75 | Keep as active challenger |
+| Fast recent map | throughput-oriented | 22.288 | 13.3 | 68.5 | 4.30 | 4.50 | Adopt as current default |
+| Dense recent map | accuracy-oriented | 89.013 | 24.1 | 60.2 | 4.30 | 4.50 | Keep as reference variant |
 
 ### Observations
 
-1. `dense_recent_map` is the current default for this problem.
-2. `dense_recent_map` is the fastest observed variant at 82.1 FPS.
-3. `balanced_local_map` is the most accurate observed variant at 27.610 m ATE.
+1. `fast_recent_map` is the current default for this problem.
+2. `dense_recent_map` is the fastest observed variant at 24.1 FPS.
+3. `balanced_local_map` is the most accurate observed variant at 18.235 m ATE.
 
 ### Variant Notes
 
@@ -23565,7 +23527,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/voxel_gicp_kitti_raw_0009_nogt_matrix/balanced_local_map/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `fast_recent_map`
 
@@ -23576,7 +23538,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/voxel_gicp_kitti_raw_0009_nogt_matrix/fast_recent_map/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `dense_recent_map`
 
@@ -23587,7 +23549,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/voxel_gicp_kitti_raw_0009_nogt_matrix/dense_recent_map/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## Voxel-GICP throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential)
@@ -24408,16 +24370,16 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (GT seed) | balanced | 0.169 | 56.8 | 69.0 | 5.00 | 5.00 | Keep as reference variant |
-| Fast (GT seed) | throughput-oriented | 0.501 | 92.9 | 62.9 | 4.65 | 4.75 | Keep as reference variant |
-| Dense (GT seed) | accuracy-oriented | 0.130 | 59.9 | 82.2 | 4.65 | 4.75 | Adopt as current default |
-| No GT seed | accuracy-oriented | 177.449 | 64.8 | 34.9 | 4.65 | 4.75 | Keep as reference variant |
+| Default (GT seed) | balanced | 0.175 | 16.7 | 82.6 | 5.00 | 5.00 | Keep as active challenger |
+| Fast (GT seed) | throughput-oriented | 0.370 | 18.1 | 67.4 | 4.65 | 4.75 | Keep as reference variant |
+| Dense (GT seed) | accuracy-oriented | 0.129 | 14.3 | 89.6 | 4.65 | 4.75 | Adopt as current default |
+| No GT seed | accuracy-oriented | 79.606 | 15.6 | 43.1 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
 1. `dense` is the current default for this problem.
-2. `fast` is the fastest observed variant at 92.9 FPS.
-3. `dense` is the most accurate observed variant at 0.130 m ATE.
+2. `fast` is the fastest observed variant at 18.1 FPS.
+3. `dense` is the most accurate observed variant at 0.129 m ATE.
 
 ### Variant Notes
 
@@ -24463,7 +24425,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/xicp_kitti_raw_0009_full_matrix/no_gt_seed/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## X-ICP on KITTI Raw drive 0009 (200 frames, urban)
@@ -24480,16 +24442,16 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (GT seed) | balanced | 0.158 | 58.5 | 72.7 | 5.00 | 5.00 | Keep as active challenger |
-| Fast (GT seed) | throughput-oriented | 0.546 | 102.8 | 62.8 | 4.65 | 4.75 | Keep as reference variant |
-| Dense (GT seed) | accuracy-oriented | 0.139 | 58.5 | 78.4 | 4.65 | 4.75 | Adopt as current default |
-| No GT seed | accuracy-oriented | 116.407 | 65.1 | 31.7 | 4.65 | 4.75 | Keep as reference variant |
+| Default (GT seed) | balanced | 0.151 | 25.2 | 92.2 | 5.00 | 5.00 | Adopt as current default |
+| Fast (GT seed) | throughput-oriented | 0.393 | 27.5 | 67.8 | 4.65 | 4.75 | Keep as reference variant |
+| Dense (GT seed) | accuracy-oriented | 0.140 | 21.9 | 89.9 | 4.65 | 4.75 | Keep as active challenger |
+| No GT seed | accuracy-oriented | 22.317 | 24.4 | 44.8 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `dense` is the current default for this problem.
-2. `fast` is the fastest observed variant at 102.8 FPS.
-3. `dense` is the most accurate observed variant at 0.139 m ATE.
+1. `default` is the current default for this problem.
+2. `fast` is the fastest observed variant at 27.5 FPS.
+3. `dense` is the most accurate observed variant at 0.140 m ATE.
 
 ### Variant Notes
 
@@ -24535,7 +24497,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/xicp_kitti_raw_0009_matrix/no_gt_seed/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## X-ICP on KITTI Raw drive 0009 (200 frames, no GT seed)
@@ -24552,16 +24514,16 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 
 | Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
 |---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| Default (GT seed) | balanced | 116.407 | 62.8 | 85.4 | 4.65 | 4.75 | Keep as active challenger |
-| Fast (GT seed) | throughput-oriented | 121.338 | 81.2 | 94.8 | 4.30 | 4.50 | Adopt as current default |
-| Dense (GT seed) | accuracy-oriented | 108.748 | 51.7 | 81.8 | 4.30 | 4.50 | Keep as reference variant |
-| No GT seed | accuracy-oriented | 116.407 | 64.3 | 86.3 | 4.65 | 4.75 | Keep as active challenger |
+| Default (GT seed) | balanced | 22.317 | 24.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+| Fast (GT seed) | throughput-oriented | 67.595 | 23.8 | 64.9 | 4.30 | 4.50 | Keep as reference variant |
+| Dense (GT seed) | accuracy-oriented | 33.015 | 10.1 | 54.4 | 4.30 | 4.50 | Keep as reference variant |
+| No GT seed | accuracy-oriented | 22.317 | 18.1 | 86.7 | 4.65 | 4.75 | Keep as reference variant |
 
 ### Observations
 
-1. `fast` is the current default for this problem.
-2. `fast` is the fastest observed variant at 81.2 FPS.
-3. `dense` is the most accurate observed variant at 108.748 m ATE.
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 24.6 FPS.
+3. `default` is the most accurate observed variant at 22.317 m ATE.
 
 ### Variant Notes
 
@@ -24574,7 +24536,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/default/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `fast`
 
@@ -24585,7 +24547,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/fast/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `dense`
 
@@ -24596,7 +24558,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/dense/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 #### `no_gt_seed`
 
@@ -24607,7 +24569,7 @@ _Generated at 2026-07-05T03:00:40+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/xicp_kitti_raw_0009_nogt_matrix/no_gt_seed/run.log`
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
-- Method note: Uses odometry-chain scan-to-map initialization (no GT seed).
+- Method note: Uses velocity-model prediction as scan-to-map initial guess (no GT seed).
 
 
 ## X-ICP on KITTI Raw drive 0061 full sequence (703 frames, residential)

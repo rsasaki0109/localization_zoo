@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T03:00:40+00:00",
+  "generated_at": "2026-07-16T13:00:45+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -269,7 +269,7 @@
       "blocker": "",
       "manifest_path": "experiments/ct_icp_kitti_raw_0009_200_recipes_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_raw_0009_200_recipes_matrix.json",
-      "current_default": "balanced_reference"
+      "current_default": "cluster_d_ms_chol"
     },
     {
       "problem_id": "ct_icp_profile_tradeoff_kitti_raw_0009_full",
@@ -278,7 +278,7 @@
       "blocker": "",
       "manifest_path": "experiments/ct_icp_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_raw_0009_full_matrix.json",
-      "current_default": "balanced_window"
+      "current_default": "fast_window"
     },
     {
       "problem_id": "ct_icp_kitti_raw_0009_full_recipes",
@@ -1097,7 +1097,7 @@
       "blocker": "",
       "manifest_path": "experiments/gicp_kitti_raw_0009_nogt_matrix.json",
       "aggregate_path": "experiments/results/gicp_kitti_raw_0009_nogt_matrix.json",
-      "current_default": "dense_recent_map"
+      "current_default": "fast_recent_map"
     },
     {
       "problem_id": "gicp_profile_tradeoff_kitti_raw_0061_full",
@@ -1898,7 +1898,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_kitti_raw_0009_full_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_full_matrix.json",
-      "current_default": "fast_icp_only_half_threads"
+      "current_default": "fast_cov_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_kitti_raw_0009",
@@ -1907,7 +1907,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_matrix.json",
-      "current_default": "fast_cov_half_threads"
+      "current_default": "fast_icp_only_half_threads"
     },
     {
       "problem_id": "litamin2_profile_tradeoff_kitti_raw_0009_nogt",
@@ -1916,7 +1916,7 @@
       "blocker": "",
       "manifest_path": "experiments/litamin2_kitti_raw_0009_nogt_matrix.json",
       "aggregate_path": "experiments/results/litamin2_kitti_raw_0009_nogt_matrix.json",
-      "current_default": "paper_cov_half_threads"
+      "current_default": "fast_icp_only_half_threads"
     },
     {
       "problem_id": "litamin2_kitti_raw_0061_200_cluster_t1",
@@ -2281,11 +2281,11 @@
     {
       "problem_id": "mulls_profile_tradeoff_kitti_raw_0009",
       "title": "MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban)",
-      "status": "ready",
-      "blocker": "",
+      "status": "skipped",
+      "blocker": "Timed out after 180 seconds.",
       "manifest_path": "experiments/mulls_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/mulls_kitti_raw_0009_matrix.json",
-      "current_default": "fast"
+      "current_default": null
     },
     {
       "problem_id": "mulls_profile_tradeoff_kitti_raw_0009_nogt",
@@ -3266,7 +3266,7 @@
       "blocker": "",
       "manifest_path": "experiments/suma_kitti_raw_0009_nogt_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_raw_0009_nogt_matrix.json",
-      "current_default": "default"
+      "current_default": "dense"
     },
     {
       "problem_id": "suma_kitti_raw_0061_full",
@@ -3347,7 +3347,7 @@
       "blocker": "",
       "manifest_path": "experiments/vgicp_slam_kitti_raw_0009_nogt_matrix.json",
       "aggregate_path": "experiments/results/vgicp_slam_kitti_raw_0009_nogt_matrix.json",
-      "current_default": "fast"
+      "current_default": "default"
     },
     {
       "problem_id": "vgicp_slam_kitti_raw_0061_full",
@@ -3464,7 +3464,7 @@
       "blocker": "",
       "manifest_path": "experiments/voxel_gicp_kitti_raw_0009_nogt_matrix.json",
       "aggregate_path": "experiments/results/voxel_gicp_kitti_raw_0009_nogt_matrix.json",
-      "current_default": "dense_recent_map"
+      "current_default": "fast_recent_map"
     },
     {
       "problem_id": "voxel_gicp_profile_tradeoff_kitti_raw_0061_full",
@@ -3590,7 +3590,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0009_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0009_matrix.json",
-      "current_default": "dense"
+      "current_default": "default"
     },
     {
       "problem_id": "xicp_kitti_raw_0009_nogt",
@@ -3599,7 +3599,7 @@
       "blocker": "",
       "manifest_path": "experiments/xicp_kitti_raw_0009_nogt_matrix.json",
       "aggregate_path": "experiments/results/xicp_kitti_raw_0009_nogt_matrix.json",
-      "current_default": "fast"
+      "current_default": "default"
     },
     {
       "problem_id": "xicp_kitti_raw_0061_full",

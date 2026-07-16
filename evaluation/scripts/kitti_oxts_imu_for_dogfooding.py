@@ -3,11 +3,14 @@
 """Build imu.csv for an existing KITTI Raw dogfooding tree from OXTS packets.
 
 `pcd_dogfooding` expects `imu.csv` stamps in the same numeric timeline as
-`frame_timestamps.csv` (``timestamp`` column). The stock exporter
-(`kitti_raw_to_benchmark.py`) uses Velodyne **file indices** (0, 1, 2, …) there.
-This script writes one IMU row at the midpoint between consecutive scan indices
-so each LiDAR interval (i-1, i) contains a single sample — enough for DLIO /
-CT-LIO style windows without regenerating GT or wall-clock timestamps.
+`frame_timestamps.csv` (``timestamp`` column). The exporter
+(`kitti_raw_to_benchmark.py`) writes the **native KITTI frame number** parsed
+from the Velodyne/OXTS filenames there (not a position in the sorted file
+listing), so that dropped frames don't silently misalign GT/point clouds.
+This script writes one IMU row at the midpoint between consecutive native
+frame numbers so each LiDAR interval (i-1, i) contains a single sample —
+enough for DLIO / CT-LIO style windows without regenerating GT or wall-clock
+timestamps.
 
 OXTS layout follows pykitti ``OxtsPacket`` (``dataformat.txt``): after roll,
 pitch, yaw come velocities, then ax, ay, az, … then wx, wy, wz (rad/s and
@@ -46,15 +49,20 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def load_oxts_packets_sorted(oxts_dir: Path) -> list[list[float]]:
-    """One float list per OXTS file (numeric fields only; KITTI flags stripped)."""
+def load_oxts_packets_sorted(oxts_dir: Path) -> dict[int, list[float]]:
+    """Map native frame number -> float list (numeric fields; KITTI flags stripped).
+
+    Keyed by the frame number parsed from each ``NNNNNNNNNN.txt`` filename
+    (not by position in the sorted listing) so this stays correct even if the
+    OXTS stream itself ever has gaps.
+    """
     files = sorted(oxts_dir.glob("*.txt"))
-    rows: list[list[float]] = []
+    rows: dict[int, list[float]] = {}
     for path in files:
         parts = path.read_text().strip().split()
         if len(parts) < 30:
             raise RuntimeError(f"Unexpected OXTS line length in {path}")
-        rows.append([float(x) for x in parts[:-5]])
+        rows[int(path.stem)] = [float(x) for x in parts[:-5]]
     return rows
 
 
@@ -107,9 +115,9 @@ def main() -> int:
         for i in range(1, len(global_idx)):
             g_prev = global_idx[i - 1]
             g_curr = global_idx[i]
-            if not (0 <= g_prev < len(oxts_rows) and 0 <= g_curr < len(oxts_rows)):
+            if not (g_prev in oxts_rows and g_curr in oxts_rows):
                 raise IndexError(
-                    f"Frame pair ({g_prev}, {g_curr}) out of range for "
+                    f"Frame pair ({g_prev}, {g_curr}) not found among the "
                     f"{len(oxts_rows)} OXTS packets under {oxts_dir}"
                 )
             row = oxts_rows[g_curr]

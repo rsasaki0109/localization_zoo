@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-13T12:38:34+00:00",
+  "generated_at": "2026-07-16T11:59:51+00:00",
   "manifest_path": "experiments/mulls_kitti_raw_0009_matrix.json",
   "problem": {
     "id": "mulls_profile_tradeoff_kitti_raw_0009",
@@ -23,11 +23,13 @@
   },
   "dataset": {
     "pcd_dir": "dogfooding_results/kitti_raw_0009_200",
-    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv"
+    "gt_csv": "experiments/reference_data/kitti_raw_0009_200_gt.csv",
+    "extra_args": []
   },
-  "status": "ready",
-  "blocker": "",
-  "next_step": "",
+  "variant_timeout_seconds": 180.0,
+  "status": "skipped",
+  "blocker": "Timed out after 180 seconds.",
+  "next_step": "Run a lighter slice/profile, raise the timeout budget, or keep this problem out of the ready set until a real result is available.",
   "variants": [
     {
       "id": "kitti_default",
@@ -40,19 +42,21 @@
       "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_raw_0009_matrix/kitti_default/summary.json --mulls-kitti-profile",
       "summary_path": "experiments/results/runs/mulls_kitti_raw_0009_matrix/kitti_default/summary.json",
       "log_path": "experiments/results/runs/mulls_kitti_raw_0009_matrix/kitti_default/run.log",
-      "status": "OK",
-      "ate_m": 2.748384,
-      "fps": 1.090446,
-      "time_ms": 182494.099932,
-      "frames": 199,
-      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
-      "benchmark_score": 65.79,
+      "status": "timeout_budget",
+      "ate_m": null,
+      "rpe_trans_pct": null,
+      "rpe_rot_deg_per_m": null,
+      "fps": null,
+      "time_ms": 180000.0,
+      "frames": null,
+      "note": "Timed out after 180 seconds.",
+      "benchmark_score": 0.0,
       "readability_score": 4.65,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.75,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
     },
     {
       "id": "fast",
@@ -66,19 +70,21 @@
       "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_raw_0009_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile",
       "summary_path": "experiments/results/runs/mulls_kitti_raw_0009_matrix/fast/summary.json",
       "log_path": "experiments/results/runs/mulls_kitti_raw_0009_matrix/fast/run.log",
-      "status": "OK",
-      "ate_m": 2.650735,
-      "fps": 3.103807,
-      "time_ms": 64114.810467,
-      "frames": 199,
-      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
-      "benchmark_score": 100.0,
+      "status": "timeout_budget",
+      "ate_m": null,
+      "rpe_trans_pct": null,
+      "rpe_rot_deg_per_m": null,
+      "fps": null,
+      "time_ms": 180000.0,
+      "frames": null,
+      "note": "Timed out after 180 seconds.",
+      "benchmark_score": 0.0,
       "readability_score": 4.3,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.5,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
     },
     {
       "id": "dense",
@@ -92,19 +98,21 @@
       "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_raw_0009_200 experiments/reference_data/kitti_raw_0009_200_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_raw_0009_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile",
       "summary_path": "experiments/results/runs/mulls_kitti_raw_0009_matrix/dense/summary.json",
       "log_path": "experiments/results/runs/mulls_kitti_raw_0009_matrix/dense/run.log",
-      "status": "OK",
-      "ate_m": 2.781926,
-      "fps": 0.942002,
-      "time_ms": 211252.173225,
-      "frames": 199,
-      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
-      "benchmark_score": 62.82,
+      "status": "timeout_budget",
+      "ate_m": null,
+      "rpe_trans_pct": null,
+      "rpe_rot_deg_per_m": null,
+      "fps": null,
+      "time_ms": 180000.0,
+      "frames": null,
+      "note": "Timed out after 180 seconds.",
+      "benchmark_score": 0.0,
       "readability_score": 4.3,
       "readability_note": "Adds only boolean toggles on top of the stable CLI.",
       "extensibility_score": 4.5,
       "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
-      "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision": "Rejected for this run",
+      "decision_reason": "The variant did not produce a valid benchmark result."
     }
   ]
 }

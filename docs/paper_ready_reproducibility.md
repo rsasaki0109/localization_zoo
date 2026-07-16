@@ -157,27 +157,29 @@ NCLT**: disabling static-init gyro-bias estimation *improves* results here
 static window is contaminated by real angular rate from the moving vehicle
 rather than measuring pure sensor bias.
 
-**200-frame window** (~19.9 s, 186.97 m):
+**200-frame window** (196 exported frames after the 2026-07-16 exporter fix
+-- native indices 177-180 have no Velodyne scan and are dropped; 186.97 m):
 
 | Method | ATE (m) | RPE (%/100m) | Notes |
 |---|---|---|---|
-| IMU-DR default | 9769.887 | 7580.498 | zupt_frames=0. |
-| IMU-DR + ZUPT | 214.400 | 172.926 | -97.81%/-97.72% vs. default; zupt_frames=174/199 (~87%) but OXTS speed never < 1.339 m/s here -- essentially all false positives, still the largest single gain. |
-| IMU-DR no gyro-bias | 1235.339 | 1024.241 | -87.36%/-86.49% -- an **improvement**, reversed vs. NCLT (see caveat above). |
-| OdoNet | 855.668 | 883.201 | In-domain sensor here (KITTI-OXTS-trained weights on a KITTI-OXTS drive). |
-| NHC-Net | 121.881 | 99.144 | |
-| NN-ZUPT | 122.547 | 99.982 | |
+| IMU-DR default | 9195.203 | 7519.660 | zupt_frames=0. |
+| IMU-DR + ZUPT | 210.224 | 172.596 | -97.71%/-97.70% vs. default; zupt_frames=170/195 (~87%) but OXTS speed never < 1.339 m/s here -- essentially all false positives, still the largest single gain. |
+| IMU-DR no gyro-bias | 1170.370 | 1017.516 | -87.27%/-86.47% -- an **improvement**, reversed vs. NCLT (see caveat above). |
+| OdoNet | 855.668 | 883.201 | In-domain sensor here (KITTI-OXTS-trained weights on a KITTI-OXTS drive). Pre-fix export value, not re-verified (see footnote). |
+| NHC-Net | 121.881 | 99.144 | Pre-fix export value, not re-verified. |
+| NN-ZUPT | 122.547 | 99.982 | Pre-fix export value, not re-verified. |
 
-**Full sequence** (443 frames, ~44.2 s, 332.42 m):
+**Full sequence** (443 frames covering native indices {0..176, 181..446}
+after the exporter fix; 332.34 m):
 
 | Method | ATE (m) | RPE (%/100m) | Notes |
 |---|---|---|---|
-| IMU-DR default | 91821.017 | 51751.724 | zupt_frames=0. |
-| IMU-DR + ZUPT | 5958.011 | 4510.478 | -93.51%/-91.28% vs. default; zupt_frames=344/442 (~78%) vs. ~9.7% actual stationary fraction. |
-| IMU-DR no gyro-bias | 11794.635 | 6491.912 | -87.15%/-87.46% -- confirms the 200-frame window's reversal, not an artifact. |
-| OdoNet | 1723.136 | 982.819 | |
-| NHC-Net | 180.504 | 88.481 | |
-| NN-ZUPT | 186.050 | 93.636 | |
+| IMU-DR default | 91851.969 | 49762.369 | zupt_frames=0. |
+| IMU-DR + ZUPT | 5994.497 | 4432.717 | -93.47%/-91.09% vs. default; zupt_frames=344/442 (~78%) vs. ~9.7% actual stationary fraction. |
+| IMU-DR no gyro-bias | 11184.985 | 5914.431 | -87.82%/-88.11% -- confirms the 200-frame window's reversal, not an artifact. |
+| OdoNet | 1723.136 | 982.819 | Pre-fix export value, not re-verified (see footnote). |
+| NHC-Net | 180.504 | 88.481 | Pre-fix export value, not re-verified. |
+| NN-ZUPT | 186.050 | 93.636 | Pre-fix export value, not re-verified. |
 
 All three learned-aid methods beat pure IMU-DR by 1-2 orders of magnitude on
 this in-domain sensor (unlike the NCLT cross-sensor transfer, where OdoNet was
@@ -189,14 +191,23 @@ cannot be ruled out here -- recorded honestly rather than presented as a clean
 held-out result. IMU-DR itself is never trained, so this caveat does not apply
 to its rows.
 
-> **Footnote (KITTI Raw exporter revision in progress).** A concurrent pass
-> is fixing a frame-indexing bug in `kitti_raw_to_benchmark.py` (GT pose vs.
-> point-cloud pairing skew from Velodyne frame position 177 onward on this
-> drive, documented in the module README's Limitations). The IMU-only rows
-> above are cited as-is because GT and `imu.csv` are both purely OXTS-native
-> and positionally self-consistent regardless of that bug, but
-> scan-matching / LiDAR comparisons on the `kitti_raw_0009*` fixture family
-> are excluded from this table until that exporter fix lands.
+> **Footnote (KITTI Raw exporter fix, landed 2026-07-16).** The
+> frame-indexing bug in `kitti_raw_to_benchmark.py` (GT pose vs. point-cloud
+> pairing skew from Velodyne frame position 177 onward on this drive) is
+> fixed: the exporter now joins point clouds, GT, and `imu.csv` strictly on
+> the native frame number parsed from filenames, dropping frames present in
+> only one stream. The IMU-DR rows above are the post-fix numbers -- the fix
+> changed `imu.csv`'s frame pairing (one 5-index gap instead of four 1-index
+> steps), shifting every IMU-DR variant by a few percent, so the earlier
+> "IMU-only rows are unaffected" claim was only half right (GT/OXTS *values*
+> were unaffected; the pairing was not). The OdoNet/NHC-Net/NN-ZUPT rows are
+> **pre-fix** values carried from the module README's recorded run and were
+> not re-verified (no committed `kitti_raw_0009` JSON exists for them).
+> Scan-matching manifests on this fixture family were re-run against the
+> corrected export for litamin2, kiss_icp, xicp, ndt, gicp, small_gicp,
+> voxel_gicp, vgicp_slam, suma, and ct_icp (partial aloam/balm2); the
+> SLAM/mapping-heavy set still reflects pre-fix numbers -- see the module
+> README's Limitations for the exact inventory.
 
 The module README carries the full ablation surface for `imu_dead_reckoning`
 beyond this family comparison -- RK4 integration, hard-aid stacking

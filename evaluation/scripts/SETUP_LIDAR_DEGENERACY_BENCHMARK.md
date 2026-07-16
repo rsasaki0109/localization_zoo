@@ -650,6 +650,68 @@ Do not fake GT just to get ATE. Keep the first pass as GT-free degeneracy
 diagnostics plus method health metrics; add ATE only if a trustworthy external
 pose source is available.
 
+## Full-Trajectory Drift (tunnel_full)
+
+Follow-up on the tunnel negative result above. All prior tunnel health checks
+used 200-frame windows and reported 100% pair acceptance across geometry ICP,
+KISS keyframe, LiTAMIN2, and CT-ICP -- suggesting short-window pairwise local
+odometry does not visibly break in this tunnel. That result does not test
+accumulated drift, so the full `tunnel.bag` was extracted end to end
+(3241 LiDAR frames, ~324 s) and run continuously (not in disjoint windows)
+through the three window-runner binaries in GT-free mode:
+
+```bash
+python3 evaluation/scripts/extract_ouster_packet_lidar_imu.py \
+  --bag data/lidar_degeneracy_datasets/tunnel.bag \
+  --output-dir dogfooding_results/lidar_degeneracy_tunnel_full \
+  --max-frames -1 \
+  --skip-incomplete
+
+./build/evaluation/kiss_keyframe_odometry \
+  dogfooding_results/lidar_degeneracy_tunnel_full - \
+  experiments/results/lidar_degeneracy/tunnel_full/kiss_keyframe_full_trajectory.json \
+  -1 --start-frame 0 --max-step-translation 2.0 --max-step-yaw-deg 20 \
+  --min-correspondences 80
+
+./build/evaluation/litamin2_window_odometry \
+  dogfooding_results/lidar_degeneracy_tunnel_full - \
+  experiments/results/lidar_degeneracy/tunnel_full/litamin2_full_trajectory.json \
+  -1 --start-frame 0 --max-step-translation 2.0 --max-step-yaw-deg 20
+
+./build/evaluation/ct_icp_window_odometry \
+  dogfooding_results/lidar_degeneracy_tunnel_full - \
+  experiments/results/lidar_degeneracy/tunnel_full/ct_icp_full_trajectory.json \
+  -1 --start-frame 0 --refinement-gate --multi-scale --normal-cholesky \
+  --max-step-translation 2.0 --max-step-yaw-deg 20
+```
+
+The upstream README describes this as an 8 m wide, ~500 m straight tunnel, so
+a healthy estimate should look close to a straight ~500 m line with near-zero
+net yaw drift. None of the three methods come close:
+
+| Method | Pair accepted | Pair converged | Path length (m) | Net displacement (m) | Accumulated yaw drift |
+|---|---:|---:|---:|---:|---:|
+| KISS keyframe | 3240/3240 (100%) | 3240/3240 (100%) | 106.2 | 24.0 | 56.3 deg |
+| LiTAMIN2 | 3240/3240 (100%) | 3240/3240 (100%) | 273.0 | 63.0 | 27.1 deg |
+| CT-ICP | 3240/3240 (100%) | 387/3240 (11.9%, refinement-gate 100%) | 474.7 | 79.0 | 15.5 deg |
+
+Every pair stays inside the 2 m / 20 deg step gate and is locally
+converged/accepted, so the short-window health-check layer never flags a
+problem, yet the accumulated trajectory is wrong by hundreds of meters of
+unrecovered net displacement. CT-ICP's total path length is closest to the
+true tunnel length, but its net displacement is still only 79 m -- the
+estimated path curls back on itself instead of continuing straight, i.e. the
+tunnel's weak longitudinal constraint is aliased into spurious yaw/lateral
+motion. This reverses the earlier negative result: the tunnel does break
+these baselines, but only visibly at trajectory scale, not in short-window
+per-pair health gates. Full data:
+`experiments/results/lidar_degeneracy/tunnel_full/full_trajectory_comparison.md`.
+
+Follow-up not yet done: run RELEAD / X-ICP (degeneracy-aware methods) over
+`tunnel_full` and compare drift against these three baselines, and test
+fixed-map NDT false-lock behavior on tunnel geometry (requires building a
+reference map first).
+
 ## Stop Line
 
 Do not use this dataset to tune NDT/GICP precision recipes first. Use it after

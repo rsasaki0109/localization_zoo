@@ -140,6 +140,84 @@ TEST(HdlGraphSlam, DetectsLoopClosureOnOutAndBackRoute) {
   EXPECT_GT(last_result.num_keyframes, 4);
 }
 
+TEST(HdlGraphSlam, ExternalOdometryLoopCorrectionReducesEndpointDrift) {
+  HdlGraphSlamParams params = makeBaseParams();
+  params.keyframe_stride = 1;
+  params.min_loop_index_gap = 4;
+  params.scan_context.distance_threshold = 0.20;
+  params.enable_floor_constraint = false;
+  params.optimize_every_n_keyframes = 0;
+  params.odom_translation_weight = 10.0;
+  params.loop_translation_weight = 100.0;
+
+  HdlGraphSlam pipeline(params);
+  std::vector<Eigen::Matrix4d> raw_poses;
+  const std::vector<double> x_positions =
+      {0.0, 1.0, 2.0, 3.0, 2.0, 1.0, 0.0};
+  for (size_t i = 0; i < x_positions.size(); ++i) {
+    const Eigen::Matrix4d true_pose =
+        makePose(x_positions[i], 0.0, 0.0);
+    Eigen::Matrix4d drifted_pose = true_pose;
+    drifted_pose(1, 3) += 0.08 * static_cast<double>(i);
+    raw_poses.push_back(drifted_pose);
+    pipeline.processExternalOdometry(generateLidarScan(true_pose),
+                                     drifted_pose);
+  }
+
+  ASSERT_GT(pipeline.numLoopEdges(), 0);
+  ASSERT_FALSE(pipeline.loopAttempts().empty());
+  EXPECT_TRUE(pipeline.loopAttempts().back().accepted);
+  const auto uncorrected =
+      pipeline.correctedExternalTrajectory(raw_poses, 0.0);
+  ASSERT_EQ(uncorrected.size(), raw_poses.size());
+  for (size_t i = 0; i < raw_poses.size(); ++i) {
+    EXPECT_TRUE(uncorrected[i].isApprox(raw_poses[i], 1e-12));
+  }
+  const auto corrected = pipeline.correctedExternalTrajectory(raw_poses);
+  ASSERT_EQ(corrected.size(), raw_poses.size());
+  const double corrected_endpoint_error =
+      corrected.back().block<3, 1>(0, 3).norm();
+  const double raw_endpoint_error =
+      raw_poses.back().block<3, 1>(0, 3).norm();
+  EXPECT_LT(corrected_endpoint_error, raw_endpoint_error);
+  EXPECT_TRUE(corrected.front().isApprox(raw_poses.front(), 1e-12));
+}
+
+TEST(HdlGraphSlam, HoldsRawTrajectoryUntilTwoLoopClustersCorroborate) {
+  HdlGraphSlamParams params = makeBaseParams();
+  params.keyframe_stride = 1;
+  params.min_loop_index_gap = 4;
+  params.scan_context.distance_threshold = 0.20;
+  params.enable_floor_constraint = false;
+  params.optimize_every_n_keyframes = 0;
+  params.min_loop_clusters_for_correction = 2;
+  params.loop_cluster_keyframe_radius = 100;
+
+  HdlGraphSlam pipeline(params);
+  std::vector<Eigen::Matrix4d> raw_poses;
+  const std::vector<double> x_positions =
+      {0.0, 1.0, 2.0, 3.0, 2.0, 1.0, 0.0};
+  for (size_t i = 0; i < x_positions.size(); ++i) {
+    const Eigen::Matrix4d true_pose =
+        makePose(x_positions[i], 0.0, 0.0);
+    Eigen::Matrix4d drifted_pose = true_pose;
+    drifted_pose(1, 3) += 0.08 * static_cast<double>(i);
+    raw_poses.push_back(drifted_pose);
+    const auto result = pipeline.processExternalOdometry(
+        generateLidarScan(true_pose), drifted_pose);
+    EXPECT_TRUE(result.pose.isApprox(drifted_pose, 1e-12));
+  }
+
+  ASSERT_GT(pipeline.numLoopEdges(), 0);
+  EXPECT_EQ(pipeline.numLoopClusters(), 1);
+  EXPECT_FALSE(pipeline.loopCorrectionEnabled());
+  const auto held = pipeline.correctedExternalTrajectory(raw_poses);
+  ASSERT_EQ(held.size(), raw_poses.size());
+  for (size_t i = 0; i < raw_poses.size(); ++i) {
+    EXPECT_TRUE(held[i].isApprox(raw_poses[i], 1e-12));
+  }
+}
+
 TEST(HdlGraphSlam, ClearResetsStateAndGraph) {
   HdlGraphSlam pipeline(makeBaseParams());
   pipeline.process(generateLidarScan(makePose(0.0, 0.0, 0.0)));
@@ -151,6 +229,8 @@ TEST(HdlGraphSlam, ClearResetsStateAndGraph) {
   EXPECT_FALSE(pipeline.initialized());
   EXPECT_EQ(pipeline.numKeyframes(), 0);
   EXPECT_EQ(pipeline.numLoopEdges(), 0);
+  EXPECT_EQ(pipeline.numLoopClusters(), 0);
+  EXPECT_FALSE(pipeline.loopCorrectionEnabled());
   EXPECT_EQ(pipeline.submapSize(), 0u);
   EXPECT_TRUE(pipeline.pose().isApprox(Eigen::Matrix4d::Identity()));
 }

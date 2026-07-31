@@ -9,6 +9,7 @@ import json
 import os
 import subprocess
 import sys
+import hashlib
 from pathlib import Path
 
 
@@ -51,6 +52,20 @@ def promotion_policy(candidate: dict, external: dict) -> dict[str, bool]:
     }
 
 
+def check_text_hash(path: Path, expected: str) -> dict:
+    """Hash source text with stable LF line endings across platforms."""
+    actual = hashlib.sha256(
+        path.read_text(encoding="utf-8").replace("\r\n", "\n").encode()
+    ).hexdigest() if path.exists() else None
+    return {
+        "path": str(path),
+        "exists": path.exists(),
+        "expected_sha256": expected,
+        "actual_sha256": actual,
+        "passed": actual == expected,
+    }
+
+
 def main() -> int:
     args = parse_args()
     if not args.data_root:
@@ -69,7 +84,7 @@ def main() -> int:
     evaluator = v10_tools.load_evaluator()
 
     implementation = [
-        v10_tools.check_hash(REPO_ROOT / relative, expected)
+        check_text_hash(REPO_ROOT / relative, expected)
         for relative, expected in candidate["implementation_sha256"].items()
     ]
     result_root = data_root / "results/v11_external_boreas"

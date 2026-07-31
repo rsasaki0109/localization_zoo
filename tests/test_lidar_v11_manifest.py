@@ -52,7 +52,8 @@ class LidarV11ManifestTests(unittest.TestCase):
 
     def test_implementation_hashes_match(self) -> None:
         for relative, expected in self.candidate["implementation_sha256"].items():
-            actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+            content = (ROOT / relative).read_text(encoding="utf-8")
+            actual = hashlib.sha256(content.replace("\r\n", "\n").encode()).hexdigest()
             self.assertEqual(actual, expected, relative)
 
 

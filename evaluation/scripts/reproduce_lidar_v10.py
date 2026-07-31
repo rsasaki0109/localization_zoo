@@ -114,8 +114,9 @@ def relevant_test_command() -> list[str]:
         "tests/test_official_kiss_pcd_odometry.py",
         "tests/test_external_odometry_evaluator.py",
         "tests/test_reproduce_lidar_v10.py",
+        "tests/test_boreas_window_tools.py",
     ]
-    return [sys.executable, "-m", "pytest", "-q", *test_files]
+    return [sys.executable, "-m", "unittest", "-q", *test_files]
 
 
 def main() -> int:
@@ -184,6 +185,51 @@ def main() -> int:
         ),
     }
 
+    boreas_report: dict[str, Any] = {"available": False, "passed": True}
+    boreas_manifest_path = REPO_ROOT / "evaluation/data/lidar_odometry_boreas_external_validation.json"
+    boreas_manifest = json.loads(boreas_manifest_path.read_text(encoding="utf-8"))
+    boreas_result = boreas_manifest.get("result", {})
+    boreas_root = data_root / "results/v10_external_boreas"
+    boreas_gt = data_root / "reference_data/boreas_2021_06_03_16_00_first600_gt.csv"
+    if boreas_gt.is_file():
+        boreas_artifact_specs = [
+            (
+                boreas_root / "primary/dogfooding_results/KISS_ICP.txt",
+                boreas_result["trajectory_sha256_before_gt_download"]["v6_primary"],
+            ),
+            (
+                boreas_root / "official_kiss/estimate.txt",
+                boreas_result["trajectory_sha256_before_gt_download"]["official_kiss_1.3.0"],
+            ),
+            (
+                boreas_root / "fused/estimate.txt",
+                boreas_result["trajectory_sha256_before_gt_download"]["frozen_v10"],
+            ),
+            (boreas_gt, boreas_result["aligned_reference_sha256"]),
+        ]
+        boreas_artifacts = [check_hash(path, expected) for path, expected in boreas_artifact_specs]
+        boreas_scores = {
+            "v6_primary": score(
+                evaluator, boreas_artifact_specs[0][0], boreas_gt, boreas_result["v6_primary"]
+            ),
+            "official_kiss_1.3.0": score(
+                evaluator,
+                boreas_artifact_specs[1][0],
+                boreas_gt,
+                boreas_result["official_kiss_1.3.0"],
+            ),
+            "frozen_v10": score(
+                evaluator, boreas_artifact_specs[2][0], boreas_gt, boreas_result["frozen_v10"]
+            ),
+        }
+        boreas_report = {
+            "available": True,
+            "artifacts": boreas_artifacts,
+            "scores": boreas_scores,
+            "passed": all(item["passed"] for item in boreas_artifacts)
+            and all(item["passed"] for item in boreas_scores.values()),
+        }
+
     tests: dict[str, Any] = {"skipped": args.skip_tests, "passed": True}
     if not args.skip_tests:
         completed = subprocess.run(
@@ -201,6 +247,7 @@ def main() -> int:
         all(item["passed"] for item in implementation)
         and all(item["passed"] for item in artifacts)
         and all(item["passed"] for item in scores.values())
+        and boreas_report["passed"]
         and tests["passed"]
     )
     payload = {
@@ -210,6 +257,7 @@ def main() -> int:
         "implementation_hashes": implementation,
         "artifact_hashes": artifacts,
         "scores": scores,
+        "boreas_external": boreas_report,
         "tests": tests,
         "passed": passed,
     }

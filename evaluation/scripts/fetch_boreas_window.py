@@ -9,6 +9,9 @@ import hashlib
 import json
 import os
 import shutil
+import subprocess
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -28,6 +31,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--start", type=int, default=0)
     parser.add_argument("--frames", type=int, default=600)
     parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument(
+        "--engine",
+        choices=("urllib", "aria2"),
+        default="urllib",
+        help="Download engine; aria2 provides segmented resumable transfers.",
+    )
     return parser.parse_args()
 
 
@@ -61,17 +70,83 @@ def download_one(item: dict[str, Any], destination: Path) -> dict[str, Any]:
         return {**item, "path": str(destination), "reused": True}
     temporary = destination.with_suffix(destination.suffix + ".part")
     url = f"{S3_BASE}/{urllib.parse.quote(item['key'], safe='/')}"
-    with urllib.request.urlopen(url) as source, temporary.open("wb") as sink:
-        shutil.copyfileobj(source, sink, length=1024 * 1024)
+    last_error: Exception | None = None
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(url, timeout=120) as source, temporary.open("wb") as sink:
+                shutil.copyfileobj(source, sink, length=1024 * 1024)
+            last_error = None
+            break
+        except (OSError, urllib.error.URLError) as error:
+            last_error = error
+            time.sleep(2**attempt)
+    if last_error is not None:
+        raise last_error
     if temporary.stat().st_size != item["size"]:
         raise RuntimeError(f"Size mismatch for {item['key']}")
-    os.replace(temporary, destination)
+    for attempt in range(5):
+        try:
+            os.replace(temporary, destination)
+            break
+        except PermissionError:
+            if attempt == 4:
+                raise
+            time.sleep(0.25 * (attempt + 1))
     return {**item, "path": str(destination), "reused": False}
 
 
 def selection_sha256(items: list[dict[str, Any]]) -> str:
     payload = "".join(f"{item['key']}\t{item['size']}\t{item['etag']}\n" for item in items)
     return hashlib.sha256(payload.encode()).hexdigest()
+
+
+def download_with_aria2(
+    items: list[dict[str, Any]], destinations: list[Path], sequence_root: Path
+) -> list[dict[str, Any]]:
+    executable = shutil.which("aria2c")
+    if executable is None:
+        raise RuntimeError("aria2c is not available; install aria2 or use --engine urllib")
+    missing: list[tuple[dict[str, Any], Path]] = []
+    for item, destination in zip(items, destinations):
+        if destination.is_file() and destination.stat().st_size == item["size"]:
+            continue
+        partial = destination.with_suffix(destination.suffix + ".part")
+        if partial.is_file():
+            partial.unlink()
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        missing.append((item, destination))
+    input_path = sequence_root / "aria2_scans.txt"
+    lines: list[str] = []
+    for item, destination in missing:
+        lines.extend(
+            [
+                f"{S3_BASE}/{urllib.parse.quote(item['key'], safe='/')}",
+                f"  dir={destination.parent}",
+                f"  out={destination.name}",
+            ]
+        )
+    input_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    if missing:
+        subprocess.run(
+            [
+                executable,
+                f"--input-file={input_path}",
+                "--continue=true",
+                "--auto-file-renaming=false",
+                "--allow-overwrite=false",
+                "--max-concurrent-downloads=16",
+                "--split=8",
+                "--min-split-size=1M",
+                "--summary-interval=15",
+            ],
+            check=True,
+        )
+    completed: list[dict[str, Any]] = []
+    for item, destination in zip(items, destinations):
+        if not destination.is_file() or destination.stat().st_size != item["size"]:
+            raise RuntimeError(f"Size mismatch after aria2 download: {destination}")
+        completed.append({**item, "path": str(destination), "reused": (item, destination) not in missing})
+    return completed
 
 
 def main() -> int:
@@ -98,8 +173,11 @@ def main() -> int:
         selected = matches
         destinations = [sequence_root / "applanix/lidar_poses.csv"]
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as executor:
-        completed = list(executor.map(download_one, selected, destinations))
+    if args.engine == "aria2":
+        completed = download_with_aria2(selected, destinations, sequence_root)
+    else:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as executor:
+            completed = list(executor.map(download_one, selected, destinations))
     manifest = {
         "schema_version": 1,
         "source": "s3://boreas",

@@ -255,5 +255,16 @@
     ],
     "finding": "v10 has the best ATE and translational RPE; MOLA-LO has the best rotational RPE; v10 clears 10 FPS even if component algorithm times are summed sequentially"
   },
-  "future_work": "optional extension to another normal-environment public dataset family; extreme-weather and tunnel robustness remain low priority and are not promotion gates"
+  "external_transfer_validation": {
+    "manifest": "evaluation/data/lidar_odometry_boreas_external_validation.json",
+    "dataset": "Boreas boreas-2021-06-03-16-00 first 600 scans",
+    "frames": 600,
+    "trajectory_length_m": 390.481242186384,
+    "ate_change_vs_v6_pct": -0.407471977436,
+    "rpe_trans_change_vs_v6_pct": -0.100444319741,
+    "rpe_rot_change_vs_v6_pct": 0.012125926660,
+    "sequential_combined_algorithm_fps": 3.020901163672,
+    "finding": "accuracy transfers without tuning, but the official reference is not real-time on 208k-point Boreas scans"
+  },
+  "future_work": "improve or parallelize the reference runtime on previously unseen high-density sensors without tuning from Boreas GT; extreme-weather and tunnel robustness remain low priority"
 }

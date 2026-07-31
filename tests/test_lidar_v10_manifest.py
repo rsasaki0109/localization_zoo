@@ -1,3 +1,4 @@
+import hashlib
 import json
 import unittest
 from pathlib import Path
@@ -50,6 +51,29 @@ class LidarV10ManifestTests(unittest.TestCase):
             candidate["rpe_trans_pct"], min(row["rpe_trans_pct"] for row in rows)
         )
         self.assertGreaterEqual(candidate["sequential_combined_algorithm_fps"], 10.0)
+
+    def test_boreas_external_transfer_is_gt_isolated_and_not_overclaimed(self) -> None:
+        boreas = json.loads(
+            (ROOT / "evaluation/data/lidar_odometry_boreas_external_validation.json").read_text()
+        )
+        result = boreas["result"]
+        self.assertIn("completed_gt_isolated", boreas["status"])
+        self.assertFalse(result["post_result_tuning"])
+        self.assertLess(result["frozen_v10"]["ate_change_vs_v6_pct"], 0.0)
+        self.assertLess(result["frozen_v10"]["rpe_trans_change_vs_v6_pct"], 0.0)
+        self.assertLess(result["frozen_v10"]["sequential_combined_algorithm_fps"], 10.0)
+        self.assertIn("limitation", result["runtime"])
+        self.assertEqual(self.aggregate["cross_dataset_summary"]["datasets"], 9)
+        self.assertEqual(len(self.aggregate["cross_dataset_summary"]["families"]), 5)
+
+    def test_boreas_tool_hashes_match_the_frozen_manifest(self) -> None:
+        boreas = json.loads(
+            (ROOT / "evaluation/data/lidar_odometry_boreas_external_validation.json").read_text()
+        )
+        for name, expected in boreas["implementation_sha256"].items():
+            path = ROOT / "evaluation/scripts" / name
+            actual = hashlib.sha256(path.read_bytes()).hexdigest()
+            self.assertEqual(actual, expected, name)
 
 
 if __name__ == "__main__":

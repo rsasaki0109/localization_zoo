@@ -982,8 +982,30 @@ best rotational RPE. Official KISS remains more accurate than v10 on fresh
 Raw 0023, so the supported claim is cross-dataset/Pareto strength, not
 universal per-sequence dominance.
 
-The final data audit finds 19 of 20 registered public datasets ready on the
+The pre-Boreas promotion audit found 19 of 20 registered public datasets ready on the
 external SSD, including every development, validation, and held-out role.
 Only the low-priority NTNU tunnel robustness set is absent; fog and all normal
 environment promotion data are present. The relevant repository audit passes
 60 tests with five environment-dependent skips.
+
+### External normal-environment transfer: Boreas
+
+After v10 promotion, a fifth public dataset family was fixed before download:
+the first 600 timestamp-ordered LiDAR scans from Boreas
+`boreas-2021-06-03-16-00`, a summer urban drive. The selected scans total
+3,084,291,600 bytes and 128,512,150 points. Only `lidar/*.bin` was downloaded
+initially. The v6 primary, official KISS 1.3.0 reference, and frozen v10
+trajectory hashes were fixed before `applanix/lidar_poses.csv` was obtained.
+No thresholds or runtime policy were changed after scoring.
+
+The 390.48 m window provides 478 100 m RPE segments. Relative to v6, v10
+improves ATE from 0.66610 m to 0.66339 m (-0.407%) and translational RPE from
+0.96701% to 0.96604% (-0.100%); rotational RPE changes by +0.012%. Official
+KISS is the accuracy winner at 0.39070 m ATE and 0.95205% RPE. The primary
+remains fast at 35.88 algorithm FPS, but official KISS reaches only 3.30 FPS on
+the 208k-point scans, limiting the conservative dual rate to 3.02 FPS. Thus
+accuracy transfer passes without tuning, while previously unseen dense-sensor
+runtime is an explicit limitation rather than a promotion claim.
+
+After registering Boreas, the data verifier reports 20 of 21 datasets ready;
+the sole missing entry remains the low-priority NTNU tunnel robustness set.

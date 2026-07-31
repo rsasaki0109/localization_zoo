@@ -47,6 +47,7 @@ per-sequence dominance.
 |---|---:|---:|---:|---|
 | Fresh KITTI Raw 0023 (474 frames) | 5.494 m | 1.622% | 12.38 FPS | ATE −2.00% vs v6; RPE +0.146% |
 | Same-input KITTI Odometry 04 (271 frames) | **1.145 m** | **0.354%** | 10.67 FPS | Best ATE and translational RPE in the frozen six-method table |
+| External Boreas summer drive (600 frames) | 0.663 m | 0.966% | 3.02 FPS | ATE −0.407% and RPE −0.100% vs v6; dense-sensor runtime limitation |
 
 The same-input table includes v6, MOLA-LO 2.2.1, MAD-ICP 0.0.10, official
 KISS-ICP 1.3.0, and CT-ICP fast. MOLA-LO retains the best rotational RPE, and
@@ -54,6 +55,12 @@ official KISS is more accurate on Raw 0023. See the
 [frozen manifest](evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json),
 [aggregate](evaluation/data/lidar_odometry_v10_aggregate.json), and
 [protocol](docs/lidar_odometry_sota_protocol.md).
+
+An additional GT-isolated transfer run uses the first 600 scans of Boreas
+`boreas-2021-06-03-16-00` (five public dataset families total). Accuracy
+transfers without tuning, but official KISS runs at only 3.30 algorithm FPS on
+the 208k-point scans; the dual frontend is therefore not real-time on this
+sensor. This limitation is part of the frozen result, not tuned away.
 
 Re-score the frozen trajectories and verify all hashes from the external SSD:
 

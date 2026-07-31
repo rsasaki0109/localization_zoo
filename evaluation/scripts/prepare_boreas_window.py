@@ -27,14 +27,14 @@ def load_boreas_scan(path: Path) -> np.ndarray:
 
 
 def write_pcd(path: Path, points: np.ndarray) -> None:
-    selected = np.ascontiguousarray(points[:, [0, 1, 2, 5]], dtype=np.float32)
+    selected = np.ascontiguousarray(points[:, [0, 1, 2, 3, 5]], dtype=np.float32)
     header = (
         "# .PCD v0.7 - Point Cloud Data file format\n"
         "VERSION 0.7\n"
-        "FIELDS x y z time\n"
-        "SIZE 4 4 4 4\n"
-        "TYPE F F F F\n"
-        "COUNT 1 1 1 1\n"
+        "FIELDS x y z intensity time\n"
+        "SIZE 4 4 4 4 4\n"
+        "TYPE F F F F F\n"
+        "COUNT 1 1 1 1 1\n"
         f"WIDTH {selected.shape[0]}\n"
         "HEIGHT 1\n"
         "VIEWPOINT 0 0 0 1 0 0 0\n"
@@ -83,7 +83,7 @@ def main() -> int:
         "frames": len(scans),
         "points": total_points,
         "timestamp_range_us": [timestamps[0], timestamps[-1]],
-        "pcd_fields": ["x", "y", "z", "time"],
+        "pcd_fields": ["x", "y", "z", "intensity", "time"],
         "ground_truth_used": False,
     }
     (output_dir / "conversion_manifest.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

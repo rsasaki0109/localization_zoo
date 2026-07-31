@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "candidate_id": "density_adaptive_reference_v11",
+  "status": "evaluated_accuracy_pass_runtime_gate_fail_not_promoted",
+  "configuration_frozen": true,
+  "frozen_at": "2026-08-01",
+  "promoted": false,
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
+  "method": "v10_direction_consistent_rotation_with_density_capped_official_kiss_reference",
+  "development_policy": {
+    "dataset": "Boreas boreas-2021-06-03-16-00 first 600 scans",
+    "selection_signal": "runtime and point-count profiles only",
+    "ground_truth_loaded_by_profiler": false,
+    "v11_candidate_metrics_inspected_during_selection": false,
+    "known_prior_information": "v10 Boreas metrics were already public before v11 development; no v11 cap trajectory was scored during selection",
+    "post_freeze_parameter_changes": "forbidden"
+  },
+  "mechanism": {
+    "primary_frontend": "unchanged v6 adaptive motion guard",
+    "reference_frontend": "official KISS-ICP 1.3.0 defaults, 8 threads",
+    "density_rule": "when a scan exceeds 80000 points, retain exactly 80000 indices evenly over acquisition order including both endpoints",
+    "timestamp_rule": "apply the same indices to normalized per-point timestamps before official deskew",
+    "causality": "the current scan point count alone determines the current scan selection",
+    "fusion": "unchanged frozen v10 direction-consistent rotation fusion"
+  },
+  "runtime_search": {
+    "frames": 200,
+    "point_caps_evaluated": [0, 120000, 80000, 50000],
+    "selection_rule": "highest algorithm FPS; no accuracy metric or GT read",
+    "results": [
+      {"max_input_points": 0, "reference_algorithm_fps": 13.491, "end_to_end_fps": 8.374, "mean_registration_source_points": 3831.3, "profile_sha256": "c64b189fa2201dbb2802de98204740e7bc3328ef3b2d038518fab21a028d4152"},
+      {"max_input_points": 120000, "reference_algorithm_fps": 15.244, "end_to_end_fps": 8.717, "mean_registration_source_points": 3502.7, "profile_sha256": "a04b8da955bfd588325daacffa7749f204d4694f23da0b70919540f5fd0850ab"},
+      {"max_input_points": 80000, "reference_algorithm_fps": 23.183, "end_to_end_fps": 11.736, "mean_registration_source_points": 3232.3, "profile_sha256": "44404e27795923353cfcd5ccfe61cb59ac1dcbdbf6247b44da8f25f4ef026c42"},
+      {"max_input_points": 50000, "reference_algorithm_fps": 20.596, "end_to_end_fps": 10.082, "mean_registration_source_points": 2898.3, "profile_sha256": "fc5e8399ba418ee9b4861b1dc938a9eb366735f00a7895075698b4e620ef80ec"}
+    ],
+    "selected_max_input_points": 80000
+  },
+  "frozen_runtime_result": {
+    "frames": 600,
+    "raw_points_mean": 214186.91666666666,
+    "selected_points_mean": 80000.0,
+    "registration_source_points_mean": 3676.6383333333333,
+    "reference_algorithm_seconds": 36.737371598,
+    "reference_algorithm_fps": 16.33214282626208,
+    "primary_algorithm_fps_from_frozen_v10_run": 35.881948,
+    "sequential_combined_algorithm_fps": 11.223581419246973,
+    "runtime_gate": "pass_combined_algorithm_fps_at_least_10",
+    "end_to_end_fps_including_external_ssd_pcd_io": 9.666088442308576,
+    "reference_trajectory_sha256_before_v11_accuracy_evaluation": "ce0a5b8565bfa80b55fdecd1a8d0b66622e887f0370a2f7768a78b9e4e6d6171",
+    "profile_sha256": "df509f325ef66e332596b687e319d0c3acbf3006df0393369dcd654799db1e1c",
+    "v11_fused_trajectory_sha256_before_accuracy_evaluation": "e759746d2805fa0a1be0bbd88b13713e297478f9f72bf2eada65a614aacae2e0",
+    "v11_fusion_manifest_sha256": "0ce050f43764e2004bec4c9068a550188a223d8dbd3d611ddbefbf64deedc40b"
+  },
+  "implementation_sha256": {
+    "evaluation/scripts/profile_official_kiss_pcd.py": "d59735fbe597e171209da45062be96704700df7c5e25a9a8b73c7c90b5a7ac98",
+    "tests/test_profile_official_kiss_pcd.py": "2a5f04d5358d05fbd316544a434f05191d085fdd3cd8aaa5a0850a42c2b20306",
+    "evaluation/scripts/fuse_odometry_direction_consistent_rotation.py": "d2b86269e00b8518774a9026d480be9357d9ae2a7777a1fdb2b142ee526af663"
+  },
+  "promotion_gate": {
+    "runtime": "sequential combined algorithm FPS >= 10 on the 600-frame Boreas development window",
+    "external_accuracy": "on a predeclared unused normal-environment public sequence, v11 must not regress ATE or translational RPE by more than 1% versus v10 and must track every v10-tracked frame",
+    "overall": "promote only if runtime and external accuracy gates both pass without parameter changes"
+  },
+  "external_validation": {
+    "manifest": "evaluation/data/lidar_odometry_v11_external_validation.json",
+    "dataset": "Boreas boreas-2021-09-02-11-42 first 600 scans",
+    "tracking_gate": "pass_600_of_600",
+    "accuracy_gate": "pass",
+    "runtime_gate": "fail_9.654_fps_below_10",
+    "v11_vs_v10": {
+      "ate_change_pct": -0.16939646891936944,
+      "rpe_trans_change_pct": -0.05661447583332757,
+      "rpe_rot_change_pct": -0.06115117309618556,
+      "sequential_combined_fps_change_pct": 32.428256493
+    },
+    "promotion": "rejected_because_all_predeclared_gates_did_not_pass",
+    "post_result_tuning": false
+  }
+}

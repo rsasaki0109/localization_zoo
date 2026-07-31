@@ -1009,3 +1009,42 @@ runtime is an explicit limitation rather than a promotion claim.
 
 After registering Boreas, the data verifier reports 20 of 21 datasets ready;
 the sole missing entry remains the low-priority NTNU tunnel robustness set.
+
+### Dense-sensor profiling and v11 freeze
+
+The v10 Boreas limitation was profiled without loading GT. Two 600-frame
+repetitions reproduced the uncapped trajectory within `1e-10` per matrix
+element. Across system-load variation, the stable bottlenecks were official
+KISS registration (43–50% of measured wall time), PCD input (28–32%), and
+deskew plus voxelization (19–21%). The scans average roughly 214k raw points,
+but only about 4k points reach registration after the official voxel stages.
+
+The v11 experiment adds a causal point cap ahead of official deskew: scans
+over the cap retain evenly spaced acquisition-order indices, with identical
+indices applied to timestamps. A GT-free 200-frame speed sweep compared no
+cap, 120k, 80k, and 50k. Their reference algorithm rates were respectively
+13.49, 15.24, 23.18, and 20.60 FPS. The 80k cap was selected solely by speed;
+no capped trajectory metric was inspected. On all 600 development frames it
+reached 16.33 reference FPS and 11.22 conservative sequential combined FPS.
+The configuration and v11 trajectory were hashed before any v11 scoring.
+
+### Frozen v11 external result and non-promotion
+
+Before downloading a new sequence, the first 600 scans of normal daytime
+Boreas `boreas-2021-09-02-11-42` were declared as the only external gate. The
+3,064,385,088-byte scan window contains 127,682,712 points. Real GT and
+calibration were absent while the v6 primary, uncapped reference, frozen v10,
+80k reference, and frozen v11 trajectories were generated and hashed. Only
+then was `applanix/lidar_poses.csv` fetched.
+
+The 291.34 m route provides 431 100 m RPE segments. v11 preserves all 600
+frames and improves ATE from 0.43934 to 0.43859 m (-0.169%), translational RPE
+from 0.65813% to 0.65776% (-0.057%), and rotational RPE by 0.061% versus v10.
+The capped official reference itself also improves over the uncapped reference
+(0.32207 vs 0.33613 m ATE). Conservative sequential throughput improves from
+7.29 to 9.65 FPS (+32.4%), but the predeclared external runtime gate requires
+at least 10 FPS. Therefore tracking and accuracy pass, runtime fails, and v11
+is not promoted. No post-result threshold or cap change is permitted; v10
+remains the promoted candidate. With this second Boreas window registered, the
+SSD verifier reports 21 of 22 datasets ready, with only low-priority NTNU
+tunnel absent.

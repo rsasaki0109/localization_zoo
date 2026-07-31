@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "status": "completed_accuracy_pass_runtime_fail_not_promoted",
+  "declared_at": "2026-08-01",
+  "candidate": "evaluation/data/lidar_odometry_candidate_density_adaptive_reference_v11.json",
+  "dataset": {
+    "family": "Boreas",
+    "sequence": "boreas-2021-09-02-11-42",
+    "source": "s3://boreas",
+    "source_url": "https://www.boreas.utias.utoronto.ca/",
+    "selection": "first 600 lidar/*.bin objects in ascending timestamp order",
+    "environment": "normal daytime urban driving; no adverse-weather selection",
+    "sensor": "Velodyne Alpha Prime 128-beam LiDAR",
+    "frames": 600,
+    "prior_use_in_localization_zoo": "none"
+  },
+  "ground_truth_isolation": {
+    "scan_phase": "download only the selected lidar binary objects; do not download applanix or calibration",
+    "trajectory_phase": "generate and hash v6 primary, uncapped official KISS reference, frozen v10, 80k-capped official KISS reference, and frozen v11 trajectories",
+    "metric_phase": "download only applanix/lidar_poses.csv after every trajectory hash is fixed",
+    "post_result_tuning": "forbidden"
+  },
+  "gates": {
+    "tracking": "v11 must produce every frame produced by v10",
+    "accuracy": "v11 ATE and 100 m translational RPE must each be <= 1.01 times v10",
+    "runtime": "v11 sequential combined algorithm FPS must be >= 10 and greater than v10",
+    "promotion": "all gates must pass without configuration changes"
+  },
+  "large_artifacts": "LOCALIZATION_ZOO_DATA_ROOT on external SSD",
+  "result": {
+    "scan_bytes": 3064385088,
+    "scan_points": 127682712,
+    "scan_selection_sha256": "5ef2b8361b1671154906e052fe5efec5a5df76aa42c10568bc12135613493364",
+    "scan_fetch_manifest_sha256": "3143b44a5e040036c1c5b7e4a6f46aa0fac9074c619e7cf9a4bf260453d7a009",
+    "conversion_manifest_sha256": "c9d48e9a1b69b10193fc1f86914cdff99468e11d1211daf15f4f9bda9d2b41c3",
+    "first_scan_key": "boreas-2021-09-02-11-42/lidar/1630597330954834.bin",
+    "last_scan_key": "boreas-2021-09-02-11-42/lidar/1630597393073486.bin",
+    "real_ground_truth_present_during_trajectory_phase": false,
+    "synthetic_identity_reference_sha256": "0df1aa6cdd0f358becf20151720da1d60f7413b68f0afeb85412fcea6cef5962",
+    "trajectory_sha256_before_gt_download": {
+      "v6_primary": "9a48b21a070902a2bd8a060ca396b3da80b4f15516ff76645d288859bb747bc7",
+      "v10_uncapped_reference": "a11fe10ccfde2b65d3d824089d021e1f294d0aeebb84e246fd2026521c6241f6",
+      "frozen_v10": "68dd40056928f013c2f46506a87e021aa0438963abc54aafca3a16b331921016",
+      "v11_80k_reference": "c4c54782d9577ce49785ed60215cf024e36824040312311ae37db380044d768b",
+      "frozen_v11": "39072fad4c351e87a0a17aa6bb6d384050042e7690b9edf23eda018ffd986c3f"
+    },
+    "fusion_manifest_sha256": {
+      "v10": "d546d6991006fc119d5d83fcf4d80fc47d58943f5430eccec3ff8a99ad8053a7",
+      "v11": "23e03ba23547d29c09098d521cc262e3d556a945e43c2ccadc06fc22aa61af42"
+    },
+    "runtime_before_gt_download": {
+      "primary_algorithm_fps": 25.270153,
+      "v10_reference_algorithm_fps": 10.246301491986523,
+      "v10_sequential_combined_algorithm_fps": 7.290299949423397,
+      "v11_reference_algorithm_fps": 15.623253531413226,
+      "v11_sequential_combined_algorithm_fps": 9.654417192985038,
+      "v11_speedup_vs_v10_pct": 32.428256493,
+      "v11_runtime_gate": "fail_below_10_fps"
+    },
+    "ground_truth_after_trajectory_freeze": {
+      "official_lidar_poses_sha256": "9ad5e18499219ff663bbdac4c0fe8c20d255ba3231804078cba82738ab4a5630",
+      "gt_fetch_manifest_sha256": "ac53bb405305cf352ff3e17f02fc0c667ffdff40731f11ebaf8913736f1e89a7",
+      "gt_selection_sha256": "20c65361c0d3415fea47e2f522f8431d11de5c1472cf55b5d5223db96354d266",
+      "aligned_reference_sha256": "246ba230aa296f852ae75477163180f9e5cf900e389e0bab398a787318703bfa"
+    },
+    "accuracy": {
+      "trajectory_length_m": 291.3432569416259,
+      "rpe_100m_segments": 431,
+      "v6_primary": {"ate_m": 0.439161854260346, "rpe_trans_pct": 0.6578805691928626, "rpe_rot_deg_per_m": 0.00680021873989305},
+      "v10_uncapped_reference": {"ate_m": 0.33612903774195246, "rpe_trans_pct": 0.6429878275830349, "rpe_rot_deg_per_m": 0.006547146210294844},
+      "v11_80k_reference": {"ate_m": 0.3220696951578932, "rpe_trans_pct": 0.6341851335191023, "rpe_rot_deg_per_m": 0.00651420609381245},
+      "frozen_v10": {"ate_m": 0.4393386039734501, "rpe_trans_pct": 0.6581302994558258, "rpe_rot_deg_per_m": 0.006796454398939355},
+      "frozen_v11": {"ate_m": 0.4385943798917194, "rpe_trans_pct": 0.6577577024364886, "rpe_rot_deg_per_m": 0.006792298287345456},
+      "v11_vs_v10": {"ate_change_pct": -0.16939646891936944, "rpe_trans_change_pct": -0.05661447583332757, "rpe_rot_change_pct": -0.06115117309618556},
+      "tracking_gate": "pass_600_of_600",
+      "accuracy_gate": "pass"
+    },
+    "metric_artifact_sha256": {
+      "v6_primary": "b49550d086783eb45461c33653536f3b817c45daf8eda6c42bdb8ce9e5cb0e98",
+      "v10_uncapped_reference": "72f4654065f84706e0eeb018548721e2992a5b08c1b68dce17f8d8f6ca262d1e",
+      "v11_80k_reference": "9600c972d4c2ffe2a4e3e53608a134cbd684b1a1b0f115d18ad8953cbb4ce9d2",
+      "frozen_v10": "c14c3f70910afedc5486e91265360c92add656c8c062ae7061ab5b3826e25f83",
+      "frozen_v11": "1de59c6b237a49ea93cb8f52fd15f075ae40a1f025ccdf27949612bc9ee324d4"
+    },
+    "promotion": "rejected_runtime_gate_failed_despite_accuracy_and_tracking_pass",
+    "post_result_tuning": false
+  }
+}

@@ -92,6 +92,13 @@ jobs:
             tests/test_reproduce_lidar_v10.py \
             tests/test_boreas_window_tools.py
 
+      - name: LiDAR v11 non-promotion contract
+        run: |
+          python3 -m unittest -q \
+            tests/test_profile_official_kiss_pcd.py \
+            tests/test_lidar_v11_manifest.py \
+            tests/test_reproduce_lidar_v11.py
+
   ros2-colcon-build:
     runs-on: ubuntu-22.04
     container:

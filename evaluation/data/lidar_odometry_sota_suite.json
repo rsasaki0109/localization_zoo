@@ -203,6 +203,16 @@
       "expected_frames": 600
     },
     {
+      "id": "boreas_2021_09_02_11_42_first600",
+      "family": "Boreas",
+      "role": "external_validation_density_adaptive_reference_v11",
+      "gt_backed": true,
+      "processed_dir": "dogfooding_results/boreas_2021_09_02_11_42_first600",
+      "frame_format": "pcd",
+      "reference_csv_external": "reference_data/boreas_2021_09_02_11_42_first600_gt.csv",
+      "expected_frames": 600
+    },
+    {
       "id": "ntnu_tunnel_full",
       "family": "NTNU LiDAR Degeneracy",
       "role": "robustness_only",

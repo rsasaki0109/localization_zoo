@@ -73,6 +73,30 @@ On PowerShell, set `$env:LOCALIZATION_ZOO_DATA_ROOT = 'E:\datasets\loc_zoo'`
 and run the same Python command. The audit writes only to
 `$LOCALIZATION_ZOO_DATA_ROOT/results/v10_reproduction_audit`.
 
+### Dense-sensor v11 investigation — not promoted
+
+The follow-up v11 candidate causally caps high-density reference scans at
+80,000 points while preserving evenly spaced acquisition-order samples and
+their timestamps. The cap was selected from runtime profiles only; no v11
+trajectory was scored during selection. On the 600-frame Boreas development
+window, conservative sequential frontend throughput rises to 11.22 algorithm
+FPS.
+
+An unused normal daytime Boreas drive (`boreas-2021-09-02-11-42`) was declared
+before download. All five component/fused trajectory hashes were fixed before
+the official poses were fetched. v11 retains 600/600 tracking and slightly
+improves ATE (0.43934 to 0.43859 m) and translational RPE (0.65813% to
+0.65776%) versus v10. Throughput improves 32.4% (7.29 to 9.65 FPS), but misses
+the predeclared 10 FPS gate. v11 is therefore **not promoted**, and v10 remains
+the promoted candidate. See the [v11 candidate](evaluation/data/lidar_odometry_candidate_density_adaptive_reference_v11.json)
+and [GT-isolated external result](evaluation/data/lidar_odometry_v11_external_validation.json).
+
+Audit the frozen SSD artifacts and the non-promotion decision with:
+
+```bash
+python3 evaluation/scripts/reproduce_lidar_v11.py
+```
+
 ---
 
 ## Why Localization Zoo?

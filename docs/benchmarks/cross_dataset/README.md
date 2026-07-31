@@ -1,5 +1,11 @@
 # Cross-dataset benchmarks (MulRan / NCLT)
 
+> **Invalidated MulRan rows:** the MulRan 120/full tables and JSON bundles in
+> this directory used a base/rear-wheel GT pose as if it were a LiDAR pose.
+> Their MulRan metrics must not be cited. NCLT rows are unaffected. Corrected
+> MulRan LiDAR-frame results and the reference hash are recorded in
+> `docs/lidar_odometry_sota_log.md`.
+
 LiDAR-only from-paper methods re-evaluated on non-KITTI dogfooding trees with
 `--no-gt-seed` (velocity-model prior, no GT initialization).
 

@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "candidate_id": "kiss_adaptive_incremental_rotation_v7",
+  "status": "rejected_fresh_heldout_ate_gate",
+  "configuration_frozen": true,
+  "frozen_at": "2026-07-31",
+  "held_out_evaluated": true,
+  "tuning_after_held_out": false,
+  "promoted": false,
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_kiss_adaptive_motion_guard_v6.json",
+  "method": "parallel_dual_kiss_causal_incremental_rotation_fusion",
+  "gt_usage": "metrics_only",
+  "initialization": "first_pose_anchor_only",
+  "configuration": {
+    "primary": "adaptive motion-guard v6",
+    "rotation_reference": "official KISS-ICP 1.3.0 defaults with max_num_threads=8",
+    "rotation_blend": 0.05,
+    "max_increment_disagreement_deg": 5.0,
+    "translation_policy": "retain every primary local-frame relative translation; reference translation is never consumed",
+    "rotation_policy": "blend primary and reference relative rotations on SO(3), then causally re-integrate",
+    "causality": "output pose i uses only primary/reference increments through i",
+    "execution_policy": "run primary and reference frontends in parallel"
+  },
+  "selection_protocol": {
+    "development_sequence": "kitti_odometry_01_full",
+    "sweep_rotation_blends": [0.05, 0.1, 0.2, 0.5, 1.0],
+    "selection_rule": "largest useful ATE reduction while keeping translational RPE regression <= 1% against v6",
+    "selected_rotation_blend": 0.05,
+    "transfer_sequences_not_used_for_selection": [
+      "kitti_odometry_05_full",
+      "kitti_odometry_07_full",
+      "mulran_parkinglot_full"
+    ],
+    "thread_selection": "max_num_threads=8 selected from GT-free runtime only on MulRan first 200 frames"
+  },
+  "development_results": [
+    {
+      "dataset": "kitti_odometry_01_full",
+      "role": "hyperparameter_selection",
+      "frames": 1101,
+      "gated_increments": 0,
+      "v6_ate_m": 50.7644237026,
+      "v7_ate_m": 47.9766564773,
+      "ate_change_pct": -5.491600574,
+      "v6_rpe_trans_pct": 0.6327497995,
+      "v7_rpe_trans_pct": 0.6360931719,
+      "rpe_trans_change_pct": 0.528379798,
+      "v7_rpe_rot_deg_per_m": 0.0035908648,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v7_development/incremental_rotation/kitti01/b0p05/metrics.json"
+    },
+    {
+      "dataset": "kitti_odometry_05_full",
+      "role": "locked_transfer",
+      "frames": 2761,
+      "gated_increments": 0,
+      "v6_ate_m": 7.807514,
+      "v7_ate_m": 7.5314728429,
+      "ate_change_pct": -3.535583619,
+      "v6_rpe_trans_pct": 0.412494,
+      "v7_rpe_trans_pct": 0.4113811483,
+      "rpe_trans_change_pct": -0.26978615,
+      "v7_rpe_rot_deg_per_m": 0.0040931671,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v7_development/incremental_rotation/kitti05/metrics.json"
+    },
+    {
+      "dataset": "kitti_odometry_07_full",
+      "role": "locked_transfer",
+      "frames": 1101,
+      "gated_increments": 0,
+      "v6_ate_m": 2.3764043653,
+      "v7_ate_m": 2.2571401234,
+      "ate_change_pct": -5.018681334,
+      "v6_rpe_trans_pct": 0.5103729686,
+      "v7_rpe_trans_pct": 0.5065606895,
+      "rpe_trans_change_pct": -0.746968818,
+      "v7_rpe_rot_deg_per_m": 0.0059480001,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v7_development/incremental_rotation/kitti07/metrics.json"
+    },
+    {
+      "dataset": "mulran_parkinglot_full",
+      "role": "locked_cross_dataset_transfer",
+      "frames": 1175,
+      "gated_increments": 0,
+      "v6_ate_m": 4.2519469493,
+      "v7_ate_m": 4.2524579042,
+      "ate_change_pct": 0.012016968,
+      "v6_rpe_trans_pct": 1.4636338657,
+      "v7_rpe_trans_pct": 1.4619197959,
+      "rpe_trans_change_pct": -0.117110559,
+      "v7_rpe_rot_deg_per_m": 0.0256841337,
+      "decision": "pass_1pct_nonregression; effectively neutral ATE",
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v7_development/incremental_rotation/mulran_parkinglot_threads8/metrics.json"
+    },
+    {
+      "dataset": "nclt_2013_01_10_full",
+      "role": "locked_cross_dataset_transfer",
+      "frames": 5105,
+      "gated_increments": 1,
+      "v6_ate_m": 7.8841448401,
+      "v7_ate_m": 7.8716438422,
+      "ate_change_pct": -0.1585587043,
+      "v6_rpe_trans_pct": 2.3003050046,
+      "v7_rpe_trans_pct": 2.2780406198,
+      "rpe_trans_change_pct": -0.9678883768,
+      "v7_rpe_rot_deg_per_m": 0.0281904059,
+      "decision": "pass; ATE, translational RPE, and rotational RPE all improve",
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v7_development/incremental_rotation/nclt_2013_01_10/metrics.json"
+    }
+  ],
+  "runtime_results": [
+    {
+      "dataset": "mulran_parkinglot_first_200",
+      "reference_max_threads": 8,
+      "official_reference_algorithm_fps": 27.157976208,
+      "official_reference_end_to_end_fps": 24.1846778832,
+      "selection_used_ground_truth": false
+    },
+    {
+      "dataset": "mulran_parkinglot_full",
+      "reference_max_threads": 8,
+      "official_reference_algorithm_fps": 10.5264757991,
+      "official_reference_end_to_end_fps": 9.970637301,
+      "primary_algorithm_fps": 76.240993,
+      "fusion_fps_including_pose_io": 6529.11261422,
+      "parallel_algorithm_runtime_gate_10_fps": "pass",
+      "parallel_end_to_end_runtime_gate_10_fps": "boundary_fail_by_0.29_percent",
+      "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v7_development/runtime/mulran_full_threads8/odometry_manifest.json"
+    },
+    {
+      "dataset": "nclt_2013_01_10_full",
+      "reference_max_threads": 8,
+      "official_reference_algorithm_fps": 14.0357220281,
+      "official_reference_end_to_end_fps": 4.32342799,
+      "primary_algorithm_fps": 51.4451,
+      "fusion_fps_including_pose_io": 7146.89408339,
+      "parallel_algorithm_runtime_gate_10_fps": "pass",
+      "end_to_end_note": "offline nested-PCD parsing dominates the Python runner; reported separately from the established algorithm-rate promotion gate",
+      "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v7_development/runtime/nclt_2013_01_10_full_threads8/odometry_manifest.json"
+    }
+  ],
+  "implementation_sha256": {
+    "evaluation/scripts/fuse_odometry_incremental_rotation.py": "2e536def359249359edd2a08d8093dd367a87c86b026938d5d4ff9c48396665a",
+    "tests/test_incremental_rotation_fusion.py": "fd5ded83731222925229c53571c3574b8847ae3db9d1d9df4720584696e335d5"
+  },
+  "fresh_held_out_protocol": {
+    "declared_before_download_or_scan_gt_inspection": true,
+    "dataset": "kitti_raw_2011_09_26_drive_0005_sync",
+    "candidate_run_limit": "one full-sequence run after scan-only extraction",
+    "gt_isolation": "extract Velodyne scans first; generate and hash all component and fused trajectories before downloading or extracting OXTS/calibration",
+    "post_result_tuning": "forbidden",
+    "primary_gate": "v7 unaligned ATE must improve by at least 1% versus its v6 primary, translational RPE may regress by at most 1%, every pose must be finite, and both front ends must sustain at least 10 algorithm FPS",
+    "comparators": [
+      "v6 adaptive primary",
+      "official KISS-ICP 1.3.0 eight-thread",
+      "MAD-ICP official16",
+      "MOLA-LO or CT-ICP where the same raw scans can be ingested without GT"
+    ]
+  },
+  "fresh_held_out_result": {
+    "dataset": "kitti_raw_2011_09_26_drive_0005_sync",
+    "frames": 154,
+    "trajectory_length_m": 69.3836970616,
+    "rpe_segments_100m": 0,
+    "rpe_gate_status": "not_evaluable_because_trajectory_is_shorter_than_100m",
+    "v6_primary": {
+      "ate_m": 1.5205190345,
+      "algorithm_fps": 27.3571128227,
+      "trajectory_sha256": "401c7d7a479ce70f91ba9aebec0850674b244e4d617b92e7f214df07d362f4ae"
+    },
+    "official_kiss_1_3_0_threads8": {
+      "ate_m": 1.4289152872,
+      "algorithm_fps": 11.4410586398,
+      "trajectory_sha256": "d1dadb3b0238ec2a8aef04f3a723f9971081103647d934d49b68849f270b265e"
+    },
+    "v7": {
+      "ate_m": 1.5187678256,
+      "ate_change_vs_v6_pct": -0.115171769,
+      "gated_increments": 0,
+      "trajectory_sha256": "d7f3dbd2f2a0deafbbf566a151b8f564e1068ca8d9905886f8d50cbe32726e3a"
+    },
+    "gt_sha256": "9fd29880807bd459011340b2ceb1f4eed5ffc2064ec7aa06730e02f5fef08fec",
+    "source_archive_sha256": "eaa3635b6ad6a707a8bab53ca38567ada8c78eb743e96d558497872fa436c136",
+    "gt_isolation_verified": true,
+    "decision": "reject; ATE improves only 0.115%, below the predeclared 1% minimum, and no post-heldout tuning is permitted",
+    "artifacts": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v7_fresh_heldout/kitti_raw_0005"
+  },
+  "next_gate": {
+    "nclt_locked_transfer": "pass",
+    "algorithm_runtime_10_fps": "pass_on_mulran_and_nclt",
+    "configuration_freeze": "complete",
+    "fresh_held_out": "failed",
+    "promotion": "rejected; develop a new generation on consumed development data before declaring another fresh sequence"
+  }
+}

@@ -5,8 +5,11 @@
 from __future__ import annotations
 
 import argparse
+from contextlib import nullcontext
 import csv
+import hashlib
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
@@ -94,6 +97,11 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Output name stem (default: mulran_<sequence>_<N> from folder name and window size).",
     )
+    parser.add_argument(
+        "--gt-only",
+        action="store_true",
+        help="Regenerate aligned LiDAR-frame GT without rewriting existing PCDs/timestamps.",
+    )
     return parser.parse_args()
 
 
@@ -113,6 +121,13 @@ def count_exported_frames(sequence_dir: Path) -> int:
         for child in sequence_dir.iterdir()
         if child.is_dir() and child.name.isdigit() and len(child.name) == 8
     )
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _write_gt_csv(path: Path, aligned: list[object]) -> None:
@@ -153,12 +168,16 @@ def export_window(
     stem: str,
     kb: object,
     pose_io: object,
+    gt_only: bool,
 ) -> tuple[str, Path, Path]:
     bin_files = sorted(lidar_dir.glob("*.bin"))
     if not bin_files:
         raise RuntimeError(f"No .bin files in {lidar_dir}")
 
-    traj = pose_io.load_global_pose_rows(pose_path)
+    traj = [
+        pose_io.base_pose_to_lidar_pose(p)
+        for p in pose_io.load_global_pose_rows(pose_path)
+    ]
     if not traj:
         raise RuntimeError(f"No poses parsed from {pose_path}")
 
@@ -181,31 +200,62 @@ def export_window(
 
     aligned: list[object] = []
     timestamps_path = output_dir / "frame_timestamps.csv"
-    with timestamps_path.open("w", newline="") as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow(["frame_idx", "timestamp", "points"])
+    timestamp_context = (
+        nullcontext(None)
+        if gt_only
+        else timestamps_path.open("w", newline="")
+    )
+    with timestamp_context as csv_file:
+        writer = csv.writer(csv_file) if csv_file is not None else None
+        if writer is not None:
+            writer.writerow(["frame_idx", "timestamp", "points"])
 
         for i, bin_path in enumerate(selected_bins):
-            points = kb.load_kitti_bin(bin_path)
-            packed = np.empty(
-                len(points),
-                dtype=np.dtype(
-                    [
-                        ("x", "<f4"),
-                        ("y", "<f4"),
-                        ("z", "<f4"),
-                        ("intensity", "<f4"),
-                    ]
-                ),
-            )
-            packed["x"] = points[:, 0]
-            packed["y"] = points[:, 1]
-            packed["z"] = points[:, 2]
-            packed["intensity"] = points[:, 3]
+            point_count = 0
+            if not gt_only:
+                raw = np.fromfile(str(bin_path), dtype=np.float32).reshape(-1, 4)
+                x, y, z = raw[:, 0], raw[:, 1], raw[:, 2]
+                ranges = np.sqrt(x * x + y * y + z * z)
+                valid = (ranges > 0.5) & (ranges < 120.0)
+                points = raw[valid]
+                # Official KISS-ICP MulRan loader: Ouster packets are stored
+                # column-major as 64 beams x 1024 azimuth columns.
+                has_packet_time = len(raw) == 64 * 1024
+                if has_packet_time:
+                    relative_time = (
+                        np.floor(np.arange(len(raw), dtype=np.float64) / 64.0)
+                        / 1024.0
+                    )[valid].astype("<f4")
+                    packed_dtype = np.dtype(
+                        [
+                            ("x", "<f4"),
+                            ("y", "<f4"),
+                            ("z", "<f4"),
+                            ("intensity", "<f4"),
+                            ("time", "<f4"),
+                        ]
+                    )
+                else:
+                    packed_dtype = np.dtype(
+                        [
+                            ("x", "<f4"),
+                            ("y", "<f4"),
+                            ("z", "<f4"),
+                            ("intensity", "<f4"),
+                        ]
+                    )
+                packed = np.empty(len(points), dtype=packed_dtype)
+                packed["x"] = points[:, 0]
+                packed["y"] = points[:, 1]
+                packed["z"] = points[:, 2]
+                packed["intensity"] = points[:, 3]
+                if has_packet_time:
+                    packed["time"] = relative_time
+                point_count = len(packed)
 
-            frame_dir = output_dir / f"{i:08d}"
-            frame_dir.mkdir(parents=True, exist_ok=True)
-            kb.write_binary_pcd(frame_dir / "cloud.pcd", packed)
+                frame_dir = output_dir / f"{i:08d}"
+                frame_dir.mkdir(parents=True, exist_ok=True)
+                kb.write_binary_pcd(frame_dir / "cloud.pcd", packed)
 
             ts_ns = int(bin_path.stem)
             pose = pose_io.nearest_pose(ts_ns, traj)
@@ -221,9 +271,54 @@ def export_window(
                 )
             )
             ts_sec = ts_ns * 1e-9
-            writer.writerow([i, f"{ts_sec:.10f}", len(packed)])
+            if writer is not None:
+                writer.writerow([i, f"{ts_sec:.10f}", point_count])
 
     _write_gt_csv(gt_csv, aligned)
+
+    if not gt_only:
+        pcd_paths = sorted(output_dir.glob("[0-9]" * 8 + "/cloud.pcd"))
+        packet_bytes = 64 * 1024 * 4 * 4
+        packet_timed_frames = sum(
+            path.stat().st_size == packet_bytes for path in selected_bins
+        )
+        manifest = {
+            "schema_version": 1,
+            "dataset": "MulRan",
+            "sequence_root": str(sequence_root),
+            "raw_lidar_dir": str(lidar_dir),
+            "output_dir": str(output_dir),
+            "frame_range": {
+                "start": start_frame,
+                "end_exclusive": end_idx,
+                "frames": len(selected_bins),
+            },
+            "storage": {
+                "raw_bytes": sum(path.stat().st_size for path in selected_bins),
+                "pcd_bytes": sum(path.stat().st_size for path in pcd_paths),
+                "external_ssd_required": True,
+            },
+            "point_format": {
+                "base_fields": ["x", "y", "z", "intensity"],
+                "per_point_time_field": "time",
+                "timestamp_model": "floor(raw_point_index / 64) / 1024",
+                "packet_layout": {"beams": 64, "columns": 1024},
+                "packet_timed_frames": packet_timed_frames,
+                "timestamp_fallback_frames": len(selected_bins)
+                - packet_timed_frames,
+            },
+            "ground_truth": {
+                "source": str(pose_path),
+                "output": str(gt_csv),
+                "output_sha256": _sha256(gt_csv),
+                "frame": "lidar",
+                "usage": "evaluation_only_after_odometry",
+            },
+        }
+        (output_dir / "conversion_manifest.json").write_text(
+            json.dumps(manifest, indent=2) + "\n",
+            encoding="utf-8",
+        )
 
     return stem, output_dir, gt_csv
 
@@ -269,6 +364,7 @@ def main() -> int:
             stem=stem_w,
             kb=kb,
             pose_io=pose_io,
+            gt_only=args.gt_only,
         )
     )
 
@@ -286,6 +382,7 @@ def main() -> int:
                 stem=stem_f,
                 kb=kb,
                 pose_io=pose_io,
+                gt_only=args.gt_only,
             )
         )
 

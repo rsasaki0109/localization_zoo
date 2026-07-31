@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "data_root_env": "LOCALIZATION_ZOO_DATA_ROOT",
+  "objective": "Develop a GT-leak-free LiDAR odometry method that transfers across public datasets.",
+  "promoted_candidate_manifest": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
+  "protocol": {
+    "gt_usage": "metrics_only",
+    "initialization": "first_pose_anchor_only",
+    "per_frame_gt_seed": false,
+    "primary_metric": "geometric_mean_rpe_trans_pct",
+    "secondary_metrics": [
+      "rpe_rot_deg_per_m",
+      "ate_m",
+      "fps",
+      "tracking_success_rate"
+    ],
+    "minimum_runtime_fps": 10.0,
+    "runtime_metric": "algorithm_fps_excluding_dataset_io",
+    "runtime_reporting": [
+      "algorithm_fps",
+      "end_to_end_fps_including_dataset_io"
+    ],
+    "promotion_rule": "Beat the strongest frozen baseline on the GT-backed held-out set without tuning on held-out sequences, while avoiding catastrophic failure on robustness-only sequences."
+  },
+  "datasets": [
+    {
+      "id": "kitti_odometry_00",
+      "family": "KITTI Odometry",
+      "role": "development",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/00/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+      "expected_frames": 4541
+    },
+    {
+      "id": "kitti_odometry_05",
+      "family": "KITTI Odometry",
+      "role": "development",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/05/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv": "experiments/reference_data/kitti_seq_05_full_gt.csv",
+      "expected_frames": 2761
+    },
+    {
+      "id": "kitti_odometry_07",
+      "family": "KITTI Odometry",
+      "role": "validation",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/07/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+      "expected_frames": 1101
+    },
+    {
+      "id": "mulran_parkinglot",
+      "family": "MulRan",
+      "role": "validation",
+      "gt_backed": true,
+      "processed_dir": "dogfooding_results/mulran_parkinglot_full",
+      "reference_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
+      "expected_frames": 1176
+    },
+    {
+      "id": "kitti_odometry_02",
+      "family": "KITTI Odometry",
+      "role": "held_out",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/02/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+      "expected_frames": 4661
+    },
+    {
+      "id": "kitti_odometry_08",
+      "family": "KITTI Odometry",
+      "role": "held_out",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/08/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv",
+      "expected_frames": 4071
+    },
+    {
+      "id": "nclt_2013_01_10",
+      "family": "NCLT",
+      "role": "held_out",
+      "gt_backed": true,
+      "processed_dir": "dogfooding_results/nclt_2013_01_10_full",
+      "reference_csv": "experiments/reference_data/nclt_2013_01_10_full_gt.csv",
+      "expected_frames": 5105
+    },
+    {
+      "id": "kitti_odometry_06",
+      "family": "KITTI Odometry",
+      "role": "fresh_held_out_motion_guard_v1",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/06/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv": "experiments/reference_data/kitti_seq_06_full_gt.csv",
+      "expected_frames": 1101
+    },
+    {
+      "id": "kitti_odometry_09",
+      "family": "KITTI Odometry",
+      "role": "fresh_held_out_motion_guard_v1",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/09/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv": "experiments/reference_data/kitti_seq_09_full_gt.csv",
+      "expected_frames": 1591
+    },
+    {
+      "id": "kitti_odometry_04",
+      "family": "KITTI Odometry",
+      "role": "fresh_held_out_pose_graph_gain005",
+      "gt_backed": true,
+      "processed_dir": "dogfooding_results/kitti_seq_04_full",
+      "raw_dir": "raw/kitti_odometry/dataset/sequences/04/velodyne",
+      "frame_format": "pcd",
+      "reference_csv_external": "reference_data/kitti_seq_04_full_gt.csv",
+      "expected_frames": 271
+    },
+    {
+      "id": "kitti_odometry_10",
+      "family": "KITTI Odometry",
+      "role": "fresh_held_out_pose_graph_cluster2_v2",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/10/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv_external": "reference_data/kitti_seq_10_full_gt.csv",
+      "expected_frames": 1201
+    },
+    {
+      "id": "kitti_odometry_03",
+      "family": "KITTI Odometry",
+      "role": "fresh_held_out_dual_kiss_rotation_consensus_v3",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/03/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv_external": "reference_data/kitti_seq_03_full_gt.csv",
+      "expected_frames": 801
+    },
+    {
+      "id": "kitti_odometry_01",
+      "family": "KITTI Odometry",
+      "role": "fresh_held_out_dual_kiss_deadband_v4",
+      "gt_backed": true,
+      "processed_dir": "raw/kitti_odometry/dataset/sequences/01/velodyne",
+      "frame_format": "kitti_bin",
+      "reference_csv_external": "reference_data/kitti_seq_01_full_gt.csv",
+      "expected_frames": 1101
+    },
+    {
+      "id": "kitti_raw_2011_09_26_drive_0001_sync",
+      "family": "KITTI Raw",
+      "role": "fresh_held_out_dual_kiss_failover_v5",
+      "gt_backed": true,
+      "processed_dir": "kitti_raw_fresh_v5_scan_only/2011_09_26/2011_09_26_drive_0001_sync/velodyne_points/data",
+      "frame_format": "kitti_bin",
+      "reference_csv_external": "reference_data/kitti_raw_2011_09_26_drive_0001_lidar_gt.csv",
+      "expected_frames": 108
+    },
+    {
+      "id": "kitti_raw_2011_09_26_drive_0019_sync",
+      "family": "KITTI Raw",
+      "role": "fresh_held_out_speed_disagreement_adaptive_v8",
+      "gt_backed": true,
+      "processed_dir": "kitti_raw_fresh_v8_scan_only/2011_09_26/2011_09_26_drive_0019_sync/velodyne_points/data",
+      "frame_format": "kitti_bin",
+      "reference_csv_external": "reference_data/kitti_raw_2011_09_26_drive_0019_sync_gt.csv",
+      "expected_frames": 481
+    },
+    {
+      "id": "kitti_raw_2011_09_26_drive_0022_sync",
+      "family": "KITTI Raw",
+      "role": "fresh_held_out_load_adaptive_reference_v9",
+      "gt_backed": true,
+      "processed_dir": "kitti_raw_fresh_v9_scan_only/2011_09_26/2011_09_26_drive_0022_sync/velodyne_points/data",
+      "frame_format": "kitti_bin",
+      "reference_csv_external": "reference_data/kitti_raw_2011_09_26_drive_0022_sync_gt.csv",
+      "expected_frames": 800
+    },
+    {
+      "id": "kitti_raw_2011_09_26_drive_0023_sync",
+      "family": "KITTI Raw",
+      "role": "fresh_held_out_direction_consistent_rotation_v10",
+      "gt_backed": true,
+      "processed_dir": "kitti_raw_fresh_v10_scan_only/2011_09_26/2011_09_26_drive_0023_sync/velodyne_points/data",
+      "frame_format": "kitti_bin",
+      "reference_csv_external": "reference_data/kitti_raw_2011_09_26_drive_0023_sync_gt.csv",
+      "expected_frames": 474
+    },
+    {
+      "id": "ntnu_tunnel_full",
+      "family": "NTNU LiDAR Degeneracy",
+      "role": "robustness_only",
+      "gt_backed": false,
+      "processed_dir": "dogfooding_results/lidar_degeneracy_tunnel_full",
+      "expected_frames": null
+    },
+    {
+      "id": "ntnu_fog_full",
+      "family": "NTNU LiDAR Degeneracy",
+      "role": "robustness_only",
+      "gt_backed": false,
+      "processed_dir": "dogfooding_results/lidar_degeneracy_fog_full",
+      "expected_frames": 1729
+    },
+    {
+      "id": "kitti_raw_0009_fixed",
+      "family": "KITTI Raw",
+      "role": "diagnostic",
+      "gt_backed": true,
+      "processed_dir": "dogfooding_results/kitti_raw_0009_full_fixed",
+      "reference_csv_external": "gt_fixed/kitti_raw_0009_full_gt_fixed.csv",
+      "expected_frames": 443
+    }
+  ],
+  "frozen_baselines": [
+    "kiss_icp",
+    "aloam",
+    "lego_loam",
+    "small_gicp",
+    "ct_icp"
+  ],
+  "frozen_baseline_profiles": {
+    "kiss_icp": "default",
+    "kiss_icp_speed_frontier": "fast",
+    "small_gicp": "default",
+    "ct_icp": "fast",
+    "official_kiss_icp": {
+      "version": "1.3.0",
+      "configuration": "official default",
+      "kitti_runner": "evaluation/scripts/run_official_kiss_baseline.py",
+      "pcd_runner": "evaluation/scripts/run_official_kiss_pcd_odometry.py",
+      "gt_isolation": "odometry process receives no reference path"
+    },
+    "mad_icp": {
+      "version": "0.0.10",
+      "dataset_config": "kitti",
+      "mad_icp_params": "default",
+      "num_keyframes": 16,
+      "num_cores": 16,
+      "realtime": false
+    }
+  },
+  "external_baseline_candidates": [
+    {
+      "id": "mad_icp",
+      "official_url": "https://github.com/rvp-group/mad-icp",
+      "reason": "Open-source uncertainty-aware real-time LiDAR odometry."
+    },
+    {
+      "id": "mola_lo",
+      "official_url": "https://github.com/MOLAorg/mola_lidar_odometry",
+      "reason": "Open-source adaptive LiDAR odometry evaluated across diverse sensors and motion profiles."
+    },
+    {
+      "id": "simple",
+      "official_url": "https://github.com/vb44/SiMpLE",
+      "reason": "Open-source minimal-configuration LiDAR odometry baseline."
+    },
+    {
+      "id": "multi_scan_moving_window",
+      "paper_url": "https://arxiv.org/abs/2503.21293",
+      "reason": "Recent multi-scan-to-scan moving-window pose-graph approach evaluated on KITTI and MulRan; no official code located yet."
+    }
+  ]
+}

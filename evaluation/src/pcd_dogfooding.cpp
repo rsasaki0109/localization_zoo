@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,kiss_multi_horizon,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -356,7 +356,9 @@ std::vector<int> parsePositiveIntList(const std::string& csv) {
 
 bool isSupportedMethod(const std::string& method) {
   return method == "litamin2" || method == "gicp" || method == "ndt" ||
-         method == "fixed_map_ndt" || method == "kiss_icp" || method == "genz_icp" ||
+         method == "fixed_map_ndt" || method == "kiss_icp" ||
+         method == "kiss_multi_horizon" || method == "kiss_pose_graph" ||
+         method == "genz_icp" ||
          method == "adaptive_icp" ||
          method == "small_gicp" ||
          method == "voxel_gicp" || method == "aloam" || method == "floam" ||
@@ -496,6 +498,50 @@ std::vector<GTPose> loadGTPoses(const std::string& csv_path,
   return poses;
 }
 
+std::vector<Eigen::Matrix4d> loadKittiPoseMatrices(
+    const std::string& pose_path) {
+  std::ifstream file(pose_path);
+  if (!file.is_open()) {
+    throw std::runtime_error("Failed to open external pose file: " + pose_path);
+  }
+
+  std::vector<Eigen::Matrix4d> poses;
+  std::string line;
+  std::size_t line_number = 0;
+  while (std::getline(file, line)) {
+    ++line_number;
+    if (line.find_first_not_of(" \t\r\n") == std::string::npos) continue;
+    std::istringstream stream(line);
+    std::vector<double> values;
+    std::string token;
+    while (stream >> token) {
+      values.push_back(parseFiniteDoubleToken(
+          token, pose_path, line_number, values.size() + 1));
+    }
+    if (values.size() != 12) {
+      std::ostringstream message;
+      message << pose_path << ":" << line_number
+              << ": expected KITTI 3x4 pose with 12 values, got "
+              << values.size();
+      throw std::runtime_error(message.str());
+    }
+    Eigen::Matrix4d pose = Eigen::Matrix4d::Identity();
+    for (int row = 0; row < 3; ++row) {
+      for (int column = 0; column < 4; ++column) {
+        pose(row, column) =
+            values[static_cast<std::size_t>(row * 4 + column)];
+      }
+    }
+    validateRotationMatrix(pose.block<3, 3>(0, 0), pose_path, line_number);
+    poses.push_back(pose);
+  }
+  if (poses.empty()) {
+    throw std::runtime_error("No poses loaded from external pose file: " +
+                             pose_path);
+  }
+  return poses;
+}
+
 std::vector<ImuSampleCsv> loadImuCsv(const std::string& csv_path) {
   std::vector<ImuSampleCsv> samples;
   std::ifstream file(csv_path);
@@ -545,9 +591,62 @@ std::vector<ImuSampleCsv> loadImuCsv(const std::string& csv_path) {
   return samples;
 }
 
+fs::path resolvePointCloudPath(const std::string& requested_path) {
+  const fs::path requested(requested_path);
+  const fs::path parent = requested.parent_path();
+  if (requested.filename() == "cloud.pcd" && parent.extension() == ".bin" &&
+      fs::is_regular_file(parent)) {
+    return parent;
+  }
+  return requested;
+}
+
+bool loadKittiBin(const fs::path& path,
+                  pcl::PointCloud<pcl::PointXYZI>* cloud) {
+  std::error_code size_error;
+  const auto byte_count = fs::file_size(path, size_error);
+  constexpr std::uintmax_t kBytesPerPoint = 4 * sizeof(float);
+  if (size_error || byte_count == 0 || byte_count % kBytesPerPoint != 0) {
+    std::cerr << "Invalid KITTI point-cloud file: " << path << "\n";
+    return false;
+  }
+
+  std::ifstream input(path, std::ios::binary);
+  if (!input) return false;
+
+  cloud->clear();
+  cloud->reserve(static_cast<std::size_t>(byte_count / kBytesPerPoint));
+  std::array<float, 4> values{};
+  while (input.read(reinterpret_cast<char*>(values.data()),
+                    static_cast<std::streamsize>(kBytesPerPoint))) {
+    pcl::PointXYZI point;
+    point.x = values[0];
+    point.y = values[1];
+    point.z = values[2];
+    point.intensity = values[3];
+    cloud->push_back(point);
+  }
+  if (!input.eof()) return false;
+  cloud->width = static_cast<std::uint32_t>(cloud->size());
+  cloud->height = 1;
+  cloud->is_dense = false;
+  return true;
+}
+
 std::vector<Eigen::Vector3d> loadPCD(const std::string& path, double leaf = 0.5) {
+  const fs::path resolved_path = resolvePointCloudPath(path);
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-  if (pcl::io::loadPCDFile<pcl::PointXYZ>(path, *cloud) == -1) return {};
+  if (resolved_path.extension() == ".bin") {
+    pcl::PointCloud<pcl::PointXYZI> cloud_xyzi;
+    if (!loadKittiBin(resolved_path, &cloud_xyzi)) return {};
+    cloud->reserve(cloud_xyzi.size());
+    for (const auto& point : cloud_xyzi) {
+      cloud->push_back(pcl::PointXYZ(point.x, point.y, point.z));
+    }
+  } else if (pcl::io::loadPCDFile<pcl::PointXYZ>(
+                 resolved_path.string(), *cloud) == -1) {
+    return {};
+  }
 
   if (!(leaf > 1e-9)) {
     std::vector<Eigen::Vector3d> points;
@@ -573,6 +672,45 @@ std::vector<Eigen::Vector3d> loadPCD(const std::string& path, double leaf = 0.5)
       points.emplace_back(p.x, p.y, p.z);
   }
   return points;
+}
+
+std::vector<Eigen::Vector3d> voxelDownsamplePoints(
+    const std::vector<Eigen::Vector3d>& points, double leaf) {
+  if (!(leaf > 1e-9) || points.empty()) return points;
+  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(
+      new pcl::PointCloud<pcl::PointXYZ>);
+  cloud->reserve(points.size());
+  for (const auto& point : points) {
+    cloud->push_back(pcl::PointXYZ(
+        static_cast<float>(point.x()), static_cast<float>(point.y()),
+        static_cast<float>(point.z())));
+  }
+  pcl::VoxelGrid<pcl::PointXYZ> voxel_grid;
+  voxel_grid.setInputCloud(cloud);
+  voxel_grid.setLeafSize(leaf, leaf, leaf);
+  pcl::PointCloud<pcl::PointXYZ> filtered;
+  voxel_grid.filter(filtered);
+
+  std::vector<Eigen::Vector3d> downsampled;
+  downsampled.reserve(filtered.size());
+  for (const auto& point : filtered) {
+    downsampled.emplace_back(point.x, point.y, point.z);
+  }
+  return downsampled;
+}
+
+std::vector<Eigen::Vector3d> filterPointRange(
+    const std::vector<Eigen::Vector3d>& points, double min_range,
+    double max_range) {
+  std::vector<Eigen::Vector3d> filtered;
+  filtered.reserve(points.size());
+  for (const auto& point : points) {
+    const double range = point.norm();
+    if (range > min_range && range < max_range) {
+      filtered.push_back(point);
+    }
+  }
+  return filtered;
 }
 
 std::vector<Eigen::Vector3d> loadPLYMap(const std::string& path,
@@ -615,8 +753,14 @@ std::vector<Eigen::Vector3d> limitPoints(const std::vector<Eigen::Vector3d>& poi
 }
 
 std::vector<LoadedXYZI> loadPCDXYZI(const std::string& path, double leaf = 0.5) {
+  const fs::path resolved_path = resolvePointCloudPath(path);
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  if (pcl::io::loadPCDFile<pcl::PointXYZI>(path, *cloud) == -1) return {};
+  if (resolved_path.extension() == ".bin") {
+    if (!loadKittiBin(resolved_path, cloud.get())) return {};
+  } else if (pcl::io::loadPCDFile<pcl::PointXYZI>(
+                 resolved_path.string(), *cloud) == -1) {
+    return {};
+  }
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr selected = cloud;
   pcl::PointCloud<pcl::PointXYZI> filtered;
@@ -695,11 +839,17 @@ LoadedScan limitLoadedScan(const LoadedScan& scan, size_t max_points) {
   return limited;
 }
 
-LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5) {
+LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5,
+                        bool filter_range = true) {
   LoadedScan scan;
+  const fs::path resolved_path = resolvePointCloudPath(path);
+  if (resolved_path.extension() == ".bin") {
+    scan.points = loadPCD(resolved_path.string(), leaf);
+    return scan;
+  }
 
   pcl::PCLPointCloud2 raw_cloud;
-  if (pcl::io::loadPCDFile(path, raw_cloud) == -1) return scan;
+  if (pcl::io::loadPCDFile(resolved_path.string(), raw_cloud) == -1) return scan;
 
   bool has_time_field = false;
   for (const auto& field : raw_cloud.fields) {
@@ -709,19 +859,22 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5) {
     }
   }
   if (!has_time_field) {
-    scan.points = loadPCD(path, leaf);
+    scan.points = loadPCD(resolved_path.string(), leaf);
     return scan;
   }
 
   pcl::PointCloud<PointXYZITime>::Ptr cloud(new pcl::PointCloud<PointXYZITime>);
   pcl::fromPCLPointCloud2(raw_cloud, *cloud);
 
-  pcl::PointCloud<PointXYZITime>::Ptr filtered(new pcl::PointCloud<PointXYZITime>);
-  pcl::VoxelGrid<PointXYZITime> vg;
-  vg.setInputCloud(cloud);
-  vg.setLeafSize(leaf, leaf, leaf);
-  vg.setDownsampleAllData(true);
-  vg.filter(*filtered);
+  pcl::PointCloud<PointXYZITime>::Ptr filtered = cloud;
+  if (leaf > 1e-9) {
+    filtered.reset(new pcl::PointCloud<PointXYZITime>);
+    pcl::VoxelGrid<PointXYZITime> vg;
+    vg.setInputCloud(cloud);
+    vg.setLeafSize(leaf, leaf, leaf);
+    vg.setDownsampleAllData(true);
+    vg.filter(*filtered);
+  }
 
   scan.points.reserve(filtered->size());
   scan.relative_times.reserve(filtered->size());
@@ -731,7 +884,7 @@ LoadedScan loadTimedPCD(const std::string& path, double leaf = 0.5) {
       continue;
     }
     double r = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-    if (r <= 1.0 || r >= 80.0) continue;
+    if (filter_range && (r <= 1.0 || r >= 80.0)) continue;
 
     scan.points.emplace_back(p.x, p.y, p.z);
     scan.relative_times.push_back(p.time);
@@ -776,7 +929,9 @@ pcl::PointCloud<pcl::PointXYZI>::Ptr toPclXYZICloud(
 
 bool parseNonNegativeIntegerBasename(const fs::path& path,
                                      unsigned long long* value) {
-  const std::string name = path.filename().string();
+  const std::string name =
+      path.extension() == ".bin" ? path.stem().string()
+                                 : path.filename().string();
   if (name.empty()) return false;
 
   unsigned long long parsed = 0;
@@ -799,6 +954,8 @@ std::vector<std::string> listPCDDirs(const std::string& dir) {
     if (entry.is_directory()) {
       auto pcd_path = entry.path() / "cloud.pcd";
       if (fs::exists(pcd_path)) dirs.push_back(entry.path().string());
+    } else if (entry.is_regular_file() && entry.path().extension() == ".bin") {
+      dirs.push_back(entry.path().string());
     }
   }
   bool all_numeric = !dirs.empty();
@@ -1323,6 +1480,7 @@ struct MethodResult {
   std::string name;
   std::vector<Eigen::Matrix4d> poses;
   double time_ms = 0;
+  double algorithm_time_ms = -1.0;
   double ate = 0;
   double rpe_trans_pct = 0;
   double rpe_rot_deg_per_m = 0;
@@ -1818,6 +1976,39 @@ struct KISSICPDogfoodingOptions {
   int max_icp_iterations = 30;
   double local_map_radius = 60.0;
   int map_cleanup_interval = 4;
+  bool update_full_voxels = false;
+  bool use_model_deviation_threshold = false;
+  double model_deviation_correspondence_multiplier = 3.0;
+  double vertical_angle_correction_deg = 0.0;
+  bool deskew_mulran = false;
+  bool enable_motion_guard = false;
+  double max_step_translation_m = 2.0;
+  double max_step_rotation_deg = 20.0;
+  bool enable_adaptive_motion_guard = false;
+  size_t adaptive_motion_guard_min_trusted_steps = 3;
+  double adaptive_motion_guard_max_translation_multiplier = 2.0;
+  double adaptive_motion_guard_translation_consistency_m = 0.75;
+  double adaptive_motion_guard_rotation_consistency_deg = 5.0;
+};
+
+struct KISSMultiHorizonDogfoodingOptions {
+  KISSICPDogfoodingOptions frontend = {
+      0.75, 2500, 1.25, 1.75, 10, 20, 45.0, 2, false, false, 3.0, 0.0,
+      false, false, 2.0, 20.0};
+  int keyframe_stride = 10;
+  std::vector<int> horizons = {10, 20};
+  int submap_frames = 5;
+  double matcher_voxel_size = 0.8;
+  double matcher_max_correspondence_distance = 1.5;
+  int matcher_max_iterations = 15;
+  int matcher_min_correspondences = 120;
+  double max_matcher_rmse = 0.7;
+  double max_information_condition = 1e6;
+  double max_correction_translation = 0.8;
+  double max_correction_rotation_rad = 0.08;
+  double max_consensus_translation = 0.25;
+  double max_consensus_rotation_rad = 0.025;
+  double correction_gain = 0.0;
 };
 
 struct GenZICPDogfoodingOptions {
@@ -3019,6 +3210,20 @@ double poseRotationDelta(const Eigen::Matrix4d& lhs,
     return std::numeric_limits<double>::infinity();
   }
   return std::abs(aa.angle());
+}
+
+Eigen::Matrix4d interpolateTransform(const Eigen::Matrix4d& lhs,
+                                     const Eigen::Matrix4d& rhs,
+                                     double alpha) {
+  alpha = std::clamp(alpha, 0.0, 1.0);
+  const Eigen::Matrix4d relative = lhs.inverse() * rhs;
+  Eigen::Quaterniond relative_rotation(relative.block<3, 3>(0, 0));
+  relative_rotation.normalize();
+  Eigen::Matrix4d scaled = Eigen::Matrix4d::Identity();
+  scaled.block<3, 3>(0, 0) =
+      Eigen::Quaterniond::Identity().slerp(alpha, relative_rotation).toRotationMatrix();
+  scaled.block<3, 1>(0, 3) = alpha * relative.block<3, 1>(0, 3);
+  return lhs * scaled;
 }
 
 bool isReasonableRefinement(const Eigen::Matrix4d& refined_pose,
@@ -5703,18 +5908,78 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   params.max_icp_iterations = options.max_icp_iterations;
   params.local_map_radius = options.local_map_radius;
   params.map_cleanup_interval = options.map_cleanup_interval;
+  params.update_full_voxels = options.update_full_voxels;
+  params.use_model_deviation_threshold =
+      options.use_model_deviation_threshold;
+  params.model_deviation_correspondence_multiplier =
+      options.model_deviation_correspondence_multiplier;
+  params.enable_motion_guard = options.enable_motion_guard;
+  params.max_step_translation_m = options.max_step_translation_m;
+  params.max_step_rotation_rad =
+      options.max_step_rotation_deg * (std::acos(-1.0) / 180.0);
+  params.enable_adaptive_motion_guard =
+      options.enable_adaptive_motion_guard;
+  params.adaptive_motion_guard_min_trusted_steps =
+      options.adaptive_motion_guard_min_trusted_steps;
+  params.adaptive_motion_guard_max_translation_multiplier =
+      options.adaptive_motion_guard_max_translation_multiplier;
+  params.adaptive_motion_guard_translation_consistency_m =
+      options.adaptive_motion_guard_translation_consistency_m;
+  params.adaptive_motion_guard_rotation_consistency_rad =
+      options.adaptive_motion_guard_rotation_consistency_deg *
+      (std::acos(-1.0) / 180.0);
   KISSICPPipeline pipeline(params);
   const Eigen::Matrix4d world_anchor =
       gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
 
+  double threshold_sum = 0.0;
+  double threshold_min = std::numeric_limits<double>::infinity();
+  double threshold_max = 0.0;
+  std::size_t threshold_samples = 0;
+  double algorithm_time_ms = 0.0;
+  std::size_t deskewed_frames = 0;
+  std::size_t deskew_timestamp_fallbacks = 0;
   auto t0 = Clock::now();
   for (size_t i = 0; i < pcd_dirs.size(); i++) {
-    auto pts_local = limitPoints(loadPCD(pcd_dirs[i] + "/cloud.pcd",
-                                         options.source_voxel_size),
-                                 options.max_source_points);
+    std::vector<Eigen::Vector3d> pts_local;
+    if (options.deskew_mulran) {
+      LoadedScan scan =
+          loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", 0.0, false);
+      if (scan.has_per_point_time &&
+          scan.points.size() == scan.relative_times.size()) {
+        pts_local = deskewScanToEnd(
+            scan.points, scan.relative_times, pipeline.lastDelta());
+        pts_local =
+            voxelDownsamplePoints(pts_local, options.source_voxel_size);
+        pts_local = filterPointRange(pts_local, 1.0, 80.0);
+        ++deskewed_frames;
+      } else {
+        pts_local =
+            loadPCD(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size);
+        ++deskew_timestamp_fallbacks;
+      }
+    } else {
+      pts_local =
+          loadPCD(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size);
+    }
+    pts_local = limitPoints(pts_local, options.max_source_points);
+    correctElevationAngle(
+        pts_local, options.vertical_angle_correction_deg *
+                       (std::acos(-1.0) / 180.0));
     if (pts_local.empty()) continue;
 
+    const auto algorithm_start = Clock::now();
     const auto result = pipeline.registerFrame(pts_local);
+    algorithm_time_ms += std::chrono::duration<double, std::milli>(
+                             Clock::now() - algorithm_start)
+                             .count();
+    const double threshold = pipeline.adaptiveThreshold();
+    if (std::isfinite(threshold)) {
+      threshold_sum += threshold;
+      threshold_min = std::min(threshold_min, threshold);
+      threshold_max = std::max(threshold_max, threshold);
+      ++threshold_samples;
+    }
     res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
 
     if (i % 10 == 0) {
@@ -5725,6 +5990,539 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   std::cerr << std::endl;
   res.time_ms =
       std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.algorithm_time_ms = algorithm_time_ms;
+  if (threshold_samples > 0) {
+    std::ostringstream note;
+    note << "Adaptive sigma min/mean/max=" << threshold_min << "/"
+         << threshold_sum / static_cast<double>(threshold_samples) << "/"
+         << threshold_max << "; correspondence_multiplier="
+         << (options.use_model_deviation_threshold
+                 ? options.model_deviation_correspondence_multiplier
+                 : 1.0)
+         << "; vertical_angle_correction_deg="
+         << options.vertical_angle_correction_deg
+         << "; mulran_deskew="
+         << (options.deskew_mulran ? "on" : "off")
+         << "; deskewed_frames=" << deskewed_frames
+         << "; deskew_timestamp_fallbacks=" << deskew_timestamp_fallbacks
+         << "; motion_guard="
+         << (options.enable_motion_guard ? "on" : "off")
+         << "; motion_guard_rejections=" << pipeline.motionGuardRejections()
+         << "; adaptive_motion_guard_acceptances="
+         << pipeline.adaptiveMotionGuardAcceptances()
+         << "; end_to_end_fps="
+         << (res.time_ms > 0.0
+                 ? res.poses.size() / (res.time_ms / 1000.0)
+                 : 0.0)
+         << "; algorithm_fps="
+         << (res.algorithm_time_ms > 0.0
+                 ? res.poses.size() / (res.algorithm_time_ms / 1000.0)
+                 : 0.0)
+         << ".";
+    res.note = note.str();
+  }
+  return res;
+}
+
+MethodResult runKISSPoseGraph(
+    const std::vector<std::string>& pcd_dirs,
+    const std::vector<Eigen::Matrix4d>& gt,
+    const KISSICPDogfoodingOptions& options,
+    double scan_context_threshold,
+    double correction_gain,
+    const std::string& external_pose_path) {
+  using namespace localization_zoo::kiss_icp;
+  MethodResult res;
+  res.name = external_pose_path.empty() ? "KISS-Pose-Graph"
+                                        : "External-KISS-Pose-Graph";
+
+  std::vector<Eigen::Matrix4d> external_poses;
+  if (!external_pose_path.empty()) {
+    external_poses = loadKittiPoseMatrices(external_pose_path);
+    if (external_poses.size() < pcd_dirs.size()) {
+      std::ostringstream message;
+      message << "External pose count " << external_poses.size()
+              << " is smaller than selected point-cloud frame count "
+              << pcd_dirs.size();
+      throw std::runtime_error(message.str());
+    }
+    external_poses.resize(pcd_dirs.size());
+  }
+
+  KISSICPParams frontend_params;
+  frontend_params.voxel_size = options.voxel_size;
+  frontend_params.initial_threshold = options.initial_threshold;
+  frontend_params.max_points_per_voxel = options.max_points_per_voxel;
+  frontend_params.max_icp_iterations = options.max_icp_iterations;
+  frontend_params.local_map_radius = options.local_map_radius;
+  frontend_params.map_cleanup_interval = options.map_cleanup_interval;
+  frontend_params.update_full_voxels = options.update_full_voxels;
+  frontend_params.use_model_deviation_threshold =
+      options.use_model_deviation_threshold;
+  frontend_params.model_deviation_correspondence_multiplier =
+      options.model_deviation_correspondence_multiplier;
+  frontend_params.enable_motion_guard = options.enable_motion_guard;
+  frontend_params.max_step_translation_m = options.max_step_translation_m;
+  frontend_params.max_step_rotation_rad =
+      options.max_step_rotation_deg * (std::acos(-1.0) / 180.0);
+  frontend_params.enable_adaptive_motion_guard =
+      options.enable_adaptive_motion_guard;
+  frontend_params.adaptive_motion_guard_min_trusted_steps =
+      options.adaptive_motion_guard_min_trusted_steps;
+  frontend_params.adaptive_motion_guard_max_translation_multiplier =
+      options.adaptive_motion_guard_max_translation_multiplier;
+  frontend_params.adaptive_motion_guard_translation_consistency_m =
+      options.adaptive_motion_guard_translation_consistency_m;
+  frontend_params.adaptive_motion_guard_rotation_consistency_rad =
+      options.adaptive_motion_guard_rotation_consistency_deg *
+      (std::acos(-1.0) / 180.0);
+  KISSICPPipeline frontend(frontend_params);
+
+  localization_zoo::hdl_graph_slam::HdlGraphSlamParams backend_params;
+  backend_params.registration_voxel_size = 0.8;
+  backend_params.map_voxel_size = 0.8;
+  backend_params.keyframe_stride = 10;
+  backend_params.keyframe_translation_threshold =
+      std::numeric_limits<double>::infinity();
+  backend_params.keyframe_rotation_threshold_rad =
+      std::numeric_limits<double>::infinity();
+  backend_params.min_loop_index_gap = 30;
+  backend_params.scan_context.exclude_recent_frames = 30;
+  backend_params.scan_context.distance_threshold =
+      scan_context_threshold;
+  backend_params.scan_context.num_candidates = 5;
+  backend_params.loop_gicp.max_correspondence_distance = 5.0;
+  backend_params.loop_gicp.max_iterations = 30;
+  backend_params.loop_fitness_threshold =
+      std::numeric_limits<double>::infinity();
+  backend_params.loop_rmse_threshold = 1.0;
+  backend_params.min_loop_correspondences = 80;
+  backend_params.loop_submap_half_window = 2;
+  backend_params.min_loop_clusters_for_correction = 2;
+  backend_params.loop_cluster_keyframe_radius = 5;
+  backend_params.descriptor_stride = 1;
+  backend_params.loop_stride = 2;
+  backend_params.enable_floor_constraint = false;
+  backend_params.optimize_every_n_keyframes = 0;
+  backend_params.odom_rotation_weight = 40.0;
+  backend_params.odom_translation_weight = 20.0;
+  backend_params.loop_rotation_weight = 200.0;
+  backend_params.loop_translation_weight = 100.0;
+  localization_zoo::hdl_graph_slam::HdlGraphSlam backend(backend_params);
+
+  std::vector<Eigen::Matrix4d> raw_poses;
+  raw_poses.reserve(pcd_dirs.size());
+  double algorithm_time_ms = 0.0;
+  std::size_t deskewed_frames = 0;
+  std::size_t deskew_timestamp_fallbacks = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); ++i) {
+    std::vector<Eigen::Vector3d> points;
+    if (options.deskew_mulran) {
+      LoadedScan scan =
+          loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", 0.0, false);
+      if (scan.has_per_point_time &&
+          scan.points.size() == scan.relative_times.size()) {
+        points = deskewScanToEnd(
+            scan.points, scan.relative_times, frontend.lastDelta());
+        points = voxelDownsamplePoints(points, options.source_voxel_size);
+        points = filterPointRange(points, 1.0, 80.0);
+        ++deskewed_frames;
+      } else {
+        points =
+            loadPCD(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size);
+        ++deskew_timestamp_fallbacks;
+      }
+    } else {
+      points =
+          loadPCD(pcd_dirs[i] + "/cloud.pcd", options.source_voxel_size);
+    }
+    points = limitPoints(points, options.max_source_points);
+    correctElevationAngle(
+        points, options.vertical_angle_correction_deg *
+                    (std::acos(-1.0) / 180.0));
+    if (points.empty()) continue;
+
+    const auto algorithm_start = Clock::now();
+    Eigen::Matrix4d frontend_pose;
+    if (external_poses.empty()) {
+      frontend_pose = frontend.registerFrame(points).pose;
+    } else {
+      frontend_pose = external_poses[i];
+    }
+    raw_poses.push_back(frontend_pose);
+    const auto cloud = toPclXYZICloud(points);
+    const auto backend_result =
+        backend.processExternalOdometry(cloud, frontend_pose);
+    algorithm_time_ms +=
+        std::chrono::duration<double, std::milli>(
+            Clock::now() - algorithm_start)
+            .count();
+    if (i % 10 == 0) {
+      std::cerr << "\r  [KISS-PG] " << i << "/" << pcd_dirs.size()
+                << " kf=" << backend_result.num_keyframes
+                << " loops=" << backend_result.num_loop_edges
+                << " clusters=" << backend.numLoopClusters()
+                << " correction="
+                << (backend.loopCorrectionEnabled() ? "on" : "off");
+    }
+  }
+  std::cerr << std::endl;
+
+  const auto correction_start = Clock::now();
+  const auto corrected =
+      backend.correctedExternalTrajectory(raw_poses, correction_gain);
+  algorithm_time_ms +=
+      std::chrono::duration<double, std::milli>(
+          Clock::now() - correction_start)
+          .count();
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  res.poses.reserve(corrected.size());
+  for (const auto& pose : corrected) {
+    res.poses.push_back(anchorRelativePose(world_anchor, pose));
+  }
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  res.algorithm_time_ms = algorithm_time_ms;
+  std::ostringstream note;
+  note << (external_poses.empty()
+               ? "KISS odometry with GT-free Scan Context/GICP pose graph; "
+               : "External odometry with GT-free Scan Context/GICP pose graph; ")
+       << "external_pose_path="
+       << (external_pose_path.empty() ? "none" : external_pose_path) << "; "
+       << "keyframes=" << backend.numKeyframes()
+       << "; loop_edges=" << backend.numLoopEdges()
+       << "; loop_clusters=" << backend.numLoopClusters()
+       << "; min_loop_clusters_for_correction=2"
+       << "; loop_cluster_keyframe_radius=5"
+       << "; correction_enabled="
+       << (backend.loopCorrectionEnabled() ? "true" : "false")
+       << "; loop_candidates=" << backend.loopCandidateDetections()
+       << "; loop_registration_rejections="
+       << backend.loopRegistrationRejections()
+       << "; candidate_distance_min/mean="
+       << backend.minLoopCandidateDistance() << "/"
+       << backend.meanLoopCandidateDistance()
+       << "; keyframe_stride=10; scan_context_threshold="
+       << scan_context_threshold
+       << "; correction_gain=" << correction_gain
+       << "; loop_submap_half_window=2"
+       << "; floor_constraint=off"
+       << "; deskewed_frames=" << deskewed_frames
+       << "; deskew_timestamp_fallbacks="
+       << deskew_timestamp_fallbacks
+       << "; motion_guard_rejections="
+       << frontend.motionGuardRejections()
+       << "; adaptive_motion_guard_acceptances="
+       << frontend.adaptiveMotionGuardAcceptances()
+       << "; algorithm_fps="
+       << (algorithm_time_ms > 0.0
+               ? raw_poses.size() /
+                     (algorithm_time_ms / 1000.0)
+               : 0.0)
+       << "; loop_attempts=[";
+  const auto& loop_attempts = backend.loopAttempts();
+  for (size_t i = 0; i < loop_attempts.size(); ++i) {
+    const auto& attempt = loop_attempts[i];
+    if (i > 0) note << ",";
+    note << attempt.from << "->" << attempt.to
+         << ":d=" << attempt.descriptor_distance
+         << ":converged=" << (attempt.converged ? 1 : 0)
+         << ":fitness=" << attempt.fitness
+         << ":rmse=" << attempt.rmse
+         << ":corr=" << attempt.correspondences
+         << ":accepted=" << (attempt.accepted ? 1 : 0);
+  }
+  note << "].";
+  res.note = note.str();
+  return res;
+}
+
+MethodResult runKISSMultiHorizon(
+    const std::vector<std::string>& pcd_dirs,
+    const std::vector<Eigen::Matrix4d>& gt,
+    const KISSMultiHorizonDogfoodingOptions& options) {
+  using namespace localization_zoo::kiss_icp;
+  MethodResult res;
+  res.name = "KISS-Multi-Horizon";
+
+  KISSICPParams frontend_params;
+  frontend_params.voxel_size = options.frontend.voxel_size;
+  frontend_params.initial_threshold = options.frontend.initial_threshold;
+  frontend_params.max_points_per_voxel =
+      options.frontend.max_points_per_voxel;
+  frontend_params.max_icp_iterations =
+      options.frontend.max_icp_iterations;
+  frontend_params.local_map_radius = options.frontend.local_map_radius;
+  frontend_params.map_cleanup_interval =
+      options.frontend.map_cleanup_interval;
+  frontend_params.update_full_voxels =
+      options.frontend.update_full_voxels;
+  frontend_params.use_model_deviation_threshold =
+      options.frontend.use_model_deviation_threshold;
+  frontend_params.model_deviation_correspondence_multiplier =
+      options.frontend.model_deviation_correspondence_multiplier;
+  frontend_params.enable_motion_guard =
+      options.frontend.enable_motion_guard;
+  frontend_params.max_step_translation_m =
+      options.frontend.max_step_translation_m;
+  frontend_params.max_step_rotation_rad =
+      options.frontend.max_step_rotation_deg *
+      (std::acos(-1.0) / 180.0);
+  KISSICPPipeline frontend(frontend_params);
+
+  KISSMatcherParams matcher_params;
+  matcher_params.target_voxel_size = options.matcher_voxel_size;
+  matcher_params.source_voxel_size = options.matcher_voxel_size;
+  matcher_params.max_correspondence_distance =
+      options.matcher_max_correspondence_distance;
+  matcher_params.max_icp_iterations = options.matcher_max_iterations;
+  matcher_params.min_correspondences =
+      options.matcher_min_correspondences;
+
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  std::vector<std::vector<Eigen::Vector3d>> scans;
+  std::vector<Eigen::Matrix4d> raw_poses;
+  std::vector<Eigen::Matrix4d> corrected_poses;
+  scans.reserve(pcd_dirs.size());
+  raw_poses.reserve(pcd_dirs.size());
+  corrected_poses.reserve(pcd_dirs.size());
+  res.poses.reserve(pcd_dirs.size());
+
+  Eigen::Matrix4d correction = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d correction_at_previous_keyframe = correction;
+  size_t previous_keyframe = 0;
+  int accepted_constraints = 0;
+  int rejected_constraints = 0;
+  int rejected_registration = 0;
+  int rejected_rmse = 0;
+  int rejected_degeneracy = 0;
+  int rejected_motion = 0;
+  int rejected_consensus = 0;
+  int correction_events = 0;
+  std::size_t deskewed_frames = 0;
+  std::size_t deskew_timestamp_fallbacks = 0;
+  double observed_rmse_sum = 0.0;
+  double observed_rmse_min = std::numeric_limits<double>::infinity();
+  double observed_rmse_max = 0.0;
+  int observed_rmse_count = 0;
+
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    std::vector<Eigen::Vector3d> points;
+    if (options.frontend.deskew_mulran) {
+      LoadedScan scan =
+          loadTimedPCD(pcd_dirs[i] + "/cloud.pcd", 0.0, false);
+      if (scan.has_per_point_time &&
+          scan.points.size() == scan.relative_times.size()) {
+        points = deskewScanToEnd(
+            scan.points, scan.relative_times, frontend.lastDelta());
+        points = voxelDownsamplePoints(
+            points, options.frontend.source_voxel_size);
+        points = filterPointRange(points, 1.0, 80.0);
+        ++deskewed_frames;
+      } else {
+        points = loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                         options.frontend.source_voxel_size);
+        ++deskew_timestamp_fallbacks;
+      }
+    } else {
+      points = loadPCD(pcd_dirs[i] + "/cloud.pcd",
+                       options.frontend.source_voxel_size);
+    }
+    points = limitPoints(points, options.frontend.max_source_points);
+    correctElevationAngle(
+        points, options.frontend.vertical_angle_correction_deg *
+                    (std::acos(-1.0) / 180.0));
+    if (points.empty()) continue;
+
+    const auto frontend_result = frontend.registerFrame(points);
+    scans.push_back(points);
+    raw_poses.push_back(frontend_result.pose);
+    corrected_poses.push_back(correction * frontend_result.pose);
+    res.poses.push_back(
+        anchorRelativePose(world_anchor, corrected_poses.back()));
+
+    const size_t current = raw_poses.size() - 1;
+    if (options.correction_gain <= 0.0 || current == 0 ||
+        current % static_cast<size_t>(options.keyframe_stride) != 0) {
+      continue;
+    }
+
+    const Eigen::Matrix4d base_pose = correction * raw_poses[current];
+    Eigen::Matrix<double, 6, 1> weighted_delta =
+        Eigen::Matrix<double, 6, 1>::Zero();
+    double total_weight = 0.0;
+    std::vector<Eigen::Matrix<double, 6, 1>> constraint_deltas;
+
+    for (const int horizon : options.horizons) {
+      if (horizon <= 0 || current < static_cast<size_t>(horizon)) continue;
+      const size_t target = current - static_cast<size_t>(horizon);
+
+      std::vector<Eigen::Vector3d> target_submap;
+      for (size_t submap_frame = target;
+           submap_frame < current &&
+           submap_frame < target + static_cast<size_t>(options.submap_frames);
+           ++submap_frame) {
+        const Eigen::Matrix4d frame_to_target =
+            raw_poses[target].inverse() * raw_poses[submap_frame];
+        auto transformed =
+            transformPoints(scans[submap_frame], frame_to_target);
+        target_submap.insert(target_submap.end(),
+                             transformed.begin(), transformed.end());
+      }
+      KISSMatcher matcher(matcher_params);
+      matcher.setTarget(target_submap);
+      const Eigen::Matrix4d initial_relative =
+          raw_poses[target].inverse() * raw_poses[current];
+      const auto match = matcher.align(scans[current], initial_relative);
+      if (!match.converged ||
+          match.num_correspondences <
+              options.matcher_min_correspondences) {
+        ++rejected_constraints;
+        ++rejected_registration;
+        continue;
+      }
+      if (std::isfinite(match.rmse)) {
+        observed_rmse_sum += match.rmse;
+        observed_rmse_min = std::min(observed_rmse_min, match.rmse);
+        observed_rmse_max = std::max(observed_rmse_max, match.rmse);
+        ++observed_rmse_count;
+      }
+      if (!std::isfinite(match.rmse) ||
+          match.rmse > options.max_matcher_rmse) {
+        ++rejected_constraints;
+        ++rejected_rmse;
+        continue;
+      }
+      if (!std::isfinite(match.information_condition) ||
+          match.information_condition >
+              options.max_information_condition) {
+        ++rejected_constraints;
+        ++rejected_degeneracy;
+        continue;
+      }
+
+      const Eigen::Matrix4d candidate =
+          corrected_poses[target] * match.transform;
+      const Eigen::Matrix4d delta = base_pose.inverse() * candidate;
+      const double translation = delta.block<3, 1>(0, 3).norm();
+      Eigen::AngleAxisd angle_axis(delta.block<3, 3>(0, 0));
+      const double angle = std::abs(angle_axis.angle());
+      if (!std::isfinite(angle) ||
+          translation > options.max_correction_translation ||
+          angle > options.max_correction_rotation_rad) {
+        ++rejected_constraints;
+        ++rejected_motion;
+        continue;
+      }
+
+      Eigen::Matrix<double, 6, 1> delta_vector;
+      delta_vector.head<3>().setZero();
+      if (angle >= 1e-12) {
+        delta_vector.head<3>() =
+            angle_axis.axis() * angle_axis.angle();
+      }
+      delta_vector.tail<3>() = delta.block<3, 1>(0, 3);
+      const double degeneracy_weight =
+          std::clamp(1.0 / std::sqrt(match.information_condition),
+                     1e-3, 1.0);
+      const double weight =
+          degeneracy_weight * match.num_correspondences /
+          std::max(match.rmse * match.rmse, 1e-4);
+      weighted_delta += weight * delta_vector;
+      total_weight += weight;
+      constraint_deltas.push_back(delta_vector);
+      ++accepted_constraints;
+    }
+
+    if (total_weight > 0.0) {
+      const Eigen::Matrix<double, 6, 1> unscaled_mean =
+          weighted_delta / total_weight;
+      bool consensus = constraint_deltas.size() >= 2;
+      for (const auto& delta : constraint_deltas) {
+        if ((delta.tail<3>() - unscaled_mean.tail<3>()).norm() >
+                options.max_consensus_translation ||
+            (delta.head<3>() - unscaled_mean.head<3>()).norm() >
+                options.max_consensus_rotation_rad) {
+          consensus = false;
+          break;
+        }
+      }
+      if (!consensus) {
+        ++rejected_consensus;
+        previous_keyframe = current;
+        correction_at_previous_keyframe = correction;
+        continue;
+      }
+      const Eigen::Matrix<double, 6, 1> mean_delta =
+          options.correction_gain * unscaled_mean;
+      Eigen::Matrix4d scaled_delta = Eigen::Matrix4d::Identity();
+      const double rotation_norm = mean_delta.head<3>().norm();
+      if (rotation_norm > 1e-12) {
+        scaled_delta.block<3, 3>(0, 0) =
+            Eigen::AngleAxisd(rotation_norm,
+                              mean_delta.head<3>() / rotation_norm)
+                .toRotationMatrix();
+      }
+      scaled_delta.block<3, 1>(0, 3) = mean_delta.tail<3>();
+      const Eigen::Matrix4d corrected_current = base_pose * scaled_delta;
+      const Eigen::Matrix4d new_correction =
+          corrected_current * raw_poses[current].inverse();
+
+      const size_t window_start = previous_keyframe + 1;
+      const size_t window_length =
+          std::max<size_t>(current - previous_keyframe, 1);
+      for (size_t frame = window_start; frame <= current; ++frame) {
+        const double alpha =
+            static_cast<double>(frame - previous_keyframe) / window_length;
+        const Eigen::Matrix4d interpolated_correction =
+            interpolateTransform(correction_at_previous_keyframe,
+                                 new_correction, alpha);
+        corrected_poses[frame] =
+            interpolated_correction * raw_poses[frame];
+        res.poses[frame] =
+            anchorRelativePose(world_anchor, corrected_poses[frame]);
+      }
+      correction = new_correction;
+      ++correction_events;
+    }
+
+    previous_keyframe = current;
+    correction_at_previous_keyframe = correction;
+    if (i % 10 == 0) {
+      std::cerr << "\r  [KISS-MH] " << i << "/" << pcd_dirs.size()
+                << " accepted=" << accepted_constraints
+                << " corrections=" << correction_events;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  std::ostringstream note;
+  note << "Fast KISS frontend with fixed-lag independent scan constraints; "
+       << "accepted=" << accepted_constraints
+       << ", rejected=" << rejected_constraints
+       << " (registration=" << rejected_registration
+       << ", rmse=" << rejected_rmse
+       << ", degeneracy=" << rejected_degeneracy
+       << ", motion=" << rejected_motion
+       << ", consensus_events=" << rejected_consensus << ")"
+       << ", correction_events=" << correction_events << ".";
+  note << " deskewed_frames=" << deskewed_frames
+       << ", deskew_timestamp_fallbacks="
+       << deskew_timestamp_fallbacks
+       << ", motion_guard_rejections="
+       << frontend.motionGuardRejections() << ".";
+  if (observed_rmse_count > 0) {
+    note << " Matcher RMSE min/mean/max="
+         << observed_rmse_min << "/"
+         << (observed_rmse_sum / observed_rmse_count) << "/"
+         << observed_rmse_max << ".";
+  }
+  res.note = note.str();
   return res;
 }
 
@@ -10061,6 +10859,8 @@ void writeSummaryJson(const std::string& path,
       out << "      \"frames\": 0,\n";
       out << "      \"time_ms\": null,\n";
       out << "      \"fps\": null,\n";
+      out << "      \"algorithm_time_ms\": null,\n";
+      out << "      \"algorithm_fps\": null,\n";
       out << "      \"seed_fallback_rate_pct\": null,\n";
     } else {
       const double fps =
@@ -10086,6 +10886,18 @@ void writeSummaryJson(const std::string& path,
       out << "      \"fps\": ";
       writeJsonNumberOrNull(out, fps);
       out << ",\n";
+      out << "      \"algorithm_time_ms\": ";
+      writeJsonNumberOrNull(
+          out, r.algorithm_time_ms > 0.0
+                   ? r.algorithm_time_ms
+                   : std::numeric_limits<double>::quiet_NaN());
+      out << ",\n";
+      out << "      \"algorithm_fps\": ";
+      writeJsonNumberOrNull(
+          out, r.algorithm_time_ms > 0.0
+                   ? r.poses.size() / (r.algorithm_time_ms / 1000.0)
+                   : std::numeric_limits<double>::quiet_NaN());
+      out << ",\n";
       out << "      \"seed_fallback_rate_pct\": ";
       if (r.seed_fallback_rate_pct >= 0.0) {
         writeJsonNumberOrNull(out, r.seed_fallback_rate_pct);
@@ -10105,7 +10917,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,kiss_multi_horizon,kiss_pose_graph,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -10193,8 +11005,19 @@ int main(int argc, char** argv) {
               << " [--fixed-map-ndt-scan-context-relock-max-score-delta X]"
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
+               << " [--kiss-pg-scan-context-threshold X]"
+               << " [--kiss-pg-correction-gain X]"
+               << " [--kiss-pg-external-poses KITTI_POSES]"
               << " [--kiss-voxel-size X]"
               << " [--kiss-max-iterations N]"
+              << " [--kiss-model-deviation-threshold]"
+              << " [--kiss-model-deviation-correspondence-multiplier X]"
+              << " [--kiss-vertical-angle-correction-deg X]"
+              << " [--kiss-deskew-mulran]"
+              << " [--kiss-motion-guard]"
+              << " [--kiss-diverse-voxel-points]"
+              << " [--kiss-max-step-translation-m X]"
+              << " [--kiss-max-step-rotation-deg X]"
               << " [--ct-icp-fast-profile]"
               << " [--ct-icp-dense-profile]"
               << " [--ct-icp-voxel-resolution X]"
@@ -10301,6 +11124,10 @@ int main(int argc, char** argv) {
   NDTDogfoodingOptions ndt_options;
   FixedMapNDTOptions fixed_map_ndt_options;
   KISSICPDogfoodingOptions kiss_icp_options;
+  KISSMultiHorizonDogfoodingOptions kiss_multi_horizon_options;
+  double kiss_pose_graph_scan_context_threshold = 0.18;
+  double kiss_pose_graph_correction_gain = 0.05;
+  std::string kiss_pose_graph_external_pose_path;
   GenZICPDogfoodingOptions genz_icp_options;
   AdaptiveICPDogfoodingOptions adaptive_icp_options;
   D2LIODogfoodingOptions d2lio_options;
@@ -12321,6 +13148,7 @@ int main(int argc, char** argv) {
       kiss_icp_options.max_icp_iterations = 20;
       kiss_icp_options.local_map_radius = 45.0;
       kiss_icp_options.map_cleanup_interval = 2;
+      kiss_multi_horizon_options.frontend = kiss_icp_options;
       continue;
     }
     if (arg == "--kiss-dense-profile") {
@@ -13684,11 +14512,15 @@ int main(int argc, char** argv) {
         return 1;
       }
       kiss_icp_options.source_voxel_size = std::stod(argv[++i]);
+      kiss_multi_horizon_options.frontend.source_voxel_size =
+          kiss_icp_options.source_voxel_size;
       continue;
     }
     if (arg.rfind("--kiss-source-voxel-size=", 0) == 0) {
       kiss_icp_options.source_voxel_size =
           std::stod(arg.substr(std::string("--kiss-source-voxel-size=").size()));
+      kiss_multi_horizon_options.frontend.source_voxel_size =
+          kiss_icp_options.source_voxel_size;
       continue;
     }
     if (arg == "--kiss-max-source-points") {
@@ -13699,12 +14531,16 @@ int main(int argc, char** argv) {
       }
       kiss_icp_options.max_source_points =
           static_cast<size_t>(std::max(1, std::stoi(argv[++i])));
+      kiss_multi_horizon_options.frontend.max_source_points =
+          kiss_icp_options.max_source_points;
       continue;
     }
     if (arg.rfind("--kiss-max-source-points=", 0) == 0) {
       kiss_icp_options.max_source_points = static_cast<size_t>(std::max(
           1, std::stoi(arg.substr(
                  std::string("--kiss-max-source-points=").size()))));
+      kiss_multi_horizon_options.frontend.max_source_points =
+          kiss_icp_options.max_source_points;
       continue;
     }
     if (arg == "--kiss-voxel-size") {
@@ -13713,11 +14549,15 @@ int main(int argc, char** argv) {
         return 1;
       }
       kiss_icp_options.voxel_size = std::stod(argv[++i]);
+      kiss_multi_horizon_options.frontend.voxel_size =
+          kiss_icp_options.voxel_size;
       continue;
     }
     if (arg.rfind("--kiss-voxel-size=", 0) == 0) {
       kiss_icp_options.voxel_size =
           std::stod(arg.substr(std::string("--kiss-voxel-size=").size()));
+      kiss_multi_horizon_options.frontend.voxel_size =
+          kiss_icp_options.voxel_size;
       continue;
     }
     if (arg == "--kiss-initial-threshold") {
@@ -13727,11 +14567,15 @@ int main(int argc, char** argv) {
         return 1;
       }
       kiss_icp_options.initial_threshold = std::stod(argv[++i]);
+      kiss_multi_horizon_options.frontend.initial_threshold =
+          kiss_icp_options.initial_threshold;
       continue;
     }
     if (arg.rfind("--kiss-initial-threshold=", 0) == 0) {
       kiss_icp_options.initial_threshold = std::stod(
           arg.substr(std::string("--kiss-initial-threshold=").size()));
+      kiss_multi_horizon_options.frontend.initial_threshold =
+          kiss_icp_options.initial_threshold;
       continue;
     }
     if (arg == "--kiss-max-points-per-voxel") {
@@ -13741,11 +14585,15 @@ int main(int argc, char** argv) {
         return 1;
       }
       kiss_icp_options.max_points_per_voxel = std::max(1, std::stoi(argv[++i]));
+      kiss_multi_horizon_options.frontend.max_points_per_voxel =
+          kiss_icp_options.max_points_per_voxel;
       continue;
     }
     if (arg.rfind("--kiss-max-points-per-voxel=", 0) == 0) {
       kiss_icp_options.max_points_per_voxel = std::max(
           1, std::stoi(arg.substr(std::string("--kiss-max-points-per-voxel=").size())));
+      kiss_multi_horizon_options.frontend.max_points_per_voxel =
+          kiss_icp_options.max_points_per_voxel;
       continue;
     }
     if (arg == "--kiss-max-iterations") {
@@ -13755,11 +14603,15 @@ int main(int argc, char** argv) {
         return 1;
       }
       kiss_icp_options.max_icp_iterations = std::max(1, std::stoi(argv[++i]));
+      kiss_multi_horizon_options.frontend.max_icp_iterations =
+          kiss_icp_options.max_icp_iterations;
       continue;
     }
     if (arg.rfind("--kiss-max-iterations=", 0) == 0) {
       kiss_icp_options.max_icp_iterations = std::max(
           1, std::stoi(arg.substr(std::string("--kiss-max-iterations=").size())));
+      kiss_multi_horizon_options.frontend.max_icp_iterations =
+          kiss_icp_options.max_icp_iterations;
       continue;
     }
     if (arg == "--kiss-local-map-radius") {
@@ -13769,11 +14621,15 @@ int main(int argc, char** argv) {
         return 1;
       }
       kiss_icp_options.local_map_radius = std::stod(argv[++i]);
+      kiss_multi_horizon_options.frontend.local_map_radius =
+          kiss_icp_options.local_map_radius;
       continue;
     }
     if (arg.rfind("--kiss-local-map-radius=", 0) == 0) {
       kiss_icp_options.local_map_radius = std::stod(
           arg.substr(std::string("--kiss-local-map-radius=").size()));
+      kiss_multi_horizon_options.frontend.local_map_radius =
+          kiss_icp_options.local_map_radius;
       continue;
     }
     if (arg == "--kiss-map-cleanup-interval") {
@@ -13783,11 +14639,219 @@ int main(int argc, char** argv) {
         return 1;
       }
       kiss_icp_options.map_cleanup_interval = std::max(0, std::stoi(argv[++i]));
+      kiss_multi_horizon_options.frontend.map_cleanup_interval =
+          kiss_icp_options.map_cleanup_interval;
       continue;
     }
     if (arg.rfind("--kiss-map-cleanup-interval=", 0) == 0) {
       kiss_icp_options.map_cleanup_interval = std::max(
           0, std::stoi(arg.substr(std::string("--kiss-map-cleanup-interval=").size())));
+      kiss_multi_horizon_options.frontend.map_cleanup_interval =
+          kiss_icp_options.map_cleanup_interval;
+      continue;
+    }
+    if (arg == "--kiss-update-full-voxels") {
+      kiss_icp_options.update_full_voxels = true;
+      kiss_multi_horizon_options.frontend.update_full_voxels = true;
+      continue;
+    }
+    if (arg == "--kiss-deskew-mulran") {
+      kiss_icp_options.deskew_mulran = true;
+      kiss_multi_horizon_options.frontend.deskew_mulran = true;
+      continue;
+    }
+    if (arg == "--kiss-motion-guard") {
+      kiss_icp_options.enable_motion_guard = true;
+      kiss_multi_horizon_options.frontend.enable_motion_guard = true;
+      continue;
+    }
+    if (arg == "--kiss-adaptive-motion-guard") {
+      kiss_icp_options.enable_adaptive_motion_guard = true;
+      kiss_multi_horizon_options.frontend.enable_adaptive_motion_guard = true;
+      continue;
+    }
+    if (arg == "--kiss-adaptive-guard-translation-consistency-m") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-adaptive-guard-translation-consistency-m requires a value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.adaptive_motion_guard_translation_consistency_m =
+          std::max(0.0, std::stod(argv[++i]));
+      kiss_multi_horizon_options.frontend
+          .adaptive_motion_guard_translation_consistency_m =
+          kiss_icp_options.adaptive_motion_guard_translation_consistency_m;
+      continue;
+    }
+    if (arg == "--kiss-max-step-translation-m") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-max-step-translation-m requires a value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.max_step_translation_m =
+          std::max(0.0, std::stod(argv[++i]));
+      kiss_multi_horizon_options.frontend.max_step_translation_m =
+          kiss_icp_options.max_step_translation_m;
+      continue;
+    }
+    if (arg == "--kiss-max-step-rotation-deg") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-max-step-rotation-deg requires a value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_icp_options.max_step_rotation_deg =
+          std::max(0.0, std::stod(argv[++i]));
+      kiss_multi_horizon_options.frontend.max_step_rotation_deg =
+          kiss_icp_options.max_step_rotation_deg;
+      continue;
+    }
+    if (arg == "--kiss-model-deviation-threshold") {
+      kiss_icp_options.use_model_deviation_threshold = true;
+      kiss_multi_horizon_options.frontend.use_model_deviation_threshold =
+          true;
+      continue;
+    }
+    if (arg ==
+        "--kiss-model-deviation-correspondence-multiplier") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--kiss-model-deviation-correspondence-multiplier requires a value"
+            << std::endl;
+        return 1;
+      }
+      const double multiplier = std::max(0.25, std::stod(argv[++i]));
+      kiss_icp_options.model_deviation_correspondence_multiplier =
+          multiplier;
+      kiss_multi_horizon_options.frontend
+          .model_deviation_correspondence_multiplier = multiplier;
+      continue;
+    }
+    if (arg == "--kiss-vertical-angle-correction-deg") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-vertical-angle-correction-deg requires a value"
+                  << std::endl;
+        return 1;
+      }
+      const double correction_deg = std::stod(argv[++i]);
+      kiss_icp_options.vertical_angle_correction_deg = correction_deg;
+      kiss_multi_horizon_options.frontend.vertical_angle_correction_deg =
+          correction_deg;
+      continue;
+    }
+    if (arg.rfind("--kiss-vertical-angle-correction-deg=", 0) == 0) {
+      const double correction_deg = std::stod(
+          arg.substr(std::string("--kiss-vertical-angle-correction-deg=").size()));
+      kiss_icp_options.vertical_angle_correction_deg = correction_deg;
+      kiss_multi_horizon_options.frontend.vertical_angle_correction_deg =
+          correction_deg;
+      continue;
+    }
+    if (arg == "--kiss-mh-correction-gain") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-mh-correction-gain requires a value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_multi_horizon_options.correction_gain =
+          std::clamp(std::stod(argv[++i]), 0.0, 1.0);
+      continue;
+    }
+    if (arg == "--kiss-pg-scan-context-threshold") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--kiss-pg-scan-context-threshold requires a value"
+            << std::endl;
+        return 1;
+      }
+      kiss_pose_graph_scan_context_threshold =
+          std::clamp(std::stod(argv[++i]), 0.0, 1.0);
+      continue;
+    }
+    if (arg == "--kiss-pg-correction-gain") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-pg-correction-gain requires a value"
+                  << std::endl;
+        return 1;
+      }
+      kiss_pose_graph_correction_gain =
+          std::clamp(std::stod(argv[++i]), 0.0, 1.0);
+      continue;
+    }
+    if (arg == "--kiss-pg-external-poses") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-pg-external-poses requires a KITTI pose file"
+                  << std::endl;
+        return 1;
+      }
+      kiss_pose_graph_external_pose_path = argv[++i];
+      continue;
+    }
+    if (arg.rfind("--kiss-pg-external-poses=", 0) == 0) {
+      kiss_pose_graph_external_pose_path = arg.substr(
+          std::string("--kiss-pg-external-poses=").size());
+      continue;
+    }
+    if (arg == "--kiss-mh-keyframe-stride") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-mh-keyframe-stride requires an integer"
+                  << std::endl;
+        return 1;
+      }
+      kiss_multi_horizon_options.keyframe_stride =
+          std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--kiss-mh-horizons") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-mh-horizons requires comma-separated integers"
+                  << std::endl;
+        return 1;
+      }
+      kiss_multi_horizon_options.horizons =
+          parsePositiveIntList(argv[++i]);
+      continue;
+    }
+    if (arg == "--kiss-mh-submap-frames") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-mh-submap-frames requires an integer"
+                  << std::endl;
+        return 1;
+      }
+      kiss_multi_horizon_options.submap_frames =
+          std::max(1, std::stoi(argv[++i]));
+      continue;
+    }
+    if (arg == "--kiss-mh-max-rmse") {
+      if (i + 1 >= argc) {
+        std::cerr << "--kiss-mh-max-rmse requires a value" << std::endl;
+        return 1;
+      }
+      kiss_multi_horizon_options.max_matcher_rmse =
+          std::max(0.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg == "--kiss-mh-max-consensus-translation") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--kiss-mh-max-consensus-translation requires a value"
+            << std::endl;
+        return 1;
+      }
+      kiss_multi_horizon_options.max_consensus_translation =
+          std::max(0.0, std::stod(argv[++i]));
+      continue;
+    }
+    if (arg == "--kiss-mh-max-consensus-rotation-rad") {
+      if (i + 1 >= argc) {
+        std::cerr
+            << "--kiss-mh-max-consensus-rotation-rad requires a value"
+            << std::endl;
+        return 1;
+      }
+      kiss_multi_horizon_options.max_consensus_rotation_rad =
+          std::max(0.0, std::stod(argv[++i]));
       continue;
     }
     if (arg == "--ct-icp-fast-profile") {
@@ -14566,7 +15630,7 @@ int main(int argc, char** argv) {
   if (selected_methods.empty()) {
     std::cerr
         << "No methods selected. Supported methods: litamin2, gicp, small_gicp, "
-        << "voxel_gicp, ndt, kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, "
+        << "voxel_gicp, ndt, kiss_icp, kiss_multi_horizon, kiss_pose_graph, dlo, dlio, aloam, floam, lego_loam, mulls, "
         << "ct_lio, ct_icp, ct_icp_ndt, ct_icp_ndt_keyframe, fixed_map_ndt, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
         << "suma, balm2, isc_loam, loam_livox, lio_sam, lins, fast_lio_slam, "
         << "point_lio, clins"
@@ -14577,7 +15641,7 @@ int main(int argc, char** argv) {
     if (!isSupportedMethod(method)) {
       std::cerr << "Unsupported method: " << method
                 << " (supported: litamin2, gicp, small_gicp, voxel_gicp, ndt, "
-                   "kiss_icp, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
+                   "kiss_icp, kiss_multi_horizon, kiss_pose_graph, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
                    "ct_icp, ct_icp_ndt, ct_icp_ndt_keyframe, fixed_map_ndt, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
                    "suma, balm2, isc_loam, loam_livox, lio_sam, lins, "
                    "fast_lio_slam, point_lio, clins)"
@@ -14917,8 +15981,66 @@ int main(int argc, char** argv) {
               << " voxel_size=" << kiss_icp_options.voxel_size
               << " max_iterations=" << kiss_icp_options.max_icp_iterations
               << " local_map_radius=" << kiss_icp_options.local_map_radius
+              << " update_full_voxels="
+              << (kiss_icp_options.update_full_voxels ? "on" : "off")
+              << " model_deviation_threshold="
+              << (kiss_icp_options.use_model_deviation_threshold ? "on"
+                                                                 : "off")
+              << " model_deviation_correspondence_multiplier="
+              << kiss_icp_options
+                     .model_deviation_correspondence_multiplier
+              << " mulran_deskew="
+              << (kiss_icp_options.deskew_mulran ? "on" : "off")
+              << " motion_guard="
+              << (kiss_icp_options.enable_motion_guard ? "on" : "off")
+              << " max_step_translation_m="
+              << kiss_icp_options.max_step_translation_m
+              << " max_step_rotation_deg="
+              << kiss_icp_options.max_step_rotation_deg
               << std::endl;
     results.push_back(runKISSICP(pcd_dirs, gt, kiss_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "kiss_multi_horizon")) {
+    std::cout << "Running KISS-Multi-Horizon..." << std::endl;
+    std::cout << "  source_voxel_size="
+              << kiss_multi_horizon_options.frontend.source_voxel_size
+              << " max_source_points="
+              << kiss_multi_horizon_options.frontend.max_source_points
+              << " keyframe_stride="
+              << kiss_multi_horizon_options.keyframe_stride
+              << " matcher_voxel_size="
+              << kiss_multi_horizon_options.matcher_voxel_size
+              << " correction_gain="
+              << kiss_multi_horizon_options.correction_gain << std::endl;
+    results.push_back(runKISSMultiHorizon(
+        pcd_dirs, gt, kiss_multi_horizon_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "kiss_pose_graph")) {
+    std::cout << "Running KISS-Pose-Graph..." << std::endl;
+    std::cout << std::setprecision(3)
+              << "  source_voxel_size="
+              << kiss_icp_options.source_voxel_size
+              << " max_source_points="
+              << kiss_icp_options.max_source_points
+              << " voxel_size=" << kiss_icp_options.voxel_size
+              << " keyframe_stride=10"
+              << " scan_context_threshold="
+              << kiss_pose_graph_scan_context_threshold
+              << " correction_gain="
+              << kiss_pose_graph_correction_gain
+              << " external_poses="
+              << (kiss_pose_graph_external_pose_path.empty()
+                      ? "none"
+                      : kiss_pose_graph_external_pose_path)
+              << " floor_constraint=off" << std::setprecision(1)
+              << std::endl;
+    results.push_back(runKISSPoseGraph(
+        pcd_dirs, gt, kiss_icp_options,
+        kiss_pose_graph_scan_context_threshold,
+        kiss_pose_graph_correction_gain,
+        kiss_pose_graph_external_pose_path));
   }
 
   if (isMethodEnabled(selected_methods, "genz_icp")) {

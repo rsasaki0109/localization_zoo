@@ -1,4 +1,9 @@
 {
+  "validity": {
+    "valid": false,
+    "reason": "Invalid evaluator frame: base/rear-wheel GT was mislabeled as lidar_pose. Historical artifact only.",
+    "corrected_reference_sha256": "9495e7cdeb4a95b58f823cb321440aaff99f3a0504f83afa4549e0f6ca8c1143"
+  },
   "pcd_dir": "dogfooding_results/mulran_parkinglot_full",
   "gt_csv": "experiments/reference_data/mulran_parkinglot_full_gt.csv",
   "num_frames": 1176,

@@ -264,6 +264,38 @@ class DemoReportScriptTests(unittest.TestCase):
             self.assertIn("method set mismatch", mismatch.stdout)
 
 
+class LidarSotaDataTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.module = load_script_module(
+            "test_verify_lidar_sota_data_module",
+            "evaluation/scripts/verify_lidar_sota_data.py",
+        )
+
+    def test_external_dataset_requires_expected_frame_count(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            sequence = root / "dogfooding_results" / "example"
+            (sequence / "00000000").mkdir(parents=True)
+            entry = {
+                "id": "example",
+                "family": "fixture",
+                "role": "development",
+                "gt_backed": False,
+                "processed_dir": "dogfooding_results/example",
+                "expected_frames": 2,
+            }
+
+            incomplete = self.module.inspect_dataset(entry, root)
+            self.assertFalse(incomplete["available"])
+            self.assertFalse(incomplete["frame_count_ok"])
+
+            (sequence / "00000001").mkdir()
+            complete = self.module.inspect_dataset(entry, root)
+            self.assertTrue(complete["available"])
+            self.assertTrue(complete["frame_count_ok"])
+
+
 class RunExperimentMatrixScriptTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -338,6 +370,26 @@ class RunExperimentMatrixScriptTests(unittest.TestCase):
             "test_replay_fixed_map_ndt_publish_policy_module",
             "evaluation/scripts/replay_fixed_map_ndt_publish_policy.py",
         )
+
+    def test_resolve_path_expands_external_dataset_root(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with mock.patch.dict(
+                "os.environ", {"LOCALIZATION_ZOO_DATA_ROOT": tmpdir}
+            ):
+                resolved = self.runner_module.resolve_path(
+                    "${LOCALIZATION_ZOO_DATA_ROOT}/dogfooding_results/example"
+                )
+        self.assertEqual(
+            resolved,
+            Path(tmpdir) / "dogfooding_results" / "example",
+        )
+
+    def test_resolve_path_rejects_unresolved_environment_variable(self) -> None:
+        with mock.patch.dict("os.environ", {}, clear=True):
+            with self.assertRaisesRegex(ValueError, "Unresolved environment variable"):
+                self.runner_module.resolve_path(
+                    "${LOCALIZATION_ZOO_DATA_ROOT}/dogfooding_results/example"
+                )
 
     @staticmethod
     def write_lidar_gate_reports(

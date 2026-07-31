@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "candidate_id": "dual_kiss_deadband_causal_failover_v5",
+  "status": "fresh_held_out_fail_no_ate_gain_and_runtime_not_promoted",
+  "configuration_frozen": true,
+  "frozen_at": "2026-07-31",
+  "held_out_evaluated": true,
+  "tuning_after_held_out": false,
+  "promoted": false,
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_dual_kiss_deadband_v4.json",
+  "method": "cluster2_primary_with_deadbanded_rotation_consensus_and_causal_reference_failover",
+  "gt_usage": "metrics_only",
+  "configuration": {
+    "rotation_consensus_gain_per_frame": 0.0002,
+    "orientation_disagreement_deadband_deg": 1.25,
+    "failover_reference_motion_m": 0.05,
+    "primary_hold_tolerance": 1e-12,
+    "failover_policy": "when the primary pose is unchanged but the reference moves at least 0.05 m, publish the current fused pose, freeze its alignment to the reference, and follow aligned reference poses from the next frame",
+    "causality": "output frame i uses only primary/reference frames 0..i",
+    "official_reference_max_threads": 4
+  },
+  "development_results": [
+    {
+      "dataset": "kitti_odometry_01",
+      "failover_triggered": true,
+      "failover_index": 91,
+      "ate_m": 4.8546172844,
+      "rpe_trans_pct": 0.9308226342,
+      "rpe_rot_deg_per_m": 0.0016021536,
+      "official_kiss_ate_m": 8.7641507435,
+      "interpretation": "causal failover recovers the motion-guard breakdown and beats standalone official KISS ATE"
+    },
+    {
+      "dataset": "kitti_odometry_03",
+      "failover_triggered": false,
+      "inherits_v4_metrics": true
+    },
+    {
+      "dataset": "kitti_odometry_05",
+      "failover_triggered": false,
+      "inherits_v4_metrics": true
+    },
+    {
+      "dataset": "kitti_odometry_07",
+      "failover_triggered": false,
+      "inherits_v4_metrics": true
+    },
+    {
+      "dataset": "kitti_odometry_10",
+      "failover_triggered": false,
+      "inherits_v4_metrics": true
+    },
+    {
+      "dataset": "mulran_parkinglot",
+      "frames": 1175,
+      "failover_triggered": false,
+      "ate_m": 4.2517652504,
+      "rpe_trans_pct": 1.4616718039,
+      "rpe_rot_deg_per_m": 0.0256874898,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v5_development/causal_failover/mulran/metrics.json",
+      "interpretation": "no false trigger on a non-KITTI public sequence; output is identical to the v4 primary path because the deadbanded correction remains inactive"
+    }
+  ],
+  "implementation_sha256": {
+    "evaluation/scripts/fuse_odometry_rotation_consensus.py": "1c482285819d210e1be1a1952b8a0fea828956a138304279f8cd580c3d8f776c",
+    "evaluation/scripts/run_official_kiss_baseline.py": "7be62df43c0b6d2173607143d1536df85a7db54efedf310b8a01661fed3af835",
+    "evaluation/scripts/run_official_kiss_pcd_odometry.py": "02cefa4060d92631b35b93705a980feef43a3bf83891bd2db4999ab5260c030e",
+    "evaluation/src/pcd_dogfooding.cpp": "f11b42f64f71c22b6d42ee227b87c1d36d2d8d049440d63f00387d7760a6cffc"
+  },
+  "fresh_held_out_protocol": {
+    "declared_before_scan_download_or_gt_inspection": true,
+    "declared_at": "2026-07-31",
+    "dataset": "kitti_raw_2011_09_26_drive_0001_sync",
+    "environment": "normal daytime city driving",
+    "source": "official KITTI Raw synchronized archive",
+    "candidate_run_limit": "one full-sequence run",
+    "post_result_tuning": "forbidden",
+    "gt_isolation": "extract Velodyne scans only; do not extract or open OXTS until both front ends and fused estimate have exited",
+    "accuracy_gate": "candidate ATE must improve over the cluster2 primary and candidate translational RPE may regress by at most 1% relative; any catastrophic tracking failure rejects",
+    "failover_gate": "if failover triggers, candidate ATE must also beat standalone official KISS and candidate translational RPE must be within 15% relative of official KISS",
+    "runtime_gate": "both concurrently running front ends must sustain at least 10 algorithm FPS",
+    "baseline_order": "candidate without GT first; GT extraction, metrics, and standalone baseline comparison only afterward"
+  },
+  "fresh_held_out_result": {
+    "dataset": "kitti_raw_2011_09_26_drive_0001_sync",
+    "frames": 108,
+    "trajectory_length_m": 106.9236584624,
+    "source_archive_sha256": "7827a821ddc0a973bdf66de3a005a8825bd37c304aa9750f3c018f80d5b18458",
+    "gt_sha256": "9015276dce42ae0579cfc5df543b53229cabf323bf6e9e4d18ef51ec6faa755b",
+    "gt_opened_after_candidate_complete": true,
+    "gt_conversion": {
+      "script": "evaluation/scripts/kitti_raw_oxts_to_lidar_gt.py",
+      "script_sha256": "723428c78c5e014c32bc1cb16a724bca857a68aab4f3df5827ad4ae6d03eabc2",
+      "pose_frame": "initial Velodyne",
+      "projection": "KITTI Mercator and calibrated IMU-to-Velodyne transform"
+    },
+    "primary": {
+      "ate_m": 0.2596801701,
+      "rpe_trans_pct": 0.397478622,
+      "rpe_rot_deg_per_m": 0.0034618838,
+      "rpe_segments": 6,
+      "algorithm_fps": 23.882136,
+      "motion_guard_rejections": 0,
+      "loop_clusters": 0
+    },
+    "official_kiss_icp_1.3.0_threads4": {
+      "ate_m": 1.2078450733,
+      "rpe_trans_pct": 0.5004146486,
+      "rpe_rot_deg_per_m": 0.002359744,
+      "algorithm_fps": 9.6390004875
+    },
+    "candidate": {
+      "ate_m": 0.2596801701,
+      "rpe_trans_pct": 0.397478622,
+      "rpe_rot_deg_per_m": 0.0034618838,
+      "failover_triggered": false,
+      "estimate_sha256": "eb8dc1b794c1eb05d2d0d754b59394e28b0a58c57f14e136d49f393c1b93f3ad",
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout_v5/kitti_raw_2011_09_26_drive_0001/candidate_metrics.json"
+    },
+    "decision": {
+      "tracking_health": "pass: finite full trajectory, no motion-guard rejection, no false failover",
+      "rpe_preservation_gate": "pass: candidate exactly matches primary",
+      "ate_improvement_gate": "fail: deadband suppresses correction and candidate ATE exactly matches primary",
+      "runtime_gate": "fail: official KISS reference is 9.64 algorithm FPS, below the frozen 10 FPS minimum; primary is 23.88 FPS",
+      "promotion": "fail"
+    }
+  }
+}

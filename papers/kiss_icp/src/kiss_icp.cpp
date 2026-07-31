@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <numeric>
 
 namespace localization_zoo {
@@ -34,6 +35,126 @@ std::vector<Eigen::Vector3d> transformPoints(
 }
 
 }  // namespace
+
+double modelDeviationError(const Eigen::Matrix4d& deviation,
+                           double max_range) {
+  const double angle =
+      Eigen::AngleAxisd(deviation.block<3, 3>(0, 0)).angle();
+  const double rotational_displacement =
+      2.0 * max_range * std::sin(std::abs(angle) / 2.0);
+  return deviation.block<3, 1>(0, 3).norm() + rotational_displacement;
+}
+
+Eigen::Vector3d logSO3(const Eigen::Matrix3d& rotation) {
+  Eigen::AngleAxisd angle_axis(rotation);
+  if (!std::isfinite(angle_axis.angle()) ||
+      !angle_axis.axis().array().isFinite().all()) {
+    return Eigen::Vector3d::Zero();
+  }
+  return angle_axis.angle() * angle_axis.axis();
+}
+
+Eigen::Matrix3d leftJacobianSO3(const Eigen::Vector3d& omega) {
+  const double theta = omega.norm();
+  const Eigen::Matrix3d omega_hat = skew(omega);
+  if (theta < 1e-8) {
+    return Eigen::Matrix3d::Identity() + 0.5 * omega_hat +
+           (1.0 / 6.0) * omega_hat * omega_hat;
+  }
+  const double theta_squared = theta * theta;
+  return Eigen::Matrix3d::Identity() +
+         ((1.0 - std::cos(theta)) / theta_squared) * omega_hat +
+         ((theta - std::sin(theta)) / (theta_squared * theta)) *
+             omega_hat * omega_hat;
+}
+
+void correctElevationAngle(std::vector<Eigen::Vector3d>& points,
+                           double angle_rad) {
+  if (angle_rad == 0.0) return;
+  const double sin_angle = std::sin(angle_rad);
+  const double cos_angle = std::cos(angle_rad);
+  for (auto& point : points) {
+    const double horizontal = std::hypot(point.x(), point.y());
+    if (horizontal <= 1e-12) continue;
+    const double corrected_horizontal =
+        horizontal * cos_angle - point.z() * sin_angle;
+    const double corrected_z =
+        point.z() * cos_angle + horizontal * sin_angle;
+    const double horizontal_scale = corrected_horizontal / horizontal;
+    point.x() *= horizontal_scale;
+    point.y() *= horizontal_scale;
+    point.z() = corrected_z;
+  }
+}
+
+std::vector<Eigen::Vector3d> deskewScanToEnd(
+    const std::vector<Eigen::Vector3d>& points,
+    const std::vector<double>& relative_times,
+    const Eigen::Matrix4d& relative_motion) {
+  if (points.size() != relative_times.size() || points.empty()) return points;
+
+  const Eigen::Matrix3d relative_rotation =
+      relative_motion.block<3, 3>(0, 0);
+  const Eigen::Vector3d omega = logSO3(relative_rotation);
+  const Eigen::Vector3d translation =
+      relative_motion.block<3, 1>(0, 3);
+  const Eigen::Vector3d velocity =
+      leftJacobianSO3(omega).colPivHouseholderQr().solve(translation);
+  if (!omega.array().isFinite().all() ||
+      !velocity.array().isFinite().all()) {
+    return points;
+  }
+
+  std::vector<Eigen::Vector3d> deskewed(points.size());
+  for (std::size_t index = 0; index < points.size(); ++index) {
+    const double factor = std::clamp(relative_times[index], 0.0, 1.0) - 1.0;
+    const Eigen::Vector3d scaled_omega = factor * omega;
+    const Eigen::Matrix3d rotation = expSO3(scaled_omega);
+    const Eigen::Vector3d offset =
+        leftJacobianSO3(scaled_omega) * (factor * velocity);
+    deskewed[index] = rotation * points[index] + offset;
+  }
+  return deskewed;
+}
+
+bool motionWithinLimits(const Eigen::Matrix4d& relative_motion,
+                        double max_translation_m,
+                        double max_rotation_rad) {
+  if (!relative_motion.array().isFinite().all()) return false;
+  const double translation =
+      relative_motion.block<3, 1>(0, 3).norm();
+  const double rotation = std::abs(
+      Eigen::AngleAxisd(relative_motion.block<3, 3>(0, 0)).angle());
+  return std::isfinite(translation) && std::isfinite(rotation) &&
+         translation <= max_translation_m && rotation <= max_rotation_rad;
+}
+
+bool motionWithinAdaptiveLimits(
+    const Eigen::Matrix4d& relative_motion,
+    const Eigen::Matrix4d& previous_motion,
+    double max_translation_m,
+    double max_rotation_rad,
+    double max_translation_multiplier,
+    double translation_consistency_m,
+    double rotation_consistency_rad) {
+  if (!relative_motion.array().isFinite().all() ||
+      !previous_motion.array().isFinite().all()) {
+    return false;
+  }
+  const double translation =
+      relative_motion.block<3, 1>(0, 3).norm();
+  const double rotation = std::abs(
+      Eigen::AngleAxisd(relative_motion.block<3, 3>(0, 0)).angle());
+  if (!std::isfinite(translation) || !std::isfinite(rotation) ||
+      translation > max_translation_m * max_translation_multiplier ||
+      rotation > max_rotation_rad) {
+    return false;
+  }
+  const Eigen::Matrix4d deviation =
+      previous_motion.inverse() * relative_motion;
+  return motionWithinLimits(deviation, translation_consistency_m,
+                            rotation_consistency_rad);
+}
 
 // ============================================================
 // KISS Pair Matcher
@@ -111,6 +232,19 @@ KISSMatcherResult KISSMatcher::align(
     result.rmse = valid_correspondences > 0
                       ? std::sqrt(squared_error_sum / valid_correspondences)
                       : std::numeric_limits<double>::infinity();
+    const Eigen::SelfAdjointEigenSolver<Eigen::Matrix<double, 6, 6>>
+        information_solver(JtJ);
+    if (information_solver.info() == Eigen::Success) {
+      result.information_min_eigenvalue =
+          information_solver.eigenvalues().minCoeff();
+      result.information_max_eigenvalue =
+          information_solver.eigenvalues().maxCoeff();
+      if (result.information_min_eigenvalue > 1e-12) {
+        result.information_condition =
+            result.information_max_eigenvalue /
+            result.information_min_eigenvalue;
+      }
+    }
 
     if (valid_correspondences < params_.min_correspondences) break;
 
@@ -146,7 +280,13 @@ void VoxelHashMap::addPoints(const std::vector<Eigen::Vector3d>& points) {
     auto& vb = map_[key];
     if (static_cast<int>(vb.points.size()) < max_points_) {
       vb.points.push_back(p);
+    } else if (update_full_voxels_) {
+      const std::size_t replacement =
+          static_cast<std::size_t>(vb.observations %
+                                   static_cast<std::uint64_t>(max_points_));
+      vb.points[replacement] = p;
     }
+    ++vb.observations;
   }
 }
 
@@ -169,7 +309,13 @@ std::vector<VoxelHashMap::Correspondence> VoxelHashMap::getCorrespondences(
   std::vector<Correspondence> correspondences(points.size());
   double max_dist_sq = max_dist * max_dist;
 
-  for (size_t i = 0; i < points.size(); i++) {
+  // Queries are independent and the map is immutable during registration.
+  // Keep normal-equation accumulation serial so this changes runtime, not the
+  // selected correspondences or floating-point reduction order.
+#ifdef _OPENMP
+#pragma omp parallel for schedule(static)
+#endif
+  for (std::int64_t i = 0; i < static_cast<std::int64_t>(points.size()); i++) {
     const auto& query = points[i];
     auto key = toVoxel(query);
     double best_dist = max_dist_sq;
@@ -209,7 +355,11 @@ std::vector<VoxelHashMap::Correspondence> VoxelHashMap::getCorrespondences(
 
 KISSICPPipeline::KISSICPPipeline(const KISSICPParams& params)
     : params_(params),
-      local_map_(params.voxel_size, params.max_points_per_voxel) {}
+      local_map_(params.voxel_size, params.max_points_per_voxel,
+                 params.update_full_voxels),
+      model_error_squared_sum_(params.initial_threshold *
+                               params.initial_threshold),
+      model_error_samples_(1) {}
 
 std::vector<Eigen::Vector3d> KISSICPPipeline::voxelDownsample(
     const std::vector<Eigen::Vector3d>& points, double voxel_size) const {
@@ -240,7 +390,8 @@ std::vector<Eigen::Vector3d> KISSICPPipeline::rangeFilter(
 Eigen::Matrix4d KISSICPPipeline::runICP(
     const std::vector<Eigen::Vector3d>& source,
     const std::vector<Eigen::Vector3d>& target,
-    const Eigen::Matrix4d& initial_guess, double max_correspondence_dist) {
+    const Eigen::Matrix4d& initial_guess, double max_correspondence_dist,
+    double kernel_threshold) {
   (void)target;
   Eigen::Matrix4d T = initial_guess;
 
@@ -256,7 +407,6 @@ Eigen::Matrix4d KISSICPPipeline::runICP(
     Eigen::Matrix<double, 6, 6> JtJ = Eigen::Matrix<double, 6, 6>::Zero();
     Eigen::Matrix<double, 6, 1> Jtb = Eigen::Matrix<double, 6, 1>::Zero();
 
-    double kernel_threshold = max_correspondence_dist;
     int valid_correspondences = 0;
 
     for (size_t i = 0; i < source.size(); i++) {
@@ -301,11 +451,27 @@ Eigen::Matrix4d KISSICPPipeline::runICP(
 }
 
 double KISSICPPipeline::computeAdaptiveThreshold() {
+  if (params_.use_model_deviation_threshold) {
+    return std::sqrt(model_error_squared_sum_ /
+                     static_cast<double>(model_error_samples_));
+  }
   if (model_errors_.empty()) return params_.initial_threshold;
   // σ = median of recent model errors
   auto sorted = model_errors_;
   std::sort(sorted.begin(), sorted.end());
   double median = sorted[sorted.size() / 2];
+  return std::max(3.0 * median, params_.initial_threshold * 0.1);
+}
+
+double KISSICPPipeline::adaptiveThreshold() const {
+  if (params_.use_model_deviation_threshold) {
+    return std::sqrt(model_error_squared_sum_ /
+                     static_cast<double>(model_error_samples_));
+  }
+  if (model_errors_.empty()) return params_.initial_threshold;
+  auto sorted = model_errors_;
+  std::sort(sorted.begin(), sorted.end());
+  const double median = sorted[sorted.size() / 2];
   return std::max(3.0 * median, params_.initial_threshold * 0.1);
 }
 
@@ -336,27 +502,80 @@ KISSICPResult KISSICPPipeline::registerFrame(
   double adaptive_threshold = computeAdaptiveThreshold();
 
   // 4. ICP
-  Eigen::Matrix4d new_pose =
-      runICP(registration_points, {}, prediction, adaptive_threshold);
+  const double correspondence_threshold =
+      params_.use_model_deviation_threshold
+          ? params_.model_deviation_correspondence_multiplier *
+                adaptive_threshold
+          : adaptive_threshold;
+  Eigen::Matrix4d new_pose = runICP(registration_points, {}, prediction,
+                                    correspondence_threshold,
+                                    adaptive_threshold);
 
   // 5. モデルエラーの更新
-  last_delta_ = pose_.inverse() * new_pose;
-  double model_error = last_delta_.block<3, 1>(0, 3).norm();
-  model_errors_.push_back(model_error);
-  if (model_errors_.size() > 100) model_errors_.erase(model_errors_.begin());
+  Eigen::Matrix4d candidate_delta = pose_.inverse() * new_pose;
+  const bool within_fixed_guard = motionWithinLimits(
+      candidate_delta, params_.max_step_translation_m,
+      params_.max_step_rotation_rad);
+  const bool within_adaptive_guard =
+      params_.enable_motion_guard && params_.enable_adaptive_motion_guard &&
+      trusted_motion_steps_ >=
+          params_.adaptive_motion_guard_min_trusted_steps &&
+      motionWithinAdaptiveLimits(
+          candidate_delta, last_delta_, params_.max_step_translation_m,
+          params_.max_step_rotation_rad,
+          params_.adaptive_motion_guard_max_translation_multiplier,
+          params_.adaptive_motion_guard_translation_consistency_m,
+          params_.adaptive_motion_guard_rotation_consistency_rad);
+  if (params_.enable_motion_guard && !within_fixed_guard &&
+      !within_adaptive_guard) {
+    // A rejected pose must not poison the constant-velocity deskew or map.
+    // Hold the last trusted pose and restart the motion prior from rest.
+    new_pose = pose_;
+    last_delta_ = Eigen::Matrix4d::Identity();
+    result.motion_guard_rejected = true;
+    ++motion_guard_rejections_;
+  } else {
+    last_delta_ = candidate_delta;
+    ++trusted_motion_steps_;
+    if (!within_fixed_guard && within_adaptive_guard) {
+      result.motion_guard_adaptive_accepted = true;
+      ++adaptive_motion_guard_acceptances_;
+    }
+  }
+  if (!result.motion_guard_rejected &&
+      params_.use_model_deviation_threshold) {
+    // KISS-ICP defines uncertainty as prediction-versus-registration
+    // deviation, not vehicle motion. Rotation is converted to the maximum
+    // induced point displacement at the configured sensor range.
+    const Eigen::Matrix4d model_deviation = prediction.inverse() * new_pose;
+    const double model_error =
+        modelDeviationError(model_deviation, params_.max_range);
+    if (model_error > 0.1 && std::isfinite(model_error)) {
+      model_error_squared_sum_ += model_error * model_error;
+      ++model_error_samples_;
+    }
+  } else if (!result.motion_guard_rejected) {
+    const double model_error = last_delta_.block<3, 1>(0, 3).norm();
+    model_errors_.push_back(model_error);
+    if (model_errors_.size() > 100) model_errors_.erase(model_errors_.begin());
+  }
 
   pose_ = new_pose;
 
   // 6. マップ更新
-  auto world_pts = transformPoints(downsampled, pose_);
-  local_map_.addPoints(world_pts);
-  if (params_.local_map_radius > 0.0 && params_.map_cleanup_interval > 0 &&
-      (frame_count_ % params_.map_cleanup_interval) == 0) {
-    local_map_.pruneFarVoxels(pose_.block<3, 1>(0, 3), params_.local_map_radius);
+  if (!result.motion_guard_rejected) {
+    auto world_pts = transformPoints(downsampled, pose_);
+    local_map_.addPoints(world_pts);
+    if (params_.local_map_radius > 0.0 && params_.map_cleanup_interval > 0 &&
+        (frame_count_ % params_.map_cleanup_interval) == 0) {
+      local_map_.pruneFarVoxels(pose_.block<3, 1>(0, 3),
+                                params_.local_map_radius);
+    }
   }
 
   result.pose = pose_;
-  result.converged = (pose_.array().isFinite().all() &&
+  result.converged = (!result.motion_guard_rejected &&
+                      pose_.array().isFinite().all() &&
                       (new_pose - prediction).cwiseAbs().maxCoeff() < 1e3);
   result.iterations = params_.max_icp_iterations;
   frame_count_++;

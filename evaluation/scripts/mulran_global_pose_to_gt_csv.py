@@ -53,7 +53,10 @@ def main() -> int:
     output_path = Path(args.output)
     pose_io = load_pose_io()
 
-    rows = pose_io.load_global_pose_rows(pose_path)
+    rows = [
+        pose_io.base_pose_to_lidar_pose(p)
+        for p in pose_io.load_global_pose_rows(pose_path)
+    ]
     if not rows:
         raise RuntimeError(f"No poses in {pose_path}")
 

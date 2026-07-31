@@ -11,6 +11,18 @@ from pathlib import Path
 import numpy as np
 
 
+_MULRAN_YAW_NORM = math.hypot(1.0, 0.0058)
+MULRAN_T_BASE_LIDAR = np.array(
+    [
+        [-1.0 / _MULRAN_YAW_NORM, -0.0058 / _MULRAN_YAW_NORM, 0.0, 1.7042],
+        [0.0058 / _MULRAN_YAW_NORM, -1.0 / _MULRAN_YAW_NORM, 0.0, -0.0210],
+        [0.0, 0.0, 1.0, 1.8047],
+        [0.0, 0.0, 0.0, 1.0],
+    ],
+    dtype=np.float64,
+)
+
+
 @dataclass(frozen=True)
 class MulRanPoseRow:
     timestamp_ns: int
@@ -60,6 +72,44 @@ def quat_xyzw_to_R(qx: float, qy: float, qz: float, qw: float) -> np.ndarray:
             ],
         ],
         dtype=np.float64,
+    )
+
+
+def pose_row_to_matrix(row: MulRanPoseRow) -> np.ndarray:
+    cr, sr = math.cos(row.roll), math.sin(row.roll)
+    cp, sp = math.cos(row.pitch), math.sin(row.pitch)
+    cy, sy = math.cos(row.yaw), math.sin(row.yaw)
+    rotation = np.array(
+        [
+            [cy * cp, cy * sp * sr - sy * cr, cy * sp * cr + sy * sr],
+            [sy * cp, sy * sp * sr + cy * cr, sy * sp * cr - cy * sr],
+            [-sp, cp * sr, cp * cr],
+        ],
+        dtype=np.float64,
+    )
+    transform = np.eye(4, dtype=np.float64)
+    transform[:3, :3] = rotation
+    transform[:3, 3] = [row.x, row.y, row.z]
+    return transform
+
+
+def matrix_to_pose_row(timestamp_ns: int, transform: np.ndarray) -> MulRanPoseRow:
+    roll, pitch, yaw = rotation_matrix_to_rpy(transform[:3, :3])
+    return MulRanPoseRow(
+        timestamp_ns,
+        float(transform[0, 3]),
+        float(transform[1, 3]),
+        float(transform[2, 3]),
+        roll,
+        pitch,
+        yaw,
+    )
+
+
+def base_pose_to_lidar_pose(row: MulRanPoseRow) -> MulRanPoseRow:
+    """Convert official world<-base GT to world<-LiDAR using T_base_lidar."""
+    return matrix_to_pose_row(
+        row.timestamp_ns, pose_row_to_matrix(row) @ MULRAN_T_BASE_LIDAR
     )
 
 

@@ -33,6 +33,117 @@ TEST(KISSICP, VoxelHashMap) {
   EXPECT_LT(map.size(), pts.size());
 }
 
+TEST(KISSICP, FullVoxelUpdatePolicyIsOptIn) {
+  const std::vector<Eigen::Vector3d> old_point = {
+      Eigen::Vector3d(0.1, 0.1, 0.1)};
+  const std::vector<Eigen::Vector3d> new_point = {
+      Eigen::Vector3d(0.8, 0.1, 0.1)};
+
+  VoxelHashMap frozen(1.0, 1, false);
+  frozen.addPoints(old_point);
+  frozen.addPoints(new_point);
+  EXPECT_FALSE(frozen.getCorrespondences(new_point, 0.1).front().found);
+
+  VoxelHashMap updating(1.0, 1, true);
+  updating.addPoints(old_point);
+  updating.addPoints(new_point);
+  EXPECT_TRUE(updating.getCorrespondences(new_point, 0.1).front().found);
+}
+
+TEST(KISSICP, ModelDeviationErrorIncludesTranslationAndRangeScaledRotation) {
+  Eigen::Matrix4d deviation = Eigen::Matrix4d::Identity();
+  deviation.block<3, 1>(0, 3) = Eigen::Vector3d(3.0, 4.0, 0.0);
+  deviation.block<3, 3>(0, 0) =
+      Eigen::AngleAxisd(0.2, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  const double expected = 5.0 + 2.0 * 100.0 * std::sin(0.1);
+  EXPECT_NEAR(modelDeviationError(deviation, 100.0), expected, 1e-12);
+}
+
+TEST(KISSICP, ModelDeviationThresholdStartsAtConfiguredSigma) {
+  KISSICPParams params;
+  params.initial_threshold = 1.25;
+  params.use_model_deviation_threshold = true;
+  KISSICPPipeline pipeline(params);
+  EXPECT_DOUBLE_EQ(pipeline.adaptiveThreshold(), 1.25);
+  pipeline.registerFrame({});
+  pipeline.registerFrame({});
+  EXPECT_DOUBLE_EQ(pipeline.adaptiveThreshold(), 1.25);
+}
+
+TEST(KISSICP, ElevationCorrectionPreservesRangeAndRaisesPoint) {
+  std::vector<Eigen::Vector3d> points = {
+      Eigen::Vector3d(10.0, 0.0, 0.0),
+      Eigen::Vector3d(0.0, 5.0, 5.0)};
+  const std::vector<double> original_ranges = {
+      points[0].norm(), points[1].norm()};
+  correctElevationAngle(points, 0.1);
+  EXPECT_NEAR(points[0].x(), 10.0 * std::cos(0.1), 1e-12);
+  EXPECT_NEAR(points[0].z(), 10.0 * std::sin(0.1), 1e-12);
+  EXPECT_GT(points[1].z(), 5.0);
+  EXPECT_NEAR(points[0].norm(), original_ranges[0], 1e-12);
+  EXPECT_NEAR(points[1].norm(), original_ranges[1], 1e-12);
+}
+
+TEST(KISSICP, DeskewScanToEndUsesConstantVelocitySE3) {
+  const std::vector<Eigen::Vector3d> points = {
+      Eigen::Vector3d(5.0, 0.0, 0.0),
+      Eigen::Vector3d(5.0, 0.0, 0.0),
+      Eigen::Vector3d(5.0, 0.0, 0.0)};
+  const std::vector<double> times = {0.0, 0.5, 1.0};
+  Eigen::Matrix4d relative_motion = Eigen::Matrix4d::Identity();
+  relative_motion.block<3, 1>(0, 3) = Eigen::Vector3d(1.0, 0.0, 0.0);
+
+  const auto deskewed =
+      deskewScanToEnd(points, times, relative_motion);
+  EXPECT_NEAR(deskewed[0].x(), 4.0, 1e-12);
+  EXPECT_NEAR(deskewed[1].x(), 4.5, 1e-12);
+  EXPECT_NEAR(deskewed[2].x(), 5.0, 1e-12);
+}
+
+TEST(KISSICP, DeskewScanToEndRejectsMismatchedTimestamps) {
+  const std::vector<Eigen::Vector3d> points = {
+      Eigen::Vector3d(1.0, 2.0, 3.0)};
+  const auto deskewed =
+      deskewScanToEnd(points, {}, Eigen::Matrix4d::Identity());
+  ASSERT_EQ(deskewed.size(), 1u);
+  EXPECT_TRUE(deskewed.front().isApprox(points.front()));
+}
+
+TEST(KISSICP, MotionGuardChecksTranslationAndRotation) {
+  Eigen::Matrix4d motion = Eigen::Matrix4d::Identity();
+  motion.block<3, 1>(0, 3) = Eigen::Vector3d(1.5, 0.0, 0.0);
+  motion.block<3, 3>(0, 0) =
+      Eigen::AngleAxisd(0.2, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  EXPECT_TRUE(motionWithinLimits(motion, 2.0, 0.3));
+  EXPECT_FALSE(motionWithinLimits(motion, 1.0, 0.3));
+  EXPECT_FALSE(motionWithinLimits(motion, 2.0, 0.1));
+}
+
+TEST(KISSICP, AdaptiveMotionGuardAcceptsConsistentHighSpeedTranslation) {
+  Eigen::Matrix4d previous = Eigen::Matrix4d::Identity();
+  previous(0, 3) = 1.9;
+  Eigen::Matrix4d candidate = Eigen::Matrix4d::Identity();
+  candidate(0, 3) = 2.15;
+  EXPECT_FALSE(motionWithinLimits(candidate, 2.0, 0.3));
+  EXPECT_TRUE(motionWithinAdaptiveLimits(candidate, previous, 2.0, 0.3,
+                                         2.0, 0.5, 0.1));
+}
+
+TEST(KISSICP, AdaptiveMotionGuardRejectsInconsistentJumpAndRotation) {
+  Eigen::Matrix4d previous = Eigen::Matrix4d::Identity();
+  previous(0, 3) = 1.9;
+  Eigen::Matrix4d jump = Eigen::Matrix4d::Identity();
+  jump(0, 3) = 3.0;
+  EXPECT_FALSE(motionWithinAdaptiveLimits(jump, previous, 2.0, 0.3,
+                                          2.0, 0.5, 0.1));
+
+  Eigen::Matrix4d rotation = previous;
+  rotation.block<3, 3>(0, 0) =
+      Eigen::AngleAxisd(0.4, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+  EXPECT_FALSE(motionWithinAdaptiveLimits(rotation, previous, 2.0, 0.3,
+                                          2.0, 0.5, 0.1));
+}
+
 TEST(KISSICP, PairMatcher) {
   std::mt19937 rng(42);
   auto scene = makeScene(rng);

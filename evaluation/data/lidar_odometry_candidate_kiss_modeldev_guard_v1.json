@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "candidate_id": "kiss_modeldev_p6_elevation_motion_guard_v1",
+  "status": "promoted_fresh_held_out_pass",
+  "configuration_frozen": true,
+  "frozen_at": "2026-07-31",
+  "held_out_evaluated": true,
+  "tuning_after_held_out": false,
+  "method": "kiss_icp",
+  "gt_usage": "metrics_only",
+  "initialization": "first_pose_anchor_only",
+  "configuration": {
+    "fast_profile": true,
+    "source_voxel_size": 0.8,
+    "max_source_points": 2000,
+    "map_voxel_size": 1.2,
+    "initial_threshold": 1.75,
+    "max_points_per_voxel": 6,
+    "max_icp_iterations": 15,
+    "local_map_radius": 45.0,
+    "map_cleanup_interval": 2,
+    "update_full_voxels": false,
+    "model_deviation_threshold": true,
+    "model_deviation_correspondence_multiplier": 2.0,
+    "vertical_angle_correction_deg": 0.205,
+    "vertical_angle_correction_policy": "KITTI Velodyne only; disabled on MulRan",
+    "deskew_policy": "enabled only when dataset-provided or dataset-format-defined per-point timestamps are present",
+    "motion_guard": true,
+    "max_step_translation_m": 2.0,
+    "max_step_rotation_deg": 20.0,
+    "motion_guard_rejection_policy": "hold last trusted pose, reset velocity prediction, and skip threshold and map updates",
+    "omp_threads": 4
+  },
+  "command_args": [
+    "--methods",
+    "kiss_icp",
+    "--kiss-fast-profile",
+    "--kiss-source-voxel-size",
+    "0.8",
+    "--kiss-voxel-size",
+    "1.2",
+    "--kiss-model-deviation-threshold",
+    "--kiss-model-deviation-correspondence-multiplier",
+    "2.0",
+    "--kiss-max-iterations",
+    "15",
+    "--kiss-max-source-points",
+    "2000",
+    "--kiss-max-points-per-voxel",
+    "6",
+    "--kiss-motion-guard",
+    "--kiss-max-step-translation-m",
+    "2.0",
+    "--kiss-max-step-rotation-deg",
+    "20.0",
+    "--no-gt-seed",
+    "--association-mode",
+    "strict"
+  ],
+  "dataset_command_args": {
+    "kitti_odometry": [
+      "--kiss-vertical-angle-correction-deg",
+      "0.205"
+    ],
+    "mulran": [
+      "--kiss-deskew-mulran"
+    ],
+    "ntnu_fog": [
+      "--kiss-deskew-mulran"
+    ]
+  },
+  "development_results": [
+    {
+      "dataset": "kitti_odometry_00",
+      "frames": 4541,
+      "rpe_trans_pct": 0.785339,
+      "rpe_rot_deg_per_m": 0.00693,
+      "ate_m": 15.471671,
+      "motion_guard_rejections": 0,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_motion_guard_v1/kitti00_full/summary.json"
+    },
+    {
+      "dataset": "kitti_odometry_05",
+      "frames": 2761,
+      "rpe_trans_pct": 0.414105,
+      "rpe_rot_deg_per_m": 0.004237,
+      "ate_m": 7.8805,
+      "motion_guard_rejections": 0,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_motion_guard_v1/kitti05_full/summary.json"
+    },
+    {
+      "dataset": "kitti_odometry_07",
+      "frames": 1101,
+      "rpe_trans_pct": 0.50103,
+      "rpe_rot_deg_per_m": 0.005984,
+      "ate_m": 2.176813,
+      "motion_guard_rejections": 0,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_motion_guard_v1/kitti07_full/summary.json"
+    }
+  ],
+  "validation_results": [
+    {
+      "dataset": "mulran_parkinglot",
+      "frames": 1175,
+      "rpe_trans_pct": 1.458414,
+      "rpe_rot_deg_per_m": 0.025455,
+      "ate_m": 4.262063,
+      "algorithm_fps": 63.223314,
+      "motion_guard_rejections": 0,
+      "gt_sha256": "9495e7cdeb4a95b58f823cb321440aaff99f3a0504f83afa4549e0f6ca8c1143",
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_motion_guard_v1/mulran_parkinglot_full/summary.json"
+    }
+  ],
+  "robustness_results": [
+    {
+      "dataset": "ntnu_fog_full",
+      "gt_backed": false,
+      "frames": 1729,
+      "finite_pose_fraction": 1.0,
+      "path_length_m": 383.7748213031,
+      "max_step_translation_m": 1.3726293562,
+      "translation_steps_over_2m": 0,
+      "max_step_rotation_deg": 19.9938530136,
+      "rotation_steps_over_20deg": 0,
+      "motion_guard_rejections": 49,
+      "decision": "pass_gt_free_step_health_gate",
+      "health": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_motion_guard_v1/ntnu_fog_full/health.json"
+    }
+  ],
+  "fresh_held_out_protocol": {
+    "declared_before_download_or_gt_inspection": true,
+    "datasets": [
+      "kitti_odometry_06",
+      "kitti_odometry_09"
+    ],
+    "candidate_run_limit": "one full-sequence run per held-out sequence",
+    "post_result_tuning": "forbidden",
+    "primary_metric": "geometric_mean_rpe_trans_pct",
+    "comparators": "MAD-ICP official16, evaluated with the same GT and KITTI segment metric",
+    "pass_condition": "candidate geometric-mean translational RPE is no worse than MAD-ICP and every run has finite poses",
+    "runtime_gate": "algorithm_fps >= 10 on each sequence",
+    "ate_policy": "reported as a secondary unaligned drift diagnostic; not substituted for primary RPE"
+  },
+  "held_out_results": [
+    {
+      "dataset": "kitti_odometry_06",
+      "frames": 1101,
+      "rpe_trans_pct": 0.345127,
+      "rpe_rot_deg_per_m": 0.002928,
+      "ate_m": 4.023911,
+      "algorithm_fps": 50.417265,
+      "end_to_end_fps": 4.284802,
+      "motion_guard_rejections": 0,
+      "gt_sha256": "392b0b605dea4f132002c131ffe2454574092096064b0db3486b3340b0d6be14",
+      "mad_icp_rpe_trans_pct": 0.4935303918,
+      "mad_icp_rpe_rot_deg_per_m": 0.00382079,
+      "mad_icp_ate_m": 1.9434263859,
+      "mad_icp_algorithm_fps": 2.8739542252,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_motion_guard_v1_fresh_heldout/kitti06_full/summary.json",
+      "baseline_manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/mad_icp/kitti06_official16/zoo_manifest.json"
+    },
+    {
+      "dataset": "kitti_odometry_09",
+      "frames": 1591,
+      "rpe_trans_pct": 0.656508,
+      "rpe_rot_deg_per_m": 0.005039,
+      "ate_m": 6.437979,
+      "algorithm_fps": 51.163931,
+      "end_to_end_fps": 3.855322,
+      "motion_guard_rejections": 0,
+      "gt_sha256": "aac38d96a302479930ec16c22a0e4501c559a691338107fe6116a9df42bfdd75",
+      "mad_icp_rpe_trans_pct": 0.7333698096,
+      "mad_icp_rpe_rot_deg_per_m": 0.004789662,
+      "mad_icp_ate_m": 5.364800346,
+      "mad_icp_algorithm_fps": 3.631414173,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_motion_guard_v1_fresh_heldout/kitti09_full/summary.json",
+      "baseline_manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/mad_icp/kitti09_official16/zoo_manifest.json"
+    }
+  ],
+  "held_out_aggregate": {
+    "candidate_geometric_mean_rpe_trans_pct": 0.4760027694,
+    "mad_icp_geometric_mean_rpe_trans_pct": 0.6016147351,
+    "relative_rpe_improvement_pct": 20.87913715,
+    "candidate_wins_primary_rpe_rows": 2,
+    "candidate_algorithm_fps_gate_pass_rows": 2,
+    "ate_note": "MAD-ICP retains lower unaligned ATE on both fresh held-out sequences."
+  },
+  "freeze_evidence": {
+    "held_out_untouched_at_freeze": true,
+    "pre_held_out_manifest_amendment": "Before any held-out candidate execution, source/map voxel sizes were corrected from 0.75/1.25 to the 0.8/1.2 values printed by every motion-guard development and validation run log. Explicit CLI overrides were added to prevent profile-default drift; this was provenance correction, not result-driven tuning.",
+    "normal_sequence_non_regression": "exact metrics and zero guard rejections on KITTI 00/05/07 and MulRan ParkingLot",
+    "tests": {
+      "python_focused": "16 passed",
+      "kiss_icp_cpp": "11 passed"
+    },
+    "implementation_sha256": {
+      "wsl_release_binary": "a199a1b926fbc547a7f5b40c042499bfc1857812ad64a934ddd05884acbeb5de",
+      "evaluation/src/pcd_dogfooding.cpp": "6948fea79ad30f3cdb34fd1950d5a025bf85e8ab199f0a09b58b7f7a9d352c23",
+      "papers/kiss_icp/include/kiss_icp/kiss_icp.h": "f46957774bebf5eaf9d1b6a6ccc85784d569bf922812de3cccb93f891676c011",
+      "papers/kiss_icp/src/kiss_icp.cpp": "5c99413ed7152a92302d32fea6b901178c20be3f832a908748341de02c658402",
+      "evaluation/scripts/prepare_mulran_inputs.py": "b886db99be7103c89bbd3738e754aaaf30c593476547d6f8b3f1bc3b1fc58e81",
+      "evaluation/scripts/mulran_pose_io.py": "1b637c47888c4095320ae16f316babde597cc43cebf4556c16951e006a808a46"
+    }
+  },
+  "gate": {
+    "accuracy_against_mad_icp": "pass_on_development_kitti_00_05_07",
+    "cross_dataset_transfer": "pass_pareto_frontier_on_mulran_parkinglot",
+    "robustness_only": "pass_on_ntnu_fog_full",
+    "fresh_gt_backed_held_out": "pass_on_kitti_06_09_without_post_freeze_tuning",
+    "promotion": "pass"
+  }
+}

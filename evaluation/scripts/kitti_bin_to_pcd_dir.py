@@ -34,8 +34,10 @@ def parse_args() -> argparse.Namespace:
 
 
 def write_binary_pcd(path: Path, points: np.ndarray) -> None:
-    """Write PCD v0.7 binary with FIELDS x y z intensity (matching extract_ros2_lidar_imu.py)."""
-    field_names = ["x", "y", "z", "intensity"]
+    """Write a float32 structured array as a binary PCD v0.7 cloud."""
+    field_names = list(points.dtype.names or ())
+    if not field_names:
+        raise ValueError("points must be a structured array")
     sizes = " ".join(["4"] * len(field_names))
     types = " ".join(["F"] * len(field_names))
     counts = " ".join(["1"] * len(field_names))

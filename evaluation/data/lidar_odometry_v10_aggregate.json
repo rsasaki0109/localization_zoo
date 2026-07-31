@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "candidate_manifest": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
+  "candidate_status": "promoted_fresh_heldout_pass",
+  "protocol": {
+    "ground_truth": "metrics only",
+    "initialization": "first pose anchor only",
+    "rpe_segment_length_m": 100.0,
+    "runtime_gate": "algorithm FPS >=10; dual-front-end rows also report conservative sequential combined rate",
+    "large_artifacts": "external SSD via LOCALIZATION_ZOO_DATA_ROOT"
+  },
+  "cross_dataset_summary": {
+    "datasets": 8,
+    "families": ["KITTI Odometry", "KITTI Raw", "MulRan", "NCLT"],
+    "ate_improvement_rows": 8,
+    "ate_regression_rows": 0,
+    "maximum_rpe_regression_pct": 0.2424527603,
+    "fresh_held_out_dataset": "kitti_raw_2011_09_26_drive_0023_sync",
+    "fresh_held_out_ate_improvement_pct": 1.9994347169,
+    "fresh_held_out_rpe_change_pct": 0.146144586,
+    "fresh_primary_algorithm_fps": 26.2408027464,
+    "fresh_reference_algorithm_fps": 23.4484371202,
+    "fresh_sequential_combined_algorithm_fps": 12.3830796131
+  },
+  "fresh_drive_0023": [
+    {"method": "official_kiss_icp_1.3.0_load_adaptive", "ate_m": 3.02455936281, "rpe_trans_pct": 1.51325281106, "algorithm_fps": 23.4484371202},
+    {"method": "mad_icp_0.0.10_official16", "ate_m": 4.79169803238, "rpe_trans_pct": 1.57718387966, "algorithm_fps": 5.45619417955},
+    {"method": "direction_consistent_rotation_v10", "ate_m": 5.4935231004, "rpe_trans_pct": 1.62245310282, "sequential_combined_algorithm_fps": 12.3830796131},
+    {"method": "v6_primary", "ate_m": 5.60560348252, "rpe_trans_pct": 1.62008543567, "algorithm_fps": 26.2408027464},
+    {"method": "ct_icp_fast_no_gt_seed", "ate_m": 24.0405094322, "rpe_trans_pct": 3.22114278158, "algorithm_fps": 12.7613863065}
+  ],
+  "same_input_kitti04": [
+    {"method": "direction_consistent_rotation_v10", "ate_m": 1.14475151394, "rpe_trans_pct": 0.35412094621, "rpe_rot_deg_per_m": 0.00283831939, "sequential_combined_algorithm_fps": 10.6699117413},
+    {"method": "v6_primary", "ate_m": 1.26679604183, "rpe_trans_pct": 0.3545224566, "rpe_rot_deg_per_m": 0.0030226928, "algorithm_fps": 22.484303},
+    {"method": "mola_lo_2.2.1_gicp", "ate_m": 1.55793298748, "rpe_trans_pct": 0.47935417367, "rpe_rot_deg_per_m": 0.00248188741, "end_to_end_fps": 3.15334035316},
+    {"method": "mad_icp_0.0.10_official16", "ate_m": 2.14354826208, "rpe_trans_pct": 0.60377091722, "rpe_rot_deg_per_m": 0.00378104415, "algorithm_fps": 3.244019142},
+    {"method": "official_kiss_icp_1.3.0_load_adaptive", "ate_m": 2.97211161965, "rpe_trans_pct": 0.65797902457, "rpe_rot_deg_per_m": 0.00539112197, "algorithm_fps": 20.3062115787},
+    {"method": "ct_icp_fast_no_gt_seed", "ate_m": 47.886188, "rpe_trans_pct": 7.140921, "rpe_rot_deg_per_m": 0.049274, "end_to_end_fps": 6.726309}
+  ],
+  "claim": "v10 is the cross-dataset robust real-time candidate and wins ATE plus translational RPE on the common KITTI04 input; official KISS remains the accuracy winner on Raw0023, so claims are Pareto/cross-dataset rather than universal per-sequence dominance"
+}

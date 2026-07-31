@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "candidate_id": "kiss_scan_context_pose_graph_cluster2_v2",
+  "status": "fresh_held_out_safe_not_promoted_accuracy_gap",
+  "configuration_frozen": true,
+  "frozen_at": "2026-07-31",
+  "held_out_evaluated": true,
+  "tuning_after_held_out": false,
+  "promoted": false,
+  "method": "kiss_pose_graph",
+  "gt_usage": "metrics_only",
+  "initialization": "first_pose_anchor_only",
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_kiss_modeldev_guard_v1.json",
+  "configuration": {
+    "frontend": "kiss_modeldev_p6_elevation_motion_guard_v1_current_rebuild",
+    "keyframe_stride": 10,
+    "scan_context_threshold": 0.18,
+    "scan_context_recent_exclusion_keyframes": 30,
+    "scan_context_candidates": 5,
+    "loop_submap_half_window": 2,
+    "loop_gicp_max_correspondence_distance_m": 5.0,
+    "loop_gicp_max_iterations": 30,
+    "loop_max_euclidean_rmse_m": 1.0,
+    "loop_min_correspondences": 80,
+    "loop_cluster_keyframe_radius": 5,
+    "min_independent_loop_clusters_for_correction": 2,
+    "pose_graph_correction_gain": 0.05,
+    "floor_constraint": false,
+    "loop_detection_uses_ground_truth": false
+  },
+  "correction_publication_policy": {
+    "cluster_definition": "accepted loop edges belong to one cluster when both endpoint indices are within five keyframes of an existing representative",
+    "single_cluster": "optimize internally but publish the unmodified raw odometry trajectory",
+    "two_or_more_clusters": "publish the gain-scaled pose-graph correction",
+    "motivation": "prevent a single plausible but harmful loop from changing the public trajectory without dataset-specific thresholds"
+  },
+  "development_and_transfer_results": [
+    {
+      "dataset": "kitti_odometry_05",
+      "frames": 2761,
+      "ate_m": 7.426877,
+      "rpe_trans_pct": 0.414759,
+      "rpe_rot_deg_per_m": 0.004179,
+      "algorithm_fps": 24.401611,
+      "loop_edges": 4,
+      "loop_clusters": 2,
+      "correction_enabled": true,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/ate_development/kiss_pg_cluster2_kitti05_full/summary.json"
+    },
+    {
+      "dataset": "kitti_odometry_07",
+      "frames": 1101,
+      "ate_m": 2.376404,
+      "rpe_trans_pct": 0.510373,
+      "rpe_rot_deg_per_m": 0.006172,
+      "algorithm_fps": 33.4074,
+      "loop_edges": 1,
+      "loop_clusters": 1,
+      "correction_enabled": false,
+      "raw_trajectory_exact_match": true,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/ate_development/kiss_pg_cluster2_kitti07_full/summary.json"
+    },
+    {
+      "dataset": "mulran_parkinglot",
+      "frames": 1175,
+      "ate_m": 4.251765,
+      "rpe_trans_pct": 1.461672,
+      "rpe_rot_deg_per_m": 0.025687,
+      "algorithm_fps": 20.501109,
+      "loop_edges": 4,
+      "loop_clusters": 2,
+      "correction_enabled": true,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/ate_transfer/kiss_pg_cluster2_mulran_parkinglot_full/summary.json"
+    },
+    {
+      "dataset": "nclt_2013_01_10",
+      "frames": 5105,
+      "ate_m": 7.884145,
+      "rpe_trans_pct": 2.300305,
+      "rpe_rot_deg_per_m": 0.028894,
+      "algorithm_fps": 32.687542,
+      "loop_edges": 1,
+      "loop_clusters": 1,
+      "correction_enabled": false,
+      "raw_trajectory_exact_match": true,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/ate_transfer/kiss_pg_cluster2_nclt_2013_01_10_full/summary.json"
+    }
+  ],
+  "provenance_caveat": {
+    "historical_promoted_binary_reproduced": false,
+    "historical_nclt_ate_m": 6.836127,
+    "historical_nclt_rpe_trans_pct": 2.374235,
+    "current_rebuild_nclt_ate_m": 7.884145,
+    "current_rebuild_nclt_rpe_trans_pct": 2.300305,
+    "interpretation": "cluster2 removes the additional pose-graph regression and preserves the current rebuilt frontend exactly, but the current frontend is not byte-equivalent to the historical promoted evaluator binary"
+  },
+  "fresh_held_out_protocol": {
+    "declared_before_download_or_gt_inspection": true,
+    "declared_at": "2026-07-31",
+    "dataset": "kitti_odometry_10",
+    "candidate_run_limit": "one full-sequence run",
+    "post_result_tuning": "forbidden",
+    "runtime_gate": "algorithm_fps >= 10",
+    "safety_gate": "finite trajectory and no false correction when fewer than two independent loop clusters exist",
+    "primary_metrics": [
+      "rpe_trans_pct",
+      "ate_m"
+    ],
+    "baseline_order": "run the frozen candidate first, then MAD-ICP, MOLA-LO, CT-ICP and raw KISS comparisons"
+  },
+  "held_out_result": {
+    "dataset": "kitti_odometry_10",
+    "frames": 1201,
+    "ate_m": 6.379824,
+    "rpe_trans_pct": 0.811994,
+    "rpe_rot_deg_per_m": 0.00636,
+    "algorithm_fps": 28.033898,
+    "loop_candidates": 0,
+    "loop_edges": 0,
+    "loop_clusters": 0,
+    "correction_enabled": false,
+    "finite_trajectory": true,
+    "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/kiss_pg_cluster2_kitti10_full/summary.json"
+  },
+  "fresh_held_out_baselines": [
+    {
+      "method": "official_kiss_icp_1.3.0_default",
+      "ate_m": 2.8806620951,
+      "rpe_trans_pct": 0.6864993842,
+      "rpe_rot_deg_per_m": 0.0036004213,
+      "algorithm_fps": 33.3695516481,
+      "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/baselines_kitti10/official_kiss_icp_1_3_0/zoo_manifest.json"
+    },
+    {
+      "method": "mad_icp_0.0.10_official16",
+      "ate_m": 5.91062358,
+      "rpe_trans_pct": 0.7968908729,
+      "rpe_rot_deg_per_m": 0.0056765414,
+      "algorithm_fps": 5.9142924086,
+      "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/baselines_kitti10/mad_icp_official16/zoo_manifest.json"
+    },
+    {
+      "method": "mola_lo_2.2.1_gicp",
+      "ate_m": 11.4297045381,
+      "rpe_trans_pct": 0.8009499019,
+      "rpe_rot_deg_per_m": 0.0054918438,
+      "end_to_end_fps": 4.3679537306,
+      "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/baselines_kitti10/mola_lo_gicp/zoo_manifest.json"
+    },
+    {
+      "method": "ct_icp_fast",
+      "ate_m": 38.198279,
+      "rpe_trans_pct": 3.701965,
+      "rpe_rot_deg_per_m": 0.070327,
+      "end_to_end_fps": 9.585121,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/baselines_kitti10/ct_icp_fast/summary.json"
+    }
+  ],
+  "held_out_decision": {
+    "safety_gate": "pass",
+    "runtime_gate": "pass",
+    "accuracy_gate": "fail",
+    "promotion": "fail",
+    "reason": "With no detected loop, the candidate reproduced its rebuilt raw front end. Official KISS-ICP 1.3.0 improved ATE by 54.85% and translational RPE by 15.46%, while MAD-ICP also retained slightly lower ATE and RPE."
+  }
+}

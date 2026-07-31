@@ -140,7 +140,7 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def display_path(path: Path) -> str:
     try:
-        return str(path.resolve().relative_to(REPO_ROOT))
+        return path.resolve().relative_to(REPO_ROOT).as_posix()
     except ValueError:
         return str(path)
 

@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "candidate_id": "dual_kiss_rotation_consensus_gain0002_v3",
+  "status": "fresh_held_out_fail_rpe_and_runtime_not_promoted",
+  "configuration_frozen": true,
+  "frozen_at": "2026-07-31",
+  "held_out_evaluated": true,
+  "tuning_after_held_out": false,
+  "promoted": false,
+  "method": "cluster2_pose_graph_then_causal_rotation_consensus",
+  "gt_usage": "metrics_only",
+  "initialization": "first_pose_anchor_only",
+  "parents": [
+    "evaluation/data/lidar_odometry_candidate_kiss_modeldev_guard_v1.json",
+    "evaluation/data/lidar_odometry_candidate_kiss_pose_graph_cluster2_v2.json",
+    "official_kiss_icp_1.3.0_default"
+  ],
+  "configuration": {
+    "primary": "cluster2 pose-graph trajectory over the Zoo motion-guard KISS front end",
+    "reference": "official KISS-ICP 1.3.0 default trajectory",
+    "rotation_consensus_gain_per_frame": 0.0002,
+    "translation_policy": "rotate primary translation by the causal consensus correction; never copy reference translation",
+    "reference_start_alignment": "reference first pose aligned to primary first pose",
+    "causality": "output frame i uses only primary/reference frames 0..i",
+    "primary_pose_graph": "same two-independent-loop-cluster gate and gain 0.05 as cluster2_v2, applied before consensus",
+    "loop_detection_uses_ground_truth": false
+  },
+  "selection_protocol": {
+    "gain_selected_on": "kitti_odometry_07 development trajectory only",
+    "gain_grid": [
+      0.00002,
+      0.00005,
+      0.000075,
+      0.0001,
+      0.000125,
+      0.00015,
+      0.0002,
+      0.00025,
+      0.0003,
+      0.0004
+    ],
+    "locked_before_kitti05_transfer": true,
+    "locked_before_new_fresh_held_out": true
+  },
+  "development_and_transfer_results": [
+    {
+      "dataset": "kitti_odometry_07",
+      "role": "development",
+      "frames": 1101,
+      "primary_ate_m": 2.3764043653,
+      "primary_rpe_trans_pct": 0.510373,
+      "candidate_ate_m": 2.3084741932,
+      "candidate_rpe_trans_pct": 0.5046002383,
+      "candidate_rpe_rot_deg_per_m": 0.0061085543,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/rotation_consensus_development/kitti07_gain0002/metrics.json"
+    },
+    {
+      "dataset": "kitti_odometry_05",
+      "role": "locked_gain_transfer",
+      "frames": 2761,
+      "primary_ate_m": 7.4268767198,
+      "primary_rpe_trans_pct": 0.4147590031,
+      "candidate_ate_m": 6.9244399395,
+      "candidate_rpe_trans_pct": 0.4221951505,
+      "candidate_rpe_rot_deg_per_m": 0.0040552131,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/rotation_consensus_development/kitti05_pg_primary_gain0002/metrics.json"
+    },
+    {
+      "dataset": "kitti_odometry_10",
+      "role": "previously_observed_transfer_only_not_fresh",
+      "frames": 1201,
+      "primary_ate_m": 6.379824,
+      "primary_rpe_trans_pct": 0.811994,
+      "candidate_ate_m": 4.8078484983,
+      "candidate_rpe_trans_pct": 0.7991410924,
+      "candidate_rpe_rot_deg_per_m": 0.0063021517,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/rotation_consensus_transfer/kitti10_gain0002/metrics.json"
+    },
+    {
+      "dataset": "mulran_parkinglot",
+      "role": "cross_dataset_transfer",
+      "frames": 1175,
+      "primary_ate_m": 4.2517652504,
+      "primary_rpe_trans_pct": 1.4616718039,
+      "candidate_ate_m": 4.2535180081,
+      "candidate_rpe_trans_pct": 1.4597742293,
+      "candidate_rpe_rot_deg_per_m": 0.0256595088,
+      "official_reference_algorithm_fps": 4.1118400191,
+      "interpretation": "accuracy-neutral transfer: ATE +0.04%, translational RPE -0.13%; official reference runtime requires optimization",
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/rotation_consensus_transfer/mulran_parkinglot_gain0002/metrics.json"
+    }
+  ],
+  "development_aggregate": {
+    "datasets": [
+      "kitti_odometry_05",
+      "kitti_odometry_07"
+    ],
+    "primary_geometric_mean_ate_m": 4.201102505,
+    "candidate_geometric_mean_ate_m": 3.9981109168,
+    "relative_ate_improvement_pct": 4.831864683,
+    "primary_geometric_mean_rpe_trans_pct": 0.4600889009,
+    "candidate_geometric_mean_rpe_trans_pct": 0.4615623182,
+    "relative_rpe_change_pct": 0.3202462159,
+    "accuracy_gate": "pass: aggregate ATE improves and aggregate RPE regression remains below 1%"
+  },
+  "runtime": {
+    "fusion_fps_including_pose_io": 5603.2527674,
+    "dual_frontend_execution": "parallelizable",
+    "concurrent_end_to_end_gate": "fail_on_kitti03",
+    "required_algorithm_fps": 10.0
+  },
+  "fresh_held_out_protocol": {
+    "declared_before_download_or_gt_inspection": true,
+    "declared_at": "2026-07-31",
+    "dataset": "kitti_odometry_03",
+    "candidate_run_limit": "one full-sequence run",
+    "post_result_tuning": "forbidden",
+    "runtime_gate": "concurrent dual-front-end plus fusion algorithm_fps >= 10",
+    "accuracy_gate": "improve ATE over cluster2_v2 while keeping translational RPE within 1% relative",
+    "baseline_order": "generate the frozen candidate without GT, then open GT for metrics; the official KISS component is also reported as a standalone baseline"
+  },
+  "fresh_held_out_result": {
+    "dataset": "kitti_odometry_03",
+    "frames": 801,
+    "gt_sha256": "f1ab14759dad481b763374be07d20337785c34a6b68d21a81a2f886b681080ab",
+    "gt_opened_after_candidate_complete": true,
+    "primary": {
+      "ate_m": 6.2104472919,
+      "rpe_trans_pct": 0.8673471192,
+      "rpe_rot_deg_per_m": 0.0049997745,
+      "algorithm_fps_under_concurrent_load": 19.421014
+    },
+    "official_kiss_icp_1.3.0": {
+      "ate_m": 2.3283456249,
+      "rpe_trans_pct": 0.8433211411,
+      "rpe_rot_deg_per_m": 0.002239418,
+      "algorithm_fps_under_concurrent_load": 7.184211483
+    },
+    "candidate": {
+      "ate_m": 5.7032556209,
+      "rpe_trans_pct": 0.8840590177,
+      "rpe_rot_deg_per_m": 0.0048739913,
+      "ate_improvement_vs_primary_pct": 8.166749466,
+      "rpe_regression_vs_primary_pct": 1.926783184,
+      "concurrent_end_to_end_fps": 1.610343455,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout_v3/kitti03/candidate_metrics.json"
+    },
+    "decision": {
+      "ate_gate": "pass",
+      "rpe_preservation_gate": "fail: 1.93% regression exceeds 1% limit",
+      "runtime_gate": "fail: official component ran at 7.18 FPS under concurrent load",
+      "promotion": "fail"
+    }
+  }
+}

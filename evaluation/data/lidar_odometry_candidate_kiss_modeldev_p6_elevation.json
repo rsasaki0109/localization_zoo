@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "candidate_id": "kiss_modeldev_p6_elevation_0205",
+  "status": "frozen_candidate_gt_pass_robustness_fail",
+  "configuration_frozen": true,
+  "frozen_at": "2026-07-31",
+  "held_out_evaluated": true,
+  "tuning_after_held_out": false,
+  "method": "kiss_icp",
+  "gt_usage": "metrics_only",
+  "initialization": "first_pose_anchor_only",
+  "configuration": {
+    "fast_profile": true,
+    "source_voxel_size": 0.8,
+    "max_source_points": 2000,
+    "map_voxel_size": 1.2,
+    "initial_threshold": 1.75,
+    "max_points_per_voxel": 6,
+    "max_icp_iterations": 15,
+    "local_map_radius": 45.0,
+    "map_cleanup_interval": 2,
+    "update_full_voxels": false,
+    "model_deviation_threshold": true,
+    "model_deviation_correspondence_multiplier": 2.0,
+    "vertical_angle_correction_deg": 0.205,
+    "vertical_angle_correction_policy": "KITTI Velodyne only; disabled on MulRan",
+    "deskew_policy": "enabled only when dataset-provided or dataset-format-defined per-point timestamps are present",
+    "mulran_deskew": true,
+    "mulran_timestamp_model": "official Ouster 64x1024 packet order; floor(raw_point_index/64)/1024",
+    "omp_threads": 4
+  },
+  "command_args": [
+    "--methods",
+    "kiss_icp",
+    "--kiss-fast-profile",
+    "--kiss-source-voxel-size",
+    "0.8",
+    "--kiss-voxel-size",
+    "1.2",
+    "--kiss-model-deviation-threshold",
+    "--kiss-model-deviation-correspondence-multiplier",
+    "2.0",
+    "--kiss-max-iterations",
+    "15",
+    "--kiss-max-source-points",
+    "2000",
+    "--kiss-max-points-per-voxel",
+    "6",
+    "--no-gt-seed",
+    "--association-mode",
+    "strict"
+  ],
+  "dataset_command_args": {
+    "kitti_odometry": [
+      "--kiss-vertical-angle-correction-deg",
+      "0.205"
+    ],
+    "mulran": [
+      "--kiss-deskew-mulran"
+    ]
+  },
+  "development_results": [
+    {
+      "dataset": "kitti_odometry_00",
+      "frames": 4541,
+      "rpe_trans_pct": 0.785339,
+      "rpe_rot_deg_per_m": 0.00693,
+      "ate_m": 15.471671,
+      "end_to_end_fps": 8.319059,
+      "algorithm_time_ms": 41826.09556,
+      "algorithm_fps": 108.568585,
+      "gt_sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_model_deviation_p6_elevation/kitti00_full_timing_split_omp4/summary.json"
+    },
+    {
+      "dataset": "kitti_odometry_05",
+      "frames": 2761,
+      "rpe_trans_pct": 0.414105,
+      "rpe_rot_deg_per_m": 0.004237,
+      "ate_m": 7.8805,
+      "end_to_end_fps": 7.654577,
+      "algorithm_time_ms": 27164.116047,
+      "algorithm_fps": 101.641445,
+      "gt_sha256": "1746feac2f00ee1302520f4d1d0b285a83e3c6faab4b3be96ccd103374c2ce92",
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_model_deviation_p6_elevation/kitti05_full_timing_split_omp4/summary.json"
+    },
+    {
+      "dataset": "kitti_odometry_07",
+      "frames": 1101,
+      "rpe_trans_pct": 0.50103,
+      "rpe_rot_deg_per_m": 0.005984,
+      "ate_m": 2.176813,
+      "end_to_end_fps": 7.970918,
+      "algorithm_time_ms": 9233.388962,
+      "algorithm_fps": 119.241159,
+      "gt_sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_model_deviation_p6_elevation/kitti07_full_timing_split_omp4/summary.json"
+    }
+  ],
+  "aggregate": {
+    "geometric_mean_rpe_trans_pct": 0.5461900572,
+    "mad_icp_geometric_mean_rpe_trans_pct": 0.6109214684,
+    "relative_rpe_improvement_pct": 10.59570084
+  },
+  "validation_results": [
+    {
+      "dataset": "mulran_parkinglot",
+      "frames": 1175,
+      "reference_frames": 1176,
+      "sensor_vertical_angle_correction_deg": 0.0,
+      "deskew": false,
+      "rpe_trans_pct": 1.620522,
+      "rpe_rot_deg_per_m": 0.027325,
+      "ate_m": 4.334861,
+      "end_to_end_fps": 25.796071,
+      "algorithm_time_ms": 15088.513023,
+      "algorithm_fps": 77.87381,
+      "gt_sha256": "9495e7cdeb4a95b58f823cb321440aaff99f3a0504f83afa4549e0f6ca8c1143",
+      "decision": "valid_ablation_superseded_by_gt_independent_deskew",
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_model_deviation_p6_elevation/mulran_parkinglot_no_deskew_same_kitti_config/summary.json"
+    },
+    {
+      "dataset": "mulran_parkinglot",
+      "frames": 1175,
+      "reference_frames": 1176,
+      "rpe_trans_pct": 1.458414,
+      "rpe_rot_deg_per_m": 0.025455,
+      "ate_m": 4.262063,
+      "end_to_end_fps": 18.829598,
+      "algorithm_time_ms": 19305.80776,
+      "algorithm_fps": 60.862514,
+      "sensor_vertical_angle_correction_deg": 0.0,
+      "deskew": true,
+      "deskew_timestamp_fallbacks": 1,
+      "gt_sha256": "9495e7cdeb4a95b58f823cb321440aaff99f3a0504f83afa4549e0f6ca8c1143",
+      "mad_icp_rpe_trans_pct": 1.4389114533,
+      "mad_icp_ate_m": 4.3313842721,
+      "decision": "keep_pareto_frontier_candidate",
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_model_deviation_p6_elevation/mulran_parkinglot_deskew_same_kitti_config/summary.json"
+    }
+  ],
+  "held_out_results": [
+    {
+      "dataset": "kitti_odometry_02",
+      "frames": 4661,
+      "rpe_trans_pct": 0.768524,
+      "rpe_rot_deg_per_m": 0.005416,
+      "ate_m": 37.232383,
+      "end_to_end_fps": 4.703177,
+      "algorithm_fps": 52.097838,
+      "gt_sha256": "cff6c0266c14016bb512f2e6d8fcdda4796bc1d4c9c97ba0f4cff32805106683",
+      "mad_icp_rpe_trans_pct": 0.8060533461,
+      "mad_icp_ate_m": 20.5722168541,
+      "mad_icp_algorithm_fps": 6.3372038113,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/frozen_candidate_heldout/kitti02_full/summary.json",
+      "baseline_manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/mad_icp/kitti02_official16/zoo_manifest.json"
+    },
+    {
+      "dataset": "kitti_odometry_08",
+      "frames": 4071,
+      "rpe_trans_pct": 1.354303,
+      "rpe_rot_deg_per_m": 0.005502,
+      "ate_m": 17.13525,
+      "end_to_end_fps": 6.763126,
+      "algorithm_fps": 83.56179,
+      "gt_sha256": "9b8c82625159ae78919926bf52fde49e7278fa08abe1fab196346e5c0306ae60",
+      "mad_icp_rpe_trans_pct": 1.4109952748,
+      "mad_icp_ate_m": 15.6712458419,
+      "mad_icp_algorithm_fps": 3.8491353132,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/frozen_candidate_heldout/kitti08_full/summary.json",
+      "baseline_manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/mad_icp/kitti08_official16/zoo_manifest.json"
+    },
+    {
+      "dataset": "nclt_2013_01_10",
+      "frames": 5105,
+      "rpe_trans_pct": 2.374235,
+      "rpe_rot_deg_per_m": 0.029283,
+      "ate_m": 6.836127,
+      "end_to_end_fps": 4.916667,
+      "algorithm_fps": 59.207708,
+      "gt_sha256": "e5d7ae51f4f1992823276dd352d6e7c208e9f386da944a3016a2ab5c45d9dc50",
+      "kiss_default_rpe_trans_pct": 15.133721,
+      "kiss_default_ate_m": 60.629213,
+      "kiss_default_algorithm_fps": 5.202883,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/frozen_candidate_heldout/nclt_2013_01_10_full/summary.json",
+      "baseline_summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/frozen_baselines/kiss_default/nclt_2013_01_10_full/summary.json"
+    }
+  ],
+  "held_out_aggregate": {
+    "candidate_geometric_mean_rpe_trans_pct": 1.3519656558,
+    "per_sequence_frozen_baseline_geometric_mean_rpe_trans_pct": 2.5819333226,
+    "relative_rpe_improvement_pct": 47.63746825,
+    "kitti_candidate_geometric_mean_rpe_trans_pct": 1.0202030968,
+    "kitti_mad_icp_geometric_mean_rpe_trans_pct": 1.066460249,
+    "kitti_relative_rpe_improvement_pct": 4.3374473822,
+    "comparison_note": "The three-sequence comparator is an explicit per-sequence baseline set: MAD-ICP official16 for KITTI 02/08 and frozen default KISS for NCLT; it is not one universal baseline implementation."
+  },
+  "robustness_results": [
+    {
+      "dataset": "ntnu_fog_full",
+      "gt_backed": false,
+      "frames": 1729,
+      "finite_pose_fraction": 1.0,
+      "path_length_m": 14228.1537997637,
+      "net_displacement_m": 19.2868292747,
+      "median_step_translation_m": 1.2212257156,
+      "p95_step_translation_m": 29.1950529592,
+      "max_step_translation_m": 31.4999697254,
+      "translation_steps_over_2m": 631,
+      "median_step_rotation_deg": 117.7440742002,
+      "p95_step_rotation_deg": 179.8213019422,
+      "max_step_rotation_deg": 179.9910476964,
+      "rotation_steps_over_20deg": 1192,
+      "algorithm_fps": 79.537787,
+      "end_to_end_fps": 12.309531,
+      "deskewed_frames": 1729,
+      "identity_reference_metrics_valid": false,
+      "decision": "fail_catastrophic_interframe_motion",
+      "health": "${LOCALIZATION_ZOO_DATA_ROOT}/results/frozen_candidate_robustness/ntnu_fog_full/health.json",
+      "summary_with_invalid_identity_metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/frozen_candidate_robustness/ntnu_fog_full/summary_identity_metrics_invalid.json"
+    }
+  ],
+  "freeze_evidence": {
+    "held_out_untouched_at_freeze": true,
+    "provenance_correction": "Configuration fields were corrected after archival review to the 0.8 m source and 1.2 m map voxel sizes printed by the frozen run logs; explicit CLI overrides reproduce the evaluated artifact independently of later fast-profile defaults. Metrics and historical implementation hashes were not changed.",
+    "kitti05_500_default_off_non_regression": {
+      "rpe_trans_pct": 0.384693,
+      "rpe_rot_deg_per_m": 0.0047,
+      "ate_m": 1.264885,
+      "exact_metric_match": true,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/candidate_model_deviation_p6_elevation/kitti05_first500/manifest_command_nonregression/summary.json"
+    },
+    "tests": {
+      "python_focused": "20 passed across final focused runs",
+      "kiss_icp_cpp": "10 passed"
+    },
+    "implementation_sha256": {
+      "evaluation/src/pcd_dogfooding.cpp": "ae4ab1c7d4d265376551d2193df61a63e717ab88cf8778e0c4b704aa246e4406",
+      "papers/kiss_icp/include/kiss_icp/kiss_icp.h": "108688b6f42f05c135c89c9101697a7a4c27156fabf4e4c287e96d85485cfe09",
+      "papers/kiss_icp/src/kiss_icp.cpp": "70b6445429dd13b772f6db7a7c7e78ac19137e4ebc5a0b81af2ce6f80759fc9c",
+      "evaluation/scripts/prepare_mulran_inputs.py": "b886db99be7103c89bbd3738e754aaaf30c593476547d6f8b3f1bc3b1fc58e81",
+      "evaluation/scripts/mulran_pose_io.py": "1b637c47888c4095320ae16f316babde597cc43cebf4556c16951e006a808a46"
+    }
+  },
+  "gate": {
+    "accuracy_against_mad_icp": "pass_on_kitti_00_05_07",
+    "minimum_runtime_fps": 10.0,
+    "runtime_metric": "algorithm_fps_excluding_dataset_io",
+    "runtime": "pass_on_kitti_00_05_07",
+    "cross_dataset_transfer": "pass_pareto_frontier_on_mulran_parkinglot_lower_ate_and_19.21x_faster_than_mad_icp_with_1.36pct_higher_rpe",
+    "gt_backed_held_out": "pass_primary_rpe_on_kitti_02_08_and_nclt_full_without_post_heldout_tuning",
+    "robustness_only": "fail_on_ntnu_fog_full_catastrophic_interframe_motion",
+    "promotion": "fail_despite_gt_backed_pass",
+    "next_action": "Start a new candidate generation with an online GT-free step-consistency guard and validate it on NTNU fog plus non-held-out public sequences. Do not retune or rerun this frozen candidate on opened held-out sets."
+  }
+}

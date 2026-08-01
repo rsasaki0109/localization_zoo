@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "candidate_id": "corroborated_rotation_majority_v13",
+  "status": "development_rows_pass_boreas_external_failed_runtime_consumed_no_promotion",
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_gt_free_loop_support_v12.json",
+  "configuration_frozen": true,
+  "frozen_at": "2026-08-02",
+  "promoted": false,
+  "ground_truth_policy": {
+    "runtime_access": "forbidden",
+    "selection_signals": "loop-cluster count, correction envelopes, and rotation-correction direction agreement only",
+    "scoring": "candidate trajectory and SHA-256 are frozen before GT metrics",
+    "kitti05_role": "consumed failure replay only; not external validation and not used for further threshold selection"
+  },
+  "mechanism": {
+    "primary_frontend": "v12 dynamic-radius KISS frontend",
+    "independent_reference": "official KISS-ICP 1.3.0",
+    "minimum_loop_clusters": 2,
+    "strong_loop_clusters": 6,
+    "strong_support_derivation": "three times the minimum independent support count",
+    "strong_loop_override_scope": "explicitly enabled for the KITTI odometry candidate pipeline; disabled by default for LIVO datasets",
+    "safe_graph_policy": "select graph correction when ordinary support and both correction envelopes pass, or when the explicit KITTI strong-support gate passes",
+    "no_support_policy": "retain the frozen v11 fallback",
+    "corroborated_fallback_policy": {
+      "eligibility": "ordinary loop support passes, graph translation exceeds 0.5 m, graph rotation stays within 5 deg, and the flattened graph/reference rotation-correction cosine is positive",
+      "primary_rotation_votes": 1,
+      "reference_rotation_votes": 1,
+      "pose_graph_corroboration_votes": 1,
+      "reference_geodesic_rotation_blend": 0.6666666666666666,
+      "translation": "retain primary sensor-local translation increments",
+      "increment_disagreement_numerical_guard_deg": 5.0
+    },
+    "dataset_identity_used": false
+  },
+  "cube_lio_development_rows": {
+    "kitti_odometry_00": {
+      "selection": "strongly supported graph",
+      "loop_clusters": 11,
+      "selected_sha256_before_scoring": "8e2cf51824e5bf7a2b8407f902c6080cf312b7f7a3c5f135059397a02faa9ff5",
+      "ate_m": 8.93380201955427,
+      "rpe_trans_pct": 0.876543829963492,
+      "rpe_rot_deg_per_m": 0.006765153627173979,
+      "tracking_success_rate": 1.0,
+      "conservative_fps_including_selector": 122.59854100983527,
+      "peak_rss_mb": 54.05078125,
+      "cube_lio_ate_m": 9.04430252500857,
+      "cube_lio_rpe_trans_pct": 0.8798334017400419,
+      "gate": "pass"
+    },
+    "kitti_odometry_07": {
+      "selection": "frozen v11 fallback because loop support is insufficient",
+      "loop_clusters": 1,
+      "selected_sha256_before_scoring": "1fe3eb3ad625e00e195698f0e65191896ff41b829623ee164cca04890a030154",
+      "ate_m": 0.7720820179640507,
+      "rpe_trans_pct": 0.6037729892977444,
+      "rpe_rot_deg_per_m": 0.004729737823864855,
+      "tracking_success_rate": 1.0,
+      "conservative_fps_including_selector": 12.005974669080235,
+      "peak_rss_mb": 90.55078125,
+      "cube_lio_ate_m": 1.6454257491191604,
+      "cube_lio_rpe_trans_pct": 0.6238668812159914,
+      "gate": "pass"
+    }
+  },
+  "consumed_kitti05_failure_replay": {
+    "role": "mechanism confirmation only; not external validation; the external failure remains authoritative",
+    "loop_clusters": 2,
+    "graph_translation_correction_m": 13.25981294214883,
+    "graph_rotation_correction_deg": 3.0633246724261665,
+    "rotation_correction_active_frames": 262,
+    "graph_reference_rotation_correction_cosine": 0.8069188600098633,
+    "positive_direction_fraction": 1.0,
+    "three_vote_sha256_before_scoring": "4a21867a5706a9f378d8eea8bd736ca92b329d08aa95a61bb52da3c59c9696fe",
+    "candidate": {
+      "ate_m": 5.283850639390643,
+      "rpe_trans_pct": 0.5127129924062683,
+      "rpe_rot_deg_per_m": 0.003797573825862082,
+      "tracking_success_rate": 1.0,
+      "conservative_sequential_seconds": 261.1634839261576,
+      "fps": 10.571922071542957,
+      "peak_rss_mb": 98.23828125
+    },
+    "cube_lio": {
+      "ate_m": 5.357310476972791,
+      "rpe_trans_pct": 0.5936785490909657,
+      "rpe_rot_deg_per_m": 0.005049416014153958,
+      "tracking_success_rate": 1.0
+    },
+    "ratios_candidate_over_cube_lio": {
+      "ate": 0.9862879260222271,
+      "rpe_trans": 0.8636205454809324,
+      "rpe_rot": 0.752081788313173
+    },
+    "all_numeric_gates": "pass_but_not_counted_as_external"
+  },
+  "fast_livo2_compatibility": {
+    "existing_three_row_evidence": "evaluation/data/fast_livo2_three_row_summary_v12.json",
+    "accuracy_or_frontend_change": false,
+    "strong_loop_override_default": false,
+    "hilti22_selector_compatibility": {
+      "previous_selected_sha256": "0896633f29d23d5833ca34c8cb4c7d73c0bd5c97913f549171b28771a9e5b308",
+      "v13_default_selector_sha256": "0896633f29d23d5833ca34c8cb4c7d73c0bd5c97913f549171b28771a9e5b308",
+      "byte_identical": true
+    },
+    "three_public_row_track": "remains passed"
+  },
+  "implementation_sha256": {
+    "evaluation/scripts/select_gt_free_pose_graph.py": "7d41c6f4593e559bcdc10540096f01ff70adb2dd51efb2f791a07d1a0e1c7302",
+    "evaluation/scripts/build_three_vote_rotation_fallback.py": "3eb0115d6f8329b9ea5cba592e26b6c728812c03ae1b765f04052f018ecd2db3",
+    "tests/test_select_gt_free_pose_graph.py": "d8f28079c066291bdb8fcf4904031b1b6ac3f1a44f79f86cb59578b6d4c4ce50",
+    "tests/test_three_vote_rotation_fallback.py": "349535f75613eca3c2a48984db0b3cf9137f3c82c81dd1af592e110533134e33"
+  },
+  "verification": {
+    "relevant_pytest": "81 passed",
+    "black": "4 files left unchanged",
+    "post_result_tuning_on_kitti05": false
+  },
+  "external_evaluation": {
+    "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
+    "result": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_v13.json",
+    "dataset": "Boreas boreas-2021-09-02-11-42 first 600 LiDAR scans",
+    "accuracy_tracking_memory_gates": "pass",
+    "candidate_fps": 5.61628893376985,
+    "fps_gate": "fail",
+    "status": "consumed_failure_no_promotion"
+  },
+  "next_gate": "profile the consumed Boreas runtime failure without GT selection, freeze a new candidate on consumed rows, and declare another untouched normal-environment row before runtime"
+}

@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "candidate_id": "direction_consistent_rotation_v10",
+  "status": "promoted_fresh_heldout_pass",
+  "configuration_frozen": true,
+  "frozen_at": "2026-08-01",
+  "promoted": true,
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_load_adaptive_reference_v9.json",
+  "method": "causal_direction_consistent_rotation_fusion",
+  "gt_usage": "development_metrics_only",
+  "mechanism": {
+    "primary_frontend": "v6 adaptive motion guard",
+    "reference_frontend": "official KISS-ICP 1.3.0 with frozen v9 load-adaptive thread policy",
+    "translation_output": "primary relative translation only",
+    "reference_translation_usage": "causal gate signal only; never copied to output",
+    "direction_window_frames": 10,
+    "minimum_window_displacement_m": 2.0,
+    "minimum_direction_disagreement_deg": 0.05,
+    "direction_rule": "publish a rotation correction only when its signed yaw agrees with the signed XY travel-direction error between primary and reference over the trailing window",
+    "direction_reject_rule": "retain primary-relative position integration and reset published orientation to the current primary orientation",
+    "weak_rotation_blend": 0.05,
+    "strong_rotation_blend": 1.0,
+    "strong_candidate": "primary step <=1 m and incremental rotation disagreement <=0.1 deg",
+    "max_cumulative_strong_fraction": 0.05,
+    "hard_increment_disagreement_gate_deg": 5.0,
+    "max_published_orientation_correction_deg": 0.1,
+    "causality": "output i uses component poses only through i",
+    "ground_truth_used_for_decisions": false
+  },
+  "development_search": {
+    "grid": {
+      "direction_window_frames": [10, 20, 50],
+      "minimum_direction_disagreement_deg": [0.05, 0.1],
+      "minimum_window_displacement_m": 2.0
+    },
+    "selection_rule": "ATE improvement on every consumed row with all translational RPE regressions <=1%",
+    "selected": "window 10, minimum direction disagreement 0.05 deg",
+    "nonselected_finding": "retaining an old correction after direction rejection left Raw0022 ATE +1.45% or worse; resetting orientation to primary removed the regression"
+  },
+  "development_results": [
+    {
+      "dataset": "kitti_odometry_01_full",
+      "v6_ate_m": 50.7644237026,
+      "v10_ate_m": 49.7352218885,
+      "ate_change_pct": -2.0274076589,
+      "v6_rpe_trans_pct": 0.6327497995,
+      "v10_rpe_trans_pct": 0.6342839189,
+      "rpe_change_pct": 0.2424527603
+    },
+    {
+      "dataset": "kitti_odometry_05_full",
+      "v6_ate_m": 7.807514,
+      "v10_ate_m": 7.6743281485,
+      "ate_change_pct": -1.7058675976,
+      "v6_rpe_trans_pct": 0.412494,
+      "v10_rpe_trans_pct": 0.4109188287,
+      "rpe_change_pct": -0.3818652553
+    },
+    {
+      "dataset": "kitti_odometry_07_full",
+      "v6_ate_m": 2.3764043653,
+      "v10_ate_m": 2.3674139636,
+      "ate_change_pct": -0.3783195264,
+      "v6_rpe_trans_pct": 0.5103729686,
+      "v10_rpe_trans_pct": 0.5022682668,
+      "rpe_change_pct": -1.5879959021
+    },
+    {
+      "dataset": "mulran_parkinglot_full",
+      "v6_ate_m": 4.2519469493,
+      "v10_ate_m": 4.2511980968,
+      "ate_change_pct": -0.0176119906,
+      "v6_rpe_trans_pct": 1.4636338657,
+      "v10_rpe_trans_pct": 1.4630423415,
+      "rpe_change_pct": -0.0404147682
+    },
+    {
+      "dataset": "nclt_2013_01_10_full",
+      "v6_ate_m": 7.8841448401,
+      "v10_ate_m": 7.8666119992,
+      "ate_change_pct": -0.2223810099,
+      "v6_rpe_trans_pct": 2.3003050046,
+      "v10_rpe_trans_pct": 2.3004944922,
+      "rpe_change_pct": 0.0082374988
+    },
+    {
+      "dataset": "kitti_raw_2011_09_26_drive_0019_sync",
+      "v6_ate_m": 2.1189074622,
+      "v10_ate_m": 2.1064616866,
+      "ate_change_pct": -0.5873675852,
+      "v6_rpe_trans_pct": 0.9786985343,
+      "v10_rpe_trans_pct": 0.9795098866,
+      "rpe_change_pct": 0.0829011456
+    },
+    {
+      "dataset": "kitti_raw_2011_09_26_drive_0022_sync",
+      "v6_ate_m": 4.012165807,
+      "v10_ate_m": 4.0076175773,
+      "ate_change_pct": -0.1133609605,
+      "v6_rpe_trans_pct": 1.6240790479,
+      "v10_rpe_trans_pct": 1.623202429,
+      "rpe_change_pct": -0.0539763663
+    }
+  ],
+  "implementation_sha256": {
+    "evaluation/scripts/fuse_odometry_direction_consistent_rotation.py": "d2b86269e00b8518774a9026d480be9357d9ae2a7777a1fdb2b142ee526af663",
+    "tests/test_direction_consistent_rotation_fusion.py": "605ac87af3c800895c5612f0df576b58c4afbe20a01e8f574618a6781be36fc0",
+    "evaluation/scripts/run_official_kiss_pcd_odometry.py": "2174beef487bf43cd7e999d0bc9ab504bdf22efa627ec1f3991ea25433c11b0e"
+  },
+  "tests": "6 v10 unit tests; 60 relevant repository tests passed and 5 environment-dependent tests skipped in the final audit",
+  "fresh_held_out_protocol": {
+    "declared_before_download_or_scan_or_gt_inspection": true,
+    "dataset": "kitti_raw_2011_09_26_drive_0023_sync",
+    "candidate_run_limit": "one full-sequence run after scan-only extraction",
+    "gt_isolation": "generate and hash primary, load-adaptive official reference, and frozen v10 trajectories before extracting OXTS or calibration",
+    "post_result_tuning": "forbidden",
+    "accuracy_gate": "v10 ATE must not regress versus v6; translational RPE may regress by at most 1% when 100 m segments exist",
+    "runtime_gate": "both frontends >=10 algorithm FPS",
+    "promotion_gate": "accuracy and runtime gates must pass without post-result tuning"
+  },
+  "fresh_held_out_result": {
+    "dataset": "kitti_raw_2011_09_26_drive_0023_sync",
+    "archive_bytes": 1999129806,
+    "archive_sha256": "a9436a3da5199821712b0341dbabc9b88d3f6fa62bde38935734577c9f3a9d97",
+    "velodyne_crc": "479 members passed",
+    "frames": 474,
+    "trajectory_length_m": 414.4801563571,
+    "rpe_100m_segments": 366,
+    "trajectory_sha256_before_gt_extraction": {
+      "v6_primary": "e0811beba946d978edbb00de3c6b67484ed8d104f3d01efc95f1d8ba54143144",
+      "load_adaptive_official_kiss": "f9fabff7103a091f6bc192b9e3fb93ee25b5185598361d22e23d011aa8c1e2ef",
+      "frozen_v10": "b34e725fe4e4edcda3b278ce179b37c5f4ac6979193e9835293c0e8ee5be3633"
+    },
+    "reference_sha256_after_trajectory_freeze": "297a74076038044a5d9985bc75a8775da5e7361577da615641e5d998e1d296a5",
+    "v6_primary": {
+      "ate_m": 5.60560348252,
+      "rpe_trans_pct": 1.62008543567,
+      "rpe_rot_deg_per_m": 0.00691326393,
+      "algorithm_fps": 26.2408027464,
+      "end_to_end_fps": 11.2909,
+      "motion_guard_rejections": 0,
+      "adaptive_motion_guard_acceptances": 0
+    },
+    "load_adaptive_official_kiss": {
+      "selected_threads": 4,
+      "first_scan_points": 122066,
+      "ate_m": 3.02455936281,
+      "rpe_trans_pct": 1.51325281106,
+      "rpe_rot_deg_per_m": 0.00559303175,
+      "algorithm_fps": 23.4484371202,
+      "end_to_end_fps": 13.7906088152
+    },
+    "frozen_v10": {
+      "ate_m": 5.4935231004,
+      "ate_change_vs_v6_pct": -1.9994347169,
+      "rpe_trans_pct": 1.62245310282,
+      "rpe_trans_change_vs_v6_pct": 0.146144586,
+      "rpe_rot_deg_per_m": 0.00682335928,
+      "rpe_rot_change_vs_v6_pct": -1.3004661232,
+      "direction_accepted_increments": 378,
+      "direction_rejected_increments": 86,
+      "direction_warmup_or_low_motion": 9,
+      "direction_reject_orientation_resets": 95
+    },
+    "ate_gate": "pass",
+    "rpe_gate": "pass",
+    "runtime_gate": "pass",
+    "tracking_gate": "pass",
+    "post_result_tuning": false,
+    "decision": "promote v10",
+    "external_baselines": [
+      {
+        "method": "mad_icp_0.0.10_official16",
+        "gt_usage": "metrics_only_after odometry process exit",
+        "estimate_sha256": "d97fbf13d6905587bd262e1c63271e40e5efe306740c59c8e38f692d2eeb2d3f",
+        "ate_m": 4.79169803238,
+        "rpe_trans_pct": 1.57718387966,
+        "rpe_rot_deg_per_m": 0.00685957789,
+        "algorithm_fps": 5.45619417955,
+        "end_to_end_fps": 3.84740426287,
+        "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v10_fresh_heldout/kitti_raw_0023/baselines/mad_icp_official16/zoo_manifest.json"
+      },
+      {
+        "method": "ct_icp_fast_no_gt_seed",
+        "gt_usage": "synthetic identity during odometry; real GT external metrics only",
+        "estimate_sha256": "6c7d40c94c5ae4bb28fad1e7982d09e20d0e8b19866fd9a46fbef5bbbbc43920",
+        "ate_m": 24.0405094322,
+        "rpe_trans_pct": 3.22114278158,
+        "rpe_rot_deg_per_m": 0.03235154513,
+        "algorithm_fps": 12.7613863065,
+        "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v10_fresh_heldout/kitti_raw_0023/baselines/ct_icp_fast/metrics.json"
+      },
+      {
+        "method": "mola_lo_2.2.1_gicp",
+        "comparison_scope": "existing same-input KITTI Odometry 04 evidence; not rerun on Raw0023 because the official input plugin requires an odometry-format calibration adapter",
+        "ate_m": 1.55793298748,
+        "rpe_trans_pct": 0.47935417367,
+        "rpe_rot_deg_per_m": 0.00248188741,
+        "end_to_end_fps": 3.15334035316,
+        "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/baselines_kitti04/mola_lo_gicp/zoo_manifest.json"
+      }
+    ]
+  },
+  "same_input_public_baseline_comparison": {
+    "dataset": "kitti_odometry_04_full",
+    "frames": 271,
+    "trajectory_length_m": 393.6452767692,
+    "gt_usage": "all odometry trajectories generated without GT; common GT used by external metrics only",
+    "rows": [
+      {
+        "method": "direction_consistent_rotation_v10",
+        "ate_m": 1.14475151394,
+        "rpe_trans_pct": 0.35412094621,
+        "rpe_rot_deg_per_m": 0.00283831939,
+        "primary_algorithm_fps": 22.484303,
+        "reference_algorithm_fps": 20.3062115787,
+        "sequential_combined_algorithm_fps": 10.6699117413,
+        "trajectory_sha256": "b9b928d00ca25c18382fd81c1629818004f250617689a8f1284ec80abeb87397"
+      },
+      {
+        "method": "v6_primary",
+        "ate_m": 1.26679604183,
+        "rpe_trans_pct": 0.3545224566,
+        "rpe_rot_deg_per_m": 0.0030226928,
+        "algorithm_fps": 22.484303
+      },
+      {
+        "method": "mola_lo_2.2.1_gicp",
+        "ate_m": 1.55793298748,
+        "rpe_trans_pct": 0.47935417367,
+        "rpe_rot_deg_per_m": 0.00248188741,
+        "end_to_end_fps": 3.15334035316
+      },
+      {
+        "method": "mad_icp_0.0.10_official16",
+        "ate_m": 2.14354826208,
+        "rpe_trans_pct": 0.60377091722,
+        "rpe_rot_deg_per_m": 0.00378104415,
+        "algorithm_fps": 3.244019142
+      },
+      {
+        "method": "official_kiss_icp_1.3.0_load_adaptive",
+        "ate_m": 2.97211161965,
+        "rpe_trans_pct": 0.65797902457,
+        "rpe_rot_deg_per_m": 0.00539112197,
+        "algorithm_fps": 20.3062115787
+      },
+      {
+        "method": "ct_icp_fast_no_gt_seed",
+        "ate_m": 47.886188,
+        "rpe_trans_pct": 7.140921,
+        "rpe_rot_deg_per_m": 0.049274,
+        "end_to_end_fps": 6.726309
+      }
+    ],
+    "finding": "v10 has the best ATE and translational RPE; MOLA-LO has the best rotational RPE; v10 clears 10 FPS even if component algorithm times are summed sequentially"
+  },
+  "external_transfer_validation": {
+    "manifest": "evaluation/data/lidar_odometry_boreas_external_validation.json",
+    "dataset": "Boreas boreas-2021-06-03-16-00 first 600 scans",
+    "frames": 600,
+    "trajectory_length_m": 390.481242186384,
+    "ate_change_vs_v6_pct": -0.407471977436,
+    "rpe_trans_change_vs_v6_pct": -0.100444319741,
+    "rpe_rot_change_vs_v6_pct": 0.012125926660,
+    "sequential_combined_algorithm_fps": 3.020901163672,
+    "finding": "accuracy transfers without tuning, but the official reference is not real-time on 208k-point Boreas scans"
+  },
+  "future_work": "improve or parallelize the reference runtime on previously unseen high-density sensors without tuning from Boreas GT; extreme-weather and tunnel robustness remain low priority"
+}

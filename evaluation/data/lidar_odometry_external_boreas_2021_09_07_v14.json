@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "lidar_odometry_v14_external_boreas_2021_09_07_first600",
+  "status": "external_evaluation_passed_promotion_authorized",
+  "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_declaration_v14.json",
+  "declared_before_sensor_download_or_runtime": true,
+  "candidate_freeze_commit": "0b788eca",
+  "declaration_commit": "c5abda4b",
+  "dataset": {
+    "family": "Boreas",
+    "sequence": "boreas-2021-09-07-09-35",
+    "environment": "normal outdoor urban driving",
+    "sensor": "Velodyne Alpha Prime 128-beam LiDAR",
+    "frames": 600,
+    "points": 128383432,
+    "trajectory_length_m": 425.02676304794807,
+    "raw_scan_bytes": 3081202368,
+    "persistent_storage": "external SSD",
+    "timed_storage": "manifest-verified tmpfs; staging excluded"
+  },
+  "untouched_and_ground_truth_audit": {
+    "repository_mentions_before_declaration": 0,
+    "raw_directories_before_declaration": 0,
+    "result_directories_before_declaration": 0,
+    "sensor_download_started_after_declaration_commit": true,
+    "ground_truth_downloaded_after_all_six_trajectories_frozen": true,
+    "trajectory_freeze_manifest_sha256": "276768f8506b308b6c4d8640ae3a68c97a0b9105ce789c35e75608339006ed10",
+    "ground_truth_present_when_freeze_manifest_written": false,
+    "ground_truth_used_for_v14_selection": false,
+    "source_ground_truth_sha256": "e112efb02a2f023d7674af5cf95c04aed83824af67a6eb175236d9cf2bd806c5",
+    "ground_truth_fetch_manifest_sha256": "6f88ee170008166bf708d357fb939f90dba0f2cae076f0f345f9ed39ae49285b",
+    "metric_reference_sha256": "577c09a56db748aaaa016ae324ccdb158665bbba8b9358c2a4a1612436e8247c",
+    "metric_reference_rows": 600,
+    "post_result_tuning": "forbidden"
+  },
+  "input_integrity": {
+    "s3_scan_selection_sha256": "cb3197e7fdd447e19191f44fddcc5d62cf2d64b3db476de3e2438bf04da152b0",
+    "local_source_scan_manifest_sha256": "159b44568853d34450e04c3ec968977130134585962bcb815b57594da3356083",
+    "local_source_scan_manifest_files": 600,
+    "pcd_source_manifest_sha256": "95be6bdcfd6fbae4fa217e04555e5bbecffa386978f6c4841e355b13e7ab2bcf",
+    "xyzi_bin_source_manifest_sha256": "e8abe80b2fbc96c0539404cbe3c6a80bbfc7cb5063c366c197283c161dcfad1d",
+    "pcd_conversion_manifest_sha256": "e250bb63f62af20378241d1805e092dd4318954b4e78dd496c7297f958e0bfb7",
+    "xyzi_bin_conversion_manifest_sha256": "ebce9c5c9df7adb8055d907fcadac3e128e77d2f269c519b14170a8c65692f85",
+    "identity_reference_sha256": "a7cf4aa2417c58776c230464afaf44a255c792663b8587e2e7c4068113f36a95",
+    "frame_timestamps_sha256": "4adaf07c183625d426cc1b184c54743775bfbbd1475d7c6be02aeeb490462e95",
+    "frozen_runtime_inputs_sha256": "1f8e735d34072fa35117c0a5542dde29832ea5cb7e08456fdf8586cf30154bc7",
+    "tmpfs_pcd_manifest_byte_identical": true,
+    "tmpfs_xyzi_bin_manifest_byte_identical": true,
+    "tmpfs_manifest_diff_bytes": 0
+  },
+  "gt_free_selection": {
+    "reference_policy_sha256_before_runtime": "e3366a17e74b902e4647002a3cef5643d0fda266c9f414b6481ba2bfe9391726",
+    "first_scan_points": 214126,
+    "maximum_reference_first_scan_points": 150000,
+    "run_reference": false,
+    "loop_clusters_all_runs": [
+      0,
+      0,
+      0
+    ],
+    "selected_branch": "raw runtime fallback",
+    "official_reference_process_launched": false,
+    "dataset_identity_used": false
+  },
+  "cube_lio": {
+    "trajectory_sha256_all_three_runs": "29ab2219849ea22e62b5c6b729de09c48e12e1eb637effbf3b577197a10fe2c5",
+    "seconds": [
+      418.839202725,
+      347.116145029,
+      146.488646987
+    ],
+    "median_seconds": 347.116145029,
+    "peak_rss_kb": [
+      68056,
+      68344,
+      68548
+    ],
+    "peak_rss_mb": 66.94140625,
+    "metrics_each_run": {
+      "ate_m": 3.0500006809689117,
+      "rpe_trans_pct": 1.1559051238398619,
+      "rpe_rot_deg_per_m": 0.012127801988482748,
+      "tracking_success_rate": 1.0
+    },
+    "fps": 1.7285280693292808
+  },
+  "frozen_candidate": {
+    "selected_sha256_all_three_runs": "1a01dda40c5d1fcd4f5234bb8703edef61c9c75b3734df3ba0046963e1d704dd",
+    "raw_and_pose_graph_sha256_all_three_runs": "1a01dda40c5d1fcd4f5234bb8703edef61c9c75b3734df3ba0046963e1d704dd",
+    "conservative_sequential_seconds": [
+      126.94842445900001,
+      33.127852859,
+      33.05273231499999
+    ],
+    "median_seconds": 33.127852859,
+    "peak_rss_kb": 31504,
+    "peak_rss_mb": 30.765625,
+    "metrics_each_run": {
+      "ate_m": 2.5971579374562928,
+      "rpe_trans_pct": 0.96248038252119,
+      "rpe_rot_deg_per_m": 0.010776030572995766,
+      "tracking_success_rate": 1.0
+    },
+    "fps": 18.11164769880325,
+    "timing_note": "run1 was a retained slow outlier; the predeclared statistic is frame count divided by median of all three sequential full-window times"
+  },
+  "ratios_candidate_over_cube_lio": {
+    "ate": 0.8515270024894677,
+    "rpe_trans": 0.8326638256640613,
+    "rpe_rot": 0.8885394553134442,
+    "tracking": 1.0,
+    "fps": 10.47807554888657
+  },
+  "gates": {
+    "ate_improved": true,
+    "rpe_trans_improved": true,
+    "rpe_rot_improved": true,
+    "tracking_100_percent": true,
+    "fps_at_least_10": true,
+    "memory_recorded": true,
+    "external_evaluation_passed": true,
+    "promotion_allowed_after_full_suite_audit": true
+  },
+  "next": "audit every CUBE-LIO, official FAST-LIVO2, external, GT-isolation, runtime, tracking, and memory requirement; promote only if every authoritative evidence row passes"
+}

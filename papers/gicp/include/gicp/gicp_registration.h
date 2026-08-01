@@ -6,6 +6,7 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
+#include <limits>
 #include <vector>
 
 namespace localization_zoo {
@@ -24,6 +25,7 @@ struct GICPParams {
 struct GICPResult {
   Eigen::Matrix4d transformation = Eigen::Matrix4d::Identity();
   double fitness = 0.0;
+  double rmse = std::numeric_limits<double>::infinity();
   int num_iterations = 0;
   int num_correspondences = 0;
   bool converged = false;

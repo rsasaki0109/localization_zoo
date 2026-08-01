@@ -6,7 +6,9 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import shlex
+import shutil
 import subprocess
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -163,7 +165,13 @@ def parse_args() -> argparse.Namespace:
 def resolve_path(path_str: str | None) -> Path | None:
     if path_str is None:
         return None
-    path = Path(path_str)
+    expanded = os.path.expanduser(os.path.expandvars(path_str))
+    if "$" in expanded or "%" in expanded:
+        raise ValueError(
+            f"Unresolved environment variable in path: {path_str}. "
+            "Set LOCALIZATION_ZOO_DATA_ROOT when using external-dataset manifests."
+        )
+    path = Path(expanded)
     if path.is_absolute():
         return path
     return REPO_ROOT / path
@@ -172,7 +180,7 @@ def resolve_path(path_str: str | None) -> Path | None:
 def relpath(path: Path | str) -> str:
     candidate = Path(path)
     try:
-        return str(candidate.relative_to(REPO_ROOT))
+        return candidate.relative_to(REPO_ROOT).as_posix()
     except ValueError:
         return str(candidate)
 
@@ -311,7 +319,7 @@ def build_command(
     args: list[str],
     summary_path: Path,
 ) -> list[str]:
-    return [
+    command = [
         str(binary),
         str(pcd_dir),
         str(gt_csv),
@@ -322,6 +330,12 @@ def build_command(
         *dataset_extra_args,
         *args,
     ]
+    if os.name == "nt" and binary.suffix.lower() == ".sh":
+        bash = shutil.which("bash")
+        if bash is None:
+            raise RuntimeError(f"bash is required to run shell benchmark: {binary}")
+        command.insert(0, bash)
+    return command
 
 
 def display_command(

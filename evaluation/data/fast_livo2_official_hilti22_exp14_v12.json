@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "status": "hilti22_exp14_development_row_passed",
+  "ground_truth_policy": "candidate frozen by GT-free loop support and correction-envelope gates before scoring",
+  "dataset": {
+    "name": "HILTI 2022 Exp14 Basement 2",
+    "source": "https://hilti-challenge.com/dataset-2022",
+    "bag_url": "https://tp-public-facing.s3.eu-north-1.amazonaws.com/Challenges/2022/exp14_basement_2.bag",
+    "bag_bytes": 6260771085,
+    "bag_sha256": "18eea013076b8263ababf4f36eb68d331564a0a493262b006dc0dddc2aa85b82",
+    "gt_sha256": "dec7b20cc11002482ccb416a6e1a1c410d385b843504d3aedf7b5956746af1b6",
+    "lidar_topic": "/hesai/pandar",
+    "lidar_frames": 740,
+    "lidar_points": 44311010,
+    "camera_topic": "/alphasense/cam0/image_raw",
+    "imu_topic": "/alphasense/imu"
+  },
+  "official_environment": {
+    "fast_livo2_commit": "0d2c0346107b75b59934975adec9a6eeeb913c64",
+    "container_image": "localization-zoo/fast-livo2-official:0d2c034",
+    "binary_sha256": "f1a4aaaadd49bb7c8ddc0149264baa4d39f582d06150aefd03637a403a9119ea",
+    "configuration": "official HILTI22.yaml and camera_fisheye_HILTI22.yaml",
+    "mode": "full LIVO",
+    "cpu_affinity": "0-3",
+    "playback_rate": 0.8,
+    "input_staging": "one SHA-256-verified Docker tmpfs copy reused by three sequential runs"
+  },
+  "timing": {
+    "runs": [
+      {
+        "run": 1,
+        "poses": 738,
+        "mapper_wall_seconds": 93.407877120,
+        "mapper_cpu_seconds": 87.09,
+        "mapper_peak_rss_kb": 999628,
+        "trajectory_sha256": "4da2ca8ba9063466353de081a84ac2260c14ab1e77b86232564dd4c31f0e4744"
+      },
+      {
+        "run": 2,
+        "poses": 737,
+        "mapper_wall_seconds": 93.289893120,
+        "mapper_cpu_seconds": 92.53,
+        "mapper_peak_rss_kb": 1033176,
+        "trajectory_sha256": "96dafae0c89712402b4f8cbd6bad533119c94d003eefa5d793d0def770c8aee8"
+      },
+      {
+        "run": 3,
+        "poses": 737,
+        "mapper_wall_seconds": 93.194538496,
+        "mapper_cpu_seconds": 89.58,
+        "mapper_peak_rss_kb": 1007632,
+        "trajectory_sha256": "16776819e5d8eaa545fff2d887018d01e72fa8ceba21531b38dcc8ba5759c6e8"
+      }
+    ],
+    "median_mapper_wall_seconds": 93.289893120,
+    "input_frame_wall_fps": 7.932263348700897,
+    "median_mapper_cpu_seconds": 89.58,
+    "median_mapper_peak_rss_kb": 1007632
+  },
+  "candidate_policy": {
+    "frontend": "the identical official FAST-LIVO2 configuration used by the comparator",
+    "timestamp_resampling": "linear translation plus quaternion SLERP; nearest boundary hold",
+    "body_to_lidar_translation": [-0.001, -0.00855, 0.055],
+    "body_to_lidar_rotation": [0, -1, 0, -1, 0, 0, 0, 0, -1],
+    "pose_graph": "direct causal output; no KITTI persistent-bias smoother",
+    "loop_edges": 6,
+    "loop_clusters": 2,
+    "correction_envelope": {
+      "max_translation_m": 11.139684910536648,
+      "translation_limit_m": 0.5,
+      "max_rotation_deg": 79.99267622289534,
+      "rotation_limit_deg": 5.0
+    },
+    "correction_selected": false,
+    "selection": "GT-free envelope gate rejected false-loop correction and selected the timestamp-resampled frontend",
+    "pose_graph_algorithm_seconds": 0.443093447,
+    "frozen_trajectory_sha256": "c56b2b804c3c872d82b5c11b7556df51c2d219337e05be13e77245aa5189df98"
+  },
+  "comparison": {
+    "rpe_segment_length_m": 10.0,
+    "rpe_segment_reason": "the complete scored GT path is 37.7 m, so the common 100 m segment is undefined",
+    "official": {
+      "trajectory_sha256": "4da2ca8ba9063466353de081a84ac2260c14ab1e77b86232564dd4c31f0e4744",
+      "poses": 738,
+      "ate_3d_m": 0.03667980554855058,
+      "rpe_trans_pct": 0.3932113176538002,
+      "tracking_success_rate": 0.9972972972972973,
+      "median_wall_seconds": 93.289893120,
+      "input_frame_wall_fps": 7.932263348700897
+    },
+    "candidate": {
+      "poses": 740,
+      "ate_3d_m": 0.03663688336193254,
+      "rpe_trans_pct": 0.3912430623057391,
+      "tracking_success_rate": 1.0,
+      "combined_algorithm_seconds": 93.732986567,
+      "combined_algorithm_fps": 7.8947660487810305
+    },
+    "gates": {
+      "ate_improved": true,
+      "rpe_improved": true,
+      "tracking_not_below_official": true,
+      "maximum_accuracy_regression_within_3_percent": true,
+      "row_passed": true
+    }
+  },
+  "failure_audit": {
+    "unguarded_pose_graph": "failed after seven apparent loops produced an 11.15 m and 80.60 degree correction; scored ATE was 3.076 m",
+    "rate_1_1_tmpfs": "rejected because overload reduced outputs to 636, 501, and 696 poses",
+    "standalone_lidar_odometry": "rejected before GT scoring because its GT-free 1.37 m maximum inter-frame step was physically implausible"
+  },
+  "remaining": "complete untouched normal-environment external evaluation"
+}

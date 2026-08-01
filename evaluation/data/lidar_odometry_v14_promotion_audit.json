@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "audit_id": "lidar_odometry_v14_promotion",
+  "status": "all_requirements_proven_promotion_allowed",
+  "audited_at": "2026-08-02",
+  "candidate": "evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json",
+  "implementation_freeze_commit": "7138241b",
+  "candidate_freeze_commit": "0b788eca",
+  "external_result_commit": "6598e5bb",
+  "requirements": {
+    "cube_lio_same_input_kitti_00_and_07": {
+      "evidence": [
+        "evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json",
+        "evaluation/data/cube_lio_kitti00_direct_rerun_v12.json",
+        "evaluation/data/cube_lio_kitti07_direct_rerun_v12.json"
+      ],
+      "rows": {
+        "kitti_odometry_00": {
+          "candidate_ate_m": 8.93380201955427,
+          "cube_lio_ate_m": 9.04430252500857,
+          "candidate_rpe_trans_pct": 0.876543829963492,
+          "cube_lio_rpe_trans_pct": 0.8798334017400419,
+          "candidate_tracking_success_rate": 1.0,
+          "candidate_fps": 120.64423917706499,
+          "candidate_peak_rss_mb": 54.05078125,
+          "passed": true
+        },
+        "kitti_odometry_07": {
+          "candidate_ate_m": 0.7720820179640507,
+          "cube_lio_ate_m": 1.6454257491191604,
+          "candidate_rpe_trans_pct": 0.6037729892977444,
+          "cube_lio_rpe_trans_pct": 0.6238668812159914,
+          "candidate_tracking_success_rate": 1.0,
+          "candidate_fps": 11.927933000709118,
+          "candidate_peak_rss_mb": 90.55078125,
+          "passed": true
+        }
+      },
+      "all_rows_passed": true
+    },
+    "official_fast_livo2_three_public_rows": {
+      "evidence": "evaluation/data/fast_livo2_three_row_summary_v12.json",
+      "rows": 3,
+      "official_public_rows": [
+        "NTU VIRAL eee_01",
+        "NTU VIRAL eee_03 extracted LIO",
+        "HILTI 2022 Exp14 Basement 2"
+      ],
+      "median_ate_ratio_candidate_over_official": 0.9988298142267622,
+      "median_rpe_ratio_candidate_over_official": 0.997179708263999,
+      "maximum_ate_ratio": 0.999998030200574,
+      "maximum_rpe_ratio": 0.9999053808947215,
+      "maximum_allowed_per_row_ratio": 1.03,
+      "tracking_not_below_official_each_row": true,
+      "weighted_candidate_fps": 10.41279514639614,
+      "memory_recorded_each_row": true,
+      "v14_selector_output_byte_identical_to_v12": {
+        "ntu_viral_eee_01": {
+          "sha256": "528de6e63ebe36c45c644d3616e5b943bcf821919132fdca1b2d90dce00726ee",
+          "byte_identical": true
+        },
+        "ntu_viral_eee_03": {
+          "sha256": "c1ae301af71dcd4a16e834b30c114c1031ac0fbae37cffecdc05e97270c40907",
+          "byte_identical": true
+        },
+        "hilti22_exp14": {
+          "sha256": "8d1de098700782ceb2aabfaa5858f575b086cecf842f51888176ab5714bd0df9",
+          "byte_identical": true
+        }
+      },
+      "passed": true
+    },
+    "untouched_normal_environment_external": {
+      "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_declaration_v14.json",
+      "result": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_v14.json",
+      "dataset": "Boreas boreas-2021-09-07-09-35 first 600 LiDAR scans",
+      "declared_before_sensor_download_or_runtime": true,
+      "candidate_frozen_before_declaration": true,
+      "ground_truth_downloaded_after_all_candidate_and_comparator_trajectories_were_hashed": true,
+      "candidate_ate_ratio_over_cube_lio": 0.8515270024894677,
+      "candidate_rpe_trans_ratio_over_cube_lio": 0.8326638256640613,
+      "candidate_rpe_rot_ratio_over_cube_lio": 0.8885394553134442,
+      "candidate_tracking_success_rate": 1.0,
+      "candidate_fps": 18.11164769880325,
+      "candidate_peak_rss_mb": 30.765625,
+      "passed": true
+    },
+    "ground_truth_scoring_only": {
+      "candidate_runtime_access": "forbidden",
+      "per_run_selection_uses_dataset_identity": false,
+      "external_trajectory_freeze_manifest_sha256": "276768f8506b308b6c4d8640ae3a68c97a0b9105ce789c35e75608339006ed10",
+      "external_ground_truth_present_at_freeze": false,
+      "passed": true
+    },
+    "metrics_measured": {
+      "ate": true,
+      "rpe_translation": true,
+      "rpe_rotation": true,
+      "tracking_success_rate": true,
+      "fps": true,
+      "peak_rss_memory": true,
+      "passed": true
+    },
+    "low_priority_scope": {
+      "fog_required_for_promotion": false,
+      "ntnu_tunnel_required_for_promotion": false,
+      "matches_user_priority": true
+    }
+  },
+  "all_gates_passed": true,
+  "promotion_allowed": true,
+  "draft_pr_allowed": true,
+  "publication": {
+    "draft_pr": "https://github.com/rsasaki0109/localization_zoo/pull/64",
+    "state": "draft"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "candidate_id": "runtime_feasible_reference_v14",
+  "status": "promoted_after_all_cube_lio_fast_livo2_and_external_gates_passed",
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
+  "configuration_frozen": true,
+  "frozen_at": "2026-08-02",
+  "implementation_freeze_commit": "7138241b",
+  "promoted": true,
+  "promotion_audit": "evaluation/data/lidar_odometry_v14_promotion_audit.json",
+  "ground_truth_policy": {
+    "runtime_access": "forbidden",
+    "per_run_selection_signals": "first-scan point count, loop-cluster count, correction envelopes, and rotation-correction direction agreement only",
+    "dataset_identity_used": false,
+    "ground_truth_role": "score frozen outputs only",
+    "consumed_rows": [
+      "KITTI Odometry 00",
+      "KITTI Odometry 05",
+      "KITTI Odometry 07",
+      "Boreas boreas-2021-09-02-11-42 first 600 scans"
+    ]
+  },
+  "mechanism": {
+    "unchanged_v13_selector": "supported pose graph, safe graph, and corroborated rotation-majority branches remain unchanged",
+    "reference_runtime_guard": {
+      "signal": "point count from the frozen first sensor scan",
+      "maximum_reference_first_scan_points": 150000,
+      "at_or_below_limit": "run the independent official KISS reference and preserve all v13 fallback branches",
+      "above_limit": "do not launch the reference; select raw if the pose graph is rejected",
+      "first_scan_direct_path": "supported so the guard does not recursively enumerate the input tree",
+      "ground_truth_used": false
+    },
+    "threshold_derivation_from_consumed_runtime_only": {
+      "maximum_observed_first_scan_points_with_full_candidate_above_10_fps": 126956,
+      "minimum_observed_first_scan_points_with_reference_itself_below_10_fps": 210790,
+      "chosen_limit": 150000,
+      "selection_reason": "retain every previously real-time KITTI reference path with margin while rejecting the observed dense-sensor reference bottleneck",
+      "accuracy_metrics_used_to_compute_limit": false
+    }
+  },
+  "gt_free_policy_replay": {
+    "kitti_odometry_00": {
+      "first_scan_points": 124668,
+      "run_reference": true,
+      "loop_clusters": 11,
+      "selected_branch": "strongly supported graph",
+      "selected_sha256": "8e2cf51824e5bf7a2b8407f902c6080cf312b7f7a3c5f135059397a02faa9ff5",
+      "v13_output_byte_identical": true
+    },
+    "kitti_odometry_05_consumed": {
+      "first_scan_points": 126956,
+      "run_reference": true,
+      "loop_clusters": 2,
+      "selected_branch": "corroborated reference-rotation majority",
+      "selected_sha256": "45c81dfbe3450c2ce97c48b0846c4f870552eb5fa263649cd4570a3e0994718c",
+      "v13_output_byte_identical": true
+    },
+    "kitti_odometry_07": {
+      "first_scan_points": 122626,
+      "run_reference": true,
+      "loop_clusters": 1,
+      "selected_branch": "frozen v11 fallback",
+      "selected_sha256": "1fe3eb3ad625e00e195698f0e65191896ff41b829623ee164cca04890a030154",
+      "v13_output_byte_identical": true
+    },
+    "boreas_2021_09_02_consumed": {
+      "first_scan_points": 210790,
+      "run_reference": false,
+      "loop_clusters": 0,
+      "selected_branch": "raw runtime fallback",
+      "selected_sha256_all_three_runs": "9677490429a29576571cb38ccae3b08dc364511743e33319b2f4cea8a9478bd6",
+      "reference_process_launched": false
+    }
+  },
+  "cube_lio_development_rows": {
+    "kitti_odometry_00": {
+      "ate_m": 8.93380201955427,
+      "rpe_trans_pct": 0.876543829963492,
+      "rpe_rot_deg_per_m": 0.006765153627173979,
+      "tracking_success_rate": 1.0,
+      "conservative_fps_including_0_6_second_guard_allowance": 120.64423917706499,
+      "peak_rss_mb": 54.05078125,
+      "cube_lio_ate_m": 9.04430252500857,
+      "cube_lio_rpe_trans_pct": 0.8798334017400419,
+      "gate": "pass"
+    },
+    "kitti_odometry_07": {
+      "ate_m": 0.7720820179640507,
+      "rpe_trans_pct": 0.6037729892977444,
+      "rpe_rot_deg_per_m": 0.004729737823864855,
+      "tracking_success_rate": 1.0,
+      "conservative_fps_including_0_6_second_guard_allowance": 11.927933000709118,
+      "peak_rss_mb": 90.55078125,
+      "cube_lio_ate_m": 1.6454257491191604,
+      "cube_lio_rpe_trans_pct": 0.6238668812159914,
+      "gate": "pass"
+    }
+  },
+  "consumed_failure_replays": {
+    "kitti_odometry_05": {
+      "ate_m": 5.2838506393906455,
+      "rpe_trans_pct": 0.512712992406316,
+      "rpe_rot_deg_per_m": 0.003797573825862059,
+      "tracking_success_rate": 1.0,
+      "conservative_fps_including_0_6_second_guard_allowance": 10.54768968760695,
+      "cube_lio_ate_m": 5.357310476972791,
+      "cube_lio_rpe_trans_pct": 0.5936785490909657,
+      "gate": "pass_but_not_external"
+    },
+    "boreas_2021_09_02": {
+      "three_run_conservative_seconds": [
+        31.365129815,
+        29.54397994,
+        32.057901655
+      ],
+      "median_seconds": 31.365129815,
+      "fps": 19.129523886525003,
+      "peak_rss_kb": 31504,
+      "ate_m": 0.968251371950282,
+      "rpe_trans_pct": 0.7627512912370323,
+      "rpe_rot_deg_per_m": 0.010325700635919774,
+      "tracking_success_rate": 1.0,
+      "cube_lio_ate_m": 1.3441601365486624,
+      "cube_lio_rpe_trans_pct": 0.812467871498255,
+      "cube_lio_rpe_rot_deg_per_m": 0.011115886785258544,
+      "ratios_candidate_over_cube_lio": {
+        "ate": 0.720339300075076,
+        "rpe_trans": 0.9388079430519003,
+        "rpe_rot": 0.928913800166921
+      },
+      "all_numeric_gates": "pass_but_not_external"
+    }
+  },
+  "fast_livo2_compatibility": {
+    "existing_three_row_evidence": "evaluation/data/fast_livo2_three_row_summary_v12.json",
+    "policy_manifest_is_optional": true,
+    "behavior_without_policy_manifest": "byte-compatible v13 selection path",
+    "accuracy_or_frontend_change": false,
+    "three_public_row_track": "remains passed"
+  },
+  "implementation_sha256": {
+    "evaluation/scripts/plan_gt_free_reference_runtime.py": "e761387bcdbfbf9a927732209e6878aab300a5f2a83d32b6b32a1baf286689d3",
+    "evaluation/scripts/select_gt_free_pose_graph.py": "e20e92b6f8cc200dba657ca5e5e45a970f91a3d67f4c973e72c081d61d1bf0d5",
+    "tests/test_plan_gt_free_reference_runtime.py": "4758cd2cd60f356d945d8e9c74ac538a1d157d9dafb0798d4e208209bb80eb47",
+    "tests/test_select_gt_free_pose_graph.py": "774360e37a39027629c6ee43667e32a3ce9e376b8731797e427af6f74186cad7"
+  },
+  "verification": {
+    "relevant_pytest": "27 passed",
+    "black": "4 files left unchanged",
+    "post_result_tuning_on_boreas_v13": false,
+    "boreas_role_for_v14": "consumed development replay only"
+  },
+  "external_evaluation": {
+    "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_declaration_v14.json",
+    "result": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_v14.json",
+    "dataset": "Boreas boreas-2021-09-07-09-35 first 600 LiDAR scans",
+    "candidate_ate_ratio_over_cube_lio": 0.8515270024894677,
+    "candidate_rpe_trans_ratio_over_cube_lio": 0.8326638256640613,
+    "candidate_tracking_success_rate": 1.0,
+    "candidate_fps": 18.11164769880325,
+    "status": "pass"
+  },
+  "publication": {
+    "draft_pr": "https://github.com/rsasaki0109/localization_zoo/pull/64",
+    "state": "draft"
+  },
+  "next_gate": "review Draft PR 64; no additional benchmark gate remains for v14 promotion"
+}

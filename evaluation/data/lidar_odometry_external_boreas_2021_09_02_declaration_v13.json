@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "lidar_odometry_v13_external_boreas_2021_09_02_first600",
+  "status": "declared_before_candidate_or_comparator_runtime",
+  "declared_at": "2026-08-02",
+  "candidate": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
+  "candidate_freeze_commit": "1f6323d2",
+  "dataset": {
+    "family": "Boreas",
+    "sequence": "boreas-2021-09-02-11-42",
+    "source": "s3://boreas",
+    "source_url": "https://www.boreas.utias.utoronto.ca/",
+    "license": "Boreas dataset terms",
+    "environment": "normal outdoor urban driving",
+    "sensor": "Velodyne Alpha Prime 128-beam LiDAR",
+    "selection": "first 600 lidar/*.bin objects in ascending timestamp order",
+    "frames": 600,
+    "scan_bytes": 3064385088,
+    "first_scan_key": "boreas-2021-09-02-11-42/lidar/1630597330954834.bin",
+    "last_scan_key": "boreas-2021-09-02-11-42/lidar/1630597393073486.bin",
+    "scan_selection_sha256": "5ef2b8361b1671154906e052fe5efec5a5df76aa42c10568bc12135613493364",
+    "scan_fetch_manifest_sha256": "3143b44a5e040036c1c5b7e4a6f46aa0fac9074c619e7cf9a4bf260453d7a009"
+  },
+  "untouched_audit": {
+    "repository_mentions_before_declaration": 0,
+    "result_directories_before_declaration": 0,
+    "candidate_or_comparator_trajectories_before_declaration": 0,
+    "sensor_manifest_preexisting": true,
+    "ground_truth_manifest_preexisting_in_quarantine": true,
+    "ground_truth_values_inspected_for_v13_selection": false,
+    "post_result_tuning": "forbidden"
+  },
+  "input_policy": {
+    "conversion": "all Boreas [x,y,z,i,r,t] float32 points to timestamped binary PCD; no spatial or stride downsampling",
+    "persistent_storage": "external SSD",
+    "timed_storage": "one manifest-verified tmpfs copy shared by comparator and candidate",
+    "staging_time_included": false
+  },
+  "ground_truth_isolation": {
+    "candidate_and_comparator_runtime_reference": "synthetic identity poses only",
+    "candidate_runtime_sensor_root": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/boreas/boreas-2021-09-02-11-42/lidar",
+    "quarantined_ground_truth": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/boreas/boreas-2021-09-02-11-42/applanix/lidar_poses.csv",
+    "metric_reference_creation": "forbidden until all selected candidate and CUBE-LIO trajectories are SHA-256 frozen"
+  },
+  "comparators": [
+    "repository CUBE-LIO reproduction"
+  ],
+  "measurement": {
+    "cube_lio_repetitions": 3,
+    "candidate_repetitions": 3,
+    "timing_statistic": "median full-window wall time on the same tmpfs input",
+    "metrics": [
+      "ATE RMSE m with first-pose anchor only",
+      "100 m translational RPE percent",
+      "rotational RPE deg/m",
+      "tracking success rate",
+      "FPS",
+      "peak RSS MiB"
+    ]
+  },
+  "gates": {
+    "candidate_ate_strictly_lower_than_cube_lio": true,
+    "candidate_rpe_trans_strictly_lower_than_cube_lio": true,
+    "candidate_tracking_success_rate": 1.0,
+    "candidate_fps_at_least": 10.0,
+    "memory_recorded": true,
+    "promotion_only_if_all_pass": true
+  }
+}

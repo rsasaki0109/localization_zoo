@@ -1,5 +1,12 @@
 # Dogfooding Tool Methodology
 
+> **MulRan correction (2026-07-31):** all MulRan metrics on this page that
+> report roughly 59--225% RPE or 69--112 m ATE were computed against a
+> base/rear-wheel pose mislabeled as `lidar_pose`. They are invalid and remain
+> only as historical records. The corrected LiDAR-frame reference has SHA-256
+> `9495e7cdeb4a95b58f823cb321440aaff99f3a0504f83afa4549e0f6ca8c1143`;
+> current corrected results are in `docs/lidar_odometry_sota_log.md`.
+
 This page documents methodology asymmetries inside the `pcd_dogfooding` evaluator that affect cross-method comparison. They are not algorithm bugs - they are deliberate per-method initialization choices, but they need to be visible to anyone reading the aggregate numbers.
 
 ## GT-seeded vs pure-odometry initialization

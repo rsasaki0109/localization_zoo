@@ -81,6 +81,17 @@ jobs:
       - name: Python script regressions
         run: python3 -m unittest discover -s tests -p 'test_*.py' -v
 
+      - name: LiDAR v10 release contract
+        run: |
+          python3 -m unittest -q \
+            tests/test_direction_consistent_rotation_fusion.py \
+            tests/test_lidar_v10_manifest.py \
+            tests/test_lidar_sota_tools.py \
+            tests/test_official_kiss_pcd_odometry.py \
+            tests/test_external_odometry_evaluator.py \
+            tests/test_reproduce_lidar_v10.py \
+            tests/test_boreas_window_tools.py
+
   ros2-colcon-build:
     runs-on: ubuntu-22.04
     container:

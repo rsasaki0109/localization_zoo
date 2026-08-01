@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "candidate_id": "kiss_modeldev_p6_elevation_adaptive_motion_guard_v6",
+  "status": "development_full_recovery_and_normal_nonregression_pass",
+  "configuration_frozen": false,
+  "promoted": false,
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_kiss_modeldev_guard_v1.json",
+  "method": "kiss_icp",
+  "gt_usage": "metrics_only",
+  "initialization": "first_pose_anchor_only",
+  "configuration": {
+    "inherits_promoted_v1_frontend": true,
+    "fixed_guard_translation_m": 2.0,
+    "fixed_guard_rotation_deg": 20.0,
+    "adaptive_guard_enabled": true,
+    "adaptive_guard_min_trusted_steps": 3,
+    "adaptive_guard_max_translation_multiplier": 2.0,
+    "adaptive_guard_translation_consistency_m": 0.75,
+    "adaptive_guard_rotation_consistency_deg": 5.0,
+    "adaptive_acceptance": "only when the fixed guard rejects, the candidate remains below 4 m and 20 deg, and its SE(3) deviation from the previous trusted motion is below 0.75 m and 5 deg",
+    "rejection_policy": "unchanged from promoted v1 when neither fixed nor adaptive guard accepts",
+    "causality": "current candidate uses only the previous trusted relative motion"
+  },
+  "expected_non_regression": {
+    "sequences_with_no_v1_guard_rejection": "byte-identical trajectory because the adaptive branch is evaluated only after fixed-guard failure",
+    "required_checks": [
+      "kitti_odometry_00",
+      "kitti_odometry_05",
+      "kitti_odometry_07",
+      "mulran_parkinglot"
+    ]
+  },
+  "development_results": [
+    {
+      "dataset": "kitti_odometry_01_first_200_frames",
+      "role": "highway_failure_recovery_diagnostic",
+      "frames": 200,
+      "adaptive_acceptances": 105,
+      "motion_guard_rejections": 0,
+      "ate_m": 1.9005785175,
+      "rpe_trans_pct": 0.6994583596,
+      "rpe_rot_deg_per_m": 0.0047494645,
+      "algorithm_fps": 24.7873973588,
+      "fixed_guard_full_sequence_reference": {
+        "motion_guard_rejections": 59,
+        "ate_m": 1049.501611007,
+        "rpe_trans_pct": 56.540458499
+      },
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v6_development/adaptive_motion_guard/kitti01_first200/metrics.json"
+    },
+    {
+      "dataset": "kitti_odometry_01_full",
+      "role": "highway_failure_recovery_full_sequence",
+      "frames": 1101,
+      "adaptive_acceptances": 755,
+      "motion_guard_rejections": 0,
+      "ate_m": 50.7644237026,
+      "rpe_trans_pct": 0.6327497995,
+      "rpe_rot_deg_per_m": 0.0037571073,
+      "algorithm_fps": 15.5409697226,
+      "end_to_end_cached_fps": 10.99324,
+      "fixed_guard_reference": {
+        "ate_m": 1049.501611007,
+        "rpe_trans_pct": 56.540458499,
+        "motion_guard_rejections": 59
+      },
+      "trajectory_sha256": "6bdc3648f175431306d1c841f350cc30035941ff64131e1b7d9aeb901bd5539d",
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v6_development/adaptive_motion_guard/kitti01_full/metrics.json"
+    },
+    {
+      "dataset": "kitti_odometry_05_full",
+      "role": "normal_sequence_current_binary_nonregression",
+      "frames": 2761,
+      "adaptive_acceptances": 0,
+      "motion_guard_rejections": 0,
+      "ate_m": 7.807514,
+      "rpe_trans_pct": 0.412494,
+      "rpe_rot_deg_per_m": 0.004219,
+      "algorithm_fps": 23.135261,
+      "end_to_end_cached_fps": 13.853165,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v6_development/adaptive_motion_guard/kitti05_full/summary.json"
+    },
+    {
+      "dataset": "kitti_odometry_07_full",
+      "role": "normal_sequence_exact_control",
+      "frames": 1101,
+      "adaptive_acceptances": 0,
+      "motion_guard_rejections": 0,
+      "ate_m": 2.3764043653,
+      "rpe_trans_pct": 0.5103729686,
+      "rpe_rot_deg_per_m": 0.0061723667,
+      "adaptive_trajectory_sha256": "c5a212d1dd797d306c75b97381bdf970724c1456fbd7a1107901f3215c51e688",
+      "fixed_control_trajectory_sha256": "c5a212d1dd797d306c75b97381bdf970724c1456fbd7a1107901f3215c51e688",
+      "exact_match": true,
+      "metrics": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v6_development/adaptive_motion_guard/kitti07_full/metrics.json"
+    },
+    {
+      "dataset": "kitti_raw_2011_09_26_drive_0001_sync",
+      "role": "normal_motion_exact_control",
+      "frames": 108,
+      "adaptive_acceptances": 0,
+      "motion_guard_rejections": 0,
+      "adaptive_trajectory_sha256": "e6c18b37ce92c39d8fc3eab2630e19fffd26889003c9d4b1325e661d5cb85148",
+      "fixed_control_trajectory_sha256": "e6c18b37ce92c39d8fc3eab2630e19fffd26889003c9d4b1325e661d5cb85148",
+      "exact_match": true
+    }
+  ],
+  "implementation_sha256": {
+    "papers/kiss_icp/include/kiss_icp/kiss_icp.h": "177366a4899a7a7ac41dd5ec8ac7a379c6d163d90f0d4dca223b4f1132e790fe",
+    "papers/kiss_icp/src/kiss_icp.cpp": "7c7b3c0c601fdb2843fd24ba76639d526244cd4887235be6b767d9e9bf4acdf5",
+    "evaluation/src/pcd_dogfooding.cpp": "bc7967f6d92e093d396dfc5a24bab98ad091d12925d88a4f614e10463106efd1",
+    "wsl_release_binary": "bedf93f777106517bc6c827a298f9150f4eab0ddc309e5cdf11bfd5436b69c34"
+  },
+  "next_gate": {
+    "kitti_01_full": "pass",
+    "normal_sequence_exact_non_regression": "pass_on_kitti_07_and_raw_0001; zero_adaptive_activation_on_kitti_05",
+    "configuration_freeze": "eligible_but_superseded_by_v7_ate_candidate",
+    "fresh_held_out": "must use a public sequence not consumed by v1-v5 after configuration freeze"
+  }
+}

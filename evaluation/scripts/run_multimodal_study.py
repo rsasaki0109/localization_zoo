@@ -119,7 +119,7 @@ def manifest_paths(methods: list[str], sequences: list[str]) -> list[str]:
             path = Path("experiments") / f"{method}_{SEQUENCE_CONFIG[sequence]}"
             if not (REPO_ROOT / path).exists():
                 raise FileNotFoundError(f"Missing multimodal manifest: {path}")
-            paths.append(str(path))
+            paths.append(path.as_posix())
     return paths
 
 

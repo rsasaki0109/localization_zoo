@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "status": "eee01_development_row_passed",
+  "ground_truth_policy": "candidate frozen from GT-free loop support before each score",
+  "dataset": {
+    "name": "NTU VIRAL eee_01",
+    "sensor_only_bag_topics": [
+      "/imu/imu",
+      "/left/image_raw",
+      "/os1_cloud_node1/points"
+    ],
+    "lidar_frames": 3987,
+    "position_gt_sha256": "3200fc325037bf0cbb68e7b6f533c3e8a173dc625beca3c09c71fbfbeb9b24ba"
+  },
+  "official_environment": {
+    "fast_livo2_commit": "0d2c0346107b75b59934975adec9a6eeeb913c64",
+    "container_image": "localization-zoo/fast-livo2-official:0d2c034",
+    "binary_sha256": "f1a4aaaadd49bb7c8ddc0149264baa4d39f582d06150aefd03637a403a9119ea",
+    "cpu_affinity": "0-3",
+    "playback_rate": 1.1
+  },
+  "candidate_policy": {
+    "frontend": "the identical official FAST-LIVO2 output used by the baseline",
+    "timestamp_resampling": "linear translation plus quaternion SLERP; nearest boundary hold",
+    "native_calibrated_cloud": true,
+    "vertical_angle_correction_deg": 0.0,
+    "pose_graph": "direct causal output; no KITTI persistent-bias smoother",
+    "loop_edges": 22,
+    "loop_clusters": 7,
+    "correction_enabled": true,
+    "pose_graph_binary_sha256": "6c15fe34f6037340a41f4b13562abe7075c5060b78a5599c2b1deafd403219a9",
+    "frozen_trajectory_sha256": "4d8368b1ba9877c39d659dc03dad73e3ffaff7ecf57444ff2f0bec0bd3cfea97"
+  },
+  "timing": {
+    "input_bag_bytes": 4634396685,
+    "input_bag_sha256": "b6a698d55c1bab9740f8c5051532f77778525748e7280d61aeb5a661e853fd40",
+    "input_staging": "one SHA-256-verified Docker tmpfs copy reused by three sequential runs",
+    "runs": [
+      {
+        "run": 1,
+        "poses": 3983,
+        "mapper_wall_seconds": 363.297625600,
+        "mapper_cpu_seconds": 454.92,
+        "mapper_peak_rss_kb": 4601652,
+        "trajectory_sha256": "329d16ef99d659fca6016f8db68b8a432c10f2813759a8f8e85c5782597f2012"
+      },
+      {
+        "run": 2,
+        "poses": 3983,
+        "mapper_wall_seconds": 371.168954368,
+        "mapper_cpu_seconds": 476.72,
+        "mapper_peak_rss_kb": 4657868,
+        "trajectory_sha256": "36c775403a645ce5f8ec5c7ba6102abd7bfa13b9fb4e030bc55eedc1e8384c80"
+      },
+      {
+        "run": 3,
+        "poses": 3982,
+        "mapper_wall_seconds": 363.301879552,
+        "mapper_cpu_seconds": 471.82,
+        "mapper_peak_rss_kb": 4768736,
+        "trajectory_sha256": "e22ce0ce86cce8b9ef10276c8b5aabb9f3a1303203d7ea78eba3b193f96d3475"
+      }
+    ],
+    "median_mapper_wall_seconds": 363.301879552,
+    "input_frame_wall_fps": 10.974344544863094,
+    "median_mapper_cpu_seconds": 471.82,
+    "median_mapper_peak_rss_kb": 4657868
+  },
+  "comparison": {
+    "official": {
+      "trajectory_sha256": "86f5e4b95615177554b3423d1712551da5e447f1426f3a3907ca75aee5f99eb7",
+      "poses": 3981,
+      "ate_3d_m": 0.25782230260216665,
+      "rpe_trans_pct": 0.3987754293007713,
+      "tracking_success_rate": 0.9984951091045899,
+      "median_wall_seconds": 363.301879552,
+      "input_frame_wall_fps": 10.974344544863094,
+      "median_mapper_peak_rss_kb": 4657868
+    },
+    "candidate": {
+      "poses": 3987,
+      "ate_3d_m": 0.25508943442722914,
+      "rpe_trans_pct": 0.3976507662529941,
+      "tracking_success_rate": 1.0,
+      "combined_algorithm_seconds": 367.667594347,
+      "conservative_combined_fps": 10.84403428885582
+    },
+    "gates": {
+      "ate_improved": true,
+      "rpe_improved": true,
+      "tracking_not_below_official": true,
+      "candidate_fps_at_least_10": true,
+      "row_passed": true
+    }
+  },
+  "remaining": "complete untouched normal-environment external evaluation"
+}

@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "status": "max60_native_pose_graph_passes_kitti00_joint_gate",
+  "recorded_at": "2026-08-01",
+  "dataset": "KITTI Odometry 00 consumed development",
+  "frames": 4541,
+  "mechanism": {
+    "finding": "the KISS voxel map searched a fixed one-voxel neighborhood even when max correspondence distance covered more voxels",
+    "change": "search ceil(max_correspondence_distance / voxel_size) voxels with query-to-voxel-AABB pruning",
+    "ground_truth_used_for_mechanism_or_runtime": false,
+    "implementation_commits": [
+      "0bb5d142",
+      "eff3456a",
+      "93f763ab",
+      "57b5329f",
+      "b123cfcb",
+      "dfcef988"
+    ],
+    "binary_sha256": "603d6531c3197caccb170016adef0179c2083e20996cbae3ba9d131feb04203b"
+  },
+  "implementation_sha256": {
+    "papers/kiss_icp/src/kiss_icp.cpp": "41ae0147357556ebc8e9c32c9a7d097ae16a21d05eefb94e96132c1c3303e9a0",
+    "papers/kiss_icp/test/test_kiss_icp.cpp": "7bf73b56d58b528027f4ef31c0a91c363f6b6125f05d9c3ddb24301ece5a752b",
+    "evaluation/src/kiss_bin_odometry.cpp": "c7e864ecd3c107555a818a54ceb1aba4ae564d3d01449a9286a3cd4a403bae0f",
+    "evaluation/CMakeLists.txt": "4a31398b7acfa9f27724008978f7f48076bd687af49a05f80a154f17fc9aeac7"
+  },
+  "verification": {
+    "kiss_cpp_tests_passed": 14,
+    "smoke_frames": 20,
+    "full_frames": 4541,
+    "full_finite_pose_fraction": 1.0,
+    "ground_truth_used_during_generation": false
+  },
+  "primary": {
+    "trajectory_sha256_before_scoring": "1e63934d35aa9e7911a943a337788d7325a70f1cd20b9a75f01c4228b56592e3",
+    "ate_m": 15.488468733839897,
+    "rpe_trans_pct": 0.7907599252796517,
+    "rpe_rot_deg_per_m": 0.006698654156470397,
+    "tracking_success_rate": 1.0,
+    "algorithm_fps": 157.11844350553667,
+    "peak_rss_mb": 16.05859375,
+    "finding": "local RPE improves slightly versus the frozen primary but ATE remains insufficient"
+  },
+  "robust_pose_graph_transfer": {
+    "trajectory_sha256_before_scoring": "1a870f4201a57d3a45887790078ee36ae1d5a176d76a6e6231fb1eda67d43edd",
+    "correction_source_sha256": "46668349eb5ef0d3ab694e6815c9ef4285247ef17d3cfa2e9567e44c87ebf7a4",
+    "correction_trajectory_sha256": "4aa6531b76f4a432cb7c02561e1f00c4ee8f471803d3cfa3dd9c3f6ccb4cff385",
+    "ate_m": 9.163692358752098,
+    "rpe_trans_pct": 0.8867894002604065,
+    "rpe_rot_deg_per_m": 0.006925240697557334,
+    "tracking_success_rate": 1.0,
+    "sequential_fps": 38.73232378151584,
+    "decision": "fail_ate_and_rpe_do_not_promote"
+  },
+  "native_causal_pose_graph": {
+    "runner_binary_sha256": "17cee981ec1702471dc6b03c202b88595a97c84d7a475b2d1dec5c1fb571cb1a",
+    "causal_graph_sha256": "347bfe9bc63709f5d5d48f4474a1b68821c19322ad68997e8900b4b3e5bdb381",
+    "ground_truth_used_during_generation": false,
+    "keyframes": 455,
+    "loop_edges": 18,
+    "loop_clusters": 11,
+    "loop_candidates": 19,
+    "loop_rejections": 1,
+    "backend_seconds": 5.481217358,
+    "peak_rss_mb": 53.5859375,
+    "frontier": {
+      "robust_continuous": {
+        "trajectory_sha256_before_scoring": "bbb8d1555034c51cdb65888f6335dff65ddfe13f6f9e38dd90c02cd0f2fb7742",
+        "ate_m": 8.933779706422465,
+        "rpe_trans_pct": 0.8843641413539289,
+        "rpe_rot_deg_per_m": 0.0067211905871955,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.60706467662516,
+        "decision": "passes_ate_tracking_fps_but_rpe_misses_by_0.004530739613887"
+      },
+      "robust_yaw_only": {
+        "trajectory_sha256_before_scoring": "f4671591cae56249e8c36c86538722b31ecbb3e3f0f9ed8dced0f6a45ec9d91f",
+        "ate_m": 10.848757909493967,
+        "rpe_trans_pct": 0.8700523273266211,
+        "rpe_rot_deg_per_m": 0.006471497995396758,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.61380863915025,
+        "decision": "passes_rpe_but_fails_ate"
+      }
+    },
+    "rejected_structural_candidates": {
+      "persistent_yaw": {
+        "trajectory_sha256_before_scoring": "00cd70722f8a6b421c138f7dc45f479ef2849d770ce90b732872e4499d45160c",
+        "ate_m": 8.867411097773344,
+        "rpe_trans_pct": 0.888139031413454
+      },
+      "component_hampel": {
+        "trajectory_sha256_before_scoring": "60cc3f23b7e321d7b3c5b1c08a9ebaba0fcb8f39e921910313442fb623d187a8",
+        "ate_m": 8.98724905453347,
+        "rpe_trans_pct": 0.8866969769694567,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.34736593407246
+      },
+      "component_hampel_persistent_yaw": {
+        "implementation_commit": "dfcef988",
+        "trajectory_sha256_before_scoring": "cda4228df2886d9896c60280176adbd24a4f5c7fb9bc48c0aea8bdfdf7f5e9f7",
+        "ate_m": 8.923943168698418,
+        "rpe_trans_pct": 0.8907470820431105,
+        "rpe_rot_deg_per_m": 0.006758444884255608,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.68148167995867
+      },
+      "distance_weighted_tilt_robust_yaw": {
+        "implementation_commit": "8a7b7248",
+        "trajectory_sha256_before_scoring": "7e1a074d9c894aeca29015bda5607e652e17ffdf06839a561792891038294b1b",
+        "ate_m": 10.278380179171492,
+        "rpe_trans_pct": 0.8663462625820033,
+        "rpe_rot_deg_per_m": 0.0064653385193425015,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.72263023811044,
+        "decision": "passes_rpe_tracking_fps_but_fails_ate"
+      },
+      "deterministic_full_voxel_refresh": {
+        "raw_trajectory_sha256_before_scoring": "97d953c4327e26e8673321702797da73053ff7096e93757e766547a0569585be",
+        "raw_ate_m": 19.20496,
+        "raw_rpe_trans_pct": 1.39088,
+        "pose_graph_ate_m": 23.441,
+        "pose_graph_rpe_trans_pct": 1.574,
+        "decision": "reject_map_refresh"
+      }
+    }
+  },
+  "max60_native_causal_pose_graph": {
+    "implementation_commit": "236521c4",
+    "runner_binary_sha256": "66c9f87644639e049955be983716a6892fab46ca0a5efdfbc07b1a7e188996b1",
+    "causal_graph_sha256": "9b9ae7b0b46916a7caf83838d43383568e97c64b50d2a0b38ee418745c10e9c6",
+    "loop_edges": 19,
+    "loop_clusters": 11,
+    "loop_candidates": 19,
+    "loop_registration_rejections": 0,
+    "recovered_loop": {
+      "from_keyframe": 1,
+      "to_keyframe": 446,
+      "converged": true,
+      "rmse_m": 0.884321,
+      "correspondences": 2934
+    },
+    "algorithm_seconds": 7.216663008,
+    "algorithm_fps": 629.238194296464,
+    "peak_rss_mb": 54.05078125,
+    "robust_candidate": {
+      "trajectory_sha256_before_scoring": "8e2cf51824e5bf7a2b8407f902c6080cf312b7f7a3c5f135059397a02faa9ff5",
+      "ate_m": 8.93380201955427,
+      "rpe_trans_pct": 0.876543829963492,
+      "rpe_rot_deg_per_m": 0.006765153627173979,
+      "tracking_success_rate": 1.0,
+      "sequential_fps": 123.49147655931422,
+      "decision": "pass_all_kitti00_cube_lio_gates"
+    }
+  },
+  "cube_lio_gate": {
+    "ate_m_strictly_below": 9.04430252500857,
+    "rpe_trans_pct_strictly_below": 0.8798334017400419,
+    "tracking_success_rate": 1.0,
+    "fps_at_least": 10.0
+  },
+  "next": "use the frozen GT-free loop-support selector for KITTI 07 and proceed to the official FAST-LIVO2 track",
+  "artifacts_root": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v12_sota_head_to_head/v12_dynamic_voxel_radius"
+}

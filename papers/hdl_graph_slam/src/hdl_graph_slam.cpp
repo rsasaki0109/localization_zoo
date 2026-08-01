@@ -219,6 +219,8 @@ void HdlGraphSlam::addKeyframe(
   keyframe.world_points = transformPoints(map_points, pose);
   keyframe.descriptor_points = descriptor_points;
   keyframe.loop_points = loop_points;
+  keyframe.frame_index =
+      static_cast<size_t>(std::max(0, valid_frame_count_ - 1));
 
   keyframes_.push_back(std::move(keyframe));
   submap_indices_.push_back(static_cast<int>(keyframes_.size()) - 1);
@@ -312,6 +314,8 @@ HdlGraphSlamResult HdlGraphSlam::process(const aloam::PointCloudConstPtr& cloud)
   }
 
   int loop_index = -1;
+  double loop_descriptor_distance =
+      std::numeric_limits<double>::infinity();
   if (params_.enable_loop_closure && !descriptor_points.empty() &&
       scan_context_.numScans() > 0) {
     const scan_context::LoopCandidate candidate =
@@ -320,6 +324,7 @@ HdlGraphSlamResult HdlGraphSlam::process(const aloam::PointCloudConstPtr& cloud)
         static_cast<int>(keyframes_.size()) - candidate.index >=
             params_.min_loop_index_gap) {
       loop_index = candidate.index;
+      loop_descriptor_distance = candidate.distance;
     }
   }
 
@@ -336,7 +341,9 @@ HdlGraphSlamResult HdlGraphSlam::process(const aloam::PointCloudConstPtr& cloud)
 
   scan_context_.addScan(keyframes_[static_cast<size_t>(current_index)].descriptor_points);
 
-  if (loop_index >= 0 && tryAddLoopEdge(loop_index, current_index)) {
+  if (loop_index >= 0 &&
+      tryAddLoopEdge(loop_index, current_index,
+                     loop_descriptor_distance)) {
     result.loop_detected = true;
     result.loop_index = loop_index;
   }
@@ -355,7 +362,209 @@ HdlGraphSlamResult HdlGraphSlam::process(const aloam::PointCloudConstPtr& cloud)
   return result;
 }
 
-bool HdlGraphSlam::tryAddLoopEdge(int loop_index, int current_index) {
+HdlGraphSlamResult HdlGraphSlam::processExternalOdometry(
+    const aloam::PointCloudConstPtr& cloud,
+    const Eigen::Matrix4d& odometry_pose) {
+  HdlGraphSlamResult result;
+  result.pose = odometry_pose;
+  result.q_w_curr =
+      Eigen::Quaterniond(odometry_pose.block<3, 3>(0, 0)).normalized();
+  result.t_w_curr = odometry_pose.block<3, 1>(0, 3);
+  result.initialized = initialized_;
+  result.num_keyframes = numKeyframes();
+  result.num_loop_edges = numLoopEdges();
+  if (!odometry_pose.array().isFinite().all()) {
+    return result;
+  }
+
+  const std::vector<Eigen::Vector3d> descriptor_source =
+      preprocess(cloud, params_.registration_voxel_size);
+  const std::vector<Eigen::Vector3d> loop_source =
+      preprocess(cloud, params_.map_voxel_size);
+  if (descriptor_source.empty() || loop_source.empty()) {
+    return result;
+  }
+  const std::vector<Eigen::Vector3d> descriptor_points =
+      stridePoints(descriptor_source, params_.descriptor_stride);
+  std::vector<Eigen::Vector3d> loop_points =
+      stridePoints(loop_source, params_.loop_stride);
+  if (loop_points.size() < 20) {
+    loop_points = descriptor_points;
+  }
+
+  ++valid_frame_count_;
+  pose_ = odometry_pose;
+  if (!initialized_) {
+    last_keyframe_pose_ = odometry_pose;
+    addKeyframe(odometry_pose, {}, descriptor_points, loop_points);
+    scan_context_.addScan(descriptor_points);
+    initialized_ = true;
+    result.initialized = true;
+    result.valid = true;
+    result.keyframe_added = true;
+    result.num_keyframes = numKeyframes();
+    return result;
+  }
+
+  result.initialized = true;
+  result.valid = true;
+  if (!shouldCreateKeyframe(odometry_pose)) {
+    if (loopCorrectionEnabled()) {
+      const Eigen::Matrix4d correction =
+          latestOptimizedPoseMatrix() *
+          poseToMatrix(keyframes_.back().raw_pose).inverse();
+      result.pose = correction * odometry_pose;
+    } else {
+      result.pose = odometry_pose;
+    }
+    result.q_w_curr =
+        Eigen::Quaterniond(result.pose.block<3, 3>(0, 0)).normalized();
+    result.t_w_curr = result.pose.block<3, 1>(0, 3);
+    return result;
+  }
+
+  int loop_index = -1;
+  double loop_descriptor_distance =
+      std::numeric_limits<double>::infinity();
+  if (params_.enable_loop_closure && !descriptor_points.empty() &&
+      scan_context_.numScans() > 0) {
+    const scan_context::LoopCandidate candidate =
+        scan_context_.detectLoop(descriptor_points);
+    if (candidate.valid &&
+        static_cast<int>(keyframes_.size()) - candidate.index >=
+            params_.min_loop_index_gap) {
+      loop_index = candidate.index;
+      loop_descriptor_distance = candidate.distance;
+      ++loop_candidate_detections_;
+      loop_candidate_distance_sum_ += candidate.distance;
+      loop_candidate_distance_min_ =
+          std::min(loop_candidate_distance_min_, candidate.distance);
+    }
+  }
+
+  const int current_index = static_cast<int>(keyframes_.size());
+  const Eigen::Matrix4d propagated_optimized_pose =
+      latestOptimizedPoseMatrix() *
+      poseToMatrix(keyframes_.back().raw_pose).inverse() *
+      odometry_pose;
+  addKeyframe(odometry_pose, {}, descriptor_points, loop_points);
+  keyframes_.back().optimized_pose =
+      matrixToPose(propagated_optimized_pose);
+  result.keyframe_added = true;
+  odom_edges_.push_back(
+      {current_index - 1, current_index,
+       relativePose(keyframes_[static_cast<size_t>(current_index - 1)].raw_pose,
+                    keyframes_[static_cast<size_t>(current_index)].raw_pose)});
+  scan_context_.addScan(
+      keyframes_[static_cast<size_t>(current_index)].descriptor_points);
+
+  if (loop_index >= 0) {
+    if (tryAddLoopEdge(loop_index, current_index,
+                       loop_descriptor_distance)) {
+      result.loop_detected = true;
+      result.loop_index = loop_index;
+    } else {
+      ++loop_registration_rejections_;
+    }
+  }
+  if ((params_.optimize_every_n_keyframes > 0 &&
+       static_cast<int>(keyframes_.size()) %
+               params_.optimize_every_n_keyframes ==
+           0) ||
+      result.loop_detected) {
+    optimizePoseGraph();
+  }
+
+  result.pose =
+      loopCorrectionEnabled() ? latestOptimizedPoseMatrix() : odometry_pose;
+  result.q_w_curr =
+      Eigen::Quaterniond(result.pose.block<3, 3>(0, 0)).normalized();
+  result.t_w_curr = result.pose.block<3, 1>(0, 3);
+  result.num_keyframes = numKeyframes();
+  result.num_loop_edges = numLoopEdges();
+  return result;
+}
+
+std::vector<Eigen::Matrix4d> HdlGraphSlam::correctedExternalTrajectory(
+    const std::vector<Eigen::Matrix4d>& odometry_poses,
+    double correction_gain) const {
+  if (odometry_poses.empty() || keyframes_.empty() ||
+      !loopCorrectionEnabled()) {
+    return odometry_poses;
+  }
+  std::vector<Eigen::Matrix4d> corrected = odometry_poses;
+  std::vector<Eigen::Matrix4d> corrections;
+  corrections.reserve(keyframes_.size());
+  for (const auto& keyframe : keyframes_) {
+    corrections.push_back(
+        poseToMatrix(keyframe.optimized_pose) *
+        poseToMatrix(keyframe.raw_pose).inverse());
+  }
+
+  size_t segment = 0;
+  for (size_t frame = 0; frame < corrected.size(); ++frame) {
+    while (segment + 1 < keyframes_.size() &&
+           frame > keyframes_[segment + 1].frame_index) {
+      ++segment;
+    }
+    Eigen::Matrix4d correction = corrections[segment];
+    if (segment + 1 < keyframes_.size()) {
+      const size_t from = keyframes_[segment].frame_index;
+      const size_t to = keyframes_[segment + 1].frame_index;
+      const double alpha =
+          to > from
+              ? std::clamp(static_cast<double>(frame - from) /
+                               static_cast<double>(to - from),
+                           0.0, 1.0)
+              : 1.0;
+      const Eigen::Quaterniond from_q(
+          corrections[segment].block<3, 3>(0, 0));
+      const Eigen::Quaterniond to_q(
+          corrections[segment + 1].block<3, 3>(0, 0));
+      correction.block<3, 3>(0, 0) =
+          from_q.slerp(alpha, to_q).normalized().toRotationMatrix();
+      correction.block<3, 1>(0, 3) =
+          (1.0 - alpha) *
+              corrections[segment].block<3, 1>(0, 3) +
+          alpha * corrections[segment + 1].block<3, 1>(0, 3);
+    }
+    const double gain = std::clamp(correction_gain, 0.0, 1.0);
+    const Eigen::Quaterniond correction_q(
+        correction.block<3, 3>(0, 0));
+    correction.block<3, 3>(0, 0) =
+        Eigen::Quaterniond::Identity()
+            .slerp(gain, correction_q)
+            .normalized()
+            .toRotationMatrix();
+    correction.block<3, 1>(0, 3) *= gain;
+    correction.row(3) << 0.0, 0.0, 0.0, 1.0;
+    corrected[frame] = correction * odometry_poses[frame];
+  }
+  return corrected;
+}
+
+int HdlGraphSlam::numLoopClusters() const {
+  const int radius = std::max(0, params_.loop_cluster_keyframe_radius);
+  std::vector<std::pair<int, int>> representatives;
+  representatives.reserve(loop_edges_.size());
+  for (const auto& edge : loop_edges_) {
+    bool clustered = false;
+    for (const auto& representative : representatives) {
+      if (std::abs(edge.from - representative.first) <= radius &&
+          std::abs(edge.to - representative.second) <= radius) {
+        clustered = true;
+        break;
+      }
+    }
+    if (!clustered) {
+      representatives.emplace_back(edge.from, edge.to);
+    }
+  }
+  return static_cast<int>(representatives.size());
+}
+
+bool HdlGraphSlam::tryAddLoopEdge(int loop_index, int current_index,
+                                  double descriptor_distance) {
   if (loop_index < 0 || current_index <= loop_index ||
       current_index >= static_cast<int>(keyframes_.size())) {
     return false;
@@ -370,8 +579,29 @@ bool HdlGraphSlam::tryAddLoopEdge(int loop_index, int current_index) {
     }
   }
 
-  const auto& target = keyframes_[static_cast<size_t>(loop_index)].loop_points;
-  const auto& source = keyframes_[static_cast<size_t>(current_index)].loop_points;
+  auto build_submap = [&](int center, int first, int last) {
+    std::vector<Eigen::Vector3d> submap;
+    const Eigen::Matrix4d center_pose =
+        poseToMatrix(keyframes_[static_cast<size_t>(center)].raw_pose);
+    for (int index = first; index <= last; ++index) {
+      const auto& points =
+          keyframes_[static_cast<size_t>(index)].loop_points;
+      const Eigen::Matrix4d frame_to_center =
+          center_pose.inverse() *
+          poseToMatrix(keyframes_[static_cast<size_t>(index)].raw_pose);
+      const auto transformed = transformPoints(points, frame_to_center);
+      submap.insert(submap.end(), transformed.begin(), transformed.end());
+    }
+    return submap;
+  };
+  const int half_window = std::max(0, params_.loop_submap_half_window);
+  const int last_keyframe = static_cast<int>(keyframes_.size()) - 1;
+  const std::vector<Eigen::Vector3d> target = build_submap(
+      loop_index, std::max(0, loop_index - half_window),
+      std::min(last_keyframe, loop_index + half_window));
+  const std::vector<Eigen::Vector3d> source = build_submap(
+      current_index, std::max(0, current_index - half_window),
+      current_index);
   if (target.size() < 20 || source.size() < 20) {
     return false;
   }
@@ -385,9 +615,21 @@ bool HdlGraphSlam::tryAddLoopEdge(int loop_index, int current_index) {
   const gicp::GICPResult gicp_result =
       registration.align(source, initial_guess);
 
-  if (!gicp_result.converged ||
-      gicp_result.fitness > params_.loop_fitness_threshold ||
-      gicp_result.num_correspondences < params_.min_loop_correspondences) {
+  HdlGraphSlamLoopAttempt attempt;
+  attempt.from = loop_index;
+  attempt.to = current_index;
+  attempt.descriptor_distance = descriptor_distance;
+  attempt.converged = gicp_result.converged;
+  attempt.fitness = gicp_result.fitness;
+  attempt.rmse = gicp_result.rmse;
+  attempt.correspondences = gicp_result.num_correspondences;
+  attempt.accepted =
+      gicp_result.converged &&
+      gicp_result.fitness <= params_.loop_fitness_threshold &&
+      gicp_result.rmse <= params_.loop_rmse_threshold &&
+      gicp_result.num_correspondences >= params_.min_loop_correspondences;
+  loop_attempts_.push_back(attempt);
+  if (!attempt.accepted) {
     return false;
   }
 
@@ -455,8 +697,12 @@ void HdlGraphSlam::optimizePoseGraph() {
   }
 
   ceres::Solver::Options options;
-  options.linear_solver_type = ceres::DENSE_QR;
+  // A pose graph only connects neighbouring poses and sparse loop pairs.
+  // Dense QR becomes prohibitively expensive once a long sequence closes
+  // several loops, while the sparse normal equations preserve that structure.
+  options.linear_solver_type = ceres::SPARSE_NORMAL_CHOLESKY;
   options.max_num_iterations = 20;
+  options.num_threads = 4;
   options.minimizer_progress_to_stdout = false;
 
   ceres::Solver::Summary summary;
@@ -528,6 +774,11 @@ void HdlGraphSlam::clear() {
   last_keyframe_pose_.setIdentity();
   initialized_ = false;
   valid_frame_count_ = 0;
+  loop_candidate_detections_ = 0;
+  loop_registration_rejections_ = 0;
+  loop_candidate_distance_sum_ = 0.0;
+  loop_candidate_distance_min_ = std::numeric_limits<double>::infinity();
+  loop_attempts_.clear();
 }
 
 }  // namespace hdl_graph_slam

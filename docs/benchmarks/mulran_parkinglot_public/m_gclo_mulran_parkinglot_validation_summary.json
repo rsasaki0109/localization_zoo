@@ -1,5 +1,10 @@
 {
   "schema_version": 2,
+  "validity": {
+    "valid": false,
+    "reason": "Invalid evaluator frame: base/rear-wheel GT was mislabeled as lidar_pose. Historical mechanism artifact only.",
+    "corrected_reference_sha256": "9495e7cdeb4a95b58f823cb321440aaff99f3a0504f83afa4549e0f6ca8c1143"
+  },
   "benchmark": "mulran_parkinglot_public_validation",
   "generated_by": "evaluation/scripts/run_m_gclo_mulran_parkinglot_validation.py",
   "scope": {

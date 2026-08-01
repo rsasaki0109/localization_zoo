@@ -8,8 +8,10 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
+#include <algorithm>
 #include <cmath>
 #include <deque>
+#include <limits>
 #include <vector>
 
 namespace localization_zoo {
@@ -45,7 +47,11 @@ struct HdlGraphSlamParams {
   double floor_height = 0.0;
 
   double loop_fitness_threshold = 1.0;
+  double loop_rmse_threshold = 1.0;
   int min_loop_correspondences = 40;
+  int loop_submap_half_window = 0;
+  int min_loop_clusters_for_correction = 1;
+  int loop_cluster_keyframe_radius = 5;
 
   size_t descriptor_stride = 2;
   size_t loop_stride = 3;
@@ -67,16 +73,56 @@ struct HdlGraphSlamResult {
   size_t submap_points = 0;
 };
 
+struct HdlGraphSlamLoopAttempt {
+  int from = -1;
+  int to = -1;
+  double descriptor_distance = 0.0;
+  bool converged = false;
+  double fitness = std::numeric_limits<double>::infinity();
+  double rmse = std::numeric_limits<double>::infinity();
+  int correspondences = 0;
+  bool accepted = false;
+};
+
 class HdlGraphSlam {
 public:
   explicit HdlGraphSlam(const HdlGraphSlamParams& params = HdlGraphSlamParams());
 
   HdlGraphSlamResult process(const aloam::PointCloudConstPtr& cloud);
+  HdlGraphSlamResult processExternalOdometry(
+      const aloam::PointCloudConstPtr& cloud,
+      const Eigen::Matrix4d& odometry_pose);
+  std::vector<Eigen::Matrix4d> correctedExternalTrajectory(
+      const std::vector<Eigen::Matrix4d>& odometry_poses,
+      double correction_gain = 1.0) const;
   void clear();
 
   const Eigen::Matrix4d& pose() const { return pose_; }
   int numKeyframes() const { return static_cast<int>(keyframes_.size()); }
   int numLoopEdges() const { return static_cast<int>(loop_edges_.size()); }
+  int loopCandidateDetections() const { return loop_candidate_detections_; }
+  int loopRegistrationRejections() const {
+    return loop_registration_rejections_;
+  }
+  int numLoopClusters() const;
+  bool loopCorrectionEnabled() const {
+    return numLoopClusters() >=
+           std::max(1, params_.min_loop_clusters_for_correction);
+  }
+  double meanLoopCandidateDistance() const {
+    return loop_candidate_detections_ > 0
+               ? loop_candidate_distance_sum_ /
+                     static_cast<double>(loop_candidate_detections_)
+               : 0.0;
+  }
+  double minLoopCandidateDistance() const {
+    return loop_candidate_detections_ > 0
+               ? loop_candidate_distance_min_
+               : 0.0;
+  }
+  const std::vector<HdlGraphSlamLoopAttempt>& loopAttempts() const {
+    return loop_attempts_;
+  }
   size_t submapSize() const { return local_map_points_.size(); }
   bool initialized() const { return initialized_; }
 
@@ -94,6 +140,7 @@ private:
     std::vector<Eigen::Vector3d> world_points;
     std::vector<Eigen::Vector3d> descriptor_points;
     std::vector<Eigen::Vector3d> loop_points;
+    size_t frame_index = 0;
   };
 
   struct OdomEdge {
@@ -118,7 +165,8 @@ private:
                    const std::vector<Eigen::Vector3d>& map_points,
                    const std::vector<Eigen::Vector3d>& descriptor_points,
                    const std::vector<Eigen::Vector3d>& loop_points);
-  bool tryAddLoopEdge(int loop_index, int current_index);
+  bool tryAddLoopEdge(int loop_index, int current_index,
+                      double descriptor_distance);
   void optimizePoseGraph();
 
   static std::vector<Eigen::Vector3d> transformPoints(
@@ -144,6 +192,12 @@ private:
   Eigen::Matrix4d last_keyframe_pose_ = Eigen::Matrix4d::Identity();
   bool initialized_ = false;
   int valid_frame_count_ = 0;
+  int loop_candidate_detections_ = 0;
+  int loop_registration_rejections_ = 0;
+  double loop_candidate_distance_sum_ = 0.0;
+  double loop_candidate_distance_min_ =
+      std::numeric_limits<double>::infinity();
+  std::vector<HdlGraphSlamLoopAttempt> loop_attempts_;
 };
 
 }  // namespace hdl_graph_slam

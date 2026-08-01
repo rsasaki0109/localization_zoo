@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "candidate_id": "kiss_scan_context_pose_graph_gain005_v1",
+  "status": "experimental_rejected_cross_dataset_ate_regression",
+  "configuration_frozen": true,
+  "frozen_at": "2026-07-31",
+  "promoted": false,
+  "method": "kiss_pose_graph",
+  "gt_usage": "metrics_only",
+  "initialization": "first_pose_anchor_only",
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_kiss_modeldev_guard_v1.json",
+  "configuration": {
+    "frontend": "kiss_modeldev_p6_elevation_motion_guard_v1",
+    "keyframe_stride": 10,
+    "scan_context_threshold": 0.18,
+    "scan_context_recent_exclusion_keyframes": 30,
+    "scan_context_candidates": 5,
+    "loop_submap_half_window": 2,
+    "loop_gicp_max_correspondence_distance_m": 5.0,
+    "loop_gicp_max_iterations": 30,
+    "loop_max_euclidean_rmse_m": 1.0,
+    "loop_min_correspondences": 80,
+    "pose_graph_correction_gain": 0.05,
+    "floor_constraint": false,
+    "loop_detection_uses_ground_truth": false
+  },
+  "decision_rule": {
+    "development_target": "ATE improvement >= 3% with translational RPE regression <= 1%",
+    "runtime_gate": "algorithm_fps >= 10",
+    "promotion_requires": "no material cross-dataset ATE regression and a fresh held-out pass",
+    "decision": "reject universal promotion because NCLT ATE regressed 15.4%"
+  },
+  "development_results": [
+    {
+      "dataset": "kitti_odometry_05",
+      "frontend_ate_m": 7.807514,
+      "candidate_ate_m": 7.426877,
+      "ate_change_pct": -4.88,
+      "frontend_rpe_trans_pct": 0.412494,
+      "candidate_rpe_trans_pct": 0.414759,
+      "rpe_change_pct": 0.55,
+      "accepted_loops": 4,
+      "evidence": "${LOCALIZATION_ZOO_DATA_ROOT}/results/ate_development/kiss_pg_gain005_kitti05_full/stdout.log"
+    },
+    {
+      "dataset": "kitti_odometry_07",
+      "frontend_ate_m": 2.376,
+      "candidate_ate_m": 2.259,
+      "ate_change_pct": -4.92,
+      "frontend_rpe_trans_pct": 0.510,
+      "candidate_rpe_trans_pct": 0.515,
+      "rpe_change_pct": 0.98,
+      "accepted_loops": 1,
+      "evidence": "${LOCALIZATION_ZOO_DATA_ROOT}/results/ate_development/kiss_pg_gain005_kitti07_full/stdout.log"
+    }
+  ],
+  "transfer_results": [
+    {
+      "dataset": "mulran_parkinglot",
+      "frontend_ate_m": 4.251947,
+      "candidate_ate_m": 4.251765,
+      "frontend_rpe_trans_pct": 1.463634,
+      "candidate_rpe_trans_pct": 1.461672,
+      "algorithm_fps": 20.186857,
+      "accepted_loops": 4,
+      "decision": "safe_neutral",
+      "evidence": "${LOCALIZATION_ZOO_DATA_ROOT}/results/ate_transfer/kiss_pg_gain005_mulran_parkinglot_full/stdout.log"
+    },
+    {
+      "dataset": "nclt_2013_01_10",
+      "frontend_ate_m": 6.836127,
+      "candidate_ate_m": 7.887,
+      "ate_change_pct": 15.4,
+      "frontend_rpe_trans_pct": 2.374235,
+      "candidate_rpe_trans_pct": 2.300,
+      "rpe_change_pct": -3.1,
+      "algorithm_fps": 14.6645,
+      "accepted_loops": 1,
+      "decision": "reject_ate_regression",
+      "evidence": "${LOCALIZATION_ZOO_DATA_ROOT}/results/ate_transfer/kiss_pg_gain005_nclt_2013_01_10_full/stdout.log"
+    }
+  ],
+  "fresh_held_out": {
+    "declared_before_download_or_gt_inspection": true,
+    "dataset": "kitti_odometry_04",
+    "post_result_tuning": false,
+    "frames": 271,
+    "frontend_ate_m": 1.235650,
+    "candidate_ate_m": 1.235650,
+    "frontend_rpe_trans_pct": 0.353133,
+    "candidate_rpe_trans_pct": 0.353133,
+    "candidate_rpe_rot_deg_per_m": 0.003150,
+    "candidate_algorithm_fps": 12.087777,
+    "loop_candidates": 0,
+    "accepted_loops": 0,
+    "decision": "pass_no_false_correction",
+    "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/kiss_pg_gain005_kitti04_full/summary.json"
+  },
+  "fresh_held_out_baselines": [
+    {
+      "method": "mad_icp_0.0.10_official16",
+      "ate_m": 2.1435482621,
+      "rpe_trans_pct": 0.6037709172,
+      "rpe_rot_deg_per_m": 0.0037810441,
+      "algorithm_fps": 3.2440191420,
+      "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/baselines_kitti04/mad_icp_official16/zoo_manifest.json"
+    },
+    {
+      "method": "mola_lo_2.2.1_gicp",
+      "ate_m": 1.5579329875,
+      "rpe_trans_pct": 0.4793541737,
+      "rpe_rot_deg_per_m": 0.0024818874,
+      "end_to_end_fps": 3.1533403532,
+      "manifest": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/baselines_kitti04/mola_lo_gicp/zoo_manifest.json"
+    },
+    {
+      "method": "ct_icp_fast",
+      "ate_m": 47.886188,
+      "rpe_trans_pct": 7.140921,
+      "rpe_rot_deg_per_m": 0.049274,
+      "end_to_end_fps": 6.726309,
+      "summary": "${LOCALIZATION_ZOO_DATA_ROOT}/results/fresh_heldout/baselines_kitti04/ct_icp_fast/summary.json"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "candidate_id": "load_adaptive_reference_v9",
+  "status": "rejected_fresh_heldout_ate_gate",
+  "configuration_frozen": true,
+  "frozen_at": "2026-08-01",
+  "promoted": false,
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_speed_disagreement_adaptive_v8.json",
+  "gt_usage": "development_metrics_only",
+  "method": "v8_causal_rotation_fusion_with_load_adaptive_official_kiss_reference",
+  "mechanism": {
+    "accuracy_policy": "unchanged frozen v8 speed/disagreement rotation fusion",
+    "reference": "official KISS-ICP 1.3.0 default configuration except registration thread cap",
+    "thread_policy": "inspect only the first PCD schema",
+    "timestamped_or_small_scan": "8 threads when a time/t/timestamp field exists or POINTS <= 50000",
+    "large_untimestamped_scan": "4 threads when POINTS > 50000 and no timestamp field exists",
+    "dataset_name_used": false,
+    "ground_truth_used": false,
+    "future_frames_used": false
+  },
+  "development_results": [
+    {
+      "dataset": "kitti_raw_2011_09_26_drive_0019_sync",
+      "first_scan": "126085 points, no timestamp field",
+      "selected_threads": 4,
+      "reference_algorithm_fps": 13.9774827347,
+      "reference_ate_m": 11.4051115973,
+      "reference_rpe_trans_pct": 1.4534735538,
+      "fused_ate_m": 2.06278871009,
+      "fused_rpe_trans_pct": 0.972918324186,
+      "fused_sha256": "8ca6846732046304af4d325690c1b643cf5f54753b15beb189f394709aa7e43",
+      "finding": "4-thread v9 fusion is byte-identical to frozen eight-thread v8 while reference rate rises from 8.9736 to 13.9775 FPS"
+    },
+    {
+      "dataset": "mulran_parkinglot_full",
+      "first_scan": "40013 points with timestamp field",
+      "selected_threads": 8,
+      "reference_algorithm_fps": 10.526,
+      "fused_ate_m": 4.2391382511,
+      "fused_rpe_trans_pct": 1.4437114827,
+      "finding": "adaptive policy selects the established passing eight-thread configuration; fixed four-thread control reaches only 4.1829 FPS"
+    },
+    {
+      "dataset": "nclt_2013_01_10_full",
+      "first_scan": "24309 points, no timestamp field",
+      "selected_threads": 8,
+      "reference_algorithm_fps": 14.036,
+      "fused_ate_m": 7.8861149705,
+      "fused_rpe_trans_pct": 2.3038133766,
+      "finding": "adaptive policy selects the established passing eight-thread configuration"
+    }
+  ],
+  "rejected_runtime_controls": [
+    {
+      "dataset": "kitti_raw_2011_09_26_drive_0019_sync",
+      "threads": 16,
+      "algorithm_fps": 8.58088758964,
+      "decision": "reject excessive parallelism"
+    },
+    {
+      "dataset": "mulran_parkinglot_full",
+      "threads": 4,
+      "algorithm_fps": 4.18291623799,
+      "decision": "reject universal four-thread cap"
+    }
+  ],
+  "implementation_sha256": {
+    "evaluation/scripts/run_official_kiss_pcd_odometry.py": "2174beef487bf43cd7e999d0bc9ab504bdf22efa627ec1f3991ea25433c11b0e",
+    "evaluation/scripts/fuse_odometry_speed_adaptive_rotation.py": "709f89be4185c96b5f281d6556e25405bdbba905c01266e9ee6a570168349e51",
+    "tests/test_official_kiss_pcd_odometry.py": "ada414550b1a040abbd00b5b99e94a7f74344fa0147ac678cbe92fe4692c3b69",
+    "tests/test_speed_adaptive_rotation_fusion.py": "c35c7a822b508f48039b93c50917eea6ef5e2ba0d675bc2a3dc9150a09e516e0"
+  },
+  "tests": "13 passed",
+  "fresh_held_out_protocol": {
+    "declared_before_download_or_scan_or_gt_inspection": true,
+    "dataset": "kitti_raw_2011_09_26_drive_0022_sync",
+    "candidate_run_limit": "one full-sequence run after scan-only extraction",
+    "gt_isolation": "generate and hash v6 primary, adaptive official KISS reference, and frozen v9 trajectories before extracting OXTS or calibration",
+    "post_result_tuning": "forbidden",
+    "accuracy_gate": "v9 ATE must not regress versus v6; translational RPE may regress by at most 1% when 100 m segments exist",
+    "runtime_gate": "both frontends >=10 algorithm FPS",
+    "promotion_gate": "accuracy and runtime gates must pass without post-result tuning"
+  },
+  "fresh_held_out_result": {
+    "dataset": "kitti_raw_2011_09_26_drive_0022_sync",
+    "archive_bytes": 3409516068,
+    "archive_sha256": "ec227729d0bfba90a61ee0567d614ce19d1a3038501297a85355d9b4519b2f3c",
+    "velodyne_crc": "805 members passed",
+    "frames": 800,
+    "trajectory_length_m": 516.063805886,
+    "rpe_100m_segments": 601,
+    "trajectory_sha256_before_gt_extraction": {
+      "v6_primary": "f9adc5d215ed4eb4b2381f5a22d5a3aec00b4a24062e2521ee6d3e12ada32fff",
+      "adaptive_official_kiss": "d472feec4aa68e2d226b5d1a5808e51554f32c9c35ddfa589358520c511e4ce3",
+      "frozen_v9": "64ad27afdeefe08ef956292f50b930860dbdcdb96e19eb5b06325e31aaa8cdd4"
+    },
+    "reference_sha256_after_trajectory_freeze": "ea8a65d4e26de6d5da2170b328a1d2e006a5b4c91c59e03f1528aab6f6e81fcf",
+    "v6_primary": {
+      "ate_m": 4.01216580699,
+      "rpe_trans_pct": 1.62407904786,
+      "rpe_rot_deg_per_m": 0.00931796006,
+      "algorithm_fps": 22.814016825
+    },
+    "adaptive_official_kiss": {
+      "selected_threads": 4,
+      "first_scan_points": 126099,
+      "ate_m": 3.58777249956,
+      "rpe_trans_pct": 1.7644802982,
+      "rpe_rot_deg_per_m": 0.00972498366,
+      "algorithm_fps": 21.2765016499,
+      "end_to_end_fps": 13.1824598662
+    },
+    "frozen_v9": {
+      "ate_m": 4.149336099,
+      "ate_change_vs_v6_pct": 3.418859006,
+      "rpe_trans_pct": 1.59925368993,
+      "rpe_trans_change_vs_v6_pct": -1.528580641,
+      "rpe_rot_deg_per_m": 0.00876789948,
+      "rpe_rot_change_vs_v6_pct": -5.90322969,
+      "strong_candidates": 679,
+      "strong_corrections": 39,
+      "rate_limited_candidates": 640,
+      "orientation_clamps": 35
+    },
+    "runtime_gate": "pass",
+    "rpe_gate": "pass",
+    "ate_gate": "fail",
+    "post_result_tuning": false,
+    "decision": "reject promotion because ATE regressed 3.42% despite RPE and runtime improvements"
+  },
+  "next_gate": "do not promote or retune v9; drive 0022 is consumed development data for a materially new v10 accuracy policy"
+}

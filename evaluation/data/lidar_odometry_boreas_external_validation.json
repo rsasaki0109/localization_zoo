@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "completed_gt_isolated_external_transfer_pass_runtime_limitation",
+  "declared_at": "2026-08-01",
+  "dataset": {
+    "family": "Boreas",
+    "sequence": "boreas-2021-06-03-16-00",
+    "source": "s3://boreas",
+    "source_url": "https://www.boreas.utias.utoronto.ca/",
+    "selection": "first 600 lidar/*.bin objects in ascending timestamp order",
+    "environment": "normal summer urban driving",
+    "sensor": "Velodyne Alpha Prime 128-beam LiDAR",
+    "frames": 600
+  },
+  "candidate": "direction_consistent_rotation_v10",
+  "configuration": "frozen evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
+  "ground_truth_isolation": {
+    "scan_phase": "download only the selected lidar binary objects; do not download applanix or calibration",
+    "trajectory_phase": "generate and hash v6 primary, official KISS 1.3.0 reference, and frozen v10 trajectories against a synthetic identity reference",
+    "metric_phase": "download only applanix/lidar_poses.csv after all trajectory hashes are fixed",
+    "post_result_tuning": "forbidden"
+  },
+  "evaluation": {
+    "metrics": ["ATE RMSE m", "100 m translational RPE percent", "rotational RPE deg/m", "algorithm FPS"],
+    "comparison": "v10 versus its v6 primary and official KISS reference on the same 600 scans",
+    "interpretation": "external transfer validation; no promotion threshold or parameter selection is allowed"
+  },
+  "large_artifacts": "LOCALIZATION_ZOO_DATA_ROOT on external SSD",
+  "implementation_sha256": {
+    "fetch_boreas_window.py": "c03f6158caa6d1749ef8b6119b4ec52a60bbc1afbe477f7bb8815727e1d824de",
+    "prepare_boreas_window.py": "45efbc8b7046fd03722120e28d30a5cd06c7a646afe4cc02a596ce29edde04e2",
+    "boreas_lidar_poses_to_gt.py": "b71ae223ff3eef2ae7efb2f7bc78e468d59bd1fde8c46ade7486713036595ac0"
+  },
+  "result": {
+    "scan_bytes": 3084291600,
+    "scan_selection_sha256": "849dc000d514ab4ec3f52476434c55e3e1ce9e8b3e3adb1c237f479115daf4bc",
+    "scan_fetch_manifest_sha256": "24de0b31404db8ba752eaef16e747a4866749474738588a070f90bf0d2ecf7d9",
+    "conversion_manifest_sha256": "bdbe071266d3991c133bcf7e654b5055250af4fd1917acc6f70e40fe7afb8709",
+    "first_scan_key": "boreas-2021-06-03-16-00/lidar/1622750457399321.bin",
+    "last_scan_key": "boreas-2021-06-03-16-00/lidar/1622750519518818.bin",
+    "points": 128512150,
+    "trajectory_sha256_before_gt_download": {
+      "v6_primary": "c98c965f9ae984de8a285fd7e070123ffbebb1e53d0f2b35bc444dd8e432a4df",
+      "official_kiss_1.3.0": "58fcc6e496fe6151f4a3004d9f8a66116740c3de495ed3ce07cd709467a56a8d",
+      "frozen_v10": "fe494273d5af2565a0f54e8aa39ffdfc4365ad660295ee20b61ea7f3a79cb69a",
+      "synthetic_identity_reference": "5f5693f7501872d4bcd02aae03cb8a1095047402a5155b0d84ef6a18417e8e79"
+    },
+    "official_lidar_poses_sha256_after_trajectory_freeze": "e1222e242982142129eeebabaa38d70a6cb0afbd65554bb9ab81588cfef13bbb",
+    "gt_fetch_manifest_sha256": "87df680b750dbc5350c8af04e091c1aaf798dc8cc187fb5da12b224b07fac39b",
+    "gt_selection_sha256": "fb392e364b2cf9121ff561c1b36f7a264fec0545b150abff41e1fbd8997442b1",
+    "aligned_reference_sha256": "11414aca2d8548daa8ec362f13d57bcc4839a3bf44880f58e6519a69ecbcd315",
+    "trajectory_length_m": 390.481242186384,
+    "rpe_100m_segments": 478,
+    "v6_primary": {
+      "ate_m": 0.666102467686,
+      "rpe_trans_pct": 0.967008738497,
+      "rpe_rot_deg_per_m": 0.007758188120,
+      "algorithm_fps": 35.881948,
+      "end_to_end_fps": 4.918296,
+      "motion_guard_rejections": 0,
+      "adaptive_motion_guard_acceptances": 0
+    },
+    "official_kiss_1.3.0": {
+      "ate_m": 0.390698429740,
+      "rpe_trans_pct": 0.952050413018,
+      "rpe_rot_deg_per_m": 0.007703631386,
+      "algorithm_fps": 3.298611646124,
+      "end_to_end_fps": 2.559415155384,
+      "selected_threads": 8,
+      "first_scan_points": 208413
+    },
+    "frozen_v10": {
+      "ate_m": 0.663388286789,
+      "ate_change_vs_v6_pct": -0.407471977436,
+      "rpe_trans_pct": 0.966037433148,
+      "rpe_trans_change_vs_v6_pct": -0.100444319741,
+      "rpe_rot_deg_per_m": 0.007759128872,
+      "rpe_rot_change_vs_v6_pct": 0.012125926660,
+      "sequential_combined_algorithm_fps": 3.020901163672
+    },
+    "tracking_gate": "pass_600_of_600",
+    "accuracy_transfer": "pass_small_improvement_in_ate_and_translational_rpe_without_tuning",
+    "runtime": "limitation_official_reference_below_10_fps_on_208k_point_scans",
+    "post_result_tuning": false
+  }
+}

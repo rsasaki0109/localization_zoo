@@ -116,6 +116,18 @@ target_link_libraries(pcd_dogfooding PRIVATE
   clins
   ${PCL_LIBRARIES}
 )
+
+add_executable(kiss_bin_odometry src/kiss_bin_odometry.cpp)
+target_link_libraries(kiss_bin_odometry PRIVATE kiss_icp Eigen3::Eigen)
+
+add_executable(kiss_bin_pose_graph src/kiss_bin_pose_graph.cpp)
+target_link_libraries(kiss_bin_pose_graph PRIVATE
+  hdl_graph_slam
+  kiss_icp
+  Eigen3::Eigen
+  ${PCL_LIBRARIES}
+)
+target_include_directories(kiss_bin_pose_graph PRIVATE ${PCL_INCLUDE_DIRS})
 target_include_directories(pcd_dogfooding PRIVATE ${PCL_INCLUDE_DIRS})
 
 add_executable(kiss_pair_odometry src/kiss_pair_odometry.cpp)

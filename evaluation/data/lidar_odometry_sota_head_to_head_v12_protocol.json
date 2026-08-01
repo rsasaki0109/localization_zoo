@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "protocol_id": "lidar_odometry_sota_head_to_head_v12",
+  "status": "frozen_before_v12_candidate_search",
+  "frozen_at": "2026-08-01",
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
+  "candidate_search_started": true,
+  "candidate_search_started_at": "2026-08-01",
+  "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
+  "current_candidate_stage": "runtime_feasible_reference_v14_promoted_all_gates_passed_draft_pr_open",
+  "candidate_results": {
+    "frozen_v10_kitti_odometry_07": {
+      "status": "fails_cube_lio_ate_gate",
+      "evidence": "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json",
+      "next": "GT-free causal translation fusion using v6 local increments and official KISS low-frequency anchoring"
+    },
+    "causal_local_increment_midpoint_v11_kitti_odometry_07": {
+      "status": "passes_cube_lio_row_after_trajectory_freeze",
+      "evidence": "evaluation/data/lidar_odometry_candidate_causal_local_increment_midpoint_v11.json",
+      "next": "run frozen candidate once on unconsumed KITTI 00 before any further tuning"
+    },
+    "causal_local_increment_midpoint_v11_kitti_odometry_00": {
+      "status": "fails_cube_lio_ate_and_rpe_gates_after_frozen_scoring",
+      "evidence": "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json",
+      "next": "KITTI 00 is now consumed development; continue GT-free causal correction development and reserve a new normal-environment row for external evaluation"
+    },
+    "causal_pose_graph_v12_kitti_odometry_00": {
+      "status": "active_non_dominated_frontier_has_separate_ate_and_rpe_wins_but_no_joint_pass",
+      "evidence": "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json",
+      "next": "improve primary frontend local registration, then retain the GT-free robust causal rotation correction; map-frame translation transfer is rejected"
+    },
+    "dynamic_voxel_radius_kitti_odometry_00": {
+      "status": "max60_native_pose_graph_passes_ate_rpe_tracking_and_fps",
+      "evidence": "evaluation/data/lidar_odometry_dynamic_voxel_radius_kitti00_v12.json",
+      "next": "combine with the frozen v11 fallback through the GT-free loop-support selector"
+    },
+    "gt_free_loop_support_adaptive_v12": {
+      "status": "passes_cube_lio_and_fast_livo2_tracks_but_failed_untouched_kitti05_rpe_gate",
+      "evidence": "evaluation/data/lidar_odometry_candidate_gt_free_loop_support_v12.json",
+      "external_evidence": "evaluation/data/lidar_odometry_external_kitti05_v12.json",
+      "next": "GT-free failure profiling and candidate development on consumed KITTI 00/07, followed by a newly declared untouched normal-environment row"
+    },
+    "corroborated_rotation_majority_v13": {
+      "status": "cube_lio_and_fast_livo2_tracks_pass; untouched Boreas accuracy passes but runtime fails; no promotion",
+      "evidence": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
+      "external_evidence": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_v13.json",
+      "next": "profile the consumed runtime failure without changing v13"
+    },
+    "runtime_feasible_reference_v14": {
+      "status": "promoted after KITTI 00/07, official FAST-LIVO2 three-row, and untouched Boreas external gates all passed",
+      "implementation_freeze_commit": "7138241b",
+      "evidence": "evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json",
+      "promotion_audit": "evaluation/data/lidar_odometry_v14_promotion_audit.json",
+      "next": "review Draft PR 64; no benchmark gate remains"
+    }
+  },
+  "ground_truth_policy": {
+    "candidate_runtime_access": "forbidden",
+    "development_selection": "GT-free diagnostics and runtime only",
+    "trajectory_freeze": "hash every candidate and comparator trajectory before scoring",
+    "scoring": "GT may be mounted only after the selected trajectory is frozen",
+    "post_external_tuning": "forbidden"
+  },
+  "measurement_policy": {
+    "host": "same physical host and WSL environment for paired runs",
+    "scheduling": "one odometry process at a time with identical CPU affinity",
+    "repetitions": 3,
+    "reported_runtime": "median of three full-sequence runs from one byte-identical tmpfs staging copy",
+    "input_staging": "persistent data stays on the external SSD; copy sensor input to tmpfs and verify its frozen per-file SHA-256 manifest before timing; exclude staging time",
+    "fps": "processed sensor frames divided by algorithm wall time",
+    "memory": "peak resident set size in MiB from /usr/bin/time -v",
+    "accuracy": "first-pose anchor only; no trajectory alignment; 100 m KITTI-style RPE segments",
+    "tracking": "finite output poses divided by declared input frames"
+  },
+  "storage_staging": {
+    "status": "byte_identical_verified",
+    "evidence": "evaluation/data/kitti_ssd_ext4_staging_v12.json",
+    "policy": "benchmark data remains physically on the external SSD; timed comparator and candidate runs use the same manifest-verified transient tmpfs copy so storage I/O cannot dominate algorithm timing"
+  },
+  "cube_lio_track": {
+    "comparator": "repository CUBE-LIO from-slide reproduction",
+    "implementation_commit": "94add2d2defd17256164c94017c54b7e360eeee2",
+    "baseline_rerun_required": true,
+    "datasets": {
+      "kitti_odometry_00": {
+        "role": "consumed_candidate_development_direct_comparison",
+        "role_change_reason": "the frozen v11 candidate was scored and failed on this row; all later v12 pose-graph candidates were frozen before scoring but this row is no longer external validation",
+        "frames": 4541,
+        "provisional_baseline": {
+          "ate_m": 8.581195,
+          "rpe_trans_pct": 0.851195,
+          "rpe_rot_deg_per_m": 0.006636,
+          "tracking_success_rate": 1.0,
+          "fps": 1.652029
+        },
+        "direct_rerun": {
+          "status": "complete_external_ssd_to_tmpfs_three_run_median",
+          "ate_m": 9.04430252500857,
+          "rpe_trans_pct": 0.8798334017400419,
+          "rpe_rot_deg_per_m": 0.006843923423662427,
+          "tracking_success_rate": 1.0,
+          "fps": 6.554604596956977,
+          "peak_rss_mb": 48.16015625,
+          "evidence": "evaluation/data/cube_lio_kitti00_direct_rerun_v12.json"
+        },
+        "source": "docs/benchmarks/kitti_full_new_methods/seq00_cube_lio.json",
+        "source_sha256": "3001b55d4843f06b7f4e66a8b1852414380ce765c2cb98f4d7323b2fde87b661"
+      },
+      "kitti_odometry_07": {
+        "role": "consumed_candidate_development_direct_comparison",
+        "role_change_reason": "v10 and two structural fusion failures were externally scored on this row before v11 was frozen; KITTI 00 remains unconsumed validation",
+        "frames": 1101,
+        "direct_rerun": {
+          "status": "complete_external_ssd_to_tmpfs_three_run_median",
+          "ate_m": 1.6454257491191604,
+          "rpe_trans_pct": 0.6238668812159914,
+          "rpe_rot_deg_per_m": 0.00515398807803977,
+          "tracking_success_rate": 1.0,
+          "fps": 9.6524570366857,
+          "peak_rss_mb": 45.19921875,
+          "evidence": "evaluation/data/cube_lio_kitti07_direct_rerun_v12.json"
+        },
+        "provisional_baseline": {
+          "ate_m": 0.901035,
+          "rpe_trans_pct": 0.608097,
+          "rpe_rot_deg_per_m": 0.005093,
+          "tracking_success_rate": 1.0,
+          "fps": 1.542818
+        },
+        "source": "docs/benchmarks/kitti_full_new_methods/seq07_cube_lio.json",
+        "source_sha256": "4e90b35398db74cdbd73010cfb3aa38a332db771e6953ef5995a095ccb752d53"
+      }
+    },
+    "baseline_rerun_status": "kitti_odometry_00_and_07_complete_under_manifest_verified_tmpfs_policy",
+    "win_gate": {
+      "required_rows": ["kitti_odometry_00", "kitti_odometry_07"],
+      "candidate_ate_strictly_lower_each_row": true,
+      "candidate_rpe_trans_strictly_lower_each_row": true,
+      "candidate_tracking_success_rate_each_row": 1.0,
+      "candidate_fps_at_least_each_row": 10.0
+    }
+  },
+  "fast_livo2_track": {
+    "comparator": "official hku-mars/FAST-LIVO2",
+    "repository": "https://github.com/hku-mars/FAST-LIVO2.git",
+    "implementation_commit": "0d2c0346107b75b59934975adec9a6eeeb913c64",
+    "license": "GPL-2.0",
+    "external_checkout": "${LOCALIZATION_ZOO_DATA_ROOT}/third_party/FAST-LIVO2",
+    "configuration": "config/NTU_VIRAL.yaml and config/camera_NTU_VIRAL.yaml",
+    "dataset_provenance": {
+      "source_page": "https://ntu-aris.github.io/ntu_viral_dataset/",
+      "download_host": "https://researchdata.ntu.edu.sg/",
+      "archive_handling": "download into GT quarantine; expose only extracted sensor topics to candidate runtime",
+      "quarantine_root": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/ntu_viral_quarantine",
+      "candidate_sensor_root": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/ntu_viral_sensor_only"
+    },
+    "datasets_declared_before_download": {
+      "ntu_viral_eee_01": {
+        "role": "development_runtime_and_GT_free_diagnostics",
+        "archive_size_gb": 8.7,
+        "environment": "normal central carpark",
+        "archive_url": "https://researchdata.ntu.edu.sg/api/access/datafile/68133"
+      },
+      "ntu_viral_eee_02": {
+        "role": "frozen_validation",
+        "archive_size_gb": 7.0,
+        "environment": "normal central carpark",
+        "archive_url": "https://researchdata.ntu.edu.sg/api/access/datafile/68131"
+      },
+      "ntu_viral_eee_03": {
+        "role": "untouched_external_evaluation",
+        "archive_size_gb": 4.3,
+        "environment": "normal central carpark",
+        "archive_url": "https://researchdata.ntu.edu.sg/api/access/datafile/68132"
+      }
+    },
+    "dataset_access_audit": {
+      "recorded_at": "2026-08-01",
+      "original_eee01": "downloaded completely from the declared NTU Research Data URL and used for the first development row",
+      "original_eee02_and_eee03": "the declared host repeatedly terminated each response near 50 MiB and ignored explicit HTTP Range requests; partial archives remain quarantined and were not used",
+      "documented_upstream_fallback": "the NTU dataset page recommends OneDrive after interrupted downloads, but that route required an interactive Microsoft login during this run",
+      "eee03_substitution": {
+        "source": "https://huggingface.co/datasets/justyx404/ntu-viral-extracted",
+        "license": "CC-BY-NC-SA-4.0",
+        "contents": "public extracted eee_03 LiDAR, IMU, and separate GT; images are unavailable",
+        "role": "development row replacing the unavailable frozen-validation download, not untouched external evaluation",
+        "runtime_isolation": "a sensor-only ROS bag was rebuilt from LiDAR and IMU binaries; GT stayed in quarantine and was used only after trajectory freeze",
+        "official_mode": "the byte-identical official FAST-LIVO2 binary and official NTU parameters were used with img_en disabled because the derivative has no images",
+        "evidence": "evaluation/data/fast_livo2_official_ntu_viral_eee03_v12.json"
+      },
+      "third_development_row": {
+        "dataset": "HILTI 2022 Exp14 Basement 2",
+        "source": "https://hilti-challenge.com/dataset-2022",
+        "environment": "normal indoor basement",
+        "role": "third public development comparison row",
+        "status": "complete_and_passing",
+        "evidence": "evaluation/data/fast_livo2_official_hilti22_exp14_v12.json"
+      },
+      "untouched_external_evaluation": "reserved as a separate later normal-environment row after all development choices are frozen"
+    },
+    "completed_rows": {
+      "ntu_viral_eee_01": "evaluation/data/fast_livo2_official_ntu_viral_eee01_v12.json",
+      "ntu_viral_eee_03_extracted_lio": "evaluation/data/fast_livo2_official_ntu_viral_eee03_v12.json",
+      "hilti22_exp14_basement_2": "evaluation/data/fast_livo2_official_hilti22_exp14_v12.json"
+    },
+    "three_row_summary": "evaluation/data/fast_livo2_three_row_summary_v12.json",
+    "baseline_status": "three_public accuracy rows and three-run timing medians complete and passing; first untouched external evaluation failed candidate RPE and is consumed",
+    "win_gate": {
+      "minimum_rows": 3,
+      "candidate_median_ate_ratio_below": 1.0,
+      "candidate_median_rpe_trans_ratio_below": 1.0,
+      "maximum_per_row_ate_ratio": 1.03,
+      "maximum_per_row_rpe_trans_ratio": 1.03,
+      "candidate_tracking_not_below_comparator_each_row": true,
+      "candidate_aggregate_fps_at_least": 10.0
+    }
+  },
+  "untouched_external_evaluation": {
+    "declared_at": "2026-08-02",
+    "dataset": "KITTI Odometry 05",
+    "environment": "normal urban and residential driving",
+    "role": "untouched normal-environment external evaluation after all candidate and selector thresholds were frozen",
+    "frames": 2761,
+    "sensor_path": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/sequences/05/velodyne",
+    "ground_truth_path": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/poses/05.txt",
+    "ground_truth_runtime_access": "forbidden until candidate and comparator trajectories are hashed",
+    "comparators": ["CUBE-LIO repository reproduction"],
+    "candidate": "frozen v12 frontend plus GT-free loop-support and correction-envelope selector",
+    "status": "failed_rpe_consumed_no_promotion",
+    "evidence": "evaluation/data/lidar_odometry_external_kitti05_v12.json",
+    "result": {
+      "candidate_ate_ratio_over_cube_lio": 0.9241042873342379,
+      "candidate_rpe_trans_ratio_over_cube_lio": 1.1169100952035866,
+      "candidate_tracking_success_rate": 1.0,
+      "candidate_fps": 10.583309456876043,
+      "external_gate_passed": false
+    },
+    "post_failure_candidate": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
+    "post_failure_replay": "v13 passes KITTI 05 numeric gates, but the row remains consumed and cannot satisfy the untouched external gate",
+    "next_external_row": "not yet declared; v13 is now frozen and the next commit must declare the row before runtime"
+  },
+  "untouched_external_evaluation_v13": {
+    "declared_at": "2026-08-02",
+    "dataset": "Boreas boreas-2021-09-02-11-42 first 600 LiDAR scans",
+    "environment": "normal outdoor urban driving",
+    "role": "new untouched normal-environment external evaluation after v13 freeze",
+    "frames": 600,
+    "candidate": "corroborated_rotation_majority_v13 at commit 1f6323d2",
+    "comparators": [
+      "CUBE-LIO repository reproduction"
+    ],
+    "ground_truth_runtime_access": "forbidden until candidate and comparator trajectories are hashed",
+    "status": "failed_runtime_consumed_no_promotion",
+    "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
+    "evidence": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_v13.json",
+    "post_result_tuning": "forbidden for v13; the row is consumed for later failure analysis",
+    "result": {
+      "candidate_ate_ratio_over_cube_lio": 0.22438858051128455,
+      "candidate_rpe_trans_ratio_over_cube_lio": 0.5830096112914713,
+      "candidate_tracking_success_rate": 1.0,
+      "candidate_fps": 5.61628893376985,
+      "external_gate_passed": false
+    },
+    "next": "develop a runtime-feasibility fallback on consumed rows, freeze it, then declare a different untouched normal-environment row before runtime"
+  },
+  "untouched_external_evaluation_v14": {
+    "declared_at": "2026-08-02",
+    "dataset": "Boreas boreas-2021-09-07-09-35 first 600 LiDAR scans",
+    "environment": "normal outdoor urban driving",
+    "role": "new untouched normal-environment external evaluation after v14 freeze",
+    "frames": 600,
+    "candidate": "runtime_feasible_reference_v14 at commit 0b788eca",
+    "comparators": [
+      "CUBE-LIO repository reproduction"
+    ],
+    "ground_truth_runtime_access": "forbidden until candidate and comparator trajectories are hashed",
+    "status": "passed_all_external_numeric_gates",
+    "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_declaration_v14.json",
+    "evidence": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_v14.json",
+    "post_result_tuning": "forbidden",
+    "result": {
+      "candidate_ate_ratio_over_cube_lio": 0.8515270024894677,
+      "candidate_rpe_trans_ratio_over_cube_lio": 0.8326638256640613,
+      "candidate_tracking_success_rate": 1.0,
+      "candidate_fps": 18.11164769880325,
+      "external_gate_passed": true
+    }
+  },
+  "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation",
+  "publication": {
+    "draft_pr": "https://github.com/rsasaki0109/localization_zoo/pull/64",
+    "state": "draft",
+    "unrelated_worktree_changes_included": false
+  }
+}

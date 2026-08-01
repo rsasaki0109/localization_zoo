@@ -41,6 +41,7 @@ def parse_args() -> argparse.Namespace:
             "first_correction_bias_rate",
             "causal_correction_bias_rate_updates",
             "causal_interval_bias_rate_updates",
+            "causal_interval_rotation_first_translation_latch",
             "causal_interval_consensus_rotation_bias",
             "causal_interval_yaw_consensus_bias",
             "causal_interval_robust_rotation_bias",
@@ -414,6 +415,7 @@ def apply_causal_interval_correction_as_bias_rate(
     bias_update_threshold: float = 0.01,
     bias_translation_gain: float = 1.0,
     bias_rotation_gain: float = 1.0,
+    latch_first_translation: bool = False,
 ) -> list[np.ndarray]:
     """Learn future drift from each correction increment since the last loop."""
     if len(raw) != len(corrected):
@@ -431,6 +433,7 @@ def apply_causal_interval_correction_as_bias_rate(
     rotation_axis_bias = np.array([1.0, 0.0, 0.0])
     rotation_bias_per_m = 0.0
     last_accepted_correction = np.eye(4)
+    translation_latched = False
     for index in range(1, len(raw)):
         raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
         distance = float(np.linalg.norm(raw_increment[:3, 3]))
@@ -461,6 +464,9 @@ def apply_causal_interval_correction_as_bias_rate(
             increment_angle,
         )
         if distance_since_update > 1e-9 and update_size > bias_update_threshold:
+            if latch_first_translation and not translation_latched:
+                output[-1][:3, 3] += target[:3, 3]
+                translation_latched = True
             translation_bias_per_m = (
                 correction_increment[:3, 3] / distance_since_update
             )
@@ -1068,6 +1074,15 @@ def main() -> int:
             bias_update_threshold=args.bias_update_threshold,
             bias_translation_gain=args.bias_translation_gain,
             bias_rotation_gain=args.bias_rotation_gain,
+        )
+    elif args.integration_policy == "causal_interval_rotation_first_translation_latch":
+        output = apply_causal_interval_correction_as_bias_rate(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+            bias_translation_gain=0.0,
+            bias_rotation_gain=1.0,
+            latch_first_translation=True,
         )
     elif args.integration_policy == "causal_interval_consensus_rotation_bias":
         output = apply_causal_interval_consensus_rotation_bias(

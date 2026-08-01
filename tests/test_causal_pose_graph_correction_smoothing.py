@@ -207,6 +207,20 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
         np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
 
+    def test_first_translation_latch_is_applied_once(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0), pose(3.0)]
+        corrected = [pose(0.0), pose(1.0), pose(3.0), pose(5.0)]
+        output = MODULE.apply_causal_interval_correction_as_bias_rate(
+            raw,
+            corrected,
+            bias_translation_gain=0.0,
+            bias_rotation_gain=0.0,
+            latch_first_translation=True,
+        )
+        self.assertAlmostEqual(output[1][0, 3], 1.0, places=12)
+        self.assertAlmostEqual(output[2][0, 3], 3.0, places=12)
+        self.assertAlmostEqual(output[3][0, 3], 4.0, places=12)
+
     def test_interval_consensus_amplifies_agreeing_rotation_axes(self) -> None:
         raw = [pose(float(i), 0.0) for i in range(6)]
         corrected = [

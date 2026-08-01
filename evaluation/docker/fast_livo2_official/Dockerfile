@@ -33,6 +33,16 @@ RUN git clone https://github.com/strasdat/Sophus.git /tmp/Sophus \
     && cmake --install /tmp/Sophus/build \
     && rm -rf /tmp/Sophus
 
+# This pinned pre-package-config Sophus revision installs headers and the
+# shared library but no SophusConfig.cmake. Export only their installed paths;
+# FAST-LIVO2 and rpg_vikit sources remain byte-identical to upstream.
+RUN mkdir -p /usr/local/lib/cmake/Sophus \
+    && printf '%s\n' \
+       'set(Sophus_FOUND TRUE)' \
+       'set(Sophus_INCLUDE_DIRS "/usr/local/include")' \
+       'set(Sophus_LIBRARIES "/usr/local/lib/libSophus.so")' \
+       > /usr/local/lib/cmake/Sophus/SophusConfig.cmake
+
 RUN mkdir -p /opt/fast_livo2_ws/src \
     && git clone https://github.com/xuankuzcr/rpg_vikit.git /opt/fast_livo2_ws/src/rpg_vikit \
     && git -C /opt/fast_livo2_ws/src/rpg_vikit checkout "${RPG_VIKIT_COMMIT}" \

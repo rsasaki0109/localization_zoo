@@ -21,6 +21,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--method", required=True)
     parser.add_argument("--lidar-frames", type=int, required=True)
     parser.add_argument("--runtime-seconds", type=float)
+    parser.add_argument(
+        "--alignment", choices=("se3", "first_position"), default="se3"
+    )
     parser.add_argument("--segment-length", type=float, default=100.0)
     parser.add_argument("--max-gt-gap", type=float, default=0.2)
     return parser.parse_args()
@@ -103,6 +106,23 @@ def rmse(values: np.ndarray) -> float:
     return float(np.sqrt(np.mean(np.square(values))))
 
 
+def rigid_align_positions(
+    estimated: np.ndarray, gt: np.ndarray
+) -> tuple[np.ndarray, np.ndarray]:
+    """Align positions by one rotation and translation, never by scale."""
+    estimated_centered = estimated - np.mean(estimated, axis=0)
+    gt_centered = gt - np.mean(gt, axis=0)
+    left, _, right_transpose = np.linalg.svd(
+        estimated_centered.T @ gt_centered
+    )
+    rotation = left @ right_transpose
+    if np.linalg.det(rotation) < 0.0:
+        left[:, -1] *= -1.0
+        rotation = left @ right_transpose
+    aligned = estimated_centered @ rotation + np.mean(gt, axis=0)
+    return aligned, rotation
+
+
 def segment_rpe_percent(
     estimated: np.ndarray, gt: np.ndarray, segment_length: float
 ) -> np.ndarray:
@@ -133,8 +153,14 @@ def main() -> int:
         estimate_stamps, gt_stamps, gt_positions, args.max_gt_gap
     )
     associated_estimate = estimate_positions[indices]
-    associated_estimate = associated_estimate - associated_estimate[0]
-    interpolated_gt = interpolated_gt - interpolated_gt[0]
+    alignment_rotation = np.eye(3)
+    if args.alignment == "se3":
+        associated_estimate, alignment_rotation = rigid_align_positions(
+            associated_estimate, interpolated_gt
+        )
+    else:
+        associated_estimate = associated_estimate - associated_estimate[0]
+        interpolated_gt = interpolated_gt - interpolated_gt[0]
     ate_errors = np.linalg.norm(associated_estimate - interpolated_gt, axis=1)
     rpe_errors = segment_rpe_percent(
         associated_estimate, interpolated_gt, args.segment_length
@@ -147,7 +173,13 @@ def main() -> int:
         "gt_csv": str(args.gt_csv),
         "gt_sha256": sha256_file(args.gt_csv),
         "protocol": {
-            "alignment": "first common position anchor only",
+            "alignment": (
+                "one rigid rotation and translation without scale"
+                if args.alignment == "se3"
+                else "first common position anchor only"
+            ),
+            "alignment_rotation": alignment_rotation.tolist(),
+            "alignment_scale": 1.0,
             "gt_interpolation": "linear between bracketing Leica timestamps",
             "max_gt_gap_s": args.max_gt_gap,
             "segment_length_m": args.segment_length,

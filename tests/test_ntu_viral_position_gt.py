@@ -38,6 +38,17 @@ class NtuViralPositionGtTests(unittest.TestCase):
         errors = MODULE.segment_rpe_percent(estimated, gt, 100.0)
         np.testing.assert_allclose(errors, 1.0)
 
+    def test_rigid_alignment_recovers_rotation_without_scale(self) -> None:
+        gt = np.array(
+            [[0.0, 0.0, 0.0], [2.0, 0.0, 0.0], [2.0, 1.0, 1.0]]
+        )
+        rotation = np.array(
+            [[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+        )
+        estimated = gt @ rotation + np.array([4.0, -3.0, 2.0])
+        aligned, _ = MODULE.rigid_align_positions(estimated, gt)
+        np.testing.assert_allclose(aligned, gt, atol=1e-12)
+
 
 if __name__ == "__main__":
     unittest.main()

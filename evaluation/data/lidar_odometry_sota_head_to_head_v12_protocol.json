@@ -4,7 +4,9 @@
   "status": "frozen_before_v12_candidate_search",
   "frozen_at": "2026-08-01",
   "parent_candidate": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
-  "candidate_search_started": false,
+  "candidate_search_started": true,
+  "candidate_search_started_at": "2026-08-01",
+  "candidate_stage": "frozen_v10_same_input_rerun_before_any_v12_tuning",
   "ground_truth_policy": {
     "candidate_runtime_access": "forbidden",
     "development_selection": "GT-free diagnostics and runtime only",

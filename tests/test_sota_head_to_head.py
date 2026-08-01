@@ -43,9 +43,13 @@ class SotaHeadToHeadTests(unittest.TestCase):
         cls.protocol = json.loads(PROTOCOL.read_text(encoding="utf-8"))
         cls.module = load_module()
 
-    def test_protocol_is_frozen_before_candidate_search(self):
+    def test_protocol_was_frozen_before_candidate_search_started(self):
         self.assertEqual(self.protocol["status"], "frozen_before_v12_candidate_search")
-        self.assertFalse(self.protocol["candidate_search_started"])
+        self.assertTrue(self.protocol["candidate_search_started"])
+        self.assertEqual(
+            self.protocol["candidate_stage"],
+            "frozen_v10_same_input_rerun_before_any_v12_tuning",
+        )
         self.assertEqual(
             set(self.protocol["cube_lio_track"]["win_gate"]["required_rows"]),
             {"kitti_odometry_00", "kitti_odometry_07"},

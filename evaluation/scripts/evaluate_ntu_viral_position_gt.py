@@ -16,7 +16,9 @@ import numpy as np
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--trajectory", type=Path, required=True)
-    parser.add_argument("--gt-csv", type=Path, required=True)
+    gt = parser.add_mutually_exclusive_group(required=True)
+    gt.add_argument("--gt-csv", type=Path)
+    gt.add_argument("--gt-tum", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--method", required=True)
     parser.add_argument("--lidar-frames", type=int, required=True)
@@ -71,6 +73,10 @@ def load_gt_positions(path: Path) -> tuple[np.ndarray, np.ndarray]:
     if len(stamps) < 2:
         raise ValueError("GT must contain at least two positions")
     return np.asarray(stamps), np.asarray(positions)
+
+
+def load_gt_tum_positions(path: Path) -> tuple[np.ndarray, np.ndarray]:
+    return load_tum_positions(path)
 
 
 def interpolate_gt(
@@ -148,7 +154,12 @@ def segment_rpe_percent(
 def main() -> int:
     args = parse_args()
     estimate_stamps, estimate_positions = load_tum_positions(args.trajectory)
-    gt_stamps, gt_positions = load_gt_positions(args.gt_csv)
+    gt_path = args.gt_csv if args.gt_csv is not None else args.gt_tum
+    gt_stamps, gt_positions = (
+        load_gt_positions(gt_path)
+        if args.gt_csv is not None
+        else load_gt_tum_positions(gt_path)
+    )
     indices, interpolated_gt = interpolate_gt(
         estimate_stamps, gt_stamps, gt_positions, args.max_gt_gap
     )
@@ -170,8 +181,9 @@ def main() -> int:
         "method": args.method,
         "trajectory": str(args.trajectory),
         "trajectory_sha256": sha256_file(args.trajectory),
-        "gt_csv": str(args.gt_csv),
-        "gt_sha256": sha256_file(args.gt_csv),
+        "gt_path": str(gt_path),
+        "gt_format": "leica_position_csv" if args.gt_csv is not None else "tum_position_columns",
+        "gt_sha256": sha256_file(gt_path),
         "protocol": {
             "alignment": (
                 "one rigid rotation and translation without scale"
@@ -180,10 +192,10 @@ def main() -> int:
             ),
             "alignment_rotation": alignment_rotation.tolist(),
             "alignment_scale": 1.0,
-            "gt_interpolation": "linear between bracketing Leica timestamps",
+            "gt_interpolation": "linear between bracketing GT timestamps",
             "max_gt_gap_s": args.max_gt_gap,
             "segment_length_m": args.segment_length,
-            "rotation_rpe": "unavailable because Leica GT is position-only",
+            "rotation_rpe": "not evaluated; this protocol uses GT position columns only",
         },
         "metrics": {
             "trajectory_poses": len(estimate_stamps),

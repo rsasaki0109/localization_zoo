@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $# -lt 2 || $# -gt 3 ]]; then
-  echo "usage: run_official_fast_livo2_ntu_bag.sh SENSOR_ONLY_BAG OUTPUT_DIR [PLAYBACK_RATE]" >&2
+if [[ $# -lt 2 || $# -gt 4 ]]; then
+  echo "usage: run_official_fast_livo2_ntu_bag.sh SENSOR_ONLY_BAG OUTPUT_DIR [PLAYBACK_RATE] [livo|lio]" >&2
   exit 2
 fi
 
 bag_path=$1
 output_dir=$2
 playback_rate=${3:-1.0}
+sensor_mode=${4:-livo}
+if [[ "${sensor_mode}" != "livo" && "${sensor_mode}" != "lio" ]]; then
+  echo "sensor mode must be livo or lio" >&2
+  exit 2
+fi
 official_result_dir=/opt/fast_livo2_ws/src/FAST-LIVO2/Log/result
 official_trajectory=${official_result_dir}/eee_01.txt
 
@@ -54,8 +59,16 @@ if ! rosparam list >/dev/null 2>&1; then
   exit 1
 fi
 
-roslaunch fast_livo mapping_ouster_ntu.launch rviz:=false \
-  >"${output_dir}/fast_livo2.log" 2>&1 &
+if [[ "${sensor_mode}" == "lio" ]]; then
+  rosparam load /opt/fast_livo2_ws/src/FAST-LIVO2/config/NTU_VIRAL.yaml
+  rosparam set /common/img_en 0
+  rosparam load /opt/fast_livo2_ws/src/FAST-LIVO2/config/camera_NTU_VIRAL.yaml /laserMapping
+  rosrun fast_livo fastlivo_mapping __name:=laserMapping \
+    >"${output_dir}/fast_livo2.log" 2>&1 &
+else
+  roslaunch fast_livo mapping_ouster_ntu.launch rviz:=false \
+    >"${output_dir}/fast_livo2.log" 2>&1 &
+fi
 launch_pid=$!
 for _ in $(seq 1 120); do
   if rosnode list 2>/dev/null | grep -qx '/laserMapping'; then

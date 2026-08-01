@@ -160,7 +160,34 @@
         "archive_url": "https://researchdata.ntu.edu.sg/api/access/datafile/68132"
       }
     },
-    "baseline_status": "pending_official_reproduction",
+    "dataset_access_audit": {
+      "recorded_at": "2026-08-01",
+      "original_eee01": "downloaded completely from the declared NTU Research Data URL and used for the first development row",
+      "original_eee02_and_eee03": "the declared host repeatedly terminated each response near 50 MiB and ignored explicit HTTP Range requests; partial archives remain quarantined and were not used",
+      "documented_upstream_fallback": "the NTU dataset page recommends OneDrive after interrupted downloads, but that route required an interactive Microsoft login during this run",
+      "eee03_substitution": {
+        "source": "https://huggingface.co/datasets/justyx404/ntu-viral-extracted",
+        "license": "CC-BY-NC-SA-4.0",
+        "contents": "public extracted eee_03 LiDAR, IMU, and separate GT; images are unavailable",
+        "role": "development row replacing the unavailable frozen-validation download, not untouched external evaluation",
+        "runtime_isolation": "a sensor-only ROS bag was rebuilt from LiDAR and IMU binaries; GT stayed in quarantine and was used only after trajectory freeze",
+        "official_mode": "the byte-identical official FAST-LIVO2 binary and official NTU parameters were used with img_en disabled because the derivative has no images",
+        "evidence": "evaluation/data/fast_livo2_official_ntu_viral_eee03_v12.json"
+      },
+      "third_development_row": {
+        "dataset": "HILTI 2022 Exp14 Basement 2",
+        "source": "https://hilti-challenge.com/dataset-2022",
+        "environment": "normal indoor basement",
+        "role": "third public development comparison row",
+        "status": "download_in_progress"
+      },
+      "untouched_external_evaluation": "reserved as a separate later normal-environment row after all development choices are frozen"
+    },
+    "completed_rows": {
+      "ntu_viral_eee_01": "evaluation/data/fast_livo2_official_ntu_viral_eee01_v12.json",
+      "ntu_viral_eee_03_extracted_lio": "evaluation/data/fast_livo2_official_ntu_viral_eee03_v12.json"
+    },
+    "baseline_status": "two_public_rows_complete_and_passing; third_public_row_active",
     "win_gate": {
       "minimum_rows": 3,
       "candidate_median_ate_ratio_below": 1.0,

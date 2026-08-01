@@ -1,6 +1,7 @@
 import importlib.util
 import sys
 import unittest
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -17,6 +18,17 @@ SPEC.loader.exec_module(MODULE)
 
 
 class NtuViralPositionGtTests(unittest.TestCase):
+    def test_loads_tum_position_columns(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "gt.tum"
+            path.write_text(
+                "1.0 2 3 4 0 0 0 1\n2.0 5 6 7 0 0 0 1\n",
+                encoding="utf-8",
+            )
+            stamps, positions = MODULE.load_gt_tum_positions(path)
+        np.testing.assert_allclose(stamps, [1.0, 2.0])
+        np.testing.assert_allclose(positions, [[2, 3, 4], [5, 6, 7]])
+
     def test_interpolates_only_bracketed_gt(self) -> None:
         indices, positions = MODULE.interpolate_gt(
             np.array([-1.0, 0.5, 1.5, 3.0]),

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "status": "eee03_development_row_passed",
+  "ground_truth_policy": "candidate frozen from GT-free loop support before scoring",
+  "dataset": {
+    "name": "NTU VIRAL eee_03 extracted public derivative",
+    "upstream_dataset": "NTU VIRAL eee_03",
+    "source": "https://huggingface.co/datasets/justyx404/ntu-viral-extracted",
+    "license": "CC-BY-NC-SA-4.0",
+    "sensor_availability": "LiDAR and IMU only; images are absent from this derivative",
+    "sensor_only_bag_topics": [
+      "/imu/imu",
+      "/os1_cloud_node1/points"
+    ],
+    "lidar_frames": 1814,
+    "lidar_points": 29720576,
+    "imu_samples": 70455,
+    "lidar_sha256": "b2613069ecefae0a89485a58d3f35dabcef904d5a881c43ce49bbf44373e7fcc",
+    "imu_sha256": "f94dfef9be8924d4c869217ee3a5db2dbc4ebb9d55ad929a57afbc86ea957372",
+    "sensor_only_bag_sha256": "091f5ab5c6e282265187183b76eaea2e32527723acf002e86901fe21ba77c98f",
+    "position_gt_sha256": "2ad7e71bd8e8c814b3a50a6adbeefa8222a745869970973749733f82b48828ee"
+  },
+  "official_environment": {
+    "fast_livo2_commit": "0d2c0346107b75b59934975adec9a6eeeb913c64",
+    "container_image": "localization-zoo/fast-livo2-official:0d2c034",
+    "binary_sha256": "f1a4aaaadd49bb7c8ddc0149264baa4d39f582d06150aefd03637a403a9119ea",
+    "configuration": "official NTU_VIRAL and camera_NTU_VIRAL parameters with only /common/img_en=0 at runtime",
+    "mode": "official unchanged FAST-LIVO2 binary operating as LIO because the public derivative has no images",
+    "cpu_affinity": "0-3",
+    "playback_rate": 1.1
+  },
+  "candidate_policy": {
+    "frontend": "the identical official FAST-LIVO2 output used by the baseline",
+    "timestamp_resampling": "linear translation plus quaternion SLERP; nearest boundary hold",
+    "native_calibrated_cloud": true,
+    "vertical_angle_correction_deg": 0.0,
+    "pose_graph": "direct causal output; no KITTI persistent-bias smoother",
+    "loop_edges": 3,
+    "loop_clusters": 1,
+    "minimum_loop_clusters_for_correction": 2,
+    "correction_enabled": false,
+    "selection": "GT-free loop-support rule selected the timestamp-resampled frontend fallback",
+    "pose_graph_algorithm_seconds": 1.16802275,
+    "frozen_trajectory_sha256": "bf020c9f12818c6d154e6e5c0e9c321f304f7b2886cad3c41d63fe36a140ecb2"
+  },
+  "comparison": {
+    "official": {
+      "trajectory_sha256": "ed8f18cdf42839d3909eaa192cd50438737a77a262994afff89a4466f8061a19",
+      "poses": 1811,
+      "ate_3d_m": 0.26055876325198557,
+      "rpe_trans_pct": 0.31744582089336243,
+      "tracking_success_rate": 0.9983461962513782,
+      "mapper_cpu_seconds": 162.63,
+      "algorithm_fps": 11.154153600196766,
+      "mapper_peak_rss_kb": 1375668
+    },
+    "candidate": {
+      "poses": 1814,
+      "ate_3d_m": 0.26055825000348326,
+      "rpe_trans_pct": 0.3174157844538151,
+      "tracking_success_rate": 1.0,
+      "combined_algorithm_seconds": 163.79802275,
+      "combined_algorithm_fps": 11.074614757521546
+    },
+    "gates": {
+      "ate_improved": true,
+      "rpe_improved": true,
+      "tracking_not_below_official": true,
+      "candidate_fps_at_least_10": true,
+      "row_passed": true
+    }
+  },
+  "remaining": "complete a third public series, three-run timing medians, and untouched normal-environment external evaluation"
+}

@@ -27,7 +27,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rotation-rate-fraction", type=float, default=0.005)
     parser.add_argument(
         "--integration-policy",
-        choices=("left_correction", "local_increment", "first_correction_latch"),
+        choices=(
+            "left_correction",
+            "local_increment",
+            "first_correction_latch",
+            "first_correction_bias_rate",
+        ),
         default="left_correction",
     )
     parser.add_argument("--correction-latch-threshold", type=float, default=1e-4)
@@ -236,6 +241,63 @@ def latch_first_causal_pose_graph_correction(
     return output
 
 
+def apply_first_causal_correction_as_bias_rate(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    correction_latch_threshold: float = 1e-4,
+) -> list[np.ndarray]:
+    """Use the first loop correction as a future per-metre drift estimate."""
+    if len(raw) != len(corrected):
+        raise ValueError("raw and corrected pose counts must match")
+    if correction_latch_threshold < 0.0:
+        raise ValueError("correction_latch_threshold must be non-negative")
+    if not raw:
+        return []
+
+    output = [raw[0].copy()]
+    travelled_distance = 0.0
+    has_bias = False
+    translation_bias_per_m = np.zeros(3)
+    rotation_axis_bias = np.array([1.0, 0.0, 0.0])
+    rotation_bias_per_m = 0.0
+    for index in range(1, len(raw)):
+        raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
+        distance = float(np.linalg.norm(raw_increment[:3, 3]))
+        travelled_distance += distance
+
+        predicted = np.eye(4)
+        predicted[:3, :3] = output[-1][:3, :3] @ raw_increment[:3, :3]
+        predicted[:3, 3] = (
+            output[-1][:3, 3]
+            + output[-1][:3, :3] @ raw_increment[:3, 3]
+        )
+        if has_bias and distance > 0.0:
+            predicted[:3, :3] = (
+                axis_angle_rotation(
+                    rotation_axis_bias, rotation_bias_per_m * distance
+                )
+                @ predicted[:3, :3]
+            )
+            predicted[:3, 3] += translation_bias_per_m * distance
+        output.append(predicted)
+
+        if not has_bias and travelled_distance > 1e-9:
+            target = corrected[index] @ np.linalg.inv(raw[index])
+            correction_rotation_angle = rotation_angle(target[:3, :3])
+            correction_size = max(
+                float(np.linalg.norm(target[:3, 3])), correction_rotation_angle
+            )
+            if correction_size > correction_latch_threshold:
+                translation_bias_per_m = target[:3, 3] / travelled_distance
+                rotation_axis_bias = rotation_axis(
+                    target[:3, :3], correction_rotation_angle
+                )
+                rotation_bias_per_m = correction_rotation_angle / travelled_distance
+                has_bias = True
+    return output
+
+
 def main() -> int:
     args = parse_args()
     raw_path = Path(args.raw_poses)
@@ -247,6 +309,12 @@ def main() -> int:
     corrected = load_kitti_poses(corrected_path)
     if args.integration_policy == "first_correction_latch":
         output = latch_first_causal_pose_graph_correction(
+            raw,
+            corrected,
+            correction_latch_threshold=args.correction_latch_threshold,
+        )
+    elif args.integration_policy == "first_correction_bias_rate":
+        output = apply_first_causal_correction_as_bias_rate(
             raw,
             corrected,
             correction_latch_threshold=args.correction_latch_threshold,

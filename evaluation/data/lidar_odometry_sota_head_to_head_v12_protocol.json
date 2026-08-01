@@ -7,7 +7,7 @@
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
   "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
-  "current_candidate_stage": "corroborated_rotation_majority_v13_frozen_new_untouched_external_pending",
+  "current_candidate_stage": "corroborated_rotation_majority_v13_boreas_external_runtime_failed_consumed_development_reopened",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
@@ -242,9 +242,18 @@
       "CUBE-LIO repository reproduction"
     ],
     "ground_truth_runtime_access": "forbidden until candidate and comparator trajectories are hashed",
-    "status": "declared_before_candidate_or_comparator_runtime",
-    "evidence": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
-    "post_result_tuning": "forbidden"
+    "status": "failed_runtime_consumed_no_promotion",
+    "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
+    "evidence": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_v13.json",
+    "post_result_tuning": "forbidden for v13; the row is consumed for later failure analysis",
+    "result": {
+      "candidate_ate_ratio_over_cube_lio": 0.22438858051128455,
+      "candidate_rpe_trans_ratio_over_cube_lio": 0.5830096112914713,
+      "candidate_tracking_success_rate": 1.0,
+      "candidate_fps": 5.61628893376985,
+      "external_gate_passed": false
+    },
+    "next": "develop a runtime-feasibility fallback on consumed rows, freeze it, then declare a different untouched normal-environment row before runtime"
   },
   "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation"
 }

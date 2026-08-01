@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate_id": "corroborated_rotation_majority_v13",
-  "status": "development_rows_pass_consumed_failure_replay_pass_new_external_pending",
+  "status": "development_rows_pass_boreas_external_failed_runtime_consumed_no_promotion",
   "parent_candidate": "evaluation/data/lidar_odometry_candidate_gt_free_loop_support_v12.json",
   "configuration_frozen": true,
   "frozen_at": "2026-08-02",
@@ -115,6 +115,14 @@
     "black": "4 files left unchanged",
     "post_result_tuning_on_kitti05": false
   },
-  "next_external_evaluation": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
-  "next_gate": "run the declared Boreas 2021-09-02 first-600 external row once without candidate changes, then require all accuracy, tracking, runtime, and memory gates before promotion"
+  "external_evaluation": {
+    "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
+    "result": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_v13.json",
+    "dataset": "Boreas boreas-2021-09-02-11-42 first 600 LiDAR scans",
+    "accuracy_tracking_memory_gates": "pass",
+    "candidate_fps": 5.61628893376985,
+    "fps_gate": "fail",
+    "status": "consumed_failure_no_promotion"
+  },
+  "next_gate": "profile the consumed Boreas runtime failure without GT selection, freeze a new candidate on consumed rows, and declare another untouched normal-environment row before runtime"
 }

@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "lidar_odometry_v13_external_boreas_2021_09_02_first600",
+  "status": "external_evaluation_failed_runtime_no_promotion",
+  "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
+  "declared_before_runtime": true,
+  "candidate_freeze_commit": "1f6323d2",
+  "declaration_commit": "1668b077",
+  "dataset": {
+    "family": "Boreas",
+    "sequence": "boreas-2021-09-02-11-42",
+    "environment": "normal outdoor urban driving",
+    "sensor": "Velodyne Alpha Prime 128-beam LiDAR",
+    "frames": 600,
+    "points": 127682712,
+    "raw_scan_bytes": 3064385088,
+    "persistent_storage": "external SSD",
+    "timed_storage": "manifest-verified tmpfs shared by all methods; staging excluded"
+  },
+  "ground_truth_policy": {
+    "candidate_runtime_reference": "synthetic identity poses only",
+    "identity_reference_sha256": "0df1aa6cdd0f358becf20151720da1d60f7413b68f0afeb85412fcea6cef5962",
+    "candidate_and_cube_trajectories_hashed_before_scoring": true,
+    "metric_reference_created_after_trajectory_freeze": true,
+    "metric_reference_sha256": "246ba230aa296f852ae75477163180f9e5cf900e389e0bab398a787318703bfa",
+    "ground_truth_used_for_v13_selection": false,
+    "post_score_role": "consumed_failure_analysis_only; forbidden for v13 decision changes or untouched validation"
+  },
+  "input_integrity": {
+    "scan_selection_sha256": "5ef2b8361b1671154906e052fe5efec5a5df76aa42c10568bc12135613493364",
+    "scan_fetch_manifest_sha256": "3143b44a5e040036c1c5b7e4a6f46aa0fac9074c619e7cf9a4bf260453d7a009",
+    "pcd_source_manifest_sha256": "ef4d4a059830303805767384d9bfc6f8e42ee0ebf40bfe196b2ed92689d2d8bd",
+    "pcd_conversion_manifest_sha256": "5c9ea36850cca06e6dbdc1eb14092536dbbe08af94f60b403e3b9669f39fa305",
+    "xyzi_bin_source_manifest_sha256": "789775c2e5275bcbb9b6e0c5b58c937618a5cd5e72d7492e2095ab66e90235ed",
+    "xyzi_bin_conversion_manifest_sha256": "59fc52acd1836c918c9d5aa981ee7727a027536ada58a5fb2d2242448fad0e28",
+    "tmpfs_pcd_manifest_byte_identical": true,
+    "tmpfs_xyzi_bin_manifest_byte_identical": true,
+    "conversion_policy": "retain every point in source order; copy x,y,z,intensity exactly; omit ring and relative-time fields only for the frozen XYZI-only frontend"
+  },
+  "execution_notes": {
+    "initial_attempt": "incomplete before candidate runtime: the frozen frontend rejected PCD input because it accepts KITTI-style XYZI bin files",
+    "initial_attempt_candidate_trajectory_produced": false,
+    "valid_attempt": "formal_repetitions_v2 after deterministic all-point XYZI adapter creation",
+    "repetitions": 3,
+    "timing_policy": "median of per-component full-window wall seconds; candidate components are conservatively summed as sequential work"
+  },
+  "reproduction_artifacts_sha256": {
+    "evaluation/scripts/prepare_boreas_xyzi_bin.py": "6ac5897e15ac49bbe7a7d543485bedcfcad78ad1e9f1d4da7daaf48ec3ef1eff",
+    "evaluation/scripts/run_boreas_v13_external_ssd_repetitions.sh": "8eaee5dcd4dfb3cb4066cf4794aec4f5c912414230ce5cd8744daa7968d6608a",
+    "evaluation/scripts/run_official_kiss_boreas_repetitions.sh": "23d88a7e8e0d981a7427071d26b0bae89bdb8ea63a3b3912dbc4888322181fb5",
+    "tests/test_prepare_boreas_xyzi_bin.py": "e194701f4a236787e5c8194232f8217e41751d3388807635a6876c6debd8284f"
+  },
+  "cube_lio": {
+    "trajectory_sha256_all_three_runs": "fba1ab6513a946b287b535ea0d6b833c101e6917c8d8f3b7c39c7f1317d06d34",
+    "seconds": [
+      130.596760971,
+      120.913508457,
+      120.394762068
+    ],
+    "median_seconds": 120.913508457,
+    "peak_rss_kb": [
+      66632,
+      66684,
+      66708
+    ],
+    "metrics_each_run": {
+      "ate_m": 1.3441601365486624,
+      "rpe_trans_pct": 0.812467871498255,
+      "rpe_rot_deg_per_m": 0.011115886785258544,
+      "tracking_success_rate": 1.0
+    },
+    "fps": 4.962224714646963
+  },
+  "frozen_candidate": {
+    "selection": "zero loop clusters selected the frozen v11 causal midpoint fallback in all runs",
+    "raw_and_pose_graph_sha256_all_runs": "9677490429a29576571cb38ccae3b08dc364511743e33319b2f4cea8a9478bd6",
+    "official_reference_sha256": [
+      "2dd8fda8f955e0a6d19f495c061fdde8e371e201f79f9b091d688c05250e8c47",
+      "f21f5ab863c30825e2a003cd67222b78f158433dd7aa39bf039442632e992530",
+      "2d4216522bdb3b64b993f108a4be68d9c7996ed4340760a207250f88da72829a"
+    ],
+    "selected_sha256": [
+      "65b51a050e93f40f84bb91d038e8d7b54052d285e153e0bb8e5cc5a18b5cfdf4",
+      "d173acb667e3d55513a857fda801a73faaed384d985a9525547969e4abc4f2ed",
+      "c7864d174f9424d6124f1e62afb9cc89e325c50c53bf4162b9bd232fe59edfbb"
+    ],
+    "loop_clusters": [
+      0,
+      0,
+      0
+    ],
+    "conservative_sequential_seconds": [
+      108.1689745848608,
+      103.52313077700182,
+      106.83211050490934
+    ],
+    "median_seconds": 106.83211050490934,
+    "peak_rss_kb": [
+      165664,
+      166320,
+      165988
+    ],
+    "metrics_median": {
+      "ate_m": 0.30161418502000875,
+      "rpe_trans_pct": 0.4736765779490067,
+      "rpe_rot_deg_per_m": 0.006547146210294869,
+      "tracking_success_rate": 1.0,
+      "fps": 5.61628893376985
+    }
+  },
+  "ratios_candidate_over_cube_lio": {
+    "ate": 0.22438858051128455,
+    "rpe_trans": 0.5830096112914713,
+    "rpe_rot": 0.5889900047360539,
+    "tracking": 1.0,
+    "fps": 1.131808665817227
+  },
+  "gates": {
+    "ate_improved": true,
+    "rpe_trans_improved": true,
+    "rpe_rot_improved": true,
+    "tracking_100_percent": true,
+    "fps_at_least_10": false,
+    "memory_recorded": true,
+    "external_evaluation_passed": false,
+    "promotion_allowed": false
+  },
+  "post_failure_diagnostics_scored_only_after_v13_freeze": {
+    "raw_frontend": {
+      "trajectory_sha256_all_runs": "9677490429a29576571cb38ccae3b08dc364511743e33319b2f4cea8a9478bd6",
+      "median_seconds": 17.798923477,
+      "fps": 33.709903903757315,
+      "ate_m": 0.968251371950282,
+      "rpe_trans_pct": 0.7627512912370323,
+      "rpe_rot_deg_per_m": 0.010325700635919774,
+      "tracking_success_rate": 1.0,
+      "ate_ratio_over_cube_lio": 0.720339300075076,
+      "rpe_trans_ratio_over_cube_lio": 0.9388079430519003,
+      "rpe_rot_ratio_over_cube_lio": 0.928913800166921
+    },
+    "official_kiss_reference": {
+      "median_seconds": 75.79598875,
+      "fps": 7.915986187329734,
+      "ate_m": 0.33612903774195246,
+      "rpe_trans_pct": 0.6429878275830347,
+      "rpe_rot_deg_per_m": 0.006547146210294869,
+      "tracking_success_rate": 1.0
+    },
+    "interpretation": "The raw frontend alone clears all Boreas accuracy, tracking, and speed gates. The mandatory official-reference fallback is slower than 10 FPS by itself and dominates v13 sequential runtime. A later candidate may use runtime as a GT-free availability signal, but Boreas is now consumed and cannot validate that change."
+  },
+  "next": "develop a GT-free runtime-feasibility fallback only on consumed rows, refreeze, and declare a new untouched normal-environment external row before any runtime"
+}

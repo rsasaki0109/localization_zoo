@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "candidate_id": "causal_local_increment_midpoint_v11",
+  "status": "frozen_before_kitti00_validation",
+  "configuration_frozen": true,
+  "frozen_at": "2026-08-01",
+  "promoted": false,
+  "parent_candidate": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
+  "ground_truth_policy": {
+    "component_and_candidate_trajectories_hashed_before_scoring": true,
+    "kitti07_consumed_as_development_after_v10_failure": true,
+    "coefficient_search": false,
+    "post_freeze_tuning": "forbidden"
+  },
+  "mechanism": {
+    "primary_frontend": "frozen v6 adaptive-motion-guard KISS frontend",
+    "reference_frontend": "official KISS-ICP 1.3.0 with frozen load-adaptive four-thread selection on KITTI",
+    "translation": "arithmetic midpoint of same-step primary and reference translations expressed in each frontend previous sensor-local frame",
+    "translation_weight_primary": 0.5,
+    "translation_weight_reference": 0.5,
+    "rotation": "official KISS-ICP frozen causal rotation trajectory",
+    "integration": "rotate the fused local translation increment by the previous published rotation",
+    "causality": "output i uses component poses only through i",
+    "ground_truth_used_for_runtime_or_fusion": false
+  },
+  "development_sequence": {
+    "dataset": "kitti_odometry_07",
+    "frames": 1101,
+    "failed_structural_candidates": [
+      {
+        "name": "absolute_position_midpoint_with_v10_rotation",
+        "ate_m": 1.1769246813062435,
+        "rpe_trans_pct": 1.281087224102379,
+        "finding": "absolute world-position averaging broke local SE(3) consistency"
+      },
+      {
+        "name": "absolute_position_midpoint_with_reference_rotation",
+        "ate_m": 1.1769246813062435,
+        "rpe_trans_pct": 0.9954751002842332,
+        "finding": "changing only rotation did not repair world-position averaging"
+      }
+    ],
+    "frozen_candidate": {
+      "trajectory_sha256_before_scoring": "1fe3eb3ad625e00e195698f0e65191896ff41b829623ee164cca04890a030154",
+      "ate_m": 0.7720820179640507,
+      "rpe_trans_pct": 0.6037729892977444,
+      "rpe_rot_deg_per_m": 0.004729737823864855,
+      "tracking_success_rate": 1.0,
+      "sequential_end_to_end_fps": 20.281248338694734
+    },
+    "cube_lio": {
+      "ate_m": 1.6454257491191604,
+      "rpe_trans_pct": 0.6238668812159914,
+      "tracking_success_rate": 1.0,
+      "fps": 9.6524570366857
+    },
+    "gate": "pass"
+  },
+  "implementation_sha256": {
+    "evaluation/scripts/fuse_odometry_causal_local_increment_midpoint.py": "85f7ecfcaa0d564ded813040f0884514714db43e562e269a4a30e26755633ba0",
+    "tests/test_causal_local_increment_midpoint_fusion.py": "9d53839d64a616ecfe65f962874e4f6ba15eebf4eefdefc7b24677e96dc2f5dc"
+  },
+  "next_gate": {
+    "dataset": "kitti_odometry_00",
+    "role": "frozen validation; no configuration changes allowed",
+    "required": "ATE and translational RPE strictly below CUBE-LIO, tracking 100%, at least 10 FPS"
+  }
+}

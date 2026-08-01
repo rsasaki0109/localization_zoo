@@ -6,12 +6,17 @@
   "parent_candidate": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
-  "candidate_stage": "frozen_v10_same_input_rerun_before_any_v12_tuning",
+  "candidate_stage": "v11_frozen_before_kitti00_validation",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
       "evidence": "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json",
       "next": "GT-free causal translation fusion using v6 local increments and official KISS low-frequency anchoring"
+    },
+    "causal_local_increment_midpoint_v11_kitti_odometry_07": {
+      "status": "passes_cube_lio_row_after_trajectory_freeze",
+      "evidence": "evaluation/data/lidar_odometry_candidate_causal_local_increment_midpoint_v11.json",
+      "next": "run frozen candidate once on unconsumed KITTI 00 before any further tuning"
     }
   },
   "ground_truth_policy": {
@@ -43,7 +48,7 @@
     "baseline_rerun_required": true,
     "datasets": {
       "kitti_odometry_00": {
-        "role": "development_direct_comparison",
+        "role": "frozen_candidate_validation_direct_comparison",
         "frames": 4541,
         "provisional_baseline": {
           "ate_m": 8.581195,
@@ -66,7 +71,8 @@
         "source_sha256": "3001b55d4843f06b7f4e66a8b1852414380ce765c2cb98f4d7323b2fde87b661"
       },
       "kitti_odometry_07": {
-        "role": "frozen_direct_comparison",
+        "role": "consumed_candidate_development_direct_comparison",
+        "role_change_reason": "v10 and two structural fusion failures were externally scored on this row before v11 was frozen; KITTI 00 remains unconsumed validation",
         "frames": 1101,
         "direct_rerun": {
           "status": "complete_external_ssd_to_tmpfs_three_run_median",

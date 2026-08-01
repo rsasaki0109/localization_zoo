@@ -9,6 +9,7 @@ PROTOCOL = ROOT / "evaluation/data/lidar_odometry_sota_head_to_head_v12_protocol
 STAGING = ROOT / "evaluation/data/kitti_ssd_ext4_staging_v12.json"
 KITTI00_RERUN = ROOT / "evaluation/data/cube_lio_kitti00_direct_rerun_v12.json"
 V10_KITTI07 = ROOT / "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json"
+V11_CANDIDATE = ROOT / "evaluation/data/lidar_odometry_candidate_causal_local_increment_midpoint_v11.json"
 SCRIPT = ROOT / "evaluation/scripts/evaluate_sota_head_to_head.py"
 
 
@@ -49,7 +50,7 @@ class SotaHeadToHeadTests(unittest.TestCase):
         self.assertTrue(self.protocol["candidate_search_started"])
         self.assertEqual(
             self.protocol["candidate_stage"],
-            "frozen_v10_same_input_rerun_before_any_v12_tuning",
+            "v11_frozen_before_kitti00_validation",
         )
         self.assertEqual(
             set(self.protocol["cube_lio_track"]["win_gate"]["required_rows"]),
@@ -117,6 +118,15 @@ class SotaHeadToHeadTests(unittest.TestCase):
         self.assertLess(candidate["rpe_trans_pct"], cube["rpe_trans_pct"])
         self.assertFalse(result["gates"]["ate_strictly_below_cube_lio"])
         self.assertEqual(result["input_staging"]["manifest_diff_bytes"], 0)
+
+    def test_v11_is_frozen_before_unconsumed_kitti00_validation(self):
+        candidate = json.loads(V11_CANDIDATE.read_text(encoding="utf-8"))
+        self.assertTrue(candidate["configuration_frozen"])
+        self.assertEqual(candidate["next_gate"]["dataset"], "kitti_odometry_00")
+        self.assertEqual(candidate["development_sequence"]["gate"], "pass")
+        self.assertEqual(candidate["mechanism"]["translation_weight_primary"], 0.5)
+        self.assertEqual(candidate["mechanism"]["translation_weight_reference"], 0.5)
+        self.assertFalse(candidate["ground_truth_policy"]["coefficient_search"])
 
     def test_all_gates_pass_for_strict_win(self):
         results = {

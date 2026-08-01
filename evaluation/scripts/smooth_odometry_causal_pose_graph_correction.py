@@ -42,6 +42,7 @@ def parse_args() -> argparse.Namespace:
             "causal_correction_bias_rate_updates",
             "causal_interval_bias_rate_updates",
             "causal_interval_consensus_rotation_bias",
+            "causal_interval_yaw_consensus_bias",
         ),
         default="left_correction",
     )
@@ -537,6 +538,68 @@ def apply_causal_interval_consensus_rotation_bias(
     return output
 
 
+def apply_causal_interval_yaw_consensus_bias(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    bias_update_threshold: float = 0.01,
+) -> list[np.ndarray]:
+    """Apply only corroborated z-up yaw drift from causal loop intervals."""
+    if len(raw) != len(corrected):
+        raise ValueError("raw and corrected pose counts must match")
+    if bias_update_threshold < 0.0:
+        raise ValueError("bias_update_threshold must be non-negative")
+    if not raw:
+        return []
+
+    output = [raw[0].copy()]
+    distance_since_update = 0.0
+    yaw_rate_per_m = 0.0
+    previous_observed_yaw_rate: float | None = None
+    last_accepted_correction = np.eye(4)
+    z_axis = np.array([0.0, 0.0, 1.0])
+    for index in range(1, len(raw)):
+        raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
+        distance = float(np.linalg.norm(raw_increment[:3, 3]))
+        distance_since_update += distance
+
+        predicted = np.eye(4)
+        predicted[:3, :3] = output[-1][:3, :3] @ raw_increment[:3, :3]
+        predicted[:3, 3] = (
+            output[-1][:3, 3]
+            + output[-1][:3, :3] @ raw_increment[:3, 3]
+        )
+        if distance > 0.0 and yaw_rate_per_m != 0.0:
+            predicted[:3, :3] = (
+                axis_angle_rotation(z_axis, yaw_rate_per_m * distance)
+                @ predicted[:3, :3]
+            )
+        output.append(predicted)
+
+        target = corrected[index] @ np.linalg.inv(raw[index])
+        correction_increment = target @ np.linalg.inv(last_accepted_correction)
+        increment_angle = rotation_angle(correction_increment[:3, :3])
+        update_size = max(
+            float(np.linalg.norm(correction_increment[:3, 3])),
+            increment_angle,
+        )
+        if distance_since_update > 1e-9 and update_size > bias_update_threshold:
+            rotation_vector = (
+                rotation_axis(correction_increment[:3, :3], increment_angle)
+                * increment_angle
+            )
+            observed_yaw_rate = float(rotation_vector[2]) / distance_since_update
+            corroborated = (
+                previous_observed_yaw_rate is not None
+                and previous_observed_yaw_rate * observed_yaw_rate > 0.0
+            )
+            yaw_rate_per_m = (2.0 if corroborated else 1.0) * observed_yaw_rate
+            previous_observed_yaw_rate = observed_yaw_rate
+            last_accepted_correction = target
+            distance_since_update = 0.0
+    return output
+
+
 def main() -> int:
     args = parse_args()
     raw_path = Path(args.raw_poses)
@@ -588,6 +651,12 @@ def main() -> int:
         )
     elif args.integration_policy == "causal_interval_consensus_rotation_bias":
         output = apply_causal_interval_consensus_rotation_bias(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+        )
+    elif args.integration_policy == "causal_interval_yaw_consensus_bias":
+        output = apply_causal_interval_yaw_consensus_bias(
             raw,
             corrected,
             bias_update_threshold=args.bias_update_threshold,

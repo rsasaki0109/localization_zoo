@@ -6,7 +6,7 @@
   "parent_candidate": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
-  "candidate_stage": "v11_frozen_before_kitti00_validation",
+  "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
@@ -17,6 +17,16 @@
       "status": "passes_cube_lio_row_after_trajectory_freeze",
       "evidence": "evaluation/data/lidar_odometry_candidate_causal_local_increment_midpoint_v11.json",
       "next": "run frozen candidate once on unconsumed KITTI 00 before any further tuning"
+    },
+    "causal_local_increment_midpoint_v11_kitti_odometry_00": {
+      "status": "fails_cube_lio_ate_and_rpe_gates_after_frozen_scoring",
+      "evidence": "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json",
+      "next": "KITTI 00 is now consumed development; continue GT-free causal correction development and reserve a new normal-environment row for external evaluation"
+    },
+    "causal_pose_graph_v12_kitti_odometry_00": {
+      "status": "active_non_dominated_frontier_has_separate_ate_and_rpe_wins_but_no_joint_pass",
+      "evidence": "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json",
+      "next": "preserve the updated-rotation-bias RPE while reducing ATE without map-frame pose jumps"
     }
   },
   "ground_truth_policy": {
@@ -48,7 +58,8 @@
     "baseline_rerun_required": true,
     "datasets": {
       "kitti_odometry_00": {
-        "role": "frozen_candidate_validation_direct_comparison",
+        "role": "consumed_candidate_development_direct_comparison",
+        "role_change_reason": "the frozen v11 candidate was scored and failed on this row; all later v12 pose-graph candidates were frozen before scoring but this row is no longer external validation",
         "frames": 4541,
         "provisional_baseline": {
           "ate_m": 8.581195,

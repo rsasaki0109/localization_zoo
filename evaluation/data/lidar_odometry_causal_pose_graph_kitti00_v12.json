@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "active_development_no_candidate_passes_both_kitti00_accuracy_gates",
+  "recorded_at": "2026-08-01",
+  "dataset": "KITTI Odometry 00",
+  "frames": 4541,
+  "role_change": {
+    "before_v11_scoring": "frozen validation",
+    "after_v11_scoring": "consumed development",
+    "reason": "the frozen v11 trajectory failed the CUBE-LIO ATE and translational-RPE gates; subsequent causal pose-graph candidates were hashed before scoring but KITTI 00 can no longer be an untouched external row"
+  },
+  "cube_lio_gate": {
+    "ate_m_strictly_below": 9.04430252500857,
+    "rpe_trans_pct_strictly_below": 0.8798334017400419,
+    "tracking_success_rate": 1.0,
+    "fps_at_least": 10.0
+  },
+  "frozen_v11_validation": {
+    "trajectory_sha256_before_scoring": "918a687c4f05c7de4cba4ae2bb5b5a30d687f358dbb23a5d24a30b840bd3a301",
+    "ate_m": 12.975631214075928,
+    "rpe_trans_pct": 0.8936462998441856,
+    "rpe_rot_deg_per_m": 0.006664720759026731,
+    "tracking_success_rate": 1.0,
+    "sequential_end_to_end_fps": 17.5497219922,
+    "decision": "fail_ate_and_rpe_do_not_promote"
+  },
+  "causal_pose_graph": {
+    "implementation_commits": {
+      "causal_output": "d6fc6092",
+      "test_expression_fix": "847e4726",
+      "sparse_solver": "f2f95fc6"
+    },
+    "binary_sha256": "3852f8124cc8ed9f8f5a63bbab8429215395776f62b75fd9e1143e93ae6f8543",
+    "input_manifest_sha256": "9ea0c512d0360fa9a3eeca62f2ee938fc523dca75d92b9ad01062f1c1bc5378e",
+    "external_primary_sha256": "46668349eb5ef0d3ab694e6815c9ef4285247ef17d3cfa2e9567e44c87ebf7a4",
+    "dense_diagnostic": {
+      "trajectory_sha256": "619dd310c3f8a9856f85fc921ab3e52a1193582d3b2cec581f2380741838eba7",
+      "algorithm_fps": 2.929156,
+      "finding": "DENSE_QR made each accepted long-sequence loop optimization prohibitively expensive"
+    },
+    "sparse_official_external": {
+      "trajectory_sha256": "7cc7102305a485576c1f5c8daf32cddf073fbfeffaab68d77cee618f654cefb8",
+      "dense_sparse_max_matrix_element_difference": 9.99999993922529e-9,
+      "fps": 70.91770620764356,
+      "algorithm_fps": 596.251784,
+      "peak_rss_mb": 74.8046875,
+      "loop_edges": 18,
+      "loop_clusters": 10
+    },
+    "sparse_primary_external": {
+      "trajectory_sha256": "4aa6531b76f4a432cb7c02561e1f00c4ee8f471803d3fa3dd9c3f6ccb4cff385",
+      "fps_pose_graph_only": 51.857,
+      "algorithm_fps": 445.023484,
+      "peak_rss_mb": 74.9375,
+      "loop_edges": 18,
+      "loop_clusters": 11,
+      "end_to_end_metrics": {
+        "ate_m": 6.255077060050179,
+        "rpe_trans_pct": 1.5177592755179878,
+        "tracking_success_rate": 1.0,
+        "sequential_end_to_end_fps": 24.76385729874002
+      },
+      "finding": "causal loop correction passes ATE but instantaneous map-frame corrections fail RPE"
+    }
+  },
+  "best_non_dominated_candidates": [
+    {
+      "name": "primary_first_correction_latch",
+      "trajectory_sha256": "6789a7c8edd216bd1bd818563965ac6ed149ea0a401c214622fca0ddeff9736a",
+      "ate_m": 8.819979922923931,
+      "rpe_trans_pct": 1.0745241429545367,
+      "fps": 24.691354195149128,
+      "gate": "passes_ate_fails_rpe"
+    },
+    {
+      "name": "primary_updated_rotation_bias_gain2",
+      "trajectory_sha256": "08564646e531d6bf5964ef4005ef9a43af537d98e62ce3c971b24bd6ee7276e7",
+      "ate_m": 10.603899518924244,
+      "rpe_trans_pct": 0.8616691148391622,
+      "rpe_rot_deg_per_m": 0.006607128567263893,
+      "fps": 24.643043369944756,
+      "gate": "fails_ate_passes_rpe"
+    }
+  ],
+  "smoothing_implementation": {
+    "latest_commit": "b02c30a0",
+    "script_sha256": "c3bb47a2d27d1a4ab44f97e438bd694daeb2c0e989d88279dc35d93a256da4d3",
+    "test_sha256": "09af892a16b3be84150adb2a602aa4cebc970191aa02dac1eac6bcebf00a701b",
+    "tests_passed": 17,
+    "ground_truth_used_at_runtime": false
+  },
+  "decision": "do_not_promote; profile a continuous local-frame correction model that preserves the gain2 RPE while reducing remaining ATE",
+  "artifacts_root": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v12_sota_head_to_head/v12_causal_pose_graph/kitti00"
+}

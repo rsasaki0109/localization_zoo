@@ -10,6 +10,7 @@ STAGING = ROOT / "evaluation/data/kitti_ssd_ext4_staging_v12.json"
 KITTI00_RERUN = ROOT / "evaluation/data/cube_lio_kitti00_direct_rerun_v12.json"
 V10_KITTI07 = ROOT / "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json"
 V11_CANDIDATE = ROOT / "evaluation/data/lidar_odometry_candidate_causal_local_increment_midpoint_v11.json"
+V12_KITTI00 = ROOT / "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json"
 SCRIPT = ROOT / "evaluation/scripts/evaluate_sota_head_to_head.py"
 
 
@@ -50,7 +51,7 @@ class SotaHeadToHeadTests(unittest.TestCase):
         self.assertTrue(self.protocol["candidate_search_started"])
         self.assertEqual(
             self.protocol["candidate_stage"],
-            "v11_frozen_before_kitti00_validation",
+            "v12_causal_pose_graph_development_after_v11_kitti00_failure",
         )
         self.assertEqual(
             set(self.protocol["cube_lio_track"]["win_gate"]["required_rows"]),
@@ -127,6 +128,25 @@ class SotaHeadToHeadTests(unittest.TestCase):
         self.assertEqual(candidate["mechanism"]["translation_weight_primary"], 0.5)
         self.assertEqual(candidate["mechanism"]["translation_weight_reference"], 0.5)
         self.assertFalse(candidate["ground_truth_policy"]["coefficient_search"])
+
+    def test_v11_failure_consumes_kitti00_before_v12_development(self):
+        evidence = json.loads(V12_KITTI00.read_text(encoding="utf-8"))
+        self.assertEqual(
+            evidence["frozen_v11_validation"]["decision"],
+            "fail_ate_and_rpe_do_not_promote",
+        )
+        self.assertEqual(
+            evidence["role_change"]["after_v11_scoring"],
+            "consumed development",
+        )
+        self.assertEqual(
+            self.protocol["cube_lio_track"]["datasets"]["kitti_odometry_00"]["role"],
+            "consumed_candidate_development_direct_comparison",
+        )
+        self.assertIn(
+            "causal_pose_graph_v12_kitti_odometry_00",
+            self.protocol["candidate_results"],
+        )
 
     def test_all_gates_pass_for_strict_win(self):
         results = {

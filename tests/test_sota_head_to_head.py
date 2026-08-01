@@ -3,15 +3,25 @@ import json
 import unittest
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / "evaluation/data/lidar_odometry_sota_head_to_head_v12_protocol.json"
 STAGING = ROOT / "evaluation/data/kitti_ssd_ext4_staging_v12.json"
 KITTI00_RERUN = ROOT / "evaluation/data/cube_lio_kitti00_direct_rerun_v12.json"
-V10_KITTI07 = ROOT / "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json"
-V11_CANDIDATE = ROOT / "evaluation/data/lidar_odometry_candidate_causal_local_increment_midpoint_v11.json"
+V10_KITTI07 = (
+    ROOT / "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json"
+)
+V11_CANDIDATE = (
+    ROOT
+    / "evaluation/data/lidar_odometry_candidate_causal_local_increment_midpoint_v11.json"
+)
 V12_KITTI00 = ROOT / "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json"
-DYNAMIC_RADIUS_KITTI00 = ROOT / "evaluation/data/lidar_odometry_dynamic_voxel_radius_kitti00_v12.json"
+DYNAMIC_RADIUS_KITTI00 = (
+    ROOT / "evaluation/data/lidar_odometry_dynamic_voxel_radius_kitti00_v12.json"
+)
+V13_CANDIDATE = (
+    ROOT
+    / "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json"
+)
 SCRIPT = ROOT / "evaluation/scripts/evaluate_sota_head_to_head.py"
 
 
@@ -160,6 +170,25 @@ class SotaHeadToHeadTests(unittest.TestCase):
         )
         self.assertEqual(
             len(evidence["primary"]["trajectory_sha256_before_scoring"]), 64
+        )
+
+    def test_v13_is_frozen_but_requires_a_new_untouched_external_row(self):
+        candidate = json.loads(V13_CANDIDATE.read_text(encoding="utf-8"))
+        self.assertTrue(candidate["configuration_frozen"])
+        self.assertFalse(candidate["promoted"])
+        self.assertNotIn("external_pass", candidate["status"])
+        for row in candidate["cube_lio_development_rows"].values():
+            self.assertEqual(row["gate"], "pass")
+            self.assertEqual(row["tracking_success_rate"], 1.0)
+            self.assertGreaterEqual(row["conservative_fps_including_selector"], 10.0)
+        replay = candidate["consumed_kitti05_failure_replay"]
+        self.assertEqual(
+            replay["all_numeric_gates"], "pass_but_not_counted_as_external"
+        )
+        self.assertIn("not external validation", replay["role"])
+        self.assertIn(
+            "corroborated_rotation_majority_v13",
+            self.protocol["candidate_results"],
         )
 
     def test_all_gates_pass_for_strict_win(self):

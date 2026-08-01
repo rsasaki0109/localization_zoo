@@ -7,7 +7,7 @@
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
   "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
-  "current_candidate_stage": "cube_lio_and_fast_livo2_tracks_passed_external_kitti05_failed_rpe_development_reopened",
+  "current_candidate_stage": "corroborated_rotation_majority_v13_frozen_new_untouched_external_pending",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
@@ -39,6 +39,11 @@
       "evidence": "evaluation/data/lidar_odometry_candidate_gt_free_loop_support_v12.json",
       "external_evidence": "evaluation/data/lidar_odometry_external_kitti05_v12.json",
       "next": "GT-free failure profiling and candidate development on consumed KITTI 00/07, followed by a newly declared untouched normal-environment row"
+    },
+    "corroborated_rotation_majority_v13": {
+      "status": "frozen_after_gt_free_failure_profiling; cube_lio_and_fast_livo2_tracks_pass; consumed_kitti05_replay_passes_but_does_not_count_as_external",
+      "evidence": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
+      "next": "declare a new untouched normal-environment row before runtime and evaluate once without further candidate changes"
     }
   },
   "ground_truth_policy": {
@@ -222,7 +227,9 @@
       "candidate_fps": 10.583309456876043,
       "external_gate_passed": false
     },
-    "next_external_row": "not declared until a revised candidate has been selected on consumed development rows and frozen"
+    "post_failure_candidate": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
+    "post_failure_replay": "v13 passes KITTI 05 numeric gates, but the row remains consumed and cannot satisfy the untouched external gate",
+    "next_external_row": "not yet declared; v13 is now frozen and the next commit must declare the row before runtime"
   },
   "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation"
 }

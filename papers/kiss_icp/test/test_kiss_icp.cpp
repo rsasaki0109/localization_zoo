@@ -33,6 +33,16 @@ TEST(KISSICP, VoxelHashMap) {
   EXPECT_LT(map.size(), pts.size());
 }
 
+TEST(KISSICP, VoxelHashMapSearchCoversConfiguredDistance) {
+  VoxelHashMap map(1.0);
+  map.addPoints({Eigen::Vector3d(1.1, 0.0, 0.0)});
+  const auto result =
+      map.getCorrespondences({Eigen::Vector3d(-0.1, 0.0, 0.0)}, 1.3);
+  ASSERT_EQ(result.size(), 1u);
+  EXPECT_TRUE(result.front().found);
+  EXPECT_TRUE(result.front().point.isApprox(Eigen::Vector3d(1.1, 0.0, 0.0)));
+}
+
 TEST(KISSICP, FullVoxelUpdatePolicyIsOptIn) {
   const std::vector<Eigen::Vector3d> old_point = {
       Eigen::Vector3d(0.1, 0.1, 0.1)};

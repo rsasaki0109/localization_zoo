@@ -318,15 +318,24 @@ std::vector<VoxelHashMap::Correspondence> VoxelHashMap::getCorrespondences(
   for (std::int64_t i = 0; i < static_cast<std::int64_t>(points.size()); i++) {
     const auto& query = points[i];
     auto key = toVoxel(query);
+    const int search_radius = std::max(
+        0, static_cast<int>(std::ceil(max_dist / voxel_size_)));
     double best_dist = max_dist_sq;
     Eigen::Vector3d best_point = Eigen::Vector3d::Zero();
     bool found = false;
 
-    // 27近傍ボクセルを探索
-    for (int dx = -1; dx <= 1; dx++) {
-      for (int dy = -1; dy <= 1; dy++) {
-        for (int dz = -1; dz <= 1; dz++) {
+    for (int dx = -search_radius; dx <= search_radius; dx++) {
+      for (int dy = -search_radius; dy <= search_radius; dy++) {
+        for (int dz = -search_radius; dz <= search_radius; dz++) {
           Eigen::Vector3i neighbor = key + Eigen::Vector3i(dx, dy, dz);
+          const Eigen::Vector3d voxel_min =
+              neighbor.cast<double>() * voxel_size_;
+          const Eigen::Vector3d voxel_max =
+              voxel_min + Eigen::Vector3d::Constant(voxel_size_);
+          const Eigen::Vector3d outside =
+              (voxel_min - query).cwiseMax(Eigen::Vector3d::Zero()) +
+              (query - voxel_max).cwiseMax(Eigen::Vector3d::Zero());
+          if (outside.squaredNorm() >= best_dist) continue;
           auto it = map_.find(neighbor);
           if (it == map_.end()) continue;
           for (const auto& mp : it->second.points) {

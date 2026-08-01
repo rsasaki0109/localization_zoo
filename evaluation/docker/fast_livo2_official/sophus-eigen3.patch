@@ -1,0 +1,10 @@
+diff --git a/sophus/so2.cpp b/sophus/so2.cpp
+--- a/sophus/so2.cpp
++++ b/sophus/so2.cpp
+@@ -30,4 +30,4 @@ SO2::SO2()
+ {
+-  unit_complex_.real() = 1.;
+-  unit_complex_.imag() = 0.;
++  unit_complex_.real(1.);
++  unit_complex_.imag(0.);
+ }

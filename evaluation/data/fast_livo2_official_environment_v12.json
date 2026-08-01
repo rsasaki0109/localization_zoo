@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "provisional_binary_built_opencv_requirement_pending",
+  "recorded_at": "2026-08-01",
+  "purpose": "Prove the pinned official FAST-LIVO2 source builds before accepting benchmark baselines",
+  "source": {
+    "repository": "https://github.com/hku-mars/FAST-LIVO2.git",
+    "commit": "0d2c0346107b75b59934975adec9a6eeeb913c64",
+    "semantic_source_diff": "none; copied Windows checkout differs from Git objects only by CRLF line endings",
+    "official_source_modified": false
+  },
+  "dependencies": {
+    "wsl_distribution": "Ubuntu 18.04.5 LTS",
+    "ros_distribution": "melodic",
+    "roslaunch_version": "1.14.13",
+    "opencv_version": "3.2.0",
+    "opencv_official_requirement": ">=4.2",
+    "opencv_requirement_passed": false,
+    "gcc_version": "7.5.0",
+    "cmake_version": "3.10.2",
+    "pcl_version": "1.8",
+    "rpg_vikit_commit": "6c886c8e5d83997806e00294826d528cea3581dd",
+    "sophus_commit": "a621ff2e56c56c839a6c40418d42c3c254424b5c",
+    "sophus_eigen3_compatibility_patch": "evaluation/docker/fast_livo2_official/sophus-eigen3.patch",
+    "sophus_patch_sha256": "1a00f86d5390250cb2a91cfb37e772986e4ce43891481a2fc40a2fd2b323ab97"
+  },
+  "host": {
+    "architecture": "x86_64",
+    "cpu": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz"
+  },
+  "build": {
+    "target": "fastlivo_mapping",
+    "target_status": "success",
+    "binary": "/opt/fast_livo2_ws/devel/lib/fast_livo/fastlivo_mapping",
+    "binary_sha256": "7c4a20b3aa5dd06e39794ab41346a5221065d2b2f692bf334388c778148c446a",
+    "unresolved_shared_libraries": 0,
+    "excluded_failure": "rpg_vikit test_vk_common_camera omits the Sophus link; it is not a dependency of fastlivo_mapping"
+  },
+  "acceptance": {
+    "official_runtime_baseline_allowed": false,
+    "remaining_gate": "rebuild in Ubuntu 20.04 / ROS Noetic with OpenCV >=4.2 using the committed container definition or an equivalent pinned rootfs"
+  }
+}

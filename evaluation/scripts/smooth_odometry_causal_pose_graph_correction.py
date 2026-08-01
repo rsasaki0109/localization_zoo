@@ -44,6 +44,7 @@ def parse_args() -> argparse.Namespace:
             "causal_interval_consensus_rotation_bias",
             "causal_interval_yaw_consensus_bias",
             "causal_interval_robust_rotation_bias",
+            "causal_interval_robust_consistent_direction_bias",
             "causal_interval_robust_rotation_scale_bias",
             "causal_interval_delayed_median_rotation_bias",
             "causal_interval_distance_weighted_rotation_bias",
@@ -612,6 +613,7 @@ def apply_causal_interval_robust_rotation_bias(
     *,
     bias_update_threshold: float = 0.01,
     learn_first_scale: bool = False,
+    reject_direction_reversal: bool = False,
 ) -> list[np.ndarray]:
     """Double interval rotation drift while clipping short-interval outliers."""
     if len(raw) != len(corrected):
@@ -697,11 +699,20 @@ def apply_causal_interval_robust_rotation_bias(
                 )
                 applied_norm = min(applied_norm, hampel_upper_bound)
             observed_rate_norms.append(observed_norm)
-            rotation_rate_vector = (
-                observed_rate / observed_norm * applied_norm
-                if observed_norm > 0.0
-                else np.zeros(3)
-            )
+            if observed_norm > 0.0:
+                applied_direction = observed_rate / observed_norm
+                current_norm = float(np.linalg.norm(rotation_rate_vector))
+                if (
+                    reject_direction_reversal
+                    and current_norm > 0.0
+                    and float(
+                        np.dot(applied_direction, rotation_rate_vector)
+                    ) < 0.0
+                ):
+                    applied_direction = rotation_rate_vector / current_norm
+                rotation_rate_vector = applied_direction * applied_norm
+            else:
+                rotation_rate_vector = np.zeros(3)
             last_accepted_correction = target
             distance_since_update = 0.0
     return output
@@ -1064,6 +1075,13 @@ def main() -> int:
             raw,
             corrected,
             bias_update_threshold=args.bias_update_threshold,
+        )
+    elif args.integration_policy == "causal_interval_robust_consistent_direction_bias":
+        output = apply_causal_interval_robust_rotation_bias(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+            reject_direction_reversal=True,
         )
     elif args.integration_policy == "causal_interval_robust_rotation_scale_bias":
         output = apply_causal_interval_robust_rotation_bias(

@@ -359,6 +359,33 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
         np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
 
+    def test_distance_weighting_suppresses_short_interval_outlier(self) -> None:
+        raw = [pose(float(i), 0.0) for i in range(103)]
+        corrected = [pose(float(i), 0.0) for i in range(103)]
+        corrected[100] = pose(100.0, 10.0)
+        corrected[101] = pose(101.0, -80.0)
+        corrected[102] = pose(102.0, -80.0)
+        output = MODULE.apply_causal_interval_distance_weighted_rotation_bias(
+            raw, corrected
+        )
+        relative = output[102][:3, :3] @ output[101][:3, :3].T
+        yaw_step = np.degrees(np.arctan2(relative[1, 0], relative[0, 0]))
+        self.assertLess(abs(yaw_step), 2.0)
+
+    def test_distance_weighted_rotation_is_causal(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0)]
+        corrected_a = [pose(0.0), pose(1.0, 10.0), pose(2.0, 10.0)]
+        corrected_b = [pose(0.0), pose(1.0, 10.0), pose(2.0, -170.0)]
+        output_a = MODULE.apply_causal_interval_distance_weighted_rotation_bias(
+            raw, corrected_a
+        )
+        output_b = MODULE.apply_causal_interval_distance_weighted_rotation_bias(
+            raw, corrected_b
+        )
+        np.testing.assert_allclose(output_a[0], output_b[0], atol=1e-12)
+        np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
+        np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
+
     def test_median_vector_rotation_is_causal(self) -> None:
         raw = [pose(0.0), pose(1.0), pose(2.0)]
         corrected_a = [pose(0.0), pose(1.0, 10.0), pose(2.0, 10.0)]

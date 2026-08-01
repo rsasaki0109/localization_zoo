@@ -46,6 +46,7 @@ def parse_args() -> argparse.Namespace:
             "causal_interval_robust_rotation_bias",
             "causal_interval_robust_rotation_scale_bias",
             "causal_interval_delayed_median_rotation_bias",
+            "causal_interval_distance_weighted_rotation_bias",
             "causal_interval_median_vector_rotation_bias",
             "causal_interval_hampel_vector_rotation_bias",
         ),
@@ -843,6 +844,69 @@ def apply_causal_interval_delayed_median_rotation_bias(
     return output
 
 
+def apply_causal_interval_distance_weighted_rotation_bias(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    bias_update_threshold: float = 0.01,
+) -> list[np.ndarray]:
+    """Average interval rotation drift in proportion to travelled distance."""
+    if len(raw) != len(corrected):
+        raise ValueError("raw and corrected pose counts must match")
+    if bias_update_threshold < 0.0:
+        raise ValueError("bias_update_threshold must be non-negative")
+    if not raw:
+        return []
+
+    output = [raw[0].copy()]
+    distance_since_update = 0.0
+    total_observed_distance = 0.0
+    cumulative_rotation_vector = np.zeros(3)
+    rotation_rate_vector = np.zeros(3)
+    last_accepted_correction = np.eye(4)
+    for index in range(1, len(raw)):
+        raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
+        distance = float(np.linalg.norm(raw_increment[:3, 3]))
+        distance_since_update += distance
+
+        predicted = np.eye(4)
+        predicted[:3, :3] = output[-1][:3, :3] @ raw_increment[:3, :3]
+        predicted[:3, 3] = (
+            output[-1][:3, 3]
+            + output[-1][:3, :3] @ raw_increment[:3, 3]
+        )
+        rate_norm = float(np.linalg.norm(rotation_rate_vector))
+        if distance > 0.0 and rate_norm > 0.0:
+            predicted[:3, :3] = (
+                axis_angle_rotation(
+                    rotation_rate_vector / rate_norm,
+                    rate_norm * distance,
+                )
+                @ predicted[:3, :3]
+            )
+        output.append(predicted)
+
+        target = corrected[index] @ np.linalg.inv(raw[index])
+        correction_increment = target @ np.linalg.inv(last_accepted_correction)
+        increment_angle = rotation_angle(correction_increment[:3, :3])
+        update_size = max(
+            float(np.linalg.norm(correction_increment[:3, 3])),
+            increment_angle,
+        )
+        if distance_since_update > 1e-9 and update_size > bias_update_threshold:
+            cumulative_rotation_vector += (
+                rotation_axis(correction_increment[:3, :3], increment_angle)
+                * increment_angle
+            )
+            total_observed_distance += distance_since_update
+            rotation_rate_vector = (
+                2.0 * cumulative_rotation_vector / total_observed_distance
+            )
+            last_accepted_correction = target
+            distance_since_update = 0.0
+    return output
+
+
 def apply_causal_interval_hampel_vector_rotation_bias(
     raw: list[np.ndarray],
     corrected: list[np.ndarray],
@@ -1010,6 +1074,12 @@ def main() -> int:
         )
     elif args.integration_policy == "causal_interval_delayed_median_rotation_bias":
         output = apply_causal_interval_delayed_median_rotation_bias(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+        )
+    elif args.integration_policy == "causal_interval_distance_weighted_rotation_bias":
+        output = apply_causal_interval_distance_weighted_rotation_bias(
             raw,
             corrected,
             bias_update_threshold=args.bias_update_threshold,

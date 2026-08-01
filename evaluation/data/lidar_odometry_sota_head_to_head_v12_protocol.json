@@ -231,5 +231,20 @@
     "post_failure_replay": "v13 passes KITTI 05 numeric gates, but the row remains consumed and cannot satisfy the untouched external gate",
     "next_external_row": "not yet declared; v13 is now frozen and the next commit must declare the row before runtime"
   },
+  "untouched_external_evaluation_v13": {
+    "declared_at": "2026-08-02",
+    "dataset": "Boreas boreas-2021-09-02-11-42 first 600 LiDAR scans",
+    "environment": "normal outdoor urban driving",
+    "role": "new untouched normal-environment external evaluation after v13 freeze",
+    "frames": 600,
+    "candidate": "corroborated_rotation_majority_v13 at commit 1f6323d2",
+    "comparators": [
+      "CUBE-LIO repository reproduction"
+    ],
+    "ground_truth_runtime_access": "forbidden until candidate and comparator trajectories are hashed",
+    "status": "declared_before_candidate_or_comparator_runtime",
+    "evidence": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
+    "post_result_tuning": "forbidden"
+  },
   "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation"
 }

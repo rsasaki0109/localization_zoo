@@ -115,5 +115,6 @@
     "black": "4 files left unchanged",
     "post_result_tuning_on_kitti05": false
   },
-  "next_gate": "declare a new untouched normal-environment row before any candidate runtime, then require all accuracy, tracking, runtime, and memory gates before promotion"
+  "next_external_evaluation": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_declaration_v13.json",
+  "next_gate": "run the declared Boreas 2021-09-02 first-600 external row once without candidate changes, then require all accuracy, tracking, runtime, and memory gates before promotion"
 }

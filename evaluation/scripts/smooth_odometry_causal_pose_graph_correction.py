@@ -44,6 +44,7 @@ def parse_args() -> argparse.Namespace:
             "causal_interval_consensus_rotation_bias",
             "causal_interval_yaw_consensus_bias",
             "causal_interval_robust_rotation_bias",
+            "causal_interval_robust_rotation_scale_bias",
             "causal_interval_median_vector_rotation_bias",
             "causal_interval_hampel_vector_rotation_bias",
         ),
@@ -608,6 +609,7 @@ def apply_causal_interval_robust_rotation_bias(
     corrected: list[np.ndarray],
     *,
     bias_update_threshold: float = 0.01,
+    learn_first_scale: bool = False,
 ) -> list[np.ndarray]:
     """Double interval rotation drift while clipping short-interval outliers."""
     if len(raw) != len(corrected):
@@ -622,6 +624,8 @@ def apply_causal_interval_robust_rotation_bias(
     rotation_rate_vector = np.zeros(3)
     observed_rate_norms: list[float] = []
     last_accepted_correction = np.eye(4)
+    translation_scale = 1.0
+    scale_learned = False
     for index in range(1, len(raw)):
         raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
         distance = float(np.linalg.norm(raw_increment[:3, 3]))
@@ -631,7 +635,8 @@ def apply_causal_interval_robust_rotation_bias(
         predicted[:3, :3] = output[-1][:3, :3] @ raw_increment[:3, :3]
         predicted[:3, 3] = (
             output[-1][:3, 3]
-            + output[-1][:3, :3] @ raw_increment[:3, 3]
+            + output[-1][:3, :3]
+            @ (translation_scale * raw_increment[:3, 3])
         )
         rate_norm = float(np.linalg.norm(rotation_rate_vector))
         if distance > 0.0 and rate_norm > 0.0:
@@ -652,6 +657,22 @@ def apply_causal_interval_robust_rotation_bias(
             increment_angle,
         )
         if distance_since_update > 1e-9 and update_size > bias_update_threshold:
+            if learn_first_scale and not scale_learned:
+                rotated_raw_position = (
+                    target[:3, :3] @ raw[index][:3, 3]
+                )
+                denominator = float(
+                    np.dot(rotated_raw_position, rotated_raw_position)
+                )
+                if denominator > 1e-9:
+                    inferred_scale = float(
+                        np.dot(corrected[index][:3, 3], rotated_raw_position)
+                        / denominator
+                    )
+                    translation_scale = float(
+                        np.clip(inferred_scale, 0.95, 1.05)
+                    )
+                    scale_learned = True
             observed_rate = (
                 rotation_axis(correction_increment[:3, :3], increment_angle)
                 * increment_angle
@@ -903,6 +924,13 @@ def main() -> int:
             raw,
             corrected,
             bias_update_threshold=args.bias_update_threshold,
+        )
+    elif args.integration_policy == "causal_interval_robust_rotation_scale_bias":
+        output = apply_causal_interval_robust_rotation_bias(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+            learn_first_scale=True,
         )
     elif args.integration_policy == "causal_interval_median_vector_rotation_bias":
         output = apply_causal_interval_median_vector_rotation_bias(

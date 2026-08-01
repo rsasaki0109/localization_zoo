@@ -300,6 +300,15 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
         np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
 
+    def test_first_loop_scale_changes_future_increment_without_jump(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0), pose(3.0)]
+        corrected = [pose(0.0), pose(1.0), pose(1.8), pose(2.8)]
+        output = MODULE.apply_causal_interval_robust_rotation_bias(
+            raw, corrected, learn_first_scale=True
+        )
+        self.assertAlmostEqual(output[2][0, 3], 2.0, places=12)
+        self.assertAlmostEqual(output[3][0, 3], 2.95, places=12)
+
     def test_median_vector_rotation_rejects_axis_outlier(self) -> None:
         raw = [pose(float(i), 0.0) for i in range(7)]
         corrected = [

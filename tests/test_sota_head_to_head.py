@@ -52,6 +52,13 @@ class SotaHeadToHeadTests(unittest.TestCase):
             set(self.protocol["fast_livo2_track"]["datasets_declared_before_download"]),
             {"ntu_viral_eee_01", "ntu_viral_eee_02", "ntu_viral_eee_03"},
         )
+        provenance = self.protocol["fast_livo2_track"]["dataset_provenance"]
+        self.assertIn("GT quarantine", provenance["archive_handling"])
+        self.assertIn("sensor_only", provenance["candidate_sensor_root"])
+        for dataset in self.protocol["fast_livo2_track"][
+            "datasets_declared_before_download"
+        ].values():
+            self.assertTrue(dataset["archive_url"].startswith("https://"))
 
     def test_all_gates_pass_for_strict_win(self):
         results = {

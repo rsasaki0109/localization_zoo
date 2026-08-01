@@ -69,21 +69,31 @@
     "license": "GPL-2.0",
     "external_checkout": "${LOCALIZATION_ZOO_DATA_ROOT}/third_party/FAST-LIVO2",
     "configuration": "config/NTU_VIRAL.yaml and config/camera_NTU_VIRAL.yaml",
+    "dataset_provenance": {
+      "source_page": "https://ntu-aris.github.io/ntu_viral_dataset/",
+      "download_host": "https://researchdata.ntu.edu.sg/",
+      "archive_handling": "download into GT quarantine; expose only extracted sensor topics to candidate runtime",
+      "quarantine_root": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/ntu_viral_quarantine",
+      "candidate_sensor_root": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/ntu_viral_sensor_only"
+    },
     "datasets_declared_before_download": {
       "ntu_viral_eee_01": {
         "role": "development_runtime_and_GT_free_diagnostics",
         "archive_size_gb": 8.7,
-        "environment": "normal central carpark"
+        "environment": "normal central carpark",
+        "archive_url": "https://researchdata.ntu.edu.sg/api/access/datafile/68133"
       },
       "ntu_viral_eee_02": {
         "role": "frozen_validation",
         "archive_size_gb": 7.0,
-        "environment": "normal central carpark"
+        "environment": "normal central carpark",
+        "archive_url": "https://researchdata.ntu.edu.sg/api/access/datafile/68131"
       },
       "ntu_viral_eee_03": {
         "role": "untouched_external_evaluation",
         "archive_size_gb": 4.3,
-        "environment": "normal central carpark"
+        "environment": "normal central carpark",
+        "archive_url": "https://researchdata.ntu.edu.sg/api/access/datafile/68132"
       }
     },
     "baseline_status": "pending_official_reproduction",

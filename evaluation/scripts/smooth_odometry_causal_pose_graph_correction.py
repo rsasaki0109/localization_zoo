@@ -41,6 +41,7 @@ def parse_args() -> argparse.Namespace:
             "first_correction_bias_rate",
             "causal_correction_bias_rate_updates",
             "causal_interval_bias_rate_updates",
+            "causal_interval_consensus_rotation_bias",
         ),
         default="left_correction",
     )
@@ -463,6 +464,79 @@ def apply_causal_interval_correction_as_bias_rate(
     return output
 
 
+def apply_causal_interval_consensus_rotation_bias(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    bias_update_threshold: float = 0.01,
+) -> list[np.ndarray]:
+    """Amplify interval rotation drift only when consecutive axes agree."""
+    if len(raw) != len(corrected):
+        raise ValueError("raw and corrected pose counts must match")
+    if bias_update_threshold < 0.0:
+        raise ValueError("bias_update_threshold must be non-negative")
+    if not raw:
+        return []
+
+    output = [raw[0].copy()]
+    distance_since_update = 0.0
+    rotation_rate_vector = np.zeros(3)
+    previous_observed_rate: np.ndarray | None = None
+    last_accepted_correction = np.eye(4)
+    for index in range(1, len(raw)):
+        raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
+        distance = float(np.linalg.norm(raw_increment[:3, 3]))
+        distance_since_update += distance
+
+        predicted = np.eye(4)
+        predicted[:3, :3] = output[-1][:3, :3] @ raw_increment[:3, :3]
+        predicted[:3, 3] = (
+            output[-1][:3, 3]
+            + output[-1][:3, :3] @ raw_increment[:3, 3]
+        )
+        rate_norm = float(np.linalg.norm(rotation_rate_vector))
+        if distance > 0.0 and rate_norm > 0.0:
+            predicted[:3, :3] = (
+                axis_angle_rotation(
+                    rotation_rate_vector / rate_norm,
+                    rate_norm * distance,
+                )
+                @ predicted[:3, :3]
+            )
+        output.append(predicted)
+
+        target = corrected[index] @ np.linalg.inv(raw[index])
+        correction_increment = target @ np.linalg.inv(last_accepted_correction)
+        increment_angle = rotation_angle(correction_increment[:3, :3])
+        update_size = max(
+            float(np.linalg.norm(correction_increment[:3, 3])),
+            increment_angle,
+        )
+        if distance_since_update > 1e-9 and update_size > bias_update_threshold:
+            observed_rate = (
+                rotation_axis(correction_increment[:3, :3], increment_angle)
+                * increment_angle
+                / distance_since_update
+            )
+            consensus = 0.0
+            observed_norm = float(np.linalg.norm(observed_rate))
+            if previous_observed_rate is not None and observed_norm > 0.0:
+                previous_norm = float(np.linalg.norm(previous_observed_rate))
+                if previous_norm > 0.0:
+                    consensus = max(
+                        0.0,
+                        float(
+                            np.dot(previous_observed_rate, observed_rate)
+                            / (previous_norm * observed_norm)
+                        ),
+                    )
+            rotation_rate_vector = (1.0 + consensus) * observed_rate
+            previous_observed_rate = observed_rate
+            last_accepted_correction = target
+            distance_since_update = 0.0
+    return output
+
+
 def main() -> int:
     args = parse_args()
     raw_path = Path(args.raw_poses)
@@ -511,6 +585,12 @@ def main() -> int:
             bias_update_threshold=args.bias_update_threshold,
             bias_translation_gain=args.bias_translation_gain,
             bias_rotation_gain=args.bias_rotation_gain,
+        )
+    elif args.integration_policy == "causal_interval_consensus_rotation_bias":
+        output = apply_causal_interval_consensus_rotation_bias(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
         )
     else:
         smoother = (

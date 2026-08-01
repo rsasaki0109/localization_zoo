@@ -657,9 +657,12 @@ def apply_causal_interval_robust_rotation_bias(
             )
             observed_norm = float(np.linalg.norm(observed_rate))
             observed_rate_norms.append(observed_norm)
-            applied_norm = 2.0 * observed_norm
+            robust_median = float(np.median(observed_rate_norms))
+            applied_norm = min(
+                2.0 * observed_norm,
+                2.0 * robust_median,
+            )
             if len(observed_rate_norms) >= 3:
-                robust_median = float(np.median(observed_rate_norms))
                 median_absolute_deviation = float(
                     np.median(
                         np.abs(np.asarray(observed_rate_norms) - robust_median)

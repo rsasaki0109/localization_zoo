@@ -179,15 +179,18 @@
         "source": "https://hilti-challenge.com/dataset-2022",
         "environment": "normal indoor basement",
         "role": "third public development comparison row",
-        "status": "download_in_progress"
+        "status": "complete_and_passing",
+        "evidence": "evaluation/data/fast_livo2_official_hilti22_exp14_v12.json"
       },
       "untouched_external_evaluation": "reserved as a separate later normal-environment row after all development choices are frozen"
     },
     "completed_rows": {
       "ntu_viral_eee_01": "evaluation/data/fast_livo2_official_ntu_viral_eee01_v12.json",
-      "ntu_viral_eee_03_extracted_lio": "evaluation/data/fast_livo2_official_ntu_viral_eee03_v12.json"
+      "ntu_viral_eee_03_extracted_lio": "evaluation/data/fast_livo2_official_ntu_viral_eee03_v12.json",
+      "hilti22_exp14_basement_2": "evaluation/data/fast_livo2_official_hilti22_exp14_v12.json"
     },
-    "baseline_status": "two_public_rows_complete_and_passing; third_public_row_active",
+    "three_row_summary": "evaluation/data/fast_livo2_three_row_summary_v12.json",
+    "baseline_status": "three_public_accuracy_rows_complete_and_passing; first_two_timing_repetitions_and_untouched_external_evaluation_pending",
     "win_gate": {
       "minimum_rows": 3,
       "candidate_median_ate_ratio_below": 1.0,

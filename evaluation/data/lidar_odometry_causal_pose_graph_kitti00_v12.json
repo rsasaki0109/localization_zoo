@@ -28,7 +28,9 @@
     "implementation_commits": {
       "causal_output": "d6fc6092",
       "test_expression_fix": "847e4726",
-      "sparse_solver": "f2f95fc6"
+      "sparse_solver": "f2f95fc6",
+      "first_loop_scale": "5a187338",
+      "delayed_median_rotation": "e38117f9"
     },
     "binary_sha256": "3852f8124cc8ed9f8f5a63bbab8429215395776f62b75fd9e1143e93ae6f8543",
     "input_manifest_sha256": "9ea0c512d0360fa9a3eeca62f2ee938fc523dca75d92b9ad01062f1c1bc5378e",
@@ -65,30 +67,40 @@
   },
   "best_non_dominated_candidates": [
     {
-      "name": "primary_first_correction_latch",
-      "trajectory_sha256": "6789a7c8edd216bd1bd818563965ac6ed149ea0a401c214622fca0ddeff9736a",
-      "ate_m": 8.819979922923931,
-      "rpe_trans_pct": 1.0745241429545367,
-      "fps": 24.691354195149128,
+      "name": "primary_interval_robust_rotation",
+      "trajectory_sha256": "3d1d0a974f98033f324afb008ea90df7679e10aea6dce8fe394bcdd5420aa980",
+      "ate_m": 9.03180582696405,
+      "rpe_trans_pct": 0.8905754359753674,
+      "fps": 24.614,
       "gate": "passes_ate_fails_rpe"
     },
     {
-      "name": "primary_updated_rotation_bias_gain2",
-      "trajectory_sha256": "08564646e531d6bf5964ef4005ef9a43af537d98e62ce3c971b24bd6ee7276e7",
-      "ate_m": 10.603899518924244,
-      "rpe_trans_pct": 0.8616691148391622,
-      "rpe_rot_deg_per_m": 0.006607128567263893,
-      "fps": 24.643043369944756,
+      "name": "primary_interval_delayed_median_rotation",
+      "trajectory_sha256": "e36e5458ef95e31f93f3962ded79b04d12f0ef85014e9aa461efca17248e5319",
+      "ate_m": 10.260850633236695,
+      "rpe_trans_pct": 0.8610906798802872,
+      "rpe_rot_deg_per_m": 0.006664372066167162,
+      "fps": 24.671810316662597,
       "gate": "fails_ate_passes_rpe"
     }
   ],
+  "rejected_scale_candidate": {
+    "name": "primary_interval_robust_rotation_scale",
+    "trajectory_sha256": "d5c53ccae92cd9747d06789c6756c9a4a492e82bcac751aa43eed8cfcc4721f6",
+    "ate_m": 9.102805452385747,
+    "rpe_trans_pct": 0.9142608796012534,
+    "rpe_rot_deg_per_m": 0.006986071630738624,
+    "tracking_success_rate": 1.0,
+    "fps": 24.676166904031454,
+    "gate": "fails_ate_and_rpe"
+  },
   "smoothing_implementation": {
-    "latest_commit": "b02c30a0",
-    "script_sha256": "c3bb47a2d27d1a4ab44f97e438bd694daeb2c0e989d88279dc35d93a256da4d3",
-    "test_sha256": "09af892a16b3be84150adb2a602aa4cebc970191aa02dac1eac6bcebf00a701b",
-    "tests_passed": 17,
+    "latest_commit": "e38117f9",
+    "script_sha256": "a9a8338e95335276593f966274aac36c8395341b13f0efcce87d45d5cfee6702",
+    "test_sha256": "58004af4a4d681dc0f75ef233626a128783b5afc58d1ff95939cc0aad7d56ff8",
+    "tests_passed": 32,
     "ground_truth_used_at_runtime": false
   },
-  "decision": "do_not_promote; profile a continuous local-frame correction model that preserves the gain2 RPE while reducing remaining ATE",
+  "decision": "do_not_promote; profile late causal interval rotation directions and preserve the robust-rotation ATE while reducing its 0.010742 percentage-point RPE gap",
   "artifacts_root": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v12_sota_head_to_head/v12_causal_pose_graph/kitti00"
 }

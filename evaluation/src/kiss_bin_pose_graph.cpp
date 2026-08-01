@@ -170,7 +170,7 @@ int main(int argc, char** argv) {
   params.scan_context.distance_threshold = 0.18;
   params.scan_context.num_candidates = 5;
   params.loop_gicp.max_correspondence_distance = 5.0;
-  params.loop_gicp.max_iterations = 30;
+  params.loop_gicp.max_iterations = 60;
   params.loop_fitness_threshold = std::numeric_limits<double>::infinity();
   params.loop_rmse_threshold = 1.0;
   params.min_loop_correspondences = 80;
@@ -233,6 +233,8 @@ int main(int argc, char** argv) {
            << ",\n"
            << "  \"loop_registration_rejections\": "
            << backend.loopRegistrationRejections() << ",\n"
+           << "  \"loop_gicp_max_iterations\": "
+           << params.loop_gicp.max_iterations << ",\n"
            << "  \"correction_enabled\": "
            << (backend.loopCorrectionEnabled() ? "true" : "false") << ",\n"
            << "  \"algorithm_seconds\": " << algorithm_seconds << ",\n"

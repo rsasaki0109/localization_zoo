@@ -77,7 +77,7 @@ def main() -> int:
         ),
         "translation_weight_primary": 0.5,
         "translation_weight_reference": 0.5,
-        "rotation_policy": "retain the frozen causal direction-consistent v10 rotation",
+        "rotation_policy": "retain the supplied frozen causal rotation trajectory",
         "causality": "output i uses component poses only through i",
         "seconds_including_pose_io": elapsed,
         "fps_including_pose_io": len(output) / elapsed if elapsed > 0.0 else None,

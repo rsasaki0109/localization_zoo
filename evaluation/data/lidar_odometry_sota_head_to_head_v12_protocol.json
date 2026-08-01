@@ -49,13 +49,13 @@
         "role": "frozen_direct_comparison",
         "frames": 1101,
         "direct_rerun": {
-          "status": "complete_warm_cache_three_run_median",
+          "status": "complete_isolated_ssd_ext4_warm_cache_three_run_median",
           "ate_m": 1.6454257491191604,
           "rpe_trans_pct": 0.6238668812159914,
           "rpe_rot_deg_per_m": 0.00515398807803977,
           "tracking_success_rate": 1.0,
-          "fps": 5.827487320848432,
-          "peak_rss_mb": 45.51953125,
+          "fps": 10.25930190756451,
+          "peak_rss_mb": 45.60546875,
           "evidence": "evaluation/data/cube_lio_kitti07_direct_rerun_v12.json"
         },
         "provisional_baseline": {

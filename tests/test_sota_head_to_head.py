@@ -65,7 +65,11 @@ class SotaHeadToHeadTests(unittest.TestCase):
         rerun = self.protocol["cube_lio_track"]["datasets"][
             "kitti_odometry_07"
         ]["direct_rerun"]
-        self.assertEqual(rerun["status"], "complete_warm_cache_three_run_median")
+        self.assertEqual(
+            rerun["status"],
+            "complete_isolated_ssd_ext4_warm_cache_three_run_median",
+        )
+        self.assertGreaterEqual(rerun["fps"], 10.0)
         for key in (
             "ate_m",
             "rpe_trans_pct",

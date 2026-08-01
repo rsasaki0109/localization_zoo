@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
-  "status": "complete_warm_cache_three_run_median",
+  "status": "complete_isolated_ssd_ext4_warm_cache_three_run_median",
   "recorded_at": "2026-08-01",
   "method": "CUBE-LIO repository reproduction",
   "sequence": "KITTI Odometry 07",
   "input": {
-    "path": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/sequences/07/velodyne",
+    "path": "/mnt/loc_zoo_ssd/kitti_odometry/sequences/07/velodyne",
     "format": "KITTI raw .bin PointXYZI",
     "frames": 1101,
+    "storage_staging_evidence": "evaluation/data/kitti_ssd_ext4_staging_v12.json",
     "identity_reference_sha256": "2f38e874765f43e6aa861d2da428a46f60bd26bd5574d4eb9c6a9fe5b05caf5c",
     "real_gt_runtime_access": false
   },
@@ -19,30 +20,35 @@
   },
   "runtime_policy": {
     "cpu_affinity": "0-5",
-    "excluded_cache_warmup_run": "run1",
-    "reported_runs": ["run2", "run3", "run4"],
+    "excluded_cache_warmup_runs": [
+      "ext4_run1",
+      "ext4_run4",
+      "ext4_warm1"
+    ],
+    "reported_runs": ["ext4_warm2", "ext4_warm3", "ext4_warm4"],
+    "isolation": "one odometry process; no concurrent dataset download or SSD benchmark",
     "trajectory_hashed_before_external_scoring": true
   },
   "runs": [
     {
-      "id": "run2",
-      "algorithm_seconds": 186.399,
-      "wall_seconds": 186.64,
-      "peak_rss_kb": 46468,
+      "id": "ext4_warm2",
+      "algorithm_seconds": 111.329610065,
+      "wall_seconds": 111.47,
+      "peak_rss_kb": 46548,
       "trajectory_sha256": "9982e46da7e9ce248b835a242080b8766f646930be4797d1385ee649118cbac5"
     },
     {
-      "id": "run3",
-      "algorithm_seconds": 188.9322,
-      "wall_seconds": 189.29,
-      "peak_rss_kb": 46816,
+      "id": "ext4_warm3",
+      "algorithm_seconds": 107.317243407,
+      "wall_seconds": 107.44,
+      "peak_rss_kb": 46744,
       "trajectory_sha256": "9982e46da7e9ce248b835a242080b8766f646930be4797d1385ee649118cbac5"
     },
     {
-      "id": "run4",
-      "algorithm_seconds": 208.1855,
-      "wall_seconds": 208.52,
-      "peak_rss_kb": 46612,
+      "id": "ext4_warm4",
+      "algorithm_seconds": 103.96596012,
+      "wall_seconds": 104.12,
+      "peak_rss_kb": 46700,
       "trajectory_sha256": "9982e46da7e9ce248b835a242080b8766f646930be4797d1385ee649118cbac5"
     }
   ],
@@ -51,9 +57,9 @@
     "rpe_trans_pct": 0.6238668812159914,
     "rpe_rot_deg_per_m": 0.00515398807803977,
     "tracking_success_rate": 1.0,
-    "algorithm_seconds": 188.9322,
-    "fps": 5.827487320848432,
-    "peak_rss_mb": 45.51953125
+    "algorithm_seconds": 107.317243407,
+    "fps": 10.25930190756451,
+    "peak_rss_mb": 45.60546875
   },
   "scoring": {
     "tool": "evaluation/scripts/evaluate_external_kitti_odometry.py",
@@ -63,5 +69,8 @@
     "segment_length_m": 100.0,
     "rpe_segments": 881
   },
-  "supersedes_provisional_runtime_input": "docs/benchmarks/kitti_full_new_methods/seq07_cube_lio.json used converted PCD input and is not the same-input baseline"
+  "supersedes": {
+    "provisional_input": "docs/benchmarks/kitti_full_new_methods/seq07_cube_lio.json used converted PCD input and is not the same-input baseline",
+    "prior_direct_runtime": "The previously recorded 188.9322 second median used DrvFs while an NTU archive download concurrently wrote the same external SSD. Accuracy and trajectory hashes remain valid, but those runtime values are quarantined from performance comparison."
+  }
 }

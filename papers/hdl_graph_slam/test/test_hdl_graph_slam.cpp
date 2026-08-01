@@ -185,8 +185,9 @@ TEST(HdlGraphSlam, ExternalOdometryLoopCorrectionReducesEndpointDrift) {
   EXPECT_TRUE(corrected.front().isApprox(raw_poses.front(), 1e-12));
   ASSERT_EQ(causal_published_poses.size(), raw_poses.size());
   EXPECT_TRUE(causal_published_poses.front().isApprox(raw_poses.front(), 1e-12));
-  EXPECT_LT(causal_published_poses.back().block<3, 1>(0, 3).norm(),
-            raw_endpoint_error);
+  const double causal_endpoint_error =
+      causal_published_poses.back().block<3, 1>(0, 3).norm();
+  EXPECT_LT(causal_endpoint_error, raw_endpoint_error);
 }
 
 TEST(HdlGraphSlam, HoldsRawTrajectoryUntilTwoLoopClustersCorroborate) {

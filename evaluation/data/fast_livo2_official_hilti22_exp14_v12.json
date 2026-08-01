@@ -109,5 +109,5 @@
     "rate_1_1_tmpfs": "rejected because overload reduced outputs to 636, 501, and 696 poses",
     "standalone_lidar_odometry": "rejected before GT scoring because its GT-free 1.37 m maximum inter-frame step was physically implausible"
   },
-  "remaining": "repeat official timing for the first two public rows, then run untouched normal-environment external evaluation"
+  "remaining": "complete untouched normal-environment external evaluation"
 }

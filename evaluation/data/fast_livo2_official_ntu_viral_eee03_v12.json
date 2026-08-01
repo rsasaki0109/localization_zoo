@@ -43,6 +43,41 @@
     "pose_graph_algorithm_seconds": 1.16802275,
     "frozen_trajectory_sha256": "bf020c9f12818c6d154e6e5c0e9c321f304f7b2886cad3c41d63fe36a140ecb2"
   },
+  "timing": {
+    "input_bag_bytes": 978095391,
+    "input_bag_sha256": "091f5ab5c6e282265187183b76eaea2e32527723acf002e86901fe21ba77c98f",
+    "input_staging": "one SHA-256-verified Docker tmpfs copy reused by three sequential runs",
+    "runs": [
+      {
+        "run": 1,
+        "poses": 1809,
+        "mapper_wall_seconds": 172.292296192,
+        "mapper_cpu_seconds": 264.07,
+        "mapper_peak_rss_kb": 1394788,
+        "trajectory_sha256": "abe40568f6c25409789dfd3c947825c4bf2d4d3dc72f9f74062c37bada3ce8d1"
+      },
+      {
+        "run": 2,
+        "poses": 1809,
+        "mapper_wall_seconds": 165.464264448,
+        "mapper_cpu_seconds": 222.35,
+        "mapper_peak_rss_kb": 1385448,
+        "trajectory_sha256": "abe40568f6c25409789dfd3c947825c4bf2d4d3dc72f9f74062c37bada3ce8d1"
+      },
+      {
+        "run": 3,
+        "poses": 1811,
+        "mapper_wall_seconds": 165.600865536,
+        "mapper_cpu_seconds": 226.37,
+        "mapper_peak_rss_kb": 1378912,
+        "trajectory_sha256": "ed8f18cdf42839d3909eaa192cd50438737a77a262994afff89a4466f8061a19"
+      }
+    ],
+    "median_mapper_wall_seconds": 165.600865536,
+    "input_frame_wall_fps": 10.954049027030322,
+    "median_mapper_cpu_seconds": 226.37,
+    "median_mapper_peak_rss_kb": 1385448
+  },
   "comparison": {
     "official": {
       "trajectory_sha256": "ed8f18cdf42839d3909eaa192cd50438737a77a262994afff89a4466f8061a19",
@@ -50,17 +85,18 @@
       "ate_3d_m": 0.26055876325198557,
       "rpe_trans_pct": 0.31744582089336243,
       "tracking_success_rate": 0.9983461962513782,
-      "mapper_cpu_seconds": 162.63,
-      "algorithm_fps": 11.154153600196766,
-      "mapper_peak_rss_kb": 1375668
+      "median_wall_seconds": 165.600865536,
+      "input_frame_wall_fps": 10.954049027030322,
+      "median_mapper_cpu_seconds": 226.37,
+      "median_mapper_peak_rss_kb": 1385448
     },
     "candidate": {
       "poses": 1814,
       "ate_3d_m": 0.26055825000348326,
       "rpe_trans_pct": 0.3174157844538151,
       "tracking_success_rate": 1.0,
-      "combined_algorithm_seconds": 163.79802275,
-      "combined_algorithm_fps": 11.074614757521546
+      "combined_algorithm_seconds": 166.768888286,
+      "combined_algorithm_fps": 10.877328611132096
     },
     "gates": {
       "ate_improved": true,
@@ -70,5 +106,5 @@
       "row_passed": true
     }
   },
-  "remaining": "complete a third public series, three-run timing medians, and untouched normal-environment external evaluation"
+  "remaining": "complete untouched normal-environment external evaluation"
 }

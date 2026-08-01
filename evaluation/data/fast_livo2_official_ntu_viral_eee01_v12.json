@@ -31,6 +31,41 @@
     "pose_graph_binary_sha256": "6c15fe34f6037340a41f4b13562abe7075c5060b78a5599c2b1deafd403219a9",
     "frozen_trajectory_sha256": "4d8368b1ba9877c39d659dc03dad73e3ffaff7ecf57444ff2f0bec0bd3cfea97"
   },
+  "timing": {
+    "input_bag_bytes": 4634396685,
+    "input_bag_sha256": "b6a698d55c1bab9740f8c5051532f77778525748e7280d61aeb5a661e853fd40",
+    "input_staging": "one SHA-256-verified Docker tmpfs copy reused by three sequential runs",
+    "runs": [
+      {
+        "run": 1,
+        "poses": 3983,
+        "mapper_wall_seconds": 363.297625600,
+        "mapper_cpu_seconds": 454.92,
+        "mapper_peak_rss_kb": 4601652,
+        "trajectory_sha256": "329d16ef99d659fca6016f8db68b8a432c10f2813759a8f8e85c5782597f2012"
+      },
+      {
+        "run": 2,
+        "poses": 3983,
+        "mapper_wall_seconds": 371.168954368,
+        "mapper_cpu_seconds": 476.72,
+        "mapper_peak_rss_kb": 4657868,
+        "trajectory_sha256": "36c775403a645ce5f8ec5c7ba6102abd7bfa13b9fb4e030bc55eedc1e8384c80"
+      },
+      {
+        "run": 3,
+        "poses": 3982,
+        "mapper_wall_seconds": 363.301879552,
+        "mapper_cpu_seconds": 471.82,
+        "mapper_peak_rss_kb": 4768736,
+        "trajectory_sha256": "e22ce0ce86cce8b9ef10276c8b5aabb9f3a1303203d7ea78eba3b193f96d3475"
+      }
+    ],
+    "median_mapper_wall_seconds": 363.301879552,
+    "input_frame_wall_fps": 10.974344544863094,
+    "median_mapper_cpu_seconds": 471.82,
+    "median_mapper_peak_rss_kb": 4657868
+  },
   "comparison": {
     "official": {
       "trajectory_sha256": "86f5e4b95615177554b3423d1712551da5e447f1426f3a3907ca75aee5f99eb7",
@@ -38,15 +73,17 @@
       "ate_3d_m": 0.25782230260216665,
       "rpe_trans_pct": 0.3987754293007713,
       "tracking_success_rate": 0.9984951091045899,
-      "wall_fps": 10.44987373567538,
-      "mapper_peak_rss_kb": 4756204
+      "median_wall_seconds": 363.301879552,
+      "input_frame_wall_fps": 10.974344544863094,
+      "median_mapper_peak_rss_kb": 4657868
     },
     "candidate": {
       "poses": 3987,
       "ate_3d_m": 0.25508943442722914,
       "rpe_trans_pct": 0.3976507662529941,
       "tracking_success_rate": 1.0,
-      "conservative_combined_fps": 10.331653989938237
+      "combined_algorithm_seconds": 367.667594347,
+      "conservative_combined_fps": 10.84403428885582
     },
     "gates": {
       "ate_improved": true,
@@ -56,5 +93,5 @@
       "row_passed": true
     }
   },
-  "remaining": "repeat official timing and complete eee_02/eee_03 plus untouched external evaluation"
+  "remaining": "complete untouched normal-environment external evaluation"
 }

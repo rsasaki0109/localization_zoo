@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "three_public_accuracy_rows_passed_timing_repetitions_partial",
+  "status": "three_public_rows_and_timing_repetitions_passed",
   "rows": [
     {
       "dataset": "NTU VIRAL eee_01",
@@ -9,7 +9,7 @@
       "rpe_ratio": 0.997179708263999,
       "candidate_tracking_success_rate": 1.0,
       "official_tracking_success_rate": 0.9984951091045899,
-      "candidate_combined_fps": 10.331653989938237
+      "candidate_combined_fps": 10.84403428885582
     },
     {
       "dataset": "NTU VIRAL eee_03 extracted LIO",
@@ -18,7 +18,7 @@
       "rpe_ratio": 0.9999053808947215,
       "candidate_tracking_success_rate": 1.0,
       "official_tracking_success_rate": 0.9983461962513782,
-      "candidate_combined_fps": 11.074614757521546
+      "candidate_combined_fps": 10.877328611132096
     },
     {
       "dataset": "HILTI 2022 Exp14 Basement 2",
@@ -36,8 +36,8 @@
     "maximum_ate_ratio": 0.999998030200574,
     "maximum_rpe_ratio": 0.9999053808947215,
     "total_input_frames": 6541,
-    "combined_algorithm_seconds": 643.432434576,
-    "weighted_candidate_fps": 10.165791540039935
+    "combined_algorithm_seconds": 628.169469200,
+    "weighted_candidate_fps": 10.41279514639614
   },
   "gates": {
     "minimum_three_rows": true,
@@ -47,7 +47,7 @@
     "tracking_not_below_official_each_row": true,
     "weighted_candidate_fps_at_least_10": true,
     "accuracy_track_passed": true,
-    "timing_repetitions_complete": false,
+    "timing_repetitions_complete": true,
     "untouched_external_evaluation_complete": false,
     "promotion_allowed": false
   }

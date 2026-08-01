@@ -190,7 +190,7 @@
       "hilti22_exp14_basement_2": "evaluation/data/fast_livo2_official_hilti22_exp14_v12.json"
     },
     "three_row_summary": "evaluation/data/fast_livo2_three_row_summary_v12.json",
-    "baseline_status": "three_public_accuracy_rows_complete_and_passing; first_two_timing_repetitions_and_untouched_external_evaluation_pending",
+    "baseline_status": "three_public_accuracy_rows_and_three-run timing medians complete and passing; untouched external evaluation pending",
     "win_gate": {
       "minimum_rows": 3,
       "candidate_median_ate_ratio_below": 1.0,

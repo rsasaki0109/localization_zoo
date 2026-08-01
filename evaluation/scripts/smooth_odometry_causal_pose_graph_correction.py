@@ -43,6 +43,8 @@ def parse_args() -> argparse.Namespace:
         default="left_correction",
     )
     parser.add_argument("--correction-latch-threshold", type=float, default=1e-4)
+    parser.add_argument("--bias-translation-gain", type=float, default=1.0)
+    parser.add_argument("--bias-rotation-gain", type=float, default=1.0)
     return parser.parse_args()
 
 
@@ -253,12 +255,16 @@ def apply_first_causal_correction_as_bias_rate(
     corrected: list[np.ndarray],
     *,
     correction_latch_threshold: float = 1e-4,
+    bias_translation_gain: float = 1.0,
+    bias_rotation_gain: float = 1.0,
 ) -> list[np.ndarray]:
     """Use the first loop correction as a future per-metre drift estimate."""
     if len(raw) != len(corrected):
         raise ValueError("raw and corrected pose counts must match")
     if correction_latch_threshold < 0.0:
         raise ValueError("correction_latch_threshold must be non-negative")
+    if bias_translation_gain < 0.0 or bias_rotation_gain < 0.0:
+        raise ValueError("bias gains must be non-negative")
     if not raw:
         return []
 
@@ -282,11 +288,14 @@ def apply_first_causal_correction_as_bias_rate(
         if has_bias and distance > 0.0:
             predicted[:3, :3] = (
                 axis_angle_rotation(
-                    rotation_axis_bias, rotation_bias_per_m * distance
+                    rotation_axis_bias,
+                    bias_rotation_gain * rotation_bias_per_m * distance,
                 )
                 @ predicted[:3, :3]
             )
-            predicted[:3, 3] += translation_bias_per_m * distance
+            predicted[:3, 3] += (
+                bias_translation_gain * translation_bias_per_m * distance
+            )
         output.append(predicted)
 
         if not has_bias and travelled_distance > 1e-9:
@@ -354,6 +363,8 @@ def main() -> int:
             raw,
             corrected,
             correction_latch_threshold=args.correction_latch_threshold,
+            bias_translation_gain=args.bias_translation_gain,
+            bias_rotation_gain=args.bias_rotation_gain,
         )
     else:
         smoother = (
@@ -381,6 +392,8 @@ def main() -> int:
         "rotation_rate_fraction": args.rotation_rate_fraction,
         "integration_policy": args.integration_policy,
         "correction_latch_threshold": args.correction_latch_threshold,
+        "bias_translation_gain": args.bias_translation_gain,
+        "bias_rotation_gain": args.bias_rotation_gain,
         "policy": (
             "At frame i, move the published pose toward the pose-graph correction "
             "by at most the configured fraction of the median raw-odometry motion "

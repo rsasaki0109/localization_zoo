@@ -117,6 +117,23 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
         np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
 
+    def test_translation_bias_can_be_disabled(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0), pose(3.0)]
+        corrected = [pose(0.0), pose(1.0), pose(7.0), pose(8.0)]
+        output = MODULE.apply_first_causal_correction_as_bias_rate(
+            raw, corrected, bias_translation_gain=0.0
+        )
+        self.assertAlmostEqual(output[3][0, 3], 3.0, places=12)
+
+    def test_rotation_bias_can_be_disabled(self) -> None:
+        raw = [pose(yaw_deg=0.0), pose(yaw_deg=10.0), pose(yaw_deg=20.0)]
+        corrected = [pose(yaw_deg=0.0), pose(yaw_deg=30.0), pose(yaw_deg=40.0)]
+        output = MODULE.apply_first_causal_correction_as_bias_rate(
+            raw, corrected, bias_rotation_gain=0.0
+        )
+        published_yaw = np.degrees(np.arctan2(output[2][1, 0], output[2][0, 0]))
+        self.assertAlmostEqual(published_yaw, 20.0, places=10)
+
     def test_left_correction_is_transferred_without_frontend_offset(self) -> None:
         target = [pose(100.0), pose(101.0)]
         source = [pose(0.0), pose(1.0)]

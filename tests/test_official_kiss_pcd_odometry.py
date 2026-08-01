@@ -1,5 +1,6 @@
 import importlib.util
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -77,6 +78,31 @@ class OfficialKissPcdOdometryTests(unittest.TestCase):
             untimestamped_cap=4,
         )
         self.assertEqual(selected, 12)
+
+    def test_loads_kitti_pointxyzi_binary_without_timestamps(self) -> None:
+        values = np.array(
+            [[1.0, 2.0, 3.0, 0.5], [4.0, 5.0, 6.0, 0.25]],
+            dtype="<f4",
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "000000.bin"
+            values.tofile(path)
+            points, timestamps = MODULE.load_kitti_bin_xyz(path)
+            has_timestamps, point_count = MODULE.scan_schema(path)
+
+        np.testing.assert_allclose(points, values[:, :3])
+        self.assertEqual(timestamps.size, 0)
+        self.assertFalse(has_timestamps)
+        self.assertEqual(point_count, 2)
+
+    def test_collect_scans_prefers_sorted_kitti_bins(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            np.zeros((1, 4), dtype="<f4").tofile(root / "000001.bin")
+            np.zeros((1, 4), dtype="<f4").tofile(root / "000000.bin")
+            scans = MODULE.collect_scans(root, 1)
+
+        self.assertEqual([path.name for path in scans], ["000000.bin"])
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run official KISS-ICP on a Zoo PCD sequence without any ground truth."""
+"""Run official KISS-ICP on Zoo PCD or KITTI PointXYZI scans without GT."""
 
 from __future__ import annotations
 
@@ -107,11 +107,42 @@ def load_pcd_xyz_timestamps(path: Path) -> tuple[np.ndarray, np.ndarray]:
     return xyz[finite], timestamps
 
 
+def load_kitti_bin_xyz(path: Path) -> tuple[np.ndarray, np.ndarray]:
+    values = np.fromfile(path, dtype="<f4")
+    if values.size % 4 != 0:
+        raise RuntimeError(
+            f"KITTI binary scan does not contain PointXYZI tuples: {path}"
+        )
+    points = values.reshape(-1, 4)[:, :3].astype(np.float64)
+    finite = np.isfinite(points).all(axis=1)
+    return points[finite], np.array([], dtype=np.float64)
+
+
+def collect_scans(scan_dir: Path, max_frames: int) -> list[Path]:
+    kitti_bins = sorted(scan_dir.glob("*.bin"))
+    if kitti_bins:
+        return kitti_bins[:max_frames] if max_frames >= 0 else kitti_bins
+    return collect_pcds(scan_dir, max_frames)
+
+
+def load_scan_xyz_timestamps(path: Path) -> tuple[np.ndarray, np.ndarray]:
+    if path.suffix.lower() == ".bin":
+        return load_kitti_bin_xyz(path)
+    return load_pcd_xyz_timestamps(path)
+
+
 def write_kitti_poses(path: Path, poses: np.ndarray) -> None:
     np.savetxt(path, poses[:, :3, :].reshape(-1, 12), fmt="%.12g")
 
 
-def pcd_schema(path: Path) -> tuple[bool, int]:
+def scan_schema(path: Path) -> tuple[bool, int]:
+    if path.suffix.lower() == ".bin":
+        byte_count = path.stat().st_size
+        if byte_count % 16 != 0:
+            raise RuntimeError(
+                f"KITTI binary scan size is not divisible by 16 bytes: {path}"
+            )
+        return False, byte_count // 16
     header, _ = read_pcd_header(path)
     names = pcd_dtype(header).names or ()
     has_timestamps = any(name in names for name in ("time", "t", "timestamp"))
@@ -150,10 +181,10 @@ def main() -> int:
     pcd_dir = Path(args.pcd_dir).resolve()
     output_dir = Path(args.output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
-    pcds = collect_pcds(pcd_dir, args.max_frames)
+    pcds = collect_scans(pcd_dir, args.max_frames)
     if not pcds:
         raise RuntimeError(f"No PCD frames found in {pcd_dir}")
-    first_pcd_has_timestamps, first_pcd_point_count = pcd_schema(pcds[0])
+    first_pcd_has_timestamps, first_pcd_point_count = scan_schema(pcds[0])
     selected_thread_cap = select_thread_cap(
         policy=args.thread_policy,
         fixed_cap=args.max_threads,
@@ -173,7 +204,7 @@ def main() -> int:
     timestamped_frames = 0
     started = time.perf_counter()
     for index, pcd in enumerate(pcds):
-        points, timestamps = load_pcd_xyz_timestamps(pcd)
+        points, timestamps = load_scan_xyz_timestamps(pcd)
         if points.shape[0] == 0:
             skipped_empty_frames.append(index)
             continue

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate_id": "runtime_feasible_reference_v14",
-  "status": "consumed_development_rows_pass_new_external_pending",
+  "status": "all_candidate_rows_and_untouched_external_pass_promotion_audit_pending",
   "parent_candidate": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
   "configuration_frozen": true,
   "frozen_at": "2026-08-02",
@@ -147,5 +147,15 @@
     "post_result_tuning_on_boreas_v13": false,
     "boreas_role_for_v14": "consumed development replay only"
   },
-  "next_gate": "declare a new untouched normal-environment external row after this freeze, run once without candidate changes, and require all accuracy, tracking, runtime, and memory gates before promotion"
+  "external_evaluation": {
+    "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_declaration_v14.json",
+    "result": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_v14.json",
+    "dataset": "Boreas boreas-2021-09-07-09-35 first 600 LiDAR scans",
+    "candidate_ate_ratio_over_cube_lio": 0.8515270024894677,
+    "candidate_rpe_trans_ratio_over_cube_lio": 0.8326638256640613,
+    "candidate_tracking_success_rate": 1.0,
+    "candidate_fps": 18.11164769880325,
+    "status": "pass"
+  },
+  "next_gate": "complete the full requirement-by-requirement promotion audit; promote and open a Draft PR only if every authoritative gate passes"
 }

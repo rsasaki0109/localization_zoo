@@ -190,9 +190,17 @@ int main(int argc, char** argv) {
   std::ofstream output(argv[3]);
   if (!output) throw std::runtime_error("cannot open output poses");
   double algorithm_seconds = 0.0;
+  std::size_t scans_loaded = 0;
+  localization_zoo::aloam::PointCloudPtr cloud;
   const auto total_start = std::chrono::steady_clock::now();
   for (std::size_t index = 0; index < scans.size(); ++index) {
-    const auto cloud = makeCloud(preprocess(loadKittiScan(scans[index])));
+    const bool keyframe_scan_required =
+        !cloud || params.keyframe_stride <= 0 ||
+        (index + 1) % static_cast<std::size_t>(params.keyframe_stride) == 0;
+    if (keyframe_scan_required) {
+      cloud = makeCloud(preprocess(loadKittiScan(scans[index])));
+      ++scans_loaded;
+    }
     const auto algorithm_start = std::chrono::steady_clock::now();
     const auto result = backend.processExternalOdometry(cloud, raw_poses[index]);
     algorithm_seconds += std::chrono::duration<double>(
@@ -217,6 +225,7 @@ int main(int argc, char** argv) {
            << "  \"ground_truth_used\": false,\n"
            << "  \"causality\": \"output i uses scans and poses only through i\",\n"
            << "  \"frames\": " << scans.size() << ",\n"
+           << "  \"scans_loaded\": " << scans_loaded << ",\n"
            << "  \"keyframes\": " << backend.numKeyframes() << ",\n"
            << "  \"loop_edges\": " << backend.numLoopEdges() << ",\n"
            << "  \"loop_clusters\": " << backend.numLoopClusters() << ",\n"

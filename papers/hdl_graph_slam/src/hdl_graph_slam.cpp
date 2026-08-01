@@ -697,8 +697,12 @@ void HdlGraphSlam::optimizePoseGraph() {
   }
 
   ceres::Solver::Options options;
-  options.linear_solver_type = ceres::DENSE_QR;
+  // A pose graph only connects neighbouring poses and sparse loop pairs.
+  // Dense QR becomes prohibitively expensive once a long sequence closes
+  // several loops, while the sparse normal equations preserve that structure.
+  options.linear_solver_type = ceres::SPARSE_NORMAL_CHOLESKY;
   options.max_num_iterations = 20;
+  options.num_threads = 4;
   options.minimizer_progress_to_stdout = false;
 
   ceres::Solver::Summary summary;

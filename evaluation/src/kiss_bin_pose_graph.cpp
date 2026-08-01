@@ -230,8 +230,28 @@ int main(int argc, char** argv) {
            << "  \"total_seconds\": " << total_seconds << ",\n"
            << "  \"algorithm_fps\": " << scans.size() / algorithm_seconds
            << ",\n"
-           << "  \"total_fps\": " << scans.size() / total_seconds << "\n"
-           << "}\n";
+           << "  \"total_fps\": " << scans.size() / total_seconds << ",\n"
+           << "  \"loop_attempts\": [\n";
+  const auto& loop_attempts = backend.loopAttempts();
+  for (std::size_t index = 0; index < loop_attempts.size(); ++index) {
+    const auto& attempt = loop_attempts[index];
+    const auto scalar = [](double value) {
+      return std::isfinite(value) ? std::to_string(value) : "null";
+    };
+    manifest << "    {\"from\": " << attempt.from
+             << ", \"to\": " << attempt.to
+             << ", \"descriptor_distance\": "
+             << scalar(attempt.descriptor_distance)
+             << ", \"converged\": "
+             << (attempt.converged ? "true" : "false")
+             << ", \"fitness\": " << scalar(attempt.fitness)
+             << ", \"rmse\": " << scalar(attempt.rmse)
+             << ", \"correspondences\": " << attempt.correspondences
+             << ", \"accepted\": "
+             << (attempt.accepted ? "true" : "false") << "}"
+             << (index + 1 < loop_attempts.size() ? "," : "") << '\n';
+  }
+  manifest << "  ]\n}\n";
   std::cerr << "\r[KISS-bin-PG] " << scans.size() << '/' << scans.size()
             << " loops=" << backend.numLoopEdges()
             << " clusters=" << backend.numLoopClusters() << '\n';

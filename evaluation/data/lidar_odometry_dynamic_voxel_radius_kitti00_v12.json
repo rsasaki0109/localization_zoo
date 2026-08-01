@@ -105,6 +105,16 @@
         "tracking_success_rate": 1.0,
         "sequential_fps": 129.68148167995867
       },
+      "distance_weighted_tilt_robust_yaw": {
+        "implementation_commit": "8a7b7248",
+        "trajectory_sha256_before_scoring": "7e1a074d9c894aeca29015bda5607e652e17ffdf06839a561792891038294b1b",
+        "ate_m": 10.278380179171492,
+        "rpe_trans_pct": 0.8663462625820033,
+        "rpe_rot_deg_per_m": 0.0064653385193425015,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.72263023811044,
+        "decision": "passes_rpe_tracking_fps_but_fails_ate"
+      },
       "deterministic_full_voxel_refresh": {
         "raw_trajectory_sha256_before_scoring": "97d953c4327e26e8673321702797da73053ff7096e93757e766547a0569585be",
         "raw_ate_m": 19.20496,

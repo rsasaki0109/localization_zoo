@@ -300,6 +300,38 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
         np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
 
+    def test_median_vector_rotation_rejects_axis_outlier(self) -> None:
+        raw = [pose(float(i), 0.0) for i in range(7)]
+        corrected = [
+            pose(0.0, 0.0),
+            pose(1.0, 1.0),
+            pose(2.0, 1.0),
+            pose(3.0, 3.0),
+            pose(4.0, 3.0),
+            pose(5.0, -27.0),
+            pose(6.0, -27.0),
+        ]
+        output = MODULE.apply_causal_interval_median_vector_rotation_bias(
+            raw, corrected
+        )
+        relative = output[6][:3, :3] @ output[5][:3, :3].T
+        yaw_step = np.degrees(np.arctan2(relative[1, 0], relative[0, 0]))
+        self.assertGreater(yaw_step, 0.0)
+
+    def test_median_vector_rotation_is_causal(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0)]
+        corrected_a = [pose(0.0), pose(1.0, 10.0), pose(2.0, 10.0)]
+        corrected_b = [pose(0.0), pose(1.0, 10.0), pose(2.0, -170.0)]
+        output_a = MODULE.apply_causal_interval_median_vector_rotation_bias(
+            raw, corrected_a
+        )
+        output_b = MODULE.apply_causal_interval_median_vector_rotation_bias(
+            raw, corrected_b
+        )
+        np.testing.assert_allclose(output_a[0], output_b[0], atol=1e-12)
+        np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
+        np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
+
 
 if __name__ == "__main__":
     unittest.main()

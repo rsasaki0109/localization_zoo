@@ -7,7 +7,7 @@
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
   "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
-  "current_candidate_stage": "cube_lio_track_passed_official_fast_livo2_track_active",
+  "current_candidate_stage": "cube_lio_and_fast_livo2_tracks_passed_external_kitti05_failed_rpe_development_reopened",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
@@ -35,9 +35,10 @@
       "next": "combine with the frozen v11 fallback through the GT-free loop-support selector"
     },
     "gt_free_loop_support_adaptive_v12": {
-      "status": "passes_cube_lio_kitti00_and_kitti07_all_gates",
+      "status": "passes_cube_lio_and_fast_livo2_tracks_but_failed_untouched_kitti05_rpe_gate",
       "evidence": "evaluation/data/lidar_odometry_candidate_gt_free_loop_support_v12.json",
-      "next": "run the official FAST-LIVO2 three-row track, then untouched normal-environment external evaluation"
+      "external_evidence": "evaluation/data/lidar_odometry_external_kitti05_v12.json",
+      "next": "GT-free failure profiling and candidate development on consumed KITTI 00/07, followed by a newly declared untouched normal-environment row"
     }
   },
   "ground_truth_policy": {
@@ -190,7 +191,7 @@
       "hilti22_exp14_basement_2": "evaluation/data/fast_livo2_official_hilti22_exp14_v12.json"
     },
     "three_row_summary": "evaluation/data/fast_livo2_three_row_summary_v12.json",
-    "baseline_status": "three_public_accuracy_rows_and_three-run timing medians complete and passing; untouched external evaluation pending",
+    "baseline_status": "three_public accuracy rows and three-run timing medians complete and passing; first untouched external evaluation failed candidate RPE and is consumed",
     "win_gate": {
       "minimum_rows": 3,
       "candidate_median_ate_ratio_below": 1.0,
@@ -212,7 +213,16 @@
     "ground_truth_runtime_access": "forbidden until candidate and comparator trajectories are hashed",
     "comparators": ["CUBE-LIO repository reproduction"],
     "candidate": "frozen v12 frontend plus GT-free loop-support and correction-envelope selector",
-    "status": "declared_before_candidate_runtime"
+    "status": "failed_rpe_consumed_no_promotion",
+    "evidence": "evaluation/data/lidar_odometry_external_kitti05_v12.json",
+    "result": {
+      "candidate_ate_ratio_over_cube_lio": 0.9241042873342379,
+      "candidate_rpe_trans_ratio_over_cube_lio": 1.1169100952035866,
+      "candidate_tracking_success_rate": 1.0,
+      "candidate_fps": 10.583309456876043,
+      "external_gate_passed": false
+    },
+    "next_external_row": "not declared until a revised candidate has been selected on consumed development rows and frozen"
   },
   "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation"
 }

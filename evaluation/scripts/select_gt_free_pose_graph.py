@@ -16,6 +16,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--raw", type=Path, required=True)
     parser.add_argument("--corrected", type=Path, required=True)
+    parser.add_argument(
+        "--fallback",
+        type=Path,
+        help="Frozen fallback trajectory used when correction gates fail.",
+    )
     parser.add_argument("--pose-graph-manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
@@ -64,6 +69,17 @@ def correction_envelope(
     )
 
 
+def select_source(
+    raw: Path,
+    corrected: Path,
+    fallback: Path | None,
+    correction_selected: bool,
+) -> Path:
+    if correction_selected:
+        return corrected
+    return fallback if fallback is not None else raw
+
+
 def main() -> int:
     args = parse_args()
     graph_manifest = json.loads(args.pose_graph_manifest.read_text(encoding="utf-8"))
@@ -77,7 +93,9 @@ def main() -> int:
     translation_gate = max_translation <= args.max_translation_correction_m
     rotation_gate = max_rotation <= args.max_rotation_correction_deg
     correction_selected = cluster_gate and translation_gate and rotation_gate
-    selected = args.corrected if correction_selected else args.raw
+    selected = select_source(
+        args.raw, args.corrected, args.fallback, correction_selected
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(selected, args.output)
     manifest = {
@@ -96,6 +114,7 @@ def main() -> int:
         "translation_envelope_gate_passed": translation_gate,
         "rotation_envelope_gate_passed": rotation_gate,
         "correction_selected": correction_selected,
+        "fallback_available": args.fallback is not None,
         "selected_source": str(selected),
         "selected_sha256": sha256(args.output),
     }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate_id": "gt_free_loop_support_adaptive_v12",
-  "status": "passes_cube_lio_track_fast_livo2_track_pending",
+  "status": "passes_cube_lio_and_fast_livo2_tracks_external_kitti05_failed_rpe",
   "configuration_frozen": true,
   "frozen_at": "2026-08-01",
   "promoted": false,
@@ -64,5 +64,11 @@
     "evaluation/scripts/select_odometry_by_loop_support.py": "a6c8c1b880310efd269e54d8d77552059f1f218c48ab73df48bc6d0146036508",
     "tests/test_loop_support_odometry_selector.py": "30a22179beb0e6c94d7810dc1c034df451f0ce6da6cb4187ddc4a3514ec05a0b"
   },
-  "next_gate": "official FAST-LIVO2 on at least three declared public rows, followed by untouched normal-environment external evaluation"
+  "fast_livo2_evidence": "evaluation/data/fast_livo2_three_row_summary_v12.json",
+  "external_evaluation": {
+    "dataset": "KITTI Odometry 05",
+    "status": "failed_rpe_consumed_no_promotion",
+    "evidence": "evaluation/data/lidar_odometry_external_kitti05_v12.json"
+  },
+  "next_gate": "reopen GT-free development on consumed KITTI 00/07, freeze a revised candidate, then evaluate on a newly declared untouched normal-environment row"
 }

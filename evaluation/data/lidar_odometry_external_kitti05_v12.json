@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "lidar_odometry_v12_external_kitti05",
+  "status": "external_evaluation_failed_rpe_no_promotion",
+  "dataset": "KITTI Odometry 05",
+  "environment": "normal urban and residential driving",
+  "declared_before_runtime": true,
+  "declaration_commit": "e7779e73",
+  "frames": 2761,
+  "ground_truth_policy": {
+    "candidate_runtime_access": "forbidden",
+    "trajectory_hashing_before_scoring": true,
+    "ground_truth_sha256": "1746feac2f00ee1302520f4d1d0b285a83e3c6faab4b3be96ccd103374c2ce92",
+    "identity_runtime_reference_sha256": "9714aee21360da27159f9f4c9e1c40cebc2cf97fbf0d4d66d8e844616cd41805",
+    "post_score_role": "consumed_failure_analysis_only; forbidden for candidate or threshold selection"
+  },
+  "input": {
+    "storage": "external SSD",
+    "source_manifest_files": 2762,
+    "source_manifest_sha256": "34789e69c8a6ff549cf4e5429ff00ccb6e7ccca9720e7f2ae204c4a451952c71",
+    "timed_staging": "manifest-verified tmpfs; staging excluded"
+  },
+  "cube_lio": {
+    "trajectory_sha256_all_three_runs": "4cb54c40d5f159d129d92e0d13ec06f61c23711e1ce8ceffa70af20ff2ec99c4",
+    "algorithm_seconds": [
+      292.382786643,
+      277.922246504,
+      285.051225143
+    ],
+    "median_algorithm_seconds": 285.051225143,
+    "peak_rss_kb": [
+      49056,
+      49280,
+      49192
+    ],
+    "metrics": {
+      "ate_m": 5.357310476972791,
+      "rpe_trans_pct": 0.5936785490909657,
+      "rpe_rot_deg_per_m": 0.005049416014153958,
+      "tracking_success_rate": 1.0,
+      "fps": 9.685978366221388
+    }
+  },
+  "frozen_candidate": {
+    "selector": "GT-free loop support plus correction envelope; frozen v11 causal midpoint fallback when graph correction is rejected",
+    "raw_sha256": "5b77e41d90f0de515a716800d058eb17a8f16f7c6da33cb5deaa72e3e0251b72",
+    "pose_graph_sha256": "716b9646d42a52eaca04e5dfbd6544dcbd24d195e47735355a554ec2c69a0697",
+    "official_kiss_reference_sha256": "8c88a1a8ce809b1f58a7d62fb3a29683680ab4a3ce149581fabd7955aea83b0e",
+    "fallback_v11_sha256": "770694cecc2fe219bf476783a2885752ad0c6a72a6642d1ce6ebf8e3dea5563a",
+    "selected_sha256_before_scoring": "770694cecc2fe219bf476783a2885752ad0c6a72a6642d1ce6ebf8e3dea5563a",
+    "selection": {
+      "loop_clusters": 2,
+      "graph_correction_max_translation_m": 13.25981294214883,
+      "graph_correction_max_rotation_deg": 3.0633246724261665,
+      "graph_correction_selected": false,
+      "rejection_reason": "translation correction exceeded the frozen 0.5 m envelope",
+      "selected_source": "frozen v11 fallback"
+    },
+    "conservative_sequential_seconds": 260.8824783259231,
+    "metrics": {
+      "ate_m": 4.950713580351187,
+      "rpe_trans_pct": 0.6630855647855177,
+      "rpe_rot_deg_per_m": 0.005532062554356822,
+      "tracking_success_rate": 1.0,
+      "fps": 10.583309456876043
+    }
+  },
+  "diagnostics_scored_only_after_freeze": {
+    "raw": {
+      "ate_m": 7.977318926808041,
+      "rpe_trans_pct": 0.4156890285690938,
+      "rpe_rot_deg_per_m": 0.004154746289629741
+    },
+    "pose_graph": {
+      "ate_m": 7.348970740212685,
+      "rpe_trans_pct": 0.980260956040706,
+      "rpe_rot_deg_per_m": 0.0060050341486486405
+    },
+    "interpretation": "raw preserves local relative motion but drifts globally; frozen v11 improves ATE while degrading 100 m relative motion; the rejected graph correction degrades both local RPE measures"
+  },
+  "ratios_candidate_over_cube_lio": {
+    "ate": 0.9241042873342379,
+    "rpe_trans": 1.1169100952035866,
+    "rpe_rot": 1.0955846257963224,
+    "tracking": 1.0
+  },
+  "gates": {
+    "ate_improved": true,
+    "rpe_trans_improved": false,
+    "rpe_rot_improved": false,
+    "tracking_100_percent": true,
+    "fps_at_least_10": true,
+    "external_evaluation_passed": false,
+    "promotion_allowed": false
+  },
+  "next": "profile component disagreement without GT, develop and select only on consumed KITTI 00/07, refreeze, then declare a new untouched normal-environment row before runtime"
+}

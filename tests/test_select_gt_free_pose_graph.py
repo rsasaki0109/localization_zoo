@@ -42,6 +42,20 @@ class PoseGraphSelectorTests(unittest.TestCase):
                 np.repeat(np.eye(4)[None, :, :], 3, axis=0),
             )
 
+    def test_uses_frozen_fallback_when_correction_is_rejected(self) -> None:
+        raw = Path("raw.txt")
+        corrected = Path("corrected.txt")
+        fallback = Path("fallback.txt")
+        self.assertEqual(
+            MODULE.select_source(raw, corrected, fallback, False), fallback
+        )
+        self.assertEqual(
+            MODULE.select_source(raw, corrected, fallback, True), corrected
+        )
+        self.assertEqual(
+            MODULE.select_source(raw, corrected, None, False), raw
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

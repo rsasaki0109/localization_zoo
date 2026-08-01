@@ -48,6 +48,7 @@ def parse_args() -> argparse.Namespace:
             "causal_interval_robust_consistent_direction_bias",
             "causal_interval_robust_pair_distance_direction_bias",
             "causal_interval_robust_yaw_direction_bias",
+            "causal_interval_robust_motion_yaw_output_bias",
             "causal_interval_robust_rotation_scale_bias",
             "causal_interval_delayed_median_rotation_bias",
             "causal_interval_distance_weighted_rotation_bias",
@@ -807,6 +808,31 @@ def apply_causal_interval_median_vector_rotation_bias(
     return output
 
 
+def apply_causal_interval_robust_motion_yaw_output_bias(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    bias_update_threshold: float = 0.01,
+) -> list[np.ndarray]:
+    """Use full robust attitude for motion, but publish robust z-up yaw."""
+    motion = apply_causal_interval_robust_rotation_bias(
+        raw, corrected, bias_update_threshold=bias_update_threshold
+    )
+    published = apply_causal_interval_robust_rotation_bias(
+        raw,
+        corrected,
+        bias_update_threshold=bias_update_threshold,
+        reject_direction_reversal=True,
+        yaw_only=True,
+    )
+    output: list[np.ndarray] = []
+    for motion_pose, published_pose in zip(motion, published):
+        pose = published_pose.copy()
+        pose[:3, 3] = motion_pose[:3, 3]
+        output.append(pose)
+    return output
+
+
 def apply_causal_interval_delayed_median_rotation_bias(
     raw: list[np.ndarray],
     corrected: list[np.ndarray],
@@ -1143,6 +1169,12 @@ def main() -> int:
             bias_update_threshold=args.bias_update_threshold,
             reject_direction_reversal=True,
             yaw_only=True,
+        )
+    elif args.integration_policy == "causal_interval_robust_motion_yaw_output_bias":
+        output = apply_causal_interval_robust_motion_yaw_output_bias(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
         )
     elif args.integration_policy == "causal_interval_robust_rotation_scale_bias":
         output = apply_causal_interval_robust_rotation_bias(

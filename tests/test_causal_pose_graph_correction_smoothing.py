@@ -373,6 +373,20 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
             np.testing.assert_allclose(combined[:3, 3], motion_pose[:3, 3])
             np.testing.assert_allclose(combined[:3, :3], yaw_pose[:3, :3])
 
+    def test_robust_persistent_yaw_keeps_yaw_sign(self) -> None:
+        raw = [pose(float(i), 0.0) for i in range(5)]
+        corrections = [0.0, 10.0, 10.0, 8.0, 8.0]
+        corrected = [
+            pose(0.0, angle) @ raw_pose
+            for raw_pose, angle in zip(raw, corrections)
+        ]
+        output = MODULE.apply_causal_interval_robust_rotation_bias(
+            raw, corrected, preserve_yaw_sign=True
+        )
+        relative = output[4][:3, :3] @ output[3][:3, :3].T
+        yaw_step = np.degrees(np.arctan2(relative[1, 0], relative[0, 0]))
+        self.assertGreater(yaw_step, 0.0)
+
     def test_first_loop_scale_changes_future_increment_without_jump(self) -> None:
         raw = [pose(0.0), pose(1.0), pose(2.0), pose(3.0)]
         corrected = [pose(0.0), pose(1.0), pose(1.8), pose(2.8)]

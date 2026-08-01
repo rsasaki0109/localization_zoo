@@ -46,6 +46,7 @@ def parse_args() -> argparse.Namespace:
             "causal_interval_yaw_consensus_bias",
             "causal_interval_robust_rotation_bias",
             "causal_interval_robust_consistent_direction_bias",
+            "causal_interval_robust_pair_distance_direction_bias",
             "causal_interval_robust_rotation_scale_bias",
             "causal_interval_delayed_median_rotation_bias",
             "causal_interval_distance_weighted_rotation_bias",
@@ -621,6 +622,7 @@ def apply_causal_interval_robust_rotation_bias(
     bias_update_threshold: float = 0.01,
     learn_first_scale: bool = False,
     reject_direction_reversal: bool = False,
+    pair_distance_weight_direction: bool = False,
 ) -> list[np.ndarray]:
     """Double interval rotation drift while clipping short-interval outliers."""
     if len(raw) != len(corrected):
@@ -634,6 +636,8 @@ def apply_causal_interval_robust_rotation_bias(
     distance_since_update = 0.0
     rotation_rate_vector = np.zeros(3)
     observed_rate_norms: list[float] = []
+    previous_observed_rate: np.ndarray | None = None
+    previous_observed_distance = 0.0
     last_accepted_correction = np.eye(4)
     translation_scale = 1.0
     scale_learned = False
@@ -690,6 +694,15 @@ def apply_causal_interval_robust_rotation_bias(
                 / distance_since_update
             )
             observed_norm = float(np.linalg.norm(observed_rate))
+            direction_rate = observed_rate
+            if (
+                pair_distance_weight_direction
+                and previous_observed_rate is not None
+            ):
+                direction_rate = (
+                    previous_observed_rate * previous_observed_distance
+                    + observed_rate * distance_since_update
+                ) / (previous_observed_distance + distance_since_update)
             applied_norm = 2.0 * observed_norm
             if observed_rate_norms:
                 robust_median = float(np.median(observed_rate_norms))
@@ -706,8 +719,9 @@ def apply_causal_interval_robust_rotation_bias(
                 )
                 applied_norm = min(applied_norm, hampel_upper_bound)
             observed_rate_norms.append(observed_norm)
-            if observed_norm > 0.0:
-                applied_direction = observed_rate / observed_norm
+            direction_norm = float(np.linalg.norm(direction_rate))
+            if direction_norm > 0.0:
+                applied_direction = direction_rate / direction_norm
                 current_norm = float(np.linalg.norm(rotation_rate_vector))
                 if (
                     reject_direction_reversal
@@ -720,6 +734,8 @@ def apply_causal_interval_robust_rotation_bias(
                 rotation_rate_vector = applied_direction * applied_norm
             else:
                 rotation_rate_vector = np.zeros(3)
+            previous_observed_rate = observed_rate
+            previous_observed_distance = distance_since_update
             last_accepted_correction = target
             distance_since_update = 0.0
     return output
@@ -1108,6 +1124,13 @@ def main() -> int:
             corrected,
             bias_update_threshold=args.bias_update_threshold,
             reject_direction_reversal=True,
+        )
+    elif args.integration_policy == "causal_interval_robust_pair_distance_direction_bias":
+        output = apply_causal_interval_robust_rotation_bias(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+            pair_distance_weight_direction=True,
         )
     elif args.integration_policy == "causal_interval_robust_rotation_scale_bias":
         output = apply_causal_interval_robust_rotation_bias(

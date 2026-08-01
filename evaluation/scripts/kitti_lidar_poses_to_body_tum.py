@@ -17,6 +17,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timestamps", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--body-to-lidar-translation", default="-0.05,0,0.055")
+    parser.add_argument(
+        "--body-to-lidar-rotation",
+        default="1,0,0,0,1,0,0,0,1",
+        help="row-major R_B_L from LiDAR coordinates into body coordinates",
+    )
     return parser.parse_args()
 
 
@@ -54,10 +59,17 @@ def rotation_to_quaternion(rotation: np.ndarray) -> tuple[float, float, float, f
     return tuple(float(value) for value in quaternion)
 
 
-def lidar_to_body_pose(pose: np.ndarray, body_to_lidar: np.ndarray) -> np.ndarray:
-    result = pose.copy()
-    result[:3, 3] = pose[:3, 3] - pose[:3, :3] @ body_to_lidar
-    return result
+def lidar_to_body_pose(
+    pose: np.ndarray,
+    body_to_lidar: np.ndarray,
+    body_to_lidar_rotation: np.ndarray | None = None,
+) -> np.ndarray:
+    extrinsic = np.eye(4)
+    extrinsic[:3, :3] = (
+        np.eye(3) if body_to_lidar_rotation is None else body_to_lidar_rotation
+    )
+    extrinsic[:3, 3] = body_to_lidar
+    return pose @ np.linalg.inv(extrinsic)
 
 
 def main() -> int:
@@ -67,6 +79,12 @@ def main() -> int:
     )
     if translation.shape != (3,):
         raise ValueError("body-to-lidar translation must contain three values")
+    rotation = np.asarray(
+        [float(value) for value in args.body_to_lidar_rotation.split(",")]
+    )
+    if rotation.shape != (9,):
+        raise ValueError("body-to-lidar rotation must contain nine values")
+    rotation = rotation.reshape(3, 3)
     poses: list[np.ndarray] = []
     with args.poses.open(encoding="utf-8") as stream:
         for line_number, raw in enumerate(stream, start=1):
@@ -75,7 +93,7 @@ def main() -> int:
                 raise ValueError(f"{args.poses}:{line_number}: expected 12 values")
             pose = np.eye(4)
             pose[:3, :] = np.asarray(values).reshape(3, 4)
-            poses.append(lidar_to_body_pose(pose, translation))
+            poses.append(lidar_to_body_pose(pose, translation, rotation))
     with args.timestamps.open(encoding="utf-8") as stream:
         timestamps = [float(row["timestamp"]) for row in csv.DictReader(stream)]
     if len(poses) != len(timestamps):

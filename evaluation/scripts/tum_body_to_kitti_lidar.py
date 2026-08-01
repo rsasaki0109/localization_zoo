@@ -19,6 +19,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--body-to-lidar-translation", default="-0.05,0,0.055")
+    parser.add_argument(
+        "--body-to-lidar-rotation",
+        default="1,0,0,0,1,0,0,0,1",
+        help="row-major R_B_L from LiDAR coordinates into body coordinates",
+    )
     return parser.parse_args()
 
 
@@ -84,10 +89,17 @@ def make_pose(position: np.ndarray, quaternion: np.ndarray) -> np.ndarray:
     return pose
 
 
-def body_to_lidar_pose(pose: np.ndarray, body_to_lidar: np.ndarray) -> np.ndarray:
-    result = pose.copy()
-    result[:3, 3] = pose[:3, 3] + pose[:3, :3] @ body_to_lidar
-    return result
+def body_to_lidar_pose(
+    pose: np.ndarray,
+    body_to_lidar: np.ndarray,
+    body_to_lidar_rotation: np.ndarray | None = None,
+) -> np.ndarray:
+    extrinsic = np.eye(4)
+    extrinsic[:3, :3] = (
+        np.eye(3) if body_to_lidar_rotation is None else body_to_lidar_rotation
+    )
+    extrinsic[:3, 3] = body_to_lidar
+    return pose @ extrinsic
 
 
 def main() -> int:
@@ -97,6 +109,12 @@ def main() -> int:
     )
     if body_to_lidar.shape != (3,):
         raise ValueError("body-to-lidar translation must contain three values")
+    body_to_lidar_rotation = np.asarray(
+        [float(value) for value in args.body_to_lidar_rotation.split(",")]
+    )
+    if body_to_lidar_rotation.shape != (9,):
+        raise ValueError("body-to-lidar rotation must contain nine values")
+    body_to_lidar_rotation = body_to_lidar_rotation.reshape(3, 3)
     rows = []
     with args.trajectory.open(encoding="utf-8") as stream:
         for line_number, line in enumerate(stream, start=1):
@@ -117,7 +135,9 @@ def main() -> int:
                 stamp, source[:, 0], source[:, 1:4], source[:, 4:8]
             )
             boundary_holds += int(held)
-            pose = body_to_lidar_pose(pose, body_to_lidar)
+            pose = body_to_lidar_pose(
+                pose, body_to_lidar, body_to_lidar_rotation
+            )
             stream.write(" ".join(f"{value:.15g}" for value in pose[:3, :].reshape(-1)))
             stream.write("\n")
     manifest = {
@@ -129,6 +149,7 @@ def main() -> int:
         "boundary_hold_poses": boundary_holds,
         "interpolation": "linear translation and quaternion SLERP; nearest boundary hold",
         "body_to_lidar_translation": body_to_lidar.tolist(),
+        "body_to_lidar_rotation": body_to_lidar_rotation.tolist(),
         "source_sha256": sha256(args.trajectory),
         "output_sha256": sha256(args.output),
     }

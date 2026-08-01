@@ -31,6 +31,17 @@ class BodyToLidarPoseTests(unittest.TestCase):
         rotation = MODULE.quaternion_to_rotation(quaternion)
         np.testing.assert_allclose(rotation @ [1.0, 0.0, 0.0], [0.0, 1.0, 0.0], atol=1e-12)
 
+    def test_applies_nonidentity_body_to_lidar_rotation(self) -> None:
+        pose = np.eye(4)
+        rotation = np.array(
+            [[0.0, -1.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, -1.0]]
+        )
+        result = MODULE.body_to_lidar_pose(
+            pose, np.array([-0.001, -0.00855, 0.055]), rotation
+        )
+        np.testing.assert_allclose(result[:3, :3], rotation)
+        np.testing.assert_allclose(result[:3, 3], [-0.001, -0.00855, 0.055])
+
     def test_boundary_pose_is_held(self) -> None:
         stamps = np.array([1.0, 2.0])
         positions = np.array([[1.0, 0.0, 0.0], [2.0, 0.0, 0.0]])

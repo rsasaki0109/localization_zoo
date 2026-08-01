@@ -29,6 +29,19 @@ class LidarToBodyPoseTests(unittest.TestCase):
             MODULE.rotation_to_quaternion(np.eye(3)), [0.0, 0.0, 0.0, 1.0]
         )
 
+    def test_inverts_nonidentity_body_to_lidar_transform(self) -> None:
+        body_pose = np.eye(4)
+        body_pose[:3, 3] = [4.0, -2.0, 1.0]
+        rotation = np.array(
+            [[0.0, -1.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, -1.0]]
+        )
+        translation = np.array([-0.001, -0.00855, 0.055])
+        lidar_pose = body_pose.copy()
+        lidar_pose[:3, :3] = body_pose[:3, :3] @ rotation
+        lidar_pose[:3, 3] = body_pose[:3, 3] + body_pose[:3, :3] @ translation
+        restored = MODULE.lidar_to_body_pose(lidar_pose, translation, rotation)
+        np.testing.assert_allclose(restored, body_pose, atol=1e-12)
+
 
 if __name__ == "__main__":
     unittest.main()

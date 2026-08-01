@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "lidar_odometry_v14_external_boreas_2021_09_07_first600",
+  "status": "declared_before_sensor_download_or_candidate_comparator_runtime",
+  "declared_at": "2026-08-02",
+  "candidate": "evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json",
+  "candidate_freeze_commit": "0b788eca",
+  "dataset": {
+    "family": "Boreas",
+    "sequence": "boreas-2021-09-07-09-35",
+    "source": "s3://boreas",
+    "source_url": "https://www.boreas.utias.utoronto.ca/",
+    "license": "Boreas dataset terms",
+    "environment": "normal outdoor urban driving",
+    "sensor": "Velodyne Alpha Prime 128-beam LiDAR",
+    "selection": "first 600 lidar/*.bin objects in ascending timestamp order",
+    "available_sequence_scans": 8622,
+    "frames": 600,
+    "scan_bytes": 3081202368,
+    "first_scan_key": "boreas-2021-09-07-09-35/lidar/1631021758295899.bin",
+    "last_scan_key": "boreas-2021-09-07-09-35/lidar/1631021820413941.bin",
+    "scan_selection_sha256": "cb3197e7fdd447e19191f44fddcc5d62cf2d64b3db476de3e2438bf04da152b0"
+  },
+  "untouched_audit": {
+    "repository_mentions_before_declaration": 0,
+    "raw_directories_before_declaration": 0,
+    "result_directories_before_declaration": 0,
+    "candidate_or_comparator_trajectories_before_declaration": 0,
+    "sensor_objects_downloaded_before_declaration": false,
+    "ground_truth_object_exists": true,
+    "ground_truth_object_bytes": 2239840,
+    "ground_truth_downloaded_or_values_inspected": false,
+    "post_result_tuning": "forbidden"
+  },
+  "input_policy": {
+    "conversion_for_cube_lio": "all Boreas [x,y,z,i,r,t] float32 points to timestamped binary PCD; no spatial or stride downsampling",
+    "conversion_for_candidate": "all Boreas points in source order to XYZI float32; omit only ring and relative-time fields required by the frozen frontend interface",
+    "persistent_storage": "external SSD",
+    "timed_storage": "one manifest-verified tmpfs copy per representation shared by the relevant methods",
+    "staging_time_included": false
+  },
+  "ground_truth_isolation": {
+    "candidate_and_comparator_runtime_reference": "synthetic identity poses only",
+    "ground_truth_download": "forbidden until all selected candidate and CUBE-LIO trajectories are SHA-256 frozen",
+    "metric_reference_creation": "forbidden until all selected candidate and CUBE-LIO trajectories are SHA-256 frozen"
+  },
+  "comparators": [
+    "repository CUBE-LIO reproduction"
+  ],
+  "measurement": {
+    "cube_lio_repetitions": 3,
+    "candidate_repetitions": 3,
+    "timing_statistic": "median conservative sequential full-window wall time on the same tmpfs input",
+    "metrics": [
+      "ATE RMSE m with first-pose anchor only",
+      "100 m translational RPE percent",
+      "rotational RPE deg/m",
+      "tracking success rate",
+      "FPS",
+      "peak RSS MiB"
+    ]
+  },
+  "gates": {
+    "candidate_ate_strictly_lower_than_cube_lio": true,
+    "candidate_rpe_trans_strictly_lower_than_cube_lio": true,
+    "candidate_tracking_success_rate": 1.0,
+    "candidate_fps_at_least": 10.0,
+    "memory_recorded": true,
+    "promotion_only_if_all_pass": true
+  }
+}

@@ -7,7 +7,7 @@
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
   "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
-  "current_candidate_stage": "runtime_feasible_reference_v14_frozen_new_untouched_external_pending",
+  "current_candidate_stage": "runtime_feasible_reference_v14_frozen_boreas_2021_09_07_external_declared",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
@@ -261,6 +261,21 @@
       "external_gate_passed": false
     },
     "next": "develop a runtime-feasibility fallback on consumed rows, freeze it, then declare a different untouched normal-environment row before runtime"
+  },
+  "untouched_external_evaluation_v14": {
+    "declared_at": "2026-08-02",
+    "dataset": "Boreas boreas-2021-09-07-09-35 first 600 LiDAR scans",
+    "environment": "normal outdoor urban driving",
+    "role": "new untouched normal-environment external evaluation after v14 freeze",
+    "frames": 600,
+    "candidate": "runtime_feasible_reference_v14 at commit 0b788eca",
+    "comparators": [
+      "CUBE-LIO repository reproduction"
+    ],
+    "ground_truth_runtime_access": "forbidden until candidate and comparator trajectories are hashed",
+    "status": "declared_before_sensor_download_or_candidate_comparator_runtime",
+    "evidence": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_declaration_v14.json",
+    "post_result_tuning": "forbidden"
   },
   "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation"
 }

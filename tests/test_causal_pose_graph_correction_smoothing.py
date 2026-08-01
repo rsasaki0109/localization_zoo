@@ -271,18 +271,20 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
 
     def test_robust_interval_rotation_clips_short_interval_outlier(self) -> None:
-        raw = [pose(float(i), 0.0) for i in range(5)]
+        raw = [pose(float(i), 0.0) for i in range(7)]
         corrected = [
             pose(0.0, 0.0),
             pose(1.0, 1.0),
             pose(2.0, 1.0),
-            pose(3.0, 31.0),
-            pose(4.0, 31.0),
+            pose(3.0, 3.0),
+            pose(4.0, 3.0),
+            pose(5.0, 33.0),
+            pose(6.0, 33.0),
         ]
         output = MODULE.apply_causal_interval_robust_rotation_bias(raw, corrected)
-        relative = output[4][:3, :3] @ output[3][:3, :3].T
+        relative = output[6][:3, :3] @ output[5][:3, :3].T
         yaw_step = np.degrees(np.arctan2(relative[1, 0], relative[0, 0]))
-        self.assertLess(yaw_step, 30.0)
+        self.assertLess(yaw_step, 10.0)
 
     def test_robust_interval_rotation_is_causal(self) -> None:
         raw = [pose(0.0), pose(1.0), pose(2.0)]

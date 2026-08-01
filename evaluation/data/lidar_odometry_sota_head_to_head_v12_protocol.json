@@ -27,6 +27,11 @@
       "status": "active_non_dominated_frontier_has_separate_ate_and_rpe_wins_but_no_joint_pass",
       "evidence": "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json",
       "next": "improve primary frontend local registration, then retain the GT-free robust causal rotation correction; map-frame translation transfer is rejected"
+    },
+    "dynamic_voxel_radius_kitti_odometry_00": {
+      "status": "correctness_fix_improves_primary_rpe_but_old_pose_graph_transfer_fails_ate_and_rpe",
+      "evidence": "evaluation/data/lidar_odometry_dynamic_voxel_radius_kitti00_v12.json",
+      "next": "build causal loop corrections from the corrected frontend itself in the PCL-independent runner"
     }
   },
   "ground_truth_policy": {

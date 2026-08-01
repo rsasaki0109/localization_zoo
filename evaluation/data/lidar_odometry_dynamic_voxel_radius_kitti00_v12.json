@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "rejected_both_kitti00_accuracy_gates",
+  "recorded_at": "2026-08-01",
+  "dataset": "KITTI Odometry 00 consumed development",
+  "frames": 4541,
+  "mechanism": {
+    "finding": "the KISS voxel map searched a fixed one-voxel neighborhood even when max correspondence distance covered more voxels",
+    "change": "search ceil(max_correspondence_distance / voxel_size) voxels with query-to-voxel-AABB pruning",
+    "ground_truth_used_for_mechanism_or_runtime": false,
+    "implementation_commits": ["0bb5d142", "eff3456a"],
+    "binary_sha256": "603d6531c3197caccb170016adef0179c2083e20996cbae3ba9d131feb04203b"
+  },
+  "implementation_sha256": {
+    "papers/kiss_icp/src/kiss_icp.cpp": "41ae0147357556ebc8e9c32c9a7d097ae16a21d05eefb94e96132c1c3303e9a0",
+    "papers/kiss_icp/test/test_kiss_icp.cpp": "7bf73b56d58b528027f4ef31c0a91c363f6b6125f05d9c3ddb24301ece5a752b",
+    "evaluation/src/kiss_bin_odometry.cpp": "c7e864ecd3c107555a818a54ceb1aba4ae564d3d01449a9286a3cd4a403bae0f",
+    "evaluation/CMakeLists.txt": "4a31398b7acfa9f27724008978f7f48076bd687af49a05f80a154f17fc9aeac7"
+  },
+  "verification": {
+    "kiss_cpp_tests_passed": 14,
+    "smoke_frames": 20,
+    "full_frames": 4541,
+    "full_finite_pose_fraction": 1.0,
+    "ground_truth_used_during_generation": false
+  },
+  "primary": {
+    "trajectory_sha256_before_scoring": "1e63934d35aa9e7911a943a337788d7325a70f1cd20b9a75f01c4228b56592e3",
+    "ate_m": 15.488468733839897,
+    "rpe_trans_pct": 0.7907599252796517,
+    "rpe_rot_deg_per_m": 0.006698654156470397,
+    "tracking_success_rate": 1.0,
+    "algorithm_fps": 157.11844350553667,
+    "peak_rss_mb": 16.05859375,
+    "finding": "local RPE improves slightly versus the frozen primary but ATE remains insufficient"
+  },
+  "robust_pose_graph_transfer": {
+    "trajectory_sha256_before_scoring": "1a870f4201a57d3a45887790078ee36ae1d5a176d76a6e6231fb1eda67d43edd",
+    "correction_source_sha256": "46668349eb5ef0d3ab694e6815c9ef4285247ef17d3cfa2e9567e44c87ebf7a4",
+    "correction_trajectory_sha256": "4aa6531b76f4a432cb7c02561e1f00c4ee8f471803d3cfa3dd9c3f6ccb4cff385",
+    "ate_m": 9.163692358752098,
+    "rpe_trans_pct": 0.8867894002604065,
+    "rpe_rot_deg_per_m": 0.006925240697557334,
+    "tracking_success_rate": 1.0,
+    "sequential_fps": 38.73232378151584,
+    "decision": "fail_ate_and_rpe_do_not_promote"
+  },
+  "cube_lio_gate": {
+    "ate_m_strictly_below": 9.04430252500857,
+    "rpe_trans_pct_strictly_below": 0.8798334017400419,
+    "tracking_success_rate": 1.0,
+    "fps_at_least": 10.0
+  },
+  "next": "generate a causal pose graph from this frontend itself in the PCL-independent runner; do not reuse the old frontend correction as final evidence",
+  "artifacts_root": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v12_sota_head_to_head/v12_dynamic_voxel_radius"
+}

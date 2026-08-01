@@ -11,6 +11,7 @@ KITTI00_RERUN = ROOT / "evaluation/data/cube_lio_kitti00_direct_rerun_v12.json"
 V10_KITTI07 = ROOT / "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json"
 V11_CANDIDATE = ROOT / "evaluation/data/lidar_odometry_candidate_causal_local_increment_midpoint_v11.json"
 V12_KITTI00 = ROOT / "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json"
+DYNAMIC_RADIUS_KITTI00 = ROOT / "evaluation/data/lidar_odometry_dynamic_voxel_radius_kitti00_v12.json"
 SCRIPT = ROOT / "evaluation/scripts/evaluate_sota_head_to_head.py"
 
 
@@ -146,6 +147,19 @@ class SotaHeadToHeadTests(unittest.TestCase):
         self.assertIn(
             "causal_pose_graph_v12_kitti_odometry_00",
             self.protocol["candidate_results"],
+        )
+
+    def test_dynamic_radius_candidate_is_gt_isolated_and_not_promoted(self):
+        evidence = json.loads(DYNAMIC_RADIUS_KITTI00.read_text(encoding="utf-8"))
+        self.assertFalse(
+            evidence["mechanism"]["ground_truth_used_for_mechanism_or_runtime"]
+        )
+        self.assertEqual(
+            evidence["robust_pose_graph_transfer"]["decision"],
+            "fail_ate_and_rpe_do_not_promote",
+        )
+        self.assertEqual(
+            len(evidence["primary"]["trajectory_sha256_before_scoring"]), 64
         )
 
     def test_all_gates_pass_for_strict_win(self):

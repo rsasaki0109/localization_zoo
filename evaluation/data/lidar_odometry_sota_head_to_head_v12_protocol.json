@@ -7,7 +7,7 @@
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
   "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
-  "current_candidate_stage": "runtime_feasible_reference_v14_promoted_all_gates_passed_draft_pr_pending",
+  "current_candidate_stage": "runtime_feasible_reference_v14_promoted_all_gates_passed_draft_pr_open",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
@@ -51,7 +51,7 @@
       "implementation_freeze_commit": "7138241b",
       "evidence": "evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json",
       "promotion_audit": "evaluation/data/lidar_odometry_v14_promotion_audit.json",
-      "next": "open a Draft PR without unrelated worktree changes"
+      "next": "review Draft PR 64; no benchmark gate remains"
     }
   },
   "ground_truth_policy": {
@@ -286,5 +286,10 @@
       "external_gate_passed": true
     }
   },
-  "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation"
+  "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation",
+  "publication": {
+    "draft_pr": "https://github.com/rsasaki0109/localization_zoo/pull/64",
+    "state": "draft",
+    "unrelated_worktree_changes_included": false
+  }
 }

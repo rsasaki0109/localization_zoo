@@ -160,5 +160,9 @@
     "candidate_fps": 18.11164769880325,
     "status": "pass"
   },
-  "next_gate": "publish the frozen promoted changes as a Draft PR without including unrelated user worktree changes"
+  "publication": {
+    "draft_pr": "https://github.com/rsasaki0109/localization_zoo/pull/64",
+    "state": "draft"
+  },
+  "next_gate": "review Draft PR 64; no additional benchmark gate remains for v14 promotion"
 }

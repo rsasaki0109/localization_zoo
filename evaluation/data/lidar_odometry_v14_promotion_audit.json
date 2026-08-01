@@ -109,5 +109,9 @@
   },
   "all_gates_passed": true,
   "promotion_allowed": true,
-  "draft_pr_allowed": true
+  "draft_pr_allowed": true,
+  "publication": {
+    "draft_pr": "https://github.com/rsasaki0109/localization_zoo/pull/64",
+    "state": "draft"
+  }
 }

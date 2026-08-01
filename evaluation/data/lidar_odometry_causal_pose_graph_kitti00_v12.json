@@ -30,7 +30,11 @@
       "test_expression_fix": "847e4726",
       "sparse_solver": "f2f95fc6",
       "first_loop_scale": "5a187338",
-      "delayed_median_rotation": "e38117f9"
+      "delayed_median_rotation": "e38117f9",
+      "distance_weighted_rotation": "3d221d18",
+      "consistent_direction": "a105c468",
+      "distance_weighted_translation": "3ecd1f8c",
+      "first_translation_latch": "b48ffdc8"
     },
     "binary_sha256": "3852f8124cc8ed9f8f5a63bbab8429215395776f62b75fd9e1143e93ae6f8543",
     "input_manifest_sha256": "9ea0c512d0360fa9a3eeca62f2ee938fc523dca75d92b9ad01062f1c1bc5378e",
@@ -94,13 +98,47 @@
     "fps": 24.676166904031454,
     "gate": "fails_ate_and_rpe"
   },
+  "recent_rejected_candidates": [
+    {
+      "name": "primary_interval_distance_weighted_rotation",
+      "trajectory_sha256": "6fd447dd4faee0c26ae1542985a8e95923636710e9bddd5c4865abd16ef501e5",
+      "ate_m": 10.6079371560026,
+      "rpe_trans_pct": 0.8617031686444133,
+      "fps": 24.677695356105573,
+      "finding": "passes RPE but suppresses latest loop directions needed for ATE"
+    },
+    {
+      "name": "primary_interval_robust_consistent_direction",
+      "trajectory_sha256": "916e5bf6c8f4cb5de20a4428413f14c422859b257e2f02cba62ee3824a555a2d",
+      "ate_m": 10.189147464873452,
+      "rpe_trans_pct": 0.8927471645813246,
+      "fps": 24.616054008074197,
+      "finding": "rejecting direction reversals fails both accuracy gates"
+    },
+    {
+      "name": "primary_interval_distance_weighted_se3",
+      "trajectory_sha256": "f0e89aabe6298c04541783d4ea3eae4cc8807ed321557c810eb88273d06eb140",
+      "ate_m": 10.368978380549025,
+      "rpe_trans_pct": 1.046453680735778,
+      "fps": 24.65055721797522,
+      "finding": "pose-graph translation-rate transfer degrades local consistency"
+    },
+    {
+      "name": "primary_interval_rotation_first_translation_latch",
+      "trajectory_sha256": "283709372adeb99787efd39ca4c2ce59da2b0cb230266faec9dd5537257b4c7d",
+      "ate_m": 11.509824427986084,
+      "rpe_trans_pct": 1.1462461983691967,
+      "fps": 24.678469939946076,
+      "finding": "a single causal map-frame translation jump degrades RPE"
+    }
+  ],
   "smoothing_implementation": {
-    "latest_commit": "e38117f9",
-    "script_sha256": "a9a8338e95335276593f966274aac36c8395341b13f0efcce87d45d5cfee6702",
-    "test_sha256": "58004af4a4d681dc0f75ef233626a128783b5afc58d1ff95939cc0aad7d56ff8",
-    "tests_passed": 32,
+    "latest_commit": "b48ffdc8",
+    "script_sha256": "ad803af07c1b3eed5af78334eba5c81fd6f50ea817d252a046498b8bb64dd6f2",
+    "test_sha256": "ab1f1b5f6499244a211f4fb9cd4726ad54dc18d2938bbd70027c5eeda07f7310",
+    "tests_passed": 37,
     "ground_truth_used_at_runtime": false
   },
-  "decision": "do_not_promote; profile late causal interval rotation directions and preserve the robust-rotation ATE while reducing its 0.010742 percentage-point RPE gap",
+  "decision": "do_not_promote; causal pose-graph translation and direction filtering are exhausted, so improve the primary frontend local registration while retaining the robust-rotation ATE correction",
   "artifacts_root": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v12_sota_head_to_head/v12_causal_pose_graph/kitti00"
 }

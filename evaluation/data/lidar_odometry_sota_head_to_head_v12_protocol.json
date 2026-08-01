@@ -26,7 +26,7 @@
     "causal_pose_graph_v12_kitti_odometry_00": {
       "status": "active_non_dominated_frontier_has_separate_ate_and_rpe_wins_but_no_joint_pass",
       "evidence": "evaluation/data/lidar_odometry_causal_pose_graph_kitti00_v12.json",
-      "next": "preserve the updated-rotation-bias RPE while reducing ATE without map-frame pose jumps"
+      "next": "improve primary frontend local registration, then retain the GT-free robust causal rotation correction; map-frame translation transfer is rejected"
     }
   },
   "ground_truth_policy": {

@@ -43,6 +43,16 @@
       "kitti_odometry_07": {
         "role": "frozen_direct_comparison",
         "frames": 1101,
+        "direct_rerun": {
+          "status": "complete_warm_cache_three_run_median",
+          "ate_m": 1.6454257491191604,
+          "rpe_trans_pct": 0.6238668812159914,
+          "rpe_rot_deg_per_m": 0.00515398807803977,
+          "tracking_success_rate": 1.0,
+          "fps": 5.827487320848432,
+          "peak_rss_mb": 45.51953125,
+          "evidence": "evaluation/data/cube_lio_kitti07_direct_rerun_v12.json"
+        },
         "provisional_baseline": {
           "ate_m": 0.901035,
           "rpe_trans_pct": 0.608097,
@@ -54,6 +64,7 @@
         "source_sha256": "4e90b35398db74cdbd73010cfb3aa38a332db771e6953ef5995a095ccb752d53"
       }
     },
+    "baseline_rerun_status": "kitti_odometry_07_complete; kitti_odometry_00_pending",
     "win_gate": {
       "required_rows": ["kitti_odometry_00", "kitti_odometry_07"],
       "candidate_ate_strictly_lower_each_row": true,

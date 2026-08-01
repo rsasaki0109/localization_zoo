@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "complete_warm_cache_three_run_median",
+  "recorded_at": "2026-08-01",
+  "method": "CUBE-LIO repository reproduction",
+  "sequence": "KITTI Odometry 07",
+  "input": {
+    "path": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/sequences/07/velodyne",
+    "format": "KITTI raw .bin PointXYZI",
+    "frames": 1101,
+    "identity_reference_sha256": "2f38e874765f43e6aa861d2da428a46f60bd26bd5574d4eb9c6a9fe5b05caf5c",
+    "real_gt_runtime_access": false
+  },
+  "build": {
+    "source_commit": "73cbfce55d7de297fdb0c9a0c22d2539ea9484db",
+    "source_archive_location": "/opt/loc_zoo_v12_src",
+    "binary": "/opt/loc_zoo_v12_build/evaluation/pcd_dogfooding",
+    "binary_sha256": "d7ef2b02f633c6b48fdfaa74643b92ee9db3e3dac263bc1e664bca8718067023"
+  },
+  "runtime_policy": {
+    "cpu_affinity": "0-5",
+    "excluded_cache_warmup_run": "run1",
+    "reported_runs": ["run2", "run3", "run4"],
+    "trajectory_hashed_before_external_scoring": true
+  },
+  "runs": [
+    {
+      "id": "run2",
+      "algorithm_seconds": 186.399,
+      "wall_seconds": 186.64,
+      "peak_rss_kb": 46468,
+      "trajectory_sha256": "9982e46da7e9ce248b835a242080b8766f646930be4797d1385ee649118cbac5"
+    },
+    {
+      "id": "run3",
+      "algorithm_seconds": 188.9322,
+      "wall_seconds": 189.29,
+      "peak_rss_kb": 46816,
+      "trajectory_sha256": "9982e46da7e9ce248b835a242080b8766f646930be4797d1385ee649118cbac5"
+    },
+    {
+      "id": "run4",
+      "algorithm_seconds": 208.1855,
+      "wall_seconds": 208.52,
+      "peak_rss_kb": 46612,
+      "trajectory_sha256": "9982e46da7e9ce248b835a242080b8766f646930be4797d1385ee649118cbac5"
+    }
+  ],
+  "median": {
+    "ate_m": 1.6454257491191604,
+    "rpe_trans_pct": 0.6238668812159914,
+    "rpe_rot_deg_per_m": 0.00515398807803977,
+    "tracking_success_rate": 1.0,
+    "algorithm_seconds": 188.9322,
+    "fps": 5.827487320848432,
+    "peak_rss_mb": 45.51953125
+  },
+  "scoring": {
+    "tool": "evaluation/scripts/evaluate_external_kitti_odometry.py",
+    "reference": "experiments/reference_data/kitti_seq_07_full_gt.csv",
+    "reference_sha256": "81a845c30615213e6ec9f4ef1e8e693f48f914d9bd798e1e39e43a778e1aba98",
+    "first_pose_anchor_only": true,
+    "segment_length_m": 100.0,
+    "rpe_segments": 881
+  },
+  "supersedes_provisional_runtime_input": "docs/benchmarks/kitti_full_new_methods/seq07_cube_lio.json used converted PCD input and is not the same-input baseline"
+}

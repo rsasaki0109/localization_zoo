@@ -60,6 +60,21 @@ class SotaHeadToHeadTests(unittest.TestCase):
         ].values():
             self.assertTrue(dataset["archive_url"].startswith("https://"))
 
+    def test_completed_cube_rerun_records_required_metrics(self):
+        rerun = self.protocol["cube_lio_track"]["datasets"][
+            "kitti_odometry_07"
+        ]["direct_rerun"]
+        self.assertEqual(rerun["status"], "complete_warm_cache_three_run_median")
+        for key in (
+            "ate_m",
+            "rpe_trans_pct",
+            "rpe_rot_deg_per_m",
+            "tracking_success_rate",
+            "fps",
+            "peak_rss_mb",
+        ):
+            self.assertIsInstance(rerun[key], (int, float))
+
     def test_all_gates_pass_for_strict_win(self):
         results = {
             "cube_lio_track": {

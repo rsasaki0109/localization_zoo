@@ -29,9 +29,9 @@
       "next": "improve primary frontend local registration, then retain the GT-free robust causal rotation correction; map-frame translation transfer is rejected"
     },
     "dynamic_voxel_radius_kitti_odometry_00": {
-      "status": "correctness_fix_improves_primary_rpe_but_old_pose_graph_transfer_fails_ate_and_rpe",
+      "status": "native_pose_graph_frontier_passes_ate_tracking_fps_but_rpe_misses_by_0.00453_percentage_points",
       "evidence": "evaluation/data/lidar_odometry_dynamic_voxel_radius_kitti00_v12.json",
-      "next": "build causal loop corrections from the corrected frontend itself in the PCL-independent runner"
+      "next": "continue GT-free structural correction development from the native robust continuous frontier; reject component Hampel, persistent-yaw, and deterministic full-voxel refresh branches"
     }
   },
   "ground_truth_policy": {

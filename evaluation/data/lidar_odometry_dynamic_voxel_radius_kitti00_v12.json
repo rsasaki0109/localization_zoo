@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "rejected_both_kitti00_accuracy_gates",
+  "status": "active_native_pose_graph_frontier_passes_ate_but_not_rpe",
   "recorded_at": "2026-08-01",
   "dataset": "KITTI Odometry 00 consumed development",
   "frames": 4541,
@@ -8,7 +8,14 @@
     "finding": "the KISS voxel map searched a fixed one-voxel neighborhood even when max correspondence distance covered more voxels",
     "change": "search ceil(max_correspondence_distance / voxel_size) voxels with query-to-voxel-AABB pruning",
     "ground_truth_used_for_mechanism_or_runtime": false,
-    "implementation_commits": ["0bb5d142", "eff3456a"],
+    "implementation_commits": [
+      "0bb5d142",
+      "eff3456a",
+      "93f763ab",
+      "57b5329f",
+      "b123cfcb",
+      "dfcef988"
+    ],
     "binary_sha256": "603d6531c3197caccb170016adef0179c2083e20996cbae3ba9d131feb04203b"
   },
   "implementation_sha256": {
@@ -45,12 +52,75 @@
     "sequential_fps": 38.73232378151584,
     "decision": "fail_ate_and_rpe_do_not_promote"
   },
+  "native_causal_pose_graph": {
+    "runner_binary_sha256": "17cee981ec1702471dc6b03c202b88595a97c84d7a475b2d1dec5c1fb571cb1a",
+    "causal_graph_sha256": "347bfe9bc63709f5d5d48f4474a1b68821c19322ad68997e8900b4b3e5bdb381",
+    "ground_truth_used_during_generation": false,
+    "keyframes": 455,
+    "loop_edges": 18,
+    "loop_clusters": 11,
+    "loop_candidates": 19,
+    "loop_rejections": 1,
+    "backend_seconds": 5.481217358,
+    "peak_rss_mb": 53.5859375,
+    "frontier": {
+      "robust_continuous": {
+        "trajectory_sha256_before_scoring": "bbb8d1555034c51cdb65888f6335dff65ddfe13f6f9e38dd90c02cd0f2fb7742",
+        "ate_m": 8.933779706422465,
+        "rpe_trans_pct": 0.8843641413539289,
+        "rpe_rot_deg_per_m": 0.0067211905871955,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.60706467662516,
+        "decision": "passes_ate_tracking_fps_but_rpe_misses_by_0.004530739613887"
+      },
+      "robust_yaw_only": {
+        "trajectory_sha256_before_scoring": "f4671591cae56249e8c36c86538722b31ecbb3e3f0f9ed8dced0f6a45ec9d91f",
+        "ate_m": 10.848757909493967,
+        "rpe_trans_pct": 0.8700523273266211,
+        "rpe_rot_deg_per_m": 0.006471497995396758,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.61380863915025,
+        "decision": "passes_rpe_but_fails_ate"
+      }
+    },
+    "rejected_structural_candidates": {
+      "persistent_yaw": {
+        "trajectory_sha256_before_scoring": "00cd70722f8a6b421c138f7dc45f479ef2849d770ce90b732872e4499d45160c",
+        "ate_m": 8.867411097773344,
+        "rpe_trans_pct": 0.888139031413454
+      },
+      "component_hampel": {
+        "trajectory_sha256_before_scoring": "60cc3f23b7e321d7b3c5b1c08a9ebaba0fcb8f39e921910313442fb623d187a8",
+        "ate_m": 8.98724905453347,
+        "rpe_trans_pct": 0.8866969769694567,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.34736593407246
+      },
+      "component_hampel_persistent_yaw": {
+        "implementation_commit": "dfcef988",
+        "trajectory_sha256_before_scoring": "cda4228df2886d9896c60280176adbd24a4f5c7fb9bc48c0aea8bdfdf7f5e9f7",
+        "ate_m": 8.923943168698418,
+        "rpe_trans_pct": 0.8907470820431105,
+        "rpe_rot_deg_per_m": 0.006758444884255608,
+        "tracking_success_rate": 1.0,
+        "sequential_fps": 129.68148167995867
+      },
+      "deterministic_full_voxel_refresh": {
+        "raw_trajectory_sha256_before_scoring": "97d953c4327e26e8673321702797da73053ff7096e93757e766547a0569585be",
+        "raw_ate_m": 19.20496,
+        "raw_rpe_trans_pct": 1.39088,
+        "pose_graph_ate_m": 23.441,
+        "pose_graph_rpe_trans_pct": 1.574,
+        "decision": "reject_map_refresh"
+      }
+    }
+  },
   "cube_lio_gate": {
     "ate_m_strictly_below": 9.04430252500857,
     "rpe_trans_pct_strictly_below": 0.8798334017400419,
     "tracking_success_rate": 1.0,
     "fps_at_least": 10.0
   },
-  "next": "generate a causal pose graph from this frontend itself in the PCL-independent runner; do not reuse the old frontend correction as final evidence",
+  "next": "continue GT-free structural development from the native robust continuous frontier; component Hampel and persistent-yaw policies are rejected, and no numerical gain tuning against KITTI 00 GT is allowed",
   "artifacts_root": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v12_sota_head_to_head/v12_dynamic_voxel_radius"
 }

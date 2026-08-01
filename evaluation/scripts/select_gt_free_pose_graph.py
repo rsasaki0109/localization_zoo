@@ -39,6 +39,15 @@ def parse_args() -> argparse.Namespace:
             "rotation corrections agree."
         ),
     )
+    parser.add_argument(
+        "--reference-policy-manifest",
+        type=Path,
+        help=(
+            "Optional GT-free runtime-feasibility manifest. When it rejects "
+            "the reference, reference-derived inputs are forbidden and raw "
+            "is the fallback if the pose graph is not selected."
+        ),
+    )
     parser.add_argument("--pose-graph-manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
@@ -179,12 +188,42 @@ def correction_is_selected(
     )
 
 
+def load_reference_runtime_policy(
+    path: Path,
+    fallback: Path | None,
+    reference: Path | None,
+    corroborated_fallback: Path | None,
+) -> tuple[dict, bool]:
+    policy = json.loads(path.read_text(encoding="utf-8"))
+    if policy.get("ground_truth_used") is not False:
+        raise ValueError("reference policy must explicitly forbid ground truth")
+    run_reference = policy.get("run_reference")
+    if not isinstance(run_reference, bool):
+        raise ValueError("reference policy run_reference must be boolean")
+    if not run_reference and any(
+        item is not None for item in (fallback, reference, corroborated_fallback)
+    ):
+        raise ValueError(
+            "reference-derived inputs are forbidden when runtime policy skips reference"
+        )
+    return policy, run_reference
+
+
 def main() -> int:
     started = time.perf_counter()
     args = parse_args()
     if (args.reference is None) != (args.corroborated_fallback is None):
         raise ValueError(
             "--reference and --corroborated-fallback must be supplied together"
+        )
+    reference_policy = None
+    reference_runtime_feasible = None
+    if args.reference_policy_manifest is not None:
+        reference_policy, reference_runtime_feasible = load_reference_runtime_policy(
+            args.reference_policy_manifest,
+            args.fallback,
+            args.reference,
+            args.corroborated_fallback,
         )
     graph_manifest = json.loads(args.pose_graph_manifest.read_text(encoding="utf-8"))
     raw = load_kitti_poses(args.raw)
@@ -255,6 +294,13 @@ def main() -> int:
         "correction_selected": correction_selected,
         "fallback_available": args.fallback is not None,
         "reference_available": args.reference is not None,
+        "reference_policy_available": reference_policy is not None,
+        "reference_runtime_feasible": reference_runtime_feasible,
+        "reference_policy_sha256": (
+            sha256(args.reference_policy_manifest)
+            if args.reference_policy_manifest is not None
+            else None
+        ),
         "reference_sha256": sha256(args.reference) if args.reference else None,
         "corroborated_fallback_available": args.corroborated_fallback is not None,
         "rotation_correction_active_frames": active_correction_frames,
@@ -262,6 +308,9 @@ def main() -> int:
         "rotation_correction_positive_direction_fraction": positive_direction_fraction,
         "rotation_correction_direction_agrees": direction_agrees,
         "corroborated_fallback_selected": corroborated_fallback_selected,
+        "runtime_fallback_to_raw": bool(
+            reference_runtime_feasible is False and not correction_selected
+        ),
         "selected_source": str(selected),
         "selected_sha256": sha256(args.output),
         "seconds_including_pose_io": elapsed,

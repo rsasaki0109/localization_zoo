@@ -1,5 +1,7 @@
 import importlib.util
 import sys
+import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -94,6 +96,43 @@ class PoseGraphSelectorTests(unittest.TestCase):
         self.assertFalse(MODULE.correction_is_selected(True, True, False, False))
         self.assertTrue(MODULE.correction_is_selected(True, False, True, True))
         self.assertFalse(MODULE.correction_is_selected(True, False, False, True))
+
+    def test_runtime_policy_manifest_must_forbid_ground_truth(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            policy = Path(directory) / "policy.json"
+            policy.write_text(
+                json.dumps({"ground_truth_used": True, "run_reference": False})
+            )
+            with self.assertRaisesRegex(ValueError, "forbid ground truth"):
+                MODULE.load_reference_runtime_policy(policy, None, None, None)
+
+    def test_runtime_skip_forbids_reference_derived_inputs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            policy = Path(directory) / "policy.json"
+            policy.write_text(
+                json.dumps({"ground_truth_used": False, "run_reference": False})
+            )
+            with self.assertRaisesRegex(ValueError, "reference-derived inputs"):
+                MODULE.load_reference_runtime_policy(
+                    policy, Path("fallback.txt"), None, None
+                )
+
+    def test_runtime_policy_accepts_gt_free_reference_run(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            policy = Path(directory) / "policy.json"
+            policy.write_text(
+                json.dumps({"ground_truth_used": False, "run_reference": True})
+            )
+            loaded, run_reference = MODULE.load_reference_runtime_policy(
+                policy, Path("fallback.txt"), None, None
+            )
+        self.assertTrue(run_reference)
+        self.assertFalse(loaded["ground_truth_used"])
+
+    def test_runtime_rejection_uses_existing_raw_fallback_behavior(self) -> None:
+        raw = Path("raw.txt")
+        corrected = Path("corrected.txt")
+        self.assertEqual(MODULE.select_source(raw, corrected, None, False), raw)
 
 
 if __name__ == "__main__":

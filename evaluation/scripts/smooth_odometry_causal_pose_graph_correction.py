@@ -40,6 +40,7 @@ def parse_args() -> argparse.Namespace:
             "first_correction_latch",
             "first_correction_bias_rate",
             "causal_correction_bias_rate_updates",
+            "causal_interval_bias_rate_updates",
         ),
         default="left_correction",
     )
@@ -396,6 +397,72 @@ def apply_causal_correction_as_updated_bias_rate(
     return output
 
 
+def apply_causal_interval_correction_as_bias_rate(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    bias_update_threshold: float = 0.01,
+    bias_translation_gain: float = 1.0,
+    bias_rotation_gain: float = 1.0,
+) -> list[np.ndarray]:
+    """Learn future drift from each correction increment since the last loop."""
+    if len(raw) != len(corrected):
+        raise ValueError("raw and corrected pose counts must match")
+    if bias_update_threshold < 0.0:
+        raise ValueError("bias_update_threshold must be non-negative")
+    if bias_translation_gain < 0.0 or bias_rotation_gain < 0.0:
+        raise ValueError("bias gains must be non-negative")
+    if not raw:
+        return []
+
+    output = [raw[0].copy()]
+    distance_since_update = 0.0
+    translation_bias_per_m = np.zeros(3)
+    rotation_axis_bias = np.array([1.0, 0.0, 0.0])
+    rotation_bias_per_m = 0.0
+    last_accepted_correction = np.eye(4)
+    for index in range(1, len(raw)):
+        raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
+        distance = float(np.linalg.norm(raw_increment[:3, 3]))
+        distance_since_update += distance
+
+        predicted = np.eye(4)
+        predicted[:3, :3] = output[-1][:3, :3] @ raw_increment[:3, :3]
+        predicted[:3, 3] = (
+            output[-1][:3, 3]
+            + output[-1][:3, :3] @ raw_increment[:3, 3]
+            + bias_translation_gain * translation_bias_per_m * distance
+        )
+        if distance > 0.0:
+            predicted[:3, :3] = (
+                axis_angle_rotation(
+                    rotation_axis_bias,
+                    bias_rotation_gain * rotation_bias_per_m * distance,
+                )
+                @ predicted[:3, :3]
+            )
+        output.append(predicted)
+
+        target = corrected[index] @ np.linalg.inv(raw[index])
+        correction_increment = target @ np.linalg.inv(last_accepted_correction)
+        increment_angle = rotation_angle(correction_increment[:3, :3])
+        update_size = max(
+            float(np.linalg.norm(correction_increment[:3, 3])),
+            increment_angle,
+        )
+        if distance_since_update > 1e-9 and update_size > bias_update_threshold:
+            translation_bias_per_m = (
+                correction_increment[:3, 3] / distance_since_update
+            )
+            rotation_axis_bias = rotation_axis(
+                correction_increment[:3, :3], increment_angle
+            )
+            rotation_bias_per_m = increment_angle / distance_since_update
+            last_accepted_correction = target
+            distance_since_update = 0.0
+    return output
+
+
 def main() -> int:
     args = parse_args()
     raw_path = Path(args.raw_poses)
@@ -431,6 +498,14 @@ def main() -> int:
         )
     elif args.integration_policy == "causal_correction_bias_rate_updates":
         output = apply_causal_correction_as_updated_bias_rate(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+            bias_translation_gain=args.bias_translation_gain,
+            bias_rotation_gain=args.bias_rotation_gain,
+        )
+    elif args.integration_policy == "causal_interval_bias_rate_updates":
+        output = apply_causal_interval_correction_as_bias_rate(
             raw,
             corrected,
             bias_update_threshold=args.bias_update_threshold,

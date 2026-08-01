@@ -342,6 +342,23 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         yaw_step = np.degrees(np.arctan2(relative[1, 0], relative[0, 0]))
         self.assertGreater(yaw_step, 0.0)
 
+    def test_robust_yaw_direction_ignores_roll_drift(self) -> None:
+        raw = [pose(float(i), 0.0) for i in range(4)]
+        roll = np.eye(4)
+        angle = np.radians(10.0)
+        roll[:3, :3] = np.array(
+            [
+                [1.0, 0.0, 0.0],
+                [0.0, np.cos(angle), -np.sin(angle)],
+                [0.0, np.sin(angle), np.cos(angle)],
+            ]
+        )
+        corrected = [raw[0], roll @ raw[1], roll @ raw[2], roll @ raw[3]]
+        output = MODULE.apply_causal_interval_robust_rotation_bias(
+            raw, corrected, reject_direction_reversal=True, yaw_only=True
+        )
+        np.testing.assert_allclose(output[-1][:3, :3], np.eye(3), atol=1e-12)
+
     def test_first_loop_scale_changes_future_increment_without_jump(self) -> None:
         raw = [pose(0.0), pose(1.0), pose(2.0), pose(3.0)]
         corrected = [pose(0.0), pose(1.0), pose(1.8), pose(2.8)]

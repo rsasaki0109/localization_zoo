@@ -544,6 +544,24 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         yaw_step = np.degrees(np.arctan2(relative[1, 0], relative[0, 0]))
         self.assertGreater(yaw_step, 0.0)
 
+    def test_distance_weighted_tilt_robust_yaw_is_causal(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0)]
+        corrected_a = [pose(0.0), pose(1.0, 10.0), pose(2.0, 10.0)]
+        corrected_b = [pose(0.0), pose(1.0, 10.0), pose(2.0, -170.0)]
+        output_a = (
+            MODULE.apply_causal_interval_distance_weighted_tilt_robust_yaw_bias(
+                raw, corrected_a
+            )
+        )
+        output_b = (
+            MODULE.apply_causal_interval_distance_weighted_tilt_robust_yaw_bias(
+                raw, corrected_b
+            )
+        )
+        np.testing.assert_allclose(output_a[0], output_b[0], atol=1e-12)
+        np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
+        np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
+
 
 if __name__ == "__main__":
     unittest.main()

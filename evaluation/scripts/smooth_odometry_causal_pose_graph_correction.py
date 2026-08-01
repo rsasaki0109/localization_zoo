@@ -20,6 +20,13 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--raw-poses", required=True)
     parser.add_argument("--corrected-poses", required=True)
+    parser.add_argument(
+        "--correction-source-poses",
+        help=(
+            "Optional raw trajectory corresponding to --corrected-poses. "
+            "Its causal left corrections are transferred onto --raw-poses."
+        ),
+    )
     parser.add_argument("--output", required=True)
     parser.add_argument("--manifest")
     parser.add_argument("--motion-window-frames", type=int, default=100)
@@ -298,6 +305,25 @@ def apply_first_causal_correction_as_bias_rate(
     return output
 
 
+def transfer_causal_left_corrections(
+    target_raw: list[np.ndarray],
+    correction_source_raw: list[np.ndarray],
+    correction_source_corrected: list[np.ndarray],
+) -> list[np.ndarray]:
+    if not (
+        len(target_raw)
+        == len(correction_source_raw)
+        == len(correction_source_corrected)
+    ):
+        raise ValueError("target and correction-source pose counts must match")
+    return [
+        corrected @ np.linalg.inv(source) @ target
+        for target, source, corrected in zip(
+            target_raw, correction_source_raw, correction_source_corrected
+        )
+    ]
+
+
 def main() -> int:
     args = parse_args()
     raw_path = Path(args.raw_poses)
@@ -307,6 +333,16 @@ def main() -> int:
     started = time.perf_counter()
     raw = load_kitti_poses(raw_path)
     corrected = load_kitti_poses(corrected_path)
+    correction_source_path = (
+        Path(args.correction_source_poses)
+        if args.correction_source_poses
+        else None
+    )
+    if correction_source_path is not None:
+        correction_source = load_kitti_poses(correction_source_path)
+        corrected = transfer_causal_left_corrections(
+            raw, correction_source, corrected
+        )
     if args.integration_policy == "first_correction_latch":
         output = latch_first_causal_pose_graph_correction(
             raw,
@@ -356,6 +392,17 @@ def main() -> int:
         "fps_including_pose_io": len(output) / elapsed if elapsed > 0.0 else None,
         "raw_sha256": sha256_file(raw_path),
         "corrected_sha256": sha256_file(corrected_path),
+        "correction_source_sha256": (
+            sha256_file(correction_source_path)
+            if correction_source_path is not None
+            else None
+        ),
+        "correction_transfer_policy": (
+            "T_target_corrected_i = T_source_corrected_i * "
+            "inverse(T_source_raw_i) * T_target_raw_i"
+            if correction_source_path is not None
+            else "none; corrected poses correspond directly to raw poses"
+        ),
         "output_sha256": sha256_file(output_path),
     }
     if args.manifest:

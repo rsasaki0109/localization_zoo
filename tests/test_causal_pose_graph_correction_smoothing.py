@@ -117,6 +117,30 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
         np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
 
+    def test_left_correction_is_transferred_without_frontend_offset(self) -> None:
+        target = [pose(100.0), pose(101.0)]
+        source = [pose(0.0), pose(1.0)]
+        source_corrected = [pose(0.0), pose(6.0)]
+        transferred = MODULE.transfer_causal_left_corrections(
+            target, source, source_corrected
+        )
+        self.assertAlmostEqual(transferred[0][0, 3], 100.0)
+        self.assertAlmostEqual(transferred[1][0, 3], 106.0)
+
+    def test_correction_transfer_is_frame_causal(self) -> None:
+        target = [pose(100.0), pose(101.0), pose(102.0)]
+        source = [pose(0.0), pose(1.0), pose(2.0)]
+        corrected_a = [pose(0.0), pose(6.0), pose(7.0)]
+        corrected_b = [pose(0.0), pose(6.0), pose(700.0)]
+        output_a = MODULE.transfer_causal_left_corrections(
+            target, source, corrected_a
+        )
+        output_b = MODULE.transfer_causal_left_corrections(
+            target, source, corrected_b
+        )
+        np.testing.assert_allclose(output_a[0], output_b[0], atol=1e-12)
+        np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
+
 
 if __name__ == "__main__":
     unittest.main()

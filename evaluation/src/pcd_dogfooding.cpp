@@ -358,6 +358,7 @@ bool isSupportedMethod(const std::string& method) {
   return method == "litamin2" || method == "gicp" || method == "ndt" ||
          method == "fixed_map_ndt" || method == "kiss_icp" ||
          method == "kiss_multi_horizon" || method == "kiss_pose_graph" ||
+         method == "kiss_pose_graph_causal" ||
          method == "genz_icp" ||
          method == "adaptive_icp" ||
          method == "small_gicp" ||
@@ -6030,11 +6031,17 @@ MethodResult runKISSPoseGraph(
     const KISSICPDogfoodingOptions& options,
     double scan_context_threshold,
     double correction_gain,
-    const std::string& external_pose_path) {
+    const std::string& external_pose_path,
+    bool causal_output = false) {
   using namespace localization_zoo::kiss_icp;
   MethodResult res;
-  res.name = external_pose_path.empty() ? "KISS-Pose-Graph"
-                                        : "External-KISS-Pose-Graph";
+  if (causal_output) {
+    res.name = external_pose_path.empty() ? "KISS-Pose-Graph-Causal"
+                                          : "External-KISS-Pose-Graph-Causal";
+  } else {
+    res.name = external_pose_path.empty() ? "KISS-Pose-Graph"
+                                          : "External-KISS-Pose-Graph";
+  }
 
   std::vector<Eigen::Matrix4d> external_poses;
   if (!external_pose_path.empty()) {
@@ -6112,6 +6119,8 @@ MethodResult runKISSPoseGraph(
 
   std::vector<Eigen::Matrix4d> raw_poses;
   raw_poses.reserve(pcd_dirs.size());
+  std::vector<Eigen::Matrix4d> causal_poses;
+  causal_poses.reserve(pcd_dirs.size());
   double algorithm_time_ms = 0.0;
   std::size_t deskewed_frames = 0;
   std::size_t deskew_timestamp_fallbacks = 0;
@@ -6154,6 +6163,7 @@ MethodResult runKISSPoseGraph(
     const auto cloud = toPclXYZICloud(points);
     const auto backend_result =
         backend.processExternalOdometry(cloud, frontend_pose);
+    causal_poses.push_back(backend_result.pose);
     algorithm_time_ms +=
         std::chrono::duration<double, std::milli>(
             Clock::now() - algorithm_start)
@@ -6170,8 +6180,10 @@ MethodResult runKISSPoseGraph(
   std::cerr << std::endl;
 
   const auto correction_start = Clock::now();
-  const auto corrected =
-      backend.correctedExternalTrajectory(raw_poses, correction_gain);
+  const auto corrected = causal_output
+                             ? causal_poses
+                             : backend.correctedExternalTrajectory(
+                                   raw_poses, correction_gain);
   algorithm_time_ms +=
       std::chrono::duration<double, std::milli>(
           Clock::now() - correction_start)
@@ -6191,6 +6203,11 @@ MethodResult runKISSPoseGraph(
                : "External odometry with GT-free Scan Context/GICP pose graph; ")
        << "external_pose_path="
        << (external_pose_path.empty() ? "none" : external_pose_path) << "; "
+       << "output_policy="
+       << (causal_output
+               ? "current_pose_corrected_only_by_loops_available_through_current_frame"
+               : "offline_retrospective_trajectory_correction")
+       << "; "
        << "keyframes=" << backend.numKeyframes()
        << "; loop_edges=" << backend.numLoopEdges()
        << "; loop_clusters=" << backend.numLoopClusters()
@@ -10917,7 +10934,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,kiss_multi_horizon,kiss_pose_graph,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,kiss_multi_horizon,kiss_pose_graph,kiss_pose_graph_causal,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -15630,7 +15647,7 @@ int main(int argc, char** argv) {
   if (selected_methods.empty()) {
     std::cerr
         << "No methods selected. Supported methods: litamin2, gicp, small_gicp, "
-        << "voxel_gicp, ndt, kiss_icp, kiss_multi_horizon, kiss_pose_graph, dlo, dlio, aloam, floam, lego_loam, mulls, "
+        << "voxel_gicp, ndt, kiss_icp, kiss_multi_horizon, kiss_pose_graph, kiss_pose_graph_causal, dlo, dlio, aloam, floam, lego_loam, mulls, "
         << "ct_lio, ct_icp, ct_icp_ndt, ct_icp_ndt_keyframe, fixed_map_ndt, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
         << "suma, balm2, isc_loam, loam_livox, lio_sam, lins, fast_lio_slam, "
         << "point_lio, clins"
@@ -15641,7 +15658,7 @@ int main(int argc, char** argv) {
     if (!isSupportedMethod(method)) {
       std::cerr << "Unsupported method: " << method
                 << " (supported: litamin2, gicp, small_gicp, voxel_gicp, ndt, "
-                   "kiss_icp, kiss_multi_horizon, kiss_pose_graph, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
+                   "kiss_icp, kiss_multi_horizon, kiss_pose_graph, kiss_pose_graph_causal, dlo, dlio, aloam, floam, lego_loam, mulls, ct_lio, "
                    "ct_icp, ct_icp_ndt, ct_icp_ndt_keyframe, fixed_map_ndt, xicp, fast_lio2, hdl_graph_slam, vgicp_slam, "
                    "suma, balm2, isc_loam, loam_livox, lio_sam, lins, "
                    "fast_lio_slam, point_lio, clins)"
@@ -16017,8 +16034,12 @@ int main(int argc, char** argv) {
         pcd_dirs, gt, kiss_multi_horizon_options));
   }
 
-  if (isMethodEnabled(selected_methods, "kiss_pose_graph")) {
-    std::cout << "Running KISS-Pose-Graph..." << std::endl;
+  if (isMethodEnabled(selected_methods, "kiss_pose_graph") ||
+      isMethodEnabled(selected_methods, "kiss_pose_graph_causal")) {
+    const bool causal_pose_graph =
+        isMethodEnabled(selected_methods, "kiss_pose_graph_causal");
+    std::cout << "Running KISS-Pose-Graph"
+              << (causal_pose_graph ? "-Causal" : "") << "..." << std::endl;
     std::cout << std::setprecision(3)
               << "  source_voxel_size="
               << kiss_icp_options.source_voxel_size
@@ -16034,13 +16055,17 @@ int main(int argc, char** argv) {
               << (kiss_pose_graph_external_pose_path.empty()
                       ? "none"
                       : kiss_pose_graph_external_pose_path)
+              << " output_policy="
+              << (causal_pose_graph ? "causal_current_pose"
+                                    : "offline_retrospective")
               << " floor_constraint=off" << std::setprecision(1)
               << std::endl;
     results.push_back(runKISSPoseGraph(
         pcd_dirs, gt, kiss_icp_options,
         kiss_pose_graph_scan_context_threshold,
         kiss_pose_graph_correction_gain,
-        kiss_pose_graph_external_pose_path));
+        kiss_pose_graph_external_pose_path,
+        causal_pose_graph));
   }
 
   if (isMethodEnabled(selected_methods, "genz_icp")) {

@@ -152,6 +152,7 @@ TEST(HdlGraphSlam, ExternalOdometryLoopCorrectionReducesEndpointDrift) {
 
   HdlGraphSlam pipeline(params);
   std::vector<Eigen::Matrix4d> raw_poses;
+  std::vector<Eigen::Matrix4d> causal_published_poses;
   const std::vector<double> x_positions =
       {0.0, 1.0, 2.0, 3.0, 2.0, 1.0, 0.0};
   for (size_t i = 0; i < x_positions.size(); ++i) {
@@ -160,8 +161,9 @@ TEST(HdlGraphSlam, ExternalOdometryLoopCorrectionReducesEndpointDrift) {
     Eigen::Matrix4d drifted_pose = true_pose;
     drifted_pose(1, 3) += 0.08 * static_cast<double>(i);
     raw_poses.push_back(drifted_pose);
-    pipeline.processExternalOdometry(generateLidarScan(true_pose),
-                                     drifted_pose);
+    const auto result = pipeline.processExternalOdometry(
+        generateLidarScan(true_pose), drifted_pose);
+    causal_published_poses.push_back(result.pose);
   }
 
   ASSERT_GT(pipeline.numLoopEdges(), 0);
@@ -181,6 +183,10 @@ TEST(HdlGraphSlam, ExternalOdometryLoopCorrectionReducesEndpointDrift) {
       raw_poses.back().block<3, 1>(0, 3).norm();
   EXPECT_LT(corrected_endpoint_error, raw_endpoint_error);
   EXPECT_TRUE(corrected.front().isApprox(raw_poses.front(), 1e-12));
+  ASSERT_EQ(causal_published_poses.size(), raw_poses.size());
+  EXPECT_TRUE(causal_published_poses.front().isApprox(raw_poses.front(), 1e-12));
+  EXPECT_LT(causal_published_poses.back().block<3, 1>(0, 3).norm(),
+            raw_endpoint_error);
 }
 
 TEST(HdlGraphSlam, HoldsRawTrajectoryUntilTwoLoopClustersCorroborate) {

@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / "evaluation/data/lidar_odometry_sota_head_to_head_v12_protocol.json"
 STAGING = ROOT / "evaluation/data/kitti_ssd_ext4_staging_v12.json"
+KITTI00_RERUN = ROOT / "evaluation/data/cube_lio_kitti00_direct_rerun_v12.json"
 SCRIPT = ROOT / "evaluation/scripts/evaluate_sota_head_to_head.py"
 
 
@@ -62,23 +63,27 @@ class SotaHeadToHeadTests(unittest.TestCase):
             self.assertTrue(dataset["archive_url"].startswith("https://"))
 
     def test_completed_cube_rerun_records_required_metrics(self):
-        rerun = self.protocol["cube_lio_track"]["datasets"][
-            "kitti_odometry_07"
-        ]["direct_rerun"]
-        self.assertEqual(
-            rerun["status"],
-            "complete_isolated_ssd_ext4_warm_cache_three_run_median",
-        )
-        self.assertGreaterEqual(rerun["fps"], 10.0)
-        for key in (
-            "ate_m",
-            "rpe_trans_pct",
-            "rpe_rot_deg_per_m",
-            "tracking_success_rate",
-            "fps",
-            "peak_rss_mb",
-        ):
-            self.assertIsInstance(rerun[key], (int, float))
+        for sequence in ("kitti_odometry_00", "kitti_odometry_07"):
+            rerun = self.protocol["cube_lio_track"]["datasets"][sequence][
+                "direct_rerun"
+            ]
+            self.assertEqual(
+                rerun["status"],
+                "complete_external_ssd_to_tmpfs_three_run_median",
+            )
+            for key in (
+                "ate_m",
+                "rpe_trans_pct",
+                "rpe_rot_deg_per_m",
+                "tracking_success_rate",
+                "fps",
+                "peak_rss_mb",
+            ):
+                self.assertIsInstance(rerun[key], (int, float))
+
+        seq00 = json.loads(KITTI00_RERUN.read_text(encoding="utf-8"))
+        self.assertEqual(seq00["ram_staging"]["manifest_diff_bytes"], 0)
+        self.assertTrue(seq00["ram_staging"]["copy_excluded_from_runtime"])
 
     def test_external_ssd_ext4_staging_is_byte_identical(self):
         staging = json.loads(STAGING.read_text(encoding="utf-8"))

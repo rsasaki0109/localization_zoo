@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "status": "complete_external_ssd_to_tmpfs_three_run_median",
+  "recorded_at": "2026-08-01",
+  "method": "CUBE-LIO repository reproduction",
+  "sequence": "KITTI Odometry 00",
+  "input": {
+    "persistent_path": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/sequences/00/velodyne",
+    "runtime_path": "/mnt/loc_zoo_ram/velodyne",
+    "format": "KITTI raw .bin PointXYZI",
+    "frames": 4541,
+    "identity_reference_sha256": "11a9a7c276781b0c9319289f210dc5354cf9b5272c73e27ce79983cba14c95d1",
+    "real_gt_runtime_access": false
+  },
+  "ram_staging": {
+    "copy_seconds": 370.64,
+    "manifest_files": 4542,
+    "source_manifest_sha256": "9ea0c512d0360fa9a3eeca62f2ee938fc523dca75d92b9ad01062f1c1bc5378e",
+    "runtime_manifest_sha256": "9ea0c512d0360fa9a3eeca62f2ee938fc523dca75d92b9ad01062f1c1bc5378e",
+    "manifest_diff_bytes": 0,
+    "copy_excluded_from_runtime": true,
+    "runner": "evaluation/scripts/run_cube_lio_external_ssd_repetitions.sh"
+  },
+  "build": {
+    "source_commit": "73cbfce55d7de297fdb0c9a0c22d2539ea9484db",
+    "source_archive_location": "/opt/loc_zoo_v12_src",
+    "binary": "/opt/loc_zoo_v12_build/evaluation/pcd_dogfooding",
+    "binary_sha256": "d7ef2b02f633c6b48fdfaa74643b92ee9db3e3dac263bc1e664bca8718067023"
+  },
+  "runtime_policy": {
+    "cpu_affinity": "0-5",
+    "reported_runs": ["run1", "run2", "run3"],
+    "isolation": "one odometry process; no concurrent dataset download or SSD benchmark",
+    "trajectory_hashed_before_external_scoring": true
+  },
+  "runs": [
+    {
+      "id": "run1",
+      "algorithm_seconds": 747.583759245,
+      "wall_seconds": 748.25,
+      "peak_rss_kb": 49316,
+      "trajectory_sha256": "5d76dd60a3a55007b30f2e061a908bd09ba89918f5b460ba0c387f9b3e41a19d"
+    },
+    {
+      "id": "run2",
+      "algorithm_seconds": 692.795413183,
+      "wall_seconds": 693.19,
+      "peak_rss_kb": 49252,
+      "trajectory_sha256": "5d76dd60a3a55007b30f2e061a908bd09ba89918f5b460ba0c387f9b3e41a19d"
+    },
+    {
+      "id": "run3",
+      "algorithm_seconds": 686.187165937,
+      "wall_seconds": 686.51,
+      "peak_rss_kb": 49524,
+      "trajectory_sha256": "5d76dd60a3a55007b30f2e061a908bd09ba89918f5b460ba0c387f9b3e41a19d"
+    }
+  ],
+  "median": {
+    "ate_m": 9.04430252500857,
+    "rpe_trans_pct": 0.8798334017400419,
+    "rpe_rot_deg_per_m": 0.006843923423662427,
+    "tracking_success_rate": 1.0,
+    "algorithm_seconds": 692.795413183,
+    "fps": 6.554604596956977,
+    "peak_rss_mb": 48.16015625
+  },
+  "scoring": {
+    "tool": "evaluation/scripts/evaluate_external_kitti_odometry.py",
+    "reference": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "reference_sha256": "aebb77a832692df1d630fd75698f8f3e09ca69ef2341065c16fe19f1760cad3c",
+    "first_pose_anchor_only": true,
+    "segment_length_m": 100.0,
+    "rpe_segments": 4441
+  },
+  "supersedes": {
+    "provisional_input": "docs/benchmarks/kitti_full_new_methods/seq00_cube_lio.json used converted PCD input and is not the same-input baseline",
+    "drvfs_runtime": "The direct DrvFs run produced the identical trajectory but spent most of its wall time in external-SSD I/O. Its 2239.7636 second runtime is quarantined from algorithm comparison."
+  }
+}

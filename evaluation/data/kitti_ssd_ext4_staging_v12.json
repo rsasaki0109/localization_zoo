@@ -38,9 +38,12 @@
     }
   },
   "benchmark_policy": {
-    "runtime_input": "ext4 staging dataset_root",
+    "persistent_input": "external SSD canonical source, with the ext4 copy retained as an independently verified byte-identical mirror",
+    "runtime_input": "transient tmpfs copy created from the external SSD before timed runs",
+    "runtime_copy_verification": "compare the tmpfs per-file SHA-256 manifest with the frozen source manifest before odometry starts",
+    "runner": "evaluation/scripts/run_cube_lio_external_ssd_repetitions.sh",
     "ground_truth_inside_image": false,
-    "cache_policy": "three warm-cache full-sequence runs",
+    "cache_policy": "three full-sequence runs from the same verified tmpfs copy; staging time is excluded",
     "concurrent_downloads_or_odometry_processes": "forbidden"
   }
 }

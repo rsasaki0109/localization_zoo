@@ -7,6 +7,13 @@
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
   "candidate_stage": "frozen_v10_same_input_rerun_before_any_v12_tuning",
+  "candidate_results": {
+    "frozen_v10_kitti_odometry_07": {
+      "status": "fails_cube_lio_ate_gate",
+      "evidence": "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json",
+      "next": "GT-free causal translation fusion using v6 local increments and official KISS low-frequency anchoring"
+    }
+  },
   "ground_truth_policy": {
     "candidate_runtime_access": "forbidden",
     "development_selection": "GT-free diagnostics and runtime only",

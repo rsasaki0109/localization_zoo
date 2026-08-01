@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "status": "frozen_v10_fails_cube_lio_ate_gate",
+  "recorded_at": "2026-08-01",
+  "dataset": "KITTI Odometry 07",
+  "frames": 1101,
+  "ground_truth_policy": {
+    "runtime_reference": "synthetic identity only",
+    "component_and_fused_trajectories_hashed_before_scoring": true,
+    "external_scoring_after_freeze": true
+  },
+  "input_staging": {
+    "persistent_source": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/sequences/07/velodyne",
+    "runtime_source": "/mnt/loc_zoo_ram/velodyne",
+    "copy_seconds_excluded": 31.82,
+    "manifest_sha256": "ce6c0a5d6de538e7c452540f86076728875af4465d40f46a9f20ad7d863bc5cf",
+    "manifest_diff_bytes": 0
+  },
+  "trajectories": {
+    "v6_primary_sha256": "c5a212d1dd797d306c75b97381bdf970724c1456fbd7a1107901f3215c51e688",
+    "official_kiss_1_3_0_sha256": "8db15c8df49baa169b6681cb1b9e246d68532127d3ddafaee7c0464bebd2118c",
+    "frozen_v10_sha256": "8b286e286629f43b30ed0d92f33fa91dd8ef582de51fc4787dee8921f7e41bb7"
+  },
+  "runtime": {
+    "v6_primary_algorithm_seconds": 9.409169874,
+    "v6_primary_end_to_end_seconds": 19.204662218,
+    "official_kiss_algorithm_seconds": 28.571734323,
+    "official_kiss_end_to_end_seconds": 35.00479459,
+    "fusion_seconds_including_pose_io": 0.3090922840000019,
+    "sequential_combined_end_to_end_seconds": 54.518549092,
+    "sequential_combined_end_to_end_fps": 20.19496150093913,
+    "v6_primary_peak_rss_mb": 36.8671875,
+    "official_kiss_peak_rss_mb": 90.55078125
+  },
+  "metrics": {
+    "cube_lio": {
+      "ate_m": 1.6454257491191604,
+      "rpe_trans_pct": 0.6238668812159914,
+      "tracking_success_rate": 1.0,
+      "fps": 9.6524570366857
+    },
+    "frozen_v10": {
+      "ate_m": 2.4050247746684916,
+      "rpe_trans_pct": 0.502191679999755,
+      "rpe_rot_deg_per_m": 0.00601800617651474,
+      "tracking_success_rate": 1.0,
+      "fps": 20.19496150093913
+    },
+    "v6_primary": {
+      "ate_m": 2.3764043653131086,
+      "rpe_trans_pct": 0.510372968649325
+    },
+    "official_kiss_1_3_0": {
+      "ate_m": 0.7997147510986455,
+      "rpe_trans_pct": 0.6244341790834729
+    }
+  },
+  "gates": {
+    "ate_strictly_below_cube_lio": false,
+    "rpe_trans_strictly_below_cube_lio": true,
+    "tracking_100_percent": true,
+    "fps_at_least_10": true,
+    "decision": "do_not_promote; profile a new GT-free causal translation fusion candidate"
+  },
+  "runner": "evaluation/scripts/run_frozen_v10_external_ssd.sh"
+}

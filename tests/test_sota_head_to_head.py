@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / "evaluation/data/lidar_odometry_sota_head_to_head_v12_protocol.json"
 STAGING = ROOT / "evaluation/data/kitti_ssd_ext4_staging_v12.json"
 KITTI00_RERUN = ROOT / "evaluation/data/cube_lio_kitti00_direct_rerun_v12.json"
+V10_KITTI07 = ROOT / "evaluation/data/lidar_odometry_v10_cube_head_to_head_kitti07_v12.json"
 SCRIPT = ROOT / "evaluation/scripts/evaluate_sota_head_to_head.py"
 
 
@@ -107,6 +108,15 @@ class SotaHeadToHeadTests(unittest.TestCase):
                 record["source_manifest_sha256"],
                 record["staged_manifest_sha256"],
             )
+
+    def test_frozen_v10_failure_is_recorded_before_new_candidate_work(self):
+        result = json.loads(V10_KITTI07.read_text(encoding="utf-8"))
+        cube = result["metrics"]["cube_lio"]
+        candidate = result["metrics"]["frozen_v10"]
+        self.assertGreater(candidate["ate_m"], cube["ate_m"])
+        self.assertLess(candidate["rpe_trans_pct"], cube["rpe_trans_pct"])
+        self.assertFalse(result["gates"]["ate_strictly_below_cube_lio"])
+        self.assertEqual(result["input_staging"]["manifest_diff_bytes"], 0)
 
     def test_all_gates_pass_for_strict_win(self):
         results = {

@@ -17,7 +17,7 @@ benchmark_ram_input="${benchmark_ram_mount_point}/velodyne"
 benchmark_ram_identity="${benchmark_ram_mount_point}/identity_reference.csv"
 benchmark_source_manifest="/opt/loc_zoo_v12_manifests/source${benchmark_sequence}.sha256"
 
-if [[ ! "${benchmark_sequence}" =~ ^(00|07)$ ]]; then
+if [[ ! "${benchmark_sequence}" =~ ^(00|05|07)$ ]]; then
   echo "unsupported sequence: ${benchmark_sequence}" >&2
   exit 2
 fi

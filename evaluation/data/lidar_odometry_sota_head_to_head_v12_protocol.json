@@ -201,5 +201,18 @@
       "candidate_aggregate_fps_at_least": 10.0
     }
   },
+  "untouched_external_evaluation": {
+    "declared_at": "2026-08-02",
+    "dataset": "KITTI Odometry 05",
+    "environment": "normal urban and residential driving",
+    "role": "untouched normal-environment external evaluation after all candidate and selector thresholds were frozen",
+    "frames": 2761,
+    "sensor_path": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/sequences/05/velodyne",
+    "ground_truth_path": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/poses/05.txt",
+    "ground_truth_runtime_access": "forbidden until candidate and comparator trajectories are hashed",
+    "comparators": ["CUBE-LIO repository reproduction"],
+    "candidate": "frozen v12 frontend plus GT-free loop-support and correction-envelope selector",
+    "status": "declared_before_candidate_runtime"
+  },
   "promotion_gate": "CUBE-LIO and official FAST-LIVO2 tracks must both pass after candidate freeze and untouched external evaluation"
 }

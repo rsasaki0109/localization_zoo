@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "active_native_pose_graph_frontier_passes_ate_but_not_rpe",
+  "status": "max60_native_pose_graph_passes_kitti00_joint_gate",
   "recorded_at": "2026-08-01",
   "dataset": "KITTI Odometry 00 consumed development",
   "frames": 4541,
@@ -125,12 +125,40 @@
       }
     }
   },
+  "max60_native_causal_pose_graph": {
+    "implementation_commit": "236521c4",
+    "runner_binary_sha256": "66c9f87644639e049955be983716a6892fab46ca0a5efdfbc07b1a7e188996b1",
+    "causal_graph_sha256": "9b9ae7b0b46916a7caf83838d43383568e97c64b50d2a0b38ee418745c10e9c6",
+    "loop_edges": 19,
+    "loop_clusters": 11,
+    "loop_candidates": 19,
+    "loop_registration_rejections": 0,
+    "recovered_loop": {
+      "from_keyframe": 1,
+      "to_keyframe": 446,
+      "converged": true,
+      "rmse_m": 0.884321,
+      "correspondences": 2934
+    },
+    "algorithm_seconds": 7.216663008,
+    "algorithm_fps": 629.238194296464,
+    "peak_rss_mb": 54.05078125,
+    "robust_candidate": {
+      "trajectory_sha256_before_scoring": "8e2cf51824e5bf7a2b8407f902c6080cf312b7f7a3c5f135059397a02faa9ff5",
+      "ate_m": 8.93380201955427,
+      "rpe_trans_pct": 0.876543829963492,
+      "rpe_rot_deg_per_m": 0.006765153627173979,
+      "tracking_success_rate": 1.0,
+      "sequential_fps": 123.49147655931422,
+      "decision": "pass_all_kitti00_cube_lio_gates"
+    }
+  },
   "cube_lio_gate": {
     "ate_m_strictly_below": 9.04430252500857,
     "rpe_trans_pct_strictly_below": 0.8798334017400419,
     "tracking_success_rate": 1.0,
     "fps_at_least": 10.0
   },
-  "next": "continue GT-free structural development from the native robust continuous frontier; component Hampel and persistent-yaw policies are rejected, and no numerical gain tuning against KITTI 00 GT is allowed",
+  "next": "use the frozen GT-free loop-support selector for KITTI 07 and proceed to the official FAST-LIVO2 track",
   "artifacts_root": "${LOCALIZATION_ZOO_DATA_ROOT}/results/v12_sota_head_to_head/v12_dynamic_voxel_radius"
 }

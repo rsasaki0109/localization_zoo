@@ -7,6 +7,7 @@
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
   "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
+  "current_candidate_stage": "cube_lio_track_passed_official_fast_livo2_track_active",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
@@ -29,9 +30,14 @@
       "next": "improve primary frontend local registration, then retain the GT-free robust causal rotation correction; map-frame translation transfer is rejected"
     },
     "dynamic_voxel_radius_kitti_odometry_00": {
-      "status": "native_pose_graph_frontier_passes_ate_tracking_fps_but_rpe_misses_by_0.00453_percentage_points",
+      "status": "max60_native_pose_graph_passes_ate_rpe_tracking_and_fps",
       "evidence": "evaluation/data/lidar_odometry_dynamic_voxel_radius_kitti00_v12.json",
-      "next": "continue GT-free structural correction development from the native robust continuous frontier; reject component Hampel, persistent-yaw, and deterministic full-voxel refresh branches"
+      "next": "combine with the frozen v11 fallback through the GT-free loop-support selector"
+    },
+    "gt_free_loop_support_adaptive_v12": {
+      "status": "passes_cube_lio_kitti00_and_kitti07_all_gates",
+      "evidence": "evaluation/data/lidar_odometry_candidate_gt_free_loop_support_v12.json",
+      "next": "run the official FAST-LIVO2 three-row track, then untouched normal-environment external evaluation"
     }
   },
   "ground_truth_policy": {

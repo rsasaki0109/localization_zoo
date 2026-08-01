@@ -119,9 +119,14 @@ void writePose(std::ostream& stream, const Eigen::Matrix4d& pose) {
 }  // namespace
 
 int main(int argc, char** argv) {
-  if (argc != 4) {
-    std::cerr << "usage: kiss_bin_odometry SCAN_DIR OUTPUT_POSES MANIFEST_JSON\n";
+  if (argc != 4 && argc != 5) {
+    std::cerr << "usage: kiss_bin_odometry SCAN_DIR OUTPUT_POSES MANIFEST_JSON "
+                 "[--update-full-voxels]\n";
     return 2;
+  }
+  const bool update_full_voxels = argc == 5;
+  if (update_full_voxels && std::string(argv[4]) != "--update-full-voxels") {
+    throw std::runtime_error("unknown option: " + std::string(argv[4]));
   }
   const fs::path scan_directory(argv[1]);
   const fs::path output_path(argv[2]);
@@ -136,7 +141,7 @@ int main(int argc, char** argv) {
   params.max_icp_iterations = 15;
   params.local_map_radius = 45.0;
   params.map_cleanup_interval = 2;
-  params.update_full_voxels = false;
+  params.update_full_voxels = update_full_voxels;
   params.use_model_deviation_threshold = true;
   params.model_deviation_correspondence_multiplier = 2.0;
   params.enable_motion_guard = true;
@@ -179,6 +184,8 @@ int main(int argc, char** argv) {
            << "  \"source_voxel_size\": 0.8,\n"
            << "  \"map_voxel_size\": 1.2,\n"
            << "  \"max_source_points\": 2000,\n"
+           << "  \"update_full_voxels\": "
+           << (update_full_voxels ? "true" : "false") << ",\n"
            << "  \"vertical_angle_correction_deg\": 0.205,\n"
            << "  \"algorithm_seconds\": " << algorithm_seconds << ",\n"
            << "  \"total_seconds\": " << total_seconds << ",\n"

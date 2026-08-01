@@ -158,6 +158,30 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         np.testing.assert_allclose(output_a[0], output_b[0], atol=1e-12)
         np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
 
+    def test_updated_bias_rate_never_jumps_to_graph_pose(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0), pose(3.0)]
+        corrected = [pose(0.0), pose(6.0), pose(7.0), pose(103.0)]
+        output = MODULE.apply_causal_correction_as_updated_bias_rate(
+            raw, corrected
+        )
+        self.assertAlmostEqual(output[1][0, 3], 1.0, places=12)
+        self.assertGreater(output[2][0, 3], 2.0)
+        self.assertLess(output[3][0, 3], 103.0)
+
+    def test_updated_bias_rate_is_causal(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0)]
+        corrected_a = [pose(0.0), pose(6.0), pose(7.0)]
+        corrected_b = [pose(0.0), pose(6.0), pose(700.0)]
+        output_a = MODULE.apply_causal_correction_as_updated_bias_rate(
+            raw, corrected_a
+        )
+        output_b = MODULE.apply_causal_correction_as_updated_bias_rate(
+            raw, corrected_b
+        )
+        np.testing.assert_allclose(output_a[0], output_b[0], atol=1e-12)
+        np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
+        np.testing.assert_allclose(output_a[2], output_b[2], atol=1e-12)
+
 
 if __name__ == "__main__":
     unittest.main()

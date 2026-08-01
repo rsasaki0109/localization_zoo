@@ -39,12 +39,14 @@ def parse_args() -> argparse.Namespace:
             "local_increment",
             "first_correction_latch",
             "first_correction_bias_rate",
+            "causal_correction_bias_rate_updates",
         ),
         default="left_correction",
     )
     parser.add_argument("--correction-latch-threshold", type=float, default=1e-4)
     parser.add_argument("--bias-translation-gain", type=float, default=1.0)
     parser.add_argument("--bias-rotation-gain", type=float, default=1.0)
+    parser.add_argument("--bias-update-threshold", type=float, default=0.01)
     return parser.parse_args()
 
 
@@ -333,6 +335,67 @@ def transfer_causal_left_corrections(
     ]
 
 
+def apply_causal_correction_as_updated_bias_rate(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    bias_update_threshold: float = 0.01,
+    bias_translation_gain: float = 1.0,
+    bias_rotation_gain: float = 1.0,
+) -> list[np.ndarray]:
+    """Update a future-only drift-rate estimate at causal graph changes."""
+    if len(raw) != len(corrected):
+        raise ValueError("raw and corrected pose counts must match")
+    if bias_update_threshold < 0.0:
+        raise ValueError("bias_update_threshold must be non-negative")
+    if bias_translation_gain < 0.0 or bias_rotation_gain < 0.0:
+        raise ValueError("bias gains must be non-negative")
+    if not raw:
+        return []
+
+    output = [raw[0].copy()]
+    travelled_distance = 0.0
+    translation_bias_per_m = np.zeros(3)
+    rotation_axis_bias = np.array([1.0, 0.0, 0.0])
+    rotation_bias_per_m = 0.0
+    last_accepted_correction = np.eye(4)
+    for index in range(1, len(raw)):
+        raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
+        distance = float(np.linalg.norm(raw_increment[:3, 3]))
+        travelled_distance += distance
+
+        predicted = np.eye(4)
+        predicted[:3, :3] = output[-1][:3, :3] @ raw_increment[:3, :3]
+        predicted[:3, 3] = (
+            output[-1][:3, 3]
+            + output[-1][:3, :3] @ raw_increment[:3, 3]
+            + bias_translation_gain * translation_bias_per_m * distance
+        )
+        if distance > 0.0:
+            predicted[:3, :3] = (
+                axis_angle_rotation(
+                    rotation_axis_bias,
+                    bias_rotation_gain * rotation_bias_per_m * distance,
+                )
+                @ predicted[:3, :3]
+            )
+        output.append(predicted)
+
+        target = corrected[index] @ np.linalg.inv(raw[index])
+        update = target @ np.linalg.inv(last_accepted_correction)
+        update_size = max(
+            float(np.linalg.norm(update[:3, 3])),
+            rotation_angle(update[:3, :3]),
+        )
+        if travelled_distance > 1e-9 and update_size > bias_update_threshold:
+            target_angle = rotation_angle(target[:3, :3])
+            translation_bias_per_m = target[:3, 3] / travelled_distance
+            rotation_axis_bias = rotation_axis(target[:3, :3], target_angle)
+            rotation_bias_per_m = target_angle / travelled_distance
+            last_accepted_correction = target
+    return output
+
+
 def main() -> int:
     args = parse_args()
     raw_path = Path(args.raw_poses)
@@ -366,6 +429,14 @@ def main() -> int:
             bias_translation_gain=args.bias_translation_gain,
             bias_rotation_gain=args.bias_rotation_gain,
         )
+    elif args.integration_policy == "causal_correction_bias_rate_updates":
+        output = apply_causal_correction_as_updated_bias_rate(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+            bias_translation_gain=args.bias_translation_gain,
+            bias_rotation_gain=args.bias_rotation_gain,
+        )
     else:
         smoother = (
             smooth_causal_pose_graph_local_increment
@@ -394,6 +465,7 @@ def main() -> int:
         "correction_latch_threshold": args.correction_latch_threshold,
         "bias_translation_gain": args.bias_translation_gain,
         "bias_rotation_gain": args.bias_rotation_gain,
+        "bias_update_threshold": args.bias_update_threshold,
         "policy": (
             "At frame i, move the published pose toward the pose-graph correction "
             "by at most the configured fraction of the median raw-odometry motion "

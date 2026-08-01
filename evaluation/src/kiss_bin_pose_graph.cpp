@@ -77,7 +77,8 @@ std::vector<Eigen::Vector3d> loadKittiScan(const fs::path& path) {
 }
 
 std::vector<Eigen::Vector3d> preprocess(
-    const std::vector<Eigen::Vector3d>& points) {
+    const std::vector<Eigen::Vector3d>& points,
+    double vertical_angle_correction_rad) {
   std::map<VoxelKey, VoxelAccumulator> voxels;
   for (const auto& point : points) {
     const VoxelKey key{static_cast<int>(std::floor(point.z() / 0.8)),
@@ -108,7 +109,7 @@ std::vector<Eigen::Vector3d> preprocess(
     filtered = std::move(limited);
   }
   localization_zoo::kiss_icp::correctElevationAngle(
-      filtered, 0.205 * std::acos(-1.0) / 180.0);
+      filtered, vertical_angle_correction_rad);
   return filtered;
 }
 
@@ -142,15 +143,29 @@ void writePose(std::ostream& stream, const Eigen::Matrix4d& pose) {
 }  // namespace
 
 int main(int argc, char** argv) {
-  if (argc != 5 && argc != 6) {
+  if (argc < 5 || argc > 7) {
     std::cerr << "usage: kiss_bin_pose_graph SCAN_DIR RAW_POSES "
-                 "OUTPUT_POSES MANIFEST_JSON [MAX_FRAMES]\n";
+                 "OUTPUT_POSES MANIFEST_JSON [MAX_FRAMES] "
+                 "[--native-calibrated-cloud]\n";
     return 2;
   }
+  bool native_calibrated_cloud = false;
+  std::size_t max_frames = std::numeric_limits<std::size_t>::max();
+  for (int index = 5; index < argc; ++index) {
+    const std::string option(argv[index]);
+    if (option == "--native-calibrated-cloud") {
+      native_calibrated_cloud = true;
+    } else if (max_frames == std::numeric_limits<std::size_t>::max()) {
+      max_frames = static_cast<std::size_t>(std::stoull(option));
+    } else {
+      throw std::runtime_error("unknown option: " + option);
+    }
+  }
+  const double vertical_angle_correction_deg =
+      native_calibrated_cloud ? 0.0 : 0.205;
   auto scans = listScans(argv[1]);
   const auto raw_poses = loadPoses(argv[2]);
-  if (argc == 6) {
-    const std::size_t max_frames = static_cast<std::size_t>(std::stoull(argv[5]));
+  if (max_frames != std::numeric_limits<std::size_t>::max()) {
     scans.resize(std::min(scans.size(), max_frames));
   }
   if (scans.empty() || raw_poses.size() < scans.size()) {
@@ -198,7 +213,9 @@ int main(int argc, char** argv) {
         !cloud || params.keyframe_stride <= 0 ||
         (index + 1) % static_cast<std::size_t>(params.keyframe_stride) == 0;
     if (keyframe_scan_required) {
-      cloud = makeCloud(preprocess(loadKittiScan(scans[index])));
+      cloud = makeCloud(preprocess(
+          loadKittiScan(scans[index]),
+          vertical_angle_correction_deg * std::acos(-1.0) / 180.0));
       ++scans_loaded;
     }
     const auto algorithm_start = std::chrono::steady_clock::now();
@@ -226,6 +243,10 @@ int main(int argc, char** argv) {
            << "  \"causality\": \"output i uses scans and poses only through i\",\n"
            << "  \"frames\": " << scans.size() << ",\n"
            << "  \"scans_loaded\": " << scans_loaded << ",\n"
+           << "  \"native_calibrated_cloud\": "
+           << (native_calibrated_cloud ? "true" : "false") << ",\n"
+           << "  \"vertical_angle_correction_deg\": "
+           << vertical_angle_correction_deg << ",\n"
            << "  \"keyframes\": " << backend.numKeyframes() << ",\n"
            << "  \"loop_edges\": " << backend.numLoopEdges() << ",\n"
            << "  \"loop_clusters\": " << backend.numLoopClusters() << ",\n"

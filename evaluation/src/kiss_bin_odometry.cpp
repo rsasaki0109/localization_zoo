@@ -84,7 +84,8 @@ std::vector<Eigen::Vector3d> voxelCentroids(
 }
 
 std::vector<Eigen::Vector3d> preprocess(
-    const std::vector<Eigen::Vector3d>& points) {
+    const std::vector<Eigen::Vector3d>& points,
+    double vertical_angle_correction_rad) {
   std::vector<Eigen::Vector3d> filtered;
   for (const auto& point : voxelCentroids(points, 0.8)) {
     const double range = point.norm();
@@ -101,7 +102,7 @@ std::vector<Eigen::Vector3d> preprocess(
     }
     filtered = std::move(limited);
   }
-  correctElevationAngle(filtered, 0.205 * std::acos(-1.0) / 180.0);
+  correctElevationAngle(filtered, vertical_angle_correction_rad);
   return filtered;
 }
 
@@ -119,15 +120,25 @@ void writePose(std::ostream& stream, const Eigen::Matrix4d& pose) {
 }  // namespace
 
 int main(int argc, char** argv) {
-  if (argc != 4 && argc != 5) {
+  if (argc < 4 || argc > 6) {
     std::cerr << "usage: kiss_bin_odometry SCAN_DIR OUTPUT_POSES MANIFEST_JSON "
-                 "[--update-full-voxels]\n";
+                 "[--update-full-voxels] [--native-calibrated-cloud]\n";
     return 2;
   }
-  const bool update_full_voxels = argc == 5;
-  if (update_full_voxels && std::string(argv[4]) != "--update-full-voxels") {
-    throw std::runtime_error("unknown option: " + std::string(argv[4]));
+  bool update_full_voxels = false;
+  bool native_calibrated_cloud = false;
+  for (int index = 4; index < argc; ++index) {
+    const std::string option(argv[index]);
+    if (option == "--update-full-voxels") {
+      update_full_voxels = true;
+    } else if (option == "--native-calibrated-cloud") {
+      native_calibrated_cloud = true;
+    } else {
+      throw std::runtime_error("unknown option: " + option);
+    }
   }
+  const double vertical_angle_correction_deg =
+      native_calibrated_cloud ? 0.0 : 0.205;
   const fs::path scan_directory(argv[1]);
   const fs::path output_path(argv[2]);
   const fs::path manifest_path(argv[3]);
@@ -156,7 +167,9 @@ int main(int argc, char** argv) {
   double sigma_max = 0.0;
   const auto total_start = std::chrono::steady_clock::now();
   for (std::size_t index = 0; index < scans.size(); ++index) {
-    auto points = preprocess(loadKittiScan(scans[index]));
+    auto points = preprocess(
+        loadKittiScan(scans[index]),
+        vertical_angle_correction_deg * std::acos(-1.0) / 180.0);
     const auto algorithm_start = std::chrono::steady_clock::now();
     const auto result = pipeline.registerFrame(points);
     algorithm_seconds += std::chrono::duration<double>(
@@ -186,7 +199,10 @@ int main(int argc, char** argv) {
            << "  \"max_source_points\": 2000,\n"
            << "  \"update_full_voxels\": "
            << (update_full_voxels ? "true" : "false") << ",\n"
-           << "  \"vertical_angle_correction_deg\": 0.205,\n"
+           << "  \"native_calibrated_cloud\": "
+           << (native_calibrated_cloud ? "true" : "false") << ",\n"
+           << "  \"vertical_angle_correction_deg\": "
+           << vertical_angle_correction_deg << ",\n"
            << "  \"algorithm_seconds\": " << algorithm_seconds << ",\n"
            << "  \"total_seconds\": " << total_seconds << ",\n"
            << "  \"algorithm_fps\": " << scans.size() / algorithm_seconds << ",\n"

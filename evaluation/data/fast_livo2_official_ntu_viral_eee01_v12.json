@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "status": "eee01_development_row_passed",
+  "ground_truth_policy": "candidate frozen from GT-free loop support before each score",
+  "dataset": {
+    "name": "NTU VIRAL eee_01",
+    "sensor_only_bag_topics": [
+      "/imu/imu",
+      "/left/image_raw",
+      "/os1_cloud_node1/points"
+    ],
+    "lidar_frames": 3987,
+    "position_gt_sha256": "3200fc325037bf0cbb68e7b6f533c3e8a173dc625beca3c09c71fbfbeb9b24ba"
+  },
+  "official_environment": {
+    "fast_livo2_commit": "0d2c0346107b75b59934975adec9a6eeeb913c64",
+    "container_image": "localization-zoo/fast-livo2-official:0d2c034",
+    "binary_sha256": "f1a4aaaadd49bb7c8ddc0149264baa4d39f582d06150aefd03637a403a9119ea",
+    "cpu_affinity": "0-3",
+    "playback_rate": 1.1
+  },
+  "candidate_policy": {
+    "frontend": "the identical official FAST-LIVO2 output used by the baseline",
+    "timestamp_resampling": "linear translation plus quaternion SLERP; nearest boundary hold",
+    "native_calibrated_cloud": true,
+    "vertical_angle_correction_deg": 0.0,
+    "pose_graph": "direct causal output; no KITTI persistent-bias smoother",
+    "loop_edges": 22,
+    "loop_clusters": 7,
+    "correction_enabled": true,
+    "pose_graph_binary_sha256": "6c15fe34f6037340a41f4b13562abe7075c5060b78a5599c2b1deafd403219a9",
+    "frozen_trajectory_sha256": "4d8368b1ba9877c39d659dc03dad73e3ffaff7ecf57444ff2f0bec0bd3cfea97"
+  },
+  "comparison": {
+    "official": {
+      "trajectory_sha256": "86f5e4b95615177554b3423d1712551da5e447f1426f3a3907ca75aee5f99eb7",
+      "poses": 3981,
+      "ate_3d_m": 0.25782230260216665,
+      "rpe_trans_pct": 0.3987754293007713,
+      "tracking_success_rate": 0.9984951091045899,
+      "wall_fps": 10.44987373567538,
+      "mapper_peak_rss_kb": 4756204
+    },
+    "candidate": {
+      "poses": 3987,
+      "ate_3d_m": 0.25508943442722914,
+      "rpe_trans_pct": 0.3976507662529941,
+      "tracking_success_rate": 1.0,
+      "conservative_combined_fps": 10.331653989938237
+    },
+    "gates": {
+      "ate_improved": true,
+      "rpe_improved": true,
+      "tracking_not_below_official": true,
+      "candidate_fps_at_least_10": true,
+      "row_passed": true
+    }
+  },
+  "remaining": "repeat official timing and complete eee_02/eee_03 plus untouched external evaluation"
+}

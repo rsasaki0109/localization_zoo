@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "byte_identical_verified",
+  "recorded_at": "2026-08-01",
+  "purpose": "Remove DrvFs small-file I/O overhead while keeping benchmark data physically on the external SSD",
+  "source": {
+    "root": "${LOCALIZATION_ZOO_DATA_ROOT}/raw/kitti_odometry/dataset/sequences",
+    "filesystem_access": "Windows external SSD exposed to WSL through DrvFs"
+  },
+  "staging": {
+    "image": "${LOCALIZATION_ZOO_DATA_ROOT}/wsl_ext4/kitti_benchmark_v12.ext4",
+    "image_size_bytes": 21474836480,
+    "filesystem": "ext4",
+    "filesystem_uuid": "a6f5e1aa-57f1-4656-86f5-fee8d6b696c3",
+    "filesystem_label": "loc_zoo_kitti_v1",
+    "mount_point": "/mnt/loc_zoo_ssd",
+    "dataset_root": "/mnt/loc_zoo_ssd/kitti_odometry/sequences",
+    "physical_storage": "same external SSD as LOCALIZATION_ZOO_DATA_ROOT"
+  },
+  "verification": {
+    "method": "sorted per-file SHA-256 manifests compared with diff; aggregate SHA-256 recorded below",
+    "exit_code": 0,
+    "sequences": {
+      "00": {
+        "lidar_frames": 4541,
+        "manifest_files": 4542,
+        "source_manifest_sha256": "9ea0c512d0360fa9a3eeca62f2ee938fc523dca75d92b9ad01062f1c1bc5378e",
+        "staged_manifest_sha256": "9ea0c512d0360fa9a3eeca62f2ee938fc523dca75d92b9ad01062f1c1bc5378e",
+        "byte_identical": true
+      },
+      "07": {
+        "lidar_frames": 1101,
+        "manifest_files": 1102,
+        "source_manifest_sha256": "ce6c0a5d6de538e7c452540f86076728875af4465d40f46a9f20ad7d863bc5cf",
+        "staged_manifest_sha256": "ce6c0a5d6de538e7c452540f86076728875af4465d40f46a9f20ad7d863bc5cf",
+        "byte_identical": true
+      }
+    }
+  },
+  "benchmark_policy": {
+    "runtime_input": "ext4 staging dataset_root",
+    "ground_truth_inside_image": false,
+    "cache_policy": "three warm-cache full-sequence runs",
+    "concurrent_downloads_or_odometry_processes": "forbidden"
+  }
+}

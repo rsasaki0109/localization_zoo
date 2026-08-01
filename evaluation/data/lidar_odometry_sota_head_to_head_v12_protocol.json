@@ -22,6 +22,11 @@
     "accuracy": "first-pose anchor only; no trajectory alignment; 100 m KITTI-style RPE segments",
     "tracking": "finite output poses divided by declared input frames"
   },
+  "storage_staging": {
+    "status": "byte_identical_verified",
+    "evidence": "evaluation/data/kitti_ssd_ext4_staging_v12.json",
+    "policy": "benchmark data remains physically on the external SSD; use an ext4 image to remove DrvFs small-file I/O overhead"
+  },
   "cube_lio_track": {
     "comparator": "repository CUBE-LIO from-slide reproduction",
     "implementation_commit": "94add2d2defd17256164c94017c54b7e360eeee2",

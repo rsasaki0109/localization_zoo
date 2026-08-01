@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / "evaluation/data/lidar_odometry_sota_head_to_head_v12_protocol.json"
+STAGING = ROOT / "evaluation/data/kitti_ssd_ext4_staging_v12.json"
 SCRIPT = ROOT / "evaluation/scripts/evaluate_sota_head_to_head.py"
 
 
@@ -74,6 +75,25 @@ class SotaHeadToHeadTests(unittest.TestCase):
             "peak_rss_mb",
         ):
             self.assertIsInstance(rerun[key], (int, float))
+
+    def test_external_ssd_ext4_staging_is_byte_identical(self):
+        staging = json.loads(STAGING.read_text(encoding="utf-8"))
+        self.assertEqual(staging["status"], "byte_identical_verified")
+        self.assertEqual(staging["verification"]["exit_code"], 0)
+        self.assertFalse(staging["benchmark_policy"]["ground_truth_inside_image"])
+        self.assertEqual(
+            self.protocol["storage_staging"]["evidence"],
+            "evaluation/data/kitti_ssd_ext4_staging_v12.json",
+        )
+        for sequence, frames in (("00", 4541), ("07", 1101)):
+            record = staging["verification"]["sequences"][sequence]
+            self.assertEqual(record["lidar_frames"], frames)
+            self.assertEqual(record["manifest_files"], frames + 1)
+            self.assertTrue(record["byte_identical"])
+            self.assertEqual(
+                record["source_manifest_sha256"],
+                record["staged_manifest_sha256"],
+            )
 
     def test_all_gates_pass_for_strict_win(self):
         results = {

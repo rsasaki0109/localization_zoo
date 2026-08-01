@@ -56,6 +56,7 @@ def parse_args() -> argparse.Namespace:
             "causal_interval_distance_weighted_se3_bias",
             "causal_interval_median_vector_rotation_bias",
             "causal_interval_hampel_vector_rotation_bias",
+            "causal_interval_hampel_vector_persistent_yaw_bias",
         ),
         default="left_correction",
     )
@@ -994,6 +995,7 @@ def apply_causal_interval_hampel_vector_rotation_bias(
     corrected: list[np.ndarray],
     *,
     bias_update_threshold: float = 0.01,
+    preserve_yaw_sign: bool = False,
 ) -> list[np.ndarray]:
     """Winsorize only outlying components of causal interval rotation drift."""
     if len(raw) != len(corrected):
@@ -1043,6 +1045,12 @@ def apply_causal_interval_hampel_vector_rotation_bias(
                 * increment_angle
                 / distance_since_update
             )
+            if (
+                preserve_yaw_sign
+                and rotation_rate_vector[2] != 0.0
+                and observed_rate[2] * rotation_rate_vector[2] < 0.0
+            ):
+                observed_rate[2] *= -1.0
             adjusted_rate = observed_rate.copy()
             if len(observed_rate_vectors) >= 3:
                 history = np.stack(observed_rate_vectors)
@@ -1223,11 +1231,18 @@ def main() -> int:
             corrected,
             bias_update_threshold=args.bias_update_threshold,
         )
-    elif args.integration_policy == "causal_interval_hampel_vector_rotation_bias":
+    elif args.integration_policy in (
+        "causal_interval_hampel_vector_rotation_bias",
+        "causal_interval_hampel_vector_persistent_yaw_bias",
+    ):
         output = apply_causal_interval_hampel_vector_rotation_bias(
             raw,
             corrected,
             bias_update_threshold=args.bias_update_threshold,
+            preserve_yaw_sign=(
+                args.integration_policy
+                == "causal_interval_hampel_vector_persistent_yaw_bias"
+            ),
         )
     else:
         smoother = (

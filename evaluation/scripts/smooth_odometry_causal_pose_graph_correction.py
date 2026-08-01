@@ -27,9 +27,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rotation-rate-fraction", type=float, default=0.005)
     parser.add_argument(
         "--integration-policy",
-        choices=("left_correction", "local_increment"),
+        choices=("left_correction", "local_increment", "first_correction_latch"),
         default="left_correction",
     )
+    parser.add_argument("--correction-latch-threshold", type=float, default=1e-4)
     return parser.parse_args()
 
 
@@ -205,6 +206,36 @@ def smooth_causal_pose_graph_local_increment(
     return output
 
 
+def latch_first_causal_pose_graph_correction(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    correction_latch_threshold: float = 1e-4,
+) -> list[np.ndarray]:
+    """Latch the first corroborated non-identity graph correction."""
+    if len(raw) != len(corrected):
+        raise ValueError("raw and corrected pose counts must match")
+    if correction_latch_threshold < 0.0:
+        raise ValueError("correction_latch_threshold must be non-negative")
+    if not raw:
+        return []
+
+    latched = np.eye(4)
+    has_latched = False
+    output: list[np.ndarray] = []
+    for raw_pose, corrected_pose in zip(raw, corrected):
+        target = corrected_pose @ np.linalg.inv(raw_pose)
+        correction_size = max(
+            float(np.linalg.norm(target[:3, 3])),
+            rotation_angle(target[:3, :3]),
+        )
+        if not has_latched and correction_size > correction_latch_threshold:
+            latched = target
+            has_latched = True
+        output.append(latched @ raw_pose)
+    return output
+
+
 def main() -> int:
     args = parse_args()
     raw_path = Path(args.raw_poses)
@@ -214,18 +245,25 @@ def main() -> int:
     started = time.perf_counter()
     raw = load_kitti_poses(raw_path)
     corrected = load_kitti_poses(corrected_path)
-    smoother = (
-        smooth_causal_pose_graph_local_increment
-        if args.integration_policy == "local_increment"
-        else smooth_causal_pose_graph_correction
-    )
-    output = smoother(
-        raw,
-        corrected,
-        motion_window_frames=args.motion_window_frames,
-        translation_rate_fraction=args.translation_rate_fraction,
-        rotation_rate_fraction=args.rotation_rate_fraction,
-    )
+    if args.integration_policy == "first_correction_latch":
+        output = latch_first_causal_pose_graph_correction(
+            raw,
+            corrected,
+            correction_latch_threshold=args.correction_latch_threshold,
+        )
+    else:
+        smoother = (
+            smooth_causal_pose_graph_local_increment
+            if args.integration_policy == "local_increment"
+            else smooth_causal_pose_graph_correction
+        )
+        output = smoother(
+            raw,
+            corrected,
+            motion_window_frames=args.motion_window_frames,
+            translation_rate_fraction=args.translation_rate_fraction,
+            rotation_rate_fraction=args.rotation_rate_fraction,
+        )
     write_kitti_poses(output_path, output)
     elapsed = time.perf_counter() - started
 
@@ -238,6 +276,7 @@ def main() -> int:
         "translation_rate_fraction": args.translation_rate_fraction,
         "rotation_rate_fraction": args.rotation_rate_fraction,
         "integration_policy": args.integration_policy,
+        "correction_latch_threshold": args.correction_latch_threshold,
         "policy": (
             "At frame i, move the published pose toward the pose-graph correction "
             "by at most the configured fraction of the median raw-odometry motion "

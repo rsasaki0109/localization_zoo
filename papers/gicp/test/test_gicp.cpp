@@ -75,6 +75,8 @@ TEST(GICP, SmallTranslation) {
   EXPECT_LT(angle_err, 0.5);
   EXPECT_LT(trans_err, 0.3);
   EXPECT_GT(result.num_correspondences, 500);
+  EXPECT_TRUE(std::isfinite(result.rmse));
+  EXPECT_LT(result.rmse, 0.5);
 }
 
 TEST(GICP, RotationAndTranslation) {

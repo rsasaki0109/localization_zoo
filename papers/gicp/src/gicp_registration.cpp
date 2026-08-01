@@ -170,6 +170,7 @@ GICPResult GICPRegistration::align(
     Eigen::Matrix<double, 6, 6> H = Eigen::Matrix<double, 6, 6>::Zero();
     Eigen::Matrix<double, 6, 1> b = Eigen::Matrix<double, 6, 1>::Zero();
     double total_error = 0.0;
+    double total_squared_error = 0.0;
 
     for (const auto& [source_index, target_index] : correspondences) {
       const Eigen::Vector3d& x = transformed_source[source_index];
@@ -192,6 +193,7 @@ GICPResult GICPRegistration::align(
       H += J.transpose() * metric * J;
       b += J.transpose() * metric * residual;
       total_error += mahalanobis;
+      total_squared_error += residual.squaredNorm();
     }
 
     H += 1e-6 * Eigen::Matrix<double, 6, 6>::Identity();
@@ -205,6 +207,9 @@ GICPResult GICPRegistration::align(
     result.num_iterations = iter + 1;
     result.num_correspondences = static_cast<int>(correspondences.size());
     result.fitness = total_error / static_cast<double>(correspondences.size());
+    result.rmse =
+        std::sqrt(total_squared_error /
+                  static_cast<double>(correspondences.size()));
 
     const double rotation_delta = delta.head<3>().norm();
     const double translation_delta = delta.tail<3>().norm();

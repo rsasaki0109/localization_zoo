@@ -64,6 +64,24 @@ class CausalPoseGraphCorrectionSmoothingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "pose counts must match"):
             MODULE.smooth_causal_pose_graph_correction([pose()], [pose(), pose(1.0)])
 
+    def test_local_increment_policy_avoids_world_origin_lever_arm(self) -> None:
+        raw = [pose(100.0, 0.0), pose(101.0, 10.0)]
+        corrected = [pose(100.0, 0.0), pose(101.0, 20.0)]
+        output = MODULE.smooth_causal_pose_graph_local_increment(raw, corrected)
+        self.assertAlmostEqual(output[1][0, 3], 101.0, places=12)
+        self.assertAlmostEqual(output[1][1, 3], 0.0, places=12)
+        published_yaw = np.degrees(np.arctan2(output[1][1, 0], output[1][0, 0]))
+        self.assertAlmostEqual(published_yaw, 10.05, places=10)
+
+    def test_local_increment_policy_is_causal(self) -> None:
+        raw = [pose(0.0), pose(1.0), pose(2.0)]
+        corrected_a = [pose(0.0), pose(2.0), pose(3.0)]
+        corrected_b = [pose(0.0), pose(2.0), pose(300.0)]
+        output_a = MODULE.smooth_causal_pose_graph_local_increment(raw, corrected_a)
+        output_b = MODULE.smooth_causal_pose_graph_local_increment(raw, corrected_b)
+        np.testing.assert_allclose(output_a[0], output_b[0], atol=1e-12)
+        np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-12)
+
 
 if __name__ == "__main__":
     unittest.main()

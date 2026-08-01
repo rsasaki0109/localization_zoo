@@ -25,6 +25,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--motion-window-frames", type=int, default=100)
     parser.add_argument("--translation-rate-fraction", type=float, default=0.005)
     parser.add_argument("--rotation-rate-fraction", type=float, default=0.005)
+    parser.add_argument(
+        "--integration-policy",
+        choices=("left_correction", "local_increment"),
+        default="left_correction",
+    )
     return parser.parse_args()
 
 
@@ -138,6 +143,68 @@ def smooth_causal_pose_graph_correction(
     return output
 
 
+def smooth_causal_pose_graph_local_increment(
+    raw: list[np.ndarray],
+    corrected: list[np.ndarray],
+    *,
+    motion_window_frames: int = 100,
+    translation_rate_fraction: float = 0.005,
+    rotation_rate_fraction: float = 0.005,
+) -> list[np.ndarray]:
+    """Integrate raw local increments and rate-limit attraction to graph poses.
+
+    Unlike smoothing a world-frame left correction, this policy never rotates
+    the already accumulated position about the world origin. A changing graph
+    rotation therefore cannot create a lever-arm translation jump.
+    """
+    if len(raw) != len(corrected):
+        raise ValueError("raw and corrected pose counts must match")
+    if motion_window_frames <= 0:
+        raise ValueError("motion_window_frames must be positive")
+    if translation_rate_fraction < 0.0 or rotation_rate_fraction < 0.0:
+        raise ValueError("rate fractions must be non-negative")
+    if not raw:
+        return []
+
+    translation_history: deque[float] = deque(maxlen=motion_window_frames)
+    rotation_history: deque[float] = deque(maxlen=motion_window_frames)
+    output = [corrected[0].copy()]
+    for index in range(1, len(raw)):
+        raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
+        raw_translation = raw_increment[:3, 3]
+        raw_rotation = raw_increment[:3, :3]
+        translation_history.append(float(np.linalg.norm(raw_translation)))
+        rotation_history.append(rotation_angle(raw_rotation))
+
+        predicted = np.eye(4)
+        predicted[:3, :3] = output[-1][:3, :3] @ raw_rotation
+        predicted[:3, 3] = (
+            output[-1][:3, 3] + output[-1][:3, :3] @ raw_translation
+        )
+
+        maximum_translation_step = (
+            translation_rate_fraction * float(np.median(translation_history))
+        )
+        maximum_rotation_step = (
+            rotation_rate_fraction * float(np.median(rotation_history))
+        )
+        translation_delta = corrected[index][:3, 3] - predicted[:3, 3]
+        translation_distance = float(np.linalg.norm(translation_delta))
+        if translation_distance <= maximum_translation_step or translation_distance <= 1e-12:
+            predicted[:3, 3] = corrected[index][:3, 3]
+        else:
+            predicted[:3, 3] += (
+                maximum_translation_step * translation_delta / translation_distance
+            )
+        predicted[:3, :3] = step_rotation_toward(
+            predicted[:3, :3],
+            corrected[index][:3, :3],
+            maximum_rotation_step,
+        )
+        output.append(predicted)
+    return output
+
+
 def main() -> int:
     args = parse_args()
     raw_path = Path(args.raw_poses)
@@ -147,7 +214,12 @@ def main() -> int:
     started = time.perf_counter()
     raw = load_kitti_poses(raw_path)
     corrected = load_kitti_poses(corrected_path)
-    output = smooth_causal_pose_graph_correction(
+    smoother = (
+        smooth_causal_pose_graph_local_increment
+        if args.integration_policy == "local_increment"
+        else smooth_causal_pose_graph_correction
+    )
+    output = smoother(
         raw,
         corrected,
         motion_window_frames=args.motion_window_frames,
@@ -165,10 +237,12 @@ def main() -> int:
         "motion_window_frames": args.motion_window_frames,
         "translation_rate_fraction": args.translation_rate_fraction,
         "rotation_rate_fraction": args.rotation_rate_fraction,
+        "integration_policy": args.integration_policy,
         "policy": (
-            "At frame i, move the published left-multiplicative pose correction "
-            "toward the pose-graph correction by at most the configured fraction "
-            "of the median raw-odometry motion over frames <= i."
+            "At frame i, move the published pose toward the pose-graph correction "
+            "by at most the configured fraction of the median raw-odometry motion "
+            "over frames <= i; local_increment integrates raw sensor-local motion "
+            "without rotating accumulated position about the world origin."
         ),
         "causality": "output i uses raw and pose-graph poses only through i",
         "seconds_including_pose_io": elapsed,

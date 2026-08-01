@@ -48,6 +48,7 @@ def parse_args() -> argparse.Namespace:
             "causal_interval_robust_rotation_scale_bias",
             "causal_interval_delayed_median_rotation_bias",
             "causal_interval_distance_weighted_rotation_bias",
+            "causal_interval_distance_weighted_se3_bias",
             "causal_interval_median_vector_rotation_bias",
             "causal_interval_hampel_vector_rotation_bias",
         ),
@@ -860,6 +861,7 @@ def apply_causal_interval_distance_weighted_rotation_bias(
     corrected: list[np.ndarray],
     *,
     bias_update_threshold: float = 0.01,
+    learn_translation_bias: bool = False,
 ) -> list[np.ndarray]:
     """Average interval rotation drift in proportion to travelled distance."""
     if len(raw) != len(corrected):
@@ -873,7 +875,9 @@ def apply_causal_interval_distance_weighted_rotation_bias(
     distance_since_update = 0.0
     total_observed_distance = 0.0
     cumulative_rotation_vector = np.zeros(3)
+    cumulative_translation_vector = np.zeros(3)
     rotation_rate_vector = np.zeros(3)
+    translation_rate_vector = np.zeros(3)
     last_accepted_correction = np.eye(4)
     for index in range(1, len(raw)):
         raw_increment = np.linalg.inv(raw[index - 1]) @ raw[index]
@@ -885,6 +889,7 @@ def apply_causal_interval_distance_weighted_rotation_bias(
         predicted[:3, 3] = (
             output[-1][:3, 3]
             + output[-1][:3, :3] @ raw_increment[:3, 3]
+            + translation_rate_vector * distance
         )
         rate_norm = float(np.linalg.norm(rotation_rate_vector))
         if distance > 0.0 and rate_norm > 0.0:
@@ -909,10 +914,16 @@ def apply_causal_interval_distance_weighted_rotation_bias(
                 rotation_axis(correction_increment[:3, :3], increment_angle)
                 * increment_angle
             )
+            if learn_translation_bias:
+                cumulative_translation_vector += correction_increment[:3, 3]
             total_observed_distance += distance_since_update
             rotation_rate_vector = (
                 2.0 * cumulative_rotation_vector / total_observed_distance
             )
+            if learn_translation_bias:
+                translation_rate_vector = (
+                    cumulative_translation_vector / total_observed_distance
+                )
             last_accepted_correction = target
             distance_since_update = 0.0
     return output
@@ -1101,6 +1112,13 @@ def main() -> int:
             raw,
             corrected,
             bias_update_threshold=args.bias_update_threshold,
+        )
+    elif args.integration_policy == "causal_interval_distance_weighted_se3_bias":
+        output = apply_causal_interval_distance_weighted_rotation_bias(
+            raw,
+            corrected,
+            bias_update_threshold=args.bias_update_threshold,
+            learn_translation_bias=True,
         )
     elif args.integration_policy == "causal_interval_median_vector_rotation_bias":
         output = apply_causal_interval_median_vector_rotation_bias(

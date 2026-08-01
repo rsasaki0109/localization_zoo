@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "three_public_rows_and_timing_repetitions_passed",
+  "status": "three_public_rows_timing_and_untouched_external_passed",
   "rows": [
     {
       "dataset": "NTU VIRAL eee_01",
@@ -48,7 +48,12 @@
     "weighted_candidate_fps_at_least_10": true,
     "accuracy_track_passed": true,
     "timing_repetitions_complete": true,
-    "untouched_external_evaluation_complete": false,
-    "promotion_allowed": false
+    "untouched_external_evaluation_complete": true,
+    "promotion_allowed": true
+  },
+  "untouched_external_evaluation": {
+    "candidate": "evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json",
+    "result": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_v14.json",
+    "status": "pass"
   }
 }

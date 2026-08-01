@@ -1,12 +1,13 @@
 {
   "schema_version": 1,
   "candidate_id": "runtime_feasible_reference_v14",
-  "status": "all_candidate_rows_and_untouched_external_pass_promotion_audit_pending",
+  "status": "promoted_after_all_cube_lio_fast_livo2_and_external_gates_passed",
   "parent_candidate": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
   "configuration_frozen": true,
   "frozen_at": "2026-08-02",
   "implementation_freeze_commit": "7138241b",
-  "promoted": false,
+  "promoted": true,
+  "promotion_audit": "evaluation/data/lidar_odometry_v14_promotion_audit.json",
   "ground_truth_policy": {
     "runtime_access": "forbidden",
     "per_run_selection_signals": "first-scan point count, loop-cluster count, correction envelopes, and rotation-correction direction agreement only",
@@ -78,6 +79,7 @@
       "rpe_rot_deg_per_m": 0.006765153627173979,
       "tracking_success_rate": 1.0,
       "conservative_fps_including_0_6_second_guard_allowance": 120.64423917706499,
+      "peak_rss_mb": 54.05078125,
       "cube_lio_ate_m": 9.04430252500857,
       "cube_lio_rpe_trans_pct": 0.8798334017400419,
       "gate": "pass"
@@ -88,6 +90,7 @@
       "rpe_rot_deg_per_m": 0.004729737823864855,
       "tracking_success_rate": 1.0,
       "conservative_fps_including_0_6_second_guard_allowance": 11.927933000709118,
+      "peak_rss_mb": 90.55078125,
       "cube_lio_ate_m": 1.6454257491191604,
       "cube_lio_rpe_trans_pct": 0.6238668812159914,
       "gate": "pass"
@@ -157,5 +160,5 @@
     "candidate_fps": 18.11164769880325,
     "status": "pass"
   },
-  "next_gate": "complete the full requirement-by-requirement promotion audit; promote and open a Draft PR only if every authoritative gate passes"
+  "next_gate": "publish the frozen promoted changes as a Draft PR without including unrelated user worktree changes"
 }

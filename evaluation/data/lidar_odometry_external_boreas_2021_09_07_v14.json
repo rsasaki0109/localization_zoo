@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "evaluation_id": "lidar_odometry_v14_external_boreas_2021_09_07_first600",
-  "status": "external_evaluation_passed_promotion_audit_pending",
+  "status": "external_evaluation_passed_promotion_authorized",
   "declaration": "evaluation/data/lidar_odometry_external_boreas_2021_09_07_declaration_v14.json",
   "declared_before_sensor_download_or_runtime": true,
   "candidate_freeze_commit": "0b788eca",

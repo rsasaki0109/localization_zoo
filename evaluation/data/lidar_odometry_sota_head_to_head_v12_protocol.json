@@ -7,7 +7,7 @@
   "candidate_search_started": true,
   "candidate_search_started_at": "2026-08-01",
   "candidate_stage": "v12_causal_pose_graph_development_after_v11_kitti00_failure",
-  "current_candidate_stage": "corroborated_rotation_majority_v13_boreas_external_runtime_failed_consumed_development_reopened",
+  "current_candidate_stage": "runtime_feasible_reference_v14_frozen_new_untouched_external_pending",
   "candidate_results": {
     "frozen_v10_kitti_odometry_07": {
       "status": "fails_cube_lio_ate_gate",
@@ -41,8 +41,15 @@
       "next": "GT-free failure profiling and candidate development on consumed KITTI 00/07, followed by a newly declared untouched normal-environment row"
     },
     "corroborated_rotation_majority_v13": {
-      "status": "frozen_after_gt_free_failure_profiling; cube_lio_and_fast_livo2_tracks_pass; consumed_kitti05_replay_passes_but_does_not_count_as_external",
+      "status": "cube_lio_and_fast_livo2_tracks_pass; untouched Boreas accuracy passes but runtime fails; no promotion",
       "evidence": "evaluation/data/lidar_odometry_candidate_corroborated_rotation_majority_v13.json",
+      "external_evidence": "evaluation/data/lidar_odometry_external_boreas_2021_09_02_v13.json",
+      "next": "profile the consumed runtime failure without changing v13"
+    },
+    "runtime_feasible_reference_v14": {
+      "status": "frozen; KITTI 00/07, consumed KITTI 05, consumed Boreas, and existing FAST-LIVO2 tracks pass; new untouched external pending",
+      "implementation_freeze_commit": "7138241b",
+      "evidence": "evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json",
       "next": "declare a new untouched normal-environment row before runtime and evaluate once without further candidate changes"
     }
   },

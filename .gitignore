@@ -1,4 +1,5 @@
 build/
+/build_imu_motion_health*/
 cmake-build-*/
 .cache/
 compile_commands.json

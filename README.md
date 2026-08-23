@@ -598,6 +598,16 @@ KITTI Raw drive 0009 with `imu.csv` inputs, not on the KITTI LiDAR leaderboard.
 | **[NN-ZUPT](papers/nn_zupt/)** | Meas. Sci. Technol. 2023 | CNN zero-velocity detection driving ZUPT corrections for vehicle INS | [Paper](https://doi.org/10.1088/1361-6501/acabde) |
 | **[NHC-Net](papers/nhc_net/)** | GPS Solutions 2023 | Motion-state CNN with adaptive non-holonomic constraints for vehicle dead reckoning | - |
 
+### IMU Motion & Health SDK
+
+[`imu_motion_health`](papers/imu_motion_health/) is a LiDAR-free streaming C++
+SDK and CSV replay CLI for 6-axis IMUs. It diagnoses startup calibration,
+bias, timestamp gaps, non-finite values, and saturation; classifies stationary,
+moving, impact, fall/tilt, and vibration states; and emits JSON diagnostics plus
+short-term relative attitude, velocity, and position. Its standalone build only
+requires Eigen3 and GTest, and the included deterministic demo needs no sensor
+download.
+
 ### Place Recognition / Loop Closure
 
 | Paper | Venue | Key Idea | Reference |

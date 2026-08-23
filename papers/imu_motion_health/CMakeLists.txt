@@ -53,4 +53,9 @@ if(Python3_Interpreter_FOUND)
     NAME test_imu_motion_health_ros_wiring
     COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_CURRENT_SOURCE_DIR}/test/test_imu_ros_wiring.py)
+  add_test(
+    NAME test_imu_calibration_validation
+    COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/test/test_imu_calibration_validation.py
+            --cli $<TARGET_FILE:imu_motion_health_cli>)
 endif()

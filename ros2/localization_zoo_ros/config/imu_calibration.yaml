@@ -1,0 +1,11 @@
+imu_calibration_node:
+  ros__parameters:
+    input_topic: /imu_raw
+    output_topic: /imu/calibrated
+    temperature_topic: /imu/temperature
+    use_temperature: true
+    max_temperature_age_s: 2.0
+    reference_temperature_c: 25.0
+    gyro_bias_at_reference: [0.0, 0.0, 0.0]
+    gyro_temperature_coefficient: [0.0, 0.0, 0.0]
+    accel_bias: [0.0, 0.0, 0.0]

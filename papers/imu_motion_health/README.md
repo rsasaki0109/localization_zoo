@@ -291,3 +291,25 @@ short-term `nav_msgs/Odometry`, optional TF, health snapshot JSON, and event
 lifecycle JSON. A launch file and ROS parameter YAML are provided; see the
 [ROS 2 wrapper guide](../../ros2/localization_zoo_ros/README.md) for topics,
 profiles, timestamp policy, and commands.
+
+## Physical calibration and validation pipeline
+
+`evaluation/calibration_validation.py` provides a standard-library-only path
+from a driver CSV stream to an archived calibration and acceptance report. It
+supports the normal seven CLI columns plus optional `temperature_c`, fits a
+three-axis stationary gyro temperature model and accelerometer offset, emits a
+corrected seven-column replay, scores stationary/walking/vehicle sessions,
+runs extended CLI replay, exports ROS parameters, and renders self-contained
+HTML. No LiDAR data or dependency is accepted anywhere in this workflow.
+
+Generate a complete deterministic example with:
+
+```sh
+python papers/imu_motion_health/demo/run_calibration_validation_demo.py \
+  --output-dir build/imu_calibration_demo \
+  --cli build/imu_motion_health/imu_motion_health_cli
+```
+
+See [the calibration and hardware guide](evaluation/README.md#calibration-and-hardware-validation)
+for recording commands, acceptance gates, ROS 2 temperature compensation,
+and long-duration tests.

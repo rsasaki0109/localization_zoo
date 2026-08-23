@@ -110,3 +110,84 @@ and require:
 4. a clean final stationary segment returns to `stationary`/`ready`; and
 5. relative position/velocity are treated as short-term values and are not
    accepted as global localization without an aiding sensor.
+
+## Calibration and hardware validation
+
+The calibration pipeline accepts driver output with this header (temperature
+is optional but required to identify temperature drift):
+
+```text
+timestamp,gx,gy,gz,ax,ay,az,temperature_c
+```
+
+Archive a driver stream from stdin together with traceable metadata:
+
+```sh
+sensor_driver --csv | python papers/imu_motion_health/evaluation/calibration_validation.py record \
+  --input - --output recordings/static_cold.csv \
+  --metadata recordings/static_cold.metadata.json \
+  --device-id imu-001 --activity stationary
+```
+
+Record level stationary sessions near the lowest and highest expected device
+temperature, at least 60 seconds each. Fit a calibration artifact and convert
+it to ROS parameters:
+
+```sh
+python papers/imu_motion_health/evaluation/calibration_validation.py calibrate \
+  --input recordings/static_cold.csv --input recordings/static_hot.csv \
+  --output recordings/calibration.json
+python papers/imu_motion_health/evaluation/calibration_validation.py export-ros \
+  --calibration recordings/calibration.json \
+  --output recordings/imu_calibration.yaml
+```
+
+Create `manifest.json` with stationary, walking, and vehicle sessions:
+
+```json
+{"schema":"imu_validation_manifest_v1","sessions":[
+  {"name":"static","activity":"stationary","path":"static_check.csv"},
+  {"name":"walking","activity":"walking","path":"walking.csv"},
+  {"name":"vehicle","activity":"vehicle","path":"vehicle.csv"}
+]}
+```
+
+Then run the same C++ CLI used in production and render the evidence bundle:
+
+```sh
+python papers/imu_motion_health/evaluation/calibration_validation.py validate \
+  --manifest recordings/manifest.json --calibration recordings/calibration.json \
+  --cli build/imu_motion_health/imu_motion_health_cli \
+  --artifacts-dir recordings/runs --output recordings/validation.json
+python papers/imu_motion_health/evaluation/calibration_validation.py report \
+  --validation recordings/validation.json --calibration recordings/calibration.json \
+  --output recordings/report.html
+python papers/imu_motion_health/evaluation/calibration_validation.py endurance \
+  --input recordings/static_check.csv --calibration recordings/calibration.json \
+  --cli build/imu_motion_health/imu_motion_health_cli \
+  --duration-s 86400 --output recordings/endurance.json
+```
+
+Default gates require monotonic timestamps, at least 50 Hz, no interval over
+250 ms, and corrected stationary gyro RMS at most 0.03 rad/s. The JSON output
+contains every individual check, so deployments can tighten these limits in
+CI. A two-temperature calibration should span the deployed temperature range;
+a zero span is valid only as a constant-bias calibration and is explicitly
+reported in `quality.temperature_span_c`.
+
+For ROS 2, export the artifact and launch the calibration node immediately
+before Motion & Health. `sensor_msgs/Temperature` is optional at runtime; if
+it is absent, the reference-temperature bias is still applied:
+
+```sh
+ros2 launch localization_zoo_ros imu_calibrated_motion_health.launch.py \
+  calibration_params_file:=recordings/imu_calibration.yaml
+python papers/imu_motion_health/evaluation/ros2_endurance.py \
+  --duration-s 86400 --output recordings/ros2_endurance.json -- \
+  ros2 launch localization_zoo_ros imu_calibrated_motion_health.launch.py \
+  calibration_params_file:=recordings/imu_calibration.yaml
+```
+
+The watchdog fails when the ROS launch exits before the required duration and
+archives output tails for diagnosis. Run rosbag playback or the physical
+driver concurrently, and archive its bag beside the generated JSON/HTML.

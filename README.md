@@ -37,11 +37,8 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 
 ## Promoted LiDAR odometry v10
 
-The promoted `direction_consistent_rotation_v10` candidate causally fuses the
-Zoo's motion-guard KISS frontend with official KISS-ICP 1.3.0. Ground truth is
-used only for external scoring; output translation always comes from the
-primary frontend. The claim is cross-dataset/Pareto strength, not universal
-per-sequence dominance.
+`direction_consistent_rotation_v10` combines the motion-guard KISS frontend
+with official KISS-ICP 1.3.0. Ground truth is used only for scoring.
 
 | Public evaluation | v10 ATE | v10 translational RPE | Conservative rate | Result |
 |---|---:|---:|---:|---|
@@ -49,18 +46,12 @@ per-sequence dominance.
 | Same-input KITTI Odometry 04 (271 frames) | **1.145 m** | **0.354%** | 10.67 FPS | Best ATE and translational RPE in the frozen six-method table |
 | External Boreas summer drive (600 frames) | 0.663 m | 0.966% | 3.02 FPS | ATE −0.407% and RPE −0.100% vs v6; dense-sensor runtime limitation |
 
-The same-input table includes v6, MOLA-LO 2.2.1, MAD-ICP 0.0.10, official
-KISS-ICP 1.3.0, and CT-ICP fast. MOLA-LO retains the best rotational RPE, and
-official KISS is more accurate on Raw 0023. See the
+The frozen comparison also includes v6, MOLA-LO, MAD-ICP, official KISS-ICP,
+and CT-ICP. See the
 [frozen manifest](evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json),
 [aggregate](evaluation/data/lidar_odometry_v10_aggregate.json), and
-[protocol](docs/lidar_odometry_sota_protocol.md).
-
-An additional GT-isolated transfer run uses the first 600 scans of Boreas
-`boreas-2021-06-03-16-00` (five public dataset families total). Accuracy
-transfers without tuning, but official KISS runs at only 3.30 algorithm FPS on
-the 208k-point scans; the dual frontend is therefore not real-time on this
-sensor. This limitation is part of the frozen result, not tuned away.
+[protocol](docs/lidar_odometry_sota_protocol.md). v10 is not universally best;
+its dual frontend is also not real-time on dense Boreas scans.
 
 Re-score the frozen trajectories and verify all hashes from the external SSD:
 
@@ -69,19 +60,14 @@ export LOCALIZATION_ZOO_DATA_ROOT=/media/external/loc_zoo
 python3 evaluation/scripts/reproduce_lidar_v10.py
 ```
 
-On PowerShell, set `$env:LOCALIZATION_ZOO_DATA_ROOT = 'E:\datasets\loc_zoo'`
-and run the same Python command. The audit writes only to
-`$LOCALIZATION_ZOO_DATA_ROOT/results/v10_reproduction_audit`.
+On PowerShell, set `$env:LOCALIZATION_ZOO_DATA_ROOT` before running the command.
 
 ---
 
 ## Why Localization Zoo?
 
-Many localization papers do not ship reusable reference implementations.
-This repository collects paper-oriented C++ implementations behind a unified
-API, with ROS 2 nodes and evaluation tools that are ready to run. The next
-research track is a stricter paper-ready subset with claim tiers and ablations:
-[paper-ready reproducibility plan](docs/paper_ready_reproducibility.md).
+Paper-oriented C++ implementations share one API, ROS 2 wrappers, tests, and
+evaluation tools—even when no reusable author code exists.
 
 - **Pure C++**: ROS-independent core libraries for research, education, and embedded use
 - **ROS 2 Humble**: Ready-to-run nodes via `ros2 run`
@@ -91,25 +77,17 @@ research track is a stricter paper-ready subset with claim tiers and ablations:
 
 ## Paper-Ready Claim Boundary
 
-Localization Zoo is intentionally broad, but manuscript-level claims should use
-a narrower evidence set:
+The catalog is broader than the manuscript-grade evidence set:
 
-- **Breadth catalog**: all 102 methods share the same API, tests, and benchmark
-  harness; this includes paper reimplementations, derived variants, hybrids, and
-  compact baselines.
-- **Paper-ready subset**: only methods that satisfy the tier checklist and
-  paired-ablation requirements in
-  [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md)
-  should be treated as reproduction evidence. The current frozen evidence
-  manifest is
-  [`docs/benchmarks/paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
+- **Catalog**: all 102 methods, including derived variants and compact baselines.
+- **Paper-ready subset**: methods satisfying the
+  [tier and ablation criteria](docs/paper_ready_reproducibility.md), frozen in
+  [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
 - **Frozen paper-ready bundle (8 methods)**: I-LOAM and KC-LO (T0 candidates);
   LiDAR-IBA and TrICP-LO (T1); DegenSense and D2-LIO (competitive no-IMU KITTI
   fallback rows, not full LIO claims); M-GCLO and Quadric-LO (T1+). Manifest:
   [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
-  LiDAR-visual adapters and dynamic-filtering LIO ports remain adapter/mechanism
-  evidence until real RGB, synchronized camera, IMU, or dynamic-scene gaps are
-  closed.
+  Other ports remain adapter/mechanism evidence until their sensor-data gaps close.
 
 <!-- LEADERBOARD:START -->
 ## Leaderboard — odometry, RPE [drift %/100 m], lower is better
@@ -143,26 +121,13 @@ broken port._
 
 ### From-paper reimplementations (no public reference code) — KITTI full
 
-> **📋 [Reproducibility Report](docs/reproducibility_report.md)** — what
-> happens when you reimplement 42 papers that ship no code: which claims
-> reproduce, which mechanisms go silent on KITTI, which diverge, and the
-> recurring implementation lessons.
+> Details and negative results: [Reproducibility Report](docs/reproducibility_report.md).
 
-Promoted results from papers with **no public author code**, run as pure
-odometry on KITTI full sequences (first-pose anchor, `--no-gt-seed`, dense
-profile unless a method README calls out a CPU profile; no IMU, so LIO methods
-use constant-velocity fallback). RPE is drift %/100 m; ATE in parens. Severe
-high-drift/degradation experiments are kept in the reproducibility report and
-raw artifacts, but are not promoted in this README table.
+KITTI full-sequence odometry with first-pose anchor and `--no-gt-seed`.
+RPE is drift %/100 m; ATE is shown in parentheses. LIO rows use a no-IMU fallback.
 
-> **Catalog vs. endorsement.** This table ranks **current KITTI odometry rows**
-> under one shared protocol. It is **not** a claim that every listed method is a
-> faithful paper reproduction. Only the eight methods in
-> [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json) are
-> tracked for manuscript-level evidence; tier definitions live in
-> [`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md).
-> Methods without a tier badge here should be read as benchmark catalog entries,
-> not as validated reproductions of the original papers.
+> This is a shared-harness catalog, not an endorsement of paper fidelity.
+> Manuscript evidence is limited to the [frozen bundle](docs/benchmarks/paper_ready_bundle.json).
 
 | Method | Seq 00 _(4541 fr)_ | Seq 07 _(1101 fr)_ | Paper |
 |---|---:|---:|---|
@@ -212,123 +177,47 @@ raw artifacts, but are not promoted in this README table.
 | _KISS-ICP (same profile, ref)_ | _0.872%_ <sub>(12 m)</sub> | _0.618%_ <sub>(2 m)</sub> | — |
 | _CT-ICP (same profile, ref)_ | _2.577%_ <sub>(17 m)</sub> | _2.500%_ <sub>(4 m)</sub> | — |
 
-The top rows (DegenSense through CUBE-LIO) **match or beat KISS-ICP on seq-00
-under this IMU-free odometry protocol**, and most also beat it on **seq-07** —
-well clear of CT-ICP. That is a **shared-harness benchmark result**, not a blanket
-claim that each paper's central mechanism was isolated or reproduced one-to-one.
-See the catalog-vs-endorsement note above and the frozen bundle for the narrower
-manuscript-facing subset.
-**DegenSense** and **D2-LIO** now run as LiDAR-only no-IMU fallbacks on KITTI:
-degeneracy sensing remains diagnostic, but IMU compensation/regularization is
-disabled unless a real IMU packet is integrated, avoiding the previous
-constant-velocity over-constraint.
+Mechanism evidence and limitations are summarized below; raw artifacts are linked.
 <!-- EVIDENCE:LIO-IMU-HDL400:START -->
-On public HDL-400 open (120 frames, 24k IMU samples), IMU-gated paths activate for D2-LIO, DegenSense, ID-LIO, and RF-LIO; RPE deltas vs no-`imu.csv` fallback are small on this window (D2-LIO 1.58% vs 1.52%, DegenSense 1.72% vs 1.60%) ([`hdl_400_lio_imu_validation_summary.json`](docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json)). LiDAR-IBA IMU residuals are not wired in `pcd_dogfooding` yet.
+HDL-400 activates IMU paths for D2-LIO, DegenSense, ID-LIO, and RF-LIO, with small RPE deltas on this window ([artifact](docs/benchmarks/lio_imu_public/hdl_400_lio_imu_validation_summary.json)). LiDAR-IBA IMU residuals are not yet wired into `pcd_dogfooding`.
 <!-- EVIDENCE:LIO-IMU-HDL400:END -->
 <!-- EVIDENCE:LIO-IMU-NCLT:START -->
-Public NCLT 2013-01-10 (120 frames, MS25 IMU) confirms IMU-gated paths and shows DegenSense compensation lowering ATE from 0.24 m to 0.16 m (~45% worse without IMU); KISS-ICP sanity is poor on this window (86% RPE) so the row is mechanism evidence only ([`nclt_2013_01_10_120_lio_imu_validation_summary.json`](docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json)).
+NCLT confirms IMU-gated paths and improves DegenSense ATE from 0.24 m to 0.16 m; poor KISS-ICP sanity makes this mechanism evidence only ([artifact](docs/benchmarks/lio_imu_public/nclt_2013_01_10_120_lio_imu_validation_summary.json)).
 <!-- EVIDENCE:LIO-IMU-NCLT:END -->
-**M-GCLO** remains the strongest explicit
-ground-factor row (0.835% seq00) via multiple-ground-plane constraints (higher
-ATE — an honest RPE/ATE split). Its ground-factor ablation keeps translational
-RPE similar or lower, but disabling ground more than doubles ATE on seq00/07 and
-worsens rotational drift; the paired raw artifacts are committed as
-[`m_gclo_ground_factor_ablation.json`](docs/benchmarks/kitti_full_new_methods/m_gclo_ground_factor_ablation.json).
-A synthetic rolling-ground stress exercises the intended non-flat mechanism:
-M-GCLO ground on tracks at 0.116 m ATE / 0.500% drift, while ground off worsens
-to 0.150 m / 0.675%
-([`m_gclo_nonflat_ground_stress_summary.json`](docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json)).
+**M-GCLO:** disabling ground factors worsens ATE and rotational drift on KITTI
+([ablation](docs/benchmarks/kitti_full_new_methods/m_gclo_ground_factor_ablation.json))
+and synthetic rolling ground ([stress test](docs/benchmarks/nonflat_ground_stress/m_gclo_nonflat_ground_stress_summary.json)).
 <!-- EVIDENCE:M-GCLO-SEQ08:START -->
-Public hilly KITTI seq08 full shows the same anchoring pattern: ground off
-leaves RPE ~1.35% unchanged but worsens ATE by about 149%
-([`m_gclo_kitti_seq08_validation_summary.json`](docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json)).
+On hilly KITTI seq08, ground-off keeps RPE similar but worsens ATE by 149% ([artifact](docs/benchmarks/kitti_seq08_public/m_gclo_kitti_seq08_validation_summary.json)).
 <!-- EVIDENCE:M-GCLO-SEQ08:END -->
 <!-- EVIDENCE:M-GCLO-MULRAN:START -->
-Public MulRan ParkingLot full (1176 Ouster frames): no-gt-seed odometry diverges (~103% KISS-ICP RPE). GT-seeded M-GCLO stays stable (~2.49% RPE); ground off improves ATE from 2.38 m to 1.93 m (~19% delta) — oracle-init mechanism evidence, not blind odometry ([`m_gclo_mulran_parkinglot_validation_summary.json`](docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json)).
+MulRan no-GT-seed odometry diverges; the GT-seeded result is mechanism evidence only ([artifact](docs/benchmarks/mulran_parkinglot_public/m_gclo_mulran_parkinglot_validation_summary.json)).
 <!-- EVIDENCE:M-GCLO-MULRAN:END -->
-**KC-LO** (correspondence-free kernel correlation) leads seq-07 drift (0.510%)
-and beats KISS-ICP on both sequences — at a heavy throughput cost
-(~2.6-3.1 FPS for the fixed-sigma profile; ~1.4 FPS with coarse-to-fine
-annealing). Its sigma-schedule ablation is committed as
-[`kc_lo_sigma_schedule_ablation.json`](docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json).
-**LiDAR-IBA** uses the committed no-BA KITTI odometry profile (0.841% / 0.633%
-RPE). A paired BA on/off ablation is now committed: enabling sliding-window plane
-BA lowers ATE slightly but worsens RPE by about 1.4–1.9 percentage points and
-cuts throughput by ~24–29%
-([`lidar_iba_ba_ablation.json`](docs/benchmarks/kitti_full_new_methods/lidar_iba_ba_ablation.json)).
-**Quadric-LO** is also frozen in the paper-ready bundle: plane fallback is rare
-on KITTI highway seq00/07 (~0.5-0.6% of correspondences), and disabling it
-keeps RPE within ~1.5% while improving throughput by 1.6-1.8x
-([`quadric_lo_plane_fallback_ablation.json`](docs/benchmarks/kitti_full_new_methods/quadric_lo_plane_fallback_ablation.json)).
-A synthetic orchard-like curved-object stress confirms the same boundary:
-fallback-on uses ~1242 quadric vs ~12 plane correspondences/frame, and fallback
-off keeps drift effectively unchanged (0.612% → 0.609%)
-([`quadric_curved_stress_summary.json`](docs/benchmarks/quadric_curved_stress/quadric_curved_stress_summary.json)).
+**KC-LO:** best seq07 drift here, but only ~1.4–3.1 FPS ([ablation](docs/benchmarks/kitti_full_new_methods/kc_lo_sigma_schedule_ablation.json)).
+**LiDAR-IBA:** bundle adjustment slightly lowers ATE but worsens RPE and throughput ([ablation](docs/benchmarks/kitti_full_new_methods/lidar_iba_ba_ablation.json)).
+**Quadric-LO:** plane fallback is rare on highway data ([ablation](docs/benchmarks/kitti_full_new_methods/quadric_lo_plane_fallback_ablation.json); [curved-object stress](docs/benchmarks/quadric_curved_stress/quadric_curved_stress_summary.json)).
 <!-- EVIDENCE:QUADRIC-SEQ02:START -->
-Public residential KITTI seq02 full still uses >99% quadric correspondences, but
-disabling plane fallback worsens RPE by about 55% and ATE by about 84% — the rare
-fallback carries more weight on suburban/vegetation-rich driving than on highway
-seq00/07
-([`quadric_lo_kitti_seq02_validation_summary.json`](docs/benchmarks/kitti_seq02_public/quadric_lo_kitti_seq02_validation_summary.json)).
+On KITTI seq02, disabling the rare fallback worsens RPE by 55% and ATE by 84% ([artifact](docs/benchmarks/kitti_seq02_public/quadric_lo_kitti_seq02_validation_summary.json)).
 <!-- EVIDENCE:QUADRIC-SEQ02:END -->
-Dedicated orchard or non-urban multi-beam benchmarks remain open before a T0
-manuscript claim.
-
-Recurring honest finding: on geometry-rich, IMU-free KITTI most robust/soft
-mechanisms go near-redundant and the front-end reduces to a ~KISS-ICP
-point-to-plane core. The newer LiDAR-visual adapter family
-(**OPL-LVIO**, **AD-VLO**, **TC-MVLO**, **TC-LVGF**, **TC-VLO**, **V-LOAM2015**)
-is stable at ~0.90–1.07% drift and far better than older pseudo-image visual
-front ends; AD-VLO/TC-MVLO improve ATE within the group, while OPL-LVIO keeps
-the best seq07 RPE. **VLOM** now lands in the same band after disabling visual
-bootstrap on LiDAR-only pseudo-images: the A-LOAM core remains active, scale
-correction stays enabled, and the RGB bootstrap path is still available via
-`--vlom-enable-bootstrap`. Still, pseudo-visual residuals remain secondary to
-the point-to-plane core. **RF-LIO** confirms the same KITTI pattern for dynamic
-removal: its removal-first range-image filter is active, but on mostly static
-KITTI it removes useful foreground structure and trails ID-LIO. A committed
-synthetic dynamic-object stress now exercises the intended high-dynamic path:
-ID-LIO degrades from 0.676 m clean ATE to 130.549 m with crossing foreground
-boxes, RF-LIO degrades from 2.487 m to 49.932 m, and a conservative RF removal
-cap improves that to 41.632 m
-([`rf_id_lio_dynamic_object_stress_summary.json`](docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json)).
+On geometry-rich, IMU-free KITTI, many robust and multimodal mechanisms become
+secondary to the point-to-plane core. Dynamic-scene stress still favors RF-LIO
+over ID-LIO ([artifact](docs/benchmarks/dynamic_object_stress/rf_id_lio_dynamic_object_stress_summary.json)).
 <!-- EVIDENCE:RF-ID-LIO-SEQ05:START -->
-Public urban KITTI seq05 full keeps both paths active but RF-LIO default still
-trails ID-LIO (0.961% vs 0.712% RPE) and KISS-ICP (0.617%)
-([`rf_id_lio_kitti_seq05_validation_summary.json`](docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json)).
+On KITTI seq05, RF-LIO trails ID-LIO and KISS-ICP ([artifact](docs/benchmarks/kitti_seq05_public/rf_id_lio_kitti_seq05_validation_summary.json)).
 <!-- EVIDENCE:RF-ID-LIO-SEQ05:END -->
-Dedicated high-dynamic multi-beam benchmarks remain open before manuscript-level
-dynamic-scene claims.
-**DiLO** is now a stable direct-SRI row (1.20% / 1.53% at ~65 FPS) after
-bounded 1-pixel projective lookup; it remains below the scan-to-map leaders but
-is no longer a degradation case. Honest negatives: Spectral-LO
-(ICP-free BEV phase-correlation, high-resolution 512 BEV profile improves to
-~2.9–4.1% drift but drops to ~10 FPS and remains below scan-to-map methods).
-More severe degradation rows are excluded from the README table and documented
-in the reproducibility report, module READMEs, and raw JSON:
-[`docs/benchmarks/kitti_full_new_methods/`](docs/benchmarks/kitti_full_new_methods/).
+Full ablations and negative results: [benchmark artifacts](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
 
 ### Does LiDAR intensity actually help? — I-LOAM ablation
 
-[**I-LOAM**](papers/i_loam/) (Intensity Enhanced LOAM, UR 2020 — no public author
-code) injects the LiDAR reflectance channel into LOAM's scan-to-scan association
-(intensity-augmented correspondence + intensity-similarity residual weighting).
-Running the *identical* pipeline with the intensity paths on vs. off
-(`--i-loam-no-intensity`) **and mapping disabled** (`--i-loam-no-mapping`)
-isolates exactly what reflectance contributes on KITTI:
+[I-LOAM](papers/i_loam/) intensity on/off results with mapping disabled:
 
 | Sequence | Geometric baseline (intensity off) | I-LOAM (intensity on) | Δ drift |
 |---|---:|---:|---:|
 | Seq 00 | 3.186% <sub>(76.0 m)</sub> | **2.606%** <sub>(49.4 m)</sub> | **−18.2%** |
 | Seq 07 | 3.806% <sub>(18.5 m)</sub> | **3.055%** <sub>(15.1 m)</sub> | **−19.7%** |
 
-Reflectance consistently cuts drift ~18–20% (and ATE up to ~35%) versus the same
-geometry-only pipeline — I-LOAM's central claim **reproduces on KITTI**, even
-though KITTI intensity is uncalibrated and coarse. With **mapping enabled**
-(default), I-LOAM reaches ~0.58% drift on seq07 and is ranked in the from-paper
-table above; the ablation below uses scan-to-scan only to isolate the intensity
-channel. Raw artifacts:
+Reflectance cuts drift by 18–20% in this paired KITTI ablation. Raw artifacts:
 [`seq00 on`](docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_mapping.json),
 [`seq00 off`](docs/benchmarks/kitti_full_new_methods/seq00_i_loam_no_intensity.json),
 [`seq07 on`](docs/benchmarks/kitti_full_new_methods/seq07_i_loam_no_mapping.json),
@@ -338,44 +227,24 @@ and the paired summary
 
 ### Trajectory gallery — KITTI seq07, current promoted trajectories
 
-Top-down trajectories on KITTI seq07 full (1101 frames, `--no-gt-seed`), each
-path **colored by its distance from ground truth** (cool = on-track, warm =
-drifting, clipped at 3 m) on a shared scale and ordered by RPE drift. The README
-hero uses only trajectory files with exactly 1101 poses, so stale seq00/seq08 or
-108-frame leftovers from mutable `dogfooding_results/` are rejected. Regenerate
-with
-[`evaluation/scripts/plot_readme_seq07_trajectories.py`](evaluation/scripts/plot_readme_seq07_trajectories.py).
-The older generic plotting helper remains available as
-[`evaluation/scripts/plot_trajectory_diff.py`](evaluation/scripts/plot_trajectory_diff.py),
-and the animated seq00 hero remains available as
-[`docs/assets/hero_seq00.gif`](docs/assets/hero_seq00.gif).
+The hero shows KITTI seq07 full trajectories on one drift-colored scale.
+[Regenerate it](evaluation/scripts/plot_readme_seq07_trajectories.py) or use the
+[generic plotter](evaluation/scripts/plot_trajectory_diff.py).
 
 ## Scope Note
 
-This repository mixes three levels of implementation scope:
-
-- **Paper reimplementation**: intended to track the published method closely
-- **Derived variant**: built from the paper idea, but adapted to this repository's shared components
-- **Compact baseline**: a smaller approximation that keeps the interface and core intuition, but not the full paper pipeline
-
-Methods already labeled `Derived` or `Hybrid` are intentionally adapted versions.
-Some paper-named entries still use compact or simplified internals today, especially `NDT`, `KISS-ICP`, and `DLIO`. Check each method README for current scope and deviations.
-The tracked claim boundary for original-paper reproduction is summarized in
-[`docs/reproduction_status.md`](docs/reproduction_status.md), and the stricter
-paper-ready promotion criteria live in
-[`docs/paper_ready_reproducibility.md`](docs/paper_ready_reproducibility.md).
-Benchmark usefulness and paper-result reproducibility are not treated as the
-same thing in this repository.
+Methods are labeled **paper reimplementation**, **derived variant**, or
+**compact baseline**. A benchmark result does not by itself prove paper fidelity;
+see [reproduction status](docs/reproduction_status.md) and
+[paper-ready criteria](docs/paper_ready_reproducibility.md).
 
 ---
 
 ## Experiment-Driven Development
 
-A small stable benchmark core plus a discardable experiment layer. Search state is
-externalized in docs ([experiments](docs/experiments.md), [decisions](docs/decisions.md),
-[interfaces](docs/interfaces.md), [reproduction status](docs/reproduction_status.md));
-variants live under [`experiments/`](experiments/) with a matrix runner over Istanbul,
-HDL-400, MCD, and KITTI windows.
+The stable benchmark core is separated from variants in [`experiments/`](experiments/).
+See [experiments](docs/experiments.md), [decisions](docs/decisions.md), and
+[interfaces](docs/interfaces.md).
 
 ### Quick checks (after clone)
 
@@ -384,28 +253,22 @@ HDL-400, MCD, and KITTI windows.
 bash evaluation/scripts/demo_localization_zoo.sh
 ```
 
-It writes a `report.html` + `manifest.json` and JSON summaries under
-`experiments/results/runs/demo_localization_zoo/`.
-
-CI-equivalent smoke coverage (a committed ~3 MB MCD fixture, also run in GitHub Actions
-after `ctest`):
+Output is written under `experiments/results/runs/demo_localization_zoo/`.
+CI-equivalent smoke checks:
 
 ```bash
 bash evaluation/scripts/smoke_ci_fixture.sh
 bash evaluation/scripts/smoke_multimodal_fixture.sh
 ```
 
-Refreshing the experiment/publication docs and the matrix runner is documented in
-[`evaluation/README.md`](evaluation/README.md).
+More workflows: [`evaluation/README.md`](evaluation/README.md).
 
 ---
 
 ## Benchmark
 
-GitHub Pages is a current valid result catalog, not one global leaderboard.
-Results are comparable only within the same dataset, sequence/window,
-initialization policy, and runtime profile. Superseded or invalidated values are
-not displayed on the public page; audit history stays in Git history and PRs.
+Compare results only within the same dataset, window, initialization policy, and
+runtime profile.
 
 Current published groups:
 
@@ -416,19 +279,10 @@ Current published groups:
 | KITTI Odometry seq07 108-frame smoke | Regression smoke | Unranked; exact frame-ID association check only | [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json) |
 | Autoware Istanbul 108-frame snapshot | GT-seeded scan-to-map references | Reference-only; not ranked against odometry | [`docs/benchmarks/latest/results.json`](docs/benchmarks/latest/results.json) |
 
-Absolute ATE is reported as a diagnostic, but it is not sorted globally across
-different sequence lengths or windows. The Pages map starts filtered to one
-benchmark group; the All-results view is overview-only and not a comparison.
-
-Detailed Autoware snapshot rows, KITTI smoke baselines, and evaluator provenance
-live in the [interactive benchmark explorer](https://rsasaki0109.github.io/localization_zoo/)
-and committed JSON artifacts. The shared LiDAR evaluator is
-`pcd_dogfooding`; method selectors and flags are generated in
-[`docs/interfaces.md`](docs/interfaces.md), and benchmark methodology notes live
-in [`docs/dogfooding_methodology.md`](docs/dogfooding_methodology.md).
-
-Dataset-prep helpers (KITTI Odometry, KITTI Raw, ROS 1/2 bag extraction, HDL-400) live
-under [`evaluation/scripts/`](evaluation/scripts/). For KITTI Odometry public sequences:
+Detailed rows and provenance are in the
+[interactive explorer](https://rsasaki0109.github.io/localization_zoo/),
+[interfaces](docs/interfaces.md), and [methodology](docs/dogfooding_methodology.md).
+KITTI preparation example:
 
 ```bash
 python3 evaluation/scripts/prepare_kitti_odometry_inputs.py \
@@ -477,11 +331,9 @@ Setup: [`evaluation/scripts/SETUP_2D_SCAN_BENCHMARK.md`](evaluation/scripts/SETU
 
 ### Hard Point Cloud Localization
 
-[Koide's "Hard Point Cloud Localization Dataset"](https://zenodo.org/records/10122133)
-(Zenodo 10.5281/zenodo.10122133): indoor (Azure Kinect) and outdoor (Livox
-MID360) easy/hard/kidnap sequences with TUM ground truth and provided
-environment `.ply` maps. Full tables, sequence coverage, and reproduction
-steps: [**docs/benchmarks/hard_pcl/README.md**](docs/benchmarks/hard_pcl/README.md).
+[Hard Point Cloud Localization Dataset](https://zenodo.org/records/10122133)
+results; full protocol and coverage are in the
+[benchmark README](docs/benchmarks/hard_pcl/README.md).
 
 Full-trajectory `indoor_easy_01` vs `indoor_hard_01`, six unchanged runner defaults:
 
@@ -494,26 +346,17 @@ Full-trajectory `indoor_easy_01` vs `indoor_hard_01`, six unchanged runner defau
 | DegenSense + IMU | 13.201 | 617.008 | 0.567 | 8.319 |
 | DegenSense, no IMU | 11.759 | 11.729 | 2.736 | 3.679 |
 
-CT-ICP's hard ATE happens to improve, but its estimated path is 468.38 m
-against a 115.49 m GT path — not a real robustness gain. Evaluating the
-official [upstream BIEVR-LIO](https://github.com/ethz-asl/BIEVR-LIO) core as a
-recovery baseline sharpens the contrast:
+CT-ICP's lower hard ATE is misleading: its estimated path is 468.38 m versus
+115.49 m ground truth. Official [BIEVR-LIO](https://github.com/ethz-asl/BIEVR-LIO):
 
 | Sequence | ATE-XY (m) | RPE-XY (m/f) | Estimated / GT path (m) |
 |---|---:|---:|---:|
 | `indoor_easy_01` | **0.422** | **0.0033** | 76.26 / 77.29 |
 | `indoor_hard_01` | 8,882.579 | 21.947 | 28,754.33 / 114.71 |
 
-Upstream BIEVR-LIO's map-informed sampling and inertial backend beat every
-default on easy, but it still diverges on hard — a strong odometry baseline,
-not a relocalization guarantee. Fixed-map NDT localized against the
-dataset-provided maps on all three kidnap sequences also finds a **false-lock
-publish-guard failure**: the embedded GT-free runtime guard emits 4,015
-pose/hold outputs, 3,987+ of which are wrong by GT replay (up to 183.805 m),
-and the post-hoc sequence verifier blocks publication on all three traces. A
-GT-informed replay is only error-free with pose holding disabled, at the cost
-of returning unknown/blocking on most frames — evidence that runtime
-stable-refinement signals are not proof of a correct global lock.
+BIEVR-LIO excels on easy but diverges on hard. Fixed-map NDT also false-locks
+on all three kidnap sequences, showing that stable refinement alone does not
+prove a correct global lock.
 
 ```bash
 python3 evaluation/scripts/run_hard_pcl_odometry_benchmark.py \
@@ -621,61 +464,37 @@ download.
 ### Docker (no local dependencies)
 
 ```bash
-# Runs the quick demo and writes report.html + JSON summaries to ./zoo-demo/
 docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest
-
-# Pass demo options after the image name, e.g. broader method coverage
-docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest \
-  bash evaluation/scripts/docker_demo_entrypoint.sh --profile broad
-
-# Build and smoke-test the image locally
-docker build -t localization_zoo:local .
-docker run --rm -v "$PWD/zoo-demo:/out" localization_zoo:local \
-  bash evaluation/scripts/docker_demo_entrypoint.sh --profile quick --frames 2 --no-multimodal
 ```
 
 ### Native build
 
 ```bash
-# Dependencies (Ubuntu 22.04)
 sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev
-
-# Reproducible Python versions used by CI and Docker
 python3 -m venv .venv
 . .venv/bin/activate
 python3 -m pip install -r requirements-lock.txt
-
-# One-command demo: build + synthetic benchmark + broad real-data fixture suite
 bash evaluation/scripts/demo_localization_zoo.sh
-
-# Open the generated report
-xdg-open experiments/results/runs/demo_localization_zoo/report.html
 ```
 
-`requirements.txt` records the supported minimum Python package versions for
-library users. Use `requirements-lock.txt` when regenerating committed reports,
-figures, or benchmark artifacts so the environment matches CI and Docker.
-
-Manual build and test path:
+Manual build and test:
 
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j"$(nproc)"
 ctest --test-dir build --output-on-failure
 
-# Benchmark (no external data required)
 ./build/evaluation/synthetic_benchmark
 ```
 
 ### Python bindings (experimental)
 
-A thin pybind11 layer over a representative subset (KISS-ICP odometry,
-NDT / GICP / LiTAMIN2 registration). Point clouds are Nx3 numpy arrays:
+Experimental pybind11 bindings cover KISS-ICP, NDT, GICP, and LiTAMIN2:
 
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON_BINDINGS=ON
 cmake --build build -j"$(nproc)" --target localization_zoo_py
-python3 python/example_synthetic.py   # end-to-end check, no dataset needed
+python3 python/example_synthetic.py
 ```
 
 ```python
@@ -696,21 +515,7 @@ See [`python/README.md`](python/README.md) for the full API.
 cd ros2 && colcon build
 source install/setup.bash
 
-# Launch any algorithm node
 ros2 run localization_zoo_ros litamin2_node
-ros2 run localization_zoo_ros aloam_node
-ros2 run localization_zoo_ros kiss_icp_node
-ros2 run localization_zoo_ros ndt_node
-ros2 run localization_zoo_ros ct_icp_node
-ros2 run localization_zoo_ros gicp_node
-ros2 run localization_zoo_ros dlo_node
-ros2 run localization_zoo_ros ct_lio_node
-ros2 run localization_zoo_ros fast_lio2_node
-ros2 run localization_zoo_ros dlio_node
-ros2 run localization_zoo_ros relead_node
-ros2 run localization_zoo_ros xicp_node
-
-# Play a rosbag
 ros2 launch localization_zoo_ros play_rosbag.launch.py \
   bag_path:=/path/to/bag points_topic:=/velodyne_points
 ```
@@ -718,7 +523,6 @@ ros2 launch localization_zoo_ros play_rosbag.launch.py \
 ### Evaluation
 
 ```bash
-# Compare trajectories on any dataset such as KITTI, MulRan, nuScenes, or TUM
 python3 evaluation/scripts/benchmark.py \
   --gt gt_poses.txt \
   --est LiTAMIN2:litamin2_poses.txt A-LOAM:aloam_poses.txt \
@@ -738,13 +542,13 @@ localization_zoo/
 └── .github/workflows/ci.yml
 ```
 
-Each `papers/*/` directory is a self-contained method (headers, sources, tests); the core libraries are ROS-independent. The full method list lives in the leaderboard and [Implementations](#implementations) tables above.
+Each `papers/*/` directory is self-contained; core libraries are ROS-independent.
 
 ---
 
 ## Degeneracy Detection Demo
 
-RELEAD and X-ICP can detect degenerate geometry such as tunnel-like environments:
+RELEAD and X-ICP report underconstrained geometry:
 
 ```
 === Tunnel Environment ===
@@ -756,7 +560,7 @@ Degenerate translation dirs: 1
 Has degeneracy: no             # walls and ground constrain all directions
 ```
 
-ROS 2 nodes publish real-time status on `/degeneracy` with `std_msgs/Bool`.
+ROS 2 publishes the status on `/degeneracy`.
 
 ---
 
@@ -770,9 +574,7 @@ mkdir -p papers/your_method/{include/your_method,src,test}
 # 4. Run ctest and keep the full suite passing
 ```
 
-See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full "one paper unit" checklist
-(mechanism tests, KITTI eval, leaderboard row, honesty policy). Want a specific
-paper reimplemented — or are you its author? Open a
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the checklist, or open a
 [paper request](https://github.com/rsasaki0109/localization_zoo/issues/new?template=paper_request.yml).
 
 ---

@@ -63,6 +63,7 @@ struct ImuMotionHealthParams {
   double moving_accel_threshold = 0.65;           // m/s^2, linear accel
   double impact_accel_threshold = 25.0;           // m/s^2 resultant
   double impact_gyro_threshold = 8.0;             // rad/s resultant
+  bool impact_requires_accel_and_gyro = false;    // false preserves legacy OR gate
   double fall_freefall_threshold = 2.5;           // m/s^2 resultant
   double fall_min_duration_s = 0.08;
   double event_hold_duration_s = 0.20;

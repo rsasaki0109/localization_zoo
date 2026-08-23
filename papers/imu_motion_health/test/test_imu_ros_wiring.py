@@ -49,6 +49,7 @@ class RosImuMotionHealthWiringTest(unittest.TestCase):
             "imu_motion_health::applyProfile",
             "imu_motion_health::loadProfileFile",
             "gyro_bias_jump_threshold",
+            "impact_requires_accel_and_gyro",
             "zero_stamp_policy",
         ):
             self.assertIn(evidence, source)

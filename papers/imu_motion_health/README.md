@@ -103,6 +103,7 @@ Useful configuration flags (all distances/angles are in the units shown) are:
 | `--moving-accel MPS2` | 0.65 | Moving linear-accel gate |
 | `--impact-accel MPS2` | 25.0 | Impact acceleration gate |
 | `--impact-gyro RADPS` | 8.0 | Impact angular-rate gate |
+| profile `impact_requires_accel_and_gyro` | false | Require both impact gates instead of the legacy OR rule |
 | `--fall-freefall MPS2` | 2.5 | Free-fall norm gate |
 | `--fall-min-duration S` | 0.08 s | Free-fall duration before fall event |
 | `--tilt-angle DEG` | 55.0° | Quiet-pose tilt threshold |
@@ -313,3 +314,12 @@ python papers/imu_motion_health/demo/run_calibration_validation_demo.py \
 See [the calibration and hardware guide](evaluation/README.md#calibration-and-hardware-validation)
 for recording commands, acceptance gates, ROS 2 temperature compensation,
 and long-duration tests.
+
+## Public wearable benchmark
+
+The reproducible [public dataset benchmark](evaluation/public_datasets.md)
+fetches three CC BY 4.0 sources, converts them to the CLI schema, enforces
+subject-disjoint tuning/test splits, tunes `wearable-public-v1`, replays the
+real CLI, and emits JSON plus self-contained HTML. Public-data experiments
+also introduced the opt-in `impact_requires_accel_and_gyro` gate; it defaults
+to false, so all existing profiles retain their original OR behavior.

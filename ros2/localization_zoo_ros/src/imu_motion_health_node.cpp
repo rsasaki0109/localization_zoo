@@ -152,6 +152,9 @@ class ImuMotionHealthNode final : public rclcpp::Node {
         "impact_accel_threshold", params->impact_accel_threshold);
     params->impact_gyro_threshold = declare_parameter<double>(
         "impact_gyro_threshold", params->impact_gyro_threshold);
+    params->impact_requires_accel_and_gyro = declare_parameter<bool>(
+        "impact_requires_accel_and_gyro",
+        params->impact_requires_accel_and_gyro);
     params->fall_freefall_threshold = declare_parameter<double>(
         "fall_freefall_threshold", params->fall_freefall_threshold);
     params->fall_min_duration_s = declare_parameter<double>(

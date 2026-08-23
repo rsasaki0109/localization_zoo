@@ -1,0 +1,21 @@
+imu_motion_health_node:
+  ros__parameters:
+    # The built-in profile supplies the detector thresholds.  Every core
+    # threshold is also a declared ROS parameter and can be overridden by a
+    # deployment-specific parameter file without changing the node binary.
+    profile: cargo
+    profile_file: ""
+
+    imu_topic: /imu_raw
+    odom_topic: /imu/odom
+    health_topic: /imu/health_json
+    events_topic: /imu/events_json
+    world_frame_id: imu_world
+    base_frame_id: base_link
+    publish_tf: true
+
+    # Zero-stamped sensor_msgs/Imu messages are rejected by default.  Set
+    # zero_stamp_policy to receive_time for drivers that do not fill headers.
+    zero_stamp_policy: reject
+    receive_time_fallback: false
+    use_sim_time: false

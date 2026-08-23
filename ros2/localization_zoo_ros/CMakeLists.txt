@@ -21,6 +21,17 @@ find_package(Ceres REQUIRED)
 # コアライブラリのソース (ROS非依存部分)
 set(ZOO_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
+# IMU Motion & Health is kept as a separate ROS-independent target.  Do not
+# add the standalone papers/imu_motion_health CMakeLists here: that file also
+# creates the CLI and GTest targets, which are not part of this ament package.
+add_library(imu_motion_health_core STATIC
+  ${ZOO_ROOT}/papers/imu_motion_health/src/imu_motion_health.cpp
+)
+target_include_directories(imu_motion_health_core PUBLIC
+  ${ZOO_ROOT}/papers/imu_motion_health/include
+)
+target_link_libraries(imu_motion_health_core PUBLIC Eigen3::Eigen)
+
 # Common library
 add_library(localization_common STATIC
   ${ZOO_ROOT}/common/src/math_utils.cpp
@@ -168,6 +179,11 @@ target_link_libraries(xicp PUBLIC localization_common)
 
 set(ROS_DEPS rclcpp sensor_msgs geometry_msgs nav_msgs std_msgs tf2_ros tf2_eigen pcl_conversions)
 
+# LiDAR-free IMU Motion & Health Node
+add_executable(imu_motion_health_node src/imu_motion_health_node.cpp)
+target_link_libraries(imu_motion_health_node imu_motion_health_core)
+ament_target_dependencies(imu_motion_health_node ${ROS_DEPS})
+
 # LiTAMIN2 Node
 add_executable(litamin2_node src/litamin2_node.cpp)
 target_link_libraries(litamin2_node litamin2)
@@ -229,13 +245,34 @@ target_link_libraries(xicp_node xicp)
 ament_target_dependencies(xicp_node ${ROS_DEPS})
 
 install(TARGETS
+  imu_motion_health_node
   litamin2_node aloam_node kiss_icp_node ndt_node ct_icp_node gicp_node
   dlo_node ct_lio_node fast_lio2_node dlio_node relead_node xicp_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
+# Keep the reusable IMU core available to downstream ament workspaces as an
+# install artifact while retaining the existing executable layout above.
+install(TARGETS imu_motion_health_core
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+install(DIRECTORY ${ZOO_ROOT}/papers/imu_motion_health/include/
+  DESTINATION include
+)
+
 install(DIRECTORY launch config
   DESTINATION share/${PROJECT_NAME}
 )
+
+# Also expose the dependency-free core profile files to installed ROS users
+# when the source checkout includes them.  Built-in profiles remain available
+# through the node even in a reduced source export without these files.
+if(EXISTS "${ZOO_ROOT}/papers/imu_motion_health/config")
+  install(DIRECTORY ${ZOO_ROOT}/papers/imu_motion_health/config/
+    DESTINATION share/${PROJECT_NAME}/config/profiles
+  )
+endif()
 
 ament_package()

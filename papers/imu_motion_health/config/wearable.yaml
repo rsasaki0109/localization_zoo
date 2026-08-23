@@ -1,0 +1,3 @@
+schema: imu_motion_health_profile_v1
+profile: wearable
+event_queue_capacity: 256

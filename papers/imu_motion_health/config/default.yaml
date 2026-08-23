@@ -1,0 +1,7 @@
+schema: imu_motion_health_profile_v1
+profile: default
+
+# Conservative baseline; values are SI units (seconds, rad/s, m/s^2).
+event_queue_capacity: 256
+gyro_bias_jump_threshold: 0.25
+gyro_bias_jump_min_duration_s: 0.05

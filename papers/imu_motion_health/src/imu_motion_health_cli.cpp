@@ -10,7 +10,9 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <map>
 #include <sstream>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -22,6 +24,7 @@ using localization_zoo::imu_motion_health::ImuMotionHealth;
 using localization_zoo::imu_motion_health::ImuMotionHealthParams;
 using localization_zoo::imu_motion_health::ImuMotionHealthState;
 using localization_zoo::imu_motion_health::ImuSample;
+using localization_zoo::imu_motion_health::ImuMotionEvent;
 
 constexpr int kExitOk = 0;
 constexpr int kExitUsage = 2;
@@ -31,10 +34,22 @@ constexpr int kExitInput = 4;
 struct Options {
   std::string input_path;
   std::string jsonl_output;
+  std::string events_output;
   std::string summary_output;
+  std::string profile_name;
+  std::string profile_file;
   bool skip_invalid = false;
   bool help = false;
   ImuMotionHealthParams params;
+  // CLI values are collected first; profile and file layers are applied only
+  // after parsing, which makes precedence independent of argument order.
+  std::set<std::string> explicit_params;
+};
+
+struct EventStats {
+  std::size_t started = 0;
+  std::size_t ended = 0;
+  std::map<std::string, std::size_t> ended_by_type;
 };
 
 std::string trim(const std::string& value) {
@@ -154,8 +169,14 @@ void printUsage(std::ostream& stream) {
       "Output options:\n"
       "  --jsonl-output PATH       Write one JSON snapshot per input row\n"
       "  --emit-jsonl              Same as --jsonl-output -\n"
+      "  --events-output PATH      Write started/ended event JSONL records\n"
+      "  --emit-events             Same as --events-output -\n"
       "  --summary-output PATH     Write the final JSON summary (default stdout)\n"
       "  --skip-invalid            Continue after malformed CSV rows (exit 4)\n\n"
+      "Profiles/configuration:\n"
+      "  --profile NAME             default/wearable/vehicle/machine/cargo/drone\n"
+      "  --profile-file PATH        Strict dependency-free YAML scalar mapping\n"
+      "  Precedence: default -> profile -> profile-file -> explicit CLI values\n\n"
       "Startup/data thresholds:\n"
       "  --startup-duration S      Static startup window (default 1.0)\n"
       "  --startup-min-samples N   Minimum startup samples (default 20)\n"
@@ -181,13 +202,85 @@ void printUsage(std::ostream& stream) {
       "Calibration/behavior:\n"
       "  --stationary-bias-gain G  Online gyro bias gain [0,1]\n"
       "  --leveling-gain G         Stationary gravity leveling gain [0,1]\n"
+      "  --gyro-bias-jump RADPS    Stationary gyro bias-jump threshold\n"
+      "  --bias-jump-min-duration S  Confirmation duration\n"
       "  --no-gyro-bias            Disable gyro bias estimation\n"
       "  --estimate-accel-bias     Estimate startup accelerometer bias\n"
       "  --no-zero-velocity        Do not clamp velocity while stationary\n"
+      "  --event-queue-capacity N  Bounded pending event FIFO capacity\n"
+      "  --emit-moving-events      Also track moving start/end events\n"
+      "  --no-moving-events        Disable moving start/end events\n"
       "  -h, --help                Show this help\n";
 }
 
+void applyExplicitParams(const ImuMotionHealthParams& source,
+                         const std::set<std::string>& keys,
+                         ImuMotionHealthParams* destination) {
+  const auto has = [&](const char* key) { return keys.count(key) != 0; };
+  if (has("startup_duration_s"))
+    destination->startup_duration_s = source.startup_duration_s;
+  if (has("startup_min_samples"))
+    destination->startup_min_samples = source.startup_min_samples;
+  if (has("gravity_magnitude"))
+    destination->gravity_magnitude = source.gravity_magnitude;
+  if (has("max_gap_s")) destination->max_gap_s = source.max_gap_s;
+  if (has("max_integration_dt_s"))
+    destination->max_integration_dt_s = source.max_integration_dt_s;
+  if (has("gyro_saturation_rad_s"))
+    destination->gyro_saturation_rad_s = source.gyro_saturation_rad_s;
+  if (has("accel_saturation_mps2"))
+    destination->accel_saturation_mps2 = source.accel_saturation_mps2;
+  if (has("stationary_gyro_threshold"))
+    destination->stationary_gyro_threshold = source.stationary_gyro_threshold;
+  if (has("stationary_accel_tolerance"))
+    destination->stationary_accel_tolerance = source.stationary_accel_tolerance;
+  if (has("moving_gyro_threshold"))
+    destination->moving_gyro_threshold = source.moving_gyro_threshold;
+  if (has("moving_accel_threshold"))
+    destination->moving_accel_threshold = source.moving_accel_threshold;
+  if (has("impact_accel_threshold"))
+    destination->impact_accel_threshold = source.impact_accel_threshold;
+  if (has("impact_gyro_threshold"))
+    destination->impact_gyro_threshold = source.impact_gyro_threshold;
+  if (has("fall_freefall_threshold"))
+    destination->fall_freefall_threshold = source.fall_freefall_threshold;
+  if (has("fall_min_duration_s"))
+    destination->fall_min_duration_s = source.fall_min_duration_s;
+  if (has("event_hold_duration_s"))
+    destination->event_hold_duration_s = source.event_hold_duration_s;
+  if (has("tilt_angle_threshold_deg"))
+    destination->tilt_angle_threshold_deg = source.tilt_angle_threshold_deg;
+  if (has("tilt_min_duration_s"))
+    destination->tilt_min_duration_s = source.tilt_min_duration_s;
+  if (has("vibration_rms_threshold"))
+    destination->vibration_rms_threshold = source.vibration_rms_threshold;
+  if (has("motion_window_samples"))
+    destination->motion_window_samples = source.motion_window_samples;
+  if (has("stationary_bias_gain"))
+    destination->stationary_bias_gain = source.stationary_bias_gain;
+  if (has("leveling_gain")) destination->leveling_gain = source.leveling_gain;
+  if (has("gyro_bias_jump_threshold"))
+    destination->gyro_bias_jump_threshold = source.gyro_bias_jump_threshold;
+  if (has("gyro_bias_jump_min_duration_s"))
+    destination->gyro_bias_jump_min_duration_s =
+        source.gyro_bias_jump_min_duration_s;
+  if (has("estimate_gyro_bias"))
+    destination->estimate_gyro_bias = source.estimate_gyro_bias;
+  if (has("estimate_accel_bias"))
+    destination->estimate_accel_bias = source.estimate_accel_bias;
+  if (has("zero_velocity_when_stationary"))
+    destination->zero_velocity_when_stationary =
+        source.zero_velocity_when_stationary;
+  if (has("event_queue_capacity"))
+    destination->event_queue_capacity = source.event_queue_capacity;
+  if (has("emit_moving_events"))
+    destination->emit_moving_events = source.emit_moving_events;
+}
+
 bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
+  auto markExplicit = [&](const char* key) {
+    options->explicit_params.insert(key);
+  };
   for (int index = 1; index < argc; ++index) {
     const std::string argument(argv[index]);
     if (argument == "-h" || argument == "--help") {
@@ -208,6 +301,8 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
 
     const bool is_flag =
         key == "--skip-invalid" || key == "--emit-jsonl" ||
+        key == "--emit-events" ||
+        key == "--emit-moving-events" || key == "--no-moving-events" ||
         key == "--no-gyro-bias" || key == "--estimate-accel-bias" ||
         key == "--no-zero-velocity";
     if (is_flag) {
@@ -223,11 +318,32 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
         }
         options->jsonl_output = "-";
       }
-      if (key == "--no-gyro-bias") options->params.estimate_gyro_bias = false;
+      if (key == "--emit-events") {
+        if (!options->events_output.empty()) {
+          *error = "--emit-events conflicts with --events-output";
+          return false;
+        }
+        options->events_output = "-";
+      }
+      if (key == "--no-gyro-bias") {
+        options->params.estimate_gyro_bias = false;
+        markExplicit("estimate_gyro_bias");
+      }
       if (key == "--estimate-accel-bias")
         options->params.estimate_accel_bias = true;
-      if (key == "--no-zero-velocity")
+      if (key == "--estimate-accel-bias") markExplicit("estimate_accel_bias");
+      if (key == "--no-zero-velocity") {
         options->params.zero_velocity_when_stationary = false;
+        markExplicit("zero_velocity_when_stationary");
+      }
+      if (key == "--emit-moving-events") {
+        options->params.emit_moving_events = true;
+        markExplicit("emit_moving_events");
+      }
+      if (key == "--no-moving-events") {
+        options->params.emit_moving_events = false;
+        markExplicit("emit_moving_events");
+      }
       continue;
     }
 
@@ -263,6 +379,17 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
         return false;
       }
       options->jsonl_output = value;
+    } else if (key == "--events-output") {
+      if (!takeValue(key.c_str())) return false;
+      if (value.empty()) {
+        *error = key + " must not be empty";
+        return false;
+      }
+      if (!options->events_output.empty()) {
+        *error = "events output was specified more than once";
+        return false;
+      }
+      options->events_output = value;
     } else if (key == "--summary-output") {
       if (!takeValue(key.c_str())) return false;
       if (value.empty()) {
@@ -270,11 +397,27 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
         return false;
       }
       options->summary_output = value;
+    } else if (key == "--profile" || key == "--preset") {
+      if (!takeValue(key.c_str())) return false;
+      if (value.empty()) {
+        *error = key + " must not be empty";
+        return false;
+      }
+      options->profile_name = value;
+    } else if (key == "--profile-file" || key == "--config" ||
+               key == "--config-file") {
+      if (!takeValue(key.c_str())) return false;
+      if (value.empty()) {
+        *error = key + " must not be empty";
+        return false;
+      }
+      options->profile_file = value;
     } else if (key == "--startup-duration" || key == "--startup-duration-s") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value, &options->params.startup_duration_s,
                              true, error))
         return false;
+      markExplicit("startup_duration_s");
     } else if (key == "--startup-min-samples") {
       if (!takeValue(key.c_str()) ||
           !parseSize(value, &options->params.startup_min_samples) ||
@@ -282,16 +425,19 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
         *error = key + " expects a positive integer";
         return false;
       }
+      markExplicit("startup_min_samples");
     } else if (key == "--gravity" || key == "--gravity-magnitude") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value, &options->params.gravity_magnitude,
                              false, error))
         return false;
+      markExplicit("gravity_magnitude");
     } else if (key == "--max-gap" || key == "--max-gap-s") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value, &options->params.max_gap_s, false,
                              error))
         return false;
+      markExplicit("max_gap_s");
     } else if (key == "--max-integration-dt" ||
                key == "--max-integration-dt-s") {
       if (!takeValue(key.c_str()) ||
@@ -299,6 +445,7 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
                              &options->params.max_integration_dt_s, false,
                              error))
         return false;
+      markExplicit("max_integration_dt_s");
     } else if (key == "--gyro-saturation" ||
                key == "--gyro-saturation-rad-s") {
       if (!takeValue(key.c_str()) ||
@@ -306,6 +453,7 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
                              &options->params.gyro_saturation_rad_s, false,
                              error))
         return false;
+      markExplicit("gyro_saturation_rad_s");
     } else if (key == "--accel-saturation" ||
                key == "--accel-saturation-mps2") {
       if (!takeValue(key.c_str()) ||
@@ -313,53 +461,62 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
                              &options->params.accel_saturation_mps2, false,
                              error))
         return false;
+      markExplicit("accel_saturation_mps2");
     } else if (key == "--stationary-gyro") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value,
                              &options->params.stationary_gyro_threshold, false,
                              error))
         return false;
+      markExplicit("stationary_gyro_threshold");
     } else if (key == "--stationary-accel") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value,
                              &options->params.stationary_accel_tolerance, false,
                              error))
         return false;
+      markExplicit("stationary_accel_tolerance");
     } else if (key == "--moving-gyro") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value,
                              &options->params.moving_gyro_threshold, false,
                              error))
         return false;
+      markExplicit("moving_gyro_threshold");
     } else if (key == "--moving-accel") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value,
                              &options->params.moving_accel_threshold, false,
                              error))
         return false;
+      markExplicit("moving_accel_threshold");
     } else if (key == "--impact-accel") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value,
                              &options->params.impact_accel_threshold, false,
                              error))
         return false;
+      markExplicit("impact_accel_threshold");
     } else if (key == "--impact-gyro") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value,
                              &options->params.impact_gyro_threshold, false,
                              error))
         return false;
+      markExplicit("impact_gyro_threshold");
     } else if (key == "--fall-freefall") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value,
                              &options->params.fall_freefall_threshold, false,
                              error))
         return false;
+      markExplicit("fall_freefall_threshold");
   } else if (key == "--fall-min-duration") {
     if (!takeValue(key.c_str()) ||
         !parseDoubleOption(key, value, &options->params.fall_min_duration_s,
                            true, error))
       return false;
+    markExplicit("fall_min_duration_s");
   } else if (key == "--tilt-angle" ||
              key == "--tilt-angle-threshold-deg") {
     if (!takeValue(key.c_str()) ||
@@ -370,21 +527,25 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
       *error = key + " expects a number in (0,180) degrees";
       return false;
     }
+    markExplicit("tilt_angle_threshold_deg");
   } else if (key == "--tilt-min-duration") {
     if (!takeValue(key.c_str()) ||
         !parseDoubleOption(key, value, &options->params.tilt_min_duration_s,
                            true, error))
-      return false;
+        return false;
+      markExplicit("tilt_min_duration_s");
   } else if (key == "--event-hold") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value, &options->params.event_hold_duration_s,
                              true, error))
         return false;
+      markExplicit("event_hold_duration_s");
     } else if (key == "--vibration-rms") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value, &options->params.vibration_rms_threshold,
                              false, error))
         return false;
+      markExplicit("vibration_rms_threshold");
     } else if (key == "--motion-window") {
       if (!takeValue(key.c_str()) ||
           !parseSize(value, &options->params.motion_window_samples) ||
@@ -392,6 +553,15 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
         *error = key + " expects a positive integer";
         return false;
       }
+      markExplicit("motion_window_samples");
+    } else if (key == "--event-queue-capacity") {
+      if (!takeValue(key.c_str()) ||
+          !parseSize(value, &options->params.event_queue_capacity) ||
+          options->params.event_queue_capacity == 0) {
+        *error = key + " expects a positive integer";
+        return false;
+      }
+      markExplicit("event_queue_capacity");
     } else if (key == "--stationary-bias-gain") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value, &options->params.stationary_bias_gain,
@@ -400,6 +570,7 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
         *error = key + " expects a number in [0,1]";
         return false;
       }
+      markExplicit("stationary_bias_gain");
     } else if (key == "--leveling-gain") {
       if (!takeValue(key.c_str()) ||
           !parseDoubleOption(key, value, &options->params.leveling_gain, true,
@@ -408,11 +579,46 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
         *error = key + " expects a number in [0,1]";
         return false;
       }
+      markExplicit("leveling_gain");
+    } else if (key == "--gyro-bias-jump" ||
+               key == "--gyro-bias-jump-threshold" ||
+               key == "--bias-jump-threshold") {
+      if (!takeValue(key.c_str()) ||
+          !parseDoubleOption(key, value,
+                             &options->params.gyro_bias_jump_threshold, false,
+                             error))
+        return false;
+      markExplicit("gyro_bias_jump_threshold");
+    } else if (key == "--bias-jump-min-duration" ||
+               key == "--gyro-bias-jump-min-duration") {
+      if (!takeValue(key.c_str()) ||
+          !parseDoubleOption(
+              key, value, &options->params.gyro_bias_jump_min_duration_s,
+              true, error))
+        return false;
+      markExplicit("gyro_bias_jump_min_duration_s");
     } else {
       *error = "unknown option: " + key;
       return false;
     }
   }
+
+  // Resolve configuration layers only after all arguments have been scanned.
+  // This guarantees that `--impact-accel 8 --profile cargo` and the reverse
+  // ordering have identical semantics: explicit CLI always wins.
+  const ImuMotionHealthParams cli_values = options->params;
+  options->params = ImuMotionHealthParams();
+  if (!options->profile_name.empty() &&
+      !localization_zoo::imu_motion_health::applyProfile(
+          options->profile_name, &options->params, error)) {
+    return false;
+  }
+  if (!options->profile_file.empty() &&
+      !localization_zoo::imu_motion_health::loadProfileFile(
+          options->profile_file, &options->params, error)) {
+    return false;
+  }
+  applyExplicitParams(cli_values, options->explicit_params, &options->params);
 
   if (!options->help && options->input_path.empty()) {
     *error = "--input PATH is required";
@@ -423,6 +629,19 @@ bool parseArgs(int argc, char** argv, Options* options, std::string* error) {
       options->jsonl_output != "-" && options->summary_output != "-" &&
       options->jsonl_output == options->summary_output) {
     *error = "--jsonl-output and --summary-output must be different files";
+    return false;
+  }
+  if (!options->events_output.empty() &&
+      !options->summary_output.empty() && options->events_output != "-" &&
+      options->summary_output != "-" &&
+      options->events_output == options->summary_output) {
+    *error = "--events-output and --summary-output must be different files";
+    return false;
+  }
+  if (!options->events_output.empty() && !options->jsonl_output.empty() &&
+      options->events_output != "-" && options->jsonl_output != "-" &&
+      options->events_output == options->jsonl_output) {
+    *error = "--events-output and --jsonl-output must be different files";
     return false;
   }
   return true;
@@ -490,14 +709,34 @@ void writeCounters(std::ostream& stream,
          << counters.moving_samples << ",\"impact_samples\":"
          << counters.impact_samples << ",\"fall_samples\":"
          << counters.fall_samples << ",\"vibration_samples\":"
-         << counters.vibration_samples << '}';
+         << counters.vibration_samples
+         << ",\"gyro_bias_jump_samples\":"
+         << counters.gyro_bias_jump_samples
+         << ",\"gyro_bias_jump_detections\":"
+         << counters.gyro_bias_jump_detections << '}';
+}
+
+void drainAndWriteEvents(ImuMotionHealth* pipeline, std::ostream* output,
+                         EventStats* stats) {
+  if (pipeline == nullptr || stats == nullptr) return;
+  for (const ImuMotionEvent& event : pipeline->drainEvents()) {
+    if (event.phase == localization_zoo::imu_motion_health::ImuEventPhase::
+                       kStarted) {
+      ++stats->started;
+    } else {
+      ++stats->ended;
+      ++stats->ended_by_type[
+          localization_zoo::imu_motion_health::eventTypeName(event.type)];
+    }
+    if (output != nullptr) *output << localization_zoo::imu_motion_health::toJson(event) << '\n';
+  }
 }
 
 std::string makeSummary(const Options& options, const ImuMotionHealth& pipeline,
-                        std::size_t rows_read, std::size_t parse_errors,
-                        bool header_seen, bool have_first_timestamp,
-                        double first_timestamp, bool have_last_timestamp,
-                        double last_timestamp) {
+                         std::size_t rows_read, std::size_t parse_errors,
+                         bool header_seen, bool have_first_timestamp,
+                         double first_timestamp, bool have_last_timestamp,
+                         double last_timestamp, const EventStats& event_stats) {
   const ImuMotionHealthState& state = pipeline.snapshot();
   std::ostringstream stream;
   stream << std::setprecision(12) << '{';
@@ -528,6 +767,19 @@ std::string makeSummary(const Options& options, const ImuMotionHealth& pipeline,
   writeJsonNumber(stream, state.confidence);
   stream << ",\"counters\":";
   writeCounters(stream, pipeline.counters());
+  stream << ",\"events_started\":" << event_stats.started;
+  stream << ",\"events_ended\":" << event_stats.ended;
+  stream << ",\"events_dropped\":" << pipeline.droppedEventCount();
+  stream << ",\"event_counts\":{";
+  const char* const event_names[] = {"impact", "fall", "vibration", "moving",
+                                     "bias_jump"};
+  for (std::size_t i = 0; i < 5; ++i) {
+    if (i != 0) stream << ',';
+    const auto found = event_stats.ended_by_type.find(event_names[i]);
+    stream << '\"' << event_names[i] << "\":"
+           << (found == event_stats.ended_by_type.end() ? 0 : found->second);
+  }
+  stream << '}';
   stream << ",\"final_state\":" << pipeline.toJson();
   stream << '}';
   return stream.str();
@@ -582,6 +834,22 @@ int main(int argc, char** argv) {
     }
   }
 
+  std::ofstream events_file;
+  std::ostream* events = nullptr;
+  if (!options.events_output.empty()) {
+    if (options.events_output == "-") {
+      events = &std::cout;
+    } else {
+      events_file.open(options.events_output);
+      if (!events_file) {
+        std::cerr << "imu_motion_health_cli: cannot open events output '"
+                  << options.events_output << "'\n";
+        return kExitIo;
+      }
+      events = &events_file;
+    }
+  }
+
   std::ofstream summary_file;
   std::ostream* summary = &std::cout;
   if (!options.summary_output.empty() && options.summary_output != "-") {
@@ -605,6 +873,7 @@ int main(int argc, char** argv) {
   bool have_last_timestamp = false;
   double first_timestamp = 0.0;
   double last_timestamp = 0.0;
+  EventStats event_stats;
 
   while (std::getline(*input, line)) {
     ++line_number;
@@ -668,6 +937,7 @@ int main(int argc, char** argv) {
     if (jsonl != nullptr) {
       *jsonl << localization_zoo::imu_motion_health::toJson(state) << '\n';
     }
+    drainAndWriteEvents(&pipeline, events, &event_stats);
   }
 
   if (input->bad()) {
@@ -679,14 +949,21 @@ int main(int argc, char** argv) {
     return kExitInput;
   }
 
+  // Close any held impact/fall/vibration/moving lifecycle records at EOF so
+  // every started event has a deterministic ended counterpart in a replay.
+  pipeline.flushEvents(have_last_timestamp ? last_timestamp : 0.0);
+  drainAndWriteEvents(&pipeline, events, &event_stats);
+
   const std::string summary_json =
       makeSummary(options, pipeline, rows_read, parse_errors, header_seen,
                   have_first_timestamp, first_timestamp, have_last_timestamp,
-                  last_timestamp);
+                  last_timestamp, event_stats);
   *summary << summary_json << '\n';
   if (jsonl != nullptr) jsonl->flush();
+  if (events != nullptr) events->flush();
   summary->flush();
-  if (!(*summary) || (jsonl != nullptr && !(*jsonl))) {
+  if (!(*summary) || (jsonl != nullptr && !(*jsonl)) ||
+      (events != nullptr && !(*events))) {
     std::cerr << "imu_motion_health_cli: error while writing output\n";
     return kExitIo;
   }

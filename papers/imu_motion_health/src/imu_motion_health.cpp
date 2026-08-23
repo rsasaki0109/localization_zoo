@@ -4,8 +4,11 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cctype>
+#include <fstream>
 #include <iomanip>
 #include <limits>
+#include <map>
 #include <sstream>
 #include <vector>
 
@@ -121,6 +124,286 @@ void writeQuaternion(std::ostringstream& stream,
   stream << ']';
 }
 
+void writeNullableNumber(std::ostringstream& stream, bool present,
+                         double value) {
+  if (present) {
+    writeNumber(stream, value);
+  } else {
+    stream << "null";
+  }
+}
+
+std::string trimCopy(const std::string& value) {
+  std::size_t first = 0;
+  while (first < value.size() &&
+         std::isspace(static_cast<unsigned char>(value[first]))) {
+    ++first;
+  }
+  std::size_t last = value.size();
+  while (last > first &&
+         std::isspace(static_cast<unsigned char>(value[last - 1]))) {
+    --last;
+  }
+  return value.substr(first, last - first);
+}
+
+std::string lowerCopy(std::string value) {
+  std::transform(value.begin(), value.end(), value.begin(),
+                 [](unsigned char c) {
+                   return static_cast<char>(std::tolower(c));
+                 });
+  return value;
+}
+
+bool parseYamlNumber(const std::string& text, double* value) {
+  const std::string token = trimCopy(text);
+  if (token.empty()) return false;
+  std::size_t consumed = 0;
+  try {
+    *value = std::stod(token, &consumed);
+  } catch (const std::exception&) {
+    return false;
+  }
+  return consumed == token.size() && std::isfinite(*value);
+}
+
+bool parseYamlSize(const std::string& text, std::size_t* value) {
+  const std::string token = trimCopy(text);
+  if (token.empty() || token[0] == '-') return false;
+  std::size_t consumed = 0;
+  try {
+    const unsigned long long parsed = std::stoull(token, &consumed);
+    if (consumed != token.size() ||
+        parsed > static_cast<unsigned long long>(
+                     std::numeric_limits<std::size_t>::max())) {
+      return false;
+    }
+    *value = static_cast<std::size_t>(parsed);
+  } catch (const std::exception&) {
+    return false;
+  }
+  return true;
+}
+
+bool parseYamlBool(const std::string& text, bool* value) {
+  const std::string token = lowerCopy(trimCopy(text));
+  if (token == "true") {
+    *value = true;
+    return true;
+  }
+  if (token == "false") {
+    *value = false;
+    return true;
+  }
+  return false;
+}
+
+std::string unquoteYamlScalar(const std::string& text) {
+  const std::string token = trimCopy(text);
+  if (token.size() >= 2 &&
+      ((token.front() == '\'' && token.back() == '\'') ||
+       (token.front() == '"' && token.back() == '"'))) {
+    return token.substr(1, token.size() - 2);
+  }
+  return token;
+}
+
+bool profileKeyIsBool(const std::string& key) {
+  return key == "estimate_gyro_bias" || key == "estimate_accel_bias" ||
+         key == "zero_velocity_when_stationary" ||
+         key == "emit_moving_events";
+}
+
+bool profileKeyIsSize(const std::string& key) {
+  return key == "startup_min_samples" || key == "motion_window_samples" ||
+         key == "event_queue_capacity";
+}
+
+// Assign one scalar profile field.  Return false for an unknown key so that
+// typos in a deployment file cannot silently change detector behaviour.
+bool assignProfileField(const std::string& raw_key, const std::string& raw_value,
+                        ImuMotionHealthParams* params, std::string* error) {
+  std::string key = lowerCopy(trimCopy(raw_key));
+  std::replace(key.begin(), key.end(), '-', '_');
+  const std::string value = unquoteYamlScalar(raw_value);
+
+  // A few natural spellings are accepted, but all map to one documented
+  // parameter and remain strict (there is no catch-all option).
+  if (key == "startup_duration" || key == "startup_duration_s")
+    key = "startup_duration_s";
+  else if (key == "gravity" || key == "gravity_magnitude")
+    key = "gravity_magnitude";
+  else if (key == "max_gap" || key == "max_gap_s")
+    key = "max_gap_s";
+  else if (key == "max_integration_dt" || key == "max_integration_dt_s")
+    key = "max_integration_dt_s";
+  else if (key == "gyro_saturation" || key == "gyro_saturation_rad_s")
+    key = "gyro_saturation_rad_s";
+  else if (key == "accel_saturation" || key == "accel_saturation_mps2")
+    key = "accel_saturation_mps2";
+  else if (key == "stationary_gyro")
+    key = "stationary_gyro_threshold";
+  else if (key == "stationary_accel")
+    key = "stationary_accel_tolerance";
+  else if (key == "moving_gyro")
+    key = "moving_gyro_threshold";
+  else if (key == "moving_accel")
+    key = "moving_accel_threshold";
+  else if (key == "impact_accel")
+    key = "impact_accel_threshold";
+  else if (key == "impact_gyro")
+    key = "impact_gyro_threshold";
+  else if (key == "fall_freefall")
+    key = "fall_freefall_threshold";
+  else if (key == "fall_min_duration")
+    key = "fall_min_duration_s";
+  else if (key == "tilt_angle" || key == "tilt_angle_threshold")
+    key = "tilt_angle_threshold_deg";
+  else if (key == "tilt_min_duration")
+    key = "tilt_min_duration_s";
+  else if (key == "event_hold" || key == "event_hold_duration")
+    key = "event_hold_duration_s";
+  else if (key == "vibration_rms")
+    key = "vibration_rms_threshold";
+  else if (key == "stationary_bias")
+    key = "stationary_bias_gain";
+  else if (key == "leveling")
+    key = "leveling_gain";
+  else if (key == "bias_jump_threshold" ||
+           key == "gyro_bias_jump_threshold_rad_s")
+    key = "gyro_bias_jump_threshold";
+  else if (key == "bias_jump_min_duration" || key == "bias_jump_min_duration_s" ||
+           key == "gyro_bias_jump_min_duration")
+    key = "gyro_bias_jump_min_duration_s";
+
+  if (profileKeyIsBool(key)) {
+    bool parsed = false;
+    if (!parseYamlBool(value, &parsed)) {
+      if (error) *error = "profile key '" + raw_key + "' expects true or false";
+      return false;
+    }
+    if (key == "estimate_gyro_bias") params->estimate_gyro_bias = parsed;
+    if (key == "estimate_accel_bias") params->estimate_accel_bias = parsed;
+    if (key == "zero_velocity_when_stationary")
+      params->zero_velocity_when_stationary = parsed;
+    if (key == "emit_moving_events") params->emit_moving_events = parsed;
+    return true;
+  }
+
+  if (profileKeyIsSize(key)) {
+    std::size_t parsed = 0;
+    if (!parseYamlSize(value, &parsed) || parsed == 0) {
+      if (error) *error = "profile key '" + raw_key + "' expects a positive integer";
+      return false;
+    }
+    if (key == "startup_min_samples") params->startup_min_samples = parsed;
+    if (key == "motion_window_samples") params->motion_window_samples = parsed;
+    if (key == "event_queue_capacity") params->event_queue_capacity = parsed;
+    return true;
+  }
+
+  const std::map<std::string, double*> fields = {
+      {"startup_duration_s", &params->startup_duration_s},
+      {"gravity_magnitude", &params->gravity_magnitude},
+      {"startup_max_gyro_std", &params->startup_max_gyro_std},
+      {"startup_max_accel_norm_std", &params->startup_max_accel_norm_std},
+      {"startup_gravity_tolerance", &params->startup_gravity_tolerance},
+      {"max_gap_s", &params->max_gap_s},
+      {"min_dt_s", &params->min_dt_s},
+      {"gyro_saturation_rad_s", &params->gyro_saturation_rad_s},
+      {"accel_saturation_mps2", &params->accel_saturation_mps2},
+      {"stationary_gyro_threshold", &params->stationary_gyro_threshold},
+      {"stationary_accel_tolerance", &params->stationary_accel_tolerance},
+      {"moving_gyro_threshold", &params->moving_gyro_threshold},
+      {"moving_accel_threshold", &params->moving_accel_threshold},
+      {"impact_accel_threshold", &params->impact_accel_threshold},
+      {"impact_gyro_threshold", &params->impact_gyro_threshold},
+      {"fall_freefall_threshold", &params->fall_freefall_threshold},
+      {"fall_min_duration_s", &params->fall_min_duration_s},
+      {"event_hold_duration_s", &params->event_hold_duration_s},
+      {"tilt_angle_threshold_deg", &params->tilt_angle_threshold_deg},
+      {"tilt_min_duration_s", &params->tilt_min_duration_s},
+      {"vibration_rms_threshold", &params->vibration_rms_threshold},
+      {"stationary_bias_gain", &params->stationary_bias_gain},
+      {"leveling_gain", &params->leveling_gain},
+      {"gyro_bias_jump_threshold", &params->gyro_bias_jump_threshold},
+      {"gyro_bias_jump_min_duration_s",
+       &params->gyro_bias_jump_min_duration_s},
+      {"max_integration_dt_s", &params->max_integration_dt_s},
+  };
+  const auto found = fields.find(key);
+  if (found == fields.end()) {
+    if (error) *error = "unknown profile key: " + raw_key;
+    return false;
+  }
+  double parsed = 0.0;
+  if (!parseYamlNumber(value, &parsed)) {
+    if (error) *error = "profile key '" + raw_key + "' expects a finite number";
+    return false;
+  }
+  *found->second = parsed;
+  return true;
+}
+
+bool validateProfileParams(const ImuMotionHealthParams& params,
+                           std::string* error) {
+  const auto positive = [&](double value, const char* key) {
+    if (std::isfinite(value) && value > 0.0) return true;
+    if (error) *error = std::string("profile key '") + key + "' must be positive";
+    return false;
+  };
+  const auto nonnegative = [&](double value, const char* key) {
+    if (std::isfinite(value) && value >= 0.0) return true;
+    if (error)
+      *error = std::string("profile key '") + key + "' must be non-negative";
+    return false;
+  };
+  if (!nonnegative(params.startup_duration_s, "startup_duration_s") ||
+      params.startup_min_samples == 0 ||
+      !positive(params.gravity_magnitude, "gravity_magnitude") ||
+      !positive(params.startup_max_gyro_std, "startup_max_gyro_std") ||
+      !positive(params.startup_max_accel_norm_std,
+                "startup_max_accel_norm_std") ||
+      !positive(params.startup_gravity_tolerance,
+                "startup_gravity_tolerance") ||
+      !positive(params.max_gap_s, "max_gap_s") ||
+      !positive(params.min_dt_s, "min_dt_s") ||
+      !positive(params.gyro_saturation_rad_s, "gyro_saturation_rad_s") ||
+      !positive(params.accel_saturation_mps2, "accel_saturation_mps2") ||
+      !positive(params.stationary_gyro_threshold,
+                "stationary_gyro_threshold") ||
+      !positive(params.stationary_accel_tolerance,
+                "stationary_accel_tolerance") ||
+      !positive(params.moving_gyro_threshold, "moving_gyro_threshold") ||
+      !positive(params.moving_accel_threshold, "moving_accel_threshold") ||
+      !positive(params.impact_accel_threshold, "impact_accel_threshold") ||
+      !positive(params.impact_gyro_threshold, "impact_gyro_threshold") ||
+      !positive(params.fall_freefall_threshold, "fall_freefall_threshold") ||
+      !nonnegative(params.fall_min_duration_s, "fall_min_duration_s") ||
+      !nonnegative(params.event_hold_duration_s, "event_hold_duration_s") ||
+      !positive(params.tilt_angle_threshold_deg,
+                "tilt_angle_threshold_deg") ||
+      params.tilt_angle_threshold_deg >= 180.0 ||
+      !nonnegative(params.tilt_min_duration_s, "tilt_min_duration_s") ||
+      !positive(params.vibration_rms_threshold,
+                "vibration_rms_threshold") ||
+      params.motion_window_samples == 0 ||
+      !nonnegative(params.stationary_bias_gain, "stationary_bias_gain") ||
+      params.stationary_bias_gain > 1.0 ||
+      !nonnegative(params.leveling_gain, "leveling_gain") ||
+      params.leveling_gain > 1.0 ||
+      !positive(params.gyro_bias_jump_threshold,
+                "gyro_bias_jump_threshold") ||
+      !nonnegative(params.gyro_bias_jump_min_duration_s,
+                   "gyro_bias_jump_min_duration_s") ||
+      !positive(params.max_integration_dt_s, "max_integration_dt_s") ||
+      params.event_queue_capacity == 0) {
+    if (error && error->empty()) *error = "invalid profile parameter";
+    return false;
+  }
+  return true;
+}
+
 }  // namespace
 
 const char* motionStateName(MotionState state) {
@@ -155,6 +438,70 @@ const char* healthStateName(HealthState state) {
       return "invalid";
   }
   return "invalid";
+}
+
+const char* eventTypeName(ImuEventType type) {
+  switch (type) {
+    case ImuEventType::kImpact:
+      return "impact";
+    case ImuEventType::kFall:
+      return "fall";
+    case ImuEventType::kVibration:
+      return "vibration";
+    case ImuEventType::kMoving:
+      return "moving";
+    case ImuEventType::kBiasJump:
+      return "bias_jump";
+  }
+  return "unknown";
+}
+
+const char* eventPhaseName(ImuEventPhase phase) {
+  switch (phase) {
+    case ImuEventPhase::kStarted:
+      return "started";
+    case ImuEventPhase::kEnded:
+      return "ended";
+    case ImuEventPhase::kUpdated:
+      return "updated";
+  }
+  return "unknown";
+}
+
+std::string toJson(const ImuMotionEvent& event) {
+  std::ostringstream out;
+  out << std::setprecision(12);
+  out << '{';
+  out << "\"schema\":\"imu_motion_health_event_v1\"";
+  out << ",\"id\":" << event.id;
+  out << ",\"type\":\"" << eventTypeName(event.type) << '"';
+  out << ",\"phase\":\"" << eventPhaseName(event.phase) << '"';
+  out << ",\"timestamp\":";
+  writeNumber(out, event.timestamp);
+  out << ",\"start_timestamp\":";
+  writeNumber(out, event.start_timestamp);
+  out << ",\"end_timestamp\":";
+  writeNullableNumber(out, event.has_end_timestamp, event.end_timestamp);
+  out << ",\"duration_s\":";
+  writeNumber(out, event.duration_s);
+  out << ",\"peak_accel_norm\":";
+  writeNumber(out, event.peak_accel_norm);
+  out << ",\"peak_gyro_norm\":";
+  writeNumber(out, event.peak_gyro_norm);
+  out << ",\"peak_vibration_rms\":";
+  writeNumber(out, event.peak_vibration_rms);
+  out << ",\"peak_confidence\":";
+  writeNumber(out, event.peak_confidence);
+  out << ",\"peak_accel\":";
+  writeNumber(out, event.peak_accel);
+  out << ",\"peak_gyro\":";
+  writeNumber(out, event.peak_gyro);
+  out << ",\"peak_vibration\":";
+  writeNumber(out, event.peak_vibration);
+  out << ",\"confidence\":";
+  writeNumber(out, event.confidence);
+  out << '}';
+  return out.str();
 }
 
 std::string toJson(const ImuMotionHealthState& state) {
@@ -198,6 +545,8 @@ std::string toJson(const ImuMotionHealthState& state) {
   stream << ",\"impact\":" << (state.impact ? "true" : "false");
   stream << ",\"fall\":" << (state.fall ? "true" : "false");
   stream << ",\"vibration\":" << (state.vibration ? "true" : "false");
+  stream << ",\"gyro_bias_jump\":"
+         << (state.gyro_bias_jump ? "true" : "false");
   stream << ",\"degraded\":" << (state.degraded ? "true" : "false");
   stream << ",\"confidence\":";
   writeNumber(stream, state.confidence);
@@ -209,6 +558,10 @@ std::string toJson(const ImuMotionHealthState& state) {
   writeNumber(stream, state.linear_accel_norm);
   stream << ",\"vibration_rms\":";
   writeNumber(stream, state.vibration_rms);
+  stream << ",\"gyro_bias_delta_norm\":";
+  writeNumber(stream, state.gyro_bias_delta_norm);
+  stream << ",\"gyro_bias_jump_duration_s\":";
+  writeNumber(stream, state.gyro_bias_jump_duration_s);
   stream << ",\"freefall_duration_s\":";
   writeNumber(stream, state.freefall_duration_s);
   stream << ",\"tilt_angle_rad\":";
@@ -237,6 +590,286 @@ std::string toJson(const ImuMotionHealthState& state) {
   stream << ",\"diagnostic\":\"" << jsonEscape(state.diagnostic) << "\"";
   stream << '}';
   return stream.str();
+}
+
+const char* profileName(const std::string& name) {
+  const std::string normalized = lowerCopy(trimCopy(name));
+  if (normalized == "default" || normalized == "" ||
+      normalized == "imu_motion_health")
+    return "default";
+  if (normalized == "wearable" || normalized == "wearables") return "wearable";
+  if (normalized == "vehicle" || normalized == "vehicles") return "vehicle";
+  if (normalized == "machine" || normalized == "machines") return "machine";
+  if (normalized == "cargo") return "cargo";
+  if (normalized == "drone" || normalized == "drones" ||
+      normalized == "uav")
+    return "drone";
+  return nullptr;
+}
+
+bool applyProfile(const std::string& name, ImuMotionHealthParams* params,
+                  std::string* error) {
+  if (params == nullptr) {
+    if (error) *error = "profile destination is null";
+    return false;
+  }
+  const char* canonical = profileName(name);
+  if (canonical == nullptr) {
+    if (error) *error = "unknown IMU profile: " + name;
+    return false;
+  }
+
+  // The built-ins intentionally change only detector policy, leaving sensor
+  // full-scale and integration settings at caller/default values.  This makes
+  // a profile safe to layer onto a board-specific configuration.
+  if (std::string(canonical) == "wearable") {
+    params->startup_duration_s = 0.80;
+    params->startup_min_samples = 20;
+    params->stationary_gyro_threshold = 0.10;
+    params->stationary_accel_tolerance = 0.65;
+    params->moving_gyro_threshold = 0.22;
+    params->moving_accel_threshold = 0.85;
+    params->impact_accel_threshold = 18.0;
+    params->impact_gyro_threshold = 7.0;
+    params->fall_freefall_threshold = 2.8;
+    params->fall_min_duration_s = 0.08;
+    params->tilt_angle_threshold_deg = 45.0;
+    params->tilt_min_duration_s = 0.20;
+    params->vibration_rms_threshold = 1.25;
+    params->motion_window_samples = 16;
+    params->event_hold_duration_s = 0.25;
+    params->emit_moving_events = false;
+  } else if (std::string(canonical) == "vehicle") {
+    params->startup_duration_s = 1.20;
+    params->startup_min_samples = 30;
+    params->stationary_gyro_threshold = 0.08;
+    params->stationary_accel_tolerance = 0.50;
+    params->moving_gyro_threshold = 0.12;
+    params->moving_accel_threshold = 0.55;
+    params->impact_accel_threshold = 22.0;
+    params->impact_gyro_threshold = 8.0;
+    params->fall_freefall_threshold = 2.5;
+    params->fall_min_duration_s = 0.10;
+    params->tilt_angle_threshold_deg = 55.0;
+    params->tilt_min_duration_s = 0.20;
+    params->vibration_rms_threshold = 1.80;
+    params->motion_window_samples = 24;
+    params->event_hold_duration_s = 0.20;
+    params->emit_moving_events = true;
+  } else if (std::string(canonical) == "machine") {
+    params->startup_duration_s = 1.50;
+    params->startup_min_samples = 40;
+    params->stationary_gyro_threshold = 0.12;
+    params->stationary_accel_tolerance = 0.90;
+    params->moving_gyro_threshold = 0.30;
+    params->moving_accel_threshold = 1.25;
+    params->impact_accel_threshold = 35.0;
+    params->impact_gyro_threshold = 12.0;
+    params->fall_freefall_threshold = 2.5;
+    params->fall_min_duration_s = 0.08;
+    params->tilt_angle_threshold_deg = 60.0;
+    params->tilt_min_duration_s = 0.25;
+    params->vibration_rms_threshold = 2.50;
+    params->motion_window_samples = 32;
+    params->event_hold_duration_s = 0.30;
+    params->emit_moving_events = true;
+  } else if (std::string(canonical) == "cargo") {
+    params->startup_duration_s = 1.00;
+    params->startup_min_samples = 20;
+    params->stationary_gyro_threshold = 0.10;
+    params->stationary_accel_tolerance = 0.55;
+    params->moving_gyro_threshold = 0.20;
+    params->moving_accel_threshold = 0.70;
+    params->impact_accel_threshold = 15.0;
+    params->impact_gyro_threshold = 6.0;
+    params->fall_freefall_threshold = 3.0;
+    params->fall_min_duration_s = 0.06;
+    params->tilt_angle_threshold_deg = 40.0;
+    params->tilt_min_duration_s = 0.15;
+    params->vibration_rms_threshold = 1.00;
+    params->motion_window_samples = 16;
+    params->event_hold_duration_s = 0.35;
+    params->emit_moving_events = false;
+  } else if (std::string(canonical) == "drone") {
+    params->startup_duration_s = 1.00;
+    params->startup_min_samples = 50;
+    params->stationary_gyro_threshold = 0.18;
+    params->stationary_accel_tolerance = 1.00;
+    params->moving_gyro_threshold = 0.35;
+    params->moving_accel_threshold = 1.50;
+    params->impact_accel_threshold = 30.0;
+    params->impact_gyro_threshold = 14.0;
+    params->fall_freefall_threshold = 2.0;
+    params->fall_min_duration_s = 0.05;
+    params->tilt_angle_threshold_deg = 65.0;
+    params->tilt_min_duration_s = 0.12;
+    params->vibration_rms_threshold = 3.00;
+    params->motion_window_samples = 12;
+    params->event_hold_duration_s = 0.15;
+    params->emit_moving_events = true;
+  }
+  return true;
+}
+
+bool loadProfileFile(const std::string& path, ImuMotionHealthParams* params,
+                     std::string* error) {
+  if (params == nullptr) {
+    if (error) *error = "profile destination is null";
+    return false;
+  }
+  std::ifstream input(path);
+  if (!input) {
+    if (error) *error = "cannot open profile file: " + path;
+    return false;
+  }
+
+  ImuMotionHealthParams parsed = *params;
+  std::map<std::string, bool> seen;
+  std::string line;
+  std::size_t line_number = 0;
+  bool saw_mapping = false;
+  while (std::getline(input, line)) {
+    ++line_number;
+    if (line.find('\t') != std::string::npos) {
+      if (error) *error = path + ":" + std::to_string(line_number) +
+                           ": tabs are not supported in strict YAML subset";
+      return false;
+    }
+    const std::size_t hash = line.find('#');
+    if (hash != std::string::npos) line.resize(hash);
+    if (trimCopy(line).empty()) continue;
+
+    std::size_t indent = 0;
+    while (indent < line.size() && line[indent] == ' ') ++indent;
+    std::string content = trimCopy(line.substr(indent));
+    if (!content.empty() && content.front() == '-') {
+      if (error) *error = path + ":" + std::to_string(line_number) +
+                           ": sequence values are not supported";
+      return false;
+    }
+    const std::size_t colon = content.find(':');
+    if (colon == std::string::npos) {
+      if (error) *error = path + ":" + std::to_string(line_number) +
+                           ": expected key: value";
+      return false;
+    }
+    const std::string raw_key = trimCopy(content.substr(0, colon));
+    const std::string raw_value = trimCopy(content.substr(colon + 1));
+    if (raw_key.empty()) {
+      if (error) *error = path + ":" + std::to_string(line_number) +
+                           ": empty key";
+      return false;
+    }
+    std::string key = lowerCopy(raw_key);
+    std::replace(key.begin(), key.end(), '-', '_');
+    if (raw_value.empty()) {
+      // Permit exactly one mapping root, optionally indented children below
+      // it.  Other empty values are ambiguous and therefore rejected.
+      if (key == "imu_motion_health" || key == "params" || key == "profile") {
+        if (key == "profile") {
+          if (error) *error = path + ":" + std::to_string(line_number) +
+                               ": profile requires a name";
+          return false;
+        }
+        saw_mapping = true;
+        continue;
+      }
+      if (error) *error = path + ":" + std::to_string(line_number) +
+                           ": empty value for key '" + raw_key + "'";
+      return false;
+    }
+    if (!saw_mapping && indent > 0) {
+      if (error) *error = path + ":" + std::to_string(line_number) +
+                           ": indented key without a mapping root";
+      return false;
+    }
+    if (seen[key]) {
+      if (error) *error = path + ":" + std::to_string(line_number) +
+                           ": duplicate key '" + raw_key + "'";
+      return false;
+    }
+    seen[key] = true;
+    if (key == "schema") {
+      const std::string schema = lowerCopy(unquoteYamlScalar(raw_value));
+      if (schema != "imu_motion_health_profile_v1" &&
+          schema != "imu_motion_health_profile") {
+        if (error) *error = path + ":" + std::to_string(line_number) +
+                             ": unsupported profile schema";
+        return false;
+      }
+      continue;
+    }
+    if (key == "profile" || key == "preset") {
+      if (!applyProfile(unquoteYamlScalar(raw_value), &parsed, error)) {
+        if (error && error->find(':') == std::string::npos)
+          *error = path + ":" + std::to_string(line_number) + ": " + *error;
+        return false;
+      }
+      continue;
+    }
+    if (!assignProfileField(raw_key, raw_value, &parsed, error)) {
+      if (error && error->find(':') == std::string::npos)
+        *error = path + ":" + std::to_string(line_number) + ": " + *error;
+      return false;
+    }
+  }
+  if (input.bad()) {
+    if (error) *error = "error reading profile file: " + path;
+    return false;
+  }
+  if (!validateProfileParams(parsed, error)) return false;
+  if (!seen.empty() || saw_mapping) {
+    *params = parsed;
+    return true;
+  }
+  if (error) *error = "profile file is empty: " + path;
+  return false;
+}
+
+bool loadYamlProfile(const std::string& path, ImuMotionHealthParams* params,
+                     std::string* error) {
+  return loadProfileFile(path, params, error);
+}
+
+std::size_t eventIndex(ImuEventType type) {
+  switch (type) {
+    case ImuEventType::kImpact:
+      return 0;
+    case ImuEventType::kFall:
+      return 1;
+    case ImuEventType::kVibration:
+      return 2;
+    case ImuEventType::kMoving:
+      return 3;
+    case ImuEventType::kBiasJump:
+      return 4;
+  }
+  return 0;
+}
+
+ImuEventType eventTypeAt(std::size_t index) {
+  switch (index) {
+    case 0:
+      return ImuEventType::kImpact;
+    case 1:
+      return ImuEventType::kFall;
+    case 2:
+      return ImuEventType::kVibration;
+    case 3:
+      return ImuEventType::kMoving;
+    case 4:
+      return ImuEventType::kBiasJump;
+    default:
+      return ImuEventType::kImpact;
+  }
+}
+
+void syncEventAliases(ImuMotionEvent* event) {
+  if (event == nullptr) return;
+  event->peak_accel = event->peak_accel_norm;
+  event->peak_gyro = event->peak_gyro_norm;
+  event->peak_vibration = event->peak_vibration_rms;
+  event->confidence = event->peak_confidence;
 }
 
 ImuMotionHealth::ImuMotionHealth(const ImuMotionHealthParams& params)
@@ -272,7 +905,9 @@ ImuMotionHealth::ImuMotionHealth(const ImuMotionHealthParams& params)
                   : 0.01);
   params_.leveling_gain =
       clamp01(std::isfinite(params_.leveling_gain) ? params_.leveling_gain
-                                                   : 0.03);
+                                                    : 0.03);
+  params_.event_queue_capacity =
+      std::max<std::size_t>(1, params_.event_queue_capacity);
   reset();
 }
 
@@ -310,9 +945,224 @@ void ImuMotionHealth::clearRuntimeState() {
   accel_bias_.setZero();
   gravity_world_ = Eigen::Vector3d(0.0, 0.0, params_.gravity_magnitude);
   gravity_magnitude_ = params_.gravity_magnitude;
+  for (ActiveEvent& event : active_events_) event = ActiveEvent();
+  pending_events_.clear();
+  next_event_id_ = 1;
+  dropped_event_count_ = 0;
+  event_impact_active_ = false;
+  event_fall_active_ = false;
+  event_vibration_active_ = false;
+  event_moving_active_ = false;
+  event_bias_jump_active_ = false;
+  gyro_bias_jump_candidate_ = false;
+  gyro_bias_jump_candidate_start_timestamp_ = 0.0;
+  gyro_bias_jump_active_ = false;
+  gyro_bias_jump_until_ = 0.0;
 }
 
 void ImuMotionHealth::reset() { clearRuntimeState(); }
+
+void ImuMotionHealth::enqueueEvent(const ImuMotionEvent& event) {
+  const std::size_t capacity = std::max<std::size_t>(1, params_.event_queue_capacity);
+  while (pending_events_.size() >= capacity) {
+    pending_events_.pop_front();
+    ++dropped_event_count_;
+  }
+  pending_events_.push_back(event);
+}
+
+bool ImuMotionHealth::popEvent(ImuMotionEvent* event) {
+  if (event == nullptr || pending_events_.empty()) return false;
+  *event = pending_events_.front();
+  pending_events_.pop_front();
+  return true;
+}
+
+std::vector<ImuMotionEvent> ImuMotionHealth::drainEvents() {
+  std::vector<ImuMotionEvent> result;
+  result.reserve(pending_events_.size());
+  while (!pending_events_.empty()) {
+    result.push_back(pending_events_.front());
+    pending_events_.pop_front();
+  }
+  return result;
+}
+
+std::vector<ImuMotionEvent> ImuMotionHealth::activeEvents() const {
+  std::vector<ImuMotionEvent> result;
+  result.reserve(active_events_.size());
+  for (std::size_t index = 0; index < active_events_.size(); ++index) {
+    const ActiveEvent& active = active_events_[index];
+    if (!active.active) continue;
+    ImuMotionEvent event;
+    event.id = active.id;
+    event.type = eventTypeAt(index);
+    event.phase = ImuEventPhase::kUpdated;
+    event.timestamp = active.current_timestamp;
+    event.start_timestamp = active.start_timestamp;
+    event.has_end_timestamp = false;
+    event.duration_s = std::max(
+        0.0, active.current_timestamp - active.start_timestamp);
+    event.peak_accel_norm = active.peak_accel_norm;
+    event.peak_gyro_norm = active.peak_gyro_norm;
+    event.peak_vibration_rms = active.peak_vibration_rms;
+    event.peak_confidence = active.peak_confidence;
+    syncEventAliases(&event);
+    result.push_back(event);
+  }
+  return result;
+}
+
+std::size_t ImuMotionHealth::activeEventCount() const {
+  std::size_t count = 0;
+  for (const ActiveEvent& active : active_events_) {
+    if (active.active) ++count;
+  }
+  return count;
+}
+
+void ImuMotionHealth::updateBiasJump(double timestamp,
+                                     const ImuSample& sample,
+                                     bool had_data_error) {
+  const Eigen::Vector3d residual = sample.gyro - gyro_bias_;
+  state_.gyro_bias_delta_norm = residual.allFinite() ? residual.norm() : 0.0;
+
+  // A jump is only meaningful while the accelerometer says the body is
+  // quiet.  This gate prevents an intentional high-rate turn from being
+  // mislabeled as a calibration fault, while still detecting a sensor offset
+  // that appears while the device is parked.
+  const bool accel_quiet =
+      !had_data_error &&
+      std::abs(state_.accel_norm - gravity_magnitude_) <=
+          2.0 * params_.stationary_accel_tolerance &&
+      state_.linear_accel_norm <=
+          2.0 * params_.stationary_accel_tolerance &&
+      state_.vibration_rms < params_.vibration_rms_threshold;
+  const bool candidate =
+      accel_quiet &&
+      state_.gyro_bias_delta_norm >= params_.gyro_bias_jump_threshold;
+
+  if (candidate) {
+    if (!gyro_bias_jump_candidate_) {
+      gyro_bias_jump_candidate_ = true;
+      gyro_bias_jump_candidate_start_timestamp_ = timestamp;
+    }
+    state_.gyro_bias_jump_duration_s = std::max(
+        0.0, timestamp - gyro_bias_jump_candidate_start_timestamp_);
+    if (state_.gyro_bias_jump_duration_s >=
+        params_.gyro_bias_jump_min_duration_s) {
+      if (!gyro_bias_jump_active_) {
+        ++counters_.gyro_bias_jump_detections;
+      }
+      gyro_bias_jump_active_ = true;
+      gyro_bias_jump_until_ = std::max(
+          gyro_bias_jump_until_, timestamp + params_.event_hold_duration_s);
+    }
+  } else {
+    gyro_bias_jump_candidate_ = false;
+    state_.gyro_bias_jump_duration_s = 0.0;
+  }
+
+  if (gyro_bias_jump_active_ && timestamp >= gyro_bias_jump_until_ &&
+      !candidate) {
+    gyro_bias_jump_active_ = false;
+  }
+  state_.gyro_bias_jump = gyro_bias_jump_active_;
+  event_bias_jump_active_ = state_.gyro_bias_jump;
+  if (state_.gyro_bias_jump) ++counters_.gyro_bias_jump_samples;
+}
+
+void ImuMotionHealth::finishEvent(std::size_t index, double timestamp) {
+  if (index >= active_events_.size() || !active_events_[index].active) return;
+  ActiveEvent& active = active_events_[index];
+  const double end_timestamp =
+      std::isfinite(timestamp) ? std::max(timestamp, active.start_timestamp)
+                               : active.start_timestamp;
+  ImuMotionEvent event;
+  event.id = active.id;
+  event.type = eventTypeAt(index);
+  event.phase = ImuEventPhase::kEnded;
+  event.timestamp = end_timestamp;
+  event.start_timestamp = active.start_timestamp;
+  event.end_timestamp = end_timestamp;
+  event.has_end_timestamp = true;
+  event.duration_s = std::max(0.0, end_timestamp - active.start_timestamp);
+  event.peak_accel_norm = active.peak_accel_norm;
+  event.peak_gyro_norm = active.peak_gyro_norm;
+  event.peak_vibration_rms = active.peak_vibration_rms;
+  event.peak_confidence = active.peak_confidence;
+  syncEventAliases(&event);
+  enqueueEvent(event);
+  active = ActiveEvent();
+}
+
+void ImuMotionHealth::updateEvents(double timestamp, bool impact, bool fall,
+                                   bool vibration, bool moving,
+                                   bool bias_jump) {
+  const bool active_now[5] = {impact, fall, vibration,
+                              params_.emit_moving_events && moving, bias_jump};
+  for (std::size_t index = 0; index < active_events_.size(); ++index) {
+    ActiveEvent& active = active_events_[index];
+    if (active_now[index]) {
+      if (!active.active) {
+        active.active = true;
+        active.id = next_event_id_++;
+        active.start_timestamp = timestamp;
+        active.current_timestamp = timestamp;
+        active.peak_accel_norm = state_.accel_norm;
+        active.peak_gyro_norm = state_.gyro_norm;
+        active.peak_vibration_rms = state_.vibration_rms;
+        active.peak_confidence = state_.confidence;
+
+        ImuMotionEvent event;
+        event.id = active.id;
+        event.type = eventTypeAt(index);
+        event.phase = ImuEventPhase::kStarted;
+        event.timestamp = timestamp;
+        event.start_timestamp = timestamp;
+        event.has_end_timestamp = false;
+        event.duration_s = 0.0;
+        event.peak_accel_norm = active.peak_accel_norm;
+        event.peak_gyro_norm = active.peak_gyro_norm;
+        event.peak_vibration_rms = active.peak_vibration_rms;
+        event.peak_confidence = active.peak_confidence;
+        syncEventAliases(&event);
+        enqueueEvent(event);
+      } else {
+        active.current_timestamp = timestamp;
+        active.peak_accel_norm =
+            std::max(active.peak_accel_norm, state_.accel_norm);
+        active.peak_gyro_norm =
+            std::max(active.peak_gyro_norm, state_.gyro_norm);
+        active.peak_vibration_rms =
+            std::max(active.peak_vibration_rms, state_.vibration_rms);
+        active.peak_confidence =
+            std::max(active.peak_confidence, state_.confidence);
+      }
+    } else if (active.active) {
+      finishEvent(index, timestamp);
+    }
+  }
+  event_impact_active_ = impact;
+  event_fall_active_ = fall;
+  event_vibration_active_ = vibration;
+  event_moving_active_ = moving;
+  event_bias_jump_active_ = bias_jump;
+}
+
+void ImuMotionHealth::flushEvents(double timestamp) {
+  double close_timestamp = timestamp;
+  if (!std::isfinite(close_timestamp) || close_timestamp == 0.0) {
+    close_timestamp = have_timestamp_ ? last_timestamp_ : state_.timestamp;
+  }
+  for (std::size_t index = 0; index < active_events_.size(); ++index)
+    finishEvent(index, close_timestamp);
+  event_impact_active_ = false;
+  event_fall_active_ = false;
+  event_vibration_active_ = false;
+  event_moving_active_ = false;
+  event_bias_jump_active_ = false;
+}
 
 void ImuMotionHealth::finalizeStartup() {
   if (startup_complete_ || startup_samples_.empty()) return;
@@ -530,6 +1380,15 @@ void ImuMotionHealth::classify(double timestamp, double /*dt*/,
        gyro_rms >= params_.moving_gyro_threshold ||
        state_.linear_accel_norm >= params_.moving_accel_threshold);
 
+  // Keep the independent detector outputs for the event manager.  The
+  // legacy motion_state below intentionally remains a single prioritized
+  // enum, so callers that only consume the old API see exactly the same
+  // values even when multiple event types overlap.
+  event_impact_active_ = impact;
+  event_fall_active_ = fall_now;
+  event_vibration_active_ = vibration;
+  event_moving_active_ = moving_now;
+
   if (!startup_complete_) {
     state_.motion_state = MotionState::kInitializing;
   } else if (fall_now) {
@@ -599,6 +1458,7 @@ void ImuMotionHealth::updateConfidence(bool had_data_error) {
   if (state_.motion_state == MotionState::kImpact ||
       state_.motion_state == MotionState::kFall)
     confidence -= 0.25;
+  if (state_.gyro_bias_jump) confidence -= 0.20;
   if (had_data_error) confidence -= 0.35;
   if (state_.health_state == HealthState::kInvalid) confidence = 0.0;
   state_.confidence = clamp01(confidence);
@@ -621,6 +1481,8 @@ void ImuMotionHealth::makeDiagnostic(bool had_data_error) {
                                         : "fall/freefall detected");
   if (state_.motion_state == MotionState::kVibration)
     messages.emplace_back("vibration detected");
+  if (state_.gyro_bias_jump)
+    messages.emplace_back("gyro bias jump detected");
 
   state_.diagnostic.clear();
   for (std::size_t i = 0; i < messages.size(); ++i) {
@@ -642,6 +1504,9 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
   state_.gyro_saturated = false;
   state_.accel_saturated = false;
   state_.saturated = false;
+  state_.gyro_bias_jump = false;
+  state_.gyro_bias_jump_duration_s = 0.0;
+  state_.gyro_bias_delta_norm = 0.0;
   state_.dt = 0.0;
   state_.timestamp = sample.timestamp;
   state_.diagnostic.clear();
@@ -753,6 +1618,7 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
 
   const bool had_data_error = state_.gap || state_.saturated;
   classify(sample.timestamp, dt, had_data_error, corrected_accel);
+  updateBiasJump(sample.timestamp, sample, had_data_error);
 
   // A stationary sample is the only time at which the gyro bias is
   // observable without an external reference.  Apply the update before
@@ -810,7 +1676,7 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
   // guard; the health state below explains that the stream is degraded only
   // for the explicit gap/saturation cases.
   state_.health_state = HealthState::kReady;
-  if (!startup_quality_ok_ || had_data_error ||
+  if (!startup_quality_ok_ || had_data_error || state_.gyro_bias_jump ||
       (have_anomaly_timestamp_ && sample.timestamp < anomaly_until_)) {
     state_.health_state = HealthState::kDegraded;
   }
@@ -819,6 +1685,9 @@ ImuMotionHealthState ImuMotionHealth::process(const ImuSample& sample) {
   updateStateAliases();
   updateConfidence(had_data_error);
   makeDiagnostic(had_data_error);
+  updateEvents(sample.timestamp, event_impact_active_, event_fall_active_,
+               event_vibration_active_, event_moving_active_,
+               event_bias_jump_active_);
   return state_;
 }
 

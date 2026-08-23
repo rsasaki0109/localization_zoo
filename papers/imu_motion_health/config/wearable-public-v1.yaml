@@ -1,0 +1,8 @@
+# Tuned only on CGU-BES Subject01-09. See evaluation/public_datasets.md.
+imu_motion_health:
+  profile: wearable
+  impact_accel_threshold: 45.0
+  impact_gyro_threshold: 1.0
+  impact_requires_accel_and_gyro: true
+  fall_freefall_threshold: 0.1
+  tilt_angle_threshold_deg: 179.0

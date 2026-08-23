@@ -29,6 +29,22 @@ ImuSample sample(double timestamp, const Eigen::Vector3d& gyro,
   return result;
 }
 
+TEST(ImuMotionHealthTest, ImpactCanRequireAccelAndGyroTogether) {
+  ImuMotionHealthParams params;
+  params.startup_duration_s = 0.02;
+  params.startup_min_samples = 2;
+  params.impact_accel_threshold = 15.0;
+  params.impact_gyro_threshold = 2.0;
+  params.impact_requires_accel_and_gyro = true;
+  ImuMotionHealth imu(params);
+  imu.process(0.00, Eigen::Vector3d::Zero(), Eigen::Vector3d(0, 0, 9.80665));
+  imu.process(0.02, Eigen::Vector3d::Zero(), Eigen::Vector3d(0, 0, 9.80665));
+  auto accel_only = imu.process(0.03, Eigen::Vector3d::Zero(), Eigen::Vector3d(20, 0, 0));
+  EXPECT_FALSE(accel_only.impact);
+  auto combined = imu.process(0.04, Eigen::Vector3d(3, 0, 0), Eigen::Vector3d(20, 0, 0));
+  EXPECT_TRUE(combined.impact);
+}
+
 void feedStatic(ImuMotionHealth* pipeline, int count, double dt = 0.01,
                 double start = 0.0,
                 const Eigen::Vector3d& gyro = Eigen::Vector3d::Zero()) {

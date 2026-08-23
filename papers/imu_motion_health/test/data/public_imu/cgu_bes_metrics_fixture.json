@@ -1,0 +1,17 @@
+{
+  "schema": "imu_public_metrics_fixture_v1",
+  "source": "CGU-BES Dataset for Fall and Activity of Daily Life",
+  "doi": "10.6084/m9.figshare.7016306.v1",
+  "license": "CC BY 4.0",
+  "derivation": "Aggregate metrics calculated from the original 200 Hz recordings; no raw participant signal is redistributed.",
+  "recordings": [
+    {"dataset":"cgu_bes","subject":"Subject01","activity":"ForwardFall","label":"fall","split":"train","max_accel_norm":59.8804088301,"max_gyro_norm":3.4276953946,"posture_change_deg":89.9295496241},
+    {"dataset":"cgu_bes","subject":"Subject01","activity":"RightFall","label":"fall","split":"train","max_accel_norm":64.9613718933,"max_gyro_norm":5.5733880642,"posture_change_deg":101.2419037461},
+    {"dataset":"cgu_bes","subject":"Subject01","activity":"UpwardJump","label":"adl","split":"train","max_accel_norm":44.2238917724,"max_gyro_norm":2.0451918253,"posture_change_deg":1.8996267080},
+    {"dataset":"cgu_bes","subject":"Subject01","activity":"Walk","label":"adl","split":"train","max_accel_norm":14.7361051483,"max_gyro_norm":0.4128557879,"posture_change_deg":4.6390511801},
+    {"dataset":"cgu_bes","subject":"Subject13","activity":"ForwardFall","label":"fall","split":"test","max_accel_norm":55.1597297813,"max_gyro_norm":6.1961290930,"posture_change_deg":91.5257788206},
+    {"dataset":"cgu_bes","subject":"Subject13","activity":"RightFall","label":"fall","split":"test","max_accel_norm":58.5557655847,"max_gyro_norm":4.7176839885,"posture_change_deg":106.4329157914},
+    {"dataset":"cgu_bes","subject":"Subject13","activity":"UpwardJump","label":"adl","split":"test","max_accel_norm":48.3122128002,"max_gyro_norm":1.5731450710,"posture_change_deg":2.6192476011},
+    {"dataset":"cgu_bes","subject":"Subject13","activity":"Walk","label":"adl","split":"test","max_accel_norm":14.2022069542,"max_gyro_norm":0.3567233933,"posture_change_deg":0.5641490925}
+  ]
+}

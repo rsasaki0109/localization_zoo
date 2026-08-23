@@ -242,6 +242,9 @@ void applyExplicitParams(const ImuMotionHealthParams& source,
     destination->impact_accel_threshold = source.impact_accel_threshold;
   if (has("impact_gyro_threshold"))
     destination->impact_gyro_threshold = source.impact_gyro_threshold;
+  if (has("impact_requires_accel_and_gyro"))
+    destination->impact_requires_accel_and_gyro =
+        source.impact_requires_accel_and_gyro;
   if (has("fall_freefall_threshold"))
     destination->fall_freefall_threshold = source.fall_freefall_threshold;
   if (has("fall_min_duration_s"))

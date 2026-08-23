@@ -211,7 +211,8 @@ std::string unquoteYamlScalar(const std::string& text) {
 bool profileKeyIsBool(const std::string& key) {
   return key == "estimate_gyro_bias" || key == "estimate_accel_bias" ||
          key == "zero_velocity_when_stationary" ||
-         key == "emit_moving_events";
+         key == "emit_moving_events" ||
+         key == "impact_requires_accel_and_gyro";
 }
 
 bool profileKeyIsSize(const std::string& key) {
@@ -287,6 +288,8 @@ bool assignProfileField(const std::string& raw_key, const std::string& raw_value
     if (key == "zero_velocity_when_stationary")
       params->zero_velocity_when_stationary = parsed;
     if (key == "emit_moving_events") params->emit_moving_events = parsed;
+    if (key == "impact_requires_accel_and_gyro")
+      params->impact_requires_accel_and_gyro = parsed;
     return true;
   }
 
@@ -1305,9 +1308,11 @@ void ImuMotionHealth::classify(double timestamp, double /*dt*/,
                            timestamp + params_.event_hold_duration_s);
   }
 
-  const bool impact_now =
-      state_.accel_norm >= params_.impact_accel_threshold ||
-      state_.gyro_norm >= params_.impact_gyro_threshold;
+  const bool accel_impact = state_.accel_norm >= params_.impact_accel_threshold;
+  const bool gyro_impact = state_.gyro_norm >= params_.impact_gyro_threshold;
+  const bool impact_now = params_.impact_requires_accel_and_gyro
+                              ? (accel_impact && gyro_impact)
+                              : (accel_impact || gyro_impact);
   if (impact_now) {
     impact_until_ = std::max(impact_until_,
                              timestamp + params_.event_hold_duration_s);

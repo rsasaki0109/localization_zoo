@@ -1,0 +1,6 @@
+{
+  "schema": "imu_fall_candidate_policy_v1",
+  "event_type": "impact",
+  "minimum_posture_change_deg": 30.0,
+  "description": "Confirm an impact as a fall candidate only after the one-second post-event mean gravity direction differs from the pre-event mean by at least 30 degrees."
+}

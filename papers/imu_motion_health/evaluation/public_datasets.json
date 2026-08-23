@@ -1,0 +1,36 @@
+{
+  "schema": "imu_public_dataset_registry_v1",
+  "datasets": {
+    "cgu_bes": {
+      "title": "CGU-BES Dataset for Fall and Activity of Daily Life",
+      "doi": "10.6084/m9.figshare.7016306.v1",
+      "article_api": "https://api.figshare.com/v2/articles/7016306",
+      "file_id": 12890546,
+      "filename": "CGU-BES Dataset.rar",
+      "md5": "2849b34a3a31bf299fef1f500187ac09",
+      "license": "CC BY 4.0",
+      "sample_rate_hz": 200,
+      "role": "primary fall and ADL evaluation"
+    },
+    "uci_har": {
+      "title": "Human Activity Recognition Using Smartphones",
+      "doi": "10.24432/C54S4K",
+      "download_url": "https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip",
+      "filename": "human_activity_recognition_using_smartphones.zip",
+      "md5": "96924e20fe5b8c9ffc2196eec7d5048f",
+      "license": "CC BY 4.0",
+      "sample_rate_hz": 50,
+      "role": "ADL false-positive generalization"
+    },
+    "parkinson": {
+      "title": "Parkinson",
+      "doi": "10.6084/m9.figshare.21800738.v1",
+      "article_api": "https://api.figshare.com/v2/articles/21800738",
+      "file_id": 38683529,
+      "filename": "PD.zip",
+      "md5": "c0cea6577420c3ddfe6e32c87f11f2d0",
+      "license": "CC BY 4.0",
+      "role": "gait false-positive generalization"
+    }
+  }
+}

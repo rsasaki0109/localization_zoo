@@ -58,4 +58,8 @@ if(Python3_Interpreter_FOUND)
     COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_CURRENT_SOURCE_DIR}/test/test_imu_calibration_validation.py
             --cli $<TARGET_FILE:imu_motion_health_cli>)
+  add_test(
+    NAME test_imu_public_datasets
+    COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/test/test_imu_public_datasets.py)
 endif()

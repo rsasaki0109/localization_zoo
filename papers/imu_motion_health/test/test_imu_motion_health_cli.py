@@ -26,6 +26,29 @@ def write_fixture(path: pathlib.Path, include_bad_row: bool = False) -> None:
             writer.writerow(["this", "row", "is", "not", "numeric"])
 
 
+def write_event_fixture(path: pathlib.Path) -> None:
+    with path.open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.writer(stream, lineterminator="\n")
+        writer.writerow(["timestamp", "gx", "gy", "gz", "ax", "ay", "az"])
+        for index in range(31):
+            writer.writerow([index * 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, GRAVITY])
+        writer.writerow([0.31, 0.0, 0.0, 0.0, 0.0, 0.0, 30.0])
+        writer.writerow([0.32, 0.0, 0.0, 0.0, 0.0, 0.0, GRAVITY])
+        writer.writerow([0.35, 0.0, 0.0, 0.0, 0.0, 0.0, GRAVITY])
+
+
+def write_bias_jump_fixture(path: pathlib.Path) -> None:
+    with path.open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.writer(stream, lineterminator="\n")
+        writer.writerow(["timestamp", "gx", "gy", "gz", "ax", "ay", "az"])
+        for index in range(31):
+            writer.writerow([index * 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, GRAVITY])
+        for timestamp in (0.31, 0.32, 0.33):
+            writer.writerow([timestamp, 0.30, 0.0, 0.0, 0.0, 0.0, GRAVITY])
+        writer.writerow([0.34, 0.0, 0.0, 0.0, 0.0, 0.0, GRAVITY])
+        writer.writerow([0.38, 0.0, 0.0, 0.0, 0.0, 0.0, GRAVITY])
+
+
 def run(cli: pathlib.Path, *args: str) -> subprocess.CompletedProcess:
     return subprocess.run(
         [str(cli), *args],
@@ -136,6 +159,110 @@ def main() -> int:
             raise AssertionError("skip-invalid must retain input-error exit code")
         if json.loads(bad_summary.read_text())["parse_errors"] != 1:
             raise AssertionError("parse error was not included in summary")
+
+        # Event JSONL contains a stable started/ended pair and the summary
+        # reports completed counts.  Explicit CLI values win over a preset in
+        # either argument order (the cargo preset threshold is 15 m/s^2).
+        event_fixture = directory / "events.csv"
+        write_event_fixture(event_fixture)
+        event_path = directory / "events.jsonl"
+        event_summary = directory / "events-summary.json"
+        common = [
+            "--input",
+            str(event_fixture),
+            "--startup-duration",
+            "0.05",
+            "--startup-min-samples",
+            "5",
+            "--vibration-rms",
+            "100",
+            "--events-output",
+            str(event_path),
+            "--summary-output",
+            str(event_summary),
+        ]
+        result = run(args.cli, "--profile", "cargo", "--impact-accel", "11", *common)
+        if result.returncode != 0:
+            raise AssertionError(result.stderr)
+        event_records = [json.loads(line) for line in event_path.read_text().splitlines()]
+        if len(event_records) != 2:
+            raise AssertionError(f"expected started/ended event pair, got {event_records}")
+        if event_records[0]["phase"] != "started" or event_records[1]["phase"] != "ended":
+            raise AssertionError("event lifecycle phases were not emitted")
+        if event_records[0]["id"] != event_records[1]["id"]:
+            raise AssertionError("event id was not stable across lifecycle")
+        summary = json.loads(event_summary.read_text())
+        if summary["event_counts"]["impact"] != 1 or summary["events_ended"] != 1:
+            raise AssertionError(f"event counts missing from summary: {summary}")
+
+        reverse_event_path = directory / "events-reverse.jsonl"
+        reverse_summary_path = directory / "events-reverse-summary.json"
+        reverse = [
+            "--impact-accel",
+            "11",
+            "--profile=cargo",
+            "--events-output",
+            str(reverse_event_path),
+            "--summary-output",
+            str(reverse_summary_path),
+        ] + common[:8]
+        result = run(args.cli, *reverse)
+        if result.returncode != 0:
+            raise AssertionError(result.stderr)
+        reverse_summary = json.loads(reverse_summary_path.read_text())
+        if reverse_summary["event_counts"]["impact"] != 1:
+            raise AssertionError("profile/CLI precedence depended on argument order")
+
+        # The parser is intentionally strict: a typo is a usage/configuration
+        # error instead of an silently ignored detector setting.
+        bad_profile = directory / "bad-profile.yaml"
+        bad_profile.write_text("impct_accel_threshold: 1\n", encoding="utf-8")
+        result = run(
+            args.cli,
+            "--input",
+            str(event_fixture),
+            "--profile-file",
+            str(bad_profile),
+        )
+        if result.returncode != 2 or "unknown profile key" not in result.stderr:
+            raise AssertionError("strict YAML profile errors regressed")
+
+        # A persistent gyro residual while gravity remains quiet is diagnosed
+        # as a bias jump and has its own lifecycle event/counter.
+        bias_fixture = directory / "bias-jump.csv"
+        write_bias_jump_fixture(bias_fixture)
+        bias_events = directory / "bias-jump.events.jsonl"
+        bias_summary = directory / "bias-jump.summary.json"
+        result = run(
+            args.cli,
+            "--input",
+            str(bias_fixture),
+            "--startup-duration",
+            "0.05",
+            "--startup-min-samples",
+            "5",
+            "--gyro-bias-jump",
+            "0.15",
+            "--bias-jump-min-duration",
+            "0.02",
+            "--events-output",
+            str(bias_events),
+            "--summary-output",
+            str(bias_summary),
+        )
+        if result.returncode != 0:
+            raise AssertionError(result.stderr)
+        bias_records = [json.loads(line) for line in bias_events.read_text().splitlines()]
+        bias_records = [record for record in bias_records if record["type"] == "bias_jump"]
+        if [record["phase"] for record in bias_records] != ["started", "ended"]:
+            raise AssertionError(f"bias-jump lifecycle missing: {bias_records}")
+        if bias_records[0]["id"] != bias_records[1]["id"]:
+            raise AssertionError("bias-jump event id was not stable")
+        bias_summary_json = json.loads(bias_summary.read_text())
+        if bias_summary_json["event_counts"]["bias_jump"] != 1:
+            raise AssertionError("bias-jump event count missing from summary")
+        if bias_summary_json["counters"]["gyro_bias_jump_detections"] != 1:
+            raise AssertionError("bias-jump detection counter missing from summary")
 
     return 0
 

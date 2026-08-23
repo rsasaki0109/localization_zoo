@@ -3,8 +3,11 @@
 #include <gtest/gtest.h>
 
 #include <cmath>
+#include <cstdio>
+#include <fstream>
 #include <limits>
 #include <string>
+#include <vector>
 
 using localization_zoo::imu_motion_health::HealthState;
 using localization_zoo::imu_motion_health::ImuMotionHealth;
@@ -247,4 +250,206 @@ TEST(ImuMotionHealth, ResetStartsAQuiescentStream) {
   EXPECT_EQ(pipeline.snapshot().motion_state, MotionState::kInitializing);
   EXPECT_EQ(pipeline.snapshot().health_state, HealthState::kInitializing);
   EXPECT_NEAR(pipeline.snapshot().position.norm(), 0.0, 1e-12);
+}
+
+TEST(ImuMotionHealth, EventLifecycleHasStableIdPeaksAndJsonContract) {
+  ImuMotionHealthParams params = testParams();
+  params.event_hold_duration_s = 0.02;
+  params.motion_window_samples = 4;
+  params.vibration_rms_threshold = 100.0;
+  ImuMotionHealth pipeline(params);
+  feedStatic(&pipeline, 31);
+
+  pipeline.process(sample(0.31, Eigen::Vector3d::Zero(),
+                          Eigen::Vector3d(0.0, 0.0, 30.0)));
+  auto pending = pipeline.drainEvents();
+  ASSERT_EQ(pending.size(), 1u);
+  EXPECT_EQ(pending.front().phase,
+            localization_zoo::imu_motion_health::ImuEventPhase::kStarted);
+  EXPECT_EQ(pending.front().type,
+            localization_zoo::imu_motion_health::ImuEventType::kImpact);
+  const std::uint64_t id = pending.front().id;
+  EXPECT_GT(id, 0u);
+  EXPECT_GT(pending.front().peak_accel_norm, 25.0);
+  EXPECT_NE(localization_zoo::imu_motion_health::toJson(pending.front()).find(
+                "imu_motion_health_event_v1"),
+            std::string::npos);
+
+  pipeline.process(sample(0.32, Eigen::Vector3d::Zero(),
+                          Eigen::Vector3d(0.0, 0.0, kGravity)));
+  pipeline.process(sample(0.35, Eigen::Vector3d::Zero(),
+                          Eigen::Vector3d(0.0, 0.0, kGravity)));
+  pending = pipeline.drainEvents();
+  ASSERT_EQ(pending.size(), 1u);
+  EXPECT_EQ(pending.front().phase,
+            localization_zoo::imu_motion_health::ImuEventPhase::kEnded);
+  EXPECT_EQ(pending.front().id, id);
+  EXPECT_TRUE(pending.front().has_end_timestamp);
+  EXPECT_NEAR(pending.front().duration_s, 0.04, 1e-9);
+  EXPECT_GT(pending.front().peak_accel_norm, 25.0);
+  EXPECT_NE(localization_zoo::imu_motion_health::toJson(pending.front()).find(
+                "\"phase\":\"ended\""),
+            std::string::npos);
+}
+
+TEST(ImuMotionHealth, EventQueueIsBoundedAndSupportsSimultaneousTypes) {
+  ImuMotionHealthParams params = testParams();
+  params.event_hold_duration_s = 0.02;
+  params.motion_window_samples = 4;
+  params.vibration_rms_threshold = 0.2;
+  params.event_queue_capacity = 2;
+  ImuMotionHealth pipeline(params);
+  feedStatic(&pipeline, 31);
+
+  // A large sample starts impact and, after the rolling window fills, the
+  // alternating samples keep vibration active at the same time.
+  pipeline.process(sample(0.31, Eigen::Vector3d::Zero(),
+                          Eigen::Vector3d(0.0, 0.0, 30.0)));
+  for (int i = 1; i <= 4; ++i) {
+    const double sign = i % 2 == 0 ? 1.0 : -1.0;
+    pipeline.process(sample(0.31 + i * 0.01, Eigen::Vector3d::Zero(),
+                            Eigen::Vector3d(2.0 * sign, 0.0, kGravity)));
+  }
+  EXPECT_LE(pipeline.pendingEventCount(), 2u);
+  pipeline.flushEvents(0.40);
+  EXPECT_LE(pipeline.pendingEventCount(), 2u);
+  EXPECT_GT(pipeline.droppedEventCount(), 0u);
+}
+
+TEST(ImuMotionHealth, ActiveEventSnapshotsContinueWithSameIdAndGrowingPeaks) {
+  ImuMotionHealthParams params = testParams();
+  params.event_hold_duration_s = 0.10;
+  params.vibration_rms_threshold = 100.0;
+  ImuMotionHealth pipeline(params);
+  feedStatic(&pipeline, 31);
+
+  pipeline.process(sample(0.31, Eigen::Vector3d::Zero(),
+                          Eigen::Vector3d(0.0, 0.0, 30.0)));
+  auto lifecycle = pipeline.drainEvents();
+  ASSERT_EQ(lifecycle.size(), 1u);
+  ASSERT_EQ(lifecycle.front().phase,
+            localization_zoo::imu_motion_health::ImuEventPhase::kStarted);
+  const std::uint64_t id = lifecycle.front().id;
+  EXPECT_EQ(pipeline.activeEventCount(), 1u);
+  auto active = pipeline.activeEvents();
+  ASSERT_EQ(active.size(), 1u);
+  EXPECT_EQ(active.front().id, id);
+  EXPECT_EQ(active.front().phase,
+            localization_zoo::imu_motion_health::ImuEventPhase::kUpdated);
+  EXPECT_NE(localization_zoo::imu_motion_health::toJson(active.front()).find(
+                "\"phase\":\"updated\""),
+            std::string::npos);
+  EXPECT_NEAR(active.front().duration_s, 0.0, 1e-12);
+  EXPECT_EQ(pipeline.pendingEventCount(), 0u);
+
+  pipeline.process(sample(0.32, Eigen::Vector3d::Zero(),
+                          Eigen::Vector3d(0.0, 0.0, 35.0)));
+  active = pipeline.activeEvents();
+  ASSERT_EQ(active.size(), 1u);
+  EXPECT_EQ(active.front().id, id);
+  EXPECT_GT(active.front().duration_s, 0.0);
+  EXPECT_GT(active.front().peak_accel_norm, lifecycle.front().peak_accel_norm);
+  EXPECT_TRUE(active.front().peak_accel >= active.front().peak_accel_norm);
+
+  pipeline.flushEvents(0.50);
+  EXPECT_EQ(pipeline.activeEventCount(), 0u);
+  lifecycle = pipeline.drainEvents();
+  ASSERT_EQ(lifecycle.size(), 1u);
+  EXPECT_EQ(lifecycle.front().phase,
+            localization_zoo::imu_motion_health::ImuEventPhase::kEnded);
+  EXPECT_EQ(lifecycle.front().id, id);
+  EXPECT_GT(lifecycle.front().duration_s, active.front().duration_s);
+  EXPECT_NEAR(lifecycle.front().peak_accel_norm, active.front().peak_accel_norm,
+              1e-12);
+}
+
+TEST(ImuMotionHealth, BuiltInAndYamlProfilesAreStrictAndLayerable) {
+  ImuMotionHealthParams wearable;
+  ImuMotionHealthParams vehicle;
+  std::string error;
+  ASSERT_TRUE(localization_zoo::imu_motion_health::applyProfile(
+      "wearable", &wearable, &error)) << error;
+  ASSERT_TRUE(localization_zoo::imu_motion_health::applyProfile(
+      "vehicle", &vehicle, &error)) << error;
+  EXPECT_NE(wearable.impact_accel_threshold, vehicle.impact_accel_threshold);
+  EXPECT_EQ(localization_zoo::imu_motion_health::profileName("UAV"),
+            std::string("drone"));
+
+  const std::string path = "imu_motion_health_profile_test.yaml";
+  {
+    std::ofstream output(path);
+    ASSERT_TRUE(output.good());
+    output << "schema: imu_motion_health_profile_v1\n"
+           << "profile: cargo\n"
+           << "impact_accel_threshold: 9.5\n"
+           << "event_queue_capacity: 7\n";
+  }
+  ImuMotionHealthParams loaded;
+  ASSERT_TRUE(localization_zoo::imu_motion_health::loadProfileFile(
+      path, &loaded, &error)) << error;
+  EXPECT_NEAR(loaded.impact_accel_threshold, 9.5, 1e-12);
+  EXPECT_EQ(loaded.event_queue_capacity, 7u);
+  std::remove(path.c_str());
+
+  {
+    std::ofstream output(path);
+    ASSERT_TRUE(output.good());
+    output << "impct_accel_threshold: 1.0\n";
+  }
+  EXPECT_FALSE(localization_zoo::imu_motion_health::loadYamlProfile(
+      path, &loaded, &error));
+  EXPECT_NE(error.find("unknown profile key"), std::string::npos);
+  std::remove(path.c_str());
+}
+
+TEST(ImuMotionHealth, DetectsPersistentStationaryGyroBiasJump) {
+  ImuMotionHealthParams params = testParams();
+  params.gyro_bias_jump_threshold = 0.15;
+  params.gyro_bias_jump_min_duration_s = 0.02;
+  params.event_hold_duration_s = 0.05;
+  params.vibration_rms_threshold = 100.0;
+  ImuMotionHealth pipeline(params);
+  feedStatic(&pipeline, 31);
+
+  pipeline.process(sample(0.31, Eigen::Vector3d(0.30, 0.0, 0.0),
+                          Eigen::Vector3d(0.0, 0.0, kGravity)));
+  pipeline.process(sample(0.32, Eigen::Vector3d(0.30, 0.0, 0.0),
+                          Eigen::Vector3d(0.0, 0.0, kGravity)));
+  const auto state = pipeline.process(
+      sample(0.33, Eigen::Vector3d(0.30, 0.0, 0.0),
+             Eigen::Vector3d(0.0, 0.0, kGravity)));
+  EXPECT_TRUE(state.gyro_bias_jump);
+  EXPECT_NEAR(state.gyro_bias_delta_norm, 0.30, 1e-9);
+  EXPECT_NEAR(state.gyro_bias_jump_duration_s, 0.02, 1e-9);
+  EXPECT_EQ(state.health_state, HealthState::kDegraded);
+  EXPECT_NE(state.diagnostic.find("gyro bias jump"), std::string::npos);
+  EXPECT_EQ(pipeline.counters().gyro_bias_jump_detections, 1u);
+  EXPECT_GT(pipeline.counters().gyro_bias_jump_samples, 0u);
+
+  auto events = pipeline.drainEvents();
+  ASSERT_FALSE(events.empty());
+  ASSERT_EQ(events.back().type,
+            localization_zoo::imu_motion_health::ImuEventType::kBiasJump);
+  EXPECT_EQ(events.back().phase,
+            localization_zoo::imu_motion_health::ImuEventPhase::kStarted);
+  const std::uint64_t id = events.back().id;
+
+  pipeline.process(sample(0.34, Eigen::Vector3d::Zero(),
+                          Eigen::Vector3d(0.0, 0.0, kGravity)));
+  const auto recovered = pipeline.process(
+      sample(0.38, Eigen::Vector3d::Zero(),
+             Eigen::Vector3d(0.0, 0.0, kGravity)));
+  EXPECT_FALSE(recovered.gyro_bias_jump);
+  EXPECT_EQ(recovered.health_state, HealthState::kReady)
+      << "diagnostic=" << recovered.diagnostic
+      << " startup_quality=" << recovered.startup_quality_ok
+      << " gap=" << recovered.gap << " saturated=" << recovered.saturated
+      << " gyro_jump=" << recovered.gyro_bias_jump;
+  events = pipeline.drainEvents();
+  ASSERT_FALSE(events.empty());
+  EXPECT_EQ(events.back().type,
+            localization_zoo::imu_motion_health::ImuEventType::kBiasJump);
+  EXPECT_EQ(events.back().phase,
+            localization_zoo::imu_motion_health::ImuEventPhase::kEnded);
+  EXPECT_EQ(events.back().id, id);
 }

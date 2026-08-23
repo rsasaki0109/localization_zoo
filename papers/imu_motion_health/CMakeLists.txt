@@ -40,4 +40,17 @@ if(Python3_Interpreter_FOUND)
     COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_CURRENT_SOURCE_DIR}/test/test_imu_motion_health_cli.py
             --cli $<TARGET_FILE:imu_motion_health_cli>)
+
+  # Deterministic fault-matrix generation, CLI evaluation, and the
+  # self-contained dashboard helpers are exercised through unittest.  Keep
+  # this as a separate CTest entry so a missing optional Python environment
+  # never prevents the C++ library from configuring or building.
+  add_test(
+    NAME test_imu_motion_health_evaluation
+    COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/test/test_imu_evaluation.py)
+  add_test(
+    NAME test_imu_motion_health_ros_wiring
+    COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/test/test_imu_ros_wiring.py)
 endif()

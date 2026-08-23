@@ -13,8 +13,10 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <array>
 #include <deque>
 #include <string>
+#include <vector>
 
 namespace localization_zoo {
 namespace imu_motion_health {
@@ -77,11 +79,23 @@ struct ImuMotionHealthParams {
   // cannot observe.
   double stationary_bias_gain = 0.01;
   double leveling_gain = 0.03;
+  // A persistent stationary gyro residual is evidence that the previously
+  // learned bias changed (or the sensor is failing).  It is intentionally
+  // separate from the online bias gain so the jump is observable instead of
+  // being silently absorbed by calibration.
+  double gyro_bias_jump_threshold = 0.25;       // rad/s vector residual
+  double gyro_bias_jump_min_duration_s = 0.05;  // seconds before confirmation
 
   // Integration guard.  The public position/velocity are explicitly
   // short-term relative dead reckoning, not globally bounded localization.
   double max_integration_dt_s = 0.10;
   bool zero_velocity_when_stationary = true;
+
+  // Event delivery.  Motion events are edge-triggered records (started and
+  // ended) kept in a bounded FIFO so a real-time producer cannot grow memory
+  // without limit when a consumer is temporarily slower.
+  std::size_t event_queue_capacity = 256;
+  bool emit_moving_events = false;
 };
 
 enum class MotionState {
@@ -131,6 +145,8 @@ struct ImuMotionHealthCounters {
   std::uint64_t impact_samples = 0;
   std::uint64_t fall_samples = 0;
   std::uint64_t vibration_samples = 0;
+  std::uint64_t gyro_bias_jump_samples = 0;
+  std::uint64_t gyro_bias_jump_detections = 0;
 };
 
 struct ImuMotionHealthState {
@@ -164,6 +180,7 @@ struct ImuMotionHealthState {
   bool impact = false;
   bool fall = false;
   bool vibration = false;
+  bool gyro_bias_jump = false;
   bool degraded = false;
   double confidence = 0.0;  // [0, 1], confidence in this snapshot
 
@@ -172,6 +189,8 @@ struct ImuMotionHealthState {
   double accel_norm = 0.0;
   double linear_accel_norm = 0.0;
   double vibration_rms = 0.0;
+  double gyro_bias_delta_norm = 0.0;
+  double gyro_bias_jump_duration_s = 0.0;
   double freefall_duration_s = 0.0;
   double tilt_angle_rad = 0.0;
   double tilt_angle_deg = 0.0;
@@ -201,6 +220,85 @@ using ImuHealthState = ImuMotionHealthState;
 
 const char* motionStateName(MotionState state);
 const char* healthStateName(HealthState state);
+
+// Events are deliberately separate from MotionState: impact, fall and
+// vibration can overlap even though the legacy single-valued motion_state
+// retains its existing priority order.  An event id is unique within one
+// processor stream and is shared by its started and ended records.
+enum class ImuEventType {
+  kImpact,
+  kFall,
+  kVibration,
+  kMoving,
+  kBiasJump,
+
+  Impact = kImpact,
+  Fall = kFall,
+  Vibration = kVibration,
+  Moving = kMoving,
+  BiasJump = kBiasJump,
+};
+
+enum class ImuEventPhase {
+  kStarted,
+  kEnded,
+  // Appended after the original values to preserve the started/ended ABI.
+  // Continued is a readable alias; JSON uses the canonical "updated" name.
+  kUpdated,
+
+  Started = kStarted,
+  Ended = kEnded,
+  Updated = kUpdated,
+  Continued = kUpdated,
+};
+
+using MotionEventType = ImuEventType;
+using EventType = ImuEventType;
+using EventPhase = ImuEventPhase;
+
+struct ImuMotionEvent {
+  std::uint64_t id = 0;
+  ImuEventType type = ImuEventType::kImpact;
+  ImuEventPhase phase = ImuEventPhase::kStarted;
+
+  // timestamp is the emission timestamp.  A started record has no end time;
+  // its duration is zero until the ended record is emitted.
+  double timestamp = 0.0;
+  double start_timestamp = 0.0;
+  double end_timestamp = 0.0;
+  bool has_end_timestamp = false;
+  double duration_s = 0.0;
+
+  double peak_accel_norm = 0.0;
+  double peak_gyro_norm = 0.0;
+  double peak_vibration_rms = 0.0;
+  double peak_confidence = 0.0;
+
+  // Short aliases for integrations that use the state field names without
+  // the explicit norm/RMS suffix.  They mirror the canonical fields above.
+  double peak_accel = 0.0;
+  double peak_gyro = 0.0;
+  double peak_vibration = 0.0;
+  double confidence = 0.0;
+};
+
+using ImuEvent = ImuMotionEvent;
+
+const char* eventTypeName(ImuEventType type);
+const char* eventPhaseName(ImuEventPhase phase);
+std::string toJson(const ImuMotionEvent& event);
+
+// Built-in deployment profiles and a deliberately strict, dependency-free
+// YAML subset loader.  The loader accepts one mapping of scalar keys (with an
+// optional `imu_motion_health:`/`params:` root), rejects unknown keys and
+// malformed values, and never silently ignores a typo.
+const char* profileName(const std::string& name);
+bool applyProfile(const std::string& name, ImuMotionHealthParams* params,
+                  std::string* error = nullptr);
+bool loadProfileFile(const std::string& path, ImuMotionHealthParams* params,
+                     std::string* error = nullptr);
+bool loadYamlProfile(const std::string& path, ImuMotionHealthParams* params,
+                     std::string* error = nullptr);
 
 // Stable, dependency-free JSON for a snapshot.  It contains scalar/vector
 // fields useful for a CLI or a log file and intentionally has no locale
@@ -247,6 +345,29 @@ class ImuMotionHealth {
   }
   std::string toJson() const { return imu_motion_health::toJson(state_); }
 
+  // Event queue API.  popEvent() returns false when no record is pending.
+  // drainEvents() moves all currently pending records out in FIFO order.
+  bool popEvent(ImuMotionEvent* event);
+  bool popEvent(ImuMotionEvent& event) { return popEvent(&event); }
+  std::vector<ImuMotionEvent> drainEvents();
+  // Return current lifecycle snapshots without consuming or appending to the
+  // pending FIFO.  Each record has phase=updated, the original id/start time,
+  // current duration, and current peak metrics.
+  std::vector<ImuMotionEvent> activeEvents() const;
+  std::size_t activeEventCount() const;
+  std::size_t pendingEventCount() const { return pending_events_.size(); }
+  std::size_t pendingEvents() const { return pendingEventCount(); }
+  bool hasPendingEvents() const { return pendingEventCount() != 0; }
+  std::size_t eventQueueCapacity() const { return params_.event_queue_capacity; }
+  std::uint64_t droppedEventCount() const { return dropped_event_count_; }
+  std::uint64_t eventsDropped() const { return droppedEventCount(); }
+
+  // Close all currently active events at timestamp.  This is useful at EOF in
+  // a replay and for orderly shutdown of a live stream.  A non-finite
+  // timestamp uses the last valid sample timestamp.
+  void flushEvents(double timestamp = 0.0);
+  void finish(double timestamp = 0.0) { flushEvents(timestamp); }
+
  private:
   void finalizeStartup();
   void classify(double timestamp, double dt, bool had_data_error,
@@ -254,7 +375,24 @@ class ImuMotionHealth {
   void updateStateAliases();
   void updateConfidence(bool had_data_error);
   void makeDiagnostic(bool had_data_error);
+  void updateBiasJump(double timestamp, const ImuSample& sample,
+                      bool had_data_error);
+  void updateEvents(double timestamp, bool impact, bool fall, bool vibration,
+                    bool moving, bool bias_jump);
+  void enqueueEvent(const ImuMotionEvent& event);
+  void finishEvent(std::size_t index, double timestamp);
   void clearRuntimeState();
+
+  struct ActiveEvent {
+    bool active = false;
+    std::uint64_t id = 0;
+    double start_timestamp = 0.0;
+    double current_timestamp = 0.0;
+    double peak_accel_norm = 0.0;
+    double peak_gyro_norm = 0.0;
+    double peak_vibration_rms = 0.0;
+    double peak_confidence = 0.0;
+  };
 
   ImuMotionHealthParams params_;
   ImuMotionHealthState state_;
@@ -292,6 +430,21 @@ class ImuMotionHealth {
   Eigen::Vector3d accel_bias_ = Eigen::Vector3d::Zero();
   Eigen::Vector3d gravity_world_ = Eigen::Vector3d(0.0, 0.0, 9.80665);
   double gravity_magnitude_ = 9.80665;
+
+  std::array<ActiveEvent, 5> active_events_{};
+  std::deque<ImuMotionEvent> pending_events_;
+  std::uint64_t next_event_id_ = 1;
+  std::uint64_t dropped_event_count_ = 0;
+  bool event_impact_active_ = false;
+  bool event_fall_active_ = false;
+  bool event_vibration_active_ = false;
+  bool event_moving_active_ = false;
+  bool event_bias_jump_active_ = false;
+
+  bool gyro_bias_jump_candidate_ = false;
+  double gyro_bias_jump_candidate_start_timestamp_ = 0.0;
+  bool gyro_bias_jump_active_ = false;
+  double gyro_bias_jump_until_ = 0.0;
 };
 
 // Names used by a few applications that call all streaming filters

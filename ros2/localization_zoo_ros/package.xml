@@ -3,7 +3,7 @@
 <package format="3">
   <name>localization_zoo_ros</name>
   <version>0.1.0</version>
-  <description>ROS2 wrappers for localization_zoo algorithms</description>
+  <description>ROS2 wrappers for localization_zoo algorithms, including the LiDAR-free IMU Motion &amp; Health node</description>
   <maintainer email="user@example.com">user</maintainer>
   <license>MIT</license>
 

@@ -7,8 +7,15 @@ It accepts timestamped gyroscope and accelerometer samples and provides:
   initial roll/pitch alignment;
 - timestamp, non-finite, saturation and sampling-gap diagnostics;
 - stationary, moving, impact, fall/free-fall and vibration classifications;
+- persistent stationary gyro-bias jump diagnosis with a configurable
+  confirmation duration;
 - a confidence score and a ready/degraded/invalid health state;
 - orientation plus short-term relative velocity and position.
+
+Impact, fall, vibration (and optionally moving) detections are also exposed as
+independent lifecycle events.  This means overlapping conditions are retained
+even though the backwards-compatible `motion_state` field remains a single
+prioritized enum.
 
 The reusable C++ core (`imu_motion_health`) has no ROS or point-cloud
 dependency.  `imu_motion_health_cli` is an offline CSV replay tool built on
@@ -67,6 +74,18 @@ are printed one per line and the final summary is the last JSON line.  Use
 `--summary-output path` when stdout should contain only JSONL snapshots, or
 `--jsonl-output path` when stdout should contain only the summary.
 
+To save event lifecycle records, use `--events-output path` or
+`--emit-events` (stdout).  Every event has a stable `id` shared by its
+`started` and `ended` records.  The CLI closes held events at end-of-file, so a
+replay produces deterministic pairs:
+
+```sh
+build/imu_motion_health/imu_motion_health_cli \
+  --input recording/imu.csv \
+  --events-output recording/imu.events.jsonl \
+  --summary-output recording/imu.summary.json
+```
+
 Useful configuration flags (all distances/angles are in the units shown) are:
 
 | Option | Default | Meaning |
@@ -91,6 +110,35 @@ Useful configuration flags (all distances/angles are in the units shown) are:
 | `--event-hold S` | 0.20 s | Impact/fall/vibration latch time |
 | `--vibration-rms MPS2` | 1.0 | Rolling vibration RMS gate |
 | `--motion-window N` | 20 | Number of samples in motion window |
+| `--event-queue-capacity N` | 256 | Bounded core event FIFO capacity |
+| `--gyro-bias-jump RADPS` | 0.25 | Stationary gyro residual jump gate |
+| `--bias-jump-min-duration S` | 0.05 s | Duration before bias-jump confirmation |
+
+## Profiles and YAML configuration
+
+The CLI includes dependency-free built-ins for `default`, `wearable`,
+`vehicle`, `machine`, `cargo`, and `drone`.  Select one with `--profile NAME`,
+or use one of the checked-in examples under
+`papers/imu_motion_health/config/`:
+
+```sh
+imu_motion_health_cli --input recording/imu.csv \
+  --profile wearable --events-output recording/imu.events.jsonl
+```
+
+`--profile-file PATH` accepts a strict scalar YAML subset: comments and blank
+lines are allowed, mappings may optionally be under `imu_motion_health:` or
+`params:`, and values are finite numbers, booleans, or a `profile:`/`preset:`
+name.  Lists, tabs, duplicate keys, unknown keys, and malformed values are
+rejected as usage errors.  The deterministic precedence is:
+
+```text
+default -> --profile preset -> --profile-file YAML -> explicit CLI options
+```
+
+The precedence is independent of the order in which arguments appear.  A
+profile changes detector policy while preserving board-specific sensor limits
+unless the YAML or CLI overrides them.
 
 Calibration behavior can be changed with `--no-gyro-bias`,
 `--estimate-accel-bias`, `--stationary-bias-gain G`, `--leveling-gain G`, and
@@ -105,13 +153,17 @@ include `timestamp`, `dt`, `sample_rate_hz`, `sample_accepted`, `integrated`,
 `startup_*`, `motion_state`, `health_state`, `confidence`, `gyro_bias`,
 `accel_bias`, `gravity_world`, `orientation_wxyz`, `velocity`, `position`,
 `relative_velocity`, `relative_position`, `tilt_angle_rad`, `tilt_angle_deg`,
-`tilted`, and `diagnostic`.  Vectors are `[x,y,z]`; quaternions are
+`tilted`, `gyro_bias_jump`, `gyro_bias_delta_norm`,
+`gyro_bias_jump_duration_s`, and `diagnostic`.  Vectors are `[x,y,z]`; quaternions are
 `[w,x,y,z]`.  Invalid floating-point values are encoded as JSON `null`, never
 as non-standard `NaN`/`Infinity` tokens.
 
 The final object has `schema: "imu_motion_health_summary_v1"`, stream counts,
 first/last timestamp and duration, final motion/health state, counters, and a
-nested `final_state`.  A shortened example is:
+nested `final_state`.  It also includes `events_started`, `events_ended`,
+`events_dropped`, and `event_counts` (completed events by type, including
+`bias_jump`).  A shortened
+example is:
 
 ```json
 {
@@ -122,6 +174,7 @@ nested `final_state`.  A shortened example is:
   "motion_state": "stationary",
   "health_state": "ready",
   "confidence": 0.92,
+  "event_counts": {"impact": 1, "fall": 0, "vibration": 0, "moving": 0, "bias_jump": 0},
   "counters": {
     "samples": 120,
     "accepted_samples": 120,
@@ -141,6 +194,22 @@ nested `final_state`.  A shortened example is:
 
 The example is abbreviated for readability; actual output includes every
 counter and every state field.
+
+Event JSON uses `schema: "imu_motion_health_event_v1"` and contains `id`,
+`type`, `phase`, `timestamp`, `start_timestamp`, nullable `end_timestamp`,
+`duration_s`, `peak_accel_norm`, `peak_gyro_norm`, `peak_vibration_rms`, and
+`peak_confidence`.  `bias_jump` is emitted when a quiet, gravity-consistent
+segment has a gyro residual above the configured threshold for the minimum
+duration; it degrades health and appears in the same lifecycle stream.  The
+core queue is bounded by
+`ImuMotionHealthParams::event_queue_capacity`; when it fills, the oldest
+pending record is dropped and `droppedEventCount()`/`events_dropped` records the
+loss.  Applications can call `popEvent`, `drainEvents`, `pendingEventCount`,
+and `flushEvents` without depending on ROS or a YAML library.  Ongoing
+lifecycle state is available on demand through `activeEvents()` and
+`activeEventCount()`; those records use phase `updated`, retain the same ID and
+start timestamp, and report current duration/peak metrics.  They are not added
+to the pending FIFO, so polling active state does not flood event output.
 
 ## Deterministic demo
 
@@ -192,3 +261,33 @@ not silently accept a partial stream.
 - Motion/event thresholds are deterministic gates, not a learned classifier.
   Tune them to the sensor's full-scale range, sample rate, mounting, and
   application before using the state as a safety interlock.
+
+## Fault matrix and replay dashboard
+
+The standard-library evaluation tools generate deterministic nominal, impact,
+free-fall, vibration, timestamp, nonfinite, saturation, row-dropout, and
+gyro-bias-jump fixtures.  They replay through the same CLI, score snapshot
+flags/counters/states/events, and render a self-contained HTML dashboard:
+
+```sh
+python papers/imu_motion_health/demo/run_fault_matrix_demo.py \
+  --output-dir build/imu_faults \
+  --cli build/imu_motion_health/imu_motion_health_cli
+```
+
+For the full matrix/evaluator options, existing-artifact mode, event JSONL
+contract, dashboard controls, and physical-IMU acceptance procedure, see
+[evaluation/README.md](evaluation/README.md).  When Python 3 is available,
+`test_imu_motion_health_evaluation` is also registered with CTest alongside
+the core and CLI tests. `test_imu_motion_health_ros_wiring` validates the ROS
+target, package dependencies, launch file, parameter YAML, topics, profiles,
+and event connection even when ROS itself is not installed.
+
+## ROS 2 real-time node
+
+`localization_zoo_ros` includes a dedicated LiDAR-free
+`imu_motion_health_node`. It subscribes to `sensor_msgs/Imu` and publishes
+short-term `nav_msgs/Odometry`, optional TF, health snapshot JSON, and event
+lifecycle JSON. A launch file and ROS parameter YAML are provided; see the
+[ROS 2 wrapper guide](../../ros2/localization_zoo_ros/README.md) for topics,
+profiles, timestamp policy, and commands.

@@ -49,9 +49,12 @@ class PublicDatasetTest(unittest.TestCase):
                   "fall_sensitivity": 1.0, "adl_false_positive_rate": 0.0,
                   "median_latency_s": 0.4}}, "results": [], "acceptance": {}}
         with tempfile.TemporaryDirectory() as directory:
-            output = pathlib.Path(directory) / "report.html"; tool.render(report, output)
+            baseline = json.loads(json.dumps(report)); baseline["passed"] = False
+            baseline["groups"]["cgu_bes"]["adl_false_positive_rate"] = 0.5
+            output = pathlib.Path(directory) / "report.html"; tool.render(report, output, baseline)
             text = output.read_text(encoding="utf-8")
             self.assertIn("Public IMU benchmark", text)
+            self.assertIn("Baseline → tuned", text)
             self.assertNotIn("<script src=", text)
 
 if __name__ == "__main__": unittest.main()

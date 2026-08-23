@@ -221,8 +221,10 @@ def _read_events(path: pathlib.Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()] if path.exists() else []
 
 
-def benchmark(manifest: dict, root: pathlib.Path, cli: pathlib.Path, profile: pathlib.Path, output: pathlib.Path) -> dict:
-    policy = json.loads((profile.parent / "wearable-public-v1-policy.json").read_text(encoding="utf-8"))
+def benchmark(manifest: dict, root: pathlib.Path, cli: pathlib.Path, profile: pathlib.Path,
+              output: pathlib.Path, policy_path: pathlib.Path | None = None) -> dict:
+    policy = (json.loads(policy_path.read_text(encoding="utf-8")) if policy_path else
+              {"event_type": "impact", "minimum_posture_change_deg": 0.0})
     results = []
     for index, entry in enumerate(manifest["recordings"]):
         events = output / "runs" / f"{index:05d}.events.jsonl"; summary = output / "runs" / f"{index:05d}.summary.json"
@@ -251,14 +253,20 @@ def benchmark(manifest: dict, root: pathlib.Path, cli: pathlib.Path, profile: pa
             "passed": all(acceptance.values()), "results": results}
 
 
-def render(report: dict, output: pathlib.Path) -> None:
+def render(report: dict, output: pathlib.Path, baseline: dict | None = None) -> None:
     rows = []
     for name, group in report["groups"].items():
         sensitivity = "—" if group["fall_sensitivity"] is None else f"{group['fall_sensitivity']:.1%}"
         false_positive = "—" if group["adl_false_positive_rate"] is None else f"{group['adl_false_positive_rate']:.1%}"
         latency = "—" if group["median_latency_s"] is None else f"{group['median_latency_s']:.3f}"
         rows.append(f"<tr><td>{html.escape(name)}</td><td>{group['recordings']}</td><td>{sensitivity}</td><td>{false_positive}</td><td>{latency}</td></tr>")
-    document = f"""<!doctype html><meta charset=utf-8><title>Public IMU benchmark</title><style>body{{font:15px system-ui;margin:2rem;max-width:1100px}}table{{border-collapse:collapse;width:100%}}th,td{{padding:.6rem;border-bottom:1px solid #ddd;text-align:left}}.ok{{color:#087830}}.bad{{color:#b42318}}pre{{background:#f6f8fa;padding:1rem;overflow:auto}}</style><h1>Public IMU benchmark</h1><h2 class={'ok' if report['passed'] else 'bad'}>{'PASS' if report['passed'] else 'NEEDS TUNING'}</h2><table><tr><th>Dataset</th><th>Recordings</th><th>Fall sensitivity</th><th>ADL false positives</th><th>Median latency (s)</th></tr>{''.join(rows)}</table><p>CGU-BES latency uses an explicitly labeled kinematic proxy because the dataset has activity-level, not frame-level, fall onset labels.</p><pre>{html.escape(json.dumps(report, indent=2))}</pre>"""
+    comparison = ""
+    if baseline:
+        base = baseline["groups"]["cgu_bes"]; tuned = report["groups"]["cgu_bes"]
+        comparison = ("<h2>Baseline → tuned</h2><table><tr><th>Metric</th><th>Baseline wearable</th><th>wearable-public-v1</th></tr>"
+                      f"<tr><td>Fall sensitivity</td><td>{base['fall_sensitivity']:.1%}</td><td>{tuned['fall_sensitivity']:.1%}</td></tr>"
+                      f"<tr><td>ADL false positives</td><td>{base['adl_false_positive_rate']:.1%}</td><td>{tuned['adl_false_positive_rate']:.1%}</td></tr></table>")
+    document = f"""<!doctype html><meta charset=utf-8><title>Public IMU benchmark</title><style>body{{font:15px system-ui;margin:2rem;max-width:1100px}}table{{border-collapse:collapse;width:100%}}th,td{{padding:.6rem;border-bottom:1px solid #ddd;text-align:left}}.ok{{color:#087830}}.bad{{color:#b42318}}pre{{background:#f6f8fa;padding:1rem;overflow:auto}}</style><h1>Public IMU benchmark</h1><h2 class={'ok' if report['passed'] else 'bad'}>{'PASS' if report['passed'] else 'NEEDS TUNING'}</h2><table><tr><th>Dataset</th><th>Recordings</th><th>Fall sensitivity</th><th>ADL false positives</th><th>Median latency (s)</th></tr>{''.join(rows)}</table>{comparison}<p>CGU-BES latency uses an explicitly labeled kinematic proxy because the dataset has activity-level, not frame-level, fall onset labels.</p><pre>{html.escape(json.dumps({'baseline': baseline, 'tuned': report} if baseline else report, indent=2))}</pre>"""
     output.parent.mkdir(parents=True, exist_ok=True); output.write_text(document, encoding="utf-8")
 
 
@@ -267,8 +275,8 @@ def main(argv=None) -> int:
     p = sub.add_parser("fetch"); p.add_argument("--output", type=pathlib.Path, required=True); p.add_argument("--dataset", action="append", choices=registry(), required=True)
     p = sub.add_parser("convert"); p.add_argument("--cgu", type=pathlib.Path, required=True); p.add_argument("--uci", type=pathlib.Path, required=True); p.add_argument("--parkinson", type=pathlib.Path, required=True); p.add_argument("--output", type=pathlib.Path, required=True); p.add_argument("--uci-limit", type=int, default=300); p.add_argument("--parkinson-limit", type=int, default=100)
     p = sub.add_parser("tune"); p.add_argument("--manifest", type=pathlib.Path, required=True); p.add_argument("--output", type=pathlib.Path, required=True)
-    p = sub.add_parser("benchmark"); p.add_argument("--manifest", type=pathlib.Path, required=True); p.add_argument("--root", type=pathlib.Path, required=True); p.add_argument("--cli", type=pathlib.Path, required=True); p.add_argument("--profile", type=pathlib.Path, required=True); p.add_argument("--output", type=pathlib.Path, required=True)
-    p = sub.add_parser("report"); p.add_argument("--input", type=pathlib.Path, required=True); p.add_argument("--output", type=pathlib.Path, required=True)
+    p = sub.add_parser("benchmark"); p.add_argument("--manifest", type=pathlib.Path, required=True); p.add_argument("--root", type=pathlib.Path, required=True); p.add_argument("--cli", type=pathlib.Path, required=True); p.add_argument("--profile", type=pathlib.Path, required=True); p.add_argument("--policy", type=pathlib.Path); p.add_argument("--output", type=pathlib.Path, required=True); p.add_argument("--allow-fail", action="store_true")
+    p = sub.add_parser("report"); p.add_argument("--input", type=pathlib.Path, required=True); p.add_argument("--baseline", type=pathlib.Path); p.add_argument("--output", type=pathlib.Path, required=True)
     args = parser.parse_args(argv)
     try:
         if args.cmd == "fetch": fetch(args.dataset, args.output)
@@ -278,8 +286,9 @@ def main(argv=None) -> int:
         elif args.cmd == "tune":
             result = tune(json.loads(args.manifest.read_text())["recordings"], args.output); (args.output / "tuning.json").write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
         elif args.cmd == "benchmark":
-            result = benchmark(json.loads(args.manifest.read_text()),args.root,args.cli,args.profile,args.output); (args.output/"benchmark.json").write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8"); return 0 if result["passed"] else 1
-        else: render(json.loads(args.input.read_text()), args.output)
+            result = benchmark(json.loads(args.manifest.read_text()),args.root,args.cli,args.profile,args.output,args.policy); (args.output/"benchmark.json").write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8"); return 0 if result["passed"] or args.allow_fail else 1
+        else: render(json.loads(args.input.read_text()), args.output,
+                     json.loads(args.baseline.read_text()) if args.baseline else None)
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc: print(f"error: {exc}",file=sys.stderr); return 2
     return 0
 

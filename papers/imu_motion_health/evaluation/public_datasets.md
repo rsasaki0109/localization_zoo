@@ -38,10 +38,18 @@ python papers/imu_motion_health/evaluation/public_dataset_benchmark.py benchmark
   --manifest build/imu_public_data/normalized/manifest.json \
   --root build/imu_public_data/normalized \
   --cli build/imu_motion_health/imu_motion_health_cli \
+  --profile papers/imu_motion_health/config/wearable.yaml \
+  --output build/imu_public_data/baseline --allow-fail
+python papers/imu_motion_health/evaluation/public_dataset_benchmark.py benchmark \
+  --manifest build/imu_public_data/normalized/manifest.json \
+  --root build/imu_public_data/normalized \
+  --cli build/imu_motion_health/imu_motion_health_cli \
   --profile build/imu_public_data/results/wearable-public-v1.yaml \
+  --policy build/imu_public_data/results/wearable-public-v1-policy.json \
   --output build/imu_public_data/results
 python papers/imu_motion_health/evaluation/public_dataset_benchmark.py report \
   --input build/imu_public_data/results/benchmark.json \
+  --baseline build/imu_public_data/baseline/benchmark.json \
   --output build/imu_public_data/results/report.html
 ```
 
@@ -61,6 +69,12 @@ kinematic proxy was 1.78 s. Thus the post-impact safety detector passes the
 95% sensitivity and 2% false-positive gates, but it does not meet the earlier
 500 ms pre-impact ambition; that requires a separately labeled predictive
 model such as KFall and must not be claimed from CGU-BES.
+
+The unchanged built-in `wearable` baseline reached 100% CGU sensitivity but
+also triggered on 45.9% of CGU ADLs and 14.3% of the balanced UCI HAR windows
+(0% on Parkinson). The tuned profile therefore trades 3.3 percentage points
+of sensitivity for a measured elimination of false alarms in these evaluated
+sets. Both raw result objects are embedded in the comparison HTML.
 
 The 30° posture confirmation is a downstream fall-candidate policy applied
 after an impact lifecycle event. It is intentionally stored beside, not

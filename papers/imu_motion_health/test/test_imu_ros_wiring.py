@@ -27,6 +27,8 @@ class RosImuMotionHealthWiringTest(unittest.TestCase):
         self.assertIn("add_executable(imu_motion_health_node", cmake)
         self.assertIn("target_link_libraries(imu_motion_health_node imu_motion_health_core)", cmake)
         self.assertIn("imu_motion_health_node\n", cmake)
+        self.assertIn("add_executable(imu_calibration_node", cmake)
+        self.assertIn("imu_calibration_node\n", cmake)
 
         package = ET.parse(ROS_PACKAGE / "package.xml").getroot()
         dependencies = {node.text for node in package.findall("depend")}
@@ -65,6 +67,21 @@ class RosImuMotionHealthWiringTest(unittest.TestCase):
         self.assertIn("ros__parameters:", config)
         self.assertIn("profile: cargo", config)
         self.assertIn("imu_topic: /imu_raw", config)
+
+    def test_calibration_node_and_combined_launch(self) -> None:
+        source = (ROS_PACKAGE / "src" / "imu_calibration_node.cpp").read_text(encoding="utf-8")
+        for evidence in ("sensor_msgs::msg::Temperature", "gyro_bias_at_reference",
+                         "gyro_temperature_coefficient", "max_temperature_age_s",
+                         "accel_bias", "publisher_->publish(output)"):
+            self.assertIn(evidence, source)
+        launch_path = ROS_PACKAGE / "launch" / "imu_calibrated_motion_health.launch.py"
+        ast.parse(launch_path.read_text(encoding="utf-8"), filename=str(launch_path))
+        launch_text = launch_path.read_text(encoding="utf-8")
+        self.assertIn('executable="imu_calibration_node"', launch_text)
+        self.assertIn('"imu_topic": "/imu/calibrated"', launch_text)
+        config = (ROS_PACKAGE / "config" / "imu_calibration.yaml").read_text(encoding="utf-8")
+        self.assertIn("reference_temperature_c:", config)
+        self.assertIn("gyro_temperature_coefficient:", config)
 
 
 if __name__ == "__main__":

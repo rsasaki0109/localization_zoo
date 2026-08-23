@@ -184,6 +184,10 @@ add_executable(imu_motion_health_node src/imu_motion_health_node.cpp)
 target_link_libraries(imu_motion_health_node imu_motion_health_core)
 ament_target_dependencies(imu_motion_health_node ${ROS_DEPS})
 
+# Bias and temperature compensation before the Motion & Health node.
+add_executable(imu_calibration_node src/imu_calibration_node.cpp)
+ament_target_dependencies(imu_calibration_node rclcpp sensor_msgs)
+
 # LiTAMIN2 Node
 add_executable(litamin2_node src/litamin2_node.cpp)
 target_link_libraries(litamin2_node litamin2)
@@ -246,6 +250,7 @@ ament_target_dependencies(xicp_node ${ROS_DEPS})
 
 install(TARGETS
   imu_motion_health_node
+  imu_calibration_node
   litamin2_node aloam_node kiss_icp_node ndt_node ct_icp_node gicp_node
   dlo_node ct_lio_node fast_lio2_node dlio_node relead_node xicp_node
   DESTINATION lib/${PROJECT_NAME}

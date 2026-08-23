@@ -51,3 +51,21 @@ with a throttled warning by default. For drivers that omit timestamps, use
 `zero_stamp_policy:=receive_time` (or `receive_time_fallback:=true`) to use
 the node clock. The receive-time option should only be used when the driver
 cannot provide a monotonic sensor clock.
+
+### Bias and temperature calibration
+
+`imu_calibration_node` subscribes to `/imu_raw` and optional
+`sensor_msgs/msg/Temperature` on `/imu/temperature`, applies the generated
+per-axis constant/temperature gyro bias and accelerometer offset, and publishes
+`/imu/calibrated`. The combined launch connects that output directly to Motion
+& Health:
+
+```bash
+ros2 launch localization_zoo_ros imu_calibrated_motion_health.launch.py \
+  calibration_params_file:=/absolute/path/to/imu_calibration.yaml
+```
+
+Generate the parameter file from `imu_calibration_v1` with
+`calibration_validation.py export-ros`. If no temperature message has arrived,
+the node safely applies the reference-temperature bias. The original message
+header, orientation, and covariance are preserved.

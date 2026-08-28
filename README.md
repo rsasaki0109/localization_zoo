@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>102 methods</b> · <b>73 paper reimplementations</b> · <b>42 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>103 methods</b> · <b>73 paper reimplementations</b> · <b>42 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -26,8 +26,9 @@
   </p>
 </div>
 
-**Try it in one command** — no build, no dataset; runs the synthetic benchmark plus
-committed real-data fixtures and drops `report.html` into `./zoo-demo/`:
+**Try it in one command** — no build, no dataset; runs the quick synthetic and
+committed-data comparison, then drops `report.html` and its reproducibility
+`manifest.json` into `./zoo-demo/`:
 
 ```bash
 docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest
@@ -79,7 +80,7 @@ evaluation tools—even when no reusable author code exists.
 
 The catalog is broader than the manuscript-grade evidence set:
 
-- **Catalog**: all 102 methods, including derived variants and compact baselines.
+- **Catalog**: all 103 methods, including derived variants and compact baselines.
 - **Paper-ready subset**: methods satisfying the
   [tier and ablation criteria](docs/paper_ready_reproducibility.md), frozen in
   [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
@@ -249,11 +250,18 @@ See [experiments](docs/experiments.md), [decisions](docs/decisions.md), and
 ### Quick checks (after clone)
 
 ```bash
-# build + synthetic benchmark + broad real-data fixture suite
+# build + synthetic benchmark + quick real-data fixture suite
 bash evaluation/scripts/demo_localization_zoo.sh
 ```
 
 Output is written under `experiments/results/runs/demo_localization_zoo/`.
+After the first successful run, compare the broader starter set without
+rebuilding:
+
+```bash
+bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile broad
+```
+
 CI-equivalent smoke checks:
 
 ```bash
@@ -262,6 +270,7 @@ bash evaluation/scripts/smoke_multimodal_fixture.sh
 ```
 
 More workflows: [`evaluation/README.md`](evaluation/README.md).
+Activation and retention definitions: [`docs/activation_metrics.md`](docs/activation_metrics.md).
 
 ---
 

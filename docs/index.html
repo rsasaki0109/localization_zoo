@@ -35,9 +35,11 @@
             behind a shared benchmark surface.
           </p>
           <div class="actions">
-            <a class="button primary" href="https://github.com/rsasaki0109/localization_zoo">Star on GitHub</a>
-            <a class="button secondary" href="#methods">Explore Methods</a>
+            <a class="button primary" id="demo-cta" href="#quickstart">Run the 3-minute demo</a>
+            <a class="button secondary" id="explore-cta" href="#methods">Explore Methods</a>
+            <a class="text-link" href="https://github.com/rsasaki0109/localization_zoo">View on GitHub</a>
           </div>
+          <p class="activation-note">No build or dataset required. The first image download may take longer.</p>
           <div class="summary-strip" id="catalog-stats">
             <div>
               <span>Methods</span>
@@ -170,17 +172,36 @@
       <section class="panel compact" id="quickstart">
         <div class="panel-head">
           <div>
-            <p class="eyebrow">Quick Start</p>
-            <h2>Clone, build, smoke test</h2>
+            <p class="eyebrow">3-minute demo</p>
+            <h2>Run a real comparison, no setup required</h2>
           </div>
+          <span class="privacy-note">No usage data is sent</span>
         </div>
-        <div class="code-grid">
-          <pre><code>sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev</code></pre>
-          <pre><code>bash evaluation/scripts/demo_localization_zoo.sh
-xdg-open experiments/results/runs/demo_localization_zoo/report.html</code></pre>
-          <pre><code>bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile quick
-bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile full
-bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
+        <p class="quickstart-lede">Choose your terminal, paste one command, then open the generated report. Docker runs the prebuilt quick profile against bundled fixtures.</p>
+        <div class="platform-tabs" role="tablist" aria-label="Terminal">
+          <button class="platform-tab active" type="button" role="tab" aria-selected="true" data-platform="linux">Linux</button>
+          <button class="platform-tab" type="button" role="tab" aria-selected="false" data-platform="macos">macOS</button>
+          <button class="platform-tab" type="button" role="tab" aria-selected="false" data-platform="powershell">PowerShell</button>
+        </div>
+        <div class="command-shell">
+          <pre><code id="quickstart-command"></code></pre>
+          <button class="copy-button" id="copy-quickstart" type="button">Copy command</button>
+        </div>
+        <div class="success-path" aria-label="Demo completion steps">
+          <div><span>1</span><strong>Run</strong><p>Docker downloads the image and runs the quick comparison.</p></div>
+          <div><span>2</span><strong>Confirm</strong><p>The terminal ends with <code>== Done ==</code>.</p></div>
+          <div><span>3</span><strong>Continue</strong><p>Open <code>zoo-demo/report.html</code> and choose your next run.</p></div>
+        </div>
+        <details class="native-details">
+          <summary>Prefer a native build?</summary>
+          <pre><code>git clone https://github.com/rsasaki0109/localization_zoo.git
+cd localization_zoo
+sudo apt install libeigen3-dev libpcl-dev libopencv-dev libceres-dev libgtest-dev
+bash evaluation/scripts/demo_localization_zoo.sh</code></pre>
+        </details>
+        <div class="local-metrics-note">
+          <p>This page keeps anonymous button counts and first/last visit days in this browser only. It never stores searches or command contents and sends no analytics.</p>
+          <button id="clear-local-metrics" type="button">Clear this browser's counts</button>
         </div>
       </section>
     </main>
@@ -191,6 +212,12 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
       const repoBase = "https://github.com/rsasaki0109/localization_zoo";
 
       const catalogPath = "./methods.json";
+      const activationLogKey = "localization-zoo-activation-v1";
+      const quickstartCommands = {
+        linux: 'mkdir -p zoo-demo && docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest\nxdg-open zoo-demo/report.html',
+        macos: 'mkdir -p zoo-demo && docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest\nopen zoo-demo/report.html',
+        powershell: '$demoDir = Join-Path (Get-Location) "zoo-demo"\nNew-Item -ItemType Directory -Force $demoDir | Out-Null\ndocker run --rm -v "${demoDir}:/out" ghcr.io/rsasaki0109/localization_zoo:latest\nStart-Process (Join-Path $demoDir "report.html")'
+      };
       let catalog = [];
       let tracks = [];
 
@@ -201,6 +228,68 @@ bash evaluation/scripts/demo_localization_zoo.sh --help</code></pre>
         track: "quick",
         query: ""
       };
+
+      function trackActivation(name, detail = {}) {
+        const event = { name, detail, at: new Date().toISOString() };
+        window.dispatchEvent(new CustomEvent("localization-zoo:activation", { detail: event }));
+        try {
+          const today = event.at.slice(0, 10);
+          const previous = JSON.parse(localStorage.getItem(activationLogKey) || "null") || {
+            schema_version: 1,
+            first_seen_day: today,
+            counts: {}
+          };
+          previous.last_seen_day = today;
+          previous.counts[name] = (previous.counts[name] || 0) + 1;
+          localStorage.setItem(activationLogKey, JSON.stringify(previous));
+        } catch (_) {
+          // The funnel remains functional when storage is disabled.
+        }
+      }
+
+      function selectPlatform(platform) {
+        document.querySelectorAll(".platform-tab").forEach((button) => {
+          const active = button.dataset.platform === platform;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-selected", String(active));
+        });
+        document.getElementById("quickstart-command").textContent = quickstartCommands[platform];
+      }
+
+      document.querySelectorAll(".platform-tab").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectPlatform(button.dataset.platform);
+          trackActivation("quickstart_platform_selected", { platform: button.dataset.platform });
+        });
+      });
+
+      document.getElementById("demo-cta").addEventListener("click", () => trackActivation("demo_cta_clicked"));
+      document.getElementById("explore-cta").addEventListener("click", () => trackActivation("method_explorer_clicked"));
+      document.getElementById("clear-local-metrics").addEventListener("click", (event) => {
+        localStorage.removeItem(activationLogKey);
+        event.currentTarget.textContent = "Counts cleared";
+      });
+      document.getElementById("copy-quickstart").addEventListener("click", async (event) => {
+        const active = document.querySelector(".platform-tab.active").dataset.platform;
+        try {
+          await navigator.clipboard.writeText(quickstartCommands[active]);
+          event.currentTarget.textContent = "Copied";
+          setTimeout(() => { event.currentTarget.textContent = "Copy command"; }, 1600);
+          trackActivation("quickstart_command_copied", { platform: active });
+        } catch (_) {
+          event.currentTarget.textContent = "Select and copy the command";
+        }
+      });
+
+      selectPlatform("linux");
+
+      const quickstartObserver = new IntersectionObserver((entries, observer) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          trackActivation("quickstart_viewed");
+          observer.disconnect();
+        }
+      }, { threshold: 0.35 });
+      quickstartObserver.observe(document.getElementById("quickstart"));
 
       function fmt(value, digits = 2) {
         if (value === null || value === undefined || Number.isNaN(Number(value))) {

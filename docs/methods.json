@@ -1603,6 +1603,23 @@
       ]
     },
     {
+      "name": "IMU Motion & Health SDK",
+      "family": "IMU motion and health",
+      "scope": "Production-oriented SDK",
+      "signals": [
+        "IMU"
+      ],
+      "href": "papers/imu_motion_health",
+      "summary": "LiDAR-free 6-axis IMU frontend for startup calibration, stream health, motion classification, event lifecycles, and short-term relative motion, with the same core exposed through a deterministic CSV replay CLI.",
+      "tags": [
+        "imu",
+        "health",
+        "motion-events",
+        "calibration",
+        "cli"
+      ]
+    },
+    {
       "name": "KC-LO",
       "family": "Correlation / entropy",
       "scope": "Paper reimplementation",

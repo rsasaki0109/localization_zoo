@@ -21,9 +21,10 @@ import validate_demo_artifacts
 
 README_REQUIRED_SNIPPETS = [
     "https://rsasaki0109.github.io/localization_zoo/",
-    "docs/assets/hero_seq00.gif",
+    "docs/assets/grid_seq07.png",
+    "docker run --rm",
     "bash evaluation/scripts/demo_localization_zoo.sh",
-    "experiments/results/runs/demo_localization_zoo/report.html",
+    "report.html",
     "manifest.json",
 ]
 
@@ -40,6 +41,11 @@ INDEX_REQUIRED_SNIPPETS = [
     "Coverage",
     "Overview only. Points from different datasets",
     "demo_localization_zoo.sh",
+    "Run the 3-minute demo",
+    "quickstart_command_copied",
+    "clear-local-metrics",
+    "No usage data is sent",
+    "PowerShell",
     "social_card.png",
 ]
 
@@ -288,12 +294,12 @@ def validate_readme(root: Path) -> None:
     if missing:
         raise SystemExit(f"README missing showcase snippets: {', '.join(missing)}")
 
-    hero_path = root / "docs/assets/hero_seq00.gif"
+    hero_path = root / "docs/assets/grid_seq07.png"
     require_file(hero_path)
     with hero_path.open("rb") as handle:
-        signature = handle.read(6)
-    if not signature.startswith(b"GIF8"):
-        raise SystemExit(f"README hero is not a GIF: {hero_path}")
+        signature = handle.read(8)
+    if signature != b"\x89PNG\r\n\x1a\n":
+        raise SystemExit(f"README hero is not a PNG: {hero_path}")
 
 
 def validate_pages_index(root: Path) -> None:

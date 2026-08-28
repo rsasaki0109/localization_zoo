@@ -11,7 +11,7 @@ LIDAR_METHODS_FULL="${LIDAR_METHODS_BROAD},fast_lio2"
 MULTIMODAL_METHODS_QUICK="okvis,fast_livo2"
 MULTIMODAL_METHODS_BROAD="vins_fusion,okvis,orb_slam3,lvi_sam,fast_livo2,r2live"
 MULTIMODAL_METHODS_FULL="${MULTIMODAL_METHODS_BROAD}"
-PROFILE="${DEMO_PROFILE:-broad}"
+PROFILE="${DEMO_PROFILE:-quick}"
 METHODS="${DEMO_METHODS:-}"
 MULTIMODAL_METHODS="${DEMO_MULTIMODAL_METHODS:-}"
 CUSTOM_METHODS=0
@@ -51,7 +51,7 @@ Options:
   --skip-build          Reuse an existing build directory.
   --build-dir PATH      Build directory. Default: ./build
   --profile NAME        Method profile: quick, broad, or full.
-                        Default: broad
+                        Default: quick
   --methods LIST        Comma-separated pcd_dogfooding methods.
                         Overrides the selected profile's LiDAR methods.
   --multimodal-methods LIST
@@ -63,7 +63,7 @@ Options:
 
 Environment:
   BUILD_TYPE=Release    CMake build type.
-  DEMO_PROFILE=broad    Same values as --profile.
+  DEMO_PROFILE=quick    Same values as --profile.
   DEMO_METHODS          Same value as --methods.
   DEMO_MULTIMODAL_METHODS
                         Same value as --multimodal-methods.
@@ -333,6 +333,7 @@ python3 "${ROOT}/evaluation/scripts/validate_demo_artifacts.py" "${VALIDATE_ARGS
 echo
 
 echo "== Done =="
+echo "localization_zoo_demo: OK"
 echo "Report: ${REPORT}"
 echo "Manifest: ${OUT}/manifest.json"
 echo "Synthetic log: ${OUT}/synthetic_benchmark.log"
@@ -342,3 +343,8 @@ echo "LiDAR trajectories: ${OUT}/dogfooding_results"
 if [[ "${RUN_MULTIMODAL}" -eq 1 ]]; then
   echo "Multimodal summary: ${MULTIMODAL_SUMMARY}"
 fi
+echo
+echo "== Next steps =="
+echo "1. Open the report above to confirm the benchmark completed successfully."
+echo "2. Compare more methods: bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile broad"
+echo "3. Choose a method and dataset workflow in ${ROOT}/evaluation/README.md"

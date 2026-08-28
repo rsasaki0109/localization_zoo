@@ -148,6 +148,25 @@ h3 {
   margin-top: 26px;
 }
 
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  color: var(--muted);
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  color: var(--blue);
+}
+
+.activation-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .button,
 .chip-button {
   display: inline-flex;
@@ -845,6 +864,169 @@ td {
   gap: 12px;
 }
 
+.privacy-note {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--teal-soft);
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.quickstart-lede {
+  max-width: 72ch;
+  margin: 0 0 20px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.platform-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.platform-tab {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.platform-tab.active {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: #1d4ed8;
+}
+
+.command-shell {
+  position: relative;
+}
+
+.command-shell pre {
+  min-height: 128px;
+  padding-right: 148px;
+}
+
+.copy-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: #1f2937;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.success-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.success-path > div {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-subtle);
+}
+
+.success-path span {
+  display: inline-grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.success-path strong {
+  font-size: 0.95rem;
+}
+
+.success-path p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.success-path code {
+  display: inline;
+  padding: 0;
+  color: var(--ink);
+  font-size: inherit;
+}
+
+.native-details {
+  margin-top: 16px;
+  color: var(--muted);
+}
+
+.native-details summary {
+  width: fit-content;
+  color: var(--ink);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.native-details pre {
+  margin-top: 10px;
+}
+
+.local-metrics-note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.local-metrics-note p {
+  max-width: 76ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.local-metrics-note button {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.button:focus-visible,
+.platform-tab:focus-visible,
+.copy-button:focus-visible,
+.local-metrics-note button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 2px;
+}
+
 pre {
   min-height: 98px;
   min-width: 0;
@@ -869,7 +1051,8 @@ code {
   .benchmark-grid,
   .starter-layout,
   .filter-grid,
-  .code-grid {
+  .code-grid,
+  .success-path {
     grid-template-columns: 1fr;
   }
 
@@ -937,6 +1120,16 @@ code {
 
   .panel {
     padding: 16px;
+  }
+
+  .command-shell pre {
+    padding-top: 58px;
+    padding-right: 0;
+  }
+
+  .local-metrics-note {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .scatter,

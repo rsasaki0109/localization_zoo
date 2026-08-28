@@ -127,6 +127,19 @@ class ShowcaseContractTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout)
         self.assertIn("showcase valid", result.stdout)
 
+    def test_demo_defaults_to_quick_profile(self) -> None:
+        result = subprocess.run(
+            ["bash", "evaluation/scripts/demo_localization_zoo.sh", "--help"],
+            cwd=REPO_ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("Default: quick", result.stdout)
+        self.assertIn("DEMO_PROFILE=quick", result.stdout)
+
 
 class DemoReportScriptTests(unittest.TestCase):
     def test_generate_demo_report_from_minimal_outputs(self) -> None:
@@ -235,6 +248,8 @@ class DemoReportScriptTests(unittest.TestCase):
             self.assertIn("Demo Report", report)
             self.assertIn("Synthetic trajectory overlay", report)
             self.assertIn("Committed MCD LiDAR Smoke", report)
+            self.assertIn("Your next useful run", report)
+            self.assertIn("--profile broad", report)
             self.assertIn("OKVIS", report)
 
             manifest = json.loads((tmp / "manifest.json").read_text())

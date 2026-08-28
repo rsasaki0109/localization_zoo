@@ -536,9 +536,30 @@ def render(args: argparse.Namespace, generated_at: str) -> str:
         background: #111827;
         color: #e5e7eb;
       }}
+      .next-grid {{
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }}
+      .next-card {{
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--subtle);
+      }}
+      .next-card strong {{ display: block; margin-bottom: 8px; }}
+      .next-card p {{ margin: 0; color: var(--muted); line-height: 1.5; }}
+      .next-card code {{
+        display: block;
+        overflow-wrap: anywhere;
+        margin-top: 12px;
+        color: var(--ink);
+      }}
       .empty {{ color: var(--muted); }}
       @media (max-width: 840px) {{
         .grid {{ grid-template-columns: 1fr; }}
+        .next-grid {{ grid-template-columns: 1fr; }}
         h1 {{ font-size: 2.7rem; }}
       }}
     </style>
@@ -568,6 +589,29 @@ def render(args: argparse.Namespace, generated_at: str) -> str:
         <p class="eyebrow">Reproduce</p>
         <h2>Run This Locally</h2>
         <pre><code>{esc(args.command)}</code></pre>
+      </section>
+
+      <section class="panel">
+        <p class="eyebrow">Continue</p>
+        <h2>Your next useful run</h2>
+        <p class="lede">The quick demo passed. Keep the build and move from a smoke check to a useful comparison.</p>
+        <div class="next-grid">
+          <article class="next-card">
+            <strong>Compare more methods</strong>
+            <p>Reuse the current build and run the broader starter set.</p>
+            <code>bash evaluation/scripts/demo_localization_zoo.sh --skip-build --profile broad</code>
+          </article>
+          <article class="next-card">
+            <strong>Choose a workflow</strong>
+            <p>Pick LiDAR, multimodal, 2D scan, or a public benchmark path.</p>
+            <code>Open evaluation/README.md</code>
+          </article>
+          <article class="next-card">
+            <strong>Share a reproducible run</strong>
+            <p>Keep the generated command, configuration, and results together.</p>
+            <code>Share manifest.json with report.html</code>
+          </article>
+        </div>
       </section>
 
       <section class="panel">

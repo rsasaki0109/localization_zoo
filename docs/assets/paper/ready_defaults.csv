@@ -287,7 +287,11 @@ mulls,kitti_raw_0009_200,gt-backed,fast,Fast,2.695346,1.204493,experiments/resul
 mulls,kitti_raw_0009_full,gt-backed,fast,Fast,4.609734,3.337311,experiments/results/mulls_kitti_raw_0009_full_matrix.json
 mulls,kitti_raw_0061_200,gt-backed,fast,Fast,0.489837,3.313149,experiments/results/mulls_kitti_raw_0061_matrix.json
 mulls,kitti_raw_0061_full,gt-backed,fast,Fast,11.389561,3.276726,experiments/results/mulls_kitti_raw_0061_full_matrix.json
+mulls,kitti_seq_00_full,gt-backed,fast,Fast,56.819807,1.793965,experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json
+mulls,kitti_seq_02_full,gt-backed,fast,Fast,260.877751,1.722641,experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json
+mulls,kitti_seq_05_full,gt-backed,fast,Fast,26.886131,1.721024,experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json
 mulls,kitti_seq_07_full,gt-backed,fast,Fast,10.501416,4.132687,experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json
+mulls,kitti_seq_08_full,gt-backed,fast,Fast,87.759487,1.693054,experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json
 mulls,mcd_kth_day_06_108,gt-backed,fast,Fast,6.296781,4.122743,experiments/results/mulls_mcd_kth_day_06_matrix.json
 mulls,mcd_ntu_day_02_108,gt-backed,kitti_default,KITTI default,0.097083,1.170111,experiments/results/mulls_mcd_ntu_day_02_matrix.json
 mulls,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.205852,3.810992,experiments/results/mulls_mcd_tuhh_night_09_matrix.json
@@ -345,6 +349,10 @@ suma,kitti_raw_0009_200,gt-backed,default,Default,3.376615,19.189738,experiments
 suma,kitti_raw_0009_full,gt-backed,dense,Dense,4.072790,15.619824,experiments/results/suma_kitti_raw_0009_full_matrix.json
 suma,kitti_raw_0061_200,gt-backed,dense,Dense,1.495999,33.536524,experiments/results/suma_kitti_raw_0061_matrix.json
 suma,kitti_raw_0061_full,gt-backed,fast,Fast,32.428710,110.931140,experiments/results/suma_kitti_raw_0061_full_matrix.json
+suma,kitti_seq_00_full,gt-backed,dense_profile,dense profile,18.961260,24.174002,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
+suma,kitti_seq_02_full,gt-backed,dense_profile,dense profile,51.910872,24.216214,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
+suma,kitti_seq_05_full,gt-backed,default,default,10.983178,40.331556,experiments/results/suma_kitti_seq_05_full_transfer_matrix.json
+suma,kitti_seq_08_full,gt-backed,dense_profile,dense profile,19.290022,26.626118,experiments/results/suma_kitti_seq_08_full_transfer_matrix.json
 suma,mcd_kth_day_06_108,gt-backed,fast,Fast,7.418622,150.195655,experiments/results/suma_mcd_kth_day_06_matrix.json
 suma,mcd_ntu_day_02_108,gt-backed,dense,Dense,0.035750,33.946904,experiments/results/suma_mcd_ntu_day_02_matrix.json
 suma,mcd_tuhh_night_09_108,gt-backed,default,Default,1.413916,59.102805,experiments/results/suma_mcd_tuhh_night_09_matrix.json

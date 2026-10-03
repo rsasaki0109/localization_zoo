@@ -1,6 +1,6 @@
 # Reproduction Status
 
-_Generated at 2026-10-03T08:40:31+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
+_Generated at 2026-10-03T13:07:47+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
 
 This page records what the repository can currently claim about reproducing original-paper results.
 The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.
@@ -27,8 +27,8 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 | KISS-ICP | `indicative` | Compact baseline | Benchmark-comparable only | Partial only (one sequence) | The public aggregates are windowed runs of the compact pipeline, not full-sequence reruns of the reference implementation. | Run full KITTI sequences and publish an explicit deviation sheet against the upstream KISS-ICP implementation. |
 | CT-ICP | `approximately_reproduced` | Paper-oriented core reimplementation | Approximate reproduction across KITTI Odometry 00/02/05/07/08 | Same metric, ~4.2x ratio (parameter-tuning floor) | Parameter-only ceiling at ~4.2x best-of-sweep ratio (official KITTI RTE) on KITTI 00/02/05/07/08. Closing further requires architectural attention to the continuous-time optimization stack (ceres options, planarity threshold weighting, motion compensation precision) rather than more iterations. | Compare repo CT-ICP step-by-step against the upstream CT-ICP reference implementation to identify which optimization-stack component introduces the remaining ~4.2x ceiling. Also export sequences 01/03/04/06/09/10 for full paper coverage. |
 | CT-LIO | `ported` | Custom integration | Not comparable to a single paper | Reference-based only | There is no single paper-faithful target implementation and protocol behind this path. | Either keep CT-LIO explicitly custom, or add a separate faithful-track implementation with its own benchmark protocol. |
-| MULLS | `indicative` | Derived variant | KITTI Odometry 07 only | Same metric, one sequence, ~9x | Only full KITTI Odometry 07 is exported for MULLS. | Run full KITTI Odometry 00/02/05/08 with the paper-oriented profile and record the official KITTI RTE. |
-| SUMA | `indicative` | Paper reimplementation | KITTI Odometry 07 only | Same metric, one sequence, ~2.7x | Only full KITTI Odometry 07 is exported for SuMa. | Run full KITTI Odometry 00/02/05/08 and record the official KITTI RTE. |
+| MULLS | `indicative` | Derived variant | KITTI Odometry 00/02/05/07/08 | Same metric, ~7.6x ratio | The derived variant implements only the multi-metric registration core; the gap to MULLS-LO is ~7.6x on the official KITTI RTE. | Compare step-by-step with the upstream MULLS implementation to locate the missing components. |
+| SUMA | `indicative` | Paper reimplementation | KITTI Odometry 00/02/05/07/08 | Same metric, ~2.2x ratio | The CPU reimplementation reaches ~2.2x the paper's Frame-to-Model RTE on the official metric. | Compare surfel stability and map fusion against the upstream SuMa implementation. |
 | ALOAM | `indicative` | Paper reimplementation | KITTI Odometry 00/02/05/07/08 | Same metric, secondary-source paper values | The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers. | Compare against the official A-LOAM implementation on the same full sequences. |
 
 ## LiTAMIN2
@@ -123,11 +123,11 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
 - **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 - **Repo scope**: Derived variant. Multi-metric scan-to-map alignment with edge, plane, and point residuals inside the shared benchmark harness.
-- **Current claim**: KITTI Odometry 07 only. Official KITTI RTE of the best swept variant on KITTI Odometry 07 is 2.627 % versus the paper's 0.29 % (MULLS-LO(mc)): 9.06x. The repo variant is a derived multi-metric scan-to-map registration, not the full MULLS pipeline. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-- **Numeric comparison**: Same metric, one sequence, ~9x. Official KITTI RTE, repo vs paper: seq 07 2.627 vs 0.29 (9.06x); best of 3 swept variants. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-- **Main blocker**: Only full KITTI Odometry 07 is exported for MULLS.
-- **Next step**: Run full KITTI Odometry 00/02/05/08 with the paper-oriented profile and record the official KITTI RTE.
-- **Notes**: Paper Table II reports 0.08 s/frame for MULLS-LO(mc).
+- **Current claim**: KITTI Odometry 00/02/05/07/08. Official KITTI RTE of the dense variant: 3.79/4.11/2.68/2.63/4.27 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.51/0.55/0.28/0.29/0.80 % (MULLS-LO(mc)): 5.34-9.56x, geometric mean 7.62x. The repo variant is a derived multi-metric scan-to-map registration, not the full MULLS pipeline. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+- **Numeric comparison**: Same metric, ~7.6x ratio. Official KITTI RTE, repo vs paper: seq 00 3.793 vs 0.51 (7.44x), seq 02 4.107 vs 0.55 (7.47x), seq 05 2.678 vs 0.28 (9.56x), seq 07 2.627 vs 0.29 (9.06x), seq 08 4.271 vs 0.80 (5.34x). Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+- **Main blocker**: The derived variant implements only the multi-metric registration core; the gap to MULLS-LO is ~7.6x on the official KITTI RTE.
+- **Next step**: Compare step-by-step with the upstream MULLS implementation to locate the missing components.
+- **Notes**: Paper Table II reports 0.08 s/frame for MULLS-LO(mc). Transfer runs on 00/02/05/08 ran four sequences concurrently on one host, so their FPS is depressed.
 
 ## SUMA
 
@@ -137,10 +137,10 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 - **Reported dataset**: KITTI Odometry (sequences 00-10)
 - **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
 - **Repo scope**: Paper reimplementation. Dense surfel odometry from range-image maps inside the shared benchmark harness.
-- **Current claim**: KITTI Odometry 07 only. Official KITTI RTE of the best swept variant on KITTI Odometry 07 is 1.095 % versus the paper's 0.4 % (Frame-to-Model, no loop closure): 2.74x. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-- **Numeric comparison**: Same metric, one sequence, ~2.7x. Official KITTI RTE, repo vs paper: seq 07 1.095 vs 0.4 (2.74x); best of 2 swept variants. The paper rounds to one decimal, so the ratio is uncertain by up to ~12 %. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-- **Main blocker**: Only full KITTI Odometry 07 is exported for SuMa.
-- **Next step**: Run full KITTI Odometry 00/02/05/08 and record the official KITTI RTE.
+- **Current claim**: KITTI Odometry 00/02/05/07/08. Official KITTI RTE of the dense profile: 1.60/1.78/1.28/1.10/2.03 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.7/1.1/0.5/0.4/1.0 % (Frame-to-Model, no loop closure): 1.62-2.74x, geometric mean 2.21x. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+- **Numeric comparison**: Same metric, ~2.2x ratio. Official KITTI RTE, repo vs paper: seq 00 1.602 vs 0.7 (2.29x), seq 02 1.785 vs 1.1 (1.62x), seq 05 1.279 vs 0.5 (2.56x), seq 07 1.095 vs 0.4 (2.74x), seq 08 2.035 vs 1.0 (2.03x). The paper rounds to one decimal. Seq 07 is the best of the KITTI 07 sweep; 00/02/05/08 re-use that choice unchanged (held-out transfer manifests *_kitti_seq_NN_full_transfer_matrix.json). See docs/assets/paper/paper_ratio_table.csv (Table 6).
+- **Main blocker**: The CPU reimplementation reaches ~2.2x the paper's Frame-to-Model RTE on the official metric.
+- **Next step**: Compare surfel stability and map fusion against the upstream SuMa implementation.
 - **Notes**: Paper values are rounded to one decimal, so ratios carry up to ~25 % rounding uncertainty on short-error sequences.
 
 ## ALOAM

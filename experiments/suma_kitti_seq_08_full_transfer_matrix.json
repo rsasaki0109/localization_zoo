@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "suma_kitti_seq_08_full_transfer",
+    "title": "SuMa transfer check on KITTI Odom seq 08 full (4071 frames)",
+    "question": "Do the SuMa seq 07 profiles transfer to KITTI Odom seq 08 full without retuning?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_08_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_08_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "suma",
+    "primary_method": "SuMa"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "default",
+      "design_style": "balanced",
+      "intent": "Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.",
+      "args": [
+        "--no-gt-seed"
+      ]
+    },
+    {
+      "id": "dense_profile",
+      "label": "dense profile",
+      "design_style": "accuracy",
+      "intent": "Selected on the KITTI 07 sweep (best RPE); transferred unchanged.",
+      "args": [
+        "--no-gt-seed",
+        "--suma-dense-profile"
+      ]
+    }
+  ]
+}

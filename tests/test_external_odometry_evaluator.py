@@ -52,6 +52,28 @@ class ExternalOdometryEvaluatorTests(unittest.TestCase):
         self.assertAlmostEqual(metrics["rpe_rot_deg_per_m"], 0.0)
         self.assertEqual(metrics["rpe_segments"], 1)
 
+    def test_kitti_rte_matches_devkit_segment_rule(self) -> None:
+        # 1 m per frame along x; the estimate overshoots by 1 %.
+        references = [pose(float(i)) for i in range(1000)]
+        estimates = [pose(1.01 * i) for i in range(1000)]
+        metrics = MODULE.compute_metrics(estimates, references, 100.0)
+        # last = first + length + 1 (first frame strictly beyond the length),
+        # so the error is 0.01 * (length + 1) / length per segment.
+        expected = []
+        for first in range(0, 1000, 10):
+            for length in MODULE.KITTI_RTE_LENGTHS:
+                if first + int(length) + 1 < 1000:
+                    expected.append(0.01 * (length + 1) / length * 100.0)
+        self.assertEqual(metrics["kitti_rte_segments"], len(expected))
+        self.assertAlmostEqual(metrics["kitti_rte_trans_pct"], sum(expected) / len(expected))
+        self.assertAlmostEqual(metrics["kitti_rte_rot_deg_per_100m"], 0.0)
+
+    def test_kitti_rte_is_unavailable_below_100_m(self) -> None:
+        references = [pose(float(i)) for i in range(50)]
+        metrics = MODULE.compute_metrics(references, references, 10.0)
+        self.assertIsNone(metrics["kitti_rte_trans_pct"])
+        self.assertEqual(metrics["kitti_rte_segments"], 0)
+
     def test_undo_conjugation_restores_sensor_poses(self) -> None:
         extrinsic = np.eye(4)
         extrinsic[:3, :3] = MODULE.rpy_matrix(0.1, -0.2, 0.3)

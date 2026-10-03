@@ -25,6 +25,8 @@ Current active binaries: `build/evaluation/multimodal_dogfooding`, `build/evalua
 | `methods[].ate_m` | number or null | Absolute trajectory error in meters. |
 | `methods[].rpe_trans_pct` | number or null | Average 100 m relative translation error in percent. |
 | `methods[].rpe_rot_deg_per_m` | number or null | Average 100 m relative rotation error in degrees per meter. |
+| `methods[].kitti_rte_trans_pct` | number or null | Official KITTI odometry translational error in percent (100-800 m segments every 10th frame); comparable to paper-reported KITTI RTE. Null below 100 m. |
+| `methods[].kitti_rte_rot_deg_per_100m` | number or null | Official KITTI odometry rotational error in degrees per 100 m. |
 | `methods[].frames` | integer | Number of poses evaluated for the method. |
 | `methods[].time_ms` | number or null | End-to-end runtime in milliseconds. |
 | `methods[].fps` | number or null | Effective frames per second. |

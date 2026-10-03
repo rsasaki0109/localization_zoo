@@ -81,6 +81,8 @@ class VariantResult:
     decision: str = ""
     decision_reason: str = ""
     host: dict[str, Any] | None = None
+    kitti_rte_trans_pct: float | None = None
+    kitti_rte_rot_deg_per_100m: float | None = None
 
 
 @dataclass
@@ -257,6 +259,8 @@ def problem_run_from_aggregate(
                 decision=item.get("decision", ""),
                 decision_reason=item.get("decision_reason", ""),
                 host=item.get("host"),
+                kitti_rte_trans_pct=item.get("kitti_rte_trans_pct"),
+                kitti_rte_rot_deg_per_100m=item.get("kitti_rte_rot_deg_per_100m"),
             )
         )
     return ProblemRun(
@@ -435,6 +439,8 @@ def variant_result_from_summary(
         ate_m=method_result["ate_m"],
         rpe_trans_pct=method_result.get("rpe_trans_pct"),
         rpe_rot_deg_per_m=method_result.get("rpe_rot_deg_per_m"),
+        kitti_rte_trans_pct=method_result.get("kitti_rte_trans_pct"),
+        kitti_rte_rot_deg_per_100m=method_result.get("kitti_rte_rot_deg_per_100m"),
         fps=method_result["fps"],
         time_ms=method_result["time_ms"],
         frames=method_result["frames"],
@@ -764,6 +770,10 @@ def variant_result_to_dict(result: VariantResult) -> dict[str, Any]:
         "decision": result.decision,
         "decision_reason": result.decision_reason,
     }
+    # Optional fields are omitted when absent so older aggregates stay unchanged.
+    if result.kitti_rte_trans_pct is not None:
+        payload["kitti_rte_trans_pct"] = result.kitti_rte_trans_pct
+        payload["kitti_rte_rot_deg_per_100m"] = result.kitti_rte_rot_deg_per_100m
     if result.host is not None:
         payload["host"] = result.host
     return payload
@@ -795,6 +805,8 @@ def variant_result_from_dict(data: dict[str, Any]) -> VariantResult:
         decision=str(data.get("decision", "")),
         decision_reason=str(data.get("decision_reason", "")),
         host=data.get("host"),
+        kitti_rte_trans_pct=data.get("kitti_rte_trans_pct"),
+        kitti_rte_rot_deg_per_100m=data.get("kitti_rte_rot_deg_per_100m"),
     )
 
 
@@ -1108,6 +1120,8 @@ def render_interfaces_md(
         "| `methods[].ate_m` | number or null | Absolute trajectory error in meters. |",
         "| `methods[].rpe_trans_pct` | number or null | Average 100 m relative translation error in percent. |",
         "| `methods[].rpe_rot_deg_per_m` | number or null | Average 100 m relative rotation error in degrees per meter. |",
+        "| `methods[].kitti_rte_trans_pct` | number or null | Official KITTI odometry translational error in percent (100-800 m segments every 10th frame); comparable to paper-reported KITTI RTE. Null below 100 m. |",
+        "| `methods[].kitti_rte_rot_deg_per_100m` | number or null | Official KITTI odometry rotational error in degrees per 100 m. |",
         "| `methods[].frames` | integer | Number of poses evaluated for the method. |",
         "| `methods[].time_ms` | number or null | End-to-end runtime in milliseconds. |",
         "| `methods[].fps` | number or null | Effective frames per second. |",

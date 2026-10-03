@@ -128,8 +128,8 @@ Interpretation:
 > closure) 00/02/05/07/08 = 0.78/0.95/0.55/0.48/1.01 %; CT-ICP Table I
 > (KITTI-corrected) = 0.49/0.52/0.25/0.31/0.81 %. Repo RPE values below are
 > unchanged; only the paper column and ratios are wrong. Against the verified
-> values, the best non-GT-seeded repo variants are ~1.12x (LiTAMIN2) and
-> ~3.79x (CT-ICP) geometric mean — see
+> values and on the same official KITTI RTE metric, the best non-GT-seeded
+> repo variants are ~1.22x (LiTAMIN2) and ~4.23x (CT-ICP) geometric mean — see
 > [`assets/paper/paper_ratio_table.csv`](assets/paper/paper_ratio_table.csv)
 > and `evaluation/data/paper_reported_numbers.json`.
 

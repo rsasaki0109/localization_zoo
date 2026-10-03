@@ -15,7 +15,8 @@ FAKE_BINARY = textwrap.dedent(
     import json, sys
     out = sys.argv[sys.argv.index("--summary-json") + 1]
     json.dump({{"methods": [{{"name": "Demo", "status": "OK", "ate_m": 0.5, "fps": 10.0,
-                             "time_ms": 100.0, "frames": 1, "note": ""}}]}}, open(out, "w"))
+                             "time_ms": 100.0, "frames": 1, "note": "",
+                             "kitti_rte_trans_pct": 0.8, "kitti_rte_rot_deg_per_100m": 0.3}}]}}, open(out, "w"))
     """
 )
 
@@ -60,6 +61,8 @@ class RunHostProvenanceTests(unittest.TestCase):
         self.assertNotIn("hostname", fresh.host)
         self.assertEqual(reused.host, fresh.host)
         self.assertEqual(self.runner.variant_result_to_dict(fresh)["host"], fresh.host)
+        self.assertEqual(self.runner.variant_result_to_dict(fresh)["kitti_rte_trans_pct"], 0.8)
+        self.assertEqual(reused.kitti_rte_rot_deg_per_100m, 0.3)
 
     def test_reused_run_without_record_omits_host_field(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

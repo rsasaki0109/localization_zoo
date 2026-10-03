@@ -1407,6 +1407,53 @@ RPEMetrics computeRPE(const std::vector<Eigen::Matrix4d>& est,
   return metrics;
 }
 
+struct KittiRTEMetrics {
+  bool available = false;
+  double trans_pct = 0.0;
+  double rot_deg_per_100m = 0.0;
+  int segments = 0;
+};
+
+// Official KITTI odometry metric (devkit evaluate_odometry.cpp): segments of
+// 100..800 m starting every 10th frame, errors averaged over all segments.
+// Unlike computeRPE this is comparable to paper-reported KITTI RTE.
+KittiRTEMetrics computeKittiRTE(const std::vector<Eigen::Matrix4d>& est,
+                                const std::vector<Eigen::Matrix4d>& gt) {
+  const int n = std::min(est.size(), gt.size());
+  if (n < 2) return {};
+  std::vector<double> dist(n, 0.0);
+  for (int i = 1; i < n; ++i) {
+    dist[i] = dist[i - 1] +
+              (gt[i].block<3, 1>(0, 3) - gt[i - 1].block<3, 1>(0, 3)).norm();
+  }
+  constexpr int kStepSize = 10;
+  constexpr double kLengths[] = {100, 200, 300, 400, 500, 600, 700, 800};
+  double trans_sum = 0.0;
+  double rot_sum = 0.0;
+  int count = 0;
+  for (int first = 0; first < n; first += kStepSize) {
+    for (double len : kLengths) {
+      int last = first;
+      while (last < n && dist[last] <= dist[first] + len) ++last;
+      if (last >= n) continue;
+      const Eigen::Matrix4d delta_gt = gt[first].inverse() * gt[last];
+      const Eigen::Matrix4d delta_est = est[first].inverse() * est[last];
+      const Eigen::Matrix4d err = delta_est.inverse() * delta_gt;
+      const double d = std::clamp(0.5 * (err(0, 0) + err(1, 1) + err(2, 2) - 1.0), -1.0, 1.0);
+      trans_sum += err.block<3, 1>(0, 3).norm() / len;
+      rot_sum += std::acos(d) / len;
+      ++count;
+    }
+  }
+  if (count == 0) return {};
+  KittiRTEMetrics metrics;
+  metrics.available = true;
+  metrics.segments = count;
+  metrics.trans_pct = trans_sum / count * 100.0;
+  metrics.rot_deg_per_100m = rot_sum / count * 180.0 / M_PI * 100.0;
+  return metrics;
+}
+
 int frameToGTIndex(size_t frame_idx, size_t total_pcd_frames, size_t num_gt_poses) {
   if (num_gt_poses == 0) return 0;
   if (num_gt_poses == total_pcd_frames) {
@@ -1486,6 +1533,7 @@ struct MethodResult {
   double rpe_trans_pct = 0;
   double rpe_rot_deg_per_m = 0;
   bool has_rpe = false;
+  KittiRTEMetrics kitti_rte;
   bool skipped = false;
   std::string status = "ok";
   std::string note;
@@ -10873,6 +10921,8 @@ void writeSummaryJson(const std::string& path,
       out << "      \"ate_m\": null,\n";
       out << "      \"rpe_trans_pct\": null,\n";
       out << "      \"rpe_rot_deg_per_m\": null,\n";
+      out << "      \"kitti_rte_trans_pct\": null,\n";
+      out << "      \"kitti_rte_rot_deg_per_100m\": null,\n";
       out << "      \"frames\": 0,\n";
       out << "      \"time_ms\": null,\n";
       out << "      \"fps\": null,\n";
@@ -10895,6 +10945,17 @@ void writeSummaryJson(const std::string& path,
       } else {
         out << "      \"rpe_trans_pct\": null,\n";
         out << "      \"rpe_rot_deg_per_m\": null,\n";
+      }
+      if (r.kitti_rte.available) {
+        out << "      \"kitti_rte_trans_pct\": ";
+        writeJsonNumberOrNull(out, r.kitti_rte.trans_pct);
+        out << ",\n";
+        out << "      \"kitti_rte_rot_deg_per_100m\": ";
+        writeJsonNumberOrNull(out, r.kitti_rte.rot_deg_per_100m);
+        out << ",\n";
+      } else {
+        out << "      \"kitti_rte_trans_pct\": null,\n";
+        out << "      \"kitti_rte_rot_deg_per_100m\": null,\n";
       }
       out << "      \"frames\": " << r.poses.size() << ",\n";
       out << "      \"time_ms\": ";
@@ -16935,6 +16996,7 @@ int main(int argc, char** argv) {
       r.rpe_trans_pct = rpe.trans_pct;
       r.rpe_rot_deg_per_m = rpe.rot_deg_per_m;
     }
+    r.kitti_rte = computeKittiRTE(r.poses, gt);
     if (!std::isfinite(r.ate) ||
         (r.has_rpe && (!std::isfinite(r.rpe_trans_pct) ||
                        !std::isfinite(r.rpe_rot_deg_per_m)))) {

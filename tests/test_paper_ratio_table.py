@@ -51,6 +51,28 @@ class PaperRatioTableTests(unittest.TestCase):
         self.assertEqual(row["repo_pool_size"], "2")
         self.assertEqual(row["repo_pool_median_rpe_pct"], "1.500")
         self.assertEqual(row["paper_source"], "Table I demo")
+        self.assertEqual(row["repo_metric"], "rpe_100m")
+
+    def test_kitti_rte_replaces_100m_rpe_when_recorded(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paper = root / "paper.json"
+            paper.write_text(json.dumps({"methods": {"demo": {"reported_values": {"kitti_00": 0.5}}}}))
+            results = root / "results"
+            results.mkdir()
+            (results / "a_matrix.json").write_text(json.dumps({
+                "stable_interface": {"methods": "demo"},
+                "dataset": {"pcd_dir": "kitti_seq_00_full"},
+                "variants": [
+                    {"id": "old", "rpe_trans_pct": 0.1, "note": ""},
+                    {"id": "new", "rpe_trans_pct": 2.0, "kitti_rte_trans_pct": 1.0, "note": ""},
+                ],
+            }))
+            row = self.module.collect_rows(paper, results)[0]
+        self.assertEqual(row["repo_metric"], "kitti_rte")
+        self.assertEqual(row["repo_best_variant"], "new")
+        self.assertEqual(row["repo_best_rpe_pct"], "1.000")
+        self.assertEqual(row["repo_pool_size"], "1")
 
     def test_every_kitti_paper_value_cites_its_source(self) -> None:
         methods = json.loads(

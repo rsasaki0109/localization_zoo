@@ -8,11 +8,16 @@ same full KITTI Odometry sequence:
   - pool: every variant of that method in experiments/results/*_matrix.json whose
     dataset is kitti_seq_<NN>_full, that produced a translational RPE, and that
     is not GT-seeded (pure odometry only)
-  - best: the lowest RPE in the pool. This is selected on the evaluated sequence,
+  - metric: the official KITTI RTE (kitti_rte_trans_pct, 100-800 m) when any
+    pool variant has it (from the aggregate or from the re-run evidence in
+    experiments/results/kitti_rte_rescore.json), otherwise the repository
+    100 m-segment RPE
+  - best: the lowest error in the pool. Variants with KITTI RTE only from the
+    re-run evidence were themselves the 100 m-RPE best of the full sweep, whose
+    size is reported as selected_from_n. This is selected on the evaluated sequence,
     so it is an optimistic bound, reported next to the pool median and size.
 
-The repository RPE averages 100 m segments, while the papers report the official
-KITTI metric averaged over 100-800 m segments, so ratios are directional.
+Rows on the 100 m RPE fallback are not the paper's metric and are directional only.
 
 Writes under docs/assets/paper/:
   - paper_ratio_table.csv
@@ -33,6 +38,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PAPER_DATA = REPO_ROOT / "evaluation" / "data" / "paper_reported_numbers.json"
 RESULTS_DIR = REPO_ROOT / "experiments" / "results"
+RESCORE_PATH = RESULTS_DIR / "kitti_rte_rescore.json"
 ASSETS_DIR = REPO_ROOT / "docs" / "assets" / "paper"
 
 SEQUENCE_KEY = re.compile(r"kitti_(\d\d)")
@@ -44,10 +50,12 @@ CSV_COLUMNS = [
     "sequence",
     "paper_rte_pct",
     "paper_source",
+    "repo_metric",
     "repo_best_rpe_pct",
     "repo_best_ratio",
     "repo_pool_median_rpe_pct",
     "repo_pool_size",
+    "selected_from_n",
     "repo_best_variant",
     "repo_best_aggregate",
 ]
@@ -65,7 +73,20 @@ def is_gt_seeded(variant: dict[str, Any]) -> bool:
     return bool(GT_SEEDED_NOTE.search(str(variant.get("note", ""))))
 
 
-def collect_pools(results_dir: Path, selectors: set[str]) -> dict[tuple[str, str], list[dict[str, Any]]]:
+def load_rescore(path: Path) -> dict[tuple[str, str], float]:
+    if not path.is_file():
+        return {}
+    return {
+        (Path(item["aggregate_path"]).name, item["variant_id"]): float(item["kitti_rte_trans_pct"])
+        for item in json.loads(path.read_text())["rows"]
+        if item.get("kitti_rte_trans_pct") is not None
+    }
+
+
+def collect_pools(
+    results_dir: Path, selectors: set[str], rescore: dict[tuple[str, str], float] | None = None
+) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    rescore = rescore or {}
     pools: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for path in sorted(results_dir.glob("*_matrix.json")):
         aggregate = json.loads(path.read_text())
@@ -79,9 +100,13 @@ def collect_pools(results_dir: Path, selectors: set[str]) -> dict[tuple[str, str
             rpe = variant.get("rpe_trans_pct")
             if rpe is None or not math.isfinite(float(rpe)) or is_gt_seeded(variant):
                 continue
+            rte = variant.get("kitti_rte_trans_pct")
+            if rte is None:
+                rte = rescore.get((path.name, str(variant["id"])))
             pools.setdefault((selector, match.group(1)), []).append(
                 {
                     "rpe": float(rpe),
+                    "rte": float(rte) if rte is not None and math.isfinite(float(rte)) else None,
                     "variant": str(variant["id"]),
                     "aggregate": f"experiments/results/{path.name}",
                 }
@@ -89,14 +114,16 @@ def collect_pools(results_dir: Path, selectors: set[str]) -> dict[tuple[str, str
     return pools
 
 
-def collect_rows(paper_data: Path, results_dir: Path) -> list[dict[str, str]]:
+def collect_rows(
+    paper_data: Path, results_dir: Path, rescore_path: Path | None = None
+) -> list[dict[str, str]]:
     methods = json.loads(paper_data.read_text())["methods"]
     targets = {
         selector: info
         for selector, info in methods.items()
         if any(SEQUENCE_KEY.fullmatch(key) for key in info.get("reported_values", {}))
     }
-    pools = collect_pools(results_dir, set(targets))
+    pools = collect_pools(results_dir, set(targets), load_rescore(rescore_path or results_dir / RESCORE_PATH.name))
     rows: list[dict[str, str]] = []
     for selector, info in sorted(targets.items()):
         source = info.get("reported_source", {})
@@ -107,15 +134,22 @@ def collect_rows(paper_data: Path, results_dir: Path) -> list[dict[str, str]]:
                 continue
             sequence = match.group(1)
             pool = pools.get((selector, sequence), [])
+            selected_from = len(pool)
+            metric = "rpe_100m"
+            if any(item["rte"] is not None for item in pool):
+                metric = "kitti_rte"
+                pool = [{**item, "rpe": item["rte"]} for item in pool if item["rte"] is not None]
             row = {
                 "method": selector,
                 "sequence": sequence,
                 "paper_rte_pct": f"{float(paper_value):.2f}",
                 "paper_source": source_text,
+                "repo_metric": metric if pool else "",
                 "repo_best_rpe_pct": "",
                 "repo_best_ratio": "",
                 "repo_pool_median_rpe_pct": "",
                 "repo_pool_size": str(len(pool)),
+                "selected_from_n": str(selected_from),
                 "repo_best_variant": "",
                 "repo_best_aggregate": "",
             }
@@ -151,11 +185,11 @@ def write_csv(rows: list[dict[str, str]], output_path: Path) -> None:
 def render_tex(rows: list[dict[str, str]]) -> str:
     lines = [
         "% Generated by evaluation/scripts/generate_paper_ratio_table.py; do not edit by hand.",
-        "% Paper: official KITTI RTE (100-800 m). Repo: 100 m-segment RPE, best non-GT-seeded",
-        "% variant selected on the evaluated sequence (optimistic). Ratios are directional.",
+        "% Paper: official KITTI RTE (100-800 m). Repo: best non-GT-seeded variant selected on the",
+        "% evaluated sequence (optimistic); KITTI RTE where recorded, else 100 m RPE (marked *).",
         r"\begin{tabular}{llrrrrr}",
         r"\toprule",
-        r"Method & Seq. & Paper [\%] & Repo best [\%] & Ratio & Repo median [\%] & $n$ \\",
+        r"Method & Seq. & Paper [\%] & Repo best [\%] & Ratio & Repo median [\%] & $n$ / sweep \\",
         r"\midrule",
     ]
     for row in rows:
@@ -163,10 +197,10 @@ def render_tex(rows: list[dict[str, str]]) -> str:
             row["method"].replace("_", r"\_"),
             row["sequence"],
             row["paper_rte_pct"],
-            row["repo_best_rpe_pct"] or "--",
+            (row["repo_best_rpe_pct"] + ("*" if row["repo_metric"] == "rpe_100m" else "")) or "--",
             f"{row['repo_best_ratio']}$\\times$" if row["repo_best_ratio"] else "--",
             row["repo_pool_median_rpe_pct"] or "--",
-            row["repo_pool_size"],
+            f"{row['repo_pool_size']} / {row['selected_from_n']}",
         ]
         lines.append(" & ".join(cells) + r" \\")
     lines += [r"\bottomrule", r"\end{tabular}"]

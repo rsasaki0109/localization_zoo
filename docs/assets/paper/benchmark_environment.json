@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-03T01:28:06+00:00",
+  "generated_at": "2026-10-03T01:31:33+00:00",
   "capture_host": {
     "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
     "logical_cores": 8,
@@ -33,5 +33,10 @@
       "runtime": "Docker on WSL Ubuntu 22.04 host"
     }
   ],
-  "provenance_note": "Experiment aggregates under experiments/results/ do not record the host that produced each run. The capture host is the current benchmark machine, not a claim that every historical row ran on it; FPS values from different hosts should not be compared directly."
+  "run_hosts": {
+    "variants_total": 1276,
+    "variants_with_host": 0,
+    "by_cpu": {}
+  },
+  "provenance_note": "Variants without a per-run host record predate host provenance and cannot be attributed to a machine. The capture host is the current benchmark machine, not a claim that every historical row ran on it; FPS values from different hosts should not be compared directly."
 }

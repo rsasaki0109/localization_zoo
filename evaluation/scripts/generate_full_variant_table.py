@@ -37,6 +37,7 @@ CSV_COLUMNS = [
     "frames",
     "decision",
     "is_current_default",
+    "host_cpu",
     "aggregate_path",
 ]
 
@@ -111,6 +112,7 @@ def collect_rows(index_path: Path, repo_root: Path) -> list[dict[str, str]]:
                     "frames": str(variant.get("frames", "")),
                     "decision": str(variant.get("decision", "")),
                     "is_current_default": str(str(variant["id"]) == entry.get("current_default")).lower(),
+                    "host_cpu": str((variant.get("host") or {}).get("cpu", "")),
                     "aggregate_path": aggregate_path,
                 }
             )

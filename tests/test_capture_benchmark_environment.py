@@ -39,11 +39,29 @@ class CaptureBenchmarkEnvironmentTests(unittest.TestCase):
             "generated_at": "2026-01-01T00:00:00+00:00",
             "capture_host": host,
             "recorded_hosts": [],
+            "run_hosts": {"variants_total": 3, "variants_with_host": 1, "by_cpu": {"Test CPU": 1}},
             "provenance_note": "boundary text",
         })
         self.assertIn("| Ceres Solver | not found |", markdown)
         self.assertIn("## Provenance boundary", markdown)
         self.assertIn("boundary text", markdown)
+        self.assertIn("1 of 3 experiment variants", markdown)
+        self.assertIn("| Test CPU | 1 |", markdown)
+
+    def test_summarize_run_hosts_counts_only_recorded_variants(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "agg.json").write_text(json.dumps({"variants": [
+                {"id": "a", "host": {"cpu": "Test CPU"}},
+                {"id": "b"},
+            ]}))
+            (root / "index.json").write_text(json.dumps(
+                {"problems": [{"aggregate_path": "agg.json"}]}
+            ))
+            summary = self.module.summarize_run_hosts(root / "index.json", root)
+        self.assertEqual(summary, {
+            "variants_total": 2, "variants_with_host": 1, "by_cpu": {"Test CPU": 1},
+        })
 
 
 if __name__ == "__main__":

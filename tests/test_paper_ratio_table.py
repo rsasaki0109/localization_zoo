@@ -91,6 +91,10 @@ class PaperRatioTableTests(unittest.TestCase):
         self.assertEqual(pick("litamin2"), [0.78, 0.95, 0.55, 0.48, 1.01])
         self.assertEqual(pick("ct_icp"), [0.49, 0.52, 0.25, 0.31, 0.81])
         self.assertEqual(methods["kiss_icp"]["reported_values"]["kitti_00"], 0.51)
+        self.assertEqual(pick("mulls"), [0.51, 0.55, 0.28, 0.29, 0.80])
+        self.assertEqual(pick("suma"), [0.7, 1.1, 0.5, 0.4, 1.0])
+        self.assertEqual(pick("aloam"), [0.78, 0.92, 0.57, 0.63, 1.12])
+        self.assertIn("secondary", methods["aloam"]["reported_source"]["arxiv"])
 
 
 if __name__ == "__main__":

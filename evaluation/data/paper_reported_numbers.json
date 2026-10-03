@@ -165,6 +165,114 @@
       "reported_hardware": "Not standardized",
       "reported_fps": null,
       "notes": "CT-LIO in this repo is a custom integration. Not directly comparable to any single published paper. Reference-based comparison only."
+    },
+    "mulls": {
+      "claim_level": "indicative",
+      "paper": "Pan et al., MULLS: Versatile LiDAR SLAM via Multi-metric Linear Least Square, ICRA 2021",
+      "method_readme": "papers/mulls/README.md",
+      "repo_scope_label": "Derived variant",
+      "repo_scope_summary": "Multi-metric scan-to-map alignment with edge, plane, and point residuals inside the shared benchmark harness.",
+      "reproduction_status_label": "KITTI Odometry 07 only",
+      "reproduction_status_summary": "Official KITTI RTE of the best swept variant on KITTI Odometry 07 is 2.627 % versus the paper's 0.29 % (MULLS-LO(mc)): 9.06x. The repo variant is a derived multi-metric scan-to-map registration, not the full MULLS pipeline. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "numeric_comparison_label": "Same metric, one sequence, ~9x",
+      "numeric_comparison_summary": "Official KITTI RTE, repo vs paper: seq 07 2.627 vs 0.29 (9.06x); best of 3 swept variants. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "main_blocker": "Only full KITTI Odometry 07 is exported for MULLS.",
+      "next_step": "Run full KITTI Odometry 00/02/05/08 with the paper-oriented profile and record the official KITTI RTE.",
+      "reported_dataset": "KITTI Odometry (sequences 00-10)",
+      "reported_metric": "KITTI RTE translation [%] (official 100-800 m segments)",
+      "reported_values": {
+        "kitti_00": 0.51,
+        "kitti_01": 0.62,
+        "kitti_02": 0.55,
+        "kitti_03": 0.61,
+        "kitti_04": 0.35,
+        "kitti_05": 0.28,
+        "kitti_06": 0.24,
+        "kitti_07": 0.29,
+        "kitti_08": 0.8,
+        "kitti_09": 0.49,
+        "kitti_10": 0.61
+      },
+      "reported_source": {
+        "arxiv": "2102.03771",
+        "table": "Table II",
+        "row": "MULLS-LO(mc), odometry without loop closure"
+      },
+      "reported_hardware": "Intel Core i7-7700HQ @ 2.80 GHz",
+      "reported_fps": 12.5,
+      "notes": "Paper Table II reports 0.08 s/frame for MULLS-LO(mc)."
+    },
+    "suma": {
+      "claim_level": "indicative",
+      "paper": "Behley and Stachniss, Efficient Surfel-Based SLAM using 3D Laser Range Data in Urban Environments, RSS 2018",
+      "method_readme": "papers/suma/README.md",
+      "repo_scope_label": "Paper reimplementation",
+      "repo_scope_summary": "Dense surfel odometry from range-image maps inside the shared benchmark harness.",
+      "reproduction_status_label": "KITTI Odometry 07 only",
+      "reproduction_status_summary": "Official KITTI RTE of the best swept variant on KITTI Odometry 07 is 1.095 % versus the paper's 0.4 % (Frame-to-Model, no loop closure): 2.74x. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "numeric_comparison_label": "Same metric, one sequence, ~2.7x",
+      "numeric_comparison_summary": "Official KITTI RTE, repo vs paper: seq 07 1.095 vs 0.4 (2.74x); best of 2 swept variants. The paper rounds to one decimal, so the ratio is uncertain by up to ~12 %. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "main_blocker": "Only full KITTI Odometry 07 is exported for SuMa.",
+      "next_step": "Run full KITTI Odometry 00/02/05/08 and record the official KITTI RTE.",
+      "reported_dataset": "KITTI Odometry (sequences 00-10)",
+      "reported_metric": "KITTI RTE translation [%] (official 100-800 m segments)",
+      "reported_values": {
+        "kitti_00": 0.7,
+        "kitti_01": 1.7,
+        "kitti_02": 1.1,
+        "kitti_03": 0.7,
+        "kitti_04": 0.4,
+        "kitti_05": 0.5,
+        "kitti_06": 0.4,
+        "kitti_07": 0.4,
+        "kitti_08": 1.0,
+        "kitti_09": 0.5,
+        "kitti_10": 0.7
+      },
+      "reported_source": {
+        "arxiv": "none (RSS 2018 proceedings p16)",
+        "table": "Table II",
+        "row": "Frame-to-Model without loop closure; translational error [%], one decimal in the paper"
+      },
+      "reported_hardware": "Intel i7-6700 @ 3.4 GHz, 16 GB RAM, Nvidia GeForce GTX 960 (GPU)",
+      "reported_fps": null,
+      "notes": "Paper values are rounded to one decimal, so ratios carry up to ~25 % rounding uncertainty on short-error sequences."
+    },
+    "aloam": {
+      "claim_level": "indicative",
+      "paper": "Zhang and Singh, LOAM: Lidar Odometry and Mapping in Real-time, RSS 2014 (A-LOAM is the HKUST re-implementation)",
+      "method_readme": "papers/aloam/README.md",
+      "repo_scope_label": "Paper reimplementation",
+      "repo_scope_summary": "Curvature features with a three-stage odometry-to-map LOAM pipeline (A-LOAM structure).",
+      "reproduction_status_label": "KITTI Odometry 00/02/05/07/08",
+      "reproduction_status_summary": "Official KITTI RTE of the best swept variant: 1.05/1.03/0.54/0.68/0.98 % on KITTI Odometry 00/02/05/07/08 versus LOAM's 0.78/0.92/0.57/0.63/1.12 % (secondary citation): 0.87-1.35x, geometric mean 1.06x. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "numeric_comparison_label": "Same metric, secondary-source paper values",
+      "numeric_comparison_summary": "Official KITTI RTE, repo vs LOAM: seq 00 1.052 vs 0.78 (1.35x), seq 02 1.029 vs 0.92 (1.12x), seq 05 0.535 vs 0.57 (0.94x), seq 07 0.681 vs 0.63 (1.08x), seq 08 0.975 vs 1.12 (0.87x). Re-runs differ from stored 100 m RPE by up to 0.017 points (code drift). Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "main_blocker": "The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers.",
+      "next_step": "Compare against the official A-LOAM implementation on the same full sequences.",
+      "reported_dataset": "KITTI Odometry (sequences 00-10)",
+      "reported_metric": "KITTI RTE translation [%] (official 100-800 m segments)",
+      "reported_values": {
+        "kitti_00": 0.78,
+        "kitti_01": 1.43,
+        "kitti_02": 0.92,
+        "kitti_03": 0.86,
+        "kitti_04": 0.71,
+        "kitti_05": 0.57,
+        "kitti_06": 0.65,
+        "kitti_07": 0.63,
+        "kitti_08": 1.12,
+        "kitti_09": 0.77,
+        "kitti_10": 0.79
+      },
+      "reported_source": {
+        "arxiv": "2102.03771 (secondary citation)",
+        "table": "MULLS Table II",
+        "row": "LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III"
+      },
+      "reported_hardware": "Not stated in the citing papers",
+      "reported_fps": null,
+      "notes": "Secondary-source values: LOAM (RSS 2014) does not tabulate per-sequence KITTI RTE. The repo implementation follows A-LOAM, not the original LOAM code."
     }
   }
 }

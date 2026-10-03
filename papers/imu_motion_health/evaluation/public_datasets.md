@@ -59,6 +59,22 @@ used to choose thresholds. The checked-in aggregate fixture contains no raw
 participant signal and locks attribution, split isolation, and the decision
 boundary in CI.
 
+## Regression check
+
+`.github/workflows/imu-public-benchmark.yml` re-runs this full pipeline weekly,
+on manual dispatch, and on pull requests that touch `papers/imu_motion_health/`.
+After `benchmark`, run:
+
+```sh
+python papers/imu_motion_health/evaluation/check_public_benchmark.py \
+  --results build/imu_public_data/results
+```
+
+It fails if `tune` no longer selects the committed `wearable-public-v1`
+thresholds and policy, or if any group metric differs from
+[`public_benchmark_expected.json`](public_benchmark_expected.json). Update that
+file only together with a documented reason in this section.
+
 ## Reproduced result (2026-08-24)
 
 The full run used all 195 CGU-BES recordings, 300 deterministic UCI windows,

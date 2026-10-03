@@ -393,6 +393,8 @@ def render_markdown(points: list[VariantPoint], generated_at: str) -> str:
         f"[`default_variant_matrix_long.csv`](assets/paper/default_variant_matrix_long.csv)",
         f"- Full variant results (Table 5): [`full_variant_results.csv`](assets/paper/full_variant_results.csv), "
         f"[`full_variant_results.tex`](assets/paper/full_variant_results.tex)",
+        f"- Continuous-time appendix (Table 7): [`ct_appendix.csv`](assets/paper/ct_appendix.csv), "
+        f"[`ct_appendix.tex`](assets/paper/ct_appendix.tex)",
         f"- Default instability figure: [`default_variant_instability.png`](assets/paper/default_variant_instability.png)",
         f"- Caption snippets: [`paper_captions.md`](paper_captions.md)",
         "",
@@ -448,6 +450,16 @@ def main() -> None:
         [
             sys.executable,
             str(REPO_ROOT / "evaluation/scripts/generate_full_variant_table.py"),
+            "--output-dir",
+            str(ASSETS_DIR),
+        ],
+        cwd=str(REPO_ROOT),
+        check=True,
+    )
+    subprocess.run(
+        [
+            sys.executable,
+            str(REPO_ROOT / "evaluation/scripts/generate_ct_appendix_table.py"),
             "--output-dir",
             str(ASSETS_DIR),
         ],

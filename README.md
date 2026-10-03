@@ -36,25 +36,31 @@ docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:lat
 
 ---
 
-## Promoted LiDAR odometry v10
+## Promoted LiDAR odometry v14
 
-`direction_consistent_rotation_v10` combines the motion-guard KISS frontend
-with official KISS-ICP 1.3.0. Ground truth is used only for scoring.
+`runtime_feasible_reference_v14` keeps the v13 GT-free branch selector and adds
+one runtime guard: the official KISS-ICP reference runs only when the first
+scan has at most 150k points, so dense sensors fall back to the fast primary
+frontend. Ground truth is used only for scoring.
 
-| Public evaluation | v10 ATE | v10 translational RPE | Conservative rate | Result |
+| Public evaluation | v14 ATE | v14 translational RPE | Rate | Comparator |
 |---|---:|---:|---:|---|
-| Fresh KITTI Raw 0023 (474 frames) | 5.494 m | 1.622% | 12.38 FPS | ATE −2.00% vs v6; RPE +0.146% |
-| Same-input KITTI Odometry 04 (271 frames) | **1.145 m** | **0.354%** | 10.67 FPS | Best ATE and translational RPE in the frozen six-method table |
-| External Boreas summer drive (600 frames) | 0.663 m | 0.966% | 3.02 FPS | ATE −0.407% and RPE −0.100% vs v6; dense-sensor runtime limitation |
+| Same-input KITTI Odometry 00 | **8.934 m** | **0.877%** | 120.6 FPS | CUBE-LIO 9.044 m / 0.880% |
+| Same-input KITTI Odometry 07 | **0.772 m** | **0.604%** | 11.9 FPS | CUBE-LIO 1.645 m / 0.624% |
+| Untouched Boreas 2021-09-07 (600 frames, declared before download) | **2.597 m** | **0.962%** | 18.1 FPS | CUBE-LIO 3.050 m / 1.156% at 1.7 FPS |
+| NTU VIRAL eee_01, eee_03, HILTI 2022 Exp14 | median ratio 0.999 | median ratio 0.997 | 10.4 FPS | Official FAST-LIVO2 (= 1.0) |
 
-The frozen comparison also includes v6, MOLA-LO, MAD-ICP, official KISS-ICP,
-and CT-ICP. See the
-[frozen manifest](evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json),
-[aggregate](evaluation/data/lidar_odometry_v10_aggregate.json), and
-[protocol](docs/lidar_odometry_sota_protocol.md). v10 is not universally best;
-its dual frontend is also not real-time on dense Boreas scans.
+The FAST-LIVO2 rows are parity with marginal gains, not a decisive win, and
+on dense Boreas scans v14 deliberately skips the reference branch. See the
+[frozen manifest](evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json),
+[promotion audit](evaluation/data/lidar_odometry_v14_promotion_audit.json), and
+[protocol](docs/lidar_odometry_sota_protocol.md). The earlier v10 KITTI 04,
+KITTI Raw 0023, and Boreas 2021-06-03 comparison against MOLA-LO, MAD-ICP,
+official KISS-ICP, and CT-ICP remains in the
+[v10 aggregate](evaluation/data/lidar_odometry_v10_aggregate.json) and
+[SOTA log](docs/lidar_odometry_sota_log.md).
 
-Re-score the frozen trajectories and verify all hashes from the external SSD:
+Re-score the frozen v10 trajectories and verify all hashes from the external SSD:
 
 ```bash
 export LOCALIZATION_ZOO_DATA_ROOT=/media/external/loc_zoo

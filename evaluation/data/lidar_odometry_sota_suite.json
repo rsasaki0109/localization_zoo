@@ -2,7 +2,10 @@
   "schema_version": 1,
   "data_root_env": "LOCALIZATION_ZOO_DATA_ROOT",
   "objective": "Develop a GT-leak-free LiDAR odometry method that transfers across public datasets.",
-  "promoted_candidate_manifest": "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
+  "promoted_candidate_manifest": "evaluation/data/lidar_odometry_candidate_runtime_feasible_reference_v14.json",
+  "previous_promoted_candidate_manifests": [
+    "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json"
+  ],
   "protocol": {
     "gt_usage": "metrics_only",
     "initialization": "first_pose_anchor_only",

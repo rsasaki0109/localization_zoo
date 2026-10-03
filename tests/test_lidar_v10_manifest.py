@@ -23,9 +23,9 @@ class LidarV10ManifestTests(unittest.TestCase):
     def test_v10_is_promoted_suite_candidate(self) -> None:
         self.assertTrue(self.manifest["promoted"])
         self.assertEqual(self.manifest["status"], "promoted_fresh_heldout_pass")
-        self.assertEqual(
-            self.suite["promoted_candidate_manifest"],
+        self.assertIn(
             "evaluation/data/lidar_odometry_candidate_direction_consistent_rotation_v10.json",
+            self.suite["previous_promoted_candidate_manifests"],
         )
 
     def test_all_development_ate_rows_improve_and_rpe_guard_holds(self) -> None:

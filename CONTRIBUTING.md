@@ -53,6 +53,23 @@ A complete "one paper unit" PR includes:
    measured KITTI results vs the KISS-ICP reference.
 5. Honest notes on where it wins, ties, or loses.
 
+## Changing results on purpose
+
+CI pins every method's ATE, RPE, frame count, and status on the committed
+3-frame MCD fixture (`evaluation/fixtures/mcd_kth_smoke_golden.json`, 0.1 %
+relative tolerance). A change that moves any of them fails the
+"Fixture result drift check" step, even if every test still passes. This is
+how silent drift such as the 2026-08-02 KISS-ICP search change is caught.
+
+If the change is intentional:
+
+1. Download the `fixture-golden-actual` artifact from the failing CI run.
+2. Replace `evaluation/fixtures/mcd_kth_smoke_golden.json` with it.
+3. Say in the PR which methods moved and why, and whether stored
+   `experiments/results` aggregates or frozen evidence need re-running.
+
+New methods added to `smoke_ci_fixture.sh` also need a golden refresh.
+
 ## Style
 
 - C++17. Match the surrounding code's naming, comment density, and idioms.

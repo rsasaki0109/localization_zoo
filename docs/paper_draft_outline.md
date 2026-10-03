@@ -101,7 +101,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - Data source: `experiments/results/index.json`, `docs/variant_analysis.md`, `docs/assets/paper/manuscript_core_defaults.csv` (overview slice only).
 
 ### Figure 1: Pareto Fronts (ATE vs. FPS)
-- Scatter plot of the ready-problem defaults in `docs/assets/paper/ready_defaults.csv` (357 rows as committed; the index now has 390 ready problems, so re-run `export_paper_assets.py` before freezing the figure): ATE (m) vs. FPS.
+- Scatter plot of the ready-problem defaults in `docs/assets/paper/ready_defaults.csv` (386 rows: 390 ready problems minus 4 IMU-only dead-reckoning rows): ATE (m) vs. FPS.
 - Separate markers (or faceting) for GT-backed vs. reference-based contracts.
 - Annotate extremes from the current CSV (e.g., NDT **~0.005 m** ATE on an Istanbul window; **~1717 FPS** peak on a fast multimodal OKVIS row — exact pairings depend on export date).
 - Source: `docs/assets/paper/ready_defaults_pareto.png`.

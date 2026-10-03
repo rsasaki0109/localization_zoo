@@ -17,7 +17,7 @@ Across the **five** method families that currently share the **same twelve bench
 
 ### Sub-Claim 2: The Pareto front is informative and non-trivial
 
-The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/ready_defaults.csv` (one row per **ready** problem instance) spans roughly **0.005 m to 292 m** ATE and **0.17 to 1717** FPS on the machine used for the stored aggregates. No single method family dominates the full front; fast scan-to-map variants (e.g., LiTAMIN2 `fast_*`, Small-GICP on KITTI) coexist with high-throughput multimodal OKVIS configurations and high-accuracy NDT configurations on other windows.
+The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/ready_defaults.csv` (one row per **ready** LiDAR/visual problem instance; IMU-only dead-reckoning rows are excluded) spans roughly **0.005 m to 292 m** ATE and **0.17 to 1717** FPS on the machine used for the stored aggregates. No single method family dominates the full front; fast scan-to-map variants (e.g., LiTAMIN2 `fast_*`, Small-GICP on KITTI) coexist with high-throughput multimodal OKVIS configurations and high-accuracy NDT configurations on other windows.
 
 **Evidence:**
 - `docs/assets/paper/ready_defaults_pareto.png`

@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-03T04:51:30+00:00
+> Generated: 2026-10-03T08:40:31+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -340,5 +340,152 @@ For an explicit statement of implementation scope and what the repo currently cl
 | HDL-400 | Seed-only fast | 0.488 | - | - | 17.48 |
 
 **Notes**: CT-LIO in this repo is a custom integration. Not directly comparable to any single published paper. Reference-based comparison only.
+
+---
+
+## MULLS
+
+**Paper**: Pan et al., MULLS: Versatile LiDAR SLAM via Multi-metric Linear Least Square, ICRA 2021
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
+**Reported FPS**: ~12.5
+**Hardware**: Intel Core i7-7700HQ @ 2.80 GHz
+**Repo scope**: Derived variant — Multi-metric scan-to-map alignment with edge, plane, and point residuals inside the shared benchmark harness.
+**Current claim**: KITTI Odometry 07 only — Official KITTI RTE of the best swept variant on KITTI Odometry 07 is 2.627 % versus the paper's 0.29 % (MULLS-LO(mc)): 9.06x. The repo variant is a derived multi-metric scan-to-map registration, not the full MULLS pipeline. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Same metric, one sequence, ~9x — Official KITTI RTE, repo vs paper: seq 07 2.627 vs 0.29 (9.06x); best of 3 swept variants. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Only full KITTI Odometry 07 is exported for MULLS.
+**Next step**: Run full KITTI Odometry 00/02/05/08 with the paper-oriented profile and record the official KITTI RTE.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.51 |
+| kitti_01 | 0.62 |
+| kitti_02 | 0.55 |
+| kitti_03 | 0.61 |
+| kitti_04 | 0.35 |
+| kitti_05 | 0.28 |
+| kitti_06 | 0.24 |
+| kitti_07 | 0.29 |
+| kitti_08 | 0.80 |
+| kitti_09 | 0.49 |
+| kitti_10 | 0.61 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| HDL-400 | Fast | 0.876 | - | - | 9.34 |
+| KITTI | Fast | 4.610 | - | - | 3.34 |
+| KITTI | Fast | 2.695 | 1.558 | 0.009244 | 1.20 |
+| KITTI | Fast | 11.390 | - | - | 3.28 |
+| KITTI | Fast | 0.490 | - | - | 3.31 |
+| KITTI | Fast | 10.501 | 2.994 | 0.028779 | 4.13 |
+| dogfooding_results/mcd_kth_day_06_108 | Fast | 6.297 | - | - | 4.12 |
+| dogfooding_results/mcd_ntu_day_02_108 | KITTI default | 0.097 | - | - | 1.17 |
+| dogfooding_results/mcd_tuhh_night_09_108 | Fast | 1.206 | - | - | 3.81 |
+
+**Notes**: Paper Table II reports 0.08 s/frame for MULLS-LO(mc).
+
+---
+
+## SUMA
+
+**Paper**: Behley and Stachniss, Efficient Surfel-Based SLAM using 3D Laser Range Data in Urban Environments, RSS 2018
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
+**Hardware**: Intel i7-6700 @ 3.4 GHz, 16 GB RAM, Nvidia GeForce GTX 960 (GPU)
+**Repo scope**: Paper reimplementation — Dense surfel odometry from range-image maps inside the shared benchmark harness.
+**Current claim**: KITTI Odometry 07 only — Official KITTI RTE of the best swept variant on KITTI Odometry 07 is 1.095 % versus the paper's 0.4 % (Frame-to-Model, no loop closure): 2.74x. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Same metric, one sequence, ~2.7x — Official KITTI RTE, repo vs paper: seq 07 1.095 vs 0.4 (2.74x); best of 2 swept variants. The paper rounds to one decimal, so the ratio is uncertain by up to ~12 %. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Only full KITTI Odometry 07 is exported for SuMa.
+**Next step**: Run full KITTI Odometry 00/02/05/08 and record the official KITTI RTE.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.70 |
+| kitti_01 | 1.70 |
+| kitti_02 | 1.10 |
+| kitti_03 | 0.70 |
+| kitti_04 | 0.40 |
+| kitti_05 | 0.50 |
+| kitti_06 | 0.40 |
+| kitti_07 | 0.40 |
+| kitti_08 | 1.00 |
+| kitti_09 | 0.50 |
+| kitti_10 | 0.70 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| HDL-400 | Default | 0.248 | - | - | 74.60 |
+| KITTI | Dense | 4.073 | 1.690 | 0.011810 | 15.62 |
+| KITTI | Default | 3.377 | 1.837 | 0.027786 | 19.19 |
+| KITTI | Dense | 2.245 | 1.471 | 0.006882 | 14.60 |
+| KITTI | Fast | 32.429 | - | - | 110.93 |
+| KITTI | Dense | 1.496 | - | - | 33.54 |
+| dogfooding_results/mcd_kth_day_06_108 | Fast | 7.419 | - | - | 150.20 |
+| dogfooding_results/mcd_ntu_day_02_108 | Dense | 0.036 | - | - | 33.95 |
+| dogfooding_results/mcd_tuhh_night_09_108 | Default | 1.414 | - | - | 59.10 |
+
+**Notes**: Paper values are rounded to one decimal, so ratios carry up to ~25 % rounding uncertainty on short-error sequences.
+
+---
+
+## ALOAM
+
+**Paper**: Zhang and Singh, LOAM: Lidar Odometry and Mapping in Real-time, RSS 2014 (A-LOAM is the HKUST re-implementation)
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
+**Hardware**: Not stated in the citing papers
+**Repo scope**: Paper reimplementation — Curvature features with a three-stage odometry-to-map LOAM pipeline (A-LOAM structure).
+**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the best swept variant: 1.05/1.03/0.54/0.68/0.98 % on KITTI Odometry 00/02/05/07/08 versus LOAM's 0.78/0.92/0.57/0.63/1.12 % (secondary citation): 0.87-1.35x, geometric mean 1.06x. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Same metric, secondary-source paper values — Official KITTI RTE, repo vs LOAM: seq 00 1.052 vs 0.78 (1.35x), seq 02 1.029 vs 0.92 (1.12x), seq 05 0.535 vs 0.57 (0.94x), seq 07 0.681 vs 0.63 (1.08x), seq 08 0.975 vs 1.12 (0.87x). Re-runs differ from stored 100 m RPE by up to 0.017 points (code drift). Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the non-GT-seeded sweep (experiments/results/kitti_rte_rescore.json); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers.
+**Next step**: Compare against the official A-LOAM implementation on the same full sequences.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.78 |
+| kitti_01 | 1.43 |
+| kitti_02 | 0.92 |
+| kitti_03 | 0.86 |
+| kitti_04 | 0.71 |
+| kitti_05 | 0.57 |
+| kitti_06 | 0.65 |
+| kitti_07 | 0.63 |
+| kitti_08 | 1.12 |
+| kitti_09 | 0.77 |
+| kitti_10 | 0.79 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| HDL-400 | Fast | 0.193 | - | - | 13.77 |
+| KITTI | Fast | 6.105 | - | - | 5.78 |
+| KITTI | Fast | 3.470 | 1.715 | 0.005369 | 3.12 |
+| KITTI | Fast | 3.470 | 1.715 | 0.005369 | 4.15 |
+| KITTI | Fast | 3.654 | - | - | 6.01 |
+| KITTI | Fast | 0.527 | - | - | 6.00 |
+| KITTI | KITTI default | 9.521 | 0.914 | 0.007054 | 2.57 |
+| KITTI | Fast | 74.966 | 0.961 | 0.007128 | 4.51 |
+| KITTI | Fast | 7.789 | 0.563 | 0.005456 | 4.06 |
+| KITTI | Fast | 4.031 | 0.691 | 0.006763 | 7.26 |
+| KITTI | Fast | 23.358 | 1.440 | 0.006400 | 4.21 |
+| dogfooding_results/mcd_kth_day_06_108 | Fast | 6.100 | - | - | 6.66 |
+| dogfooding_results/mcd_ntu_day_02_108 | Dense | 0.035 | - | - | 2.96 |
+| dogfooding_results/mcd_tuhh_night_09_108 | Fast | 1.374 | - | - | 6.47 |
+
+**Notes**: Secondary-source values: LOAM (RSS 2014) does not tabulate per-sequence KITTI RTE. The repo implementation follows A-LOAM, not the original LOAM code.
 
 ---

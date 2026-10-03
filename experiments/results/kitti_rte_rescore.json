@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-03T04:51:20+00:00",
+  "generated_at": "2026-10-03T08:40:06+00:00",
   "metric": "official KITTI odometry RTE (100-800 m segments, every 10th frame)",
   "host": {
     "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
@@ -11,6 +11,92 @@
     "architecture": "x86_64"
   },
   "rows": [
+    {
+      "method": "aloam",
+      "sequence": "00",
+      "aggregate_path": "experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json",
+      "variant_id": "fast",
+      "args": [
+        "--aloam-kitti-profile",
+        "--aloam-fast-profile"
+      ],
+      "rescore_extra_args": [],
+      "kitti_rte_trans_pct": 1.051745,
+      "kitti_rte_rot_deg_per_100m": 0.469964,
+      "stored_rpe_trans_pct": 0.900223,
+      "rerun_rpe_trans_pct": 0.893428,
+      "rerun_rpe_abs_delta": 0.0067949999999999955,
+      "frames": 4541,
+      "fps": 3.952679
+    },
+    {
+      "method": "aloam",
+      "sequence": "02",
+      "aggregate_path": "experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json",
+      "variant_id": "kitti_default",
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "rescore_extra_args": [],
+      "kitti_rte_trans_pct": 1.028848,
+      "kitti_rte_rot_deg_per_100m": 0.444153,
+      "stored_rpe_trans_pct": 0.926292,
+      "rerun_rpe_trans_pct": 0.923231,
+      "rerun_rpe_abs_delta": 0.0030609999999999804,
+      "frames": 4661,
+      "fps": 1.658332
+    },
+    {
+      "method": "aloam",
+      "sequence": "05",
+      "aggregate_path": "experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json",
+      "variant_id": "kitti_default",
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "rescore_extra_args": [],
+      "kitti_rte_trans_pct": 0.535037,
+      "kitti_rte_rot_deg_per_100m": 0.324027,
+      "stored_rpe_trans_pct": 0.512096,
+      "rerun_rpe_trans_pct": 0.528651,
+      "rerun_rpe_abs_delta": 0.016554999999999986,
+      "frames": 2761,
+      "fps": 1.483135
+    },
+    {
+      "method": "aloam",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json",
+      "variant_id": "kitti_default",
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "rescore_extra_args": [],
+      "kitti_rte_trans_pct": 0.680647,
+      "kitti_rte_rot_deg_per_100m": 0.435805,
+      "stored_rpe_trans_pct": 0.605313,
+      "rerun_rpe_trans_pct": 0.607458,
+      "rerun_rpe_abs_delta": 0.0021450000000000635,
+      "frames": 1101,
+      "fps": 1.66205
+    },
+    {
+      "method": "aloam",
+      "sequence": "08",
+      "aggregate_path": "experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json",
+      "variant_id": "kitti_default",
+      "args": [
+        "--aloam-kitti-profile"
+      ],
+      "rescore_extra_args": [],
+      "kitti_rte_trans_pct": 0.97473,
+      "kitti_rte_rot_deg_per_100m": 0.329339,
+      "stored_rpe_trans_pct": 1.39463,
+      "rerun_rpe_trans_pct": 1.390107,
+      "rerun_rpe_abs_delta": 0.004523000000000055,
+      "frames": 4071,
+      "fps": 1.761495
+    },
     {
       "method": "ct_icp",
       "sequence": "00",
@@ -267,6 +353,42 @@
       "rerun_rpe_abs_delta": 0.0,
       "frames": 4071,
       "fps": 32.448431
+    },
+    {
+      "method": "mulls",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json",
+      "variant_id": "dense",
+      "args": [
+        "--mulls-kitti-profile",
+        "--mulls-dense-profile"
+      ],
+      "rescore_extra_args": [],
+      "kitti_rte_trans_pct": 2.626886,
+      "kitti_rte_rot_deg_per_100m": 1.752156,
+      "stored_rpe_trans_pct": 2.640504,
+      "rerun_rpe_trans_pct": 2.640504,
+      "rerun_rpe_abs_delta": 0.0,
+      "frames": 1100,
+      "fps": 0.746139
+    },
+    {
+      "method": "suma",
+      "sequence": "07",
+      "aggregate_path": "experiments/results/suma_kitti_seq_07_full_sweep_matrix.json",
+      "variant_id": "dense_profile",
+      "args": [
+        "--no-gt-seed",
+        "--suma-dense-profile"
+      ],
+      "rescore_extra_args": [],
+      "kitti_rte_trans_pct": 1.095186,
+      "kitti_rte_rot_deg_per_100m": 0.718806,
+      "stored_rpe_trans_pct": 0.944163,
+      "rerun_rpe_trans_pct": 0.944163,
+      "rerun_rpe_abs_delta": 0.0,
+      "frames": 1101,
+      "fps": 28.306649
     }
   ]
 }

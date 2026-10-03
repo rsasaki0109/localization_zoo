@@ -43,6 +43,21 @@ TEST(KISSICP, VoxelHashMapSearchCoversConfiguredDistance) {
   EXPECT_TRUE(result.front().point.isApprox(Eigen::Vector3d(1.1, 0.0, 0.0)));
 }
 
+TEST(KISSICP, Legacy27NeighborhoodIsOptIn) {
+  // Same geometry as above: the match is two voxels away but within 1.3 m.
+  VoxelHashMap legacy(1.0, 20, false, 1);
+  legacy.addPoints({Eigen::Vector3d(1.1, 0.0, 0.0)});
+  EXPECT_FALSE(legacy.getCorrespondences({Eigen::Vector3d(-0.1, 0.0, 0.0)}, 1.3)
+                   .front()
+                   .found);
+  // Inside the 27-voxel neighborhood the legacy search still matches.
+  legacy.addPoints({Eigen::Vector3d(0.6, 0.0, 0.0)});
+  const auto near =
+      legacy.getCorrespondences({Eigen::Vector3d(-0.1, 0.0, 0.0)}, 1.3);
+  EXPECT_TRUE(near.front().found);
+  EXPECT_TRUE(near.front().point.isApprox(Eigen::Vector3d(0.6, 0.0, 0.0)));
+}
+
 TEST(KISSICP, FullVoxelUpdatePolicyIsOptIn) {
   const std::vector<Eigen::Vector3d> old_point = {
       Eigen::Vector3d(0.1, 0.1, 0.1)};

@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-03T03:29:22+00:00
+> Generated: 2026-10-03T04:51:30+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -168,7 +168,7 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Hardware**: Not stated in paper
 **Repo scope**: Compact baseline — The repo keeps a small KISS-ICP-style local-map pipeline that preserves the main idea while simplifying the full upstream engineering stack.
 **Current claim**: Benchmark-comparable only — The current implementation is close enough for same-contract comparisons, but it should not be presented as a faithful rerun of the upstream KISS-ICP project.
-**Numeric comparison**: Partial only (one sequence) — The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). The compact pipeline's best swept variant on full seq 00 reaches 1.211 % official KITTI RTE (2.37x); its stored 100 m RPE (0.857 %) no longer reproduces with the current code (1.069 %). Paper values were re-verified against the arXiv PDF on 2026-10-03. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the full non-GT-seeded sweep for that sequence (experiments/results/kitti_rte_rescore.json); selection on the evaluated sequence makes them optimistic. See docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Partial only (one sequence) — The paper reports per-sequence KITTI RTE only for seq 00 (0.51 %) and 04 (0.36 %), plus the 00-10 average (0.50 %). The compact pipeline's best swept variant on full seq 00 reaches 1.045 % official KITTI RTE (2.05x), re-run with --kiss-legacy-27-neighborhood so it reproduces the stored aggregate bit for bit; the post-2026-08-02 default search gives 1.211 %. Paper values were re-verified against the arXiv PDF on 2026-10-03. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the full non-GT-seeded sweep for that sequence (experiments/results/kitti_rte_rescore.json); selection on the evaluated sequence makes them optimistic. See docs/assets/paper/paper_ratio_table.csv (Table 6).
 **Main blocker**: The public aggregates are windowed runs of the compact pipeline, not full-sequence reruns of the reference implementation.
 **Next step**: Run full KITTI sequences and publish an explicit deviation sheet against the upstream KISS-ICP implementation.
 

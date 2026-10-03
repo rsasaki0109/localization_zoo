@@ -2038,6 +2038,10 @@ struct KISSICPDogfoodingOptions {
   double adaptive_motion_guard_max_translation_multiplier = 2.0;
   double adaptive_motion_guard_translation_consistency_m = 0.75;
   double adaptive_motion_guard_rotation_consistency_deg = 5.0;
+  // Appended last: KISSMultiHorizonDogfoodingOptions initializes positionally.
+  // -1 = search all voxels within the correspondence distance (default);
+  // 1 = upstream KISS-ICP 27-voxel neighborhood.
+  int neighbor_voxel_radius = -1;
 };
 
 struct KISSMultiHorizonDogfoodingOptions {
@@ -5958,6 +5962,7 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
   params.local_map_radius = options.local_map_radius;
   params.map_cleanup_interval = options.map_cleanup_interval;
   params.update_full_voxels = options.update_full_voxels;
+  params.neighbor_voxel_radius = options.neighbor_voxel_radius;
   params.use_model_deviation_threshold =
       options.use_model_deviation_threshold;
   params.model_deviation_correspondence_multiplier =
@@ -6048,6 +6053,10 @@ MethodResult runKISSICP(const std::vector<std::string>& pcd_dirs,
          << (options.use_model_deviation_threshold
                  ? options.model_deviation_correspondence_multiplier
                  : 1.0)
+         << "; neighbor_voxel_radius="
+         << (options.neighbor_voxel_radius >= 0
+                 ? std::to_string(options.neighbor_voxel_radius)
+                 : std::string("auto"))
          << "; vertical_angle_correction_deg="
          << options.vertical_angle_correction_deg
          << "; mulran_deskew="
@@ -6112,6 +6121,7 @@ MethodResult runKISSPoseGraph(
   frontend_params.local_map_radius = options.local_map_radius;
   frontend_params.map_cleanup_interval = options.map_cleanup_interval;
   frontend_params.update_full_voxels = options.update_full_voxels;
+  frontend_params.neighbor_voxel_radius = options.neighbor_voxel_radius;
   frontend_params.use_model_deviation_threshold =
       options.use_model_deviation_threshold;
   frontend_params.model_deviation_correspondence_multiplier =
@@ -6324,6 +6334,8 @@ MethodResult runKISSMultiHorizon(
       options.frontend.map_cleanup_interval;
   frontend_params.update_full_voxels =
       options.frontend.update_full_voxels;
+  frontend_params.neighbor_voxel_radius =
+      options.frontend.neighbor_voxel_radius;
   frontend_params.use_model_deviation_threshold =
       options.frontend.use_model_deviation_threshold;
   frontend_params.model_deviation_correspondence_multiplier =
@@ -11083,6 +11095,7 @@ int main(int argc, char** argv) {
               << " [--fixed-map-ndt-scan-context-relock-max-score-delta X]"
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
+              << " [--kiss-legacy-27-neighborhood]"
                << " [--kiss-pg-scan-context-threshold X]"
                << " [--kiss-pg-correction-gain X]"
                << " [--kiss-pg-external-poses KITTI_POSES]"
@@ -14726,6 +14739,13 @@ int main(int argc, char** argv) {
           0, std::stoi(arg.substr(std::string("--kiss-map-cleanup-interval=").size())));
       kiss_multi_horizon_options.frontend.map_cleanup_interval =
           kiss_icp_options.map_cleanup_interval;
+      continue;
+    }
+    if (arg == "--kiss-legacy-27-neighborhood") {
+      // Upstream KISS-ICP / pre-2026-08-02 correspondence search; reproduces
+      // KISS-ICP aggregates recorded before the v14 change.
+      kiss_icp_options.neighbor_voxel_radius = 1;
+      kiss_multi_horizon_options.frontend.neighbor_voxel_radius = 1;
       continue;
     }
     if (arg == "--kiss-update-full-voxels") {

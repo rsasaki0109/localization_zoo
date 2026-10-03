@@ -46,6 +46,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--table", type=Path, default=TABLE)
     parser.add_argument("--output", type=Path, default=OUTPUT)
     parser.add_argument("--method", action="append", default=[], help="Limit to these methods")
+    parser.add_argument(
+        "--extra-arg",
+        action="append",
+        default=[],
+        help="Extra CLI flag appended to every re-run and recorded per row "
+        "(e.g. --kiss-legacy-27-neighborhood to match pre-2026-08-02 KISS aggregates)",
+    )
     return parser.parse_args()
 
 
@@ -84,6 +91,7 @@ def rescore_row(row: dict[str, str], args: argparse.Namespace) -> dict[str, Any]
         str(summary_path),
         *dataset.get("extra_args", []),
         *variant["args"],
+        *getattr(args, "extra_arg", []),
     ]
     subprocess.run(command, cwd=REPO_ROOT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     result = primary_result(
@@ -97,6 +105,7 @@ def rescore_row(row: dict[str, str], args: argparse.Namespace) -> dict[str, Any]
         "aggregate_path": aggregate_path,
         "variant_id": variant["id"],
         "args": variant["args"],
+        "rescore_extra_args": list(getattr(args, "extra_arg", [])),
         "kitti_rte_trans_pct": result.get("kitti_rte_trans_pct"),
         "kitti_rte_rot_deg_per_100m": result.get("kitti_rte_rot_deg_per_100m"),
         "stored_rpe_trans_pct": stored,

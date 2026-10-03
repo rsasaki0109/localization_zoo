@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-03T03:25:27+00:00",
+  "generated_at": "2026-10-03T04:51:20+00:00",
   "metric": "official KITTI odometry RTE (100-800 m segments, every 10th frame)",
   "host": {
     "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
@@ -145,13 +145,16 @@
       "args": [
         "--kiss-fast-profile"
       ],
-      "kitti_rte_trans_pct": 1.211156,
-      "kitti_rte_rot_deg_per_100m": 0.522722,
+      "rescore_extra_args": [
+        "--kiss-legacy-27-neighborhood"
+      ],
+      "kitti_rte_trans_pct": 1.045089,
+      "kitti_rte_rot_deg_per_100m": 0.487034,
       "stored_rpe_trans_pct": 0.856797,
-      "rerun_rpe_trans_pct": 1.068939,
-      "rerun_rpe_abs_delta": 0.21214200000000005,
+      "rerun_rpe_trans_pct": 0.856797,
+      "rerun_rpe_abs_delta": 0.0,
       "frames": 4541,
-      "fps": 4.669839
+      "fps": 5.509337
     },
     {
       "method": "litamin2",

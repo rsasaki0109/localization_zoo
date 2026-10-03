@@ -318,8 +318,10 @@ std::vector<VoxelHashMap::Correspondence> VoxelHashMap::getCorrespondences(
   for (std::int64_t i = 0; i < static_cast<std::int64_t>(points.size()); i++) {
     const auto& query = points[i];
     auto key = toVoxel(query);
-    const int search_radius = std::max(
-        0, static_cast<int>(std::ceil(max_dist / voxel_size_)));
+    const int search_radius =
+        neighbor_voxel_radius_ >= 0
+            ? neighbor_voxel_radius_
+            : std::max(0, static_cast<int>(std::ceil(max_dist / voxel_size_)));
     double best_dist = max_dist_sq;
     Eigen::Vector3d best_point = Eigen::Vector3d::Zero();
     bool found = false;
@@ -365,7 +367,7 @@ std::vector<VoxelHashMap::Correspondence> VoxelHashMap::getCorrespondences(
 KISSICPPipeline::KISSICPPipeline(const KISSICPParams& params)
     : params_(params),
       local_map_(params.voxel_size, params.max_points_per_voxel,
-                 params.update_full_voxels),
+                 params.update_full_voxels, params.neighbor_voxel_radius),
       model_error_squared_sum_(params.initial_threshold *
                                params.initial_threshold),
       model_error_samples_(1) {}

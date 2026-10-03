@@ -52,11 +52,16 @@ public:
     bool found = false;
   };
 
+  /// neighbor_voxel_radius < 0 searches every voxel within the correspondence
+  /// distance; 1 restricts the search to the 27 surrounding voxels as
+  /// upstream KISS-ICP does (and as this repo did before 2026-08-02).
   explicit VoxelHashMap(double voxel_size, int max_points_per_voxel = 20,
-                        bool update_full_voxels = false)
+                        bool update_full_voxels = false,
+                        int neighbor_voxel_radius = -1)
       : voxel_size_(voxel_size),
         max_points_(max_points_per_voxel),
-        update_full_voxels_(update_full_voxels) {}
+        update_full_voxels_(update_full_voxels),
+        neighbor_voxel_radius_(neighbor_voxel_radius) {}
 
   /// 点群をマップに追加
   void addPoints(const std::vector<Eigen::Vector3d>& points);
@@ -79,6 +84,7 @@ private:
   double voxel_size_;
   int max_points_;
   bool update_full_voxels_;
+  int neighbor_voxel_radius_;
 
   struct VoxelBlock {
     std::vector<Eigen::Vector3d> points;
@@ -98,6 +104,7 @@ struct KISSICPParams {
   double local_map_radius = 0.0;
   int map_cleanup_interval = 0;
   bool update_full_voxels = false;
+  int neighbor_voxel_radius = -1;
   bool use_model_deviation_threshold = false;
   double model_deviation_correspondence_multiplier = 3.0;
   bool enable_motion_guard = false;

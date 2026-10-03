@@ -15,6 +15,7 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 - Default matrix (Table 3): [`default_variant_matrix.csv`](assets/paper/default_variant_matrix.csv), [`default_variant_matrix_long.csv`](assets/paper/default_variant_matrix_long.csv)
 - Full variant results (Table 5): [`full_variant_results.csv`](assets/paper/full_variant_results.csv), [`full_variant_results.tex`](assets/paper/full_variant_results.tex)
 - Continuous-time appendix (Table 7): [`ct_appendix.csv`](assets/paper/ct_appendix.csv), [`ct_appendix.tex`](assets/paper/ct_appendix.tex)
+- Original-paper comparison (Table 6): [`paper_ratio_table.csv`](assets/paper/paper_ratio_table.csv), [`paper_ratio_table.tex`](assets/paper/paper_ratio_table.tex)
 - Default instability figure: [`default_variant_instability.png`](assets/paper/default_variant_instability.png)
 - Caption snippets: [`paper_captions.md`](paper_captions.md)
 

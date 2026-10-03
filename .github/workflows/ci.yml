@@ -47,6 +47,21 @@ jobs:
           chmod +x evaluation/scripts/smoke_ci_fixture.sh
           bash evaluation/scripts/smoke_ci_fixture.sh
 
+      - name: Fixture result drift check (golden metrics)
+        run: |
+          python3 evaluation/scripts/check_fixture_golden.py \
+            --summaries experiments/results/runs/ci_fixture_smoke \
+            --golden evaluation/fixtures/mcd_kth_smoke_golden.json \
+            --actual-out fixture-golden-actual/mcd_kth_smoke_golden.json
+
+      - name: Upload fixture golden actual values
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fixture-golden-actual
+          path: fixture-golden-actual/
+          if-no-files-found: ignore
+
       - name: Multimodal smoke (committed 3-frame MCD fixture + visual CSVs)
         run: |
           chmod +x evaluation/scripts/smoke_multimodal_fixture.sh

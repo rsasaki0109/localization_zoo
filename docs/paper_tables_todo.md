@@ -32,10 +32,10 @@
   - Data source: Original papers (manual), `experiments/results/*_profile_matrix.json`.
   - Status: Todo -- original paper numbers not yet collected.
 
-- [ ] **Table 7: CT-LIO Reference-Based Results (Appendix)**
-  - Description: Separate table for HDL-400 reference/native-time-style evaluation versus public ROS1 synthetic-time evidence, explaining the blocked GT status and keeping exact-reproduction claims out of the synth-time rows.
-  - Data source: `experiments/results/ct_lio_reference_profile_matrix.json`, `experiments/results/ct_lio_public_readiness_matrix.json`, `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json`, `experiments/results/ct_icp_hdl_400_public_ros1_synthtime_matrix.json`.
-  - Status: Todo -- data exists but not yet formatted into a manuscript-facing appendix table.
+- [x] **Table 7: CT-LIO Reference-Based Results (Appendix)**
+  - Description: Three separated sections — (A) HDL-400 reference window with native per-point time, (B) public ROS1 HDL-400 window with synthesized per-point time, (C) the blocked GT-backed CT-LIO readiness problem. A and B are both scored against `hdl_400_public_reference.csv` (a reference trajectory, not GT), so neither is an exact-reproduction claim; CLINS rows are flagged as GT-seeded initialization.
+  - Data source: `ct_lio_reference_profile_matrix.json`, `ct_icp_hdl_400_reference_matrix.json`, `ct_lio_hdl_400_public_ros1_synthtime_matrix.json`, `ct_icp_hdl_400_public_ros1_synthtime_matrix.json`, `clins_hdl_400_public_ros1_synthtime_matrix.json`, `ct_lio_public_readiness_matrix.json` under `experiments/results/`.
+  - Status: Done — `evaluation/scripts/generate_ct_appendix_table.py` → `docs/assets/paper/ct_appendix.{csv,tex}`. Invoked from `export_paper_assets.py`.
 
 - [ ] **Table 8: Hardware and Environment Specification**
   - Description: CPU, GPU, RAM, OS, compiler, and library versions used for benchmark runs.

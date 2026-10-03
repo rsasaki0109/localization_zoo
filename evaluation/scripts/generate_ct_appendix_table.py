@@ -1,0 +1,191 @@
+#!/usr/bin/env python3
+"""Build the continuous-time (CT-LIO / CT-ICP / CLINS) appendix table (Table 7).
+
+Keeps three kinds of evidence apart so synthetic-time rows are never read as
+exact native-time reproduction:
+  A. HDL-400 reference window with native per-point time (reference-based)
+  B. Public ROS1 HDL-400 window with synthesized per-point time (reference-based)
+  C. Blocked GT-backed CT-LIO readiness problem
+
+Writes under docs/assets/paper/:
+  - ct_appendix.csv  — one row per variant (blocked problems get one row)
+  - ct_appendix.tex  — LaTeX table body with section rules
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+from pathlib import Path
+from typing import Any
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+RESULTS_DIR = REPO_ROOT / "experiments" / "results"
+ASSETS_DIR = REPO_ROOT / "docs" / "assets" / "paper"
+
+SECTIONS = [
+    (
+        "A",
+        "HDL-400 reference window, native per-point time",
+        ["ct_lio_reference_profile_matrix.json", "ct_icp_hdl_400_reference_matrix.json"],
+    ),
+    (
+        "B",
+        "Public ROS1 HDL-400 window, synthesized per-point time",
+        [
+            "ct_lio_hdl_400_public_ros1_synthtime_matrix.json",
+            "ct_icp_hdl_400_public_ros1_synthtime_matrix.json",
+            "clins_hdl_400_public_ros1_synthtime_matrix.json",
+        ],
+    ),
+    ("C", "GT-backed CT-LIO readiness", ["ct_lio_public_readiness_matrix.json"]),
+]
+
+CSV_COLUMNS = [
+    "section",
+    "section_title",
+    "method",
+    "problem_status",
+    "dataset",
+    "reference_csv",
+    "variant_id",
+    "ate_m",
+    "rpe_trans_pct",
+    "fps",
+    "frames",
+    "is_current_default",
+    "gt_seeded",
+    "blocker",
+    "aggregate_path",
+]
+
+METHOD_NAMES = {"ct_lio": "CT-LIO", "ct_icp": "CT-ICP", "clins": "CLINS"}
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--results-dir", type=Path, default=RESULTS_DIR)
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=ASSETS_DIR,
+        help="Directory for CSV/TeX (default: docs/assets/paper)",
+    )
+    return parser.parse_args()
+
+
+def metric(value: Any) -> str:
+    return "" if value is None else f"{float(value):.6f}"
+
+
+def current_default(aggregate: dict[str, Any]) -> str:
+    for variant in aggregate.get("variants", []):
+        if variant.get("decision") == "Adopt as current default":
+            return str(variant["id"])
+    return ""
+
+
+def collect_rows(results_dir: Path) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for section, title, filenames in SECTIONS:
+        for filename in filenames:
+            aggregate = json.loads((results_dir / filename).read_text())
+            dataset = aggregate.get("dataset", {})
+            selector = str(aggregate["stable_interface"]["methods"])
+            base = {
+                "section": section,
+                "section_title": title,
+                "method": METHOD_NAMES.get(selector, selector),
+                "problem_status": str(aggregate.get("status", "")),
+                "dataset": Path(str(dataset.get("pcd_dir", ""))).name,
+                "reference_csv": str(dataset.get("gt_csv", "")),
+                "blocker": str(aggregate.get("blocker", "")),
+                "aggregate_path": f"experiments/results/{filename}",
+            }
+            variants = aggregate.get("variants", [])
+            if not variants:
+                rows.append({**base, **{key: "" for key in CSV_COLUMNS if key not in base}})
+                continue
+            default_id = current_default(aggregate)
+            for variant in variants:
+                rows.append(
+                    {
+                        **base,
+                        "variant_id": str(variant["id"]),
+                        "ate_m": metric(variant.get("ate_m")),
+                        "rpe_trans_pct": metric(variant.get("rpe_trans_pct")),
+                        "fps": metric(variant.get("fps")),
+                        "frames": str(variant.get("frames", "")),
+                        "is_current_default": str(str(variant["id"]) == default_id).lower(),
+                        "gt_seeded": str("GT-seeded" in str(variant.get("note", ""))).lower(),
+                    }
+                )
+    return rows
+
+
+def write_csv(rows: list[dict[str, str]], output_path: Path) -> None:
+    with output_path.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=CSV_COLUMNS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def tex_escape(text: str) -> str:
+    replacements = {"\\": r"\textbackslash{}", "_": r"\_", "%": r"\%", "&": r"\&", "#": r"\#", "$": r"\$"}
+    return "".join(replacements.get(char, char) for char in text)
+
+
+def tex_metric(value: str, digits: int) -> str:
+    return f"{float(value):.{digits}f}" if value else "--"
+
+
+def render_tex(rows: list[dict[str, str]]) -> str:
+    lines = [
+        "% Generated by evaluation/scripts/generate_ct_appendix_table.py; do not edit by hand.",
+        r"\begin{tabular}{llrrrl}",
+        r"\toprule",
+        r"Method & Variant & ATE [m] & RPE [\%] & FPS & Note \\",
+    ]
+    section = None
+    for row in rows:
+        if row["section"] != section:
+            section = row["section"]
+            lines += [
+                r"\midrule",
+                rf"\multicolumn{{6}}{{l}}{{\textit{{{section}. {tex_escape(row['section_title'])}}}}} \\",
+            ]
+        if not row["variant_id"]:
+            lines.append(
+                f"{tex_escape(row['method'])} & -- & -- & -- & -- & {tex_escape(row['problem_status'])} \\\\"
+            )
+            continue
+        notes = []
+        if row["is_current_default"] == "true":
+            notes.append("default")
+        if row["gt_seeded"] == "true":
+            notes.append("GT-seeded init")
+        cells = [
+            row["method"],
+            row["variant_id"],
+            tex_metric(row["ate_m"], 3),
+            tex_metric(row["rpe_trans_pct"], 2),
+            tex_metric(row["fps"], 1),
+            ", ".join(notes),
+        ]
+        lines.append(" & ".join(tex_escape(cell) for cell in cells) + r" \\")
+    lines += [r"\bottomrule", r"\end{tabular}"]
+    return "\n".join(lines) + "\n"
+
+
+def main() -> None:
+    args = parse_args()
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    rows = collect_rows(args.results_dir)
+    write_csv(rows, args.output_dir / "ct_appendix.csv")
+    (args.output_dir / "ct_appendix.tex").write_text(render_tex(rows))
+    print(f"[done] wrote {len(rows)} rows to {args.output_dir / 'ct_appendix.csv'} and ct_appendix.tex")
+
+
+if __name__ == "__main__":
+    main()

@@ -122,6 +122,17 @@ Interpretation:
 
 ## Gap-closing tuning sweep (2026-05-18)
 
+> **Erratum (2026-10-03).** The "Paper RPE" columns and every paper ratio in
+> this and the following CT-ICP sections used values that do not match the
+> source papers. Verified values: LiTAMIN2 Table III (ICP+Cov, no loop
+> closure) 00/02/05/07/08 = 0.78/0.95/0.55/0.48/1.01 %; CT-ICP Table I
+> (KITTI-corrected) = 0.49/0.52/0.25/0.31/0.81 %. Repo RPE values below are
+> unchanged; only the paper column and ratios are wrong. Against the verified
+> values, the best non-GT-seeded repo variants are ~1.12x (LiTAMIN2) and
+> ~3.79x (CT-ICP) geometric mean — see
+> [`assets/paper/paper_ratio_table.csv`](assets/paper/paper_ratio_table.csv)
+> and `evaluation/data/paper_reported_numbers.json`.
+
 Applied parameter tuning derived from KITTI 07 to the full paper-evaluated set (00/02/05/07/08).
 
 **LiTAMIN2 winning tune: `--litamin2-voxel-resolution 1.0 --litamin2-max-iterations 12 --no-gt-seed`**
@@ -816,6 +827,11 @@ The investigation's signature finding is that there is no architecture-level CT-
 - CT-LIO Round 4 max_frames=50 → CT-ICP KITTI 02 catastrophic (+62%) — motion-speed boundary discovered
 
 ## KITTI Odometry paper-comparable sweep (2026-05-18)
+
+> **Erratum (2026-10-03).** The paper columns below do not match the source
+> papers (see the erratum under "Gap-closing tuning sweep"). The metric is also
+> not identical: repo RPE averages 100 m segments, the papers report the
+> official KITTI 100-800 m RTE, so ratios are directional.
 
 After the velocity-model fix and the new KITTI Tr-frame correction in `kitti_poses_to_gt_csv.py` (apply `T_world_lidar = T_world_cam0 * Tr` so pcd_dogfooding's lidar-frame points are aligned against lidar-frame GT instead of cam-frame GT), pure-odometry on KITTI Odometry sequences is now directly comparable to paper-reported RPE for the first time:
 

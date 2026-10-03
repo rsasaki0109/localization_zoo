@@ -28,9 +28,9 @@
   - Status: Done — `evaluation/scripts/generate_full_variant_table.py` → `docs/assets/paper/full_variant_results.csv` (+ `full_variant_results.tex` longtable). Invoked from `export_paper_assets.py`.
 
 - [ ] **Table 6: Original Paper Comparison**
-  - Description: For each method family, compare reported numbers from the original paper against our reproduced numbers on the same or comparable datasets.
-  - Data source: Original papers (manual), `experiments/results/*_profile_matrix.json`.
-  - Status: Todo -- original paper numbers not yet collected.
+  - Description: Per KITTI Odometry sequence, the paper-reported translational RTE next to the best non-GT-seeded repository variant on the same full sequence, its ratio, the pool median, and pool size.
+  - Data source: `evaluation/data/paper_reported_numbers.json` (each value now carries `reported_source` with arXiv id, table, and row) and `experiments/results/*_matrix.json` on `kitti_seq_<NN>_full`.
+  - Status: Partial — `evaluation/scripts/generate_paper_ratio_table.py` → `docs/assets/paper/paper_ratio_table.{csv,tex}`, invoked from `export_paper_assets.py`. Covers LiTAMIN2 (00/02/05/07/08, ~1.12x), CT-ICP (00/02/05/07/08, ~3.79x), and KISS-ICP (00 only, 1.68x). Caveats printed in the table: repo RPE uses 100 m segments vs the official 100-800 m RTE, and the repo value is best-of-sweep selected on the evaluated sequence. The remaining ~70 reimplementations have no verified paper numbers yet; add them only from the paper PDF with a `reported_source`.
 
 - [x] **Table 7: CT-LIO Reference-Based Results (Appendix)**
   - Description: Three separated sections — (A) HDL-400 reference window with native per-point time, (B) public ROS1 HDL-400 window with synthesized per-point time, (C) the blocked GT-backed CT-LIO readiness problem. A and B are both scored against `hdl_400_public_reference.csv` (a reference trajectory, not GT), so neither is an exact-reproduction claim; CLINS rows are flagged as GT-seeded initialization.

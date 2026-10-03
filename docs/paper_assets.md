@@ -1,13 +1,13 @@
 # Paper Assets
 
-_Generated at 2026-10-03T09:09:59+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-03T09:30:46+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
 
 ## Files
 
-- Pareto plot: [`ready_defaults_pareto.png`](assets/paper/ready_defaults_pareto.png)
+- Pareto plot (Figure 1): [`kitti07_pareto.png`](assets/paper/kitti07_pareto.png)
 - Variant fronts: [`variant_fronts_by_selector.png`](assets/paper/variant_fronts_by_selector.png)
 - Core methods plot: [`manuscript_core_methods.png`](assets/paper/manuscript_core_methods.png)
 - CSV export: [`ready_defaults.csv`](assets/paper/ready_defaults.csv)

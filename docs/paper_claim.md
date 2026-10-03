@@ -20,7 +20,7 @@ Across the **five** method families that currently share the **same twelve bench
 The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/ready_defaults.csv` (one row per **ready** LiDAR/visual problem instance; IMU-only dead-reckoning rows are excluded) spans roughly **0.005 m to 292 m** ATE and **0.17 to 1717** FPS on the machine used for the stored aggregates. No single method family dominates the full front; fast scan-to-map variants (e.g., LiTAMIN2 `fast_*`, Small-GICP on KITTI) coexist with high-throughput multimodal OKVIS configurations and high-accuracy NDT configurations on other windows.
 
 **Evidence:**
-- `docs/assets/paper/ready_defaults_pareto.png`
+- `docs/assets/paper/kitti07_pareto.png` — KITTI 07 pure-odometry Pareto front (106 variants, 8 methods)
 - `docs/assets/paper/manuscript_core_defaults.csv` — one **manuscript-facing** representative default per **core** method family (subset used for overview figures; full cloud is `ready_defaults.csv`).
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
@@ -102,7 +102,7 @@ unnoticed, which motivates pinning both inputs and code:
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |
-| `docs/assets/paper/ready_defaults_pareto.png` | ATE vs. FPS Pareto scatter |
+| `docs/assets/paper/kitti07_pareto.png` | KITTI 07 RPE vs. FPS Pareto front (pure odometry) |
 | `docs/assets/paper/variant_fronts_by_selector.png` | Default movement across datasets |
 | `docs/assets/paper/default_variant_matrix.csv` | Wide Table 3 — method × dataset slug → default variant |
 | `docs/assets/paper/default_variant_instability.png` | Green/red heatmap vs row plurality (Figure 4) |

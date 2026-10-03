@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import csv
 import json
+import math
+import re
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -13,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 import matplotlib
+import matplotlib.ticker
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -206,45 +209,124 @@ def _pareto_front_indices(xs: list[float], ys: list[float]) -> set[int]:
     return front
 
 
-def render_default_pareto(points: list[VariantPoint], output_path: Path) -> None:
-    defaults = [point for point in points if point.is_default]
-    if not defaults:
+# Figure 1 compares every method on one shared benchmark instead of mixing
+# windows: KITTI Odometry 07 (full, 1101 frames), pure odometry only.
+PARETO_DATASET = "kitti_seq_07_full"
+# Diverged variants (RPE in the tens of percent) would stretch the log axis;
+# they are counted in the footnote instead.
+PARETO_MAX_RPE_PCT = 5.0
+GT_SEEDED_NOTE = re.compile(r"GT-seeded|Seeds .* with GT", re.IGNORECASE)
+# Categorical slots in fixed order (dataviz reference palette, light mode,
+# validated: CVD and normal-vision separation pass). Three slots sit below 3:1
+# contrast on white, so every method is also direct-labelled and has its own
+# marker shape; only methods on the Pareto front get a direct label so the
+# dense lower-left cluster stays readable (the legend names every method).
+CATEGORICAL = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100",
+               "#e87ba4", "#008300", "#4a3aa7", "#e34948"]
+MARKERS = ["o", "s", "^", "D", "v", "P", "X", "h"]
+INK = "#1f2328"
+INK_MUTED = "#6e7781"
+GRID = "#e6e6e3"
+
+
+@dataclass
+class OdometryPoint:
+    selector: str
+    variant_id: str
+    rpe_trans_pct: float
+    fps: float
+    aggregate_path: str
+
+
+def load_pareto_points(results_dir: Path, dataset: str = PARETO_DATASET) -> list[OdometryPoint]:
+    points: list[OdometryPoint] = []
+    for path in sorted(results_dir.glob("*_matrix.json")):
+        aggregate = load_json(path)
+        if Path(str(aggregate.get("dataset", {}).get("pcd_dir", ""))).name != dataset:
+            continue
+        selector = str(aggregate["stable_interface"]["methods"])
+        for variant in aggregate.get("variants", []):
+            rpe, fps = variant.get("rpe_trans_pct"), variant.get("fps")
+            # NaN RPE (diverged runs) would also break the sort in pareto_front.
+            if rpe is None or fps is None or not math.isfinite(float(rpe)) or not float(fps) > 0:
+                continue
+            if GT_SEEDED_NOTE.search(str(variant.get("note", ""))):
+                continue
+            points.append(OdometryPoint(selector, str(variant["id"]), float(rpe), float(fps), relpath(path)))
+    return points
+
+
+def pareto_front(points: list[OdometryPoint]) -> list[OdometryPoint]:
+    """Points no other point beats on both lower RPE and higher FPS."""
+    front: list[OdometryPoint] = []
+    best_fps = -1.0
+    for point in sorted(points, key=lambda item: (item.rpe_trans_pct, -item.fps)):
+        if point.fps > best_fps:
+            front.append(point)
+            best_fps = point.fps
+    return front
+
+
+def render_odometry_pareto(points: list[OdometryPoint], output_path: Path) -> None:
+    if not points:
         return
+    # Fixed slot per method, ordered by each method's best RPE so the legend
+    # reads best-first; slots never cycle (8 methods fit 8 slots).
+    best = {}
+    for point in points:
+        if point.selector not in best or point.rpe_trans_pct < best[point.selector].rpe_trans_pct:
+            best[point.selector] = point
+    methods = sorted(best, key=lambda name: best[name].rpe_trans_pct)
+    if len(methods) > len(CATEGORICAL):
+        raise ValueError(f"{len(methods)} methods exceed {len(CATEGORICAL)} categorical slots; facet instead")
+    front = pareto_front(points)
+    shown = [p for p in points if p.rpe_trans_pct <= PARETO_MAX_RPE_PCT]
+    hidden = len(points) - len(shown)
 
-    # Pick ONE representative per method: the one with best (lowest) ATE
-    best_per_method: dict[str, VariantPoint] = {}
-    for p in defaults:
-        if p.selector not in best_per_method or p.ate_m < best_per_method[p.selector].ate_m:
-            best_per_method[p.selector] = p
-    reps = sorted(best_per_method.values(), key=lambda p: p.ate_m)
-
-    fig, ax = plt.subplots(figsize=(12, 8))
-
-    for item in reps:
-        ax.scatter(item.ate_m, item.fps, s=180, edgecolors="#111827",
-                   linewidths=1.0, alpha=0.9, zorder=3)
-
-    try:
-        from adjustText import adjust_text  # type: ignore
-        texts = []
-        for item in reps:
-            texts.append(ax.text(item.ate_m, item.fps, f"  {item.selector}",
-                                 fontsize=9, va="center"))
-        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="-", color="gray", lw=0.5))
-    except ImportError:
-        for item in reps:
-            ax.annotate(item.selector, (item.ate_m, item.fps),
-                        textcoords="offset points", xytext=(8, 4), fontsize=9)
-
-    ax.set_title(f"Best Default per Method ({len(reps)} methods, best ATE across all windows)",
-                 fontsize=13, pad=12)
-    ax.set_xlabel("ATE [m] (lower is better)", fontsize=12)
-    ax.set_ylabel("FPS (higher is better)", fontsize=12)
-    ax.grid(alpha=0.25, linestyle="--")
+    fig, ax = plt.subplots(figsize=(10, 6.5))
+    fig.patch.set_facecolor("white")
+    ax.set_facecolor("white")
+    ax.step([p.rpe_trans_pct for p in front], [p.fps for p in front], where="post",
+            color=INK_MUTED, linewidth=1.5, zorder=2, label="Pareto front")
+    for index, name in enumerate(methods):
+        mine = [p for p in shown if p.selector == name]
+        total = sum(1 for p in points if p.selector == name)
+        ax.scatter([p.rpe_trans_pct for p in mine], [p.fps for p in mine], s=56,
+                   marker=MARKERS[index], color=CATEGORICAL[index], edgecolors="white",
+                   linewidths=1.5, zorder=3, label=f"{name} ({total})")
+    # One label per front method, at its highest-throughput front point.
+    front_top = {point.selector: point for point in front}
+    for point in front_top.values():
+        ax.annotate(f"{point.selector}  {point.rpe_trans_pct:.2f} %, {point.fps:.0f} FPS",
+                    (point.rpe_trans_pct, point.fps), textcoords="offset points",
+                    xytext=(10, -3), fontsize=9, color=INK, zorder=4)
     ax.set_xscale("log")
-    ax.tick_params(labelsize=10)
-    fig.tight_layout()
-    fig.savefig(output_path, dpi=200)
+    ax.set_yscale("log")
+    ax.set_xticks([0.5, 0.6, 0.8, 1, 1.5, 2, 3, 4])
+    ax.set_yticks([2, 5, 10, 20, 50, 100])
+    for axis in (ax.xaxis, ax.yaxis):
+        axis.set_major_formatter(matplotlib.ticker.FormatStrFormatter("%g"))
+        axis.set_minor_formatter(matplotlib.ticker.NullFormatter())
+    ax.set_xlabel("Translational RPE, 100 m segments [%]  (lower is better)", color=INK, fontsize=11)
+    ax.set_ylabel("Throughput [FPS]  (higher is better)", color=INK, fontsize=11)
+    ax.set_title(
+        f"KITTI Odometry 07 (full, 1101 frames): {len(points)} pure-odometry variants of {len(methods)} methods",
+        color=INK, fontsize=12, pad=10, loc="left")
+    ax.grid(which="major", color=GRID, linewidth=1.0, linestyle="-")
+    ax.set_axisbelow(True)
+    for spine in ax.spines.values():
+        spine.set_color(GRID)
+    ax.tick_params(colors=INK_MUTED, labelsize=9)
+    legend = ax.legend(title="Method (variants)", fontsize=9, title_fontsize=9, frameon=False,
+                       loc="upper left", bbox_to_anchor=(1.01, 1.0))
+    for text in legend.get_texts():
+        text.set_color(INK)
+    footnote = "GT-seeded and diverged (NaN) variants excluded. FPS comes from stored aggregates and is not normalized across hosts."
+    if hidden:
+        footnote += f"\n{hidden} variant(s) with RPE > {PARETO_MAX_RPE_PCT:g} % are off the x-axis (legend counts include them)."
+    fig.text(0.01, 0.01, footnote, fontsize=8, color=INK_MUTED, va="bottom")
+    fig.tight_layout(rect=(0, 0.05, 1, 1))
+    fig.savefig(output_path, dpi=200, facecolor="white")
     plt.close(fig)
 
 
@@ -393,7 +475,7 @@ def render_markdown(points: list[VariantPoint], generated_at: str) -> str:
         "",
         "## Files",
         "",
-        f"- Pareto plot: [`ready_defaults_pareto.png`](assets/paper/ready_defaults_pareto.png)",
+        f"- Pareto plot (Figure 1): [`kitti07_pareto.png`](assets/paper/kitti07_pareto.png)",
         f"- Variant fronts: [`variant_fronts_by_selector.png`](assets/paper/variant_fronts_by_selector.png)",
         f"- Core methods plot: [`manuscript_core_methods.png`](assets/paper/manuscript_core_methods.png)",
         f"- CSV export: [`ready_defaults.csv`](assets/paper/ready_defaults.csv)",
@@ -438,7 +520,7 @@ def main() -> None:
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
     write_ready_defaults_csv(points, ASSETS_DIR / "ready_defaults.csv")
     core_defaults = write_manuscript_core_csv(points, ASSETS_DIR / "manuscript_core_defaults.csv")
-    render_default_pareto(points, ASSETS_DIR / "ready_defaults_pareto.png")
+    render_odometry_pareto(load_pareto_points(RESULTS_DIR), ASSETS_DIR / "kitti07_pareto.png")
     render_core_method_figure(core_defaults, ASSETS_DIR / "manuscript_core_methods.png")
     render_variant_fronts(points, ASSETS_DIR / "variant_fronts_by_selector.png")
     (DOCS_DIR / "paper_assets.md").write_text(render_markdown(points, generated_at) + "\n")
@@ -490,7 +572,7 @@ def main() -> None:
 
     print(f"[done] wrote {relpath(ASSETS_DIR / 'ready_defaults.csv')}")
     print(f"[done] wrote {relpath(ASSETS_DIR / 'manuscript_core_defaults.csv')}")
-    print(f"[done] wrote {relpath(ASSETS_DIR / 'ready_defaults_pareto.png')}")
+    print(f"[done] wrote {relpath(ASSETS_DIR / 'kitti07_pareto.png')}")
     print(f"[done] wrote {relpath(ASSETS_DIR / 'manuscript_core_methods.png')}")
     print(f"[done] wrote {relpath(ASSETS_DIR / 'variant_fronts_by_selector.png')}")
     print(f"[done] wrote {relpath(DOCS_DIR / 'paper_assets.md')}")

@@ -104,7 +104,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - Scatter plot of the ready-problem defaults in `docs/assets/paper/ready_defaults.csv` (386 rows: 390 ready problems minus 4 IMU-only dead-reckoning rows): ATE (m) vs. FPS.
 - Separate markers (or faceting) for GT-backed vs. reference-based contracts.
 - Annotate extremes from the current CSV (e.g., NDT **~0.005 m** ATE on an Istanbul window; **~1717 FPS** peak on a fast multimodal OKVIS row — exact pairings depend on export date).
-- Source: `docs/assets/paper/ready_defaults_pareto.png`.
+- Source: `docs/assets/paper/kitti07_pareto.png` (one shared benchmark, KITTI Odometry 07 full, pure odometry; LiTAMIN2 and LeGO-LOAM form the front).
 
 ### Figure 2: Default Instability Across Datasets
 - Per-method subplots showing how the elected default moves in ATE/FPS space across dataset windows.

@@ -46,7 +46,7 @@
 
 - [x] **Figure 1: Pareto Front (ATE vs. FPS)**
   - Description: `ready_defaults.csv` holds **386** ready default variants (390 ready problems minus 4 IMU-only `imu_dead_reckoning` rows, which read no point clouds); spans **0.005–292 m** ATE and **0.17–1717** FPS. The exported PNG plots the best-ATE default per method (32 methods). Contract type is now **352 GT-backed / 34 reference-based** (only the HDL-400 reference windows); before 2026-10-03 nearly every row was mislabelled reference-based because the rule matched the `experiments/reference_data/` directory.
-  - Data source: `docs/assets/paper/ready_defaults_pareto.png`.
+  - Figure: `docs/assets/paper/kitti07_pareto.png` — every non-GT-seeded, non-diverged variant on full KITTI Odometry 07 (106 variants, 8 methods), 100 m RPE vs FPS on log axes with the Pareto front. Earlier versions plotted the best-ATE default per method across all windows, which let GT-seeded NDT (0.005 m seed adherence) look best; replaced on 2026-10-03.
   - Status: Done (exported by `export_paper_assets.py`).
 
 - [x] **Figure 2: Variant Fronts by Method Family**

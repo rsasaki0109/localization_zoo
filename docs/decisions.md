@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -3101,6 +3101,39 @@ _Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_ma
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
+## MULLS transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- Current default: `fast`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- Current default: `fast`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- Current default: `fast`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
 ## MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)
 
 - Current default: `fast`.
@@ -3110,6 +3143,17 @@ _Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_ma
 | Variant | Decision | Why |
 |---------|----------|-----|
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## MULLS transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- Current default: `fast`.
+- Reference variants: `dense`.
+- Aggregate result: `experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 
@@ -4435,6 +4479,50 @@ _Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_ma
 | default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | dense | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- Current default: `dense_profile`.
+- Reference variants: `default`.
+- Aggregate result: `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- Current default: `dense_profile`.
+- Reference variants: `default`.
+- Aggregate result: `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## SuMa transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- Current default: `default`.
+- Active challengers: `dense_profile`.
+- Aggregate result: `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| dense_profile | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## SuMa transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- Current default: `dense_profile`.
+- Reference variants: `default`.
+- Aggregate result: `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| dense_profile | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## SuMa on MCD KTH day-06 sequence
 

@@ -210,7 +210,11 @@ mulls,kitti_raw_0009_200,fast
 mulls,kitti_raw_0009_full,fast
 mulls,kitti_raw_0061_200,fast
 mulls,kitti_raw_0061_full,fast
+mulls,kitti_seq_00_full,fast
+mulls,kitti_seq_02_full,fast
+mulls,kitti_seq_05_full,fast
 mulls,kitti_seq_07_full,fast
+mulls,kitti_seq_08_full,fast
 mulls,mcd_kth_day_06_108,fast
 mulls,mcd_ntu_day_02_108,kitti_default
 mulls,mcd_tuhh_night_09_108,fast
@@ -263,6 +267,10 @@ suma,kitti_raw_0009_200,dense
 suma,kitti_raw_0009_full,dense
 suma,kitti_raw_0061_200,dense
 suma,kitti_raw_0061_full,fast
+suma,kitti_seq_00_full,dense_profile
+suma,kitti_seq_02_full,dense_profile
+suma,kitti_seq_05_full,default
+suma,kitti_seq_08_full,dense_profile
 suma,mcd_kth_day_06_108,fast
 suma,mcd_ntu_day_02_108,dense
 suma,mcd_tuhh_night_09_108,default

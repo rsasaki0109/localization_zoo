@@ -23,14 +23,14 @@
   - Status: Done (CSV exported by `export_paper_assets.py`).
 
 - [x] **Table 5: Full Variant Results (Appendix)**
-  - Description: All **1,276** variants across the **405** index problems (**390** ready + **14** skipped + **1** blocked with no variants) with ATE, RPE where recorded, FPS, run status, decision, and contract type.
+  - Description: All **1,292** variants across the **413** index problems (**398** ready + **14** skipped + **1** blocked with no variants) with ATE, RPE where recorded, FPS, run status, decision, and contract type.
   - Data source: Per-method `*_matrix.json` files under `experiments/results/`.
   - Status: Done — `evaluation/scripts/generate_full_variant_table.py` → `docs/assets/paper/full_variant_results.csv` (+ `full_variant_results.tex` longtable). Invoked from `export_paper_assets.py`.
 
 - [ ] **Table 6: Original Paper Comparison**
   - Description: Per KITTI Odometry sequence, the paper-reported translational RTE next to the best non-GT-seeded repository variant on the same full sequence, its ratio, the pool median, and pool size.
   - Data source: `evaluation/data/paper_reported_numbers.json` (each value now carries `reported_source` with arXiv id, table, and row) and `experiments/results/*_matrix.json` on `kitti_seq_<NN>_full`.
-  - Status: Partial — `evaluation/scripts/generate_paper_ratio_table.py` → `docs/assets/paper/paper_ratio_table.{csv,tex}`, invoked from `export_paper_assets.py`. Repo values use the official KITTI RTE (100-800 m) recorded by `rescore_kitti_rte.py` (`experiments/results/kitti_rte_rescore.json`) for the best 100 m-RPE variant of each sweep. Covers LiTAMIN2 (00/02/05/07/08, ~1.22x), CT-ICP (00/02/05/07/08, ~4.23x), KISS-ICP (00 only, 2.05x with `--kiss-legacy-27-neighborhood`), A-LOAM vs LOAM (00/02/05/07/08, ~1.06x, secondary-source paper values), MULLS (07 only, 9.06x), and SuMa (07 only, 2.74x). F-LOAM reports KITTI only as a bar chart and LeGO-LOAM has no KITTI table, so neither has verifiable per-sequence values. The other reimplementations have no verified paper numbers yet; add them only from the paper PDF with a `reported_source`.
+  - Status: Partial — `evaluation/scripts/generate_paper_ratio_table.py` → `docs/assets/paper/paper_ratio_table.{csv,tex}`, invoked from `export_paper_assets.py`. Repo values use the official KITTI RTE (100-800 m) recorded by `rescore_kitti_rte.py` (`experiments/results/kitti_rte_rescore.json`) for the best 100 m-RPE variant of each sweep. Covers LiTAMIN2 (00/02/05/07/08, ~1.22x), CT-ICP (00/02/05/07/08, ~4.23x), KISS-ICP (00 only, 2.05x with `--kiss-legacy-27-neighborhood`), A-LOAM vs LOAM (00/02/05/07/08, ~1.06x, secondary-source paper values), MULLS (00/02/05/07/08, 7.62x), and SuMa (00/02/05/07/08, 2.21x; 00/02/05/08 use the seq 07 choice unchanged, so those rows are held-out). F-LOAM reports KITTI only as a bar chart and LeGO-LOAM has no KITTI table, so neither has verifiable per-sequence values. The other reimplementations have no verified paper numbers yet; add them only from the paper PDF with a `reported_source`.
 
 - [x] **Table 7: CT-LIO Reference-Based Results (Appendix)**
   - Description: Three separated sections — (A) HDL-400 reference window with native per-point time, (B) public ROS1 HDL-400 window with synthesized per-point time, (C) the blocked GT-backed CT-LIO readiness problem. A and B are both scored against `hdl_400_public_reference.csv` (a reference trajectory, not GT), so neither is an exact-reproduction claim; CLINS rows are flagged as GT-seeded initialization.
@@ -45,7 +45,7 @@
 ## Figures
 
 - [x] **Figure 1: Pareto Front (ATE vs. FPS)**
-  - Description: `ready_defaults.csv` holds **386** ready default variants (390 ready problems minus 4 IMU-only `imu_dead_reckoning` rows, which read no point clouds); spans **0.005–292 m** ATE and **0.17–1717** FPS. The exported PNG plots the best-ATE default per method (32 methods). Contract type is now **352 GT-backed / 34 reference-based** (only the HDL-400 reference windows); before 2026-10-03 nearly every row was mislabelled reference-based because the rule matched the `experiments/reference_data/` directory.
+  - Description: `ready_defaults.csv` holds **394** ready default variants (398 ready problems minus 4 IMU-only `imu_dead_reckoning` rows, which read no point clouds); spans **0.005–292 m** ATE and **0.17–1717** FPS. The exported PNG plots the best-ATE default per method (32 methods). Contract type is now **360 GT-backed / 34 reference-based** (only the HDL-400 reference windows); before 2026-10-03 nearly every row was mislabelled reference-based because the rule matched the `experiments/reference_data/` directory.
   - Figure: `docs/assets/paper/kitti07_pareto.png` — every non-GT-seeded, non-diverged variant on full KITTI Odometry 07 (106 variants, 8 methods), 100 m RPE vs FPS on log axes with the Pareto front. Earlier versions plotted the best-ATE default per method across all windows, which let GT-seeded NDT (0.005 m seed adherence) look best; replaced on 2026-10-03.
   - Status: Done (exported by `export_paper_assets.py`).
 

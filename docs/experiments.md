@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-03T13:06:47+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -263,7 +263,11 @@ _Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_ma
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `fast` | 2.695 | 1.2 | `experiments/results/mulls_kitti_raw_0009_nogt_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 10.173 | 3.3 | `experiments/results/mulls_kitti_raw_0061_full_matrix.json` |
 | MULLS throughput and accuracy trade-off on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `fast` | 0.425 | 3.3 | `experiments/results/mulls_kitti_raw_0061_matrix.json` |
+| MULLS transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `fast` | 48.686 | 1.8 | `experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json` |
+| MULLS transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `fast` | 254.460 | 1.7 | `experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json` |
+| MULLS transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `fast` | 19.617 | 1.7 | `experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json` |
 | MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames) | `ready` | `fast` | 8.288 | 4.1 | `experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json` |
+| MULLS transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `fast` | 80.765 | 1.7 | `experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.207 | 4.1 | `experiments/results/mulls_mcd_kth_day_06_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `kitti_default` | 0.097 | 2.3 | `experiments/results/mulls_mcd_ntu_day_02_matrix.json` |
 | MULLS throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.206 | 3.8 | `experiments/results/mulls_mcd_tuhh_night_09_matrix.json` |
@@ -371,6 +375,10 @@ _Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_ma
 | SuMa on KITTI Raw drive 0009 (200 frames, no GT seed) | `ready` | `dense` | 2.245 | 21.0 | `experiments/results/suma_kitti_raw_0009_nogt_matrix.json` |
 | SuMa on KITTI Raw drive 0061 full sequence (703 frames, residential) | `ready` | `fast` | 15.381 | 110.9 | `experiments/results/suma_kitti_raw_0061_full_matrix.json` |
 | SuMa on KITTI Raw drive 0061 (200 frames, residential) | `ready` | `dense` | 1.496 | 111.2 | `experiments/results/suma_kitti_raw_0061_matrix.json` |
+| SuMa transfer check on KITTI Odom seq 00 full (4541 frames) | `ready` | `dense_profile` | 18.961 | 33.8 | `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json` |
+| SuMa transfer check on KITTI Odom seq 02 full (4661 frames) | `ready` | `dense_profile` | 51.911 | 38.0 | `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json` |
+| SuMa transfer check on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 9.511 | 40.3 | `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json` |
+| SuMa transfer check on KITTI Odom seq 08 full (4071 frames) | `ready` | `dense_profile` | 19.290 | 39.6 | `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json` |
 | SuMa on MCD KTH day-06 sequence | `ready` | `fast` | 6.064 | 150.2 | `experiments/results/suma_mcd_kth_day_06_matrix.json` |
 | SuMa on MCD NTU day-02 sequence | `ready` | `dense` | 0.036 | 124.1 | `experiments/results/suma_mcd_ntu_day_02_matrix.json` |
 | SuMa on MCD TUHH night-09 sequence | `ready` | `default` | 1.317 | 178.1 | `experiments/results/suma_mcd_tuhh_night_09_matrix.json` |
@@ -15672,6 +15680,150 @@ _Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_ma
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
 
 
+## MULLS transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `mulls_kitti_seq_00_full_transfer`
+- **Question**: Do the MULLS seq 07 profiles transfer to KITTI Odom seq 00 full without retuning?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast | throughput-oriented | 56.820 | 1.8 | 92.8 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 48.686 | 0.6 | 66.0 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 1.8 FPS.
+3. `dense` is the most accurate observed variant at 48.686 m ATE.
+
+### Variant Notes
+
+#### `fast`
+
+- Intent: Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.
+- CLI args: `--mulls-kitti-profile --mulls-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+#### `dense`
+
+- Intent: Selected on the KITTI 07 sweep (best RPE); transferred unchanged.
+- CLI args: `--mulls-kitti-profile --mulls-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
+## MULLS transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `mulls_kitti_seq_02_full_transfer`
+- **Question**: Do the MULLS seq 07 profiles transfer to KITTI Odom seq 02 full without retuning?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast | throughput-oriented | 260.878 | 1.7 | 98.8 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 254.460 | 0.6 | 66.9 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 1.7 FPS.
+3. `dense` is the most accurate observed variant at 254.460 m ATE.
+
+### Variant Notes
+
+#### `fast`
+
+- Intent: Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.
+- CLI args: `--mulls-kitti-profile --mulls-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_02_full_transfer_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_02_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_02_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+#### `dense`
+
+- Intent: Selected on the KITTI 07 sweep (best RPE); transferred unchanged.
+- CLI args: `--mulls-kitti-profile --mulls-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_02_full_transfer_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_02_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_02_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
+## MULLS transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `mulls_kitti_seq_05_full_transfer`
+- **Question**: Do the MULLS seq 07 profiles transfer to KITTI Odom seq 05 full without retuning?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast | throughput-oriented | 26.886 | 1.7 | 86.5 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 19.617 | 0.5 | 64.6 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 1.7 FPS.
+3. `dense` is the most accurate observed variant at 19.617 m ATE.
+
+### Variant Notes
+
+#### `fast`
+
+- Intent: Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.
+- CLI args: `--mulls-kitti-profile --mulls-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_05_full_transfer_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_05_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_05_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+#### `dense`
+
+- Intent: Selected on the KITTI 07 sweep (best RPE); transferred unchanged.
+- CLI args: `--mulls-kitti-profile --mulls-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_05_full_transfer_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_05_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_05_full_transfer_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
 ## MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)
 
 - **Problem ID**: `mulls_kitti_seq_07_full_sweep`
@@ -15727,6 +15879,54 @@ _Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_ma
 - Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
 - Summary: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/summary.json`
 - Log: `experiments/results/runs/mulls_kitti_seq_07_full_sweep_matrix/dense/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+
+## MULLS transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `mulls_kitti_seq_08_full_transfer`
+- **Question**: Do the MULLS seq 07 profiles transfer to KITTI Odom seq 08 full without retuning?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `mulls`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Fast | throughput-oriented | 87.759 | 1.7 | 96.0 | 4.30 | 4.50 | Adopt as current default |
+| Dense | accuracy-oriented | 80.765 | 0.5 | 65.6 | 4.30 | 4.50 | Keep as reference variant |
+
+### Observations
+
+1. `fast` is the current default for this problem.
+2. `fast` is the fastest observed variant at 1.7 FPS.
+3. `dense` is the most accurate observed variant at 80.765 m ATE.
+
+### Variant Notes
+
+#### `fast`
+
+- Intent: Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.
+- CLI args: `--mulls-kitti-profile --mulls-fast-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_08_full_transfer_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_08_full_transfer_matrix/fast/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_08_full_transfer_matrix/fast/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
+
+#### `dense`
+
+- Intent: Selected on the KITTI 07 sweep (best RPE); transferred unchanged.
+- CLI args: `--mulls-kitti-profile --mulls-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_08_full_transfer_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile`
+- Summary: `experiments/results/runs/mulls_kitti_seq_08_full_transfer_matrix/dense/summary.json`
+- Log: `experiments/results/runs/mulls_kitti_seq_08_full_transfer_matrix/dense/run.log`
 - Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).
@@ -22350,6 +22550,198 @@ _Generated at 2026-07-16T13:00:45+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Surfel-based mapping (no GT seed; anchor matches first GT pose).
+
+
+## SuMa transfer check on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `suma_kitti_seq_00_full_transfer`
+- **Question**: Do the SuMa seq 07 profiles transfer to KITTI Odom seq 00 full without retuning?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_00_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| default | balanced | 50.852 | 33.8 | 68.6 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile | accuracy | 18.961 | 24.2 | 85.8 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `default` is the fastest observed variant at 33.8 FPS.
+3. `dense_profile` is the most accurate observed variant at 18.961 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/default/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+#### `dense_profile`
+
+- Intent: Selected on the KITTI 07 sweep (best RPE); transferred unchanged.
+- CLI args: `--no-gt-seed --suma-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/dense_profile/summary.json --no-gt-seed --suma-dense-profile`
+- Summary: `experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_00_full_transfer_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+
+## SuMa transfer check on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `suma_kitti_seq_02_full_transfer`
+- **Question**: Do the SuMa seq 07 profiles transfer to KITTI Odom seq 02 full without retuning?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_02_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| default | balanced | 150.183 | 38.0 | 67.3 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile | accuracy | 51.911 | 24.2 | 81.8 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `default` is the fastest observed variant at 38.0 FPS.
+3. `dense_profile` is the most accurate observed variant at 51.911 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/default/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+#### `dense_profile`
+
+- Intent: Selected on the KITTI 07 sweep (best RPE); transferred unchanged.
+- CLI args: `--no-gt-seed --suma-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/dense_profile/summary.json --no-gt-seed --suma-dense-profile`
+- Summary: `experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_02_full_transfer_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+
+## SuMa transfer check on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `suma_kitti_seq_05_full_transfer`
+- **Question**: Do the SuMa seq 07 profiles transfer to KITTI Odom seq 05 full without retuning?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_05_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| default | balanced | 10.983 | 40.3 | 93.3 | 4.65 | 4.75 | Adopt as current default |
+| dense profile | accuracy | 9.511 | 27.8 | 84.5 | 4.30 | 4.50 | Keep as active challenger |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 40.3 FPS.
+3. `dense_profile` is the most accurate observed variant at 9.511 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/default/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+#### `dense_profile`
+
+- Intent: Selected on the KITTI 07 sweep (best RPE); transferred unchanged.
+- CLI args: `--no-gt-seed --suma-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/dense_profile/summary.json --no-gt-seed --suma-dense-profile`
+- Summary: `experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_05_full_transfer_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+
+## SuMa transfer check on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `suma_kitti_seq_08_full_transfer`
+- **Question**: Do the SuMa seq 07 profiles transfer to KITTI Odom seq 08 full without retuning?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `suma`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/suma_kitti_seq_08_full_transfer_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| default | balanced | 64.033 | 39.6 | 65.1 | 4.65 | 4.75 | Keep as reference variant |
+| dense profile | accuracy | 19.290 | 26.6 | 83.6 | 4.30 | 4.50 | Adopt as current default |
+
+### Observations
+
+1. `dense_profile` is the current default for this problem.
+2. `default` is the fastest observed variant at 39.6 FPS.
+3. `dense_profile` is the most accurate observed variant at 19.290 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.
+- CLI args: `--no-gt-seed`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/default/summary.json --no-gt-seed`
+- Summary: `experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/default/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/default/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
+
+#### `dense_profile`
+
+- Intent: Selected on the KITTI 07 sweep (best RPE); transferred unchanged.
+- CLI args: `--no-gt-seed --suma-dense-profile`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods suma --summary-json experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/dense_profile/summary.json --no-gt-seed --suma-dense-profile`
+- Summary: `experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/dense_profile/summary.json`
+- Log: `experiments/results/runs/suma_kitti_seq_08_full_transfer_matrix/dense_profile/run.log`
+- Readability proxy: 4.30 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.50 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Surfel-based mapping with constant-velocity prediction (no GT seed; anchor matches first GT pose).
 
 
 ## SuMa on MCD KTH day-06 sequence

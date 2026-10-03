@@ -110,9 +110,9 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 | A-LOAM | 0.90% <sub>(19 m)</sub> | 0.93% <sub>(51 m)</sub> | **0.51%** <sub>(5 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.39% <sub>(19 m)</sub> |
 | KISS-ICP | 0.86% <sub>(21 m)</sub> | 0.94% <sub>(39 m)</sub> | 0.62% <sub>(6 m)</sub> | 0.61% <sub>(2 m)</sub> | **1.34%** <sub>(19 m)</sub> |
 | F-LOAM | 0.99% <sub>(9 m)</sub> | 0.95% <sub>(54 m)</sub> | 0.54% <sub>(6 m)</sub> | 0.59% <sub>(3 m)</sub> | 1.37% <sub>(17 m)</sub> |
-| SuMa | – | – | – | 0.94% <sub>(4 m)</sub> | – |
+| SuMa | 1.25% <sub>(19 m)</sub> | 1.28% <sub>(52 m)</sub> | 0.99% <sub>(10 m)</sub> | 0.94% <sub>(4 m)</sub> | 1.91% <sub>(19 m)</sub> |
 | CT-ICP | 1.97% <sub>(19 m)</sub> | 2.64% <sub>(67 m)</sub> | 1.09% <sub>(11 m)</sub> | 1.17% <sub>(3 m)</sub> | 1.91% <sub>(31 m)</sub> |
-| MULLS | – | – | – | 2.64% <sub>(8 m)</sub> | – |
+| MULLS | 2.54% <sub>(49 m)</sub> | 2.27% <sub>(261 m)</sub> | 1.73% <sub>(20 m)</sub> | 2.64% <sub>(8 m)</sub> | 3.12% <sub>(81 m)</sub> |
 
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
 LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
@@ -230,9 +230,9 @@ optimistic bounds.
 | A-LOAM | 00/02/05/07/08 | 1.06x | near paper (vs LOAM values cited by later papers) |
 | LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
 | KISS-ICP | 00 | 2.05x | gap remains (compact baseline) |
-| SuMa | 07 | 2.74x | gap remains |
+| SuMa | 00/02/05/07/08 | 2.21x | gap remains |
 | CT-ICP | 00/02/05/07/08 | 4.23x | gap remains |
-| MULLS | 07 | 9.06x | gap remains (derived variant) |
+| MULLS | 00/02/05/07/08 | 7.62x | gap remains (derived variant) |
 
 Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);
 claim wording and audit findings: [`docs/paper_claim.md`](docs/paper_claim.md).

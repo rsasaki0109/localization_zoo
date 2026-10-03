@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T13:00:45+00:00",
+  "generated_at": "2026-10-03T13:06:47+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -2315,12 +2315,48 @@
       "current_default": "fast"
     },
     {
+      "problem_id": "mulls_kitti_seq_00_full_transfer",
+      "title": "MULLS transfer check on KITTI Odom seq 00 full (4541 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_seq_00_full_transfer_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_kitti_seq_02_full_transfer",
+      "title": "MULLS transfer check on KITTI Odom seq 02 full (4661 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_seq_02_full_transfer_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_kitti_seq_05_full_transfer",
+      "title": "MULLS transfer check on KITTI Odom seq 05 full (2761 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_seq_05_full_transfer_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json",
+      "current_default": "fast"
+    },
+    {
       "problem_id": "mulls_kitti_seq_07_full_sweep",
       "title": "MULLS cluster discovery on KITTI Odom seq 07 full (1102 frames)",
       "status": "ready",
       "blocker": "",
       "manifest_path": "experiments/mulls_kitti_seq_07_full_sweep_matrix.json",
       "aggregate_path": "experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json",
+      "current_default": "fast"
+    },
+    {
+      "problem_id": "mulls_kitti_seq_08_full_transfer",
+      "title": "MULLS transfer check on KITTI Odom seq 08 full (4071 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/mulls_kitti_seq_08_full_transfer_matrix.json",
+      "aggregate_path": "experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json",
       "current_default": "fast"
     },
     {
@@ -3285,6 +3321,42 @@
       "manifest_path": "experiments/suma_kitti_raw_0061_matrix.json",
       "aggregate_path": "experiments/results/suma_kitti_raw_0061_matrix.json",
       "current_default": "dense"
+    },
+    {
+      "problem_id": "suma_kitti_seq_00_full_transfer",
+      "title": "SuMa transfer check on KITTI Odom seq 00 full (4541 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_00_full_transfer_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_00_full_transfer_matrix.json",
+      "current_default": "dense_profile"
+    },
+    {
+      "problem_id": "suma_kitti_seq_02_full_transfer",
+      "title": "SuMa transfer check on KITTI Odom seq 02 full (4661 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_02_full_transfer_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_02_full_transfer_matrix.json",
+      "current_default": "dense_profile"
+    },
+    {
+      "problem_id": "suma_kitti_seq_05_full_transfer",
+      "title": "SuMa transfer check on KITTI Odom seq 05 full (2761 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_05_full_transfer_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_05_full_transfer_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "suma_kitti_seq_08_full_transfer",
+      "title": "SuMa transfer check on KITTI Odom seq 08 full (4071 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/suma_kitti_seq_08_full_transfer_matrix.json",
+      "aggregate_path": "experiments/results/suma_kitti_seq_08_full_transfer_matrix.json",
+      "current_default": "dense_profile"
     },
     {
       "problem_id": "suma_mcd_kth_day_06",

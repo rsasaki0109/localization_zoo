@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-10-03T13:06:47+00:00",
+  "manifest_path": "experiments/mulls_kitti_seq_00_full_transfer_matrix.json",
+  "problem": {
+    "id": "mulls_kitti_seq_00_full_transfer",
+    "title": "MULLS transfer check on KITTI Odom seq 00 full (4541 frames)",
+    "question": "Do the MULLS seq 07 profiles transfer to KITTI Odom seq 00 full without retuning?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "mulls",
+    "primary_method": "MULLS"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "fast",
+      "label": "Fast",
+      "design_style": "throughput-oriented",
+      "intent": "Selected on the KITTI 07 sweep (throughput candidate); transferred unchanged.",
+      "args": [
+        "--mulls-kitti-profile",
+        "--mulls-fast-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/fast/summary.json --mulls-kitti-profile --mulls-fast-profile",
+      "summary_path": "experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/fast/summary.json",
+      "log_path": "experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/fast/run.log",
+      "status": "ok",
+      "ate_m": 56.819807,
+      "rpe_trans_pct": 2.690708,
+      "rpe_rot_deg_per_m": 0.028323,
+      "fps": 1.793965,
+      "time_ms": 2530706.893079,
+      "frames": 4540,
+      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
+      "benchmark_score": 92.84,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 3.835107,
+      "kitti_rte_rot_deg_per_100m": 1.68959,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "dense",
+      "label": "Dense",
+      "design_style": "accuracy-oriented",
+      "intent": "Selected on the KITTI 07 sweep (best RPE); transferred unchanged.",
+      "args": [
+        "--mulls-kitti-profile",
+        "--mulls-dense-profile"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods mulls --summary-json experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/dense/summary.json --mulls-kitti-profile --mulls-dense-profile",
+      "summary_path": "experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/dense/summary.json",
+      "log_path": "experiments/results/runs/mulls_kitti_seq_00_full_transfer_matrix/dense/run.log",
+      "status": "ok",
+      "ate_m": 48.686196,
+      "rpe_trans_pct": 2.537312,
+      "rpe_rot_deg_per_m": 0.026544,
+      "fps": 0.575063,
+      "time_ms": 7894785.354844,
+      "frames": 4540,
+      "note": "Multi-metric scan-to-map (line/plane/point Ceres) after A-LOAM-style feature odometry (no GT seed).",
+      "benchmark_score": 66.03,
+      "readability_score": 4.3,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.5,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 3.792591,
+      "kitti_rte_rot_deg_per_100m": 1.560926,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

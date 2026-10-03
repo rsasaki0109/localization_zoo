@@ -1,0 +1,180 @@
+#!/usr/bin/env python3
+"""Build the paper appendix table of every variant in every indexed problem (Table 5).
+
+Reads experiments/results/index.json plus each aggregate JSON, including problems
+that are blocked or skipped, and every variant regardless of run status.
+Writes under docs/assets/paper/:
+  - full_variant_results.csv  — one row per (problem, variant)
+  - full_variant_results.tex  — LaTeX longtable body for the appendix
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+from collections import Counter
+from pathlib import Path
+from typing import Any
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+INDEX_PATH = REPO_ROOT / "experiments" / "results" / "index.json"
+ASSETS_DIR = REPO_ROOT / "docs" / "assets" / "paper"
+
+CSV_COLUMNS = [
+    "problem_id",
+    "problem_status",
+    "selector",
+    "dataset",
+    "contract_type",
+    "variant_id",
+    "variant_label",
+    "run_status",
+    "ate_m",
+    "rpe_trans_pct",
+    "rpe_rot_deg_per_m",
+    "fps",
+    "frames",
+    "decision",
+    "is_current_default",
+    "aggregate_path",
+]
+
+DECISION_CODES = {
+    "Adopt as current default": "default",
+    "Keep as active challenger": "challenger",
+    "Keep as reference variant": "reference",
+    "Rejected for this run": "rejected",
+}
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--index", type=Path, default=INDEX_PATH, help="Experiment index JSON")
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=ASSETS_DIR,
+        help="Directory for CSV/TeX (default: docs/assets/paper)",
+    )
+    return parser.parse_args()
+
+
+def load_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text())
+
+
+def contract_type(problem: dict[str, Any], dataset: dict[str, Any]) -> str:
+    # Same rule as export_paper_assets.contract_type so the tables agree.
+    haystack = " ".join(
+        str(value).lower()
+        for value in (problem.get("id", ""), problem.get("title", ""), dataset.get("gt_csv", ""))
+    )
+    return "reference-based" if "reference" in haystack else "gt-backed"
+
+
+def normalize_run_status(status: Any) -> str:
+    text = str(status or "").strip()
+    return "OK" if text.lower() == "ok" else text
+
+
+def metric(value: Any, digits: int = 6) -> str:
+    if value is None:
+        return ""
+    return f"{float(value):.{digits}f}"
+
+
+def collect_rows(index_path: Path, repo_root: Path) -> list[dict[str, str]]:
+    index = load_json(index_path)
+    rows: list[dict[str, str]] = []
+    for entry in index["problems"]:
+        aggregate_path = entry["aggregate_path"]
+        aggregate = load_json(repo_root / aggregate_path)
+        problem = aggregate.get("problem", {})
+        dataset = aggregate.get("dataset", {})
+        pcd_dir = str(dataset.get("pcd_dir", ""))
+        for variant in aggregate.get("variants", []):
+            rows.append(
+                {
+                    "problem_id": str(entry["problem_id"]),
+                    "problem_status": str(entry["status"]),
+                    "selector": str(aggregate.get("stable_interface", {}).get("methods", "")),
+                    "dataset": Path(pcd_dir).name or pcd_dir,
+                    "contract_type": contract_type(problem, dataset),
+                    "variant_id": str(variant["id"]),
+                    "variant_label": str(variant.get("label", "")),
+                    "run_status": normalize_run_status(variant.get("status")),
+                    "ate_m": metric(variant.get("ate_m")),
+                    "rpe_trans_pct": metric(variant.get("rpe_trans_pct")),
+                    "rpe_rot_deg_per_m": metric(variant.get("rpe_rot_deg_per_m")),
+                    "fps": metric(variant.get("fps")),
+                    "frames": str(variant.get("frames", "")),
+                    "decision": str(variant.get("decision", "")),
+                    "is_current_default": str(str(variant["id"]) == entry.get("current_default")).lower(),
+                    "aggregate_path": aggregate_path,
+                }
+            )
+    rows.sort(key=lambda row: (row["selector"], row["dataset"], row["problem_id"], row["variant_id"]))
+    return rows
+
+
+def write_csv(rows: list[dict[str, str]], output_path: Path) -> None:
+    with output_path.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=CSV_COLUMNS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def tex_escape(text: str) -> str:
+    replacements = {"\\": r"\textbackslash{}", "_": r"\_", "%": r"\%", "&": r"\&", "#": r"\#", "$": r"\$"}
+    return "".join(replacements.get(char, char) for char in text)
+
+
+def tex_metric(value: str, digits: int) -> str:
+    return f"{float(value):.{digits}f}" if value else "--"
+
+
+def render_tex(rows: list[dict[str, str]]) -> str:
+    lines = [
+        "% Generated by evaluation/scripts/generate_full_variant_table.py; do not edit by hand.",
+        r"\begin{longtable}{lllrrrl}",
+        r"\toprule",
+        r"Method & Dataset & Variant & ATE [m] & RPE [\%] & FPS & Decision \\",
+        r"\midrule",
+        r"\endhead",
+    ]
+    for row in rows:
+        decision = DECISION_CODES.get(row["decision"], row["decision"])
+        if row["run_status"] != "OK":
+            decision = f"{decision} ({row['run_status']})"
+        cells = [
+            row["selector"],
+            row["dataset"],
+            row["variant_id"],
+            tex_metric(row["ate_m"], 3),
+            tex_metric(row["rpe_trans_pct"], 3),
+            tex_metric(row["fps"], 1),
+            decision,
+        ]
+        lines.append(" & ".join(tex_escape(cell) for cell in cells) + r" \\")
+    lines += [r"\bottomrule", r"\end{longtable}"]
+    return "\n".join(lines) + "\n"
+
+
+def main() -> None:
+    args = parse_args()
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    rows = collect_rows(args.index, REPO_ROOT)
+    write_csv(rows, args.output_dir / "full_variant_results.csv")
+    (args.output_dir / "full_variant_results.tex").write_text(render_tex(rows))
+
+    problem_counts = Counter(status for _, status in {(r["problem_id"], r["problem_status"]) for r in rows})
+    run_counts = Counter(row["run_status"] for row in rows)
+    print(
+        f"[done] {len(rows)} variants across {sum(problem_counts.values())} problems "
+        f"({dict(sorted(problem_counts.items()))}); run status {dict(sorted(run_counts.items()))}"
+    )
+
+
+if __name__ == "__main__":
+    main()

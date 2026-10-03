@@ -22,10 +22,10 @@
   - Data source: `docs/assets/paper/manuscript_core_defaults.csv`.
   - Status: Done (CSV exported by `export_paper_assets.py`).
 
-- [ ] **Table 5: Full Variant Results (Appendix)**
-  - Description: All variants for all **168** index problems (**166** ready + **1** blocked + **1** skipped) with ATE, FPS, decision (adopt/keep/retire), and contract type.
+- [x] **Table 5: Full Variant Results (Appendix)**
+  - Description: All **1,276** variants across the **405** index problems (**390** ready + **14** skipped + **1** blocked with no variants) with ATE, RPE where recorded, FPS, run status, decision, and contract type.
   - Data source: Per-method `*_matrix.json` files under `experiments/results/`.
-  - Status: Todo -- needs aggregation script across all matrix JSONs.
+  - Status: Done — `evaluation/scripts/generate_full_variant_table.py` → `docs/assets/paper/full_variant_results.csv` (+ `full_variant_results.tex` longtable). Invoked from `export_paper_assets.py`.
 
 - [ ] **Table 6: Original Paper Comparison**
   - Description: For each method family, compare reported numbers from the original paper against our reproduced numbers on the same or comparable datasets.
@@ -38,9 +38,9 @@
   - Status: Todo -- data exists but not yet formatted into a manuscript-facing appendix table.
 
 - [ ] **Table 8: Hardware and Environment Specification**
-  - Description: CPU, GPU, RAM, OS, compiler, and library versions used for all benchmark runs.
-  - Data source: Manual documentation of test machine.
-  - Status: Todo.
+  - Description: CPU, GPU, RAM, OS, compiler, and library versions used for benchmark runs.
+  - Data source: `evaluation/scripts/capture_benchmark_environment.py` → `docs/assets/paper/benchmark_environment.{json,md}` (capture host plus host records in `evaluation/data/*.json`). Run it on the benchmark machine; it is deliberately not part of `export_paper_assets.py` because the output depends on the host.
+  - Status: Partial — the capture host is documented, but `experiments/results/*_matrix.json` do not record which host produced each run (at least one evidence row ran on an i7-9750H WSL host). Per-run host provenance is needed before FPS columns can be attributed to one machine.
 
 ## Figures
 

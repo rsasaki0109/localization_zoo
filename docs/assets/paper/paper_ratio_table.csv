@@ -10,7 +10,7 @@ ct_icp,07,0.31,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_r
 ct_icp,08,0.81,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.772,2.19,1.772,1,45,velocity_reg_0015,experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json
 ct_icp,09,0.49,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
 ct_icp,10,0.48,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-kiss_icp,00,0.51,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,1.211,2.37,1.211,1,4,fast_profile,experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json
+kiss_icp,00,0.51,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,1.045,2.05,1.045,1,4,fast_profile,experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json
 kiss_icp,04,0.36,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",,,,,0,0,,
 litamin2,00,0.78,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.920,1.18,0.920,1,2,tuned_voxel1_iter12,experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json
 litamin2,01,2.10,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,

@@ -177,7 +177,9 @@ the run. Full matrix: [**explorer**]({explorer}).
 
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
 LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
-broken port._
+broken port. This RPE averages 100 m segments and is not the official KITTI
+metric (100–800 m) that papers report; see
+[paper-number check](#paper-number-check-official-kitti-rte)._
 
 > **No GT-seeded methods here.** NDT / LiTAMIN2 / GICP use the ground-truth pose
 > as the per-frame initial guess, so their ATE is seed adherence, not tracking —

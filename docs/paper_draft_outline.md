@@ -12,7 +12,7 @@
 
 **Contribution.**
 - A _variant-first_ benchmarking framework that keeps 3+ concrete variants alive per method family under a shared summary contract (`pcd_dogfooding --summary-json` for LiDAR; sibling `multimodal_dogfooding --summary-json` for camera-aware methods).
-- A full artifact that currently wires **33 active selectors** and **274 manifests** (**260 ready**, **1 blocked**, **13 skipped**) across Istanbul, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD, KITTI Raw, and a canonical KITTI Raw multimodal extension. The manuscript-facing core claim can still stay centered on the five LiDAR families that share the same twelve-window grid.
+- A full artifact that currently wires **33 active selectors** and **405 manifests** (**390 ready**, **1 blocked**, **14 skipped**) across Istanbul, HDL-400 reference windows, public ROS1 HDL-400 synthetic-time windows, MCD, KITTI Raw, and a canonical KITTI Raw multimodal extension. The manuscript-facing core claim can still stay centered on the five LiDAR families that share the same twelve-window grid.
 - Evidence that, for every family with **broad** cross-window coverage today (LiTAMIN2, GICP, NDT, KISS-ICP, CT-ICP on twelve shared windows), the elected default **is not unique** across datasets — premature canonicalization discards real trade-offs.
 
 ---
@@ -101,7 +101,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - Data source: `experiments/results/index.json`, `docs/variant_analysis.md`, `docs/assets/paper/manuscript_core_defaults.csv` (overview slice only).
 
 ### Figure 1: Pareto Fronts (ATE vs. FPS)
-- Scatter plot of **all 260** ready-problem defaults (`docs/assets/paper/ready_defaults.csv`): ATE (m) vs. FPS.
+- Scatter plot of the ready-problem defaults in `docs/assets/paper/ready_defaults.csv` (357 rows as committed; the index now has 390 ready problems, so re-run `export_paper_assets.py` before freezing the figure): ATE (m) vs. FPS.
 - Separate markers (or faceting) for GT-backed vs. reference-based contracts.
 - Annotate extremes from the current CSV (e.g., NDT **~0.005 m** ATE on an Istanbul window; **~1717 FPS** peak on a fast multimodal OKVIS row — exact pairings depend on export date).
 - Source: `docs/assets/paper/ready_defaults_pareto.png`.
@@ -113,6 +113,9 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 ### Figure 4 (new): Default mismatch heatmap
 - Matrix view: rows = `pcd_dogfooding` method selectors, columns = dataset directory basenames (twelve-window grid where populated). Row-plurality agreement encoded as green vs red (see script header).
 - Source: `docs/assets/paper/default_variant_instability.png`, table export `docs/assets/paper/default_variant_matrix.csv`.
+
+### Table 6: Original-Paper Comparison (official KITTI RTE)
+- Paper KITTI RTE vs the best non-GT-seeded repo variant on the same full sequences: A-LOAM 1.06x and LiTAMIN2 1.22x (near paper); KISS-ICP 2.05x, SuMa 2.74x, CT-ICP 4.23x, MULLS 9.06x (gap remains). Source: `docs/assets/paper/paper_ratio_table.{csv,tex}`; claim wording in `docs/paper_claim.md` Sub-Claims 5-6.
 
 ### Additional Results
 - Per-method accuracy breakdown tables (appendix).
@@ -135,20 +138,24 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - Istanbul, HDL-400 reference windows, HDL-400 public ROS1 synthetic-time windows, MCD, and KITTI Raw produce different rankings.
 - This is not a flaw; it is the information that variant-first benchmarking is designed to surface.
 
+### Finding 4: Paper-number audits catch silent errors
+- Stored paper values for LiTAMIN2, CT-ICP, and KISS-ICP were all wrong until checked against the PDFs, and a shared KISS-ICP voxel-search change silently moved KITTI 00 by 0.21 points. Pinning paper values to table/row and re-running with a determinism check exposes both.
+
 ### Limitations
 - Several newly integrated families (LOAM variants, DLO/DLIO, MULLS, Small-GICP) appear on **fewer** windows than the historical five-way grid; expanding their manifests closes the circle on cross-dataset claims.
 - CT-LIO **GT-backed** evaluation remains blocked pending aligned open GT for the HDL-400 LIO window.
 - Public ROS1 HDL-400 synth-time benchmarks are public and reproducible, but they do **not** resolve the missing native per-point-time provenance needed for exact reproduction claims.
 - KITTI DLIO experiments currently mirror LiDAR-only behavior unless `imu.csv` is present (`--write-imu-csv` path in README / `PLAN.md`).
 - The multimodal extension is currently limited to four KITTI Raw windows and known-landmark reprojection inputs; it strengthens breadth but does not replace the LiDAR twelve-window core claim.
-- Hardware profile is single-machine; cross-machine scaling not yet characterized.
+- Historical aggregates do not record their host, and at least one evidence row ran on a different machine (i7-9750H WSL); FPS is only attributable for runs recorded after per-run host provenance was added.
+- Table 6 ratios use the best variant of a sweep selected on the evaluated sequence, so they are optimistic bounds, not held-out estimates.
 
 ---
 
 ## 7. Conclusion
 
 - Variant-first benchmarking with a stable CLI contract is practical and reveals trade-offs hidden by canonical repos.
-- The current **274-manifest / 33-selector** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
+- The current **405-manifest / 33-selector** artifact demonstrates that default instability is **measurable wherever we grant equal window coverage**, not a corner case.
 - Artifacts (experiment matrices, generated decision tables, Pareto exports) are fully reproducible via `run_experiment_matrix.py --reuse-existing`.
 
 ---
@@ -156,7 +163,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 ## Appendix
 
 ### A. Full Variant Results
-- Complete tables for **274** manifest lines in the index (**260** ready + **1** blocked + **13** skipped) and per-variant rows inside each `experiments/results/*_matrix.json`.
+- Complete tables for **405** manifest lines in the index (**390** ready + **1** blocked + **14** skipped; `docs/assets/paper/full_variant_results.{csv,tex}`) and per-variant rows inside each `experiments/results/*_matrix.json`.
 
 ### B. CT-LIO / CLINS Public HDL-400 Evaluation
 - Separate treatment of HDL-400 reference/native-time-style windows and public ROS1 synthetic-time windows.

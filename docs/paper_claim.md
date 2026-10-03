@@ -25,7 +25,7 @@ The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/read
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **260** ready problems, **1** blocked manifest, and **13** skipped manifests across **33** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
+The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **390** ready problems, **1** blocked manifest, and **14** skipped manifests across **33** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -42,11 +42,63 @@ CT-LIO GT-backed evaluation is blocked due to missing repository-aligned GT CSV 
 - `experiments/results/clins_hdl_400_public_ros1_synthtime_matrix.json` — public ROS1 synthetic-time CLINS evidence.
 - `docs/assets/paper/manuscript_core_defaults.csv` — CT-LIO row marked `reference-based`.
 
+### Sub-Claim 5: Paper-number fidelity is measurable, and it splits the reimplementations into two groups
+
+For six LiDAR odometry reimplementations, the paper-reported KITTI Odometry
+translational error (read from the paper PDF, with table and row recorded) is
+compared against the repository on the **same full sequences and the same
+official KITTI RTE metric** (100-800 m segments, every 10th frame):
+
+| Group | Method | Sequences | Repo / paper (geometric mean) |
+|---|---|---|---:|
+| Near paper | A-LOAM (vs LOAM, secondary-source values) | 00/02/05/07/08 | 1.06x |
+| Near paper | LiTAMIN2 (ICP+Cov, no loop closure) | 00/02/05/07/08 | 1.22x |
+| Gap remains | KISS-ICP (compact baseline) | 00 | 2.05x |
+| Gap remains | SuMa (Frame-to-Model) | 07 | 2.74x |
+| Gap remains | CT-ICP | 00/02/05/07/08 | 4.23x |
+| Gap remains | MULLS (derived multi-metric variant) | 07 | 9.06x |
+
+What may be claimed: A-LOAM and LiTAMIN2 reach paper-level odometry accuracy
+on KITTI; the other four run on the same metric but do **not** reproduce the
+paper numbers. What may not be claimed: faithful reproduction for CT-ICP,
+KISS-ICP, SuMa, or MULLS, or any ratio as unbiased. The repository value is the
+best variant of a sweep **selected on the evaluated sequence**, so every ratio
+is an optimistic bound; SuMa's paper values have one decimal, and A-LOAM is
+compared with LOAM values cited by later papers because LOAM has no
+per-sequence table.
+
+**Evidence:**
+- `docs/assets/paper/paper_ratio_table.csv` / `.tex` — Table 6, per sequence, with sweep size.
+- `evaluation/data/paper_reported_numbers.json` — paper values with `reported_source` (arXiv id, table, row), pinned by `tests/test_paper_ratio_table.py`.
+- `experiments/results/kitti_rte_rescore.json` — official-RTE re-runs and the stored-vs-rerun determinism check.
+
+### Sub-Claim 6: Paper-number audits catch silent errors
+
+The same audit found two classes of error that a benchmark repository can carry
+unnoticed, which motivates pinning both inputs and code:
+
+- **Wrong reference values.** Before 2026-10-03, every stored paper value for
+  LiTAMIN2, CT-ICP, and KISS-ICP disagreed with the paper (for example KISS-ICP
+  was recorded as per-sequence ATE in metres, which the paper does not report).
+  This had inflated LiTAMIN2's apparent gap (1.35x claimed vs 1.22x measured)
+  and understated CT-ICP's (~4.5x vs 4.23x on a different basis).
+- **Silent code drift.** A later change to the shared KISS-ICP voxel search
+  (27 voxels → all voxels within the correspondence distance) moved KITTI 00
+  from 0.857 % to 1.069 % 100 m RPE without any aggregate being re-run.
+  `--kiss-legacy-27-neighborhood` reproduces the stored result bit for bit.
+  CT-ICP and A-LOAM re-runs drift by up to 0.11 and 0.017 points; LiTAMIN2,
+  MULLS, and SuMa reproduce exactly.
+
+**Evidence:**
+- `docs/dogfooding_methodology.md` — errata on the earlier paper columns.
+- `papers/kiss_icp/README.md` — correspondence-search change and opt-in flag.
+- `experiments/results/kitti_rte_rescore.json` — `rerun_rpe_abs_delta` per row.
+
 ## Evidence Summary Table
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **260** ready + **1** blocked + **13** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **390** ready + **1** blocked + **14** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |
@@ -57,3 +109,5 @@ CT-LIO GT-backed evaluation is blocked due to missing repository-aligned GT CSV 
 | `docs/assets/paper/manuscript_core_defaults.csv` | One representative default per **overview** method family |
 | `evaluation/scripts/SETUP_MULTIMODAL_BENCHMARK.md` | Camera-aware benchmark contract and KITTI multimodal workflow |
 | `docs/paper_tracks.md` / `docs/paper_comparison.md` | Full tables derived from aggregates |
+| `docs/assets/paper/paper_ratio_table.csv` | Table 6 — paper vs repo on the official KITTI RTE |
+| `experiments/results/kitti_rte_rescore.json` | Official-RTE re-runs with determinism check |

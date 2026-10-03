@@ -116,7 +116,9 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
 LOAM ~0.5–1.4% drift is competitive — their large ATE is honest drift, not a
-broken port._
+broken port. This RPE averages 100 m segments and is not the official KITTI
+metric (100–800 m) that papers report; see
+[paper-number check](#paper-number-check-official-kitti-rte)._
 
 > **No GT-seeded methods here.** NDT / LiTAMIN2 / GICP use the ground-truth pose
 > as the per-frame initial guess, so their ATE is seed adherence, not tracking —
@@ -214,6 +216,26 @@ On KITTI seq05, RF-LIO trails ID-LIO and KISS-ICP ([artifact](docs/benchmarks/ki
 <!-- EVIDENCE:RF-ID-LIO-SEQ05:END -->
 Full ablations and negative results: [benchmark artifacts](docs/benchmarks/kitti_full_new_methods/).
 <!-- LEADERBOARD:END -->
+
+### Paper-number check (official KITTI RTE)
+
+Paper-reported KITTI Odometry error versus the repository on the same full
+sequences and the same official metric (100–800 m segments). Paper values are
+read from the PDFs with table and row recorded; repo values are the best
+variant of each sweep, selected on the evaluated sequence, so the ratios are
+optimistic bounds.
+
+| Method | Sequences | Repo / paper | Reading |
+|---|---|---:|---|
+| A-LOAM | 00/02/05/07/08 | 1.06x | near paper (vs LOAM values cited by later papers) |
+| LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
+| KISS-ICP | 00 | 2.05x | gap remains (compact baseline) |
+| SuMa | 07 | 2.74x | gap remains |
+| CT-ICP | 00/02/05/07/08 | 4.23x | gap remains |
+| MULLS | 07 | 9.06x | gap remains (derived variant) |
+
+Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);
+claim wording and audit findings: [`docs/paper_claim.md`](docs/paper_claim.md).
 
 ### Does LiDAR intensity actually help? — I-LOAM ablation
 

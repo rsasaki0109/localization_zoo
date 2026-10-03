@@ -45,7 +45,7 @@
 ## Figures
 
 - [x] **Figure 1: Pareto Front (ATE vs. FPS)**
-  - Description: Scatter plot of all **166** ready default variants (`ready_defaults.csv`). X-axis: ATE (m); Y-axis: FPS. Separate markers for GT-backed and reference-based. Re-annotate extremes after each export (current CSV spans roughly **0.005–183 m** ATE and **0.4–106** FPS).
+  - Description: `ready_defaults.csv` holds **386** ready default variants (390 ready problems minus 4 IMU-only `imu_dead_reckoning` rows, which read no point clouds); spans **0.005–292 m** ATE and **0.17–1717** FPS. The exported PNG plots the best-ATE default per method (32 methods). Contract type is now **352 GT-backed / 34 reference-based** (only the HDL-400 reference windows); before 2026-10-03 nearly every row was mislabelled reference-based because the rule matched the `experiments/reference_data/` directory.
   - Data source: `docs/assets/paper/ready_defaults_pareto.png`.
   - Status: Done (exported by `export_paper_assets.py`).
 

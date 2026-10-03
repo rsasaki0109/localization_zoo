@@ -69,7 +69,7 @@ def contract_type(problem: dict[str, Any], dataset: dict[str, Any]) -> str:
     # Same rule as export_paper_assets.contract_type so the tables agree.
     haystack = " ".join(
         str(value).lower()
-        for value in (problem.get("id", ""), problem.get("title", ""), dataset.get("gt_csv", ""))
+        for value in (problem.get("id", ""), problem.get("title", ""), Path(str(dataset.get("gt_csv", ""))).name)
     )
     return "reference-based" if "reference" in haystack else "gt-backed"
 

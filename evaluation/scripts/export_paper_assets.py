@@ -52,11 +52,18 @@ def short_dataset_name(dataset_path: str) -> str:
     return Path(dataset_path).name or dataset_path
 
 
+# IMU-only selectors read no point clouds, so their FPS and ATE are not
+# comparable with the LiDAR/visual Pareto figures. They stay in Table 5.
+NON_LIDAR_SELECTORS = {"imu_dead_reckoning", "odonet", "nhc_net", "nn_zupt"}
+
+
 def contract_type(problem: dict[str, Any], dataset: dict[str, Any]) -> str:
+    # Only the GT file name is checked: every GT CSV lives under
+    # experiments/reference_data/, so matching the full path marks everything.
     problem_id = str(problem.get("id", "")).lower()
     title = str(problem.get("title", "")).lower()
-    gt_csv = str(dataset.get("gt_csv", "")).lower()
-    if "reference" in problem_id or "reference" in title or "reference" in gt_csv:
+    gt_name = Path(str(dataset.get("gt_csv", ""))).name.lower()
+    if "reference" in problem_id or "reference" in title or "reference" in gt_name:
         return "reference-based"
     return "gt-backed"
 
@@ -81,6 +88,8 @@ def load_variant_points() -> list[VariantPoint]:
         problem = aggregate["problem"]
         dataset = aggregate["dataset"]
         selector = str(aggregate["stable_interface"]["methods"])
+        if selector in NON_LIDAR_SELECTORS:
+            continue
         ctype = contract_type(problem, dataset)
         dataset_name = short_dataset_name(str(dataset["pcd_dir"]))
         current_default = problem_entry.get("current_default")

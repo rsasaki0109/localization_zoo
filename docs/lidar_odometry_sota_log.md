@@ -1009,3 +1009,30 @@ runtime is an explicit limitation rather than a promotion claim.
 
 After registering Boreas, the data verifier reports 20 of 21 datasets ready;
 the sole missing entry remains the low-priority NTNU tunnel robustness set.
+
+### CUBE-LIO / FAST-LIVO2 track: v11–v14
+
+The head-to-head protocol was then frozen against CUBE-LIO (same-input KITTI
+00 and 07) and official FAST-LIVO2 (three public LIO rows), each requiring an
+untouched normal-environment external row declared before sensor download.
+
+- **v11** (`causal_local_increment_midpoint`) was frozen before KITTI 00
+  validation and superseded without promotion.
+- **v12** (`gt_free_loop_support`) passed the CUBE-LIO and FAST-LIVO2 tracks
+  but failed the untouched KITTI 05 row: ATE ratio over CUBE-LIO 0.924, but
+  translational RPE ratio 1.117. KITTI 05 became a consumed row.
+- **v13** (`corroborated_rotation_majority`) passed development rows and the
+  accuracy gates on untouched Boreas 2021-09-02 (ATE ratio 0.224), but the
+  official KISS reference on ~210k-point scans limited it below 10 FPS. That
+  Boreas window became a consumed row.
+- **v14** (`runtime_feasible_reference_v14`) keeps the v13 selector and adds a
+  GT-free first-scan point-count guard (150k, derived from consumed runtime
+  only). Every consumed KITTI row is byte-identical to v13. On the newly
+  declared Boreas 2021-09-07 window (600 frames, 425 m) it selects the raw
+  fallback and records 2.597 m ATE / 0.962% RPE at 18.1 FPS versus CUBE-LIO
+  3.050 m / 1.156% at 1.7 FPS. Against official FAST-LIVO2 the median ATE and
+  RPE ratios are 0.999 and 0.997 (parity, not a decisive win).
+
+All six requirements in
+[`lidar_odometry_v14_promotion_audit.json`](../evaluation/data/lidar_odometry_v14_promotion_audit.json)
+pass, so v14 is promoted. Fog and NTNU tunnel rows remain out of scope.

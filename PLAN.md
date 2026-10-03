@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-07-05 (IMU Dead Reckoning 追加 — 102本目、compact baseline)**
+> **最終更新: 2026-10-03 (LiDAR odometry v14 を README/suite に反映、handoff 更新)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,9 +24,31 @@
 
 ---
 
-## 00. Latest Handoff: IMU Dead Reckoning Compact Baseline (2026-07-05 更新)
+## 00. Latest Handoff: v14 反映と次の開発項目 (2026-10-03)
 
 > **これが最新・最優先の handoff。**
+>
+> 7/5 以降に main に入ったもの:
+> - **LiDAR odometry v14 昇格** (#64): `runtime_feasible_reference_v14` が CUBE-LIO (KITTI 00/07)、
+>   公式 FAST-LIVO2 (NTU VIRAL eee_01/eee_03, HILTI22 Exp14)、未使用 Boreas 2021-09-07 の全ゲートを通過
+>   ([`evaluation/data/lidar_odometry_v14_promotion_audit.json`](evaluation/data/lidar_odometry_v14_promotion_audit.json))。
+>   v11–v13 の不採用理由は [`docs/lidar_odometry_sota_log.md`](docs/lidar_odometry_sota_log.md) 末尾。
+>   2026-10-03 に README 見出し・`lidar_odometry_sota_suite.json` の `promoted_candidate_manifest` を v10→v14 に更新し、
+>   README と audit JSON の数値一致を `tests/test_lidar_v14_manifest.py` で固定した。
+>   `reproduce_lidar_v10.py` は v10 用のまま (v14 用の再スコアスクリプトは未作成)。
+> - **IMU motion health SDK** (#65–#69): `papers/imu_motion_health/` — LiDAR-free の動作/健全性 SDK、
+>   ROS 2 node、校正・検証パイプライン、公開データ (CGU-BES / UCI HAR / Parkinson) での転倒検知ベンチマーク。
+> - **初回体験** (#70): Docker 一発 demo の既定を `quick` profile に、activation 計測方針は
+>   [`docs/activation_metrics.md`](docs/activation_metrics.md)。
+>
+> 次にやるとよいこと (優先順):
+> 1. `docs/paper_tables_todo.md` Table 5 (全 matrix JSON の集計スクリプト) と Table 8 (環境仕様の自動生成)。
+> 2. v14 の再スコア/ハッシュ検証スクリプト (`reproduce_lidar_v14.py`)。
+> 3. Table 7 (CT-LIO appendix)、Table 6 (原論文値との比較、手作業収集が必要)。
+> 4. IMU 公開データベンチマークの CI 回帰化。
+
+## 00a. 前回 Handoff: IMU Dead Reckoning Compact Baseline (2026-07-05 更新)
+
 >
 > **`imu_dead_reckoning` (102本目) を追加した。** ただしこれは論文再現ではなく
 > **compact baseline** — LIO / OdoNet / NHC-Net / NN-ZUPT ファミリーの「無補助 IMU

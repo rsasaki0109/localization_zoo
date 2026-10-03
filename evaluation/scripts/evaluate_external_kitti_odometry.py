@@ -154,6 +154,40 @@ def rotation_angle(rotation: np.ndarray) -> float:
     return math.acos(cosine)
 
 
+KITTI_RTE_LENGTHS = (100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0)
+KITTI_RTE_STEP = 10
+
+
+def compute_kitti_rte(
+    estimates: list[np.ndarray],
+    references: list[np.ndarray],
+    cumulative_distance: list[float],
+) -> dict[str, float | int | None]:
+    """Official KITTI odometry metric (devkit): 100-800 m segments every 10th frame."""
+    frame_count = len(cumulative_distance)
+    translation_errors: list[float] = []
+    rotation_errors: list[float] = []
+    for first in range(0, frame_count, KITTI_RTE_STEP):
+        for length in KITTI_RTE_LENGTHS:
+            last = first
+            while last < frame_count and cumulative_distance[last] <= cumulative_distance[first] + length:
+                last += 1
+            if last >= frame_count:
+                continue
+            estimate_delta = np.linalg.inv(estimates[first]) @ estimates[last]
+            reference_delta = np.linalg.inv(references[first]) @ references[last]
+            error = np.linalg.inv(estimate_delta) @ reference_delta
+            translation_errors.append(float(np.linalg.norm(error[:3, 3])) / length)
+            rotation_errors.append(rotation_angle(error[:3, :3]) / length)
+    if not translation_errors:
+        return {"kitti_rte_trans_pct": None, "kitti_rte_rot_deg_per_100m": None, "kitti_rte_segments": 0}
+    return {
+        "kitti_rte_trans_pct": float(np.mean(translation_errors)) * 100.0,
+        "kitti_rte_rot_deg_per_100m": math.degrees(float(np.mean(rotation_errors))) * 100.0,
+        "kitti_rte_segments": len(translation_errors),
+    }
+
+
 def compute_metrics(
     estimates: list[np.ndarray],
     references: list[np.ndarray],
@@ -208,6 +242,7 @@ def compute_metrics(
             float(np.mean(rotation_errors)) if rotation_errors else None
         ),
         "rpe_segments": len(translation_errors),
+        **compute_kitti_rte(estimates, references, cumulative_distance),
         "trajectory_length_m": cumulative_distance[-1],
     }
 

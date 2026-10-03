@@ -10,6 +10,7 @@ import os
 import shlex
 import shutil
 import subprocess
+import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -17,6 +18,11 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from capture_benchmark_environment import capture_run_host  # noqa: E402
+
+HOST_RECORD_NAME = "host.json"
 
 
 # Legacy uppercase status values (emitted by older C++ binaries and runners)
@@ -74,6 +80,7 @@ class VariantResult:
     extensibility_note: str
     decision: str = ""
     decision_reason: str = ""
+    host: dict[str, Any] | None = None
 
 
 @dataclass
@@ -249,6 +256,7 @@ def problem_run_from_aggregate(
                 extensibility_note=item.get("extensibility_note", ""),
                 decision=item.get("decision", ""),
                 decision_reason=item.get("decision_reason", ""),
+                host=item.get("host"),
             )
         )
     return ProblemRun(
@@ -514,8 +522,9 @@ def run_variant(
     variant_dir.mkdir(parents=True, exist_ok=True)
     summary_path = variant_dir / "summary.json"
     log_path = variant_dir / "run.log"
+    host_path = variant_dir / HOST_RECORD_NAME
     if reuse_existing and summary_path.exists():
-        return variant_result_from_summary(
+        result = variant_result_from_summary(
             variant=variant,
             primary_method=primary_method,
             binary=binary,
@@ -526,7 +535,9 @@ def run_variant(
             summary_path=summary_path,
             log_path=log_path,
         )
-    for path in (summary_path, log_path):
+        result.host = load_host_record(host_path)
+        return result
+    for path in (summary_path, log_path, host_path):
         if path.exists():
             path.unlink()
     command = build_command(
@@ -538,6 +549,8 @@ def run_variant(
         variant["args"],
         summary_path,
     )
+    host = capture_run_host()
+    host_path.write_text(json.dumps(host, indent=2) + "\n")
     try:
         completed = subprocess.run(
             command,
@@ -561,7 +574,7 @@ def run_variant(
             log_path.write_text(f"[runner] {timeout_note}\n")
         if summary_path.exists():
             summary_path.unlink()
-        return variant_result_without_summary(
+        result = variant_result_without_summary(
             variant=variant,
             binary=binary,
             pcd_dir=pcd_dir,
@@ -574,8 +587,10 @@ def run_variant(
             note=timeout_note,
             time_ms=float(exc.timeout) * 1000.0,
         )
+        result.host = host
+        return result
     log_path.write_text(completed.stdout)
-    return variant_result_from_summary(
+    result = variant_result_from_summary(
         variant=variant,
         primary_method=primary_method,
         binary=binary,
@@ -586,6 +601,18 @@ def run_variant(
         summary_path=summary_path,
         log_path=log_path,
     )
+    result.host = host
+    return result
+
+
+def load_host_record(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        data = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        return None
+    return data if isinstance(data, dict) else None
 
 
 def compute_benchmark_scores(
@@ -712,7 +739,7 @@ def finalize_problem_outcome(
 
 
 def variant_result_to_dict(result: VariantResult) -> dict[str, Any]:
-    return {
+    payload = {
         "id": result.id,
         "label": result.label,
         "design_style": result.design_style,
@@ -737,6 +764,9 @@ def variant_result_to_dict(result: VariantResult) -> dict[str, Any]:
         "decision": result.decision,
         "decision_reason": result.decision_reason,
     }
+    if result.host is not None:
+        payload["host"] = result.host
+    return payload
 
 
 def variant_result_from_dict(data: dict[str, Any]) -> VariantResult:
@@ -764,6 +794,7 @@ def variant_result_from_dict(data: dict[str, Any]) -> VariantResult:
         extensibility_note=str(data.get("extensibility_note", "")),
         decision=str(data.get("decision", "")),
         decision_reason=str(data.get("decision_reason", "")),
+        host=data.get("host"),
     )
 
 

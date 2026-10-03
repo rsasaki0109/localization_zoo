@@ -40,7 +40,7 @@
 - [ ] **Table 8: Hardware and Environment Specification**
   - Description: CPU, GPU, RAM, OS, compiler, and library versions used for benchmark runs.
   - Data source: `evaluation/scripts/capture_benchmark_environment.py` → `docs/assets/paper/benchmark_environment.{json,md}` (capture host plus host records in `evaluation/data/*.json`). Run it on the benchmark machine; it is deliberately not part of `export_paper_assets.py` because the output depends on the host.
-  - Status: Partial — the capture host is documented, but `experiments/results/*_matrix.json` do not record which host produced each run (at least one evidence row ran on an i7-9750H WSL host). Per-run host provenance is needed before FPS columns can be attributed to one machine.
+  - Status: Partial — the capture host is documented. `run_experiment_matrix.py` now writes `host.json` beside each executed variant and a `host` field (CPU, cores, memory, OS, kernel; no hostname) into the aggregate, surfaced as `host_cpu` in Table 5 and as per-run coverage in Table 8. All existing 1,276 variants predate this (at least one evidence row ran on an i7-9750H WSL host), so FPS columns become attributable only as matrices are rerun.
 
 ## Figures
 

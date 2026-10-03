@@ -22,12 +22,14 @@ import re
 import shutil
 import subprocess
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ASSETS_DIR = REPO_ROOT / "docs" / "assets" / "paper"
 EVIDENCE_DIR = REPO_ROOT / "evaluation" / "data"
+INDEX_PATH = REPO_ROOT / "experiments" / "results" / "index.json"
 
 # (label, pkg-config modules to try, Debian packages to try)
 LIBRARIES = [
@@ -105,6 +107,23 @@ def library_version(pkg_modules: list[str], deb_packages: list[str]) -> str:
     return ""
 
 
+@lru_cache(maxsize=1)
+def _run_host() -> tuple[tuple[str, Any], ...]:
+    return (
+        ("cpu", cpu_model()),
+        ("logical_cores", os.cpu_count()),
+        ("memory_gib", memory_gib()),
+        ("os", os_name()),
+        ("kernel", platform.release()),
+        ("architecture", platform.machine()),
+    )
+
+
+def capture_run_host() -> dict[str, Any]:
+    """Cheap per-run host fingerprint (no subprocesses, no hostname)."""
+    return dict(_run_host())
+
+
 def capture_host() -> dict[str, Any]:
     tools = {label: (run(cmd).splitlines() or [""])[0] for label, cmd in TOOLS}
     tools["Python"] = platform.python_version()
@@ -141,6 +160,25 @@ def collect_recorded_hosts(evidence_dir: Path, repo_root: Path) -> list[dict[str
     return records
 
 
+def summarize_run_hosts(index_path: Path, repo_root: Path) -> dict[str, Any]:
+    """Count experiment variants whose aggregate carries a per-run host record."""
+    by_cpu: dict[str, int] = {}
+    total = 0
+    for entry in json.loads(index_path.read_text())["problems"]:
+        aggregate = json.loads((repo_root / entry["aggregate_path"]).read_text())
+        for variant in aggregate.get("variants", []):
+            total += 1
+            host = variant.get("host")
+            if isinstance(host, dict):
+                cpu = str(host.get("cpu", "unknown"))
+                by_cpu[cpu] = by_cpu.get(cpu, 0) + 1
+    return {
+        "variants_total": total,
+        "variants_with_host": sum(by_cpu.values()),
+        "by_cpu": dict(sorted(by_cpu.items())),
+    }
+
+
 def render_markdown(payload: dict[str, Any]) -> str:
     host = payload["capture_host"]
     rows = [
@@ -173,6 +211,18 @@ def render_markdown(payload: dict[str, Any]) -> str:
             lines.append(f"| `{record['evidence']}` | {host_text} | {record['runtime']} |")
     else:
         lines.append("None.")
+    run_hosts = payload["run_hosts"]
+    lines += [
+        "",
+        "## Per-run host coverage",
+        "",
+        f"{run_hosts['variants_with_host']} of {run_hosts['variants_total']} experiment variants "
+        "record the host that produced them (`host` in each aggregate variant, written by "
+        "`run_experiment_matrix.py` since per-run provenance was added).",
+    ]
+    if run_hosts["by_cpu"]:
+        lines += ["", "| CPU | Variants |", "|---|---:|"]
+        lines += [f"| {cpu} | {count} |" for cpu, count in run_hosts["by_cpu"].items()]
     lines += ["", "## Provenance boundary", "", payload["provenance_note"], ""]
     return "\n".join(lines)
 
@@ -185,9 +235,10 @@ def main() -> None:
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "capture_host": capture_host(),
         "recorded_hosts": collect_recorded_hosts(EVIDENCE_DIR, REPO_ROOT),
+        "run_hosts": summarize_run_hosts(INDEX_PATH, REPO_ROOT),
         "provenance_note": (
-            "Experiment aggregates under experiments/results/ do not record the host that "
-            "produced each run. The capture host is the current benchmark machine, not a "
+            "Variants without a per-run host record predate host provenance and cannot be "
+            "attributed to a machine. The capture host is the current benchmark machine, not a "
             "claim that every historical row ran on it; FPS values from different hosts "
             "should not be compared directly."
         ),

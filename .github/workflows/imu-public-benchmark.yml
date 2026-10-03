@@ -1,0 +1,82 @@
+name: IMU public benchmark
+
+# Re-runs the full public fall/ADL benchmark (CGU-BES, UCI HAR, Parkinson;
+# ~85 MB, CC BY 4.0) and fails if tuning or group metrics drift from the
+# committed configuration and papers/imu_motion_health/evaluation/public_benchmark_expected.json.
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "papers/imu_motion_health/**"
+      - ".github/workflows/imu-public-benchmark.yml"
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      DATA: ${{ github.workspace }}/imu_public_data
+      EVAL: papers/imu_motion_health/evaluation
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake libeigen3-dev libgtest-dev p7zip-full
+
+      - name: Build IMU CLI
+        run: |
+          cmake -S papers/imu_motion_health -B build/imu -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/imu --target imu_motion_health_cli -j"$(nproc)"
+
+      - name: Cache public dataset archives
+        uses: actions/cache@v4
+        with:
+          path: imu_public_data/raw
+          key: imu-public-raw-${{ hashFiles('papers/imu_motion_health/evaluation/public_datasets.json') }}
+
+      - name: Fetch (md5 + license verified)
+        run: |
+          python3 "$EVAL/public_dataset_benchmark.py" fetch \
+            --dataset cgu_bes --dataset uci_har --dataset parkinson --output "$DATA"
+
+      - name: Convert
+        run: |
+          python3 "$EVAL/public_dataset_benchmark.py" convert \
+            --cgu "$DATA/cgu_bes" --uci "$DATA/uci_har" --parkinson "$DATA/parkinson" \
+            --output "$DATA/normalized"
+
+      - name: Tune on training subjects
+        run: |
+          python3 "$EVAL/public_dataset_benchmark.py" tune \
+            --manifest "$DATA/normalized/manifest.json" --output "$DATA/results"
+
+      - name: Benchmark with committed configuration
+        run: |
+          python3 "$EVAL/public_dataset_benchmark.py" benchmark \
+            --manifest "$DATA/normalized/manifest.json" --root "$DATA/normalized" \
+            --cli build/imu/imu_motion_health_cli \
+            --profile papers/imu_motion_health/config/wearable-public-v1.yaml \
+            --policy papers/imu_motion_health/config/wearable-public-v1-policy.json \
+            --output "$DATA/results" --allow-fail
+          python3 "$EVAL/public_dataset_benchmark.py" report \
+            --input "$DATA/results/benchmark.json" --output "$DATA/results/report.html"
+
+      - name: Check against committed expectations
+        run: python3 "$EVAL/check_public_benchmark.py" --results "$DATA/results"
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: imu-public-benchmark
+          path: |
+            imu_public_data/results/benchmark.json
+            imu_public_data/results/tuning.json
+            imu_public_data/results/report.html
+          if-no-files-found: ignore

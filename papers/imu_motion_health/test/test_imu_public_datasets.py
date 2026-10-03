@@ -5,6 +5,8 @@ import importlib.util, json, pathlib, tempfile, unittest
 ROOT = pathlib.Path(__file__).parents[1]
 spec = importlib.util.spec_from_file_location("public_benchmark", ROOT / "evaluation" / "public_dataset_benchmark.py")
 tool = importlib.util.module_from_spec(spec); spec.loader.exec_module(tool)
+check_spec = importlib.util.spec_from_file_location("check_public_benchmark", ROOT / "evaluation" / "check_public_benchmark.py")
+checker = importlib.util.module_from_spec(check_spec); check_spec.loader.exec_module(checker)
 
 class PublicDatasetTest(unittest.TestCase):
     def test_registry_pins_rights_and_hashes(self):
@@ -56,5 +58,32 @@ class PublicDatasetTest(unittest.TestCase):
             self.assertIn("Public IMU benchmark", text)
             self.assertIn("Baseline → tuned", text)
             self.assertNotIn("<script src=", text)
+
+    def test_regression_check_accepts_expected_and_flags_drift(self):
+        expected = json.loads(checker.EXPECTED.read_text())
+        self.assertEqual(checker.compare_groups({"groups": expected["groups"], "passed": True}, expected), [])
+        drifted = json.loads(json.dumps(expected["groups"]))
+        drifted["cgu_bes"]["fall_sensitivity"] -= 0.01; drifted["uci_har"]["cli_failures"] = 1; del drifted["parkinson"]
+        errors = checker.compare_groups({"groups": drifted, "passed": True}, expected)
+        self.assertEqual(len(errors), 3)
+        self.assertTrue(any("cgu_bes.fall_sensitivity" in e for e in errors))
+
+    def test_regression_check_compares_tuned_values_not_comments(self):
+        with tempfile.TemporaryDirectory() as directory:
+            tuned = pathlib.Path(directory)
+            frozen = checker.CONFIG_DIR / "wearable-public-v1.yaml"
+            body = "\n".join(l for l in frozen.read_text().splitlines() if not l.startswith("#"))
+            (tuned / "wearable-public-v1.yaml").write_text(body)
+            policy = json.loads((checker.CONFIG_DIR / "wearable-public-v1-policy.json").read_text()); policy.pop("description")
+            (tuned / "wearable-public-v1-policy.json").write_text(json.dumps(policy))
+            self.assertEqual(checker.compare_tuning(tuned, checker.CONFIG_DIR), [])
+            (tuned / "wearable-public-v1.yaml").write_text(body.replace("45.0", "40.0"))
+            self.assertEqual(len(checker.compare_tuning(tuned, checker.CONFIG_DIR)), 1)
+
+    def test_expected_metrics_match_documented_result(self):
+        cgu = json.loads(checker.EXPECTED.read_text())["groups"]["cgu_bes"]
+        self.assertEqual(f"{cgu['fall_sensitivity']:.1%}", "96.7%")
+        self.assertEqual(f"{cgu['median_latency_s']:.2f}", "1.78")
+        self.assertIn("96.7% CGU", (ROOT / "evaluation" / "public_datasets.md").read_text())
 
 if __name__ == "__main__": unittest.main()

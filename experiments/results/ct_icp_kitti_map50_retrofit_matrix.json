@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-19T03:08:36+00:00",
-  "manifest_path": "experiments/pending/ct_icp_kitti_map50_retrofit_matrix.json",
+  "generated_at": "2026-10-04T19:50:51+00:00",
+  "manifest_path": "experiments/ct_icp_kitti_map50_retrofit_matrix.json",
   "problem": {
     "id": "ct_icp_kitti_map50_retrofit_seq_02",
     "title": "CT-ICP seq 02 full: map=50 retrofit on bare baseline winner",
@@ -48,20 +48,30 @@
       "summary_path": "experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_20/summary.json",
       "log_path": "experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_20/run.log",
       "status": "ok",
-      "ate_m": 56.537125,
-      "rpe_trans_pct": 3.348163,
-      "rpe_rot_deg_per_m": 0.032189,
-      "fps": 19.931597,
-      "time_ms": 233849.798261,
+      "ate_m": 68.971756,
+      "rpe_trans_pct": 2.976704,
+      "rpe_rot_deg_per_m": 0.03192,
+      "fps": 8.22287,
+      "time_ms": 566833.713698,
       "frames": 4661,
       "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
-      "benchmark_score": 100.0,
+      "benchmark_score": 98.9,
       "readability_score": 3.45,
       "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
       "extensibility_score": 3.95,
       "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
       "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 3.656747,
+      "kitti_rte_rot_deg_per_100m": 1.985385,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     },
     {
       "id": "baseline_map_50",
@@ -79,20 +89,30 @@
       "summary_path": "experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_50/summary.json",
       "log_path": "experiments/results/runs/ct_icp_kitti_map50_retrofit_matrix/baseline_map_50/run.log",
       "status": "ok",
-      "ate_m": 118.257034,
-      "rpe_trans_pct": 5.01216,
-      "rpe_rot_deg_per_m": 0.037677,
-      "fps": 18.481188,
-      "time_ms": 252202.397483,
+      "ate_m": 103.301035,
+      "rpe_trans_pct": 4.090809,
+      "rpe_rot_deg_per_m": 0.037518,
+      "fps": 8.407293,
+      "time_ms": 554399.616437,
       "frames": 4661,
       "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
-      "benchmark_score": 70.27,
+      "benchmark_score": 83.38,
       "readability_score": 3.45,
       "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
       "extensibility_score": 3.95,
       "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
       "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 4.292852,
+      "kitti_rte_rot_deg_per_100m": 2.31081,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     }
   ]
 }

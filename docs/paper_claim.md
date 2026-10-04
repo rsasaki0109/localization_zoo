@@ -56,7 +56,7 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Near paper | LiTAMIN2 (ICP+Cov, no loop closure) | 00/02/05/07/08 | 1.22x |
 | Gap remains | KISS-ICP (compact baseline) | 00 | 1.87x |
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
-| Gap remains | CT-ICP | 00/02/05/07/08 | 4.15x |
+| Gap remains | CT-ICP | 00/02/05/07/08 | 4.03x |
 | Gap remains | MULLS (derived multi-metric variant) | 00/02/05/07/08 | 7.62x |
 
 What may be claimed: A-LOAM, LF-GICP, and LiTAMIN2 reach paper-level odometry accuracy
@@ -82,7 +82,7 @@ unnoticed, which motivates pinning both inputs and code:
   LiTAMIN2, CT-ICP, and KISS-ICP disagreed with the paper (for example KISS-ICP
   was recorded as per-sequence ATE in metres, which the paper does not report).
   This had inflated LiTAMIN2's apparent gap (1.35x claimed vs 1.22x measured)
-  and overstated CT-ICP's (~4.5x claimed vs 4.15x measured on the official metric).
+  and overstated CT-ICP's (~4.5x claimed vs 4.03x measured on the official metric).
 - **Silent code drift.** A later change to the shared KISS-ICP voxel search
   (27 voxels → all voxels within the correspondence distance) moved KITTI 00
   from 0.857 % to 1.069 % 100 m RPE without any aggregate being re-run.

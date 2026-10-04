@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-04T15:38:04+00:00
+> Generated: 2026-10-04T19:52:00+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -218,10 +218,10 @@ For an explicit statement of implementation scope and what the repo currently cl
 **Reported FPS**: ~16.7
 **Hardware**: Not stated; single-thread CPU
 **Repo scope**: Paper-oriented core reimplementation — The repo implements the continuous-time two-pose-per-scan core, interpolation, and point-to-plane optimization described by CT-ICP.
-**Current claim**: Approximate reproduction across KITTI Odometry 00/02/05/07/08 — Official KITTI RTE: 1.83/3.66/1.58/1.07/1.75 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.49/0.52/0.25/0.31/0.81 % (Table I, KITTI-corrected): 2.16-7.03x, geometric mean 4.15x. Parameter tuning has not closed the gap. Only the five leaderboard sweeps were re-run; the other ~300 CT-ICP KITTI variants still hold pre-2026-10 values. Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Numeric comparison**: Same metric, ~4.2x ratio (parameter-tuning floor) — Official KITTI RTE, repo vs paper: seq 00 1.825 vs 0.49 (3.72x), seq 02 3.657 vs 0.52 (7.03x), seq 05 1.577 vs 0.25 (6.31x), seq 07 1.067 vs 0.31 (3.44x), seq 08 1.749 vs 0.81 (2.16x). Values are the official KITTI RTE of the best variant among sweeps re-run with the current code on 2026-10-04 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
-**Main blocker**: Parameter-only ceiling at ~4.2x best-of-sweep ratio (official KITTI RTE) on KITTI 00/02/05/07/08. Closing further requires architectural attention to the continuous-time optimization stack (ceres options, planarity threshold weighting, motion compensation precision) rather than more iterations.
-**Next step**: Compare repo CT-ICP step-by-step against the upstream CT-ICP reference implementation to identify which optimization-stack component introduces the remaining ~4.2x ceiling. Also export sequences 01/03/04/06/09/10 for full paper coverage.
+**Current claim**: Approximate reproduction across KITTI Odometry 00/02/05/07/08 — Official KITTI RTE: 1.66/3.47/1.58/1.07/1.75 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.49/0.52/0.25/0.31/0.81 % (Table I, KITTI-corrected): 2.16-6.68x, geometric mean 4.03x. Parameter tuning has not closed the gap. Values are the official KITTI RTE of the best variant among all ~313 CT-ICP KITTI sweep variants re-run with the current code on 2026-10-05 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Same metric, ~4.0x ratio (parameter-tuning floor) — Official KITTI RTE, repo vs paper: seq 00 1.664 vs 0.49 (3.40x), seq 02 3.472 vs 0.52 (6.68x), seq 05 1.577 vs 0.25 (6.31x), seq 07 1.067 vs 0.31 (3.44x), seq 08 1.749 vs 0.81 (2.16x). Values are the official KITTI RTE of the best variant among all ~313 CT-ICP KITTI sweep variants re-run with the current code on 2026-10-05 (selected on the evaluated sequence, so optimistic); see docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: Parameter-only ceiling at ~4.0x best-of-sweep ratio (official KITTI RTE) on KITTI 00/02/05/07/08. Closing further requires architectural attention to the continuous-time optimization stack (ceres options, planarity threshold weighting, motion compensation precision) rather than more iterations.
+**Next step**: Compare repo CT-ICP step-by-step against the upstream CT-ICP reference implementation to identify which optimization-stack component introduces the remaining ~4.0x ceiling. Also export sequences 01/03/04/06/09/10 for full paper coverage.
 
 ### Paper-Reported Values
 
@@ -248,6 +248,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 | HDL-400 | Fast window | 2.582 | 20.008 | 0.745586 | 54.94 |
 | Istanbul | Balanced window | 6.820 | - | - | 1.58 |
 | Istanbul | Balanced window | 7.539 | - | - | 1.31 |
+| KITTI | corr=5 | 12.931 | 2.092 | 0.026054 | 9.80 |
+| KITTI | baseline (dense + iter=6 + map=20) | 68.972 | 2.977 | 0.031920 | 8.22 |
 | KITTI | cluster D (ms_chol) | 2.579 | 1.606 | 0.015756 | 7.20 |
 | KITTI | Fast window | 3.871 | 2.230 | 0.032283 | 12.69 |
 | KITTI | balanced_window (current best 4.67 m) | 4.105 | 1.750 | 0.020566 | 7.41 |
@@ -257,16 +259,49 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Fast window | 6.972 | - | - | 37.60 |
 | KITTI | fast_window (current best 6.97 m) | 6.972 | 1.722 | 0.039063 | 57.76 |
 | KITTI | Fast window | 1.475 | - | - | 56.88 |
-| KITTI | fine σ=0.375 (slightly tighter) | 13.907 | 2.195 | 0.028680 | 14.21 |
-| KITTI | coarse search radius=2 (5x5x5, cluster A default) | 12.694 | 2.103 | 0.026199 | 16.19 |
-| KITTI | cluster A + GT seed | 4.906 | 5.760 | 0.050591 | 15.23 |
+| KITTI | bare + corr=8 | 17.568 | 2.134 | 0.027303 | 13.76 |
+| KITTI | cauchy=4.0 | 18.895 | 2.066 | 0.027959 | 10.58 |
+| KITTI | coarse_iter=1 | 14.099 | 2.057 | 0.027515 | 9.79 |
+| KITTI | corr_dist=8 m² (2.8 m linear) | 16.778 | 2.053 | 0.026043 | 9.51 |
+| KITTI | fine σ=0.25 (tighter) | 12.351 | 2.040 | 0.025852 | 8.44 |
+| KITTI | c2f_sigma_only map=20 (existing winner) | 18.370 | 2.137 | 0.027809 | 10.39 |
+| KITTI | Balanced window | 19.413 | 2.111 | 0.027532 | 12.99 |
+| KITTI | coarse search radius=1 (3x3x3, same as fine) | 14.817 | 2.087 | 0.027970 | 10.24 |
+| KITTI | cluster A + GT seed | 5.855 | 5.998 | 0.076457 | 6.87 |
+| KITTI | full minus ms_chol (no multi-scale, no cholesky) | 12.931 | 2.092 | 0.026054 | 11.55 |
+| KITTI | map=50 + corr=5 | 14.894 | 2.149 | 0.027041 | 12.48 |
+| KITTI | bare map=50 | 15.753 | 2.043 | 0.027532 | 11.23 |
+| KITTI | + corr=5 | 12.931 | 2.092 | 0.026054 | 11.40 |
 | KITTI | dense + c2f cluster-A (existing best, RPE 2.059%) | 14.099 | 2.057 | 0.027515 | 8.66 |
+| KITTI | baseline (dense + iter=6 + map=20) — existing winner | 68.972 | 2.977 | 0.031920 | 10.31 |
+| KITTI | corr=5 | 65.305 | 3.165 | 0.033007 | 10.40 |
+| KITTI | ms_chol + corr=5 | 65.305 | 3.165 | 0.033007 | 8.65 |
+| KITTI | dense + iter=6 + map=20 (existing winner) | 68.972 | 2.977 | 0.031920 | 10.70 |
 | KITTI | baseline map=15 | 76.464 | 2.651 | 0.033446 | 4.44 |
+| KITTI | corr=8 + map=15 | 73.230 | 2.678 | 0.032340 | 11.73 |
+| KITTI | arch_tuned + map=50 (full + bigger) | 8.844 | 1.175 | 0.023420 | 10.16 |
+| KITTI | arch_tuned corr=4 (existing winner) | 9.485 | 1.185 | 0.023558 | 11.60 |
+| KITTI | arch_tuned map=50 | 8.844 | 1.175 | 0.023420 | 11.31 |
+| KITTI | bare map=30 | 11.707 | 1.227 | 0.023648 | 7.02 |
 | KITTI | + constant-velocity-weight 0.05 (winner) | 11.949 | 1.122 | 0.023083 | 5.11 |
-| KITTI | cluster D full no seed (current winner 1.61 m) | 1.607 | 2.057 | 0.019671 | 21.50 |
+| KITTI | ms_chol + map=50 + c2f σ×2 (full combo) | 2.010 | 1.772 | 0.017504 | 9.86 |
+| KITTI | ms_chol + corr_dist=8 m² | 2.049 | 2.147 | 0.020803 | 14.06 |
+| KITTI | Dense window | 2.842 | 2.103 | 0.021053 | 17.52 |
+| KITTI | cluster D full + GT seed | 1.603 | 2.082 | 0.020798 | 11.20 |
+| KITTI | ms_chol map=50 | 1.472 | 1.730 | 0.018054 | 12.67 |
 | KITTI | + constant-velocity-weight 0.1 | 2.490 | 1.253 | 0.018813 | 5.97 |
-| KITTI | cluster A + GT seed | 6.024 | 9.133 | 0.113997 | 16.76 |
+| KITTI | cholesky + c2f (no multi-scale) | 37.043 | 2.113 | 0.025832 | 12.18 |
+| KITTI | c2f_only + corr_dist=8 m² | 33.860 | 2.113 | 0.026506 | 10.18 |
+| KITTI | cauchy=2.5 | 31.958 | 2.112 | 0.026070 | 11.93 |
+| KITTI | coarse_iter=6 | 30.418 | 2.105 | 0.026321 | 10.39 |
+| KITTI | cluster A + GT seed | 6.813 | 8.142 | 0.078035 | 6.85 |
+| KITTI | c2f_only map=20 (existing winner) | 37.043 | 2.113 | 0.025832 | 8.63 |
+| KITTI | simplified (map=50 + c2f σ×2) — existing 27.85 m | 28.427 | 2.017 | 0.024197 | 10.95 |
 | KITTI | + constant-velocity-weight 0.01 (RPE 1.935%) | 40.362 | 1.949 | 0.023975 | 9.30 |
+| KITTI | bare + corr=8 (existing seq 02 winner) | 93.642 | 3.717 | 0.033521 | 12.98 |
+| KITTI | map=50 + c2f σ×2 + corr=4 (combine both) | 9.305 | 1.214 | 0.023269 | 9.09 |
+| KITTI | map=50 + c2f σ×2 (no ms_chol) | 2.010 | 1.772 | 0.017504 | 11.82 |
+| KITTI | map=50 + c2f σ×2 (no ms_chol) | 28.427 | 2.017 | 0.024197 | 8.53 |
 | dogfooding_results/mcd_kth_day_06_108 | Fast window | 6.525 | 31.125 | 2.631934 | 57.24 |
 | dogfooding_results/mcd_kth_day_06_108 | dense_window only (current best 6.12 m) | 6.115 | 29.891 | 2.381092 | 17.96 |
 | dogfooding_results/mcd_kth_day_06_108 | dense_window + GT seed | 2.778 | 17.676 | 1.581335 | 28.26 |
@@ -281,43 +316,8 @@ For an explicit statement of implementation scope and what the repo currently cl
 | dogfooding_results/mulran_parkinglot_full | cluster A (map=50 + c2f σ×2) + GT seed | 9.186 | 9.969 | 0.090951 | 14.58 |
 | dogfooding_results/mulran_parkinglot_full | Fast window | 80.958 | 107.256 | 0.155683 | 59.75 |
 | Istanbul | Fast window | 79.761 | - | - | 2.75 |
-| KITTI | corr=5 | 13.322 | 2.176 | 0.027836 | 15.45 |
-| KITTI | baseline (dense + iter=6 + map=20) | 56.537 | 3.348 | 0.032189 | 19.93 |
-| KITTI | bare + corr=8 | 14.968 | 2.218 | 0.028736 | 22.33 |
-| KITTI | c2f_sigma_only cauchy=2.0 (existing winner) | 15.927 | 2.197 | 0.028434 | 19.39 |
-| KITTI | coarse_iter=2 | 14.780 | 2.110 | 0.028141 | 18.53 |
-| KITTI | corr_dist=8 m² (2.8 m linear) | 14.363 | 2.113 | 0.027721 | 17.46 |
-| KITTI | map=30 | 16.541 | 2.073 | 0.027126 | 17.99 |
-| KITTI | Dense window | 16.778 | 2.577 | 0.030548 | 26.91 |
-| KITTI | full recipe (existing 13.32 m) | 13.322 | 2.176 | 0.027836 | 18.67 |
-| KITTI | map=50 + c2f σ×2 (no ms_chol) | 12.694 | 2.103 | 0.026199 | 18.71 |
-| KITTI | bare map=30 | 15.803 | 2.078 | 0.026035 | 18.69 |
 | KITTI | Fast window | 2.824 | 3.773 | 0.047622 | 74.88 |
-| KITTI | map=50 + c2f σ×2 (existing 12.69) | 12.694 | 2.103 | 0.026199 | 18.62 |
-| KITTI | baseline + corr_dist=8 m² | 50.635 | 3.189 | 0.033420 | 16.37 |
-| KITTI | corr=8 (existing seq 02 winner) | 50.635 | 3.189 | 0.033420 | 17.24 |
-| KITTI | bare + corr=8 (existing winner) | 50.635 | 3.189 | 0.033420 | 21.64 |
-| KITTI | dense + iter=6 + map=20 (existing winner) | 56.537 | 3.348 | 0.032189 | 16.80 |
-| KITTI | corr=8 + map=20 (existing winner) | 50.635 | 3.189 | 0.033420 | 18.02 |
-| KITTI | bare + map=50 + corr=4 | 8.783 | 1.177 | 0.023619 | 19.68 |
-| KITTI | arch_tuned corr=4 (existing winner) | 9.097 | 1.127 | 0.023189 | 15.74 |
-| KITTI | arch_tuned map=30 (existing winner) | 9.097 | 1.127 | 0.023189 | 18.29 |
-| KITTI | bare map=50 | 9.337 | 1.190 | 0.024517 | 18.01 |
-| KITTI | ms_chol (existing 1.61 m) | 1.607 | 2.057 | 0.019671 | 14.85 |
-| KITTI | ms_chol corr_dist=default (existing winner) | 1.607 | 2.057 | 0.019671 | 16.98 |
-| KITTI | Fast window | 10.705 | 2.452 | 0.039323 | 74.86 |
-| KITTI | ms_chol map=20 (existing winner) | 1.607 | 2.057 | 0.019671 | 19.70 |
 | KITTI | Fast window | 0.978 | 1.359 | 0.082217 | 77.32 |
-| KITTI | c2f_only = ms_chol + c2f (existing winner) | 32.511 | 2.120 | 0.025611 | 17.87 |
-| KITTI | c2f_only corr_dist=default (existing winner) | 32.511 | 2.120 | 0.025611 | 17.35 |
-| KITTI | cauchy=3.0 | 34.397 | 2.099 | 0.026268 | 18.44 |
-| KITTI | coarse_iter=6 | 35.598 | 2.126 | 0.025911 | 13.63 |
-| KITTI | c2f_only map=20 (existing winner) | 32.511 | 2.120 | 0.025611 | 13.44 |
-| KITTI | simplified (map=50 + c2f σ×2) — existing 27.85 m | 27.850 | 1.949 | 0.024600 | 15.74 |
-| KITTI | bare + corr=8 (existing seq 02 winner) | 50.635 | 3.189 | 0.033420 | 21.80 |
-| KITTI | map=50 + c2f σ×2 + corr=4 (combine both) | 7.762 | 1.198 | 0.023988 | 18.92 |
-| KITTI | ms_chol (existing seq 07 winner) | 1.607 | 2.057 | 0.019671 | 20.27 |
-| KITTI | map=50 + c2f σ×2 (no ms_chol) | 27.850 | 1.949 | 0.024600 | 18.33 |
 
 **Notes**: Paper values were re-verified against the arXiv PDF on 2026-10-03. Repo values are the official KITTI RTE (100-800 m) from re-running, with the current code, the variant with the best 100 m RPE in the full non-GT-seeded sweep for that sequence (experiments/results/kitti_rte_rescore.json); selection on the evaluated sequence makes them optimistic. See docs/assets/paper/paper_ratio_table.csv (Table 6). The --ct-icp-gt-seed toggle remains available for fair-prior dogfooding-style cross-method comparison; GT-seeded rows are excluded from Table 6.
 

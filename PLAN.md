@@ -36,7 +36,7 @@
 > - **Table 6 (原論文値との比較)**: `evaluation/data/paper_reported_numbers.json` の LiTAMIN2 / CT-ICP / KISS-ICP の
 >   論文値は**3件とも論文と一致していなかった**ので PDF から取り直し、`reported_source` (arXiv・表・行) を必須化
 >   (`tests/test_paper_ratio_table.py`)。A-LOAM (LOAM の孫引き)、MULLS、SuMa を追加。現在の倍率 (公式 RTE、幾何平均):
->   A-LOAM 1.01x、LiTAMIN2 1.22x、KISS-ICP 1.87x、SuMa 2.21x、CT-ICP 4.15x、MULLS 7.62x。
+>   A-LOAM 1.01x、LF-GICP 0.96x、LiTAMIN2 1.22x、KISS-ICP 1.87x、SuMa 2.21x、CT-ICP 4.03x、MULLS 7.62x。
 >   主張の書き方は [`docs/paper_claim.md`](docs/paper_claim.md) Sub-Claim 5/6。
 > - **公式 KITTI RTE**: `pcd_dogfooding` と `evaluate_external_kitti_odometry.py` が devkit 準拠の
 >   `kitti_rte_trans_pct` を出す (従来の `rpe_trans_pct` は 100 m 区間で論文と別指標)。
@@ -47,12 +47,8 @@
 >   README 順位表の元になる A-LOAM/F-LOAM/LeGO-LOAM/KISS-ICP の KITTI 実験と CT-ICP 5 実験を今のコードで再実行済み (#87)。
 >   今のコードで再実行していない値は順位表で † 表示 (`generate_leaderboard.py`)。監査は `audit_kitti_drift.py`。
 >
-> **進行中 (2026-10-04)**: CT-ICP の残り KITTI 実験 106 本 (313 設定、`experiments/` と `experiments/pending/`) の再実行。
-> `build/ctref/run.sh` (gitignore 下、再開可能、`*.done` で完了管理) が detached で動作中。完了後:
-> 1. `build/ctref/<stem>/runs/<stem>` を `experiments/results/runs/` にコピー
-> 2. `run_experiment_matrix.py --manifest ... --reuse-existing --merge-existing-index` で集計。
->    **pending の manifest は index に入れない** — 集計後に `git checkout experiments/results/index.json` と生成 docs を戻す
-> 3. `generate_leaderboard.py` と `export_paper_assets.py` を再実行し、CT-ICP seq 02 の † が消えることを確認
+> **完了 (2026-10-05)**: CT-ICP の KITTI 全長実験 106 本 (313 設定、`experiments/` と `experiments/pending/`) を今のコードで再実行して取り込み済み。
+> 順位表の † は解消。index のうち 37 件が実在しない `experiments/pending/...` を指していたので、実在するパスに修正した。
 >
 > **環境メモ**: KITTI 全長データは外付け SSD `/media/sasaki/aiueo2/loc_zoo_ws_data/localization_zoo/dogfooding_results/`
 > (`dogfooding_results/kitti_seq_0X_full` は symlink)。SSD が外れていると全実行が即失敗する。

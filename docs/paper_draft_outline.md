@@ -115,7 +115,7 @@ Most ready problems ship **≥3** CLI profiles in manifests (see `experiments/*_
 - Source: `docs/assets/paper/default_variant_instability.png`, table export `docs/assets/paper/default_variant_matrix.csv`.
 
 ### Table 6: Original-Paper Comparison (official KITTI RTE)
-- Paper KITTI RTE vs the best non-GT-seeded repo variant on the same full sequences: A-LOAM 1.01x, LF-GICP 0.96x, and LiTAMIN2 1.22x (near paper); KISS-ICP 1.87x, SuMa 2.21x, CT-ICP 4.15x, MULLS 7.62x (gap remains). Source: `docs/assets/paper/paper_ratio_table.{csv,tex}`; claim wording in `docs/paper_claim.md` Sub-Claims 5-6.
+- Paper KITTI RTE vs the best non-GT-seeded repo variant on the same full sequences: A-LOAM 1.01x, LF-GICP 0.96x, and LiTAMIN2 1.22x (near paper); KISS-ICP 1.87x, SuMa 2.21x, CT-ICP 4.03x, MULLS 7.62x (gap remains). Source: `docs/assets/paper/paper_ratio_table.{csv,tex}`; claim wording in `docs/paper_claim.md` Sub-Claims 5-6.
 
 ### Additional Results
 - Per-method accuracy breakdown tables (appendix).

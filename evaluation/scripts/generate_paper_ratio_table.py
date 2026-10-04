@@ -98,7 +98,8 @@ def collect_pools(
             continue
         for variant in aggregate.get("variants", []):
             rpe = variant.get("rpe_trans_pct")
-            if rpe is None or not math.isfinite(float(rpe)) or is_gt_seeded(variant):
+            if (rpe is None or not math.isfinite(float(rpe)) or is_gt_seeded(variant)
+                    or variant.get("design_style") == "ablation"):
                 continue
             rte = variant.get("kitti_rte_trans_pct")
             if rte is None:
@@ -134,6 +135,11 @@ def collect_rows(
                 continue
             sequence = match.group(1)
             pool = pools.get((selector, sequence), [])
+            # Optional "repo_variants" restricts the pool to the variants that
+            # implement the paper's method (e.g. excludes ablations).
+            allowed = info.get("repo_variants")
+            if allowed:
+                pool = [item for item in pool if item["variant"] in allowed]
             selected_from = len(pool)
             metric = "rpe_100m"
             if any(item["rte"] is not None for item in pool):
@@ -142,7 +148,7 @@ def collect_rows(
             row = {
                 "method": selector,
                 "sequence": sequence,
-                "paper_rte_pct": f"{float(paper_value):.2f}",
+                "paper_rte_pct": f"{float(paper_value):.3f}",
                 "paper_source": source_text,
                 "repo_metric": metric if pool else "",
                 "repo_best_rpe_pct": "",

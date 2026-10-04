@@ -1,0 +1,109 @@
+{
+  "generated_at": "2026-10-04T15:36:10+00:00",
+  "manifest_path": "experiments/lf_gicp_kitti_seq_02_full_matrix.json",
+  "problem": {
+    "id": "lf_gicp_kitti_seq_02_full",
+    "title": "LF-GICP on KITTI Odom seq 02 full (4661 frames)",
+    "question": "Does the localizability-field gate with soft Fisher weighting improve the GICP scan-to-map backend on KITTI?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lf_gicp",
+    "primary_method": "LF-GICP"
+  },
+  "dataset": {
+    "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+    "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv",
+    "extra_args": []
+  },
+  "variant_timeout_seconds": null,
+  "status": "ready",
+  "blocker": "",
+  "next_step": "",
+  "variants": [
+    {
+      "id": "paper_default",
+      "label": "Paper default",
+      "design_style": "balanced",
+      "intent": "Paper Table SI constants with the localizability-field gate and soft Fisher weighting.",
+      "args": [],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/paper_default/summary.json",
+      "summary_path": "experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/paper_default/summary.json",
+      "log_path": "experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/paper_default/run.log",
+      "status": "ok",
+      "ate_m": 33.031673,
+      "rpe_trans_pct": 0.892164,
+      "rpe_rot_deg_per_m": 0.005977,
+      "fps": 3.270586,
+      "time_ms": 1425126.730371,
+      "frames": 4661,
+      "note": "Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=628/4661 median_f0=0.152777 median_lambda0=0.016655",
+      "benchmark_score": 86.82,
+      "readability_score": 5.0,
+      "readability_note": "Uses the default CLI surface only.",
+      "extensibility_score": 5.0,
+      "extensibility_note": "No extra profile knobs beyond the stable core contract.",
+      "decision": "Keep as reference variant",
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 1.07538,
+      "kitti_rte_rot_deg_per_100m": 0.376033,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
+    },
+    {
+      "id": "no_mitigation",
+      "label": "Vanilla VGICP backend",
+      "design_style": "ablation",
+      "intent": "Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).",
+      "args": [
+        "--lf-gicp-no-mitigation"
+      ],
+      "command": "build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/no_mitigation/summary.json --lf-gicp-no-mitigation",
+      "summary_path": "experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/no_mitigation/summary.json",
+      "log_path": "experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/no_mitigation/run.log",
+      "status": "ok",
+      "ate_m": 27.185742,
+      "rpe_trans_pct": 0.883793,
+      "rpe_rot_deg_per_m": 0.005697,
+      "fps": 3.580422,
+      "time_ms": 1301801.839158,
+      "frames": 4661,
+      "note": "Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 degenerate_frames=0/4661 median_f0=0.150836 median_lambda0=0.00247678",
+      "benchmark_score": 100.0,
+      "readability_score": 4.65,
+      "readability_note": "Adds only boolean toggles on top of the stable CLI.",
+      "extensibility_score": 4.75,
+      "extensibility_note": "Still stays inside the stable CLI, but expands the toggle surface.",
+      "decision": "Adopt as current default",
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 1.07365,
+      "kitti_rte_rot_deg_per_100m": 0.381963,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
+    }
+  ]
+}

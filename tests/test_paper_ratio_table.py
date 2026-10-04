@@ -74,6 +74,26 @@ class PaperRatioTableTests(unittest.TestCase):
         self.assertEqual(row["repo_best_rpe_pct"], "1.000")
         self.assertEqual(row["repo_pool_size"], "1")
 
+    def test_repo_variants_restrict_the_pool(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paper = root / "paper.json"
+            paper.write_text(json.dumps({"methods": {"demo": {
+                "reported_values": {"kitti_00": 0.5}, "repo_variants": ["paper_default"]}}}))
+            results = root / "results"
+            results.mkdir()
+            (results / "a_matrix.json").write_text(json.dumps({
+                "stable_interface": {"methods": "demo"},
+                "dataset": {"pcd_dir": "kitti_seq_00_full"},
+                "variants": [
+                    {"id": "paper_default", "rpe_trans_pct": 1.0, "kitti_rte_trans_pct": 0.9, "note": ""},
+                    {"id": "ablation", "rpe_trans_pct": 0.5, "kitti_rte_trans_pct": 0.4, "note": ""},
+                ],
+            }))
+            row = self.module.collect_rows(paper, results)[0]
+        self.assertEqual(row["repo_best_variant"], "paper_default")
+        self.assertEqual(row["selected_from_n"], "1")
+
     def test_every_kitti_paper_value_cites_its_source(self) -> None:
         methods = json.loads(
             (REPO_ROOT / "evaluation/data/paper_reported_numbers.json").read_text()

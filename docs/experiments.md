@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T15:36:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -48,7 +48,6 @@ _Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_ma
 | CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A) | `ready` | `radius_2_reference` | 12.694 | 16.2 | `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` |
 | CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full | `ready` | `cluster_a_seeded` | 4.906 | 17.6 | `experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json` |
 | CT-ICP seq 00 full: constant-velocity regularization (small weight) | `ready` | `c2f_reference` | 14.099 | 8.7 | `experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json` |
-| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `map_15` | 68.972 | 5.7 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `map_15` | 68.972 | 5.7 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | CT-ICP seq 05 full: constant-velocity regularization sweep | `ready` | `velocity_reg_005` | 11.158 | 5.1 | `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json` |
 | CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D) | `ready` | `cluster_d_full_no_seed_reference` | 1.603 | 21.5 | `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json` |
@@ -198,6 +197,11 @@ _Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_ma
 | LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `fast` | 6.072 | 9.9 | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `fast` | 0.036 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `fast` | 1.344 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
+| LF-GICP on KITTI Odom seq 00 full (4541 frames) | `ready` | `no_mitigation` | 7.848 | 3.8 | `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json` |
+| LF-GICP on KITTI Odom seq 02 full (4661 frames) | `ready` | `no_mitigation` | 27.186 | 3.6 | `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json` |
+| LF-GICP on KITTI Odom seq 05 full (2761 frames) | `ready` | `no_mitigation` | 5.556 | 5.4 | `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json` |
+| LF-GICP on KITTI Odom seq 07 full (1101 frames) | `ready` | `paper_default` | 0.646 | 4.3 | `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json` |
+| LF-GICP on KITTI Odom seq 08 full (4071 frames) | `ready` | `no_mitigation` | 16.280 | 2.9 | `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json` |
 | LINS on the public HDL-400 reference window | `ready` | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 183.380 | 123.3 | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
 | LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 119.861 | 120.7 | `experiments/results/lins_kitti_raw_0009_matrix.json` |
@@ -2918,78 +2922,6 @@ _Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_ma
 - Log: `experiments/results/runs/ct_icp_kitti_seq_00_velocity_reg_matrix/velocity_reg_001/run.log`
 - Readability proxy: 1.00 / 5.00. Adds extra tuning knobs and therefore more command complexity.
 - Extensibility proxy: 1.20 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-
-## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
-
-- **Problem ID**: `ct_icp_kitti_seq_02_full_small_map`
-- **Question**: seq 02 catastrophically rejects map=50 (+109%). Does it prefer SMALLER maps?
-- **Status**: `ready`
-- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
-- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
-- **Stable binary**: `build/evaluation/pcd_dogfooding`
-- **Shared method selector**: `ct_icp`
-- **Shared metrics**: ate_m, fps, rpe_trans_pct, readability_score, extensibility_score
-- **Aggregate result**: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
-
-| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
-|---------|-------|---------|-----|-----------|-------------|---------------|----------|
-| baseline map=20 (existing winner) | reference | 68.972 | 3.4 | 79.4 | 3.45 | 3.95 | Keep as active challenger |
-| baseline map=15 | smaller | 76.464 | 4.4 | 83.7 | 3.45 | 3.95 | Adopt as current default |
-| baseline map=10 | smaller | 93.790 | 5.2 | 81.8 | 3.45 | 3.95 | Keep as active challenger |
-| baseline map=5 | extreme small | 113.336 | 5.7 | 80.4 | 3.45 | 3.95 | Keep as active challenger |
-
-### Observations
-
-1. `map_15` is the current default for this problem.
-2. `map_5` is the fastest observed variant at 5.7 FPS.
-3. `map_20_reference` is the most accurate observed variant at 68.972 m ATE.
-
-### Variant Notes
-
-#### `map_20_reference`
-
-- Intent: Confirm 56.54 m.
-- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 20`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_20_reference/run.log`
-- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
-- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `map_15`
-
-- Intent: Test if seq 02 wants tighter recency window.
-- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 15`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_15/run.log`
-- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
-- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `map_10`
-
-- Intent: Half the existing winner — probe seq 02 small-map regime.
-- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 10`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_10/run.log`
-- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
-- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
-- Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
-
-#### `map_5`
-
-- Intent: Extreme — likely too tight, but bounds the trend.
-- CLI args: `--ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
-- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods ct_icp --summary-json experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json --ct-icp-dense-profile --ct-icp-ceres-max-iterations 6 --ct-icp-max-frames-in-map 5`
-- Summary: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/summary.json`
-- Log: `experiments/results/runs/ct_icp_kitti_seq_02_full_small_map_matrix/map_5/run.log`
-- Readability proxy: 3.45 / 5.00. Adds extra tuning knobs and therefore more command complexity.
-- Extensibility proxy: 3.95 / 5.00. Still stable-interface compatible, but with a larger parameter surface.
 - Method note: Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).
 
 
@@ -11985,6 +11917,246 @@ _Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: Ground-aware feature odometry+mapping (no GT seed). n_scans=64 matches Velodyne HDL-64E layout.
+
+
+## LF-GICP on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `lf_gicp_kitti_seq_00_full`
+- **Question**: Does the localizability-field gate with soft Fisher weighting improve the GICP scan-to-map backend on KITTI?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 9.337 | 3.6 | 89.5 | 5.00 | 5.00 | Keep as reference variant |
+| Vanilla VGICP backend | ablation | 7.848 | 3.8 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `no_mitigation` is the current default for this problem.
+2. `no_mitigation` is the fastest observed variant at 3.8 FPS.
+3. `no_mitigation` is the most accurate observed variant at 7.848 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_00_full_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_00_full_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_00_full_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=33/4541 median_f0=0.202405 median_lambda0=0.0214457
+
+#### `no_mitigation`
+
+- Intent: Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).
+- CLI args: `--lf-gicp-no-mitigation`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_00_full_matrix/no_mitigation/summary.json --lf-gicp-no-mitigation`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_00_full_matrix/no_mitigation/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_00_full_matrix/no_mitigation/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 degenerate_frames=0/4541 median_f0=0.200255 median_lambda0=0.00317741
+
+
+## LF-GICP on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `lf_gicp_kitti_seq_02_full`
+- **Question**: Does the localizability-field gate with soft Fisher weighting improve the GICP scan-to-map backend on KITTI?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 33.032 | 3.3 | 86.8 | 5.00 | 5.00 | Keep as reference variant |
+| Vanilla VGICP backend | ablation | 27.186 | 3.6 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `no_mitigation` is the current default for this problem.
+2. `no_mitigation` is the fastest observed variant at 3.6 FPS.
+3. `no_mitigation` is the most accurate observed variant at 27.186 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=628/4661 median_f0=0.152777 median_lambda0=0.016655
+
+#### `no_mitigation`
+
+- Intent: Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).
+- CLI args: `--lf-gicp-no-mitigation`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/no_mitigation/summary.json --lf-gicp-no-mitigation`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/no_mitigation/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_02_full_matrix/no_mitigation/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 degenerate_frames=0/4661 median_f0=0.150836 median_lambda0=0.00247678
+
+
+## LF-GICP on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `lf_gicp_kitti_seq_05_full`
+- **Question**: Does the localizability-field gate with soft Fisher weighting improve the GICP scan-to-map backend on KITTI?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 5.556 | 3.5 | 82.9 | 5.00 | 5.00 | Keep as reference variant |
+| Vanilla VGICP backend | ablation | 5.556 | 5.4 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `no_mitigation` is the current default for this problem.
+2. `no_mitigation` is the fastest observed variant at 5.4 FPS.
+3. `paper_default` is the most accurate observed variant at 5.556 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_05_full_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_05_full_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_05_full_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=0/2761 median_f0=0.180932 median_lambda0=0.0199661
+
+#### `no_mitigation`
+
+- Intent: Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).
+- CLI args: `--lf-gicp-no-mitigation`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_05_full_matrix/no_mitigation/summary.json --lf-gicp-no-mitigation`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_05_full_matrix/no_mitigation/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_05_full_matrix/no_mitigation/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 field_beta=0.25 degenerate_frames=0/2761 median_f0=0.180932 median_lambda0=0.0199661
+
+
+## LF-GICP on KITTI Odom seq 07 full (1101 frames)
+
+- **Problem ID**: `lf_gicp_kitti_seq_07_full`
+- **Question**: Does the localizability-field gate with soft Fisher weighting improve the GICP scan-to-map backend on KITTI?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 0.646 | 4.1 | 97.9 | 5.00 | 5.00 | Adopt as current default |
+| Vanilla VGICP backend | ablation | 0.968 | 4.3 | 83.4 | 4.65 | 4.75 | Keep as reference variant |
+
+### Observations
+
+1. `paper_default` is the current default for this problem.
+2. `no_mitigation` is the fastest observed variant at 4.3 FPS.
+3. `paper_default` is the most accurate observed variant at 0.646 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_07_full_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_07_full_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_07_full_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=13/1101 median_f0=0.200196 median_lambda0=0.020498
+
+#### `no_mitigation`
+
+- Intent: Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).
+- CLI args: `--lf-gicp-no-mitigation`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_07_full_matrix/no_mitigation/summary.json --lf-gicp-no-mitigation`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_07_full_matrix/no_mitigation/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_07_full_matrix/no_mitigation/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 field_beta=0.25 degenerate_frames=0/1101 median_f0=0.199853 median_lambda0=0.0203901
+
+
+## LF-GICP on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `lf_gicp_kitti_seq_08_full`
+- **Question**: Does the localizability-field gate with soft Fisher weighting improve the GICP scan-to-map backend on KITTI?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `lf_gicp`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Paper default | balanced | 16.414 | 2.6 | 93.5 | 5.00 | 5.00 | Keep as active challenger |
+| Vanilla VGICP backend | ablation | 16.280 | 2.9 | 100.0 | 4.65 | 4.75 | Adopt as current default |
+
+### Observations
+
+1. `no_mitigation` is the current default for this problem.
+2. `no_mitigation` is the fastest observed variant at 2.9 FPS.
+3. `no_mitigation` is the most accurate observed variant at 16.280 m ATE.
+
+### Variant Notes
+
+#### `paper_default`
+
+- Intent: Paper Table SI constants with the localizability-field gate and soft Fisher weighting.
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_08_full_matrix/paper_default/summary.json`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_08_full_matrix/paper_default/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_08_full_matrix/paper_default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=on beta=2 field_beta=0.25 degenerate_frames=787/4071 median_f0=0.159014 median_lambda0=0.0162322
+
+#### `no_mitigation`
+
+- Intent: Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).
+- CLI args: `--lf-gicp-no-mitigation`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods lf_gicp --summary-json experiments/results/runs/lf_gicp_kitti_seq_08_full_matrix/no_mitigation/summary.json --lf-gicp-no-mitigation`
+- Summary: `experiments/results/runs/lf_gicp_kitti_seq_08_full_matrix/no_mitigation/summary.json`
+- Log: `experiments/results/runs/lf_gicp_kitti_seq_08_full_matrix/no_mitigation/run.log`
+- Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
+- Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
+- Method note: Voxel-normal localizability field gate + soft Fisher weighting on GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation=off beta=2 degenerate_frames=0/4071 median_f0=0.155066 median_lambda0=0.00238087
 
 
 ## LINS on the public HDL-400 reference window

@@ -273,6 +273,45 @@
       "reported_hardware": "Not stated in the citing papers",
       "reported_fps": null,
       "notes": "Secondary-source values: LOAM (RSS 2014) does not tabulate per-sequence KITTI RTE. The repo implementation follows A-LOAM, not the original LOAM code."
+    },
+    "lf_gicp": {
+      "claim_level": "approximately_reproduced",
+      "paper": "Im, LF-GICP: Parameter-Free Degeneracy Handling for LiDAR Odometry via a Voxel-Normal Localizability Field, arXiv 2026",
+      "method_readme": "papers/lf_gicp/README.md",
+      "repo_scope_label": "Paper reimplementation (no author code)",
+      "repo_scope_summary": "GICP scan-to-map backend with the voxel-normal localizability field, median/hysteresis gate, and soft Fisher-information weighting, following the paper's Table SI constants.",
+      "reproduction_status_label": "KITTI Odometry 00/02/05/07/08",
+      "reproduction_status_summary": "Official KITTI RTE of the paper-default configuration: 0.66/1.08/0.51/0.41/1.01 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.692/1.084/0.577/0.496/0.878 % (Table I): 0.83-1.14x, geometric mean 0.96x. The gate fires on 0-19 % of frames (paper: <= 8 % on open roads). Repo values are the paper_default variant only (the vanilla-backend ablation is excluded); see docs/assets/paper/paper_ratio_table.csv (Table 6) and papers/lf_gicp/README.md for the planarity/lambda0 calibration note.",
+      "numeric_comparison_label": "Same metric, ~0.96x ratio (single configuration)",
+      "numeric_comparison_summary": "Official KITTI RTE, repo vs paper: seq 00 0.664 vs 0.692 (0.96x), seq 02 1.075 vs 1.084 (0.99x), seq 05 0.512 vs 0.577 (0.89x), seq 07 0.411 vs 0.496 (0.83x), seq 08 1.005 vs 0.878 (1.14x). Disabling the gate gives 0.734/1.074/0.512/0.483/0.918 %: the gate helps on 00/07, is neutral on 02/05, and hurts on 08, where it fires on 19 % of frames. Repo values are the paper_default variant only (the vanilla-backend ablation is excluded); see docs/assets/paper/paper_ratio_table.csv (Table 6) and papers/lf_gicp/README.md for the planarity/lambda0 calibration note.",
+      "main_blocker": "The lambda0 scale differs from the paper (planarity definition is ambiguous) and GEODE tunnels for gate calibration are not available.",
+      "next_step": "Obtain GEODE tunnel data to check the gate on genuine absence and recalibrate tau2 with the paper's rule.",
+      "reported_dataset": "KITTI Odometry (sequences 00-10)",
+      "reported_metric": "KITTI RTE translation [%] (official 100-800 m segments)",
+      "reported_values": {
+        "kitti_00": 0.692,
+        "kitti_01": 1.822,
+        "kitti_02": 1.084,
+        "kitti_03": 1.207,
+        "kitti_04": 0.814,
+        "kitti_05": 0.577,
+        "kitti_06": 0.546,
+        "kitti_07": 0.496,
+        "kitti_08": 0.878,
+        "kitti_09": 0.566,
+        "kitti_10": 0.837
+      },
+      "reported_source": {
+        "arxiv": "2608.19522",
+        "table": "Table I",
+        "row": "LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing"
+      },
+      "reported_hardware": "Not stated",
+      "reported_fps": null,
+      "notes": "Paper average 0.865 % over 00-10; same raw-scan protocol as this repository's KITTI data.",
+      "repo_variants": [
+        "paper_default"
+      ]
     }
   }
 }

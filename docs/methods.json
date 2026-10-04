@@ -1635,6 +1635,21 @@
         "renyi-entropy",
         "annealing"
       ]
+    },
+    {
+      "name": "LF-GICP",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/lf_gicp",
+      "summary": "Voxel-normal localizability field (anisotropy fraction and absolute weak-axis mass) gates soft Fisher-information reweighting of GICP scan-to-map odometry; reimplemented from arXiv:2608.19522 without author code.",
+      "tags": [
+        "odometry",
+        "degeneracy-robust",
+        "gicp"
+      ]
     }
   ],
   "starter_tracks": [

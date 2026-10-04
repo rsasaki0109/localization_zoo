@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T15:36:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -511,19 +511,6 @@ _Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_ma
 | c2f_reference | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | velocity_reg_0005 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | velocity_reg_001 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-
-## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
-
-- Current default: `map_15`.
-- Active challengers: `map_20_reference`, `map_10`, `map_5`.
-- Aggregate result: `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json`
-
-| Variant | Decision | Why |
-|---------|----------|-----|
-| map_20_reference | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_15 | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
-| map_10 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
-| map_5 | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 
 ## CT-ICP seq 02 full: small map_size sweep (5/10/15/20)
 
@@ -2330,6 +2317,61 @@ _Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_ma
 | kitti_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
 | fast | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LF-GICP on KITTI Odom seq 00 full (4541 frames)
+
+- Current default: `no_mitigation`.
+- Reference variants: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP on KITTI Odom seq 02 full (4661 frames)
+
+- Current default: `no_mitigation`.
+- Reference variants: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP on KITTI Odom seq 05 full (2761 frames)
+
+- Current default: `no_mitigation`.
+- Reference variants: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## LF-GICP on KITTI Odom seq 07 full (1101 frames)
+
+- Current default: `paper_default`.
+- Reference variants: `no_mitigation`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+| no_mitigation | Keep as reference variant | Useful for comparison, but not strong enough to replace the current default. |
+
+## LF-GICP on KITTI Odom seq 08 full (4071 frames)
+
+- Current default: `no_mitigation`.
+- Active challengers: `paper_default`.
+- Aggregate result: `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| paper_default | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+| no_mitigation | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LINS on the public HDL-400 reference window
 

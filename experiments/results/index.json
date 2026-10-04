@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T06:12:20+00:00",
+  "generated_at": "2026-10-04T15:36:10+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -378,15 +378,6 @@
       "manifest_path": "experiments/ct_icp_kitti_seq_00_velocity_reg_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json",
       "current_default": "c2f_reference"
-    },
-    {
-      "problem_id": "ct_icp_kitti_seq_02_full_small_map",
-      "title": "CT-ICP seq 02 full: small map_size sweep (5/10/15/20)",
-      "status": "ready",
-      "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json",
-      "aggregate_path": "experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json",
-      "current_default": "map_15"
     },
     {
       "problem_id": "ct_icp_kitti_seq_02_full_small_map",
@@ -1728,6 +1719,51 @@
       "manifest_path": "experiments/lego_loam_mcd_tuhh_night_09_matrix.json",
       "aggregate_path": "experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json",
       "current_default": "fast"
+    },
+    {
+      "problem_id": "lf_gicp_kitti_seq_00_full",
+      "title": "LF-GICP on KITTI Odom seq 00 full (4541 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lf_gicp_kitti_seq_00_full_matrix.json",
+      "aggregate_path": "experiments/results/lf_gicp_kitti_seq_00_full_matrix.json",
+      "current_default": "no_mitigation"
+    },
+    {
+      "problem_id": "lf_gicp_kitti_seq_02_full",
+      "title": "LF-GICP on KITTI Odom seq 02 full (4661 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lf_gicp_kitti_seq_02_full_matrix.json",
+      "aggregate_path": "experiments/results/lf_gicp_kitti_seq_02_full_matrix.json",
+      "current_default": "no_mitigation"
+    },
+    {
+      "problem_id": "lf_gicp_kitti_seq_05_full",
+      "title": "LF-GICP on KITTI Odom seq 05 full (2761 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lf_gicp_kitti_seq_05_full_matrix.json",
+      "aggregate_path": "experiments/results/lf_gicp_kitti_seq_05_full_matrix.json",
+      "current_default": "no_mitigation"
+    },
+    {
+      "problem_id": "lf_gicp_kitti_seq_07_full",
+      "title": "LF-GICP on KITTI Odom seq 07 full (1101 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lf_gicp_kitti_seq_07_full_matrix.json",
+      "aggregate_path": "experiments/results/lf_gicp_kitti_seq_07_full_matrix.json",
+      "current_default": "paper_default"
+    },
+    {
+      "problem_id": "lf_gicp_kitti_seq_08_full",
+      "title": "LF-GICP on KITTI Odom seq 08 full (4071 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/lf_gicp_kitti_seq_08_full_matrix.json",
+      "aggregate_path": "experiments/results/lf_gicp_kitti_seq_08_full_matrix.json",
+      "current_default": "no_mitigation"
     },
     {
       "problem_id": "lins_hdl_400_reference",

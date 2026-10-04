@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "lf_gicp_kitti_seq_02_full",
+    "title": "LF-GICP on KITTI Odom seq 02 full (4661 frames)",
+    "question": "Does the localizability-field gate with soft Fisher weighting improve the GICP scan-to-map backend on KITTI?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_02_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_02_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "lf_gicp",
+    "primary_method": "LF-GICP"
+  },
+  "variants": [
+    {
+      "id": "paper_default",
+      "label": "Paper default",
+      "design_style": "balanced",
+      "intent": "Paper Table SI constants with the localizability-field gate and soft Fisher weighting.",
+      "args": []
+    },
+    {
+      "id": "no_mitigation",
+      "label": "Vanilla VGICP backend",
+      "design_style": "ablation",
+      "intent": "Same backend with degeneracy handling disabled (paper's vanilla VGICP ablation).",
+      "args": [
+        "--lf-gicp-no-mitigation"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Reproduction Status
 
-_Generated at 2026-10-04T06:13:57+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
+_Generated at 2026-10-04T15:38:04+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
 
 This page records what the repository can currently claim about reproducing original-paper results.
 The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.
@@ -30,6 +30,7 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 | MULLS | `indicative` | Derived variant | KITTI Odometry 00/02/05/07/08 | Same metric, ~7.6x ratio | The derived variant implements only the multi-metric registration core; the gap to MULLS-LO is ~7.6x on the official KITTI RTE. | Compare step-by-step with the upstream MULLS implementation to locate the missing components. |
 | SUMA | `indicative` | Paper reimplementation | KITTI Odometry 00/02/05/07/08 | Same metric, ~2.2x ratio | The CPU reimplementation reaches ~2.2x the paper's Frame-to-Model RTE on the official metric. | Compare surfel stability and map fusion against the upstream SuMa implementation. |
 | ALOAM | `indicative` | Paper reimplementation | KITTI Odometry 00/02/05/07/08 | Same metric, secondary-source paper values | The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers. | Compare against the official A-LOAM implementation on the same full sequences. |
+| LF-GICP | `approximately_reproduced` | Paper reimplementation (no author code) | KITTI Odometry 00/02/05/07/08 | Same metric, ~0.96x ratio (single configuration) | The lambda0 scale differs from the paper (planarity definition is ambiguous) and GEODE tunnels for gate calibration are not available. | Obtain GEODE tunnel data to check the gate on genuine absence and recalibrate tau2 with the paper's rule. |
 
 ## LiTAMIN2
 
@@ -156,3 +157,17 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 - **Main blocker**: The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers.
 - **Next step**: Compare against the official A-LOAM implementation on the same full sequences.
 - **Notes**: Secondary-source values: LOAM (RSS 2014) does not tabulate per-sequence KITTI RTE. The repo implementation follows A-LOAM, not the original LOAM code.
+
+## LF-GICP
+
+- **Claim level**: `approximately_reproduced`
+- **Paper**: Im, LF-GICP: Parameter-Free Degeneracy Handling for LiDAR Odometry via a Voxel-Normal Localizability Field, arXiv 2026
+- **Method README**: `papers/lf_gicp/README.md`
+- **Reported dataset**: KITTI Odometry (sequences 00-10)
+- **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
+- **Repo scope**: Paper reimplementation (no author code). GICP scan-to-map backend with the voxel-normal localizability field, median/hysteresis gate, and soft Fisher-information weighting, following the paper's Table SI constants.
+- **Current claim**: KITTI Odometry 00/02/05/07/08. Official KITTI RTE of the paper-default configuration: 0.66/1.08/0.51/0.41/1.01 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.692/1.084/0.577/0.496/0.878 % (Table I): 0.83-1.14x, geometric mean 0.96x. The gate fires on 0-19 % of frames (paper: <= 8 % on open roads). Repo values are the paper_default variant only (the vanilla-backend ablation is excluded); see docs/assets/paper/paper_ratio_table.csv (Table 6) and papers/lf_gicp/README.md for the planarity/lambda0 calibration note.
+- **Numeric comparison**: Same metric, ~0.96x ratio (single configuration). Official KITTI RTE, repo vs paper: seq 00 0.664 vs 0.692 (0.96x), seq 02 1.075 vs 1.084 (0.99x), seq 05 0.512 vs 0.577 (0.89x), seq 07 0.411 vs 0.496 (0.83x), seq 08 1.005 vs 0.878 (1.14x). Disabling the gate gives 0.734/1.074/0.512/0.483/0.918 %: the gate helps on 00/07, is neutral on 02/05, and hurts on 08, where it fires on 19 % of frames. Repo values are the paper_default variant only (the vanilla-backend ablation is excluded); see docs/assets/paper/paper_ratio_table.csv (Table 6) and papers/lf_gicp/README.md for the planarity/lambda0 calibration note.
+- **Main blocker**: The lambda0 scale differs from the paper (planarity definition is ambiguous) and GEODE tunnels for gate calibration are not available.
+- **Next step**: Obtain GEODE tunnel data to check the gate on genuine absence and recalibrate tau2 with the paper's rule.
+- **Notes**: Paper average 0.865 % over 00-10; same raw-scan protocol as this repository's KITTI data.

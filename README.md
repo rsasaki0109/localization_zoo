@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>104 methods</b> · <b>74 paper reimplementations</b> · <b>43 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>105 methods</b> · <b>75 paper reimplementations</b> · <b>44 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -98,7 +98,7 @@ evaluation tools—even when no reusable author code exists.
 
 The catalog is broader than the manuscript-grade evidence set:
 
-- **Catalog**: all 104 methods, including derived variants and compact baselines.
+- **Catalog**: all 105 methods, including derived variants and compact baselines.
 - **Paper-ready subset**: methods satisfying the
   [tier and ablation criteria](docs/paper_ready_reproducibility.md), frozen in
   [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
@@ -125,6 +125,7 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 | KISS-ICP | 0.94% <sub>(15 m)</sub> | 1.09% <sub>(56 m)</sub> | 0.71% <sub>(7 m)</sub> | 0.66% <sub>(2 m)</sub> | 1.36% <sub>(17 m)</sub> |
 | SuMa | 1.25% <sub>(19 m)</sub> | 1.28% <sub>(52 m)</sub> | 0.99% <sub>(10 m)</sub> | 0.94% <sub>(4 m)</sub> | 1.91% <sub>(19 m)</sub> |
 | CT-ICP | 2.01% <sub>(17 m)</sub> | 2.65% <sub>(76 m)</sub> | 1.12% <sub>(12 m)</sub> | 1.14% <sub>(3 m)</sub> | 1.93% <sub>(99 m)</sub> |
+| L-LO | 1.65% <sub>(19 m)</sub> | 4.28% <sub>(58 m)</sub> | 1.72% <sub>(9 m)</sub> | 1.33% <sub>(2 m)</sub> | 2.19% <sub>(33 m)</sub> |
 | MULLS | 2.54% <sub>(49 m)</sub> | 2.27% <sub>(261 m)</sub> | 1.73% <sub>(20 m)</sub> | 2.64% <sub>(8 m)</sub> | 3.12% <sub>(81 m)</sub> |
 
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
@@ -245,6 +246,7 @@ optimistic bounds.
 | A-LOAM | 00/02/05/07/08 | 1.01x | near paper (vs LOAM values cited by later papers) |
 | LF-GICP | 00/02/05/07/08 | 0.96x | near paper (no author code) |
 | LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
+| L-LO | 00/02/05/07/08 | 1.62x | gap remains (no author code; paper gives no parameters) |
 | KISS-ICP | 00 | 1.87x | gap remains (compact baseline) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
 | CT-ICP | 00/02/05/07/08 | 4.03x | gap remains |
@@ -432,6 +434,7 @@ Full results tree: [`experiments/results/hard_pcl_localization/`](experiments/re
 | **[LiTAMIN2](papers/litamin2/)** | ICRA 2021 | KL-divergence ICP with aggressive point reduction for faster registration | [arXiv](https://arxiv.org/abs/2103.00784) |
 | **[GICP](papers/gicp/)** | RSS 2009 | Plane-to-plane ICP with local covariance modeling and Mahalanobis distance | [Paper](https://www.roboticsproceedings.org/rss05/p31.html) |
 | **[Voxel-GICP](papers/voxel_gicp/)** | RA-L 2021 | GICP accelerated with voxel representatives and voxel-level covariance | [Paper](https://arxiv.org/abs/2109.07082) |
+| **[L-LO](papers/l_lo/)** | arXiv 2023 | Landmark convex hulls matched by turning-function + Hausdorff similarity, registered by maximising hull overlap; no author code | [arXiv](https://arxiv.org/abs/2312.16787) |
 | **[small_gicp](papers/small_gicp/)** | Derived | Compact GICP with voxel downsampling and capped correspondences | [GitHub](https://github.com/koide3/small_gicp) |
 | **[VGICP-SLAM](papers/vgicp_slam/)** | Derived | Voxel-GICP front-end with Scan Context and loop-graph back-end | - |
 | **[NDT](papers/ndt/)** | IROS 2003 | NDT-style registration against voxel Gaussian models with a compact optimizer | [Paper](https://ieeexplore.ieee.org/document/1249285) |

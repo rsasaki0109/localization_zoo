@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,kiss_multi_horizon,genz_icp,lf_gicp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,kiss_multi_horizon,genz_icp,lf_gicp,l_lo,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -11,6 +11,7 @@
 #include "kiss_icp/kiss_icp.h"
 #include "genz_icp/genz_icp.h"
 #include "lf_gicp/lf_gicp.h"
+#include "l_lo/l_lo.h"
 #include "adaptive_icp/adaptive_icp.h"
 #include "d2lio/d2lio.h"
 #include "ct_voxelmap/ct_voxelmap.h"
@@ -360,7 +361,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "fixed_map_ndt" || method == "kiss_icp" ||
          method == "kiss_multi_horizon" || method == "kiss_pose_graph" ||
          method == "kiss_pose_graph_causal" ||
-         method == "genz_icp" || method == "lf_gicp" ||
+         method == "genz_icp" || method == "lf_gicp" || method == "l_lo" ||
          method == "adaptive_icp" ||
          method == "small_gicp" ||
          method == "voxel_gicp" || method == "aloam" || method == "floam" ||
@@ -6706,6 +6707,43 @@ MethodResult runLFGICP(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runLLO(const std::vector<std::string>& pcd_dirs,
+                    const std::vector<Eigen::Matrix4d>& gt) {
+  using namespace localization_zoo::l_lo;
+  MethodResult res;
+  res.name = "L-LO";
+  LLOOdometry odom;
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+  long matches = 0, frames = 0, weak = 0;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    auto pts_local = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    if (pts_local.empty()) continue;
+    const auto result = odom.registerFrame(pts_local);
+    if (i > 0) {
+      matches += result.matches;
+      ++frames;
+      if (result.matches < 3) ++weak;
+    }
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [L-LO] " << i << "/" << pcd_dirs.size()
+                << " clusters=" << result.clusters << " matches=" << result.matches;
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  std::ostringstream note;
+  note << "Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; "
+          "anchor matches first GT pose). mean_matches="
+       << (frames ? static_cast<double>(matches) / frames : 0.0)
+       << " frames_below_3_matches=" << weak << "/" << frames;
+  res.note = note.str();
+  return res;
+}
+
 MethodResult runAdaptiveICP(const std::vector<std::string>& pcd_dirs,
                             const std::vector<Eigen::Matrix4d>& gt,
                             const AdaptiveICPDogfoodingOptions& options) {
@@ -11067,7 +11105,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,kiss_multi_horizon,kiss_pose_graph,kiss_pose_graph_causal,genz_icp,lf_gicp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,kiss_multi_horizon,kiss_pose_graph,kiss_pose_graph_causal,genz_icp,lf_gicp,l_lo,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -16232,6 +16270,11 @@ int main(int argc, char** argv) {
               << " max_iterations=" << genz_icp_options.max_icp_iterations
               << std::endl;
     results.push_back(runGenZICP(pcd_dirs, gt, genz_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "l_lo")) {
+    std::cout << "Running L-LO..." << std::endl;
+    results.push_back(runLLO(pcd_dirs, gt));
   }
 
   if (isMethodEnabled(selected_methods, "lf_gicp")) {

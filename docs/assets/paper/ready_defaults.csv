@@ -207,6 +207,11 @@ kiss_icp,mcd_ntu_day_02_108,gt-backed,fast_recent_map,Fast recent map,0.025871,6
 kiss_icp,mcd_tuhh_night_09_108,gt-backed,fast_recent_map,Fast recent map,1.302876,24.096147,experiments/results/kiss_icp_mcd_tuhh_night_09_matrix.json
 kiss_icp,mulran_parkinglot_120,gt-backed,fast_recent_map,Fast recent map,15.640868,27.259361,experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json
 kiss_icp,mulran_parkinglot_full,gt-backed,fast_recent_map,Fast recent map,74.336896,26.851105,experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json
+l_lo,kitti_seq_00_full,gt-backed,default,Default,19.030814,4.256767,experiments/results/l_lo_kitti_seq_00_full_matrix.json
+l_lo,kitti_seq_02_full,gt-backed,default,Default,58.272008,3.180085,experiments/results/l_lo_kitti_seq_02_full_matrix.json
+l_lo,kitti_seq_05_full,gt-backed,default,Default,8.784530,5.297614,experiments/results/l_lo_kitti_seq_05_full_matrix.json
+l_lo,kitti_seq_07_full,gt-backed,default,Default,2.045184,5.100472,experiments/results/l_lo_kitti_seq_07_full_matrix.json
+l_lo,kitti_seq_08_full,gt-backed,default,Default,32.661959,3.748625,experiments/results/l_lo_kitti_seq_08_full_matrix.json
 lego_loam,hdl_400_open_ct_lio_120,reference-based,fast,Fast,0.225549,21.813787,experiments/results/lego_loam_hdl_400_reference_matrix.json
 lego_loam,kitti_raw_0009_200,gt-backed,fast,Fast,3.216463,9.939628,experiments/results/lego_loam_kitti_raw_0009_nogt_matrix.json
 lego_loam,kitti_raw_0009_200,gt-backed,fast,Fast,3.216463,8.914729,experiments/results/lego_loam_kitti_raw_0009_matrix.json

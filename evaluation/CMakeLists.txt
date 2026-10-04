@@ -39,6 +39,7 @@ target_link_libraries(pcd_dogfooding PRIVATE
   kiss_icp
   genz_icp
   lf_gicp
+  l_lo
   adaptive_icp
   d2lio
   ct_voxelmap

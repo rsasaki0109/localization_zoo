@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-04T19:52:00+00:00
+> Generated: 2026-10-04T21:56:18+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -542,5 +542,47 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | Vanilla VGICP backend | 16.280 | 1.309 | 0.005269 | 2.93 |
 
 **Notes**: Paper average 0.865 % over 00-10; same raw-scan protocol as this repository's KITTI data.
+
+---
+
+## L-LO
+
+**Paper**: Li, Fu, Sun, L-LO: Enhancing Pose Estimation Precision via a Landmark-Based LiDAR Odometry, arXiv 2023
+
+**Reported dataset**: KITTI Odometry (sequences 00, 02-10; 01 reported as NA)
+**Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
+**Hardware**: Intel Xeon Gold 6128, 64 GB RAM, Nvidia Quadro P5000
+**Repo scope**: Paper reimplementation (no author code) — Frame-to-frame landmark odometry with convex-hull similarity and overlap maximisation; the paper gives no numeric parameters.
+**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE: 1.65/4.75/1.32/1.00/1.78 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.91/2.35/0.82/0.69/1.37 % (Table I, t_rel): 1.30-2.02x, geometric mean 1.62x. Repository parameters were chosen without tuning on KITTI (the paper gives none); see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Numeric comparison**: Same metric, ~1.6x ratio (single configuration) — Official KITTI RTE, repo vs paper: seq 00 1.653 vs 0.91 (1.82x), seq 02 4.749 vs 2.35 (2.02x), seq 05 1.323 vs 0.82 (1.61x), seq 07 0.998 vs 0.69 (1.45x), seq 08 1.778 vs 1.37 (1.30x). At least three landmark matches on every frame except 100 of 4660 on seq 02. Repository parameters were chosen without tuning on KITTI (the paper gives none); see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
+**Main blocker**: The paper specifies no thresholds and its pitch estimate is not physically consistent as written; see papers/l_lo/README.md.
+**Next step**: Ask the authors for parameters or code, or study parameter sensitivity on a held-out sequence.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.91 |
+| kitti_02 | 2.35 |
+| kitti_03 | 2.92 |
+| kitti_04 | 2.28 |
+| kitti_05 | 0.82 |
+| kitti_06 | 0.66 |
+| kitti_07 | 0.69 |
+| kitti_08 | 1.37 |
+| kitti_09 | 1.89 |
+| kitti_10 | 1.90 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| KITTI | Default | 19.031 | 1.649 | 0.021017 | 4.26 |
+| KITTI | Default | 58.272 | 4.283 | 0.037143 | 3.18 |
+| KITTI | Default | 8.785 | 1.719 | 0.015879 | 5.30 |
+| KITTI | Default | 2.045 | 1.335 | 0.015446 | 5.10 |
+| KITTI | Default | 32.662 | 2.193 | 0.018837 | 3.75 |
+
+**Notes**: Paper average 1.59 % over the reported sequences.
 
 ---

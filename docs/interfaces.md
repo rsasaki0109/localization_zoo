@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-04T19:50:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -53,7 +53,7 @@ Every active search problem lives in `experiments/*.json` and must define:
 | `variants[]` | array | Concrete variants to compare, keep, or discard. |
 | `variants[].args` | array | Extra CLI flags layered on the stable core. |
 
-Current active selectors: `aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `fast_livo2`, `floam`, `genz_icp`, `gicp`, `hdl_graph_slam`, `imu_dead_reckoning`, `isc_loam`, `kiss_icp`, `lego_loam`, `lf_gicp`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `lvi_sam`, `mulls`, `ndt`, `okvis`, `orb_slam3`, `point_lio`, `r2live`, `rko_lio`, `small_gicp`, `suma`, `vgicp_slam`, `vins_fusion`, `voxel_gicp`, `xicp`
+Current active selectors: `aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `fast_livo2`, `floam`, `genz_icp`, `gicp`, `hdl_graph_slam`, `imu_dead_reckoning`, `isc_loam`, `kiss_icp`, `l_lo`, `lego_loam`, `lf_gicp`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `lvi_sam`, `mulls`, `ndt`, `okvis`, `orb_slam3`, `point_lio`, `r2live`, `rko_lio`, `small_gicp`, `suma`, `vgicp_slam`, `vins_fusion`, `voxel_gicp`, `xicp`
 
 ### Runner Contract
 
@@ -293,6 +293,11 @@ The runner is responsible for:
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `experiments/kiss_icp_mulran_parkinglot_120_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `experiments/kiss_icp_mulran_parkinglot_full_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `experiments/kiss_icp_profile_matrix.json` | `kiss_icp` | `fast_recent_map` | `experiments/results/kiss_icp_profile_matrix.json` |
+| L-LO on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/l_lo_kitti_seq_00_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
+| L-LO on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/l_lo_kitti_seq_02_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_02_full_matrix.json` |
+| L-LO on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/l_lo_kitti_seq_05_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_05_full_matrix.json` |
+| L-LO on KITTI Odom seq 07 full (1101 frames) | `ready` | `experiments/l_lo_kitti_seq_07_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_07_full_matrix.json` |
+| L-LO on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/l_lo_kitti_seq_08_full_matrix.json` | `l_lo` | `default` | `experiments/results/l_lo_kitti_seq_08_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `experiments/lego_loam_hdl_400_reference_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lego_loam_kitti_raw_0009_full_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/lego_loam_kitti_raw_0009_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |

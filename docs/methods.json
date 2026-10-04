@@ -1650,6 +1650,21 @@
         "degeneracy-robust",
         "gicp"
       ]
+    },
+    {
+      "name": "L-LO",
+      "family": "Registration",
+      "scope": "Paper reimplementation",
+      "signals": [
+        "LiDAR"
+      ],
+      "href": "papers/l_lo",
+      "summary": "Landmark-based frame-to-frame LiDAR odometry: clustered landmarks are layered into 2D convex hulls, matched by a turning-function + Hausdorff similarity, and registered by maximising hull overlap; reimplemented from arXiv:2312.16787 without author code.",
+      "tags": [
+        "odometry",
+        "landmark",
+        "convex-hull"
+      ]
     }
   ],
   "starter_tracks": [

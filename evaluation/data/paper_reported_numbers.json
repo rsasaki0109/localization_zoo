@@ -312,6 +312,41 @@
       "repo_variants": [
         "paper_default"
       ]
+    },
+    "l_lo": {
+      "claim_level": "indicative",
+      "paper": "Li, Fu, Sun, L-LO: Enhancing Pose Estimation Precision via a Landmark-Based LiDAR Odometry, arXiv 2023",
+      "method_readme": "papers/l_lo/README.md",
+      "repo_scope_label": "Paper reimplementation (no author code)",
+      "repo_scope_summary": "Frame-to-frame landmark odometry with convex-hull similarity and overlap maximisation; the paper gives no numeric parameters.",
+      "reproduction_status_label": "KITTI Odometry 00/02/05/07/08",
+      "reproduction_status_summary": "Pending KITTI full-sequence runs; see docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "numeric_comparison_label": "Same metric (official KITTI RTE)",
+      "numeric_comparison_summary": "Pending KITTI full-sequence runs; see docs/assets/paper/paper_ratio_table.csv (Table 6).",
+      "main_blocker": "The paper specifies no thresholds and its pitch estimate is not physically consistent as written; see papers/l_lo/README.md.",
+      "next_step": "Ask the authors for parameters or code, or study parameter sensitivity on a held-out sequence.",
+      "reported_dataset": "KITTI Odometry (sequences 00, 02-10; 01 reported as NA)",
+      "reported_metric": "KITTI RTE translation [%] (official 100-800 m segments)",
+      "reported_values": {
+        "kitti_00": 0.91,
+        "kitti_02": 2.35,
+        "kitti_03": 2.92,
+        "kitti_04": 2.28,
+        "kitti_05": 0.82,
+        "kitti_06": 0.66,
+        "kitti_07": 0.69,
+        "kitti_08": 1.37,
+        "kitti_09": 1.89,
+        "kitti_10": 1.9
+      },
+      "reported_source": {
+        "arxiv": "2312.16787",
+        "table": "Table I",
+        "row": "L-LO, t_rel (%); sequence 01 is NA in the paper"
+      },
+      "reported_hardware": "Intel Xeon Gold 6128, 64 GB RAM, Nvidia Quadro P5000",
+      "reported_fps": null,
+      "notes": "Paper average 1.59 % over the reported sequences."
     }
   }
 }

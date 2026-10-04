@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "problem": {
+    "id": "l_lo_kitti_seq_00_full",
+    "title": "L-LO on KITTI Odom seq 00 full (4541 frames)",
+    "question": "How close does the landmark convex-hull odometry get to the paper's KITTI numbers with this repository's parameter choices?",
+    "dataset": {
+      "pcd_dir": "dogfooding_results/kitti_seq_00_full",
+      "gt_csv": "experiments/reference_data/kitti_seq_00_full_gt.csv"
+    },
+    "same_metrics": [
+      "ate_m",
+      "rpe_trans_pct",
+      "fps",
+      "readability_score",
+      "extensibility_score"
+    ],
+    "budget_profile": "reference_full_unbounded"
+  },
+  "stable_interface": {
+    "binary": "build/evaluation/pcd_dogfooding",
+    "methods": "l_lo",
+    "primary_method": "L-LO"
+  },
+  "variants": [
+    {
+      "id": "default",
+      "label": "Default",
+      "design_style": "balanced",
+      "intent": "Repository defaults (the paper gives no numeric parameters).",
+      "args": []
+    }
+  ]
+}

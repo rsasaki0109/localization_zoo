@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>104 methods</b> · <b>74 paper reimplementations</b> · <b>43 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>105 methods</b> · <b>75 paper reimplementations</b> · <b>44 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -98,7 +98,7 @@ evaluation tools—even when no reusable author code exists.
 
 The catalog is broader than the manuscript-grade evidence set:
 
-- **Catalog**: all 104 methods, including derived variants and compact baselines.
+- **Catalog**: all 105 methods, including derived variants and compact baselines.
 - **Paper-ready subset**: methods satisfying the
   [tier and ablation criteria](docs/paper_ready_reproducibility.md), frozen in
   [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
@@ -432,6 +432,7 @@ Full results tree: [`experiments/results/hard_pcl_localization/`](experiments/re
 | **[LiTAMIN2](papers/litamin2/)** | ICRA 2021 | KL-divergence ICP with aggressive point reduction for faster registration | [arXiv](https://arxiv.org/abs/2103.00784) |
 | **[GICP](papers/gicp/)** | RSS 2009 | Plane-to-plane ICP with local covariance modeling and Mahalanobis distance | [Paper](https://www.roboticsproceedings.org/rss05/p31.html) |
 | **[Voxel-GICP](papers/voxel_gicp/)** | RA-L 2021 | GICP accelerated with voxel representatives and voxel-level covariance | [Paper](https://arxiv.org/abs/2109.07082) |
+| **[L-LO](papers/l_lo/)** | arXiv 2023 | Landmark convex hulls matched by turning-function + Hausdorff similarity, registered by maximising hull overlap; no author code | [arXiv](https://arxiv.org/abs/2312.16787) |
 | **[small_gicp](papers/small_gicp/)** | Derived | Compact GICP with voxel downsampling and capped correspondences | [GitHub](https://github.com/koide3/small_gicp) |
 | **[VGICP-SLAM](papers/vgicp_slam/)** | Derived | Voxel-GICP front-end with Scan Context and loop-graph back-end | - |
 | **[NDT](papers/ndt/)** | IROS 2003 | NDT-style registration against voxel Gaussian models with a compact optimizer | [Paper](https://ieeexplore.ieee.org/document/1249285) |

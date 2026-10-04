@@ -34,6 +34,18 @@ committed-data comparison, then drops `report.html` and its reproducibility
 docker run --rm -v "$PWD/zoo-demo:/out" ghcr.io/rsasaki0109/localization_zoo:latest
 ```
 
+**Start here** — pick what you want to do:
+
+| I want to… | Go to |
+|---|---|
+| See which methods are accurate on KITTI | [Leaderboard](#leaderboard--odometry-rpe-drift-100-m-lower-is-better) · [paper-number check](#paper-number-check-official-kitti-rte) · [interactive explorer](https://rsasaki0109.github.io/localization_zoo/) |
+| Build from source and run the tests | [Native build](#native-build) |
+| Call a method from C++ or Python | [Implementations](#implementations) · [Python bindings](#python-bindings-experimental) |
+| Run a method on my own LiDAR bag | [ROS 2](#ros-2) |
+| Use IMU-only motion / fall detection | [IMU Motion & Health SDK](#imu-motion--health-sdk) |
+| Reproduce or extend a benchmark | [Experiment-driven development](#experiment-driven-development) · [CONTRIBUTING](CONTRIBUTING.md) |
+| Add a new paper | [Adding a new paper](#adding-a-new-paper) |
+
 ---
 
 ## Promoted LiDAR odometry v14

@@ -1,6 +1,6 @@
 # Original-Paper Comparison
 
-> Generated: 2026-10-04T06:13:57+00:00
+> Generated: 2026-10-04T15:38:04+00:00
 
 This document compares paper-reported metrics with the current repository defaults across each method family. Direct comparison is limited by differences in dataset windows, hardware, and metric definitions (ATE and RPE availability still differs by family).
 
@@ -262,7 +262,6 @@ For an explicit statement of implementation scope and what the repo currently cl
 | KITTI | cluster A + GT seed | 4.906 | 5.760 | 0.050591 | 15.23 |
 | KITTI | dense + c2f cluster-A (existing best, RPE 2.059%) | 14.099 | 2.057 | 0.027515 | 8.66 |
 | KITTI | baseline map=15 | 76.464 | 2.651 | 0.033446 | 4.44 |
-| KITTI | baseline map=15 | 76.464 | 2.651 | 0.033446 | 4.44 |
 | KITTI | + constant-velocity-weight 0.05 (winner) | 11.949 | 1.122 | 0.023083 | 5.11 |
 | KITTI | cluster D full no seed (current winner 1.61 m) | 1.607 | 2.057 | 0.019671 | 21.50 |
 | KITTI | + constant-velocity-weight 0.1 | 2.490 | 1.253 | 0.018813 | 5.97 |
@@ -500,5 +499,48 @@ For an explicit statement of implementation scope and what the repo currently cl
 | dogfooding_results/mcd_tuhh_night_09_108 | Fast | 1.374 | - | - | 6.47 |
 
 **Notes**: Secondary-source values: LOAM (RSS 2014) does not tabulate per-sequence KITTI RTE. The repo implementation follows A-LOAM, not the original LOAM code.
+
+---
+
+## LF-GICP
+
+**Paper**: Im, LF-GICP: Parameter-Free Degeneracy Handling for LiDAR Odometry via a Voxel-Normal Localizability Field, arXiv 2026
+
+**Reported dataset**: KITTI Odometry (sequences 00-10)
+**Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
+**Hardware**: Not stated
+**Repo scope**: Paper reimplementation (no author code) — GICP scan-to-map backend with the voxel-normal localizability field, median/hysteresis gate, and soft Fisher-information weighting, following the paper's Table SI constants.
+**Current claim**: KITTI Odometry 00/02/05/07/08 — Official KITTI RTE of the paper-default configuration: 0.66/1.08/0.51/0.41/1.01 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.692/1.084/0.577/0.496/0.878 % (Table I): 0.83-1.14x, geometric mean 0.96x. The gate fires on 0-19 % of frames (paper: <= 8 % on open roads). Repo values are the paper_default variant only (the vanilla-backend ablation is excluded); see docs/assets/paper/paper_ratio_table.csv (Table 6) and papers/lf_gicp/README.md for the planarity/lambda0 calibration note.
+**Numeric comparison**: Same metric, ~0.96x ratio (single configuration) — Official KITTI RTE, repo vs paper: seq 00 0.664 vs 0.692 (0.96x), seq 02 1.075 vs 1.084 (0.99x), seq 05 0.512 vs 0.577 (0.89x), seq 07 0.411 vs 0.496 (0.83x), seq 08 1.005 vs 0.878 (1.14x). Disabling the gate gives 0.734/1.074/0.512/0.483/0.918 %: the gate helps on 00/07, is neutral on 02/05, and hurts on 08, where it fires on 19 % of frames. Repo values are the paper_default variant only (the vanilla-backend ablation is excluded); see docs/assets/paper/paper_ratio_table.csv (Table 6) and papers/lf_gicp/README.md for the planarity/lambda0 calibration note.
+**Main blocker**: The lambda0 scale differs from the paper (planarity definition is ambiguous) and GEODE tunnels for gate calibration are not available.
+**Next step**: Obtain GEODE tunnel data to check the gate on genuine absence and recalibrate tau2 with the paper's rule.
+
+### Paper-Reported Values
+
+| Sequence | Value |
+|---|---:|
+| kitti_00 | 0.69 |
+| kitti_01 | 1.82 |
+| kitti_02 | 1.08 |
+| kitti_03 | 1.21 |
+| kitti_04 | 0.81 |
+| kitti_05 | 0.58 |
+| kitti_06 | 0.55 |
+| kitti_07 | 0.50 |
+| kitti_08 | 0.88 |
+| kitti_09 | 0.57 |
+| kitti_10 | 0.84 |
+
+### Repository Defaults
+
+| Dataset | Variant | ATE [m] | RPE trans [%] | RPE rot [deg/m] | FPS |
+|---|---|---:|---:|---:|---:|
+| KITTI | Vanilla VGICP backend | 7.848 | 0.831 | 0.006775 | 3.75 |
+| KITTI | Vanilla VGICP backend | 27.186 | 0.884 | 0.005697 | 3.58 |
+| KITTI | Vanilla VGICP backend | 5.556 | 0.512 | 0.004895 | 5.39 |
+| KITTI | Paper default | 0.646 | 0.540 | 0.003946 | 4.12 |
+| KITTI | Vanilla VGICP backend | 16.280 | 1.309 | 0.005269 | 2.93 |
+
+**Notes**: Paper average 0.865 % over 00-10; same raw-scan protocol as this repository's KITTI data.
 
 ---

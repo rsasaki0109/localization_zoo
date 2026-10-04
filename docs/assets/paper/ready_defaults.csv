@@ -62,7 +62,6 @@ ct_icp,kitti_seq_02_full,gt-backed,baseline_map_20,baseline (dense + iter=6 + ma
 ct_icp,kitti_seq_02_full,gt-backed,map_20_reference,corr=8 + map=20 (existing winner),50.634645,18.015199,experiments/results/ct_icp_kitti_seq_02_map_with_corr_matrix.json
 ct_icp,kitti_seq_02_full,gt-backed,current_winner,bare + corr=8 (existing seq 02 winner),50.634645,21.797959,experiments/results/ct_icp_kitti_simplified_cross_seq_02_matrix.json
 ct_icp,kitti_seq_02_full,gt-backed,map_15,baseline map=15,76.464274,4.436775,experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json
-ct_icp,kitti_seq_02_full,gt-backed,map_15,baseline map=15,76.464274,4.436775,experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json
 ct_icp,kitti_seq_05_full,gt-backed,map_50_c2f_plus_corr_4,map=50 + c2f σ×2 + corr=4 (combine both),7.762245,18.920339,experiments/results/ct_icp_kitti_simplified_cross_seq_05_matrix.json
 ct_icp,kitti_seq_05_full,gt-backed,velocity_reg_005,+ constant-velocity-weight 0.05 (winner),11.948693,5.107177,experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json
 ct_icp,kitti_seq_05_full,gt-backed,corr_4_reference,arch_tuned corr=4 (existing winner),9.096654,15.743063,experiments/results/ct_icp_kitti_seq_05_corr_dist_sweep_matrix.json
@@ -222,6 +221,11 @@ lego_loam,kitti_seq_08_full,gt-backed,kitti_default,KITTI default,17.896468,0.92
 lego_loam,mcd_kth_day_06_108,gt-backed,fast,Fast,6.098881,9.923787,experiments/results/lego_loam_mcd_kth_day_06_matrix.json
 lego_loam,mcd_ntu_day_02_108,gt-backed,fast,Fast,0.078650,8.362960,experiments/results/lego_loam_mcd_ntu_day_02_matrix.json
 lego_loam,mcd_tuhh_night_09_108,gt-backed,fast,Fast,1.401108,10.053788,experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json
+lf_gicp,kitti_seq_00_full,gt-backed,no_mitigation,Vanilla VGICP backend,7.848136,3.754108,experiments/results/lf_gicp_kitti_seq_00_full_matrix.json
+lf_gicp,kitti_seq_02_full,gt-backed,no_mitigation,Vanilla VGICP backend,27.185742,3.580422,experiments/results/lf_gicp_kitti_seq_02_full_matrix.json
+lf_gicp,kitti_seq_05_full,gt-backed,no_mitigation,Vanilla VGICP backend,5.555945,5.392308,experiments/results/lf_gicp_kitti_seq_05_full_matrix.json
+lf_gicp,kitti_seq_07_full,gt-backed,paper_default,Paper default,0.646241,4.124560,experiments/results/lf_gicp_kitti_seq_07_full_matrix.json
+lf_gicp,kitti_seq_08_full,gt-backed,no_mitigation,Vanilla VGICP backend,16.280087,2.931235,experiments/results/lf_gicp_kitti_seq_08_full_matrix.json
 lins,hdl_400_open_ct_lio_120,reference-based,fast,Fast,29.745231,71.863775,experiments/results/lins_hdl_400_reference_matrix.json
 lins,kitti_raw_0009_200,gt-backed,fast,Fast,120.032189,104.959144,experiments/results/lins_kitti_raw_0009_nogt_matrix.json
 lins,kitti_raw_0009_200,gt-backed,fast,Fast,120.032189,120.725712,experiments/results/lins_kitti_raw_0009_matrix.json

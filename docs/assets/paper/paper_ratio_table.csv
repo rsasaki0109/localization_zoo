@@ -1,58 +1,69 @@
 method,sequence,paper_rte_pct,paper_source,repo_metric,repo_best_rpe_pct,repo_best_ratio,repo_pool_median_rpe_pct,repo_pool_size,selected_from_n,repo_best_variant,repo_best_aggregate
-aloam,00,0.78,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.855,1.10,0.953,2,2,kitti_default,experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json
-aloam,01,1.43,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
-aloam,02,0.92,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,1.012,1.10,1.020,2,2,fast,experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json
-aloam,03,0.86,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
-aloam,04,0.71,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
-aloam,05,0.57,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.535,0.94,0.636,2,2,kitti_default,experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json
-aloam,06,0.65,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
-aloam,07,0.63,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.681,1.08,0.796,3,3,kitti_default,experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json
-aloam,08,1.12,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.975,0.87,1.005,2,2,kitti_default,experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json
-aloam,09,0.77,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
-aloam,10,0.79,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
-ct_icp,00,0.49,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.825,3.72,1.846,3,80,velocity_reg_0005,experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json
-ct_icp,01,0.76,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,02,0.52,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,3.657,7.03,3.726,4,78,map_20_reference,experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json
-ct_icp,03,0.72,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,04,0.39,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,05,0.25,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.577,6.31,1.656,2,37,velocity_reg_005,experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json
-ct_icp,06,0.27,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,07,0.31,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.067,3.44,1.102,3,73,velocity_reg_01,experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json
-ct_icp,08,0.81,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.749,2.16,1.772,3,45,corr_dist_reference,experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json
-ct_icp,09,0.49,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,10,0.48,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-kiss_icp,00,0.51,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.954,1.87,1.096,4,4,dense_profile,experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json
-kiss_icp,04,0.36,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",,,,,0,0,,
-litamin2,00,0.78,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.920,1.18,0.920,1,2,tuned_voxel1_iter12,experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json
-litamin2,01,2.10,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
-litamin2,02,0.95,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,1.324,1.39,1.324,1,9,radius1_distance_gate_1_5m,experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json
-litamin2,03,0.96,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
-litamin2,04,1.05,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
-litamin2,05,0.55,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.734,1.33,0.734,1,9,radius1_no_distance_gate,experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json
-litamin2,06,0.55,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
-litamin2,07,0.48,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.613,1.28,0.613,1,14,coarse_to_fine_3_2_1,experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json
-litamin2,08,1.01,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.977,0.97,0.977,1,9,covariance_gradient_w0_1_linesearch,experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json
-litamin2,09,0.69,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
-litamin2,10,0.80,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
-mulls,00,0.51,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,3.793,7.44,3.814,2,2,dense,experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json
-mulls,01,0.62,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
-mulls,02,0.55,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,4.107,7.47,4.230,2,2,dense,experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json
-mulls,03,0.61,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
-mulls,04,0.35,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
-mulls,05,0.28,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,2.678,9.56,2.871,2,2,dense,experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json
-mulls,06,0.24,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
-mulls,07,0.29,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,2.627,9.06,2.627,1,3,dense,experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json
-mulls,08,0.80,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,4.271,5.34,4.338,2,2,dense,experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json
-mulls,09,0.49,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
-mulls,10,0.61,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
-suma,00,0.70,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.602,2.29,2.911,2,2,dense_profile,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
-suma,01,1.70,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
-suma,02,1.10,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.785,1.62,3.033,2,2,dense_profile,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
-suma,03,0.70,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
-suma,04,0.40,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
-suma,05,0.50,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.279,2.56,1.863,2,2,dense_profile,experiments/results/suma_kitti_seq_05_full_transfer_matrix.json
-suma,06,0.40,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
-suma,07,0.40,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.095,2.74,1.095,1,2,dense_profile,experiments/results/suma_kitti_seq_07_full_sweep_matrix.json
-suma,08,1.00,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,2.035,2.03,2.834,2,2,dense_profile,experiments/results/suma_kitti_seq_08_full_transfer_matrix.json
-suma,09,0.50,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
-suma,10,0.70,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+aloam,00,0.780,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.855,1.10,0.953,2,2,kitti_default,experiments/results/aloam_kitti_seq_00_full_transfer_matrix.json
+aloam,01,1.430,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
+aloam,02,0.920,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,1.012,1.10,1.020,2,2,fast,experiments/results/aloam_kitti_seq_02_full_transfer_matrix.json
+aloam,03,0.860,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
+aloam,04,0.710,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
+aloam,05,0.570,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.535,0.94,0.636,2,2,kitti_default,experiments/results/aloam_kitti_seq_05_full_transfer_matrix.json
+aloam,06,0.650,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
+aloam,07,0.630,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.681,1.08,0.796,3,3,kitti_default,experiments/results/aloam_kitti_seq_07_full_sweep_matrix.json
+aloam,08,1.120,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.975,0.87,1.005,2,2,kitti_default,experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json
+aloam,09,0.770,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
+aloam,10,0.790,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
+ct_icp,00,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.825,3.72,1.846,3,80,velocity_reg_0005,experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json
+ct_icp,01,0.760,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
+ct_icp,02,0.520,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,3.657,7.03,3.726,4,78,map_20_reference,experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json
+ct_icp,03,0.720,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
+ct_icp,04,0.390,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
+ct_icp,05,0.250,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.577,6.31,1.656,2,37,velocity_reg_005,experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json
+ct_icp,06,0.270,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
+ct_icp,07,0.310,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.067,3.44,1.102,3,73,velocity_reg_01,experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json
+ct_icp,08,0.810,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.749,2.16,1.772,3,45,corr_dist_reference,experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json
+ct_icp,09,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
+ct_icp,10,0.480,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
+kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.954,1.87,1.096,4,4,dense_profile,experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json
+kiss_icp,04,0.360,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",,,,,0,0,,
+lf_gicp,00,0.692,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",kitti_rte,0.664,0.96,0.664,1,1,paper_default,experiments/results/lf_gicp_kitti_seq_00_full_matrix.json
+lf_gicp,01,1.822,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",,,,,0,0,,
+lf_gicp,02,1.084,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",kitti_rte,1.075,0.99,1.075,1,1,paper_default,experiments/results/lf_gicp_kitti_seq_02_full_matrix.json
+lf_gicp,03,1.207,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",,,,,0,0,,
+lf_gicp,04,0.814,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",,,,,0,0,,
+lf_gicp,05,0.577,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",kitti_rte,0.512,0.89,0.512,1,1,paper_default,experiments/results/lf_gicp_kitti_seq_05_full_matrix.json
+lf_gicp,06,0.546,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",,,,,0,0,,
+lf_gicp,07,0.496,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",kitti_rte,0.411,0.83,0.411,1,1,paper_default,experiments/results/lf_gicp_kitti_seq_07_full_matrix.json
+lf_gicp,08,0.878,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",kitti_rte,1.005,1.14,1.005,1,1,paper_default,experiments/results/lf_gicp_kitti_seq_08_full_matrix.json
+lf_gicp,09,0.566,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",,,,,0,0,,
+lf_gicp,10,0.837,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",,,,,0,0,,
+litamin2,00,0.780,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.920,1.18,0.920,1,2,tuned_voxel1_iter12,experiments/results/litamin2_kitti_seq_00_full_tuned_matrix.json
+litamin2,01,2.100,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
+litamin2,02,0.950,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,1.324,1.39,1.324,1,9,radius1_distance_gate_1_5m,experiments/results/litamin2_kitti_seq_02_full_correspondence_matrix.json
+litamin2,03,0.960,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
+litamin2,04,1.050,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
+litamin2,05,0.550,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.734,1.33,0.734,1,9,radius1_no_distance_gate,experiments/results/litamin2_kitti_seq_05_full_correspondence_matrix.json
+litamin2,06,0.550,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
+litamin2,07,0.480,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.613,1.28,0.613,1,14,coarse_to_fine_3_2_1,experiments/results/litamin2_kitti_seq_07_full_correspondence_matrix.json
+litamin2,08,1.010,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",kitti_rte,0.977,0.97,0.977,1,9,covariance_gradient_w0_1_linesearch,experiments/results/litamin2_kitti_seq_08_full_correspondence_matrix.json
+litamin2,09,0.690,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
+litamin2,10,0.800,"Table III LiTAMIN2 (ICP+Cov), without loop closure, 3 m voxel; translation [%] of KITTI stats",,,,,0,0,,
+mulls,00,0.510,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,3.793,7.44,3.814,2,2,dense,experiments/results/mulls_kitti_seq_00_full_transfer_matrix.json
+mulls,01,0.620,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
+mulls,02,0.550,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,4.107,7.47,4.230,2,2,dense,experiments/results/mulls_kitti_seq_02_full_transfer_matrix.json
+mulls,03,0.610,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
+mulls,04,0.350,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
+mulls,05,0.280,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,2.678,9.56,2.871,2,2,dense,experiments/results/mulls_kitti_seq_05_full_transfer_matrix.json
+mulls,06,0.240,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
+mulls,07,0.290,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,2.627,9.06,2.627,1,3,dense,experiments/results/mulls_kitti_seq_07_full_sweep_matrix.json
+mulls,08,0.800,"Table II MULLS-LO(mc), odometry without loop closure",kitti_rte,4.271,5.34,4.338,2,2,dense,experiments/results/mulls_kitti_seq_08_full_transfer_matrix.json
+mulls,09,0.490,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
+mulls,10,0.610,"Table II MULLS-LO(mc), odometry without loop closure",,,,,0,0,,
+suma,00,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.602,2.29,2.911,2,2,dense_profile,experiments/results/suma_kitti_seq_00_full_transfer_matrix.json
+suma,01,1.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,02,1.100,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.785,1.62,3.033,2,2,dense_profile,experiments/results/suma_kitti_seq_02_full_transfer_matrix.json
+suma,03,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,04,0.400,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,05,0.500,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.279,2.56,1.863,2,2,dense_profile,experiments/results/suma_kitti_seq_05_full_transfer_matrix.json
+suma,06,0.400,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,07,0.400,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,1.095,2.74,1.095,1,2,dense_profile,experiments/results/suma_kitti_seq_07_full_sweep_matrix.json
+suma,08,1.000,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",kitti_rte,2.035,2.03,2.834,2,2,dense_profile,experiments/results/suma_kitti_seq_08_full_transfer_matrix.json
+suma,09,0.500,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,
+suma,10,0.700,"Table II Frame-to-Model without loop closure; translational error [%], one decimal in the paper",,,,,0,0,,

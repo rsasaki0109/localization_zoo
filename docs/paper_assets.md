@@ -1,6 +1,6 @@
 # Paper Assets
 
-_Generated at 2026-10-04T06:12:34+00:00 by `evaluation/scripts/export_paper_assets.py`._
+_Generated at 2026-10-04T15:36:53+00:00 by `evaluation/scripts/export_paper_assets.py`._
 
 This page is the paper-facing cut of the experiment state.
 It keeps only comparable ready-problem outputs and highlights default variants first.
@@ -78,7 +78,6 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | ct_icp | `kitti_seq_00_full` | gt-backed | `map_50_plus_c2f` | 12.694 | 18.7 | `experiments/results/ct_icp_kitti_seq_00_map50_partner_matrix.json` |
 | ct_icp | `kitti_seq_00_full` | gt-backed | `bare_map_30` | 15.803 | 18.7 | `experiments/results/ct_icp_kitti_seq_00_map_bare_matrix.json` |
 | ct_icp | `kitti_seq_00_full` | gt-backed | `default_reference` | 12.694 | 18.6 | `experiments/results/ct_icp_kitti_seq_00_simplified_corr_matrix.json` |
-| ct_icp | `kitti_seq_02_full` | gt-backed | `map_15` | 76.464 | 4.4 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | ct_icp | `kitti_seq_02_full` | gt-backed | `map_15` | 76.464 | 4.4 | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | ct_icp | `kitti_seq_02_full` | gt-backed | `baseline_map_20` | 56.537 | 19.9 | `experiments/results/ct_icp_kitti_map50_retrofit_matrix.json` |
 | ct_icp | `kitti_seq_02_full` | gt-backed | `corr_8` | 50.635 | 16.4 | `experiments/results/ct_icp_kitti_seq_02_corr_dist_retrofit_matrix.json` |
@@ -246,6 +245,11 @@ It keeps only comparable ready-problem outputs and highlights default variants f
 | lego_loam | `mcd_kth_day_06_108` | gt-backed | `fast` | 6.099 | 9.9 | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | lego_loam | `mcd_ntu_day_02_108` | gt-backed | `fast` | 0.079 | 8.4 | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | lego_loam | `mcd_tuhh_night_09_108` | gt-backed | `fast` | 1.401 | 10.1 | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
+| lf_gicp | `kitti_seq_00_full` | gt-backed | `no_mitigation` | 7.848 | 3.8 | `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json` |
+| lf_gicp | `kitti_seq_02_full` | gt-backed | `no_mitigation` | 27.186 | 3.6 | `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json` |
+| lf_gicp | `kitti_seq_05_full` | gt-backed | `no_mitigation` | 5.556 | 5.4 | `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json` |
+| lf_gicp | `kitti_seq_07_full` | gt-backed | `paper_default` | 0.646 | 4.1 | `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json` |
+| lf_gicp | `kitti_seq_08_full` | gt-backed | `no_mitigation` | 16.280 | 2.9 | `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json` |
 | lins | `hdl_400_open_ct_lio_120` | reference-based | `fast` | 29.745 | 71.9 | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | lins | `kitti_raw_0009_200` | gt-backed | `fast` | 120.032 | 120.7 | `experiments/results/lins_kitti_raw_0009_matrix.json` |
 | lins | `kitti_raw_0009_200` | gt-backed | `fast` | 120.032 | 105.0 | `experiments/results/lins_kitti_raw_0009_nogt_matrix.json` |

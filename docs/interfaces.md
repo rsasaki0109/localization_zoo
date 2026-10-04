@@ -1,6 +1,6 @@
 # Minimal Interfaces
 
-_Generated at 2026-10-04T06:12:20+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T15:36:10+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Stable Core
 
@@ -53,7 +53,7 @@ Every active search problem lives in `experiments/*.json` and must define:
 | `variants[]` | array | Concrete variants to compare, keep, or discard. |
 | `variants[].args` | array | Extra CLI flags layered on the stable core. |
 
-Current active selectors: `aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `fast_livo2`, `floam`, `genz_icp`, `gicp`, `hdl_graph_slam`, `imu_dead_reckoning`, `isc_loam`, `kiss_icp`, `lego_loam`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `lvi_sam`, `mulls`, `ndt`, `okvis`, `orb_slam3`, `point_lio`, `r2live`, `rko_lio`, `small_gicp`, `suma`, `vgicp_slam`, `vins_fusion`, `voxel_gicp`, `xicp`
+Current active selectors: `aloam`, `balm2`, `clins`, `ct_icp`, `ct_lio`, `dlio`, `dlo`, `fast_lio2`, `fast_lio_slam`, `fast_livo2`, `floam`, `genz_icp`, `gicp`, `hdl_graph_slam`, `imu_dead_reckoning`, `isc_loam`, `kiss_icp`, `lego_loam`, `lf_gicp`, `lins`, `lio_sam`, `litamin2`, `loam_livox`, `lvi_sam`, `mulls`, `ndt`, `okvis`, `orb_slam3`, `point_lio`, `r2live`, `rko_lio`, `small_gicp`, `suma`, `vgicp_slam`, `vins_fusion`, `voxel_gicp`, `xicp`
 
 ### Runner Contract
 
@@ -123,7 +123,6 @@ The runner is responsible for:
 | CT-ICP coarse_search_radius sweep on KITTI seq 00 full (cluster A) | `ready` | `experiments/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` | `ct_icp` | `radius_2_reference` | `experiments/results/ct_icp_kitti_seq_00_full_search_radius_sweep_matrix.json` |
 | CT-ICP cluster A + GT seed on KITTI Odometry seq 00 full | `ready` | `experiments/ct_icp_kitti_seq_00_full_seeded_matrix.json` | `ct_icp` | `cluster_a_seeded` | `experiments/results/ct_icp_kitti_seq_00_full_seeded_matrix.json` |
 | CT-ICP seq 00 full: constant-velocity regularization (small weight) | `ready` | `experiments/ct_icp_kitti_seq_00_velocity_reg_matrix.json` | `ct_icp` | `c2f_reference` | `experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json` |
-| CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | CT-ICP seq 02 full: small map_size sweep (5/10/15/20) | `ready` | `experiments/ct_icp_kitti_seq_02_full_small_map_matrix.json` | `ct_icp` | `map_15` | `experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json` |
 | CT-ICP seq 05 full: constant-velocity regularization sweep | `ready` | `experiments/ct_icp_kitti_seq_05_velocity_reg_matrix.json` | `ct_icp` | `velocity_reg_005` | `experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json` |
 | CT-ICP cluster A vs D + GT seed on KITTI Odometry seq 07 full (corrected cluster D) | `ready` | `experiments/ct_icp_kitti_seq_07_full_seeded_matrix.json` | `ct_icp` | `cluster_d_full_no_seed_reference` | `experiments/results/ct_icp_kitti_seq_07_full_seeded_matrix.json` |
@@ -273,6 +272,11 @@ The runner is responsible for:
 | LeGO-LOAM throughput and accuracy trade-off on the MCD KTH day-06 sequence | `ready` | `experiments/lego_loam_mcd_kth_day_06_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_kth_day_06_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD NTU day-02 sequence | `ready` | `experiments/lego_loam_mcd_ntu_day_02_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_ntu_day_02_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the MCD TUHH night-09 sequence | `ready` | `experiments/lego_loam_mcd_tuhh_night_09_matrix.json` | `lego_loam` | `fast` | `experiments/results/lego_loam_mcd_tuhh_night_09_matrix.json` |
+| LF-GICP on KITTI Odom seq 00 full (4541 frames) | `ready` | `experiments/lf_gicp_kitti_seq_00_full_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_00_full_matrix.json` |
+| LF-GICP on KITTI Odom seq 02 full (4661 frames) | `ready` | `experiments/lf_gicp_kitti_seq_02_full_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_02_full_matrix.json` |
+| LF-GICP on KITTI Odom seq 05 full (2761 frames) | `ready` | `experiments/lf_gicp_kitti_seq_05_full_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_05_full_matrix.json` |
+| LF-GICP on KITTI Odom seq 07 full (1101 frames) | `ready` | `experiments/lf_gicp_kitti_seq_07_full_matrix.json` | `lf_gicp` | `paper_default` | `experiments/results/lf_gicp_kitti_seq_07_full_matrix.json` |
+| LF-GICP on KITTI Odom seq 08 full (4071 frames) | `ready` | `experiments/lf_gicp_kitti_seq_08_full_matrix.json` | `lf_gicp` | `no_mitigation` | `experiments/results/lf_gicp_kitti_seq_08_full_matrix.json` |
 | LINS on the public HDL-400 reference window | `ready` | `experiments/lins_hdl_400_reference_matrix.json` | `lins` | `fast` | `experiments/results/lins_hdl_400_reference_matrix.json` |
 | LINS on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `experiments/lins_kitti_raw_0009_full_matrix.json` | `lins` | `fast` | `experiments/results/lins_kitti_raw_0009_full_matrix.json` |
 | LINS on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `experiments/lins_kitti_raw_0009_matrix.json` | `lins` | `fast` | `experiments/results/lins_kitti_raw_0009_matrix.json` |

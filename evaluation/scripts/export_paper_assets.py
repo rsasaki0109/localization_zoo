@@ -250,7 +250,7 @@ def load_pareto_points(results_dir: Path, dataset: str = PARETO_DATASET) -> list
             # NaN RPE (diverged runs) would also break the sort in pareto_front.
             if rpe is None or fps is None or not math.isfinite(float(rpe)) or not float(fps) > 0:
                 continue
-            if GT_SEEDED_NOTE.search(str(variant.get("note", ""))):
+            if GT_SEEDED_NOTE.search(str(variant.get("note", ""))) or variant.get("design_style") == "ablation":
                 continue
             points.append(OdometryPoint(selector, str(variant["id"]), float(rpe), float(fps), relpath(path)))
     return points
@@ -277,8 +277,12 @@ def render_odometry_pareto(points: list[OdometryPoint], output_path: Path) -> No
         if point.selector not in best or point.rpe_trans_pct < best[point.selector].rpe_trans_pct:
             best[point.selector] = point
     methods = sorted(best, key=lambda name: best[name].rpe_trans_pct)
-    if len(methods) > len(CATEGORICAL):
-        raise ValueError(f"{len(methods)} methods exceed {len(CATEGORICAL)} categorical slots; facet instead")
+    # Categorical slots never cycle: beyond the eighth method (ranked by best
+    # RPE) the rest fold into one muted "other" series.
+    # Which methods get a slot is decided by rank; the slot itself follows the
+    # method name so a method keeps its colour when others are added.
+    named = sorted(methods[: len(CATEGORICAL)])
+    others = methods[len(CATEGORICAL):]
     front = pareto_front(points)
     shown = [p for p in points if p.rpe_trans_pct <= PARETO_MAX_RPE_PCT]
     hidden = len(points) - len(shown)
@@ -288,12 +292,18 @@ def render_odometry_pareto(points: list[OdometryPoint], output_path: Path) -> No
     ax.set_facecolor("white")
     ax.step([p.rpe_trans_pct for p in front], [p.fps for p in front], where="post",
             color=INK_MUTED, linewidth=1.5, zorder=2, label="Pareto front")
-    for index, name in enumerate(methods):
+    for index, name in enumerate(named):
         mine = [p for p in shown if p.selector == name]
         total = sum(1 for p in points if p.selector == name)
         ax.scatter([p.rpe_trans_pct for p in mine], [p.fps for p in mine], s=56,
                    marker=MARKERS[index], color=CATEGORICAL[index], edgecolors="white",
                    linewidths=1.5, zorder=3, label=f"{name} ({total})")
+    if others:
+        mine = [p for p in shown if p.selector in others]
+        total = sum(1 for p in points if p.selector in others)
+        ax.scatter([p.rpe_trans_pct for p in mine], [p.fps for p in mine], s=40,
+                   marker="o", color=INK_MUTED, edgecolors="white", linewidths=1.5,
+                   zorder=2, label=f"other: {', '.join(others)} ({total})")
     # One label per front method, at its highest-throughput front point.
     front_top = {point.selector: point for point in front}
     for point in front_top.values():
@@ -321,7 +331,8 @@ def render_odometry_pareto(points: list[OdometryPoint], output_path: Path) -> No
                        loc="upper left", bbox_to_anchor=(1.01, 1.0))
     for text in legend.get_texts():
         text.set_color(INK)
-    footnote = "GT-seeded and diverged (NaN) variants excluded. FPS comes from stored aggregates and is not normalized across hosts."
+    footnote = ("GT-seeded, ablation, and diverged (NaN) variants excluded. FPS comes from stored aggregates "
+                "and is not normalized across hosts or concurrent load.")
     if hidden:
         footnote += f"\n{hidden} variant(s) with RPE > {PARETO_MAX_RPE_PCT:g} % are off the x-axis (legend counts include them)."
     fig.text(0.01, 0.01, footnote, fontsize=8, color=INK_MUTED, va="bottom")

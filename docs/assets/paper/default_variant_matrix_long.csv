@@ -160,6 +160,11 @@ lego_loam,kitti_seq_08_full,kitti_default
 lego_loam,mcd_kth_day_06_108,fast
 lego_loam,mcd_ntu_day_02_108,fast
 lego_loam,mcd_tuhh_night_09_108,fast
+lf_gicp,kitti_seq_00_full,no_mitigation
+lf_gicp,kitti_seq_02_full,no_mitigation
+lf_gicp,kitti_seq_05_full,no_mitigation
+lf_gicp,kitti_seq_07_full,paper_default
+lf_gicp,kitti_seq_08_full,no_mitigation
 lins,hdl_400_open_ct_lio_120,fast
 lins,kitti_raw_0009_200,fast
 lins,kitti_raw_0009_full,fast

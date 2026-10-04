@@ -50,7 +50,7 @@ COLUMNS = [
 # fair, seed-independent quality metric. GT-seeded methods (NDT, LiTAMIN2, GICP
 # family) are intentionally excluded from the ranking -- see the module docstring.
 ODOMETRY = [
-    "KISS-ICP", "GenZ-ICP", "A-LOAM", "F-LOAM", "LeGO-LOAM", "SuMa",
+    "KISS-ICP", "GenZ-ICP", "LF-GICP", "A-LOAM", "F-LOAM", "LeGO-LOAM", "SuMa",
     "LOAM-Livox", "MULLS", "CT-ICP", "CT-LIO", "FAST-LIO2", "Point-LIO",
     "DLIO", "DLO", "LINS", "LIO-SAM", "ISC-LOAM", "FAST-LIO-SLAM",
     "HDL-Graph-SLAM", "BALM2", "VGICP-SLAM", "RKO-LIO", "X-ICP", "CLINS",
@@ -95,7 +95,9 @@ def collect_cells() -> dict:
         if not method or not dataset:
             continue
         for variant in agg.get("variants", []):
-            if variant.get("status") != "ok":
+            # Ablations (e.g. a method with its key component disabled) are
+            # not the method itself and are never ranked.
+            if variant.get("status") != "ok" or variant.get("design_style") == "ablation":
                 continue
             ate = variant.get("ate_m")
             rpe = variant.get("rpe_trans_pct")

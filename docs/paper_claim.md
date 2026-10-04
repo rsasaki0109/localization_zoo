@@ -25,7 +25,7 @@ The ATE vs. FPS scatter over **all elected defaults** in `docs/assets/paper/read
 
 ### Sub-Claim 3: A stable CLI contract makes variant-first benchmarking practical
 
-The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **398** ready problems, **1** blocked manifest, and **14** skipped manifests across **33** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
+The stable `--summary-json` contract allows adding new variants and new benchmark windows without branching the evaluation runner. The current index tracks **407** ready problems, **1** blocked manifest, and **14** skipped manifests across **34** active selectors, all driven through `run_experiment_matrix.py` / `refresh_study_docs.py` with `pcd_dogfooding` and `multimodal_dogfooding` as sibling stable binaries.
 
 **Evidence:**
 - `docs/interfaces.md` — stable core contract.
@@ -52,13 +52,14 @@ official KITTI RTE metric** (100-800 m segments, every 10th frame):
 | Group | Method | Sequences | Repo / paper (geometric mean) |
 |---|---|---|---:|
 | Near paper | A-LOAM (vs LOAM, secondary-source values) | 00/02/05/07/08 | 1.01x |
+| Near paper | LF-GICP (no author code; gate calibrated on the paper's KITTI 00 trace) | 00/02/05/07/08 | 0.96x |
 | Near paper | LiTAMIN2 (ICP+Cov, no loop closure) | 00/02/05/07/08 | 1.22x |
 | Gap remains | KISS-ICP (compact baseline) | 00 | 1.87x |
 | Gap remains | SuMa (Frame-to-Model) | 00/02/05/07/08 | 2.21x |
 | Gap remains | CT-ICP | 00/02/05/07/08 | 4.15x |
 | Gap remains | MULLS (derived multi-metric variant) | 00/02/05/07/08 | 7.62x |
 
-What may be claimed: A-LOAM and LiTAMIN2 reach paper-level odometry accuracy
+What may be claimed: A-LOAM, LF-GICP, and LiTAMIN2 reach paper-level odometry accuracy
 on KITTI; the other four run on the same metric but do **not** reproduce the
 paper numbers. What may not be claimed: faithful reproduction for CT-ICP,
 KISS-ICP, SuMa, or MULLS, or any ratio as unbiased. The repository value is the
@@ -98,7 +99,7 @@ unnoticed, which motivates pinning both inputs and code:
 
 | Evidence File | What It Shows |
 |---------------|---------------|
-| `experiments/results/index.json` | **398** ready + **1** blocked + **14** skipped problems; per-problem defaults |
+| `experiments/results/index.json` | **407** ready + **1** blocked + **14** skipped problems; per-problem defaults |
 | `docs/variant_analysis.md` | GT-seed ablation, cross-dataset default stability, profile impact |
 | `docs/decisions.md` | Variant lifecycle and adoption rules |
 | `docs/assets/paper/ready_defaults.csv` | All ready-problem defaults — ATE, FPS, dataset tag |

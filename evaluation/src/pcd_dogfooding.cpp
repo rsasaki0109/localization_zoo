@@ -2,7 +2,7 @@
 ///
 /// 使い方:
 ///   ./pcd_dogfooding <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]
-///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,kiss_multi_horizon,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
+///   Methods include litamin2,gicp,small_gicp,voxel_gicp,ndt,fixed_map_ndt,kiss_icp,kiss_multi_horizon,genz_icp,lf_gicp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,lego_loam,mulls,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,ct_lio,xicp,fast_lio2,hdl_graph_slam,vgicp_slam,suma,balm2,isc_loam,loam_livox,lio_sam,lins,fast_lio_slam,point_lio,rko_lio,fr_lio,pg_lio,clins.
 ///
 /// pcd_dir: 00000000/cloud.pcd, 00000001/cloud.pcd, ... が並ぶディレクトリ
 /// gt_csv:  lidar_pose.x,y,z,roll,pitch,yaw を含むCSV
@@ -10,6 +10,7 @@
 #include "gicp/gicp_registration.h"
 #include "kiss_icp/kiss_icp.h"
 #include "genz_icp/genz_icp.h"
+#include "lf_gicp/lf_gicp.h"
 #include "adaptive_icp/adaptive_icp.h"
 #include "d2lio/d2lio.h"
 #include "ct_voxelmap/ct_voxelmap.h"
@@ -359,7 +360,7 @@ bool isSupportedMethod(const std::string& method) {
          method == "fixed_map_ndt" || method == "kiss_icp" ||
          method == "kiss_multi_horizon" || method == "kiss_pose_graph" ||
          method == "kiss_pose_graph_causal" ||
-         method == "genz_icp" ||
+         method == "genz_icp" || method == "lf_gicp" ||
          method == "adaptive_icp" ||
          method == "small_gicp" ||
          method == "voxel_gicp" || method == "aloam" || method == "floam" ||
@@ -2062,6 +2063,12 @@ struct KISSMultiHorizonDogfoodingOptions {
   double max_consensus_translation = 0.25;
   double max_consensus_rotation_rad = 0.025;
   double correction_gain = 0.0;
+};
+
+struct LFGICPDogfoodingOptions {
+  bool enable_mitigation = true;
+  double covariance_regularization = 2.0;
+  double field_regularization = 0.25;
 };
 
 struct GenZICPDogfoodingOptions {
@@ -6646,6 +6653,59 @@ MethodResult runGenZICP(const std::vector<std::string>& pcd_dirs,
   return res;
 }
 
+MethodResult runLFGICP(const std::vector<std::string>& pcd_dirs,
+                       const std::vector<Eigen::Matrix4d>& gt,
+                       const LFGICPDogfoodingOptions& options) {
+  using namespace localization_zoo::lf_gicp;
+  MethodResult res;
+  res.name = "LF-GICP";
+  LFGICPParams params;
+  params.enable_mitigation = options.enable_mitigation;
+  params.covariance_regularization = options.covariance_regularization;
+  params.field_regularization = options.field_regularization;
+  LFGICPOdometry odom(params);
+  const Eigen::Matrix4d world_anchor =
+      gt.empty() ? Eigen::Matrix4d::Identity() : gt.front();
+
+  std::vector<double> f0s, lambdas;
+  auto t0 = Clock::now();
+  for (size_t i = 0; i < pcd_dirs.size(); i++) {
+    // Full-resolution scan; LF-GICP applies its own 0.3 m source voxel and
+    // 1-80 m range filter (paper Table SI).
+    auto pts_local = loadPCD(pcd_dirs[i] + "/cloud.pcd", 0.0);
+    if (pts_local.empty()) continue;
+    const auto result = odom.registerFrame(pts_local);
+    if (result.field.sampled_voxels > 0) {
+      f0s.push_back(result.field.f0);
+      lambdas.push_back(result.field.lambda0);
+    }
+    res.poses.push_back(anchorRelativePose(world_anchor, result.pose));
+    if (i % 10 == 0) {
+      std::cerr << "\r  [LF-GICP] " << i << "/" << pcd_dirs.size()
+                << " voxels=" << odom.mapSize()
+                << " degenerate=" << odom.degenerateFrames();
+    }
+  }
+  std::cerr << std::endl;
+  res.time_ms =
+      std::chrono::duration<double, std::milli>(Clock::now() - t0).count();
+  auto median_of = [](std::vector<double> v) {
+    if (v.empty()) return 0.0;
+    std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
+    return v[v.size() / 2];
+  };
+  std::ostringstream note;
+  note << "Voxel-normal localizability field gate + soft Fisher weighting on "
+          "GICP scan-to-map (no GT seed; anchor matches first GT pose). mitigation="
+       << (options.enable_mitigation ? "on" : "off")
+       << " beta=" << options.covariance_regularization
+       << " field_beta=" << options.field_regularization
+       << " degenerate_frames=" << odom.degenerateFrames() << "/" << odom.frames()
+       << " median_f0=" << median_of(f0s) << " median_lambda0=" << median_of(lambdas);
+  res.note = note.str();
+  return res;
+}
+
 MethodResult runAdaptiveICP(const std::vector<std::string>& pcd_dirs,
                             const std::vector<Eigen::Matrix4d>& gt,
                             const AdaptiveICPDogfoodingOptions& options) {
@@ -11007,7 +11067,7 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
               << " <pcd_dir> <gt_csv> [max_frames] [--force-ct-lio]"
-              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,kiss_multi_horizon,kiss_pose_graph,kiss_pose_graph_causal,genz_icp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
+              << " [--methods litamin2,gicp,small_gicp,voxel_gicp,ndt,kiss_icp,kiss_multi_horizon,kiss_pose_graph,kiss_pose_graph_causal,genz_icp,lf_gicp,adaptive_icp,d2lio,ct_voxelmap,cube_lio,r_voxelmap,degen_sense,vibration_lio,id_lio,rf_lio,bievr_lio,ua_lio,damm_loam,lodestar,terrain_rbf_lio,lidar_iba,dali_slam,intensity_flow,svn_icp,pcr_dat,small_mighty,m_gclo,quadric_lo,dilo,nhc_lio,student_t_lo,spectral_lo,gmm_lo,gnc_lo,mcc_lo,imls_slam,mesh_loam,elo,tc_lvgf,opl_lvio,v_loam15,tc_vlo,ad_vlo,tc_mvlo,tricp_lo,kc_lo,i_loam,pl_loam,inten_loam,mcgicp,icpsc,vlom,odonet,nhc_net,nn_zupt,imu_dead_reckoning,dlo,dlio,aloam,floam,"
               << "lego_loam,mulls,ct_lio,ct_icp,ct_icp_ndt,ct_icp_ndt_keyframe,fixed_map_ndt,suma,balm2,isc_loam,loam_livox,lio_sam,lins,"
               << "fast_lio_slam,point_lio,clins]"
               << " [--summary-json path]"
@@ -11096,6 +11156,7 @@ int main(int argc, char** argv) {
               << " [--kiss-fast-profile]"
               << " [--kiss-dense-profile]"
               << " [--kiss-legacy-27-neighborhood]"
+              << " [--lf-gicp-no-mitigation] [--lf-gicp-beta X] [--lf-gicp-field-beta X]"
                << " [--kiss-pg-scan-context-threshold X]"
                << " [--kiss-pg-correction-gain X]"
                << " [--kiss-pg-external-poses KITTI_POSES]"
@@ -11220,6 +11281,7 @@ int main(int argc, char** argv) {
   double kiss_pose_graph_correction_gain = 0.05;
   std::string kiss_pose_graph_external_pose_path;
   GenZICPDogfoodingOptions genz_icp_options;
+  LFGICPDogfoodingOptions lf_gicp_options;
   AdaptiveICPDogfoodingOptions adaptive_icp_options;
   D2LIODogfoodingOptions d2lio_options;
   CTVoxelMapDogfoodingOptions ct_voxelmap_options;
@@ -14741,6 +14803,18 @@ int main(int argc, char** argv) {
           kiss_icp_options.map_cleanup_interval;
       continue;
     }
+    if (arg == "--lf-gicp-no-mitigation") {
+      lf_gicp_options.enable_mitigation = false;
+      continue;
+    }
+    if (arg == "--lf-gicp-field-beta" && i + 1 < argc) {
+      lf_gicp_options.field_regularization = std::stod(argv[++i]);
+      continue;
+    }
+    if (arg == "--lf-gicp-beta" && i + 1 < argc) {
+      lf_gicp_options.covariance_regularization = std::stod(argv[++i]);
+      continue;
+    }
     if (arg == "--kiss-legacy-27-neighborhood") {
       // Upstream KISS-ICP / pre-2026-08-02 correspondence search; reproduces
       // KISS-ICP aggregates recorded before the v14 change.
@@ -16158,6 +16232,13 @@ int main(int argc, char** argv) {
               << " max_iterations=" << genz_icp_options.max_icp_iterations
               << std::endl;
     results.push_back(runGenZICP(pcd_dirs, gt, genz_icp_options));
+  }
+
+  if (isMethodEnabled(selected_methods, "lf_gicp")) {
+    std::cout << "Running LF-GICP..." << std::endl;
+    std::cout << "  mitigation=" << (lf_gicp_options.enable_mitigation ? "on" : "off")
+              << " beta=" << lf_gicp_options.covariance_regularization << std::endl;
+    results.push_back(runLFGICP(pcd_dirs, gt, lf_gicp_options));
   }
 
   if (isMethodEnabled(selected_methods, "adaptive_icp")) {

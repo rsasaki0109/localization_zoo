@@ -4,7 +4,7 @@
     <b>C++ implementations, derived variants, and compact baselines for localization papers</b>
   </p>
   <p align="center">
-    <b>103 methods</b> · <b>73 paper reimplementations</b> · <b>42 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
+    <b>104 methods</b> · <b>74 paper reimplementations</b> · <b>43 papers with no public author code</b> · one C++ API · honest KITTI benchmarks
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/C%2B%2B-17-blue" alt="C++17">
@@ -98,7 +98,7 @@ evaluation tools—even when no reusable author code exists.
 
 The catalog is broader than the manuscript-grade evidence set:
 
-- **Catalog**: all 103 methods, including derived variants and compact baselines.
+- **Catalog**: all 104 methods, including derived variants and compact baselines.
 - **Paper-ready subset**: methods satisfying the
   [tier and ablation criteria](docs/paper_ready_reproducibility.md), frozen in
   [`paper_ready_bundle.json`](docs/benchmarks/paper_ready_bundle.json).
@@ -118,10 +118,11 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 | Method | Seq 00 | Seq 02 | Seq 05 | Seq 07 | Seq 08 |
 |---|---:|---:|---:|---:|---:|
 |  | _4541 fr_ | _4661 fr_ | _2761 fr_ | _1101 fr_ | _4071 fr_ |
-| LeGO-LOAM | **0.84%** <sub>(13 m)</sub> | **0.88%** <sub>(42 m)</sub> | 0.56% <sub>(6 m)</sub> | **0.53%** <sub>(3 m)</sub> | 1.38% <sub>(18 m)</sub> |
-| A-LOAM | 0.89% <sub>(12 m)</sub> | 0.92% <sub>(50 m)</sub> | **0.53%** <sub>(5 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.39% <sub>(18 m)</sub> |
+| LF-GICP | **0.82%** <sub>(9 m)</sub> | 0.89% <sub>(33 m)</sub> | **0.51%** <sub>(6 m)</sub> | 0.54% <sub>(1 m)</sub> | **1.35%** <sub>(16 m)</sub> |
+| LeGO-LOAM | 0.84% <sub>(13 m)</sub> | **0.88%** <sub>(42 m)</sub> | 0.56% <sub>(6 m)</sub> | **0.53%** <sub>(3 m)</sub> | 1.38% <sub>(18 m)</sub> |
+| A-LOAM | 0.89% <sub>(12 m)</sub> | 0.92% <sub>(50 m)</sub> | 0.53% <sub>(5 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.39% <sub>(18 m)</sub> |
 | F-LOAM | 0.92% <sub>(10 m)</sub> | 0.94% <sub>(52 m)</sub> | 0.54% <sub>(6 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.40% <sub>(20 m)</sub> |
-| KISS-ICP | 0.94% <sub>(15 m)</sub> | 1.09% <sub>(56 m)</sub> | 0.71% <sub>(7 m)</sub> | 0.66% <sub>(2 m)</sub> | **1.36%** <sub>(17 m)</sub> |
+| KISS-ICP | 0.94% <sub>(15 m)</sub> | 1.09% <sub>(56 m)</sub> | 0.71% <sub>(7 m)</sub> | 0.66% <sub>(2 m)</sub> | 1.36% <sub>(17 m)</sub> |
 | SuMa | 1.25% <sub>(19 m)</sub> | 1.28% <sub>(52 m)</sub> | 0.99% <sub>(10 m)</sub> | 0.94% <sub>(4 m)</sub> | 1.91% <sub>(19 m)</sub> |
 | CT-ICP | 2.06% <sub>(14 m)</sub> | 2.65%† <sub>(74 m)</sub> | 1.12% <sub>(12 m)</sub> | 1.14% <sub>(3 m)</sub> | 1.93% <sub>(99 m)</sub> |
 | MULLS | 2.54% <sub>(49 m)</sub> | 2.27% <sub>(261 m)</sub> | 1.73% <sub>(20 m)</sub> | 2.64% <sub>(8 m)</sub> | 3.12% <sub>(81 m)</sub> |
@@ -242,6 +243,7 @@ optimistic bounds.
 | Method | Sequences | Repo / paper | Reading |
 |---|---|---:|---|
 | A-LOAM | 00/02/05/07/08 | 1.01x | near paper (vs LOAM values cited by later papers) |
+| LF-GICP | 00/02/05/07/08 | 0.96x | near paper (no author code) |
 | LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
 | KISS-ICP | 00 | 1.87x | gap remains (compact baseline) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
@@ -453,6 +455,7 @@ Full results tree: [`experiments/results/hard_pcl_localization/`](experiments/re
 |-------|-------|----------|-----------|
 | **[RELEAD](papers/relead/)** | ICRA 2024 | Constrained ESIKF with projection-based suppression along degenerate directions | [arXiv](https://arxiv.org/abs/2402.18934) |
 | **[CT-ICP + RELEAD](papers/ct_icp_relead/)** | Hybrid | Continuous-time CT-ICP interpolation combined with RELEAD degeneracy handling | - |
+| **[LF-GICP](papers/lf_gicp/)** | arXiv 2026 | Voxel-normal localizability field gates soft Fisher-information reweighting of GICP; no author code | [arXiv](https://arxiv.org/abs/2608.19522) |
 
 ### Foundations
 

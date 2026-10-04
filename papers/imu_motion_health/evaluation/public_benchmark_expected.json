@@ -1,14 +1,14 @@
 {
   "schema": "imu_public_dataset_benchmark_expected_v1",
-  "recorded_at": "2026-10-03",
-  "note": "Group metrics from the full public run with config/wearable-public-v1.yaml and wearable-public-v1-policy.json. Regenerate only with a documented reason in evaluation/public_datasets.md.",
+  "recorded_at": "2026-10-04",
+  "note": "Group metrics from the full public run with config/wearable-public-v1.yaml and wearable-public-v1-policy.json, using causal posture confirmation (see public_datasets.md, 2026-10-04 correction). Regenerate only with a documented reason in evaluation/public_datasets.md.",
   "tolerance": 1e-06,
   "groups": {
     "cgu_bes": {
       "recordings": 195,
       "fall_sensitivity": 0.9666666666666667,
-      "adl_false_positive_rate": 0.0,
-      "median_latency_s": 1.7799999999999994,
+      "adl_false_positive_rate": 0.007407407407407408,
+      "median_latency_s": 2.5299999999999994,
       "cli_failures": 0
     },
     "parkinson": {
@@ -26,5 +26,5 @@
       "cli_failures": 0
     }
   },
-  "passed": true
+  "passed": false
 }

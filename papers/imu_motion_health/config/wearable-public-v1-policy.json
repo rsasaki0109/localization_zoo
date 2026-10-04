@@ -2,5 +2,13 @@
   "schema": "imu_fall_candidate_policy_v1",
   "event_type": "impact",
   "minimum_posture_change_deg": 30.0,
-  "description": "Confirm an impact as a fall candidate only after the one-second post-event mean gravity direction differs from the pre-event mean by at least 30 degrees."
+  "description": "Confirm an impact at t as a fall candidate only when the mean gravity direction over [t-1.5 s, t-0.5 s] and [t+0.25 s, t+0.75 s] differs by at least 30 degrees; detection time is t+0.75 s. Windows chosen on CGU-BES Subject01-09 only.",
+  "pre_window_s": [
+    1.5,
+    0.5
+  ],
+  "post_window_s": [
+    0.25,
+    0.75
+  ]
 }

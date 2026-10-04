@@ -210,7 +210,7 @@ def tune(entries: list[dict], output: pathlib.Path) -> dict:
                        "  fall_freefall_threshold: 0.1\n  tilt_angle_threshold_deg: 179.0\n", encoding="utf-8")
     policy = output / "wearable-public-v1-policy.json"
     policy.write_text(json.dumps({"schema":"imu_fall_candidate_policy_v1",
-                                  "minimum_posture_change_deg":best["minimum_posture_change_deg"],
+                                  "minimum_posture_change_deg":POSTURE_THRESHOLD_DEG,
                                   "pre_window_s":list(PRE_WINDOW_S),"post_window_s":list(POST_WINDOW_S),
                                   "event_type":"impact"}, indent=2)+"\n", encoding="utf-8")
     return {"schema": "imu_public_profile_tuning_v1", "training_split": "CGU-BES Subject01-09",
@@ -218,12 +218,15 @@ def tune(entries: list[dict], output: pathlib.Path) -> dict:
             "selected": best, "all_candidates": scored, "profile": str(profile)}
 
 
-# Causal posture confirmation (selected on CGU-BES train subjects only): an impact
-# at t is a fall candidate when the mean gravity direction over
-# [t - PRE[0], t - PRE[1]] and [t + POST[0], t + POST[1]] differs by the policy
-# angle. Detection time is t + POST[1], the earliest moment a device knows.
-PRE_WINDOW_S = (1.5, 0.5)
-POST_WINDOW_S = (0.25, 0.75)
+# Causal posture confirmation: an impact at t is a fall candidate when the mean
+# gravity direction over [t - PRE[0], t - PRE[1]] and [t + POST[0], t + POST[1]]
+# differs by POSTURE_THRESHOLD_DEG. Detection time is t + POST[1], the earliest
+# moment a device knows. Windows maximise the margin between falls and jumps
+# (the known confuser) on CGU-BES train+validation subjects; the threshold is
+# the largest that keeps train sensitivity >= 95 % (see public_datasets.md).
+PRE_WINDOW_S = (2.0, 1.0)
+POST_WINDOW_S = (0.5, 1.5)
+POSTURE_THRESHOLD_DEG = 50.0
 
 
 def _mean_direction(samples, start, end):

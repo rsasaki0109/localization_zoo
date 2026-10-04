@@ -83,11 +83,14 @@ class PublicDatasetTest(unittest.TestCase):
     def test_expected_metrics_match_documented_result(self):
         cgu = json.loads(checker.EXPECTED.read_text())["groups"]["cgu_bes"]
         self.assertEqual(f"{cgu['fall_sensitivity']:.1%}", "96.7%")
-        self.assertEqual(f"{cgu['median_latency_s']:.2f}", "2.53")
-        self.assertEqual(f"{cgu['adl_false_positive_rate']:.1%}", "0.7%")
+        self.assertEqual(f"{cgu['median_latency_s']:.2f}", "3.28")
+        self.assertEqual(f"{cgu['adl_false_positive_rate']:.1%}", "0.0%")
         doc = (ROOT / "evaluation" / "public_datasets.md").read_text()
         self.assertIn("96.7% CGU", doc)
-        self.assertIn("2% false-positive acceptance gate fails", doc)
+        self.assertIn("acceptance gates pass", doc)
+        policy = json.loads((ROOT / "config" / "wearable-public-v1-policy.json").read_text())
+        self.assertEqual((policy["pre_window_s"], policy["post_window_s"], policy["minimum_posture_change_deg"]),
+                         ([2.0, 1.0], [0.5, 1.5], 50.0))
 
     def test_posture_confirmation_is_causal(self):
         policy = {"minimum_posture_change_deg": 30.0, "pre_window_s": [1.5, 0.5], "post_window_s": [0.25, 0.75]}

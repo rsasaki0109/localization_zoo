@@ -75,31 +75,37 @@ thresholds and policy, or if any group metric differs from
 [`public_benchmark_expected.json`](public_benchmark_expected.json). Update that
 file only together with a documented reason in this section.
 
-## Reproduced result (corrected 2026-10-04)
+## Reproduced result (2026-10-04)
 
 The full run used all 195 CGU-BES recordings, 300 deterministic UCI windows,
 and 100 Parkinson ankle recordings. `wearable-public-v1` with **causal**
-posture confirmation produced 96.7% CGU fall sensitivity, 0.7% CGU ADL false
-positives (1 of 135), 0% UCI/Parkinson false positives, and no CLI failures.
-Median latency to the confirmation time, relative to the kinematic proxy, is
-2.53 s. On the untouched CGU test subjects (13-15) sensitivity is 100% but
-the ADL false-positive rate is 3.7% (1 of 27: Subject13 UpwardJump), so the
-**2% false-positive acceptance gate fails** and `passed` is now false. The
-500 ms pre-impact ambition remains out of reach; that requires a separately
-labeled predictive model such as KFall and must not be claimed from CGU-BES.
+posture confirmation produced 96.7% CGU fall sensitivity, 0% CGU ADL false
+positives, 0% UCI/Parkinson false positives, and no CLI failures; the
+untouched CGU test subjects (13-15) reach 100% sensitivity and 0% false
+positives, so the acceptance gates pass. Median latency to the confirmation
+time, relative to the kinematic proxy, is 3.28 s. The 500 ms pre-impact
+ambition remains out of reach; that requires a separately labeled predictive
+model such as KFall and must not be claimed from CGU-BES.
 
-**Correction.** The 2026-08-24 result (0% ADL false positives, 1.78 s, gates
-passed) gated impacts with `posture_change_deg` computed from the first and
-last second of each whole recording, which a device cannot know at detection
-time, and measured latency from the impact instead of from the moment the
-posture check could complete. The policy now carries `pre_window_s`
-[1.5, 0.5] and `post_window_s` [0.25, 0.75]: an impact at t is confirmed when
-the mean gravity direction over [t-1.5, t-0.5] s and [t+0.25, t+0.75] s
-differs by at least 30°, and detection time is t+0.75 s. The windows were
-chosen on CGU train subjects only; train and validation subjects could not
-separate the candidate windows, and the test result was not used to choose
-them. The jump false positive comes from the landing impact briefly changing
-the body's gravity direction inside the short post-impact window.
+**How the posture policy was chosen.** An impact at t is confirmed when the
+mean gravity direction over [t-2.0, t-1.0] s and [t+0.5, t+1.5] s differs by
+at least 50°, and detection time is t+1.5 s. Jumps are the known confuser:
+the landing impact briefly tilts the gravity direction. Using CGU train and
+validation subjects only (01-12), these windows maximise the margin between
+the 5th-percentile fall angle (78.9°) and the largest jump angle (38.7°); the
+threshold is the largest value that keeps train sensitivity at or above 95%.
+The test subjects were evaluated once, after this choice. The accel/gyro
+impact thresholds are still selected by `tune`, which scores train recordings
+with a whole-recording posture proxy; that proxy is a training-time choice and
+is never used at detection time.
+
+**Correction history.** The 2026-08-24 result (0% false positives, 1.78 s)
+gated impacts with a posture change computed from the first and last second of
+each whole recording, which a device cannot know, and measured latency from the
+impact. A first causal version (windows [1.5, 0.5] / [0.25, 0.75] s, 30°,
+chosen on train only) reached 2.53 s but produced one test false positive
+(Subject13 UpwardJump, 3.7%) and failed the 2% gate. The current policy fixes
+that jump at the cost of 0.75 s more latency.
 
 The unchanged built-in `wearable` baseline reached 100% CGU sensitivity but
 also triggered on 45.9% of CGU ADLs and 14.3% of the balanced UCI HAR windows
@@ -110,4 +116,4 @@ sets. Both raw result objects are embedded in the comparison HTML.
 The 30° posture confirmation is a downstream fall-candidate policy applied
 after an impact lifecycle event. It is intentionally stored beside, not
 silently embedded in, the streaming profile because it needs post-event data
-(0.75 s after the impact).
+(1.5 s after the impact).

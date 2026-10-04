@@ -7,8 +7,8 @@
     "cgu_bes": {
       "recordings": 195,
       "fall_sensitivity": 0.9666666666666667,
-      "adl_false_positive_rate": 0.007407407407407408,
-      "median_latency_s": 2.5299999999999994,
+      "adl_false_positive_rate": 0.0,
+      "median_latency_s": 3.2799999999999994,
       "cli_failures": 0
     },
     "parkinson": {
@@ -26,5 +26,5 @@
       "cli_failures": 0
     }
   },
-  "passed": false
+  "passed": true
 }

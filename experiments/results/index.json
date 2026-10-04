@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T19:50:52+00:00",
+  "generated_at": "2026-10-04T21:54:14+00:00",
   "problems": [
     {
       "problem_id": "aloam_profile_tradeoff_hdl_400_reference",
@@ -1910,6 +1910,51 @@
       "current_default": "fast_recent_map"
     },
     {
+      "problem_id": "l_lo_kitti_seq_00_full",
+      "title": "L-LO on KITTI Odom seq 00 full (4541 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/l_lo_kitti_seq_00_full_matrix.json",
+      "aggregate_path": "experiments/results/l_lo_kitti_seq_00_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "l_lo_kitti_seq_02_full",
+      "title": "L-LO on KITTI Odom seq 02 full (4661 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/l_lo_kitti_seq_02_full_matrix.json",
+      "aggregate_path": "experiments/results/l_lo_kitti_seq_02_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "l_lo_kitti_seq_05_full",
+      "title": "L-LO on KITTI Odom seq 05 full (2761 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/l_lo_kitti_seq_05_full_matrix.json",
+      "aggregate_path": "experiments/results/l_lo_kitti_seq_05_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "l_lo_kitti_seq_07_full",
+      "title": "L-LO on KITTI Odom seq 07 full (1101 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/l_lo_kitti_seq_07_full_matrix.json",
+      "aggregate_path": "experiments/results/l_lo_kitti_seq_07_full_matrix.json",
+      "current_default": "default"
+    },
+    {
+      "problem_id": "l_lo_kitti_seq_08_full",
+      "title": "L-LO on KITTI Odom seq 08 full (4071 frames)",
+      "status": "ready",
+      "blocker": "",
+      "manifest_path": "experiments/l_lo_kitti_seq_08_full_matrix.json",
+      "aggregate_path": "experiments/results/l_lo_kitti_seq_08_full_matrix.json",
+      "current_default": "default"
+    },
+    {
       "problem_id": "lego_loam_profile_tradeoff_hdl_400_reference",
       "title": "LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window",
       "status": "ready",
@@ -3030,7 +3075,7 @@
       "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 00",
       "status": "ready",
       "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_00_matrix.json",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_00_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_00_matrix.json",
       "current_default": "fast_window"
     },
@@ -3039,7 +3084,7 @@
       "title": "CT-ICP throughput and accuracy trade-off on the KITTI Odometry sequence 07",
       "status": "ready",
       "blocker": "",
-      "manifest_path": "experiments/ct_icp_kitti_seq_07_matrix.json",
+      "manifest_path": "experiments/pending/ct_icp_kitti_seq_07_matrix.json",
       "aggregate_path": "experiments/results/ct_icp_kitti_seq_07_matrix.json",
       "current_default": "fast_window"
     },

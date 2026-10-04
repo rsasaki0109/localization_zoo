@@ -50,7 +50,7 @@ COLUMNS = [
 # fair, seed-independent quality metric. GT-seeded methods (NDT, LiTAMIN2, GICP
 # family) are intentionally excluded from the ranking -- see the module docstring.
 ODOMETRY = [
-    "KISS-ICP", "GenZ-ICP", "LF-GICP", "A-LOAM", "F-LOAM", "LeGO-LOAM", "SuMa",
+    "KISS-ICP", "GenZ-ICP", "LF-GICP", "L-LO", "A-LOAM", "F-LOAM", "LeGO-LOAM", "SuMa",
     "LOAM-Livox", "MULLS", "CT-ICP", "CT-LIO", "FAST-LIO2", "Point-LIO",
     "DLIO", "DLO", "LINS", "LIO-SAM", "ISC-LOAM", "FAST-LIO-SLAM",
     "HDL-Graph-SLAM", "BALM2", "VGICP-SLAM", "RKO-LIO", "X-ICP", "CLINS",

@@ -1,6 +1,6 @@
 # Decisions
 
-_Generated at 2026-10-04T19:50:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Rules
 
@@ -2615,6 +2615,51 @@ _Generated at 2026-10-04T19:50:52+00:00 by `evaluation/scripts/run_experiment_ma
 | balanced_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
 | fast_recent_map | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 | dense_local_map | Keep as active challenger | Close enough to the current default to keep as a live alternative. |
+
+## L-LO on KITTI Odom seq 00 full (4541 frames)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_00_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO on KITTI Odom seq 02 full (4661 frames)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_02_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO on KITTI Odom seq 05 full (2761 frames)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_05_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO on KITTI Odom seq 07 full (1101 frames)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_07_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
+
+## L-LO on KITTI Odom seq 08 full (4071 frames)
+
+- Current default: `default`.
+- Aggregate result: `experiments/results/l_lo_kitti_seq_08_full_matrix.json`
+
+| Variant | Decision | Why |
+|---------|----------|-----|
+| default | Adopt as current default | Best combined benchmark score on the shared dataset and interface. |
 
 ## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window
 

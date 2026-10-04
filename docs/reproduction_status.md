@@ -1,6 +1,6 @@
 # Reproduction Status
 
-_Generated at 2026-10-04T19:52:00+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
+_Generated at 2026-10-04T21:56:18+00:00 by `evaluation/scripts/generate_reproduction_status.py`._
 
 This page records what the repository can currently claim about reproducing original-paper results.
 The tracked subset below is intentionally conservative: if the implementation, metric, dataset, or protocol diverges, the repo should say so explicitly.
@@ -31,6 +31,7 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 | SUMA | `indicative` | Paper reimplementation | KITTI Odometry 00/02/05/07/08 | Same metric, ~2.2x ratio | The CPU reimplementation reaches ~2.2x the paper's Frame-to-Model RTE on the official metric. | Compare surfel stability and map fusion against the upstream SuMa implementation. |
 | ALOAM | `indicative` | Paper reimplementation | KITTI Odometry 00/02/05/07/08 | Same metric, secondary-source paper values | The LOAM paper itself does not report per-sequence KITTI RTE; the values are LOAM's KITTI numbers as cited by later papers. | Compare against the official A-LOAM implementation on the same full sequences. |
 | LF-GICP | `approximately_reproduced` | Paper reimplementation (no author code) | KITTI Odometry 00/02/05/07/08 | Same metric, ~0.96x ratio (single configuration) | The lambda0 scale differs from the paper (planarity definition is ambiguous) and GEODE tunnels for gate calibration are not available. | Obtain GEODE tunnel data to check the gate on genuine absence and recalibrate tau2 with the paper's rule. |
+| L-LO | `indicative` | Paper reimplementation (no author code) | KITTI Odometry 00/02/05/07/08 | Same metric, ~1.6x ratio (single configuration) | The paper specifies no thresholds and its pitch estimate is not physically consistent as written; see papers/l_lo/README.md. | Ask the authors for parameters or code, or study parameter sensitivity on a held-out sequence. |
 
 ## LiTAMIN2
 
@@ -171,3 +172,17 @@ Every tracked family carries a `claim_level` that classifies how strongly the re
 - **Main blocker**: The lambda0 scale differs from the paper (planarity definition is ambiguous) and GEODE tunnels for gate calibration are not available.
 - **Next step**: Obtain GEODE tunnel data to check the gate on genuine absence and recalibrate tau2 with the paper's rule.
 - **Notes**: Paper average 0.865 % over 00-10; same raw-scan protocol as this repository's KITTI data.
+
+## L-LO
+
+- **Claim level**: `indicative`
+- **Paper**: Li, Fu, Sun, L-LO: Enhancing Pose Estimation Precision via a Landmark-Based LiDAR Odometry, arXiv 2023
+- **Method README**: `papers/l_lo/README.md`
+- **Reported dataset**: KITTI Odometry (sequences 00, 02-10; 01 reported as NA)
+- **Reported metric**: KITTI RTE translation [%] (official 100-800 m segments)
+- **Repo scope**: Paper reimplementation (no author code). Frame-to-frame landmark odometry with convex-hull similarity and overlap maximisation; the paper gives no numeric parameters.
+- **Current claim**: KITTI Odometry 00/02/05/07/08. Official KITTI RTE: 1.65/4.75/1.32/1.00/1.78 % on KITTI Odometry 00/02/05/07/08 versus the paper's 0.91/2.35/0.82/0.69/1.37 % (Table I, t_rel): 1.30-2.02x, geometric mean 1.62x. Repository parameters were chosen without tuning on KITTI (the paper gives none); see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
+- **Numeric comparison**: Same metric, ~1.6x ratio (single configuration). Official KITTI RTE, repo vs paper: seq 00 1.653 vs 0.91 (1.82x), seq 02 4.749 vs 2.35 (2.02x), seq 05 1.323 vs 0.82 (1.61x), seq 07 0.998 vs 0.69 (1.45x), seq 08 1.778 vs 1.37 (1.30x). At least three landmark matches on every frame except 100 of 4660 on seq 02. Repository parameters were chosen without tuning on KITTI (the paper gives none); see papers/l_lo/README.md and docs/assets/paper/paper_ratio_table.csv (Table 6).
+- **Main blocker**: The paper specifies no thresholds and its pitch estimate is not physically consistent as written; see papers/l_lo/README.md.
+- **Next step**: Ask the authors for parameters or code, or study parameter sensitivity on a held-out sequence.
+- **Notes**: Paper average 1.59 % over the reported sequences.

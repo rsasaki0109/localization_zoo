@@ -147,6 +147,11 @@ kiss_icp,mcd_ntu_day_02_108,fast_recent_map
 kiss_icp,mcd_tuhh_night_09_108,fast_recent_map
 kiss_icp,mulran_parkinglot_120,fast_recent_map
 kiss_icp,mulran_parkinglot_full,fast_recent_map
+l_lo,kitti_seq_00_full,default
+l_lo,kitti_seq_02_full,default
+l_lo,kitti_seq_05_full,default
+l_lo,kitti_seq_07_full,default
+l_lo,kitti_seq_08_full,default
 lego_loam,hdl_400_open_ct_lio_120,fast
 lego_loam,kitti_raw_0009_200,fast
 lego_loam,kitti_raw_0009_full,fast

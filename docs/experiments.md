@@ -1,6 +1,6 @@
 # Experiment Results
 
-_Generated at 2026-10-04T19:50:52+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
+_Generated at 2026-10-04T21:54:14+00:00 by `evaluation/scripts/run_experiment_matrix.py`. Source index: `experiments/results/index.json`._
 
 ## Overview
 
@@ -218,6 +218,11 @@ _Generated at 2026-10-04T19:50:52+00:00 by `evaluation/scripts/run_experiment_ma
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (120-frame window) | `ready` | `fast_recent_map` | 15.641 | 27.3 | `experiments/results/kiss_icp_mulran_parkinglot_120_matrix.json` |
 | KISS-ICP throughput and accuracy trade-off on MulRan ParkingLot (full sequence) | `ready` | `fast_recent_map` | 73.621 | 26.9 | `experiments/results/kiss_icp_mulran_parkinglot_full_matrix.json` |
 | KISS-ICP throughput and drift trade-off on the repository-stored Istanbul sequence | `ready` | `fast_recent_map` | 182.960 | 4.0 | `experiments/results/kiss_icp_profile_matrix.json` |
+| L-LO on KITTI Odom seq 00 full (4541 frames) | `ready` | `default` | 19.031 | 4.3 | `experiments/results/l_lo_kitti_seq_00_full_matrix.json` |
+| L-LO on KITTI Odom seq 02 full (4661 frames) | `ready` | `default` | 58.272 | 3.2 | `experiments/results/l_lo_kitti_seq_02_full_matrix.json` |
+| L-LO on KITTI Odom seq 05 full (2761 frames) | `ready` | `default` | 8.785 | 5.3 | `experiments/results/l_lo_kitti_seq_05_full_matrix.json` |
+| L-LO on KITTI Odom seq 07 full (1101 frames) | `ready` | `default` | 2.045 | 5.1 | `experiments/results/l_lo_kitti_seq_07_full_matrix.json` |
+| L-LO on KITTI Odom seq 08 full (4071 frames) | `ready` | `default` | 32.662 | 3.7 | `experiments/results/l_lo_kitti_seq_08_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window | `ready` | `fast` | 0.147 | 21.8 | `experiments/results/lego_loam_hdl_400_reference_matrix.json` |
 | LeGO-LOAM trade-off on KITTI Raw drive 0009 full sequence (443 frames, urban) | `ready` | `fast` | 6.066 | 9.5 | `experiments/results/lego_loam_kitti_raw_0009_full_matrix.json` |
 | LeGO-LOAM throughput and accuracy trade-off on KITTI Raw drive 0009 (200 frames, urban) | `ready` | `fast` | 2.865 | 8.9 | `experiments/results/lego_loam_kitti_raw_0009_matrix.json` |
@@ -13489,6 +13494,186 @@ _Generated at 2026-10-04T19:50:52+00:00 by `evaluation/scripts/run_experiment_ma
 - Readability proxy: 4.65 / 5.00. Adds only boolean toggles on top of the stable CLI.
 - Extensibility proxy: 4.75 / 5.00. Still stays inside the stable CLI, but expands the toggle surface.
 - Method note: No extra method note.
+
+
+## L-LO on KITTI Odom seq 00 full (4541 frames)
+
+- **Problem ID**: `l_lo_kitti_seq_00_full`
+- **Question**: How close does the landmark convex-hull odometry get to the paper's KITTI numbers with this repository's parameter choices?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_00_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_00_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_00_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 19.031 | 4.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 4.3 FPS.
+3. `default` is the most accurate observed variant at 19.031 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository defaults (the paper gives no numeric parameters).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_00_full experiments/reference_data/kitti_seq_00_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_00_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_00_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_00_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=28.0385 frames_below_3_matches=0/4540
+
+
+## L-LO on KITTI Odom seq 02 full (4661 frames)
+
+- **Problem ID**: `l_lo_kitti_seq_02_full`
+- **Question**: How close does the landmark convex-hull odometry get to the paper's KITTI numbers with this repository's parameter choices?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_02_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_02_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_02_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 58.272 | 3.2 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 3.2 FPS.
+3. `default` is the most accurate observed variant at 58.272 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository defaults (the paper gives no numeric parameters).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_02_full experiments/reference_data/kitti_seq_02_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_02_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_02_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_02_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=19.2876 frames_below_3_matches=100/4660
+
+
+## L-LO on KITTI Odom seq 05 full (2761 frames)
+
+- **Problem ID**: `l_lo_kitti_seq_05_full`
+- **Question**: How close does the landmark convex-hull odometry get to the paper's KITTI numbers with this repository's parameter choices?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_05_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_05_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_05_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 8.785 | 5.3 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 5.3 FPS.
+3. `default` is the most accurate observed variant at 8.785 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository defaults (the paper gives no numeric parameters).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_05_full experiments/reference_data/kitti_seq_05_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_05_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_05_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_05_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=28.917 frames_below_3_matches=0/2760
+
+
+## L-LO on KITTI Odom seq 07 full (1101 frames)
+
+- **Problem ID**: `l_lo_kitti_seq_07_full`
+- **Question**: How close does the landmark convex-hull odometry get to the paper's KITTI numbers with this repository's parameter choices?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_07_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_07_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_07_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 2.045 | 5.1 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 5.1 FPS.
+3. `default` is the most accurate observed variant at 2.045 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository defaults (the paper gives no numeric parameters).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_07_full experiments/reference_data/kitti_seq_07_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_07_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_07_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_07_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=27.8518 frames_below_3_matches=0/1100
+
+
+## L-LO on KITTI Odom seq 08 full (4071 frames)
+
+- **Problem ID**: `l_lo_kitti_seq_08_full`
+- **Question**: How close does the landmark convex-hull odometry get to the paper's KITTI numbers with this repository's parameter choices?
+- **Status**: `ready`
+- **Dataset PCD directory**: `dogfooding_results/kitti_seq_08_full`
+- **Reference CSV**: `experiments/reference_data/kitti_seq_08_full_gt.csv`
+- **Stable binary**: `build/evaluation/pcd_dogfooding`
+- **Shared method selector**: `l_lo`
+- **Shared metrics**: ate_m, rpe_trans_pct, fps, readability_score, extensibility_score
+- **Aggregate result**: `experiments/results/l_lo_kitti_seq_08_full_matrix.json`
+
+| Variant | Style | ATE [m] | FPS | Benchmark | Readability | Extensibility | Decision |
+|---------|-------|---------|-----|-----------|-------------|---------------|----------|
+| Default | balanced | 32.662 | 3.7 | 100.0 | 5.00 | 5.00 | Adopt as current default |
+
+### Observations
+
+1. `default` is the current default for this problem.
+2. `default` is the fastest observed variant at 3.7 FPS.
+3. `default` is the most accurate observed variant at 32.662 m ATE.
+
+### Variant Notes
+
+#### `default`
+
+- Intent: Repository defaults (the paper gives no numeric parameters).
+- CLI args: `(default flags only)`
+- Command: `build/evaluation/pcd_dogfooding dogfooding_results/kitti_seq_08_full experiments/reference_data/kitti_seq_08_full_gt.csv --methods l_lo --summary-json experiments/results/runs/l_lo_kitti_seq_08_full_matrix/default/summary.json`
+- Summary: `experiments/results/runs/l_lo_kitti_seq_08_full_matrix/default/summary.json`
+- Log: `experiments/results/runs/l_lo_kitti_seq_08_full_matrix/default/run.log`
+- Readability proxy: 5.00 / 5.00. Uses the default CLI surface only.
+- Extensibility proxy: 5.00 / 5.00. No extra profile knobs beyond the stable core contract.
+- Method note: Landmark convex-hull overlap odometry, frame-to-frame (no GT seed; anchor matches first GT pose). mean_matches=32.6204 frames_below_3_matches=0/4070
 
 
 ## LeGO-LOAM throughput and accuracy trade-off on the public HDL-400 reference window

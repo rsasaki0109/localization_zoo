@@ -23,6 +23,16 @@ ct_icp,09,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,
 ct_icp,10,0.480,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
 kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.954,1.87,1.096,4,4,dense_profile,experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json
 kiss_icp,04,0.360,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",,,,,0,0,,
+l_lo,00,0.910,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,1.653,1.82,1.653,1,1,default,experiments/results/l_lo_kitti_seq_00_full_matrix.json
+l_lo,02,2.350,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,4.749,2.02,4.749,1,1,default,experiments/results/l_lo_kitti_seq_02_full_matrix.json
+l_lo,03,2.920,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",,,,,0,0,,
+l_lo,04,2.280,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",,,,,0,0,,
+l_lo,05,0.820,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,1.323,1.61,1.323,1,1,default,experiments/results/l_lo_kitti_seq_05_full_matrix.json
+l_lo,06,0.660,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",,,,,0,0,,
+l_lo,07,0.690,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,0.998,1.45,0.998,1,1,default,experiments/results/l_lo_kitti_seq_07_full_matrix.json
+l_lo,08,1.370,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",kitti_rte,1.778,1.30,1.778,1,1,default,experiments/results/l_lo_kitti_seq_08_full_matrix.json
+l_lo,09,1.890,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",,,,,0,0,,
+l_lo,10,1.900,"Table I L-LO, t_rel (%); sequence 01 is NA in the paper",,,,,0,0,,
 lf_gicp,00,0.692,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",kitti_rte,0.664,0.96,0.664,1,1,paper_default,experiments/results/lf_gicp_kitti_seq_00_full_matrix.json
 lf_gicp,01,1.822,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",,,,,0,0,,
 lf_gicp,02,1.084,"Table I LF-GICP, single configuration, raw KITTI scans without mounting-angle correction or deskewing",kitti_rte,1.075,0.99,1.075,1,1,paper_default,experiments/results/lf_gicp_kitti_seq_02_full_matrix.json

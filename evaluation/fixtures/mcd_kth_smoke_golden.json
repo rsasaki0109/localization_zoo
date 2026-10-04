@@ -65,6 +65,12 @@
     "rpe_trans_pct": 167.033987,
     "status": "ok"
   },
+  "l_lo/L-LO": {
+    "ate_m": 0.031034,
+    "frames": 3,
+    "rpe_trans_pct": 156.042301,
+    "status": "ok"
+  },
   "lego_loam/LeGO-LOAM": {
     "ate_m": 0.005813,
     "frames": 3,

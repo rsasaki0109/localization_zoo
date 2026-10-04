@@ -71,6 +71,12 @@
     "rpe_trans_pct": 21.561432,
     "status": "ok"
   },
+  "lf_gicp/LF-GICP": {
+    "ate_m": 0.032271,
+    "frames": 3,
+    "rpe_trans_pct": 138.898116,
+    "status": "ok"
+  },
   "lins/LINS": {
     "ate_m": 0.111406,
     "frames": 3,

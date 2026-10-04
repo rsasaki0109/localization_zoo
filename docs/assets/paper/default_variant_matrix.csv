@@ -2,7 +2,7 @@ method,autoware_istanbul_open_108,autoware_istanbul_open_108_b,autoware_istanbul
 aloam,,,,fast,,,fast,fast,fast,fast,,fast,fast,fast,,fast,fast,fast,dense,fast,,,,,,
 balm2,,,,fast,,,fast,fast,fast,fast,,,,,,,,fast,fast,fast,,,,,,
 clins,,,,,,dense,,,,,,,,,,,,,,,,,,,,
-ct_icp,fast_window,balanced_window,balanced_window,fast_window,fast_window,dense_window,balanced_window,balanced_reference,fast_window,fast_window_reference,fast_window,default_reference,current_winner,map_50_c2f_plus_corr_4,fast_window,current_winner,simplified_seq_00_pattern,dense_seeded_reference,dense_seeded_reference,dense_seeded_reference,cluster_a_with_seed,fast_window,,,,
+ct_icp,fast_window,balanced_window,balanced_window,fast_window,fast_window,dense_window,balanced_window,balanced_reference,fast_window,fast_window_reference,fast_window,c2f_reference,current_winner,map_50_c2f_plus_corr_4,fast_window,simplified_seq_00_pattern,simplified_seq_00_pattern,dense_seeded_reference,dense_seeded_reference,dense_seeded_reference,cluster_a_with_seed,fast_window,,,,
 ct_lio,,,,seed_only_fast,,seed_only_fast,,,,,,,,,,,,,,,,,,,,
 dlio,,,,fast,,,fast,fast,fast,fast,,,,,,,,fast,kitti_default,fast,,,,,,
 dlo,,,,fast,,,fast,fast,fast,fast,,,,,,,,fast,kitti_default,fast,,,,,,

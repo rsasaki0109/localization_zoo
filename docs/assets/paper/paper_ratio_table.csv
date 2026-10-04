@@ -10,15 +10,15 @@ aloam,07,0.630,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from 
 aloam,08,1.120,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,kitti_rte,0.975,0.87,1.005,2,2,kitti_default,experiments/results/aloam_kitti_seq_08_full_transfer_matrix.json
 aloam,09,0.770,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
 aloam,10,0.790,MULLS Table II LOAM [10]; identical values appear as 'LOAM (from [10])' in LiTAMIN2 Table III,,,,,0,0,,
-ct_icp,00,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.825,3.72,1.846,3,80,velocity_reg_0005,experiments/results/ct_icp_kitti_seq_00_velocity_reg_matrix.json
+ct_icp,00,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.664,3.40,1.885,80,80,arch_tuned_all_combined,experiments/results/ct_icp_kitti_seq_00_full_arch_tuned_matrix.json
 ct_icp,01,0.760,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,02,0.520,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,3.657,7.03,3.726,4,78,map_20_reference,experiments/results/ct_icp_kitti_seq_02_full_small_map_matrix.json
+ct_icp,02,0.520,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,3.472,6.68,3.784,78,78,c2f_sigma_only,experiments/results/ct_icp_kitti_seq_02_full_c2f_ablation_matrix.json
 ct_icp,03,0.720,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
 ct_icp,04,0.390,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,05,0.250,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.577,6.31,1.656,2,37,velocity_reg_005,experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json
+ct_icp,05,0.250,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.577,6.31,1.837,37,37,velocity_reg_005,experiments/results/ct_icp_kitti_seq_05_velocity_reg_matrix.json
 ct_icp,06,0.270,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
-ct_icp,07,0.310,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.067,3.44,1.102,3,73,velocity_reg_01,experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json
-ct_icp,08,0.810,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.749,2.16,1.772,3,45,corr_dist_reference,experiments/results/ct_icp_kitti_seq_08_velocity_reg_matrix.json
+ct_icp,07,0.310,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.067,3.44,1.410,78,78,velocity_reg_01,experiments/results/ct_icp_kitti_seq_07_velocity_reg_matrix.json
+ct_icp,08,0.810,"Table I CT-ICP (ours), KITTI-corrected, driving profile",kitti_rte,1.749,2.16,1.938,45,45,arch_tuned_all_combined,experiments/results/ct_icp_kitti_seq_08_full_arch_tuned_matrix.json
 ct_icp,09,0.490,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
 ct_icp,10,0.480,"Table I CT-ICP (ours), KITTI-corrected, driving profile",,,,,0,0,,
 kiss_icp,00,0.510,"Table VI (per sequence) and Table II (average) Ours (adaptive threshold), motion-compensated KITTI",kitti_rte,0.954,1.87,1.096,4,4,dense_profile,experiments/results/kiss_icp_kitti_seq_00_full_sweep_matrix.json

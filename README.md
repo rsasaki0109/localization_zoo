@@ -124,7 +124,7 @@ the run. Full matrix: [**explorer**](https://rsasaki0109.github.io/localization_
 | F-LOAM | 0.92% <sub>(10 m)</sub> | 0.94% <sub>(52 m)</sub> | 0.54% <sub>(6 m)</sub> | 0.61% <sub>(3 m)</sub> | 1.40% <sub>(20 m)</sub> |
 | KISS-ICP | 0.94% <sub>(15 m)</sub> | 1.09% <sub>(56 m)</sub> | 0.71% <sub>(7 m)</sub> | 0.66% <sub>(2 m)</sub> | 1.36% <sub>(17 m)</sub> |
 | SuMa | 1.25% <sub>(19 m)</sub> | 1.28% <sub>(52 m)</sub> | 0.99% <sub>(10 m)</sub> | 0.94% <sub>(4 m)</sub> | 1.91% <sub>(19 m)</sub> |
-| CT-ICP | 2.06% <sub>(14 m)</sub> | 2.65%† <sub>(74 m)</sub> | 1.12% <sub>(12 m)</sub> | 1.14% <sub>(3 m)</sub> | 1.93% <sub>(99 m)</sub> |
+| CT-ICP | 2.01% <sub>(17 m)</sub> | 2.65% <sub>(76 m)</sub> | 1.12% <sub>(12 m)</sub> | 1.14% <sub>(3 m)</sub> | 1.93% <sub>(99 m)</sub> |
 | MULLS | 2.54% <sub>(49 m)</sub> | 2.27% <sub>(261 m)</sub> | 1.73% <sub>(20 m)</sub> | 2.64% <sub>(8 m)</sub> | 3.12% <sub>(81 m)</sub> |
 
 _Best variant per cell ([`docs/experiments.md`](docs/experiments.md)). KISS-ICP /
@@ -247,7 +247,7 @@ optimistic bounds.
 | LiTAMIN2 | 00/02/05/07/08 | 1.22x | near paper |
 | KISS-ICP | 00 | 1.87x | gap remains (compact baseline) |
 | SuMa | 00/02/05/07/08 | 2.21x | gap remains |
-| CT-ICP | 00/02/05/07/08 | 4.15x | gap remains |
+| CT-ICP | 00/02/05/07/08 | 4.03x | gap remains |
 | MULLS | 00/02/05/07/08 | 7.62x | gap remains (derived variant) |
 
 Per-sequence table: [`paper_ratio_table.csv`](docs/assets/paper/paper_ratio_table.csv);

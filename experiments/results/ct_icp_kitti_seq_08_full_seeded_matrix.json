@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T21:26:38+00:00",
+  "generated_at": "2026-10-04T19:50:51+00:00",
   "manifest_path": "experiments/ct_icp_kitti_seq_08_full_seeded_matrix.json",
   "problem": {
     "id": "ct_icp_kitti_seq_08_full_seeded",
@@ -57,20 +57,30 @@
       "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/summary.json",
       "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_no_seed_reference/run.log",
       "status": "ok",
-      "ate_m": 27.850333,
-      "rpe_trans_pct": 1.94929,
-      "rpe_rot_deg_per_m": 0.0246,
-      "fps": 15.210795,
-      "time_ms": 267638.876427,
+      "ate_m": 28.427109,
+      "rpe_trans_pct": 2.0172,
+      "rpe_rot_deg_per_m": 0.024197,
+      "fps": 6.784902,
+      "time_ms": 600008.66108,
       "frames": 4071,
       "note": "Anchor matches first GT pose; subsequent frames rely on CT-ICP's own continuous-time motion prior (no GT seed).",
-      "benchmark_score": 56.19,
+      "benchmark_score": 61.51,
       "readability_score": 1.0,
       "readability_note": "Adds extra tuning knobs and therefore more command complexity.",
       "extensibility_score": 2.1,
       "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
       "decision": "Keep as reference variant",
-      "decision_reason": "Useful for comparison, but not strong enough to replace the current default."
+      "decision_reason": "Useful for comparison, but not strong enough to replace the current default.",
+      "kitti_rte_trans_pct": 1.812236,
+      "kitti_rte_rot_deg_per_100m": 1.29136,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     },
     {
       "id": "cluster_a_seeded",
@@ -98,11 +108,11 @@
       "summary_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/summary.json",
       "log_path": "experiments/results/runs/ct_icp_kitti_seq_08_full_seeded_matrix/cluster_a_seeded/run.log",
       "status": "ok",
-      "ate_m": 6.02372,
-      "rpe_trans_pct": 9.132726,
-      "rpe_rot_deg_per_m": 0.113997,
-      "fps": 16.75923,
-      "time_ms": 242910.928385,
+      "ate_m": 6.812792,
+      "rpe_trans_pct": 8.141886,
+      "rpe_rot_deg_per_m": 0.078035,
+      "fps": 6.849047,
+      "time_ms": 594389.242954,
       "frames": 4071,
       "note": "Seeds CT-ICP TrajectoryFrame with GT begin/end pose per scan. Symmetric of the GT-seeded Policy A path for dogfooding-style fair-prior comparison.",
       "benchmark_score": 100.0,
@@ -111,7 +121,17 @@
       "extensibility_score": 1.85,
       "extensibility_note": "Still stable-interface compatible, but with a larger parameter surface.",
       "decision": "Adopt as current default",
-      "decision_reason": "Best combined benchmark score on the shared dataset and interface."
+      "decision_reason": "Best combined benchmark score on the shared dataset and interface.",
+      "kitti_rte_trans_pct": 5.781861,
+      "kitti_rte_rot_deg_per_100m": 3.665241,
+      "host": {
+        "cpu": "11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz",
+        "logical_cores": 8,
+        "memory_gib": 31.0,
+        "os": "Ubuntu 24.04.4 LTS",
+        "kernel": "7.0.0-34-generic",
+        "architecture": "x86_64"
+      }
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Localization Zoo - Codex / Cursor 引き継ぎ PLAN
 
-> **最終更新: 2026-10-03 (LiDAR odometry v14 を README/suite に反映、handoff 更新)**
+> **最終更新: 2026-10-04 (論文値の検証・公式 KITTI RTE・結果ずれ検出と再実行、handoff 更新)**
 >
 > この文書は、次の AI アシスタントが repo の現在地、最近の差分、次にやるべきことを短時間で掴むための handoff。
 >
@@ -24,9 +24,49 @@
 
 ---
 
-## 00. Latest Handoff: v14 反映と次の開発項目 (2026-10-03)
+## 00. Latest Handoff: 論文値の検証と結果の再現性 (2026-10-04)
 
 > **これが最新・最優先の handoff。**
+>
+> 2026-10-03〜04 に main に入ったもの (#71–#87):
+> - **論文用の表と図**: Table 5 (`generate_full_variant_table.py`)、Table 7 (`generate_ct_appendix_table.py`)、
+>   Table 8 (`capture_benchmark_environment.py`、部分的)、Figure 1 を KITTI 07 の pure-odometry Pareto
+>   (`kitti07_pareto.png`) に作り直し。すべて `export_paper_assets.py` から出力。contract_type の誤判定
+>   (`reference_data/` ディレクトリ名に一致してほぼ全件 reference-based) と IMU-only の外れ値も修正済み。
+> - **Table 6 (原論文値との比較)**: `evaluation/data/paper_reported_numbers.json` の LiTAMIN2 / CT-ICP / KISS-ICP の
+>   論文値は**3件とも論文と一致していなかった**ので PDF から取り直し、`reported_source` (arXiv・表・行) を必須化
+>   (`tests/test_paper_ratio_table.py`)。A-LOAM (LOAM の孫引き)、MULLS、SuMa を追加。現在の倍率 (公式 RTE、幾何平均):
+>   A-LOAM 1.01x、LiTAMIN2 1.22x、KISS-ICP 1.87x、SuMa 2.21x、CT-ICP 4.15x、MULLS 7.62x。
+>   主張の書き方は [`docs/paper_claim.md`](docs/paper_claim.md) Sub-Claim 5/6。
+> - **公式 KITTI RTE**: `pcd_dogfooding` と `evaluate_external_kitti_odometry.py` が devkit 準拠の
+>   `kitti_rte_trans_pct` を出す (従来の `rpe_trans_pct` は 100 m 区間で論文と別指標)。
+> - **結果のずれ**: #64 の KISS-ICP 対応点探索の変更 (27 近傍 → 距離内全探索) で KISS-ICP の結果が黙って変わっていた。
+>   `--kiss-legacy-27-neighborhood` で旧挙動 (上流と同じ) を再現可能。CI は smoke fixture の全手法の
+>   ATE/RPE を `evaluation/fixtures/mcd_kth_smoke_golden.json` で固定 (#85)。意図的に変える手順は CONTRIBUTING.md。
+> - **再実行とプロバンス**: `run_experiment_matrix.py` が実行ホスト (`host.json` / `variants[].host`) を記録。
+>   README 順位表の元になる A-LOAM/F-LOAM/LeGO-LOAM/KISS-ICP の KITTI 実験と CT-ICP 5 実験を今のコードで再実行済み (#87)。
+>   今のコードで再実行していない値は順位表で † 表示 (`generate_leaderboard.py`)。監査は `audit_kitti_drift.py`。
+>
+> **進行中 (2026-10-04)**: CT-ICP の残り KITTI 実験 106 本 (313 設定、`experiments/` と `experiments/pending/`) の再実行。
+> `build/ctref/run.sh` (gitignore 下、再開可能、`*.done` で完了管理) が detached で動作中。完了後:
+> 1. `build/ctref/<stem>/runs/<stem>` を `experiments/results/runs/` にコピー
+> 2. `run_experiment_matrix.py --manifest ... --reuse-existing --merge-existing-index` で集計。
+>    **pending の manifest は index に入れない** — 集計後に `git checkout experiments/results/index.json` と生成 docs を戻す
+> 3. `generate_leaderboard.py` と `export_paper_assets.py` を再実行し、CT-ICP seq 02 の † が消えることを確認
+>
+> **環境メモ**: KITTI 全長データは外付け SSD `/media/sasaki/aiueo2/loc_zoo_ws_data/localization_zoo/dogfooding_results/`
+> (`dogfooding_results/kitti_seq_0X_full` は symlink)。SSD が外れていると全実行が即失敗する。
+> Claude のスクラッチ領域はセッション終了で消えるので、長時間の実行やビルドは `build/` に置く。
+> KISS-ICP は OpenMP を使うので並列実行すると FPS が下がる (値は決定的)。
+>
+> 次にやるとよいこと:
+> 1. 上記 CT-ICP 再実行の取り込み。
+> 2. 論文本文 (Results / Discussion)。材料は `docs/paper_claim.md`、`docs/paper_draft_outline.md`、`docs/assets/paper/`。
+> 3. v14 の再スコア/ハッシュ検証スクリプト (v14 の軌跡ファイルの所在が不明)。
+> 4. Table 6 の対象拡大 (論文 PDF から `reported_source` 付きで追加)。
+
+## 00a. 前回 Handoff: v14 反映と次の開発項目 (2026-10-03)
+
 >
 > 7/5 以降に main に入ったもの:
 > - **LiDAR odometry v14 昇格** (#64): `runtime_feasible_reference_v14` が CUBE-LIO (KITTI 00/07)、
@@ -47,7 +87,7 @@
 > 3. Table 7 (CT-LIO appendix)、Table 6 (原論文値との比較、手作業収集が必要)。
 > 4. IMU 公開データベンチマークの CI 回帰化。
 
-## 00a. 前回 Handoff: IMU Dead Reckoning Compact Baseline (2026-07-05 更新)
+## 00b. 前々回 Handoff: IMU Dead Reckoning Compact Baseline (2026-07-05 更新)
 
 >
 > **`imu_dead_reckoning` (102本目) を追加した。** ただしこれは論文再現ではなく

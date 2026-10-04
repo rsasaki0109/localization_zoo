@@ -83,7 +83,8 @@ posture confirmation produced 96.7% CGU fall sensitivity, 0% CGU ADL false
 positives, 0% UCI/Parkinson false positives, and no CLI failures; the
 untouched CGU test subjects (13-15) reach 100% sensitivity and 0% false
 positives, so the acceptance gates pass. Median latency to the confirmation
-time, relative to the kinematic proxy, is 3.28 s. The 500 ms pre-impact
+time, relative to the kinematic proxy, is 2.95 s (3.28 s without early
+confirmation). The 500 ms pre-impact
 ambition remains out of reach; that requires a separately labeled predictive
 model such as KFall and must not be claimed from CGU-BES.
 
@@ -94,7 +95,21 @@ the landing impact briefly tilts the gravity direction. Using CGU train and
 validation subjects only (01-12), these windows maximise the margin between
 the 5th-percentile fall angle (78.9°) and the largest jump angle (38.7°); the
 threshold is the largest value that keeps train sensitivity at or above 95%.
-The test subjects were evaluated once, after this choice. The accel/gyro
+The test subjects were evaluated once, after this choice.
+
+**Early confirmation.** Instead of always waiting until t+1.5 s, a 0.25 s
+window slides from t+0.25 s in 0.05 s steps; the impact is confirmed as soon as
+that window shows the 50° change and every sample's gravity direction stays
+within 10° of the window mean (the body has settled). Otherwise the t+1.5 s
+rule applies. On train+validation every candidate (start 0.25/0.5 s, length
+0.25/0.5 s, spread 5-20°) kept jumps unconfirmed, so a margin rule was fixed
+before looking at test subjects: the largest stable jump angle must stay at
+least 5° below the threshold. Spread 15° and 20° reach 48.7° and 49.9°, so 10°
+(42.6°) was chosen with the lowest train latency among the remaining
+candidates. Evaluated once on the test subjects: 100% sensitivity, 0% false
+positives.
+
+The accel/gyro
 impact thresholds are still selected by `tune`, which scores train recordings
 with a whole-recording posture proxy; that proxy is a training-time choice and
 is never used at detection time.
@@ -105,7 +120,8 @@ each whole recording, which a device cannot know, and measured latency from the
 impact. A first causal version (windows [1.5, 0.5] / [0.25, 0.75] s, 30°,
 chosen on train only) reached 2.53 s but produced one test false positive
 (Subject13 UpwardJump, 3.7%) and failed the 2% gate. The current policy fixes
-that jump at the cost of 0.75 s more latency.
+that jump at the cost of 0.75 s more latency; early confirmation recovers
+0.33 s of it.
 
 The unchanged built-in `wearable` baseline reached 100% CGU sensitivity but
 also triggered on 45.9% of CGU ADLs and 14.3% of the balanced UCI HAR windows
@@ -116,4 +132,4 @@ sets. Both raw result objects are embedded in the comparison HTML.
 The 30° posture confirmation is a downstream fall-candidate policy applied
 after an impact lifecycle event. It is intentionally stored beside, not
 silently embedded in, the streaming profile because it needs post-event data
-(1.5 s after the impact).
+(0.5-1.5 s after the impact).

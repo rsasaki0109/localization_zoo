@@ -8,7 +8,7 @@
       "recordings": 195,
       "fall_sensitivity": 0.9666666666666667,
       "adl_false_positive_rate": 0.0,
-      "median_latency_s": 3.2799999999999994,
+      "median_latency_s": 2.945000000000009,
       "cli_failures": 0
     },
     "parkinson": {
